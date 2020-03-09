@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "examples": "docusaurus-examples",
+    "start": "docusaurus-start",
+    "build": "docusaurus-build",
+    "publish-gh-pages": "docusaurus-publish",
+    "write-translations": "docusaurus-write-translations",
+    "version": "docusaurus-version",
+    "rename-version": "docusaurus-rename-version",
+    "crowdin-upload": "crowdin --config ../crowdin.yaml upload sources --auto-update -b master",
+    "crowdin-download": "CROWDIN_DOCUSAURUS_PROJECT_ID=tauri CROWDIN_DOCUSAURUS_API_KEY=d179a7510159ce0258e6d8bc3a748ed4bec8e56687f8aabefe6a8b6b68d550510cfd04b47ab6e37c crowdin-cli --config ../crowdin.yaml download -b master"
+  },
+  "devDependencies": {
+    "docusaurus": "^1.14.4"
+  }
+}
