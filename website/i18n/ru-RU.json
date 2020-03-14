@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A website for testing",
+    "tagline": "Make smaller, faster, more secure native apps with Rust",
     "docs": {
       "api": {
         "title": "API",

@@ -5,6 +5,18 @@
     "previous": "Previous",
     "tagline": "A website for testing",
     "docs": {
+      "api": {
+        "title": "API",
+        "sidebar_label": "API"
+      },
+      "config": {
+        "title": "Configuration",
+        "sidebar_label": "Configuration"
+      },
+      "development": {
+        "title": "App development",
+        "sidebar_label": "App development"
+      },
       "doc1": {
         "title": "Latin-ish",
         "sidebar_label": "Example Page"
@@ -20,21 +32,70 @@
       },
       "doc5": {
         "title": "Fifth Document"
+      },
+      "identity": {
+        "title": "App identity",
+        "sidebar_label": "App identity"
+      },
+      "integration": {
+        "title": "Tauri integration",
+        "sidebar_label": "Tauri integration"
+      },
+      "intro": {
+        "title": "Introduction"
+      },
+      "js-rust-bridge": {
+        "title": "JS/Rust bridge",
+        "sidebar_label": "JS/Rust bridge"
+      },
+      "patterns": {
+        "title": "Patterns",
+        "sidebar_label": "Patterns"
+      },
+      "publishing": {
+        "title": "App publishing",
+        "sidebar_label": "App publishing"
+      },
+      "setup-linux": {
+        "title": "Setup for Linux",
+        "sidebar_label": "Setup for Linux"
+      },
+      "setup-macos": {
+        "title": "Setup for MacOS",
+        "sidebar_label": "Setup for MacOS"
+      },
+      "setup-windows": {
+        "title": "Setup for Windows",
+        "sidebar_label": "Setup for Windows"
+      },
+      "tauri": {
+        "title": "Tauri crate",
+        "sidebar_label": "Tauri crate"
+      },
+      "usage": {
+        "title": "Usage",
+        "sidebar_label": "Usage"
       }
     },
     "links": {
-      "Docs": "Docs",
-      "API": "API",
-      "Help": "Help",
-      "Blog": "Blog"
+      "About": "About",
+      "Docs": "Docs"
     },
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Getting started": "Getting started",
+      "Usage": "Usage",
+      "API": "API"
     }
   },
   "pages-strings": {
+    "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)|no description given": "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)",
+    "Browse Docs|no description given": "Browse Docs",
+    "Ask questions about the documentation and project|no description given": "Ask questions about the documentation and project",
+    "Join the community|no description given": "Join the community",
+    "Find out what's new with this project|no description given": "Find out what's new with this project",
+    "Stay up to date|no description given": "Stay up to date",
+    "Need help?|no description given": "Need help?",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "This project is maintained by a dedicated group of people.",
     "Help Translate|recruit community translators for your project": "Help Translate",
     "Edit this Doc|recruitment message asking to edit the doc source": "Edit",
     "Translate this Doc|recruitment message asking to translate the docs": "Translate"
