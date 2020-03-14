@@ -52,7 +52,7 @@ class HomeSplash extends React.Component {
 
     const Button = props => (
       <div className="pluginWrapper buttonWrapper">
-        <a className="button" href={props.href} target={props.target}>
+        <a className="button" href={props.href} target={props.target} style={{color: props.color, borderColor: props.color}}>
           {props.children}
         </a>
       </div>
