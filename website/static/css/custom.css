@@ -1,11 +1,4 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/* your custom css */
+/* @import url('https://fonts.googleapis.com/css?family=Tauri&display=swap'); */
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
@@ -22,19 +15,92 @@
 @media only screen and (min-width: 1500px) {
 }
 
+/*
+Wordmark's color
+#67d6ed
+*/
+
+body {
+  font-family: "Tauri";
+}
+
+body.dark {
+  background-color: #181a1b;
+  color: #d5d2cc;
+}
+
+body.light {
+  background-color: #ffffff;
+  color: #24292e;
+}
+
+body.dark code {
+  background-color: rgba(213, 210, 204, 1.15);
+}
+
+body.light code {
+  background-color: rgba(27, 31, 35, 0.05);
+}
+
+body.dark .container.lightBackground {
+  background-color: #1B1C1D;
+}
+
+body.dark .container.darkBackground {
+  background-color: #3C4043;
+}
+
+body.light .container.lightBackground {
+  background-color: #f7f7f7;
+}
+
+body.light .container.darkBackground {
+  background-color: #808080;
+}
+
+blockquote {
+  background-color: rgba(103, 214, 237, 0.3);
+  border-left-color: #67d6ed;
+}
+
 .fixedHeaderContainer header .headerTitleWithLogo {
   display: none;
 }
 
-.homeContainer {
-  height: calc(100vh - 50px);
-  background: #1D1D1D;
+.fixedHeaderContainer header {
+  align-items: end;
 }
 
-.imageAlignTop .blockImage {
+.fixedHeaderContainer header > a {
+  display: flex;
+  height: 100%;
+}
+
+.navPusher {
+  padding-top: 76px;
+}
+
+.homeContainer {
+  height: calc(100vh - 50px);
+  background: #1d1d1d;
+}
+
+.blockElement.alignCenter.fourByGridBlock.imageAlignTop .blockImage {
   max-width: 160px;
 }
 
+.blockElement.alignCenter.fourByGridBlock.imageAlignTop img {
+  height: 140px;
+}
+
 .navigationSlider {
-  height: 45px;
+  height: 47px;
+}
+
+.navigationSlider a {
+  color: #67d6ed;
+}
+
+.projectTitle {
+  color: #d5d2cc;
 }
