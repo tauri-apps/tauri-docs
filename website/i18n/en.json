@@ -5,6 +5,18 @@
     "previous": "Previous",
     "tagline": "Make smaller, faster, more secure native apps with Rust",
     "docs": {
+      "api": {
+        "title": "API",
+        "sidebar_label": "API"
+      },
+      "config": {
+        "title": "Configuration",
+        "sidebar_label": "Configuration"
+      },
+      "development": {
+        "title": "App development",
+        "sidebar_label": "App development"
+      },
       "doc1": {
         "title": "Latin-ish",
         "sidebar_label": "Example Page"
@@ -21,22 +33,58 @@
       "doc5": {
         "title": "Fifth Document"
       },
+      "identity": {
+        "title": "App identity",
+        "sidebar_label": "App identity"
+      },
+      "integration": {
+        "title": "Tauri integration",
+        "sidebar_label": "Tauri integration"
+      },
+      "intro": {
+        "title": "Introduction"
+      },
+      "js-rust-bridge": {
+        "title": "JS/Rust bridge",
+        "sidebar_label": "JS/Rust bridge"
+      },
+      "patterns": {
+        "title": "Patterns",
+        "sidebar_label": "Patterns"
+      },
+      "publishing": {
+        "title": "App publishing",
+        "sidebar_label": "App publishing"
+      },
+      "setup-linux": {
+        "title": "Setup for Linux",
+        "sidebar_label": "Setup for Linux"
+      },
+      "setup-macos": {
+        "title": "Setup for MacOS",
+        "sidebar_label": "Setup for MacOS"
+      },
+      "setup-windows": {
+        "title": "Setup for Windows",
+        "sidebar_label": "Setup for Windows"
+      },
+      "tauri": {
+        "title": "Tauri crate",
+        "sidebar_label": "Tauri crate"
+      },
       "usage": {
         "title": "Usage",
         "sidebar_label": "Usage"
       }
     },
     "links": {
-      "Usage": "Usage",
       "About": "About",
-      "API": "API",
-      "GitHub": "GitHub"
+      "Docs": "Docs"
     },
     "categories": {
+      "Getting started": "Getting started",
       "Usage": "Usage",
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "API": "API"
     }
   },
   "pages-strings": {
