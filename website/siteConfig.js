@@ -40,10 +40,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: 'usage', label: 'Usage' },
     { page: 'about', label: 'About' },
-    { page: 'api', label: 'API' },
-    { href: repoUrl, label: 'GitHub' }
+    { doc: 'intro', label: 'Docs' },
   ],
 
   // If you have users set above, you add it here:
@@ -61,18 +59,22 @@ const siteConfig = {
   },
 
   /* Custom fonts for website */
-  /*
+  
   fonts: {
-    myFont: [
-      "Times New Roman",
-      "Serif"
+    tauri: [
+      "Tauri",
+      "sans-serif"
     ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
+    // myOtherFont: [
+    //   "-apple-system",
+    //   "system-ui"
+    // ]
   },
-  */
+
+  stylesheets: [
+    "https://fonts.googleapis.com/css?family=Tauri&display=swap",
+  ],
+  
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio`,

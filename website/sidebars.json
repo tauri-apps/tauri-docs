@@ -1,13 +1,23 @@
 {
   "docs": {
-    "Usage": [
-      "usage"
+    "Getting started": [
+      "intro",
+      "setup-linux",
+      "setup-macos",
+      "setup-windows"
     ],
-    "Docusaurus": ["doc1"],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
-  },
-  "docs-other": {
-    "First Category": ["doc4", "doc5"]
+    "Usage": [
+      "usage",
+      "patterns",
+      "integration",
+      "development",
+      "publishing",
+      "identity"
+    ],
+    "API": [
+      "config",
+      "js-rust-bridge",
+      "tauri"
+    ]
   }
 }
