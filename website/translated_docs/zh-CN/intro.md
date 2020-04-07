@@ -3,7 +3,7 @@ id: intro
 title: "Introduction"
 ---
 
-You will find here whatever you need to know how to setup Tauri on your environment and to customize it.
+You will find here whatever you need to know to setup Tauri on your environment and to customize it.
 
 If you find something unclear, an error or simply would like to propose an improvement, you have several options:
 1. Open an issue.
