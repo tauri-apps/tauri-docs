@@ -5,15 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require('react')
 
-const CompLibrary = require('../../core/CompLibrary.js');
+const CompLibrary = require('../../core/CompLibrary.js')
 
-const Container = CompLibrary.Container;
-const GridBlock = CompLibrary.GridBlock;
+const Container = CompLibrary.Container
+const GridBlock = CompLibrary.GridBlock
 
-const translate = require('../../server/translate.js').translate;
-
+const translate = require('../../server/translate.js').translate
 
 class Help extends React.Component {
   render() {
@@ -39,7 +38,7 @@ class Help extends React.Component {
         content: <translate>Find out what's new with this project</translate>,
         title: <translate>Stay up to date</translate>,
       },
-    ];
+    ]
 
     return (
       <div className="docMainWrapper wrapper">
@@ -59,12 +58,12 @@ class Help extends React.Component {
           </div>
         </Container>
       </div>
-    );
+    )
   }
 }
 
 Help.defaultProps = {
   language: 'en',
-};
+}
 
-module.exports = Help;
+module.exports = Help

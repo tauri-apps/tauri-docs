@@ -1,7 +1,6 @@
 ---
 id: config
 title: "Configuration"
-sidebar_label: Configuration
 ---
 
 The `tauri.conf.json` is a generated file living in your Tauri application source directory (src-tauri).
@@ -79,6 +78,10 @@ Type: object<br>
 
 A property to determine if Tauri should embed a webserver to run your application. <br>
 Set it to `{ "active": false }` if you plan to serve your application statically.
+
+#### `active`
+
+Type: boolean<br>
 
 ### `bundle`
 

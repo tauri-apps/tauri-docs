@@ -21,7 +21,7 @@ Wordmark's color
 */
 
 body {
-  font-family: "Tauri";
+  font-family: 'Tauri';
 }
 
 body.dark {
@@ -35,7 +35,11 @@ body.light {
 }
 
 body.dark code {
-  background-color: rgba(213, 210, 204, 1.15);
+  background-color: rgba(213, 210, 204, 0.15);
+}
+
+body.dark .hljs, .hljs-subst {
+  color: #d5d2cc;
 }
 
 body.light code {
@@ -43,11 +47,11 @@ body.light code {
 }
 
 body.dark .container.lightBackground {
-  background-color: #1B1C1D;
+  background-color: #1b1c1d;
 }
 
 body.dark .container.darkBackground {
-  background-color: #3C4043;
+  background-color: #3c4043;
 }
 
 body.light .container.lightBackground {
@@ -58,9 +62,38 @@ body.light .container.darkBackground {
   background-color: #808080;
 }
 
+body.dark .toc .toggleNav .navGroup .navGroupCategoryTitle,
+body.dark .toc .toggleNav ul li.navListItemActive a {
+  color: #d5d2cc;
+}
+
+a,
+.toc .toggleNav ul li a {
+  color: #00d5ed;
+}
+
 blockquote {
   background-color: rgba(103, 214, 237, 0.3);
   border-left-color: #67d6ed;
+}
+
+body.dark blockquote {
+  color: #bdbdbd;
+}
+
+body.dark .button {
+  color: #d5d2cc;
+  border: 1px solid;
+}
+
+body.dark .button:hover {
+  background: #d5d2cc;
+  color: #263239;
+}
+
+.fixedHeaderContainer {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .fixedHeaderContainer header .headerTitleWithLogo {
@@ -103,4 +136,49 @@ blockquote {
 
 .projectTitle {
   color: #d5d2cc;
+}
+
+ul.roadmap {
+  max-width: 960px;
+  margin: auto;
+  position: relative;
+}
+
+ul.roadmap::before {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 47px;
+  width: 3px;
+  background-color: #ccd;
+}
+
+ul.roadmap li {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul.roadmap li .icon {
+  height: 32px;
+  width: 32px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+ul.roadmap li .content {
+  flex: 1;
+}
+
+ul.roadmap li .content .title {
+  font-weight: bold;
+}
+
+ul.roadmap li .content .description {
+  font-size: .8em;
 }

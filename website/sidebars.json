@@ -14,10 +14,15 @@
       "publishing",
       "identity"
     ],
-    "API": [
+    "Tips": [
+      
+    ]
+  },
+  "api": {
+    "Configuration": [
       "config",
-      "js-rust-bridge",
-      "tauri"
+      "js",
+      "rust"
     ]
   }
 }

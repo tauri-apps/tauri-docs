@@ -2,13 +2,6 @@
 
 This website was created with [Docusaurus (1.X)](https://docusaurus.io/).
 
-## What's In This Document
-
-- [Get Started in 5 Minutes](#get-started-in-5-minutes)
-- [Directory Structure](#directory-structure)
-- [Editing Content](#editing-content)
-- [Adding Content](#adding-content)
-- [Full Documentation](#full-documentation)
 
 ## Get Started in 5 Minutes
 
@@ -16,14 +9,15 @@ This website was created with [Docusaurus (1.X)](https://docusaurus.io/).
 
 ```sh
 # Install dependencies
-$ yarn
+cd website
+yarn install
 ```
 
 2. Run your dev server:
 
 ```sh
 # Start the site
-$ yarn start
+yarn start
 ```
 
 ### Directory Structure
@@ -33,13 +27,7 @@ Your project file structure should look something like this
 ```
 my-docusaurus/
   docs/
-    doc-1.md
-    doc-2.md
-    doc-3.md
   website/
-    blog/
-      2016-3-11-oldest-post.md
-      2017-10-24-newest-post.md
     core/
     node_modules/
     pages/
@@ -62,30 +50,13 @@ Edit docs by navigating to `docs/` and editing the corresponding document:
 ```markdown
 ---
 id: page-needs-edit
-title: This Doc Needs To Be Edited
+title: "This Doc Needs To Be Edited"
 ---
 
 Edit me...
 ```
 
 For more information about docs, click [here](https://docusaurus.io/docs/en/navigation)
-
-### Editing an existing blog post
-
-Edit blog posts by navigating to `website/blog` and editing the corresponding post:
-
-`website/blog/post-to-be-edited.md`
-
-```markdown
----
-id: post-needs-edit
-title: This Blog Post Needs To Be Edited
----
-
-Edit me...
-```
-
-For more information about blog posts, click [here](https://docusaurus.io/docs/en/adding-blog)
 
 ## Adding Content
 
@@ -96,7 +67,7 @@ For more information about blog posts, click [here](https://docusaurus.io/docs/e
 ```md
 ---
 id: newly-created-doc
-title: This Doc Needs To Be Edited
+title: "This Doc Needs To Be Edited"
 ---
 
 My new content here..
@@ -119,37 +90,6 @@ My new content here..
 ```
 
 For more information about adding new docs, click [here](https://docusaurus.io/docs/en/navigation)
-
-### Adding a new blog post
-
-1. Make sure there is a header link to your blog in `website/siteConfig.js`:
-
-`website/siteConfig.js`
-
-```javascript
-headerLinks: [
-    ...
-    { blog: true, label: 'Blog' },
-    ...
-]
-```
-
-2. Create the blog post with the format `YYYY-MM-DD-My-Blog-Post-Title.md` in `website/blog`:
-
-`website/blog/2018-05-21-New-Blog-Post.md`
-
-```markdown
----
-author: Frank Li
-authorURL: https://twitter.com/foobarbaz
-authorFBID: 503283835
-title: New Blog Post
----
-
-Lorem Ipsum...
-```
-
-For more information about blog posts, click [here](https://docusaurus.io/docs/en/adding-blog)
 
 ### Adding items to your site's top navigation bar
 
@@ -195,10 +135,12 @@ For more information about the navigation bar, click [here](https://docusaurus.i
 
 For more information about custom pages, click [here](https://docusaurus.io/docs/en/custom-pages).
 
-## Full Documentation
+## Translations
 
-Full documentation can be found on the [website](https://docusaurus.io/).
+Translations are fully managed by Crowdin. Only new MarkDown files in the "docs" directory and strings within `<translate>` elements in pages/en directory should be added, in the base language: English.
 
 ## Crowdin workflow
 
-TBD
+Tauri's Crowdin account has been enriched with GitHub integration: changes are synced from the repository to Crowdin.
+This way, contributors can translate new strings directly from Crowdin. <br>
+Whenever new translations have been added, Crowdin creates a pull request in the repository. 

@@ -42,6 +42,7 @@ const siteConfig = {
   headerLinks: [
     { page: 'about', label: 'About' },
     { doc: 'intro', label: 'Docs' },
+    { doc: 'config', label: 'API' }
   ],
 
   // If you have users set above, you add it here:
@@ -73,6 +74,7 @@ const siteConfig = {
 
   stylesheets: [
     "https://fonts.googleapis.com/css?family=Tauri&display=swap",
+    'react-vertical-timeline-component/style.min.css'
   ],
   
 
@@ -85,7 +87,7 @@ const siteConfig = {
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: ['https://buttons.github.io/buttons.js', '/js/custom.js'],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
@@ -98,7 +100,7 @@ const siteConfig = {
 
   // For sites with a sizable amount of content, set collapsible to true.
   // Expand/collapse the links and subcategories under categories.
-  // docsSideNavCollapsible: true,
+  docsSideNavCollapsible: true,
 
   // Show documentation's last contributor's name.
   // enableUpdateBy: true,
