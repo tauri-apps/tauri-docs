@@ -74,7 +74,6 @@ const siteConfig = {
 
   stylesheets: [
     "https://fonts.googleapis.com/css?family=Tauri&display=swap",
-    'react-vertical-timeline-component/style.min.css'
   ],
   
 

@@ -1,0 +1,99 @@
+/* a11y-dark theme */
+/* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
+/* @author: ericwbailey */
+
+/* Comment */
+body.dark .hljs-comment,
+body.dark .hljs-quote {
+  color: #d4d0ab;
+}
+
+/* Red */
+body.dark .hljs-variable,
+body.dark .hljs-template-variable,
+body.dark .hljs-tag,
+body.dark .hljs-name,
+body.dark .hljs-selector-id,
+body.dark .hljs-selector-class,
+body.dark .hljs-regexp,
+body.dark .hljs-deletion {
+  color: #ffa07a;
+}
+
+/* Orange */
+body.dark .hljs-number,
+body.dark .hljs-built_in,
+body.dark .hljs-builtin-name,
+body.dark .hljs-literal,
+body.dark .hljs-type,
+body.dark .hljs-params,
+body.dark .hljs-meta,
+body.dark .hljs-link {
+  color: #f5ab35;
+}
+
+/* Yellow */
+body.dark .hljs-attribute {
+  color: #ffd700;
+}
+
+/* Green */
+body.dark .hljs-string,
+body.dark .hljs-symbol,
+body.dark .hljs-bullet,
+body.dark .hljs-addition {
+  color: #abe338;
+}
+
+/* Blue */
+body.dark .hljs-title,
+body.dark .hljs-section {
+  color: #00e0e0;
+}
+
+/* Purple */
+body.dark .hljs-keyword,
+body.dark .hljs-selector-tag {
+  color: #dcc6e0;
+}
+
+body.dark .hljs {
+  display: block;
+  overflow-x: auto;
+  background: #2b2b2b;
+  color: #f8f8f2;
+  padding: 0.5em;
+}
+
+body.dark .hljs-emphasis {
+  font-style: italic;
+}
+
+body.dark .hljs-strong {
+  font-weight: bold;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  body.dark .hljs-addition,
+  body.dark .hljs-attribute,
+  body.dark .hljs-built_in,
+  body.dark .hljs-builtin-name,
+  body.dark .hljs-bullet,
+  body.dark .hljs-comment,
+  body.dark .hljs-link,
+  body.dark .hljs-literal,
+  body.dark .hljs-meta,
+  body.dark .hljs-number,
+  body.dark .hljs-params,
+  body.dark .hljs-string,
+  body.dark .hljs-symbol,
+  body.dark .hljs-type,
+  body.dark .hljs-quote {
+    color: highlight;
+  }
+
+  body.dark .hljs-keyword,
+  body.dark .hljs-selector-tag {
+    font-weight: bold;
+  }
+}

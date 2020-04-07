@@ -1,0 +1,99 @@
+/* a11y-light theme */
+/* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
+/* @author: ericwbailey */
+
+/* Comment */
+body.light .hljs-comment,
+body.light .hljs-quote {
+  color: #696969;
+}
+
+/* Red */
+body.light .hljs-variable,
+body.light .hljs-template-variable,
+body.light .hljs-tag,
+body.light .hljs-name,
+body.light .hljs-selector-id,
+body.light .hljs-selector-class,
+body.light .hljs-regexp,
+body.light .hljs-deletion {
+  color: #d91e18;
+}
+
+/* Orange */
+body.light .hljs-number,
+body.light .hljs-built_in,
+body.light .hljs-builtin-name,
+body.light .hljs-literal,
+body.light .hljs-type,
+body.light .hljs-params,
+body.light .hljs-meta,
+body.light .hljs-link {
+  color: #aa5d00;
+}
+
+/* Yellow */
+body.light .hljs-attribute {
+  color: #aa5d00;
+}
+
+/* Green */
+body.light .hljs-string,
+body.light .hljs-symbol,
+body.light .hljs-bullet,
+body.light .hljs-addition {
+  color: #008000;
+}
+
+/* Blue */
+body.light .hljs-title,
+body.light .hljs-section {
+  color: #007faa;
+}
+
+/* Purple */
+body.light .hljs-keyword,
+body.light .hljs-selector-tag {
+  color: #7928a1;
+}
+
+body.light .hljs {
+  display: block;
+  overflow-x: auto;
+  background: #fefefe;
+  color: #545454;
+  padding: 0.5em;
+}
+
+body.light .hljs-emphasis {
+  font-style: italic;
+}
+
+body.light .hljs-strong {
+  font-weight: bold;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  body.light .hljs-addition,
+  body.light .hljs-attribute,
+  body.light .hljs-built_in,
+  body.light .hljs-builtin-name,
+  body.light .hljs-bullet,
+  body.light .hljs-comment,
+  body.light .hljs-link,
+  body.light .hljs-literal,
+  body.light .hljs-meta,
+  body.light .hljs-number,
+  body.light .hljs-params,
+  body.light .hljs-string,
+  body.light .hljs-symbol,
+  body.light .hljs-type,
+  body.light .hljs-quote {
+    color: highlight;
+  }
+
+  body.light .hljs-keyword,
+  body.light .hljs-selector-tag {
+    font-weight: bold;
+  }
+}
