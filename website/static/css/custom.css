@@ -34,6 +34,24 @@ body.light {
   color: #24292e;
 }
 
+body.dark .onPageNav a {
+  color: #d5d2cc;
+}
+
+body.dark .onPageNav .toc-headings > li > a.active, .onPageNav .toc-headings > li > a.hover {
+  color: #d5d2cc;
+  text-shadow: 0 0 1px #595449;
+}
+
+body.light .onPageNav a {
+  color: #24292e;
+}
+
+body.light .onPageNav .toc-headings > li > a.active, .onPageNav .toc-headings > li > a.hover {
+  color: #24292e;
+  text-shadow: 0 0 1px #9ea9b3;
+}
+
 body.dark code {
   background-color: rgba(213, 210, 204, 0.15);
 }
@@ -90,6 +108,7 @@ body.dark .button:hover {
   background: #d5d2cc;
   color: #263239;
 }
+
 
 .fixedHeaderContainer {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
