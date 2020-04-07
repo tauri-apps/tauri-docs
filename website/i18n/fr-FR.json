@@ -6,12 +6,10 @@
     "tagline": "Make smaller, faster, more secure native apps with Rust",
     "docs": {
       "api": {
-        "title": "API",
-        "sidebar_label": "API"
+        "title": "API"
       },
       "config": {
-        "title": "Configuration",
-        "sidebar_label": "Configuration"
+        "title": "Configuration"
       },
       "development": {
         "title": "App development",
@@ -44,9 +42,8 @@
       "intro": {
         "title": "Introduction"
       },
-      "js-rust-bridge": {
-        "title": "JS/Rust bridge",
-        "sidebar_label": "JS/Rust bridge"
+      "js": {
+        "title": "JavaScript"
       },
       "patterns": {
         "title": "Patterns",
@@ -55,6 +52,93 @@
       "publishing": {
         "title": "App publishing",
         "sidebar_label": "App publishing"
+      },
+      "rust": {
+        "title": "Rust"
+      },
+      "rust/tauri_api/tauri_api-enum": {
+        "title": "enum",
+        "sidebar_label": "enum"
+      },
+      "rust/tauri_api/tauri_api-fn": {
+        "title": "fn",
+        "sidebar_label": "fn"
+      },
+      "rust/tauri_api/tauri_api-struct": {
+        "title": "struct",
+        "sidebar_label": "struct"
+      },
+      "rust/tauri_api/tauri_api-trait": {
+        "title": "trait",
+        "sidebar_label": "trait"
+      },
+      "rust/tauri_api/tauri_api-type": {
+        "title": "type",
+        "sidebar_label": "type"
+      },
+      "rust/tauri_updater/tauri_updater-enum": {
+        "title": "enum",
+        "sidebar_label": "enum"
+      },
+      "rust/tauri_updater/tauri_updater-fn": {
+        "title": "fn",
+        "sidebar_label": "fn"
+      },
+      "rust/tauri_updater/tauri_updater-struct": {
+        "title": "struct",
+        "sidebar_label": "struct"
+      },
+      "rust/tauri_updater/tauri_updater-trait": {
+        "title": "trait",
+        "sidebar_label": "trait"
+      },
+      "rust/tauri_updater/tauri_updater-type": {
+        "title": "type",
+        "sidebar_label": "type"
+      },
+      "rust/tauri_utils/tauri_utils-enum": {
+        "title": "enum",
+        "sidebar_label": "enum"
+      },
+      "rust/tauri_utils/tauri_utils-fn": {
+        "title": "fn",
+        "sidebar_label": "fn"
+      },
+      "rust/tauri_utils/tauri_utils-struct": {
+        "title": "struct",
+        "sidebar_label": "struct"
+      },
+      "rust/tauri_utils/tauri_utils-trait": {
+        "title": "trait",
+        "sidebar_label": "trait"
+      },
+      "rust/tauri_utils/tauri_utils-type": {
+        "title": "type",
+        "sidebar_label": "type"
+      },
+      "rust/tauri/tauri-enum": {
+        "title": "enum",
+        "sidebar_label": "enum"
+      },
+      "rust/tauri/tauri-fn": {
+        "title": "fn",
+        "sidebar_label": "fn"
+      },
+      "rust/tauri/tauri-static": {
+        "title": "static",
+        "sidebar_label": "static"
+      },
+      "rust/tauri/tauri-struct": {
+        "title": "struct",
+        "sidebar_label": "struct"
+      },
+      "rust/tauri/tauri-trait": {
+        "title": "trait",
+        "sidebar_label": "trait"
+      },
+      "rust/tauri/tauri-type": {
+        "title": "type",
+        "sidebar_label": "type"
       },
       "setup-linux": {
         "title": "Setup for Linux",
@@ -72,6 +156,10 @@
         "title": "Tauri crate",
         "sidebar_label": "Tauri crate"
       },
+      "test/test": {
+        "title": "JS/Rust bridge",
+        "sidebar_label": "JS/Rust bridge"
+      },
       "usage": {
         "title": "Usage",
         "sidebar_label": "Usage"
@@ -79,12 +167,14 @@
     },
     "links": {
       "About": "About",
-      "Docs": "Documents"
+      "Docs": "Documents",
+      "API": "API"
     },
     "categories": {
       "Getting started": "Getting started",
       "Usage": "Usage",
-      "API": "API"
+      "Tips": "Tips",
+      "Configuration": "Configuration"
     }
   },
   "pages-strings": {
@@ -96,6 +186,52 @@
     "Stay up to date|no description given": "Restez à jour",
     "Need help?|no description given": "Besoin d'aide ?",
     "This project is maintained by a dedicated group of people.|statement made to reader": "Ce projet est entretenu par un groupe de personnes dévouées.",
+    "CLI|no description given": "CLI",
+    "Generate, develop and build Tauri apps from the command line.|no description given": "Generate, develop and build Tauri apps from the command line.",
+    "API|no description given": "API",
+    "Finalize, audit, write documentation and create examples for the smoke-tests.|no description given": "Finalize, audit, write documentation and create examples for the smoke-tests.",
+    "Testing & CI|no description given": "Testing & CI",
+    "Implement CI with testing and bundle-pipeline validation.|no description given": "Implement CI with testing and bundle-pipeline validation.",
+    "Desktop Bundler|no description given": "Desktop Bundler",
+    "Bundle for all major desktops from native systems.|no description given": "Bundle for all major desktops from native systems.",
+    "Alpha Release|no description given": "Alpha Release",
+    "Technical Release Candidate for desktop, edge cases and bugs acceptable.|no description given": "Technical Release Candidate for desktop, edge cases and bugs acceptable.",
+    "Sideloader|no description given": "Sideloader",
+    "Integrate and instrument other binaries.|no description given": "Integrate and instrument other binaries.",
+    "Splashscreen|no description given": "Splashscreen",
+    "Use a splashscreen while the main content is loading.|no description given": "Use a splashscreen while the main content is loading.",
+    "App Storage|no description given": "App Storage",
+    "Use a canonical location to store userdata.|no description given": "Use a canonical location to store userdata.",
+    "Multi Window|no description given": "Multi Window",
+    "Run multiple window instances in Tauri.|no description given": "Run multiple window instances in Tauri.",
+    "Self Updater|no description given": "Self Updater",
+    "Update Tauri Apps from within Tauri.|no description given": "Update Tauri Apps from within Tauri.",
+    "WASM Bundler|no description given": "WASM Bundler",
+    "Manufacture WASM bundler for use in websites.|no description given": "Manufacture WASM bundler for use in websites.",
+    "PureOS App Store|no description given": "PureOS App Store",
+    "Verified builds for PureOS.|no description given": "Verified builds for PureOS.",
+    "App Tray|no description given": "App Tray",
+    "Desktop Cross-platform Icon Tray.|no description given": "Desktop Cross-platform Icon Tray.",
+    "Native Notifications|no description given": "Native Notifications",
+    "Cross-platform notifications using polyfilled WEB API.|no description given": "Cross-platform notifications using polyfilled WEB API.",
+    "Beta Release|no description given": "Beta Release",
+    "Generally stable on Desktop, API locked down.|no description given": "Generally stable on Desktop, API locked down.",
+    "Mobile Bundler|no description given": "Mobile Bundler",
+    "Bundle to all major mobile device operating systems.|no description given": "Bundle to all major mobile device operating systems.",
+    "DENO|no description given": "DENO",
+    "Enable alternative DENO CLI.|no description given": "Enable alternative DENO CLI.",
+    "Cross Compiler|no description given": "Cross Compiler",
+    "Generate bundled binaries from select operating system environments.|no description given": "Generate bundled binaries from select operating system environments.",
+    "Alternative Renderer|no description given": "Alternative Renderer",
+    "Candidate presentation for Webview Alternatives, including GL windowing.|no description given": "Candidate presentation for Webview Alternatives, including GL windowing.",
+    "Tauri-Frida|no description given": "Tauri-Frida",
+    "A decompiler and threat analyzer for Tauri Apps, using Frida.|no description given": "A decompiler and threat analyzer for Tauri Apps, using Frida.",
+    "Stable Release|no description given": "Stable Release",
+    "Stable on On all Platforms.|no description given": "Stable on On all Platforms.",
+    "Other Bindings|no description given": "Other Bindings",
+    "Go, Nim, Python, C++ and other bindings are possible with the stable API.|no description given": "Go, Nim, Python, C++ and other bindings are possible with the stable API.",
+    "The Future|no description given": "The Future",
+    "Something missing? Got a great idea? We want you to help us make it happen.|no description given": "Something missing? Got a great idea? We want you to help us make it happen.",
     "Help Translate|recruit community translators for your project": "Aider à traduire",
     "Edit this Doc|recruitment message asking to edit the doc source": "Editer",
     "Translate this Doc|recruitment message asking to translate the docs": "Traduire"
