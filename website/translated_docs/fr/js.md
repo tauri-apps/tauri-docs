@@ -8,13 +8,15 @@ Here is the JS API, exposed by the `tauri` package in the "api" directory.
 
 ## Dialog
 
-```js
+```ts
 import { open, save } from 'tauri/api/dialog'
 ```
 
 ### Functions
 
-`open(options?: undefined | {}): Promise<string | string[]>`
+```ts
+open(options?: undefined | {}): Promise<string | string[]>
+```
 
 Open a file/directory selection dialog
 
@@ -25,7 +27,9 @@ Open a file/directory selection dialog
 
     promise resolving to the select path(s)
 
-`save(options?: undefined | {}): Promise<string>`
+```ts
+save(options?: undefined | {}): Promise<string>
+```
 
 Open a file/directory save dialog
 
@@ -38,13 +42,15 @@ Open a file/directory save dialog
 
 ## Event
 
-```js
+```ts
 import { emit, listen } from 'tauri/api/event'
 ```
 
 ### Functions
 
-`emit(event: string, payload: undefined | string): void`
+```ts
+emit(event: string, payload: undefined | string): void
+```
 
 Emits an event to the backend
 
@@ -56,7 +62,9 @@ Emits an event to the backend
 
 - Returns void
 
-`listen(event: string, handler: {}): void`
+```ts
+listen(event: string, handler: {}): void
+```
 
 Listen to an event from the backend
 
@@ -72,7 +80,7 @@ Listen to an event from the backend
 
 ## File system
 
-```js
+```ts
 import {
   Dir,
   copyFile,
@@ -92,7 +100,7 @@ import {
 
 `Dir`
 
-```js
+```ts
 {
   Audio: 1,
   Cache: 2,
@@ -117,7 +125,9 @@ import {
 
 ### Functions
 
-`copyFile(source: string, destination: string, options?: undefined | {}): Promise<void>`
+```ts
+copyFile(source: string, destination: string, options?: undefined | {}): Promise<void>
+```
 
 - Arguments
     - source: string
@@ -126,7 +136,9 @@ import {
 
 - Returns Promise<void>
 
-`createDir(dir: string, options?: undefined | {}): Promise<void>`
+```ts
+createDir(dir: string, options?: undefined | {}): Promise<void>
+```
 
 Creates a directory if one of the path's parent components doesn't exist and the recursive option isn't set to true, it will be rejected
 
@@ -138,7 +150,9 @@ Creates a directory if one of the path's parent components doesn't exist and the
 
 - Returns Promise<void>
 
-`readBinaryFile(filePath: string, options?: undefined | {}): Promise<any[]>`
+```ts
+readBinaryFile(filePath: string, options?: undefined | {}): Promise<any[]>
+```
 
 Reads a file as binary
 
@@ -150,7 +164,9 @@ Reads a file as binary
 
 - Returns Promise<any[]>
 
-`readDir(dir: string, options?: undefined | {}): Promise<{}[]>`
+```ts
+readDir(dir: string, options?: undefined | {}): Promise<{}[]>
+```
 
 List directory files
 
@@ -163,7 +179,9 @@ List directory files
 
 - Returns Promise<{}[]>
 
-`readTextFile(filePath: string, options?: undefined | {}): Promise<string>`
+```ts
+readTextFile(filePath: string, options?: undefined | {}): Promise<string>
+```
 
 Reads a file as text
 
@@ -176,7 +194,9 @@ Reads a file as text
 
 - Returns Promise<string>
 
-`removeDir(dir: string, options?: undefined | {}): Promise<void>`
+```ts
+removeDir(dir: string, options?: undefined | {}): Promise<void>
+```
 
 Removes a directory if the directory is not empty and the recursive option isn't set to true, it will be rejected
 
@@ -190,7 +210,9 @@ Removes a directory if the directory is not empty and the recursive option isn't
 - Returns Promise<void>
 
 
-`removeFile(file: string, options?: undefined | {}): Promise<void>`
+```ts
+removeFile(file: string, options?: undefined | {}): Promise<void>
+```
 
 Removes a file
 
@@ -204,7 +226,9 @@ Removes a file
 - Returns Promise<void>
 
 
-`renameFile(oldPath: string, newPath: string, options?: undefined | {}): Promise<void>`
+```ts
+renameFile(oldPath: string, newPath: string, options?: undefined | {}): Promise<void>
+```
 
 Renames a file
 
@@ -215,7 +239,9 @@ Renames a file
 
 - Returns Promise<void>
 
-`writeFile(file: {}, options?: undefined | {}): Promise<void>`
+```ts
+writeFile(file: {}, options?: undefined | {}): Promise<void>
+```
 
 writes a text file
 
@@ -227,13 +253,15 @@ writes a text file
 
 ## Process
 
-```js
+```ts
 import { execute } from 'tauri/api/process'
 ```
 
 ### Functions
 
-`execute(command: string, args: undefined | string | string[]): Promise<string>`
+```ts
+execute(command: string, args: undefined | string | string[]): Promise<string>
+```
 
 Spawns a process
 - Arguments
@@ -248,13 +276,15 @@ Spawns a process
 
 ## Window
 
-```js
+```ts
 import { open, setTitle } from 'tauri/api/window'
 ```
 
 ### Functions
 
-`open(url: string): void`
+```ts
+open(url: string): void
+```
 
 opens an URL on the user default browser
 
@@ -266,7 +296,9 @@ opens an URL on the user default browser
 - Returns void
 
 
-`setTitle(title: string): void`
+```ts
+setTitle(title: string): void
+```
 
 sets the window title
 
