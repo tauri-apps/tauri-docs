@@ -118,7 +118,7 @@ const siteConfig = {
   twitterUrl: 'https://twitter.com/tauriapps',
   repoUrl,
   discordUrl: 'https://discord.gg/SpmNs4S',
-  codeOfConductLink: {
+  codeOfConduct: {
     text: 'Code of Conduct',
     link:
       'https://github.com/tauri-apps/tauri/blob/dev/.github/CODE_OF_CONDUCT.md',
