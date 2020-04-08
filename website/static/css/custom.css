@@ -12,23 +12,41 @@
 
 @media only screen and (max-width: 1023px) {
   @keyframes showBar {
-    from { opacity: 0%; max-height: 0; }
-    to { opacity: 100%; max-height: initial; }
+    from { margin-top: -100px; }
+    to { margin-top: 0px; }
   }
 
   @keyframes hideBar {
-    from { opacity: 100%; max-height: initial; }
-    to { opacity: 0%; max-height: 0; }
+    from { margin-top: 0px; }
+    to { margin-top: -100px; }
   }
 
-  html[data-show='true'] #docsNav:not(.docsSliderActive) {
+  @keyframes raiseNav {
+    from { padding-top: 100px; }
+    to { padding-top: 0; }
+  }
+
+  @keyframes lowerNav {
+    from { padding-top: 0; }
+    to { padding-top: 100px; }
+  }
+
+  html[data-show='true'] .fixedHeaderContainer {
     animation: showBar 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
   }
 
-  html[data-show='false'] #docsNav:not(.docsSliderActive) {
+  html[data-show='true'] .navPusher {
+    animation: lowerNav 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  }
+
+  html[data-show='false'] .fixedHeaderContainer {
     animation: hideBar 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    max-height: 0;
-    opacity: 0%;
+    margin-top: -100px;
+  }
+
+  html[data-show='false'] .navPusher {
+    animation: raiseNav 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    padding-top: 0;
   }
 }
 
