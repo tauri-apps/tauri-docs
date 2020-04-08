@@ -12,8 +12,5 @@
   },
   "devDependencies": {
     "docusaurus": "^1.14.4"
-  },
-  "dependencies": {
-    "react-vertical-timeline-component": "^2.5.0"
   }
 }
