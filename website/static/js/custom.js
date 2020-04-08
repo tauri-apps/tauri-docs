@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Reads out the scroll position and stores it in the data attribute
   // so we can use it in our stylesheets
-  const storeScroll = () => {
+  const updateScroll = () => {
     if (document.documentElement.dataset.scroll !== window.scrollY) {
       if (window.scrollY > document.documentElement.dataset.scroll) {
         document.documentElement.dataset.show = false;
