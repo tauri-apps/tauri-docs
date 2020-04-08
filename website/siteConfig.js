@@ -78,7 +78,13 @@ const siteConfig = {
   
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio`,
+  copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio.`,
+
+  // This is used to place a note about our sponsor in the footer
+  deployedBy: {
+    text: `This site is powered by Netlify.`,
+    link: 'https://www.netlify.com',
+  },
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
@@ -110,9 +116,13 @@ const siteConfig = {
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
   twitterUrl: 'https://twitter.com/tauriapps',
-
   repoUrl,
-  discordUrl: 'https://discord.gg/SpmNs4S'
+  discordUrl: 'https://discord.gg/SpmNs4S',
+  codeOfConduct: {
+    text: 'Code of Conduct',
+    link:
+      'https://github.com/tauri-apps/tauri/blob/dev/.github/CODE_OF_CONDUCT.md',
+  },
 }
 
 module.exports = siteConfig
