@@ -6,6 +6,7 @@
 @media only screen and (min-width: 1024px) {
   .fixedHeaderContainer header > a {
     height: 100%;
+    display: flex;
   }
 }
 
@@ -124,10 +125,6 @@ body.dark .button:hover {
 
 .fixedHeaderContainer header {
   align-items: end;
-}
-
-.fixedHeaderContainer header > a {
-  display: flex;
 }
 
 .homeContainer {
