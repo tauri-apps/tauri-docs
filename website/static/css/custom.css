@@ -4,6 +4,9 @@
 }
 
 @media only screen and (min-width: 1024px) {
+  .fixedHeaderContainer header > a {
+    height: 100%;
+  }
 }
 
 @media only screen and (max-width: 1023px) {
@@ -125,11 +128,6 @@ body.dark .button:hover {
 
 .fixedHeaderContainer header > a {
   display: flex;
-  height: 100%;
-}
-
-.navPusher {
-  padding-top: 76px;
 }
 
 .homeContainer {
