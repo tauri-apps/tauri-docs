@@ -52,13 +52,21 @@ class Footer extends React.Component {
             <a href={this.pageUrl('users.html', this.props.language)}>
               User Showcase
             </a>
-            <a href={this.props.config.discordUrl}>Discord</a>
+            <a href={this.props.config.discordUrl} rel="noreferrer noopener">
+              Discord
+            </a>
             <a
               href={this.props.config.twitterUrl}
               target="_blank"
               rel="noreferrer noopener"
             >
               Twitter
+            </a>
+            <a
+              href={this.props.config.codeOfConduct.link}
+              rel="noreferrer noopener"
+            >
+              {this.props.config.codeOfConduct.text}
             </a>
           </div>
           <div>
@@ -113,7 +121,7 @@ class Footer extends React.Component {
         </section>
 
         <section className="copyright">
-          ${this.props.config.copyright}
+          {this.props.config.copyright}
           {` `}
           <a href={this.props.config.deployedBy.link} rel="noreferrer noopener">
             {this.props.config.deployedBy.text}
