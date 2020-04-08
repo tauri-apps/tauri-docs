@@ -11,6 +11,25 @@
 }
 
 @media only screen and (max-width: 1023px) {
+  @keyframes showBar {
+    from { opacity: 0%; max-height: 0; }
+    to { opacity: 100%; max-height: initial; }
+  }
+
+  @keyframes hideBar {
+    from { opacity: 100%; max-height: initial; }
+    to { opacity: 0%; max-height: 0; }
+  }
+
+  html[data-show='true'] #docsNav:not(.docsSliderActive) {
+    animation: showBar 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  }
+
+  html[data-show='false'] #docsNav:not(.docsSliderActive) {
+    animation: hideBar 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    max-height: 0;
+    opacity: 0%;
+  }
 }
 
 @media only screen and (min-width: 1400px) {
