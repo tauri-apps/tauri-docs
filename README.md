@@ -2,6 +2,7 @@
 
 This website was created with [Docusaurus (1.X)](https://docusaurus.io/).
 
+[![Deploys By Netlify](https://www.netlify.com/img/global/badges/netlify-light.svg)](https://www.netlify.com)
 
 ## Get Started in 5 Minutes
 

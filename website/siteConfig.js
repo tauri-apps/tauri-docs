@@ -78,7 +78,13 @@ const siteConfig = {
   
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio`,
+  copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio.`,
+
+  // This is used to place a note about our sponsor in the footer
+  deployedBy: {
+    text: `This site is powered by Netlify.`,
+    link: 'https://www.netlify.com',
+  },
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
