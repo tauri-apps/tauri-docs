@@ -1,0 +1,77 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Tauri&display=swap');
+
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #67d6ed;
+  --ifm-color-primary-dark: #49cee9;
+  --ifm-color-primary-darker: #39cae8;
+  --ifm-color-primary-darkest: #19b5d5;
+  --ifm-color-primary-light: #85def1;
+  --ifm-color-primary-lighter: #95e2f2;
+  --ifm-color-primary-lightest: #c2eff8;
+  --ifm-code-font-size: 95%;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+body {
+  font-family: 'Tauri';
+}
+
+ul.roadmap {
+  max-width: 960px;
+  margin: auto;
+  position: relative;
+}
+
+ul.roadmap::before {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 47px;
+  width: 3px;
+  background-color: #ccd;
+}
+
+ul.roadmap li {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul.roadmap li .icon {
+  height: 32px;
+  width: 32px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+ul.roadmap li .content {
+  flex: 1;
+}
+
+ul.roadmap li .content .title {
+  font-weight: bold;
+}
+
+ul.roadmap li .content .description {
+  font-size: .8em;
+}
