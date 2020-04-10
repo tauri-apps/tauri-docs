@@ -1,0 +1,5 @@
+build:
+  base: website
+  publish: build
+  lifecycle:
+    onBuild: yarn build
