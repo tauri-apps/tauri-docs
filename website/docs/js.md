@@ -3,8 +3,19 @@ id: js
 title: "JavaScript"
 ---
 
-Here is the JS API, exposed by the `tauri` package in the "api" directory.
+Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
 
+If you haven't done it so far, add the package _locally_ to your project:
+
+```sh
+npm install tauri --save
+# OR
+yarn add tauri
+```
+
+<div class="alert alert--warning" role="alert">
+  Note: if you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
+</div>
 
 ## Dialog
 
