@@ -1,0 +1,97 @@
+{
+  "docs": [
+    {
+      "label": "Getting started",
+      "type": "category",
+      "items": [
+        "getting-started/intro",
+        "getting-started/setup-linux",
+        "getting-started/setup-macos",
+        "getting-started/setup-windows"
+      ]
+    },
+    {
+      "label": "Usage",
+      "type": "category",
+      "items": [
+        "usage/intro",
+        "usage/patterns",
+        "usage/integration",
+        "usage/development",
+        "usage/publishing",
+        "usage/identity"
+      ]
+    },
+    {
+      "label": "Tips",
+      "type": "category",
+      "items": []
+    },
+    {
+      "label": "API",
+      "type": "category",
+      "items": [
+        "config",
+        "js",
+        {
+          "label": "Rust",
+          "type": "category",
+          "items": [
+            {
+              "label": "tauri",
+              "type": "category",
+              "items": [
+                "api/rust/tauri/enum.ErrorKind",
+                "api/rust/tauri/fn.call",
+                "api/rust/tauri/fn.close_splashscreen",
+                "api/rust/tauri/fn.execute_promise",
+                "api/rust/tauri/fn.execute_promise_sync",
+                "api/rust/tauri/fn.spawn",
+                {
+                  "label": "assets",
+                  "type": "category",
+                  "items": []
+                },
+                {
+                  "label": "config",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri/config/fn.get",
+                    "api/rust/tauri/config/struct.BuildConfig",
+                    "api/rust/tauri/config/struct.Config",
+                    "api/rust/tauri/config/struct.EmbeddedServerConfig",
+                    "api/rust/tauri/config/struct.TauriConfig",
+                    "api/rust/tauri/config/struct.WindowConfig"
+                  ]
+                },
+                {
+                  "label": "event",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri/event/fn.emit",
+                    "api/rust/tauri/event/fn.emit_function_name",
+                    "api/rust/tauri/event/fn.event_listeners_object_name",
+                    "api/rust/tauri/event/fn.event_queue_object_name",
+                    "api/rust/tauri/event/fn.listen",
+                    "api/rust/tauri/event/fn.on_event"
+                  ]
+                },
+                "api/rust/tauri/struct.App",
+                "api/rust/tauri/struct.AppBuilder",
+                "api/rust/tauri/struct.Error",
+                "api/rust/tauri/struct.Handle",
+                "api/rust/tauri/trait.ResultExt",
+                "api/rust/tauri/type.Result"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "about": {
+    "Category A": [
+      "usage/intro"
+    ]
+  }
+}
