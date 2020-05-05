@@ -137,7 +137,7 @@ const siteConfig = {
       links: [
         { to: 'about', label: 'About', position: 'left' },
         {
-          to: 'docs/intro',
+          to: 'docs/getting-started/intro',
           label: 'Docs',
           position: 'left',
         },
@@ -241,7 +241,7 @@ const siteConfig = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars.json'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/website/',
         },
         theme: {
