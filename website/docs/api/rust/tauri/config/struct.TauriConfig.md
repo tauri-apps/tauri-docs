@@ -8,139 +8,139 @@ Struct [tauri](/api/rust/tauri/../index.html)::[config](/api/rust/tauri/index.ht
 ```rust
 pub struct TauriConfig {
     pub window: [WindowConfig](/api/rust/tauri/../../tauri/config/struct.WindowConfig.html "struct tauri::config::WindowConfig"),
-    pub embedded\_server: [EmbeddedServerConfig](/api/rust/tauri/../../tauri/config/struct.EmbeddedServerConfig.html "struct tauri::config::EmbeddedServerConfig"),
+    pub embedded\\\_server: [EmbeddedServerConfig](/api/rust/tauri/../../tauri/config/struct.EmbeddedServerConfig.html "struct tauri::config::EmbeddedServerConfig"),
 }
 ```
 
 Fields
 ------
 
-<code>window: [WindowConfig](/api/rust/tauri/../../tauri/config/struct.WindowConfig.html "struct tauri::config::WindowConfig")</code><code>embedded_server: [EmbeddedServerConfig](/api/rust/tauri/../../tauri/config/struct.EmbeddedServerConfig.html "struct tauri::config::EmbeddedServerConfig")</code>
+<span>window: [WindowConfig](/api/rust/tauri/../../tauri/config/struct.WindowConfig.html "struct tauri::config::WindowConfig")</span><span>embedded\_server: [EmbeddedServerConfig](/api/rust/tauri/../../tauri/config/struct.EmbeddedServerConfig.html "struct tauri::config::EmbeddedServerConfig")</span>
 
 Trait Implementations
 ---------------------
 
-### <code>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-#### <code>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-#### <code>fn [clone_from](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)(&mut self, source: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Self)</code>1.0.0
+#### <span>fn [clone\_from](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)(&mut self, source: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Self)</span>1.0.0
 
-Performs copy-assignment from <code>source</code>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+Performs copy-assignment from <span>source</span>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
 
-### <code>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-#### <code>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</code>
+#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <code>impl&lt;'de&gt; [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt; for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl&lt;'de&gt; [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt; for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-#### <code>fn [deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;__D&gt;(__deserializer: __D) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;Self, __D::[Error](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")&gt; where&lt;br/&gt;    __D: [Deserializer](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de&gt;,</code> 
+#### <span>fn [deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;\_\_D&gt;(\_\_deserializer: \_\_D) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;Self, \_\_D::[Error](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")&gt; where&lt;br/&gt;    \_\_D: [Deserializer](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de&gt;,</span> 
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### <code>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")&gt; for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")&gt; for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-#### <code>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</code>
+#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
 
-This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+This method tests for <span>self</span> and <span>other</span> values to be equal, and is used by <span>==</span>. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### <code>fn [ne](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne)(&self, other: &[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</code>
+#### <span>fn [ne](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne)(&self, other: &[TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
 
-This method tests for <code>!=</code>.
+This method tests for <span>!=</span>.
 
-### <code>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
 Auto Trait Implementations
 --------------------------
 
-### <code>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-### <code>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-### <code>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-### <code>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
-### <code>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</code>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [TauriConfig](/api/rust/tauri/../../tauri/config/struct.TauriConfig.html "struct tauri::config::TauriConfig")</span>
 
 Blanket Implementations
 -----------------------
 
-### <code>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</code> 
+### <span>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
 
-#### <code>fn [type_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</code>
+#### <span>fn [type\_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</span>
 
-Gets the <code>TypeId</code> of <code>self</code>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the <span>TypeId</span> of <span>self</span>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
 
-### <code>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</code> 
+### <span>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
 
-#### <code>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</code>
+#### <span>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</span>
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### <code>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</code> 
+### <span>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
 
-#### <code>fn [borrow_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</code>
+#### <span>fn [borrow\_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</span>
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
 
-### <code>impl&lt;T&gt; [DeserializeOwned](https://docs.rs/serde/1.0.104/serde/de/trait.DeserializeOwned.html "trait serde::de::DeserializeOwned") for T where&lt;br/&gt;    T: [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt;,</code> 
+### <span>impl&lt;T&gt; [DeserializeOwned](https://docs.rs/serde/1.0.104/serde/de/trait.DeserializeOwned.html "trait serde::de::DeserializeOwned") for T where&lt;br/&gt;    T: [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt;,</span> 
 
-### <code>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</code>
+### <span>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</span>
 
-#### <code>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</code>
-
-Performs the conversion.
-
-### <code>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</code> 
-
-#### <code>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</code>
+#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</span>
 
 Performs the conversion.
 
-### <code>impl&lt;T&gt; [ToOwned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where&lt;br/&gt;    T: [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone"),</code> 
+### <span>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</span> 
 
-#### <code>type [Owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T</code>
+#### <span>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</span>
+
+Performs the conversion.
+
+### <span>impl&lt;T&gt; [ToOwned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where&lt;br/&gt;    T: [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone"),</span> 
+
+#### <span>type [Owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T</span>
 
 The resulting type after obtaining ownership.
 
-#### <code>fn [to_owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)(&self) -&gt; T</code>
+#### <span>fn [to\_owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to\_owned)(&self) -&gt; T</span>
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to\_owned)
 
-#### <code>fn [clone_into](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)(&self, target: [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T)</code>
+#### <span>fn [clone\_into](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone\_into)(&self, target: [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T)</span>
 
-🔬 This is a nightly-only experimental API. (<code>toowned_clone_into</code>)
+🔬 This is a nightly-only experimental API. (<span>toowned\_clone\_into</span>)
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone\_into)
 
-### <code>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</code> 
+### <span>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</span> 
 
-#### <code>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</code>
-
-The type returned in the event of a conversion error.
-
-#### <code>fn [try_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</code>
-
-Performs the conversion.
-
-### <code>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</code> 
-
-#### <code>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</code>
+#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</span>
 
 The type returned in the event of a conversion error.
 
-#### <code>fn [try_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</code>
+#### <span>fn [try\_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try\_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
 
 Performs the conversion.
 
-### <code>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</code> 
+### <span>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</span> 
 
-#### <code>fn [vzip](/api/rust/tauri/about:blank#method.vzip)(self) -&gt; V</code>
+#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</span>
+
+The type returned in the event of a conversion error.
+
+#### <span>fn [try\_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try\_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+
+Performs the conversion.
+
+### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
+
+#### <span>fn [vzip](/api/rust/tauri/about:blank#method.vzip)(self) -&gt; V</span>
       
