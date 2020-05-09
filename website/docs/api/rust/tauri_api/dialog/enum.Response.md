@@ -2,8 +2,8 @@
 title: "enum.Response"
 ---
 
-Enum [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[dialog](/api/rust/tauri\_api/index.html)::[Response](/api/rust/tauri\_api/)
-=====================================================================================================================================
+Enum [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[dialog](/docs/api/rust/tauri\_api/index.html)::[Response](/docs/api/rust/tauri\_api/)
+====================================================================================================================================================
 
 ```rust
 pub enum Response {
@@ -33,15 +33,15 @@ User pressed cancel
 Auto Trait Implementations
 --------------------------
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Response](/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Response](/docs/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Response](/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Response](/docs/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Response](/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Response](/docs/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Response](/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Response](/docs/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Response](/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Response](/docs/api/rust/tauri\_api/../../tauri\_api/dialog/enum.Response.html "enum tauri\_api::dialog::Response")</span>
 
 Blanket Implementations
 -----------------------
@@ -98,5 +98,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

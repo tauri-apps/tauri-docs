@@ -2,8 +2,8 @@
 title: "struct.Move"
 ---
 
-Struct [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[file](/api/rust/tauri\_api/index.html)::[Move](/api/rust/tauri\_api/)
-=================================================================================================================================
+Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[file](/docs/api/rust/tauri\_api/index.html)::[Move](/docs/api/rust/tauri\_api/)
+================================================================================================================================================
 
 ```rust
 pub struct Move&lt;'a&gt; { /\* fields omitted \*/ }
@@ -19,13 +19,13 @@ Moves a file from the given path to the specified destination.
 Methods
 -------
 
-### <span>impl&lt;'a&gt; [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
-#### <span>pub fn [from\_source](/api/rust/tauri\_api/about:blank#method.from\_source)(source: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+#### <span>pub fn [from\_source](/docs/api/rust/tauri\_api/about:blank#method.from\_source)(source: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
 Specify source file
 
-#### <span>pub fn [replace\_using\_temp](/api/rust/tauri\_api/about:blank#method.replace\_using\_temp)(&mut self, temp: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) Self</span>
+#### <span>pub fn [replace\_using\_temp](/docs/api/rust/tauri\_api/about:blank#method.replace\_using\_temp)(&mut self, temp: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) Self</span>
 
 If specified and the destination file already exists, the "destination" file will be moved to the given temporary location before the "source" file is moved to the "destination" file.
 
@@ -33,14 +33,14 @@ In the event of an <span>io</span> error while renaming "source" to "destination
 
 The <span>temp</span> dir must be explicitly provided since <span>rename</span> operations require files to live on the same filesystem.
 
-#### <span>pub fn [to\_dest](/api/rust/tauri\_api/about:blank#method.to\_dest)(&self, dest: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Result](/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
+#### <span>pub fn [to\_dest](/docs/api/rust/tauri\_api/about:blank#method.to\_dest)(&self, dest: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Result](/docs/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
 
 Move source file to specified destination
 
 Trait Implementations
 ---------------------
 
-### <span>impl&lt;'a&gt; [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
@@ -49,15 +49,15 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 Auto Trait Implementations
 --------------------------
 
-### <span>impl&lt;'a&gt; [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Move](/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Move](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Move.html "struct tauri\_api::file::Move")&lt;'a&gt;</span>
 
 Blanket Implementations
 -----------------------
@@ -114,5 +114,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

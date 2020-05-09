@@ -2,8 +2,8 @@
 title: "struct.DiskEntry"
 ---
 
-Struct [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[dir](/api/rust/tauri\_api/index.html)::[DiskEntry](/api/rust/tauri\_api/)
-=====================================================================================================================================
+Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[dir](/docs/api/rust/tauri\_api/index.html)::[DiskEntry](/docs/api/rust/tauri\_api/)
+====================================================================================================================================================
 
 ```rust
 pub struct DiskEntry {
@@ -21,13 +21,13 @@ Fields
 Trait Implementations
 ---------------------
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [Serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [Serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
 #### <span>fn [serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S&gt;(&self, \_\_serializer: \_\_S) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;\_\_S::[Ok](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), \_\_S::[Error](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")&gt; where&lt;br/&gt;    \_\_S: [Serializer](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),</span> 
 
@@ -36,15 +36,15 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 Auto Trait Implementations
 --------------------------
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [DiskEntry](/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [DiskEntry](/docs/api/rust/tauri\_api/../../tauri\_api/dir/struct.DiskEntry.html "struct tauri\_api::dir::DiskEntry")</span>
 
 Blanket Implementations
 -----------------------
@@ -101,5 +101,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

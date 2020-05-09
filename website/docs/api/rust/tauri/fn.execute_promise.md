@@ -2,10 +2,13 @@
 title: "fn.execute_promise"
 ---
 
-Function [tauri](/api/rust/tauri/index.html)::[execute\\\_promise](/api/rust/tauri/)
-====================================================================================
+# Function [tauri](/docs/api/rust/tauri/index.html)::​[execute\\\_promise](/docs/api/rust/tauri/)
 
-```rust
-pub fn execute\\\_promise&lt;T: 'static, F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; [Result](/api/rust/tauri/../tauri/type.Result.html "type tauri::Result")&lt;[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")\&gt; + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") + 'static&gt;(&lt;br/&gt;    webview: &mut WebView&lt;T&gt;, &lt;br/&gt;    task: F, &lt;br/&gt;    callback: [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"), &lt;br/&gt;    error: [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")&lt;br/&gt;)
-```
+    pub fn execute\_promise<T: 'static, F: FnOnce() -> Result<String> + Send + 'static>(
+        webview: &mut WebView<T>, 
+        task: F, 
+        callback: String, 
+        error: String
+    )
+
       

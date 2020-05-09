@@ -2,8 +2,8 @@
 title: "enum.BaseDirectory"
 ---
 
-Enum [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[path](/api/rust/tauri\_api/index.html)::[BaseDirectory](/api/rust/tauri\_api/)
-========================================================================================================================================
+Enum [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[path](/docs/api/rust/tauri\_api/index.html)::[BaseDirectory](/docs/api/rust/tauri\_api/)
+=======================================================================================================================================================
 
 ```rust
 #\[repr(u16)\] pub enum BaseDirectory {
@@ -70,9 +70,9 @@ Variants
 Trait Implementations
 ---------------------
 
-### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
-#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -80,19 +80,19 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from <span>source</span>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl&lt;'de&gt; [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt; for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl&lt;'de&gt; [Deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de&gt; for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
 #### <span>fn [deserialize](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;D&gt;(deserializer: D) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;Self, D::[Error](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")&gt; where&lt;br/&gt;    D: [Deserializer](https://docs.rs/serde/1.0.104/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de&gt;,</span> 
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### <span>impl [Serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
 #### <span>fn [serialize](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;S&gt;(&self, serializer: S) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;S::[Ok](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), S::[Error](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")&gt; where&lt;br/&gt;    S: [Serializer](https://docs.rs/serde/1.0.104/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),</span> 
 
@@ -101,15 +101,15 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 Auto Trait Implementations
 --------------------------
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [BaseDirectory](/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [BaseDirectory](/docs/api/rust/tauri\_api/../../tauri\_api/path/enum.BaseDirectory.html "enum tauri\_api::path::BaseDirectory")</span>
 
 Blanket Implementations
 -----------------------
@@ -186,5 +186,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

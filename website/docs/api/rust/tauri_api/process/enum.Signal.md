@@ -2,8 +2,8 @@
 title: "enum.Signal"
 ---
 
-Enum [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[process](/api/rust/tauri\_api/index.html)::[Signal](/api/rust/tauri\_api/)
-====================================================================================================================================
+Enum [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[process](/docs/api/rust/tauri\_api/index.html)::[Signal](/docs/api/rust/tauri\_api/)
+===================================================================================================================================================
 
 ```rust
 #\[repr(C)\] pub enum Signal {
@@ -173,9 +173,9 @@ Bad argument to routine (SVr4).
 Trait Implementations
 ---------------------
 
-### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -183,17 +183,17 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from <span>source</span>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
 
-### <span>impl [Copy](https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html "trait core::marker::Copy") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Copy](https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html "trait core::marker::Copy") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html), [Error](https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html "struct core::fmt::Error")&gt;</span>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")&gt; for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")&gt; for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
 
 This method tests for <span>self</span> and <span>other</span> values to be equal, and is used by <span>==</span>. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
@@ -201,9 +201,9 @@ This method tests for <span>self</span> and <span>other</span> values to be equa
 
 This method tests for <span>!=</span>.
 
-### <span>impl [PartialOrd](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html "trait core::cmp::PartialOrd")&lt;[Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")&gt; for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [PartialOrd](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html "trait core::cmp::PartialOrd")&lt;[Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")&gt; for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-#### <span>fn [partial\_cmp](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)(&self, other: &[Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[Ordering](https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html "enum core::cmp::Ordering")&gt;</span>
+#### <span>fn [partial\_cmp](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)(&self, other: &[Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[Ordering](https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html "enum core::cmp::Ordering")&gt;</span>
 
 This method returns an ordering between <span>self</span> and <span>other</span> values if one exists. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)
 
@@ -223,20 +223,20 @@ This method tests greater than (for <span>self</span> and <span>other</span>) an
 
 This method tests greater than or equal to (for <span>self</span> and <span>other</span>) and is used by the <span>&gt;=</span> operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
 
-### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
 Auto Trait Implementations
 --------------------------
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Signal](/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")</span>
 
 Blanket Implementations
 -----------------------
@@ -311,5 +311,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

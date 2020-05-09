@@ -2,170 +2,163 @@
 title: "enum.ErrorKind"
 ---
 
-Enum [tauri](/api/rust/tauri/index.html)::[ErrorKind](/api/rust/tauri/)
-=======================================================================
+# Enum [tauri](/docs/api/rust/tauri/index.html)::​[ErrorKind](/docs/api/rust/tauri/)
 
-```rust
-pub enum ErrorKind {
-    Api([Error](/api/rust/tauri/../tauri\_api/struct.Error.html "struct tauri\_api::Error")),
-    Json([Error](https://docs.rs/serde\_json/1.0.45/serde\_json/error/struct.Error.html "struct serde\_json::error::Error")),
-    Webview(Error),
-    Io([Error](https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html "struct std::io::error::Error")),
-    Msg([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")),
-    Promise([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")),
-    Command([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")),
-    Dialog([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")),
-    FileSystem([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")),
-    // some variants omitted
-}
-```
+    pub enum ErrorKind {
+        Api(Error),
+        Json(Error),
+        Webview(Error),
+        Io(Error),
+        Msg(String),
+        Promise(String),
+        Command(String),
+        Dialog(String),
+        FileSystem(String),
+        // some variants omitted
+    }
 
 The kind of an error.
 
-Variants
---------
+## Variants
 
-<span>Api([Error](/api/rust/tauri/../tauri\_api/struct.Error.html "struct tauri\_api::Error"))</span>
+`Api(Error)`
 
-<span>Json([Error](https://docs.rs/serde\_json/1.0.45/serde\_json/error/struct.Error.html "struct serde\_json::error::Error"))</span>
+`Json(Error)`
 
-<span>Webview(Error)</span>
+`Webview(Error)`
 
-<span>Io([Error](https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html "struct std::io::error::Error"))</span>
+`Io(Error)`
 
-<span>Msg([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"))</span>
+`Msg(String)`
 
 A convenient variant for String.
 
-<span>Promise([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"))</span>
+`Promise(String)`
 
-<span>Command([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"))</span>
+`Command(String)`
 
-<span>Dialog([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"))</span>
+`Dialog(String)`
 
-<span>FileSystem([String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"))</span>
+`FileSystem(String)`
 
-Methods
--------
+## Methods
 
-### <span>impl [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+### `impl ErrorKind`
 
-#### <span>pub fn [description](/api/rust/tauri/about:blank#method.description)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+#### `pub fn description(&self) -> &str`
 
 A string describing the error kind.
 
-Trait Implementations
----------------------
+## Trait Implementations
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+### `impl Debug for ErrorKind`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
+#### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [Display](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "trait core::fmt::Display") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+### `impl Display for ErrorKind`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)(&self, fmt: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
+#### `fn fmt(&self, fmt: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
-### <span>impl&lt;'a&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;&'a [str](https://doc.rust-lang.org/nightly/std/primitive.str.html)&gt; for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+### `impl<'a> From<&'a str> for ErrorKind`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(s: &'a [str](https://doc.rust-lang.org/nightly/std/primitive.str.html)) -&gt; Self</span>
-
-Performs the conversion.
-
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")&gt; for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
-
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(e: [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")) -&gt; Self</span>
+#### `fn from(s: &'a str) -> Self`
 
 Performs the conversion.
 
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")&gt; for [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")</span>
+### `impl From<Error> for ErrorKind`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(e: [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")) -&gt; Self</span>
-
-Performs the conversion.
-
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")&gt; for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
-
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(s: [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")) -&gt; Self</span>
+#### `fn from(e: Error) -> Self`
 
 Performs the conversion.
 
-Auto Trait Implementations
---------------------------
+### `impl From<ErrorKind> for Error`
 
-### <span>impl 	&#33;[RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+#### `fn from(e: ErrorKind) -> Self`
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+Performs the conversion.
 
-### <span>impl 	&#33;[Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+### `impl From<String> for ErrorKind`
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+#### `fn from(s: String) -> Self`
 
-### <span>impl 	&#33;[UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")</span>
+Performs the conversion.
 
-Blanket Implementations
------------------------
+## Auto Trait Implementations
 
-### <span>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl !RefUnwindSafe for ErrorKind`
 
-#### <span>fn [type\_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</span>
+### `impl Send for ErrorKind`
 
-Gets the <span>TypeId</span> of <span>self</span>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+### `impl !Sync for ErrorKind`
 
-### <span>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl Unpin for ErrorKind`
 
-#### <span>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</span>
+### `impl !UnwindSafe for ErrorKind`
+
+## Blanket Implementations
+
+### `impl<T> Any for T where T: 'static + ?Sized,`
+
+#### `fn type\_id(&self) -> TypeId`
+
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+
+### `impl<T> Borrow<T> for T where T: ?Sized,`
+
+#### `fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### <span>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow\_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</span>
+#### `fn borrow\_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
 
-### <span>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</span>
+### `impl<T> From<T> for T`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</span>
-
-Performs the conversion.
-
-### <span>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</span> 
-
-#### <span>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</span>
+#### `fn from(t: T) -> T`
 
 Performs the conversion.
 
-### <span>impl&lt;T&gt; [ToString](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html "trait alloc::string::ToString") for T where&lt;br/&gt;    T: [Display](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "trait core::fmt::Display") + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### <span>default fn [to\_string](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)(&self) -&gt; [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")</span>
+#### `fn into(self) -> U`
 
-Converts the given value to a <span>String</span>. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)
+Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</span> 
+### `impl<T> ToString for T where T: Display + ?Sized,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</span>
+#### `default fn to\_string(&self) -> String`
+
+Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)
+
+### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+
+#### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try\_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</span> 
+### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</span>
+#### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try\_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 
-### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
+### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
-#### <span>fn [vzip](/api/rust/tauri/about:blank#method.vzip)(self) -&gt; V</span>
+#### `fn vzip(self) -> V`
+
       

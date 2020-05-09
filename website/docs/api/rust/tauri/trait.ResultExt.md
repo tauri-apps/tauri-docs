@@ -2,41 +2,39 @@
 title: "trait.ResultExt"
 ---
 
-Trait [tauri](/api/rust/tauri/index.html)::[ResultExt](/api/rust/tauri/)
-========================================================================
+# Trait [tauri](/docs/api/rust/tauri/index.html)::​[ResultExt](/docs/api/rust/tauri/)
 
-```rust
-pub trait ResultExt&lt;T&gt; {
-    fn [chain\\\_err](/api/rust/tauri/about:blank#tymethod.chain\_err)&lt;F, EK&gt;(self, callback: F) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")\&gt;&lt;br/&gt;    where&lt;br/&gt;        F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;        EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")\&gt;;
-}
-```
+    pub trait ResultExt<T> {
+        fn chain\_err<F, EK>(self, callback: F) -> Result<T, Error>
+        where
+            F: FnOnce() -> EK,
+            EK: Into<ErrorKind>;
+    }
 
-Additional methods for <span>Result</span>, for easy interaction with this crate.
+Additional methods for `Result`, for easy interaction with this crate.
 
-Required methods
-----------------
+## Required methods
 
-### <span>fn [chain\_err](/api/rust/tauri/about:blank#tymethod.chain\_err)&lt;F, EK&gt;(self, callback: F) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")&gt; where&lt;br/&gt;    F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;    EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")&gt;,</span> 
+### `fn chain\_err<F, EK>(self, callback: F) -> Result<T, Error> where F: FnOnce() -> EK, EK: Into<ErrorKind>,`
 
-If the <span>Result</span> is an <span>Err</span> then <span>chain\_err</span> evaluates the closure, which returns &lt;em&gt;some type that can be converted to <span>ErrorKind</span>&lt;/em&gt;, boxes the original error to store as the cause, then returns a new error containing the original error.
-
-Loading content...
-
-Implementations on Foreign Types
---------------------------------
-
-### <span>impl&lt;T, E&gt; [ResultExt](/api/rust/tauri/../tauri/trait.ResultExt.html "trait tauri::ResultExt")&lt;T&gt; for [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, E&gt; where&lt;br/&gt;    E: [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") + 'static,</span> 
-
-#### <span>fn [chain\_err](/api/rust/tauri/about:blank#method.chain\_err)&lt;F, EK&gt;(self, callback: F) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")&gt; where&lt;br/&gt;    F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;    EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")&gt;,</span> 
-
-### <span>impl&lt;T&gt; [ResultExt](/api/rust/tauri/../tauri/trait.ResultExt.html "trait tauri::ResultExt")&lt;T&gt; for [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;T&gt;</span>
-
-#### <span>fn [chain\_err](/api/rust/tauri/about:blank#method.chain\_err)&lt;F, EK&gt;(self, callback: F) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, [Error](/api/rust/tauri/../tauri/struct.Error.html "struct tauri::Error")&gt; where&lt;br/&gt;    F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;    EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/api/rust/tauri/../tauri/enum.ErrorKind.html "enum tauri::ErrorKind")&gt;,</span> 
+If the `Result` is an `Err` then `chain\_err` evaluates the closure, which returns _some type that can be converted to `ErrorKind`_, boxes the original error to store as the cause, then returns a new error containing the original error.
 
 Loading content...
 
-Implementors
-------------
+## Implementations on Foreign Types
 
-Loading content...window.inlined\\\_types=new Set(\[\]);
+### `impl<T, E> ResultExt<T> for Result<T, E> where E: Error + Send + 'static,`
+
+#### `fn chain\_err<F, EK>(self, callback: F) -> Result<T, Error> where F: FnOnce() -> EK, EK: Into<ErrorKind>,`
+
+### `impl<T> ResultExt<T> for Option<T>`
+
+#### `fn chain\_err<F, EK>(self, callback: F) -> Result<T, Error> where F: FnOnce() -> EK, EK: Into<ErrorKind>,`
+
+Loading content...
+
+## Implementors
+
+Loading content...
+
       

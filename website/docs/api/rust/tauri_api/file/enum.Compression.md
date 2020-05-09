@@ -2,8 +2,8 @@
 title: "enum.Compression"
 ---
 
-Enum [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[file](/api/rust/tauri\_api/index.html)::[Compression](/api/rust/tauri\_api/)
-======================================================================================================================================
+Enum [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[file](/docs/api/rust/tauri\_api/index.html)::[Compression](/docs/api/rust/tauri\_api/)
+=====================================================================================================================================================
 
 ```rust
 pub enum Compression {
@@ -19,9 +19,9 @@ Variants
 Trait Implementations
 ---------------------
 
-### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -29,17 +29,17 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from <span>source</span>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
 
-### <span>impl [Copy](https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html "trait core::marker::Copy") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Copy](https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html "trait core::marker::Copy") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")&gt; for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")&gt; for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
 
 This method tests for <span>self</span> and <span>other</span> values to be equal, and is used by <span>==</span>. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
@@ -47,20 +47,20 @@ This method tests for <span>self</span> and <span>other</span> values to be equa
 
 This method tests for <span>!=</span>.
 
-### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
 Auto Trait Implementations
 --------------------------
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Compression](/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
+### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Compression](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.Compression.html "enum tauri\_api::file::Compression")</span>
 
 Blanket Implementations
 -----------------------
@@ -135,5 +135,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

@@ -2,8 +2,8 @@
 title: "struct.Extract"
 ---
 
-Struct [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[file](/api/rust/tauri\_api/index.html)::[Extract](/api/rust/tauri\_api/)
-====================================================================================================================================
+Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[file](/docs/api/rust/tauri\_api/index.html)::[Extract](/docs/api/rust/tauri\_api/)
+===================================================================================================================================================
 
 ```rust
 pub struct Extract&lt;'a&gt; { /\* fields omitted \*/ }
@@ -12,28 +12,28 @@ pub struct Extract&lt;'a&gt; { /\* fields omitted \*/ }
 Methods
 -------
 
-### <span>impl&lt;'a&gt; [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
-#### <span>pub fn [from\_source](/api/rust/tauri\_api/about:blank#method.from\_source)(source: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+#### <span>pub fn [from\_source](/docs/api/rust/tauri\_api/about:blank#method.from\_source)(source: &'a [Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
 Create an \`Extractor from a source path
 
-#### <span>pub fn [archive\_format](/api/rust/tauri\_api/about:blank#method.archive\_format)(&mut self, format: [ArchiveFormat](/api/rust/tauri\_api/../../tauri\_api/file/enum.ArchiveFormat.html "enum tauri\_api::file::ArchiveFormat")) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) Self</span>
+#### <span>pub fn [archive\_format](/docs/api/rust/tauri\_api/about:blank#method.archive\_format)(&mut self, format: [ArchiveFormat](/docs/api/rust/tauri\_api/../../tauri\_api/file/enum.ArchiveFormat.html "enum tauri\_api::file::ArchiveFormat")) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) Self</span>
 
 Specify an archive format of the source being extracted. If not specified, the archive format will determined from the file extension.
 
-#### <span>pub fn [extract\_into](/api/rust/tauri\_api/about:blank#method.extract\_into)(&self, into\_dir: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Result](/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
+#### <span>pub fn [extract\_into](/docs/api/rust/tauri\_api/about:blank#method.extract\_into)(&self, into\_dir: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")) -&gt; [Result](/docs/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
 
 Extract an entire source archive into a specified path. If the source is a single compressed file and not an archive, it will be extracted into a file with the same name inside of <span>into\_dir</span>.
 
-#### <span>pub fn [extract\_file](/api/rust/tauri\_api/about:blank#method.extract\_file)&lt;T: [AsRef](https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html "trait core::convert::AsRef")&lt;[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")&gt;&gt;(&lt;br/&gt;    &self,&lt;br/&gt;    into\_dir: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path"),&lt;br/&gt;    file\_to\_extract: T&lt;br/&gt;) -&gt; [Result](/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
+#### <span>pub fn [extract\_file](/docs/api/rust/tauri\_api/about:blank#method.extract\_file)&lt;T: [AsRef](https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html "trait core::convert::AsRef")&lt;[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")&gt;&gt;(&lt;br/&gt;    &self,&lt;br/&gt;    into\_dir: &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path"),&lt;br/&gt;    file\_to\_extract: T&lt;br/&gt;) -&gt; [Result](/docs/api/rust/tauri\_api/../../tauri\_api/type.Result.html "type tauri\_api::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html)&gt;</span>
 
 Extract a single file from a source and save to a file of the same name in <span>into\_dir</span>. If the source is a single compressed file, it will be saved with the name <span>file\_to\_extract</span> in the specified <span>into\_dir</span>.
 
 Trait Implementations
 ---------------------
 
-### <span>impl&lt;'a&gt; [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
 #### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
 
@@ -42,15 +42,15 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 Auto Trait Implementations
 --------------------------
 
-### <span>impl&lt;'a&gt; [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
-### <span>impl&lt;'a&gt; [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Extract](/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
+### <span>impl&lt;'a&gt; [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Extract](/docs/api/rust/tauri\_api/../../tauri\_api/file/struct.Extract.html "struct tauri\_api::file::Extract")&lt;'a&gt;</span>
 
 Blanket Implementations
 -----------------------
@@ -107,5 +107,5 @@ Performs the conversion.
 
 ### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
 
-#### <span>fn [vzip](/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
       

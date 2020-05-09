@@ -2,11 +2,11 @@
 title: "fn.target_triple"
 ---
 
-Function [tauri\\\_api](/api/rust/tauri\_api/../index.html)::[platform](/api/rust/tauri\_api/index.html)::[target\\\_triple](/api/rust/tauri\_api/)
-===================================================================================================================================================
+Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[platform](/docs/api/rust/tauri\_api/index.html)::[target\\\_triple](/docs/api/rust/tauri\_api/)
+==================================================================================================================================================================
 
 ```rust
-pub fn target\\\_triple() -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"), [Error](/api/rust/tauri\_api/../../tauri\_api/struct.Error.html "struct tauri\_api::Error")\&gt;
+pub fn target\\\_triple() -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String"), [Error](/docs/api/rust/tauri\_api/../../tauri\_api/struct.Error.html "struct tauri\_api::Error")\&gt;
 ```
 
 Try to determine the current target triple.
