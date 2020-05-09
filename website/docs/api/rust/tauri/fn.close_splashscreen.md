@@ -2,8 +2,8 @@
 title: "fn.close_splashscreen"
 ---
 
-# Function [tauri](/docs/api/rust/tauri/index.html)::​[close\\\_splashscreen](/docs/api/rust/tauri/)
+# Function [tauri](/docs/api/rust/tauri/index.html)::​[close_splashscreen](/docs/api/rust/tauri/)
 
-    pub fn close\_splashscreen<T: 'static>(webview\_handle: &Handle<T>) -> Result<()>
+    pub fn close_splashscreen<T: 'static>(webview_handle: &Handle<T>) -> Result<()>
 
       

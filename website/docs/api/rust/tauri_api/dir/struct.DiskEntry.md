@@ -2,17 +2,17 @@
 title: "struct.DiskEntry"
 ---
 
-# Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[dir](/docs/api/rust/tauri\_api/index.html)::​[DiskEntry](/docs/api/rust/tauri\_api/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[dir](/docs/api/rust/tauri_api/index.html)::​[DiskEntry](/docs/api/rust/tauri_api/)
 
     pub struct DiskEntry {
         pub path: String,
-        pub is\_dir: bool,
+        pub is_dir: bool,
         pub name: String,
     }
 
 ## Fields
 
-`path: String``is\_dir: bool``name: String`
+`path: String``is_dir: bool``name: String`
 
 ## Trait Implementations
 
@@ -24,7 +24,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 ### `impl Serialize for DiskEntry`
 
-#### `fn serialize<\_\_S>(&self, \_\_serializer: \_\_S) -> Result<\_\_S::Ok, \_\_S::Error> where \_\_S: Serializer,`
+#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
 Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)
 
@@ -44,9 +44,9 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -56,9 +56,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -78,7 +78,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -88,7 +88,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

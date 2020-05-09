@@ -2,9 +2,9 @@
 title: "fn.pick_folder"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[dialog](/docs/api/rust/tauri\_api/index.html)::​[pick\\\_folder](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[dialog](/docs/api/rust/tauri_api/index.html)::​[pick_folder](/docs/api/rust/tauri_api/)
 
-    pub fn pick\_folder(default\_path: Option<String>) -> Result<Response>
+    pub fn pick_folder(default_path: Option<String>) -> Result<Response>
 
 Open pick folder dialog
 

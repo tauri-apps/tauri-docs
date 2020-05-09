@@ -2,8 +2,8 @@
 title: "fn.format_command"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[command](/docs/api/rust/tauri\_api/index.html)::​[format\\\_command](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[command](/docs/api/rust/tauri_api/index.html)::​[format_command](/docs/api/rust/tauri_api/)
 
-    pub fn format\_command(path: String, command: String) -> String
+    pub fn format_command(path: String, command: String) -> String
 
       

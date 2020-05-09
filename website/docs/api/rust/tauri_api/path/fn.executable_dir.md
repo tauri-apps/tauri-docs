@@ -2,8 +2,8 @@
 title: "fn.executable_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[executable\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[executable_dir](/docs/api/rust/tauri_api/)
 
-    pub fn executable\_dir() -> Option<PathBuf>
+    pub fn executable_dir() -> Option<PathBuf>
 
       

@@ -2,8 +2,8 @@
 title: "fn.config_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[config\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[config_dir](/docs/api/rust/tauri_api/)
 
-    pub fn config\_dir() -> Option<PathBuf>
+    pub fn config_dir() -> Option<PathBuf>
 
       

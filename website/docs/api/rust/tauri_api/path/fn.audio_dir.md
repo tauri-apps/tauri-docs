@@ -2,8 +2,8 @@
 title: "fn.audio_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[audio\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[audio_dir](/docs/api/rust/tauri_api/)
 
-    pub fn audio\_dir() -> Option<PathBuf>
+    pub fn audio_dir() -> Option<PathBuf>
 
       

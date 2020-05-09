@@ -2,8 +2,8 @@
 title: "fn.read_string"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[file](/docs/api/rust/tauri\_api/index.html)::​[read\\\_string](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[file](/docs/api/rust/tauri_api/index.html)::​[read_string](/docs/api/rust/tauri_api/)
 
-    pub fn read\_string(file: String) -> Result<String>
+    pub fn read_string(file: String) -> Result<String>
 
       

@@ -2,8 +2,8 @@
 title: "fn.get_parent_process"
 ---
 
-# Function [tauri\\\_utils](/docs/api/rust/tauri\_utils/../index.html)::​[process](/docs/api/rust/tauri\_utils/index.html)::​[get\\\_parent\\\_process](/docs/api/rust/tauri\_utils/)
+# Function [tauri_utils](/docs/api/rust/tauri_utils/../index.html)::​[process](/docs/api/rust/tauri_utils/index.html)::​[get_parent_process](/docs/api/rust/tauri_utils/)
 
-    pub fn get\_parent\_process(system: &mut System) -> Result<&Process>
+    pub fn get_parent_process(system: &mut System) -> Result<&Process>
 
       

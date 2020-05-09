@@ -2,8 +2,8 @@
 title: "fn.port_is_available"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[tcp](/docs/api/rust/tauri\_api/index.html)::​[port\\\_is\\\_available](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[tcp](/docs/api/rust/tauri_api/index.html)::​[port_is_available](/docs/api/rust/tauri_api/)
 
-    pub fn port\_is\_available(port: u16) -> bool
+    pub fn port_is_available(port: u16) -> bool
 
       

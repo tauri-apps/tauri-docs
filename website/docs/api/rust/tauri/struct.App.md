@@ -12,7 +12,7 @@ title: "struct.App"
 
 #### `pub fn run(self)`
 
-#### `pub fn splashscreen\_html(&self) -> Option<&String>`
+#### `pub fn splashscreen_html(&self) -> Option<&String>`
 
 ## Auto Trait Implementations
 
@@ -30,9 +30,9 @@ title: "struct.App"
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -42,9 +42,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -64,7 +64,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -74,7 +74,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

@@ -2,7 +2,7 @@
 title: "struct.Extract"
 ---
 
-# Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[file](/docs/api/rust/tauri\_api/index.html)::​[Extract](/docs/api/rust/tauri\_api/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[file](/docs/api/rust/tauri_api/index.html)::​[Extract](/docs/api/rust/tauri_api/)
 
     pub struct Extract<'a> { /* fields omitted */ }
 
@@ -10,21 +10,21 @@ title: "struct.Extract"
 
 ### `impl<'a> Extract<'a>`
 
-#### `pub fn from\_source(source: &'a Path) -> Extract<'a>`
+#### `pub fn from_source(source: &'a Path) -> Extract<'a>`
 
 Create an \`Extractor from a source path
 
-#### `pub fn archive\_format(&mut self, format: ArchiveFormat) -> &mutSelf`
+#### `pub fn archive_format(&mut self, format: ArchiveFormat) -> &mutSelf`
 
 Specify an archive format of the source being extracted. If not specified, the archive format will determined from the file extension.
 
-#### `pub fn extract\_into(&self, into\_dir: &Path) -> Result<()>`
+#### `pub fn extract_into(&self, into_dir: &Path) -> Result<()>`
 
-Extract an entire source archive into a specified path. If the source is a single compressed file and not an archive, it will be extracted into a file with the same name inside of `into\_dir`.
+Extract an entire source archive into a specified path. If the source is a single compressed file and not an archive, it will be extracted into a file with the same name inside of `into_dir`.
 
-#### `pub fn extract\_file<T: AsRef<Path>>( &self, into\_dir: &Path, file\_to\_extract: T ) -> Result<()>`
+#### `pub fn extract_file<T: AsRef<Path>>( &self, into_dir: &Path, file_to_extract: T ) -> Result<()>`
 
-Extract a single file from a source and save to a file of the same name in `into\_dir`. If the source is a single compressed file, it will be saved with the name `file\_to\_extract` in the specified `into\_dir`.
+Extract a single file from a source and save to a file of the same name in `into_dir`. If the source is a single compressed file, it will be saved with the name `file_to_extract` in the specified `into_dir`.
 
 ## Trait Implementations
 
@@ -50,9 +50,9 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -62,9 +62,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -84,7 +84,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -94,7 +94,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

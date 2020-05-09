@@ -2,10 +2,10 @@
 title: "trait.ProcessExt"
 ---
 
-# Trait [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[process](/docs/api/rust/tauri\_api/index.html)::​[ProcessExt](/docs/api/rust/tauri\_api/)
+# Trait [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[process](/docs/api/rust/tauri_api/index.html)::​[ProcessExt](/docs/api/rust/tauri_api/)
 
     pub trait ProcessExt {
-        fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Self;
+        fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Self;
 
         fn kill(&self, signal: Signal) -> bool;
 
@@ -25,26 +25,26 @@ title: "trait.ProcessExt"
 
         fn memory(&self) -> u64;
 
-        fn virtual\_memory(&self) -> u64;
+        fn virtual_memory(&self) -> u64;
 
         fn parent(&self) -> Option<i32>;
 
         fn status(&self) -> ProcessStatus;
 
-        fn start\_time(&self) -> u64;
+        fn start_time(&self) -> u64;
 
-        fn cpu\_usage(&self) -> f32;
+        fn cpu_usage(&self) -> f32;
     }
 
 Contains all the methods of the `Process` struct.
 
 ## Required methods
 
-### `fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Self`
+### `fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Self`
 
 Create a new process only containing the given information.
 
-On windows, the `start\_time` argument is ignored.
+On windows, the `start_time` argument is ignored.
 
 ### `fn kill(&self, signal: Signal) -> bool`
 
@@ -88,7 +88,7 @@ Always empty on Windows.
 
 Returns the memory usage (in KiB).
 
-### `fn virtual\_memory(&self) -> u64`
+### `fn virtual_memory(&self) -> u64`
 
 Returns the virtual memory usage (in KiB).
 
@@ -100,11 +100,11 @@ Returns the parent pid.
 
 Returns the status of the processus.
 
-### `fn start\_time(&self) -> u64`
+### `fn start_time(&self) -> u64`
 
 Returns the time of process launch (in seconds).
 
-### `fn cpu\_usage(&self) -> f32`
+### `fn cpu_usage(&self) -> f32`
 
 Returns the total CPU usage.
 
@@ -114,7 +114,7 @@ Loading content...
 
 ### `impl ProcessExt for Process`
 
-#### `fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Process`
+#### `fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Process`
 
 #### `fn kill(&self, signal: Signal) -> bool`
 
@@ -134,7 +134,7 @@ Loading content...
 
 #### `fn memory(&self) -> u64`
 
-#### `fn virtual\_memory(&self) -> u64`
+#### `fn virtual_memory(&self) -> u64`
 
 #### `fn parent(&self) -> Option<i32>`
 
@@ -142,9 +142,9 @@ Loading content...
 
 Returns the status of the processus (idle, run, zombie, etc). `None` means that `sysinfo` doesn't have enough rights to get this information.
 
-#### `fn start\_time(&self) -> u64`
+#### `fn start_time(&self) -> u64`
 
-#### `fn cpu\_usage(&self) -> f32`
+#### `fn cpu_usage(&self) -> f32`
 
 Loading content...
 

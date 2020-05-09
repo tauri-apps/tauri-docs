@@ -2,7 +2,7 @@
 title: "enum.ArchiveFormat"
 ---
 
-# Enum [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[file](/docs/api/rust/tauri\_api/index.html)::​[ArchiveFormat](/docs/api/rust/tauri\_api/)
+# Enum [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[file](/docs/api/rust/tauri_api/index.html)::​[ArchiveFormat](/docs/api/rust/tauri_api/)
 
     pub enum ArchiveFormat {
         Tar(Option<Compression>),
@@ -26,9 +26,9 @@ title: "enum.ArchiveFormat"
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `fn clone\_from(&mut self, source: &Self)`1.0.0
+#### `fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl Copy for ArchiveFormat`
 
@@ -66,9 +66,9 @@ This method tests for `!=`.
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -78,9 +78,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -100,17 +100,17 @@ Performs the conversion.
 
 The resulting type after obtaining ownership.
 
-#### `fn to\_owned(&self) -> T`
+#### `fn to_owned(&self) -> T`
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to\_owned)
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-#### `fn clone\_into(&self, target: &mutT)`
+#### `fn clone_into(&self, target: &mutT)`
 
-🔬 This is a nightly-only experimental API. (`toowned\_clone\_into`)
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone\_into)
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
@@ -118,7 +118,7 @@ Uses borrowed data to replace owned data, usually by cloning. [Read more](https:
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -128,7 +128,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

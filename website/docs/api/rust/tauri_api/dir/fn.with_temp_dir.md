@@ -2,8 +2,8 @@
 title: "fn.with_temp_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[dir](/docs/api/rust/tauri\_api/index.html)::​[with\\\_temp\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[dir](/docs/api/rust/tauri_api/index.html)::​[with_temp_dir](/docs/api/rust/tauri_api/)
 
-    pub fn with\_temp\_dir<F: FnOnce(&TempDir)>(callback: F) -> Result<()>
+    pub fn with_temp_dir<F: FnOnce(&TempDir)>(callback: F) -> Result<()>
 
       

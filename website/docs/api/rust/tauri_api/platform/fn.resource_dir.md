@@ -2,8 +2,8 @@
 title: "fn.resource_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[platform](/docs/api/rust/tauri\_api/index.html)::​[resource\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[platform](/docs/api/rust/tauri_api/index.html)::​[resource_dir](/docs/api/rust/tauri_api/)
 
-    pub fn resource\_dir() -> Result<PathBuf, Error>
+    pub fn resource_dir() -> Result<PathBuf, Error>
 
       

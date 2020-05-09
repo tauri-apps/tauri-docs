@@ -2,9 +2,9 @@
 title: "struct.Error"
 ---
 
-# Struct [tauri\\\_api](/docs/api/rust/tauri\_api/index.html)::​[Error](/docs/api/rust/tauri\_api/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/index.html)::​[Error](/docs/api/rust/tauri_api/)
 
-    pub struct Error(pub ErrorKind, \_);
+    pub struct Error(pub ErrorKind, _);
 
 The Error type.
 
@@ -12,7 +12,7 @@ This tuple struct is made of two elements:
 
 -   an `ErrorKind` which is used to determine the type of the error.
 
--   An internal `State`, not meant for direct use outside of `error\_chain` internals, containing:
+-   An internal `State`, not meant for direct use outside of `error_chain` internals, containing:
 
     -   a backtrace, generated when the error is created.
     -   an error chain, used for the implementation of `Error::cause()`.
@@ -21,15 +21,15 @@ This tuple struct is made of two elements:
 
 ### `impl Error`
 
-#### `pub fn from\_kind(kind: ErrorKind) -> Error`
+#### `pub fn from_kind(kind: ErrorKind) -> Error`
 
 Constructs an error from a kind, and generates a backtrace.
 
-#### `pub fn with\_chain<E, K>(error: E, kind: K) -> Errorwhere E: Error + Send + 'static, K: Into<ErrorKind>,`
+#### `pub fn with_chain<E, K>(error: E, kind: K) -> Errorwhere E: Error + Send + 'static, K: Into<ErrorKind>,`
 
 Constructs a chained error from another error and a kind, and generates a backtrace.
 
-#### `pub fn with\_boxed\_chain<K>( error: Box<dyn Error + 'static + Send>, kind: K ) -> Errorwhere K: Into<ErrorKind>,`
+#### `pub fn with_boxed_chain<K>( error: Box<dyn Error + 'static + Send>, kind: K ) -> Errorwhere K: Into<ErrorKind>,`
 
 Construct a chained error from another boxed error and a kind, and generates a backtrace
 
@@ -45,7 +45,7 @@ Iterates over the error chain.
 
 Returns the backtrace associated with this error.
 
-#### `pub fn chain\_err<F, EK>(self, error: F) -> Errorwhere EK: Into<ErrorKind>, F: FnOnce() -> EK,`
+#### `pub fn chain_err<F, EK>(self, error: F) -> Errorwhere EK: Into<ErrorKind>, F: FnOnce() -> EK,`
 
 Extends the error chain with a new entry.
 
@@ -63,11 +63,11 @@ Associated kind type.
 
 #### `fn new(kind: ErrorKind, state: State) -> Error`
 
-#### `fn from\_kind(kind: <Error as ChainedError>::ErrorKind) -> Error`
+#### `fn from_kind(kind: <Error as ChainedError>::ErrorKind) -> Error`
 
 Constructs an error from a kind, and generates a backtrace.
 
-#### `fn with\_chain<E, K>(error: E, kind: K) -> Errorwhere E: Error + Send + 'static, K: Into<<Error as ChainedError>::ErrorKind>,`
+#### `fn with_chain<E, K>(error: E, kind: K) -> Errorwhere E: Error + Send + 'static, K: Into<<Error as ChainedError>::ErrorKind>,`
 
 Constructs a chained error from another error and a kind, and generates a backtrace.
 
@@ -79,7 +79,7 @@ Returns the kind of the error.
 
 Iterates over the error chain.
 
-#### `fn chain\_err<F, EK>(self, error: F) -> Errorwhere EK: Into<ErrorKind>, F: FnOnce() -> EK,`
+#### `fn chain_err<F, EK>(self, error: F) -> Errorwhere EK: Into<ErrorKind>, F: FnOnce() -> EK,`
 
 Extends the error chain with a new entry.
 
@@ -87,11 +87,11 @@ Extends the error chain with a new entry.
 
 Returns the backtrace associated with this error.
 
-#### `fn extract\_backtrace( e: &(dyn Error + 'static + Send) ) -> Option<InternalBacktrace>`
+#### `fn extract_backtrace( e: &(dyn Error + 'static + Send) ) -> Option<InternalBacktrace>`
 
-#### `fn display\_chain(&'a self) -> DisplayChain<'a, Self>`
+#### `fn display_chain(&'a self) -> DisplayChain<'a, Self>`
 
-Returns an object which implements `Display` for printing the full context of this error. [Read more](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#method.display\_chain)
+Returns an object which implements `Display` for printing the full context of this error. [Read more](https://docs.rs/error-chain/0.12.2/error_chain/trait.ChainedError.html#method.display_chain)
 
 ### `impl Debug for Error`
 
@@ -181,9 +181,9 @@ Performs the conversion.
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -193,9 +193,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -211,9 +211,9 @@ Performs the conversion.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 
-#### `default fn to\_string(&self) -> String`
+#### `default fn to_string(&self) -> String`
 
-Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)
+Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
@@ -221,7 +221,7 @@ Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/ni
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -231,7 +231,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

@@ -2,9 +2,9 @@
 title: "fn.spawn_relative_command"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[command](/docs/api/rust/tauri\_api/index.html)::​[spawn\\\_relative\\\_command](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[command](/docs/api/rust/tauri_api/index.html)::​[spawn_relative_command](/docs/api/rust/tauri_api/)
 
-    pub fn spawn\_relative\_command(
+    pub fn spawn_relative_command(
         command: String, 
         args: Vec<String>, 
         stdout: Stdio

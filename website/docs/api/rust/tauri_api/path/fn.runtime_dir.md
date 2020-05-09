@@ -2,8 +2,8 @@
 title: "fn.runtime_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[runtime\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[runtime_dir](/docs/api/rust/tauri_api/)
 
-    pub fn runtime\_dir() -> Option<PathBuf>
+    pub fn runtime_dir() -> Option<PathBuf>
 
       

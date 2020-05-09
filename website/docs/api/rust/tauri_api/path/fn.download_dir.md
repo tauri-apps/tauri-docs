@@ -2,8 +2,8 @@
 title: "fn.download_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[download\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[download_dir](/docs/api/rust/tauri_api/)
 
-    pub fn download\_dir() -> Option<PathBuf>
+    pub fn download_dir() -> Option<PathBuf>
 
       

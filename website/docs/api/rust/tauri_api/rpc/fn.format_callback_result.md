@@ -2,12 +2,12 @@
 title: "fn.format_callback_result"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[rpc](/docs/api/rust/tauri\_api/index.html)::​[format\\\_callback\\\_result](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[rpc](/docs/api/rust/tauri_api/index.html)::​[format_callback_result](/docs/api/rust/tauri_api/)
 
-    pub fn format\_callback\_result(
+    pub fn format_callback_result(
         result: Result<String, String>, 
         callback: String, 
-        error\_callback: String
+        error_callback: String
     ) -> String
 
       

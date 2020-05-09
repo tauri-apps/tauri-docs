@@ -2,9 +2,9 @@
 title: "fn.get_output"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[command](/docs/api/rust/tauri\_api/index.html)::​[get\\\_output](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[command](/docs/api/rust/tauri_api/index.html)::​[get_output](/docs/api/rust/tauri_api/)
 
-    pub fn get\_output(
+    pub fn get_output(
         cmd: String, 
         args: Vec<String>, 
         stdout: Stdio

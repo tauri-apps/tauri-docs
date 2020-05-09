@@ -2,8 +2,8 @@
 title: "fn.video_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[video\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[video_dir](/docs/api/rust/tauri_api/)
 
-    pub fn video\_dir() -> Option<PathBuf>
+    pub fn video_dir() -> Option<PathBuf>
 
       

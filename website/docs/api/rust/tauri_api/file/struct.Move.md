@@ -2,13 +2,13 @@
 title: "struct.Move"
 ---
 
-# Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[file](/docs/api/rust/tauri\_api/index.html)::​[Move](/docs/api/rust/tauri\_api/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[file](/docs/api/rust/tauri_api/index.html)::​[Move](/docs/api/rust/tauri_api/)
 
     pub struct Move<'a> { /* fields omitted */ }
 
 Moves a file from the given path to the specified destination.
 
-`source` and `dest` must be on the same filesystem. If `replace\_using\_temp` is specified, the destination file will be replaced using the given temporary path.
+`source` and `dest` must be on the same filesystem. If `replace_using_temp` is specified, the destination file will be replaced using the given temporary path.
 
 -   Errors:
 
@@ -18,11 +18,11 @@ Moves a file from the given path to the specified destination.
 
 ### `impl<'a> Move<'a>`
 
-#### `pub fn from\_source(source: &'a Path) -> Move<'a>`
+#### `pub fn from_source(source: &'a Path) -> Move<'a>`
 
 Specify source file
 
-#### `pub fn replace\_using\_temp(&mut self, temp: &'a Path) -> &mutSelf`
+#### `pub fn replace_using_temp(&mut self, temp: &'a Path) -> &mutSelf`
 
 If specified and the destination file already exists, the "destination" file will be moved to the given temporary location before the "source" file is moved to the "destination" file.
 
@@ -30,7 +30,7 @@ In the event of an `io` error while renaming "source" to "destination", the temp
 
 The `temp` dir must be explicitly provided since `rename` operations require files to live on the same filesystem.
 
-#### `pub fn to\_dest(&self, dest: &Path) -> Result<()>`
+#### `pub fn to_dest(&self, dest: &Path) -> Result<()>`
 
 Move source file to specified destination
 
@@ -58,9 +58,9 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type\_id(&self) -> TypeId`
+#### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
@@ -70,9 +70,9 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow\_mut(&mut self) -> &mutT`
+#### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -92,7 +92,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -102,7 +102,7 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 

@@ -2,8 +2,8 @@
 title: "fn.read_binary"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[file](/docs/api/rust/tauri\_api/index.html)::​[read\\\_binary](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[file](/docs/api/rust/tauri_api/index.html)::​[read_binary](/docs/api/rust/tauri_api/)
 
-    pub fn read\_binary(file: String) -> Result<Vec<u8>>
+    pub fn read_binary(file: String) -> Result<Vec<u8>>
 
       

@@ -2,8 +2,8 @@
 title: "fn.public_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[public\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[public_dir](/docs/api/rust/tauri_api/)
 
-    pub fn public\_dir() -> Option<PathBuf>
+    pub fn public_dir() -> Option<PathBuf>
 
       

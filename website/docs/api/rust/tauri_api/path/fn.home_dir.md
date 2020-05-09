@@ -2,8 +2,8 @@
 title: "fn.home_dir"
 ---
 
-# Function [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[path](/docs/api/rust/tauri\_api/index.html)::​[home\\\_dir](/docs/api/rust/tauri\_api/)
+# Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[path](/docs/api/rust/tauri_api/index.html)::​[home_dir](/docs/api/rust/tauri_api/)
 
-    pub fn home\_dir() -> Option<PathBuf>
+    pub fn home_dir() -> Option<PathBuf>
 
       
