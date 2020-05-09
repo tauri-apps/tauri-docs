@@ -83,6 +83,174 @@
                 "api/rust/tauri/trait.ResultExt",
                 "api/rust/tauri/type.Result"
               ]
+            },
+            {
+              "label": "tauri_api",
+              "type": "category",
+              "items": [
+                {
+                  "label": "command",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/command/fn.binary_command",
+                    "api/rust/tauri_api/command/fn.command_path",
+                    "api/rust/tauri_api/command/fn.format_command",
+                    "api/rust/tauri_api/command/fn.get_output",
+                    "api/rust/tauri_api/command/fn.relative_command",
+                    "api/rust/tauri_api/command/fn.spawn_relative_command"
+                  ]
+                },
+                {
+                  "label": "dialog",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/dialog/enum.Response",
+                    "api/rust/tauri_api/dialog/fn.pick_folder",
+                    "api/rust/tauri_api/dialog/fn.save_file",
+                    "api/rust/tauri_api/dialog/fn.select",
+                    "api/rust/tauri_api/dialog/fn.select_multiple"
+                  ]
+                },
+                {
+                  "label": "dir",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/dir/fn.list_dir_contents",
+                    "api/rust/tauri_api/dir/fn.walk_dir",
+                    "api/rust/tauri_api/dir/fn.with_temp_dir",
+                    "api/rust/tauri_api/dir/struct.DiskEntry"
+                  ]
+                },
+                {
+                  "label": "file",
+                  "type": "category",
+                  "items": [
+                    {
+                      "label": "extract",
+                      "type": "category",
+                      "items": []
+                    },
+                    {
+                      "label": "file_move",
+                      "type": "category",
+                      "items": []
+                    },
+                    "api/rust/tauri_api/file/enum.ArchiveFormat",
+                    "api/rust/tauri_api/file/enum.Compression",
+                    "api/rust/tauri_api/file/fn.read_binary",
+                    "api/rust/tauri_api/file/fn.read_string",
+                    "api/rust/tauri_api/file/struct.Extract",
+                    "api/rust/tauri_api/file/struct.Move"
+                  ]
+                },
+                {
+                  "label": "path",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/path/enum.BaseDirectory",
+                    "api/rust/tauri_api/path/fn.app_dir",
+                    "api/rust/tauri_api/path/fn.audio_dir",
+                    "api/rust/tauri_api/path/fn.cache_dir",
+                    "api/rust/tauri_api/path/fn.config_dir",
+                    "api/rust/tauri_api/path/fn.data_dir",
+                    "api/rust/tauri_api/path/fn.desktop_dir",
+                    "api/rust/tauri_api/path/fn.document_dir",
+                    "api/rust/tauri_api/path/fn.download_dir",
+                    "api/rust/tauri_api/path/fn.executable_dir",
+                    "api/rust/tauri_api/path/fn.font_dir",
+                    "api/rust/tauri_api/path/fn.home_dir",
+                    "api/rust/tauri_api/path/fn.local_data_dir",
+                    "api/rust/tauri_api/path/fn.picture_dir",
+                    "api/rust/tauri_api/path/fn.public_dir",
+                    "api/rust/tauri_api/path/fn.resolve_path",
+                    "api/rust/tauri_api/path/fn.resource_dir",
+                    "api/rust/tauri_api/path/fn.runtime_dir",
+                    "api/rust/tauri_api/path/fn.template_dir",
+                    "api/rust/tauri_api/path/fn.video_dir"
+                  ]
+                },
+                {
+                  "label": "platform",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/platform/fn.resource_dir",
+                    "api/rust/tauri_api/platform/fn.target_triple"
+                  ]
+                },
+                {
+                  "label": "process",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/process/enum.Signal",
+                    "api/rust/tauri_api/process/fn.get_parent_process",
+                    "api/rust/tauri_api/process/struct.Process",
+                    "api/rust/tauri_api/process/struct.System",
+                    "api/rust/tauri_api/process/trait.ProcessExt",
+                    "api/rust/tauri_api/process/trait.SystemExt"
+                  ]
+                },
+                {
+                  "label": "rpc",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/rpc/fn.format_callback",
+                    "api/rust/tauri_api/rpc/fn.format_callback_result"
+                  ]
+                },
+                {
+                  "label": "tcp",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/tcp/fn.get_available_port",
+                    "api/rust/tauri_api/tcp/fn.port_is_available"
+                  ]
+                },
+                {
+                  "label": "version",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/version/fn.compare",
+                    "api/rust/tauri_api/version/fn.is_compatible",
+                    "api/rust/tauri_api/version/fn.is_major",
+                    "api/rust/tauri_api/version/fn.is_minor",
+                    "api/rust/tauri_api/version/fn.is_patch"
+                  ]
+                },
+                "api/rust/tauri_api/enum.ErrorKind",
+                "api/rust/tauri_api/struct.Error",
+                "api/rust/tauri_api/trait.ResultExt",
+                "api/rust/tauri_api/type.Result"
+              ]
+            },
+            {
+              "label": "tauri_utils",
+              "type": "category",
+              "items": [
+                {
+                  "label": "platform",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_utils/platform/fn.resource_dir",
+                    "api/rust/tauri_utils/platform/fn.target_triple"
+                  ]
+                },
+                {
+                  "label": "process",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_utils/process/enum.Signal",
+                    "api/rust/tauri_utils/process/fn.get_parent_process",
+                    "api/rust/tauri_utils/process/struct.Process",
+                    "api/rust/tauri_utils/process/struct.System",
+                    "api/rust/tauri_utils/process/trait.ProcessExt",
+                    "api/rust/tauri_utils/process/trait.SystemExt"
+                  ]
+                },
+                "api/rust/tauri_utils/enum.ErrorKind",
+                "api/rust/tauri_utils/struct.Error",
+                "api/rust/tauri_utils/trait.ResultExt",
+                "api/rust/tauri_utils/type.Result"
+              ]
             }
           ]
         }

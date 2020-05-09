@@ -2,179 +2,173 @@
 title: "struct.Process"
 ---
 
-Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::[process](/docs/api/rust/tauri\_api/index.html)::[Process](/docs/api/rust/tauri\_api/)
-======================================================================================================================================================
+# Struct [tauri\\\_api](/docs/api/rust/tauri\_api/../index.html)::​[process](/docs/api/rust/tauri\_api/index.html)::​[Process](/docs/api/rust/tauri\_api/)
 
-```rust
-pub struct Process {
-    pub uid: [u32](https://doc.rust-lang.org/nightly/std/primitive.u32.html),
-    pub gid: [u32](https://doc.rust-lang.org/nightly/std/primitive.u32.html),
-    pub tasks: [HashMap](https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html "struct std::collections::hash::map::HashMap")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process"), [RandomState](https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.RandomState.html "struct std::collections::hash::map::RandomState")\&gt;,
-    // some fields omitted
-}
-```
+    pub struct Process {
+        pub uid: u32,
+        pub gid: u32,
+        pub tasks: HashMap<i32, Process, RandomState>,
+        // some fields omitted
+    }
 
 Struct containing a process' information.
 
-Fields
-------
+## Fields
 
-<span>uid: [u32](https://doc.rust-lang.org/nightly/std/primitive.u32.html)</span>
+`uid: u32`
 
 User id of the process owner.
 
-<span>gid: [u32](https://doc.rust-lang.org/nightly/std/primitive.u32.html)</span>
+`gid: u32`
 
 Group id of the process owner.
 
-<span>tasks: [HashMap](https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html "struct std::collections::hash::map::HashMap")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process"), [RandomState](https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.RandomState.html "struct std::collections::hash::map::RandomState")&gt;</span>
+`tasks: HashMap<i32, Process, RandomState>`
 
 Tasks run by this process.
 
-Trait Implementations
----------------------
+## Trait Implementations
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl Debug for Process`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html), [Error](https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html "struct core::fmt::Error")&gt;</span>
+#### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [Drop](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html "trait core::ops::drop::Drop") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl Drop for Process`
 
-#### <span>fn [drop](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)(&mut self)</span>
+#### `fn drop(&mut self)`
 
 Executes the destructor for this type. [Read more](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)
 
-### <span>impl [ProcessExt](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html "trait tauri\_api::process::ProcessExt") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl ProcessExt for Process`
 
-#### <span>fn [new](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.new)(pid: [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), parent: [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;, start\_time: [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)) -&gt; [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+#### `fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Process`
 
 Create a new process only containing the given information. [Read more](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.new)
 
-#### <span>fn [kill](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.kill)(&self, signal: [Signal](/docs/api/rust/tauri\_api/../../tauri\_api/process/enum.Signal.html "enum tauri\_api::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+#### `fn kill(&self, signal: Signal) -> bool`
 
-Sends the given <span>signal</span> to the process.
+Sends the given `signal` to the process.
 
-#### <span>fn [name](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.name)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+#### `fn name(&self) -> &str`
 
 Returns the name of the process.
 
-#### <span>fn [cmd](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.cmd)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+#### `fn cmd(&self) -> &[String]`
 
 Returns the command line.
 
-#### <span>fn [exe](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.exe)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn exe(&self) -> &Path`
 
 Returns the path to the process.
 
-#### <span>fn [pid](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.pid)(&self) -&gt; [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)</span>
+#### `fn pid(&self) -> i32`
 
 Returns the pid of the process.
 
-#### <span>fn [environ](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.environ)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+#### `fn environ(&self) -> &[String]`
 
 Returns the environment of the process. [Read more](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.environ)
 
-#### <span>fn [cwd](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.cwd)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn cwd(&self) -> &Path`
 
 Returns the current working directory. [Read more](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.cwd)
 
-#### <span>fn [root](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.root)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn root(&self) -> &Path`
 
 Returns the path of the root directory. [Read more](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.root)
 
-#### <span>fn [memory](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn memory(&self) -> u64`
 
 Returns the memory usage (in KiB).
 
-#### <span>fn [virtual\_memory](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.virtual\_memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn virtual\_memory(&self) -> u64`
 
 Returns the virtual memory usage (in KiB).
 
-#### <span>fn [parent](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.parent)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;</span>
+#### `fn parent(&self) -> Option<i32>`
 
 Returns the parent pid.
 
-#### <span>fn [status](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.status)(&self) -&gt; ProcessStatus</span>
+#### `fn status(&self) -> ProcessStatus`
 
-Returns the status of the processus (idle, run, zombie, etc). <span>None</span> means that <span>sysinfo</span> doesn't have enough rights to get this information.
+Returns the status of the processus (idle, run, zombie, etc). `None` means that `sysinfo` doesn't have enough rights to get this information.
 
-#### <span>fn [start\_time](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.start\_time)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn start\_time(&self) -> u64`
 
 Returns the time of process launch (in seconds).
 
-#### <span>fn [cpu\_usage](/docs/api/rust/tauri\_api/../../tauri\_api/process/trait.ProcessExt.html#tymethod.cpu\_usage)(&self) -&gt; [f32](https://doc.rust-lang.org/nightly/std/primitive.f32.html)</span>
+#### `fn cpu\_usage(&self) -> f32`
 
 Returns the total CPU usage.
 
-Auto Trait Implementations
---------------------------
+## Auto Trait Implementations
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl RefUnwindSafe for Process`
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl Send for Process`
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl Sync for Process`
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl Unpin for Process`
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Process](/docs/api/rust/tauri\_api/../../tauri\_api/process/struct.Process.html "struct tauri\_api::process::Process")</span>
+### `impl UnwindSafe for Process`
 
-Blanket Implementations
------------------------
+## Blanket Implementations
 
-### <span>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### <span>fn [type\_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</span>
+#### `fn type\_id(&self) -> TypeId`
 
-Gets the <span>TypeId</span> of <span>self</span>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
 
-### <span>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> Borrow<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</span>
+#### `fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### <span>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow\_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</span>
+#### `fn borrow\_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
 
-### <span>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</span>
+### `impl<T> From<T> for T`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</span>
-
-Performs the conversion.
-
-### <span>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</span> 
-
-#### <span>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</span>
+#### `fn from(t: T) -> T`
 
 Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</span> 
+### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</span>
+#### `fn into(self) -> U`
+
+Performs the conversion.
+
+### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+
+#### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try\_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</span> 
+### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</span>
+#### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try\_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 
-### <span>impl&lt;V, T&gt; VZip&lt;V&gt; for T where&lt;br/&gt;    V: MultiLane&lt;T&gt;,</span> 
+### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
-#### <span>fn [vzip](/docs/api/rust/tauri\_api/about:blank#method.vzip)(self) -&gt; V</span>
+#### `fn vzip(self) -> V`
+
       

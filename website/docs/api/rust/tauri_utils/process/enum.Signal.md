@@ -2,310 +2,305 @@
 title: "enum.Signal"
 ---
 
-Enum [tauri\\\_utils](/docs/api/rust/tauri\_utils/../index.html)::[process](/docs/api/rust/tauri\_utils/index.html)::[Signal](/docs/api/rust/tauri\_utils/)
-===========================================================================================================================================================
+# Enum [tauri\\\_utils](/docs/api/rust/tauri\_utils/../index.html)::​[process](/docs/api/rust/tauri\_utils/index.html)::​[Signal](/docs/api/rust/tauri\_utils/)
 
-```rust
-#\[repr(C)\] pub enum Signal {
-    Hangup,
-    Interrupt,
-    Quit,
-    Illegal,
-    Trap,
-    Abort,
-    Bus,
-    FloatingPointException,
-    Kill,
-    User1,
-    Segv,
-    User2,
-    Pipe,
-    Alarm,
-    Term,
-    Stklft,
-    Child,
-    Continue,
-    Stop,
-    TSTP,
-    TTIN,
-    TTOU,
-    Urgent,
-    XCPU,
-    XFSZ,
-    VirtualAlarm,
-    Profiling,
-    Winch,
-    IO,
-    Power,
-    Sys,
-}
-```
+    #[repr(C)]
+    pub enum Signal {
+        Hangup,
+        Interrupt,
+        Quit,
+        Illegal,
+        Trap,
+        Abort,
+        Bus,
+        FloatingPointException,
+        Kill,
+        User1,
+        Segv,
+        User2,
+        Pipe,
+        Alarm,
+        Term,
+        Stklft,
+        Child,
+        Continue,
+        Stop,
+        TSTP,
+        TTIN,
+        TTOU,
+        Urgent,
+        XCPU,
+        XFSZ,
+        VirtualAlarm,
+        Profiling,
+        Winch,
+        IO,
+        Power,
+        Sys,
+    }
 
 An enum representing signal on UNIX-like systems.
 
-Variants
---------
+## Variants
 
-<span>Hangup</span>
+`Hangup`
 
 Hangup detected on controlling terminal or death of controlling process.
 
-<span>Interrupt</span>
+`Interrupt`
 
 Interrupt from keyboard.
 
-<span>Quit</span>
+`Quit`
 
 Quit from keyboard.
 
-<span>Illegal</span>
+`Illegal`
 
 Illegal instruction.
 
-<span>Trap</span>
+`Trap`
 
 Trace/breakpoint trap.
 
-<span>Abort</span>
+`Abort`
 
 Abort signal from C abort function.
 
-<span>Bus</span>
+`Bus`
 
 Bus error (bad memory access).
 
-<span>FloatingPointException</span>
+`FloatingPointException`
 
 Floating point exception.
 
-<span>Kill</span>
+`Kill`
 
 Kill signal.
 
-<span>User1</span>
+`User1`
 
 User-defined signal 1.
 
-<span>Segv</span>
+`Segv`
 
 Invalid memory reference.
 
-<span>User2</span>
+`User2`
 
 User-defined signal 2.
 
-<span>Pipe</span>
+`Pipe`
 
 Broken pipe: write to pipe with no readers.
 
-<span>Alarm</span>
+`Alarm`
 
 Timer signal from C alarm function.
 
-<span>Term</span>
+`Term`
 
 Termination signal.
 
-<span>Stklft</span>
+`Stklft`
 
 Stack fault on coprocessor (unused).
 
-<span>Child</span>
+`Child`
 
 Child stopped or terminated.
 
-<span>Continue</span>
+`Continue`
 
 Continue if stopped.
 
-<span>Stop</span>
+`Stop`
 
 Stop process.
 
-<span>TSTP</span>
+`TSTP`
 
 Stop typed at terminal.
 
-<span>TTIN</span>
+`TTIN`
 
 Terminal input for background process.
 
-<span>TTOU</span>
+`TTOU`
 
 Terminal output for background process.
 
-<span>Urgent</span>
+`Urgent`
 
 Urgent condition on socket.
 
-<span>XCPU</span>
+`XCPU`
 
 CPU time limit exceeded.
 
-<span>XFSZ</span>
+`XFSZ`
 
 File size limit exceeded.
 
-<span>VirtualAlarm</span>
+`VirtualAlarm`
 
 Virtual alarm clock.
 
-<span>Profiling</span>
+`Profiling`
 
 Profiling time expired.
 
-<span>Winch</span>
+`Winch`
 
 Windows resize signal.
 
-<span>IO</span>
+`IO`
 
 I/O now possible.
 
-<span>Power</span>
+`Power`
 
 Power failure (System V).
 
-<span>Sys</span>
+`Sys`
 
 Bad argument to routine (SVr4).
 
-Trait Implementations
----------------------
+## Trait Implementations
 
-### <span>impl [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Clone for Signal`
 
-#### <span>fn [clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)(&self) -&gt; [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+#### `fn clone(&self) -> Signal`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-#### <span>fn [clone\_from](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)(&mut self, source: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Self)</span>1.0.0
+#### `fn clone\_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from <span>source</span>. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone\_from)
 
-### <span>impl [Copy](https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html "trait core::marker::Copy") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Copy for Signal`
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Debug for Signal`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/nightly/std/primitive.unit.html), [Error](https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html "struct core::fmt::Error")&gt;</span>
+#### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [PartialEq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")&gt; for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl PartialEq<Signal> for Signal`
 
-#### <span>fn [eq](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+#### `fn eq(&self, other: &Signal) -> bool`
 
-This method tests for <span>self</span> and <span>other</span> values to be equal, and is used by <span>==</span>. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### <span>#[must\_use] fn [ne](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne)(&self, other: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Rhs) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>1.0.0
+#### `#[must\_use]fn ne(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests for <span>!=</span>.
+This method tests for `!=`.
 
-### <span>impl [PartialOrd](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html "trait core::cmp::PartialOrd")&lt;[Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")&gt; for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl PartialOrd<Signal> for Signal`
 
-#### <span>fn [partial\_cmp](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)(&self, other: &[Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[Ordering](https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html "enum core::cmp::Ordering")&gt;</span>
+#### `fn partial\_cmp(&self, other: &Signal) -> Option<Ordering>`
 
-This method returns an ordering between <span>self</span> and <span>other</span> values if one exists. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)
+This method returns an ordering between `self` and `other` values if one exists. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial\_cmp)
 
-#### <span>#[must\_use] fn [lt](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)(&self, other: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Rhs) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>1.0.0
+#### `#[must\_use]fn lt(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests less than (for <span>self</span> and <span>other</span>) and is used by the <span>&lt;</span> operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)
+This method tests less than (for `self` and `other`) and is used by the `<` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)
 
-#### <span>#[must\_use] fn [le](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)(&self, other: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Rhs) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>1.0.0
+#### `#[must\_use]fn le(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests less than or equal to (for <span>self</span> and <span>other</span>) and is used by the <span>&lt;=</span> operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)
+This method tests less than or equal to (for `self` and `other`) and is used by the `<=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)
 
-#### <span>#[must\_use] fn [gt](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)(&self, other: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Rhs) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>1.0.0
+#### `#[must\_use]fn gt(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests greater than (for <span>self</span> and <span>other</span>) and is used by the <span>&gt;</span> operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)
+This method tests greater than (for `self` and `other`) and is used by the `>` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)
 
-#### <span>#[must\_use] fn [ge](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)(&self, other: [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)Rhs) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>1.0.0
+#### `#[must\_use]fn ge(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests greater than or equal to (for <span>self</span> and <span>other</span>) and is used by the <span>&gt;=</span> operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
+This method tests greater than or equal to (for `self` and `other`) and is used by the `>=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
 
-### <span>impl [StructuralPartialEq](https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl StructuralPartialEq for Signal`
 
-Auto Trait Implementations
---------------------------
+## Auto Trait Implementations
 
-### <span>impl [RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl RefUnwindSafe for Signal`
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Send for Signal`
 
-### <span>impl [Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Sync for Signal`
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl Unpin for Signal`
 
-### <span>impl [UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")</span>
+### `impl UnwindSafe for Signal`
 
-Blanket Implementations
------------------------
+## Blanket Implementations
 
-### <span>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### <span>fn [type\_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</span>
+#### `fn type\_id(&self) -> TypeId`
 
-Gets the <span>TypeId</span> of <span>self</span>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
 
-### <span>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> Borrow<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</span>
+#### `fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### <span>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow\_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</span>
+#### `fn borrow\_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
 
-### <span>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</span>
+### `impl<T> From<T> for T`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</span>
-
-Performs the conversion.
-
-### <span>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</span> 
-
-#### <span>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</span>
+#### `fn from(t: T) -> T`
 
 Performs the conversion.
 
-### <span>impl&lt;T&gt; [ToOwned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where&lt;br/&gt;    T: [Clone](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "trait core::clone::Clone"),</span> 
+### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### <span>type [Owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T</span>
+#### `fn into(self) -> U`
+
+Performs the conversion.
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
 
 The resulting type after obtaining ownership.
 
-#### <span>fn [to\_owned](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to\_owned)(&self) -&gt; T</span>
+#### `fn to\_owned(&self) -> T`
 
 Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to\_owned)
 
-#### <span>fn [clone\_into](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone\_into)(&self, target: [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T)</span>
+#### `fn clone\_into(&self, target: &mutT)`
 
-🔬 This is a nightly-only experimental API. (<span>toowned\_clone\_into</span>)
+🔬 This is a nightly-only experimental API. (`toowned\_clone\_into`)
 
 recently added
 
 Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone\_into)
 
-### <span>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</span> 
+### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</span>
-
-The type returned in the event of a conversion error.
-
-#### <span>fn [try\_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try\_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
-
-Performs the conversion.
-
-### <span>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</span> 
-
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</span>
+#### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try\_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
+
+### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+
+#### `type Error = <U as TryFrom<T>>::Error`
+
+The type returned in the event of a conversion error.
+
+#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+
+Performs the conversion.
+
       

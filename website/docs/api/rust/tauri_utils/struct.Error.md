@@ -2,123 +2,120 @@
 title: "struct.Error"
 ---
 
-Struct [tauri\\\_utils](/docs/api/rust/tauri\_utils/index.html)::[Error](/docs/api/rust/tauri\_utils/)
-======================================================================================================
+# Struct [tauri\\\_utils](/docs/api/rust/tauri\_utils/index.html)::​[Error](/docs/api/rust/tauri\_utils/)
 
-```rust
-pub struct Error(pub [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind"), \\\_);
-```
+    pub struct Error(pub ErrorKind, \_);
 
 The Error type.
 
 This tuple struct is made of two elements:
 
-*   an <span>ErrorKind</span> which is used to determine the type of the error.
-*   An internal <span>State</span>, not meant for direct use outside of <span>error\_chain</span> internals, containing:
-    *   a backtrace, generated when the error is created.
-    *   an error chain, used for the implementation of <span>Error::cause()</span>.
+-   an `ErrorKind` which is used to determine the type of the error.
 
-Methods
--------
+-   An internal `State`, not meant for direct use outside of `error\_chain` internals, containing:
 
-### <span>impl [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+    -   a backtrace, generated when the error is created.
+    -   an error chain, used for the implementation of `Error::cause()`.
 
-#### <span>pub fn [from\_kind](/docs/api/rust/tauri\_utils/about:blank#method.from\_kind)(kind: [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")) -&gt; [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+## Methods
+
+### `impl Error`
+
+#### `pub fn from\_kind(kind: ErrorKind) -> Error`
 
 Constructs an error from a kind, and generates a backtrace.
 
-#### <span>pub fn [with\_chain](/docs/api/rust/tauri\_utils/about:blank#method.with\_chain)&lt;E, K&gt;(error: E, kind: K) -&gt; [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error") where&lt;br/&gt;    E: [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") + 'static,&lt;br/&gt;    K: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")&gt;,</span> 
+#### `pub fn with\_chain<E, K>(error: E, kind: K) -> Errorwhere E: Error + Send + 'static, K: Into<ErrorKind>,`
 
 Constructs a chained error from another error and a kind, and generates a backtrace.
 
-#### <span>pub fn [with\_boxed\_chain](/docs/api/rust/tauri\_utils/about:blank#method.with\_boxed\_chain)&lt;K&gt;(error: [Box](https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html "struct alloc::boxed::Box")&lt;dyn [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send")&gt;, kind: K) -&gt; [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error") where&lt;br/&gt;    K: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")&gt;,</span> 
+#### `pub fn with\_boxed\_chain<K>(error: Box<dyn Error + Send>, kind: K) -> Errorwhere K: Into<ErrorKind>,`
 
 Construct a chained error from another boxed error and a kind, and generates a backtrace
 
-#### <span>pub fn [kind](/docs/api/rust/tauri\_utils/about:blank#method.kind)(&self) -&gt; &[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")</span>
+#### `pub fn kind(&self) -> &ErrorKind`
 
 Returns the kind of the error.
 
-#### <span>pub fn [iter](/docs/api/rust/tauri\_utils/about:blank#method.iter)(&self) -&gt; [Iter](https://docs.rs/error-chain/0.12.2/error\_chain/struct.Iter.html "struct error\_chain::Iter")</span>
+#### `pub fn iter(&self) -> Iter`
 
 Iterates over the error chain.
 
-#### <span>pub fn [backtrace](/docs/api/rust/tauri\_utils/about:blank#method.backtrace)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;&[Backtrace](https://docs.rs/backtrace/backtrace/capture/struct.Backtrace.html "struct backtrace::capture::Backtrace")&gt;</span>
+#### `pub fn backtrace(&self) -> Option<&Backtrace>`
 
 Returns the backtrace associated with this error.
 
-#### <span>pub fn [chain\_err](/docs/api/rust/tauri\_utils/about:blank#method.chain\_err)&lt;F, EK&gt;(self, error: F) -&gt; [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error") where&lt;br/&gt;    F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;    EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")&gt;,</span> 
+#### `pub fn chain\_err<F, EK>(self, error: F) -> Errorwhere F: FnOnce() -> EK, EK: Into<ErrorKind>,`
 
 Extends the error chain with a new entry.
 
-#### <span>pub fn [description](/docs/api/rust/tauri\_utils/about:blank#method.description)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+#### `pub fn description(&self) -> &str`
 
-A short description of the error. This method is identical to [<span>Error::description()</span>](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#tymethod.description)
+A short description of the error. This method is identical to [`Error::description()`](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#tymethod.description)
 
-Trait Implementations
----------------------
+## Trait Implementations
 
-### <span>impl [ChainedError](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html "trait error\_chain::ChainedError") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl ChainedError for Error`
 
-#### <span>type [ErrorKind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#associatedtype.ErrorKind) = [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")</span>
+#### `type ErrorKind = ErrorKind`
 
 Associated kind type.
 
-#### <span>fn [new](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.new)(kind: [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind"), state: State) -&gt; [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+#### `fn new(kind: ErrorKind, state: State) -> Error`
 
-#### <span>fn [from\_kind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.from\_kind)(kind: Self::[ErrorKind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#associatedtype.ErrorKind "type error\_chain::ChainedError::ErrorKind")) -&gt; Self</span>
+#### `fn from\_kind(kind: Self::ErrorKind) -> Self`
 
 Constructs an error from a kind, and generates a backtrace.
 
-#### <span>fn [with\_chain](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.with\_chain)&lt;E, K&gt;(error: E, kind: K) -&gt; Self where&lt;br/&gt;    E: [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") + 'static,&lt;br/&gt;    K: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;Self::[ErrorKind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#associatedtype.ErrorKind "type error\_chain::ChainedError::ErrorKind")&gt;,</span> 
+#### `fn with\_chain<E, K>(error: E, kind: K) -> Self where E: Error + Send + 'static, K: Into<Self::ErrorKind>,`
 
 Constructs a chained error from another error and a kind, and generates a backtrace.
 
-#### <span>fn [kind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.kind)(&self) -&gt; &Self::[ErrorKind](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#associatedtype.ErrorKind "type error\_chain::ChainedError::ErrorKind")</span>
+#### `fn kind(&self) -> &Self::ErrorKind`
 
 Returns the kind of the error.
 
-#### <span>fn [iter](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.iter)(&self) -&gt; [Iter](https://docs.rs/error-chain/0.12.2/error\_chain/struct.Iter.html "struct error\_chain::Iter")</span>
+#### `fn iter(&self) -> Iter`
 
 Iterates over the error chain.
 
-#### <span>fn [chain\_err](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.chain\_err)&lt;F, EK&gt;(self, error: F) -&gt; Self where&lt;br/&gt;    F: [FnOnce](https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -&gt; EK,&lt;br/&gt;    EK: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")&gt;,</span> 
+#### `fn chain\_err<F, EK>(self, error: F) -> Self where F: FnOnce() -> EK, EK: Into<ErrorKind>,`
 
 Extends the error chain with a new entry.
 
-#### <span>fn [backtrace](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.backtrace)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;&[Backtrace](https://docs.rs/backtrace/backtrace/capture/struct.Backtrace.html "struct backtrace::capture::Backtrace")&gt;</span>
+#### `fn backtrace(&self) -> Option<&Backtrace>`
 
 Returns the backtrace associated with this error.
 
-#### <span>fn [extract\_backtrace](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#tymethod.extract\_backtrace)(&lt;br/&gt;    e: &(dyn [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") + 'static)&lt;br/&gt;) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;InternalBacktrace&gt;</span>
+#### `fn extract\_backtrace( e: &(dyn Error + Send + 'static) ) -> Option<InternalBacktrace>`
 
-#### <span>fn [display\_chain](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#method.display\_chain)(&'a self) -&gt; [DisplayChain](https://docs.rs/error-chain/0.12.2/error\_chain/struct.DisplayChain.html "struct error\_chain::DisplayChain")&lt;'a, Self&gt;</span>
+#### `fn display\_chain(&'a self) -> DisplayChain<'a, Self>`
 
-Returns an object which implements <span>Display</span> for printing the full context of this error. [Read more](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#method.display\_chain)
+Returns an object which implements `Display` for printing the full context of this error. [Read more](https://docs.rs/error-chain/0.12.2/error\_chain/trait.ChainedError.html#method.display\_chain)
 
-### <span>impl [Debug](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl Debug for Error`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
+#### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### <span>impl [Display](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "trait core::fmt::Display") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl Display for Error`
 
-#### <span>fn [fmt](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")) -&gt; [Result](https://doc.rust-lang.org/nightly/core/fmt/type.Result.html "type core::fmt::Result")</span>
+#### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
-### <span>impl [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl Error for Error`
 
-#### <span>fn [description](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+#### `fn description(&self) -> &str`
 
 This method is soft-deprecated. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
 
-#### <span>fn [source](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;&(dyn [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error") + 'static)&gt;</span>
+#### `fn source(&self) -> Option<&(dyn Error + 'static)>`
 
 The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
 
-#### <span>fn [cause](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;&dyn [Error](https://doc.rust-lang.org/nightly/std/error/trait.Error.html "trait std::error::Error")&gt;</span>1.0.0
+#### `fn cause(&self) -> Option<&dyn Error>`1.0.0
 
 Deprecated since 1.33.0:
 
@@ -126,111 +123,110 @@ replaced by Error::source, which can support downcasting
 
 The lower-level cause of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)
 
-#### <span>fn [backtrace](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;&[Backtrace](https://doc.rust-lang.org/nightly/std/backtrace/struct.Backtrace.html "struct std::backtrace::Backtrace")&gt;</span>
+#### `fn backtrace(&self) -> Option<&Backtrace>`
 
-🔬 This is a nightly-only experimental API. (<span>backtrace</span>)
+🔬 This is a nightly-only experimental API. (`backtrace`)
 
 Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
 
-### <span>impl&lt;'a&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;&'a [str](https://doc.rust-lang.org/nightly/std/primitive.str.html)&gt; for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl<'a> From<&'a str> for Error`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(s: &'a [str](https://doc.rust-lang.org/nightly/std/primitive.str.html)) -&gt; Self</span>
-
-Performs the conversion.
-
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[Error](https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html "struct std::io::error::Error")&gt; for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
-
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(e: [Error](https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html "struct std::io::error::Error")) -&gt; Self</span>
+#### `fn from(s: &'a str) -> Self`
 
 Performs the conversion.
 
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")&gt; for [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")</span>
+### `impl From<Error> for Error`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(e: [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")) -&gt; Self</span>
-
-Performs the conversion.
-
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")&gt; for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
-
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(e: [ErrorKind](/docs/api/rust/tauri\_utils/../tauri\_utils/enum.ErrorKind.html "enum tauri\_utils::ErrorKind")) -&gt; Self</span>
+#### `fn from(e: Error) -> Self`
 
 Performs the conversion.
 
-### <span>impl [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")&gt; for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl From<Error> for ErrorKind`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(s: [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")) -&gt; Self</span>
+#### `fn from(e: Error) -> Self`
 
 Performs the conversion.
 
-Auto Trait Implementations
---------------------------
+### `impl From<ErrorKind> for Error`
 
-### <span>impl 	&#33;[RefUnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+#### `fn from(e: ErrorKind) -> Self`
 
-### <span>impl [Send](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "trait core::marker::Send") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+Performs the conversion.
 
-### <span>impl 	&#33;[Sync](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "trait core::marker::Sync") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+### `impl From<String> for Error`
 
-### <span>impl [Unpin](https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+#### `fn from(s: String) -> Self`
 
-### <span>impl 	&#33;[UnwindSafe](https://doc.rust-lang.org/nightly/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Error](/docs/api/rust/tauri\_utils/../tauri\_utils/struct.Error.html "struct tauri\_utils::Error")</span>
+Performs the conversion.
 
-Blanket Implementations
------------------------
+## Auto Trait Implementations
 
-### <span>impl&lt;T&gt; [Any](https://doc.rust-lang.org/nightly/core/any/trait.Any.html "trait core::any::Any") for T where&lt;br/&gt;    T: 'static + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl !RefUnwindSafe for Error`
 
-#### <span>fn [type\_id](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)(&self) -&gt; [TypeId](https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html "struct core::any::TypeId")</span>
+### `impl Send for Error`
 
-Gets the <span>TypeId</span> of <span>self</span>. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+### `impl !Sync for Error`
 
-### <span>impl&lt;T&gt; [Borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl Unpin for Error`
 
-#### <span>fn [borrow](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -&gt; [&](https://doc.rust-lang.org/nightly/std/primitive.reference.html)T</span>
+### `impl !UnwindSafe for Error`
+
+## Blanket Implementations
+
+### `impl<T> Any for T where T: 'static + ?Sized,`
+
+#### `fn type\_id(&self) -> TypeId`
+
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type\_id)
+
+### `impl<T> Borrow<T> for T where T: ?Sized,`
+
+#### `fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### <span>impl&lt;T&gt; [BorrowMut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T&gt; for T where&lt;br/&gt;    T: ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### <span>fn [borrow\_mut](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)(&mut self) -&gt; [&mut](https://doc.rust-lang.org/nightly/std/primitive.reference.html) T</span>
+#### `fn borrow\_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow\_mut)
 
-### <span>impl&lt;T&gt; [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt; for T</span>
+### `impl<T> From<T> for T`
 
-#### <span>fn [from](https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from)(t: T) -&gt; T</span>
-
-Performs the conversion.
-
-### <span>impl&lt;T, U&gt; [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;U&gt; for T where&lt;br/&gt;    U: [From](https://doc.rust-lang.org/nightly/core/convert/trait.From.html "trait core::convert::From")&lt;T&gt;,</span> 
-
-#### <span>fn [into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into)(self) -&gt; U</span>
+#### `fn from(t: T) -> T`
 
 Performs the conversion.
 
-### <span>impl&lt;T&gt; [ToString](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html "trait alloc::string::ToString") for T where&lt;br/&gt;    T: [Display](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "trait core::fmt::Display") + ?[Sized](https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html "trait core::marker::Sized"),</span> 
+### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### <span>default fn [to\_string](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)(&self) -&gt; [String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")</span>
+#### `fn into(self) -> U`
 
-Converts the given value to a <span>String</span>. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)
+Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt; for T where&lt;br/&gt;    U: [Into](https://doc.rust-lang.org/nightly/core/convert/trait.Into.html "trait core::convert::Into")&lt;T&gt;,</span> 
+### `impl<T> ToString for T where T: Display + ?Sized,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html "enum core::convert::Infallible")</span>
+#### `default fn to\_string(&self) -> String`
+
+Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to\_string)
+
+### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+
+#### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_from](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try\_from)(value: U) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
-### <span>impl&lt;T, U&gt; [TryInto](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U&gt; for T where&lt;br/&gt;    U: [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;,</span> 
+### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
 
-#### <span>type [Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")</span>
+#### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### <span>fn [try\_into](https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try\_into)(self) -&gt; [Result](https://doc.rust-lang.org/nightly/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T&gt;&gt;::[Error](https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")&gt;</span>
+#### `fn try\_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
+
       

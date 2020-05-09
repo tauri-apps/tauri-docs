@@ -2,154 +2,150 @@
 title: "trait.ProcessExt"
 ---
 
-Trait [tauri\\\_utils](/docs/api/rust/tauri\_utils/../index.html)::[process](/docs/api/rust/tauri\_utils/index.html)::[ProcessExt](/docs/api/rust/tauri\_utils/)
-================================================================================================================================================================
+# Trait [tauri\\\_utils](/docs/api/rust/tauri\_utils/../index.html)::​[process](/docs/api/rust/tauri\_utils/index.html)::​[ProcessExt](/docs/api/rust/tauri\_utils/)
 
-```rust
-pub trait ProcessExt {
-    fn [new](/docs/api/rust/tauri\_utils/about:blank#tymethod.new)(pid: [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), parent: [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)\&gt;, start\\\_time: [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)) -&gt; Self;
+    pub trait ProcessExt {
+        fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Self;
 
-    fn [kill](/docs/api/rust/tauri\_utils/about:blank#tymethod.kill)(&self, signal: [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html);
+        fn kill(&self, signal: Signal) -> bool;
 
-    fn [name](/docs/api/rust/tauri\_utils/about:blank#tymethod.name)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html);
+        fn name(&self) -> &str;
 
-    fn [cmd](/docs/api/rust/tauri\_utils/about:blank#tymethod.cmd)(&self) -&gt; [&\[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[\]](https://doc.rust-lang.org/nightly/std/primitive.slice.html);
+        fn cmd(&self) -> &[String];
 
-    fn [exe](/docs/api/rust/tauri\_utils/about:blank#tymethod.exe)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path");
+        fn exe(&self) -> &Path;
 
-    fn [pid](/docs/api/rust/tauri\_utils/about:blank#tymethod.pid)(&self) -&gt; [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html);
+        fn pid(&self) -> i32;
 
-    fn [environ](/docs/api/rust/tauri\_utils/about:blank#tymethod.environ)(&self) -&gt; [&\[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[\]](https://doc.rust-lang.org/nightly/std/primitive.slice.html);
+        fn environ(&self) -> &[String];
 
-    fn [cwd](/docs/api/rust/tauri\_utils/about:blank#tymethod.cwd)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path");
+        fn cwd(&self) -> &Path;
 
-    fn [root](/docs/api/rust/tauri\_utils/about:blank#tymethod.root)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path");
+        fn root(&self) -> &Path;
 
-    fn [memory](/docs/api/rust/tauri\_utils/about:blank#tymethod.memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html);
+        fn memory(&self) -> u64;
 
-    fn [virtual\\\_memory](/docs/api/rust/tauri\_utils/about:blank#tymethod.virtual\_memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html);
+        fn virtual\_memory(&self) -> u64;
 
-    fn [parent](/docs/api/rust/tauri\_utils/about:blank#tymethod.parent)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)\&gt;;
+        fn parent(&self) -> Option<i32>;
 
-    fn [status](/docs/api/rust/tauri\_utils/about:blank#tymethod.status)(&self) -&gt; ProcessStatus;
+        fn status(&self) -> ProcessStatus;
 
-    fn [start\\\_time](/docs/api/rust/tauri\_utils/about:blank#tymethod.start\_time)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html);
+        fn start\_time(&self) -> u64;
 
-    fn [cpu\\\_usage](/docs/api/rust/tauri\_utils/about:blank#tymethod.cpu\_usage)(&self) -&gt; [f32](https://doc.rust-lang.org/nightly/std/primitive.f32.html);
-}
-```
+        fn cpu\_usage(&self) -> f32;
+    }
 
-Contains all the methods of the <span>Process</span> struct.
+Contains all the methods of the `Process` struct.
 
-Required methods
-----------------
+## Required methods
 
-### <span>fn [new](/docs/api/rust/tauri\_utils/about:blank#tymethod.new)(pid: [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), parent: [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;, start\_time: [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)) -&gt; Self</span>
+### `fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Self`
 
 Create a new process only containing the given information.
 
-On windows, the <span>start\_time</span> argument is ignored.
+On windows, the `start\_time` argument is ignored.
 
-### <span>fn [kill](/docs/api/rust/tauri\_utils/about:blank#tymethod.kill)(&self, signal: [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+### `fn kill(&self, signal: Signal) -> bool`
 
-Sends the given <span>signal</span> to the process.
+Sends the given `signal` to the process.
 
-### <span>fn [name](/docs/api/rust/tauri\_utils/about:blank#tymethod.name)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+### `fn name(&self) -> &str`
 
 Returns the name of the process.
 
-### <span>fn [cmd](/docs/api/rust/tauri\_utils/about:blank#tymethod.cmd)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+### `fn cmd(&self) -> &[String]`
 
 Returns the command line.
 
-### <span>fn [exe](/docs/api/rust/tauri\_utils/about:blank#tymethod.exe)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+### `fn exe(&self) -> &Path`
 
 Returns the path to the process.
 
-### <span>fn [pid](/docs/api/rust/tauri\_utils/about:blank#tymethod.pid)(&self) -&gt; [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)</span>
+### `fn pid(&self) -> i32`
 
 Returns the pid of the process.
 
-### <span>fn [environ](/docs/api/rust/tauri\_utils/about:blank#tymethod.environ)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+### `fn environ(&self) -> &[String]`
 
 Returns the environment of the process.
 
 Always empty on Windows except for current process.
 
-### <span>fn [cwd](/docs/api/rust/tauri\_utils/about:blank#tymethod.cwd)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+### `fn cwd(&self) -> &Path`
 
 Returns the current working directory.
 
 Always empty on Windows.
 
-### <span>fn [root](/docs/api/rust/tauri\_utils/about:blank#tymethod.root)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+### `fn root(&self) -> &Path`
 
 Returns the path of the root directory.
 
 Always empty on Windows.
 
-### <span>fn [memory](/docs/api/rust/tauri\_utils/about:blank#tymethod.memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+### `fn memory(&self) -> u64`
 
 Returns the memory usage (in KiB).
 
-### <span>fn [virtual\_memory](/docs/api/rust/tauri\_utils/about:blank#tymethod.virtual\_memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+### `fn virtual\_memory(&self) -> u64`
 
 Returns the virtual memory usage (in KiB).
 
-### <span>fn [parent](/docs/api/rust/tauri\_utils/about:blank#tymethod.parent)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;</span>
+### `fn parent(&self) -> Option<i32>`
 
 Returns the parent pid.
 
-### <span>fn [status](/docs/api/rust/tauri\_utils/about:blank#tymethod.status)(&self) -&gt; ProcessStatus</span>
+### `fn status(&self) -> ProcessStatus`
 
 Returns the status of the processus.
 
-### <span>fn [start\_time](/docs/api/rust/tauri\_utils/about:blank#tymethod.start\_time)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+### `fn start\_time(&self) -> u64`
 
 Returns the time of process launch (in seconds).
 
-### <span>fn [cpu\_usage](/docs/api/rust/tauri\_utils/about:blank#tymethod.cpu\_usage)(&self) -&gt; [f32](https://doc.rust-lang.org/nightly/std/primitive.f32.html)</span>
+### `fn cpu\_usage(&self) -> f32`
 
 Returns the total CPU usage.
 
 Loading content...
 
-Implementors
-------------
+## Implementors
 
-### <span>impl ProcessExt for [Process](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/struct.Process.html "struct tauri\_utils::process::Process")</span>
+### `impl ProcessExt for Process`
 
-#### <span>fn [new](/docs/api/rust/tauri\_utils/about:blank#method.new)(pid: [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html), parent: [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;, start\_time: [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)) -&gt; [Process](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/struct.Process.html "struct tauri\_utils::process::Process")</span>
+#### `fn new(pid: i32, parent: Option<i32>, start\_time: u64) -> Process`
 
-#### <span>fn [kill](/docs/api/rust/tauri\_utils/about:blank#method.kill)(&self, signal: [Signal](/docs/api/rust/tauri\_utils/../../tauri\_utils/process/enum.Signal.html "enum tauri\_utils::process::Signal")) -&gt; [bool](https://doc.rust-lang.org/nightly/std/primitive.bool.html)</span>
+#### `fn kill(&self, signal: Signal) -> bool`
 
-#### <span>fn [name](/docs/api/rust/tauri\_utils/about:blank#method.name)(&self) -&gt; &[str](https://doc.rust-lang.org/nightly/std/primitive.str.html)</span>
+#### `fn name(&self) -> &str`
 
-#### <span>fn [cmd](/docs/api/rust/tauri\_utils/about:blank#method.cmd)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+#### `fn cmd(&self) -> &[String]`
 
-#### <span>fn [exe](/docs/api/rust/tauri\_utils/about:blank#method.exe)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn exe(&self) -> &Path`
 
-#### <span>fn [pid](/docs/api/rust/tauri\_utils/about:blank#method.pid)(&self) -&gt; [i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)</span>
+#### `fn pid(&self) -> i32`
 
-#### <span>fn [environ](/docs/api/rust/tauri\_utils/about:blank#method.environ)(&self) -&gt; [&[](https://doc.rust-lang.org/nightly/std/primitive.slice.html)[String](https://doc.rust-lang.org/nightly/alloc/string/struct.String.html "struct alloc::string::String")[]](https://doc.rust-lang.org/nightly/std/primitive.slice.html)</span>
+#### `fn environ(&self) -> &[String]`
 
-#### <span>fn [cwd](/docs/api/rust/tauri\_utils/about:blank#method.cwd)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn cwd(&self) -> &Path`
 
-#### <span>fn [root](/docs/api/rust/tauri\_utils/about:blank#method.root)(&self) -&gt; &[Path](https://doc.rust-lang.org/nightly/std/path/struct.Path.html "struct std::path::Path")</span>
+#### `fn root(&self) -> &Path`
 
-#### <span>fn [memory](/docs/api/rust/tauri\_utils/about:blank#method.memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn memory(&self) -> u64`
 
-#### <span>fn [virtual\_memory](/docs/api/rust/tauri\_utils/about:blank#method.virtual\_memory)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn virtual\_memory(&self) -> u64`
 
-#### <span>fn [parent](/docs/api/rust/tauri\_utils/about:blank#method.parent)(&self) -&gt; [Option](https://doc.rust-lang.org/nightly/core/option/enum.Option.html "enum core::option::Option")&lt;[i32](https://doc.rust-lang.org/nightly/std/primitive.i32.html)&gt;</span>
+#### `fn parent(&self) -> Option<i32>`
 
-#### <span>fn [status](/docs/api/rust/tauri\_utils/about:blank#method.status)(&self) -&gt; ProcessStatus</span>
+#### `fn status(&self) -> ProcessStatus`
 
-Returns the status of the processus (idle, run, zombie, etc). <span>None</span> means that <span>sysinfo</span> doesn't have enough rights to get this information.
+Returns the status of the processus (idle, run, zombie, etc). `None` means that `sysinfo` doesn't have enough rights to get this information.
 
-#### <span>fn [start\_time](/docs/api/rust/tauri\_utils/about:blank#method.start\_time)(&self) -&gt; [u64](https://doc.rust-lang.org/nightly/std/primitive.u64.html)</span>
+#### `fn start\_time(&self) -> u64`
 
-#### <span>fn [cpu\_usage](/docs/api/rust/tauri\_utils/about:blank#method.cpu\_usage)(&self) -&gt; [f32](https://doc.rust-lang.org/nightly/std/primitive.f32.html)</span>
+#### `fn cpu\_usage(&self) -> f32`
 
-Loading content...window.inlined\\\_types=new Set(\[\]);
+Loading content...
+
       
