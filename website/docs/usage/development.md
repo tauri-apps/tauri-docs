@@ -9,27 +9,29 @@ sidebar_label: App development
 Now that you have everything setup, you should start the development server provided by your UI framework. Here are a few examples:
 
 SVELTE using yarn:
-```
+```sh
 yarn rollup -c -w
 ```
 
 REACT-CREATE-APP using npm
-```
+```sh
 npm run craco start
 ```
 
 QUASAR using global `@quasar/cli`
-```
+```sh
 quasar dev
 ```
 
-> Every framework has its own development tooling. It is outside of the scope of this document to treat them all or keep them up to date - and tauri will not presume to do a better job then your framework.
+<div class="alert alert--info" role="alert">
+Every framework has its own development tooling. It is outside of the scope of this document to treat them all or keep them up to date - and tauri will not presume to do a better job then your framework.
+</div>
 
 ## Inform tauri about localhost port
 Once your devserver is up and running, be sure that you have configured the `src-tauri/tauri.conf.json` to correctly point at the devserver. Normally, you will be informed about its port in the terminal where you spawned the devserver in the previous step.
 
 Edit src-tauri/tauri.conf.json:
-```
+```json
 {
   "build": {
     "devPath": "http://localhost:8080"

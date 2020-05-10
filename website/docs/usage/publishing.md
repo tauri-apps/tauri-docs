@@ -9,38 +9,40 @@ sidebar_label: App publishing
 Now that you are ready to package your project, you will need to instruct your framework to create the assets.
 
 SVELTE using yarn:
-```
+```sh
 yarn rollup -c
 ```
 
 REACT-CREATE-APP using npm
-```
+```sh
 npm run craco build
 ```
 
 QUASAR using global `@quasar/cli`
-```
+```sh
 quasar build
 ```
 
 ## tauri bundler
 Make certain that you have installed that tauri bundler:
-```
+```sh
 cargo tauri-cli -v
 ```
 If you do not see a version number being reported, then you must install the bundler:
 
-```
+```sh
 $ cargo install tauri-cli --force
 ```
 
-> Note: We chose to call this bundler `tauri-cli` because in the near future we will be providing a **rust-only** entry point to tauri.
+<div class="alert alert--info" role="alert">
+Note: We chose to call this bundler `tauri-cli` because in the near future we will be providing a <strong>rust-only</strong> entry point to tauri.
+</div>
 
 ## Inform tauri about your distributables location
 Be sure that you have configured the `src-tauri/tauri.conf.json` to correctly point at the assets.
 Edit `src-tauri/tauri.conf.json`:
 
-```
+```json
 {
   "build": {
     "distDir": "../build"

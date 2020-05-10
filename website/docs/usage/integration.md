@@ -4,8 +4,10 @@ title: "Tauri integration"
 sidebar_label: Tauri integration
 ---
 
-
-> Please note: you must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the setup page for your operating system.
+<div class="alert alert--info" role="alert">
+Please note: you must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the setup page for your operating system.
+</div>
+<br/>
 
 1. Install tauri-cli as Dependency:
 ```bash
@@ -21,7 +23,10 @@ yarn add tauri
 npm install tauri
 ```
 
-> Note: You can install tauri as both a local and a global dependency.
+<div class="alert alert--info" role="alert">
+Note: You can install tauri as both a local and a global dependency.
+</div>
+<br/>
 
 2. Check `tauri info` to make sure you have everything you need:
 ```
@@ -116,13 +121,19 @@ Depending on your development setup, you will probably need to update two import
   }
 }
 ```
-> Note: technically you can point the devPath at a folder, and tauri will try to serve those assets statically.
+<div class="alert alert--info" role="alert">
+Note: technically you can point the devPath at a folder, and tauri will try to serve those assets statically.
+</div>
+<br/>
 
-> Warning: On some system setups, localhost may not be available. A general rule of thumb is to use exactly the same domain as your devServer. You can try to switch localhost here with:
-- `127.0.0.1`
-- `0.0.0.0`
+<div class="alert alert--warning" role="alert">
+Warning: On some system setups, localhost may not be available. A general rule of thumb is to use exactly the same domain as your devServer. You can try to switch localhost here with:<br/>
+- "127.0.0.1"<br/>
+- "0.0.0.0"<br/>
 
 On windows, you must enable loopback during development. [todo: add link](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+</div>
+<br/>
 
 ## vue-cli-plugin-tauri
 See [vue-cli-plugin-tauri's repo](https://github.com/tauri-apps/vue-cli-plugin-tauri).
