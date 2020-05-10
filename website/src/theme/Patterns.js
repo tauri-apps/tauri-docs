@@ -1,5 +1,5 @@
 import Mermaid from './Mermaid'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export default () => {
   const colors = {
