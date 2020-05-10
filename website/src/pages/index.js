@@ -8,32 +8,29 @@ import styles from './styles.module.css'
 
 const features = [
   {
-    title: <>Easy to Use</>,
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    title: <>Security</>,
+    imageUrl: 'img/undraw_security.svg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        is the Tauri-Team's biggest priority and drives our innovation.
       </>
     ),
   },
   {
-    title: <>Focus on What Matters</>,
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    title: <>FLOSS</>,
+    imageUrl: 'img/undraw_open_source.svg',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        relicensing is possible with Tauri. 
       </>
     ),
   },
   {
-    title: <>Powered by React</>,
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    title: <>Bundle</>,
+    imageUrl: 'img/undraw_takeout_boxes.svg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        size of a Tauri App can be less than 600KB. 
       </>
     ),
   },
@@ -58,9 +55,9 @@ const Translate = (props) => <span>{props.children}</span>
 
 const Roadmap = () => {
   const COLORS = {
-    green: '#4caf50',
-    blue: '#2196f3',
-    red: '#f44336',
+    green: '#48f9c7',
+    blue: '#0198f1',
+    red: '#ff8e13',
   }
   const items = [
     {
@@ -306,8 +303,9 @@ const Roadmap = () => {
   })
 
   return (
-    <div>
-      <h3>Roadmap</h3>
+    <div className="container">
+      <h2 style={{textAlign: 'center'}}>Roadmap</h2>
+      <p style={{textAlign: 'center'}}>Notice: This roadmap is subject to change.</p>
       <ul className="roadmap">{items}</ul>
     </div>
   )
@@ -327,8 +325,8 @@ function Home() {
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <div className="container">
-              <div class="row">
-                <div class="col col--4 col--offset-2">
+              <div className="row">
+                <div className="col col--4 col--offset-2">
                   <Link
                     className={classnames(
                       'button button--outline button--secondary button--lg',
@@ -339,7 +337,7 @@ function Home() {
                     <span>Learn more</span>
                   </Link>
                 </div>
-                <div class="col col--4">
+                <div className="col col--4">
                   <Link
                     className={classnames(
                       'button button--outline button--secondary button--lg',
@@ -350,7 +348,7 @@ function Home() {
                     <span>Get started</span>
                   </Link>
                 </div>
-                <div class="col col--2"></div>
+                <div className="col col--2"></div>
               </div>
             </div>
           </div>

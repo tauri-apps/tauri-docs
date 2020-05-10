@@ -125,7 +125,7 @@ const siteConfig = {
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: '/',
-  favicon: '',
+  favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
 
   themeConfig: {
@@ -191,37 +191,42 @@ const siteConfig = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Contact',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Mail',
+              href: 'mailto:contact@tauri.studio',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.gg/SpmNs4S',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/TauriApps',
             },
           ],
         },
         {
-          title: 'Social',
+          title: 'Network',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: 'DevTo',
+              href: 'https://dev.to/tauri'
+            },
+            {
+              label: 'OpenCollective',
+              href: 'https://opencollective.com/tauri',
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://github.com/tauri-apps/tauri',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio. Built with Docusaurus.`,
+      
     },
     // footer: {
     //   logo: {
@@ -231,7 +236,7 @@ const siteConfig = {
     //   },
     //   copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio.`, // You can also put own HTML here
     // },
-    image: 'img/docusaurus.png',
+    image: 'img/tauri.png',
     // Equivalent to `docsSideNavCollapsible`
     sidebarCollapsible: true,
   },

@@ -7,7 +7,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Tauri&display=swap');
 
-
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #67d6ed;
@@ -27,6 +26,15 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+.features_src-pages- {
+  margin: 60px 0;
+}
+
+.features_src-pages- h3 {
+  text-align: center;
+  font-size: 1.6em;
+}
+
 body {
   font-family: 'Tauri';
 }
@@ -40,7 +48,7 @@ ul.roadmap {
 ul.roadmap::before {
   position: absolute;
   display: block;
-  content: "";
+  content: '';
   height: 100%;
   top: 0;
   bottom: 0;
@@ -54,6 +62,7 @@ ul.roadmap li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 ul.roadmap li .icon {
@@ -66,6 +75,7 @@ ul.roadmap li .icon {
 
 ul.roadmap li .content {
   flex: 1;
+  font-size: 1.2em;
 }
 
 ul.roadmap li .content .title {
@@ -73,7 +83,7 @@ ul.roadmap li .content .title {
 }
 
 ul.roadmap li .content .description {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .hero__subtitle {

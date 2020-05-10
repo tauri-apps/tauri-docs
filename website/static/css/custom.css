@@ -38,7 +38,8 @@ body.dark .onPageNav a {
   color: #d5d2cc;
 }
 
-body.dark .onPageNav .toc-headings > li > a.active, .onPageNav .toc-headings > li > a.hover {
+body.dark .onPageNav .toc-headings > li > a.active,
+.onPageNav .toc-headings > li > a.hover {
   color: #d5d2cc;
   text-shadow: 0 0 1px #595449;
 }
@@ -47,7 +48,8 @@ body.light .onPageNav a {
   color: #24292e;
 }
 
-body.light .onPageNav .toc-headings > li > a.active, .onPageNav .toc-headings > li > a.hover {
+body.light .onPageNav .toc-headings > li > a.active,
+.onPageNav .toc-headings > li > a.hover {
   color: #24292e;
   text-shadow: 0 0 1px #9ea9b3;
 }
@@ -56,7 +58,8 @@ body.dark code {
   background-color: rgba(213, 210, 204, 0.15);
 }
 
-body.dark .hljs, .hljs-subst {
+body.dark .hljs,
+.hljs-subst {
   color: #d5d2cc;
 }
 
@@ -108,7 +111,6 @@ body.dark .button:hover {
   background: #d5d2cc;
   color: #263239;
 }
-
 
 .fixedHeaderContainer {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -166,7 +168,7 @@ ul.roadmap {
 ul.roadmap::before {
   position: absolute;
   display: block;
-  content: "";
+  content: '';
   height: 100%;
   top: 0;
   bottom: 0;
@@ -180,6 +182,7 @@ ul.roadmap li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 ul.roadmap li .icon {
@@ -192,6 +195,7 @@ ul.roadmap li .icon {
 
 ul.roadmap li .content {
   flex: 1;
+  font-size: 1.2em;
 }
 
 ul.roadmap li .content .title {
@@ -199,5 +203,5 @@ ul.roadmap li .content .title {
 }
 
 ul.roadmap li .content .description {
-  font-size: .8em;
+  font-size: 0.8em;
 }
