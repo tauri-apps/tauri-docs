@@ -321,7 +321,7 @@ function Home() {
   const { siteConfig = {} } = context
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.tagline}`}
       description="Description will go into a meta tag in <head />"
     >
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
@@ -334,7 +334,17 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('docs/doc1')}
+              to={useBaseUrl('about')}
+            >
+              Learn more
+            </Link>
+
+            <Link
+              className={classnames(
+                'button button--outline button--secondary button--lg',
+                styles.getStarted
+              )}
+              to={useBaseUrl('docs/getting-started/intro')}
             >
               Get Started
             </Link>
