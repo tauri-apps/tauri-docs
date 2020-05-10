@@ -54,10 +54,7 @@ function Feature({ imageUrl, title, description }) {
   )
 }
 
-const Translate = (props) => (
-  <span>{props.children}</span>
-)
-
+const Translate = (props) => <span>{props.children}</span>
 
 const Roadmap = () => {
   const COLORS = {
@@ -324,30 +321,38 @@ function Home() {
       title={`${siteConfig.tagline}`}
       description="Description will go into a meta tag in <head />"
     >
-      <header className={classnames('hero hero--primary', styles.heroBanner)}>
+      <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
+          <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
-            <Link
-              className={classnames(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted
-              )}
-              to={useBaseUrl('about')}
-            >
-              Learn more
-            </Link>
-
-            <Link
-              className={classnames(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted
-              )}
-              to={useBaseUrl('docs/getting-started/intro')}
-            >
-              Get Started
-            </Link>
+            <div className="container">
+              <div class="row">
+                <div class="col col--4 col--offset-2">
+                  <Link
+                    className={classnames(
+                      'button button--outline button--secondary button--lg',
+                      styles.about
+                    )}
+                    to={useBaseUrl('about')}
+                  >
+                    <span>Learn more</span>
+                  </Link>
+                </div>
+                <div class="col col--4">
+                  <Link
+                    className={classnames(
+                      'button button--outline button--secondary button--lg',
+                      styles.getStarted
+                    )}
+                    to={useBaseUrl('docs/getting-started/intro')}
+                  >
+                    <span>Get started</span>
+                  </Link>
+                </div>
+                <div class="col col--2"></div>
+              </div>
+            </div>
           </div>
         </div>
       </header>

@@ -75,3 +75,7 @@ ul.roadmap li .content .title {
 ul.roadmap li .content .description {
   font-size: .8em;
 }
+
+.hero__subtitle {
+  margin-top: 26px;
+}
