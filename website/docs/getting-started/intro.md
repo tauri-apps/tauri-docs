@@ -26,22 +26,22 @@ If you find something unclear, an error or simply would like to propose an impro
 
 We are assuming that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. Obviously, you must first make sure that all required languages / compilers are available and in your PATH. Read more about the details for your local development environment:
 
-- [Linux Setup](https://github.com/tauri-apps/tauri/wiki/02.-Linux-Setup)
-- [MacOS Setup](https://github.com/tauri-apps/tauri/wiki/03.-MacOS-Setup)
-- [MS Windows Setup](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+- [Linux Setup](setup-linux)
+- [MacOS Setup](setup-macos)
+- [MS Windows Setup](setup-windows)
 
 ### Initializing an App
 
 The initialization phase creates a folder and places a few template files into your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
 
-- [Tauri Integration](https://github.com/tauri-apps/tauri/wiki/05.-Tauri-Integration)
+- [Tauri Integration](../usage/integration)
 
 ### Developing an App
 
 There are several methods for developing an App using the built-in development App Window. The most common is to point the Tauri configuration at a localhost port that your front-end framework's development server provides you with. If your framework doesn't provide you with this, or you like everything vanilla, then you can instruct Tauri to serve (and transpile if needed) from a relative file path. In both cases you will have HMR (Hot Module Reloading). Read about this process:
 
-- [App Development](https://github.com/tauri-apps/tauri/wiki/06.-App-Development)
-- [App Debugging](https://github.com/tauri-apps/tauri/wiki/08.-App-Debugging)
+- [App Development](../usage/development)
+- [App Debugging](../usage/debugging)
 
 ### Making App Icons
 
