@@ -89,3 +89,13 @@ ul.roadmap li .content .description {
 .hero__subtitle {
   margin-top: 26px;
 }
+
+.features_src-pages- .row .col {
+  align-self: center;
+  text-align: center;
+}
+
+.featureImage_src-pages- {
+  height: 250px !important;
+  width: 250px !important;
+}

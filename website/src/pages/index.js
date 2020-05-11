@@ -11,42 +11,36 @@ const features = [
     title: <>Security</>,
     imageUrl: 'img/undraw_security.svg',
     description: (
-      <>
-        is the Tauri-Team's biggest priority and drives our innovation.
-      </>
+      <>is the Tauri-Team's biggest priority and drives our innovation.</>
     ),
   },
   {
     title: <>FLOSS</>,
     imageUrl: 'img/undraw_open_source.svg',
-    description: (
-      <>
-        relicensing is possible with Tauri. 
-      </>
-    ),
+    description: <>relicensing is possible with Tauri.</>,
   },
   {
     title: <>Bundle</>,
     imageUrl: 'img/undraw_takeout_boxes.svg',
-    description: (
-      <>
-        size of a Tauri App can be less than 600KB. 
-      </>
-    ),
+    description: <>size of a Tauri App can be less than 600KB.</>,
   },
 ]
 
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
-    <div className={classnames('col col--4', styles.feature)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
-      <h3>{title}</h3>
-      <p>{description}</p>
+    <div className="row">
+      <div className={classnames('col', styles.feature)}>
+        {imgUrl && (
+          <div className="text--center">
+            <img className={styles.featureImage} src={imgUrl} alt={title} />
+          </div>
+        )}
+      </div>
+      <div className="col">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
     </div>
   )
 }
@@ -304,8 +298,10 @@ const Roadmap = () => {
 
   return (
     <div className="container">
-      <h2 style={{textAlign: 'center'}}>Roadmap</h2>
-      <p style={{textAlign: 'center'}}>Notice: This roadmap is subject to change.</p>
+      <h2 style={{ textAlign: 'center' }}>Roadmap</h2>
+      <p style={{ textAlign: 'center' }}>
+        Notice: This roadmap is subject to change.
+      </p>
       <ul className="roadmap">{items}</ul>
     </div>
   )
@@ -322,7 +318,12 @@ function Home() {
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
           <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
+          <p className="hero__subtitle">
+            Bundle your HTML, CSS and JavaScript
+            <br />
+            to make smaller, faster and more secure native applications
+          </p>
           <div className={styles.buttons}>
             <div className="container">
               <div className="row">
@@ -354,22 +355,21 @@ function Home() {
           </div>
         </div>
       </header>
+
       <main>
         {features && features.length && (
           <section className={styles.features}>
             <div className="container">
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
+              {features.map((props, idx) => (
+                <Feature key={idx} {...props} />
+              ))}
             </div>
           </section>
         )}
+        <section>
+          <Roadmap></Roadmap>
+        </section>
       </main>
-      <section>
-        <Roadmap></Roadmap>
-      </section>
     </Layout>
   )
 }
