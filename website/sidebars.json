@@ -15,7 +15,20 @@
       "type": "category",
       "items": [
         "usage/intro",
-        "usage/patterns",
+        {
+          "label": "Patterns",
+          "type": "category",
+          "items": [
+            "usage/patterns/about-patterns",
+            "usage/patterns/hermit",
+            "usage/patterns/bridge",
+            "usage/patterns/cloudish",
+            "usage/patterns/cloudbridge",
+            "usage/patterns/kamikaze",
+            "usage/patterns/multiwin",
+            "usage/patterns/glui"
+          ]
+        },
         "usage/integration",
         "usage/development",
         "usage/publishing",

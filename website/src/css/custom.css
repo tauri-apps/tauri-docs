@@ -99,3 +99,14 @@ ul.roadmap li .content .description {
   height: 250px !important;
   width: 250px !important;
 }
+
+.mermaid svg {
+  display: block;
+  margin: auto;
+}
+
+.pattern-logo {
+  height: 65px;
+  margin-right: 10px;
+  float: left;
+}
