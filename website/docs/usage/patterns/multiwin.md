@@ -4,12 +4,19 @@ title: "Multiwin"
 sidebar_label: Multiwin
 ---
 
+<div className="alert alert--warning" role="alert">
+Please note: <br/>
+This pattern is not available for now.
+</div>
+
+
+## Description
+
 <img className="pattern-logo" src="/img/patterns/Multiwin.png" alt="Multiwin" />
+
 The Multiwin recipe will allow you to have multiple windows, some of which may be GL based.
 
-<div className="alert alert--warning" style={{clear: 'both'}} role="alert">
-Please note: This Pattern is not available.
-</div>
+## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
@@ -34,6 +41,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
+
+## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
 ```json

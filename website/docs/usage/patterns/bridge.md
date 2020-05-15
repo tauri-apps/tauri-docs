@@ -4,8 +4,13 @@ title: "Bridge"
 sidebar_label: Bridge
 ---
 
+## Description
+
 <img className="pattern-logo" src="/img/patterns/Bridge.png" alt="Bridge" />
+
 The Bridge recipe is a secure pattern where messages are passed between brokers via an implicit bridge using the API. It isolates functionality to scope and passes messages instead of functionality.
+
+## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
@@ -36,6 +41,7 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
+## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
 ```json

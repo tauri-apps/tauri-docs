@@ -4,10 +4,35 @@ title: "Hermit"
 sidebar_label: Hermit
 ---
 
+## Description
+
 <img className="pattern-logo" src="/img/patterns/Hermit.png" alt="Hermit" />
 The Hermit recipe is a pattern for ultimate application isolation where all logic is self-contained in the Window and the binary exists merely to bootstrap the Window. There is no communication back to Rust from the Window, there is no localhost server, and the Window has no access to any remote resources. The Hermit is great for interactive Kiosk Mode and standalone HTML based games.
 
+import Rater from '@theme/Rater'
 
+<div className="row">
+  <div className="col col--6">
+    Pros:
+    <ul>
+      <li>Quick to make</li>
+      <li>Smallest size</li>
+    </ul>
+    Cons:
+    <ul>
+      <li>No remote resources</li>
+      <li>No access to API</li>
+    </ul>
+  </div>
+  <div class="col col--6">
+    Ease of Use: <Rater value="5"/><br/>
+    Extensibility: <Rater value="0"/><br/>
+    Performance: <Rater value="5"/><br/>
+    Security: <Rater value="5"/><br/>
+  </div>
+</div>
+
+## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
@@ -26,6 +51,7 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
+## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
 

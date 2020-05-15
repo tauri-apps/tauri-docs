@@ -4,8 +4,13 @@ title: "Kamikaze"
 sidebar_label: Kamikaze
 ---
 
+## Description
+
 <img className="pattern-logo" src="/img/patterns/Kamikaze.png" alt="Kamikaze" />
-The Kamikaze recipe is a minimal usage of the Bridge pattern, which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+
+The Kamikaze recipe is a minimal usage of the [Bridge pattern](bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+
+## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
@@ -28,6 +33,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
+
+## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
 ```json

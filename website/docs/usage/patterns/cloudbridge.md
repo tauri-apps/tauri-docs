@@ -4,8 +4,13 @@ title: "Cloudbridge"
 sidebar_label: Cloudbridge
 ---
 
+## Description
+
 <img className="pattern-logo" src="/img/patterns/Cloudbridge.png" alt="Cloudbridge" />
+
 The Cloudbridge recipe combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
+
+## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
@@ -47,6 +52,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
       `} />
 
+
+## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
 ```json
