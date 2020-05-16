@@ -47,7 +47,7 @@ const siteConfig = {
           position: 'left',
         },
         {
-          to: '/docs/config',
+          to: '/docs/api/config',
           label: 'API',
           position: 'left',
         },

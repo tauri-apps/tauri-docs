@@ -44,8 +44,8 @@
       "label": "API",
       "type": "category",
       "items": [
-        "config",
-        "js",
+        "api/config",
+        "api/js",
         {
           "label": "Rust",
           "type": "category",
