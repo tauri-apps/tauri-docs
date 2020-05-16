@@ -1,12 +1,8 @@
 .rater span {
-    margin: 0 2px;
-    border-radius: 50%;;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    background-color: #759aa1;
-}
-
-.checked {
-    background-color: #67d6ed !important;
+  margin: 0 2px;
+  border-radius: 50%;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid transparent;
 }

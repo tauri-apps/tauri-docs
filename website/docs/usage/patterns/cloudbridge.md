@@ -4,9 +4,47 @@ title: "Cloudbridge"
 sidebar_label: Cloudbridge
 ---
 
-## Description
+import Rater from '@theme/Rater'
 
-<img className="pattern-logo" src="/img/patterns/Cloudbridge.png" alt="Cloudbridge" />
+<div className="row">
+  <div className="col col--4">
+    <table>
+      <tr>
+        <td>Ease of Use</td>
+        <td><Rater value="1"/></td>
+      </tr>
+      <tr>
+        <td>Extensibility</td>
+        <td><Rater value="5"/></td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td><Rater value="3"/></td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td><Rater value="2"/></td>
+      </tr>
+    </table>
+  </div>
+  <div className="col col--4 pattern-logo">
+    <img src="/img/patterns/Cloudbridge.png" alt="Cloudbridge" />
+  </div>
+    <div className="col col--4">
+    Pros:
+    <ul>
+      <li>All available features</li>
+      <li>No Rust skills required</li>
+    </ul>
+    Cons:
+    <ul>
+      <li>Largest bundle size</li>
+      <li>Hard to separate concerns</li>
+    </ul>
+  </div>
+</div>
+
+## Description
 
 The Cloudbridge recipe combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
 

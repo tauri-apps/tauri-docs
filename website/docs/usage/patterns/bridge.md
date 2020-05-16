@@ -4,9 +4,47 @@ title: "Bridge"
 sidebar_label: Bridge
 ---
 
-## Description
+import Rater from '@theme/Rater'
 
-<img className="pattern-logo" src="/img/patterns/Bridge.png" alt="Bridge" />
+<div className="row">
+  <div className="col col--4">
+    <table>
+      <tr>
+        <td>Ease of Use</td>
+        <td><Rater value="3"/></td>
+      </tr>
+      <tr>
+        <td>Extensibility</td>
+        <td><Rater value="5"/></td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td><Rater value="4"/></td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td><Rater value="4"/></td>
+      </tr>
+    </table>
+  </div>
+  <div className="col col--4 pattern-logo">
+    <img src="/img/patterns/Bridge.png" alt="Bridge" />
+  </div>
+    <div className="col col--4">
+    Pros:
+    <ul>
+      <li>Highly configurable</li>
+      <li>No Rust skills required</li>
+    </ul>
+    Cons:
+    <ul>
+      <li>Some WebAPIs unavailable</li>
+      <li>Challenge to implement</li>
+    </ul>
+  </div>
+</div>
+
+## Description
 
 The Bridge recipe is a secure pattern where messages are passed between brokers via an implicit bridge using the API. It isolates functionality to scope and passes messages instead of functionality.
 

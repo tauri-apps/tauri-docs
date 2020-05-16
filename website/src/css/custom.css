@@ -106,7 +106,9 @@ ul.roadmap li .content .description {
 }
 
 .pattern-logo {
-  height: 65px;
-  margin-right: 10px;
-  float: left;
+  text-align: center;
+}
+
+.pattern-logo img {
+  max-height: 191px;
 }

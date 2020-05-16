@@ -4,14 +4,51 @@ title: "GLUI"
 sidebar_label: GLUI
 ---
 
-<div className="alert alert--warning" role="alert">
+<div className="alert alert--warning" style={{marginBottom: '30px'}} role="alert">
 Please note: <br/>
 This pattern is not available for now.
 </div>
 
-## Description
+import Rater from '@theme/Rater'
 
-<img className="pattern-logo" src="/img/patterns/GLUI.png" alt="GLUI" />
+<div className="row">
+  <div className="col col--4">
+    <table>
+      <tr>
+        <td>Ease of Use</td>
+        <td><Rater value="0"/></td>
+      </tr>
+      <tr>
+        <td>Extensibility</td>
+        <td><Rater value="0"/></td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td><Rater value="5"/></td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td><Rater value="0"/></td>
+      </tr>
+    </table>
+  </div>
+  <div className="col col--4 pattern-logo">
+    <img src="/img/patterns/GLUI.png" alt="GLUI" />
+  </div>
+  <div className="col col--4">
+    Pros:
+    <ul>
+      <li>Framebuffer FTW</li>
+      <li>Window events rigged</li>
+    </ul>
+    Cons:
+    <ul>
+      <li>Broken on your machine</li>
+    </ul>
+  </div>
+</div>
+
+## Description
 
 The GLUI is a research pattern that we will use internally to test approaches using a GLUTIN window. We’re not sure yet if it will make the final cut as a bona fide alternative to Webview, although early tests with transparent and multiwindow are exciting.
 

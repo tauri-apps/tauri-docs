@@ -4,15 +4,33 @@ title: "Hermit"
 sidebar_label: Hermit
 ---
 
-## Description
-
-<img className="pattern-logo" src="/img/patterns/Hermit.png" alt="Hermit" />
-The Hermit recipe is a pattern for ultimate application isolation where all logic is self-contained in the Window and the binary exists merely to bootstrap the Window. There is no communication back to Rust from the Window, there is no localhost server, and the Window has no access to any remote resources. The Hermit is great for interactive Kiosk Mode and standalone HTML based games.
-
 import Rater from '@theme/Rater'
 
 <div className="row">
-  <div className="col col--6">
+  <div className="col col--4">
+    <table>
+      <tr>
+        <td>Ease of Use</td>
+        <td><Rater value="5"/></td>
+      </tr>
+      <tr>
+        <td>Extensibility</td>
+        <td><Rater value="0"/></td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td><Rater value="5"/></td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td><Rater value="5"/></td>
+      </tr>
+    </table>
+  </div>
+  <div className="col col--4 pattern-logo">
+    <img src="/img/patterns/Hermit.png" alt="Hermit" />
+  </div>
+    <div className="col col--4">
     Pros:
     <ul>
       <li>Quick to make</li>
@@ -24,13 +42,11 @@ import Rater from '@theme/Rater'
       <li>No access to API</li>
     </ul>
   </div>
-  <div class="col col--6">
-    Ease of Use: <Rater value="5"/><br/>
-    Extensibility: <Rater value="0"/><br/>
-    Performance: <Rater value="5"/><br/>
-    Security: <Rater value="5"/><br/>
-  </div>
 </div>
+
+## Description
+
+The Hermit recipe is a pattern for ultimate application isolation where all logic is self-contained in the Window and the binary exists merely to bootstrap the Window. There is no communication back to Rust from the Window, there is no localhost server, and the Window has no access to any remote resources. The Hermit is great for interactive Kiosk Mode and standalone HTML based games.
 
 ## Diagram
 

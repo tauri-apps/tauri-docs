@@ -2,14 +2,13 @@ import React from 'react'
 import classnames from 'classnames'
 import styles from './rater.module.css'
 
-const Item = ({ isChecked }) => (
-  <span className={classnames(isChecked ? styles.checked : '')}></span>
-)
+const Item = ({ backgroundColor }) => <span style={{ backgroundColor }}></span>
 
-const Rater = ({ value }) => {
+const Rater = ({ value, color = '#67d6ed' }) => {
   const items = []
+
   for (let i = 0; i < 5; ++i) {
-    items.push(<Item isChecked={i < value} />)
+    items.push(<Item backgroundColor={i < value ? color : '#759aa1'} />)
   }
 
   return <span className={classnames(styles.rater)}>{items}</span>

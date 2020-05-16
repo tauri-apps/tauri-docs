@@ -4,15 +4,51 @@ title: "Multiwin"
 sidebar_label: Multiwin
 ---
 
-<div className="alert alert--warning" role="alert">
+<div className="alert alert--warning" style={{marginBottom: '30px'}} role="alert">
 Please note: <br/>
 This pattern is not available for now.
 </div>
 
+import Rater from '@theme/Rater'
+
+<div className="row">
+  <div className="col col--4">
+    <table>
+      <tr>
+        <td>Ease of Use</td>
+        <td><Rater value="1"/></td>
+      </tr>
+      <tr>
+        <td>Extensibility</td>
+        <td><Rater value="4"/></td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td><Rater value="3"/></td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td><Rater value="5"/></td>
+      </tr>
+    </table>
+  </div>
+  <div className="col col--4 pattern-logo">
+    <img src="/img/patterns/Multiwin.png" alt="Multiwin" />
+  </div>
+  <div className="col col--4">
+    Pros:
+    <ul>
+      <li>Access to GL context</li>
+      <li>Separation of concerns</li>
+    </ul>
+    Cons:
+    <ul>
+      <li>Extremely complex</li>
+    </ul>
+  </div>
+</div>
 
 ## Description
-
-<img className="pattern-logo" src="/img/patterns/Multiwin.png" alt="Multiwin" />
 
 The Multiwin recipe will allow you to have multiple windows, some of which may be GL based.
 
