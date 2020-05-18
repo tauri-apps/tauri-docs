@@ -32,7 +32,13 @@
         "usage/integration",
         "usage/development",
         "usage/publishing",
-        "usage/identity"
+        "usage/debugging",
+        "usage/identity",
+        "usage/modes",
+        "usage/bundler",
+        "usage/detailed-flow",
+        "usage/ci-cd",
+        "usage/contributor-guide"
       ]
     },
     {
@@ -44,6 +50,7 @@
       "label": "API",
       "type": "category",
       "items": [
+        "api/cli",
         "api/config",
         "api/js",
         {
