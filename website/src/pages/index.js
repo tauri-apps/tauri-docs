@@ -424,7 +424,7 @@ function Home() {
 
       <main>
         {features && features.length && (
-          <section className={styles.features}>
+          <section className={classnames('features', styles.features)}>
             <div className="container">
               {features.map((row, index) => {
                 return (
