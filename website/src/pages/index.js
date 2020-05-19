@@ -8,60 +8,65 @@ import styles from './styles.module.css'
 import Fade from 'react-reveal/Fade'
 
 const features = [
-  {
-    title: <>Security</>,
-    imageUrl: 'img/undraw_security.svg',
-    description: (
-      <>is the Tauri-Team's biggest priority and drives our innovation</>
-    ),
-  },
-  {
-    title: <>FLOSS</>,
-    imageUrl: 'img/undraw_open_source.svg',
-    description: <>relicensing is possible with Tauri</>,
-  },
-  {
-    title: <>Bundle</>,
-    imageUrl: 'img/undraw_takeout_boxes.svg',
-    description: <>size of a Tauri App can be less than 600KB</>,
-  },
-  {
-    title: <>Brownfield</>,
-    imageUrl: 'img/undraw_brownfield.svg',
-    description: (
-      <>
-        compatibility with any front-end framework means you don't have to
-        change your stack
-      </>
-    ),
-  },
-  {
-    title: <>Patterns</>,
-    imageUrl: 'img/undraw_patterns.svg',
-    description: (
-      <>
-        are here to help you choose important features with simple configuration
-      </>
-    ),
-  },
-  {
-    title: <>Cross-platform</>,
-    imageUrl: 'img/undraw_cross_platform.svg',
-    description: (
-      <>
-        compilation allows to bundle binaries for major desktop platforms
-        (mobile & WASM coming soon)
-      </>
-    ),
-  },
+  [
+    {
+      title: <>Security</>,
+      imageUrl: 'img/undraw_security.svg',
+      description: (
+        <>is the Tauri-Team's biggest priority and drives our innovation</>
+      ),
+    },
+    {
+      title: <>FLOSS</>,
+      imageUrl: 'img/undraw_open_source.svg',
+      description: <>relicensing is possible with Tauri</>,
+    },
+    {
+      title: <>Bundle</>,
+      imageUrl: 'img/undraw_takeout_boxes.svg',
+      description: <>size of a Tauri App can be less than 600KB</>,
+    },
+  ],
+  [
+    {
+      title: <>Brownfield</>,
+      imageUrl: 'img/undraw_brownfield.svg',
+      description: (
+        <>
+          compatibility with any front-end framework means you don't have to
+          change your stack
+        </>
+      ),
+    },
+    {
+      title: <>Patterns</>,
+      imageUrl: 'img/undraw_patterns.svg',
+      description: (
+        <>
+          are here to help you choose important features with simple
+          configuration
+        </>
+      ),
+    },
+    {
+      title: <>Cross-platform</>,
+      imageUrl: 'img/undraw_cross_platform.svg',
+      description: (
+        <>
+          compilation allows to bundle binaries for major desktop platforms
+          (mobile & WASM coming soon)
+        </>
+      ),
+    },
+  ],
 ]
 
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
-    <div class="col col--4 card-demo">
-      <div class="card">
-        <div class="card__body">
+    <div className="col col--4 card-demo">
+      <div className="card">
+        <div className="card__body">
           {imgUrl && (
             <div className="text--center">
               <img className={styles.featureImage} src={imgUrl} alt={title} />
@@ -70,8 +75,8 @@ function Feature({ imageUrl, title, description }) {
           <h3>{title}</h3>
           <p>{description}</p>
         </div>
-        <div class="card__footer">
-          <button class="button button--secondary button--block">
+        <div className="card__footer">
+          <button className="button button--secondary button--block">
             See more
           </button>
         </div>
@@ -421,16 +426,14 @@ function Home() {
         {features && features.length && (
           <section className={styles.features}>
             <div className="container">
-              {features.map((props, idx) => {
-                let out = ''
-                if (idx % 3 === 0) {
-                  out += '<div className="row">'
-                }
-                out += <Feature key={idx} {...props} />
-                if (idx + 1 % 3 === 0) {
-                  out += '</div>'
-                }
-                return out
+              {features.map((row, index) => {
+                return (
+                  <div className="row" key={index}>
+                    {row.map((props, idx) => (
+                      <Feature key={idx} {...props} />
+                    ))}
+                  </div>
+                )
               })}
             </div>
           </section>
