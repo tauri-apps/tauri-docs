@@ -64,7 +64,7 @@ const features = [
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
-    <div className="col col--4 card-demo">
+    <div className="col col--4 feature">
       <div className="card">
         <div className="card__body">
           {imgUrl && (

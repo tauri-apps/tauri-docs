@@ -121,7 +121,7 @@ html[data-theme='dark'] #starfield {
   position: relative;
 }
 
-.features .row {
+.features .row .feature {
   margin-bottom: 20px;
 }
 
