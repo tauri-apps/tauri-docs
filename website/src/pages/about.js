@@ -15,18 +15,20 @@ function About() {
         </p>
         <p>
           If you want to know more about the technical details, then please
-          visit the{' '}
-          <a href="/docs/getting-started/intro">
-            Introduction
-          </a>
-          . If you want to know more about this project’s philosophy - then keep
+          visit the <a href="/docs/getting-started/intro">Introduction</a>. If
+          you want to know more about this project’s philosophy - then keep
           reading.
         </p>
-        <p>
-          <a href="/" target="_blank" rel="noopener">
-            VIDEO EMBED
-          </a>
-        </p>
+        <div style={{ textAlign: 'center' }}>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/ug2aoVZYgaU"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
         <h2 id="Security-First">Security First</h2>
         <p>
           In today’s world, every honest threat model assumes that the user’s
