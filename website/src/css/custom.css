@@ -108,7 +108,7 @@ ul.roadmap li .content .description {
   max-height: 191px;
 }
 
-html[data-theme="dark"] #starfield {
+html[data-theme='dark'] #starfield {
   display: block !important;
   width: 100%;
   height: 100%;
@@ -119,4 +119,17 @@ html[data-theme="dark"] #starfield {
 .roadmap-container {
   display: block;
   position: relative;
+}
+
+.features_src-pages- .row {
+  margin-bottom: 20px;
+}
+
+.features_src-pages- .col {
+  display: flex;
+  align-self: stretch !important;
+}
+
+.features_src-pages- .card {
+  width: 100%;
 }
