@@ -52,6 +52,11 @@ const siteConfig = {
           position: 'left',
         },
         {
+          to: '/partners',
+          label: 'Partners',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/tauri-apps/tauri',
           label: 'GitHub',
           position: 'right',
