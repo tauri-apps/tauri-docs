@@ -114,6 +114,20 @@ const siteConfig = {
             },
           ],
         },
+        {
+          title: 'Contribution',
+          items: [
+            {
+              label: 'Partners',
+              to: 'partners',
+            },
+            // TODO: add code of conduct
+            // {
+            //   label: 'Second Doc',
+            //   to: 'docs/doc2',
+            // },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio. Built with Docusaurus.`,
       
