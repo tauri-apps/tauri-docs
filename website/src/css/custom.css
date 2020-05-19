@@ -95,11 +95,6 @@ ul.roadmap li .content .description {
   text-align: center;
 }
 
-.featureImage_src-pages- {
-  height: 250px !important;
-  width: 250px !important;
-}
-
 .mermaid svg {
   display: block;
   margin: auto;
@@ -111,4 +106,17 @@ ul.roadmap li .content .description {
 
 .pattern-logo img {
   max-height: 191px;
+}
+
+html[data-theme="dark"] #starfield {
+  display: block !important;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  position: absolute;
+}
+
+.roadmap-container {
+  display: block;
+  position: relative;
 }
