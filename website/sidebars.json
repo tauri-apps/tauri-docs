@@ -37,7 +37,14 @@
         "usage/modes",
         "usage/bundler",
         "usage/detailed-flow",
-        "usage/ci-cd",
+        {
+          "label": "CI/CD",
+          "type": "category",
+          "items": [
+            "usage/ci-cd/workflow",
+            "usage/ci-cd/cross-platform"
+          ]
+        },
         "usage/contributor-guide"
       ]
     },
