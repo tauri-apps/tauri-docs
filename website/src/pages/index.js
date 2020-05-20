@@ -15,16 +15,19 @@ const features = [
       description: (
         <>is the Tauri-Team's biggest priority and drives our innovation</>
       ),
+      link: '#',
     },
     {
       title: <>FLOSS</>,
       imageUrl: 'img/undraw_open_source.svg',
       description: <>relicensing is possible with Tauri</>,
+      link: '#',
     },
     {
       title: <>Bundle</>,
       imageUrl: 'img/undraw_takeout_boxes.svg',
       description: <>size of a Tauri App can be less than 600KB</>,
+      link: '#',
     },
   ],
   [
@@ -37,6 +40,7 @@ const features = [
           change your stack
         </>
       ),
+      link: '#',
     },
     {
       title: <>Patterns</>,
@@ -47,6 +51,7 @@ const features = [
           configuration
         </>
       ),
+      link: 'docs/usage/patterns/about-patterns',
     },
     {
       title: <>Cross-platform</>,
@@ -57,11 +62,12 @@ const features = [
           (mobile & WASM coming soon)
         </>
       ),
+      link: '#',
     },
   ],
 ]
 
-function Feature({ imageUrl, title, description }) {
+function Feature({ imageUrl, title, description, link }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
     <div className="col col--4 feature">
@@ -76,9 +82,11 @@ function Feature({ imageUrl, title, description }) {
           <p>{description}</p>
         </div>
         <div className="card__footer">
-          <button className="button button--secondary button--block">
-            See more
-          </button>
+          <Link to={useBaseUrl(link)}>
+            <button className="button button--secondary button--block">
+              See more
+            </button>
+          </Link>
         </div>
       </div>
     </div>
