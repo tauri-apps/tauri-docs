@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
@@ -15,7 +15,7 @@ const features = [
       description: (
         <>is the Tauri-Team's biggest priority and drives our innovation</>
       ),
-      link: '#',
+      link: 'docs/about/security',
     },
     {
       title: <>FLOSS</>,
@@ -357,33 +357,9 @@ const Roadmap = () => {
   )
 }
 
-const renderStars = () => {
-  function getRandom(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-  var canvas = document.getElementById('starfield'),
-    context = canvas.getContext('2d'),
-    stars = 500,
-    colorrange = [0, 60, 240]
-  for (var i = 0; i < stars; i++) {
-    var x = Math.random() * canvas.offsetWidth
-    const y = Math.random() * canvas.offsetHeight
-    const radius = Math.random() * 0.7
-    const hue = colorrange[getRandom(0, colorrange.length - 1)]
-    const sat = getRandom(50, 100)
-    context.beginPath()
-    context.arc(x, y, radius, 0, 360)
-    context.fillStyle = 'hsl(' + hue + ', ' + sat + '%, 88%)'
-    context.fill()
-  }
-}
-
 function Home() {
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
-  useEffect(() => {
-    renderStars()
-  })
   return (
     <Layout
       title={`${siteConfig.tagline}`}
@@ -447,16 +423,7 @@ function Home() {
           </section>
         )}
         <section className="roadmap-container">
-          <canvas
-            id="starfield"
-            style={{ display: 'none' }}
-            width="750"
-            height="500"
-          ></canvas>
-          {/* <div id="space"><div id="stars1"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div></div> */}
-          <Roadmap></Roadmap>
+          <Roadmap />
         </section>
       </main>
     </Layout>
