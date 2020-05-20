@@ -5,7 +5,7 @@ title: Security
 
 This guide seeks to explain the high level concepts and Security Features at the core of Tauri's design that make you, your apps and your users safer by default.
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
   Please note:<br/>
   While we take every opportunity to help you harden your application - there are always underlying threats like BIOS attacks, memory rowhammering and other operating system vulnerabilities that are constantly being discovered and (in the best cases) responsibly disclosed.<br/>
 Furthermore, there are many ways that development teams can cut corners and either leak sensitive information or leave doors wide open to any of a range of attacks. Security is a never-ending quest, and your users count on you to keep them safe.<br/>

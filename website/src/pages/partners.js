@@ -50,7 +50,7 @@ const Avatar = ({ name, tags, image, description, link }) => {
         </div>
         <div className="card__footer">
           <a href={link} target="_blank">
-            <button class="button button--secondary">Discover</button>
+            <button className="button button--secondary">Discover</button>
           </a>
         </div>
       </div>

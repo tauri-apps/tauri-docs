@@ -23,7 +23,7 @@ QUASAR using global `@quasar/cli`
 quasar dev
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 Every framework has its own development tooling. It is outside of the scope of this document to treat them all or keep them up to date - and tauri will not presume to do a better job then your framework.
 </div>
 

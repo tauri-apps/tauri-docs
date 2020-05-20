@@ -7,7 +7,7 @@ title: Get the book
     <img src="/img/bookCover.png" alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
   Tauri: From Theory to Practice<br/>
 Architecting Next-Gen Native-Apps for all Platforms [v1:Rust Edition]<br/>
 Authors: [Daniel Thompson-Yvetot, Lucas Fernandes Gonçalves Nogueira]<br/>
