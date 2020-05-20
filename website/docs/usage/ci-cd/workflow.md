@@ -1,9 +1,9 @@
 ---
-id: ci-cd
-title: CI/CD
+id: workflow
+title: Workflow
 ---
 
-# Continuous Integration
+## Continuous Integration
 
 Github Actions has two triggers of which we make heavy use: `push` and `pull_request`. Every commit that made to the repo is a `push`. When you open a pull request from a branch (call it `great_feature`) to another branch (our working branch, `dev`), each commit to `great_feature` would possibly trigger both of these events. We can use a filter to focus on the events we care about though. In our workflows, we only PR (pull request) the `dev` and `master` branches. This means that if we filter to only the `dev` and `master` branches on commit, we will only run that workflow when we _merge_ a PR. A merged PR typically only occurs once a day or less so this will be a good fit for the longer running tests, e.g. the smoke tests in our case. Below is how that might look.
 
@@ -34,9 +34,9 @@ on:
 
 Tauri operates off the `dev` branch as default, and merges to `master` for release. With these Github Actions set up, we will run the unit tests on every commit to an open PR (see `pull_request`). When that PR is merged into `dev`, we will run both the unit tests and the smoke tests.
 
-# Continuous Deployment
+## Continuous Deployment
 
-## Introduction to immutable checksum
+### Introduction to immutable checksum
 
 It is not only possible, but trivial to modify release notes and artifacts after it has been published on Github. While there are very valid reasons for doing this, it is not exactly a totally trustworthy method - i.e. you have no guarantee that what you are reading is really reflective of the underlying truth or the tarballs. It is technically possible to change downloads over the wire or in the box or change checksums in targeted attacks. What we are seeking to accomplish is a best case scenario where:
 
@@ -68,7 +68,7 @@ To this end we fashioned a workflow shown below. As it stands now, we have #3 th
    - master has updated code and tagged
    - GitHub release has tarballs, checksums, and changelog (may have multiple releases if more than one package published) [note: is part of step 2 and is not yet implemented]
 
-## Next Steps
+### Next Steps
 
 Next steps may include transferring and publishing the built assets to additional places:
 
