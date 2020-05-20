@@ -71,12 +71,12 @@ const siteConfig = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/doc1',
+              label: 'Getting started',
+              to: 'docs/getting-started/intro',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2',
+              label: 'Usage',
+              to: 'docs/usage/intro',
             },
           ],
         },
