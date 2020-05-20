@@ -1,13 +1,11 @@
 ---
 id: book
-title: Book
+title: Get the book
 ---
 
 <div style={{textAlign:'center'}}>
-    <img src="/statics/images/bookCover.png" alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
+    <img src="/img/bookCover.png" alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
-
-## Get the Book
 
 <div class="alert alert--info" role="alert">
   Tauri: From Theory to Practice<br/>
