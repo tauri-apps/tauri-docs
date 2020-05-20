@@ -382,7 +382,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={useBaseUrl('about')}
+                    to={useBaseUrl('docs/about/intro')}
                   >
                     <span>Learn more</span>
                   </Link>
