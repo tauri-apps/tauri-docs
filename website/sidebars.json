@@ -276,5 +276,17 @@
         }
       ]
     }
+  ],
+  "about": [
+    {
+      "label": "About Tauri",
+      "type": "category",
+      "items": [
+        "about/intro",
+        "about/security",
+        "about/governance",
+        "about/book"
+      ]
+    }
   ]
 }

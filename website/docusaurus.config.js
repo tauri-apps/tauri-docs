@@ -40,7 +40,7 @@ const siteConfig = {
         src: 'img/tauri.png',
       },
       links: [
-        { to: 'about', label: 'About', position: 'left' },
+        { to: 'docs/about/intro', label: 'About', position: 'left' },
         {
           to: 'docs/getting-started/intro',
           label: 'Docs',
