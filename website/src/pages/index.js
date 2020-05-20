@@ -326,7 +326,7 @@ const Roadmap = () => {
   ].map((item) => {
     return (
       <li key={item.title.props.children}>
-        <Fade left>
+        <Fade bottom>
           <div className="icon" style={{ backgroundColor: item.color }}></div>
           <div className="content">
             <div className="title">{item.title}</div>
