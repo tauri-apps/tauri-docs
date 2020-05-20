@@ -37,7 +37,7 @@ const siteConfig = {
     navbar: {
       logo: {
         alt: 'Tauri Logo',
-        src: 'img/tauri.svg',
+        src: 'img/tauri.png',
       },
       links: [
         { to: 'about', label: 'About', position: 'left' },
