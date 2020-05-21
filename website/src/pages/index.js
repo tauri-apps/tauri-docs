@@ -362,7 +362,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.tagline}`}
-      description="Description will go into a meta tag in <head />"
+      description="Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms."
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
