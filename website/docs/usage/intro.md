@@ -1,7 +1,6 @@
 ---
 id: intro
-title: "Usage"
-sidebar_label: Usage
+title: "Introduction"
 ---
 
 This part of the documentation is dedicated to learning by example.
