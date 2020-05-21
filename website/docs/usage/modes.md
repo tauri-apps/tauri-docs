@@ -1,13 +1,13 @@
 ---
 id: modes
-title: Modes
+title: App Loading Modes
 ---
 
-There are two basic modes of tauri: with or without a localhost server.
+Tauri has two configurations for loading your web app: with or without a localhost server.
 
 ## Localhost Server
 
-Shipped by default, this is the easiest way to get up and running. It provides your app with a localhost server that uses an ephemeral port (i.e. a port that changes on every run, based on what is available on the device).
+Shipped by default, this is the easiest way to get up and running. It provides your app with a localhost server that uses an ephemeral port (i.e. a port that changes on every run, based on what is available on the device). Tauri then uses the server to load your web app into the Webview.
 In your `src-tauri/tauri.conf.json`:
 
 ```json
@@ -20,7 +20,7 @@ In your `src-tauri/tauri.conf.json`:
 
 ## No Server
 
-A more advanced and secure configuration, and currently only available for webpack users, is the no-server. The main reason for its complexity is that tauri needs to rebuild your code by removing dynamic imports.
+A more advanced and secure configuration, and currently only available for webpack users, is the no-server mode. The main reason for its complexity is that Tauri needs to rebuild your code by removing dynamic imports. In this mode, Tauri loads your web app directly from the disk, skipping the localhost server entirely.
 
 In your `src-tauri/tauri.conf.json`:
 
@@ -32,9 +32,9 @@ In your `src-tauri/tauri.conf.json`:
 }
 ```
 
-### webpack
+### Required webpack Configuration
 
-If you are handcrafting your own webpack, you can do this:
+If you are handcrafting your own webpack config, you can do this:
 `webpack.config.js`
 
 ```js
@@ -68,9 +68,9 @@ And then in the `scripts` of your package.json:
 "dev:tauri": "TAURI=1 npm run dev",
 ```
 
-The webpack plugin can also be used with `chainWebpack`:
+### webpack Chain
 
-### webpack chain
+The tauri-webpack plugin can also be used with [webpack-chain](https://github.com/neutrinojs/webpack-chain):
 
 ```js
 chainWebpack (chain) {

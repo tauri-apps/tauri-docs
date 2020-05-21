@@ -63,12 +63,55 @@ function Partners() {
     {
       name: <>Digital Ocean</>,
       link: 'https://m.do.co/c/40f468c2e493',
-      tags: ['testing', 'JS/TS'],
+      tags: ['datacenter', 'deployment'],
       image: imgPath + 'DO_Logo_Vertical_Blue.png',
       description: (
         <>
-          This project is supported by Digital Ocean. Click this card to visit
-          their website and get $100 credit that you can use over 60 days.
+          This project's infrastructure is supported in part by Digital Ocean.
+          Click the button here to visit the Digital Ocean website and get $100
+          credit that you can use within 60 days.
+        </>
+      ),
+    },
+    {
+      name: <>netlify</>,
+      link: 'https://www.netlify.com',
+      tags: ['CD', 'documentation-site'],
+      image: imgPath + 'netlify.svg',
+      description: (
+        <>
+          Our docs are continuously deployed thanks to the kind support and
+          amazing tooling provided to us by netlify. Their service puts the
+          continuity in CI and the fun in functionality.
+        </>
+      ),
+    },
+    {
+      name: <>MailScript()</>,
+      link: 'https://mailscript.com',
+      tags: ['automation', 'email'],
+      image: imgPath + 'MailScript_logo.png',
+      description: (
+        <>
+          Mailscript helps us automate and wrangle our many, many github
+          notifications and apply granular actions to mails using rules.
+          Whether forwards, catchalls, webhooks or even SMS notifications -
+          MailScript() keeps on innovating!
+        </>
+      ),
+    },
+    {
+      name: <>Clickup</>,
+      link: 'https://clickup.com',
+      tags: ['time management', 'scrum'],
+      image: imgPath + 'clickup.png',
+      description: (
+        <>
+          ClickUp is one app to replace them all. It's the future of work - where
+          anyone can work on anything. More than just task management - ClickUp
+          offers docs, reminders, goals, calendars, scheduling, and even an inbox.
+          Fully customizable, ClickUp works for every type of team, so all teams
+          can use the same app to plan, organize, and collaborate.
         </>
       ),
     },
@@ -168,10 +211,6 @@ function Partners() {
 
   const patrons = [
     {
-      name: 'Virtual Inspiration',
-      link: 'https://virtual-inspiration.com/',
-    },
-    {
       name: 'anonymous',
       link: '',
     },
@@ -185,6 +224,54 @@ function Partners() {
     },
     {
       name: 'Allan Gaunt',
+      link: '',
+    },
+    {
+      name: 'jleni',
+      link: '',
+    },
+    {
+      name: 'Mary-Tyler Moore',
+      link: '',
+    },
+    {
+      name: 'romatthe',
+      link: '',
+    },
+    {
+      name: 'Taylor Gregoire-Wright',
+      link: '',
+    },
+    {
+      name: 'Oscar Lito M Pablo',
+      link: '',
+    },
+    {
+      name: 'Cameron Snaders',
+      link: '',
+    },
+    {
+      name: 'Yuya Sato',
+      link: '',
+    },
+    {
+      name: 'Calvin Kipperman',
+      link: '',
+    },
+    {
+      name: 'laona',
+      link: '',
+    },
+    {
+      name: 'Fritz-Rainer Doebbelin',
+      link: '',
+    },
+    {
+      name: 'Jonathan Baginski',
+      link: '',
+    },
+    {
+      name: 'ken',
       link: '',
     },
   ]

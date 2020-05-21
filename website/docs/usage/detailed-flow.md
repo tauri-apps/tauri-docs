@@ -1,6 +1,6 @@
 ---
 id: detailed-flow
-title: Detailed flow
+title: Detailed Flow
 ---
 
 NOTE: This document requires revision.
