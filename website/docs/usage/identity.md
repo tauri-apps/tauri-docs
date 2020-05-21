@@ -1,18 +1,18 @@
 ---
 id: identity
-title: "App identity"
-sidebar_label: App identity
+title: 'App Identity'
+sidebar_label: App Identity
 ---
 
 This section is dedicated to the visual and UX aspects of your Tauri application.
 
 ## Icons
 
-Tauri ships with an iconset based on its logo. This is probably NOT what you want when you ship your app. To rememdy this common situation, there is a nodejs script that will take an input file and create all the icons needed for the various platforms and by default place them in your `src-tauri/icons` folder.
+Tauri ships with an iconset based on its logo. This is probably NOT what you want when you ship your app. To rememdy this common situation, Tauri provides the `tauri icon` command that will take an input file and create all the icons needed for the various platforms. These will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
 
 ```
-local:  yarn tauri icon
-global: tauri icon
+local install:  yarn tauri icon
+global install: tauri icon
 ```
 
 ```
@@ -24,7 +24,7 @@ Options
   --compression, c    Compression type [pngquant|optipng|zopfli]
 ```
 
-Should you however, need to source your icons from some other location, you can edit this part of the `src-tauri/Cargo.toml` file:
+If you need to source your icons from some other location, you can edit this part of the `src-tauri/Cargo.toml` file:
 
 ```
 [package.metadata.bundle]
@@ -38,16 +38,17 @@ icon = [
 ```
 
 ### Notes on filetypes:
+
 - icon.icns = MacOS
 - icon.ico = MS Windows
-- *.png = Linux
-
+- \*.png = Linux
 
 ## Splashscreen
 
-Bootstrapping an application may take time. Making users wait without explanations is bad for your UX; therefore, Tauri allows you to define a custom splashscreen, a placeholder that will be displayed in the first place until you think it can be swapped for the application content.
+Loading an application may take time. Making users wait without any indication of progress is bad for your UX. Tauri allows you to define a custom splashscreen, a placeholder that will be displayed until your application has finished loading.
 
 To define a splashscreen, you can call the method `splashscreen_html` like following:
+
 ```rust
 tauri::AppBuilder::new()
   // The splashscreen is declared
@@ -60,4 +61,5 @@ tauri::AppBuilder::new()
   .build()
   .run();
 ```
-This method accepts a string containing HTML elements that will be rendered.
+
+The `.splashscreen_html` method accepts a string containing HTML elements that will be rendered.

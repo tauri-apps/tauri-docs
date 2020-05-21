@@ -5,26 +5,26 @@ title: 'Introduction'
 
 import Introduction from '@theme/Introduction'
 
-You will find here whatever you need to know to setup Tauri on your environment and to customize it.
+Here you will find instructions to setup and customize Tauri on your environment
 
-If you find something unclear, an error or simply would like to propose an improvement, you have several options:<br />
+If you find an error or something unclear, or would like to propose an improvement, you have several options:<br />
 
-1. Open an issue.<br />
+1. Open an issue on our [Github Repo](https://github.com/tauri-apps/tauri-docs).<br />
 2. Visit our [Discord server](https://discord.gg/SpmNs4S) and raise your concern.<br />
-3. Request to join one of the working groups to gain access (on Discord).
+3. Request to join the documentation working group on Discord to gain access to its discussion channel.
 
 <Introduction />
 
-## How it all works
+## How It Works
 
-1. First you make an interface in your GUI framework and prepare the HTML/CSS/JS for consumption
-2. The tauri.js CLI takes it and rigs the rust runner according to your configuration.
+1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
+2. The Tauri.js CLI takes it and rigs the underlying native code according to your configuration.
 3. In dev mode it creates a webview window with debugging and hot-module-reloading.
 4. In build mode it rigs the bundler and creates a final application according to your settings.
 
 ### Setting up Your Environment
 
-We are assuming that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. Obviously, you must first make sure that all required languages / compilers are available and in your PATH. Read more about the details for your local development environment:
+We are assuming that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. Obviously, you must first make sure that all required languages / compilers are installed and available in your PATH. Read more about the details for your local development environment:
 
 - [Linux Setup](setup-linux)
 - [MacOS Setup](setup-macos)
@@ -32,53 +32,56 @@ We are assuming that you know what the command line is, how to install packages 
 
 ### Initializing an App
 
-The initialization phase creates a folder and places a few template files into your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
+The `tauri init` command creates the `src-tauri` folder with a few template files in your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
 
 - [Tauri Integration](../usage/integration)
 
 ### Developing an App
 
-There are several methods for developing an App using the built-in development App Window. The most common is to point the Tauri configuration at a localhost port that your front-end framework's development server provides you with. If your framework doesn't provide you with this, or you like everything vanilla, then you can instruct Tauri to serve (and transpile if needed) from a relative file path. In both cases you will have HMR (Hot Module Reloading). Read about this process:
+There are several methods for developing an app with Tauri. The most common is to point Tauri at a localhost port from your front-end framework's development server. If your framework doesn't provide you with this, or if you aren't using a framework, then you can instruct Tauri to serve (and transpile if needed) from a relative file path. In both cases you will have HMR (Hot Module Reloading). Read about this process:
 
 - [App Development](../usage/development)
 - [App Debugging](../usage/debugging)
 
 ### Making App Icons
 
-Your app will need icons, and Tauri also provides a command for making all the icons your app will need, no matter which platform you are using. Simply place a 1240x1240 png (with transparency) named `app-icon.png` in your project folder and run `tauri icon`. The icons will be placed in `src-tauri/icons` and automatically consumed by Tauri during the build process.
+Your app will need icons, so Tauri provides a command for making all the icons your app will need, no matter which platform you are targeting. Simply place a 1240x1240 png (with transparency) named `app-icon.png` in your project folder and run `tauri icon`. The icons will be placed in `src-tauri/icons` and automatically consumed by Tauri during the build process.
 
 ### Bundling an App
 
-The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you tell the Tauri CLI to build your app. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
+The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you run `tauri build`. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
 
 <div class="alert alert--info" role="alert">
-The first time you build a project it will take some time to collect the resources that Tauri needs from the relevant Rust Crates, but subsequent builds will be much faster.
+The first time you build a project it will take some time to collect the resources that Tauri needs from the relevant Rust Crates, but subsequent builds will be much faster as it is all cached.
 </div>
 
 ## Technical Details
 
 ### CLI
 
-The CLI is node.js based, because it is arguably the most accessible for the majority of the web-development community. Using Tauri requires the latest LTS because we track security patches. In the very near future we will enable you to use DENO instead of NODE if that is your jam.
+The CLI is node.js based, because it is arguably the most accessible for the majority of the web-development community. Using Tauri requires the latest LTS because we track security patches. In the future we will enable you to use Deno instead of Node if that is your jam.
 
 ### User Interface
 
-The first generation User Interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and MSHTML (IE10/11) or Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed prior work known as [webview](https://github.com/zserge/webview) that has been incorporated into [web-view](https://github.com/Boscop/web-view).
+<!-- TODO: Update for Zserge Webview bindings -->
+
+The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and MSHTML (IE10/11) or Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed prior work known as [webview](https://github.com/zserge/webview) that has been incorporated into [web-view](https://github.com/Boscop/web-view).
 
 <div class="alert alert--warning" role="alert">
   We are currently working on enabling the Web APIs and many of them may not be available on your platform.
 </div>
 
-## The Templates
+### The `src-tauri` Folder
 
-First is the `src-tauri/tauri.conf.json` file - it is injected into the CWD at tauri init.
-Then is the src-tauri folder, which is injected into the CWD and contains the base Rust application that you can extend as you wish.
+The `src-tauri` folder contains both the configuration for your Tauri app as well as any native Rust code. It is automatically created and filled with boilerplate code when `tauri init` is run. Configuration is stored in the `src-tauri/tauri.conf.json` file, and the `src-tauri/src` folder contains the native Rust code.
 
-The node CLI has a bunch of "syntactic" sugar that sets up the dev env or prepares assets for the bundle process (as well as the tauri icon command for making icons.)
+### Components of Tauri
 
-The next piece is the actual rust crate that binds web-view, constructs the webview and has the API (file read / write, etc.)
+The Node CLI reads your configuration file and gets everything prepped for bundling into a binary, such as configuring the injection of the Tauri API. It also contains a few helpful commands such `tauri icon` command for making icons, `tauri init` for scaffolding an app, and `tauri info` for debugging your environment.
 
-Finally, the bundler, which takes all the pieces and puts them together in a nice and easy to consume binary for the desktop OS's
+The Tauri Rust Crate is the actual native code that binds to the Webview, creates your app's window, and provides the native API (file read / write, etc.).
+
+The bundler combines your HTML/JS/CSS, native rust code, and the Tauri Rust Crate into a nice and easy to consume binary for your target OS.
 
 ## Why Rust
 
@@ -86,7 +89,7 @@ Finally, the bundler, which takes all the pieces and puts them together in a nic
 
 This combination of power, safety and usability are why we chose Rust to be the default binding for Tauri. It is our intention to provide the most safe and performant native app experience (for devs and app consumers), out of the box.
 
-If you want a deep and rather nerdy look into Rust, check out what insider Tony Arcieri has to say in his article, [Rust in 2019. Security, maturity, stability](https://tonyarcieri.com/rust-in-2019-security-maturity-stability)
+If you want a deep and rather nerdy look into Rust, check out what insider Tony Arcieri has to say in his article, [Rust in 2019. Security, maturity, stability](https://tonyarcieri.com/rust-in-2019-security-maturity-stability).
 
 ### Learning Rust 🦀❤️
 
@@ -107,7 +110,7 @@ At some point, learning about Rust will require a visit to the manual. Check it 
 
 - [Rust 1.31.0+](https://doc.rust-lang.org/stable/book/) by Steve Klabnik & Carol Nichols
 
-And finally, there are a couple Rust communities on Discord that you can always fall back on if you need estra support:
+And finally, there are a couple Rust communities on Discord that you can always fall back on if you need extra support:
 
 - [Rust Community Discord](https://bit.ly/rust-community)
 - [Rust Development Discord](https://discord.gg/SG3m9pk)

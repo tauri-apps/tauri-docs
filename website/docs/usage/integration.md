@@ -1,20 +1,21 @@
 ---
 id: integration
-title: "Tauri integration"
-sidebar_label: Tauri integration
+title: 'Tauri Integration'
+sidebar_label: Tauri Integration
 ---
 
 <div class="alert alert--info" role="alert">
-Please note: you must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the setup page for your operating system.
+Please note: you must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="../getting-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
 </div>
 <br/>
 
-1. Install tauri-cli as Dependency:
+### 1. Install Tauri.js as a Dependency:
+
 ```bash
 cd project-folder
 
-# Optional if you already have a package.json:
-# npm init 
+# Not required if you already have a package.json:
+# npm init
 # OR
 # yarn init
 
@@ -24,17 +25,19 @@ npm install tauri
 ```
 
 <div class="alert alert--info" role="alert">
-Note: You can install tauri as both a local and a global dependency.
+Note: You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </div>
 <br/>
 
-2. Check `tauri info` to make sure you have everything you need:
+### 2. Check `tauri info` to Make Sure Everything Is Set up Properly:
+
 ```
-local:  yarn tauri info / npm run tauri info
-global: tauri info
+local install:  yarn tauri info / npm run tauri info
+global install: tauri info
 ```
 
 Which should return something like:
+
 ```
 Operating System - Darwin(16.7.0) - darwin/x64
 
@@ -57,7 +60,6 @@ App directory structure
 /dist
 /node_modules
 /src
-/src-tauri
 
 App
   tauri - 0.3.0
@@ -71,10 +73,11 @@ App
 
 This information can be very helpful when triaging problems.
 
-3. Initialize tauri
+### 3. Initialize tauri
+
 ```
-local:  yarn tauri init / npm run tauri init
-global: tauri init
+local install:  yarn tauri init / npm run tauri init
+global install: tauri init
 ```
 
 This command will place a new folder in your CWD, `src-tauri`.
@@ -111,8 +114,10 @@ This command will place a new folder in your CWD, `src-tauri`.
 
 Edit `src-tauri/tauri.conf.json`:
 Depending on your development setup, you will probably need to update two important entry points for tauri:
+
 - your bundled assets (`distDir`) - a relative file path from this file's CWD
 - your development server (`devPath`) - a localhost
+
 ```
 {
   "build": {
@@ -121,6 +126,7 @@ Depending on your development setup, you will probably need to update two import
   }
 }
 ```
+
 <div class="alert alert--info" role="alert">
 Note: technically you can point the devPath at a folder, and tauri will try to serve those assets statically.
 </div>
@@ -132,11 +138,14 @@ Warning: On some system setups, localhost may not be available. A general rule o
 - "0.0.0.0"<br/>
 
 On windows, you must enable loopback during development. [todo: add link](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+
 </div>
 <br/>
 
-## vue-cli-plugin-tauri
-See [vue-cli-plugin-tauri's repo](https://github.com/tauri-apps/vue-cli-plugin-tauri).
+## Vue CLI Plugin Tauri
+
+If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).
 
 ## tauri-webpack
+
 `todo`

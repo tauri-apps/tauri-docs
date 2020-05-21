@@ -10,7 +10,7 @@ This setup is only needed for development. Consumers of Tauri apps will not have
 
 Tauri is a polyglot system, and as such requires a good deal of tooling.
 
-### System dependencies:
+### System Dependencies:
 
 First you should [download](https://aka.ms/buildtools) and install Visual Studio MSBuild Tools and C++ build tools.
 
@@ -22,7 +22,7 @@ This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
 Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
 </div><br/>
 
-Next download the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) and install it for advanced nodejs version management.
+Next, you will need to install [Node.js](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
 
 Then run the following from an Administrative PowerShell and press Y when prompted:
 
@@ -41,10 +41,10 @@ This will install the most recent version of nodejs\* with nvm, scoop, and yarn.
 Here you can find help for: <a href="https://scoop.sh/" target="_blank">scoop</a>, <a href="https://github.com/coreybutler/nvm-windows" target="_blank">nvm</a>, <a href="https://yarnpkg.com/" target="_blank">yarn</a>
 </div>
 
-##### Optional if you need npm
+##### Optional If You Need npm
 
 <div class="alert alert--info" role="alert">
-Following the steps above will leave you without a functioning npm installation unless running an administrative shell. If you need npm, you can simply execute the following command:
+The npm installation from the steps above will require an administrative shell to work. If you need npm in a regular shell, you can simply execute the following command:
 </div>
 <br/>
 
@@ -53,18 +53,21 @@ Following the steps above will leave you without a functioning npm installation 
 yarn global add npm
 ```
 
-### Rustc and Cargo package manager
+### Rustc and Cargo Package Manager
 
-If you are running Windows 64-bit, download and run [rustup‑init.exe](https://win.rustup.rs/x86_64) and then follow the onscreen instructions.
+Now you will need to install [Rust](https://www.rust-lang.org/). The easiest way to do this is to use [rustup](https://rustup.rs/), the official installer.
 
-If you are running Windows 32-bit, download and run [rustup‑init.exe](https://win.rustup.rs/i686) and then follow the onscreen instructions.
+[64-bit download link](https://win.rustup.rs/x86_64)
 
+[32-bit download link](https://win.rustup.rs/i686)
+
+Download and install the proper variant for your computer's architecture. After, run the following command in a terminal.
+
+```powershell
+rustup update stable
 ```
-$ rustup update stable
-$ rustup override set 1.40.0
-```
 
-### Enable loopback
+### Enable Loopback
 
 Microsoft disables the loopback interface - you need to whitelist it if you intend to use the dev-server:
 
@@ -73,6 +76,7 @@ Open an administrative console and enter:
 ```powershell
 CheckNetIsolation.exe LoopbackExempt -a -n="Microsoft.Win32WebViewHost_cw5n1h2txyewy"
 ```
+
 <div class="alert alert--info" role="alert">
 There are reports that you have to restart your computer after running this command, so if it isn't working for you, try that!
 </div>
@@ -80,17 +84,21 @@ There are reports that you have to restart your computer after running this comm
 
 ### Devtools
 
-Next if you want to debug the front-end you will have to download [Microsoft Edge Devtools](https://www.microsoft.com/store/p/microsoft-edge-devtools-preview/9mzbfrmz0mnj) from the Microsoft store.
+If you want to debug the front-end you will have to download [Microsoft Edge Devtools](https://www.microsoft.com/store/p/microsoft-edge-devtools-preview/9mzbfrmz0mnj) from the Microsoft store.
 
 This will allow you to attach to a running instance of you're Tauri project!
 If you need help take a look at the [devtools-guide](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide).
 
-## Tauri bundler
+## Tauri Bundler
 
-After you have installed Rust and the build toolchain it is wise to open a new shell before continuing.
+After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
 
-Setup the bundler:
+Install Tauri bundler through Cargo:
 
 ```sh
-$ cargo install tauri-bundler --force
+cargo install tauri-bundler --force
 ```
+
+## Continue
+
+Now that you have set up the Windows-specific dependencies for Tauri, continue following the [getting started guide](intro#initializing-an-app).

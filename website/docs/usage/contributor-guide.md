@@ -1,6 +1,6 @@
 ---
 id: contributor-guide
-title: Contributor guide
+title: Contributor Guide
 ---
 
 todo: make this friendlier and more complete
@@ -18,7 +18,7 @@ It can be developed on Mac, Linux and Windows.
 
 1. File an Issue
 2. Fork the Repository
-3. Make your Changes
+3. Make Your Changes
 4. Make a PR
 
 ### A Note About Contributions to the Rust Libraries
