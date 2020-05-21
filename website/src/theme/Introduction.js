@@ -3,7 +3,7 @@ import React from 'react'
 
 export default () => {
   const chart = `
-  graph LR
+  graph TD
       U-->JS
       JS-->B
       B-->BUILD
