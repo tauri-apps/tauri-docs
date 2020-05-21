@@ -3,23 +3,25 @@ id: bundler
 title: Bundler
 ---
 
-The Tauri Bundler is a rust harness for compiling your binary, packaging assets and preparing a final bundle.
+The Tauri Bundler is a rust harness for compiling your binary, packaging assets, and preparing a final bundle.
 
 It will detect your operating system and build a bundle accordingly. It currently supports:
 
 - Linux: .deb, .appimage
-- MacOS: .app (.dmg coming soon)
+- MacOS: .app, .dmg
 - Windows: .exe, .msi
 
-## anti-bloat features
+## Anti Bloat Features
 
-see: https://github.com/RazrFalcon/cargo-bloat
-https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
-https://doc.rust-lang.org/cargo/reference/manifest.html#the-profile-sections
+The following links have tutorials on reducing the size of your installers:
 
-### Rust Compression features
+- https://github.com/RazrFalcon/cargo-bloat
+- https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
+- https://doc.rust-lang.org/cargo/reference/manifest.html#the-profile-sections
 
-add this to your `src-tauri/Cargo.toml`
+### Rust Compression Features
+
+Add this to your `src-tauri/Cargo.toml`
 
     [profile.release]
     panic = "abort"
@@ -28,7 +30,7 @@ add this to your `src-tauri/Cargo.toml`
     incremental = false
     opt-level = "z"
 
-### upx
+### UPX
 
 UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This 23-year old, well-maintained piece of kit is GPL-v2 licensed with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license unless you modify the source code of UPX.
 
@@ -49,7 +51,7 @@ Basically it compresses the binary and decompresses it at runtime. It should wor
        --------------------   ------   -----------   -----------
         963140 ->    274448   28.50%   macho/amd64   app
 
-## Sidecar (external binaries embedding)
+## Sidecar (Embedding External Binaries)
 
 You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. NodeJS, Python, etc).
 

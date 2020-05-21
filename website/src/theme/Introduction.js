@@ -11,15 +11,15 @@ export default () => {
       DEV==>DBG
       BUILD-->BND
       BND==>WIN
-      U(HTML<BR>CSS<BR>JS)
-      JS(tauri.js)
+      U(HTML<br>CSS<br>JS)
+      JS(Tauri Node<br>CLI)
       style JS stroke:#77CFE4,stroke-width:4px
-      WIN[WebView<br>in container]
-      B{tauri core<br>CLI}
+      WIN[Installer for<br>target platform]
+      B{Tauri Core<br>CLI}
       style B stroke:#D08050,stroke-width:4px
-      BND((tauri<br>bundler))
+      BND((Tauri<br>Bundler))
       style BND stroke:#EFD3AF, stroke-width:4px
       DBG[WebView:Debug<br>with HMR]
   `
-  return <Mermaid chart={chart} />
+  return <div style={{overflow: 'auto'}}><Mermaid chart={chart} /></div>
 }
