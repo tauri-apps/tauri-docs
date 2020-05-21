@@ -73,7 +73,7 @@ The first generation user interface in Tauri apps leverages Cocoa/WebKit on macO
 
 ### The `src-tauri` Folder
 
-The `src-tauri` folder contains both the configuration for your Tauri app as well as any native Rust code. It is automatically created and filled with boilerplate code when `tauri init` is run. Configuration is stored in the `src-tauri/tauri.conf.json` file, and the `src-tauri/src` folder contains the native Rust code.
+The `src-tauri` folder contains both the configuration for your Tauri app as well as any native Rust code. It is automatically created and filled with boilerplate code when Tauri is initialized. Configuration is stored in the `src-tauri/tauri.conf.json` file, and the `src-tauri/src` folder contains the native Rust code.
 
 ### Components of Tauri
 
