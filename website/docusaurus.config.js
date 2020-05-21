@@ -37,7 +37,7 @@ const siteConfig = {
     announcementBar: {
       id: 'testapp',
       content:
-        '🚀 Download our validation app to take Tauri for a test drive: <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank">[Linux]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank">[MacOS]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.exe" target="_blank">[Windows]</a>',
+        '🚀 Download our validation app to take Tauri for a test drive: <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank">[Linux - deb]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank">[MacOS - dmg]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.exe" target="_blank">[Windows - exe]</a>',
     },
     navbar: {
       logo: {
@@ -148,8 +148,8 @@ const siteConfig = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Tauri Studio. Built with Docusaurus.`,
-      
+      copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
+
     },
     // Equivalent to `docsSideNavCollapsible`
     sidebarCollapsible: true,
