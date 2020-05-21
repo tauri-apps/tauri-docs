@@ -7,14 +7,7 @@ Tauri is a toolkit that helps developers make applications for the major desktop
 
 If you want to know more about the technical details, then please visit the [Introduction](/docs/getting-started/intro). If you want to know more about this project's philosophy - then keep reading.
 
-<iframe
-width="560"
-height="315"
-src="https://www.youtube-nocookie.com/embed/ug2aoVZYgaU"
-frameborder="0"
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen
-></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UxTJeEbZX-0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Security First
 
