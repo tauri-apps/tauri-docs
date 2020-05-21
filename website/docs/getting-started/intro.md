@@ -11,7 +11,7 @@ If you find an error or something unclear, or would like to propose an improveme
 
 1. Open an issue on our [Github Repo](https://github.com/tauri-apps/tauri-docs).<br />
 2. Visit our [Discord server](https://discord.gg/SpmNs4S) and raise your concern.<br />
-3. Request to join the documentation working group on Discord to gain access to its discussion channel.
+3. Request to join the education working group on Discord to gain access to its discussion channel.
 
 <Introduction />
 
