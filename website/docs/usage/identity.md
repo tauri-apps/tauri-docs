@@ -45,7 +45,7 @@ icon = [
 
 ## Splashscreen
 
-Loading an application may take time. Making users wait without any indication of progress is bad for your UX. Tauri allows you to define a custom splashscreen, a placeholder that will be displayed until your application has finished loading.
+Loading an application for the first time may take time. Making users wait without any indication of progress is bad for your UX. Tauri allows you to define a custom splashscreen, a placeholder that will be displayed until your application has finished loading.
 
 To define a splashscreen, you can call the method `splashscreen_html` like following:
 
