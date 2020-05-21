@@ -31,7 +31,15 @@ This will give you a granular stack trace. Generally speaking, the rust compiler
 giving you detailed information about the issue, such as:
 
 ```
-For more information about this error, try `rustc --explain E0433`
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
 ```
 
 ## Webview JS Console
