@@ -81,7 +81,7 @@ The Node CLI reads your configuration file and gets everything prepped for bundl
 
 The Tauri Rust Crate is the actual native code that binds to the Webview, creates your app's window, and provides the native API (file read / write, etc.).
 
-The bundler combines your HTML/JS/CSS, native rust code, and the Tauri Rust Crate into a nice and easy to consume binary for your target OS.
+The bundler combines your HTML/JS/CSS, native Rust code, and the Tauri Rust Crate into a nice and easy to consume binary for your target OS.
 
 ## Why Rust
 
