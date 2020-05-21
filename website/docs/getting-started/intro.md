@@ -49,7 +49,7 @@ Your app will need icons, so Tauri provides a command for making all the icons y
 
 ### Bundling an App
 
-The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you run `tauri build`. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
+The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you tell the Tauri CLI to build your app. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
 
 <div className="alert alert--info" role="alert">
 The first time you build a project it will take some time to collect the resources that Tauri needs from the relevant Rust Crates, but subsequent builds will be much faster as it is all cached.
