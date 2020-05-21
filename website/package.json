@@ -16,6 +16,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-infinite-scroller": "^1.2.4",
+    "react-modal": "^3.11.2",
     "react-reveal": "^1.2.2"
   },
   "browserslist": {

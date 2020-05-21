@@ -34,6 +34,11 @@ const siteConfig = {
   url: 'https://tauri.studio',
 
   themeConfig: {
+    announcementBar: {
+      id: 'testapp',
+      content:
+        'Download our validation app to take Tauri for a test drive: [Linux] - [MacOS] - [Windows]',
+    },
     navbar: {
       logo: {
         alt: 'Tauri Logo',
@@ -47,14 +52,24 @@ const siteConfig = {
           position: 'left',
         },
         {
-          to: '/docs/api/config',
+          to: 'docs/api/config',
           label: 'API',
           position: 'left',
         },
         {
-          to: '/partners',
-          label: 'Partners',
+          label: 'Community',
+          type: 'category',
           position: 'left',
+          items: [
+            {
+              label: 'Partners',
+              to: 'partners'
+            },
+            {
+              label: 'Showcase',
+              to: 'showcase'
+            }
+          ]
         },
         {
           href: 'https://github.com/tauri-apps/tauri',
@@ -115,12 +130,16 @@ const siteConfig = {
           ],
         },
         {
-          title: 'Contribution',
+          title: 'Community',
           items: [
             {
               label: 'Partners',
               to: 'partners',
             },
+            {
+              label: 'Showcase',
+              to: 'showcase'
+            }
             // TODO: add code of conduct
             // {
             //   label: 'Second Doc',
