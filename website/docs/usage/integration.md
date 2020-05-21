@@ -4,7 +4,7 @@ title: 'Tauri Integration'
 sidebar_label: Tauri Integration
 ---
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 Please note: you must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="../getting-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
 </div>
 <br/>
@@ -24,7 +24,7 @@ yarn add tauri
 npm install tauri
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 Note: You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </div>
 <br/>
@@ -127,12 +127,12 @@ Depending on your development setup, you will probably need to update two import
 }
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 Note: technically you can point the devPath at a folder, and tauri will try to serve those assets statically.
 </div>
 <br/>
 
-<div class="alert alert--warning" role="alert">
+<div className="alert alert--warning" role="alert">
 Warning: On some system setups, localhost may not be available. A general rule of thumb is to use exactly the same domain as your devServer. You can try to switch localhost here with:<br/>
 - "127.0.0.1"<br/>
 - "0.0.0.0"<br/>

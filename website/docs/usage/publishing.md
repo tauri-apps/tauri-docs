@@ -40,7 +40,7 @@ If you do not see a version number being reported, then you must install the bun
 $ cargo install tauri-bundler --force
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 Note: We chose to call this bundler `tauri-bundler` because in the near future we will be providing a <strong>rust-only</strong> entry point to tauri.
 </div>
 

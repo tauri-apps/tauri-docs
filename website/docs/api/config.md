@@ -24,7 +24,7 @@ Type: `string`
 
 The path—either absolute or relative—to the production-ready webpage/webapp directory that will be bundled by Tauri.
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
   The target directory <em>must</em> contain an index.html file.
 </div>
 

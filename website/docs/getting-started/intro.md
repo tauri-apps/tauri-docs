@@ -51,7 +51,7 @@ Your app will need icons, so Tauri provides a command for making all the icons y
 
 The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you run `tauri build`. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 The first time you build a project it will take some time to collect the resources that Tauri needs from the relevant Rust Crates, but subsequent builds will be much faster as it is all cached.
 </div>
 
@@ -67,7 +67,7 @@ The CLI is node.js based, because it is arguably the most accessible for the maj
 
 The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and MSHTML (IE10/11) or Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed prior work known as [webview](https://github.com/zserge/webview) that has been incorporated into [web-view](https://github.com/Boscop/web-view).
 
-<div class="alert alert--warning" role="alert">
+<div className="alert alert--warning" role="alert">
   We are currently working on enabling the Web APIs and many of them may not be available on your platform.
 </div>
 

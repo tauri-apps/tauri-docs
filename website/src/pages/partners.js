@@ -6,11 +6,18 @@ const imgPath = '/img/partners/'
 const Avatar = ({ name, tags, image, description, link }) => {
   return (
     <div className="col col--4 margin-bottom--lg">
-      <div className={'card'} style={{ textAlign: 'center' }}>
+      <div
+        className={'card'}
+        style={{
+          textAlign: 'center',
+          backgroundColor: '#303846',
+          color: '#ffffff',
+        }}
+      >
         <div
           className="card__image"
           style={{
-            paddingTop: 10,
+            marginTop: 10,
             minHeight: 100,
             display: 'flex',
             alignSelf: 'center',
@@ -43,7 +50,7 @@ const Avatar = ({ name, tags, image, description, link }) => {
         </div>
         <div className="card__footer">
           <a href={link} target="_blank">
-            <button class="button button--secondary">Discover</button>
+            <button className="button button--secondary">Discover</button>
           </a>
         </div>
       </div>

@@ -14,11 +14,11 @@ Tauri is a polyglot system, and as such requires a good deal of tooling.
 
 First you should [download](https://aka.ms/buildtools) and install Visual Studio MSBuild Tools and C++ build tools.
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
 </div><br/>
 
-<div class="alert alert--warning" role="alert">
+<div className="alert alert--warning" role="alert">
 Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
 </div><br/>
 
@@ -36,14 +36,14 @@ scoop install yarn
 
 This will install the most recent version of nodejs\* with nvm, scoop, and yarn.
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 *Most recent nodejs as of this post
 Here you can find help for: <a href="https://scoop.sh/" target="_blank">scoop</a>, <a href="https://github.com/coreybutler/nvm-windows" target="_blank">nvm</a>, <a href="https://yarnpkg.com/" target="_blank">yarn</a>
 </div>
 
 ##### Optional If You Need npm
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 The npm installation from the steps above will require an administrative shell to work. If you need npm in a regular shell, you can simply execute the following command:
 </div>
 <br/>
@@ -77,7 +77,7 @@ Open an administrative console and enter:
 CheckNetIsolation.exe LoopbackExempt -a -n="Microsoft.Win32WebViewHost_cw5n1h2txyewy"
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 There are reports that you have to restart your computer after running this command, so if it isn't working for you, try that!
 </div>
 <br/>

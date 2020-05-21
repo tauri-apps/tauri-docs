@@ -10,28 +10,6 @@ import Fade from 'react-reveal/Fade'
 const features = [
   [
     {
-      title: <>Security</>,
-      imageUrl: 'img/undraw_security.svg',
-      description: (
-        <>is the Tauri-Team's biggest priority and drives our innovation</>
-      ),
-      link: 'about#Security-First',
-    },
-    {
-      title: <>FLOSS</>,
-      imageUrl: 'img/undraw_open_source.svg',
-      description: <>relicensing is possible with Tauri</>,
-      link: '#',
-    },
-    {
-      title: <>Bundle</>,
-      imageUrl: 'img/undraw_takeout_boxes.svg',
-      description: <>size of a Tauri App can be less than 600KB</>,
-      link: '#',
-    },
-  ],
-  [
-    {
       title: <>Brownfield</>,
       imageUrl: 'img/undraw_brownfield.svg',
       description: (
@@ -40,7 +18,26 @@ const features = [
           change your stack
         </>
       ),
-      link: '#',
+    },
+    {
+      title: <>FLOSS</>,
+      imageUrl: 'img/undraw_open_source.svg',
+      description: <>relicensing is possible with Tauri</>,
+    },
+    {
+      title: <>Bundle</>,
+      imageUrl: 'img/undraw_takeout_boxes.svg',
+      description: <>size of a Tauri App can be less than 600KB</>,
+    },
+  ],
+  [
+    {
+      title: <>Security</>,
+      imageUrl: 'img/undraw_security.svg',
+      description: (
+        <>is the Tauri-Team's biggest priority and drives our innovation</>
+      ),
+      link: 'docs/about/security',
     },
     {
       title: <>Patterns</>,
@@ -62,7 +59,7 @@ const features = [
           (mobile & WASM coming soon)
         </>
       ),
-      link: '#',
+      link: 'docs/usage/ci-cd/cross-platform',
     },
   ],
 ]
@@ -81,13 +78,15 @@ function Feature({ imageUrl, title, description, link }) {
           <h3>{title}</h3>
           <p>{description}</p>
         </div>
-        <div className="card__footer">
-          <a href={link}>
-            <button className="button button--secondary button--block">
-              See more
-            </button>
-          </a>
-        </div>
+        {link && (
+          <div className="card__footer">
+            <Link to={useBaseUrl(link)}>
+              <button className="button button--secondary button--block">
+                See more
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -331,22 +330,16 @@ const Roadmap = () => {
       color: COLORS.blue,
       targetQuarter: '& BEYOND',
     },
-  ].map((item, index) => {
-    const isEven = index % 2 === 0
+  ].map((item) => {
     return (
       <li key={item.title.props.children}>
-        <Fade left={!isEven} right={isEven}>
-          <div
-            className={classnames('roadmap-item', isEven ? 'even' : 'odd')}
-            style={{ borderColor: item.color }}
-          >
-            <div className="icon" style={{ backgroundColor: item.color }}></div>
-            <div className="content">
-              <div className="title">{item.title}</div>
-              <div className="description">{item.description}</div>
-            </div>
-            <div>{item.targetQuarter}</div>
+        <Fade bottom>
+          <div className="icon" style={{ backgroundColor: item.color }}></div>
+          <div className="content">
+            <div className="title">{item.title}</div>
+            <div className="description">{item.description}</div>
           </div>
+          <div>{item.targetQuarter}</div>
         </Fade>
       </li>
     )
@@ -389,7 +382,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={useBaseUrl('about')}
+                    to={useBaseUrl('docs/about/intro')}
                   >
                     <span>Learn more</span>
                   </Link>
@@ -428,13 +421,7 @@ function Home() {
             </div>
           </section>
         )}
-        <section className="roadmap-container" style={{overflow: 'hidden'}}>
-          <canvas
-            id="starfield"
-            style={{ display: 'none' }}
-            width="750"
-            height="500"
-          ></canvas>
+        <section className="roadmap-container">
           <Roadmap />
         </section>
       </main>

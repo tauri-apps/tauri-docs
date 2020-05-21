@@ -26,7 +26,7 @@ We recommend using NVM to manage your Node runtime. It allows you to easily swit
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
 </div>
 <br/>
@@ -54,7 +54,7 @@ The following command will install [rustup](https://rustup.rs/), the official in
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-<div class="alert alert--info" role="alert">
+<div className="alert alert--info" role="alert">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://sh.rustup.rs" target="_blank">download link</a>.
 </div>
 <br/>

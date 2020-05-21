@@ -13,7 +13,7 @@ npm install tauri --save
 yarn add tauri
 ```
 
-<div class="alert alert--warning" role="alert">
+<div className="alert alert--warning" role="alert">
   Note: if you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
 </div>
 
