@@ -1,4 +1,9 @@
 [build]
-base = "website"
-publish = "build"
-command = "yarn build"
+  base = "website"
+  publish = "build"
+  command = "yarn build"
+
+[[redirects]]
+  from = "/en*"
+  to = "/"
+  status = 301
