@@ -327,7 +327,7 @@ const Roadmap = () => {
       description: <Translate>Stable on On all Platforms.</Translate>,
       icon: '',
       color: COLORS.red,
-      targetQuarter: 'Q1 2020',
+      targetQuarter: 'Q1 2021',
     },
     {
       title: <Translate>Other Bindings</Translate>,
