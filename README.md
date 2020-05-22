@@ -4,9 +4,12 @@ This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern 
 
 [![Deploys By Netlify](https://www.netlify.com/img/global/badges/netlify-light.svg)](https://www.netlify.com)
 
+You can check the state of a PR by looking at the Deploy preview that Netlify builds and is mentioned in its bot's comment.
+
 ### Installation
 
 ```
+$ cd website
 $ yarn
 ```
 
@@ -33,3 +36,8 @@ $ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+## License
+MIT License
+
+Copyright (c) 2020 Tauri Team

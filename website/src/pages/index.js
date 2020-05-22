@@ -200,15 +200,6 @@ const Roadmap = () => {
       targetQuarter: 'Q2 2020',
     },
     {
-      title: <Translate>Multi Window</Translate>,
-      description: (
-        <Translate>Run multiple window instances in Tauri.</Translate>
-      ),
-      icon: '',
-      color: COLORS.blue,
-      targetQuarter: 'Q3 2020',
-    },
-    {
       title: <Translate>Self Updater</Translate>,
       description: <Translate>Update Tauri Apps from within Tauri.</Translate>,
       icon: '',
@@ -225,13 +216,6 @@ const Roadmap = () => {
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>PureOS App Store</Translate>,
-      description: <Translate>Verified builds for PureOS.</Translate>,
-      icon: '',
-      color: COLORS.blue,
-      targetQuarter: 'Q3 2020',
-    },
-    {
       title: <Translate>App Tray</Translate>,
       description: <Translate>Desktop Cross-platform Icon Tray.</Translate>,
       icon: '',
@@ -241,6 +225,45 @@ const Roadmap = () => {
     {
       title: <Translate>Webview Bindings</Translate>,
       description: <Translate>Use official Webview bindings.</Translate>,
+      icon: '',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      title: <Translate>Multi Window</Translate>,
+      description: (
+        <Translate>Run multiple window instances in Tauri.</Translate>
+      ),
+      icon: '',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      title: <Translate>Transparent Window</Translate>,
+      description: (
+        <Translate>Have transparent windows.</Translate>
+      ),
+      icon: '',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      title: <Translate>DENO Cli</Translate>,
+      description: <Translate>Enable alternative DENO CLI.</Translate>,
+      icon: '',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      title: <Translate>DENO Bindings</Translate>,
+      description: <Translate>Use Deno to build your App's backend.</Translate>,
+      icon: '',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      title: <Translate>PureOS App Store</Translate>,
+      description: <Translate>Verified builds for PureOS.</Translate>,
       icon: '',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
@@ -261,13 +284,6 @@ const Roadmap = () => {
           Bundle to all major mobile device operating systems.
         </Translate>
       ),
-      icon: '',
-      color: COLORS.blue,
-      targetQuarter: 'Q3 2020',
-    },
-    {
-      title: <Translate>DENO</Translate>,
-      description: <Translate>Enable alternative DENO CLI.</Translate>,
       icon: '',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
@@ -369,7 +385,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.tagline}`}
-      description="Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms."
+      description="Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Yew, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms."
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
