@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/en"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/en/*"
+  to = "/"
+  status = 301
