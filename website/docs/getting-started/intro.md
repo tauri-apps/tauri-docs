@@ -13,10 +13,11 @@ If you find an error or something unclear, or would like to propose an improveme
 2. Visit our [Discord server](https://discord.gg/SpmNs4S) and raise your concern.<br />
 3. Request to join the education working group on Discord to gain access to its discussion channel.
 
+## How Tauri Works
+
 <Introduction />
 
-## How It Works
-
+### Flow
 1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
 2. The Tauri.js CLI takes it and rigs the underlying native code according to your configuration.
 3. In dev mode it creates a webview window with debugging and hot-module-reloading.
