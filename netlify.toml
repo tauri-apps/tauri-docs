@@ -4,6 +4,6 @@
   command = "yarn build"
 
 [[redirects]]
-  from = "/en*"
+  from = "/en/*"
   to = "/"
   status = 301
