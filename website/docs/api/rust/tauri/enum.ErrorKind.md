@@ -14,6 +14,7 @@ title: "enum.ErrorKind"
         Command(String),
         Dialog(String),
         FileSystem(String),
+        Http(String),
         // some variants omitted
     }
 
@@ -40,6 +41,8 @@ A convenient variant for String.
 `Dialog(String)`
 
 `FileSystem(String)`
+
+`Http(String)`
 
 ## Methods
 
