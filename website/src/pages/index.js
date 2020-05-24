@@ -108,7 +108,7 @@ const Roadmap = () => {
           Generate, develop and build Tauri apps from the command line.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-target',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
@@ -121,7 +121,7 @@ const Roadmap = () => {
           smoke-tests.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-crown',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
@@ -132,7 +132,7 @@ const Roadmap = () => {
           Implement CI with testing and bundle-pipeline validation.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-pulse',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
@@ -143,7 +143,7 @@ const Roadmap = () => {
           Bundle for all major desktops from native systems.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-desktop',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
@@ -155,7 +155,7 @@ const Roadmap = () => {
           acceptable.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-flag-alt',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
@@ -164,7 +164,7 @@ const Roadmap = () => {
       description: (
         <Translate>Integrate and instrument other binaries.</Translate>
       ),
-      icon: '',
+      icon: 'ti-link',
       color: COLORS.green,
       targetQuarter: 'Q1 2020',
     },
@@ -175,7 +175,7 @@ const Roadmap = () => {
           Use a splashscreen while the main content is loading.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-blackboard',
       color: COLORS.green,
       targetQuarter: 'Q1 2020',
     },
@@ -184,7 +184,7 @@ const Roadmap = () => {
       description: (
         <Translate>Use a canonical location to store userdata.</Translate>
       ),
-      icon: '',
+      icon: 'ti-share',
       color: COLORS.green,
       targetQuarter: 'Q2 2020',
     },
@@ -195,14 +195,14 @@ const Roadmap = () => {
           Cross-platform notifications using polyfilled WEB API.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-comment-alt',
       color: COLORS.green,
       targetQuarter: 'Q2 2020',
     },
     {
       title: <Translate>Self Updater</Translate>,
       description: <Translate>Update Tauri Apps from within Tauri.</Translate>,
-      icon: '',
+      icon: 'ti-download',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
@@ -211,21 +211,21 @@ const Roadmap = () => {
       description: (
         <Translate>Manufacture WASM bundler for use in websites.</Translate>
       ),
-      icon: '',
+      icon: 'ti-bolt',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
       title: <Translate>App Tray</Translate>,
       description: <Translate>Desktop Cross-platform Icon Tray.</Translate>,
-      icon: '',
+      icon: 'ti-panel',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
       title: <Translate>Webview Bindings</Translate>,
       description: <Translate>Use official Webview bindings.</Translate>,
-      icon: '',
+      icon: 'ti-loop',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
@@ -234,7 +234,7 @@ const Roadmap = () => {
       description: (
         <Translate>Run multiple window instances in Tauri.</Translate>
       ),
-      icon: '',
+      icon: 'ti-layout-grid3-alt',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
@@ -243,28 +243,28 @@ const Roadmap = () => {
       description: (
         <Translate>Have transparent windows.</Translate>
       ),
-      icon: '',
+      icon: 'ti-layout-sidebar-none',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
       title: <Translate>DENO Cli</Translate>,
       description: <Translate>Enable alternative DENO CLI.</Translate>,
-      icon: '',
+      icon: 'ti-cup',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
       title: <Translate>DENO Bindings</Translate>,
       description: <Translate>Use Deno to build your App's backend.</Translate>,
-      icon: '',
+      icon: 'ti-loop',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
       title: <Translate>PureOS App Store</Translate>,
       description: <Translate>Verified builds for PureOS.</Translate>,
-      icon: '',
+      icon: 'ti-shine',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
@@ -273,7 +273,7 @@ const Roadmap = () => {
       description: (
         <Translate>Generally stable on Desktop, API locked down.</Translate>
       ),
-      icon: '',
+      icon: 'ti-flag-alt',
       color: COLORS.red,
       targetQuarter: 'Q4 2020',
     },
@@ -284,7 +284,7 @@ const Roadmap = () => {
           Bundle to all major mobile device operating systems.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-mobile',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
@@ -295,7 +295,7 @@ const Roadmap = () => {
           Generate bundled binaries from select operating system environments.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-control-shuffle',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
@@ -307,7 +307,7 @@ const Roadmap = () => {
           windowing.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-direction-alt',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
@@ -318,14 +318,14 @@ const Roadmap = () => {
           A decompiler and threat analyzer for Tauri Apps, using Frida.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-slice',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
       title: <Translate>Stable Release</Translate>,
       description: <Translate>Stable on On all Platforms.</Translate>,
-      icon: '',
+      icon: 'ti-flag-alt',
       color: COLORS.red,
       targetQuarter: 'Q1 2020',
     },
@@ -337,7 +337,7 @@ const Roadmap = () => {
           API.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-world',
       color: COLORS.blue,
       targetQuarter: 'Q1 2021',
     },
@@ -349,7 +349,7 @@ const Roadmap = () => {
           happen.
         </Translate>
       ),
-      icon: '',
+      icon: 'ti-infinite',
       color: COLORS.blue,
       targetQuarter: '& BEYOND',
     },
@@ -357,7 +357,7 @@ const Roadmap = () => {
     return (
       <li key={item.title.props.children}>
         <Fade bottom>
-          <div className="icon" style={{ backgroundColor: item.color }}></div>
+          <div className="icon" style={{ backgroundColor: item.color }}><span className={item.icon}></span></div>
           <div className="content">
             <div className="title">{item.title}</div>
             <div className="description">{item.description}</div>
