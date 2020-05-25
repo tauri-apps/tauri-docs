@@ -3,97 +3,96 @@
 /* @author: ericwbailey */
 
 /* Comment */
-body.light .hljs-comment,
-body.light .hljs-quote {
+.hljs-comment,
+.hljs-quote {
   color: #696969;
 }
 
 /* Red */
-body.light .hljs-variable,
-body.light .hljs-template-variable,
-body.light .hljs-tag,
-body.light .hljs-name,
-body.light .hljs-selector-id,
-body.light .hljs-selector-class,
-body.light .hljs-regexp,
-body.light .hljs-deletion {
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
   color: #d91e18;
 }
 
 /* Orange */
-body.light .hljs-number,
-body.light .hljs-built_in,
-body.light .hljs-builtin-name,
-body.light .hljs-literal,
-body.light .hljs-type,
-body.light .hljs-params,
-body.light .hljs-meta,
-body.light .hljs-link {
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
   color: #aa5d00;
 }
 
 /* Yellow */
-body.light .hljs-attribute {
+.hljs-attribute {
   color: #aa5d00;
 }
 
 /* Green */
-body.light .hljs-string,
-body.light .hljs-symbol,
-body.light .hljs-bullet,
-body.light .hljs-addition {
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
   color: #008000;
 }
 
 /* Blue */
-body.light .hljs-title,
-body.light .hljs-section {
+.hljs-title,
+.hljs-section {
   color: #007faa;
 }
 
 /* Purple */
-body.light .hljs-keyword,
-body.light .hljs-selector-tag {
+.hljs-keyword,
+.hljs-selector-tag {
   color: #7928a1;
 }
 
-body.light .hljs {
+.hljs {
   display: block;
   overflow-x: auto;
-  background: #fefefe;
   color: #545454;
   padding: 0.5em;
 }
 
-body.light .hljs-emphasis {
+.hljs-emphasis {
   font-style: italic;
 }
 
-body.light .hljs-strong {
+.hljs-strong {
   font-weight: bold;
 }
 
 @media screen and (-ms-high-contrast: active) {
-  body.light .hljs-addition,
-  body.light .hljs-attribute,
-  body.light .hljs-built_in,
-  body.light .hljs-builtin-name,
-  body.light .hljs-bullet,
-  body.light .hljs-comment,
-  body.light .hljs-link,
-  body.light .hljs-literal,
-  body.light .hljs-meta,
-  body.light .hljs-number,
-  body.light .hljs-params,
-  body.light .hljs-string,
-  body.light .hljs-symbol,
-  body.light .hljs-type,
-  body.light .hljs-quote {
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-bullet,
+  .hljs-comment,
+  .hljs-link,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-params,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-type,
+  .hljs-quote {
     color: highlight;
   }
 
-  body.light .hljs-keyword,
-  body.light .hljs-selector-tag {
+  .hljs-keyword,
+  .hljs-selector-tag {
     font-weight: bold;
   }
 }
