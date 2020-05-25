@@ -6,6 +6,7 @@
  */
 
 @import url('https://fonts.googleapis.com/css?family=Tauri&display=swap');
+@import './themify-icons.css';
 
 /* You can override the default Infima variables here. */
 :root {
@@ -39,10 +40,34 @@ body {
   font-family: 'Tauri';
 }
 
+ul.roadmap-legend {
+  padding: 0;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+ul.roadmap-legend li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+ul.roadmap-legend li:last-child {
+  margin-right: 0;
+}
+
+ul.roadmap-legend li span {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  border-radius: 50px;
+  vertical-align: middle;
+}
+
 ul.roadmap {
   max-width: 960px;
   margin: auto;
   position: relative;
+  padding: 0;
 }
 
 ul.roadmap::before {
@@ -52,7 +77,7 @@ ul.roadmap::before {
   height: 100%;
   top: 0;
   bottom: 0;
-  left: 47px;
+  left: 20px;
   width: 3px;
   background-color: #ccd;
 }
@@ -62,15 +87,19 @@ ul.roadmap li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 ul.roadmap li .icon {
-  height: 32px;
-  width: 32px;
+  height: 42px;
+  width: 42px;
   border-radius: 50px;
   display: inline-block;
   margin-right: 20px;
+  padding: 4px;
+  color: #000000;
+  text-align: center;
+  font-size: 25px;
 }
 
 ul.roadmap li .content {
