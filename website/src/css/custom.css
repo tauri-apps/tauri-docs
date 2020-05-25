@@ -40,6 +40,29 @@ body {
   font-family: 'Tauri';
 }
 
+ul.roadmap-legend {
+  padding: 0;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+ul.roadmap-legend li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+ul.roadmap-legend li:last-child {
+  margin-right: 0;
+}
+
+ul.roadmap-legend li span {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  border-radius: 50px;
+  vertical-align: middle;
+}
+
 ul.roadmap {
   max-width: 960px;
   margin: auto;

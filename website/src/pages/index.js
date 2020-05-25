@@ -374,6 +374,11 @@ const Roadmap = () => {
       <p style={{ textAlign: 'center', position: 'relative' }}>
         Notice: This roadmap is subject to change.
       </p>
+      <ul className="roadmap-legend">
+        <li><span style={{ backgroundColor: COLORS.blue}}></span> To do</li>
+        <li><span style={{ backgroundColor: COLORS.red}}></span> Milestone</li> 
+        <li><span style={{ backgroundColor: COLORS.green}}></span> Ready</li>
+      </ul>
       <ul className="roadmap">{items}</ul>
     </div>
   )
