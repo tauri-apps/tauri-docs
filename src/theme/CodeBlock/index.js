@@ -218,8 +218,6 @@ export default ({ children, className: languageClassName, metastring }) => {
 
     setTimeout(() => setShowCopied(false), 2000)
   }
-  console.log(styles)
-
   return (
     <div ref={target} className={styles.codeBlockContainer}>
       {/* {codeBlockTitle && (
