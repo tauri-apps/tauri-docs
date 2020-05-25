@@ -9,7 +9,6 @@ You can check the state of a PR by looking at the Deploy preview that Netlify bu
 ### Installation
 
 ```
-$ cd website
 $ yarn
 ```
 
