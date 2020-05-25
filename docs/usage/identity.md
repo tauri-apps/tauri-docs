@@ -8,7 +8,7 @@ This section is dedicated to the visual and UX aspects of your Tauri application
 
 ## Icons
 
-Tauri ships with an iconset based on its logo. This is probably NOT what you want when you ship your app. To rememdy this common situation, Tauri provides the `tauri icon` command that will take an input file and create all the icons needed for the various platforms. These will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
+Tauri ships with an iconset based on its logo. This is probably NOT what you want when you ship your app. To remedy this common situation, Tauri provides the `tauri icon` command that will take an input file and create all the icons needed for the various platforms. These will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
 
 ```
 local install:  yarn tauri icon
