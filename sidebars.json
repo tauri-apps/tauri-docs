@@ -69,7 +69,7 @@
               "type": "category",
               "items": [
                 {
-                  "label": "assets",
+                  "label": "app",
                   "type": "category",
                   "items": []
                 },
@@ -168,6 +168,16 @@
                     "api/rust/tauri_api/file/fn.read_string",
                     "api/rust/tauri_api/file/struct.Extract",
                     "api/rust/tauri_api/file/struct.Move"
+                  ]
+                },
+                {
+                  "label": "http",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/http/enum.BodyType",
+                    "api/rust/tauri_api/http/enum.ResponseType",
+                    "api/rust/tauri_api/http/fn.make_request",
+                    "api/rust/tauri_api/http/struct.HttpRequestOptions"
                   ]
                 },
                 {
