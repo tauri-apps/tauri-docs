@@ -1,5 +1,34 @@
 {
+  "name": "tauri-docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy"
+  },
   "dependencies": {
-    "docusaurus-init": "^1.14.1"
+    "@docusaurus/core": "^2.0.0-alpha.50",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.50",
+    "classnames": "^2.2.6",
+    "mermaid": "^8.5.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-infinite-scroller": "^1.2.4",
+    "react-modal": "^3.11.2",
+    "react-reveal": "^1.2.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
