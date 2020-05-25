@@ -67,6 +67,7 @@ ul.roadmap {
   max-width: 960px;
   margin: auto;
   position: relative;
+  padding: 0;
 }
 
 ul.roadmap::before {
@@ -76,7 +77,7 @@ ul.roadmap::before {
   height: 100%;
   top: 0;
   bottom: 0;
-  left: 52px;
+  left: 20px;
   width: 3px;
   background-color: #ccd;
 }
