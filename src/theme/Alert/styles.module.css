@@ -1,0 +1,21 @@
+.alert {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.container {
+  display: table-cell;
+  padding: 0 8px;
+}
+
+.content {
+  margin-top: 10px;
+}
