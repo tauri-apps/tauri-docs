@@ -9,6 +9,7 @@
 @import './themify-icons.css';
 @import '/css/hljs-dark.css';
 @import '/css/hljs-light.css';
+@import './tabs.css';
 
 /* You can override the default Infima variables here. */
 :root {

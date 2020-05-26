@@ -29,6 +29,20 @@
             "usage/patterns/glui"
           ]
         },
+        {
+          "label": "Recipes",
+          "type": "category",
+          "items": [
+            {
+              "label": "Visual",
+              "type": "category",
+              "items": [
+                "usage/recipes/visual/icons",
+                "usage/recipes/visual/splashscreen"
+              ]
+            }
+          ]
+        },
         "usage/integration",
         "usage/development",
         "usage/publishing",
