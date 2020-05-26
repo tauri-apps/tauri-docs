@@ -11,14 +11,14 @@ const types = [
   { tabName: 'Global', command: '' },
 ]
 
-const handleClickTab = (index) => {
-  console.log(index)
-
+const handleClickTab = (index) =>
   localStorage.setItem(storageCommandTabKey, index)
-}
 
 export default ({ name }) => {
-  const tabIndex = localStorage.getItem(storageCommandTabKey)
+  const tabIndex =
+    typeof window === 'undefined'
+      ? 0
+      : localStorage.getItem(storageCommandTabKey)
 
   return (
     <Tabs
