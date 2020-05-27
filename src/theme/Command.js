@@ -7,7 +7,7 @@ const storageCommandTabKey = 'docusaurus.storageCommandTabKey'
 
 const types = [
   { tabName: 'Yarn', command: 'yarn' },
-  { tabName: 'npm', command: 'npm run' },
+  { tabName: 'npm', command: 'npx' },
   { tabName: 'Global', command: '' },
 ]
 
