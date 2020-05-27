@@ -44,6 +44,15 @@
               ]
             },
             {
+              "label": "Bundler",
+              "type": "category",
+              "items": [
+                "usage/recipes/bundler/introduction",
+                "usage/recipes/bundler/anti-bloat",
+                "usage/recipes/bundler/sidecar"
+              ]
+            },
+            {
               "label": "Visual",
               "type": "category",
               "items": [
@@ -54,7 +63,6 @@
           ]
         },
         "usage/modes",
-        "usage/bundler",
         "usage/detailed-flow",
         {
           "label": "CI/CD",
