@@ -8,7 +8,7 @@ Loading an application for the first time may take time. Making users wait witho
 
 To define a splashscreen, you can call the method `splashscreen_html` like following:
 
-```rust
+```rust title=src-tauri/main.rs
 tauri::AppBuilder::new()
   // The splashscreen is declared
   .splashscreen_html("<div>The app is loading...</div>")
