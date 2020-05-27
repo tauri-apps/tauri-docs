@@ -5,7 +5,7 @@ import Icon from '../Icon'
 
 import styles from './styles.module.css'
 
-export default ({ type, title, icon, children }) => (
+export default ({ type = 'info', title, icon, children }) => (
   <div
     className={classnames('alert', 'alert--' + type, styles.alert)}
     style={{ marginBottom: '30px' }}

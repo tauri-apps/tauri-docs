@@ -34,6 +34,13 @@
           "type": "category",
           "items": [
             {
+              "label": "Development",
+              "type": "category",
+              "items": [
+                "usage/recipes/development/integration"
+              ]
+            },
+            {
               "label": "Visual",
               "type": "category",
               "items": [

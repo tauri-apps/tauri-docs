@@ -7,7 +7,7 @@ const storageCommandTabKey = 'docusaurus.storageCommandTabKey'
 
 const types = [
   { tabName: 'Yarn', command: 'yarn' },
-  { tabName: 'npm', command: 'npx' },
+  { tabName: 'npm', command: 'npm run' },
   { tabName: 'Global', command: '' },
 ]
 
@@ -19,6 +19,10 @@ export default ({ name }) => {
     typeof window === 'undefined'
       ? 0
       : localStorage.getItem(storageCommandTabKey)
+
+  // window.addEventListener('storage', (e) => {
+  //   this.setState({ tabIndex: true })
+  // })
 
   return (
     <Tabs
