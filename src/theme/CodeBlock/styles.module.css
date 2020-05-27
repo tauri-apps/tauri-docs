@@ -15,6 +15,7 @@
   padding: var(--ifm-pre-padding);
   border-bottom: 1px solid var(--ifm-color-emphasis-200);
   width: 100%;
+  background-color: var(--ifm-pre-background);
 }
 
 .codeBlock {

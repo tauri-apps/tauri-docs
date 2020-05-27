@@ -104,7 +104,7 @@ const highlightDirectiveRegex = (lang) => {
 }
 const codeBlockTitleRegex = /title=".*"/
 
-export default ({ children, className: languageClassName, metastring }) => {
+export default ({ children, className: languageClassName, title }) => {
   const {
     siteConfig: {
       themeConfig: { prism = {} },
@@ -129,23 +129,6 @@ export default ({ children, className: languageClassName, metastring }) => {
   let highlightLines = []
   let codeBlockTitle = ''
 
-  const { isDarkTheme } = useThemeContext()
-  const lightModeTheme = prism.theme || defaultTheme
-  const darkModeTheme = prism.darkTheme || lightModeTheme
-  const prismTheme = isDarkTheme ? darkModeTheme : lightModeTheme
-
-  if (metastring && highlightLinesRangeRegex.test(metastring)) {
-    const highlightLinesRange = metastring.match(highlightLinesRangeRegex)[1]
-    highlightLines = rangeParser.parse(highlightLinesRange).filter((n) => n > 0)
-  }
-
-  if (metastring && codeBlockTitleRegex.test(metastring)) {
-    codeBlockTitle = metastring
-      .match(codeBlockTitleRegex)[0]
-      .split('title=')[1]
-      .replace(/"+/g, '')
-  }
-
   useEffect(() => {
     let clipboard
 
@@ -163,10 +146,6 @@ export default ({ children, className: languageClassName, metastring }) => {
   }, [button.current, target.current])
 
   let language = languageClassName && languageClassName.replace(/language-/, '')
-
-  if (!language && prism.defaultLanguage) {
-    language = prism.defaultLanguage
-  }
 
   // only declaration OR directive highlight can be used for a block
   let code = children.replace(/\n$/, '')
@@ -220,11 +199,11 @@ export default ({ children, className: languageClassName, metastring }) => {
   }
   return (
     <div ref={target} className={styles.codeBlockContainer}>
-      {/* {codeBlockTitle && (
-          <div style={style} className={styles.codeBlockTitle}>
-            {codeBlockTitle}
-          </div>
-        )} */}
+      {title && (
+        <div className={styles.codeBlockTitle}>
+          {title}
+        </div>
+      )}
       <Highlight
         className={classnames(language, 'codeBlockContent')}
         {...defaultProps}
