@@ -25,6 +25,6 @@ The `.splashscreen_html` method accepts a string containing HTML elements that w
 
 See more:
 
-- <Link to="/docs/api/rust/tauri/struct.AppBuilder#methods">tauri::AppBuilder::splashscreen_html</Link>
+- <Link to="/docs/api/rust/tauri/struct.AppBuilder#methods">AppBuilder::splashscreen_html</Link>
 
-- <Link to="/docs/api/rust/tauri/fn.close_splashscreen">tauri::close_splashscreen</Link>
+- <Link to="/docs/api/rust/tauri/fn.close_splashscreen">close_splashscreen</Link>
