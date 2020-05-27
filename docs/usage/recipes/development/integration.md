@@ -1,6 +1,6 @@
 ---
-id: integration
 title: 'Tauri Integration'
+sidebar_label: 'Tauri Integration (1/4)'
 ---
 
 import Alert from '@theme/Alert'

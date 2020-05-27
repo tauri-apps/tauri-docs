@@ -39,7 +39,8 @@
               "items": [
                 "usage/recipes/development/integration",
                 "usage/recipes/development/development",
-                "usage/recipes/development/debugging"
+                "usage/recipes/development/debugging",
+                "usage/recipes/development/publishing"
               ]
             },
             {
