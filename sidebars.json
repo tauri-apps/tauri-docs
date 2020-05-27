@@ -53,11 +53,6 @@
             }
           ]
         },
-        "usage/integration",
-        "usage/development",
-        "usage/publishing",
-        "usage/debugging",
-        "usage/identity",
         "usage/modes",
         "usage/bundler",
         "usage/detailed-flow",
