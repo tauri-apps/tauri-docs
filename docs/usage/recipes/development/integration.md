@@ -23,7 +23,7 @@ cd project-folder
 
 yarn add tauri
 # OR
-npm install tauri --save-dev
+npm install tauri --save
 ```
 
 <Alert title="Note">
