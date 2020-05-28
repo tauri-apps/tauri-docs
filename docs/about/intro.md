@@ -29,7 +29,7 @@ This can be seen in the way that the React, Angular and Vue development communit
 
 This same situation can be seen in the Rust vs Node vs C++ battlefields, where hardliners take their stances and refuse to collaborate across communities.
 
-Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp etc. will be possible. This is because we are maintaining the offical Rust bindings to the [webview](https://github.com/webview) organisation and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
+Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview](https://github.com/webview) organisation and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
 
 ## Honest Open Source
 

@@ -105,4 +105,4 @@ There are some known issues on WSL 2 regarding loopback; that is running a local
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri, continue following the [getting started guide](intro#initializing-an-app).
+Now that you have set up the Linux-specific dependencies for Tauri, continue following the [getting started guide](/docs/getting-started/intro#initializing-an-app).

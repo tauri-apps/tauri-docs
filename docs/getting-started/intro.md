@@ -1,6 +1,5 @@
 ---
-id: intro
-title: 'Introduction'
+title: Introduction
 ---
 
 import Introduction from '@theme/Introduction'
@@ -18,6 +17,7 @@ If you find an error or something unclear, or would like to propose an improveme
 <Introduction />
 
 ### Flow
+
 1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
 2. The Tauri.js CLI takes it and rigs the underlying native code according to your configuration.
 3. In dev mode it creates a webview window with debugging and hot-module-reloading.
@@ -31,30 +31,7 @@ We are assuming that you know what the command line is, how to install packages 
 - [MacOS Setup](setup-macos)
 - [MS Windows Setup](setup-windows)
 
-### Initializing an App
-
-The `tauri init` command creates the `src-tauri` folder with a few template files in your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
-
-- [Tauri Integration](../usage/integration)
-
-### Developing an App
-
-There are several methods for developing an app with Tauri. The most common is to point Tauri at a localhost port from your front-end framework's development server. If your framework doesn't provide you with this, or if you aren't using a framework, then you can instruct Tauri to serve (and transpile if needed) from a relative file path. In both cases you will have HMR (Hot Module Reloading). Read about this process:
-
-- [App Development](../usage/development)
-- [App Debugging](../usage/debugging)
-
-### Making App Icons
-
-Your app will need icons, so Tauri provides a command for making all the icons your app will need, no matter which platform you are targeting. Simply place a 1240x1240 png (with transparency) named `app-icon.png` in your project folder and run `tauri icon`. The icons will be placed in `src-tauri/icons` and automatically consumed by Tauri during the build process.
-
-### Bundling an App
-
-The basic process of building a Tauri App is very straightforward and unopinionated. In the Tauri configuration file you reference a distribution folder e.g. `../dist/spa` where your HTML, CSS, JS and other assets can be found. Then you tell the Tauri CLI to build your app. Tauri prepares your code depending upon your configuration and bundles everything up into a nice and tidy binary.
-
-<div className="alert alert--info" role="alert">
-The first time you build a project it will take some time to collect the resources that Tauri needs from the relevant Rust Crates, but subsequent builds will be much faster as it is all cached.
-</div>
+You are now ready to [add Tauri to your project!](/docs/usage/development/integration)
 
 ## Technical Details
 
