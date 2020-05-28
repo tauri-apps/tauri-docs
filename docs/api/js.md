@@ -3,19 +3,21 @@ id: js
 title: 'JavaScript'
 ---
 
+import Alert from '@theme/Alert'
+
 Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
 
 If you haven't done it so far, add the package _locally_ to your project:
 
 ```sh
-npm install tauri --save
-# OR
 yarn add tauri
+# OR
+npm install tauri --save
 ```
 
-<div className="alert alert--warning" role="alert">
-  Note: if you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
-</div>
+<Alert title="Warning" icon="alert" type="warning">
+  If you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
+</Alert>
 
 ## Dialog
 
@@ -73,9 +75,9 @@ import { emit, listen } from 'tauri/api/event'
 
 ### Types
 
-<div className="alert alert--info" style={{ marginBottom: 20 }} role="alert">
-Note: This type only lives in the docs for now.
-</div>
+<Alert title="Note">
+This type only lives in the docs for now.
+</Alert>
 
 ```ts
 type EventCallback = (response: string) => void
@@ -218,7 +220,7 @@ Reads a file as binary
 
   - options: `{}`
 
-- Returns Promise<any[]>
+- Returns `Promise<any[]>`
 
 ```ts
 /**
@@ -239,7 +241,7 @@ List directory files
 
   - options: `{}`
 
-- Returns Promise<{}[]>
+- Returns `Promise<{}[]>`
 
 ```ts
 /**
@@ -342,9 +344,9 @@ import {
 
 ### Types
 
-<div className="alert alert--info" style={{ marginBottom: 20 }} role="alert">
-Note: This type only lives in the docs for now.
-</div>
+<Alert title="Note">
+This type only lives in the docs for now.
+</Alert>
 
 ```ts
 type HttpOptions = {
