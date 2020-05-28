@@ -33,7 +33,7 @@ We are assuming that you know what the command line is, how to install packages 
 
 ### Initializing an App
 
-The `tauri init` command creates the `src-tauri` folder with a few template files in your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
+The `npx tauri init` command creates the `src-tauri` folder with a few template files in your project directory. The most important file that it creates is the `src-tauri/tauri.conf.json` file, as this is where you manage the configuration of your project. You can read more about this here:
 
 - [Tauri Integration](../usage/integration)
 
