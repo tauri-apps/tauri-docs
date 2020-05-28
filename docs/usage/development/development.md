@@ -23,5 +23,5 @@ The first time you run this command, it will take several minutes for the Rust p
 You are now ready to develop your application with your Tauri window!
 
 <Alert title="A note about Cargo.toml and Source Control" icon="info-alt">
-  In your project repository, you SHOULD commit the `src-tauri/Cargo.toml` to git because you want it to be deterministic. You SHOULD NOT commit the `src-tauri/target` folder or any of its contents.
+  In your project repository, you SHOULD commit the "src-tauri/Cargo.toml" to git because you want it to be deterministic. You SHOULD NOT commit the "src-tauri/target" folder or any of its contents.
 </Alert>

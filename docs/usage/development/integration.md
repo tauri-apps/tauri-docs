@@ -11,7 +11,7 @@ import Link from '@docusaurus/Link'
   You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="/docs/getting-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
 </Alert>
 
-### 1. Install Tauri.js as a Dependency:
+### 1. Install Tauri JS Package as a Dependency:
 
 ```bash
 cd project-folder
@@ -30,7 +30,41 @@ npm install tauri --save
   You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </Alert>
 
-### 2. Check `tauri info` to Make Sure Everything Is Set up Properly:
+### 2. Initialize Tauri
+
+<Command name="init" />
+
+This command will place a new folder in your current working directory, `src-tauri`.
+
+```sh
+└── src-tauri
+    ├── Cargo.toml
+    ├── .gitignore
+    ├── icons
+    │   ├── 128x128.png
+    │   ├── 128x128@2x.png
+    │   ├── 32x32.png
+    │   ├── Square107x107Logo.png
+    │   ├── Square142x142Logo.png
+    │   ├── Square150x150Logo.png
+    │   ├── Square284x284Logo.png
+    │   ├── Square30x30Logo.png
+    │   ├── Square310x310Logo.png
+    │   ├── Square44x44Logo.png
+    │   ├── Square71x71Logo.png
+    │   ├── Square89x89Logo.png
+    │   ├── StoreLogo.png
+    │   ├── icon.icns
+    │   ├── icon.ico
+    │   └── icon.png
+    ├── rustfmt.toml
+    └── src
+        ├── build.rs
+        ├── cmd.rs
+        └── main.rs
+```
+
+### 3. Check `tauri info` to Make Sure Everything Is Set up Properly:
 
 <Command name="info" />
 
@@ -70,40 +104,6 @@ App
 ```
 
 This information can be very helpful when triaging problems.
-
-### 3. Initialize Tauri
-
-<Command name="init" />
-
-This command will place a new folder in your current working directory, `src-tauri`.
-
-```sh
-└── src-tauri
-    ├── Cargo.toml
-    ├── .gitignore
-    ├── icons
-    │   ├── 128x128.png
-    │   ├── 128x128@2x.png
-    │   ├── 32x32.png
-    │   ├── Square107x107Logo.png
-    │   ├── Square142x142Logo.png
-    │   ├── Square150x150Logo.png
-    │   ├── Square284x284Logo.png
-    │   ├── Square30x30Logo.png
-    │   ├── Square310x310Logo.png
-    │   ├── Square44x44Logo.png
-    │   ├── Square71x71Logo.png
-    │   ├── Square89x89Logo.png
-    │   ├── StoreLogo.png
-    │   ├── icon.icns
-    │   ├── icon.ico
-    │   └── icon.png
-    ├── rustfmt.toml
-    └── src
-        ├── build.rs
-        ├── cmd.rs
-        └── main.rs
-```
 
 ## `src-tauri/tauri.conf.json`
 

@@ -16,6 +16,16 @@
       "items": [
         "usage/intro",
         {
+          "label": "Development",
+          "type": "category",
+          "items": [
+            "usage/development/integration",
+            "usage/development/development",
+            "usage/development/debugging",
+            "usage/development/publishing"
+          ]
+        },
+        {
           "label": "Patterns",
           "type": "category",
           "items": [
@@ -33,16 +43,6 @@
           "label": "Recipes",
           "type": "category",
           "items": [
-            {
-              "label": "Development",
-              "type": "category",
-              "items": [
-                "usage/recipes/development/integration",
-                "usage/recipes/development/development",
-                "usage/recipes/development/debugging",
-                "usage/recipes/development/publishing"
-              ]
-            },
             {
               "label": "Bundler",
               "type": "category",
