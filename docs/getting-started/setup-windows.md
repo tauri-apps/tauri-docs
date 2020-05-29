@@ -1,7 +1,5 @@
 ---
-id: setup-windows
-title: 'Setup for Windows'
-sidebar_label: Setup for Windows
+title: Setup for Windows
 ---
 
 This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
@@ -86,7 +84,7 @@ There are reports that you have to restart your computer after running this comm
 
 If you want to debug the front-end you will have to download [Microsoft Edge Devtools](https://www.microsoft.com/store/p/microsoft-edge-devtools-preview/9mzbfrmz0mnj) from the Microsoft store.
 
-This will allow you to attach to a running instance of you're Tauri project!
+This will allow you to attach to a running instance of your Tauri project!
 If you need help take a look at the [devtools-guide](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide).
 
 ## Tauri Bundler
@@ -101,4 +99,4 @@ cargo install tauri-bundler --force
 
 ## Continue
 
-Now that you have set up the Windows-specific dependencies for Tauri, continue following the [getting started guide](intro#initializing-an-app).
+Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).

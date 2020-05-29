@@ -1,7 +1,5 @@
 ---
-id: setup-macos
-title: 'Setup for MacOS'
-sidebar_label: Setup for MacOS
+title: Setup for MacOS
 ---
 
 This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
@@ -86,4 +84,4 @@ $ cargo install tauri-bundler --force
 
 ## Continue
 
-Now that you have set up the MacOS-specific dependencies for Tauri, continue following the [getting started guide](intro#initializing-an-app).
+Now that you have set up the MacOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).

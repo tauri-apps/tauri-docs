@@ -124,6 +124,11 @@ See more about tauri.conf.json configuration <a href="/docs/api/config#build">he
 }
 ```
 
+### Patterns
+
+We've also defined prebuilt configurations called "Patterns". They may help you to customize Tauri to fit your needs.
+See more about [patterns](/docs/usage/patterns/about-patterns).
+
 <Alert type="info" title="Note">
   Technically you can point the devPath at a folder, and Tauri will try to serve those assets statically.
 </Alert>
