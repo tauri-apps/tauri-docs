@@ -36,8 +36,11 @@ const siteConfig = {
   themeConfig: {
     announcementBar: {
       id: 'testapp',
-      content:
-        '🚀 Download our validation app to take Tauri for a test drive: <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank">[Linux - deb]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank">[MacOS - dmg]</a> - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.exe" target="_blank">[Windows - exe]</a>',
+      content: `🚀 Download our validation app to take Tauri for a test drive: 
+       <br/> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank"><i class="ti-linux"></i> Linux - deb</a>
+           - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank"><i class="ti-apple"></i> MacOS - dmg</a>
+           - <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi" target="_blank"><i class="ti-microsoft"></i> Windows - msi</a>
+           - <a href="https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication" target="_blank"><i class="ti-github"></i> Source</a>`,
     },
     navbar: {
       logo: {
@@ -63,13 +66,13 @@ const siteConfig = {
           items: [
             {
               label: 'Partners',
-              to: 'partners'
+              to: 'partners',
             },
             {
               label: 'Showcase',
-              to: 'showcase'
-            }
-          ]
+              to: 'showcase',
+            },
+          ],
         },
         {
           href: 'https://github.com/tauri-apps/tauri',
@@ -117,7 +120,7 @@ const siteConfig = {
           items: [
             {
               label: 'DevTo',
-              href: 'https://dev.to/tauri'
+              href: 'https://dev.to/tauri',
             },
             {
               label: 'OpenCollective',
@@ -138,8 +141,8 @@ const siteConfig = {
             },
             {
               label: 'Showcase',
-              to: 'showcase'
-            }
+              to: 'showcase',
+            },
             // TODO: add code of conduct
             // {
             //   label: 'Second Doc',
@@ -149,7 +152,6 @@ const siteConfig = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
-
     },
     // Equivalent to `docsSideNavCollapsible`
     sidebarCollapsible: true,
