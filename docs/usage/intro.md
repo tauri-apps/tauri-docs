@@ -6,7 +6,7 @@ This part of the documentation is dedicated to learning how to use Tauri.
 
 Tauri provides a [CLI](/docs/api/cli), a [Rust API](/docs/api/rust/tauri/config/fn.get) and a [JavaScript API](/docs/api/js) that you can use in your project. Because raw docs can be quite scary to newcomers (especially people who have never played with Rust before), we've created this "learn by example" section.
 
-You will find here recipes and techniques to add to your own project to fulfil your goals.
+Here you will find recipes and techniques to add to your own project in order to fulfil your goals.
 
 You may browse the entire section or click one of the following questions for specific help:
 
