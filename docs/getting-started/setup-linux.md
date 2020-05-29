@@ -1,7 +1,5 @@
 ---
-id: setup-linux
-title: 'Setup for Linux'
-sidebar_label: Setup for Linux
+title: Setup for Linux
 ---
 
 This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
@@ -105,4 +103,4 @@ There are some known issues on WSL 2 regarding loopback; that is running a local
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri, continue following the [getting started guide](intro#initializing-an-app).
+Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).

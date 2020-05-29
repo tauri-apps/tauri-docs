@@ -4,10 +4,11 @@ title: "GLUI"
 sidebar_label: GLUI
 ---
 
-<div className="alert alert--warning" style={{marginBottom: '30px'}} role="alert">
-Please note: <br/>
+import Alert from '@theme/Alert'
+
+<Alert type="warning" icon="info-alt" title="Please note">
 This pattern is not available for now.
-</div>
+</Alert>
 
 import Rater from '@theme/Rater'
 

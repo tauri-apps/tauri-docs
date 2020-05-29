@@ -7,7 +7,8 @@
         "getting-started/intro",
         "getting-started/setup-linux",
         "getting-started/setup-macos",
-        "getting-started/setup-windows"
+        "getting-started/setup-windows",
+        "getting-started/technical-details"
       ]
     },
     {
@@ -15,6 +16,16 @@
       "type": "category",
       "items": [
         "usage/intro",
+        {
+          "label": "Development",
+          "type": "category",
+          "items": [
+            "usage/development/integration",
+            "usage/development/development",
+            "usage/development/debugging",
+            "usage/development/publishing"
+          ]
+        },
         {
           "label": "Patterns",
           "type": "category",
@@ -29,13 +40,30 @@
             "usage/patterns/glui"
           ]
         },
-        "usage/integration",
-        "usage/development",
-        "usage/publishing",
-        "usage/debugging",
-        "usage/identity",
+        {
+          "label": "Recipes",
+          "type": "category",
+          "items": [
+            {
+              "label": "Bundler",
+              "type": "category",
+              "items": [
+                "usage/recipes/bundler/introduction",
+                "usage/recipes/bundler/anti-bloat",
+                "usage/recipes/bundler/sidecar"
+              ]
+            },
+            {
+              "label": "Visual",
+              "type": "category",
+              "items": [
+                "usage/recipes/visual/icons",
+                "usage/recipes/visual/splashscreen"
+              ]
+            }
+          ]
+        },
         "usage/modes",
-        "usage/bundler",
         "usage/detailed-flow",
         {
           "label": "CI/CD",
