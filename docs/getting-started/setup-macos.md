@@ -16,6 +16,11 @@ You will need to have [Homebrew](https://brew.sh/) installed to run the followin
 $ brew install gcc
 ```
 
+You will also need to make sure `xcode` is installed.
+```
+$ xcode-select --install
+```
+
 ### Node Runtime and Package Manager
 
 We recommend using NVM to manage your Node runtime. It allows you to easily switch versions and update Node.
