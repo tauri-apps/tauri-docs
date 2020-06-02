@@ -37,7 +37,7 @@ nvm install latest
 nvm use {{latest}} # Replace with your latest downloaded version
 ```
 
-This will install the most recent version of NodeJS with npm.
+This will install the most recent version of Node.js with npm.
 
 ### Rustc and Cargo Package Manager
 
