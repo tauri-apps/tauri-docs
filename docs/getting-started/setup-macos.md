@@ -26,7 +26,7 @@ $ xcode-select --install
 
 ### Node.js Runtime and Package Manager
 
-We recommend using nvm to manage your NodeJS runtime. It allows you to easily switch versions and update NodeJS.
+We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
 
 nvm is not mandatory and if you already have Node.js installed, you may skip this section.
 
