@@ -24,7 +24,7 @@ You will also need to make sure `xcode` is installed.
 $ xcode-select --install
 ```
 
-### NodeJS Runtime and Package Manager
+### Node.js Runtime and Package Manager
 
 We recommend using nvm to manage your NodeJS runtime. It allows you to easily switch versions and update NodeJS.
 
