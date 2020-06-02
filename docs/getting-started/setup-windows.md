@@ -23,7 +23,7 @@ This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
 Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
 </Alert>
 
-Next, you will need to install [NodeJS](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
+Next, you will need to install [Node.js](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
 
 <Alert title="Note">
 nvm is not mandatory and if you already have Node.js installed, you may skip it.
