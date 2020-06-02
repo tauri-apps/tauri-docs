@@ -51,7 +51,7 @@ $ nvm use node
 
 If you have any problems with nvm, please consult their <a href="https://github.com/nvm-sh/nvm">project readme</a>.
 
-### Optional NodeJS package manager
+### Optional Node.js package manager
 
 You may want to use an alternative to npm:
 
