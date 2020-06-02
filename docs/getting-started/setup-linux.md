@@ -30,7 +30,7 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     appmenu-gtk3-module
 ```
 
-## 2) Node.js Runtime and Package Manager&nbsp;<i title="control-skip-forward" color="warning"/>
+## 2) Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 ### Node.js (npm included)
 
