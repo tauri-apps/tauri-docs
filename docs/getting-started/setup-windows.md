@@ -26,7 +26,7 @@ Be sure you don't have the 2017 version of the build tools installed as well. Th
 Next, you will need to install [NodeJS](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
 
 <Alert title="Note">
-nvm is not mandatory and if you already have NodeJS installed, you may skip it.
+nvm is not mandatory and if you already have Node.js installed, you may skip it.
 </Alert>
 
 Then run the following from an Administrative PowerShell and press Y when prompted:
