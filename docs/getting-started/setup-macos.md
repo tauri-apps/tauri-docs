@@ -2,6 +2,8 @@
 title: Setup for MacOS
 ---
 
+import Alert from '@theme/Alert'
+
 This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
 
 ## Dependencies
@@ -17,37 +19,33 @@ $ brew install gcc
 ```
 
 You will also need to make sure `xcode` is installed.
+
 ```
 $ xcode-select --install
 ```
 
-### Node Runtime and Package Manager
+### NodeJS Runtime and Package Manager
 
-We recommend using NVM to manage your Node runtime. It allows you to easily switch versions and update Node.
+We recommend using nvm to manage your NodeJS runtime. It allows you to easily switch versions and update NodeJS.
+
+nvm is not mandatory and if you already have NodeJS installed, you may skip this section.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
-<div className="alert alert--info" role="alert">
+<Alert type="info" title="Note">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
-</div>
-<br/>
+</Alert>
 
-Once NVM is installed, close and reopen your terminal, then install Node v12 LTS and the latest npm:
-
-```sh
-$ nvm install 12
-$ nvm use 12
-```
-
-If you have any problems with NVM, please consult their [project readme](https://github.com/nvm-sh/nvm).
-
-Now that Node and npm are installed, if you like you may additionally install [Yarn](https://yarnpkg.com/) - the preferred package manager of the Tauri team.
+Once nvm is installed, close and reopen your terminal, then install latest NodeJS and npm:
 
 ```sh
-$ npm install --global yarn
+$ nvm install node
+$ nvm use node
 ```
+
+If you have any problems with nvm, please consult their [project readme](https://github.com/nvm-sh/nvm).
 
 ### Rustc and Cargo Package Manager
 

@@ -2,6 +2,8 @@
 title: Setup for Windows
 ---
 
+import Alert from '@theme/Alert'
+
 This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
 
 ## Dependencies
@@ -12,44 +14,30 @@ Tauri is a polyglot system, and as such requires a good deal of tooling.
 
 First you should [download](https://aka.ms/buildtools) and install Visual Studio MSBuild Tools and C++ build tools.
 
-<div className="alert alert--info" role="alert">
+<Alert title="Note">
 This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
-</div><br/>
+</Alert>
 
-<div className="alert alert--warning" role="alert">
+<Alert type="warning">
+
 Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
-</div><br/>
+</Alert>
 
-Next, you will need to install [Node.js](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
+Next, you will need to install [NodeJS](https://nodejs.org/en/). We recommend installing it by downloading and installing the latest [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) for features such as version management.
+
+<Alert title="Note">
+nvm is not mandatory and if you already have NodeJS installed, you may skip it.
+</Alert>
 
 Then run the following from an Administrative PowerShell and press Y when prompted:
 
 ```powershell
 # BE SURE YOU ARE IN AN ADMINISTRATIVE PowerShell!
-nvm install 12.16.0
-nvm use 12.16.0
-Set-ExecutionPolicy Bypass -Scope Process -Force; iwr -useb get.scoop.sh | iex
-scoop install yarn
+nvm install latest
+nvm use {{latest}} # Replace with your latest downloaded version
 ```
 
-This will install the most recent version of nodejs\* with nvm, scoop, and yarn.
-
-<div className="alert alert--info" role="alert">
-*Most recent nodejs as of this post
-Here you can find help for: <a href="https://scoop.sh/" target="_blank">scoop</a>, <a href="https://github.com/coreybutler/nvm-windows" target="_blank">nvm</a>, <a href="https://yarnpkg.com/" target="_blank">yarn</a>
-</div>
-
-##### Optional If You Need npm
-
-<div className="alert alert--info" role="alert">
-The npm installation from the steps above will require an administrative shell to work. If you need npm in a regular shell, you can simply execute the following command:
-</div>
-<br/>
-
-```powershell
-# DO NOT EXECUTE FROM ADMINISTRATIVE PowerShell!
-yarn global add npm
-```
+This will install the most recent version of NodeJS with npm.
 
 ### Rustc and Cargo Package Manager
 
