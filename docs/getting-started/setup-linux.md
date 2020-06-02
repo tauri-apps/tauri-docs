@@ -32,7 +32,7 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
 
 ### NodeJS (npm included)
 
-We recommend using nvm to manage your NodeJS runtime. It allows you to easily switch versions and update NodeJS.
+We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
