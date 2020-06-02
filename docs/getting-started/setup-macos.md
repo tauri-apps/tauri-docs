@@ -28,7 +28,7 @@ $ xcode-select --install
 
 We recommend using nvm to manage your NodeJS runtime. It allows you to easily switch versions and update NodeJS.
 
-nvm is not mandatory and if you already have NodeJS installed, you may skip this section.
+nvm is not mandatory and if you already have Node.js installed, you may skip this section.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
