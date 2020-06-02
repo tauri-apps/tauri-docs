@@ -12,7 +12,7 @@ This page provides a **complete guide** to install Tauri along with its dependen
 <Icon title="alert" color="danger" />: This step is required
 <br/>
 
-<Icon title="control-skip-forward" color="warning" /> : This step is skippable if already satisfied (e.g. you already have NodeJS/Rust installed)
+<Icon title="control-skip-forward" color="warning" /> : This step is skippable if already satisfied (e.g. you already have Node.js/Rust installed)
 <br/>
 
 <Icon title="info-alt" color="info" />: This step is purely informational
