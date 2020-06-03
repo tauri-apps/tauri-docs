@@ -146,7 +146,3 @@ On windows, you must enable loopback during development. [todo: add link](https:
 ## Vue CLI Plugin Tauri
 
 If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).
-
-## tauri-webpack
-
-If you are using webpack, we've created a plugin: [tauri-webpack](https://github.com/tauri-apps/tauri-webpack)
