@@ -4,21 +4,9 @@ title: Setup for Linux
 
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
+import { Intro } from '@theme/SetupDocs'
 
-This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
-
-This page provides a **complete guide** to install Tauri along with its dependencies. Because Tauri is a polyglot toolchain and involves complex installation instructions, we want to make sure _anybody_ will manage to set it up by reading this guide without having to open another documentation.
-
-Additionally, it contains nice tips and tools that will help you if you're beginning with Node.js or Rust and security.
-
-<Icon title="alert" color="danger"/>: This step is required
-<br/>
-
-<Icon title="control-skip-forward" color="warning"/> : This step is skippable if already satisfied (e.g. you already have Node.js/Rust installed)
-<br/>
-
-<Icon title="info-alt" color="info"/>: This step is purely informational
-<br/>
+<Intro />
 
 ## 1) System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
