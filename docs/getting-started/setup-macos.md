@@ -2,65 +2,67 @@
 title: Setup for MacOS
 ---
 
-This setup is only needed for development. Consumers of Tauri apps will not have to do any of this.
+import Alert from '@theme/Alert'
+import { Intro } from '@theme/SetupDocs'
 
-## Dependencies
+<Intro />
 
-Tauri is a polyglot system, and as such requires a good deal of tooling.
+## 1) System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
-### System Dependencies:
 
-You will need to have [Homebrew](https://brew.sh/) installed to run the following command.
+You will need to have <a href="https://brew.sh/" target="_blank">Homebrew</a> installed to run the following command.
 
 ```sh
 $ brew install gcc
 ```
 
 You will also need to make sure `xcode` is installed.
-```
+
+```sh
 $ xcode-select --install
 ```
 
-### Node Runtime and Package Manager
+## 2) Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-We recommend using NVM to manage your Node runtime. It allows you to easily switch versions and update Node.
+### Node.js (npm included)
+
+We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
-<div className="alert alert--info" role="alert">
+<Alert title="Note">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
-</div>
-<br/>
+</Alert>
 
-Once NVM is installed, close and reopen your terminal, then install Node v12 LTS and the latest npm:
-
-```sh
-$ nvm install 12
-$ nvm use 12
-```
-
-If you have any problems with NVM, please consult their [project readme](https://github.com/nvm-sh/nvm).
-
-Now that Node and npm are installed, if you like you may additionally install [Yarn](https://yarnpkg.com/) - the preferred package manager of the Tauri team.
+Once nvm is installed, close and reopen your terminal, then install the lastest version of Node.js and npm:
 
 ```sh
-$ npm install --global yarn
+$ nvm install node --latest-npm
+$ nvm use node
 ```
 
-### Rustc and Cargo Package Manager
+If you have any problems with nvm, please consult their <a href="https://github.com/nvm-sh/nvm">project readme</a>.
 
-The following command will install [rustup](https://rustup.rs/), the official installer for [Rust](https://www.rust-lang.org/).
+### Optional Node.js Package Manager
+
+You may want to use an alternative to npm:
+
+- <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
+- <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
+
+## 3) Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+
+The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
 ```
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-<div className="alert alert--info" role="alert">
+<Alert title="Note">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://sh.rustup.rs" target="_blank">download link</a>.
-</div>
-<br/>
+</Alert>
 
 To make sure that Rust has been installed successfully, run the following command:
 
@@ -71,13 +73,13 @@ latest update on 2019-12-19, rust version 1.40.0
 
 You may need to restart your terminal if the command does not work.
 
-If you already installed rustup previously, make sure that you update Rust.
+## 4) Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
+
+If you already had rustup installed before following this guide, make sure that you update Rust:
 
 ```sh
 $ rustup update stable
 ```
-
-## Tauri Bundler
 
 After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
 

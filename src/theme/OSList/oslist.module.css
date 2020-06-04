@@ -1,0 +1,15 @@
+.osList {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.osIcon {
+  font-size: 3em;
+}
+
+.osIconLink {
+  color: var(--ifm-font-base-color) !important;
+  text-decoration: none !important;
+  margin-bottom: 20px;
+  display: inline-block;
+}
