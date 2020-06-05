@@ -8,7 +8,7 @@ import { Intro } from '@theme/SetupDocs'
 
 <Intro />
 
-## 1) System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
@@ -18,7 +18,7 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     appmenu-gtk3-module
 ```
 
-## 2) Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 ### Node.js (npm included)
 
@@ -48,7 +48,7 @@ You may want to use an alternative to npm:
 - <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3) Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
@@ -69,7 +69,7 @@ latest update on 2019-12-19, rust version 1.40.0
 
 You may need to restart your terminal if the command does not work.
 
-## 4) Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
+## 4. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
 
 If you already had rustup installed before following this guide, make sure that you update Rust:
 
@@ -85,7 +85,7 @@ Install Tauri bundler through Cargo:
 $ cargo install tauri-bundler --force
 ```
 
-## 5) For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
+## 5. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
 
 In order to run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
 Since vcXsrv has been used internally, it's the one we recommend to install.

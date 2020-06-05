@@ -13,7 +13,7 @@ For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux
 
 <Intro />
 
-## 1) System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
 First you should <a href="https://aka.ms/buildtools" target="_blank">download</a> and install Visual Studio MSBuild Tools and C++ build tools.
 
@@ -26,7 +26,7 @@ This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
 Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
 </Alert>
 
-## 2) Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 ### Node.js (npm included)
 
@@ -49,7 +49,7 @@ You may want to use an alternative to npm:
 - <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3) Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 Now you will need to install <a href="https://www.rust-lang.org/" target="_blank">Rust</a>. The easiest way to do this is to use <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer.
 
@@ -58,7 +58,7 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 
 Download and install the proper variant for your computer's architecture.
 
-## 4) Enable Loopback&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 4. Enable Loopback&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 Microsoft disables the loopback interface - you need to whitelist it if you intend to use the dev-server:
 
@@ -72,7 +72,7 @@ CheckNetIsolation.exe LoopbackExempt -a -n="Microsoft.Win32WebViewHost_cw5n1h2tx
 There are reports that you have to restart your computer after running this command, so if it isn't working for you, try that!
 </Alert>
 
-## 5) Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
+## 5. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
 
 If you already had rustup installed before following this guide, make sure that you update Rust:
 
@@ -88,7 +88,7 @@ Install Tauri bundler through Cargo:
 cargo install tauri-bundler --force
 ```
 
-## 6) Devtools&nbsp;<Icon title="info-alt" color="info"/>
+## 6. Devtools&nbsp;<Icon title="info-alt" color="info"/>
 
 If you want to debug the front-end you will have to download <a href="https://www.microsoft.com/store/p/microsoft-edge-devtools-preview/9mzbfrmz0mnj" target="_blank">Microsoft Edge Devtools</a> from the Microsoft store.
 
