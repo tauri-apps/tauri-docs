@@ -1,0 +1,25 @@
+.closing::after {
+  content: '}';
+}
+
+.opening::after {
+  content: '{';
+  top: -40px;
+  right: 0;
+}
+
+.closing {
+  height: 42px;
+}
+.closing::after,
+.opening::after {
+  font-size: 30px;
+  position: absolute;
+  background-color: var(--ifm-background-color);
+}
+
+.closing,
+.opening {
+  /* display: inline-block; */
+  position: relative;
+}
