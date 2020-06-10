@@ -1,13 +1,13 @@
 .row {
-  padding-top: 20px;
+  padding-top: 30px;
   margin-top: -30px;
   margin-bottom: 48px;
-  border-left: 1px dashed var(--ifm-contents-border-color);
-  border-top: 1px dashed var(--ifm-contents-border-color);
+  border-left: 1px solid var(--ifm-contents-border-color);
+  border-top: 1px solid var(--ifm-contents-border-color);
 }
 
-.row h3 {
-  display: inline-block;
+.row .property {
+  height: 42px;
 }
 
 .row h3,
