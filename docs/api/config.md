@@ -28,8 +28,8 @@ It's composed of the following properties:
 "build": {
   "distDir": "../dist",
   "devPath": "http://localhost:4000",
-  "beforeDevCommand": "",
-  "beforeBuildCommand": ""
+  "beforeDevCommand": "npm run dev",
+  "beforeBuildCommand": "npm run build"
 }
 ```
 
