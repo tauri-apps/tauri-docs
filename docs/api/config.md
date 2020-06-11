@@ -74,9 +74,13 @@ It's composed of the following properties:
       { property: "osx", type: "object", child: <Properties rows={[
         { property: "frameworks", type: "string[]", description: `A list of strings indicating any MacOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
         { property: "minimumSystemVersion", type: "string", description: `A version string indicating the minimum MacOS X version that the bundled application supports.` },
-        { property: "license", type: "string", description: `-` },
+        { property: "license", type: "string", description: `The path to the license file to add to the DMG.` },
         { property: "useBootstrapper", type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
-      { property: "exceptionDomain", type: "string", description: `-` },
+      { property: "exceptionDomain", type: "string", description: `Allows your application to communicate with the outside world.
+      <div class="alert alert--info" role="alert" style="margin-top: 10px;">
+        It should be a lowercase, without port and protocol domain name.
+      </div>
+      ` },
     ]} />
   },
   {
