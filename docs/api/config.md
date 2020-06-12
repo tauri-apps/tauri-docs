@@ -58,13 +58,23 @@ It's composed of the following properties:
     property: "bundle", type: "object",
     child: <Properties rows={[
       { property: "active", type: "boolean", description: `` },
-      { property: "targets", type: "string", description: `The name of the built application. If this is not present, then it will use the name value from your Cargo.toml file.` },
+      { property: "targets", type: "string", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
       { property: "icon", type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
       { property: "resources", type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
-      { property: "externalBin", type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application.` },
+      { property: "externalBin", type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application.
+      <div class="alert alert--info" role="alert" style="margin-top: 10px;">
+        Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}". <br/>
+        E.g. you typed "my-binary": 
+        <ul>
+          <li>"my-binary-x86_64-pc-windows-msvc.exe" for Windows</li>
+          <li>"my-binary-x86_64-apple-darwin" for MacOS</li>
+          <li>"my-binary-x86_64-unknown-linux-gnu" for Linux</li>
+        </ul>
+        so don't forget to provide binaries for <strong>all targeted platforms</strong>.
+      </div>` },
       { property: "copyright", type: "string", description: `A copyright string associated with your application.` },
-      { property: "category", type: "string", description: `What kind of application this is. This can be a human-readable string (e.g. "Puzzle game"), or a MacOS X LSApplicationCategoryType value (e.g. "public.app-category.puzzle-games"), or a GNOME desktop file category name (e.g. "LogicGame"), and cargo-bundle will automatically convert as needed for different platforms.` },
+      { property: "category", type: "string", description: `What kind of application this is. This can be a human-readable string (e.g. "Puzzle game"), or a MacOS X LSApplicationCategoryType value (e.g. "public.app-category.puzzle-games"), or a GNOME desktop file category name (e.g. "LogicGame"), and Tauri's bundler will automatically convert as needed for different platforms.` },
       { property: "shortDescription", type: "string", description: `A short description of your application.` },
       { property: "longDescription", type: "string", description: `A longer, multi-line description of the application.` },
       { property: "deb", type: "object", child: <Properties rows={[
