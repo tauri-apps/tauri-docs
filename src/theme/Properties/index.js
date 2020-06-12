@@ -8,14 +8,12 @@ export default ({ rows }) => (
     <Opening />
     {rows.map((row) => (
       <div className={styles.content}>
-        <div className={styles.property}
+        <div
+          className={styles.property}
           dangerouslySetInnerHTML={{
-            __html:
-              '<strong><code>' +
-              row.property +
-              '</code></strong><span><code>: ' +
-              row.type +
-              '</code></span>',
+            __html: `<strong><code>${row.property}</code></strong><span><code>${
+              row.optional ? '?' : ''
+            }: ${row.type}</code></span>`,
           }}
         ></div>
         {!row.child && (

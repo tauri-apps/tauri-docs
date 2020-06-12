@@ -9,7 +9,7 @@
 }
 
 .closing {
-  height: 42px;
+  position: absolute !important;
 }
 .closing::after,
 .opening::after {
@@ -20,6 +20,5 @@
 
 .closing,
 .opening {
-  /* display: inline-block; */
   position: relative;
 }
