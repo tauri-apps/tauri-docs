@@ -74,7 +74,10 @@ It's composed of the following properties:
         so don't forget to provide binaries for <strong>all targeted platforms</strong>.
       </div>` },
       { property: "copyright", type: "string", description: `A copyright string associated with your application.` },
-      { property: "category", type: "string", description: `What kind of application this is. This can be a human-readable string (e.g. "Puzzle game"), or a MacOS X LSApplicationCategoryType value (e.g. "public.app-category.puzzle-games"), or a GNOME desktop file category name (e.g. "LogicGame"), and Tauri's bundler will automatically convert as needed for different platforms.` },
+      { property: "category", type: "string", description: `What kind of application this is. 
+        Should be one among the following list: <br/>
+        Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather.
+      ` },
       { property: "shortDescription", type: "string", description: `A short description of your application.` },
       { property: "longDescription", type: "string", description: `A longer, multi-line description of the application.` },
       { property: "deb", type: "object", child: <Properties rows={[
