@@ -350,21 +350,19 @@ This type only lives in the docs for now.
 
 ```ts
 type HttpOptions = {
-  options: {
-    method: string
-    url: string
-    headers?: object
-    properties?: object
-    body?: string | object | Binary
-  }
+  method: string
+  url: string
+  params?: object
+  headers?: object
+  body?: string | object | Binary
   followRedirects: boolean // whether to follow redirects or not
   maxRedirections: number // max number of redirections
   connectTimeout: number // request connect timeout
   readTimeout: number // request read timeout
   timeout: number // request timeout
   allowCompression: boolean
-  responseType?: ResponseType
   bodyType?: BodyType
+  responseType?: ResponseType
 }
 ```
 
