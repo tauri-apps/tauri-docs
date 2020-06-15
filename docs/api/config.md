@@ -20,8 +20,8 @@ It's composed of the following properties:
   The target directory <em>must</em> contain an index.html file.
 </div>`},
 {property: "devPath", type: "string", description: `Can be a path—either absolute or relative—to a folder or a URL (like a live reload server).`},
-{property: "beforeDevCommand", type: "string", description: `A command to run before starting Tauri in dev mode.`},
-{property: "beforeBuildCommand", type: "string", description: `A command to run before starting Tauri in build mode.`}
+{property: "beforeDevCommand", optional: true, type: "string", description: `A command to run before starting Tauri in dev mode.`},
+{property: "beforeBuildCommand", optional: true, type: "string", description: `A command to run before starting Tauri in build mode.`}
 ]}/>
 
 ```js title=Example
@@ -36,8 +36,8 @@ It's composed of the following properties:
 ## `ctx`
 
 <Properties rows={[
-  { property: "debug", type: "boolean", description: `Tells the CLI to build on debug mode instead of release. Can also be used as <code>tauri build --debug</code>.` },
-  { property: "exitOnPanic", type: "boolean", description: `Whether or not the webview should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
+  { property: "debug", optional: true, type: "boolean", description: `Tells the CLI to build on debug mode instead of release. Can also be used as <code>tauri build --debug</code>.` },
+  { property: "exitOnPanic", optional: true, type: "boolean", description: `Whether or not the webview should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
 ]} />
 
 ```js title=Example
@@ -52,17 +52,17 @@ It's composed of the following properties:
 <Properties rows={[
   {
     property: "embeddedServer", type: "object",
-    child: <Properties rows={[{ property: "active", type: "boolean", description: `Set it to <code>false</code> if you plan to serve your application statically.` }]} />
+    child: <Properties rows={[{ property: "active", optional: true, type: "boolean", description: `Set it to <code>false</code> if you plan to serve your application statically.` }]} />
   },
   {
     property: "bundle", type: "object",
     child: <Properties rows={[
-      { property: "active", type: "boolean", description: `` },
-      { property: "targets", type: "string", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
+      { property: "active", optional: true, type: "boolean", description: `` },
+      { property: "targets", optional: true, type: "string", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
-      { property: "icon", type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
-      { property: "resources", type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
-      { property: "externalBin", type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application.
+      { property: "icon", optional: true, type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
+      { property: "resources", optional: true, type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
+      { property: "externalBin", optional: true, type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application.
       <div class="alert alert--info" role="alert" style="margin-top: 10px;">
         Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}". <br/>
         E.g. you typed "my-binary": 
@@ -73,23 +73,23 @@ It's composed of the following properties:
         </ul>
         so don't forget to provide binaries for <strong>all targeted platforms</strong>.
       </div>` },
-      { property: "copyright", type: "string", description: `A copyright string associated with your application.` },
-      { property: "category", type: "string", description: `What kind of application this is. 
+      { property: "copyright", optional: true, type: "string", description: `A copyright string associated with your application.` },
+      { property: "category", optional: true, type: "string", description: `What kind of application this is. 
         Should be one among the following list: <br/>
         Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather.
       ` },
-      { property: "shortDescription", type: "string", description: `A short description of your application.` },
-      { property: "longDescription", type: "string", description: `A longer, multi-line description of the application.` },
-      { property: "deb", type: "object", child: <Properties rows={[
-        { property: "depends", type: "string[]", description: `The list of deb dependencies your application relies on.` },
-        { property: "useBootstrapper", type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
+      { property: "shortDescription", optional: true, type: "string", description: `A short description of your application.` },
+      { property: "longDescription", optional: true, type: "string", description: `A longer, multi-line description of the application.` },
+      { property: "deb", optional: true, type: "object", child: <Properties rows={[
+        { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
+        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
       },
-      { property: "osx", type: "object", child: <Properties rows={[
-        { property: "frameworks", type: "string[]", description: `A list of strings indicating any MacOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
-        { property: "minimumSystemVersion", type: "string", description: `A version string indicating the minimum MacOS X version that the bundled application supports.` },
-        { property: "license", type: "string", description: `The path to the license file to add to the DMG.` },
-        { property: "useBootstrapper", type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
-      { property: "exceptionDomain", type: "string", description: `Allows your application to communicate with the outside world.
+      { property: "osx", optional: true, type: "object", child: <Properties rows={[
+        { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any MacOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
+        { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum MacOS X version that the bundled application supports.` },
+        { property: "license", optional: true, type: "string", description: `The path to the license file to add to the DMG.` },
+        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
+      { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.
       <div class="alert alert--info" role="alert" style="margin-top: 10px;">
         It should be a lowercase, without port and protocol domain name.
       </div>
@@ -100,39 +100,39 @@ It's composed of the following properties:
     property: "whitelist", type: "object",
     child: <Properties rows={[
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
-      { property: "createDir", type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "copyFile", type: "boolean", description: `Create directory from local filesystem.` },
-      { property: "event", type: "boolean", description: `Enable listening to messages from webview.` },
-      { property: "execute", type: "boolean", description: `Enable binary execution.` },
-      { property: "listFiles", type: "boolean", description: `Get a list of files in a directory.` },
-      { property: "open", type: "boolean", description: `Open link in the user's default browser.` },
-      { property: "openDialog", type: "boolean", description: `Open dialog window to pick files.` },
-      { property: "readBinaryFile", type: "boolean", description: `Read binary file from local filesystem.` },
-      { property: "readDir", type: "boolean", description: `Read directory from local filesystem.` },
-      { property: "readTextFile", type: "boolean", description: `Read text file from local filesystem.` },
-      { property: "removeDir", type: "boolean", description: `Remove directory from local filesystem.` },
-      { property: "removeFile", type: "boolean", description: `Remove file from local filesystem.` },
-      { property: "renameFile", type: "boolean", description: `Rename file from local filesystem.` },
-      { property: "saveDialog", type: "boolean", description: `Open dialog window to pick where to save files.` },
-      { property: "setTitle", type: "boolean", description: `Set the webview window title.` },
-      { property: "updater", type: "boolean", description: `Update the application.` },
-      { property: "writeFile", type: "boolean", description: `Write file to local filesystem.` },
+      { property: "createDir", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
+      { property: "copyFile", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
+      { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from webview.` },
+      { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
+      { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
+      { property: "open", optional: true, type: "boolean", description: `Open link in the user's default browser.` },
+      { property: "openDialog", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
+      { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
+      { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
+      { property: "readTextFile", optional: true, type: "boolean", description: `Read text file from local filesystem.` },
+      { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
+      { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
+      { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
+      { property: "saveDialog", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
+      { property: "setTitle", optional: true, type: "boolean", description: `Set the webview window title.` },
+      { property: "updater", optional: true, type: "boolean", description: `Update the application.` },
+      { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
     ]} />
   },
   {
     property: "window", type: "object",
     child: <Properties rows={[
       { property: "title", type: "string", description: `Initial window title.` },
-      { property: "width", type: "number", description: `Initial window width.` },
-      { property: "height", type: "number", description: `Initial window height.` },
-      { property: "resizable", type: "boolean", description: `Enable window resizing.` },
-      { property: "fullscreen", type: "boolean", description: `Set window as fullscreen.` },
+      { property: "width", optional: true, type: "number", description: `Initial window width.` },
+      { property: "height", optional: true, type: "number", description: `Initial window height.` },
+      { property: "resizable", optional: true, type: "boolean", description: `Enable window resizing.` },
+      { property: "fullscreen", optional: true, type: "boolean", description: `Set window as fullscreen.` },
     ]} />
   },
   {
     property: "security", type: "object",
     child: <Properties rows={[
-      { property: "csp", type: "string", description: `The Content Security Policy. 
+      { property: "csp", optional: true, type: "string", description: `The Content Security Policy. 
       <div class="alert alert--warning" role="alert" style="margin-top: 10px;">
   This is a really important part of the configuration since it helps you ensure your webview is secured. See more <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">on Mozilla</a>.
 </div>` },
@@ -141,13 +141,13 @@ It's composed of the following properties:
   {
     property: "edge", type: "object",
     child: <Properties rows={[
-      { property: "active", type: "boolean", description: `Whether you want to build with Microsoft Edge  or with Microsoft Internet Explorer.` },
+      { property: "active", optional: true, type: "boolean", description: `Whether you want to build with Microsoft Edge  or with Microsoft Internet Explorer.` },
     ]} />
   },
   {
     property: "inliner", type: "object",
     child: <Properties rows={[
-      { property: "active", type: "boolean", description: `Enable the inliner. See more <a href="https://github.com/tauri-apps/tauri-inliner/" target="_blank">on our GitHub</a>.` },
+      { property: "active", optional: true, type: "boolean", description: `Enable the inliner. See more <a href="https://github.com/tauri-apps/tauri-inliner/" target="_blank">on our GitHub</a>.` },
     ]} />
   },
 ]} />
