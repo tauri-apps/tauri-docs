@@ -1,0 +1,24 @@
+.closing::after {
+  content: ']';
+}
+
+.opening::after {
+  content: '[';
+  top: -50px;
+  right: 0;
+}
+
+.closing {
+  position: absolute !important;
+}
+.closing::after,
+.opening::after {
+  font-size: 30px;
+  position: absolute;
+  background-color: var(--ifm-background-color);
+}
+
+.closing,
+.opening {
+  position: relative;
+}
