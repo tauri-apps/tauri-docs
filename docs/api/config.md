@@ -131,7 +131,7 @@ It's composed of the following properties:
     property: "bundle", type: "object",
     child: <Properties rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
-      { property: "targets", optional: true, type: "string", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
+      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
       { property: "icon", optional: true, type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
       { property: "resources", optional: true, type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
@@ -234,11 +234,49 @@ Instead of launching the app directly, we configure the bundled app to run a scr
 
 ```js title=Example
 "tauri": {
+  "cli": {
+    "description": "Tauri communication example",
+    "longDescription": null,
+    "beforeHelp": null,
+    "afterHelp": null,
+    "args": [{
+      "short": "c",
+      "name": "config",
+      "takesValue": true,
+      "description": "Config path"
+    }, {
+      "short": "t",
+      "name": "theme",
+      "takesValue": true,
+      "description": "App theme",
+      "possibleValues": ["light", "dark", "system"]
+    }, {
+      "short": "v",
+      "name": "verbose",
+      "multipleOccurrences": true,
+      "description": "Verbosity level"
+    }],
+    "subcommands": {
+      "update": {
+        "description": "Updates the app",
+        "longDescription": null,
+        "beforeHelp": null,
+        "afterHelp": null,
+        "args": [{
+          "short": "b",
+          "name": "background",
+          "description": "Update in background"
+        }],
+        "subcommands": null
+      }
+    }
+  },
   "embeddedServer": {
     "active": true
   },
   "bundle": {
     "active": true,
+    "targets": ["deb"],
     "identifier": "com.tauri.dev",
     "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
     "resources": [],
