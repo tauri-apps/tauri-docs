@@ -86,6 +86,10 @@ type EventCallback = (response: string) => void
 ### Functions
 
 ```ts
+/**
+ * @param {String} event the event name
+ * @param {String} [payload] the event payload
+ */
 emit(event: string, payload: string): void
 ```
 
@@ -102,6 +106,10 @@ Emits an event to the backend
 - Returns void
 
 ```ts
+/**
+ * @param {String} event the event name
+ * @param {EventCallback} handler the event handler callback
+ */
 listen(event: string, handler: EventCallback): void
 ```
 
@@ -285,6 +293,11 @@ Removes a directory if the directory is not empty and the recursive option isn't
 - Returns `Promise<void>`
 
 ```ts
+/**
+ * @param {String} file path to the file to remove
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
 removeFile(file: string, options = {}): Promise<void>
 ```
 
@@ -301,6 +314,12 @@ Removes a file
 - Returns `Promise<void>`
 
 ```ts
+/**
+ * @param {String} oldPath
+ * @param {String} newPath
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
 renameFile(oldPath: string, newPath: string, options = {}): Promise<void>
 ```
 
@@ -315,6 +334,13 @@ Renames a file
 - Returns `Promise<void>`
 
 ```ts
+/*
+ * @param {Object} file
+ * @param {String} file.path path of the file
+ * @param {String} file.contents contents of the file
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
 writeFile(file: {}, options = {}): Promise<void>
 ```
 
@@ -393,6 +419,26 @@ type HttpOptions = {
 ### Functions
 
 ```ts
+/**
+ * @typedef {Object} HttpOptions
+ * @property {String} options.method GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, CONNECT or TRACE
+ * @property {String} options.url the request URL
+ * @property {Object} [options.headers] the request headers
+ * @property {Object} [options.propertys] the request query propertys
+ * @property {Object|String|Binary} [options.body] the request body
+ * @property {Boolean} followRedirects whether to follow redirects or not
+ * @property {Number} maxRedirections max number of redirections
+ * @property {Number} connectTimeout request connect timeout
+ * @property {Number} readTimeout request read timeout
+ * @property {Number} timeout request timeout
+ * @property {Boolean} allowCompression
+ * @property {ResponseType} [responseType=1] response type
+ * @property {BodyType} [bodyType=3] body type
+*/
+
+/** 
+ * @param {HttpOptions}  options request options
+ */
 request(options: HttpOptions): Promise<any>
 ```
 
@@ -409,6 +455,11 @@ Makes an HTTP request
   promise resolving to the response
 
 ```ts
+/**
+ * @param {String}  url request URL
+ * @param {String|Object|Binary}  body request body
+ * @param {HttpOptions}  options request options
+ */
 get(url: string, options?: HttpOptions): Promise<any>
 ```
 
@@ -428,6 +479,11 @@ Makes a GET HTTP request
   promise resolving to the response
 
 ```ts
+/**
+ * @param {String}  url request URL
+ * @param {String|Object|Binary}  body request body
+ * @param {HttpOptions}  options request options
+ */
 post(url: string, body?: string | object | Binary, options?: HttpOptions): Promise<any>
 ```
 
@@ -452,6 +508,11 @@ Makes a POST HTTP request
   promise resolving to the response
 
 ```ts
+/**
+ * @param {String}  url request URL
+ * @param {String|Object|Binary}  body request body
+ * @param {HttpOptions}  options request options
+ */
 put(url: string, body?: string | object | Binary, options?: HttpOptions): Promise<any>
 ```
 
@@ -476,6 +537,10 @@ Makes a PUT HTTP request
   promise resolving to the response
 
 ```ts
+/**
+ * @param {String}  url request URL
+ * @param {HttpOptions}  options request options
+ */
 patch(url: string, options?: HttpOptions): Promise<any>
 ```
 
@@ -495,6 +560,10 @@ Makes a PATCH HTTP request
   promise resolving to the response
 
 ```ts
+/**
+ * @param {String}  url request URL
+ * @param {HttpOptions}  options request options
+ */
 deleteRequest(url: string, options?: HttpOptions): Promise<any>
 ```
 
@@ -522,6 +591,10 @@ import { execute } from 'tauri/api/process'
 ### Functions
 
 ```ts
+/**
+ * @param {String} command the name of the cmd to execute e.g. 'mkdir' or 'node'
+ * @param {(String[]|String)} [args] command args
+ */
 execute(command: string, args?: string | string[]): Promise<string>
 ```
 
@@ -548,6 +621,9 @@ import { open, setTitle } from 'tauri/api/window'
 ### Functions
 
 ```ts
+/**
+ * @param {String} url the URL to open
+ */
 open(url: string): void
 ```
 
@@ -562,6 +638,9 @@ opens an URL on the user default browser
 - Returns `void`
 
 ```ts
+/**
+ * @param {String} title the new title
+ */
 setTitle(title: string): void
 ```
 
