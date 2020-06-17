@@ -336,7 +336,7 @@ Renames a file
 ```ts
 /*
  * @param {Object} file
- * @param {String} file.path path of the file
+ * @param {String} file.file path of the file
  * @param {String} file.contents contents of the file
  * @param {Object} [options] configuration object
  * @param {BaseDirectory} [options.dir] base directory
