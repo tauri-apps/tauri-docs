@@ -131,7 +131,7 @@ It's composed of the following properties:
     property: "bundle", type: "object",
     child: <Properties rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
-      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"]. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
+      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"] or the string 'all' to make every supported bundle. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
       { property: "icon", optional: true, type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
       { property: "resources", optional: true, type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
