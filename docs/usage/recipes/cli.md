@@ -148,4 +148,4 @@ getMatches().then((matches) => {
 
 ## Complete documentation
 
-You can find more about the CLI configuration <TODO>HERE</TODO>.
+You can find more about the CLI configuration <a href="/docs/api/config#tauri">here</a>.
