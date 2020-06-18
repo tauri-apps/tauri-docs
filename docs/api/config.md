@@ -73,6 +73,12 @@ It's composed of the following properties:
           </ul>
         </div>` 
         },
+        { property: "index", type: "number", optional: true, description: `The positional argument index, starting at 1.
+        <div class="alert alert--info" role="alert" style="margin-top: 10px;">
+          The index refers to position according to other positional argument. It does not define position in the argument list as a whole.
+          When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index).
+        </div>`
+        },
         { property: "multiple", optional: true, type: "boolean", description: `Specifies that the argument may appear more than once.
    For flags, this results in the number of occurrences of the flag being recorded. For example <code>-ddd</code> or <code>-d -d -d</code> would count as three occurrences.
    For options, there is a distinct difference in multiple occurrences vs multiple values. For example, <code>--opt val1 val2</code> is one occurrence, but two values. Whereas <code>--opt val1 --opt val2</code> is two occurrences.` },
