@@ -53,6 +53,7 @@
                 "usage/recipes/bundler/sidecar"
               ]
             },
+            "usage/recipes/cli",
             {
               "label": "Visual",
               "type": "category",
