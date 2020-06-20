@@ -1,0 +1,187 @@
+{
+  "config": {
+    "announcementBar": {
+      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a>- <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg\" target=\"_blank\">MacOS - dmg</a>- <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a>- <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+    },
+    "tagline": "Make smaller, faster and more secure native apps"
+  },
+  "pages": {
+    "index": {
+      "description": "Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Yew, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms.",
+      "subtitle": "Bundle your HTML, CSS and JavaScript<br />to make smaller, faster and more secure native applications",
+      "learnMore": "Learn more",
+      "getStarted": "Get started",
+      "feature": {
+        "seeMore": "See more",
+        "items": [
+          {
+            "label": "Brownfield",
+            "description": "compatibility with any front-end framework means you don't have to change your stack"
+          },
+          {
+            "label": "FLOSS",
+            "description": "relicensing is possible with Tauri"
+          },
+          {
+            "label": "Bundle",
+            "description": "size of a Tauri App can be less than 600KB"
+          },
+          {
+            "label": "Security",
+            "description": "is the Tauri-Team's biggest priority and drives our innovation"
+          },
+          {
+            "label": "Patterns",
+            "description": "are here to help you choose important features with simple configuration"
+          },
+          {
+            "label": "Cross-platform",
+            "description": "compilation allows to bundle binaries for major desktop platforms (mobile & WASM coming soon)"
+          }
+        ]
+      },
+      "roadmap": {
+        "title": "Roadmap",
+        "notice": "Notice: This roadmap is subject to change.",
+        "beyond": "& BEYOND",
+        "todo": "To Do",
+        "milestone": "Milestone",
+        "ready": "Ready",
+        "items": [
+          {
+            "label": "CLI",
+            "description": "Generate, develop and build Tauri apps from the command line."
+          },
+          {
+            "label": "API",
+            "description": "Finalize, audit, write documentation and create examples for the smoke-tests."
+          },
+          {
+            "label": "Testing & CI",
+            "description": "Implement CI with testing and bundle-pipeline validation."
+          },
+          {
+            "label": "Desktop Bundler",
+            "description": "Bundle for all major desktops from native systems."
+          },
+          {
+            "label": "Alpha Release",
+            "description": "Technical Release Candidate for desktop, edge cases and bugs acceptable."
+          },
+          {
+            "label": "Sideloader",
+            "description": "Integrate and instrument other binaries."
+          },
+          {
+            "label": "Splashscreen",
+            "description": "Use a splashscreen while the main content is loading."
+          },
+          {
+            "label": "App Storage",
+            "description": "Use a canonical location to store userdata."
+          },
+          {
+            "label": "Native Notifications",
+            "description": "Cross-platform notifications using polyfilled WEB API."
+          },
+          {
+            "label": "Self Updater",
+            "description": "Update Tauri Apps from within Tauri."
+          },
+          {
+            "label": "WASM Bundler",
+            "description": "Manufacture WASM bundler for use in websites."
+          },
+          {
+            "label": "App Tray",
+            "description": "Desktop Cross-platform Icon Tray."
+          },
+          {
+            "label": "App Storage",
+            "description": "Use a canonical location to store userdata."
+          },
+          {
+            "label": "Webview Bindings",
+            "description": "Use official Webview bindings."
+          },
+          {
+            "label": "Multi Window",
+            "description": "Run multiple window instances in Tauri."
+          },
+          {
+            "label": "Transparent Window",
+            "description": "Have transparent windows."
+          },
+  
+          {
+            "label": "DENO CLI",
+            "description": "Enable alternative DENO CLI."
+          },
+          {
+            "label": "DENO Bindings",
+            "description": "Use Deno to build your App's backend."
+          },
+          {
+            "label": "PureOS App Store",
+            "description": "Verified builds for PureOS."
+          },
+          {
+            "label": "Beta Release",
+            "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "Mobile Bundler",
+            "description": "Bundle to all major mobile device operating systems."
+          },
+  
+          {
+            "label": "Cross Compiler",
+            "description": "Generate bundled binaries from select operating system environments."
+          },
+          {
+            "label": "Alternative Renderer",
+            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
+          },
+          {
+            "label": "Tauri-Frida",
+            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
+          },
+          {
+            "label": "Stable Release",
+            "description": "Stable on On all Platforms."
+          },
+          {
+            "label": "Other Bindings",
+            "description": "Go, Nim, Python, C++ and other bindings are possible with the stable API."
+          },
+          {
+            "label": "The Future",
+            "description": "Something missing? Got a great idea? We want you to help us make it happen."
+          }
+        ]
+      }
+    }
+  },
+  "navbar": {
+    "about": "About",
+    "docs": "Docs",
+    "api": "API",
+    "community": "Community",
+    "partners": "Partners",
+    "showcase": "Showcase",
+    "usage": "Usage",
+    "gettingStarted": "Getting started",
+    "contact": "Contact",
+    "mail": "Mail",
+    "network": "Network"
+  },
+  "navigation": {
+    "pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    }
+  },
+  "misc": {
+    "editPage": "Edit this page"
+  }
+}

@@ -1,10 +1,13 @@
 // const versions = require('./versions.json')
+const language = process.env.LANGUAGE || 'en'
+
+const t = require(`./translations/${language}.json`)
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 
 const siteConfig = {
   title: 'Tauri Studio',
-  tagline: 'Make smaller, faster and more secure native apps',
+  tagline: t.config.tagline,
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: '/',
@@ -12,13 +15,11 @@ const siteConfig = {
   url: 'https://tauri.studio',
 
   themeConfig: {
+    language,
+    t,
     announcementBar: {
       id: 'testapp',
-      content: `🚀 Download our validation app to take Tauri for a test drive: 
-       <br/> <i class="ti-linux"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank">Linux - deb</a>
-           - <i class="ti-apple"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank">MacOS - dmg</a>
-           - <i class="ti-microsoft"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi" target="_blank">Windows - msi</a>
-           - <i class="ti-github"></i> <a href="https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication" target="_blank">Source</a>`,
+      content: t.config.announcementBar.validationApp,
     },
     navbar: {
       logo: {
@@ -26,28 +27,28 @@ const siteConfig = {
         src: 'img/tauri.png',
       },
       links: [
-        { to: 'docs/about/intro', label: 'About', position: 'left' },
+        { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },
         {
           to: 'docs/getting-started/intro',
-          label: 'Docs',
+          label: t.navbar.docs,
           position: 'left',
         },
         {
           to: 'docs/api/config',
-          label: 'API',
+          label: t.navbar.api,
           position: 'left',
         },
         {
-          label: 'Community',
+          label: t.navbar.community,
           type: 'category',
           position: 'left',
           items: [
             {
-              label: 'Partners',
+              label: t.navbar.partners,
               to: 'partners',
             },
             {
-              label: 'Showcase',
+              label: t.navbar.showcase,
               to: 'showcase',
             },
           ],
@@ -64,23 +65,23 @@ const siteConfig = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: t.navbar.docs,
           items: [
             {
-              label: 'Getting started',
+              label: t.navbar.gettingStarted,
               to: 'docs/getting-started/intro',
             },
             {
-              label: 'Usage',
+              label: t.navbar.usage,
               to: 'docs/usage/intro',
             },
           ],
         },
         {
-          title: 'Contact',
+          title: t.navbar.contact,
           items: [
             {
-              label: 'Mail',
+              label: t.navbar.mail,
               href: 'mailto:contact@tauri.studio',
             },
             {
@@ -94,7 +95,7 @@ const siteConfig = {
           ],
         },
         {
-          title: 'Network',
+          title: t.navbar.network,
           items: [
             {
               label: 'DevTo',
@@ -111,14 +112,14 @@ const siteConfig = {
           ],
         },
         {
-          title: 'Community',
+          title: t.navbar.community,
           items: [
             {
-              label: 'Partners',
+              label: t.navbar.partners,
               to: 'partners',
             },
             {
-              label: 'Showcase',
+              label: t.navbar.showcase,
               to: 'showcase',
             },
             // TODO: add code of conduct
@@ -140,6 +141,7 @@ const siteConfig = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          path: './docs/' + language,
           sidebarPath: require.resolve('./sidebars.json'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },

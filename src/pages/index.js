@@ -1,70 +1,43 @@
 import React from 'react'
+import Fade from 'react-reveal/Fade'
 import classnames from 'classnames'
+
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
-import Fade from 'react-reveal/Fade'
 
+// See translations for label and description
 const features = [
   [
     {
-      title: <>Brownfield</>,
       imageUrl: 'img/undraw_brownfield.svg',
-      description: (
-        <>
-          compatibility with any front-end framework means you don't have to
-          change your stack
-        </>
-      ),
     },
     {
-      title: <>FLOSS</>,
       imageUrl: 'img/undraw_open_source.svg',
-      description: <>relicensing is possible with Tauri</>,
     },
     {
-      title: <>Bundle</>,
       imageUrl: 'img/undraw_takeout_boxes.svg',
-      description: <>size of a Tauri App can be less than 600KB</>,
     },
   ],
   [
     {
-      title: <>Security</>,
       imageUrl: 'img/undraw_security.svg',
-      description: (
-        <>is the Tauri-Team's biggest priority and drives our innovation</>
-      ),
       link: 'docs/about/security',
     },
     {
-      title: <>Patterns</>,
       imageUrl: 'img/undraw_patterns.svg',
-      description: (
-        <>
-          are here to help you choose important features with simple
-          configuration
-        </>
-      ),
       link: 'docs/usage/patterns/about-patterns',
     },
     {
-      title: <>Cross-platform</>,
       imageUrl: 'img/undraw_cross_platform.svg',
-      description: (
-        <>
-          compilation allows to bundle binaries for major desktop platforms
-          (mobile & WASM coming soon)
-        </>
-      ),
       link: 'docs/usage/ci-cd/cross-platform',
     },
   ],
 ]
 
-function Feature({ imageUrl, title, description, link }) {
+function Feature({ imageUrl, link, siteConfig, index }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
     <div className="col col--4 feature">
@@ -72,17 +45,31 @@ function Feature({ imageUrl, title, description, link }) {
         <div className="card__body">
           {imgUrl && (
             <div className="text--center">
-              <img className={styles.featureImage} src={imgUrl} alt={title} />
+              <img
+                className={styles.featureImage}
+                src={imgUrl}
+                alt={
+                  siteConfig.themeConfig.t.pages.index.feature.items[index]
+                    .label
+                }
+              />
             </div>
           )}
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <h3>
+            {siteConfig.themeConfig.t.pages.index.feature.items[index].label}
+          </h3>
+          <p>
+            {
+              siteConfig.themeConfig.t.pages.index.feature.items[index]
+                .description
+            }
+          </p>
         </div>
         {link && (
           <div className="card__footer">
             <Link to={useBaseUrl(link)}>
               <button className="button button--secondary button--block">
-                See more
+                {siteConfig.themeConfig.t.pages.index.feature.seeMore}
               </button>
             </Link>
           </div>
@@ -92,275 +79,162 @@ function Feature({ imageUrl, title, description, link }) {
   )
 }
 
-const Translate = (props) => <span>{props.children}</span>
-
-const Roadmap = () => {
+const Roadmap = ({ siteConfig }) => {
   const COLORS = {
     green: '#48f9c7',
     blue: '#0198f1',
     red: '#ff8e13',
   }
+  // See translations for label/description
   const items = [
     {
-      title: <Translate>CLI</Translate>,
-      description: (
-        <Translate>
-          Generate, develop and build Tauri apps from the command line.
-        </Translate>
-      ),
       icon: 'ti-target',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
 
     {
-      title: <Translate>API</Translate>,
-      description: (
-        <Translate>
-          Finalize, audit, write documentation and create examples for the
-          smoke-tests.
-        </Translate>
-      ),
       icon: 'ti-crown',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
     {
-      title: <Translate>Testing & CI</Translate>,
-      description: (
-        <Translate>
-          Implement CI with testing and bundle-pipeline validation.
-        </Translate>
-      ),
       icon: 'ti-pulse',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
     {
-      title: <Translate>Desktop Bundler</Translate>,
-      description: (
-        <Translate>
-          Bundle for all major desktops from native systems.
-        </Translate>
-      ),
       icon: 'ti-desktop',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
     {
-      title: <Translate>Alpha Release</Translate>,
-      description: (
-        <Translate>
-          Technical Release Candidate for desktop, edge cases and bugs
-          acceptable.
-        </Translate>
-      ),
       icon: 'ti-flag-alt',
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
     {
-      title: <Translate>Sideloader</Translate>,
-      description: (
-        <Translate>Integrate and instrument other binaries.</Translate>
-      ),
       icon: 'ti-link',
       color: COLORS.green,
       targetQuarter: 'Q1 2020',
     },
     {
-      title: <Translate>Splashscreen</Translate>,
-      description: (
-        <Translate>
-          Use a splashscreen while the main content is loading.
-        </Translate>
-      ),
       icon: 'ti-blackboard',
       color: COLORS.green,
       targetQuarter: 'Q1 2020',
     },
     {
-      title: <Translate>App Storage</Translate>,
-      description: (
-        <Translate>Use a canonical location to store userdata.</Translate>
-      ),
       icon: 'ti-share',
       color: COLORS.green,
       targetQuarter: 'Q2 2020',
     },
     {
-      title: <Translate>Native Notifications</Translate>,
-      description: (
-        <Translate>
-          Cross-platform notifications using polyfilled WEB API.
-        </Translate>
-      ),
       icon: 'ti-comment-alt',
       color: COLORS.green,
       targetQuarter: 'Q2 2020',
     },
     {
-      title: <Translate>Self Updater</Translate>,
-      description: <Translate>Update Tauri Apps from within Tauri.</Translate>,
       icon: 'ti-download',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>WASM Bundler</Translate>,
-      description: (
-        <Translate>Manufacture WASM bundler for use in websites.</Translate>
-      ),
       icon: 'ti-bolt',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>App Tray</Translate>,
-      description: <Translate>Desktop Cross-platform Icon Tray.</Translate>,
       icon: 'ti-panel',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>Webview Bindings</Translate>,
-      description: <Translate>Use official Webview bindings.</Translate>,
       icon: 'ti-loop',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>Multi Window</Translate>,
-      description: (
-        <Translate>Run multiple window instances in Tauri.</Translate>
-      ),
       icon: 'ti-layout-grid3-alt',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>Transparent Window</Translate>,
-      description: (
-        <Translate>Have transparent windows.</Translate>
-      ),
       icon: 'ti-layout-sidebar-none',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>DENO Cli</Translate>,
-      description: <Translate>Enable alternative DENO CLI.</Translate>,
       icon: 'ti-cup',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>DENO Bindings</Translate>,
-      description: <Translate>Use Deno to build your App's backend.</Translate>,
       icon: 'ti-loop',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>PureOS App Store</Translate>,
-      description: <Translate>Verified builds for PureOS.</Translate>,
       icon: 'ti-shine',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
     {
-      title: <Translate>Beta Release</Translate>,
-      description: (
-        <Translate>Generally stable on Desktop, API locked down.</Translate>
-      ),
       icon: 'ti-flag-alt',
       color: COLORS.red,
       targetQuarter: 'Q4 2020',
     },
     {
-      title: <Translate>Mobile Bundler</Translate>,
-      description: (
-        <Translate>
-          Bundle to all major mobile device operating systems.
-        </Translate>
-      ),
       icon: 'ti-mobile',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
-      title: <Translate>Cross Compiler</Translate>,
-      description: (
-        <Translate>
-          Generate bundled binaries from select operating system environments.
-        </Translate>
-      ),
       icon: 'ti-control-shuffle',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
-      title: <Translate>Alternative Renderer</Translate>,
-      description: (
-        <Translate>
-          Candidate presentation for Webview Alternatives, including GL
-          windowing.
-        </Translate>
-      ),
       icon: 'ti-direction-alt',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
-      title: <Translate>Tauri-Frida</Translate>,
-      description: (
-        <Translate>
-          A decompiler and threat analyzer for Tauri Apps, using Frida.
-        </Translate>
-      ),
       icon: 'ti-slice',
       color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
-      title: <Translate>Stable Release</Translate>,
-      description: <Translate>Stable on On all Platforms.</Translate>,
       icon: 'ti-flag-alt',
       color: COLORS.red,
       targetQuarter: 'Q1 2021',
     },
     {
-      title: <Translate>Other Bindings</Translate>,
-      description: (
-        <Translate>
-          Go, Nim, Python, C++ and other bindings are possible with the stable
-          API.
-        </Translate>
-      ),
       icon: 'ti-world',
       color: COLORS.blue,
       targetQuarter: 'Q1 2021',
     },
     {
-      title: <Translate>The Future</Translate>,
-      description: (
-        <Translate>
-          Something missing? Got a great idea? We want you to help us make it
-          happen.
-        </Translate>
-      ),
       icon: 'ti-infinite',
       color: COLORS.blue,
-      targetQuarter: '& BEYOND',
+      targetQuarter: siteConfig.themeConfig.t.pages.index.beyond,
     },
-  ].map((item) => {
+  ].map((item, index) => {
     return (
-      <li key={item.title.props.children}>
+      <li key={item.title}>
         <Fade bottom>
-          <div className="icon" style={{ backgroundColor: item.color }}><span className={item.icon}></span></div>
+          <div className="icon" style={{ backgroundColor: item.color }}>
+            <span className={item.icon}></span>
+          </div>
           <div className="content">
-            <div className="title">{item.title}</div>
-            <div className="description">{item.description}</div>
+            <div className="title">
+              {siteConfig.themeConfig.t.pages.index.roadmap.items[index].label}
+            </div>
+            <div className="description">
+              {
+                siteConfig.themeConfig.t.pages.index.roadmap.items[index]
+                  .description
+              }
+            </div>
           </div>
           <div>{item.targetQuarter}</div>
         </Fade>
@@ -370,14 +244,25 @@ const Roadmap = () => {
 
   return (
     <div className="container">
-      <h2 style={{ textAlign: 'center', position: 'relative' }}>Roadmap</h2>
+      <h2 style={{ textAlign: 'center', position: 'relative' }}>
+        {siteConfig.themeConfig.t.pages.index.roadmap.title}
+      </h2>
       <p style={{ textAlign: 'center', position: 'relative' }}>
-        Notice: This roadmap is subject to change.
+        {siteConfig.themeConfig.t.pages.index.roadmap.notice}
       </p>
       <ul className="roadmap-legend">
-        <li><span style={{ backgroundColor: COLORS.blue}}></span> To do</li>
-        <li><span style={{ backgroundColor: COLORS.red}}></span> Milestone</li> 
-        <li><span style={{ backgroundColor: COLORS.green}}></span> Ready</li>
+        <li>
+          <span style={{ backgroundColor: COLORS.blue }}></span>{' '}
+          {siteConfig.themeConfig.t.pages.index.roadmap.todo}
+        </li>
+        <li>
+          <span style={{ backgroundColor: COLORS.red }}></span>{' '}
+          {siteConfig.themeConfig.t.pages.index.roadmap.milestone}
+        </li>
+        <li>
+          <span style={{ backgroundColor: COLORS.green }}></span>{' '}
+          {siteConfig.themeConfig.t.pages.index.roadmap.ready}
+        </li>
       </ul>
       <ul className="roadmap">{items}</ul>
     </div>
@@ -390,17 +275,17 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.tagline}`}
-      description="Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Yew, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms."
+      description={siteConfig.themeConfig.t.pages.index.description}
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
           <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
-          {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
-          <p className="hero__subtitle">
-            Bundle your HTML, CSS and JavaScript
-            <br />
-            to make smaller, faster and more secure native applications
-          </p>
+          <p
+            className="hero__subtitle"
+            dangerouslySetInnerHTML={{
+              __html: siteConfig.themeConfig.t.pages.index.subtitle,
+            }}
+          ></p>
           <div className={styles.buttons}>
             <div className="container">
               <div className="row">
@@ -412,7 +297,9 @@ function Home() {
                     )}
                     to={useBaseUrl('docs/about/intro')}
                   >
-                    <span>Learn more</span>
+                    <span>
+                      {siteConfig.themeConfig.t.pages.index.learnMore}
+                    </span>
                   </Link>
                 </div>
                 <div className="col col--4">
@@ -423,7 +310,9 @@ function Home() {
                     )}
                     to={useBaseUrl('docs/getting-started/intro')}
                   >
-                    <span>Get started</span>
+                    <span>
+                      {siteConfig.themeConfig.t.pages.index.getStarted}
+                    </span>
                   </Link>
                 </div>
                 <div className="col col--2"></div>
@@ -441,7 +330,12 @@ function Home() {
                 return (
                   <div className="row" key={index}>
                     {row.map((props, idx) => (
-                      <Feature key={idx} {...props} />
+                      <Feature
+                        key={idx}
+                        {...props}
+                        siteConfig={siteConfig}
+                        index={idx + row.length * index}
+                      />
                     ))}
                   </div>
                 )
@@ -450,7 +344,7 @@ function Home() {
           </section>
         )}
         <section className="roadmap-container">
-          <Roadmap />
+          <Roadmap siteConfig={siteConfig} />
         </section>
       </main>
     </Layout>

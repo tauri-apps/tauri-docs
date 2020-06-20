@@ -1,0 +1,33 @@
+{
+  "config": {
+    "announcementBar": {
+      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a>- <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg\" target=\"_blank\">MacOS - dmg</a>- <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a>- <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+    },
+    "tagline": "Des applications natives plus petites, rapides et sécurisées"
+  },
+  "pages": {
+    "index": {}
+  },
+  "navbar": {
+    "about": "À propos",
+    "docs": "Docs",
+    "api": "API",
+    "community": "Communauté",
+    "partners": "Partenaires",
+    "showcase": "Showcase",
+    "usage": "Usage",
+    "gettingStarted": "Démarrage",
+    "contact": "Contact",
+    "mail": "Mail",
+    "network": "Réseau"
+  },
+  "navigation": {
+    "pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    }
+  },
+  "misc": {
+    "editPage": "Edit this page"
+  }
+}
