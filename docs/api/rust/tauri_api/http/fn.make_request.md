@@ -9,5 +9,4 @@ title: "fn.make_request"
 Executes an HTTP request
 
 The response will be transformed to String, If reading the response as binary, the byte array will be serialized using serde_json
-
       

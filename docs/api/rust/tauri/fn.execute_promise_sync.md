@@ -10,5 +10,4 @@ title: "fn.execute_promise_sync"
         callback: String, 
         error: String
     )
-
       

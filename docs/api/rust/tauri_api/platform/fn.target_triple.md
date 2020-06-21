@@ -13,5 +13,4 @@ Returns a target triple (e.g. `x86_64-unknown-linux-gnu` or `i686-pc-windows-msv
 -   Errors:
 
     -   Unexpected system config
-
       

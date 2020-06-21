@@ -10,5 +10,4 @@ title: "fn.select"
     ) -> Result<Response>
 
 Open single select file dialog
-
       

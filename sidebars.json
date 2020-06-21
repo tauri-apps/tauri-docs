@@ -126,6 +126,14 @@
                     "api/rust/tauri/event/fn.on_event"
                   ]
                 },
+                {
+                  "label": "settings",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri/settings/fn.read_settings",
+                    "api/rust/tauri/settings/struct.Settings"
+                  ]
+                },
                 "api/rust/tauri/enum.ErrorKind",
                 "api/rust/tauri/fn.call",
                 "api/rust/tauri/fn.close_splashscreen",
@@ -157,10 +165,29 @@
                   ]
                 },
                 {
+                  "label": "config",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/config/fn.get",
+                    "api/rust/tauri_api/config/struct.BuildConfig",
+                    "api/rust/tauri_api/config/struct.BundleConfig",
+                    "api/rust/tauri_api/config/struct.CliArg",
+                    "api/rust/tauri_api/config/struct.CliConfig",
+                    "api/rust/tauri_api/config/struct.CliSubcommand",
+                    "api/rust/tauri_api/config/struct.Config",
+                    "api/rust/tauri_api/config/struct.EmbeddedServerConfig",
+                    "api/rust/tauri_api/config/struct.TauriConfig",
+                    "api/rust/tauri_api/config/struct.WindowConfig",
+                    "api/rust/tauri_api/config/trait.Cli"
+                  ]
+                },
+                {
                   "label": "dialog",
                   "type": "category",
                   "items": [
+                    "api/rust/tauri_api/dialog/enum.DialogSelection",
                     "api/rust/tauri_api/dialog/enum.Response",
+                    "api/rust/tauri_api/dialog/fn.ask",
                     "api/rust/tauri_api/dialog/fn.pick_folder",
                     "api/rust/tauri_api/dialog/fn.save_file",
                     "api/rust/tauri_api/dialog/fn.select",
@@ -206,7 +233,15 @@
                     "api/rust/tauri_api/http/enum.BodyType",
                     "api/rust/tauri_api/http/enum.ResponseType",
                     "api/rust/tauri_api/http/fn.make_request",
+                    "api/rust/tauri_api/http/struct.HttpRequestBuilder",
                     "api/rust/tauri_api/http/struct.HttpRequestOptions"
+                  ]
+                },
+                {
+                  "label": "notification",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri_api/notification/struct.Notification"
                   ]
                 },
                 {
@@ -282,6 +317,7 @@
                     "api/rust/tauri_api/version/fn.is_patch"
                   ]
                 },
+                "api/rust/tauri_api/enum.Error",
                 "api/rust/tauri_api/enum.ErrorKind",
                 "api/rust/tauri_api/struct.Error",
                 "api/rust/tauri_api/trait.ResultExt",
@@ -312,6 +348,7 @@
                     "api/rust/tauri_utils/process/trait.SystemExt"
                   ]
                 },
+                "api/rust/tauri_utils/enum.Error",
                 "api/rust/tauri_utils/enum.ErrorKind",
                 "api/rust/tauri_utils/struct.Error",
                 "api/rust/tauri_utils/trait.ResultExt",
