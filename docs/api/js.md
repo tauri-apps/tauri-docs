@@ -7,6 +7,8 @@ import Alert from '@theme/Alert'
 
 Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
 
+Note that you can either enable or disable these APIs in your [tauri.conf.json](/docs/api/config). Please refer to the "whitelist" section.
+
 If you haven't done it so far, add the package _locally_ to your project:
 
 ```sh
@@ -434,7 +436,7 @@ type HttpOptions = {
  * @property {BodyType} [bodyType=3] body type
 */
 
-/** 
+/**
  * @param {HttpOptions}  options request options
  */
 request(options: HttpOptions): Promise<any>
@@ -579,6 +581,47 @@ Makes a DELETE HTTP request
 - Returns `Promise<string>`
 
   promise resolving to the response
+
+## Notification
+
+<Alert icon="info-alt" title="Note">
+
+Tauri patches the <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank">Notification API</a> but not all methods and properties are available.
+
+Since we're patching the browser API, you don't need to import anything as it lives in the global scope.
+</Alert>
+
+### Types
+
+```ts
+interface NotificationOptions {
+  dir?: 'auto' | 'ltr' | 'rtl'
+  lang?: string // The notification's language, as specified using a DOMString representing a BCP 47 language tag. See the Sitepoint ISO 2 letter language codes page for a simple reference.
+  badge?: string // A USVString containing the URL of the image used to represent the notification when there isn't enough space to display the notification itself.
+  body?: string // A DOMString representing the body text of the notification, which is displayed below the title.
+  tag?: string // A DOMString representing an identifying tag for the notification.
+  icon?: string // A USVString containing the URL of an icon to be displayed in the notification.
+  image?: string // A USVString containing the URL of an image to be displayed in the notification.
+  data?: any // Arbitrary data that you want associated with the notification. This can be of any data type.
+  vibrate?: any // A vibration pattern for the device's vibration hardware to emit with the notification.
+  renotify?: boolean // A Boolean specifying whether the user should be notified after a new notification replaces an old one. The default is false, which means they won't be notified.
+  requireInteraction?: boolean // Indicates that a notification should remain active until the user clicks or dismisses it, rather than closing automatically. The default value is false.
+  actions?: NotificationAction[] // An array of NotificationActions representing the actions available to the user when the notification is presented. These are options the user can choose among in order to act on the action within the context of the notification itself. The action's name is sent to the service worker notification handler to let it know the action was selected by the user.
+  silent?: boolean // A Boolean specifying whether the notification is silent  (no sounds or vibrations  issued), regardless of the device settings. The default is false, which means it won't be silent.
+}
+```
+
+### Classes
+
+```ts
+class Notification {
+  static permission: string
+
+  construct(title: string, options?: NotificationOptions)
+
+  static requestPermission(): Promise<'granted' | 'denied' | 'default'>
+}
+```
 
 ## Process
 

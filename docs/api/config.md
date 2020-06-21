@@ -184,6 +184,7 @@ It's composed of the following properties:
       { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from webview.` },
       { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
       { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
+      { property: "notification", optional: true, type: "boolean", description: `Enable system notifications.` },
       { property: "open", optional: true, type: "boolean", description: `Open link in the user's default browser.` },
       { property: "openDialog", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
       { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
