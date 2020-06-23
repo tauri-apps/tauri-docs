@@ -16,7 +16,7 @@ const siteConfig = {
       id: 'testapp',
       content: `🚀 Download our validation app to take Tauri for a test drive: 
        <br/> <i class="ti-linux"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb" target="_blank">Linux - deb</a>
-           - <i class="ti-apple"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg" target="_blank">MacOS - dmg</a>
+           - <i class="ti-apple"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.dmg" target="_blank">macOS - dmg</a>
            - <i class="ti-microsoft"></i> <a href="https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi" target="_blank">Windows - msi</a>
            - <i class="ti-github"></i> <a href="https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication" target="_blank">Source</a>`,
     },
