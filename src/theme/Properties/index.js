@@ -1,13 +1,17 @@
 import React from 'react'
+import classnames from 'classnames'
 import styles from './styles.module.css'
 
 import { Opening, Closing } from '@theme/CurlyBraces'
 
-export default ({ rows }) => (
+export default ({ rows, anchorRoot = '' }) => (
   <div className={styles.row}>
     <Opening />
     {rows.map((row) => (
-      <div className={styles.content}>
+      <div
+        id={(anchorRoot ? anchorRoot + '.' : '') + row.property}
+        className={classnames(styles.content, 'anchorify')}
+      >
         <div
           className={styles.property}
           dangerouslySetInnerHTML={{

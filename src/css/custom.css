@@ -191,3 +191,12 @@ html[data-theme='dark'] #starfield {
 h2 > [class^='ti-'] {
   vertical-align: middle;
 }
+
+.anchorify::before { 
+  display: block; 
+  content: " "; 
+  margin-top: -60px; 
+  height: 60px; 
+  visibility: hidden; 
+  pointer-events: none;
+}

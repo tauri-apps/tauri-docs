@@ -369,7 +369,7 @@ const Roadmap = () => {
   })
 
   return (
-    <div className="container">
+    <div id="roadmap" className="container anchorify">
       <h2 style={{ textAlign: 'center', position: 'relative' }}>Roadmap</h2>
       <p style={{ textAlign: 'center', position: 'relative' }}>
         Notice: This roadmap is subject to change.

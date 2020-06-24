@@ -53,6 +53,10 @@ const siteConfig = {
           ],
         },
         {
+          label: 'ALPHA',
+          position: 'right',
+        },
+        {
           href: repoUrl,
           label: 'GitHub',
           position: 'right',
