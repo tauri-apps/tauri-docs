@@ -147,7 +147,7 @@ It's composed of the following properties:
         E.g. you typed "my-binary": 
         <ul>
           <li>"my-binary-x86_64-pc-windows-msvc.exe" for Windows</li>
-          <li>"my-binary-x86_64-apple-darwin" for MacOS</li>
+          <li>"my-binary-x86_64-apple-darwin" for macOS</li>
           <li>"my-binary-x86_64-unknown-linux-gnu" for Linux</li>
         </ul>
         so don't forget to provide binaries for <strong>all targeted platforms</strong>.
@@ -164,8 +164,8 @@ It's composed of the following properties:
         { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
       },
       { property: "osx", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.osx" rows={[
-        { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any MacOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
-        { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum MacOS X version that the bundled application supports.` },
+        { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
+        { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum macOS X version that the bundled application supports.` },
         { property: "license", optional: true, type: "string", description: `The path to the license file to add to the DMG.` },
         { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
       { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.

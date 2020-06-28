@@ -96,7 +96,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
  1. Environment Prerequisites
     - Node, Npm, Yarn, Rustc, Rustup, Buildtools
  2. Development Platform Details
-        - MacOS
+        - macOS
         - Windows
         - Linux
         - Docker
@@ -142,7 +142,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
 10. Taskbar Integration (Desktop Only)
     - Anatomy
     - Integrations
-        - MacOS
+        - macOS
         - Windows
         - Linux
 11. Security Features
@@ -170,7 +170,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Packaging
     - Minification
     - Distribution Platform Details
-        - MacOS (.app / .dmg)
+        - macOS (.app / .dmg)
         - Win (.exe / .msi)
         - Linux Arm64 (.appImage / .deb)
         - Linux x64 (.appImage / .deb)

@@ -103,7 +103,7 @@ $ tauri build
       - --release (or debug)
       - --target
         // The target is currently implicit based upon the OS
-        // We need to add configurations for e.g. .app / .dmg on MacOS
+        // We need to add configurations for e.g. .app / .dmg on macOS
  cargo tauri-cli
    [WIP]
    -> detect the OS
