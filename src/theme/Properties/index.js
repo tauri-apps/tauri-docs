@@ -15,9 +15,9 @@ export default ({ rows, anchorRoot = '' }) => (
         <div
           className={styles.property}
           dangerouslySetInnerHTML={{
-            __html: `<strong><code>${row.property}</code></strong><span><code>${
+            __html: `<code><strong>${row.property}</strong><span>${
               row.optional ? '?' : ''
-            }: ${row.type}</code></span>`,
+            }: ${row.type}</span></code>`,
           }}
         ></div>
         {!row.child && (
