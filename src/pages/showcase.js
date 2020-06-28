@@ -1,9 +1,14 @@
 import React from 'react'
 import Modal from 'react-modal'
 import Layout from '@theme/Layout'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 const imgPath = '/img/showcase/'
 
+/*
+Make a PR, add your own project to the following array following the pattern!
+If you need to add some images, create a folder in /img/showcase so your stuff is isolated
+*/
 const projects = [
   {
     title: 'GUIJS',
@@ -27,6 +32,12 @@ const customStyles = {
 Modal.setAppElement('#__docusaurus')
 
 function Showcase() {
+
+  const context = useDocusaurusContext()
+  const { siteConfig = {} } = context
+  
+  const editUrl = siteConfig.presets[0].find(row => row.docs).docs.editUrl
+
   const [modalIsOpen, setIsOpen] = React.useState(false)
   function openModal() {
     setIsOpen(true)
@@ -141,7 +152,7 @@ function Showcase() {
                 </div>
               </div>
               <div className="card__footer">
-                <a href="#" target="_blank">
+                <a href={editUrl + 'src/pages/showcase.js'} target="_blank">
                   <button className="button button--secondary">Add it!</button>
                 </a>
               </div>
