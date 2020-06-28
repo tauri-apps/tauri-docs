@@ -39,7 +39,6 @@ function NavLink({
   const toUrl = useBaseUrl(to);
   const activeBaseUrl = useBaseUrl(activeBasePath);
   const normalizedHref = useBaseUrl(href, {forcePrependBaseUrl: true});
-console.log(props.title);
 
   return (
     <Link
