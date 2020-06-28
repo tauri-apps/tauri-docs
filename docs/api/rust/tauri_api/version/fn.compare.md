@@ -7,4 +7,3 @@ title: "fn.compare"
     pub fn compare(first: &str, second: &str) -> Result<i32>
 
 Compare two semver versions
-      

@@ -7,4 +7,3 @@ title: "fn.pick_folder"
     pub fn pick_folder(default_path: Option<String>) -> Result<Response>
 
 Open pick folder dialog
-      

@@ -7,4 +7,3 @@ title: "fn.is_minor"
     pub fn is_minor(current: &str, other: &str) -> Result<bool>
 
 Check if a the "other" version is a minor bump from the "current"
-      
