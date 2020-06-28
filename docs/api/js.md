@@ -606,7 +606,7 @@ interface NotificationOptions {
 class Notification {
   static permission: string
 
-  construct(title: string, options?: NotificationOptions)
+  constructor(title: string, options?: NotificationOptions)
 
   static requestPermission(): Promise<'granted' | 'denied' | 'default'>
 }
