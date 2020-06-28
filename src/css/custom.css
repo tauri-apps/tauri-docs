@@ -194,15 +194,15 @@ h2 > [class^='ti-'] {
   vertical-align: middle;
 }
 
-.anchorify::before { 
-  display: block; 
-  content: " "; 
-  margin-top: -60px; 
-  height: 60px; 
-  visibility: hidden; 
+.anchorify::before {
+  display: block;
+  content: ' ';
+  margin-top: -60px;
+  height: 60px;
+  visibility: hidden;
   pointer-events: none;
 }
 
-.announcementBar_node_modules-\@docusaurus-theme-classic-src-theme-AnnouncementBar- {
+[class*='announcementBar_'] {
   height: auto !important;
 }
