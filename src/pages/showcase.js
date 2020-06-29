@@ -12,6 +12,13 @@ const projects = [
     description: '',
     screenshots: ['0.png'].map((image) => imgPath + 'guijs/' + image),
   },
+  {
+    title: 'LuckyYou',
+    image: imgPath + 'lucky-you/logo.png',
+    link: 'https://github.com/jwenjian/lucky-you/',
+    description: 'A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call.',
+    screenshots: ['0.png'].map((image) => imgPath + 'lucky-you/' + image),
+  },
 ]
 
 const customStyles = {
