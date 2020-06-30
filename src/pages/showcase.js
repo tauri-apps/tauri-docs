@@ -24,6 +24,13 @@ const projects = [
     description: 'A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call.',
     screenshots: ['0.png'].map((image) => imgPath + 'lucky-you/' + image),
   },
+  {
+    title: 'Bidirectional',
+    image: imgPath + 'bidirectional/logo.png',
+    link: 'https://github.com/samirdjelal/bidirectional/',
+    description: 'Write Arabic text on apps that doesn\'t support bidirectional text.',
+    screenshots: ['0.png'].map((image) => imgPath + 'bidirectional/' + image),
+  },
 ]
 
 const customStyles = {
