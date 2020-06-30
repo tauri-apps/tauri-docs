@@ -10,5 +10,3 @@ title: "fn.select_multiple"
     ) -> Result<Response>
 
 Open mulitple select file dialog
-
-      

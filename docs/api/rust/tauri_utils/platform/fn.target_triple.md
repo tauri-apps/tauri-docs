@@ -4,7 +4,7 @@ title: "fn.target_triple"
 
 # Function [tauri_utils](/docs/api/rust/tauri_utils/../index.html)::​[platform](/docs/api/rust/tauri_utils/index.html)::​[target_triple](/docs/api/rust/tauri_utils/)
 
-    pub fn target_triple() -> Result<String, Error>
+    pub fn target_triple() -> Result<String>
 
 Try to determine the current target triple.
 
@@ -13,5 +13,3 @@ Returns a target triple (e.g. `x86_64-unknown-linux-gnu` or `i686-pc-windows-msv
 -   Errors:
 
     -   Unexpected system config
-
-      

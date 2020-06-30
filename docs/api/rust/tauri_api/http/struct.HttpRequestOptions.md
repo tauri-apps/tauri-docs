@@ -7,8 +7,8 @@ title: "struct.HttpRequestOptions"
     pub struct HttpRequestOptions {
         pub method: String,
         pub url: String,
-        pub params: Option<HashMap<String, Value>>,
-        pub headers: Option<HashMap<String, Value>>,
+        pub params: Option<HashMap<String, String>>,
+        pub headers: Option<HashMap<String, String>>,
         pub body: Option<Value>,
         pub follow_redirects: Option<bool>,
         pub max_redirections: Option<u32>,
@@ -32,11 +32,11 @@ The request method (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, CONNECT or TRA
 
 The request URL
 
-`params: Option<HashMap<String, Value>>`
+`params: Option<HashMap<String, String>>`
 
 The request query params
 
-`headers: Option<HashMap<String, Value>>`
+`headers: Option<HashMap<String, String>>`
 
 The request headers
 
@@ -82,7 +82,7 @@ The response type (defaults to Json)
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ## Auto Trait Implementations
 
@@ -153,5 +153,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

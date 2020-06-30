@@ -15,7 +15,7 @@ When you run a Tauri app in development mode you will have a Rust console availa
 println!("Message from Rust: {}", msg);
 ```
 
-Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and MacOS:
+Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and macOS:
 
 ```sh
 RUST_DEBUG=1 tauri dev
@@ -45,7 +45,7 @@ For more information about this error, try `rustc --explain E0425`.
 
 ## Webview JS Console
 
-### Linux & MacOS
+### Linux & macOS
 
 Right click in the webview, and choose `Inspect Element`. This will open up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
 

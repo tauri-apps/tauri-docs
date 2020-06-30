@@ -53,6 +53,13 @@ const siteConfig = {
           ],
         },
         {
+          label: 'Alpha',
+          to: '/#roadmap',
+          position: 'right',
+          type: 'badge',
+          title: 'Tauri is still alpha, take a look at our roadmap!'
+        },
+        {
           href: repoUrl,
           label: 'GitHub',
           position: 'right',
@@ -131,7 +138,6 @@ const siteConfig = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
-    // Equivalent to `docsSideNavCollapsible`
     sidebarCollapsible: true,
   },
 

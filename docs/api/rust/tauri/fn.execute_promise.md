@@ -10,5 +10,3 @@ title: "fn.execute_promise"
         callback: String, 
         error: String
     )
-
-      

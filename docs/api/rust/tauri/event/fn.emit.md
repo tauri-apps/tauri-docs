@@ -9,5 +9,3 @@ title: "fn.emit"
         event: String, 
         payload: Option<String>
     )
-
-      
