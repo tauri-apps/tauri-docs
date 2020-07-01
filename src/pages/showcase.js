@@ -28,7 +28,7 @@ const projects = [
     title: 'Bidirectional',
     image: imgPath + 'bidirectional/logo.png',
     link: 'https://github.com/samirdjelal/bidirectional/',
-    description: 'Write Arabic text on apps that doesn\'t support bidirectional text.',
+    description: "Write Arabic text on apps that don't support bidirectional text.",
     screenshots: ['0.png'].map((image) => imgPath + 'bidirectional/' + image),
   },
 ]
