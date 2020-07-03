@@ -18,6 +18,7 @@ npm install tauri --save
 ```
 
 <Alert title="Warning" icon="alert" type="warning">
+
   If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI`.
   Example:
   ```js
