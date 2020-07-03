@@ -1,0 +1,23 @@
+name: production build from dispatch
+
+on:
+  pull_request:
+  repository_dispatch:
+    types: [new-release-update-docs]
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout tauri-docs
+      uses: actions/checkout@v2
+      with:
+        path: tauri-docs
+    - name: checkout tauri
+      uses: actions/checkout@v2
+      with:
+        repository: tauri-apps/tauri
+        path: tauri
+    - name: generate rust docs
+      working-directory: tauri
+      run: cargo doc
