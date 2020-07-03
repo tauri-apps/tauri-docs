@@ -19,7 +19,7 @@ npm install tauri --save
 
 <Alert title="Warning" icon="alert" type="warning">
 
-  If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI`.
+  If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI__`.
   Example:
   ```js
     window.__TAURI__.dialog.open()
