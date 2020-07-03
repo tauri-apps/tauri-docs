@@ -25,6 +25,10 @@ npm install tauri --save
 
 ```ts
 import { open, save } from 'tauri/api/dialog'
+open(...); save(...);
+// alternatively:
+import * as dialog from 'tauri/api/dialog'
+dialog.open(...); dialog.save(...)
 ```
 
 ### Functions
@@ -73,16 +77,10 @@ Open a file/directory save dialog
 
 ```ts
 import { emit, listen } from 'tauri/api/event'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type EventCallback = (response: string) => void
+emit('event name', 'payload'); listen('event name', payload => { ... })
+// alternatively:
+import * as event from 'tauri/api/event'
+event.emit('event name', 'payload'); event.listen('event name', payload => { ... })
 ```
 
 ### Functions
@@ -144,6 +142,10 @@ import {
   renameFile,
   writeFile,
 } from 'tauri/api/fs'
+readDir('/path/to/dir/')
+// alternatively:
+import * as fs from 'tauri/api/fs'
+fs.readDir('/path/to/dir/')
 ```
 
 ### Members
@@ -338,7 +340,7 @@ Renames a file
 ```ts
 /*
  * @param {Object} file
- * @param {String} file.file path of the file
+ * @param {String} file.path path of the file
  * @param {String} file.contents contents of the file
  * @param {Object} [options] configuration object
  * @param {BaseDirectory} [options.dir] base directory
@@ -347,6 +349,26 @@ writeFile(file: {}, options = {}): Promise<void>
 ```
 
 writes a text file
+
+- Arguments
+
+  - file: `{}`
+  - options: `{}`
+
+- Returns `Promise<void>`
+
+```ts
+/*
+ * @param {Object} file
+ * @param {String} file.path path of the file
+ * @param {String} file.contents contents of the file
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
+writeBinaryFile(file: {}, options = {}): Promise<void>
+```
+
+writes a binary file
 
 - Arguments
 
@@ -368,30 +390,10 @@ import {
   ResponseType,
   BodyType,
 } from 'tauri/api/http'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type HttpOptions = {
-  method: string
-  url: string
-  params?: object
-  headers?: object
-  body?: string | object | Binary
-  followRedirects: boolean // whether to follow redirects or not
-  maxRedirections: number // max number of redirections
-  connectTimeout: number // request connect timeout
-  readTimeout: number // request read timeout
-  timeout: number // request timeout
-  allowCompression: boolean
-  bodyType?: BodyType
-  responseType?: ResponseType
-}
+get('https://some.url')
+// alternatively:
+import * as http from 'tauri/api/http'
+http.get('https://some.url')
 ```
 
 ### Members
@@ -627,6 +629,10 @@ class Notification {
 
 ```ts
 import { execute } from 'tauri/api/process'
+execute('script-name', ['--some', 'args'])
+// alternatively:
+import * as process from 'tauri/api/process'
+process.execute('script-name', ['--some', 'args'])
 ```
 
 ### Functions
@@ -657,6 +663,10 @@ Spawns a process
 
 ```ts
 import { open, setTitle } from 'tauri/api/window'
+open('https://some.url')
+// alternatively:
+import * as window from 'tauri/api/window'
+window.open('https://some.url')
 ```
 
 ### Functions
