@@ -18,13 +18,56 @@ npm install tauri --save
 ```
 
 <Alert title="Warning" icon="alert" type="warning">
-  If you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
+
+  If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI__`.
+  Example:
+  ```js
+    window.__TAURI__.dialog.open()
+  ```
 </Alert>
+
+## Tauri
+
+```ts
+import { invoke, promisified } from 'tauri/api/tauri'
+invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
+promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+// alternatively:
+import * as tauri from 'tauri/api/tauri'
+tauri.invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
+tauri.promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+```
+
+### Functions
+
+```ts
+/**
+ * @param {any} args the command definition object/string
+ */
+function invoke(args: any): void
+```
+
+Invokes a command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
+
+```ts
+/**
+ * @param {any} args the command definition object/string
+ */
+function promisified(args: any): Promise<any>
+```
+
+Invokes an async command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
+Also, Tauri automatically adds two properties: `callback` and `error`, which are the function names of the Promise resolve and reject functions.
+It's meant to be used along with `tauri::execute_promise`.
 
 ## Dialog
 
 ```ts
 import { open, save } from 'tauri/api/dialog'
+open(...); save(...);
+// alternatively:
+import * as dialog from 'tauri/api/dialog'
+dialog.open(...); dialog.save(...)
 ```
 
 ### Functions
@@ -73,16 +116,10 @@ Open a file/directory save dialog
 
 ```ts
 import { emit, listen } from 'tauri/api/event'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type EventCallback = (response: string) => void
+emit('event name', 'payload'); listen('event name', payload => { ... })
+// alternatively:
+import * as event from 'tauri/api/event'
+event.emit('event name', 'payload'); event.listen('event name', payload => { ... })
 ```
 
 ### Functions
@@ -144,6 +181,10 @@ import {
   renameFile,
   writeFile,
 } from 'tauri/api/fs'
+readDir('/path/to/dir/')
+// alternatively:
+import * as fs from 'tauri/api/fs'
+fs.readDir('/path/to/dir/')
 ```
 
 ### Members
@@ -338,7 +379,7 @@ Renames a file
 ```ts
 /*
  * @param {Object} file
- * @param {String} file.file path of the file
+ * @param {String} file.path path of the file
  * @param {String} file.contents contents of the file
  * @param {Object} [options] configuration object
  * @param {BaseDirectory} [options.dir] base directory
@@ -355,43 +396,31 @@ writes a text file
 
 - Returns `Promise<void>`
 
+```ts
+/*
+ * @param {Object} file
+ * @param {String} file.path path of the file
+ * @param {String} file.contents contents of the file
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
+writeBinaryFile(file: {}, options = {}): Promise<void>
+```
+
+writes a binary file
+
+- Arguments
+
+  - file: `{}`
+  - options: `{}`
+
+- Returns `Promise<void>`
+
 ## HTTP
 
 ```ts
-import {
-  request,
-  deleteRequest,
-  get,
-  post,
-  put,
-  patch,
-  ResponseType,
-  BodyType,
-} from 'tauri/api/http'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type HttpOptions = {
-  method: string
-  url: string
-  params?: object
-  headers?: object
-  body?: string | object | Binary
-  followRedirects: boolean // whether to follow redirects or not
-  maxRedirections: number // max number of redirections
-  connectTimeout: number // request connect timeout
-  readTimeout: number // request read timeout
-  timeout: number // request timeout
-  allowCompression: boolean
-  bodyType?: BodyType
-  responseType?: ResponseType
-}
+import http from 'tauri/api/http'
+http.get('https://some.url')
 ```
 
 ### Members
@@ -627,6 +656,10 @@ class Notification {
 
 ```ts
 import { execute } from 'tauri/api/process'
+execute('script-name', ['--some', 'args'])
+// alternatively:
+import * as process from 'tauri/api/process'
+process.execute('script-name', ['--some', 'args'])
 ```
 
 ### Functions
@@ -657,6 +690,10 @@ Spawns a process
 
 ```ts
 import { open, setTitle } from 'tauri/api/window'
+open('https://some.url')
+// alternatively:
+import * as window from 'tauri/api/window'
+window.open('https://some.url')
 ```
 
 ### Functions
