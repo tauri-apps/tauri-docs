@@ -418,19 +418,7 @@ writes a binary file
 ## HTTP
 
 ```ts
-import {
-  request,
-  deleteRequest,
-  get,
-  post,
-  put,
-  patch,
-  ResponseType,
-  BodyType,
-} from 'tauri/api/http'
-get('https://some.url')
-// alternatively:
-import * as http from 'tauri/api/http'
+import http from 'tauri/api/http'
 http.get('https://some.url')
 ```
 
