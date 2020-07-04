@@ -53,16 +53,16 @@ const siteConfig = {
           ],
         },
         {
-          to: 'release-notes',
-          label: 'Release notes',
-          position: 'left'
-        },
-        {
           label: 'Alpha',
           to: '/#roadmap',
           position: 'right',
           type: 'badge',
           title: 'Tauri is still alpha, take a look at our roadmap!'
+        },
+        {
+          to: 'release-notes',
+          label: 'Release notes',
+          position: 'right'
         },
         {
           href: repoUrl,
