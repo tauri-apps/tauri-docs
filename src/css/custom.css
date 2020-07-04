@@ -10,6 +10,7 @@
 @import '/css/hljs-dark.css';
 @import '/css/hljs-light.css';
 @import './tabs.css';
+@import './rc-collapse.css';
 
 /* You can override the default Infima variables here. */
 :root {
@@ -206,3 +207,4 @@ h2 > [class^='ti-'] {
 [class*='announcementBar_'] {
   height: auto !important;
 }
+
