@@ -60,6 +60,11 @@ const siteConfig = {
           title: 'Tauri is still alpha, take a look at our roadmap!'
         },
         {
+          to: 'release-notes',
+          label: 'Release notes',
+          position: 'right'
+        },
+        {
           href: repoUrl,
           label: 'GitHub',
           position: 'right',
@@ -80,6 +85,10 @@ const siteConfig = {
             {
               label: 'Usage',
               to: 'docs/usage/intro',
+            },
+            {
+              to: 'release-notes',
+              label: 'Release notes',
             },
           ],
         },
