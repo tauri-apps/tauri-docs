@@ -38,8 +38,10 @@ This command will place a new folder in your current working directory, `src-tau
 
 ```sh
 └── src-tauri
-    ├── Cargo.toml
     ├── .gitignore
+    ├── Cargo.toml
+    ├── rustfmt.toml
+    ├── tauri.conf.json
     ├── icons
     │   ├── 128x128.png
     │   ├── 128x128@2x.png
@@ -57,7 +59,6 @@ This command will place a new folder in your current working directory, `src-tau
     │   ├── icon.icns
     │   ├── icon.ico
     │   └── icon.png
-    ├── rustfmt.toml
     └── src
         ├── build.rs
         ├── cmd.rs
