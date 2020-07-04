@@ -81,3 +81,23 @@
   display: inline-block;
   font-size: 1.6em;
 }
+
+.verticalTabs {
+  display: flex;
+}
+
+.verticalTabList {
+  display: flex;
+  flex-direction: column;
+}
+
+.changelogSearchContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.changelogSearchInput {
+  height: 48px;
+  width: 240px;
+}

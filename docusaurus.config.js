@@ -53,6 +53,11 @@ const siteConfig = {
           ],
         },
         {
+          to: 'release-notes',
+          label: 'Release notes',
+          position: 'left'
+        },
+        {
           label: 'Alpha',
           to: '/#roadmap',
           position: 'right',
@@ -80,6 +85,10 @@ const siteConfig = {
             {
               label: 'Usage',
               to: 'docs/usage/intro',
+            },
+            {
+              to: 'release-notes',
+              label: 'Release notes',
             },
           ],
         },
