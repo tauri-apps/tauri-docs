@@ -110,18 +110,18 @@
   width: 100%;
   background: transparent;
   border-radius: 0.25rem;
-  border: 2px solid white;
+  border: 2px solid var(--ifm-font-color-base);
   padding: 8px;
-  color: white;
+  color: var(--ifm-font-color-base);
 }
 
 .changelogSearchInput:focus {
   border-color: var(--ifm-color-primary);
 }
 
-.changelogSearchInput::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: white;
-  opacity: 1; /* Firefox */
+.changelogSearchInput::placeholder {
+  color: var(--ifm-font-color-base);
+  opacity: 1; 
 }
 
 .changelog .tabs__item {
