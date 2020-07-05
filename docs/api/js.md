@@ -24,6 +24,7 @@ npm install tauri --save
   ```js
     window.__TAURI__.dialog.open()
   ```
+  To enable it, set `tauri.conf.json > build > withGlobalTauri` to `true`.
 </Alert>
 
 ## Tauri
