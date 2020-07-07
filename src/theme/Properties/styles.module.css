@@ -28,7 +28,7 @@
 }
 
 .row .description {
-  margin-top: -20px;
+  margin: 0 0 30px;
 }
 
 .description .alert {
@@ -37,5 +37,5 @@
 
 .property code {
   position: relative;
-  top: -11px;
+  top: -12px;
 }

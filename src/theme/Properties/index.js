@@ -1,27 +1,27 @@
 import React from 'react'
 import classnames from 'classnames'
 import styles from './styles.module.css'
-import Collapse, { Panel } from 'rc-collapse'
+import { Collapse } from '@theme/Collapse'
 
 import { Opening, Closing } from '@theme/CurlyBraces'
 
-function Header (row) {
+function Header(row) {
   return (
-    <div
+    <span
       className={styles.property}
       dangerouslySetInnerHTML={{
         __html: `<code><strong>${row.property}</strong><span>${
           row.optional ? '?' : ''
         }: ${row.type}</span></code>`,
       }}
-    ></div>
+    ></span>
   )
 }
 
-function Content (row) {
+function Content(row) {
   return (
     <div>
-      {!row.child && (Header(row))}
+      {!row.child && Header(row)}
       {!row.child && (
         <div
           className={styles.description}
@@ -38,18 +38,23 @@ export default ({ rows, anchorRoot = '' }) => {
   return (
     <div className={styles.row}>
       <Opening />
-      <Collapse>
-        {rows.map((row) => (
-          row.child ? <Panel extra={Header(row)}>
+      
+      <div className={classnames(styles.content)}>
+      {rows.map((row) =>
+        row.child ? (
+          <Collapse header={Header(row)}>
             {Content(row)}
-          </Panel> : <div
+          </Collapse>
+        ) : (
+          <div
             id={(anchorRoot ? anchorRoot + '.' : '') + row.property}
-            className={classnames(styles.content, 'anchorify')}
+            className={classnames('anchorify')}
           >
             {Content(row)}
           </div>
-        ))}
-      </Collapse>
+        )
+      )}
+      </div>
       <Closing />
     </div>
   )
