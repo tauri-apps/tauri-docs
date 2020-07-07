@@ -1,0 +1,28 @@
+.content {
+  display: none;
+}
+
+.header {
+  height: 40px;
+  display: flex;
+  align-content: center;
+}
+
+.header::after {
+  background-image: var(--ifm-menu-link-sublist-icon);
+  background-size: 2rem 2rem;
+  background-position: center;
+  content: ' ';
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  transition: transform var(--ifm-transition-fast) linear;
+  transform: rotate(90deg);
+  margin-top: -8px;
+  background-color: var(--ifm-background-color);
+}
+
+
+.header.active::after {
+  transform: rotate(180deg);
+}
