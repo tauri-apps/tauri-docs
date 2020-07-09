@@ -7,4 +7,7 @@ title: "fn.ask"
     pub fn ask<'a>(message: &'a str, title: &'a str) -> DialogSelection
 
 Displays a dialog with a message and an optional title with a "yes" and a "no" button.
+<<<<<<< HEAD
       
+=======
+>>>>>>> dev

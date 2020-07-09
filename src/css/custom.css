@@ -22,6 +22,8 @@
   --ifm-color-primary-lightest: #c2eff8;
   --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
+  --ifm-font-size-base: 95%;
+  --ifm-contents-border-color: var(--ifm-color-emphasis-300);
 }
 
 .markdown {
@@ -104,7 +106,7 @@ ul.roadmap li .icon {
   border-radius: 50px;
   display: inline-block;
   margin-right: 20px;
-  padding: 4px;
+  padding: 2px;
   color: #000000;
   text-align: center;
   font-size: 25px;
@@ -191,3 +193,17 @@ html[data-theme='dark'] #starfield {
 h2 > [class^='ti-'] {
   vertical-align: middle;
 }
+
+.anchorify::before {
+  display: block;
+  content: ' ';
+  margin-top: -60px;
+  height: 60px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[class*='announcementBar_'] {
+  height: auto !important;
+}
+

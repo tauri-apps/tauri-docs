@@ -65,4 +65,7 @@ Loading content...
 #### `fn after_help(&self) -> Option<&String>`
 
 Loading content...
+<<<<<<< HEAD
       
+=======
+>>>>>>> dev

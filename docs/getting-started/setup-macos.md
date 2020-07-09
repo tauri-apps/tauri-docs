@@ -1,5 +1,5 @@
 ---
-title: Setup for MacOS
+title: Setup for macOS
 ---
 
 import Alert from '@theme/Alert'
@@ -92,4 +92,4 @@ $ cargo install tauri-bundler --force
 
 ## Continue
 
-Now that you have set up the MacOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).
+Now that you have set up the macOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).

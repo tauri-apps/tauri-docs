@@ -9,4 +9,7 @@ title: "fn.get_output"
         args: Vec<String>, 
         stdout: Stdio
     ) -> Result<String>
+<<<<<<< HEAD
       
+=======
+>>>>>>> dev

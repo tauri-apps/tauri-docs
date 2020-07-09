@@ -27,7 +27,7 @@ Obviously, you must first make sure that all required languages / compilers are 
 
 <OSList content={{
     linux: { title: 'Linux Setup', link: '/docs/getting-started/setup-linux'},
-    macos: { title: 'MacOS Setup', link: '/docs/getting-started/setup-macos'},
+    macos: { title: 'macOS Setup', link: '/docs/getting-started/setup-macos'},
     windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
 }} />
 

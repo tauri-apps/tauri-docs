@@ -147,4 +147,7 @@ Returns the status of the processus (idle, run, zombie, etc). `None` means that 
 #### `fn cpu_usage(&self) -> f32`
 
 Loading content...
+<<<<<<< HEAD
       
+=======
+>>>>>>> dev

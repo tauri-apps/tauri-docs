@@ -40,7 +40,7 @@ If you need to source your icons from some other location, you can edit this par
 
 <Alert type="info" icon="info-alt" title="Note on filetypes">
 
-  - icon.icns = MacOS
+  - icon.icns = macOS
   - icon.ico = MS Windows
   - \*.png = Linux
 

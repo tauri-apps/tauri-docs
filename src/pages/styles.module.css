@@ -81,3 +81,49 @@
   display: inline-block;
   font-size: 1.6em;
 }
+
+.verticalTabs {
+  display: flex;
+}
+
+.verticalTabsPane {
+  cursor: pointer;
+  padding: 10px;
+  border-right: 2px solid var(--ifm-toc-border-color);
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.verticalTabList {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.changelogSearchContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.changelogSearchInput {
+  height: 48px;
+  width: 100%;
+  background: transparent;
+  border-radius: 0.25rem;
+  border: 2px solid var(--ifm-font-color-base);
+  padding: 8px;
+  color: var(--ifm-font-color-base);
+}
+
+.changelogSearchInput:focus {
+  border-color: var(--ifm-color-primary);
+}
+
+.changelogSearchInput::placeholder {
+  color: var(--ifm-font-color-base);
+  opacity: 1; 
+}
+
+.changelog .tabs__item {
+  display: block !important;
+}

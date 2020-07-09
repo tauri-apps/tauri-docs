@@ -1,6 +1,6 @@
 .row {
-  padding-top: 30px;
-  margin-top: -30px;
+  padding-top: 40px;
+  margin-top: -40px;
   margin-bottom: 60px;
   padding-bottom: 1px;
   border-left: 1px solid var(--ifm-contents-border-color);
@@ -27,6 +27,15 @@
   margin-bottom: 10px;
 }
 
+.row .description {
+  margin: 0 0 30px;
+}
+
 .description .alert {
   margin-top: 10px;
+}
+
+.property code {
+  position: relative;
+  top: -12px;
 }

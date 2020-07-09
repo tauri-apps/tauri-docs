@@ -103,18 +103,6 @@
                   "items": []
                 },
                 {
-                  "label": "config",
-                  "type": "category",
-                  "items": [
-                    "api/rust/tauri/config/fn.get",
-                    "api/rust/tauri/config/struct.BuildConfig",
-                    "api/rust/tauri/config/struct.Config",
-                    "api/rust/tauri/config/struct.EmbeddedServerConfig",
-                    "api/rust/tauri/config/struct.TauriConfig",
-                    "api/rust/tauri/config/struct.WindowConfig"
-                  ]
-                },
-                {
                   "label": "event",
                   "type": "category",
                   "items": [
@@ -134,7 +122,6 @@
                     "api/rust/tauri/settings/struct.Settings"
                   ]
                 },
-                "api/rust/tauri/enum.ErrorKind",
                 "api/rust/tauri/fn.call",
                 "api/rust/tauri/fn.close_splashscreen",
                 "api/rust/tauri/fn.execute_promise",
@@ -142,9 +129,7 @@
                 "api/rust/tauri/fn.spawn",
                 "api/rust/tauri/struct.App",
                 "api/rust/tauri/struct.AppBuilder",
-                "api/rust/tauri/struct.Error",
                 "api/rust/tauri/struct.Handle",
-                "api/rust/tauri/trait.ResultExt",
                 "api/rust/tauri/type.Result"
               ]
             },
@@ -318,9 +303,12 @@
                   ]
                 },
                 "api/rust/tauri_api/enum.Error",
+<<<<<<< HEAD
                 "api/rust/tauri_api/enum.ErrorKind",
                 "api/rust/tauri_api/struct.Error",
                 "api/rust/tauri_api/trait.ResultExt",
+=======
+>>>>>>> dev
                 "api/rust/tauri_api/type.Result"
               ]
             },
@@ -349,9 +337,12 @@
                   ]
                 },
                 "api/rust/tauri_utils/enum.Error",
+<<<<<<< HEAD
                 "api/rust/tauri_utils/enum.ErrorKind",
                 "api/rust/tauri_utils/struct.Error",
                 "api/rust/tauri_utils/trait.ResultExt",
+=======
+>>>>>>> dev
                 "api/rust/tauri_utils/type.Result"
               ]
             }
