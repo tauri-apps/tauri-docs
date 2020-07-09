@@ -253,3 +253,7 @@ Loading content...
 #### `fn get_uptime(&self) -> u64`
 
 Loading content...
+<<<<<<< HEAD
+      
+=======
+>>>>>>> dev

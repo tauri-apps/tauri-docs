@@ -30,3 +30,7 @@ This is a reasonable return type to use throughout your application but also for
         println!("cluster info: {:#?}", map);
         Ok(())
     }
+<<<<<<< HEAD
+      
+=======
+>>>>>>> dev

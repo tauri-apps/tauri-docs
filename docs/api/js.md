@@ -625,19 +625,8 @@ Since we're patching the browser API, you don't need to import anything as it li
 
 ```ts
 interface NotificationOptions {
-  dir?: 'auto' | 'ltr' | 'rtl'
-  lang?: string // The notification's language, as specified using a DOMString representing a BCP 47 language tag. See the Sitepoint ISO 2 letter language codes page for a simple reference.
-  badge?: string // A USVString containing the URL of the image used to represent the notification when there isn't enough space to display the notification itself.
   body?: string // A DOMString representing the body text of the notification, which is displayed below the title.
-  tag?: string // A DOMString representing an identifying tag for the notification.
   icon?: string // A USVString containing the URL of an icon to be displayed in the notification.
-  image?: string // A USVString containing the URL of an image to be displayed in the notification.
-  data?: any // Arbitrary data that you want associated with the notification. This can be of any data type.
-  vibrate?: any // A vibration pattern for the device's vibration hardware to emit with the notification.
-  renotify?: boolean // A Boolean specifying whether the user should be notified after a new notification replaces an old one. The default is false, which means they won't be notified.
-  requireInteraction?: boolean // Indicates that a notification should remain active until the user clicks or dismisses it, rather than closing automatically. The default value is false.
-  actions?: NotificationAction[] // An array of NotificationActions representing the actions available to the user when the notification is presented. These are options the user can choose among in order to act on the action within the context of the notification itself. The action's name is sent to the service worker notification handler to let it know the action was selected by the user.
-  silent?: boolean // A Boolean specifying whether the notification is silent  (no sounds or vibrations  issued), regardless of the device settings. The default is false, which means it won't be silent.
 }
 ```
 
@@ -647,7 +636,7 @@ interface NotificationOptions {
 class Notification {
   static permission: string
 
-  construct(title: string, options?: NotificationOptions)
+  constructor(title: string, options?: NotificationOptions)
 
   static requestPermission(): Promise<'granted' | 'denied' | 'default'>
 }
