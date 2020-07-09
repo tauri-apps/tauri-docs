@@ -51,7 +51,7 @@ Right click in the webview, and choose `Inspect Element`. This will open up a we
 
 ### Windows
 
-If you enable the Edge backend (`web-view = { version = "\*", features = ["edge"] }` in `Cargo.toml`) you can use the standalone Edge DevTools app.
+If you enable the Edge backend (`tauri = { version = "*", features = ["edge"] }` in `src-tauri/Cargo.toml`) you can use the standalone Edge DevTools app.
 
 This enables you to connect the dev tools to your Rust-backed web view as if it were a normal Edge window. (Thanks to @dkaste for providing the solution [in this issue](https://github.com/Boscop/web-view/issues/88#issuecomment-552464137)).
 
