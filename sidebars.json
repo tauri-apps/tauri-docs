@@ -303,12 +303,6 @@
                   ]
                 },
                 "api/rust/tauri_api/enum.Error",
-<<<<<<< HEAD
-                "api/rust/tauri_api/enum.ErrorKind",
-                "api/rust/tauri_api/struct.Error",
-                "api/rust/tauri_api/trait.ResultExt",
-=======
->>>>>>> dev
                 "api/rust/tauri_api/type.Result"
               ]
             },
@@ -337,12 +331,6 @@
                   ]
                 },
                 "api/rust/tauri_utils/enum.Error",
-<<<<<<< HEAD
-                "api/rust/tauri_utils/enum.ErrorKind",
-                "api/rust/tauri_utils/struct.Error",
-                "api/rust/tauri_utils/trait.ResultExt",
-=======
->>>>>>> dev
                 "api/rust/tauri_utils/type.Result"
               ]
             }
