@@ -54,6 +54,7 @@
               ]
             },
             "usage/recipes/cli",
+            "usage/recipes/command",
             {
               "label": "Visual",
               "type": "category",

@@ -4,7 +4,7 @@ title: Introduction
 
 import OSList from '@theme/OSList'
 
-Here you will find instructions to setup and customize Tauri on your environment
+Here you will find instructions to setup and customize Tauri on your environment.
 
 If you find an error or something unclear, or would like to propose an improvement, you have several options:<br />
 
