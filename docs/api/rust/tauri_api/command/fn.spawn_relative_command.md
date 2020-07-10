@@ -9,7 +9,3 @@ title: "fn.spawn_relative_command"
         args: Vec<String>, 
         stdout: Stdio
     ) -> Result<Child>
-<<<<<<< HEAD
-      
-=======
->>>>>>> dev
