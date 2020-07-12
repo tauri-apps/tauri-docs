@@ -10,13 +10,21 @@ title: "enum.ArchiveFormat"
         Zip,
     }
 
+The supported archive formats.
+
 ## Variants
 
 `Tar(Option<Compression>)`
 
+Tar archive.
+
 `Plain(Option<Compression>)`
 
+Plain archive.
+
 `Zip`
+
+Zip archive.
 
 ## Trait Implementations
 

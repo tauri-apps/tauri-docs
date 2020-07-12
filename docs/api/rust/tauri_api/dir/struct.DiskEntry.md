@@ -5,14 +5,28 @@ title: "struct.DiskEntry"
 # Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[dir](/docs/api/rust/tauri_api/index.html)::​[DiskEntry](/docs/api/rust/tauri_api/)
 
     pub struct DiskEntry {
-        pub path: String,
-        pub is_dir: bool,
-        pub name: String,
+        pub path: PathBuf,
+        pub name: Option<String>,
+        pub children: Option<Vec<DiskEntry>>,
     }
+
+The result of the `read_dir` function.
+
+A DiskEntry is either a file or a directory. The `children` Vec is always `Some` if the entry is a directory.
 
 ## Fields
 
-`path: String``is_dir: bool``name: String`
+`path: PathBuf`
+
+The path to this entry.
+
+`name: Option<String>`
+
+The name of this entry (file name with extension or directory name)
+
+`children: Option<Vec<DiskEntry>>`
+
+The children of this entry if it's a directory.
 
 ## Trait Implementations
 
@@ -26,7 +40,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](/docs/api/rust/tauri_api/../../serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.114/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 

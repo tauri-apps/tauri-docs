@@ -26,43 +26,83 @@ title: "enum.BaseDirectory"
         App,
     }
 
+A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
+
+For more information, check the [dirs documentation](https://docs.rs/dirs/).
+
 ## Variants
 
 `Audio`
 
+The Audio directory.
+
 `Cache`
+
+The Cache directory.
 
 `Config`
 
+The Config directory.
+
 `Data`
+
+The Data directory.
 
 `LocalData`
 
+The LocalData directory.
+
 `Desktop`
+
+The Desktop directory.
 
 `Document`
 
+The Document directory.
+
 `Download`
+
+The Download directory.
 
 `Executable`
 
+The Executable directory.
+
 `Font`
+
+The Font directory.
 
 `Home`
 
+The Home directory.
+
 `Picture`
+
+The Picture directory.
 
 `Public`
 
+The Public directory.
+
 `Runtime`
+
+The Runtime directory.
 
 `Template`
 
+The Template directory.
+
 `Video`
+
+The Video directory.
 
 `Resource`
 
+The Resource directory.
+
 `App`
+
+The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
 
 ## Trait Implementations
 
@@ -86,13 +126,13 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.114/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for BaseDirectory`
 
 #### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](/docs/api/rust/tauri_api/../../serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.114/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 

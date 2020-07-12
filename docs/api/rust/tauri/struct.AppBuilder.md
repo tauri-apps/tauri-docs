@@ -6,19 +6,31 @@ title: "struct.AppBuilder"
 
     pub struct AppBuilder { /* fields omitted */ }
 
+The App builder.
+
 ## Methods
 
 ### `impl AppBuilder`
 
 #### `pub fn new() -> Self`
 
+Creates a new App bulder.
+
 #### `pub fn invoke_handler<F: FnMut(&mut WebView<()>, &str) -> Result<(), String> + 'static>( self, invoke_handler: F ) -> Self`
+
+Defines the JS message handler callback.
 
 #### `pub fn setup<F: FnMut(&mut WebView<()>, String) + 'static>( self, setup: F ) -> Self`
 
+Defines the setup callback.
+
 #### `pub fn splashscreen_html(self, html: &str) -> Self`
 
+Defines the splashscreen HTML to render.
+
 #### `pub fn build(self) -> App`
+
+Builds the App.
 
 ## Trait Implementations
 

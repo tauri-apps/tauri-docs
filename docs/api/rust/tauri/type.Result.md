@@ -6,7 +6,7 @@ title: "type.Result"
 
     type Result<T, E = Error> = Result<T, E>;
 
-`Result<T, Error>`
+Alias for a Result with error type anyhow::Error. `Result<T, Error>`
 
 This is a reasonable return type to use throughout your application but also for `fn main`; if you do, failures will be printed along with any \[context]\[Context] and a backtrace if one was captured.
 

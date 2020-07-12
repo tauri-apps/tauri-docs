@@ -6,6 +6,8 @@ title: "struct.Extract"
 
     pub struct Extract<'a> { /* fields omitted */ }
 
+The extract manager.
+
 ## Methods
 
 ### `impl<'a> Extract<'a>`

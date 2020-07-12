@@ -8,9 +8,13 @@ title: "enum.Compression"
         Gz,
     }
 
+The supported compression types.
+
 ## Variants
 
 `Gz`
+
+Gz compression (e.g. `.tar.gz` archives)
 
 ## Trait Implementations
 

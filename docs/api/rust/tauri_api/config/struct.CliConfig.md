@@ -6,21 +6,37 @@ title: "struct.CliConfig"
 
     pub struct CliConfig { /* fields omitted */ }
 
+The CLI root command definition.
+
+## Methods
+
+### `impl CliConfig`
+
+#### `pub fn args(&self) -> Option<&Vec<CliArg>>`
+
+List of args for the command
+
+#### `pub fn subcommands(&self) -> Option<&HashMap<String, CliConfig>>`
+
+List of subcommands of this command
+
+#### `pub fn description(&self) -> Option<&String>`
+
+Command description which will be shown on the help information.
+
+#### `pub fn long_description(&self) -> Option<&String>`
+
+Command long description which will be shown on the help information.
+
+#### `pub fn before_help(&self) -> Option<&String>`
+
+Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information.
+
+#### `pub fn after_help(&self) -> Option<&String>`
+
+Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted.
+
 ## Trait Implementations
-
-### `impl Cli for CliConfig`
-
-#### `fn args(&self) -> Option<&Vec<CliArg>>`
-
-#### `fn subcommands(&self) -> Option<&HashMap<String, CliSubcommand>>`
-
-#### `fn description(&self) -> Option<&String>`
-
-#### `fn long_description(&self) -> Option<&String>`
-
-#### `fn before_help(&self) -> Option<&String>`
-
-#### `fn after_help(&self) -> Option<&String>`
 
 ### `impl Debug for CliConfig`
 
@@ -32,7 +48,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.114/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<CliConfig> for CliConfig`
 

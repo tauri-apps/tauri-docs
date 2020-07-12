@@ -95,29 +95,55 @@ The response type (defaults to Json)
 
 #### `pub fn new(method: impl Into<String>, url: impl Into<String>) -> Self`
 
+Initializes a new instance of the HttpRequestBuilder.
+
 #### `pub fn params(self, params: HashMap<String, String>) -> Self`
+
+Sets the request params.
 
 #### `pub fn headers(self, headers: HashMap<String, String>) -> Self`
 
+Sets the request headers.
+
 #### `pub fn body(self, body: Value) -> Self`
+
+Sets the request body.
 
 #### `pub fn follow_redirects(self, follow_redirects: bool) -> Self`
 
+Sets whether the request should follow redirects or not.
+
 #### `pub fn max_redirections(self, max_redirections: u32) -> Self`
+
+Sets the maximum number of redirections.
 
 #### `pub fn connect_timeout(self, connect_timeout: u64) -> Self`
 
+Sets the connection timeout.
+
 #### `pub fn read_timeout(self, read_timeout: u64) -> Self`
+
+Sets the read timeout.
 
 #### `pub fn timeout(self, timeout: u64) -> Self`
 
+Sets the general request timeout.
+
 #### `pub fn allow_compression(self, allow_compression: bool) -> Self`
+
+Sets whether the request allows compressed responses or not.
 
 #### `pub fn body_type(self, body_type: BodyType) -> Self`
 
+Sets the type of the request body.
+
 #### `pub fn response_type(self, response_type: ResponseType) -> Self`
 
+Sets the type of the response. Interferes with the way we read the response.
+
 #### `pub fn build(self) -> HttpRequestOptions`
+
+Builds the HttpRequestOptions.
 
 ## Auto Trait Implementations
 
