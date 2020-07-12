@@ -225,7 +225,7 @@ const Roadmap = () => {
       title: <Translate>Core Plugin System</Translate>,
       description: (
         <Translate>
-          Update core dependencies automatically from the  CLI.
+          Build reusable plugins to extend Tauri core.
         </Translate>
       ),
       icon: 'ti-control-eject',
