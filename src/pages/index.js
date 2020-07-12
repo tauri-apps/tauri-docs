@@ -427,7 +427,7 @@ const Roadmap = () => {
       ),
       icon: 'ti-direction-alt',
       color: COLORS.blue,
-      targetQuarter: 'Q1 2020',
+      targetQuarter: 'Q1 2021',
     },
     {
       title: <Translate>Tauri-Frida</Translate>,
@@ -438,7 +438,7 @@ const Roadmap = () => {
       ),
       icon: 'ti-slice',
       color: COLORS.blue,
-      targetQuarter: 'Q1 2020',
+      targetQuarter: 'Q1 2021',
     },
     {
       title: <Translate>The Future</Translate>,
