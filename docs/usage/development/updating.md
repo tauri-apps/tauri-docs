@@ -18,15 +18,15 @@ import Alert from '@theme/Alert'
 ## Update NPM Packages
 
 If you are using the `tauri` package:
-```
+```bash
 $ yarn upgrade tauri --latest
-$ npm update tauri
+$ npm install tauri@latest
 ```
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
-```
+```bash
 $ yarn upgrade vue-cli-plugin-tauri --latest
-$ npm update vue-cli-plugin-tauri
+$ npm install vue-cli-plugin-tauri@latest
 ```
 
 ## Update Cargo Packages
@@ -34,14 +34,14 @@ Go to `src-tauri/Cargo.toml` and change `tauri` to
 `tauri = { version = "%version%" }` where `%version%` is the version number shown above. (You can just use the `MAJOR.MINOR`) version, like `0.9`.
 
 Then do the following:
-```
+```bash
 $ cd src-tauri
 $ cargo update -p tauri
 ```
 
 ## Update Tauri Bundler
 Use this command to get and build the latest version of the `tauri-bundler` and install it in place.
-```
+```bash
 $ cargo install tauri-bundler --force
 ```
 
