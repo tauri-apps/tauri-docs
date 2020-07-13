@@ -30,8 +30,8 @@ It's composed of the following properties:
 "build": {
   "distDir": "../dist",
   "devPath": "http://localhost:4000",
-  "beforeDevCommand": "yarn dev",
-  "beforeBuildCommand": "yarn build",
+  "beforeDevCommand": "npm run dev",
+  "beforeBuildCommand": "npm run build",
   "withGlobalTauri": false
 }
 ```
