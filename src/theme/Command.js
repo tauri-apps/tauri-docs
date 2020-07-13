@@ -5,9 +5,9 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 const types = [
-  { label: 'Yarn', value: 'yarn' },
-  // { label: 'npm', value: 'npx' },
-  { label: 'Global', value: '' },
+  { label: 'Yarn', value: 'yarn tauri ' },
+  { label: 'npm', value: 'npm run tauri:' },
+  { label: 'Global', value: 'tauri ' },
 ]
 
 export default ({ name }) => {
@@ -16,7 +16,7 @@ export default ({ name }) => {
       {types.map((type) => (
         <TabItem value={type.value}>
           <CodeBlock className="language-sh">
-            {type.value + (type.value ? ' ' : '') + 'tauri ' + name}
+            {type.value + name}
           </CodeBlock>
         </TabItem>
       ))}

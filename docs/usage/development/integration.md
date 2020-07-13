@@ -26,6 +26,20 @@ yarn add tauri
   You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </Alert>
 
+If you decide to use Tauri as a local package with npm, you will _have to_ define custom scripts to your package.json:
+
+```js title=package.json
+{
+  // This content is just a sample
+  "scripts": {
+    "tauri:init": "tauri init",
+    "tauri:info": "tauri info",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+  }
+}
+```
+
 ### 2. Initialize Tauri
 
 <Command name="init" />
