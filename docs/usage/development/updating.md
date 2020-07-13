@@ -22,6 +22,9 @@ If you are using the `tauri` package:
 $ yarn upgrade tauri --latest
 $ npm install tauri@latest
 ```
+You can also detect what the latest version of tauri is on the command line, using:
+- `npm outdated tauri`
+- `yarn outdated tauri`
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
 ```bash
@@ -38,12 +41,13 @@ Then do the following:
 $ cd src-tauri
 $ cargo update -p tauri
 ```
+You can also run `cargo outdated -r tauri` to get direct information about the core library's latest version.
 
 ## Update Tauri Bundler
 Use this command to get and build the latest version of the `tauri-bundler` and install it in place.
 ```bash
-$ cargo install tauri-bundler --force
+$ cargo install tauri-bundler
 ```
 
 ## Automatic updates
-We are currently working on a method for keeping all required dependencies up to date. When it is available, it will be opt in.
+We are currently working on a method for keeping all required dependencies up to date. When it is available, it will be opt in. Keep track of progress at this issue link: [#57](https://github.com/tauri-apps/tauri/issues/57)
