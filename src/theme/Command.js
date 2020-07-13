@@ -6,7 +6,7 @@ import TabItem from '@theme/TabItem'
 
 const types = [
   { label: 'Yarn', value: 'yarn' },
-  { label: 'npm', value: 'npx' },
+  // { label: 'npm', value: 'npx' },
   { label: 'Global', value: '' },
 ]
 

@@ -17,13 +17,9 @@ import Link from '@docusaurus/Link'
 cd project-folder
 
 # Not required if you already have a package.json:
-# npm init
-# OR
 # yarn init
 
 yarn add tauri
-# OR
-npm install tauri --save
 ```
 
 <Alert title="Note">

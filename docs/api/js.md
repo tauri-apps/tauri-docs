@@ -13,8 +13,6 @@ If you haven't done it so far, add the package _locally_ to your project:
 
 ```sh
 yarn add tauri
-# OR
-npm install tauri --save
 ```
 
 <Alert title="Warning" icon="alert" type="warning">
