@@ -23,7 +23,8 @@
             "usage/development/integration",
             "usage/development/development",
             "usage/development/debugging",
-            "usage/development/publishing"
+            "usage/development/publishing",
+            "usage/development/updating"
           ]
         },
         {
