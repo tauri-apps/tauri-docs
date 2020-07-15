@@ -6,12 +6,20 @@ title: "struct.EmbeddedServerConfig"
 
     pub struct EmbeddedServerConfig {
         pub host: String,
-        pub port: String,
+        pub port: Port,
     }
+
+The embeddedServer configuration object.
 
 ## Fields
 
-`host: String``port: String`
+`host: String`
+
+The embedded server host.
+
+`port: Port`
+
+The embedded server port. If it's `random`, we'll generate one at runtime.
 
 ## Trait Implementations
 
@@ -25,7 +33,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<EmbeddedServerConfig> for EmbeddedServerConfig`
 

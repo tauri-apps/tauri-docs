@@ -8,9 +8,13 @@ title: "struct.Settings"
         pub allow_notification: Option<bool>,
     }
 
+Tauri Settings.
+
 ## Fields
 
 `allow_notification: Option<bool>`
+
+Whether the user allows notifications or not.
 
 ## Trait Implementations
 
@@ -24,13 +28,13 @@ Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for Settings`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](/docs/api/rust/tauri/../../serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 

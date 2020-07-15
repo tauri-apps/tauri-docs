@@ -6,19 +6,48 @@ title: "struct.Notification"
 
     pub struct Notification { /* fields omitted */ }
 
+The Notification definition. Allows you to construct a Notification data and send it.
+
+# [Example](/docs/api/rust/tauri_api/about:blank#example)
+
+    use tauri_api::notification::Notification;
+    // shows a notification with the given title and body
+    Notification::new()
+      .title("New message")
+      .body("You've got a new message.")
+      .show();
+
 ## Methods
 
 ### `impl Notification`
 
 #### `pub fn new() -> Self`
 
-#### `pub fn body(&mut self, body: String) -> &mutSelf`
+Initializes a instance of a Notification.
 
-#### `pub fn title(&mut self, title: String) -> &mutSelf`
+#### `pub fn body(self, body: impl Into<String>) -> Self`
 
-#### `pub fn icon(&mut self, icon: String) -> &mutSelf`
+Sets the notification body.
+
+#### `pub fn title(self, title: impl Into<String>) -> Self`
+
+Sets the notification title.
+
+#### `pub fn icon(self, icon: impl Into<String>) -> Self`
+
+Sets the notification icon.
 
 #### `pub fn show(self) -> Result<()>`
+
+Shows the notification.
+
+## Trait Implementations
+
+### `impl Default for Notification`
+
+#### `fn default() -> Notification`
+
+Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 

@@ -11,9 +11,25 @@ title: "struct.TauriConfig"
         pub bundle: BundleConfig,
     }
 
+The Tauri configuration object.
+
 ## Fields
 
-`window: WindowConfig``embedded_server: EmbeddedServerConfig``cli: Option<CliConfig>``bundle: BundleConfig`
+`window: WindowConfig`
+
+The window configuration.
+
+`embedded_server: EmbeddedServerConfig`
+
+The embeddedServer configuration.
+
+`cli: Option<CliConfig>`
+
+The CLI configuration.
+
+`bundle: BundleConfig`
+
+The bundler configuration.
 
 ## Trait Implementations
 
@@ -27,7 +43,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<TauriConfig> for TauriConfig`
 

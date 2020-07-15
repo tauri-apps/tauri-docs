@@ -1,62 +1,63 @@
 ---
-title: "struct.CliSubcommand"
+title: "enum.Port"
 ---
 
-# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[CliSubcommand](/docs/api/rust/tauri_api/)
+# Enum [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[Port](/docs/api/rust/tauri_api/)
 
-    pub struct CliSubcommand { /* fields omitted */ }
+    pub enum Port {
+        Value(u16),
+        Random,
+    }
+
+The embedded server port.
+
+## Variants
+
+`Value(u16)`
+
+Port with a numeric value.
+
+`Random`
+
+Random port.
 
 ## Trait Implementations
 
-### `impl Cli for CliSubcommand`
-
-#### `fn args(&self) -> Option<&Vec<CliArg>>`
-
-#### `fn subcommands(&self) -> Option<&HashMap<String, CliSubcommand>>`
-
-#### `fn description(&self) -> Option<&String>`
-
-#### `fn long_description(&self) -> Option<&String>`
-
-#### `fn before_help(&self) -> Option<&String>`
-
-#### `fn after_help(&self) -> Option<&String>`
-
-### `impl Debug for CliSubcommand`
+### `impl Debug for Port`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for CliSubcommand`
+### `impl<'de> Deserialize<'de> for Port`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl PartialEq<CliSubcommand> for CliSubcommand`
+### `impl PartialEq<Port> for Port`
 
-#### `fn eq(&self, other: &CliSubcommand) -> bool`
+#### `fn eq(&self, other: &Port) -> bool`
 
 This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### `fn ne(&self, other: &CliSubcommand) -> bool`
+#### `fn ne(&self, other: &Port) -> bool`
 
 This method tests for `!=`.
 
-### `impl StructuralPartialEq for CliSubcommand`
+### `impl StructuralPartialEq for Port`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for CliSubcommand`
+### `impl RefUnwindSafe for Port`
 
-### `impl Send for CliSubcommand`
+### `impl Send for Port`
 
-### `impl Sync for CliSubcommand`
+### `impl Sync for Port`
 
-### `impl Unpin for CliSubcommand`
+### `impl Unpin for Port`
 
-### `impl UnwindSafe for CliSubcommand`
+### `impl UnwindSafe for Port`
 
 ## Blanket Implementations
 

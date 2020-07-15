@@ -14,21 +14,37 @@ title: "enum.Error"
         ChildProcess,
     }
 
+The error types.
+
 ## Variants
 
 `Architecture`
 
+Target triple architecture error
+
 `OS`
+
+Target triple OS error
 
 `Environment`
 
+Target triple environment error
+
 `Unknown`
+
+Target triple unknown target-os error
 
 `ParentProcess`
 
+Get parent process error
+
 `ParentPID`
 
+Get parent process PID error
+
 `ChildProcess`
+
+Get child process error
 
 ## Trait Implementations
 

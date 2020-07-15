@@ -9,3 +9,5 @@ title: "fn.get_output"
         args: Vec<String>, 
         stdout: Stdio
     ) -> Result<String>
+
+Gets the output of the given command.

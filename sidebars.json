@@ -145,9 +145,7 @@
                   "items": [
                     "api/rust/tauri_api/command/fn.binary_command",
                     "api/rust/tauri_api/command/fn.command_path",
-                    "api/rust/tauri_api/command/fn.format_command",
                     "api/rust/tauri_api/command/fn.get_output",
-                    "api/rust/tauri_api/command/fn.relative_command",
                     "api/rust/tauri_api/command/fn.spawn_relative_command"
                   ]
                 },
@@ -155,17 +153,16 @@
                   "label": "config",
                   "type": "category",
                   "items": [
+                    "api/rust/tauri_api/config/enum.Port",
                     "api/rust/tauri_api/config/fn.get",
                     "api/rust/tauri_api/config/struct.BuildConfig",
                     "api/rust/tauri_api/config/struct.BundleConfig",
                     "api/rust/tauri_api/config/struct.CliArg",
                     "api/rust/tauri_api/config/struct.CliConfig",
-                    "api/rust/tauri_api/config/struct.CliSubcommand",
                     "api/rust/tauri_api/config/struct.Config",
                     "api/rust/tauri_api/config/struct.EmbeddedServerConfig",
                     "api/rust/tauri_api/config/struct.TauriConfig",
-                    "api/rust/tauri_api/config/struct.WindowConfig",
-                    "api/rust/tauri_api/config/trait.Cli"
+                    "api/rust/tauri_api/config/struct.WindowConfig"
                   ]
                 },
                 {
@@ -185,8 +182,8 @@
                   "label": "dir",
                   "type": "category",
                   "items": [
-                    "api/rust/tauri_api/dir/fn.list_dir_contents",
-                    "api/rust/tauri_api/dir/fn.walk_dir",
+                    "api/rust/tauri_api/dir/fn.is_dir",
+                    "api/rust/tauri_api/dir/fn.read_dir",
                     "api/rust/tauri_api/dir/fn.with_temp_dir",
                     "api/rust/tauri_api/dir/struct.DiskEntry"
                   ]

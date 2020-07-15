@@ -12,9 +12,29 @@ title: "struct.WindowConfig"
         pub fullscreen: bool,
     }
 
+The window configuration object.
+
 ## Fields
 
-`width: i32``height: i32``resizable: bool``title: String``fullscreen: bool`
+`width: i32`
+
+The window width.
+
+`height: i32`
+
+The window height.
+
+`resizable: bool`
+
+Whether the window is resizable or not.
+
+`title: String`
+
+The window title.
+
+`fullscreen: bool`
+
+Whether the window starts as fullscreen or not.
 
 ## Trait Implementations
 
@@ -28,7 +48,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<WindowConfig> for WindowConfig`
 

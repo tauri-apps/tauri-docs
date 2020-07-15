@@ -4,7 +4,7 @@ title: "fn.make_request"
 
 # Function [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[http](/docs/api/rust/tauri_api/index.html)::​[make_request](/docs/api/rust/tauri_api/)
 
-    pub fn make_request(options: HttpRequestOptions) -> Result<String>
+    pub fn make_request(options: HttpRequestOptions) -> Result<Value>
 
 Executes an HTTP request
 

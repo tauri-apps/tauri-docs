@@ -49,13 +49,13 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](/docs/api/rust/tauri_api/../../serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for ResponseType`
 
 #### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](/docs/api/rust/tauri_api/../../serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
