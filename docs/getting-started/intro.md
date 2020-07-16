@@ -21,9 +21,9 @@ If you find an error or something unclear, or would like to propose an improveme
 
 ### Setting up Your Environment
 
-We are assuming that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. 
+This guide assumes that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. 
 
-Obviously, you must first make sure that all required languages / compilers are installed and available in your PATH. Read more about the details for your local development environment:
+First, make sure that all required languages / compilers are installed and available in your PATH. Read more about the details for your local development environment:
 
 <OSList content={{
     linux: { title: 'Linux Setup', link: '/docs/getting-started/setup-linux'},
