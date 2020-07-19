@@ -178,8 +178,8 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "whitelist", type: "object",
-    child: <Properties anchorRoot="tauri.whitelist" rows={[
+    property: "permlist", type: "object",
+    child: <Properties anchorRoot="tauri.permlist" rows={[
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
       { property: "createDir", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
       { property: "copyFile", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
@@ -303,7 +303,7 @@ Instead of launching the app directly, we configure the bundled app to run a scr
     },
     "exceptionDomain": ""
   },
-  "whitelist": {
+  "permlist": {
     "all": true
   },
   "window": {

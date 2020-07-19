@@ -1,7 +1,5 @@
 ---
-id: kamikaze
-title: "Kamikaze"
-sidebar_label: Kamikaze
+title: Lockdown
 ---
 
 import Rater from '@theme/Rater'
@@ -28,7 +26,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Kamikaze.png" alt="Kamikaze" />
+    <img src="/img/patterns/Lockdown.png" alt="Lockdown" />
   </div>
   <div className="col col--4">
     Pros:
@@ -47,7 +45,7 @@ import Rater from '@theme/Rater'
 
 ## Description
 
-The Kamikaze recipe is a minimal usage of the [Bridge pattern](bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+The Lockdown recipe is a minimal usage of the [Bridge pattern](bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
 
 ## Diagram
 
@@ -81,7 +79,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "whitelist": {                  // all API endpoints are default false
+  "permlist": {                  // all API endpoints are default false
     "event": true,                // Use the EVENT API for injections
   }
 }
