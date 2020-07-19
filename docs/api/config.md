@@ -52,7 +52,7 @@ It's composed of the following properties:
 
 ## `tauri`
 
-<Properties anchorRoot="ctx" rows={[
+<Properties anchorRoot="tauri" rows={[
   {
     property: "cli", optional: true, type: "CliConfig",
     child: <Properties anchorRoot="tauri.cli"  rows={[

@@ -207,3 +207,9 @@ h2 > [class^='ti-'] {
   height: auto !important;
 }
 
+[class*='property_'] .hash-link {
+  display: inline-block;
+  position: relative;
+  top: -10px;
+  background-color: var(--ifm-background-color);
+}
