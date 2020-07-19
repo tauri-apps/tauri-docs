@@ -11,7 +11,7 @@ For now it's recommended to follow the [official Tauri plugins](#official-tauri-
 </Alert>
 
 The Tauri Plugin system was introduced in [tauri v0.8.0](https://docs.rs/tauri/0.8.0/tauri/).
-Plugins allows you to hook into the Tauri application lifecycle and introduce new commands.
+Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
 
 ## Writing a Plugin
 
