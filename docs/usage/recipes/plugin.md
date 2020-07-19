@@ -33,6 +33,14 @@ impl MyAwesomePlugin {
 }
 
 impl Plugin for MyAwesomePlugin {
+  /// The JS script to evaluate on init.
+  /// Useful when your plugin is accessible through `window`
+  /// or needs to perform a JS task on app initialization
+  /// e.g. "window.localStorage = { ... the plugin interface }"
+  fn init_script(&self) -> Option<String> {
+    None
+  }
+
   /// Callback invoked when the webview is created.
   fn created(&self, webview: &mut Webview) {}
 
