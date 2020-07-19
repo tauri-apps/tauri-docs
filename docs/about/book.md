@@ -253,7 +253,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Bridge
     - Cloudish
     - Cloudbridge
-    - Kamikaze
+    - Lockdown
     - Multiwin
     - GLUI
 2.  Advanced Patterns

@@ -87,7 +87,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "whitelist": {                  // all whitelist values are default false
+  "permlist": {                  // all API values are default false
     "all": false,                 // use this flag to enable all API features
     "answer": true,               // enable rust to direct the UI
     "event": true,                // enable binding to message
