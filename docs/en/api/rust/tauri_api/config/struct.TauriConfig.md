@@ -2,28 +2,36 @@
 title: "struct.TauriConfig"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[TauriConfig](/docs/api/rust/tauri/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[TauriConfig](/docs/api/rust/tauri_api/)
 
     pub struct TauriConfig {
         pub window: WindowConfig,
         pub embedded_server: EmbeddedServerConfig,
+        pub cli: Option<CliConfig>,
+        pub bundle: BundleConfig,
     }
+
+The Tauri configuration object.
 
 ## Fields
 
-`window: WindowConfig``embedded_server: EmbeddedServerConfig`
+`window: WindowConfig`
+
+The window configuration.
+
+`embedded_server: EmbeddedServerConfig`
+
+The embeddedServer configuration.
+
+`cli: Option<CliConfig>`
+
+The CLI configuration.
+
+`bundle: BundleConfig`
+
+The bundler configuration.
 
 ## Trait Implementations
-
-### `impl Clone for TauriConfig`
-
-#### `fn clone(&self) -> TauriConfig`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl Debug for TauriConfig`
 
@@ -95,24 +103,6 @@ Performs the conversion.
 
 Performs the conversion.
 
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
-
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
 #### `type Error = Infallible`
@@ -136,5 +126,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

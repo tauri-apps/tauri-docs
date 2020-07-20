@@ -1,10 +1,9 @@
 ---
-id: multiwin
-title: "Multiwin"
-sidebar_label: Multiwin
+title: Multiwin
 ---
 
 import Alert from '@theme/Alert'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <Alert type="warning" icon="info-alt" title="Please note">
 This pattern is not available for now.
@@ -34,7 +33,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Multiwin.png" alt="Multiwin" />
+    <img src={useBaseUrl('img/patterns/Multiwin.png')} alt="Multiwin" />
   </div>
   <div className="col col--4">
     Pros:
@@ -87,7 +86,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "whitelist": {                  // all API endpoints are default false
+  "permlist": {                  // all API endpoints are default false
     "event": true,                // Use the EVENT API for injections
   }
 }

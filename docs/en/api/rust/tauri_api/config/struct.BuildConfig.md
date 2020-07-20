@@ -1,82 +1,58 @@
 ---
-title: "enum.ErrorKind"
+title: "struct.BuildConfig"
 ---
 
-# Enum [tauri_utils](/docs/api/rust/tauri_utils/index.html)::​[ErrorKind](/docs/api/rust/tauri_utils/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[BuildConfig](/docs/api/rust/tauri_api/)
 
-    pub enum ErrorKind {
-        Io(Error),
-        Msg(String),
-        // some variants omitted
+    pub struct BuildConfig {
+        pub dev_path: String,
     }
 
-The kind of an error.
+The Build configuration object.
 
-## Variants
+## Fields
 
-`Io(Error)`
+`dev_path: String`
 
-`Msg(String)`
-
-A convenient variant for String.
-
-## Methods
-
-### `impl ErrorKind`
-
-#### `pub fn description(&self) -> &str`
-
-A string describing the error kind.
+the devPath config.
 
 ## Trait Implementations
 
-### `impl Debug for ErrorKind`
+### `impl Debug for BuildConfig`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl Display for ErrorKind`
+### `impl<'de> Deserialize<'de> for BuildConfig`
 
-#### `fn fmt(&self, fmt: &mut Formatter) -> Result`
+#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl<'a> From<&'a str> for ErrorKind`
+### `impl PartialEq<BuildConfig> for BuildConfig`
 
-#### `fn from(s: &'a str) -> Self`
+#### `fn eq(&self, other: &BuildConfig) -> bool`
 
-Performs the conversion.
+This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-### `impl From<Error> for ErrorKind`
+#### `fn ne(&self, other: &BuildConfig) -> bool`
 
-#### `fn from(e: Error) -> Self`
+This method tests for `!=`.
 
-Performs the conversion.
-
-### `impl From<ErrorKind> for Error`
-
-#### `fn from(e: ErrorKind) -> Self`
-
-Performs the conversion.
-
-### `impl From<String> for ErrorKind`
-
-#### `fn from(s: String) -> Self`
-
-Performs the conversion.
+### `impl StructuralPartialEq for BuildConfig`
 
 ## Auto Trait Implementations
 
-### `impl !RefUnwindSafe for ErrorKind`
+### `impl RefUnwindSafe for BuildConfig`
 
-### `impl Send for ErrorKind`
+### `impl Send for BuildConfig`
 
-### `impl Sync for ErrorKind`
+### `impl Sync for BuildConfig`
 
-### `impl Unpin for ErrorKind`
+### `impl Unpin for BuildConfig`
 
-### `impl !UnwindSafe for ErrorKind`
+### `impl UnwindSafe for BuildConfig`
 
 ## Blanket Implementations
 
@@ -98,6 +74,8 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
+### `impl<T> DeserializeOwned for T where T: Deserialize<'de>,`
+
 ### `impl<T> From<T> for T`
 
 #### `fn from(t: T) -> T`
@@ -109,12 +87,6 @@ Performs the conversion.
 #### `fn into(self) -> U`
 
 Performs the conversion.
-
-### `impl<T> ToString for T where T: Display + ?Sized,`
-
-#### `default fn to_string(&self) -> String`
-
-Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
@@ -136,4 +108,6 @@ The type returned in the event of a conversion error.
 
 Performs the conversion.
 
-      
+### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
+
+#### `fn vzip(self) -> V`

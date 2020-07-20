@@ -6,4 +6,4 @@ title: "fn.runtime_dir"
 
     pub fn runtime_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's runtime directory.

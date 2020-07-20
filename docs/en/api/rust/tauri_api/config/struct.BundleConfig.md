@@ -1,65 +1,58 @@
 ---
-title: "struct.Config"
+title: "struct.BundleConfig"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[Config](/docs/api/rust/tauri/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[BundleConfig](/docs/api/rust/tauri_api/)
 
-    pub struct Config {
-        pub tauri: TauriConfig,
-        pub build: BuildConfig,
+    pub struct BundleConfig {
+        pub identifier: String,
     }
+
+The bundler configuration object.
 
 ## Fields
 
-`tauri: TauriConfig``build: BuildConfig`
+`identifier: String`
+
+The bundle identifier.
 
 ## Trait Implementations
 
-### `impl Clone for Config`
-
-#### `fn clone(&self) -> Config`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-### `impl Debug for Config`
+### `impl Debug for BundleConfig`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for Config`
+### `impl<'de> Deserialize<'de> for BundleConfig`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl PartialEq<Config> for Config`
+### `impl PartialEq<BundleConfig> for BundleConfig`
 
-#### `fn eq(&self, other: &Config) -> bool`
+#### `fn eq(&self, other: &BundleConfig) -> bool`
 
 This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### `fn ne(&self, other: &Config) -> bool`
+#### `fn ne(&self, other: &BundleConfig) -> bool`
 
 This method tests for `!=`.
 
-### `impl StructuralPartialEq for Config`
+### `impl StructuralPartialEq for BundleConfig`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Config`
+### `impl RefUnwindSafe for BundleConfig`
 
-### `impl Send for Config`
+### `impl Send for BundleConfig`
 
-### `impl Sync for Config`
+### `impl Sync for BundleConfig`
 
-### `impl Unpin for Config`
+### `impl Unpin for BundleConfig`
 
-### `impl UnwindSafe for Config`
+### `impl UnwindSafe for BundleConfig`
 
 ## Blanket Implementations
 
@@ -95,24 +88,6 @@ Performs the conversion.
 
 Performs the conversion.
 
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
-
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
 #### `type Error = Infallible`
@@ -136,5 +111,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

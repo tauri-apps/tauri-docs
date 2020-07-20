@@ -6,4 +6,4 @@ title: "fn.config_dir"
 
     pub fn config_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's config directory.

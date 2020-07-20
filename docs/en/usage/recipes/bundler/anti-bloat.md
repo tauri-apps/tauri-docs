@@ -28,14 +28,14 @@ UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packe
 Basically it compresses the binary and decompresses it at runtime. It should work for pretty much any binary type out there. Read more: https://github.com/upx/upx
 
 <Alert type="warning" title="Warning" icon="alert">
-You should know that this technique might flag your binary as a virus on Windows and MacOS - so use at your own discretion, and as always validate with Frida and do real distribution testing!
+You should know that this technique might flag your binary as a virus on Windows and macOS - so use at your own discretion, and as always validate with Frida and do real distribution testing!
 </Alert>
 
-#### Usage on MacOS
+#### Usage on macOS
 
     $ brew install upx
     $ yarn tauri build
-    $ upx --ultra-brute src-tauri/target/release/bundle/osx/app.app/Contents/MacOS/app
+    $ upx --ultra-brute src-tauri/target/release/bundle/osx/app.app/Contents/macOS/app
                            Ultimate Packer for eXecutables
                               Copyright (C) 1996 - 2018
     UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018

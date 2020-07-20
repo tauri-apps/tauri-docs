@@ -15,7 +15,7 @@ When you run a Tauri app in development mode you will have a Rust console availa
 println!("Message from Rust: {}", msg);
 ```
 
-Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and MacOS:
+Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and macOS:
 
 ```sh
 RUST_DEBUG=1 tauri dev
@@ -45,13 +45,13 @@ For more information about this error, try `rustc --explain E0425`.
 
 ## Webview JS Console
 
-### Linux & MacOS
+### Linux & macOS
 
 Right click in the webview, and choose `Inspect Element`. This will open up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
 
 ### Windows
 
-If you enable the Edge backend (`web-view = { version = "\*", features = ["edge"] }` in `Cargo.toml`) you can use the standalone Edge DevTools app.
+If you enable the Edge backend (`tauri = { version = "*", features = ["edge"] }` in `src-tauri/Cargo.toml`) you can use the standalone Edge DevTools app.
 
 This enables you to connect the dev tools to your Rust-backed web view as if it were a normal Edge window. (Thanks to @dkaste for providing the solution [in this issue](https://github.com/Boscop/web-view/issues/88#issuecomment-552464137)).
 

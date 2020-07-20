@@ -19,7 +19,7 @@ Defense in depth is the approach we've taken. We want you to be able to take eve
 
 Slowing down attackers by making static attacks crushingly difficult and isolating systems from one another is the name of the game. And if you are coming from the Electron ecosystem - rest assured - by default Tauri only ships binaries, not ASAR files.
 
-By chosing to build Tauri with security as a guiding force, we give you every opportunity to take a proactive security posture.
+By choosing to build Tauri with security as a guiding force, we give you every opportunity to take a proactive security posture.
 
 ## Polyglots, not Silos
 

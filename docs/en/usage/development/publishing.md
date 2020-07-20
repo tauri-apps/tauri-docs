@@ -25,7 +25,7 @@ cargo tauri-bundler -v
 If you do not see a version number being reported, then you must install the bundler:
 
 ```sh
-$ cargo install tauri-bundler --force
+cargo install tauri-bundler
 ```
 
 <Alert title="Note">

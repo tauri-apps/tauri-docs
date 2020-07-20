@@ -6,4 +6,4 @@ title: "fn.local_data_dir"
 
     pub fn local_data_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's local data directory.

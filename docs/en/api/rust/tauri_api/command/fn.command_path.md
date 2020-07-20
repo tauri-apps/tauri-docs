@@ -6,4 +6,4 @@ title: "fn.command_path"
 
     pub fn command_path(command: String) -> Result<String>
 
-      
+Gets the path to command relative to the current executable path.

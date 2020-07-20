@@ -10,4 +10,4 @@ title: "fn.get_output"
         stdout: Stdio
     ) -> Result<String>
 
-      
+Gets the output of the given command.

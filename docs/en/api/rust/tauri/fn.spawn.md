@@ -6,4 +6,4 @@ title: "fn.spawn"
 
     pub fn spawn<F: FnOnce() + Send + 'static>(task: F)
 
-      
+Executes the operation in the thread pool.

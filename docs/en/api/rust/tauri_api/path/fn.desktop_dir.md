@@ -6,4 +6,4 @@ title: "fn.desktop_dir"
 
     pub fn desktop_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's desktop directory.

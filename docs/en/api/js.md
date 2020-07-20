@@ -7,6 +7,8 @@ import Alert from '@theme/Alert'
 
 Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
 
+Note that you can either enable or disable these APIs in your [tauri.conf.json](/docs/api/config). Please refer to the "permlist" section.
+
 If you haven't done it so far, add the package _locally_ to your project:
 
 ```sh
@@ -16,13 +18,57 @@ npm install tauri --save
 ```
 
 <Alert title="Warning" icon="alert" type="warning">
-  If you're working with Vanilla JavaScript for your project, you won't be able to benefit this API (for now).
+
+  If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI__`.
+  Example:
+  ```js
+    window.__TAURI__.dialog.open()
+  ```
+  To enable it, set `tauri.conf.json > build > withGlobalTauri` to `true`.
 </Alert>
+
+## Tauri
+
+```ts
+import { invoke, promisified } from 'tauri/api/tauri'
+invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
+promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+// alternatively:
+import * as tauri from 'tauri/api/tauri'
+tauri.invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
+tauri.promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+```
+
+### Functions
+
+```ts
+/**
+ * @param {any} args the command definition object/string
+ */
+function invoke(args: any): void
+```
+
+Invokes a command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
+
+```ts
+/**
+ * @param {any} args the command definition object/string
+ */
+function promisified(args: any): Promise<any>
+```
+
+Invokes an async command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
+Also, Tauri automatically adds two properties: `callback` and `error`, which are the function names of the Promise resolve and reject functions.
+It's meant to be used along with `tauri::execute_promise`.
 
 ## Dialog
 
 ```ts
 import { open, save } from 'tauri/api/dialog'
+open(...); save(...);
+// alternatively:
+import * as dialog from 'tauri/api/dialog'
+dialog.open(...); dialog.save(...)
 ```
 
 ### Functions
@@ -71,16 +117,10 @@ Open a file/directory save dialog
 
 ```ts
 import { emit, listen } from 'tauri/api/event'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type EventCallback = (response: string) => void
+emit('event name', 'payload'); listen('event name', payload => { ... })
+// alternatively:
+import * as event from 'tauri/api/event'
+event.emit('event name', 'payload'); event.listen('event name', payload => { ... })
 ```
 
 ### Functions
@@ -142,6 +182,10 @@ import {
   renameFile,
   writeFile,
 } from 'tauri/api/fs'
+readDir('/path/to/dir/')
+// alternatively:
+import * as fs from 'tauri/api/fs'
+fs.readDir('/path/to/dir/')
 ```
 
 ### Members
@@ -336,7 +380,7 @@ Renames a file
 ```ts
 /*
  * @param {Object} file
- * @param {String} file.file path of the file
+ * @param {String} file.path path of the file
  * @param {String} file.contents contents of the file
  * @param {Object} [options] configuration object
  * @param {BaseDirectory} [options.dir] base directory
@@ -353,43 +397,31 @@ writes a text file
 
 - Returns `Promise<void>`
 
+```ts
+/*
+ * @param {Object} file
+ * @param {String} file.path path of the file
+ * @param {String} file.contents contents of the file
+ * @param {Object} [options] configuration object
+ * @param {BaseDirectory} [options.dir] base directory
+ */
+writeBinaryFile(file: {}, options = {}): Promise<void>
+```
+
+writes a binary file
+
+- Arguments
+
+  - file: `{}`
+  - options: `{}`
+
+- Returns `Promise<void>`
+
 ## HTTP
 
 ```ts
-import {
-  request,
-  deleteRequest,
-  get,
-  post,
-  put,
-  patch,
-  ResponseType,
-  BodyType,
-} from 'tauri/api/http'
-```
-
-### Types
-
-<Alert title="Note">
-This type only lives in the docs for now.
-</Alert>
-
-```ts
-type HttpOptions = {
-  method: string
-  url: string
-  params?: object
-  headers?: object
-  body?: string | object | Binary
-  followRedirects: boolean // whether to follow redirects or not
-  maxRedirections: number // max number of redirections
-  connectTimeout: number // request connect timeout
-  readTimeout: number // request read timeout
-  timeout: number // request timeout
-  allowCompression: boolean
-  bodyType?: BodyType
-  responseType?: ResponseType
-}
+import http from 'tauri/api/http'
+http.get('https://some.url')
 ```
 
 ### Members
@@ -434,7 +466,7 @@ type HttpOptions = {
  * @property {BodyType} [bodyType=3] body type
 */
 
-/** 
+/**
  * @param {HttpOptions}  options request options
  */
 request(options: HttpOptions): Promise<any>
@@ -580,10 +612,44 @@ Makes a DELETE HTTP request
 
   promise resolving to the response
 
+## Notification
+
+<Alert icon="info-alt" title="Note">
+
+Tauri patches the <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank">Notification API</a> but not all methods and properties are available.
+
+Since we're patching the browser API, you don't need to import anything as it lives in the global scope.
+</Alert>
+
+### Types
+
+```ts
+interface NotificationOptions {
+  body?: string // A DOMString representing the body text of the notification, which is displayed below the title.
+  icon?: string // A USVString containing the URL of an icon to be displayed in the notification.
+}
+```
+
+### Classes
+
+```ts
+class Notification {
+  static permission: string
+
+  constructor(title: string, options?: NotificationOptions)
+
+  static requestPermission(): Promise<'granted' | 'denied' | 'default'>
+}
+```
+
 ## Process
 
 ```ts
 import { execute } from 'tauri/api/process'
+execute('script-name', ['--some', 'args'])
+// alternatively:
+import * as process from 'tauri/api/process'
+process.execute('script-name', ['--some', 'args'])
 ```
 
 ### Functions
@@ -614,6 +680,10 @@ Spawns a process
 
 ```ts
 import { open, setTitle } from 'tauri/api/window'
+open('https://some.url')
+// alternatively:
+import * as window from 'tauri/api/window'
+window.open('https://some.url')
 ```
 
 ### Functions

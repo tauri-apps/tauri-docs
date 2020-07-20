@@ -1,65 +1,63 @@
 ---
-title: "struct.EmbeddedServerConfig"
+title: "struct.Config"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[EmbeddedServerConfig](/docs/api/rust/tauri/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[Config](/docs/api/rust/tauri_api/)
 
-    pub struct EmbeddedServerConfig {
-        pub host: String,
-        pub port: String,
+    pub struct Config {
+        pub tauri: TauriConfig,
+        pub build: BuildConfig,
     }
+
+The tauri.conf.json mapper.
 
 ## Fields
 
-`host: String``port: String`
+`tauri: TauriConfig`
+
+The Tauri configuration.
+
+`build: BuildConfig`
+
+The build configuration.
 
 ## Trait Implementations
 
-### `impl Clone for EmbeddedServerConfig`
-
-#### `fn clone(&self) -> EmbeddedServerConfig`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-### `impl Debug for EmbeddedServerConfig`
+### `impl Debug for Config`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for EmbeddedServerConfig`
+### `impl<'de> Deserialize<'de> for Config`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl PartialEq<EmbeddedServerConfig> for EmbeddedServerConfig`
+### `impl PartialEq<Config> for Config`
 
-#### `fn eq(&self, other: &EmbeddedServerConfig) -> bool`
+#### `fn eq(&self, other: &Config) -> bool`
 
 This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### `fn ne(&self, other: &EmbeddedServerConfig) -> bool`
+#### `fn ne(&self, other: &Config) -> bool`
 
 This method tests for `!=`.
 
-### `impl StructuralPartialEq for EmbeddedServerConfig`
+### `impl StructuralPartialEq for Config`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for EmbeddedServerConfig`
+### `impl RefUnwindSafe for Config`
 
-### `impl Send for EmbeddedServerConfig`
+### `impl Send for Config`
 
-### `impl Sync for EmbeddedServerConfig`
+### `impl Sync for Config`
 
-### `impl Unpin for EmbeddedServerConfig`
+### `impl Unpin for Config`
 
-### `impl UnwindSafe for EmbeddedServerConfig`
+### `impl UnwindSafe for Config`
 
 ## Blanket Implementations
 
@@ -95,24 +93,6 @@ Performs the conversion.
 
 Performs the conversion.
 
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
-
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
 #### `type Error = Infallible`
@@ -136,5 +116,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

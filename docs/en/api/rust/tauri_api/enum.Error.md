@@ -1,82 +1,100 @@
 ---
-title: "enum.ErrorKind"
+title: "enum.Error"
 ---
 
-# Enum [tauri_api](/docs/api/rust/tauri_api/index.html)::​[ErrorKind](/docs/api/rust/tauri_api/)
+# Enum [tauri_api](/docs/api/rust/tauri_api/index.html)::​[Error](/docs/api/rust/tauri_api/)
 
-    pub enum ErrorKind {
-        Io(Error),
-        Msg(String),
-        // some variants omitted
+    pub enum Error {
+        Architecture,
+        OS,
+        Environment,
+        Unknown,
+        ParentProcess,
+        ParentPID,
+        ChildProcess,
     }
 
-The kind of an error.
+The error types.
 
 ## Variants
 
-`Io(Error)`
+`Architecture`
 
-`Msg(String)`
+Target triple architecture error
 
-A convenient variant for String.
+`OS`
 
-## Methods
+Target triple OS error
 
-### `impl ErrorKind`
+`Environment`
 
-#### `pub fn description(&self) -> &str`
+Target triple environment error
 
-A string describing the error kind.
+`Unknown`
+
+Target triple unknown target-os error
+
+`ParentProcess`
+
+Get parent process error
+
+`ParentPID`
+
+Get parent process PID error
+
+`ChildProcess`
+
+Get child process error
 
 ## Trait Implementations
 
-### `impl Debug for ErrorKind`
+### `impl Debug for Error`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl Display for ErrorKind`
+### `impl Display for Error`
 
-#### `fn fmt(&self, fmt: &mut Formatter) -> Result<(), Error>`
+#### `fn fmt(&self, __formatter: &mut Formatter) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
-### `impl<'a> From<&'a str> for ErrorKind`
+### `impl Error for Error`
 
-#### `fn from(s: &'a str) -> ErrorKind`
+#### `fn description(&self) -> &str`1.0.0
 
-Performs the conversion.
+This method is soft-deprecated. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
 
-### `impl From<Error> for ErrorKind`
+#### `fn cause(&self) -> Option<&dyn Error>`1.0.0
 
-#### `fn from(e: Error) -> ErrorKind`
+Deprecated since 1.33.0:
 
-Performs the conversion.
+replaced by Error::source, which can support downcasting
 
-### `impl From<ErrorKind> for Error`
+The lower-level cause of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)
 
-#### `fn from(e: ErrorKind) -> Error`
+#### `fn source(&self) -> Option<&(dyn Error + 'static)>`1.30.0
 
-Performs the conversion.
+The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
 
-### `impl From<String> for ErrorKind`
+#### `fn backtrace(&self) -> Option<&Backtrace>`
 
-#### `fn from(s: String) -> ErrorKind`
+🔬 This is a nightly-only experimental API. (`backtrace`)
 
-Performs the conversion.
+Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
 
 ## Auto Trait Implementations
 
-### `impl !RefUnwindSafe for ErrorKind`
+### `impl RefUnwindSafe for Error`
 
-### `impl Send for ErrorKind`
+### `impl Send for Error`
 
-### `impl Sync for ErrorKind`
+### `impl Sync for Error`
 
-### `impl Unpin for ErrorKind`
+### `impl Unpin for Error`
 
-### `impl !UnwindSafe for ErrorKind`
+### `impl UnwindSafe for Error`
 
 ## Blanket Implementations
 
@@ -139,5 +157,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

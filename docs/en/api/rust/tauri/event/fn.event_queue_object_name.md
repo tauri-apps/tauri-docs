@@ -6,4 +6,4 @@ title: "fn.event_queue_object_name"
 
     pub fn event_queue_object_name() -> String
 
-      
+the event queue JS object name

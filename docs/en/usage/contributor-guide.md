@@ -28,12 +28,12 @@ When contributing to the Rust libraries `tauri`, `tauri-api`, and `tauri-updater
 ##### _Example Instructions_
 
 1. Navigate to the Tauri Root directory.
-2. Execute a script based on your Operating System from this folder: `.scripts/init_env.bat` for Windows Cmd, `.scripts/init_env.ps1` for Windows Powershell, `. .scripts/init_env.sh` for Linux/MacOS bash (note the first `.` in this command).
+2. Execute a script based on your Operating System from this folder: `.scripts/init_env.bat` for Windows Cmd, `.scripts/init_env.ps1` for Windows Powershell, `. .scripts/init_env.sh` for Linux/macOS bash (note the first `.` in this command).
 3. Open your text editor/IDE from this shell/terminal.
 
 ## Hands On Example
 
-Let's make a new example. That's a great way to learn. We are going to assume you are on a nixy type of environment like Linux or MacOS and have all of your development dependencies like rust and node already sorted out.
+Let's make a new example. That's a great way to learn. We are going to assume you are on a nixy type of environment like Linux or macOS and have all of your development dependencies like rust and node already sorted out.
 
 ```sh
 git clone git@github.com:tauri-apps/tauri.git

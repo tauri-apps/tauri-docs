@@ -1,68 +1,78 @@
 ---
-title: "struct.WindowConfig"
+title: "struct.CliConfig"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowConfig](/docs/api/rust/tauri/)
+# Struct [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[CliConfig](/docs/api/rust/tauri_api/)
 
-    pub struct WindowConfig {
-        pub width: i32,
-        pub height: i32,
-        pub resizable: bool,
-        pub title: String,
-        pub fullscreen: bool,
-    }
+    pub struct CliConfig { /* fields omitted */ }
 
-## Fields
+The CLI root command definition.
 
-`width: i32``height: i32``resizable: bool``title: String``fullscreen: bool`
+## Methods
+
+### `impl CliConfig`
+
+#### `pub fn args(&self) -> Option<&Vec<CliArg>>`
+
+List of args for the command
+
+#### `pub fn subcommands(&self) -> Option<&HashMap<String, CliConfig>>`
+
+List of subcommands of this command
+
+#### `pub fn description(&self) -> Option<&String>`
+
+Command description which will be shown on the help information.
+
+#### `pub fn long_description(&self) -> Option<&String>`
+
+Command long description which will be shown on the help information.
+
+#### `pub fn before_help(&self) -> Option<&String>`
+
+Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information.
+
+#### `pub fn after_help(&self) -> Option<&String>`
+
+Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted.
 
 ## Trait Implementations
 
-### `impl Clone for WindowConfig`
-
-#### `fn clone(&self) -> WindowConfig`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-### `impl Debug for WindowConfig`
+### `impl Debug for CliConfig`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for WindowConfig`
+### `impl<'de> Deserialize<'de> for CliConfig`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl PartialEq<WindowConfig> for WindowConfig`
+### `impl PartialEq<CliConfig> for CliConfig`
 
-#### `fn eq(&self, other: &WindowConfig) -> bool`
+#### `fn eq(&self, other: &CliConfig) -> bool`
 
 This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### `fn ne(&self, other: &WindowConfig) -> bool`
+#### `fn ne(&self, other: &CliConfig) -> bool`
 
 This method tests for `!=`.
 
-### `impl StructuralPartialEq for WindowConfig`
+### `impl StructuralPartialEq for CliConfig`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for WindowConfig`
+### `impl RefUnwindSafe for CliConfig`
 
-### `impl Send for WindowConfig`
+### `impl Send for CliConfig`
 
-### `impl Sync for WindowConfig`
+### `impl Sync for CliConfig`
 
-### `impl Unpin for WindowConfig`
+### `impl Unpin for CliConfig`
 
-### `impl UnwindSafe for WindowConfig`
+### `impl UnwindSafe for CliConfig`
 
 ## Blanket Implementations
 
@@ -98,24 +108,6 @@ Performs the conversion.
 
 Performs the conversion.
 
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
-
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
 #### `type Error = Infallible`
@@ -139,5 +131,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

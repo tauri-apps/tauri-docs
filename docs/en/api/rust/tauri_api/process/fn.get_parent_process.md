@@ -6,4 +6,4 @@ title: "fn.get_parent_process"
 
     pub fn get_parent_process(system: &mut System) -> Result<&Process, Error>
 
-      
+Gets the parent process

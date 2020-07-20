@@ -6,4 +6,4 @@ title: "fn.download_dir"
 
     pub fn download_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's download directory.

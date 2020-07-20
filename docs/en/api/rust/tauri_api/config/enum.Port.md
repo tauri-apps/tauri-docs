@@ -1,64 +1,63 @@
 ---
-title: "struct.BuildConfig"
+title: "enum.Port"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[BuildConfig](/docs/api/rust/tauri/)
+# Enum [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[config](/docs/api/rust/tauri_api/index.html)::​[Port](/docs/api/rust/tauri_api/)
 
-    pub struct BuildConfig {
-        pub dev_path: String,
+    pub enum Port {
+        Value(u16),
+        Random,
     }
 
-## Fields
+The embedded server port.
 
-`dev_path: String`
+## Variants
+
+`Value(u16)`
+
+Port with a numeric value.
+
+`Random`
+
+Random port.
 
 ## Trait Implementations
 
-### `impl Clone for BuildConfig`
-
-#### `fn clone(&self) -> BuildConfig`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-### `impl Debug for BuildConfig`
+### `impl Debug for Port`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for BuildConfig`
+### `impl<'de> Deserialize<'de> for Port`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl PartialEq<BuildConfig> for BuildConfig`
+### `impl PartialEq<Port> for Port`
 
-#### `fn eq(&self, other: &BuildConfig) -> bool`
+#### `fn eq(&self, other: &Port) -> bool`
 
 This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-#### `fn ne(&self, other: &BuildConfig) -> bool`
+#### `fn ne(&self, other: &Port) -> bool`
 
 This method tests for `!=`.
 
-### `impl StructuralPartialEq for BuildConfig`
+### `impl StructuralPartialEq for Port`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for BuildConfig`
+### `impl RefUnwindSafe for Port`
 
-### `impl Send for BuildConfig`
+### `impl Send for Port`
 
-### `impl Sync for BuildConfig`
+### `impl Sync for Port`
 
-### `impl Unpin for BuildConfig`
+### `impl Unpin for Port`
 
-### `impl UnwindSafe for BuildConfig`
+### `impl UnwindSafe for Port`
 
 ## Blanket Implementations
 
@@ -94,24 +93,6 @@ Performs the conversion.
 
 Performs the conversion.
 
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
-
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
 #### `type Error = Infallible`
@@ -135,5 +116,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

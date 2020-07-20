@@ -6,13 +6,19 @@ title: "struct.App"
 
     pub struct App { /* fields omitted */ }
 
+The application runner.
+
 ## Methods
 
 ### `impl App`
 
 #### `pub fn run(self)`
 
+Runs the app until it finishes.
+
 #### `pub fn splashscreen_html(&self) -> Option<&String>`
+
+Returns the splashscreen HTML.
 
 ## Auto Trait Implementations
 
@@ -81,5 +87,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

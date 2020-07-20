@@ -6,4 +6,4 @@ title: "fn.with_temp_dir"
 
     pub fn with_temp_dir<F: FnOnce(&TempDir)>(callback: F) -> Result<()>
 
-      
+Runs a closure with a temp dir argument.

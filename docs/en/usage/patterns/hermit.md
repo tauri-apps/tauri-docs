@@ -1,10 +1,9 @@
 ---
-id: hermit
-title: "Hermit"
-sidebar_label: Hermit
+title: Hermit
 ---
 
 import Rater from '@theme/Rater'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
@@ -28,7 +27,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Hermit.png" alt="Hermit" />
+    <img src={useBaseUrl('img/patterns/Hermit.png')} alt="Hermit" />
   </div>
     <div className="col col--4">
     Pros:
@@ -76,7 +75,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false     // do not use a localhost server
   },
-  "whitelist": {
+  "permlist": {
     "all": false,       // disable and tree-shake all api functions
   }
 }

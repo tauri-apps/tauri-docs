@@ -84,9 +84,42 @@
             "label": "Native Notifications",
             "description": "Cross-platform notifications using polyfilled WEB API."
           },
+
+          {
+            "label": "GH Action for Building Apps",
+            "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
+          },
+          {
+            "label": "VS Code Extension",
+            "description": "Commands and validate tauri.conf.json"
+          },
+          {
+            "label": "Core Plugin System",
+            "description": "Build reusable plugins to extend Tauri core."
+          },
+          {
+            "label": "CLI Updater",
+            "description": "Update core dependencies automatically from the CLI."
+          },
           {
             "label": "Self Updater",
             "description": "Update Tauri Apps from within Tauri."
+          },
+          {
+            "label": "Clipboard",
+            "description": "Enable programmatic and keyboard access to clipboard."
+          },
+          {
+            "label": "Keyboard Shortcuts",
+            "description": "Hook and react to keypresses."
+          },
+          {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
+          },
+          {
+            "label": "One-Time Commands",
+            "description": "Run a command that is no longer available after first run."
           },
           {
             "label": "WASM Bundler",
@@ -95,10 +128,6 @@
           {
             "label": "App Tray",
             "description": "Desktop Cross-platform Icon Tray."
-          },
-          {
-            "label": "App Storage",
-            "description": "Use a canonical location to store userdata."
           },
           {
             "label": "Webview Bindings",
@@ -112,39 +141,33 @@
             "label": "Transparent Window",
             "description": "Have transparent windows."
           },
-  
           {
-            "label": "DENO CLI",
-            "description": "Enable alternative DENO CLI."
+            "label": "Rust-based CLI",
+            "description": "Create rust CLI with DENO bindings and binary."
           },
           {
             "label": "DENO Bindings",
             "description": "Use Deno to build your App's backend."
           },
           {
-            "label": "PureOS App Store",
-            "description": "Verified builds for PureOS."
-          },
-          {
             "label": "Beta Release",
             "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "Security Audit",
+            "description": "3rd party security audit of core libraries."
           },
           {
             "label": "Mobile Bundler",
             "description": "Bundle to all major mobile device operating systems."
           },
-  
           {
             "label": "Cross Compiler",
             "description": "Generate bundled binaries from select operating system environments."
           },
           {
-            "label": "Alternative Renderer",
-            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
-          },
-          {
-            "label": "Tauri-Frida",
-            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
+            "label": "PureOS App Store",
+            "description": "Verified builds for PureOS."
           },
           {
             "label": "Stable Release",
@@ -153,6 +176,14 @@
           {
             "label": "Other Bindings",
             "description": "Go, Nim, Python, C++ and other bindings are possible with the stable API."
+          },
+          {
+            "label": "Alternative Renderer",
+            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
+          },
+          {
+            "label": "Tauri-Frida",
+            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
           },
           {
             "label": "The Future",

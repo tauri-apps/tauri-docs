@@ -3,8 +3,10 @@ id: book
 title: Get the book
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
 <div style={{textAlign:'center'}}>
-    <img src="/img/bookCover.png" alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
+    <img src={useBaseUrl('img/bookCover.png')} alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
 
 <div className="alert alert--info" role="alert">
@@ -96,7 +98,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
  1. Environment Prerequisites
     - Node, Npm, Yarn, Rustc, Rustup, Buildtools
  2. Development Platform Details
-        - MacOS
+        - macOS
         - Windows
         - Linux
         - Docker
@@ -142,7 +144,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
 10. Taskbar Integration (Desktop Only)
     - Anatomy
     - Integrations
-        - MacOS
+        - macOS
         - Windows
         - Linux
 11. Security Features
@@ -170,7 +172,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Packaging
     - Minification
     - Distribution Platform Details
-        - MacOS (.app / .dmg)
+        - macOS (.app / .dmg)
         - Win (.exe / .msi)
         - Linux Arm64 (.appImage / .deb)
         - Linux x64 (.appImage / .deb)
@@ -253,7 +255,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Bridge
     - Cloudish
     - Cloudbridge
-    - Kamikaze
+    - Lockdown
     - Multiwin
     - GLUI
 2.  Advanced Patterns

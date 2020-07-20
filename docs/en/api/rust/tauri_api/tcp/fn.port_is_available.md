@@ -6,4 +6,4 @@ title: "fn.port_is_available"
 
     pub fn port_is_available(port: u16) -> bool
 
-      
+Checks if the given port is available to use.

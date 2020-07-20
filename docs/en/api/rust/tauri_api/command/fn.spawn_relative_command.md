@@ -10,4 +10,4 @@ title: "fn.spawn_relative_command"
         stdout: Stdio
     ) -> Result<Child>
 
-      
+Spawns a process with a command string relative to the current executable path. For example, if your app bundles two executables, you don't need to worry about its path and just run `second-app`.

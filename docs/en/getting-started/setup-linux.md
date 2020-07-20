@@ -15,7 +15,8 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     libssl-dev \
-    appmenu-gtk3-module
+    appmenu-gtk3-module \
+    libgtk-3-dev
 ```
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>

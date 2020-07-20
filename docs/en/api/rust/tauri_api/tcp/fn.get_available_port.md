@@ -6,4 +6,4 @@ title: "fn.get_available_port"
 
     pub fn get_available_port() -> Option<u16>
 
-      
+Gets the first available port between 8000 and 9000.

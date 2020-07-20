@@ -134,7 +134,47 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q2 2020',
     },
     {
+      icon: 'ti-arrow-circle-right',
+      color: COLORS.green,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-layout-tab',
+      color: COLORS.green,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-control-eject',
+      color: COLORS.green,
+      targetQuarter: 'Q3 2020',
+    },
+    {
       icon: 'ti-download',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-download',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-clipboard',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-smallcap',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-rss-alt',
+      color: COLORS.blue,
+      targetQuarter: 'Q3 2020',
+    },
+    {
+      icon: 'ti-upload',
       color: COLORS.blue,
       targetQuarter: 'Q3 2020',
     },
@@ -174,13 +214,13 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q3 2020',
     },
     {
-      icon: 'ti-shine',
-      color: COLORS.blue,
-      targetQuarter: 'Q3 2020',
-    },
-    {
       icon: 'ti-flag-alt',
       color: COLORS.red,
+      targetQuarter: 'Q4 2020',
+    },
+    {
+      icon: 'ti-magnet',
+      color: COLORS.blue,
       targetQuarter: 'Q4 2020',
     },
     {
@@ -194,14 +234,9 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q4 2020',
     },
     {
-      icon: 'ti-direction-alt',
+      icon: 'ti-shine',
       color: COLORS.blue,
-      targetQuarter: 'Q4 2020',
-    },
-    {
-      icon: 'ti-slice',
-      color: COLORS.blue,
-      targetQuarter: 'Q4 2020',
+      targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-flag-alt',
@@ -214,9 +249,19 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q1 2021',
     },
     {
+      icon: 'ti-direction-alt',
+      color: COLORS.blue,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-slice',
+      color: COLORS.blue,
+      targetQuarter: 'Q1 2021',
+    },
+    {
       icon: 'ti-infinite',
       color: COLORS.blue,
-      targetQuarter: siteConfig.themeConfig.t.pages.index.beyond,
+      targetQuarter: siteConfig.themeConfig.t.pages.index.roadmap.beyond,
     },
   ].map((item, index) => {
     return (
@@ -243,7 +288,7 @@ const Roadmap = ({ siteConfig }) => {
   })
 
   return (
-    <div className="container">
+    <div id="roadmap" className="container anchorify">
       <h2 style={{ textAlign: 'center', position: 'relative' }}>
         {siteConfig.themeConfig.t.pages.index.roadmap.title}
       </h2>
@@ -279,7 +324,7 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
+          <img src={useBaseUrl('img/tauri_with_wordmark.svg')} style={{ maxWidth: 745 }} />
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{

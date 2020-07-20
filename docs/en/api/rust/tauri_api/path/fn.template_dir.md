@@ -6,4 +6,4 @@ title: "fn.template_dir"
 
     pub fn template_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's template directory.

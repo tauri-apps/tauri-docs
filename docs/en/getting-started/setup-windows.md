@@ -60,7 +60,7 @@ Download and install the proper variant for your computer's architecture.
 
 ## 4. Enable Loopback&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-Microsoft disables the loopback interface - you need to whitelist it if you intend to use the dev-server:
+Microsoft disables the loopback interface - you need to allow it if you intend to use the dev-server:
 
 Open an administrative console and enter:
 

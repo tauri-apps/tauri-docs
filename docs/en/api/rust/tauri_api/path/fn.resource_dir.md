@@ -6,4 +6,4 @@ title: "fn.resource_dir"
 
     pub fn resource_dir() -> Option<PathBuf>
 
-      
+Returns the path to the resource directory of this app.

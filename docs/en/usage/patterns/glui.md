@@ -1,10 +1,9 @@
 ---
-id: glui
-title: "GLUI"
-sidebar_label: GLUI
+title: GLUI
 ---
 
 import Alert from '@theme/Alert'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <Alert type="warning" icon="info-alt" title="Please note">
 This pattern is not available for now.
@@ -34,7 +33,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/GLUI.png" alt="GLUI" />
+    <img src={useBaseUrl('img/patterns/GLUI.png')} alt="GLUI" />
   </div>
   <div className="col col--4">
     Pros:
@@ -84,7 +83,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "whitelist": {                  // all API endpoints are default false
+  "permlist": {                  // all API endpoints are default false
     "all": false,                 // disable the api
   },
   "window": {                     // not yet normative

@@ -6,4 +6,4 @@ title: "fn.emit_function_name"
 
     pub fn emit_function_name() -> String
 
-      
+the emit JS function name
