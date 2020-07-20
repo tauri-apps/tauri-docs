@@ -9,7 +9,7 @@ const languages = [
   // 'ru'
 ]
 languages.forEach(async (language) => {
-  console.log(`Building ${language} language...`)
+  console.log(`Building "${language}" docs version...`)
 
   // Trying to build concurrently made the generation crash, that's why we're using execSync here
   execSync(
@@ -23,4 +23,5 @@ languages.forEach(async (language) => {
       console.error(`stderr: ${stderr}`)
     }
   )
+  console.log('Done!')
 })
