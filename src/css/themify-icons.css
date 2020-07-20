@@ -1,4 +1,5 @@
-@font-face {
+/* Doesn't work with /lang/ URIs */
+/* @font-face {
 	font-family: 'themify';
 	src:url('/fonts/themify.eot?-fvbane');
 	src:url('/fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'),
@@ -7,7 +8,7 @@
 		url('/fonts/themify.svg?-fvbane#themify') format('svg');
 	font-weight: normal;
 	font-style: normal;
-}
+} */
 
 [class^="ti-"], [class*=" ti-"] {
 	font-family: 'themify';

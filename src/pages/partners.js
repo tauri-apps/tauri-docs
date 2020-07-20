@@ -1,7 +1,6 @@
 import React from 'react'
 import Layout from '@theme/Layout'
-
-const imgPath = '/img/partners/'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 const Avatar = ({ name, tags, image, description, link }) => {
   return (
@@ -59,6 +58,8 @@ const Avatar = ({ name, tags, image, description, link }) => {
 }
 
 function Partners() {
+  const imgPath = useBaseUrl('/img/partners/')
+
   const sponsors = [
     {
       name: <>Digital Ocean</>,
@@ -94,9 +95,9 @@ function Partners() {
       description: (
         <>
           Mailscript helps us automate and wrangle our many, many github
-          notifications and apply granular actions to mails using rules.
-          Whether forwards, catchalls, webhooks or even SMS notifications -
-          MailScript() keeps on innovating!
+          notifications and apply granular actions to mails using rules. Whether
+          forwards, catchalls, webhooks or even SMS notifications - MailScript()
+          keeps on innovating!
         </>
       ),
     },
@@ -107,11 +108,11 @@ function Partners() {
       image: imgPath + 'clickup.png',
       description: (
         <>
-          ClickUp is one app to replace them all. It's the future of work - where
-          anyone can work on anything. More than just task management - ClickUp
-          offers docs, reminders, goals, calendars, scheduling, and even an inbox.
-          Fully customizable, ClickUp works for every type of team, so all teams
-          can use the same app to plan, organize, and collaborate.
+          ClickUp is one app to replace them all. It's the future of work -
+          where anyone can work on anything. More than just task management -
+          ClickUp offers docs, reminders, goals, calendars, scheduling, and even
+          an inbox. Fully customizable, ClickUp works for every type of team, so
+          all teams can use the same app to plan, organize, and collaborate.
         </>
       ),
     },

@@ -1,6 +1,8 @@
 // const versions = require('./versions.json')
 const language = process.env.LANGUAGE || 'en'
 
+const path = require('path');
+
 const t = require(`./translations/${language}.json`)
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
@@ -10,7 +12,7 @@ const siteConfig = {
   tagline: t.config.tagline,
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
-  baseUrl: '/',
+  baseUrl: `/${language}/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
 
@@ -151,6 +153,14 @@ const siteConfig = {
       },
     ],
   ],
+  plugins: [
+    [
+      path.resolve(__dirname, './plugins/dynamic-css.js'),
+      {
+        language
+      }
+    ]
+  ]
 }
 
 module.exports = siteConfig

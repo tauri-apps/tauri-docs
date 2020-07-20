@@ -1,13 +1,18 @@
 [build]
   publish = "build"
-  command = "LANGUAGE=en yarn build"
+  command = "node build"
 
 [[redirects]]
-  from = "/en"
-  to = "/"
+  from = "/"
+  to = "/en"
   status = 301
 
-[[redirects]]
-  from = "/en/*"
-  to = "/"
-  status = 301
+# [[redirects]]
+#   from = "/en"
+#   to = "/"
+#   status = 301
+
+# [[redirects]]
+#   from = "/en/*"
+#   to = "/"
+#   status = 301

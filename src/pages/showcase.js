@@ -1,9 +1,14 @@
 import React from 'react'
 import Modal from 'react-modal'
 import Layout from '@theme/Layout'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 const imgPath = '/img/showcase/'
 
+/*
+Make a PR, add your own project to the following array following the pattern!
+If you need to add some images, create a folder in /img/showcase so your stuff is isolated
+*/
 const projects = [
   {
     title: 'GUIJS',
@@ -64,7 +69,7 @@ function Showcase() {
                   >
                     <img
                       style={{ maxHeight: 100, objectFit: 'contain' }}
-                      src={image}
+                      src={useBaseUrl(image)}
                       alt={title}
                     />
                   </div>
@@ -128,7 +133,7 @@ function Showcase() {
               >
                 <img
                   style={{ maxHeight: 100, objectFit: 'contain' }}
-                  src="/img/smile.png"
+                  src={useBaseUrl('/img/smile.png')}
                   alt="Your project!"
                 />
               </div>
