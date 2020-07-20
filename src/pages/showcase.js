@@ -15,21 +15,18 @@ const projects = [
     title: 'GUIJS',
     image: imgPath + 'guijs/logo.svg',
     link: 'https://guijs.dev/',
-    description: '',
     screenshots: ['0.png'].map((image) => imgPath + 'guijs/' + image),
   },
   {
     title: 'LuckyYou',
     image: imgPath + 'lucky-you/logo.png',
     link: 'https://github.com/jwenjian/lucky-you/',
-    description: 'A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call.',
     screenshots: ['0.png'].map((image) => imgPath + 'lucky-you/' + image),
   },
   {
     title: 'Bidirectional',
     image: imgPath + 'bidirectional/logo.png',
     link: 'https://github.com/samirdjelal/bidirectional/',
-    description: "Write Arabic text on apps that don't support bidirectional text.",
     screenshots: ['0.png'].map((image) => imgPath + 'bidirectional/' + image),
   },
 ]
@@ -47,11 +44,10 @@ const customStyles = {
 Modal.setAppElement('#__docusaurus')
 
 function Showcase() {
-
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
-  
-  const editUrl = siteConfig.presets[0].find(row => row.docs).docs.editUrl
+
+  const editUrl = siteConfig.presets[0].find((row) => row.docs).docs.editUrl
 
   const [modalIsOpen, setIsOpen] = React.useState(false)
   function openModal() {
@@ -65,7 +61,7 @@ function Showcase() {
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Showcase</h1>
         <p className="text--center">
-          Here are the applications that have been made with Tauri!
+          {siteConfig.themeConfig.t.pages.showcase.projects.content}
         </p>
         <div className="row">
           {projects.map(
@@ -99,7 +95,11 @@ function Showcase() {
                       <div className="avatar__intro margin-left--none">
                         <h4 className="avatar__name">{title}</h4>
                         <small className="avatar__subtitle">
-                          {description}
+                          {
+                            siteConfig.themeConfig.t.pages.showcase.projects[
+                              index
+                            ].description
+                          }
                         </small>
                       </div>
                     </div>
@@ -110,7 +110,7 @@ function Showcase() {
                         className="button button--secondary"
                         onClick={openModal}
                       >
-                        Discover
+                        {siteConfig.themeConfig.t.global.discover}
                       </button>
                     </a>
                     {/* <button
@@ -161,14 +161,18 @@ function Showcase() {
               <div className="card__body">
                 <div className="avatar">
                   <div className="avatar__intro margin-left--none">
-                    <h4 className="avatar__name">Your project</h4>
+                    <h4 className="avatar__name">
+                      {siteConfig.themeConfig.t.pages.showcase.yourProject}
+                    </h4>
                     <small className="avatar__subtitle"></small>
                   </div>
                 </div>
               </div>
               <div className="card__footer">
                 <a href={editUrl + 'src/pages/showcase.js'} target="_blank">
-                  <button className="button button--secondary">Add it!</button>
+                  <button className="button button--secondary">
+                    {siteConfig.themeConfig.t.pages.showcase.addIt}
+                  </button>
                 </a>
               </div>
             </div>
