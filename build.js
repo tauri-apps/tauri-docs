@@ -2,7 +2,7 @@ const { execSync } = require('child_process')
 
 const languages = [
   'en',
-  // 'fr',
+  'fr',
   // 'pt-br',
   // 'zh-hant',
   // 'zh-hans',
