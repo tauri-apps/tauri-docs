@@ -496,9 +496,9 @@ function Home() {
           <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
           {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
           <p className="hero__subtitle">
-            Bundle your HTML, CSS and JavaScript
+            Build smaller, faster, and more secure 
             <br />
-            to make smaller, faster and more secure native applications
+            desktop applications with a web frontend
           </p>
           <div className={styles.buttons}>
             <div className="container">
