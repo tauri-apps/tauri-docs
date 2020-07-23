@@ -4,7 +4,7 @@ const repoUrl = 'https://github.com/tauri-apps/tauri'
 
 const siteConfig = {
   title: 'Tauri Studio',
-  tagline: 'Make smaller, faster and more secure native apps',
+  tagline: 'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: '/',
