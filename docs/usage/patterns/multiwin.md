@@ -87,7 +87,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "permlist": {                  // all API endpoints are default false
+  "allowlist": {                  // all API endpoints are default false
     "event": true,                // Use the EVENT API for injections
   }
 }

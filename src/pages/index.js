@@ -489,16 +489,16 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.tagline}`}
-      description="Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Yew, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms."
+      description="Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface. The backend of the application is a rust-sourced binary with an API that the front-end can interact with."
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
           <img src="img/tauri_with_wordmark.svg" style={{ maxWidth: 745 }} />
           {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
           <p className="hero__subtitle">
-            Bundle your HTML, CSS and JavaScript
+            Build smaller, faster, and more secure 
             <br />
-            to make smaller, faster and more secure native applications
+            desktop applications with a web frontend
           </p>
           <div className={styles.buttons}>
             <div className="container">

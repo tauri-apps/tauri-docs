@@ -7,7 +7,7 @@ import Alert from '@theme/Alert'
 
 Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
 
-Note that you can either enable or disable these APIs in your [tauri.conf.json](/docs/api/config). Please refer to the "permlist" section.
+Note that you can either enable or disable these APIs in your [tauri.conf.json](/docs/api/config). Please refer to the "allowlist" section.
 
 If you haven't done it so far, add the package _locally_ to your project:
 

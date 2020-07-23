@@ -76,7 +76,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false     // do not use a localhost server
   },
-  "permlist": {
+  "allowlist": {
     "all": false,       // disable and tree-shake all api functions
   }
 }
