@@ -213,3 +213,13 @@ h2 > [class^='ti-'] {
   top: -10px;
   background-color: var(--ifm-background-color);
 }
+
+/* Ethidcal Ad */
+
+[data-ea-publisher].loaded .ea-content, [data-ea-type].loaded .ea-content {
+  background: var(--ifm-pre-background);
+}
+
+[data-ea-publisher].loaded .ea-content a:link, [data-ea-type].loaded .ea-content a:link {
+  color: var(--ifm-font-color-base);
+}
