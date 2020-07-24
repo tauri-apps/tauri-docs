@@ -7,6 +7,8 @@ const t = require(`./translations/${language}.json`)
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 
+const path = require('path')
+
 const siteConfig = {
   title: 'Tauri Studio',
   tagline: t.config.tagline,
@@ -60,12 +62,12 @@ const siteConfig = {
           to: '/#roadmap',
           position: 'right',
           type: 'badge',
-          title: 'Tauri is still alpha, take a look at our roadmap!'
+          title: 'Tauri is still alpha, take a look at our roadmap!',
         },
         {
           to: 'release-notes',
           label: 'Release notes',
-          position: 'right'
+          position: 'right',
         },
         {
           href: repoUrl,
@@ -174,8 +176,9 @@ const siteConfig = {
       {
         language
       }
-    ]
-  ]
+    ],
+    path.resolve('./plugins/external-assets')
+  ],
 }
 
 module.exports = siteConfig
