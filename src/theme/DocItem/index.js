@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Head from '@docusaurus/Head'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -23,8 +23,16 @@ const TOP_OFFSET = 100
 
 function DocTOC({ headings }) {
   useTOCHighlight(LINK_CLASS_NAME, ACTIVE_LINK_CLASS_NAME, TOP_OFFSET)
-
-  const isBlocked = typeof ethicalads === 'undefined'
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [isBlocked, setIsBlocked] = useState(false)
+  useEffect(() => {
+    if (isInitialized) {
+      return
+    }
+    setIsInitialized(true)
+    setIsBlocked(typeof ethicalads === 'undefined')
+    ethicalads.load_placements()
+  })
 
   return (
     <div className="col col--3">
