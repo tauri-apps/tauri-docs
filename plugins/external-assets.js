@@ -6,7 +6,7 @@ module.exports = (context, options) => ({
         {
           tagName: 'script',
           attributes: {
-            src: '/js/ethicalads.js'
+            src: '/js/ethicalads.min.js'
           },
         },
       ],

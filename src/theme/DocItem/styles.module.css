@@ -68,3 +68,8 @@
 .docLastUpdatedAt {
   font-weight: bold;
 }
+
+.ad {
+  background: var(--ifm-pre-background);
+  padding: 10px;
+}

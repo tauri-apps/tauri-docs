@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Head from '@docusaurus/Head'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -16,45 +16,22 @@ import Link from '@docusaurus/Link'
 import clsx from 'clsx'
 
 import styles from './styles.module.css'
-import { checkAdBlocker } from '../../utils/adblocker'
 
 const LINK_CLASS_NAME = 'table-of-contents__link'
 const ACTIVE_LINK_CLASS_NAME = 'table-of-contents__link--active'
 const TOP_OFFSET = 100
 
 function DocTOC({ headings }) {
-  const [isInitialized, setIsInitialized] = useState(false)
-  const [isBlocked, setIsBlocked] = useState(false)
   useTOCHighlight(LINK_CLASS_NAME, ACTIVE_LINK_CLASS_NAME, TOP_OFFSET)
 
-  useEffect(() => {
-    if (isInitialized) {
-      return
-    }
-    setIsInitialized(true)
-    let isMounted = true
-    checkAdBlocker().then((value) => {
-      if (isMounted) {
-        if (value) {
-          setIsBlocked(true)
-          return true
-        } else {
-          ethicalads.load_placements()
-          return false
-        }
-      }
-    })
-    return () => {
-      isMounted = false
-    }
-  })
+  const isBlocked = typeof ethicalads === 'undefined'
 
   return (
     <div className="col col--3">
       <div className={styles.tableOfContents}>
         <Headings headings={headings} />
         {isBlocked && (
-          <div>
+          <div className={styles.ad}>
             Help us raise money for the security audit by donating at{' '}
             <a href="https://opencollective.com/tauri" target="_blank">
               opencollective.com/tauri
