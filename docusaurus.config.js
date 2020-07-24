@@ -1,13 +1,11 @@
 // const versions = require('./versions.json')
 const language = process.env.LANGUAGE || 'en'
 
-const path = require('path');
+const path = require('path')
 
 const t = require(`./translations/${language}.json`)
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
-
-const path = require('path')
 
 const siteConfig = {
   title: 'Tauri Studio',
@@ -19,18 +17,28 @@ const siteConfig = {
   url: 'https://tauri.studio',
 
   themeConfig: {
+    languages: {
+      en: 'English',
+      fr: 'Français',
+      // 'pt-br': 'Português',
+      // 'zh-hant': '繁體中文',
+      // 'zh-hans': '简体中文',
+      // ru: 'русский',
+    },
     language,
     t,
     announcementBar: {
       id: 'testapp',
       content: t.config.announcementBar.validationApp,
+      backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
+      title: ' ',
       logo: {
         alt: 'Tauri Logo',
         src: 'img/tauri.png',
       },
-      links: [
+      items: [
         { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },
         {
           to: 'docs/getting-started/intro',
@@ -44,7 +52,6 @@ const siteConfig = {
         },
         {
           label: t.navbar.community,
-          type: 'category',
           position: 'left',
           items: [
             {
@@ -61,8 +68,8 @@ const siteConfig = {
           label: 'Alpha',
           to: '/#roadmap',
           position: 'right',
-          type: 'badge',
-          title: 'Tauri is still alpha, take a look at our roadmap!',
+          // type: 'badge',
+          // title: 'Tauri is still alpha, take a look at our roadmap!',
         },
         {
           to: 'release-notes',
@@ -174,10 +181,10 @@ const siteConfig = {
     [
       path.resolve(__dirname, './plugins/dynamic-css.js'),
       {
-        language
-      }
+        language,
+      },
     ],
-    path.resolve('./plugins/external-assets')
+    path.resolve('./plugins/external-assets'),
   ],
 }
 
