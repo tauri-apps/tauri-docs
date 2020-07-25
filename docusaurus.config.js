@@ -15,6 +15,7 @@ const siteConfig = {
   baseUrl: `/${language}/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
+  onBrokenLinks: 'ignore',
 
   themeConfig: {
     languages: {
