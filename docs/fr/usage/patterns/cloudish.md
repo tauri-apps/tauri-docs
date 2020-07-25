@@ -1,10 +1,9 @@
 ---
-id: cloudish
-title: "Cloudish"
-sidebar_label: Cloudish
+title: Cloudish
 ---
 
 import Rater from '@theme/Rater'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
@@ -28,7 +27,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Cloudish.png" alt="Cloudish" />
+    <img src={useBaseUrl('img/patterns/Cloudish.png')} alt="Cloudish" />
   </div>
     <div className="col col--4">
     Pros:
@@ -85,7 +84,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": true                // ship with a localhost server
   },
-  "allowlist": {
+  "permlist": {
     "all": false                  // disable entire API
   }
 }

@@ -6,4 +6,4 @@ title: "fn.event_listeners_object_name"
 
     pub fn event_listeners_object_name() -> String
 
-      
+the event listeners JS object name

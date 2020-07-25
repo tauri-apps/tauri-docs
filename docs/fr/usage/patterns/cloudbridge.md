@@ -1,10 +1,9 @@
 ---
-id: cloudbridge
-title: "Cloudbridge"
-sidebar_label: Cloudbridge
+title: Cloudbridge
 ---
 
 import Rater from '@theme/Rater'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
@@ -28,7 +27,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Cloudbridge.png" alt="Cloudbridge" />
+    <img src={useBaseUrl('img/patterns/Cloudbridge.png')} alt="Cloudbridge" />
   </div>
     <div className="col col--4">
     Pros:
@@ -99,7 +98,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": true                // ship with a localhost server
   },
-  "allowlist": {
+  "permlist": {
     "all": true                   // enable entire API
   }
 }

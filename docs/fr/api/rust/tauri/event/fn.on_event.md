@@ -6,4 +6,4 @@ title: "fn.on_event"
 
     pub fn on_event(event: String, data: Option<String>)
 
-      
+Triggers the given event with its payload.

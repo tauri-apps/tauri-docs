@@ -58,8 +58,8 @@ $ tauri dev
    Runner.run:
    -> get paths
    -> inline assets if needed
-   -> transform tauri.conf.js:conf.whitelist to toml
-     -> manipulate Cargo.toml for API whitelist features
+   -> transform tauri.conf.js:conf.allowlist to toml
+     -> manipulate Cargo.toml for API allow features
    -> start chokidar filewatcher (to restart dev-service on changes)
    -> spawn cargo run with dev-server arg (if needed ?)
  cargo run -features [dev-server]
@@ -96,14 +96,14 @@ $ tauri build
    Runner.build:
    -> get paths
    -> inline assets if needed
-   -> transform tauri.conf.js:conf.whitelist to toml
-     -> manipulate Cargo.toml for API whitelist features
+   -> transform tauri.conf.js:conf.allowlist to toml
+     -> manipulate Cargo.toml for API allow features
    -> spawns cargo 'module' `tauri-cli` (using /cli/tauri.js/helpers/spawn.js)
       - feature 'embedded-server' : 'no-server'
       - --release (or debug)
       - --target
         // The target is currently implicit based upon the OS
-        // We need to add configurations for e.g. .app / .dmg on MacOS
+        // We need to add configurations for e.g. .app / .dmg on macOS
  cargo tauri-cli
    [WIP]
    -> detect the OS

@@ -6,6 +6,8 @@ title: "struct.Extract"
 
     pub struct Extract<'a> { /* fields omitted */ }
 
+The extract manager.
+
 ## Methods
 
 ### `impl<'a> Extract<'a>`
@@ -101,5 +103,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

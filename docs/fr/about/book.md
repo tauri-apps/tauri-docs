@@ -3,8 +3,10 @@ id: book
 title: Get the book
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
 <div style={{textAlign:'center'}}>
-    <img src="/img/bookCover.png" alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
+    <img src={useBaseUrl('img/bookCover.png')} alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
 
 <div className="alert alert--info" role="alert">
@@ -27,7 +29,7 @@ All tutorial subscription tiers receive the rolling PDF free of additional charg
 
 In 2020, the manufacture of native-apps has become easier and more accessible than ever before. All the same, beginners and seasoned developers alike are confronted with tough choices in a rapidly changing landscape of security and privacy. This is especially true in the semi-trusted environment of user devices.
 
-Tauri takes the guesswork out of the equation, as it was designed from the ground up to embrace new paradigms of secure development and creative flexibility that leverage the language features of Rust and lets you build an app using any frontend framework you like. Find out how you can design, build, audit and deploy tiny, fast, robust, and secure applications for the major Desktop and Mobile platforms, all from the exact same codebase and in record time - without even needing to know the Rust programming language.
+Tauri takes the guesswork out of the equation, as it was designed from the ground up to embrace new paradigms of secure development and creative flexibility that leverage the language features of Rust and lets you build an app using any frontend framework you like. Find out how you can design, build, audit and deploy tiny, fast, robust, and secure native applications for the major Desktop and Mobile platforms, all from the exact same codebase and in record time - without even needing to know the Rust programming language.
 
 Authors Daniel and Lucas, the architects behind Tauri take you on a journey from theory to execution, during which you will learn why Tauri was built and how it works under the hood. Together with guest personalities that specialize in OpenSource, DevOps, Security and Enterprise Architecture, this book also presents discourse-formated philosophical discussions and open-source sustainability viewpoints from which your next-gen apps will profit - and your users will benefit.
 
@@ -96,7 +98,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
  1. Environment Prerequisites
     - Node, Npm, Yarn, Rustc, Rustup, Buildtools
  2. Development Platform Details
-        - MacOS
+        - macOS
         - Windows
         - Linux
         - Docker
@@ -142,7 +144,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
 10. Taskbar Integration (Desktop Only)
     - Anatomy
     - Integrations
-        - MacOS
+        - macOS
         - Windows
         - Linux
 11. Security Features
@@ -170,7 +172,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Packaging
     - Minification
     - Distribution Platform Details
-        - MacOS (.app / .dmg)
+        - macOS (.app / .dmg)
         - Win (.exe / .msi)
         - Linux Arm64 (.appImage / .deb)
         - Linux x64 (.appImage / .deb)
@@ -253,7 +255,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Bridge
     - Cloudish
     - Cloudbridge
-    - Kamikaze
+    - Lockdown
     - Multiwin
     - GLUI
 2.  Advanced Patterns

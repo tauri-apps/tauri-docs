@@ -1,14 +1,14 @@
 {
   "config": {
     "announcementBar": {
-      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a>- <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg\" target=\"_blank\">MacOS - dmg</a>- <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a>- <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a> - <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg\" target=\"_blank\">macOS - dmg</a> - <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a> - <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
     },
-    "tagline": "Créez des applications bureau plus petites, rapides et sécurisées"
+    "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },
   "pages": {
     "index": {
-      "description": "Tauri is a toolchain for building highly secure native apps that have tiny binaries and are very fast. Whether coming from the front-end with Gatsby, Yew, Svelte, Vue, Angular or React - Tauri solves the hard problems of safe User Interfaces for all the desktop platforms.",
-      "subtitle": "Empaquetez votre HTML, CSS et JavaScript<br />pour faire des applications plus petites, rapides et plus sécurisées",
+      "description": "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.",
+      "subtitle": "Créez des applications desktop plus petites, rapides et plus sécurisées<br />avec une interface web",
       "learnMore": "Learn more",
       "getStarted": "Get started",
       "feature": {
@@ -84,9 +84,42 @@
             "label": "Native Notifications",
             "description": "Cross-platform notifications using polyfilled WEB API."
           },
+
+          {
+            "label": "GH Action for Building Apps",
+            "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
+          },
+          {
+            "label": "VS Code Extension",
+            "description": "Commands and validate tauri.conf.json"
+          },
+          {
+            "label": "Core Plugin System",
+            "description": "Build reusable plugins to extend Tauri core."
+          },
+          {
+            "label": "CLI Updater",
+            "description": "Update core dependencies automatically from the CLI."
+          },
           {
             "label": "Self Updater",
             "description": "Update Tauri Apps from within Tauri."
+          },
+          {
+            "label": "Clipboard",
+            "description": "Enable programmatic and keyboard access to clipboard."
+          },
+          {
+            "label": "Keyboard Shortcuts",
+            "description": "Hook and react to keypresses."
+          },
+          {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
+          },
+          {
+            "label": "One-Time Commands",
+            "description": "Run a command that is no longer available after first run."
           },
           {
             "label": "WASM Bundler",
@@ -95,10 +128,6 @@
           {
             "label": "App Tray",
             "description": "Desktop Cross-platform Icon Tray."
-          },
-          {
-            "label": "App Storage",
-            "description": "Use a canonical location to store userdata."
           },
           {
             "label": "Webview Bindings",
@@ -112,39 +141,33 @@
             "label": "Transparent Window",
             "description": "Have transparent windows."
           },
-  
           {
-            "label": "DENO CLI",
-            "description": "Enable alternative DENO CLI."
+            "label": "Rust-based CLI",
+            "description": "Create rust CLI with DENO bindings and binary."
           },
           {
             "label": "DENO Bindings",
             "description": "Use Deno to build your App's backend."
           },
           {
-            "label": "PureOS App Store",
-            "description": "Verified builds for PureOS."
-          },
-          {
             "label": "Beta Release",
             "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "Security Audit",
+            "description": "3rd party security audit of core libraries."
           },
           {
             "label": "Mobile Bundler",
             "description": "Bundle to all major mobile device operating systems."
           },
-  
           {
             "label": "Cross Compiler",
             "description": "Generate bundled binaries from select operating system environments."
           },
           {
-            "label": "Alternative Renderer",
-            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
-          },
-          {
-            "label": "Tauri-Frida",
-            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
+            "label": "PureOS App Store",
+            "description": "Verified builds for PureOS."
           },
           {
             "label": "Stable Release",
@@ -155,11 +178,77 @@
             "description": "Go, Nim, Python, C++ and other bindings are possible with the stable API."
           },
           {
+            "label": "Alternative Renderer",
+            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
+          },
+          {
+            "label": "Tauri-Frida",
+            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
+          },
+          {
             "label": "The Future",
             "description": "Something missing? Got a great idea? We want you to help us make it happen."
           }
         ]
       }
+    },
+    "partners": {
+      "partnersLabel": "Partners",
+      "sponsors": [
+        {
+          "description": "This project's infrastructure is supported in part by Digital Ocean. Click the button here to visit the Digital Ocean website and get $100 credit that you can use within 60 days."
+        },
+        {
+          "description": "Our docs are continuously deployed thanks to the kind support and amazing tooling provided to us by netlify. Their service puts the continuity in CI and the fun in functionality."
+        },
+        {
+          "description": "Mailscript helps us automate and wrangle our many, many github notifications and apply granular actions to mails using rules. Whether forwards, catchalls, webhooks or even SMS notifications - MailScript() keeps on innovating!"
+        },
+        {
+          "description": "ClickUp is one app to replace them all. It's the future of work - where anyone can work on anything. More than just task management - ClickUp offers docs, reminders, goals, calendars, scheduling, and even an inbox. Fully customizable, ClickUp works for every type of team, so all teams can use the same app to plan, organize, and collaborate."
+        },
+        {
+          "description": "The awesome folks at wallaby.js comped the core team of Tauri with their futuristic REPL in the IDE test runner. If you avoid testing your JS because it takes so long - with wallaby you'll appreciate the immediate inline feedback. We do..."
+        }
+      ],
+      "collaboratorsLabel": "Collaborators",
+      "collaborators": [
+        {
+          "description": "GUIJS is a toolkit for making your devlife easier. This collaboration enabled the extension of Tauri to have a new mode, the sidecar."
+        },
+        {
+          "description": "It can be argued that the humble beginnings of Tauri stretch back to a conversation where PureOS explained that Electron apps will never ship on the official PureOS store, and something else would be needed."
+        },
+        {
+          "description": "The first adopter of Tauri, close collaborators with common interests. IOTA is a permissionless distributed ledger technology, without miners and suited for low power devices."
+        },
+        {
+          "description": "A data-driven game engine, in Rust - committed to nuturing an open source community."
+        },
+        {
+          "description": "If PureOS planted the seed of Tauri, Kayaba from Meros really kicked the can down the road with a perfectly timed question."
+        },
+        {
+          "description": "One of the most polyglot professionals out there, TensorProgramming shares his knowledge and excitement about dozens of different programming languages on his YouTube channel."
+        }
+      ],
+      "patronsLabel": "Patrons"
+    },
+    "showcase": {
+      "content": "Here are the applications that have been made with Tauri!",
+      "projects": [
+        {
+          "description": ""
+        },
+        {
+          "description": "A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call."
+        },
+        {
+          "description": "Write Arabic text on apps that don't support bidirectional text."
+        }
+      ],
+      "yourProject": "Your project",
+      "addIt": "Add it!"
     }
   },
   "navbar": {
@@ -183,5 +272,8 @@
   },
   "misc": {
     "editPage": "Edit this page"
+  },
+  "global": {
+    "discover": "Discover"
   }
 }

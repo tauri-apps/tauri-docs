@@ -3,6 +3,7 @@ title: Lockdown
 ---
 
 import Rater from '@theme/Rater'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
@@ -26,7 +27,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Lockdown.png" alt="Lockdown" />
+    <img src={useBaseUrl('img/patterns/Lockdown.png')} alt="Lockdown" />
   </div>
   <div className="col col--4">
     Pros:
@@ -79,7 +80,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "whitelist": {                  // all API endpoints are default false
+  "allowlist": {                  // all API endpoints are default false
     "event": true,                // Use the EVENT API for injections
   }
 }

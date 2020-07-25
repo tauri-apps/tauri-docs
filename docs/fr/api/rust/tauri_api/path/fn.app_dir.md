@@ -6,4 +6,4 @@ title: "fn.app_dir"
 
     pub fn app_dir() -> Option<PathBuf>
 
-      
+Returns the path to the suggested directory for your app config files.

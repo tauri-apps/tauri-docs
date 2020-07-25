@@ -6,4 +6,4 @@ title: "fn.font_dir"
 
     pub fn font_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's font directory.

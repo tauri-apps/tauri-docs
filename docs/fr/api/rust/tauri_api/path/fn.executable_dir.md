@@ -6,4 +6,4 @@ title: "fn.executable_dir"
 
     pub fn executable_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's executable directory.

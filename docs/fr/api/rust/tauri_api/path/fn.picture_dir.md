@@ -6,4 +6,4 @@ title: "fn.picture_dir"
 
     pub fn picture_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's picture directory.

@@ -26,43 +26,83 @@ title: "enum.BaseDirectory"
         App,
     }
 
+A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
+
+For more information, check the [dirs documentation](https://docs.rs/dirs/).
+
 ## Variants
 
 `Audio`
 
+The Audio directory.
+
 `Cache`
+
+The Cache directory.
 
 `Config`
 
+The Config directory.
+
 `Data`
+
+The Data directory.
 
 `LocalData`
 
+The LocalData directory.
+
 `Desktop`
+
+The Desktop directory.
 
 `Document`
 
+The Document directory.
+
 `Download`
+
+The Download directory.
 
 `Executable`
 
+The Executable directory.
+
 `Font`
+
+The Font directory.
 
 `Home`
 
+The Home directory.
+
 `Picture`
+
+The Picture directory.
 
 `Public`
 
+The Public directory.
+
 `Runtime`
+
+The Runtime directory.
 
 `Template`
 
+The Template directory.
+
 `Video`
+
+The Video directory.
 
 `Resource`
 
+The Resource directory.
+
 `App`
+
+The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
 
 ## Trait Implementations
 
@@ -181,5 +221,3 @@ Performs the conversion.
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
 #### `fn vzip(self) -> V`
-
-      

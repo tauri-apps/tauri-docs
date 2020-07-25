@@ -6,4 +6,4 @@ title: "fn.close_splashscreen"
 
     pub fn close_splashscreen<T: 'static>(webview_handle: &Handle<T>) -> Result<()>
 
-      
+Closes the splashscreen.

@@ -6,4 +6,4 @@ title: "fn.audio_dir"
 
     pub fn audio_dir() -> Option<PathBuf>
 
-      
+Returns the path to the user's audio directory.

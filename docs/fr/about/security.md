@@ -53,7 +53,7 @@ Hashing important messages with a OTP salt, you are able to encrypt messages bet
 
 ## System Features
 
-### API Whitelisting
+### Allowing API
 
 You have the ability to pick and choose which API functions are available to the UI and to Rust. If they are not enabled, the code will not be shipped with your app, which reduces binary size and attack surface. They are opt-in, so you have to consciously choose to progressively enhance your application.
 

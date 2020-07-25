@@ -1,10 +1,9 @@
 ---
-id: bridge
-title: "Bridge"
-sidebar_label: Bridge
+title: Bridge
 ---
 
 import Rater from '@theme/Rater'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
@@ -28,7 +27,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src="/img/patterns/Bridge.png" alt="Bridge" />
+    <img src={useBaseUrl('img/patterns/Bridge.png')} alt="Bridge" />
   </div>
     <div className="col col--4">
     Pros:
@@ -87,7 +86,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": false               // do not use a localhost server
   },
-  "allowlist": {                  // all API values are default false
+  "permlist": {                  // all API values are default false
     "all": false,                 // use this flag to enable all API features
     "answer": true,               // enable rust to direct the UI
     "event": true,                // enable binding to message

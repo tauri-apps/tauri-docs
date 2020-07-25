@@ -30,6 +30,17 @@ npm install tauri --save
   You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </Alert>
 
+If you decide to use Tauri as a local package with npm, you will _have to_ define a custom script to your package.json:
+
+```js title=package.json
+{
+  // This content is just a sample
+  "scripts": {
+    "tauri": "tauri"
+  }
+}
+```
+
 ### 2. Initialize Tauri
 
 <Command name="init" />
@@ -38,8 +49,10 @@ This command will place a new folder in your current working directory, `src-tau
 
 ```sh
 └── src-tauri
-    ├── Cargo.toml
     ├── .gitignore
+    ├── Cargo.toml
+    ├── rustfmt.toml
+    ├── tauri.conf.json
     ├── icons
     │   ├── 128x128.png
     │   ├── 128x128@2x.png
@@ -57,7 +70,6 @@ This command will place a new folder in your current working directory, `src-tau
     │   ├── icon.icns
     │   ├── icon.ico
     │   └── icon.png
-    ├── rustfmt.toml
     └── src
         ├── build.rs
         ├── cmd.rs
