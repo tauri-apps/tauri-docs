@@ -66,6 +66,18 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
 </Alert>
 
+## `deps`
+
+<Command name="deps update" />
+
+```sh
+  Description
+    Tauri dependency management script
+  Usage
+    $ tauri deps [install|update]
+```
+
+
 ## `build`
 
 <Command name="build" />
