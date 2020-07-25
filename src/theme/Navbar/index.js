@@ -133,9 +133,10 @@ function Navbar() {
           ))}
         </div>
         <div className="navbar__items navbar__items--right">
-          <Link to="/#roadmap">
-            <span class="badge badge--warning">Alpha</span>
-          </Link>
+          <NavbarItem
+            label={<span class="badge badge--warning">Alpha</span>}
+            to="/#roadmap"
+          ></NavbarItem>
           {rightItems.map((item, i) => (
             <NavbarItem {...item} key={i} />
           ))}
@@ -143,6 +144,7 @@ function Navbar() {
             className={classnames(
               'dropdown',
               'dropdown--hoverable',
+              'dropdown--right',
               styles.languages
             )}
           >
@@ -221,6 +223,11 @@ function Navbar() {
               {items.map((item, i) => (
                 <NavbarItem mobile {...item} onClick={hideSidebar} key={i} />
               ))}
+              <NavbarItem
+                mobile
+                label={<span class="badge badge--warning">Alpha</span>}
+                to="/#roadmap"
+              ></NavbarItem>
             </ul>
           </div>
         </div>
