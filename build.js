@@ -1,13 +1,6 @@
 const { execSync } = require('child_process')
+const languages = Object.keys(require('./supported-languages'))
 
-const languages = [
-  'en',
-  'fr',
-  // 'pt-br',
-  // 'zh-hant',
-  // 'zh-hans',
-  // 'ru'
-]
 languages.forEach(async (language) => {
   console.log(`Building "${language}" docs version...`)
 

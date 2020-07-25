@@ -1,9 +1,12 @@
+const path = require('path')
 // const versions = require('./versions.json')
+
+const languages = require('./supported-languages')
+
 const language = process.env.LANGUAGE || 'en'
 
-const path = require('path')
-
 const t = require(`./translations/${language}.json`)
+
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 
@@ -18,19 +21,12 @@ const siteConfig = {
   onBrokenLinks: 'ignore',
 
   themeConfig: {
+    languages,
+    language,
+    t,
     colorMode: {
       defaultMode: 'dark'
     },
-    languages: {
-      en: 'English',
-      fr: 'Français',
-      // 'pt-br': 'Português',
-      // 'zh-hant': '繁體中文',
-      // 'zh-hans': '简体中文',
-      // ru: 'русский',
-    },
-    language,
-    t,
     announcementBar: {
       id: 'testapp',
       content: t.config.announcementBar.validationApp,
