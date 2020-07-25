@@ -133,6 +133,9 @@ function Navbar() {
           ))}
         </div>
         <div className="navbar__items navbar__items--right">
+          <Link to="/#roadmap">
+            <span class="badge badge--warning">Alpha</span>
+          </Link>
           {rightItems.map((item, i) => (
             <NavbarItem {...item} key={i} />
           ))}

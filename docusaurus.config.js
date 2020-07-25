@@ -18,6 +18,9 @@ const siteConfig = {
   onBrokenLinks: 'ignore',
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark'
+    },
     languages: {
       en: 'English',
       fr: 'Français',
@@ -64,13 +67,6 @@ const siteConfig = {
               to: 'showcase',
             },
           ],
-        },
-        {
-          label: 'Alpha',
-          to: '/#roadmap',
-          position: 'right',
-          // type: 'badge',
-          // title: 'Tauri is still alpha, take a look at our roadmap!',
         },
         {
           to: 'release-notes',
