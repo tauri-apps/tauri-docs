@@ -136,7 +136,13 @@ function Navbar() {
           {rightItems.map((item, i) => (
             <NavbarItem {...item} key={i} />
           ))}
-          <div className={classnames('dropdown', 'dropdown--hoverable', styles.languages)}>
+          <div
+            className={classnames(
+              'dropdown',
+              'dropdown--hoverable',
+              styles.languages
+            )}
+          >
             <button class="button button--primary">
               {languages[language]}
             </button>
@@ -147,10 +153,11 @@ function Navbar() {
                   <li>
                     <a
                       class="dropdown__link"
-                      href={window.location.href.replace(
-                        `/${language}/`,
-                        `/${key}/`
-                      )}
+                      href={
+                        typeof location !== 'undefined'
+                          ? location.href.replace(`/${language}/`, `/${key}/`)
+                          : `/${key}/`
+                      }
                     >
                       {label}
                     </a>
