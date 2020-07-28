@@ -24,3 +24,7 @@
 .navbarHidden {
   top: calc(var(--ifm-navbar-height) * -1) !important;
 }
+
+.languages {
+  margin-right: 10px;
+}

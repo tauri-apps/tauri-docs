@@ -6,10 +6,10 @@
  */
 
 @import url('https://fonts.googleapis.com/css?family=Tauri&display=swap');
-@import './themify-icons.css';
-@import '/css/hljs-dark.css';
-@import '/css/hljs-light.css';
-@import './tabs.css';
+@import 'themify-icons.css';
+@import 'hljs-dark.css';
+@import 'hljs-light.css';
+@import 'tabs.css';
 
 /* You can override the default Infima variables here. */
 :root {
