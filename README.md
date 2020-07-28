@@ -30,7 +30,7 @@ $ LANGUAGE=${language} yarn build --out-dir ./build/${language}
 
 This command generates static content for a given language (default is "en") into the `build/${language}` directory and can be served using any static contents hosting service.
 
-To build for all enabled languages, use: 
+To build for all enabled languages, use:
 
 ```
 node build.js
@@ -52,9 +52,24 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 
 Feel free to open an issue/a PR if you find something weird in the docs, your feedback is more than welcome!
 
-We're working with Crowdin to manage translations, if you feel like you want to lend a hand for translations, take a look at our project: https://tauri.crowdin.com/
+We're working with Crowdin to manage translations, if you feel like you want to lend a hand for translations, take a look at the documentation project: https://tauri.crowdin.com/documentation
+
+To enable a language on the documentation website, we need to (at least) have the following items translated:
+
+- strings from en.json;
+- docs/about/intro.md and docs/about/security.md;
+- all files in docs/getting-started;
+- all files in docs/usage/development;
+
+Please ignore the following items for now since breaking changes may happen frequently:
+
+- docs/api;
+- docs/tips;
+- all files in docs/usage/ci-cd;
+- docs/usage/detailed-flow, docs/usage/modes and docs/usage/contributor-guide.
 
 ## License
+
 MIT License
 
 Copyright (c) 2020 Tauri Team

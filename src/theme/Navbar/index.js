@@ -13,6 +13,7 @@ import Toggle from '@theme/Toggle'
 import useThemeContext from '@theme/hooks/useThemeContext'
 import useHideableNavbar from '@theme/hooks/useHideableNavbar'
 import useLockBodyScroll from '@theme/hooks/useLockBodyScroll'
+import Icon from '@theme/Icon'
 import useWindowSize, { windowSizes } from '@theme/hooks/useWindowSize'
 import useLogo from '@theme/hooks/useLogo'
 import styles from './styles.module.css'
@@ -70,6 +71,10 @@ function Navbar() {
     }
   }, [windowSize])
   const { leftItems, rightItems } = splitNavItemsByPosition(items)
+
+  const enabledLanguages = Object.entries(languages).filter(
+    ([key, _]) => key !== language
+  )
   return (
     <nav
       ref={navbarRef}
@@ -152,9 +157,8 @@ function Navbar() {
               {languages[language]}
             </button>
             <ul class="dropdown__menu">
-              {Object.entries(languages)
-                .filter(([key, label]) => key !== language)
-                .map(([key, label]) => (
+              {enabledLanguages.length > 1 ? (
+                enabledLanguages.map(([key, label]) => (
                   <li>
                     <a
                       class="dropdown__link"
@@ -167,7 +171,20 @@ function Navbar() {
                       {label}
                     </a>
                   </li>
-                ))}
+                ))
+              ) : (
+                <li>
+                  We've enabled internationalization! But we need your help...<br/>
+                  See{' '}
+                  <a
+                    href="https://github.com/tauri-apps/tauri-docs#contributing"
+                    target="_blank"
+                  >
+                    here
+                  </a>{' '}
+                  for more information. <Icon title="face-smile"/>
+                </li>
+              )}
             </ul>
           </div>
           {!disableColorModeSwitch && (
