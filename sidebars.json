@@ -118,6 +118,14 @@
                   ]
                 },
                 {
+                  "label": "plugin",
+                  "type": "category",
+                  "items": [
+                    "api/rust/tauri/plugin/fn.register",
+                    "api/rust/tauri/plugin/trait.Plugin"
+                  ]
+                },
+                {
                   "label": "settings",
                   "type": "category",
                   "items": [
@@ -132,7 +140,8 @@
                 "api/rust/tauri/fn.spawn",
                 "api/rust/tauri/struct.App",
                 "api/rust/tauri/struct.AppBuilder",
-                "api/rust/tauri/struct.Handle",
+                "api/rust/tauri/struct.Webview",
+                "api/rust/tauri/struct.WebviewMut",
                 "api/rust/tauri/type.Result"
               ]
             },
@@ -173,6 +182,7 @@
                     "api/rust/tauri_api/dialog/enum.DialogSelection",
                     "api/rust/tauri_api/dialog/enum.Response",
                     "api/rust/tauri_api/dialog/fn.ask",
+                    "api/rust/tauri_api/dialog/fn.message",
                     "api/rust/tauri_api/dialog/fn.pick_folder",
                     "api/rust/tauri_api/dialog/fn.save_file",
                     "api/rust/tauri_api/dialog/fn.select",

@@ -1,37 +1,30 @@
 ---
-title: "enum.ResponseType"
+title: "struct.WebviewMut"
 ---
 
-# Enum [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[http](/docs/api/rust/tauri_api/index.html)::​[ResponseType](/docs/api/rust/tauri_api/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[WebviewMut](/docs/api/rust/tauri/)
 
-    #[repr(u16)]
-    pub enum ResponseType {
-        Json,
-        Text,
-        Binary,
-    }
+    pub struct WebviewMut(_);
 
-The request's response type
+## Methods
 
-## Variants
+### `impl WebviewMut`
 
-`Json`
+#### `pub fn terminate(&mut self) -> Result<(), Error>`
 
-Read the response as JSON
+#### `pub fn get_window(&self) -> Result<*mutWindow, Error>`
 
-`Text`
+#### `pub fn dispatch<F>(&mut self, f: F) -> Result<(), Error> where F: FnOnce(&mut Webview) + Send + 'static,`
 
-Read the response as text
+#### `pub fn bind<F>(&mut self, name: &str, f: F) -> Result<(), Error> where F: FnMut(&str, &str) + 'static,`
 
-`Binary`
-
-Read the response as binary
+#### `pub fn return(&self, seq: &str, status: i32, result: &str) -> Result<(), Error>`
 
 ## Trait Implementations
 
-### `impl Clone for ResponseType`
+### `impl Clone for WebviewMut`
 
-#### `fn clone(&self) -> ResponseType`
+#### `fn clone(&self) -> WebviewMut`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -39,35 +32,17 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl Debug for ResponseType`
+### `impl Send for WebviewMut`
 
-#### `fn fmt(&self, f: &mut Formatter) -> Result`
-
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
-
-### `impl<'de> Deserialize<'de> for ResponseType`
-
-#### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.114/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for ResponseType`
-
-#### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.114/serde/ser/trait.Serialize.html#tymethod.serialize)
+### `impl Sync for WebviewMut`
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for ResponseType`
+### `impl RefUnwindSafe for WebviewMut`
 
-### `impl Send for ResponseType`
+### `impl Unpin for WebviewMut`
 
-### `impl Sync for ResponseType`
-
-### `impl Unpin for ResponseType`
-
-### `impl UnwindSafe for ResponseType`
+### `impl UnwindSafe for WebviewMut`
 
 ## Blanket Implementations
 
@@ -88,8 +63,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 
