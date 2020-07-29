@@ -3,12 +3,13 @@
   command = "node build"
 
 [[redirects]]
-  from = "/"
-  to = "/en"
-  status = 301
+  from = "/"  
+  to = "/fr"
+  status = 302  
+  conditions = {Country = ["FR"]}
 
 [[redirects]]
-  from = "/[^en|fr|pt-br|zh-hans|zh-hant|ru]/*"
-  to = "/en/"
+  from = "/*"
+  to = "/en/:splat"
   status = 301
 

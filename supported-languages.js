@@ -1,6 +1,6 @@
 module.exports = {
   en: 'English',
-  // fr: 'Français',
+  fr: 'Français',
   // 'zh-hans': '简体中文',
   // 'pt-br': 'Português',
   // 'zh-hant': '繁體中文',
