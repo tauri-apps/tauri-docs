@@ -16,7 +16,7 @@
 
 # [[redirects]]
 #   from = "/*"  
-#   to = "/zh-hans/:splat"
+#   to = "/zh-hant/:splat"
 #   status = 302  
 #   conditions = {Country = ["HK", "TW"]}
 
