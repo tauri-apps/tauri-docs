@@ -157,7 +157,7 @@ function Navbar() {
               {languages[language]}
             </button>
             <ul class="dropdown__menu">
-              {enabledLanguages.length > 1 ? (
+              {enabledLanguages.length ? (
                 enabledLanguages.map(([key, label]) => (
                   <li>
                     <a
