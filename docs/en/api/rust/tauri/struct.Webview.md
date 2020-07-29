@@ -1,32 +1,46 @@
 ---
-title: "struct.Handle"
+title: "struct.Webview"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Handle](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Webview](/docs/api/rust/tauri/)
 
-    pub struct Handle<T> { /* fields omitted */ }
-
-A thread-safe handle to a [`WebView`](/docs/api/rust/tauri/struct.WebView.html) instance. Used to dispatch closures onto its task queue.
+    pub struct Webview<'a> { /* fields omitted */ }
 
 ## Methods
 
-### `impl<T> Handle<T>`
+### `impl<'a> Webview<'a>`
 
-#### `pub fn dispatch<F>(&self, f: F) -> Result<(), Error> where F: FnOnce(&mut WebView<T>) -> Result<(), Error> + Send + 'static,`
+#### `pub fn create(debug: bool, window: Option<&mut Window>) -> Webview`
 
-Schedules a closure to be run on the [`WebView`](/docs/api/rust/tauri/struct.WebView.html) thread.
+#### `pub fn run(&mut self)`
 
-# [Errors](/docs/api/rust/tauri/about:blank#errors)
+#### `pub fn terminate(&mut self)`
 
-Returns [`Error::Dispatch`](/docs/api/rust/tauri/enum.Error.html#variant.Dispatch) if the [`WebView`](/docs/api/rust/tauri/struct.WebView.html) has been dropped.
+#### `pub fn as_mut(&mut self) -> WebviewMut`
 
-If the closure returns an `Err`, it will be returned on the next call to [`step()`](/docs/api/rust/tauri/struct.WebView.html#method.step).
+#### `pub fn set_title(&mut self, title: &str)`
+
+#### `pub fn set_size(&mut self, width: i32, height: i32, hints: SizeHint)`
+
+#### `pub fn get_window(&self) -> *mutWindow`
+
+#### `pub fn navigate(&mut self, url: &'a str)`
+
+#### `pub fn init(&mut self, js: &str)`
+
+#### `pub fn eval(&mut self, js: &str)`
+
+#### `pub fn dispatch<F>(&mut self, f: F) where F: FnOnce(&mut Webview) + Send + 'static,`
+
+#### `pub fn bind<F>(&mut self, name: &str, f: F) where F: FnMut(&str, &str),`
+
+#### `pub fn return(&self, seq: &str, status: i32, result: &str)`
 
 ## Trait Implementations
 
-### `impl<T> Clone for Handle<T>`
+### `impl<'a> Clone for Webview<'a>`
 
-#### `fn clone(&self) -> Handle<T>`
+#### `fn clone(&self) -> Webview<'a>`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -34,17 +48,23 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl<T> Send for Handle<T>`
+### `impl<'a> Drop for Webview<'a>`
 
-### `impl<T> Sync for Handle<T>`
+#### `fn drop(&mut self)`
+
+Executes the destructor for this type. [Read more](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)
 
 ## Auto Trait Implementations
 
-### `impl<T> RefUnwindSafe for Handle<T> where T: RefUnwindSafe,`
+### `impl<'a> RefUnwindSafe for Webview<'a>`
 
-### `impl<T> Unpin for Handle<T> where T: Unpin,`
+### `impl<'a> !Send for Webview<'a>`
 
-### `impl<T> UnwindSafe for Handle<T> where T: UnwindSafe,`
+### `impl<'a> !Sync for Webview<'a>`
+
+### `impl<'a> Unpin for Webview<'a>`
+
+### `impl<'a> UnwindSafe for Webview<'a>`
 
 ## Blanket Implementations
 

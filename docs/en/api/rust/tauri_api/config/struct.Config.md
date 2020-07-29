@@ -7,6 +7,7 @@ title: "struct.Config"
     pub struct Config {
         pub tauri: TauriConfig,
         pub build: BuildConfig,
+        // some fields omitted
     }
 
 The tauri.conf.json mapper.
@@ -21,6 +22,14 @@ The Tauri configuration.
 
 The build configuration.
 
+## Methods
+
+### `impl Config`
+
+#### `pub fn plugin_config<S: AsRef<str>>( &self, plugin_name: S ) -> Option<&HashMap<String, JsonValue>>`
+
+Gets a plugin configuration.
+
 ## Trait Implementations
 
 ### `impl Debug for Config`
@@ -33,7 +42,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.114/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<Config> for Config`
 

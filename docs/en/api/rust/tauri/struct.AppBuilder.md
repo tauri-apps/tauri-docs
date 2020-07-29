@@ -16,17 +16,21 @@ The App builder.
 
 Creates a new App bulder.
 
-#### `pub fn invoke_handler<F: FnMut(&mut WebView<()>, &str) -> Result<(), String> + 'static>( self, invoke_handler: F ) -> Self`
+#### `pub fn invoke_handler<F: FnMut(&mut Webview, &str) -> Result<(), String> + 'static>( self, invoke_handler: F ) -> Self`
 
 Defines the JS message handler callback.
 
-#### `pub fn setup<F: FnMut(&mut WebView<()>, String) + 'static>( self, setup: F ) -> Self`
+#### `pub fn setup<F: FnMut(&mut Webview, String) + 'static>(self, setup: F) -> Self`
 
 Defines the setup callback.
 
 #### `pub fn splashscreen_html(self, html: &str) -> Self`
 
 Defines the splashscreen HTML to render.
+
+#### `pub fn plugin(self, plugin: impl Plugin + 'static) -> Self`
+
+Adds a plugin to the runtime.
 
 #### `pub fn build(self) -> App`
 
