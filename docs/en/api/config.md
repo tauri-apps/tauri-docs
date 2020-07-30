@@ -316,9 +316,6 @@ Instead of launching the app directly, we configure the bundled app to run a scr
   "security": {
     "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
   },
-  "edge": {
-    "active": true
-  },
   "inliner": {
     "active": true
   }
