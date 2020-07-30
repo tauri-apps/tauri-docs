@@ -221,12 +221,6 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "edge", type: "object",
-    child: <Properties anchorRoot="tauri.edge" rows={[
-      { property: "active", optional: true, type: "boolean", description: `Whether you want to build with Microsoft Edge  or with Microsoft Internet Explorer.` },
-    ]} />
-  },
-  {
     property: "inliner", type: "object",
     child: <Properties anchorRoot="tauri.inliner" rows={[
       { property: "active", optional: true, type: "boolean", description: `Enable the inliner. See more <a href="https://github.com/tauri-apps/tauri-inliner/" target="_blank">on our GitHub</a>.` },
