@@ -84,7 +84,7 @@ Here's what you need to add to your tauri.conf.json file:
   "embeddedServer": {
     "active": true                // ship with a localhost server
   },
-  "permlist": {
+  "allowlist": {
     "all": false                  // disable entire API
   }
 }
