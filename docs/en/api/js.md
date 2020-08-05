@@ -259,10 +259,10 @@ Creates a directory if one of the path's parent components doesn't exist and the
  * @param {Object} [options] configuration object
  * @param {BaseDirectory} [options.dir] base directory
  */
-readBinaryFile(filePath: string, options = {}): Promise<any[]>
+readBinaryFile(filePath: string, options = {}): Promise<number[]>
 ```
 
-Reads a file as binary
+Reads a file as array of bytes
 
 - Arguments
 
@@ -272,7 +272,7 @@ Reads a file as binary
 
   - options: `{}`
 
-- Returns `Promise<any[]>`
+- Returns `Promise<number[]>`
 
 ```ts
 /**
