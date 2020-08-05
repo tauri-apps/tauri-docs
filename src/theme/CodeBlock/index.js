@@ -134,7 +134,7 @@ export default ({ children, className: languageClassName, title }) => {
 
     if (button.current) {
       clipboard = new Clipboard(button.current, {
-        target: () => target.current,
+        text: () => target.current.textContent.replace(/^\$ /gm, ''),
       })
     }
 
