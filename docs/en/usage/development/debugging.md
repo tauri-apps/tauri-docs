@@ -51,20 +51,7 @@ Right click in the webview, and choose `Inspect Element`. This will open up a we
 
 ### Windows
 
-If you enable the Edge backend (`tauri = { version = "*", features = ["edge"] }` in `src-tauri/Cargo.toml`) you can use the standalone Edge DevTools app.
-
-This enables you to connect the dev tools to your Rust-backed web view as if it were a normal Edge window. (Thanks to @dkaste for providing the solution [in this issue](https://github.com/Boscop/web-view/issues/88#issuecomment-552464137)).
-
-If you are using MSHTML, then you will probably have to use firebug:
-
-```html
-<script
-  type="text/javascript"
-  src="https://getfirebug.com/firebug-lite.js"
-></script>
-```
-
-See [this thread](https://github.com/zserge/webview/blob/master/README.md#debugging-and-development-tips) for more information.
+On Windows, you can use the standalone [Edge DevTools app](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide). This enables you to connect the dev tools to your Tauri app's webview as if it were a normal Edge window.
 
 ## Create a Debug Build
 
