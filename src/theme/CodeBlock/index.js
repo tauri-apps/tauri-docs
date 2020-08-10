@@ -198,21 +198,19 @@ export default ({ children, className: languageClassName, title }) => {
     setTimeout(() => setShowCopied(false), 2000)
   }
   return (
-    <div ref={target} className={styles.codeBlockContainer}>
-      {title && (
-        <div className={styles.codeBlockTitle}>
-          {title}
-        </div>
-      )}
-      <Highlight
-        className={classnames(language, 'codeBlockContent')}
-        {...defaultProps}
-        key={mounted}
-        code={code}
-        language={language}
-      >
-        {code}
-      </Highlight>
+    <div className={styles.codeBlockContainer}>
+      {title && <div className={styles.codeBlockTitle}>{title}</div>}
+      <div ref={target}>
+        <Highlight
+          className={classnames(language, 'codeBlockContent')}
+          {...defaultProps}
+          key={mounted}
+          code={code}
+          language={language}
+        >
+          {code}
+        </Highlight>
+      </div>
       <button
         ref={button}
         type="button"
