@@ -14,7 +14,7 @@ The App builder.
 
 #### `pub fn new() -> Self`
 
-Creates a new App bulder.
+Creates a new App builder.
 
 #### `pub fn invoke_handler<F: FnMut(&mut Webview, &str) -> Result<(), String> + 'static>( self, invoke_handler: F ) -> Self`
 
