@@ -8,8 +8,9 @@ Tauri provides a [CLI](/docs/api/cli), a [Rust API](/docs/api/rust/tauri/config/
 
 Here you will find recipes and techniques to add to your own project in order to fulfil your goals.
 
-You may browse the entire section or click one of the following questions for specific help:
+You may browse the entire section or click one of the following topics for specific help:
 
+- [How to create a Tauri project from scratch](/docs/usage/recipes/visual/frontends)
 - [How to add Tauri to my project](/docs/usage/development/integration)
 - [What configuration for my project](/docs/usage/patterns/about-patterns)
 - [How to develop with Tauri](/docs/usage/development/development)

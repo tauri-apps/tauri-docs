@@ -61,6 +61,7 @@
               "label": "Visual",
               "type": "category",
               "items": [
+                "usage/recipes/visual/frontends",
                 "usage/recipes/visual/icons",
                 "usage/recipes/visual/splashscreen"
               ]
