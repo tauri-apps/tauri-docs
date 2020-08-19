@@ -45,7 +45,26 @@ Done in 0.28s
 ```
 
 ## Step 2: Apply a Tauri recipe to create your initial project
-We'll create a project now using the React with typescript recipe:
+We'll create a project now using the React with typescript recipe. You may do this in one of two ways:
+
+Using interactive mode:
+
+```sh
+> yarn tauri create
+
+yarn run v1.22.4
+$ /home/user/react-ex/node_modules/.bin/tauri create
+[tauri]: running create
+? What is your app name? react-example
+? What should the window title be? Example
+? Would you like to add a UI recipe? 
+  No recipe 
+  React.js 
+❯ React with Typescript 
+
+```
+
+These selections are equivalent to the following using the command-line arguments:
 
 ```sh
 > yarn tauri create -r reactts -A react-example -W Example
