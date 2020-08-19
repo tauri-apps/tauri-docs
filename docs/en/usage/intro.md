@@ -10,7 +10,7 @@ Here you will find recipes and techniques to add to your own project in order to
 
 You may browse the entire section or click one of the following topics for specific help:
 
-- [How to create a Tauri project from scratch](/docs/usage/recipes/visual/frontends)
+- [How to create a Tauri project from scratch](/docs/usage/recipes/frontends)
 - [How to add Tauri to my project](/docs/usage/development/integration)
 - [What configuration for my project](/docs/usage/patterns/about-patterns)
 - [How to develop with Tauri](/docs/usage/development/development)

@@ -54,6 +54,7 @@
                 "usage/recipes/bundler/sidecar"
               ]
             },
+            "usage/recipes/frontends",
             "usage/recipes/cli",
             "usage/recipes/command",
             "usage/recipes/plugin",
@@ -61,7 +62,6 @@
               "label": "Visual",
               "type": "category",
               "items": [
-                "usage/recipes/visual/frontends",
                 "usage/recipes/visual/icons",
                 "usage/recipes/visual/splashscreen"
               ]
