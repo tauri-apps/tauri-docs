@@ -28,17 +28,17 @@
           ]
         },
         {
-          "label": "Patterns",
+          "label": "Configuration Presets",
           "type": "category",
           "items": [
-            "usage/patterns/about-patterns",
-            "usage/patterns/hermit",
-            "usage/patterns/bridge",
-            "usage/patterns/cloudish",
-            "usage/patterns/cloudbridge",
-            "usage/patterns/lockdown",
-            "usage/patterns/multiwin",
-            "usage/patterns/glui"
+            "usage/presets/intro",
+            "usage/presets/hermit",
+            "usage/presets/bridge",
+            "usage/presets/cloudish",
+            "usage/presets/cloudbridge",
+            "usage/presets/lockdown",
+            "usage/presets/multiwin",
+            "usage/presets/glui"
           ]
         },
         {

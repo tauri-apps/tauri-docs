@@ -50,7 +50,7 @@ import Rater from '@theme/Rater'
 
 ## Description
 
-The Multiwin recipe will allow you to have multiple windows, some of which may be GL based.
+The Multiwin preset will allow you to have multiple windows, some of which may be GL based.
 
 ## Diagram
 

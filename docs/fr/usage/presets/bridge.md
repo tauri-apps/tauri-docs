@@ -45,7 +45,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Description
 
-The Bridge recipe is a secure pattern where messages are passed between brokers via an implicit bridge using the API. It isolates functionality to scope and passes messages instead of functionality.
+The Bridge preset is a secure pattern where messages are passed between brokers via an implicit bridge using the API. It isolates functionality to scope and passes messages instead of functionality.
 
 ## Diagram
 

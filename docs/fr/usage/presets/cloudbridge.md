@@ -45,7 +45,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Description
 
-The Cloudbridge recipe combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
+The Cloudbridge preset combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
 
 ## Diagram
 
