@@ -8,9 +8,7 @@ The CLI is node.js based, because it is arguably the most accessible for the maj
 
 ## User Interface
 
-<!-- TODO: Update for Zserge Webview bindings -->
-
-The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and MSHTML (IE10/11) or Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed prior work known as [webview](https://github.com/zserge/webview) that has been incorporated into [web-view](https://github.com/Boscop/web-view).
+The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed work known as [webview](https://github.com/webview/webview) that has been incorporated into the officiall [webview_rust](https://github.com/webview/webview_rust) bindings.
 
 <div className="alert alert--warning" role="alert">
   We are currently working on enabling the Web APIs and many of them may not be available on your platform.
