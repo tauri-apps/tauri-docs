@@ -48,10 +48,9 @@ $ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
 
 ```sh
 $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
-    base-devel \
+    openssl-devel \
     curl \
-    libssl-dev &&
-    sudo dnf group install "C Development Tools and Libraries"
+    && sudo dnf group install "C Development Tools and Libraries"
 ```
 
 </TabItem>
