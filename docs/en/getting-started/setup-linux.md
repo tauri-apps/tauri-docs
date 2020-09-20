@@ -5,10 +5,21 @@ title: Setup for Linux
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
 import { Intro } from '@theme/SetupDocs'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <Intro />
 
 ## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+
+<Tabs
+defaultValue="debian"
+values={[
+{label: 'Debian', value: 'debian'},
+{label: 'Arch', value: 'arch'},
+{label: 'Fedora', value: 'fedora'},
+]}>
+<TabItem value="debian">
 
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
@@ -18,6 +29,33 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     appmenu-gtk3-module \
     libgtk-3-dev
 ```
+
+</TabItem>
+<TabItem value="arch">
+
+```sh
+$ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
+    base-devel \
+    curl \
+    openssl \
+    appmenu-gtk-module \
+    gtk3 \
+    squashfs-tools
+```
+
+</TabItem>
+<TabItem value="fedora">
+
+```sh
+$ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
+    base-devel \
+    curl \
+    libssl-dev &&
+    sudo dnf group install "C Development Tools and Libraries"
+```
+
+</TabItem>
+</Tabs>
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
