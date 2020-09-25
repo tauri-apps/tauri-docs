@@ -28,7 +28,8 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     wget \
     libssl-dev \
     appmenu-gtk3-module \
-    libgtk-3-dev
+    libgtk-3-dev \
+    squashfs-tools
 ```
 
 </TabItem>
@@ -53,6 +54,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
     curl \
     wget \
+    squashfs-tools \
     && sudo dnf group install "C Development Tools and Libraries"
 ```
 
