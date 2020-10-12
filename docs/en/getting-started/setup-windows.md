@@ -95,6 +95,8 @@ If you want to debug the front-end you will have to download <a href="https://ww
 This will allow you to attach to a running instance of your Tauri project!
 If you need help take a look at the <a href="https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide" target="_blank">devtools-guide</a>.
 
+Alternatively, if you have <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">Webview2</a> runtime installed, you can press `F12` or `Ctrl + Shift + i` or right click anywhere in the app and select `Inspect`.
+
 ## Continue
 
 Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).
