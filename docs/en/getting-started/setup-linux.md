@@ -25,9 +25,11 @@ values={[
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
+    wget \
     libssl-dev \
     appmenu-gtk3-module \
-    libgtk-3-dev
+    libgtk-3-dev \
+    squashfs-tools
 ```
 
 </TabItem>
@@ -37,6 +39,7 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
 $ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
     base-devel \
     curl \
+    wget \
     openssl \
     appmenu-gtk-module \
     gtk3 \
@@ -50,6 +53,8 @@ $ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
 $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
     curl \
+    wget \
+    squashfs-tools \
     && sudo dnf group install "C Development Tools and Libraries"
 ```
 
