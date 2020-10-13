@@ -53,6 +53,11 @@ Right click in the webview, and choose `Inspect Element`. This will open up a we
 
 On Windows, you can use the standalone [Edge DevTools app](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide). This enables you to connect the dev tools to your Tauri app's webview as if it were a normal Edge window.
 
+<Alert title="Note">
+If you have installed [Weview2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
+If you have installed [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
+</Alert>
+
 ## Create a Debug Build
 
 There are cases where you might need to inspect the JS console in the final bundle, so Tauri provides a simple command to create a debugging bundle:
