@@ -96,7 +96,7 @@ This will allow you to attach to a running instance of your Tauri project!
 If you need help take a look at the <a href="https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide" target="_blank">devtools-guide</a>.
 
 <Alert title="Note">
-If you have installed [Weview2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
+If you have installed [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
 </Alert>
 
 ## Continue
