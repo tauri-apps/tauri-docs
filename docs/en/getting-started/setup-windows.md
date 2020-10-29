@@ -101,7 +101,7 @@ If you have installed <a href="https://developer.microsoft.com/en-us/microsoft-e
 
 ## 7. Optional WebView2 (Chromium)
 
-If you want to use front-end features that aren't supported by the Windows Edge Webview, you can download and use the newer Edge <a href="https://docs.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">WebView2</a>. Edge WebView2 uses the chromium rendering engine for web content. Certain animations like the one found in the Create-React-App example are better supported in WebView2. Compare Browser features <a href="https://caniuse.com/?compare=ie+10,ie+11,edge+80,firefox+74,chrome+80&compareCats=all" target="_blank">here</a>.
+If you want to use front-end features that aren't supported by the Windows Edge Webview, you can download and use the newer Edge <a href="https://docs.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">WebView2</a>. Edge WebView2 uses the chromium rendering engine for web content. Certain animations like the one found in the Create-React-App example are better supported in WebView2. Compare Browser features <a href="https://caniuse.com/?compare=ie+10,ie+11,edge+80,firefox+74,chrome+80&compareCats=all" target="_blank">here</a>. Keep in mind that users of your app may still be using the old Edge Weview, so your app shouldn't rely on the new browser features in Webview2.
 
 - <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section" target="_blank">Download</a>
 
