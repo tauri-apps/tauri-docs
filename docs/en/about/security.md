@@ -27,7 +27,7 @@ Tauri enables you to construct an application that uses web-technology for the u
 
 ## Language Features of Rust
 
-By turning to the programming language reknowned for its memory-safety and speed, Tauri simply erases whole classes of conventional attacks. `Use after free` just isn't something that can happen with Tauri.
+By turning to the programming language renowned for its memory-safety and speed, Tauri simply erases whole classes of conventional attacks. `Use after free` just isn't something that can happen with Tauri.
 
 ## Dynamic Ahead of Time Compilation (AOT)
 
@@ -35,7 +35,7 @@ This process of compilation happens several times during the bootstrapping phase
 
 ## Function Hardening
 
-### functional ASLR
+### Functional ASLR
 
 Functional address Space Layout Randomization techniques randomize function names at runtime and can implement OTP hashing so no two sessions are ever the same. We propose a novel type of function naming at boot time and optionally after every execution. Using a UID for each function pointer prevents static attacks.
 
