@@ -89,7 +89,7 @@ The body type (defaults to Auto)
 
 The response type (defaults to Json)
 
-## Methods
+## Implementations
 
 ### `impl HttpRequestBuilder`
 
@@ -188,6 +188,32 @@ Performs the conversion.
 #### `fn into(self) -> U`
 
 Performs the conversion.
+
+### `impl<T> Pointable for T`
+
+#### `const ALIGN: usize`
+
+The alignment of pointer.
+
+#### `type Init = T`
+
+The type for initializers.
+
+#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+
+Initializes a with the given initializer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.init)
+
+#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+
+Dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref)
+
+#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+
+Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref_mut)
+
+#### `unsafe fn drop(ptr: usize)`
+
+Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.drop)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

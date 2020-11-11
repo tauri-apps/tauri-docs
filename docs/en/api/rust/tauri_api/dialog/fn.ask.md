@@ -6,4 +6,4 @@ title: "fn.ask"
 
     pub fn ask(message: impl AsRef<str>, title: impl AsRef<str>) -> DialogSelection
 
-Displays a dialog with a message and an optional title with a "yes" and a "no" button.
+Displays a dialog with a message and an optional title with a "yes" and a "no" button

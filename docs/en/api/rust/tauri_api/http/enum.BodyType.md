@@ -4,8 +4,7 @@ title: "enum.BodyType"
 
 # Enum [tauri_api](/docs/api/rust/tauri_api/../index.html)::​[http](/docs/api/rust/tauri_api/index.html)::​[BodyType](/docs/api/rust/tauri_api/)
 
-    #[repr(u16)]
-    pub enum BodyType {
+    #[repr(u16)]pub enum BodyType {
         Form,
         File,
         Auto,
@@ -45,7 +44,7 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 ### `impl Debug for BodyType`
 
-#### `fn fmt(&self, f: &mut Formatter) -> Result`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
@@ -53,13 +52,13 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.114/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.117/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for BodyType`
 
 #### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.114/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.117/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -93,7 +92,7 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> DeserializeOwned for T where T: Deserialize<'de>,`
+### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 
@@ -106,6 +105,32 @@ Performs the conversion.
 #### `fn into(self) -> U`
 
 Performs the conversion.
+
+### `impl<T> Pointable for T`
+
+#### `const ALIGN: usize`
+
+The alignment of pointer.
+
+#### `type Init = T`
+
+The type for initializers.
+
+#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+
+Initializes a with the given initializer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.init)
+
+#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+
+Dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref)
+
+#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+
+Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref_mut)
+
+#### `unsafe fn drop(ptr: usize)`
+
+Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.drop)
 
 ### `impl<T> ToOwned for T where T: Clone,`
 

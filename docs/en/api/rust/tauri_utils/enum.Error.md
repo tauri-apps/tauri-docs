@@ -50,29 +50,17 @@ Get child process error
 
 ### `impl Debug for Error`
 
-#### `fn fmt(&self, f: &mut Formatter) -> Result`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl Display for Error`
 
-#### `fn fmt(&self, __formatter: &mut Formatter) -> Result`
+#### `fn fmt(&self, __formatter: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
 ### `impl Error for Error`
-
-#### `fn description(&self) -> &str`1.0.0
-
-This method is soft-deprecated. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
-
-#### `fn cause(&self) -> Option<&dyn Error>`1.0.0
-
-Deprecated since 1.33.0:
-
-replaced by Error::source, which can support downcasting
-
-The lower-level cause of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)
 
 #### `fn source(&self) -> Option<&(dyn Error + 'static)>`1.30.0
 
@@ -83,6 +71,20 @@ The lower-level source of this error, if any. [Read more](https://doc.rust-lang.
 🔬 This is a nightly-only experimental API. (`backtrace`)
 
 Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
+
+#### `fn description(&self) -> &str`1.0.0
+
+👎 Deprecated since 1.42.0:
+
+use the Display impl or to_string()
+
+`if let Err(e) = "xc".parse::<u32>() { // Print`e`itself, no need for description(). eprintln!("Error: {}", e); }` [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
+
+#### `fn cause(&self) -> Option<&dyn Error>`1.0.0
+
+👎 Deprecated since 1.33.0:
+
+replaced by Error::source, which can support downcasting
 
 ## Auto Trait Implementations
 
@@ -127,6 +129,32 @@ Performs the conversion.
 #### `fn into(self) -> U`
 
 Performs the conversion.
+
+### `impl<T> Pointable for T`
+
+#### `const ALIGN: usize`
+
+The alignment of pointer.
+
+#### `type Init = T`
+
+The type for initializers.
+
+#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+
+Initializes a with the given initializer. [Read more](/docs/api/rust/tauri_utils/about:blank#tymethod.init)
+
+#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+
+Dereferences the given pointer. [Read more](/docs/api/rust/tauri_utils/about:blank#tymethod.deref)
+
+#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+
+Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri_utils/about:blank#tymethod.deref_mut)
+
+#### `unsafe fn drop(ptr: usize)`
+
+Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri_utils/about:blank#tymethod.drop)
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 

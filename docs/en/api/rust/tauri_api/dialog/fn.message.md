@@ -6,4 +6,4 @@ title: "fn.message"
 
     pub fn message(message: impl AsRef<str>, title: impl AsRef<str>)
 
-Displays a message dialog.
+Displays a message dialog

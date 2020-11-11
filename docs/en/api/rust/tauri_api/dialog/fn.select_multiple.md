@@ -9,4 +9,4 @@ title: "fn.select_multiple"
         default_path: Option<impl AsRef<Path>>
     ) -> Result<Response>
 
-Open mulitple select file dialog
+Open multiple select file dialog

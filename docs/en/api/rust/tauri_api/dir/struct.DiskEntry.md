@@ -32,7 +32,7 @@ The children of this entry if it's a directory.
 
 ### `impl Debug for DiskEntry`
 
-#### `fn fmt(&self, f: &mut Formatter) -> Result`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
@@ -40,7 +40,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.114/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.117/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -85,6 +85,32 @@ Performs the conversion.
 #### `fn into(self) -> U`
 
 Performs the conversion.
+
+### `impl<T> Pointable for T`
+
+#### `const ALIGN: usize`
+
+The alignment of pointer.
+
+#### `type Init = T`
+
+The type for initializers.
+
+#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+
+Initializes a with the given initializer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.init)
+
+#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+
+Dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref)
+
+#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+
+Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.deref_mut)
+
+#### `unsafe fn drop(ptr: usize)`
+
+Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri_api/about:blank#tymethod.drop)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

@@ -5,7 +5,7 @@ title: "fn.call"
 # Function [tauri](/docs/api/rust/tauri/index.html)::​[call](/docs/api/rust/tauri/)
 
     pub fn call(
-        webview: &mut Webview, 
+        webview: &mut Webview<'_>, 
         command: String, 
         args: Vec<String>, 
         callback: String, 
