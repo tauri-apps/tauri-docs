@@ -77,7 +77,7 @@ The process of releasing our source-code artifacts is highly automated, yet mand
 
 ### Resilient PR and Approval Processes
 
-Our WG-TECH reviews code changes, tags PRs with scope and make ssure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on master, which:
+Our WG-TECH reviews code changes, tags PRs with scope and make sure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on master, which:
 
 - validates core
 - runs smoke tests
@@ -86,7 +86,8 @@ Our WG-TECH reviews code changes, tags PRs with scope and make ssure that everyt
 - creates artifacts
 - publishes checksums to IOTA
 - creates a draft release
-  Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
+
+Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
 
 ## Future Work
 
