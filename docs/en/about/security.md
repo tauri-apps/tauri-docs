@@ -87,7 +87,7 @@ Our WG-TECH reviews code changes, tags PRs with scope and make sure that everyth
 - publishes checksums to IOTA
 - creates a draft release
 
-  Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
+Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
 
 ## Future Work
 
