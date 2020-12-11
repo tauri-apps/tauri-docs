@@ -5,7 +5,7 @@ title: "fn.execute_promise"
 # Function [tauri](/docs/api/rust/tauri/index.html)::​[execute_promise](/docs/api/rust/tauri/)
 
     pub fn execute_promise<R: Serialize, F: FnOnce() -> Result<R> + Send + 'static>(
-        webview: &mut Webview, 
+        webview: &mut Webview<'_>, 
         task: F, 
         success_callback: String, 
         error_callback: String

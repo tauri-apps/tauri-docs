@@ -7,13 +7,13 @@ title: "trait.Plugin"
     pub trait Plugin {
         fn init_script(&self) -> Option<String> { ... }
 
-        fn created(&self, webview: &mut Webview) { ... }
+        fn created(&self, webview: &mut Webview<'_>) { ... }
 
-        fn ready(&self, webview: &mut Webview) { ... }
+        fn ready(&self, webview: &mut Webview<'_>) { ... }
 
         fn extend_api(
             &self, 
-            webview: &mut Webview, 
+            webview: &mut Webview<'_>, 
             payload: &str
         ) -> Result<bool, String> { ... }
     }
@@ -26,15 +26,15 @@ The plugin interface.
 
 The JS script to evaluate on init.
 
-### `fn created(&self, webview: &mut Webview)`
+### `fn created(&self, webview: &mut Webview<'_>)`
 
 Callback invoked when the webview is created.
 
-### `fn ready(&self, webview: &mut Webview)`
+### `fn ready(&self, webview: &mut Webview<'_>)`
 
 Callback invoked when the webview is ready.
 
-### `fn extend_api( &self, webview: &mut Webview, payload: &str ) -> Result<bool, String>`
+### `fn extend_api( &self, webview: &mut Webview<'_>, payload: &str ) -> Result<bool, String>`
 
 Add invoke_handler API extension commands.
 
