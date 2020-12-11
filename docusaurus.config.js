@@ -7,7 +7,6 @@ const language = process.env.LANGUAGE || 'en'
 
 const t = require(`./translations/${language}.json`)
 
-
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 
 const siteConfig = {
@@ -25,7 +24,7 @@ const siteConfig = {
     language,
     t,
     colorMode: {
-      defaultMode: 'dark'
+      defaultMode: 'dark',
     },
     announcementBar: {
       id: 'testapp',
@@ -161,7 +160,8 @@ const siteConfig = {
       {
         docs: {
           path: './docs/' + language,
-          sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: require.resolve('./sidebars'),
+          // sidebarPath: require.resolve('./sidebars.json'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },
         theme: {
@@ -178,6 +178,32 @@ const siteConfig = {
       },
     ],
     path.resolve('./plugins/external-assets'),
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        id: 'typedoc-interactor',
+        // docsRoot: 'docs',
+        inputFiles: ['../tauri/cli/tauri.js/api-src'],
+        tsconfig: '../tauri/cli/tauri.js/api-src/tsconfig.json',
+        // TypeDoc options (see typedoc --help)
+        out: 'en/api/js',
+        // readme: '../../packages/interactor/API.md',
+        ignoreCompilerErrors: true,
+        target: 'esnext',
+        mode: 'file',
+        sidebar: {
+          sidebarFile: './typedoc-sidebar.js',
+          fullNames: false,
+          readmeLabel: false,
+          globalsLabel: 'Globals',
+        },
+        readme: 'none',
+        includeDeclarations: true,
+        excludeExternals: true,
+        ignoreCompilerErrors: true,
+        allReflectionsHaveOwnDocument: true,
+      },
+    ],
   ],
 }
 
