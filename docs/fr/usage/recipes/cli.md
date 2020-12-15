@@ -1,29 +1,29 @@
 ---
-title: Make your own CLI
+title: Créez votre propre CLI
 ---
 
 import Alert from '@theme/Alert'
 
-Tauri enables your app to have a CLI through <a href="https://github.com/clap-rs/clap" target="_blank">clap</a>, a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
+Tauri permet à votre application d'avoir un CLI via <a href="https://github.com/clap-rs/clap" target="_blank">clap</a>, un analyseur robuste d'arguments en ligne de commande. Avec une définition CLI simple dans votre fichier `tauri.conf.json`, vous pouvez définir votre interface et lire les arguments qui correspondent en JavaScript et/ou en Rust.
 
-## Base Configuration
+## Configuration de base
 
-Under `tauri.conf.json`, you have the following structure to configure the interface:
+Dans le fichier `tauri.conf.json` figure la structure permettant de configurer l'interface :
 
 ```js title=src-tauri/tauri.conf.json
 {
   "tauri": {
     "cli": {
-      "description": "", // command description that's shown on help
-      "longDescription": "", // command long description that's shown on help
-      "beforeHelp": "", // content to show before the help text
-      "afterHelp": "", // content to show after the help text
-      "args": [], // list of arguments of the command, we'll explain it later
+      "description": "", // Description succinte de la commande affichée par l'aide
+      "longDescription": "", // Description longue de la commande affichée par l'aide
+      "beforeHelp": "", // Contenu à afficher avant le texte de l'aide
+      "afterHelp": "", // Contenu à afficher après le texte de l'aide
+      "args": [], // Liste des arguments de la commande, ceci sera expliqué plus tard
       "subcommands": {
         "subcommand-name": {
-          // configures a subcommand that is accessible
-          // with `$ ./app subcommand-name --arg1 --arg2 --etc`
-          // configuration as above, with "description", "args", etc.
+          // Configure une sous-commande accessible
+          // avec `$ ./app nom-sous-commande --arg1 --arg2 --etc`
+          // configuration comme ci-dessus, avec "description", "args", etc.
         }
       }
     }
@@ -32,16 +32,16 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 ```
 
 <Alert title="Note">
-  All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
+  Toutes les configurations JSON sont uniquement des échantillons, beaucoup de champs ont été omis dans un soucis de clarté.
 </Alert>
 
-## Adding Arguments
+## Ajout d'arguments
 
-The `args` array represents the list of arguments accepted by its command or subcommand. You can find more details about the way to configure them <a href="/docs/api/config#tauri">here</a>.
+Le tableau `args` représente la liste d'arguments acceptée par sa commande ou sa sous-commande. Vous pouvez trouver plus de détails sur la manière de les configurer <a href="/docs/api/config#tauri">ici</a>.
 
-### Positional Arguments
+### Arguments positionnels
 
-A positional argument is identified by its position in the list of arguments. With the following configuration:
+Un argument positionnel est identifié par ça position dans la liste d'arguments. Avec la configuration ci-dessous :
 
 ```json title=src-tauri/tauri.conf.json:tauri.cli
 {
@@ -58,11 +58,11 @@ A positional argument is identified by its position in the list of arguments. Wi
 }
 ```
 
-Users can run your app as `$ ./app tauri.txt dest.txt` and the arg matches map will define `source` as `"tauri.txt"` and `destination` as `"dest.txt"`.
+Les utilisateurs peuvent démarrer votre application avec `$ ./app tauri.txt dest.txt` et le mapping des arguments définira `source` en `"tauri.txt"` et `destination` en `"dest.txt"`.
 
-### Named Arguments
+### Arguments nommés
 
-A named argument is a (key, value) pair where the key identifies the value. With the following configuration:
+Un argument nommé est un couple (clé, valeur) ou la clé identifie la valeur. Avec la configuration ci-dessous :
 
 ```json title=src-tauri/tauri.conf.json:tauri.cli
 {
@@ -78,11 +78,11 @@ A named argument is a (key, value) pair where the key identifies the value. With
 }
 ```
 
-Users can run your app as `$ ./app --type foo bar`, `$ ./app -t foo -t bar` or `$ ./app --type=foo,bar` and the arg matches map will define `type` as `["foo", "bar"]`.
+Les utilisateurs peuvent démarrer votre application avec `$ ./app --type foo bar`, `$ ./app -t foo -t bar` ou `$ ./app --type=foo,bar` ainsi l'argument définira `type` en `["foo", "bar"]`.
 
-### Flag Arguments
+### Paramètre d'argument
 
-A flag argument is a standalone key whose presence or absence provides information to your application. With the following configuration:
+Un paramètre d'argument est une clé autonome qui par sa présence ou absence donne une information à votre application. Avec la configuration ci-dessous :
 
 ```js title=src-tauri/tauri.conf.json:tauri.cli
 {
@@ -94,11 +94,11 @@ A flag argument is a standalone key whose presence or absence provides informati
 }
 ```
 
-Users can run your app as `$ ./app -v -v -v`, `$ ./app --verbose --verbose --verbose` or `$ ./app -vvv` and the arg matches map will define `verbose` as `true`, with `occurrences = 3`.
+Les utilisateurs peuvent démarre votre application avec `$ ./app -v -v -v`, `$ ./app --verbose --verbose --verbose` ou `$ ./app -vvv` et le mapping de l'argument va définir `verbose` comme `true`, avec `occurrences = 3`.
 
-## Subcommands
+## Sous-commandes
 
-Some CLI applications has additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
+Certaines applications CLI ont des interfaces supplémentaires via des sous-commandes. Par exemple, le CLI `git` possède `git branch`, `git commit` et `git push`. Vous pouvez définir des interfaces imbriquées additionnelles avec le tableau `subcommands` :
 
 ```js title=src-tauri/tauri.conf.json:tauri
 {
@@ -116,9 +116,9 @@ Some CLI applications has additional interfaces as subcommands. For instance, th
 }
 ```
 
-Its configuration is the same as the root application configuration, with the `description`, `longDescription`, `args`, etc.
+Sa configuration est la même que celle de la configuration de l'application root, avec `description`, `longDescription`, `args`, etc.
 
-## Reading the matches
+## Lecture des correspondances
 
 ### Rust
 
@@ -128,9 +128,9 @@ use tauri::cli::get_matches;
 fn main() {
   match get_matches() {
     Some(matches) => {
-      // `matches` here is a Struct with { args, subcommand }
-      // where args is the HashMap mapping each arg's name to it's { value, occurrences }
-      // and subcommand is an Option of { name, matches }
+      // `matches` est ici une structure avec { args, subcommand }
+      // ou args est une HashMap attribuant chaque arguments au couple { value, occurrences }
+      // et subcommand est une Option de { name, matches }
     }
   }
 }
@@ -142,10 +142,10 @@ fn main() {
 import { getMatches } from 'tauri/api/cli'
 
 getMatches().then((matches) => {
-  // do something with the { args, subcommand } matches
+  // faire quelque chose avec les `matches` { args, subcommand }
 })
 ```
 
-## Complete documentation
+## Documentation complète
 
-You can find more about the CLI configuration <a href="/docs/api/config#tauri">here</a>.
+Vous pouvez en savoir plus sur la configuration du CLI <a href="/docs/api/config#tauri">ici</a>.

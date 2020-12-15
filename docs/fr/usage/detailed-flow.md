@@ -1,15 +1,15 @@
 ---
 id: detailed-flow
-title: Detailed Flow
+title: Flux détaillé
 ---
 
-NOTE: This document requires revision.
+REMARQUE : Ce document nécessite une révision.
 
 ## Introduction
 
-This document serves to map the interconnectedness of the maze of modules that are involved in the process of creating, developing and building a Tauri app. Note, this is a living document. The current status is reflected below.
+Ce document sert à cartographier l'interconnexion du labyrinthe de modules qui sont impliqués dans le processus de création, de développement et de compilation d'une application Tauri. Notez qu'il s'agit d'un document évolutif. La situation actuelle est présentée ci-dessous.
 
-### Initialization (JS ONLY)
+### Initialisation (SEULEMENT JS)
 
 ```
 $ tauri init
@@ -32,11 +32,11 @@ $ tauri init
 process.exit()
 ```
 
-## Using Rust
+## Utiliser Rust
 
-One thing to recognise is that we don't use command line flags for `tauri dev` or `tauri build`. This is because we are using the `tauri.conf.js` file to manage all settings.
+Il faut savoir que nous n'utilisons pas de paramètres en ligne de commande pour `tauri dev` ou `tauri build`. C'est parce que nous utilisons le fichier `tauri.conf.js` pour gérer tous les paramètres.
 
-### Development (JS + RUST)
+### Développement (JS + RUST)
 
 ```
 $ tauri dev
@@ -47,7 +47,7 @@ $ tauri dev
  handoff to /cli/tauri.js/bin/tauri-dev.js
  handoff to /cli/tauri.js/api/dev.js
     ? /cli/tauri.js/helpers/tauri-config merges tauri.conf.js
-      * This is where the following ENV values are being set.
+      * C'est là que les valeurs ENV suivantes sont fixées.
         TAURI_DIST_DIR
         TAURI_DIR
     ! merges config with `ctx`
@@ -70,7 +70,7 @@ $ tauri dev
    init tauri
 ```
 
-### Build (JS + RUST + BASH)
+### Compilation (JS + RUST + BASH)
 
 ```
 $ tauri build
@@ -79,16 +79,16 @@ $ tauri build
 
 => runs /cli/tauri.js/bin/tauri.js
  handoff to /helpers/tauri-configbin/tauri-dev.js
-    // notably, the only difference between dev and build up to this point
-    // is that the build command is passed a ctx.debug = argv.debug
+    // notamment, la seule différence entre dev et build jusqu'à présent
+    // est que la commande de compilation est passée avec ctx.debug = argv.debug
  handoff to /cli/tauri.js/api/dev.js
     ? /cli/tauri.js/helpers/tauri-config merges tauri.conf.js
-      * This is where the following ENV values are being set.
+      * C'est là que les valeurs ENV suivantes sont fixées.
         TAURI_DIST_DIR
         TAURI_DIR
     ! merges config with `ctx`
-      // notably, the only difference between dev and build up to this point
-      // is that build modifies the `ctx` of the config to prod:true
+      // notamment, la seule différence entre dev et build jusqu'à présent
+      // est que la compilation modifie le `ctx` de la config pour prod:true
     => runs generator at /cli/tauri.js/generator.js
     => runs entry at /cli/tauri.js/entry.js
     => returns tauri Runner from /cli/tauri.js/runner.js
@@ -102,8 +102,8 @@ $ tauri build
       - feature 'embedded-server' : 'no-server'
       - --release (or debug)
       - --target
-        // The target is currently implicit based upon the OS
-        // We need to add configurations for e.g. .app / .dmg on macOS
+        // La cible est actuellement implicite sur la base du système d'exploitation
+        // Nous devons ajouter des configurations pour par exemple .app / .dmg sur macOS
  cargo tauri-cli
    [WIP]
    -> detect the OS
@@ -113,38 +113,36 @@ $ tauri build
    -> package assets
 ```
 
-## module reference
+## réféfence des modules
 
-| ‡   | TITLE            | SCOPE                             | LANG/ENV                   | STATUS   | CODEOWNERS                    |
-| --- | ---------------- | --------------------------------- | -------------------------- | -------- | ----------------------------- |
-| C   | cli/tauri.js     | bootstrapping, template rendering | TS, ES5 / NODE, DENO(SOON) | active   | Lucas, Daniel, Noah           |
-| C   | tauri            | lib / api                         | rust                       | active   | Lucas, Tensor, Khionu, Daniel |
-| C   | tauri-build      | bindings                          | rust                       | active   | Lucas, Tensor, Khionu, Daniel |
-| C   | tauri-update     | update, optional                  | rust                       | active   | Lucas, Tensor, Khionu, Daniel |
-| C   | cli/tauri-cli    | asset bundler                     | rust, bash                 | active   | Tensor, Daniel                |
-| O   | tauri-webpack    | devland-dep, webpack, no-server   | ES6                        | active   | Lucas, Benoit                 |
-| O   | tauri-inliner    | cli-dep                           | ES5                        | fork     | Lucas, Daniel                 |
-| O   | tauri-includedir | tauri-dep                         | rust                       | fork     | Lucas, Tensor                 |
-| O   | tauri-toml       | cli-dep                           | ES5                        | fork     | Lucas, Daniel, Noah           |
-| S   | smoke-tests      | testing                           | html/js/css/rust           | in use   | respective authors            |
-| O   | tauri.studio     | docs                              | quasar                     | in dev   | Daniel                        |
-| U   | boscop/web-view  | upstream                          | rust                       | active   | boscop/xsey                   |
-| U   | zserge/webview   | upstream @boscop                  | c,cpp,objc                 | molasses | zserge                        |
-| S   | gh-actions       | all                               | yaml / bash-like           | active   | Jacob, Daniel, Rajiv          |
-| O   | vue-cli-plugin   | vue                               | ES6                        | active   | Noah                          |
+| ‡ | TITRE            | PÉRIMÈTRE                       | LANG/ENV                      | STATUT                 | RESPONSABLES                  |
+| - | ---------------- | ------------------------------- | ----------------------------- | ---------------------- | ----------------------------- |
+| C | cli/tauri.js     | bootstrapping, rendu du modèle  | TS, ES5 / NODE, DENO(BIENTÔT) | actif                  | Lucas, Daniel, Noah           |
+| C | tauri            | lib / api                       | rust                          | actif                  | Lucas, Tensor, Khionu, Daniel |
+| C | tauri-build      | interfaces                      | rust                          | actif                  | Lucas, Tensor, Khionu, Daniel |
+| C | tauri-update     | mise à jour, optionnelle        | rust                          | actif                  | Lucas, Tensor, Khionu, Daniel |
+| C | cli/tauri-cli    | asset bundler                   | rust, bash                    | actif                  | Tensor, Daniel                |
+| O | tauri-webpack    | devland-dep, webpack, no-server | ES6                           | actif                  | Lucas, Benoit                 |
+| O | tauri-inliner    | cli-dep                         | ES5                           | fork                   | Lucas, Daniel                 |
+| O | tauri-includedir | tauri-dep                       | rust                          | fork                   | Lucas, Tensor                 |
+| O | tauri-toml       | cli-dep                         | ES5                           | fork                   | Lucas, Daniel, Noah           |
+| S | smoke-tests      | tests                           | html/js/css/rust              | en cours d'utilisation | auteurs respectifs            |
+| O | tauri.studio     | docs                            | quasar                        | en développement       | Daniel                        |
+| U | boscop/web-view  | upstream                        | rust                          | actif                  | boscop/xsey                   |
+| U | zserge/webview   | upstream @boscop                | c,cpp,objc                    | mélange                | zserge                        |
+| S | gh-actions       | tout                            | yaml / bash-like              | actif                  | Jacob, Daniel, Rajiv          |
+| O | vue-cli-plugin   | vue                             | ES6                           | actif                  | Noah                          |
 
-##### `‡` Legend
+##### `‡` Légende
 
-- C -> map to core repo https://github.com/tauri-apps/tauri/$TITLE
-- O -> map to own repo https://github.com/tauri-apps/$TITLE
-- U -> map to another repo: https://github.com/$TITLE
-- S -> special
+- C -> correspond au dépôt du noyau https://github.com/tauri-apps/tauri/$TITLE
+- O -> correspond à nos dépôts https://github.com/tauri-apps/$TITLE
+- U -> correspond aux autres dépôts : https://github.com/$TITLE
+- S -> spécial
 
-## entry points
+## points d'entrée
 
-rust
-js/ts/deno
-tauri init (consumer)
+rust js/ts/deno tauri init (consumer)
 
 ## modes
 
@@ -153,4 +151,4 @@ tauri init (consumer)
   - no-server
 - dev
   - their devserver
-  - our devserver (future possibility, after alpha)
+  - our devserver (possibilité future, après l'alpha)

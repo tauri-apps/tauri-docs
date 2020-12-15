@@ -6,63 +6,63 @@ title: "trait.SystemExt"
 
     pub trait SystemExt {
         fn new_with_specifics(refreshes: RefreshKind) -> Self;
-
+    
         fn refresh_memory(&mut self);
-
+    
         fn refresh_cpu(&mut self);
-
+    
         fn refresh_temperatures(&mut self);
-
+    
         fn refresh_processes(&mut self);
-
+    
         fn refresh_process(&mut self, pid: i32) -> bool;
-
+    
         fn refresh_disks(&mut self);
-
+    
         fn refresh_disk_list(&mut self);
-
+    
         fn refresh_network(&mut self);
-
+    
         fn get_process_list(&self) -> &HashMap<i32, Process, RandomState>;
-
+    
         fn get_process(&self, pid: i32) -> Option<&Process>;
-
+    
         fn get_processor_list(&self) -> &[Processor];
-
+    
         fn get_total_memory(&self) -> u64;
-
+    
         fn get_free_memory(&self) -> u64;
-
+    
         fn get_used_memory(&self) -> u64;
-
+    
         fn get_total_swap(&self) -> u64;
-
+    
         fn get_free_swap(&self) -> u64;
-
+    
         fn get_used_swap(&self) -> u64;
-
+    
         fn get_components_list(&self) -> &[Component];
-
+    
         fn get_disks(&self) -> &[Disk];
-
+    
         fn get_network(&self) -> &NetworkData;
-
+    
         fn get_uptime(&self) -> u64;
-
+    
         fn new() -> Self { ... }
-
+    
         fn refresh_specifics(&mut self, refreshes: RefreshKind) { ... }
-
+    
         fn refresh_system(&mut self) { ... }
-
+    
         fn refresh_all(&mut self) { ... }
-
+    
         fn get_process_by_name(&self, name: &str) -> Vec<&Process> { ... }
     }
 
 Contains all the methods of the \[`System`] type.
 
-## Required methods
+## Méthodes requises
 
 ### `fn new_with_specifics(refreshes: RefreshKind) -> Self`
 
@@ -71,13 +71,13 @@ Creates a new \[`System`] instance and refresh the data corresponding to the giv
 # [Example](/docs/api/rust/tauri_api/about:blank#example)
 
     use sysinfo::{RefreshKind, System, SystemExt};
-
+    
     // We want everything except disks.
     let mut system = System::new_with_specifics(RefreshKind::everything().without_disk_list());
-
+    
     assert_eq!(system.get_disks().len(), 0);
     assert!(system.get_process_list().len() > 0);
-
+    
     // If you want the disks list afterwards, just call the corresponding
     // "refresh_disk_list":
     system.refresh_disk_list();
@@ -167,9 +167,9 @@ Returns network data.
 
 Returns system uptime.
 
-Loading content...
+Chargement du contenu...
 
-## Provided methods
+## Méthodes fournies
 
 ### `fn new() -> Self`
 
@@ -179,12 +179,12 @@ Creates a new \[`System`] instance. It only contains the disks' list and the pro
 
 Refreshes according to the given \[`RefreshKind`]. It calls the corresponding "refresh\_" methods.
 
-# [Examples](/docs/api/rust/tauri_api/about:blank#examples)
+# [Exemples](/docs/api/rust/tauri_api/about:blank#examples)
 
     use sysinfo::{RefreshKind, System, SystemExt};
-
+    
     let mut s = System::new();
-
+    
     // Let's just update network data and processes:
     s.refresh_specifics(RefreshKind::new().with_network().with_processes());
 
@@ -202,9 +202,9 @@ Refreshes all system, processes and disks information.
 
 Returns a list of process containing the given `name`.
 
-Loading content...
+Chargement du contenu...
 
-## Implementors
+## Mise en œuvre
 
 ### `impl SystemExt for System`
 
@@ -252,4 +252,4 @@ Loading content...
 
 #### `fn get_uptime(&self) -> u64`
 
-Loading content...
+Chargement du contenu...

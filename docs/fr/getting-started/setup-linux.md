@@ -1,14 +1,12 @@
 ---
-title: Setup for Linux
+title: Configuration pour Linux
 ---
 
-import Alert from '@theme/Alert'
-import Icon from '@theme/Icon'
-import { Intro } from '@theme/SetupDocs'
+import Alert from '@theme/Alert' import Icon from '@theme/Icon' import { Intro } from '@theme/SetupDocs'
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. Dépendances du système&nbsp;<Icon title="alert" color="danger"/>
 
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
@@ -19,95 +17,94 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     libgtk-3-dev
 ```
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Exécution de Node.js et le gestionnaire de paquets&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-### Node.js (npm included)
+### Node.js (npm inclus)
 
-We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
+Nous vous recommandons d'utiliser nvm pour gérer l'exécution de votre Node.js. Il vous permet de changer facilement de version et de mettre à jour Node.js.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
 <Alert title="Note">
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
+Nous avons audité ce script bash, et il fait ce qu'il dit qu'il est censé faire. Néanmoins, avant d'utiliser curl aveuglément pour récupérer un script, il est toujours sage de regarder son contenu d'abord. Voici le fichier en tant que simple <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">lien de téléchargement</a>.
 </Alert>
 
-Once nvm is installed, close and reopen your terminal, then install the lastest version of Node.js and npm:
+Une fois que nvm est installé, fermez et rouvrez votre terminal, puis installez la dernière version de Node.js et npm :
 
 ```sh
 $ nvm install node --latest-npm
 $ nvm use node
 ```
 
-If you have any problems with nvm, please consult their <a href="https://github.com/nvm-sh/nvm">project readme</a>.
+Si vous avez le moindre problème avec nvm, veuillez consulter leur <a href="https://github.com/nvm-sh/nvm">readme</a>.
 
-### Optional Node.js Package Manager
+### Gestionnaire optionnel de paquets Node.js
 
-You may want to use an alternative to npm:
+Vous pouvez utiliser une alternative à npm :
 
-- <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
+- <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, est privilégié par l'équipe Tauri
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc et le gestionnaire de parquets Cargo&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
+La commande suivante va installer <a href="https://rustup.rs/" target="_blank">rustup</a>, l'installateur officiel de <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
 ```
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 <Alert title="Note">
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://sh.rustup.rs" target="_blank">download link</a>.
+Nous avons audité ce script bash, et il fait ce qu'il dit qu'il est censé faire. Néanmoins, avant d'utiliser curl aveuglément pour récupérer un script, il est toujours sage de regarder son contenu d'abord. Voici le fichier en tant que simple <a href="https://sh.rustup.rs" target="_blank">lien de téléchargement</a>.
 </Alert>
 
-To make sure that Rust has been installed successfully, run the following command:
+Pour vous assurer que Rust a été installé avec succès, exécutez la commande suivante :
 
 ```sh
 $ rustc --version
 latest update on 2019-12-19, rust version 1.40.0
 ```
 
-You may need to restart your terminal if the command does not work.
+Vous devrez éventuellement redémarrer votre terminal si la commande ne fonctionne pas.
 
 ## 4. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
 
-If you already had rustup installed before following this guide, make sure that you update Rust:
+Si vous aviez déjà installé rustup avant de suivre ce guide, assurez-vous de mettre à jour Rust :
 
 ```sh
 $ rustup update stable
 ```
 
-After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
+Après avoir installé Rust et les autres dépendances nécessaires, il est conseillé de redémarrer votre terminal avant de continuer.
 
-Install Tauri bundler through Cargo:
+Installez Tauri bundler via Cargo :
 
 ```sh
 $ cargo install tauri-bundler --force
 ```
 
-## 5. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
+## 5. Pour les utilisateurs du sous-système Windows pour Linux (WSL)&nbsp;<Icon title="info-alt" color="info"/>
 
-In order to run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
-Since vcXsrv has been used internally, it's the one we recommend to install.
+Pour faire fonctionner une application graphique avec WSL, vous devez télécharger **un** de ces serveurs X : Xming, Cygwin X, et vcXsrv. Comme vcXsrv a été utilisé en interne, c'est celui que nous recommandons d'installer.
 
 ### WSL Version 1
 
-Open the X server and then run `export DISPLAY=:0` in the terminal. You should now be able to run any graphical application via the terminal.
+Ouvrez le serveur X et exécutez ensuite `export DISPLAY=:0` dans le terminal. Vous devriez maintenant pouvoir exécuter n'importe quelle application graphique via le terminal.
 
 ### WSL Version 2
 
-You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(/etc/resolv.conf < awk '/nameserver/ {print $2}'):0` and you need to add `-ac` to the X server as an argument.
+Vous devrez exécuter une commande légèrement plus complexe que le WSL 1 :`export DISPLAY=$(/etc/resolv.conf < awk '/nameserver/ {print $2}'):0` et vous devez ajouter l'argument `-ac` au serveur X.
 
 <Alert type="info" title="Note">
 
-Don't forget that you'll have to use the "export" command anytime you want to use a graphical application, for each newly opened terminal.
+N'oubliez pas que vous devrez utiliser la commande "export" à chaque fois que vous voudrez utiliser une application graphique, pour chaque terminal nouvellement ouvert.
 
-You can download some examples to try with `sudo apt-get install x11-apps`. xeyes is always a good one. It can be handy when troubleshooting WSL issues.
+Vous pouvez télécharger quelques exemples à essayer avec `sudo apt-get install x11-apps`. xeyes est toujours un bon exemple. Il peut être utile pour résoudre les problèmes liés au WSL.
 
-There are some known issues on WSL 2 regarding loopback; that is running a localhost server from the terminal. If you are on WSL 2, be wary of this. You can find information regarding that [here](https://github.com/microsoft/WSL/issues/4636).
+Il y a quelques problèmes connus sur WSL 2 concernant loopback, c'est-à-dire l'utilisation d'un serveur local à partir du terminal. Si vous êtes sur WSL 2, faites attention à cela. Vous pouvez trouver des informations à ce sujet [ici](https://github.com/microsoft/WSL/issues/4636).
 </Alert>
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).
+Maintenant que vous avez mis en place les dépendances spécifiques à Linux pour Tauri, découvrez comment [ajouter Tauri à votre projet](/docs/usage/development/integration).

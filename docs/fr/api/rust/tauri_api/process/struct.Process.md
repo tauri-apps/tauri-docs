@@ -33,19 +33,19 @@ Tasks run by this process.
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl Drop for Process`
 
 #### `fn drop(&mut self)`
 
-Executes the destructor for this type. [Read more](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)
+Executes the destructor for this type. [En savoir plus](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)
 
 ### `impl ProcessExt for Process`
 
 #### `fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Process`
 
-Create a new process only containing the given information. [Read more](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.new)
+Create a new process only containing the given information. [En savoir plus](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.new)
 
 #### `fn kill(&self, signal: Signal) -> bool`
 
@@ -69,15 +69,15 @@ Returns the pid of the process.
 
 #### `fn environ(&self) -> &[String]`
 
-Returns the environment of the process. [Read more](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.environ)
+Returns the environment of the process. [En savoir plus](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.environ)
 
 #### `fn cwd(&self) -> &Path`
 
-Returns the current working directory. [Read more](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.cwd)
+Returns the current working directory. [En savoir plus](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.cwd)
 
 #### `fn root(&self) -> &Path`
 
-Returns the path of the root directory. [Read more](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.root)
+Returns the path of the root directory. [En savoir plus](/docs/api/rust/tauri_api/../../tauri_api/process/trait.ProcessExt.html#tymethod.root)
 
 #### `fn memory(&self) -> u64`
 
@@ -121,19 +121,19 @@ Returns the total CPU usage.
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 

@@ -2,11 +2,10 @@
 title: GLUI
 ---
 
-import Alert from '@theme/Alert'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import Alert from '@theme/Alert' import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
-This pattern is not available for now.
+<Alert type="warning" icon="info-alt" title="Veuillez noter">
+Ce modèle n'est pas disponible pour le moment.
 </Alert>
 
 import Rater from '@theme/Rater'
@@ -15,78 +14,62 @@ import Rater from '@theme/Rater'
   <div className="col col--4">
     <table>
       <tr>
-        <td>Ease of Use</td>
+        <td>Facile d'utilisation</td>
         <td><Rater value="0"/></td>
       </tr>
       <tr>
-        <td>Extensibility</td>
+        <td>Extensible</td>
         <td><Rater value="0"/></td>
       </tr>
       <tr>
-        <td>Performance</td>
+        <td>Performant</td>
         <td><Rater value="5"/></td>
       </tr>
       <tr>
-        <td>Security</td>
+        <td>Sécurité</td>
         <td><Rater value="0"/></td>
       </tr>
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/GLUI.png')} alt="GLUI" />
+    <img src="{useBaseUrl('img/patterns/GLUI.png')}" alt="GLUI" />
   </div>
   <div className="col col--4">
-    Pros:
+    Les plus :
     <ul>
-      <li>Framebuffer FTW</li>
-      <li>Window events rigged</li>
+      <li>Framebuffer pour la Win !</li>
+      <li>Manipulation des événements de fenêtre</li>
     </ul>
-    Cons:
+    Les moins :
     <ul>
-      <li>Broken on your machine</li>
+      <li>Ne marche pas sur votre machine</li>
     </ul>
   </div>
 </div>
 
 ## Description
 
-The GLUI is a research pattern that we will use internally to test approaches using a GLUTIN window. We’re not sure yet if it will make the final cut as a bona fide alternative to Webview, although early tests with transparent and multiwindow are exciting.
+Le GLUI est un modèle de recherche que nous utiliserons en interne pour tester des approches utilisant une fenêtre GLUTIN. Nous ne sommes pas encore certains qu'il constituera une véritable alternative à Webview, même si les premiers tests avec les fenêtres transparentes et multiples sont prometteurs.
 
-## Diagram
+## Schéma
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph TD
-      A==>H
-      H==>G
-      A-->D
-      D-->G
-      subgraph GLUTIN
-      G
-      end
-      subgraph RUST
-      A
-      end
-      A[Binary]
-      D(Framebuffer)
-      G[GL Window]
-      H{Bootstrap}
-      style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
+<Mermaid chart={`graph TD A==>H H==>G A-->D D-->G subgraph GLUTIN G end subgraph RUST A end A[Binary] D(Framebuffer) G[GL Window] H{Bootstrap} style GLUTIN stroke:${colors.blue.dark},stroke-width:4px style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
 
 
 ## Configuration
 
-Here's what you need to add to your tauri.conf.json file:
+Voici ce que vous devez ajouter à votre fichier tauri.conf.json :
 ```json
 "tauri": {
   "embeddedServer": {
-    "active": false               // do not use a localhost server
+    "active": false               // n'utilise pas de serveur localhost
   },
-  "allowlist": {                  // all API endpoints are default false
-    "all": false,                 // disable the api
+  "permlist": {                  // toutes les API sont désactivées par défaut
+    "all": false,                 // désactive les API
   },
-  "window": {                     // not yet normative
+  "window": {                     // pas encore normalisé
     "glutin": true,
     "webview": false
   }

@@ -1,44 +1,44 @@
 ---
 id: intro
-title: What is Tauri?
+title: Qu'est-ce que Tauri ?
 ---
 
-Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
+Tauri est une boîte à outils permettant aux développeurs de créer des applications pour les principales plateformes de bureau - en utilisant n'importe quel framework frontend existant. Le noyau est conçu avec Rust et le CLI exploite Node.js, faisant de Tauri une approche polyglotte pour créer et maintenir de superbes applications.
 
-If you want to know more about the technical details, then please visit the [Introduction](/docs/getting-started/intro). If you want to know more about this project's philosophy - then keep reading.
+Si vous souhaitez en savoir plus sur les détails techniques, veuillez consulter [Pour commencer](/docs/getting-started/intro). Si vous voulez en savoir plus sur la philosophie de ce projet - alors poursuivez votre lecture.
 
 <div className="videowrapper">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UxTJeEbZX-0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-## Security First
+## La sécurité avant tout
 
-In today's world, every honest threat model assumes that the user's device has already been compromised. This puts app developers in a complicated situation, because if the device is already at risk, how can the software be trusted?
+Dans le monde d'aujourd'hui, tout modèle de menace suppose que l'appareil de l'utilisateur a déjà été compromis. Cela met les développeurs d'applications dans une situation compliquée, car si l'appareil est déjà à risque, comment peut-on faire confiance au logiciel ?
 
-Defense in depth is the approach we've taken. We want you to be able to take every precaution possible to minimise the surface area you present to attackers. Tauri lets you choose which API endpoints to ship, whether or not you want a localhost server built into your app, and it even randomizes functional handles at runtime. These and other techniques form a secure baseline that empowers you and your users.
+La protection en profondeur est l'approche que nous avons adoptée. Nous voulons que vous puissiez prendre toutes les précautions possibles pour réduire au minimum la surface qui se présente aux agresseurs. Tauri vous permet de choisir les points cibles de l'API à utiliser, que vous souhaitiez ou non intégrer un serveur local dans votre application. Que vous voulez rendre aléatoire les gestionnaires fonctionnels au moment de l'exécution de l'application. Ces techniques, ainsi que d'autres, forment une base de référence sécurisée qui vous permet, à vous et à vos utilisateurs, d'être autonomes.
 
-Slowing down attackers by making static attacks crushingly difficult and isolating systems from one another is the name of the game. And if you are coming from the Electron ecosystem - rest assured - by default Tauri only ships binaries, not ASAR files.
+Ralentir les attaquants en rendant les attaques statiques très difficiles et en isolant les systèmes les uns des autres, tel est le but du jeu. Et si vous venez de l'écosystème Electron - rassurez-vous - par défaut, Tauri n'envoie que des binaires, pas des fichiers ASAR.
 
-By choosing to build Tauri with security as a guiding force, we give you every opportunity to take a proactive security posture.
+En choisissant de développer Tauri avec la sécurité comme fil conducteur, nous vous donnons toutes les chances d'adopter une posture de sécurité proactive.
 
-## Polyglots, not Silos
+## Des polyglottes, et non des silos
 
-Most contemporary frameworks use a single language paradigm and are therefore trapped in a bubble of knowledge and idiom. This can work well for certain niche applications, but it also fosters a kind of tribalism.
+La plupart des frameworks contemporains utilisent un paradigme linguistique unique et sont donc piégés dans une bulle de connaissances et d'idiomes. Cela peut bien fonctionner pour certaines applications de niche, mais cela favorise également une sorte de tribalisme.
 
-This can be seen in the way that the React, Angular and Vue development communities huddle on their stacks, ultimately breeding very little cross-pollination.
+Cela se voit à la façon dont les communautés de développement React, Angular et Vue se serrent les unes contre les autres, n'engendrant finalement que très peu de pollinisation croisée.
 
-This same situation can be seen in the Rust vs Node vs C++ battlefields, where hardliners take their stances and refuse to collaborate across communities.
+Cette même situation se retrouve sur les champs de bataille Rust vs Node vs C++, où chaque partisans prennent leurs positions et refusent de collaborer entre les communautés.
 
-Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview](https://github.com/webview) organisation and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
+Aujourd'hui, Tauri utilise Rust pour le back-end - mais dans un avenir pas trop lointain, d'autres back-ends comme Go, Nim, Python, Csharp etc. seront possibles. En effet, nous conservons les interfaces officielles de Rust pour l'organisation [webview](https://github.com/webview) et nous prévoyons de vous permettre de changer de back-end selon vos besoins. Comme notre API peut être implémentée dans n'importe quel langage avec C interop, la conformité totale n'est plus qu'une question de Pull Request.
 
-## Honest Open Source
+## Open Source honnête
 
-None of this would make any sense without a community. Today software communities are amazing places where people help each other and make awesome things - open source is a very big part of that.
+Rien de tout cela n'aurait de sens sans une communauté. Aujourd'hui, les communautés de logiciels sont des lieux incroyables où les gens s'entraident et font des choses géniales - l'open source en est une très grande partie.
 
-Open source means different things to different people, but most will agree that it serves to support freedom. When software doesn't respect your rights, then it can seem unfair and potentially compromise your freedoms by operating in unethical ways.
+Le terme "Open Source" a des significations différentes selon les personnes, mais la plupart s'accorderont à dire qu'il sert à soutenir la liberté. Lorsqu'un logiciel ne respecte pas vos droits, cela peut sembler injuste et il peut potentiellement compromettre vos libertés en se comportant de manière contraire à l'éthique.
 
-This is why we are proud that FLOSS advocates can build applications with Tauri that are "certifiably" open source and can be included in FSF endorsed GNU/Linux distributions.
+C'est pourquoi nous sommes fiers que les défenseurs des FLOSS puissent concevoir des applications avec Tauri qui sont "certifiées" open source et peuvent être intégrées dans les distributions GNU/Linux approuvées par la FSF.
 
-## The Future
+## Le futur
 
-Tauri's future depends on your involvement and contributions. Try it out, file issues, join a working group or make a donation - every contribution is important. Please, at any rate, do get in touch!!!
+L'avenir de Tauri dépend de votre implication et de vos contributions. Essayez-le, posez des questions, rejoignez un groupe de travail ou faites un don - chaque contribution est importante. En tout cas, n'hésitez pas à nous contacter !!!

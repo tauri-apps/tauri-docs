@@ -3,11 +3,11 @@ id: workflow
 title: Workflow
 ---
 
-## Continuous Integration
+## Intégration continue
 
-Github Actions has two triggers of which we make heavy use: `push` and `pull_request`. Every commit that made to the repo is a `push`. When you open a pull request from a branch (call it `great_feature`) to another branch (our working branch, `dev`), each commit to `great_feature` would possibly trigger both of these events. We can use a filter to focus on the events we care about though. In our workflows, we only PR (pull request) the `dev` and `master` branches. This means that if we filter to only the `dev` and `master` branches on commit, we will only run that workflow when we _merge_ a PR. A merged PR typically only occurs once a day or less so this will be a good fit for the longer running tests, e.g. the smoke tests in our case. Below is how that might look.
+Github Actions a deux déclencheurs dont nous avons un usage intensif : `push` et `pull_request`. Chaque commit qui est fait au dépôt est un `push`. Lorsque vous ouvrez une pull request depuis une branche (appelez-la `great_feature`) vers une autre branche (notre branche de travail, `dev`), chaque commit vers `great_feature` pourrait éventuellement déclencher ces deux événements. Nous pouvons cependant utiliser un filtre pour nous concentrer sur les événements qui nous sont importants. Dans nos workflows, nous ne faisons que des PR (pull request) sur les branches `dev` et `master`. Cela signifie que si nous filtrons uniquement sur les branches `dev` et `master` lors du commit, nous n'exécuterons ce workflow que lorsque nous _mergerons_ une PR. Une PR mergée ne se produit généralement qu'une fois par jour ou moins, ce qui convient bien pour les tests de longue durée, par exemple les smoke tests dans notre cas. Voici à quoi cela pourrait ressembler.
 
-Unit tests:
+Tests unitaires :
 
 ```yml
 # these run fast so we can have them run on any commit

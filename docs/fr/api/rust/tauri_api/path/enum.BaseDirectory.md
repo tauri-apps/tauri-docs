@@ -110,29 +110,29 @@ The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
 
 #### `fn clone(&self) -> BaseDirectory`
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
 #### `fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+Performs copy-assignment from `source`. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl Debug for BaseDirectory`
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl<'de> Deserialize<'de> for BaseDirectory`
 
 #### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [En savoir plus](https://docs.rs/serde/1.0.104/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for BaseDirectory`
 
 #### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [En savoir plus](https://docs.rs/serde/1.0.104/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -152,19 +152,19 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> DeserializeOwned for T where T: Deserialize<'de>,`
 
@@ -188,7 +188,7 @@ The resulting type after obtaining ownership.
 
 #### `fn to_owned(&self) -> T`
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+Creates owned data from borrowed data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
 #### `fn clone_into(&self, target: &mutT)`
 
@@ -196,7 +196,7 @@ Creates owned data from borrowed data, usually by cloning. [Read more](https://d
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

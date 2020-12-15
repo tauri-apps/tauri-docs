@@ -11,13 +11,13 @@ title: "fn.format_callback"
 
 Formats a function name and argument to be evaluated as callback.
 
-# [Examples](/docs/api/rust/tauri_api/about:blank#examples)
+# [Exemples](/docs/api/rust/tauri_api/about:blank#examples)
 
     use tauri_api::rpc::format_callback;
     // callback with a string argument
     let cb = format_callback("callback-function-name", "the string response");
     assert!(cb.contains(r#"window["callback-function-name"]("the string response")"#));
-
+    
     use tauri_api::rpc::format_callback;
     use serde::Serialize;
     // callback with JSON argument

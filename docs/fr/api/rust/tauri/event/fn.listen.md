@@ -9,4 +9,4 @@ title: "fn.listen"
         handler: F
     )
 
-Adds an event listener for JS events.
+Ajoute un gestionnaire d'événement pour les événements JS.

@@ -2,86 +2,67 @@
 title: Lockdown
 ---
 
-import Rater from '@theme/Rater'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import Rater from '@theme/Rater' import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">
     <table>
       <tr>
-        <td>Ease of Use</td>
+        <td>Facile d'utilisation</td>
         <td><Rater value="2"/></td>
       </tr>
       <tr>
-        <td>Extensibility</td>
+        <td>Extensible</td>
         <td><Rater value="4"/></td>
       </tr>
       <tr>
-        <td>Performance</td>
+        <td>Performant</td>
         <td><Rater value="5"/></td>
       </tr>
       <tr>
-        <td>Security</td>
+        <td>Sécurité</td>
         <td><Rater value="5" color="#fff04d"/></td>
       </tr>
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Lockdown.png')} alt="Lockdown" />
+    <img src="{useBaseUrl('img/patterns/Lockdown.png')}" alt="Lockdown" />
   </div>
   <div className="col col--4">
-    Pros:
+    Les plus :
     <ul>
-      <li>Highest security rating</li>
-      <li>Elegant and powerful</li>
+      <li>La plus haute sécurité</li>
+      <li>Élégant et puissant</li>
     </ul>
-    Cons:
+    Les moins :
     <ul>
-      <li>Rust skills required</li>
-      <li>No remote resources</li>
+      <li>Compétence Rust requise</li>
+      <li>Aucune ressource distante</li>
     </ul>
   </div>
 </div>
 
-
 ## Description
 
-The Lockdown recipe is a minimal usage of the [Bridge pattern](bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+La méthode Lockdown est une utilisation minimale du [modèle Bridge](bridge), qui permet uniquement une interaction entre Rust et la fenêtre par le biais de fermetures de promesses JS qui expirent, injectées dans la fenêtre par Rust et sont annulées dans son rappel.
 
-## Diagram
+## Schéma
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph TD
-      H==>F
-      G-.->B
-      B-->G
-      subgraph WEBVIEW
-      G-->F
-      end
-      subgraph RUST
-      A-->B
-      A==>H
-      end
-      A[Binary]
-      B[API:Event]
-      F[Window]
-      G((Promise Closure))
-      H{Bootstrap}
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
+<Mermaid chart={`graph TD H==>F G-.->B B-->G subgraph WEBVIEW G-->F end subgraph RUST A-->B A==>H end A[Binary] B[API:Event] F[Window] G((Promise Closure)) H{Bootstrap} style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
 
 ## Configuration
 
-Here's what you need to add to your tauri.conf.json file:
+Voici ce que vous devez ajouter à votre fichier tauri.conf.json :
 ```json
 "tauri": {
   "embeddedServer": {
-    "active": false               // do not use a localhost server
+    "active": false               // n'utilise pas de serveur localhost
   },
-  "allowlist": {                  // all API endpoints are default false
-    "event": true,                // Use the EVENT API for injections
+  "allowlist": {                  // toutes les API sont désactivées par défaut
+    "event": true,                // Utilise l'API EVENT pour les injections
   }
 }
 ```

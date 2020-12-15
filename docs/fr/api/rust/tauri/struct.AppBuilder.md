@@ -4,7 +4,7 @@ title: "struct.AppBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[AppBuilder](/docs/api/rust/tauri/)
 
-    pub struct AppBuilder { /* fields omitted */ }
+    pub struct AppBuilder { /* champs omis */ }
 
 The App builder.
 
@@ -14,23 +14,23 @@ The App builder.
 
 #### `pub fn new() -> Self`
 
-Creates a new App bulder.
+Créer un nouveau AppBuilder.
 
 #### `pub fn invoke_handler<F: FnMut(&mut WebView<()>, &str) -> Result<(), String> + 'static>( self, invoke_handler: F ) -> Self`
 
-Defines the JS message handler callback.
+Définit la fonction JS de rappel du gestionnaire de message.
 
 #### `pub fn setup<F: FnMut(&mut WebView<()>, String) + 'static>( self, setup: F ) -> Self`
 
-Defines the setup callback.
+Définit la fonction de rappel de configuration.
 
 #### `pub fn splashscreen_html(self, html: &str) -> Self`
 
-Defines the splashscreen HTML to render.
+Définit l'écran de démarrage HTML à afficher.
 
 #### `pub fn build(self) -> App`
 
-Builds the App.
+Compile l'application.
 
 ## Trait Implementations
 
@@ -38,7 +38,7 @@ Builds the App.
 
 #### `fn default() -> AppBuilder`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the "default value" for a type. [En savoir plus](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
@@ -58,19 +58,19 @@ Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 

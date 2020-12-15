@@ -1,14 +1,13 @@
 
 
-Keep in mind that developing Tauri apps still requires to think in a cross-browser way:
+Gardez à l'esprit que le développement d'applications avec Tauri nécessite toujours de penser de manière transversale :
 
-### Icons & HTML entities
+### Icônes & Entités HTML
 
-> maybe we could be generic about it (HTML entities) and remind people that rendering rules across platforms that they know from webdesign are still applicable
+> nous pourrions peut-être être génériques à ce sujet (entités HTML) et rappeler aux gens que les règles de rendu sur les plateformes qu'ils connaissent grâce au webdesign sont toujours applicables
 
-> i like to convert my fonts and svg to base64 representations
-that guarantees its availability and proper rendering in the webview
+> j'aime convertir mes polices de caractères et svg en représentations base64 qui garantit sa disponibilité et son bon rendu dans la webview
 
-### JavaScript support
+### Support JavaScript
 
-> Perhaps someone could create a Union of the browsers that are represented by Webview? Something like: https://caniuse.com/#compare=ie+10,ie+11,edge+80,firefox+74,chrome+80
+> Peut-être quelqu'un pourrait-il créer une union entre les navigateurs qui sont représentés par la Webview ? Quelque chose comme : https://caniuse.com/#compare=ie+10,ie+11,edge+80,firefox+74,chrome+80

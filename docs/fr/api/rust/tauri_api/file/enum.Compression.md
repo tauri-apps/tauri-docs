@@ -22,11 +22,11 @@ Gz compression (e.g. `.tar.gz` archives)
 
 #### `fn clone(&self) -> Compression`
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
 #### `fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+Performs copy-assignment from `source`. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl Copy for Compression`
 
@@ -34,13 +34,13 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl PartialEq<Compression> for Compression`
 
 #### `fn eq(&self, other: &Compression) -> bool`
 
-This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+This method tests for `self` and `other` values to be equal, and is used by `==`. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
 #### `#[must_use]fn ne(&self, other: &Rhs) -> bool`1.0.0
 
@@ -66,19 +66,19 @@ This method tests for `!=`.
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -100,7 +100,7 @@ The resulting type after obtaining ownership.
 
 #### `fn to_owned(&self) -> T`
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+Creates owned data from borrowed data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
 #### `fn clone_into(&self, target: &mutT)`
 
@@ -108,7 +108,7 @@ Creates owned data from borrowed data, usually by cloning. [Read more](https://d
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

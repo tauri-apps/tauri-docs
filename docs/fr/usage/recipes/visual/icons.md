@@ -1,26 +1,25 @@
 ---
-title: Icons
+title: Icônes
 ---
 
-import Command from '@theme/Command'
-import Alert from '@theme/Alert'
+import Command from '@theme/Command' import Alert from '@theme/Alert'
 
-Tauri ships with a default iconset based on its logo. This is probably NOT what you want when you ship your application. To remedy this common situation, Tauri provides the `icon` command that will take an input file and create all the icons needed for the various platforms:
+Tauri est livré avec un jeu d'icônes par défaut basé sur son logo. Ce n'est probablement PAS ce que vous souhaitez lorsque vous expédierez votre application. Pour remédier à cette situation fréquente, Tauri fournit la commande `icon` qui va prendre un fichier d'entrée et créer toutes les icônes nécessaires pour les différentes plateformes :
 
 <Command name="icon"/>
 
 ```sh
 Options
-  --help, -h          Displays this message
+  --help, -h          Affiche ce message
   --log, l            Logging [boolean]
-  --icon, i           Source icon (png, 1240x1240 with transparency)
-  --target, t         Target folder (default: 'src-tauri/icons')
-  --compression, c    Compression type [pngquant|optipng|zopfli]
+  --icon, i          Icône source (png, 1240x1240 avec transparence)
+  --target, t         Dossier cible (par défaut : 'src-tauri/icons')
+  --compression, c    Type de compression [pngquant|optipng|zopfli]
 ```
 
-These will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
+Elles seront placées dans votre dossier `src-tauri/icons` où elles seront automatiquement incluses dans votre application compilée.
 
-If you need to source your icons from some other location, you can edit this part of the `src-tauri/tauri.conf.json` file:
+Si vous avez besoin de placer vos icônes à un autre endroit, vous pouvez modifier cette partie du fichier `src-tauri/tauri.conf.json` :
 
 ```json
 {
@@ -38,7 +37,7 @@ If you need to source your icons from some other location, you can edit this par
 }
 ```
 
-<Alert type="info" icon="info-alt" title="Note on filetypes">
+<Alert type="info" icon="info-alt" title="Note sur les types de fichiers">
 
   - icon.icns = macOS
   - icon.ico = MS Windows

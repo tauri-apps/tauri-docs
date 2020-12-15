@@ -14,7 +14,7 @@ title: "enum.Error"
         ChildProcess,
     }
 
-The error types.
+Les types d'erreurs.
 
 ## Variants
 
@@ -26,7 +26,7 @@ Target triple architecture error
 
 Target triple OS error
 
-`Environment`
+`Environnement`
 
 Target triple environment error
 
@@ -52,37 +52,37 @@ Get child process error
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl Display for Error`
 
 #### `fn fmt(&self, __formatter: &mut Formatter) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
 ### `impl Error for Error`
 
 #### `fn description(&self) -> &str`1.0.0
 
-This method is soft-deprecated. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
+This method is soft-deprecated. [En savoir plus](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
 
 #### `fn cause(&self) -> Option<&dyn Error>`1.0.0
 
-Deprecated since 1.33.0:
+Déprécié depuis la 1.33.0 :
 
 replaced by Error::source, which can support downcasting
 
-The lower-level cause of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)
+The lower-level cause of this error, if any. [En savoir plus](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause)
 
 #### `fn source(&self) -> Option<&(dyn Error + 'static)>`1.30.0
 
-The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
+The lower-level source of this error, if any. [En savoir plus](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
 
 #### `fn backtrace(&self) -> Option<&Backtrace>`
 
 🔬 This is a nightly-only experimental API. (`backtrace`)
 
-Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
+Returns a stack backtrace, if available, of where this error occurred. [En savoir plus](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
 
 ## Auto Trait Implementations
 
@@ -102,19 +102,19 @@ Returns a stack backtrace, if available, of where this error occurred. [Read mor
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -132,7 +132,7 @@ Performs the conversion.
 
 #### `default fn to_string(&self) -> String`
 
-Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
+Converts the given value to a `String`. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

@@ -1,14 +1,13 @@
 ---
 id: modes
-title: App Loading Modes
+title: Modes de chargement de l'application
 ---
 
-Tauri has two configurations for loading your web app: with or without a localhost server.
+Tauri a deux configurations pour le chargement de votre application web : avec ou sans serveur localhost.
 
-## Localhost Server
+## Serveur Localhost
 
-Shipped by default, this is the easiest way to get up and running. It provides your app with a localhost server that uses an ephemeral port (i.e. a port that changes on every run, based on what is available on the device). Tauri then uses the server to load your web app into the Webview.
-In your `src-tauri/tauri.conf.json`:
+Activé par défaut, c'est le moyen le plus simple de fonctionner. Il fournit à votre application un serveur localhost qui utilise un port éphémère (c'est-à-dire un port qui change à chaque exécution, en fonction de ce qui est disponible sur l'appareil). Tauri utilise ensuite le serveur pour charger votre application web dans le Webview. Dans votre `src-tauri/tauri.conf.json` :
 
 ```json
 "tauri": {
@@ -18,11 +17,11 @@ In your `src-tauri/tauri.conf.json`:
 }
 ```
 
-## No Server
+## Pas de serveur
 
-A more advanced and secure configuration is the no-server mode. The main reason for its complexity is that Tauri needs to rebuild your code by removing dynamic imports. In this mode, Tauri loads your web app directly from the disk, skipping the localhost server entirely.
+Une configuration plus avancée et plus sûre est le mode sans serveur. La principale raison de sa complexité est que Tauri doit recompiler votre code en supprimant les importations dynamiques. Dans ce mode, Tauri charge votre application web directement depuis le disque, en ignorant complètement le serveur local.
 
-In your `src-tauri/tauri.conf.json`:
+Dans votre `src-tauri/tauri.conf.json` :
 
 ```json
 "tauri": {

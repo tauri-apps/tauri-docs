@@ -1,107 +1,108 @@
 ---
-id: security
-title: Security
+id: sécurité
+title: Sécurité
 ---
 
-This guide seeks to explain the high level concepts and Security Features at the core of Tauri's design that make you, your apps and your users safer by default.
+Ce guide cherche à expliquer les concepts de haut niveau et les dispositifs de sécurité au cœur de la conception de Tauri qui vous rendent, ainsi que vos applications et vos utilisateurs, plus sûrs par défaut.
 
 <div className="alert alert--info" role="alert">
-  Please note:<br/>
-  While we take every opportunity to help you harden your application - there are always underlying threats like BIOS attacks, memory rowhammering and other operating system vulnerabilities that are constantly being discovered and (in the best cases) responsibly disclosed.<br/>
-Furthermore, there are many ways that development teams can cut corners and either leak sensitive information or leave doors wide open to any of a range of attacks. Security is a never-ending quest, and your users count on you to keep them safe.<br/>
-Therefore, we highly recommend that you take some time to consider the security ramifications of everything that your application does, especially in the context of running on the semi-hostile platform of end-user devices.<br/>
-If you need help or want a review, you are welcome to contact the Tauri team for security consultation.
+  À noter : <br/>
+  Bien que nous saisissions toutes les occasions pour vous aider à renforcer votre application - il y a toujours des menaces sous-jacentes comme les attaques BIOS, le brouillage de la mémoire et d'autres vulnérabilités du système d'exploitation qui sont constamment découvertes et (dans le meilleur des cas) divulguées de manière responsable.<br/>
+En outre, les équipes de développement peuvent prendre de nombreuses mesures pour réduire les coûts et laisse échapper des informations sensibles ou laisse les portes grandes ouvertes à toute une série d'attaques. La sécurité est une quête sans fin, et vos utilisateurs comptent sur vous pour assurer leur sécurité.<br/>
+Par conséquent, nous vous recommandons vivement de prendre le temps d'examiner les implications en matière de sécurité de tout ce que fait votre application, en particulier dans le contexte d'exécution sur une plateforme semi-hostile d'appareils d'utilisateurs finaux.<br/>
+Si vous avez besoin d'aide ou si vous souhaitez un examen, vous pouvez contacter l'équipe Tauri pour une consultation en matière de sécurité.
 </div>
 
-### Security Researchers
+### Spécialistes de la sécurité
 
-If you feel that there is a security concern or issue with anything in Tauri, please do not publicly comment on your findings. Instead, reach out directly to our security team:
+Si vous pensez qu'il y a un problème de sécurité ou un problème lié à quoi que ce soit sur Tauri, veuillez ne pas commenter publiquement vos conclusions. Prenez plutôt contact directement avec notre équipe de sécurité :
 
-> <center>security@tauri.studio</center>
+> <center>
+>   security@tauri.studio
+> </center>
 
-Although we do not currently have a budget for Security Bounties, in some cases we will consider rewarding responsible disclosure with our limited resources.
+Bien que nous ne disposions pas actuellement d'un budget pour les primes de sécurité, dans certains cas nous envisagerons de récompenser la divulgation responsable avec nos ressources limitées.
 
-## No Server Required
+## Aucun serveur requis
 
-Tauri enables you to construct an application that uses web-technology for the user interface without requiring you to use a server to communicate with the backend. Even if you used advanced techniques of dynamic imports and offload work to the backend, no traffic can be sniffed on TCP ports or external processes - because they just aren't there. This reduces not only the physical and virtual footprint of your final binary by a good deal, it also reduces the surface area of potential attack vectors by removing them from the equation.
+Tauri vous permet de développer une application qui utilise la technologie web pour l'interface utilisateur sans avoir à utiliser un serveur pour communiquer avec le back-end. Même si vous utilisez des techniques avancées d'importation dynamique et de déchargement du travail vers le back-end, aucun trafic ne peut être détecté sur les ports TCP ou les processus externes, car ils n'existent tout simplement pas. Cela permet non seulement de réduire considérablement l'empreinte physique et virtuelle de votre binaire final, mais aussi de réduire la surface des vecteurs d'attaque potentiels en les retirant de l'équation.
 
-## Language Features of Rust
+## Les particularités du langage Rust
 
-By turning to the programming language reknowned for its memory-safety and speed, Tauri simply erases whole classes of conventional attacks. `Use after free` just isn't something that can happen with Tauri.
+En se tournant vers le langage de programmation réputé pour sa sécurité mémorielle et sa rapidité, Tauri efface tout simplement des catégories entières d'attaques conventionnelles. `Use after free` n'est pas quelque chose qui peut arriver avec Tauri.
 
-## Dynamic Ahead of Time Compilation (AOT)
+## Compilation dynamique anticipée (AOT)
 
-This process of compilation happens several times during the bootstrapping phase of a Tauri app. By using our default dynamic Ahead of Time compiler, you can generate code references that are unique for every session and are still technically static code units.
+Ce processus de compilation se produit plusieurs fois pendant la phase de démarrage d'une application Tauri. En utilisant notre compilateur dynamique anticipée par défaut, vous pouvez générer des références de code qui sont uniques pour chaque session et qui restent des unités de code techniquement statiques.
 
-## Function Hardening
+## Renforcement des fonctions
 
-### functional ASLR
+### ASLR fonctionnel
 
-Functional address Space Layout Randomization techniques randomize function names at runtime and can implement OTP hashing so no two sessions are ever the same. We propose a novel type of function naming at boot time and optionally after every execution. Using a UID for each function pointer prevents static attacks.
+Les techniques de distribution aléatoire de l'espace d'adressage fonctionnel rendent les noms de fonctions aléatoires au moment de l'exécution et peuvent mettre en œuvre le hachage OTP afin que deux sessions ne soient jamais identiques. Nous proposons un nouveau type de dénomination des fonctions au moment du démarrage et, éventuellement, après chaque exécution. L'utilisation d'un UID pour chaque pointeur de fonction permet d'éviter les attaques statiques.
 
-### Kamikaze Function Injection
+### Injection de fonction kamikaze
 
-This advanced type of fASLR using the `EVENT` API endpoint, is a promise wrapped in a closure (with randomized handle) that Rust inserts at runtime into the Webview, where its interface is locked within the promise resolution handler and is nulled after execution.
+Ce type avancé de fASLR utilisant l'accès API `EVENT`, est une promesse enveloppée dans une fermeture (avec gestion aléatoire) que Rust insère au moment de l'exécution dans Webview, où son interface est verrouillée dans le gestionnaire de résolution de promesse et est annulée après exécution.
 
-### Bridge, don't serve
+### Un pont, au lieu de servir
 
-Instead of passing potentially unsafe functions, an event bridge can be used to pass messages and commands to named brokers at each respective side of the application.
+Au lieu de transmettre des fonctions potentiellement dangereuses, un pont d'événements peut être utilisé pour transmettre des messages et des commandes à des intermédiaires nommés de chaque côté de l'application.
 
-### One Time Pad Tokenization and Hashing
+### Jetons et hachage à usage unique
 
-Hashing important messages with a OTP salt, you are able to encrypt messages between the user interface and the Rust backend. We are currently investigating the use of additional sources of entropy such as the amazing [Infinite Noise TRNG](https://13-37.org/en/shop/infinite-noise-trng/).
+En hachant les messages importants avec un grain OTP, vous pouvez chiffrer les messages entre l'interface utilisateur et le back-end Rust. Nous étudions actuellement l'utilisation de sources d'entropie supplémentaires telles que le formidable [Bruit Infini TRNG](https://13-37.org/en/shop/infinite-noise-trng/).
 
-## System Features
+## Fonctionnalités du système
 
-### Allowing API
+### Autorisations de l'API
 
-You have the ability to pick and choose which API functions are available to the UI and to Rust. If they are not enabled, the code will not be shipped with your app, which reduces binary size and attack surface. They are opt-in, so you have to consciously choose to progressively enhance your application.
+Vous avez la possibilité de choisir les fonctions API qui sont disponibles pour l'interface utilisateur et pour Rust. Si elles ne sont pas activées, le code ne sera pas embarqué avec votre application, ce qui réduit la taille binaire et la surface d'attaque. Vous devez donc choisir consciemment l'amélioration progressive de votre application.
 
-### Content Security Policy Management
+### Gestion de la politique de sécurité du contenu
 
-Preventing unauthorized code execution for websites has long since been "resolved" by using CSPs. Tauri can inject CSPs into the index.html of the user interface, and when using a localhost server it will also send these headers to the UI or any other clients that connect with it.
+La prévention de l'exécution de codes non autorisés pour les sites web est depuis longtemps "résolue" par l'utilisation des CSP. Tauri peut injecter des CSP dans le fichier index.html de l'interface utilisateur, et lorsqu'il utilise un serveur localhost, il enverra également ces en-têtes à l'interface utilisateur ou à tout autre client qui s'y connecte.
 
-### Decompilation is Difficult
+### La décompilation est difficile
 
-This means that your apps cannot be easily decompiled as is the case with Electron ASAR files, which makes the process of reverse engineering your project much more time intensive and requires specialist training.
+Cela signifie que vos applications ne peuvent pas être facilement décompilées comme c'est le cas avec les fichiers ASAR d'Electron, ce qui rend le processus de rétro-ingénierie de votre projet beaucoup plus long et nécessite une formation spécialisée.
 
-## Ecosystem
+## Écosystème
 
-### Dependency Rescue
+### Récupération des dépendances
 
-Sometimes the Tauri team finds packages in the wild that technically work and are highly valuable, but are out of date and include vulnerabilities. A great example of this is [tauri-inliner](https://github.com/tauri-apps/tauri-inliner). Merely including this module would have introduced over 30 vulnerabilities to our core. So we forked the original library, updated vulnerable modules to the latest versions and modified changed function signatures. Once adopted, we will continue to maintain these libraries.
+Parfois, l'équipe Tauri trouve dans la nature des paquets qui fonctionnent techniquement et sont très précieux, mais qui sont obsolètes et comportent des vulnérabilités. Un excellent exemple de ceci est [tauri-inliner](https://github.com/tauri-apps/tauri-inliner). Le simple fait d'inclure ce module aurait introduit plus de 30 vulnérabilités dans notre noyau. Nous avons donc forké la bibliothèque originale, mis à jour les modules vulnérables aux dernières versions et modifié les signatures des fonctions modifiées. Une fois adoptée, nous continuerons à maintenir ces bibliothèques.
 
-### Build Pipelines and Artifact Authenticity
+### Pipelines de compilation et authenticité des artefacts
 
-The process of releasing our source-code artifacts is highly automated, yet mandates kickoff and review from real humans. Our current release strategy uses a combination of Github Actions and IOTO Tangle publication
+Le système de diffusion de nos artefacts de code source est extrêmement automatisé, mais il doit être lancé et examiné par de vrais humains. Notre stratégie de diffusion actuelle utilise une combinaison de Github Actions et de la publication IOTO Tangle
 
-### Resilient PR and Approval Processes
+### PR flexible et processus d'approbation
 
-Our WG-TECH reviews code changes, tags PRs with scope and make ssure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on master, which:
+Notre WG-TECH examine les changements de code, donne une périmètre aux PR et s'assure que tout reste à jour. Et lorsqu'il est temps de publier une nouvelle version, l'un des responsables étiquette une nouvelle version sur master, qui :
 
-- validates core
-- runs smoke tests
-- audits security for crates and npm
-- generates changelogs
-- creates artifacts
-- publishes checksums to IOTA
-- creates a draft release
-  Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
+- valide le noyau
+- exécute les smoke tests
+- audits de sécurité pour les crates et npm
+- génère les notes de mise à jour
+- crée les artefacts
+- publie les sommes de contrôle à l'IOTA
+- crée un brouillon de publication Ensuite, le mainteneur examine les notes de version, les modifie si nécessaire - et une nouvelle version est créée.
 
-## Future Work
+## Travaux futurs
 
-### Signed Binaries
+### Binaires signés
 
-Because the entire project is shipped within a monolithic binary, code can be signed for all distributables. (Currently using external tooling, but we are actively working on making the bundler a one-stop-shop.) This makes it virtually impossible for hackers to change an installed Application without the operating system noticing. [Reference](https://github.com/electron/asar/issues/123)
+Comme l'ensemble du projet est embarqué dans un binaire monolithique, le code peut être signé pour toutes les distributions. (Nous utilisons actuellement un outillage externe, mais nous travaillons activement à rendre le bundler un outil unique.) Il est donc pratiquement impossible pour les pirates de modifier une application installée sans que le système d'exploitation ne s'en aperçoive. [Références](https://github.com/electron/asar/issues/123)
 
-### Post-Binary Analysis
+### Analyse post-binaire
 
-Use industrial-grade pentester-tooling (via our forthcoming Tauri-Frida GUI) to discover and fix security weaknesses in your final binaries.
+Utilisation d'un outil pédagogique de qualité industrielle (via notre interface graphique Tauri-Frida à venir) pour découvrir et corriger les faiblesses de sécurité de vos binaires finaux.
 
-### Post-Binary Enhancement
+### Amélioration post-binaire
 
-After the build is before the delivery, and Tauri will provide you with tools never seen before. Stay tuned!
+Après que la compilation soit faite avant la distribution, Tauri vous fournira des outils jamais vus auparavant. Tenez-vous informé !
 
 ### Audits
 
-We have not yet undertaken an audit, but this is planned for realization before the 1.0 stable release.
+Nous n'avons pas encore entrepris d'audit, mais il est prévu de le réaliser avant la version stable 1.0.

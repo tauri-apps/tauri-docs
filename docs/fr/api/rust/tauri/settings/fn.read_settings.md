@@ -6,4 +6,4 @@ title: "fn.read_settings"
 
     pub fn read_settings() -> Result<Settings>
 
-Reads the settings from the file system.
+Lit les paramètres du système de fichiers.

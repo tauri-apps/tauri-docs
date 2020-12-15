@@ -1,27 +1,26 @@
 ---
-title: App Development
-sidebar_label: 'App Development (2/4)'
+title: Développement d'une application
+sidebar_label: 'Développement d''une app (2/4)'
 ---
 
-import Alert from '@theme/Alert'
-import Command from '@theme/Command'
+import Alert from '@theme/Alert' import Command from '@theme/Command'
 
-### 1. Start Your Devserver
+### 1. Démarrer votre serveur de dev
 
-Now that you have everything setup, you should start your application development server provided by your UI framework or bundler (assuming you're using one, of course).
+Maintenant que vous avez tout configuré, vous devriez démarrer le serveur de développement de votre applications fourni par votre framework UI ou votre bundler (en supposant que vous en utilisez un, bien sûr).
 
 <Alert title="Note">
-Every framework has its own development tooling. It is outside of the scope of this document to treat them all or keep them up to date.
+Chaque framework a ses propres outils de développement. Il est impossible de les traiter tous ou de les tenir à jour dans le cadre de ce document.
 </Alert>
 
-### 2. Start Tauri Development Window
+### 2. Démarrer l'interface de développement de Tauri
 
 <Command name="dev" />
 
-The first time you run this command, it will take several minutes for the Rust package manager to download and build all the required packages. Since they are cached, subsequent builds will be much faster, as only the Tauri components will need rebuilding.
+La première fois que vous exécutez cette commande, il faudra plusieurs minutes au gestionnaire de paquets Rust pour télécharger et compiler tous les paquets nécessaires. Comme ils sont mis en cache, les prochaines compilations seront beaucoup plus rapides, car seules les composants de Tauri auront besoin d'être recompilés.
 
-You are now ready to develop your application with your Tauri window!
+Vous êtes maintenant prêt à développer votre application avec votre interface Tauri !
 
-<Alert title="A note about Cargo.toml and Source Control" icon="info-alt">
-  In your project repository, you SHOULD commit the "src-tauri/Cargo.toml" to git because you want it to be deterministic. You SHOULD NOT commit the "src-tauri/target" folder or any of its contents.
+<Alert title="Une note sur Cargo.toml et le contrôle de la source" icon="info-alt">
+  Dans votre dépôt de projet, vous DEVEZ commiter le fichier "src-tauri/Cargo.toml" avec git pour qu'il soit déterministe. Vous NE DEVEZ PAS commiter le dossier "src-tauri/target" ni aucun de ses contenus.
 </Alert>

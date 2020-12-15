@@ -17,7 +17,7 @@ yarn add tauri
 npm install tauri --save
 ```
 
-<Alert title="Warning" icon="alert" type="warning">
+<Alert title="Avertissement" icon="alert" type="warning">
 
   If you're working with Vanilla JavaScript for your project, you should access this API with `window.__TAURI__`.
   Example:
@@ -57,9 +57,7 @@ Invokes a command to the backend layer. It can be read with the `invoke_handler`
 function promisified(args: any): Promise<any>
 ```
 
-Invokes an async command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
-Also, Tauri automatically adds two properties: `callback` and `error`, which are the function names of the Promise resolve and reject functions.
-It's meant to be used along with `tauri::execute_promise`.
+Invokes an async command to the backend layer. It can be read with the `invoke_handler` callback on Rust. Also, Tauri automatically adds two properties: `callback` and `error`, which are the function names of the Promise resolve and reject functions. It's meant to be used along with `tauri::execute_promise`.
 
 ## Dialog
 
@@ -497,8 +495,7 @@ Makes a GET HTTP request
 
 - Arguments
 
-  - url: `string`
-    The request URL
+  - url: `string` The request URL
 
   - options: `HttpOptions`
 
@@ -578,8 +575,7 @@ Makes a PATCH HTTP request
 
 - Arguments
 
-  - url: `string`
-    The request URL
+  - url: `string` The request URL
 
   - options: `HttpOptions`
 
@@ -601,8 +597,7 @@ Makes a DELETE HTTP request
 
 - Arguments
 
-  - url: `string`
-    The request URL
+  - url: `string` The request URL
 
   - options: `HttpOptions`
 

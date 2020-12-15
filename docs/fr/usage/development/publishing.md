@@ -1,44 +1,42 @@
 ---
-title: 'App Publishing'
-sidebar_label: 'App Publishing (4/4)'
+title: 'Publication d''une application'
+sidebar_label: 'Publication d''une app (4/4)'
 ---
 
-import Alert from '@theme/Alert'
-import Command from '@theme/Command'
+import Alert from '@theme/Alert' import Command from '@theme/Command'
 
-### 1. Build Your Web App
+### 1. Compiler votre application web
 
-Now that you are ready to package your project, you will need to run your framework's or bundler's build command (assuming you're using one, of course).
+Maintenant que vous êtes prêt à empaqueter votre projet, vous devrez exécuter la commande de compilation de votre framework ou de votre bundler (en supposant que vous en utilisiez un, bien sûr).
 
 <Alert title="Note">
-Every framework has its own publishing tooling. It is outside of the scope of this document to treat them all or keep them up to date.
+Chaque framework a ses propres outils de publication. Il est impossible de les traiter tous ou de les tenir à jour dans le cadre de ce document.
 </Alert>
 
 ### 2. Tauri Bundler
 
-Make certain that you have installed that Tauri bundler:
+Assurez-vous que vous avez installé ce bundler Tauri :
 
 ```sh
 cargo tauri-bundler -v
 ```
 
-If you do not see a version number being reported, then you must install the bundler:
+Si vous ne voyez pas de numéro de version, vous devez alors installer le bundler :
 
 ```sh
 cargo install tauri-bundler
 ```
 
 <Alert title="Note">
-We chose to call this bundler "tauri-bundler" because in the near future we will be providing a <strong>Rust-only</strong> entry point to Tauri.
+Nous avons choisi d'appeler ce bundler "tauri-bundler" parce que dans un avenir proche, nous fournirons un point d'entrée <strong>pour Rust seulement</strong> à Tauri.
 </Alert>
 
-
-### 3. Bundle your application with Tauri
+### 3. Empaqueter votre application avec Tauri
 
 <Command name="build" />
 
-Like the dev window, the first time you run this, it will take some time to collect the Rust crates and build everything - but on subsequent runs it will only need to rebuild the Tauri crates which is much quicker.
+Comme pour l'interface de développement, la première fois, il faudra un certain temps pour récupérer les crates Rust et tout compiler, mais lors des prochaines exécutions, il suffira de recompiler les crates Tauri, ce qui est beaucoup plus rapide.
 
-Because of the way that Cargo builds its targets, the final app is placed in the following folder:
+En raison de la manière dont Cargo compile ses cibles, l'application finale est placée dans le dossier suivant :
 
 `src-tauri/target/release/bundle`

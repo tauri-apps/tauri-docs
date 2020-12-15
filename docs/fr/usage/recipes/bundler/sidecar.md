@@ -1,39 +1,39 @@
 ---
-title: Sidecar (Embedding External Binaries)
+title: Sidecar (incorporation de binaires externes)
 sidebar_label: Sidecar
 ---
 
 import Alert from '@theme/Alert'
 
-You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. NodeJS, Python, etc).
+Vous pouvez avoir besoin d'intégrer des binaires dépendants afin de faire fonctionner votre application ou pour éviter aux utilisateurs d'avoir à installer des dépendances supplémentaires (par exemple NodeJS, Python, etc.).
 
-To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri` namespace in your `tauri.conf.json`.
+Pour empaqueter les binaires de votre choix, vous pouvez ajouter la propriété `externalBin` à l'espace de noms `tauri` dans votre `tauri.conf.json`.
 
-See more about tauri.conf.json configuration <a href="/docs/api/config#build">here</a>.
+En savoir plus sur la configuration de tauri.conf.json <a href="/docs/api/config#build">ici</a>.
 
-`externalBin` expects a list of strings targeting binaries either with absolute or relative paths.
+`externalBin` s'attend à une liste de chaînes de caractères ciblant les binaires avec des chemins absolus ou relatifs.
 
-Here is a sample to illustrate the configuration, this is not a complete `tauri.conf.json` file:
+Voici un exemple pour illustrer la configuration, ce n'est pas un fichier `tauri.conf.json` complet :
 
 ```json
 {
   "tauri": {
     "bundle": {
-      "externalBin": ["/absolute/path/to/bin1", "relative/path/to/bin2"]
+      "externalBin": ["/chemin/absolu/vers/poubelle1", "chemin/relatif/vers/poubelle2"]
     }
   }
 }
 ```
 
-This way, you may [execute commands with Rust](https://doc.rust-lang.org/std/process/struct.Command.html) in your Tauri application.
+De cette façon, vous pouvez [exécuter des commandes avec Rust](https://doc.rust-lang.org/std/process/struct.Command.html) dans votre application Tauri.
 
 <Alert title="Note">
-Tauri provides some utilitary functions to handle standard cases (like loading platform specific binaries), such as:
+Tauri fournit certaines fonctions utilitaires pour traiter les cas standard (comme les binaires spécifiques à certaines plateformes), comme :
 
-- `tauri::api::command::binary_command`, which will append the current environment triplet to the input (useful for cross-environments). If you're creating your own binary, you'll _have to_ provide a binary **for each platform you're targeting** by specifying the target triplets, e.g. "binaryname-x86_64-apple-darwin".
+- `tauri::api::command::binary_command`, qui ajoutera le triplet de l'environnement actuel à l'entrée (utile pour les multi-environnements). Si vous créez votre propre binaire, vous devrez fournir un binaire **pour chaque plateforme que vous ciblez** en spécifiant les triplets cibles, par exemple "nombinaire-x86_64-apple-darwin".
 
-Target triplets can be found by executing the `rustup target list` command.
+Les triplets cibles peuvent être obtenus en exécutant la commande `rustup target list`.
 
-- `tauri::api::command::relative_command` that will relatively resolve the path to the binary.
+- `tauri::api::command::relative_command` permettra de résoudre de manière relative le chemin vers le binaire.
 
 </Alert>

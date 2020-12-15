@@ -11,6 +11,6 @@ title: "fn.execute_promise"
         error_callback: String
     )
 
-Asynchronously executes the given task and evaluates its Result to the JS promise described by the `success_callback` and `error_callback` function names.
+Exécute de manière asynchrone la tâche donnée et évalue son résultat à la promesse JS décrite par la fonction `success_callback` et `error_callback`.
 
 If the Result `is_ok()`, the callback will be the `success_callback` function name and the argument will be the Ok value. If the Result `is_err()`, the callback will be the `error_callback` function name and the argument will be the Err value.

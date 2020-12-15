@@ -10,4 +10,4 @@ title: "fn.emit"
         payload: Option<S>
     ) -> Result<()>
 
-Emits an event to JS.
+Émet un événement au JS.
