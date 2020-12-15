@@ -1,5 +1,4 @@
 ---
-id: sécurité
 title: Sécurité
 ---
 
