@@ -181,8 +181,8 @@ It's composed of the following properties:
     property: "allowlist", type: "object",
     child: <Properties anchorRoot="tauri.allowlist" rows={[
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
-      { property: "createDir", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "copyFile", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
+      { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
+      { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
       { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from webview.` },
       { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
       { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
