@@ -3,7 +3,8 @@ id: cli
 title: CLI
 ---
 
-import Command from '@theme/Command' import Alert from '@theme/Alert'
+import Command from '@theme/Command' 
+import Alert from '@theme/Alert'
 
 
 The tauri.js cli is composed in TypeScript and published as JavaScript.

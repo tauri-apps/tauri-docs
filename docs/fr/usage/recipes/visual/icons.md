@@ -2,7 +2,8 @@
 title: Icônes
 ---
 
-import Command from '@theme/Command' import Alert from '@theme/Alert'
+import Command from '@theme/Command' 
+import Alert from '@theme/Alert'
 
 Tauri est livré avec un jeu d'icônes par défaut basé sur son logo. Ce n'est probablement PAS ce que vous souhaitez lorsque vous expédierez votre application. Pour remédier à cette situation fréquente, Tauri fournit la commande `icon` qui va prendre un fichier d'entrée et créer toutes les icônes nécessaires pour les différentes plateformes :
 

@@ -2,7 +2,9 @@
 title: Configuration pour Linux
 ---
 
-import Alert from '@theme/Alert' import Icon from '@theme/Icon' import { Intro } from '@theme/SetupDocs'
+import Alert from '@theme/Alert' 
+import Icon from '@theme/Icon' 
+import { Intro } from '@theme/SetupDocs'
 
 <Intro />
 

@@ -2,7 +2,8 @@
 title: Lockdown
 ---
 
-import Rater from '@theme/Rater' import useBaseUrl from '@docusaurus/useBaseUrl'
+import Rater from '@theme/Rater' 
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <div className="row">
   <div className="col col--4">

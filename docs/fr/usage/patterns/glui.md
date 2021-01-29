@@ -2,7 +2,8 @@
 title: GLUI
 ---
 
-import Alert from '@theme/Alert' import useBaseUrl from '@docusaurus/useBaseUrl'
+import Alert from '@theme/Alert' 
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <Alert type="warning" icon="info-alt" title="Veuillez noter">
 Ce modèle n'est pas disponible pour le moment.
