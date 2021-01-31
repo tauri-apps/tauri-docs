@@ -75,11 +75,11 @@ dialog.open(...); dialog.save(...)
 
 ```ts
 /**
- * @param {Object} [options]
- * @param {String} [options.filter]
- * @param {String} [options.defaultPath]
- * @param {Boolean} [options.multiple=false]
- * @param {Boolean} [options.directory=false]
+ * @param {Object} [options] configuration for the dialog
+ * @param {String} [options.filter] file types to allow, separated by ; (ie jpg;jpeg;png)
+ * @param {String} [options.defaultPath] folder to display in the dialog when opened
+ * @param {Boolean} [options.multiple=false] allow the user to select multiple files
+ * @param {Boolean} [options.directory=false] if true, a directory will be selected instead of a file
  */
 open(options = {}): Promise<string | string[]>
 ```
