@@ -4,7 +4,7 @@ title: Splashscreen
 
 import Link from '@docusaurus/Link'
 
-Loading an application for the first time may take time. Making users wait without any indication of progress is bad for your UX. Tauri allows you to define a custom splashscreen, a placeholder that will be displayed until your application has finished loading.
+If your app has to run a lot of native code before it can display your web content, you may want to use a splashscreen to show a loading indicator. Note that currently you cannot display a splashscreen while the web content is loading, so it should only be used if you have a lot of Rust code that needs to be run before the web content can be displayed.
 
 To define a splashscreen, you can call the method `splashscreen_html` like following:
 
@@ -12,10 +12,9 @@ To define a splashscreen, you can call the method `splashscreen_html` like follo
 tauri::AppBuilder::new()
   // The splashscreen is declared
   .splashscreen_html("<div>The app is loading...</div>")
-  .setup(move |webview, _| {
-    let handle = webview.handle();
-    // The splashscreen is removed
-    tauri::close_splashscreen(&handle);
+  .setup(|webview, _| {
+    // The splashscreen is removed and replaced with your app
+    tauri::close_splashscreen(webview);
   })
   .build()
   .run();
