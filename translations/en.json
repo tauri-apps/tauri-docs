@@ -98,12 +98,32 @@
             "description": "Build reusable plugins to extend Tauri core."
           },
           {
-            "label": "CLI Updater",
-            "description": "Update core dependencies automatically from the CLI."
+            "label": "Secure Context for Web APIs",
+            "description": "Setup secure context to enable access to restricted APIs."
           },
           {
             "label": "Self Updater",
             "description": "Update Tauri Apps from within Tauri."
+          },
+          {
+            "label": "Iframe with native API",
+            "description": "Opt-in feature enabling for iframe dialog with Tauri and the native API."
+          },
+          {
+            "label": "Scoped FileSystem",
+            "description": "For improved security of files interaction."
+          },
+          {
+            "label": "Webview Bindings",
+            "description": "Improve Webview bindings."
+          },
+          {
+            "label": "Beta Release",
+            "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "CLI Updater",
+            "description": "Update core dependencies automatically from the CLI."
           },
           {
             "label": "Clipboard",
@@ -130,10 +150,6 @@
             "description": "Desktop Cross-platform Icon Tray."
           },
           {
-            "label": "Webview Bindings",
-            "description": "Use official Webview bindings."
-          },
-          {
             "label": "Multi Window",
             "description": "Run multiple window instances in Tauri."
           },
@@ -148,10 +164,6 @@
           {
             "label": "DENO Bindings",
             "description": "Use Deno to build your App's backend."
-          },
-          {
-            "label": "Beta Release",
-            "description": "Generally stable on Desktop, API locked down."
           },
           {
             "label": "Security Audit",
