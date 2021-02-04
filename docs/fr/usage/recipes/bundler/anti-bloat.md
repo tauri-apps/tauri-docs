@@ -1,18 +1,18 @@
 ---
-title: Anti Bloat
+title: Anti surcharge
 ---
 
 import Alert from '@theme/Alert'
 
-The following links have tutorials on reducing the size of your installers:
+Les liens suivants proposent des tutoriels sur la réduction de la taille de vos installateurs :
 
 - https://github.com/RazrFalcon/cargo-bloat
 - https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
 - https://doc.rust-lang.org/cargo/reference/manifest.html#the-profile-sections
 
-### Rust Compression Features
+### Fonctionnalités de compression Rust
 
-Add this to your `src-tauri/Cargo.toml`
+Ajoutez ceci à votre fichier `src-tauri/Cargo.toml`
 
     [profile.release]
     panic = "abort"
@@ -23,15 +23,15 @@ Add this to your `src-tauri/Cargo.toml`
 
 ### UPX
 
-UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This 23-year old, well-maintained piece of kit is GPL-v2 licensed with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license unless you modify the source code of UPX.
+UPX, **Ultimate Packer for eXecutables**, est un dinosaure parmi les empaqueteurs binaires. Ce kit de 23 ans, bien entretenu, est sous licence GPL-v2 avec une déclaration d'utilisation assez libérale. Selon notre interprétation de la licence, vous pouvez l'utiliser à n'importe quelle fin (commerciale ou autre) sans avoir besoin de modifier votre licence, sauf si vous modifiez le code source d'UPX.
 
-Basically it compresses the binary and decompresses it at runtime. It should work for pretty much any binary type out there. Read more: https://github.com/upx/upx
+Fondamentalement, il compresse le binaire et le décompresse au moment de l'exécution. Cela devrait fonctionner pour pratiquement tous les types binaires. En savoir plus : https://github.com/upx/upx
 
-<Alert type="warning" title="Warning" icon="alert">
-You should know that this technique might flag your binary as a virus on Windows and macOS - so use at your own discretion, and as always validate with Frida and do real distribution testing!
+<Alert type="warning" title="Avertissement" icon="alert">
+Vous devez savoir que cette technique pourrait faire signaler votre binaire comme un virus sur Windows et macOS - à utiliser donc à votre discrétion, et comme toujours à valider avec Frida et à faire de vrais tests de distribution !
 </Alert>
 
-#### Usage on macOS
+#### Utilisation sur macOS
 
     $ brew install upx
     $ yarn tauri build
@@ -39,7 +39,7 @@ You should know that this technique might flag your binary as a virus on Windows
                            Ultimate Packer for eXecutables
                               Copyright (C) 1996 - 2018
     UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
-
+    
             File size         Ratio      Format      Name
        --------------------   ------   -----------   -----------
         963140 ->    274448   28.50%   macho/amd64   app

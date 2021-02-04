@@ -12,4 +12,4 @@ title: "fn.call"
         error: String
     )
 
-Calls the given command and evaluates its output to the JS promise described by the `callback` and `error` function names.
+Appelle la commande donnée et évalue sa sortie à la promesse JS décrite par la fonction `callback` et `error`.

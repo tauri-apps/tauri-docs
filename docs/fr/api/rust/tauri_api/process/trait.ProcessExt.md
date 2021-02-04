@@ -6,39 +6,39 @@ title: "trait.ProcessExt"
 
     pub trait ProcessExt {
         fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Self;
-
+    
         fn kill(&self, signal: Signal) -> bool;
-
+    
         fn name(&self) -> &str;
-
+    
         fn cmd(&self) -> &[String];
-
+    
         fn exe(&self) -> &Path;
-
+    
         fn pid(&self) -> i32;
-
+    
         fn environ(&self) -> &[String];
-
+    
         fn cwd(&self) -> &Path;
-
+    
         fn root(&self) -> &Path;
-
+    
         fn memory(&self) -> u64;
-
+    
         fn virtual_memory(&self) -> u64;
-
+    
         fn parent(&self) -> Option<i32>;
-
+    
         fn status(&self) -> ProcessStatus;
-
+    
         fn start_time(&self) -> u64;
-
+    
         fn cpu_usage(&self) -> f32;
     }
 
 Contains all the methods of the `Process` struct.
 
-## Required methods
+## Méthodes requises
 
 ### `fn new(pid: i32, parent: Option<i32>, start_time: u64) -> Self`
 
@@ -108,9 +108,9 @@ Returns the time of process launch (in seconds).
 
 Returns the total CPU usage.
 
-Loading content...
+Chargement du contenu...
 
-## Implementors
+## Mise en œuvre
 
 ### `impl ProcessExt for Process`
 
@@ -146,4 +146,4 @@ Returns the status of the processus (idle, run, zombie, etc). `None` means that 
 
 #### `fn cpu_usage(&self) -> f32`
 
-Loading content...
+Chargement du contenu...

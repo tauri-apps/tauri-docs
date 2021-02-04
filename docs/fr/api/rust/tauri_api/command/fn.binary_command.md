@@ -6,4 +6,4 @@ title: "fn.binary_command"
 
     pub fn binary_command(binary_name: String) -> Result<String>
 
-Gets the binary command with the current target triple.
+Récupère la commande binaire avec la cible triple actuelle.

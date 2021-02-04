@@ -4,9 +4,9 @@ title: "struct.Handle"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Handle](/docs/api/rust/tauri/)
 
-    pub struct Handle<T> { /* fields omitted */ }
+    pub struct Handle<T> { /* champs omis */ }
 
-A thread-safe handle to a [`WebView`](/docs/api/rust/tauri/struct.WebView.html) instance. Used to dispatch closures onto its task queue.
+Une gestion sécurisé de l'instance [`WebView`](/docs/api/rust/tauri/struct.WebView.html). Utilisé pour envoyer une fermeture dans la pile d'exécution.
 
 ## Methods
 
@@ -14,13 +14,13 @@ A thread-safe handle to a [`WebView`](/docs/api/rust/tauri/struct.WebView.html) 
 
 #### `pub fn dispatch<F>(&self, f: F) -> Result<(), Error> where F: FnOnce(&mut WebView<T>) -> Result<(), Error> + Send + 'static,`
 
-Schedules a closure to be run on the [`WebView`](/docs/api/rust/tauri/struct.WebView.html) thread.
+Planifie une fermeture dans la pile d'exécution de la [`WebView`](/docs/api/rust/tauri/struct.WebView.html).
 
-# [Errors](/docs/api/rust/tauri/about:blank#errors)
+# [Erreurs](/docs/api/rust/tauri/about:blank#errors)
 
-Returns [`Error::Dispatch`](/docs/api/rust/tauri/enum.Error.html#variant.Dispatch) if the [`WebView`](/docs/api/rust/tauri/struct.WebView.html) has been dropped.
+Retourne [`Error::Dispatch`](/docs/api/rust/tauri/enum.Error.html#variant.Dispatch) si la [`Webview`](/docs/api/rust/tauri/struct.WebView.html) a été fermée.
 
-If the closure returns an `Err`, it will be returned on the next call to [`step()`](/docs/api/rust/tauri/struct.WebView.html#method.step).
+Si la fermeture renvoie un `Err`, il sera retourné lors du prochain appel à [`step()`](/docs/api/rust/tauri/struct.WebView.html#method.step).
 
 ## Trait Implementations
 
@@ -28,11 +28,11 @@ If the closure returns an `Err`, it will be returned on the next call to [`step(
 
 #### `fn clone(&self) -> Handle<T>`
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
 #### `fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+Performs copy-assignment from `source`. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl<T> Send for Handle<T>`
 
@@ -52,19 +52,19 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -86,7 +86,7 @@ The resulting type after obtaining ownership.
 
 #### `fn to_owned(&self) -> T`
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+Creates owned data from borrowed data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
 #### `fn clone_into(&self, target: &mutT)`
 
@@ -94,7 +94,7 @@ Creates owned data from borrowed data, usually by cloning. [Read more](https://d
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

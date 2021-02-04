@@ -4,33 +4,29 @@ title: Introduction
 
 import OSList from '@theme/OSList'
 
-Here you will find instructions to setup and customize Tauri on your environment.
+Vous trouverez ici des instructions pour installer et personnaliser Tauri sur votre environnement.
 
-If you find an error or something unclear, or would like to propose an improvement, you have several options:<br />
+Si vous trouvez une erreur ou quelque chose de pas clair, ou si vous souhaitez proposer une amélioration, vous avez plusieurs options :<br />
 
-1. Open an issue on our [Github Repo](https://github.com/tauri-apps/tauri-docs).<br />
-2. Visit our [Discord server](https://discord.gg/SpmNs4S) and raise your concern.<br />
-3. Request to join the education working group on Discord to gain access to its discussion channel.
+1. Ouvrir un ticket sur notre [dépôt Github](https://github.com/tauri-apps/tauri-docs).<br />
+2. Visiter notre [serveur Discord](https://discord.gg/SpmNs4S) et exprimer votre problème.<br />
+3. Demander à rejoindre le groupe de travail sur Discord pour avoir accès à son canal de discussion.
 
-## How Tauri Works
+## Comment fonctionne Tauri
 
-1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
-2. The Tauri.js CLI takes the output and rigs the underlying native code according to your configuration.
-3. In dev mode it creates a webview window with debugging and hot-module-reloading.
-4. In build mode it rigs the bundler and creates native installers according to your settings.
+1. Créez votre application web avec le framework front-end de votre choix et regroupez le tout en HTML/CSS/JS.
+2. Le CLI Tauri.js prend la sortie et adapte le code natif sous-jacent en fonction de votre configuration.
+3. En mode développement, il crée une fenêtre d'aperçu web avec débogage et rechargement à chaud des modules.
+4. En mode compilé, il manipule le bundler et crée des installateurs natifs en fonction de vos paramètres.
 
-### Setting up Your Environment
+### Configuration de votre environnement
 
-This guide assumes that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. 
+Ce guide suppose que vous connaissez la ligne de commande, que vous savez comment installer des paquets sur votre système d'exploitation et que vous vous y connaissez généralement dans le domaine du développement informatique.
 
-First, make sure that all required languages / compilers are installed and available in your PATH. Read more about the details for your local development environment:
+Tout d'abord, assurez-vous que tous les langages / compilateurs requis sont installés et disponibles dans votre PATH. En savoir plus sur les détails pour votre environnement de développement local :
 
-<OSList content={{
-    linux: { title: 'Linux Setup', link: '/docs/getting-started/setup-linux'},
-    macos: { title: 'macOS Setup', link: '/docs/getting-started/setup-macos'},
-    windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
-}} />
+<OSList content={{ linux: { title: 'Linux Setup', link: '>
 
-After that, you'll be ready to [add Tauri to your project!](/docs/usage/development/integration)
+Après cela, vous serez prêt à [ajouter Tauri à votre projet !](/docs/usage/development/integration)
 
-Or read more about [Tauri under the hood](/docs/getting-started/technical-details).
+Ou en savoir plus sur [le fonctionnement de Tauri](/docs/getting-started/technical-details).

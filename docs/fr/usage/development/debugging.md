@@ -1,35 +1,34 @@
 ---
-title: App Debugging
-sidebar_label: 'App Debugging (3/4)'
+title: Débogage d'une application
+sidebar_label: 'Débogage d''une app (3/4)'
 ---
 
 import Command from '@theme/Command'
 
-With all the moving pieces in Tauri, you may run into a problem that requires debugging. There are a handful of locations where error details are printed, and Tauri includes some tools to make the debugging process easier.
+Avec toutes les composantes mobiles de Tauri, vous pouvez rencontrer un problème qui nécessite un débogage. Il existe une série d'endroits où le détail des erreurs peut être affiché, et Tauri inclut quelques outils pour faciliter le processus de débogage.
 
-## Rust Console
+## Console Rust
 
-When you run a Tauri app in development mode you will have a Rust console available. This is in the terminal where you ran e.g. `tauri dev`. You can use the following code to print something to that console from within a Rust file:
+Lorsque vous lancez une application Tauri en mode développement, vous disposez d'une console Rust. Elle se trouve dans le terminal où vous avez exécuté `tauri dev` par exemple. Vous pouvez utiliser le code suivant pour afficher quelque chose sur cette console à partir d'un fichier Rust :
 
 ```rust
 println!("Message from Rust: {}", msg);
 ```
 
-Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and macOS:
+Il peut arriver que vous ayez une erreur dans votre code Rust, et le compilateur Rust peut vous donner beaucoup d'informations. Si, par exemple, `tauri dev` plante, vous pouvez le relancer comme ceci sur Linux et macOS :
 
 ```sh
 RUST_DEBUG=1 tauri dev
 ```
 
-or like this on MS Windows:
+ou comme ça sur MS Windows :
 
 ```sh
 set RUST_DEBUG=1
 tauri dev
 ```
 
-This will give you a granular stack trace. Generally speaking, the Rust compiler will help you by
-giving you detailed information about the issue, such as:
+Vous obtiendrez ainsi une trace d'appels plus détaillée. D'une manière générale, le compilateur Rust vous aidera en vous donnant des informations détaillées sur le problème, telles que :
 
 ```
 error[E0425]: cannot find value `sun` in this scope
@@ -43,19 +42,19 @@ error: aborting due to previous error
 For more information about this error, try `rustc --explain E0425`.
 ```
 
-## Webview JS Console
+## Console JS Webview
 
 ### Linux & macOS
 
-Right click in the webview, and choose `Inspect Element`. This will open up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
+Faites un clic droit dans la webview, et choisissez `Inspect Element`. Cela ouvrira un inspecteur web similaire aux outils de développement Chrome ou Firefox auxquels vous êtes habitués.
 
 ### Windows
 
-If you enable the Edge backend (`tauri = { version = "*", features = ["edge"] }` in `src-tauri/Cargo.toml`) you can use the standalone Edge DevTools app.
+Si vous activez le back-end Edge (`tauri = { version = "*", features = ["edge"] }` dans `src-tauri/Cargo.toml`) vous pouvez utiliser l'application autonome Devtools d'Edge.
 
-This enables you to connect the dev tools to your Rust-backed web view as if it were a normal Edge window. (Thanks to @dkaste for providing the solution [in this issue](https://github.com/Boscop/web-view/issues/88#issuecomment-552464137)).
+Cela vous permet de connecter les outils de développement à votre fenêtre Web générée par Rust comme s'il s'agissait d'une fenêtre Edge normale. (Merci à @dkaste d'avoir fourni la solution [au problème](https://github.com/Boscop/web-view/issues/88#issuecomment-552464137)).
 
-If you are using MSHTML, then you will probably have to use firebug:
+Si vous utilisez le MSHTML, vous devrez probablement utiliser le firebug :
 
 ```html
 <script
@@ -64,17 +63,17 @@ If you are using MSHTML, then you will probably have to use firebug:
 ></script>
 ```
 
-See [this thread](https://github.com/zserge/webview/blob/master/README.md#debugging-and-development-tips) for more information.
+Voir [ce fil de discussion](https://github.com/zserge/webview/blob/master/README.md#debugging-and-development-tips) pour plus d'information.
 
-## Create a Debug Build
+## Créer une version de débogage
 
-There are cases where you might need to inspect the JS console in the final bundle, so Tauri provides a simple command to create a debugging bundle:
+Il y a des cas où vous pourriez avoir besoin d'inspecter la console JS dans le bundle final, donc Tauri fournit une commande simple pour créer un bundle de débogage :
 
 
 <Command name="build --debug" />
 
-Like the normal build and dev processes, the first time you run this it will take more time than subsequent runs. The final bundled app will be placed in `src-tauri/target/debug/bundle`. That app will ship with the development console enabled.
+Comme pour les processus de dev et de compilé, la première fois que vous l'exécutez, cela prendra plus de temps que les exécutions suivantes. La compilation finale de l'application sera placée dans `src-tauri/target/debug/bundle`. Cette application sera livrée avec la console de développement activée.
 
-## Run Your App From the Terminal
+## Exécuter l'application depuis le terninal
 
-You can also run a built app from the terminal, which will also give you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release or debug)/app` and either double click it (but be warned, the terminal will close on errors) or just run it in directly in your console.
+Vous pouvez également lancer une application compilée à partir du terminal, qui vous donnera également les messages du compilateur Rust (en cas d'erreurs) ou vos messages `println`. Il suffit de trouver le fichier `src-tauri/target/(release ou debug)/app` et soit de le double-cliquer (mais attention, le terminal se ferme en cas d'erreur), soit de le lancer directement dans votre console.

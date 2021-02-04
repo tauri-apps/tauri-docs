@@ -1,17 +1,17 @@
 ---
 id: governance
-title: Governance
+title: Gouvernance
 ---
 
-## Sustainability
+## Durabilité
 
-One of the main goals of the organizational structure of Tauri is to guarantee the sustainability of Tauri and the health and well-being of its contributors. The world of Open Source is fraught with peril and discord, and we have taken measures to ensure the longevity of Tauri. This document explains how we go about doing so.
+L'un des principaux objectifs de la structure organisationnelle de Tauri est de garantir la durabilité de Tauri et la santé et le bien-être de ses contributeurs. Le monde de l'Open Source est plein de périls et de discorde, et nous avons pris des mesures pour assurer la longévité de Tauri. Ce document explique comment nous procédons.
 
-### Organizational Structure
+### Structure organisationnelle
 
-Tauri apps is governed by the community and work is done in the context of public working groups. Each working group has a dedicated channel on the Discord server as well as a Team on GitHub. Other than that, each WG is free to use whatever type of organizational model it chooses.
+Tauri apps est régie par la communauté et le travail est effectué dans le cadre de groupes de travail publics. Chaque groupe de travail dispose d'un canal dédié sur le serveur Discord ainsi que d'une équipe sur GitHub. En dehors de cela, chaque WG est libre d'utiliser le type de modèle organisationnel qu'il choisit.
 
-The current working groups are:
+Les groupes de travail actuels sont :
 
 - WG Governance & Guidance
 - WG Tech
@@ -20,24 +20,24 @@ The current working groups are:
 - WG Security
 - WG Devops
 
-With the exception of the security working group, which is by invite only and convenes privately, all other working groups are public and open to any and all participants.
+À l'exception du groupe de travail sur la sécurité, qui est uniquement sur invitation et se réunit en privé, tous les autres groupes de travail sont publics et ouverts à tous les participants.
 
-Please visit [this repository](https://github.com/tauri-apps/governance-and-guidance) to get more information.
+Veuillez visiter [ce dépôt](https://github.com/tauri-apps/governance-and-guidance) pour obtenir plus d'informations.
 
-### Code of Conduct
+### Code de conduite
 
-Everyone participating in the Tauri community is expected to follow a code of conduct that you can at the [Governance and Guidance:Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/master/CODE_OF_CONDUCT.md).
+Toute personne participant à la communauté de Tauri est censée suivre un code de conduite que vous pouvez consulter sur [Gouvernance et direction : Code de conduite](https://github.com/tauri-apps/governance-and-guidance/blob/master/CODE_OF_CONDUCT.md).
 
-### Social Contract
+### Contrat social
 
-We have a Social Contract that informs our decision making and organization. You can read about it here: [Governance and Guidance:Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/master/SOCIAL_CONTRACT.md).
+Nous avons un contrat social qui informe notre prise de décision et notre organisation. Vous pouvez en savoir plus à ce sujet ici : [Gouvernance et direction : Contrat social](https://github.com/tauri-apps/governance-and-guidance/blob/master/SOCIAL_CONTRACT.md).
 
-### Licensing
+### Licences
 
-We, the contributors to Tauri Apps, use the MIT and Apache licenses for all code content. Images and bodies of text, unless otherwise noted are CC-BY-ND-NC.
+Nous, les contributeurs de Tauri Apps, utilisons les licences du MIT et d'Apache pour tout le contenu du code. Les images et le corps du texte, sauf indication contraire, sont CC-BY-ND-NC.
 
-### Trademark
+### Marque déposée
 
-It is a permissible use of the name "Tauri App" or the Tauri logo to show that a project uses Tauri. "Tauri Studio" is reserved for use by the organization.
+Il est permis d'utiliser le nom "Tauri App" ou le logo Tauri pour montrer qu'un projet utilise Tauri. "Tauri Studio" est réservé à l'usage de l'organisation.
 
-Any language that gives the impression that the Tauri organization approves, authorizes or otherwise supports a project, person or company is not permissible without written authorization from the Guidance and Governance Working Group.
+Tout langage qui donne l'impression que l'organisation de Tauri approuve, autorise ou soutient de toute autre manière un projet, une personne ou une entreprise n'est pas autorisée sans l'autorisation écrite du groupe de travail sur la direction et la gouvernance.

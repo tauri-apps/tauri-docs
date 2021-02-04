@@ -2,16 +2,16 @@
 title: Introduction
 ---
 
-This part of the documentation is dedicated to learning how to use Tauri.
+Cette partie de la documentation est consacrée à l'apprentissage de Tauri.
 
-Tauri provides a [CLI](/docs/api/cli), a [Rust API](/docs/api/rust/tauri/config/fn.get) and a [JavaScript API](/docs/api/js) that you can use in your project. Because raw docs can be quite scary to newcomers (especially people who have never played with Rust before), we've created this "learn by example" section.
+Tauri fournit un [CLI](/docs/api/cli), une [API Rust](/docs/api/rust/tauri/config/fn.get) et une [API Javascript](/docs/api/js) que vous pouvez utiliser dans votre projet. Comme les documentations brutes peuvent être assez effrayantes pour les nouveaux venus (surtout pour les personnes qui n'ont jamais joué avec Rust auparavant), nous avons créé cette section "apprendre par l'exemple".
 
-Here you will find recipes and techniques to add to your own project in order to fulfil your goals.
+Vous trouverez ici des solutions et des techniques à appliquer dans votre propre projet pour atteindre vos objectifs.
 
-You may browse the entire section or click one of the following questions for specific help:
+Vous pouvez parcourir toute la section ou cliquer sur l'une des questions suivantes pour obtenir une aide spécifique :
 
-- [How to add Tauri to my project](/docs/usage/development/integration)
-- [What configuration for my project](/docs/usage/patterns/about-patterns)
-- [How to develop with Tauri](/docs/usage/development/development)
-- [How to embed custom binaries](/docs/usage/recipes/bundler/sidecar)
-- [How to customize app icons](/docs/usage/recipes/visual/icons)
+- [Comment ajouter Tauri à mon projet](/docs/usage/development/integration)
+- [Quelle configuration pour mon projet](/docs/usage/patterns/about-patterns)
+- [Comment développer avec Tauri](/docs/usage/development/development)
+- [Comment intégrer des binaires personnalisés](/docs/usage/recipes/bundler/sidecar)
+- [Comment personnaliser les icônes de l'application](/docs/usage/recipes/visual/icons)

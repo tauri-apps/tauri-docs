@@ -1,279 +1,278 @@
 {
   "config": {
     "announcementBar": {
-      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a> - <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.dmg\" target=\"_blank\">macOS - dmg</a> - <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a> - <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+      "validationApp": "🚀 Téléchargez notre application de validation pour essayer Tauri : <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a>- <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app-macos.dmg\" target=\"_blank\">MacOS - dmg</a>- <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a>- <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
     },
-    "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
+    "tagline": "Créez des applications desktop plus légères, plus rapides et plus sécurisées avec un front-end web"
   },
   "pages": {
     "index": {
-      "description": "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.",
-      "subtitle": "Créez des applications desktop plus petites, rapides et plus sécurisées<br />avec une interface web",
-      "learnMore": "Learn more",
-      "getStarted": "Get started",
+      "description": "Tauri est un framework pour créer de petits binaires ultra rapides pour toutes les principales plateformes bureau. Les développeurs peuvent intégrer n'importe quel framework front-end qui compile en HTML, JS et CSS pour construire leur interface utilisateur.",
+      "subtitle": "Créez des applications desktop plus petites, plus rapides et plus sécurisées<br/> avec un front-end web",
+      "learnMore": "En savoir plus",
+      "getStarted": "Commencer",
       "feature": {
-        "seeMore": "See more",
+        "seeMore": "En savoir plus",
         "items": [
           {
-            "label": "Brownfield",
-            "description": "compatibility with any front-end framework means you don't have to change your stack"
+            "label": "Site web",
+            "description": "la compatibilité avec tout framework front signifie que vous n'avez pas à changer votre stack"
           },
           {
             "label": "FLOSS",
-            "description": "relicensing is possible with Tauri"
+            "description": "le changement de licence est possible avec Tauri"
           },
           {
-            "label": "Bundle",
-            "description": "size of a Tauri App can be less than 600KB"
+            "label": "Paquet",
+            "description": "la taille d'une application Tauri peut être inférieure à 600Kb"
           },
           {
-            "label": "Security",
-            "description": "is the Tauri-Team's biggest priority and drives our innovation"
+            "label": "Sécurité",
+            "description": "est la plus grande priorité de l'équipe Tauri et motive notre innovation"
           },
           {
-            "label": "Patterns",
-            "description": "are here to help you choose important features with simple configuration"
+            "label": "Les modèles",
+            "description": "permettent de choisir des fonctionnalités facilement"
           },
           {
-            "label": "Cross-platform",
-            "description": "compilation allows to bundle binaries for major desktop platforms (mobile & WASM coming soon)"
+            "label": "Multi-platforme",
+            "description": "la compilation permet de générer des binaires pour les principales plateformes de bureau (mobile et WASM à venir)"
           }
         ]
       },
       "roadmap": {
-        "title": "Roadmap",
-        "notice": "Notice: This roadmap is subject to change.",
-        "beyond": "& BEYOND",
-        "todo": "To Do",
-        "milestone": "Milestone",
-        "ready": "Ready",
+        "title": "Feuille de route",
+        "notice": "Note : Cette feuille de route est sujette à modification.",
+        "beyond": "Et au delà",
+        "todo": "À faire",
+        "milestone": "Étape",
+        "ready": "Prêt",
         "items": [
           {
             "label": "CLI",
-            "description": "Generate, develop and build Tauri apps from the command line."
+            "description": "Générez, développez et construisez des applications Tauri depuis la ligne de commande."
           },
           {
             "label": "API",
-            "description": "Finalize, audit, write documentation and create examples for the smoke-tests."
+            "description": "Finalisation, audit, écriture de la documentation et création des exemples pour les smoke-tests."
           },
           {
-            "label": "Testing & CI",
-            "description": "Implement CI with testing and bundle-pipeline validation."
+            "label": "Tests & CI",
+            "description": "Implémente une CI avec une pipeline de tests et validations."
           },
           {
-            "label": "Desktop Bundler",
-            "description": "Bundle for all major desktops from native systems."
+            "label": "Paquetage pour environnement de bureau",
+            "description": "Paquetage sur tous les principaux environnements de bureau à partir de systèmes natifs."
           },
           {
-            "label": "Alpha Release",
-            "description": "Technical Release Candidate for desktop, edge cases and bugs acceptable."
+            "label": "Version Alpha",
+            "description": "Version candidate technique pour desktop, les effets de bord et bugs sont acceptables."
           },
           {
-            "label": "Sideloader",
-            "description": "Integrate and instrument other binaries."
+            "label": "Chargeur latéral",
+            "description": "Intègre et instrumente les autres binaires."
           },
           {
-            "label": "Splashscreen",
-            "description": "Use a splashscreen while the main content is loading."
+            "label": "Écran de démarrage",
+            "description": "Utilisez un écran de démarrage pendant le chargement du contenu principal."
           },
           {
-            "label": "App Storage",
-            "description": "Use a canonical location to store userdata."
+            "label": "Stockage pour les applications",
+            "description": "Utilise un emplacement canonique pour stocker les données d'utilisateur."
           },
           {
-            "label": "Native Notifications",
-            "description": "Cross-platform notifications using polyfilled WEB API."
-          },
-
-          {
-            "label": "GH Action for Building Apps",
-            "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
+            "label": "Notifications natives",
+            "description": "Notifications multi-plateformes utilisant un polyfill de l'API WEB."
           },
           {
-            "label": "VS Code Extension",
-            "description": "Commands and validate tauri.conf.json"
+            "label": "Mise en place de GH Action pour compiler les applications",
+            "description": "Construisez votre application Web en tant que binaire Tauri pour macOS, Linux et Windows"
           },
           {
-            "label": "Core Plugin System",
-            "description": "Build reusable plugins to extend Tauri core."
+            "label": "Extension VS Code",
+            "description": "Raccourcis et validation du tauri.conf.json"
           },
           {
-            "label": "CLI Updater",
-            "description": "Update core dependencies automatically from the CLI."
+            "label": "Plugin pour le système principal",
+            "description": "Créez des extensions réutilisables pour Tauri."
           },
           {
-            "label": "Self Updater",
-            "description": "Update Tauri Apps from within Tauri."
+            "label": "Mise à jour CLI",
+            "description": "Mettre à jour automatiquement les dépendances principales à partir du CLI."
           },
           {
-            "label": "Clipboard",
-            "description": "Enable programmatic and keyboard access to clipboard."
+            "label": "Mise à jour automatique",
+            "description": "Mettre à jour les applications Tauri depuis Tauri."
           },
           {
-            "label": "Keyboard Shortcuts",
-            "description": "Hook and react to keypresses."
+            "label": "Presse-papiers",
+            "description": "Activer l'accès programmatique et clavier au presse-papiers."
+          },
+          {
+            "label": "Raccourcis clavier",
+            "description": "Récupère et réagi aux touches pressées."
           },
           {
             "label": "Channel API",
-            "description": "Send messages through a channel."
+            "description": "Envoyez des messages via un canal."
           },
           {
-            "label": "One-Time Commands",
-            "description": "Run a command that is no longer available after first run."
+            "label": "Commandes à usage unique",
+            "description": "Exécutez une commande qui n'est plus disponible après la première exécution."
           },
           {
-            "label": "WASM Bundler",
-            "description": "Manufacture WASM bundler for use in websites."
+            "label": "Paquet WASM",
+            "description": "Fabrication de paquet WASM pour utilisation sur des sites Web."
           },
           {
-            "label": "App Tray",
-            "description": "Desktop Cross-platform Icon Tray."
+            "label": "Plateau d'applications",
+            "description": "Icône de barre d'état multi-plateforme."
           },
           {
-            "label": "Webview Bindings",
-            "description": "Use official Webview bindings."
+            "label": "Interface Webview",
+            "description": "Utilisez l'interface officiel de Webview."
           },
           {
-            "label": "Multi Window",
-            "description": "Run multiple window instances in Tauri."
+            "label": "Multi-fenêtre",
+            "description": "Exécutez plusieurs instances de fenêtre dans Tauri."
           },
           {
-            "label": "Transparent Window",
-            "description": "Have transparent windows."
+            "label": "Fenêtre transparente",
+            "description": "Avoir des fenêtres transparentes."
           },
           {
-            "label": "Rust-based CLI",
-            "description": "Create rust CLI with DENO bindings and binary."
+            "label": "CLI basé sur Rust",
+            "description": "Créez un CLI rust avec des interfaces et binaires DENO."
           },
           {
-            "label": "DENO Bindings",
-            "description": "Use Deno to build your App's backend."
+            "label": "Interface DENO",
+            "description": "Utilisez Deno pour développer le back-end de votre application."
           },
           {
-            "label": "Beta Release",
-            "description": "Generally stable on Desktop, API locked down."
+            "label": "Version bêta",
+            "description": "Globalement stable sur bureau, API verrouillée."
           },
           {
-            "label": "Security Audit",
-            "description": "3rd party security audit of core libraries."
+            "label": "Audit de sécurité",
+            "description": "Audit de sécurité sur les bibliothèques principales par une tierce partie."
           },
           {
-            "label": "Mobile Bundler",
-            "description": "Bundle to all major mobile device operating systems."
+            "label": "Paquetage mobile",
+            "description": "Paquetage pour tous les principaux systèmes d'exploitation de périphériques mobiles."
           },
           {
-            "label": "Cross Compiler",
-            "description": "Generate bundled binaries from select operating system environments."
+            "label": "Compilateur multi-plateforme",
+            "description": "Générez des binaires paquetés à partir de certains environnements de système d'exploitation."
           },
           {
-            "label": "PureOS App Store",
-            "description": "Verified builds for PureOS."
+            "label": "Magazin PureOS",
+            "description": "Compilations vérifiées pour PureOS."
           },
           {
-            "label": "Stable Release",
-            "description": "Stable on On all Platforms."
+            "label": "Version stable",
+            "description": "Stable sur toutes les plateformes."
           },
           {
-            "label": "Other Bindings",
-            "description": "Go, Nim, Python, C++ and other bindings are possible with the stable API."
+            "label": "Autres interfaces",
+            "description": "Go, Nim, Python, C++ et d'autres interfaces sont possibles avec l'API stable."
           },
           {
-            "label": "Alternative Renderer",
-            "description": "Candidate presentation for Webview Alternatives, including GL windowing."
+            "label": "Rendu alternatif",
+            "description": "Présentation candidate pour les alternatives à Webview, y compris le fenêtrage GL."
           },
           {
             "label": "Tauri-Frida",
-            "description": "A decompiler and threat analyzer for Tauri Apps, using Frida."
+            "description": "Un décompilateur et un analyseur de risques pour les applications Tauri, en utilisant Frida."
           },
           {
-            "label": "The Future",
-            "description": "Something missing? Got a great idea? We want you to help us make it happen."
+            "label": "Le futur",
+            "description": "Il manque quelque chose ? Vous avez une idée géniale ? Nous souhaitons que vous nous aidiez à la réaliser."
           }
         ]
       }
     },
     "partners": {
-      "partnersLabel": "Partners",
+      "partnersLabel": "Partenaires",
       "sponsors": [
         {
-          "description": "This project's infrastructure is supported in part by Digital Ocean. Click the button here to visit the Digital Ocean website and get $100 credit that you can use within 60 days."
+          "description": "L'infrastructure de ce projet est en partie soutenue par Digital Ocean. Cliquez sur le bouton ici pour visiter le site web de Digital Ocean et obtenir un crédit de 100$ que vous pourrez utiliser dans les 60 jours."
         },
         {
-          "description": "Our docs are continuously deployed thanks to the kind support and amazing tooling provided to us by netlify. Their service puts the continuity in CI and the fun in functionality."
+          "description": "Nos documentations sont continuellement déployées grâce à l'aimable soutien et aux outils étonnants que nous fournit netlify. Leur service permet d'avoir une CI continue et nous permet de nous focaliser sur les fonctionnalités."
         },
         {
-          "description": "Mailscript helps us automate and wrangle our many, many github notifications and apply granular actions to mails using rules. Whether forwards, catchalls, webhooks or even SMS notifications - MailScript() keeps on innovating!"
+          "description": "Mailscript nous permet d'automatiser et de gérer nos nombreuses notifications github et d'appliquer des actions graduelles aux courriers en utilisant des règles spécifiques. Qu'il s'agisse de redirections, de captures, de webhooks ou même de notifications par SMS - MailScript() continue d'innover !"
         },
         {
-          "description": "ClickUp is one app to replace them all. It's the future of work - where anyone can work on anything. More than just task management - ClickUp offers docs, reminders, goals, calendars, scheduling, and even an inbox. Fully customizable, ClickUp works for every type of team, so all teams can use the same app to plan, organize, and collaborate."
+          "description": "ClickUp est une application qui les remplace toutes. C'est l'avenir du travail - où chacun peut travailler sur n'importe quoi. Plus qu'une simple gestion des tâches, ClickUp propose des documents, des rappels, des objectifs, des calendriers, un planning et même une boîte de réception. Entièrement personnalisable, ClickUp fonctionne pour tout type d'équipe, de sorte que toutes les équipes peuvent utiliser la même application pour planifier, organiser et collaborer."
         },
         {
-          "description": "The awesome folks at wallaby.js comped the core team of Tauri with their futuristic REPL in the IDE test runner. If you avoid testing your JS because it takes so long - with wallaby you'll appreciate the immediate inline feedback. We do..."
+          "description": "Les membres géniaux de wallaby.js ont fait le bonheur de l'équipe principal de Tauri avec leur REPL futuriste pour les tests IDE. Si vous évitez de tester votre JS parce que cela prend trop de temps - avec wallaby vous apprécierez le retour d'information immédiat. De notre côté, nous apprécions fortement !"
         }
       ],
-      "collaboratorsLabel": "Collaborators",
+      "collaboratorsLabel": "Collaborateurs",
       "collaborators": [
         {
-          "description": "GUIJS is a toolkit for making your devlife easier. This collaboration enabled the extension of Tauri to have a new mode, the sidecar."
+          "description": "GUIJS est une boîte à outils pour vous faciliter la vie. Cette collaboration a permis à l'extension de Tauri d'avoir un nouveau mode, le sidecar."
         },
         {
-          "description": "It can be argued that the humble beginnings of Tauri stretch back to a conversation where PureOS explained that Electron apps will never ship on the official PureOS store, and something else would be needed."
+          "description": "On peut dire que les humbles débuts de Tauri remontent à une conversation où PureOS expliquait que les applications Electron ne seront jamais disponibles sur la plateforme officielle de PureOS, et qu'il faudrait autre chose."
         },
         {
-          "description": "The first adopter of Tauri, close collaborators with common interests. IOTA is a permissionless distributed ledger technology, without miners and suited for low power devices."
+          "description": "Le premier adepte de Tauri, de proches collaborateurs ayant des intérêts communs. IOTA est une technologie distribué sans autorisation, sans minage et adaptée aux appareils de faible puissance."
         },
         {
-          "description": "A data-driven game engine, in Rust - committed to nuturing an open source community."
+          "description": "Un moteur de jeu basé sur les données, dans Rust - qui s'engage à alimenter une communauté open source."
         },
         {
-          "description": "If PureOS planted the seed of Tauri, Kayaba from Meros really kicked the can down the road with a perfectly timed question."
+          "description": "Si PureOS a planté la graine de Tauri, Kayaba de Meros a vraiment donné un coup de pied dans la machine avec une question parfaitement planifiée."
         },
         {
-          "description": "One of the most polyglot professionals out there, TensorProgramming shares his knowledge and excitement about dozens of different programming languages on his YouTube channel."
+          "description": "TensorProgramming, l'un des professionnels les plus polyglottes, partage ses connaissances et son enthousiasme pour des dizaines de langages de programmation différents sur sa chaîne YouTube."
         }
       ],
       "patronsLabel": "Patrons"
     },
     "showcase": {
-      "content": "Here are the applications that have been made with Tauri!",
+      "content": "Voici les applications qui ont été faites avec Tauri !",
       "projects": [
         {
           "description": ""
         },
         {
-          "description": "A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call."
+          "description": "Une application gratuite, légère, simple, belle et utile pour faire un tirage au sort ou pour passer un appel nominal."
         },
         {
-          "description": "Write Arabic text on apps that don't support bidirectional text."
+          "description": "Écrire du texte en arabe sur des applications qui ne prennent pas en charge le texte bidirectionnel."
         }
       ],
-      "yourProject": "Your project",
-      "addIt": "Add it!"
+      "yourProject": "Votre projet",
+      "addIt": "Ajoutez-le !"
     }
   },
   "navbar": {
-    "about": "About",
+    "about": "À propos",
     "docs": "Docs",
     "api": "API",
-    "community": "Community",
-    "partners": "Partners",
-    "showcase": "Showcase",
+    "community": "Communauté",
+    "partners": "Partenaires",
+    "showcase": "Vitrine",
     "usage": "Usage",
-    "gettingStarted": "Getting started",
+    "gettingStarted": "Pour commencer",
     "contact": "Contact",
-    "mail": "Mail",
-    "network": "Network"
+    "mail": "Courriel",
+    "network": "Réseau"
   },
   "navigation": {
     "pagination": {
-      "next": "Next",
-      "previous": "Previous"
+      "next": "Suivant",
+      "previous": "Précédent"
     }
   },
   "misc": {
-    "editPage": "Edit this page"
+    "editPage": "Modifier cette page"
   },
   "global": {
-    "discover": "Discover"
+    "discover": "Découvrir"
   }
 }

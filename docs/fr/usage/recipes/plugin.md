@@ -1,64 +1,63 @@
 ---
-title: Write Tauri Plugins
+title: Écrire des plugins pour Tauri
 ---
 
 import Alert from '@theme/Alert'
 
 <Alert title="Note" icon="info-alt">
-Tauri will soon offer Plugin starter kits so the process of writing a Plugin crate will be simplified.
+Tauri proposera bientôt des kits de démarrage, ce qui simplifiera le développement d'un Plugin crate.
 
-For now it's recommended to follow the [official Tauri plugins](#official-tauri-plugins).
+Pour l'instant, il est recommandé de suivre les [plugins Tauri officiels] (#official-tauri-plugins).
 </Alert>
 
-The Tauri Plugin system was introduced in [tauri v0.8.0](https://docs.rs/tauri/0.8.0/tauri/).
-Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
+Le système de plugin Tauri a été introduit dans [tauri v0.8.0](https://docs.rs/tauri/0.8.0/tauri/). Les plugins vous permettent de vous raccorder au cycle de vie de l'application Tauri et d'introduire de nouvelles commandes.
 
-## Writing a Plugin
+## Écrire un plugin
 
-To write a plugin you just need to implement the `tauri::plugin::Plugin` trait:
+Pour écrire un plugin, il suffit d'implémenter le trait `tauri::plugin::Plugin` :
 
 ```rust
 use tauri::{plugin::Plugin, Webview};
 
 struct MyAwesomePlugin {
-  // plugin state, configuration fields
+  // état du plugin, champs de configuration
 }
 
 impl MyAwesomePlugin {
-  // you can add configuration fields here,
-  // see https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+  // vous pouvez ajouter des champs de configuration ici,
+  // voir https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
   pub fn new() -> Self {
     Self {}
   }
 }
 
 impl Plugin for MyAwesomePlugin {
-  /// The JS script to evaluate on init.
-  /// Useful when your plugin is accessible through `window`
-  /// or needs to perform a JS task on app initialization
-  /// e.g. "window.localStorage = { ... the plugin interface }"
+  /// Le script JS à évaluer à l'initialisation.
+  /// Utile lorsque votre plugin est accessible par une `fenêtre`
+  /// ou doit effectuer une tâche JS sur l'initialisation de l'application
+  /// par exemple, "window.localStorage = { ... l'interface du plugin }"
   fn init_script(&self) -> Option<String> {
     None
   }
 
-  /// Callback invoked when the webview is created.
+  /// Rappel invoqué lors de la création du webview.
   fn created(&self, webview: &mut Webview) {}
 
-  /// Callback invoked when the webview is ready.
+  /// Rappel invoqué lorsque le webview est prêt.
   fn ready(&self, webview: &mut Webview) {}
 
   fn extend_api(&self, webview: &mut Webview, payload: &str) -> Result<bool, String> {
-    // extend the API here, following the Command guide
-    // if you're not going to use this, you can just remove it
+    // étendre l'API ici, en suivant le guide de commande
+    // si vous ne comptez pas l'utiliser, vous pouvez simplement le retirer
   }
 }
 ```
 
-Note that each function on the `Plugin` trait is optional.
+Notez que chaque fonction sur le trait `Plugin` est facultative.
 
-## Using a plugin
+## Utilisation d'un plugin
 
-To use a plugin, just pass an instance of the `MyAwesomePlugin` struct to the App's `plugin` method:
+Pour utiliser un plugin, il suffit de passer une instance de la structure `MyAwesomePlugin` à la méthode `plugin` de l'application :
 
 ```rust
 fn main() {
@@ -70,6 +69,6 @@ fn main() {
 }
 ```
 
-## Official Tauri Plugins
+## Plugins officiels de Tauri
 
 - [Logging (WIP)](https://github.com/tauri-apps/tauri-log-plugin-rs)

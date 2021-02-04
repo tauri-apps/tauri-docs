@@ -2,11 +2,10 @@
 title: Multiwin
 ---
 
-import Alert from '@theme/Alert'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import Alert from '@theme/Alert' import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
-This pattern is not available for now.
+<Alert type="warning" icon="info-alt" title="Veuillez noter">
+Ce modèle n'est pas disponible pour le moment.
 </Alert>
 
 import Rater from '@theme/Rater'
@@ -15,79 +14,60 @@ import Rater from '@theme/Rater'
   <div className="col col--4">
     <table>
       <tr>
-        <td>Ease of Use</td>
+        <td>Facile d'utilisation</td>
         <td><Rater value="1"/></td>
       </tr>
       <tr>
-        <td>Extensibility</td>
+        <td>Extensible</td>
         <td><Rater value="4"/></td>
       </tr>
       <tr>
-        <td>Performance</td>
+        <td>Performant</td>
         <td><Rater value="3"/></td>
       </tr>
       <tr>
-        <td>Security</td>
+        <td>Sécurité</td>
         <td><Rater value="5"/></td>
       </tr>
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Multiwin.png')} alt="Multiwin" />
+    <img src="{useBaseUrl('img/patterns/Multiwin.png')}" alt="Multiwin" />
   </div>
   <div className="col col--4">
-    Pros:
+    Les plus :
     <ul>
-      <li>Access to GL context</li>
-      <li>Separation of concerns</li>
+      <li>Accès au contexte GL</li>
+      <li>Séparation des différentes parties</li>
     </ul>
-    Cons:
+    Les moins :
     <ul>
-      <li>Extremely complex</li>
+      <li>Extrêmement complexe</li>
     </ul>
   </div>
 </div>
 
 ## Description
 
-The Multiwin recipe will allow you to have multiple windows, some of which may be GL based.
+La méthode Multiwin vous permettra d'avoir plusieurs fenêtres, dont certaines peuvent être basées sur GL.
 
-## Diagram
+## Schéma
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph LR
-      A==>H
-      H==>F
-      H==>G
-      subgraph WEBVIEW
-      F
-      end
-      subgraph GLUTIN
-      G
-      end
-      subgraph RUST
-      A
-      end
-      A[Binary]
-      F[Window]
-      G[GL Window]
-      H{Bootstrap}
-      style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
+<Mermaid chart={`graph LR A==>H H==>F H==>G subgraph WEBVIEW F end subgraph GLUTIN G end subgraph RUST A end A[Binary] F[Window] G[GL Window] H{Bootstrap} style GLUTIN stroke:${colors.blue.dark},stroke-width:4px style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
 
 ## Configuration
 
-Here's what you need to add to your tauri.conf.json file:
+Voici ce que vous devez ajouter à votre fichier tauri.conf.json :
 ```json
 "tauri": {
   "embeddedServer": {
-    "active": false               // do not use a localhost server
+    "active": false               // n'utilise pas de serveur localhost
   },
-  "allowlist": {                  // all API endpoints are default false
-    "event": true,                // Use the EVENT API for injections
+  "permlist": {                  // toutes les API sont désactivées par défaut
+    "event": true,                // Utilise l'API EVENT pour les injections
   }
 }
 

@@ -1,39 +1,39 @@
 ---
 id: contributor-guide
-title: Contributor Guide
+title: Guide du contributeur
 ---
 
-todo: make this friendlier and more complete
+todo: rendre ce document plus convivial et complet
 
-Tauri is a polyglot system that uses:
+Tauri est un système polyglot qui utilise :
 
 - git
 - node
 - rust
 - github actions
 
-It can be developed on Mac, Linux and Windows.
+Il peut être développé sur Mac, Linux et Windows.
 
-## Contribution Flow
+## Flux de contribution
 
-1. File an Issue
-2. Fork the Repository
-3. Make Your Changes
-4. Make a PR
+1. Remplir une issue
+2. Forker le dépôt
+3. Effectuer vos modifications
+4. Faire une PR
 
-### A Note About Contributions to the Rust Libraries
+### Une remarque concernant les contributions aux bibliothèques Rust
 
-When contributing to the Rust libraries `tauri`, `tauri-api`, and `tauri-updater`; you will want to setup an environment for RLS (the Rust Language Server). In the Tauri root directory, there is a `.scripts` folder that contains a set of scripts to automate adding a couple temporary environment variables to your shell/terminal. These environment variables point to directories in the test fixture which will prevent RLS from crashing on compile-time. This is a necessary step for setting up a development environment for Tauri's Rust libraries.
+Lorsque vous contribuez aux bibliothèques Rust `tauri`, `tauri-api`, et `tauri-updater` ; vous voudrez configurer un environnement pour RLS (Rust Language Server). Dans le répertoire racine de Tauri, il y a un dossier `.scripts` qui contient un ensemble de scripts pour automatiser l'ajout de quelques variables d'environnement temporaires à votre shell/terminal. Ces variables d'environnement pointent vers des répertoires dans le dispositif de test qui empêcheront le RLS de planter à la compilation. C'est une étape nécessaire à la mise en place d'un environnement de développement pour les bibliothèques Rust de Tauri.
 
-##### _Example Instructions_
+##### _Exemple d'instructions_
 
-1. Navigate to the Tauri Root directory.
-2. Execute a script based on your Operating System from this folder: `.scripts/init_env.bat` for Windows Cmd, `.scripts/init_env.ps1` for Windows Powershell, `. .scripts/init_env.sh` for Linux/macOS bash (note the first `.` in this command).
-3. Open your text editor/IDE from this shell/terminal.
+1. Naviguez vers le répertoire racine de Tauri.
+2. Exécutez le script basé sur votre système d'exploitation à partir de ce dossier : `.scripts/init_env.bat` pour Windows Cmd, `.scripts/init_env.ps1` pour Windows Powershell, `. .scripts/init_env.sh` pour le bash Linux/macOS (notez le premier `.` dans cette commande).
+3. Ouvrez votre éditeur de texte/IDE depuis ce shell/terminal.
 
-## Hands On Example
+## Exemple concret
 
-Let's make a new example. That's a great way to learn. We are going to assume you are on a nixy type of environment like Linux or macOS and have all of your development dependencies like rust and node already sorted out.
+Prenons un nouvel exemple. C'est un excellent moyen d'apprendre. Nous allons supposer que vous êtes sur un environnement de type nixy comme Linux ou macOS et que toutes vos dépendances de développement comme Rust et node sont déjà prêtes.
 
 ```sh
 git clone git@github.com:tauri-apps/tauri.git

@@ -11,4 +11,4 @@ title: "fn.execute_promise_sync"
         error: String
     ) -> Result<()>
 
-Synchronously executes the given task and evaluates its Result to the JS promise described by the `callback` and `error` function names.
+Exécute de manière synchrone la tâche donnée et évalue son résultat à la promesse JS décrite par la fonction `callback` et `error`.

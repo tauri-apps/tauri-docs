@@ -14,19 +14,19 @@ Structs containing system's information.
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl Default for System`
 
 #### `fn default() -> System`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the "default value" for a type. [En savoir plus](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl SystemExt for System`
 
 #### `fn new_with_specifics(refreshes: RefreshKind) -> System`
 
-Creates a new \[`System`] instance and refresh the data corresponding to the given \[`RefreshKind`]. [Read more](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#tymethod.new_with_specifics)
+Creates a new \[`System`] instance and refresh the data corresponding to the given \[`RefreshKind`]. [En savoir plus](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#tymethod.new_with_specifics)
 
 #### `fn refresh_memory(&mut self)`
 
@@ -46,7 +46,7 @@ Get all processes and update their information.
 
 #### `fn refresh_process(&mut self, pid: i32) -> bool`
 
-Refresh only the process corresponding to `pid`. Returns `false` if the process doesn't exist. [Read more](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#tymethod.refresh_process)
+Refresh only the process corresponding to `pid`. Returns `false` if the process doesn't exist. [En savoir plus](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#tymethod.refresh_process)
 
 #### `fn refresh_disks(&mut self)`
 
@@ -114,15 +114,15 @@ Returns system uptime.
 
 #### `fn new() -> Self`
 
-Creates a new \[`System`] instance. It only contains the disks' list and the processes list at this stage. Use the \[`refresh_all`] method to update its internal information (or any of the `refresh_` method). [Read more](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.new)
+Creates a new \[`System`] instance. It only contains the disks' list and the processes list at this stage. Use the \[`refresh_all`] method to update its internal information (or any of the `refresh_` method). [En savoir plus](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.new)
 
 #### `fn refresh_specifics(&mut self, refreshes: RefreshKind)`
 
-Refreshes according to the given \[`RefreshKind`]. It calls the corresponding "refresh\_" methods. [Read more](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.refresh_specifics)
+Refreshes according to the given \[`RefreshKind`]. It calls the corresponding "refresh\_" methods. [En savoir plus](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.refresh_specifics)
 
 #### `fn refresh_system(&mut self)`
 
-Refresh system information (such as memory, swap, CPU usage and components' temperature). [Read more](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.refresh_system)
+Refresh system information (such as memory, swap, CPU usage and components' temperature). [En savoir plus](/docs/api/rust/tauri_utils/../../tauri_utils/process/trait.SystemExt.html#method.refresh_system)
 
 #### `fn refresh_all(&mut self)`
 
@@ -150,19 +150,19 @@ Returns a list of process containing the given `name`.
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 

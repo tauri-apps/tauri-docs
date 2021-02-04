@@ -1,24 +1,22 @@
 ---
-title: Write Rust commands
+title: Écrivez vos commandes Rust
 ---
 
-The JavaScript frontend communicates with the backend through `commands`.
-A command is a string message that's sent to the backend with the `invoke` and `promisified` API calls,
-and can be listened on the backend with the `invoke_handler` callback.
+Le Frontend JavaScript communique avec le Backend via des `commands`. Une commande est un message (chaîne de caractère) qui est envoyée vers le backend via les appels sur les API `invoke` et `promisified`, qui peuvent ensuite être écoutées dans le backend avec le callback `invoke_handler`.
 
-Tauri by default serializes every message to a JSON string, so you can use `serde_json` on the backend to deserialize it.
+Par défaut, Tauri sérialise chaque messages en une chaîne JSON, pour pouvoir utiliser `serde_json` en backend pour le désérialiser.
 
-## Synchronous commands
+## Commandes synchronisées
 
-A synchronous command is sent to the backend with the `invoke` API:
+Une commande synchronisée est envoyée vers le backend via l'API `invoke` :
 
 ```js
-// with a module bundler (recommended):
+// avec un module bundler (recommandé):
 import { invoke } from 'tauri/api/tauri'
-// with vanilla JS:
+// avec du JS vanilla :
 var invoke = window.__TAURI__.tauri.invoke
 
-// then call it:
+// puis appelez le :
 invoke({
   cmd: 'doSomething',
   count: 5,
@@ -29,7 +27,7 @@ invoke({
 })
 ```
 
-To read the message on Rust, use the `invoke_handler`:
+Pour lire le message en Rust, utilisez `invoke_handler`:
 
 ```rust
 use serde::Deserialize;
@@ -40,8 +38,8 @@ struct DoSomethingPayload {
   data: u64
 }
 
-// The commands definitions
-// Deserialized from JS
+// Définitions des commandes
+// Désérialisé depuis JS
 #[derive(Deserialize)]
 #[serde(tag = "cmd", rename_all = "camelCase")]
 enum Cmd {
@@ -60,8 +58,8 @@ fn main() {
         Ok(command) => {
           match command {
             DoSomething { count, payload } => {
-              // do some synchronous operation with `count` and `payload` sent from the frontend
-              // note that this blocks the UI thread, so prefer asynchronous commands for long-running tasks
+              // effectuez quelques opérations synchrones avec `count` et `payload` envoyées depuis le frontend
+              // notez que ceci bloque le thread de l'interface, donc préférez les commandes asynchrones pour les tâches longues.
             }
           }
           Ok(())
@@ -73,14 +71,14 @@ fn main() {
 }
 ```
 
-## Asynchronous commands
+## Commandes Asynchrones
 
-An asynchronous command is sent to the backend with the `promisified` API:
+Une commande asynchrone est envoyée vers le backend via l'API `promisified` :
 
 ```js
-// with a module bundler (recommended):
+// avec un module bundler (recommandé):
 import { promisified } from 'tauri/api/tauri'
-// with vanilla JS:
+// avec du JS vanilla :
 var promisified = window.__TAURI__.tauri.promisified
 
 // then call it:
@@ -92,24 +90,21 @@ promisified({
     data: 17
   }
 }).then(response => {
-  // do something with the Ok() response
+  // faite quelque chose avec la réponse Ok()
   const { value, message } = response
 }).catch(error => {
-  // do something with the Err() response string
+  // faite quelque chose avec la réponse Err()
 })
 ```
 
-To read the message on Rust, use the `invoke_handler` and the `tauri::execute_promise` helper.
-The code executed with this kind of command will be execute on a separate thread.
-To run code on the main thread, use `tauri::execute_promise_sync` instead.
+To read the message on Rust, use the `invoke_handler` and the `tauri::execute_promise` helper. The code executed with this kind of command will be execute on a separate thread. To run code on the main thread, use `tauri::execute_promise_sync` instead.
 
 Note that there's two additional properties: `callback` and `error`.
 
 - The `callback` parameter is the name of the command Promise's `resolve` function.
 - The `error` parameter is the name of the command Promise's `reject` function.
 
-The `Result` returned from the `tauri::execute_promise` function is used to determine if the Promise should resolve or reject.
-If it's an `Ok` variant, we `resolve` the Promise with its value serialized to JSON. Otherwise, we `reject` with the error as string.
+The `Result` returned from the `tauri::execute_promise` function is used to determine if the Promise should resolve or reject. If it's an `Ok` variant, we `resolve` the Promise with its value serialized to JSON. Otherwise, we `reject` with the error as string.
 
 ```rust
 use serde::{Deserialize, Serialize};

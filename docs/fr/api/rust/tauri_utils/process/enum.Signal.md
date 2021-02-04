@@ -173,11 +173,11 @@ Bad argument to routine (SVr4).
 
 #### `fn clone(&self) -> Signal`
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
 #### `fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+Performs copy-assignment from `source`. [En savoir plus](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
 ### `impl Copy for Signal`
 
@@ -185,13 +185,13 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn fmt(&self, f: &mut Formatter) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [En savoir plus](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ### `impl PartialEq<Signal> for Signal`
 
 #### `fn eq(&self, other: &Signal) -> bool`
 
-This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+This method tests for `self` and `other` values to be equal, and is used by `==`. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
 
 #### `#[must_use]fn ne(&self, other: &Rhs) -> bool`1.0.0
 
@@ -201,23 +201,23 @@ This method tests for `!=`.
 
 #### `fn partial_cmp(&self, other: &Signal) -> Option<Ordering>`
 
-This method returns an ordering between `self` and `other` values if one exists. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial_cmp)
+This method returns an ordering between `self` and `other` values if one exists. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial_cmp)
 
 #### `#[must_use]fn lt(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests less than (for `self` and `other`) and is used by the `<` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)
+This method tests less than (for `self` and `other`) and is used by the `<` operator. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)
 
 #### `#[must_use]fn le(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests less than or equal to (for `self` and `other`) and is used by the `<=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)
+This method tests less than or equal to (for `self` and `other`) and is used by the `<=` operator. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)
 
 #### `#[must_use]fn gt(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests greater than (for `self` and `other`) and is used by the `>` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)
+This method tests greater than (for `self` and `other`) and is used by the `>` operator. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)
 
 #### `#[must_use]fn ge(&self, other: &Rhs) -> bool`1.0.0
 
-This method tests greater than or equal to (for `self` and `other`) and is used by the `>=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
+This method tests greater than or equal to (for `self` and `other`) and is used by the `>=` operator. [En savoir plus](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
 
 ### `impl StructuralPartialEq for Signal`
 
@@ -239,19 +239,19 @@ This method tests greater than or equal to (for `self` and `other`) and is used 
 
 #### `fn type_id(&self) -> TypeId`
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Gets the `TypeId` of `self`. [En savoir plus](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
 #### `fn borrow(&self) -> &T`
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+Immutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
 #### `fn borrow_mut(&mut self) -> &mutT`
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+Mutably borrows from an owned value. [En savoir plus](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
@@ -273,7 +273,7 @@ The resulting type after obtaining ownership.
 
 #### `fn to_owned(&self) -> T`
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+Creates owned data from borrowed data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
 #### `fn clone_into(&self, target: &mutT)`
 
@@ -281,7 +281,7 @@ Creates owned data from borrowed data, usually by cloning. [Read more](https://d
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [En savoir plus](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

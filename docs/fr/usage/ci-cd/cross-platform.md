@@ -1,6 +1,5 @@
 ---
-id: cross-platform
-title: Cross-platform compilation
+title: Compilation inter-plateforme
 ---
 
-Coming soon!
+Prochainement !

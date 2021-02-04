@@ -1,51 +1,49 @@
 ---
-title: 'Tauri Integration'
-sidebar_label: 'Tauri Integration (1/4)'
+title: 'Intégration de Tauri'
+sidebar_label: 'Intégration de Tauri (1/4)'
 ---
 
-import Alert from '@theme/Alert'
-import Command from '@theme/Command'
-import Link from '@docusaurus/Link'
+import Alert from '@theme/Alert' import Command from '@theme/Command' import Link from '@docusaurus/Link'
 
-<Alert title="Please note" type="warning" icon="alert">
-  You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="/docs/getting-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
+<Alert title="Veuillez noter" type="warning" icon="alert">
+  Vous devez avoir effectué toutes les étapes nécessaires à la mise en place de l'environnement de développement sur votre machine. Si vous ne l'avez pas encore fait, veuillez consulter la page <a href="/docs/getting-started/intro#setting-up-your-environment">configuration de votre système d'exploitation</a>.
 </Alert>
 
-### 1. Install Tauri JS Package as a Dependency:
+### 1. Installer le paquet Tauri JS en tant que dépendance :
 
 ```bash
 cd project-folder
 
-# Not required if you already have a package.json:
+# Non requis si vous avez déjà un package.json :
 # npm init
-# OR
+# OU
 # yarn init
 
 yarn add tauri
-# OR
+# OU
 npm install tauri --save
 ```
 
 <Alert title="Note">
-  You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
+  Vous pouvez installer Tauri comme une dépendance à la fois locale et globale, mais nous vous recommandons de l'installer localement.
 </Alert>
 
-If you decide to use Tauri as a local package with npm, you will _have to_ define a custom script to your package.json:
+Si vous décidez d'utiliser Tauri comme un paquet local avec npm, vous _devrez définir_ un script personnalisé à votre package.json :
 
 ```js title=package.json
 {
-  // This content is just a sample
+  // Ce contenu est juste un exemple
   "scripts": {
     "tauri": "tauri"
   }
 }
 ```
 
-### 2. Initialize Tauri
+### 2. Initialiser Tauri
 
 <Command name="init" />
 
-This command will place a new folder in your current working directory, `src-tauri`.
+Cette commande va placer un nouveau dossier dans votre répertoire de travail actuel, `src-tauri`.
 
 ```sh
 └── src-tauri
@@ -76,11 +74,11 @@ This command will place a new folder in your current working directory, `src-tau
         └── main.rs
 ```
 
-### 3. Check `tauri info` to Make Sure Everything Is Set up Properly:
+### 3. Vérifiez `tauri info` pour vous assurer que tout est correctement configuré :
 
 <Command name="info" />
 
-Which should return something like:
+Ce qui devrait retourner quelque chose comme :
 
 ```
 Operating System - Darwin(16.7.0) - darwin/x64
@@ -115,17 +113,16 @@ App
   devPath - http://localhost:7334
 ```
 
-This information can be very helpful when triaging problems.
+Ces informations peuvent être très utiles pour faciliter le triage des problèmes.
 
 ## `src-tauri/tauri.conf.json`
 
-Edit `src-tauri/tauri.conf.json`:
-Depending on your development setup, you will probably need to update two important entry points for tauri:
+Modifier `src-tauri/tauri.conf.json` : En fonction de votre configuration de développement, vous devrez probablement mettre à jour deux points d'entrée importants pour tauri :
 
-- your bundled assets (`distDir`)
-- your development server (`devPath`)
+- vos ressources groupés (`distDir`)
+- votre serveur de développement (`devPath`)
 
-See more about tauri.conf.json configuration <a href="/docs/api/config#build">here</a>.
+En savoir plus sur la configuration de tauri.conf.json <a href="/docs/api/config#build">ici</a>.
 
 ```json
 {
@@ -136,25 +133,24 @@ See more about tauri.conf.json configuration <a href="/docs/api/config#build">he
 }
 ```
 
-### Patterns
+### Les modèles
 
-We've also defined prebuilt configurations called "Patterns". They may help you to customize Tauri to fit your needs.
-See more about [patterns](/docs/usage/patterns/about-patterns).
+Nous avons également défini des configurations prédéfinies appelées "Modèles" (Patterns en anglais). Ils peuvent vous aider à personnaliser Tauri en fonction de vos besoins. En savoir plus sur les [modèles](/docs/usage/patterns/about-patterns).
 
 <Alert type="info" title="Note">
-  Technically you can point the devPath at a folder, and Tauri will try to serve those assets statically.
+  Techniquement, vous pouvez faire pointer le devPath vers un dossier, et Tauri essaiera de servir ces ressources de manière statique.
 </Alert>
 
-<Alert type="warning" title="Warning" icon="alert">
-  On some system setups, localhost may not be available. A general rule of thumb is to use exactly the same domain as your devServer. You can try to switch localhost here with:
+<Alert type="warning" title="Avertissement" icon="alert">
+  Sur certaines configurations du système, le localhost peut ne pas être disponible. La règle générale est d'utiliser exactement le même domaine que votre serveur de développement. Vous pouvez essayer de changer de localhost ici avec :
 
 - `"127.0.0.1"`
 - `"0.0.0.0"`
 
-On windows, you must enable loopback during development. [todo: add link](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+Sur Windows, vous devez activer le loopback pendant le développement. [note : ajouter le lien](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
 
 </Alert>
 
-## Vue CLI Plugin Tauri
+## Le plugin CLI Vue pour Tauri
 
-If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).
+Si vous utilisez le CLI de Vue 3/4, il est recommandé d'utiliser l'officiel [plugin CLI](https://github.com/tauri-apps/vue-cli-plugin-tauri).
