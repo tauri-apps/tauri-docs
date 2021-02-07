@@ -139,7 +139,7 @@ function Navbar() {
         </div>
         <div className="navbar__items navbar__items--right">
           <NavbarItem
-            label={<span class="badge badge--warning">Alpha</span>}
+            label={<span className="badge badge--warning">Alpha</span>}
             to="/#roadmap"
           ></NavbarItem>
           {rightItems.map((item, i) => (
@@ -153,15 +153,15 @@ function Navbar() {
               styles.languages
             )}
           >
-            <button class="button button--primary">
+            <button className="button button--primary">
               {languages[language]}
             </button>
-            <ul class="dropdown__menu">
+            <ul className="dropdown__menu">
               {enabledLanguages.length ? (
                 enabledLanguages.map(([key, label]) => (
                   <li>
                     <a
-                      class="dropdown__link"
+                      className="dropdown__link"
                       href={
                         typeof location !== 'undefined'
                           ? location.href.replace(`/${language}/`, `/${key}/`)
@@ -242,7 +242,7 @@ function Navbar() {
               ))}
               <NavbarItem
                 mobile
-                label={<span class="badge badge--warning">Alpha</span>}
+                label={<span className="badge badge--warning">Alpha</span>}
                 to="/#roadmap"
               ></NavbarItem>
             </ul>
