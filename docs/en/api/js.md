@@ -1,6 +1,6 @@
 ---
 id: js
-title: 'JavaScript'
+title: JavaScript
 ---
 
 import Alert from '@theme/Alert'

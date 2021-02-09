@@ -1,5 +1,5 @@
 ---
-title: 'Tauri Integration'
+title: Tauri Integration
 sidebar_label: 'Tauri Integration (1/4)'
 ---
 
