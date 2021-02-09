@@ -20,7 +20,7 @@ const SearchBar = ({className}) => {
     })
   }, [])
   return (
-    <div className={className + " SearchBar"}>
+    <div className={className + " SearchBar meilisearch-search-wrapper"}>
       <input
         type="text"
         className={classNames(styles.search)}
