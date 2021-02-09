@@ -226,6 +226,8 @@ h2 > [class^='ti-'] {
   color: var(--ifm-font-color-base);
 }
 
+/* MeiliSearch search bar */
+
 .meilisearch-autocomplete .dsb-dropdown-menu [class^='dsb-dataset-'],
 .meilisearch-autocomplete .docs-searchbar-suggestion--category-header,
 .meilisearch-autocomplete .dsb-dropdown-menu:before {

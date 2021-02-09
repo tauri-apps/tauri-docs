@@ -147,6 +147,7 @@ function Navbar() {
           ))}
           <div
             className={classnames(
+              styles.displayOnlyInLargeViewport,
               'dropdown',
               'dropdown--hoverable',
               'dropdown--right',
@@ -174,7 +175,8 @@ function Navbar() {
                 ))
               ) : (
                 <li>
-                  We've enabled internationalization! But we need your help...<br/>
+                  We've enabled internationalization! But we need your help...
+                  <br />
                   See{' '}
                   <a
                     href="https://github.com/tauri-apps/tauri-docs#contributing"
@@ -182,7 +184,7 @@ function Navbar() {
                   >
                     here
                   </a>{' '}
-                  for more information. <Icon title="face-smile"/>
+                  for more information. <Icon title="face-smile" />
                 </li>
               )}
             </ul>
@@ -233,6 +235,49 @@ function Navbar() {
               onChange={onToggleChange}
             />
           )}
+          <div
+            className={classnames(
+              'dropdown',
+              'dropdown--hoverable',
+              'dropdown--right',
+              styles.languages
+            )}
+          >
+            <button className="button button--primary">
+              {languages[language]}
+            </button>
+            <ul className="dropdown__menu">
+              {enabledLanguages.length ? (
+                enabledLanguages.map(([key, label]) => (
+                  <li>
+                    <a
+                      className="dropdown__link"
+                      href={
+                        typeof location !== 'undefined'
+                          ? location.href.replace(`/${language}/`, `/${key}/`)
+                          : `/${key}/`
+                      }
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  We've enabled internationalization! But we need your help...
+                  <br />
+                  See{' '}
+                  <a
+                    href="https://github.com/tauri-apps/tauri-docs#contributing"
+                    target="_blank"
+                  >
+                    here
+                  </a>{' '}
+                  for more information. <Icon title="face-smile" />
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
         <div className="navbar-sidebar__items">
           <div className="menu">

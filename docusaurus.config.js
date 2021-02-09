@@ -46,8 +46,8 @@ const siteConfig = {
           position: 'left',
         },
         {
-          to: 'docs/api/config',
-          label: t.navbar.api,
+          to: 'release-notes',
+          label: 'Release notes',
           position: 'left',
         },
         {
@@ -63,11 +63,6 @@ const siteConfig = {
               to: 'showcase',
             },
           ],
-        },
-        {
-          to: 'release-notes',
-          label: 'Release notes',
-          position: 'right',
         },
         {
           href: repoUrl,

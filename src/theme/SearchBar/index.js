@@ -3,7 +3,8 @@ import classNames from 'classnames'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import styles from './searchbar.module.css'
 
-const SearchBar = () => {
+const SearchBar = ({className}) => {
+  console.log(className);
   useEffect(() => {
     const docsSearchBar = require('docs-searchbar.js').default
     docsSearchBar({
@@ -19,10 +20,10 @@ const SearchBar = () => {
     })
   }, [])
   return (
-    <div class="search-box">
+    <div className={className + " SearchBar"}>
       <input
         type="text"
-        class={classNames(styles.search)}
+        className={classNames(styles.search)}
         id="search-bar-input"
       />
     </div>
