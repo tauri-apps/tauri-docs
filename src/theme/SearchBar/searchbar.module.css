@@ -1,0 +1,7 @@
+.search {
+  background: transparent;
+  border-radius: 0.25rem;
+  border: 2px solid var(--ifm-font-color-base);
+  padding: 8px;
+  color: var(--ifm-font-color-base);  
+}

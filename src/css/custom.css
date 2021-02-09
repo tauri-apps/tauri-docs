@@ -216,10 +216,45 @@ h2 > [class^='ti-'] {
 
 /* Ethidcal Ad */
 
-[data-ea-publisher].loaded .ea-content, [data-ea-type].loaded .ea-content {
+[data-ea-publisher].loaded .ea-content,
+[data-ea-type].loaded .ea-content {
   background: var(--ifm-pre-background);
 }
 
-[data-ea-publisher].loaded .ea-content a:link, [data-ea-type].loaded .ea-content a:link {
+[data-ea-publisher].loaded .ea-content a:link,
+[data-ea-type].loaded .ea-content a:link {
   color: var(--ifm-font-color-base);
+}
+
+.meilisearch-autocomplete .dsb-dropdown-menu [class^='dsb-dataset-'],
+.meilisearch-autocomplete .docs-searchbar-suggestion--category-header,
+.meilisearch-autocomplete .dsb-dropdown-menu:before {
+  border-color: var(--ifm-toc-border-color) !important;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--content:before {
+  background: var(--ifm-toc-border-color) !important;
+}
+
+.meilisearch-autocomplete .dsb-dropdown-menu [class^='dsb-dataset-'],
+.meilisearch-autocomplete .docs-searchbar-suggestion,
+.meilisearch-autocomplete.meilisearch-autocomplete-right
+  .dsb-dropdown-menu:before {
+  background: var(--ifm-pre-background) !important;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--category-header,
+.meilisearch-autocomplete .docs-searchbar-suggestion--title,
+.meilisearch-autocomplete .docs-searchbar-suggestion--subcategory-column,
+.meilisearch-autocomplete .docs-searchbar-suggestion--text {
+  color: var(--ifm-font-color-base) !important;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion,
+.docs-searchbar-suggestion--highlight {
+  color: var(--ifm-link-color) !important;
+}
+
+.docs-searchbar-footer img {
+  background-color: rgb(245, 246, 247);
 }
