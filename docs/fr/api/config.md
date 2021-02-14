@@ -1,5 +1,5 @@
 ---
-title: 'Configuration'
+title: Configuration
 ---
 
 import Properties from '@theme/Properties'

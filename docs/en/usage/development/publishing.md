@@ -1,5 +1,5 @@
 ---
-title: 'App Publishing'
+title: App Publishing
 sidebar_label: 'App Publishing (4/4)'
 ---
 

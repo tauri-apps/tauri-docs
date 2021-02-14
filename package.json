@@ -12,6 +12,7 @@
     "@docusaurus/core": "^2.0.0-alpha.50",
     "@docusaurus/preset-classic": "^2.0.0-alpha.50",
     "classnames": "^2.2.6",
+    "docs-searchbar.js": "^1.1.11",
     "highlight.js": "^10.4.1",
     "mermaid": "^8.5.0",
     "react": "^16.8.4",
