@@ -1,7 +1,27 @@
-.search {
+.searchWrapper {
   background: transparent;
   border-radius: 0.25rem;
   border: 2px solid var(--ifm-font-color-base);
   padding: 8px;
+  width: 140px;
+  height: 41px;
+  display: flex;
+  align-content: center;
+  align-items: first baseline;
+}
+
+.search:focus{
+  outline: none;
+}
+
+.search {
+  background: transparent;
+  border: none;
   color: var(--ifm-font-color-base);  
+  display: inline-block;
+  max-width: 100%;
+}
+
+.searchIcon {
+  font-size: 1.2em;
 }

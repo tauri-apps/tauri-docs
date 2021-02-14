@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import SearchBar from '@theme/SearchBar'
-import Toggle from '@theme/Toggle'
+// import Toggle from '@theme/Toggle'
 import useThemeContext from '@theme/hooks/useThemeContext'
 import useHideableNavbar from '@theme/hooks/useHideableNavbar'
 import useLockBodyScroll from '@theme/hooks/useLockBodyScroll'
@@ -60,10 +60,10 @@ function Navbar() {
   const hideSidebar = useCallback(() => {
     setSidebarShown(false)
   }, [setSidebarShown])
-  const onToggleChange = useCallback(
-    (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
-    [setLightTheme, setDarkTheme]
-  )
+  // const onToggleChange = useCallback(
+  //   (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
+  //   [setLightTheme, setDarkTheme]
+  // )
   const windowSize = useWindowSize()
   useEffect(() => {
     if (windowSize === windowSizes.desktop) {
@@ -189,14 +189,14 @@ function Navbar() {
               )}
             </ul>
           </div>
-          {!disableColorModeSwitch && (
+          {/* {!disableColorModeSwitch && (
             <Toggle
               className={styles.displayOnlyInLargeViewport}
               aria-label="Dark mode toggle"
               checked={isDarkTheme}
               onChange={onToggleChange}
             />
-          )}
+          )} */}
           <SearchBar
             handleSearchBarToggle={setIsSearchBarExpanded}
             isSearchBarExpanded={isSearchBarExpanded}
@@ -228,13 +228,13 @@ function Navbar() {
               <strong className="navbar__title">{title}</strong>
             )}
           </Link>
-          {!disableColorModeSwitch && sidebarShown && (
+          {/* {!disableColorModeSwitch && sidebarShown && (
             <Toggle
               aria-label="Dark mode toggle in sidebar"
               checked={isDarkTheme}
               onChange={onToggleChange}
             />
-          )}
+          )} */}
           <div
             className={classnames(
               'dropdown',

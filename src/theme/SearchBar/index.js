@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import classNames from 'classnames'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import styles from './searchbar.module.css'
+import Icon from '@theme/Icon'
 
 const SearchBar = ({className}) => {
-  console.log(className);
   useEffect(() => {
     const docsSearchBar = require('docs-searchbar.js').default
     docsSearchBar({
@@ -20,8 +20,10 @@ const SearchBar = ({className}) => {
     })
   }, [])
   return (
-    <div className={className + " SearchBar meilisearch-search-wrapper"}>
+    <div className={classNames(className, 'SearchBar', 'meilisearch-search-wrapper', styles.searchWrapper)}>
+      <Icon title="search" className={classNames(styles.searchIcon)}/>
       <input
+        placeholder="Search..."
         type="text"
         className={classNames(styles.search)}
         id="search-bar-input"

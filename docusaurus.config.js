@@ -66,8 +66,9 @@ const siteConfig = {
         },
         {
           href: repoUrl,
-          label: 'GitHub',
+          'aria-label': 'GitHub',
           position: 'right',
+          className: 'header-github-link'
         },
       ],
     },
