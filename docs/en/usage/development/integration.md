@@ -151,7 +151,7 @@ See more about [patterns](/docs/usage/patterns/about-patterns).
 - `"127.0.0.1"`
 - `"0.0.0.0"`
 
-On windows, you must enable loopback during development. [todo: add link](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+On windows, you must <a href="/docs/getting-started/setup-windows/#4-enable-loopback">enable loopback</a> during development.
 
 </Alert>
 
