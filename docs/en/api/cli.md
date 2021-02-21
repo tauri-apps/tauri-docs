@@ -55,7 +55,7 @@ This command is pretty helpful when you need to have a quick overview of your ap
     --help, -h     Displays this message
 ```
 
-This command will open the webview in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
+This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
 
 If you have entered a command to the `build.beforeDevCommand` property, this one will be executed before the `dev` command.
 
