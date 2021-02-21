@@ -5,7 +5,7 @@ sidebar_label: Sidecar
 
 import Alert from '@theme/Alert'
 
-You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. NodeJS, Python, etc).
+You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. Node.js, Python, etc).
 
 To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri` namespace in your `tauri.conf.json`.
 
