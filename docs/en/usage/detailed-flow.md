@@ -34,7 +34,7 @@ process.exit()
 
 ## Using Rust
 
-One thing to recognise is that we don't use command line flags for `tauri dev` or `tauri build`. This is because we are using the `tauri.conf.js` file to manage all settings.
+One thing to recognize is that we don't use command line flags for `tauri dev` or `tauri build`. This is because we are using the `tauri.conf.js` file to manage all settings.
 
 ### Development (JS + RUST)
 
