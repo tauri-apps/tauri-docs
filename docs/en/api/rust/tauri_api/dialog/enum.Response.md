@@ -20,7 +20,7 @@ User pressed okay. `String` is the file path selected
 
 `OkayMultiple(Vec<String>)`
 
-User pressed okay on mupliple selections. Result contains a Vec of all the files
+User pressed okay on multiple selections. Result contains a Vec of all the files
 
 `Cancel`
 
