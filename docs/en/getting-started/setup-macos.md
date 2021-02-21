@@ -37,7 +37,7 @@ $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bas
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
 </Alert>
 
-Once nvm is installed, close and reopen your terminal, then install the lastest version of Node.js and npm:
+Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
 
 ```sh
 $ nvm install node --latest-npm
