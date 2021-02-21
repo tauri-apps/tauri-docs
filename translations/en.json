@@ -47,6 +47,7 @@
         "todo": "To Do",
         "milestone": "Milestone",
         "ready": "Ready",
+        "released": "Released",
         "items": [
           {
             "label": "CLI",
@@ -98,12 +99,32 @@
             "description": "Build reusable plugins to extend Tauri core."
           },
           {
-            "label": "Secure Context for Web APIs",
-            "description": "Setup secure context to enable access to restricted APIs."
+            "label": "CLI Updater",
+            "description": "Update core dependencies automatically from the CLI."
           },
           {
-            "label": "Self Updater",
-            "description": "Update Tauri Apps from within Tauri."
+            "label": "Webview Bindings",
+            "description": "New pure Rust Webview bindings."
+          },
+          {
+            "label": "Keyboard Shortcuts",
+            "description": "Hook and react to keypresses."
+          },
+          {
+            "label": "Multi Window",
+            "description": "Run multiple window instances in Tauri."
+          },
+          {
+            "label": "Rust-based CLI",
+            "description": "Create Rust CLI."
+          },
+          {
+            "label": "Transparent Window",
+            "description": "Have transparent windows."
+          },
+          {
+            "label": "Secure Context for Web APIs",
+            "description": "Setup secure context to enable access to restricted APIs."
           },
           {
             "label": "Iframe with native API",
@@ -114,24 +135,16 @@
             "description": "For improved security of files interaction."
           },
           {
-            "label": "Webview Bindings",
-            "description": "Improve Webview bindings."
+            "label": "Self Updater",
+            "description": "Update Tauri Apps from within Tauri."
           },
           {
             "label": "Beta Release",
             "description": "Generally stable on Desktop, API locked down."
           },
           {
-            "label": "CLI Updater",
-            "description": "Update core dependencies automatically from the CLI."
-          },
-          {
             "label": "Clipboard",
             "description": "Enable programmatic and keyboard access to clipboard."
-          },
-          {
-            "label": "Keyboard Shortcuts",
-            "description": "Hook and react to keypresses."
           },
           {
             "label": "Channel API",
@@ -148,18 +161,6 @@
           {
             "label": "App Tray",
             "description": "Desktop Cross-platform Icon Tray."
-          },
-          {
-            "label": "Multi Window",
-            "description": "Run multiple window instances in Tauri."
-          },
-          {
-            "label": "Transparent Window",
-            "description": "Have transparent windows."
-          },
-          {
-            "label": "Rust-based CLI",
-            "description": "Create rust CLI with DENO bindings and binary."
           },
           {
             "label": "DENO Bindings",

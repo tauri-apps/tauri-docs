@@ -82,7 +82,8 @@ function Feature({ imageUrl, link, siteConfig, index }) {
 const Roadmap = ({ siteConfig }) => {
   const COLORS = {
     green: '#48f9c7',
-    blue: '#0198f1',
+    blue: '#2945ff',
+    sky: '#63daf7',
     red: '#ff8e13',
   }
   // See translations for label/description
@@ -92,7 +93,6 @@ const Roadmap = ({ siteConfig }) => {
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
-
     {
       icon: 'ti-crown',
       color: COLORS.green,
@@ -149,12 +149,37 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q3 2020',
     },
     {
-      icon: 'ti-lock',
-      color: COLORS.blue,
-      targetQuarter: '2021',
+      icon: 'ti-download',
+      color: COLORS.green,
+      targetQuarter: 'Q3 2020',
     },
     {
-      icon: 'ti-download',
+      icon: 'ti-loop',
+      color: COLORS.sky,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-smallcap',
+      color: COLORS.sky,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-layout-grid3-alt',
+      color: COLORS.sky,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-cup',
+      color: COLORS.sky,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-layout-sidebar-none',
+      color: COLORS.blue,
+      targetQuarter: 'Q1 2021',
+    },
+    {
+      icon: 'ti-lock',
       color: COLORS.blue,
       targetQuarter: '2021',
     },
@@ -169,9 +194,9 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: '2021',
     },
     {
-      icon: 'ti-loop',
+      icon: 'ti-download',
       color: COLORS.blue,
-      targetQuarter: '2021',
+      targetQuarter: 'Planned',
     },
     {
       icon: 'ti-flag-alt',
@@ -179,17 +204,7 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: '2021',
     },
     {
-      icon: 'ti-download',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
       icon: 'ti-clipboard',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      icon: 'ti-smallcap',
       color: COLORS.blue,
       targetQuarter: 'Planned',
     },
@@ -210,21 +225,6 @@ const Roadmap = ({ siteConfig }) => {
     },
     {
       icon: 'ti-panel',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      icon: 'ti-layout-grid3-alt',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      icon: 'ti-layout-sidebar-none',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      icon: 'ti-cup',
       color: COLORS.blue,
       targetQuarter: 'Planned',
     },
@@ -312,16 +312,20 @@ const Roadmap = ({ siteConfig }) => {
       </p>
       <ul className="roadmap-legend">
         <li>
+          <span style={{ backgroundColor: COLORS.green }}></span>{' '}
+          {siteConfig.themeConfig.t.pages.index.roadmap.released}
+        </li>
+        <li>
+          <span style={{ backgroundColor: COLORS.sky }}></span>{' '}
+          {siteConfig.themeConfig.t.pages.index.roadmap.ready}
+        </li>
+        <li>
           <span style={{ backgroundColor: COLORS.blue }}></span>{' '}
           {siteConfig.themeConfig.t.pages.index.roadmap.todo}
         </li>
         <li>
           <span style={{ backgroundColor: COLORS.red }}></span>{' '}
           {siteConfig.themeConfig.t.pages.index.roadmap.milestone}
-        </li>
-        <li>
-          <span style={{ backgroundColor: COLORS.green }}></span>{' '}
-          {siteConfig.themeConfig.t.pages.index.roadmap.ready}
         </li>
       </ul>
       <ul className="roadmap">{items}</ul>
@@ -339,7 +343,10 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <img src={useBaseUrl('img/tauri_with_wordmark.svg')} style={{ maxWidth: 745 }} />
+          <img
+            src={useBaseUrl('img/tauri_with_wordmark.svg')}
+            style={{ maxWidth: 745 }}
+          />
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
