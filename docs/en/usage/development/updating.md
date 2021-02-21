@@ -4,7 +4,7 @@ title: Updating
 import Alert from '@theme/Alert'
 
 <Alert title="Please note" type="warning" icon="alert">
-    Especially during the alpha and beta phases, you are expected to keep all tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
+    Especially during the alpha and beta phases, you are expected to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
 </Alert>
 
 ## Current Latest Versions
@@ -22,7 +22,7 @@ If you are using the `tauri` package:
 $ yarn upgrade tauri --latest
 $ npm install tauri@latest
 ```
-You can also detect what the latest version of tauri is on the command line, using:
+You can also detect what the latest version of Tauri is on the command line, using:
 - `npm outdated tauri`
 - `yarn outdated tauri`
 
