@@ -64,9 +64,9 @@ $ tauri dev
    -> spawn cargo run with dev-server arg (if needed ?)
  cargo run -features [dev-server]
   [WIP]
-   spawn webview with settings from tauri.conf.js
-   point webview at dev-server
-   inject tauri.js into webview
+   spawn WebView with settings from tauri.conf.js
+   point WebView at dev-server
+   inject tauri.js into WebView
    init tauri
 ```
 
