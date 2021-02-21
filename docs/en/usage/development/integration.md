@@ -120,7 +120,7 @@ This information can be very helpful when triaging problems.
 ## `src-tauri/tauri.conf.json`
 
 Edit `src-tauri/tauri.conf.json`:
-Depending on your development setup, you will probably need to update two important entry points for tauri:
+Depending on your development setup, you will probably need to update two important entry points for Tauri:
 
 - your bundled assets (`distDir`)
 - your development server (`devPath`)
