@@ -19,9 +19,9 @@ Release: late 2020
 
 ### tl;dr;
 
-Visit https://opencollective.com/tauri and preorder your copy of the book today. Your donation will support the ongoing development of Tauri, and you will receive advance digital pdf's for your review as chapters are completed. The final book will ship concurrently with the release of 1.0.0 stable.
+Visit https://opencollective.com/tauri and preorder your copy of the book today. Your donation will support the ongoing development of Tauri, and you will receive advance digital PDF's for your review as chapters are completed. The final book will ship concurrently with the release of 1.0.0 stable.
 
-If you donate 10 USD / month to Tauri, you will get the advance PDF versions as soon as they are released. If you just want to donate once: 15 USD for pdf and e-book, 30 USD for print version and pdf, 40 USD for all three.
+If you donate 10 USD / month to Tauri, you will get the advance PDF versions as soon as they are released. If you just want to donate once: 15 USD for PDF and e-book, 30 USD for print version and PDF, 40 USD for all three.
 
 All tutorial subscription tiers receive the rolling PDF free of additional charge.
 
@@ -31,7 +31,7 @@ In 2020, the manufacture of native-apps has become easier and more accessible th
 
 Tauri takes the guesswork out of the equation, as it was designed from the ground up to embrace new paradigms of secure development and creative flexibility that leverage the language features of Rust and lets you build an app using any frontend framework you like. Find out how you can design, build, audit and deploy tiny, fast, robust, and secure native applications for the major Desktop and Mobile platforms, all from the exact same codebase and in record time - without even needing to know the Rust programming language.
 
-Authors Daniel and Lucas, the architects behind Tauri take you on a journey from theory to execution, during which you will learn why Tauri was built and how it works under the hood. Together with guest personalities that specialize in OpenSource, DevOps, Security and Enterprise Architecture, this book also presents discourse-formated philosophical discussions and open-source sustainability viewpoints from which your next-gen apps will profit - and your users will benefit.
+Authors Daniel and Lucas, the architects behind Tauri take you on a journey from theory to execution, during which you will learn why Tauri was built and how it works under the hood. Together with guest personalities that specialize in Open Source, DevOps, Security and Enterprise Architecture, this book also presents discourse-formatted philosophical discussions and open-source sustainability viewpoints from which your next-gen apps will profit - and your users will benefit.
 
 In this book you will follow the authors in the iterative evolution of a real project from conception to distribution - all with commentary, complete code resources, built, and packaged Native Apps for reference and staged Capture the Flag (CTF) challenges that progress in difficulty as your comprehension of the system grows.
 
@@ -39,7 +39,7 @@ In this book you will follow the authors in the iterative evolution of a real pr
 
 Tauri is a brand new way to make cross-platform native-apps for web, desktop and mobile. At this very moment, the pre-alpha version of this MIT licensed community-based software is being prepared for public release: https://github.com/tauri-apps/tauri
 
-Tauri introduces novel methods for Webview integration and innovative patterns for robust threat evasion. The 1.0 release will ship with a multipurpose white-box analyzer and decompiler for any kind of binary and an integrated CLI for ingesting any type of html; which, when combined, provides developers and security teams with a holistic platform that has never existed as a single unit before.
+Tauri introduces novel methods for WebView integration and innovative patterns for robust threat evasion. The 1.0 release will ship with a multipurpose white-box analyzer and decompiler for any kind of binary and an integrated CLI for ingesting any type of HTML; which, when combined, provides developers and security teams with a holistic platform that has never existed as a single unit before.
 
 Tauri bridges communities and opens up new opportunities for everyone from the front end developer all the way to the low-level security and network administrators. Due to this level of complexity and robustness, it is important to publish a reference guide that will necessarily be updated as major versions are released.
 
