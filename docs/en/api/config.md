@@ -40,7 +40,7 @@ It's composed of the following properties:
 
 <Properties anchorRoot="ctx" rows={[
   { property: "debug", optional: true, type: "boolean", description: `Tells the CLI to build on debug mode instead of release. Can also be used as <code>tauri build --debug</code>.` },
-  { property: "exitOnPanic", optional: true, type: "boolean", description: `Whether or not the webview should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
+  { property: "exitOnPanic", optional: true, type: "boolean", description: `Whether or not the WebView should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
 ]} />
 
 ```js title=Example
@@ -183,7 +183,7 @@ It's composed of the following properties:
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
       { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
       { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from webview.` },
+      { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from WebView.` },
       { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
       { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
       { property: "notification", optional: true, type: "boolean", description: `Enable system notifications.` },
@@ -196,7 +196,7 @@ It's composed of the following properties:
       { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
       { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
       { property: "saveDialog", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
-      { property: "setTitle", optional: true, type: "boolean", description: `Set the webview window title.` },
+      { property: "setTitle", optional: true, type: "boolean", description: `Set the WebView window title.` },
       { property: "updater", optional: true, type: "boolean", description: `Update the application.` },
       { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
     ]} />
@@ -216,7 +216,7 @@ It's composed of the following properties:
     child: <Properties anchorRoot="tauri.security" rows={[
       { property: "csp", optional: true, type: "string", description: `The Content Security Policy. 
       <div class="alert alert--warning" role="alert" style="margin-top: 10px;">
-  This is a really important part of the configuration since it helps you ensure your webview is secured. See more <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">on Mozilla</a>.
+  This is a really important part of the configuration since it helps you ensure your WebView is secured. See more <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">on Mozilla</a>.
 </div>` },
     ]} />
   },
