@@ -28,11 +28,11 @@ The JS script to evaluate on init.
 
 ### `fn created(&self, webview: &mut Webview<'_>)`
 
-Callback invoked when the webview is created.
+Callback invoked when the WebView is created.
 
-### `fn ready(&self, webview: &mut Webview<'_>)`
+### `fn ready(&self, WebView: &mut Webview<'_>)`
 
-Callback invoked when the webview is ready.
+Callback invoked when the WebView is ready.
 
 ### `fn extend_api( &self, webview: &mut Webview<'_>, payload: &str ) -> Result<bool, String>`
 
