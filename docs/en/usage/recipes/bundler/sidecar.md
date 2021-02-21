@@ -5,7 +5,7 @@ sidebar_label: Sidecar
 
 import Alert from '@theme/Alert'
 
-You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. NodeJS, Python, etc).
+You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. Node.js, Python, etc).
 
 To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri` namespace in your `tauri.conf.json`.
 
@@ -28,7 +28,7 @@ Here is a sample to illustrate the configuration, this is not a complete `tauri.
 This way, you may [execute commands with Rust](https://doc.rust-lang.org/std/process/struct.Command.html) in your Tauri application.
 
 <Alert title="Note">
-Tauri provides some utilitary functions to handle standard cases (like loading platform specific binaries), such as:
+Tauri provides some functions to handle standard cases (like loading platform specific binaries), such as:
 
 - `tauri::api::command::binary_command`, which will append the current environment triplet to the input (useful for cross-environments). If you're creating your own binary, you'll _have to_ provide a binary **for each platform you're targeting** by specifying the target triplets, e.g. "binaryname-x86_64-apple-darwin".
 

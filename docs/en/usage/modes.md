@@ -7,7 +7,7 @@ Tauri has two configurations for loading your web app: with or without a localho
 
 ## Localhost Server
 
-Shipped by default, this is the easiest way to get up and running. It provides your app with a localhost server that uses an ephemeral port (i.e. a port that changes on every run, based on what is available on the device). Tauri then uses the server to load your web app into the Webview.
+Shipped by default, this is the easiest way to get up and running. It provides your app with a localhost server that uses an ephemeral port (i.e. a port that changes on every run, based on what is available on the device). Tauri then uses the server to load your web app into the WebView.
 In your `src-tauri/tauri.conf.json`:
 
 ```json

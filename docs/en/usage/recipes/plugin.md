@@ -41,10 +41,10 @@ impl Plugin for MyAwesomePlugin {
     None
   }
 
-  /// Callback invoked when the webview is created.
+  /// Callback invoked when the WebView is created.
   fn created(&self, webview: &mut Webview) {}
 
-  /// Callback invoked when the webview is ready.
+  /// Callback invoked when the WebView is ready.
   fn ready(&self, webview: &mut Webview) {}
 
   fn extend_api(&self, webview: &mut Webview, payload: &str) -> Result<bool, String> {

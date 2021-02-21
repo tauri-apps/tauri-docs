@@ -41,7 +41,7 @@ Functional address Space Layout Randomization techniques randomize function name
 
 ### Kamikaze Function Injection
 
-This advanced type of fASLR using the `EVENT` API endpoint, is a promise wrapped in a closure (with randomized handle) that Rust inserts at runtime into the Webview, where its interface is locked within the promise resolution handler and is nulled after execution.
+This advanced type of fASLR using the `EVENT` API endpoint, is a promise wrapped in a closure (with randomized handle) that Rust inserts at runtime into the WebView, where its interface is locked within the promise resolution handler and is nulled after execution.
 
 ### Bridge, don't serve
 

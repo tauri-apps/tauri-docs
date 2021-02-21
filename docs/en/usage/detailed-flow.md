@@ -34,7 +34,7 @@ process.exit()
 
 ## Using Rust
 
-One thing to recognise is that we don't use command line flags for `tauri dev` or `tauri build`. This is because we are using the `tauri.conf.js` file to manage all settings.
+One thing to recognize is that we don't use command line flags for `tauri dev` or `tauri build`. This is because we are using the `tauri.conf.js` file to manage all settings.
 
 ### Development (JS + RUST)
 
@@ -64,9 +64,9 @@ $ tauri dev
    -> spawn cargo run with dev-server arg (if needed ?)
  cargo run -features [dev-server]
   [WIP]
-   spawn webview with settings from tauri.conf.js
-   point webview at dev-server
-   inject tauri.js into webview
+   spawn WebView with settings from tauri.conf.js
+   point WebView at dev-server
+   inject tauri.js into WebView
    init tauri
 ```
 
