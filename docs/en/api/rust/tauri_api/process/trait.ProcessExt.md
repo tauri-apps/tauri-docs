@@ -98,7 +98,7 @@ Returns the parent pid.
 
 ### `fn status(&self) -> ProcessStatus`
 
-Returns the status of the processus.
+Returns the status of the process.
 
 ### `fn start_time(&self) -> u64`
 
@@ -140,7 +140,7 @@ Loading content...
 
 #### `fn status(&self) -> ProcessStatus`
 
-Returns the status of the processus (idle, run, zombie, etc). `None` means that `sysinfo` doesn't have enough rights to get this information.
+Returns the status of the process (idle, run, zombie, etc). `None` means that `sysinfo` doesn't have enough rights to get this information.
 
 #### `fn start_time(&self) -> u64`
 
