@@ -16,7 +16,7 @@ If you find an error or something unclear, or would like to propose an improveme
 
 1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
 2. The Tauri.js CLI takes the output and rigs the underlying native code according to your configuration.
-3. In dev mode it creates a webview window with debugging and hot-module-reloading.
+3. In dev mode it creates a WebView window with debugging and hot-module-reloading.
 4. In build mode it rigs the bundler and creates native installers according to your settings.
 
 ### Setting up Your Environment
