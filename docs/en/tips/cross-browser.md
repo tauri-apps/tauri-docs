@@ -4,7 +4,7 @@ Keep in mind that developing Tauri apps still requires to think in a cross-brows
 
 ### Icons & HTML entities
 
-> maybe we could be generic about it (HTML entities) and remind people that rendering rules across platforms that they know from webdesign are still applicable
+> maybe we could be generic about it (HTML entities) and remind people that rendering rules across platforms that they know from web design are still applicable
 
 > i like to convert my fonts and svg to base64 representations
 that guarantees its availability and proper rendering in the webview
