@@ -4,11 +4,11 @@ title: Technical Details
 
 ## CLI
 
-The CLI is node.js based, because it is arguably the most accessible for the majority of the web-development community. Using Tauri requires the latest LTS because we track security patches. In the future we will enable you to use Deno instead of Node if that is your jam.
+The CLI is Node.js based, because it is arguably the most accessible for the majority of the web-development community. Using Tauri requires the latest LTS because we track security patches. In the future we will enable you to use Deno instead of Node if that is your jam.
 
 ## User Interface
 
-The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, gtk-webkit2 on Linux and Webkit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed work known as [webview](https://github.com/webview/webview) that has been incorporated into the officiall [webview_rust](https://github.com/webview/webview_rust) bindings.
+The first generation user interface in Tauri apps leverages Cocoa/WebKit on macOS, GTK-WebKit2 on Linux and WebKit via EdgeHTML / Chakra on Windows. **Tauri** leverages the MIT licensed work known as [webview](https://github.com/webview/webview) that has been incorporated into the official [webview_rust](https://github.com/webview/webview_rust) bindings.
 
 <div className="alert alert--warning" role="alert">
   We are currently working on enabling the Web APIs and many of them may not be available on your platform.
@@ -22,7 +22,7 @@ The `src-tauri` folder contains both the configuration for your Tauri app as wel
 
 The Node CLI reads your configuration file and gets everything prepped for bundling into a binary, such as configuring the injection of the Tauri API. It also contains a few helpful commands such `tauri icon` command for making icons, `tauri init` for scaffolding an app, and `tauri info` for debugging your environment.
 
-The Tauri Rust Crate is the actual native code that binds to the Webview, creates your app's window, and provides the native API (file read / write, etc.).
+The Tauri Rust Crate is the actual native code that binds to the WebView, creates your app's window, and provides the native API (file read / write, etc.).
 
 The bundler combines your HTML/JS/CSS, native Rust code, and the Tauri Rust Crate into a nice and easy to consume binary for your target OS.
 
