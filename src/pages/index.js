@@ -219,11 +219,6 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Planned',
     },
     {
-      icon: 'ti-bolt',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
       icon: 'ti-panel',
       color: COLORS.blue,
       targetQuarter: 'Planned',

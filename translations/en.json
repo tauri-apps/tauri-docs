@@ -155,10 +155,6 @@
             "description": "Run a command that is no longer available after first run."
           },
           {
-            "label": "WASM Bundler",
-            "description": "Manufacture WASM bundler for use in websites."
-          },
-          {
             "label": "App Tray",
             "description": "Desktop Cross-platform Icon Tray."
           },
