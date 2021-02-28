@@ -174,6 +174,7 @@ const siteConfig = {
       },
     ],
     path.resolve('./plugins/external-assets'),
+    path.resolve('./plugins/url-loader'),
   ],
 }
 
