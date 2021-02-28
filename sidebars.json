@@ -42,27 +42,27 @@
           ]
         },
         {
-          "label": "Recipes",
+          "label": "Howtos",
           "type": "category",
           "items": [
             {
               "label": "Bundler",
               "type": "category",
               "items": [
-                "usage/recipes/bundler/introduction",
-                "usage/recipes/bundler/anti-bloat",
-                "usage/recipes/bundler/sidecar"
+                "usage/howtos/bundler/introduction",
+                "usage/howtos/bundler/anti-bloat",
+                "usage/howtos/bundler/sidecar"
               ]
             },
-            "usage/recipes/cli",
-            "usage/recipes/command",
-            "usage/recipes/plugin",
+            "usage/howtos/cli",
+            "usage/howtos/command",
+            "usage/howtos/plugin",
             {
               "label": "Visual",
               "type": "category",
               "items": [
-                "usage/recipes/visual/icons",
-                "usage/recipes/visual/splashscreen"
+                "usage/howtos/visual/icons",
+                "usage/howtos/visual/splashscreen"
               ]
             }
           ]
