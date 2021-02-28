@@ -5,11 +5,12 @@
  * work well for content-centric websites.
  */
 
-@import url('https://fonts.googleapis.com/css?family=Tauri&display=swap');
 @import 'themify-icons.css';
 @import 'hljs-dark.css';
 @import 'hljs-light.css';
 @import 'tabs.css';
+@import '~@fontsource/tauri';
+@import '~@fontsource/roboto';
 
 /* You can override the default Infima variables here. */
 :root {

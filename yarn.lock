@@ -1310,6 +1310,16 @@
     url "^0.11.0"
     webpack-sources "^1.4.3"
 
+"@fontsource/roboto@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.2.1.tgz#fc75a2c6f5267230f37c40c00bec5bf05d61c5c0"
+  integrity sha512-C236dlY57hG+Gg4C9SS2i5qNBILg31uzSdVhO6wUk27rgOz+rtztcUA17VI+HWdAd4LQaTp/vF6NDi303KRtqg==
+
+"@fontsource/tauri@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.2.1.tgz#7ef16c10d619cfe68d0d684c7526dd327750ae31"
+  integrity sha512-NDct4E2oUXoS+zxeq0myJgJXG8SfcRKQ7GlVvHedTiOvd6igeFGgFlC5Dqfa4tWXnYA4tZsl7awCTgbLAs9oNw==
+
 "@francoischalifour/autocomplete-core@^1.0.0-alpha.24":
   version "1.0.0-alpha.24"
   resolved "https://registry.yarnpkg.com/@francoischalifour/autocomplete-core/-/autocomplete-core-1.0.0-alpha.24.tgz#fc71704a17cf9326a66d97134508abdf02313181"
