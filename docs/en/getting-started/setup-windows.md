@@ -15,15 +15,14 @@ For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux
 
 ## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
-First you should <a href="https://aka.ms/buildtools" target="_blank">download</a> and install Visual Studio MSBuild Tools and C++ build tools.
+You'll need to install Microsoft Visual Studio C++ build tools. <a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/" target="_blank">Download the installer here</a>, and then run it. When it asks you what packages you would like to install, select C++ Build Tools.
 
 <Alert title="Note">
-This is a big download (over 1GB) and takes the most time, so go grab a :coffee:
+This is a big download (over 1GB) and takes the most time, so go grab a coffee.
 </Alert>
 
 <Alert type="warning">
-
-Be sure you don't have the 2017 version of the build tools installed as well. There are reports of `tauri build` not working in such a configuration.
+You may need to uninstall the 2017 version of the build tools if you have them. There are reports of Tauri not working with both the 2017 and 2019 versions installed.
 </Alert>
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
@@ -58,52 +57,9 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 
 Download and install the proper variant for your computer's architecture.
 
-## 4. Enable Loopback&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 4. Install WebView2
 
-Microsoft disables the loopback interface - you need to allow it if you intend to use the dev-server:
-
-Open an administrative console and enter:
-
-```powershell
-CheckNetIsolation.exe LoopbackExempt -a -n="Microsoft.Win32WebViewHost_cw5n1h2txyewy"
-```
-
-<Alert title="Note">
-There are reports that you have to restart your computer after running this command, so if it isn't working for you, try that!
-</Alert>
-
-## 5. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
-
-If you already had rustup installed before following this guide, make sure that you update Rust:
-
-```powershell
-rustup update stable
-```
-
-After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
-
-Install Tauri bundler through Cargo:
-
-```sh
-cargo install tauri-bundler --force
-```
-
-## 6. Devtools&nbsp;<Icon title="info-alt" color="info"/>
-
-If you want to debug the front-end you will have to download <a href="https://www.microsoft.com/store/p/microsoft-edge-devtools-preview/9mzbfrmz0mnj" target="_blank">Microsoft Edge Devtools</a> from the Microsoft store. After installing Edge Devtools, open it from the start menu and look for the Tauri debug target. Click it, and the devtools should open.
-
-This will allow you to attach to a running instance of your Tauri project!
-If you need help take a look at the <a href="https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide" target="_blank">devtools-guide</a>.
-
-<Alert title="Note">
-If you have installed <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">WebView2</a>, you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
-</Alert>
-
-## 7. Optional WebView2 (Chromium)
-
-If you want to use front-end features that aren't supported by the Windows Edge Webview, you can download and use the newer Edge <a href="https://docs.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">WebView2</a>. Edge WebView2 uses the chromium rendering engine for web content. Certain animations like the one found in the Create-React-App example are better supported in WebView2. Compare Browser features <a href="https://caniuse.com/?compare=ie+10,ie+11,edge+80,firefox+74,chrome+80&compareCats=all" target="_blank">here</a>. Keep in mind that users of your app may still be using the old Edge WebView, so your app shouldn't rely on the new browser features in Webview2.
-
-- <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section" target="_blank">Download</a>
+Finally, you will need to install WebView2. The best way to do this is to download and run the Evergreen Bootstrapper from [this page](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section).
 
 ## Continue
 

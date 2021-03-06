@@ -130,8 +130,6 @@ You'll need to run a command that is slightly more complex than WSL 1: `export D
 Don't forget that you'll have to use the "export" command anytime you want to use a graphical application, for each newly opened terminal.
 
 You can download some examples to try with `sudo apt-get install x11-apps`. xeyes is always a good one. It can be handy when troubleshooting WSL issues.
-
-There are some known issues on WSL 2 regarding loopback; that is running a localhost server from the terminal. If you are on WSL 2, be wary of this. You can find information regarding that [here](https://github.com/microsoft/WSL/issues/4636).
 </Alert>
 
 ## Continue
