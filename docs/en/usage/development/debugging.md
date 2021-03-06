@@ -46,22 +46,11 @@ For more information about this error, try `rustc --explain E0425`.
 
 ## WebView JS Console
 
-### Linux & macOS
-
 Right click in the WebView, and choose `Inspect Element`. This will open up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
-
-### Windows
-
-On Windows, you can use the standalone [Edge DevTools app](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide). This enables you to connect the dev tools to your Tauri app's WebView as if it were a normal Edge window.
-
-<Alert title="Note">
-If you have installed <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/" target="_blank">WebView2</a>, you do not need to install Edge Devtools. Instead, just right click inside the Tauri window and select "Inspect" to open devtools. If there is no right click menu, it is likely you are just using Devtools 1 and you should follow the instructions above.
-</Alert>
 
 ## Create a Debug Build
 
 There are cases where you might need to inspect the JS console in the final bundle, so Tauri provides a simple command to create a debugging bundle:
-
 
 <Command name="build --debug" />
 
@@ -69,4 +58,4 @@ Like the normal build and dev processes, the first time you run this it will tak
 
 ## Run Your App From the Terminal
 
-You can also run a built app from the terminal, which will also give you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release or debug)/app` and either double click it (but be warned, the terminal will close on errors) or just run it in directly in your console.
+You can also run a built app from the terminal, which will also give you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release|debug)/[app name]` and either double click it (but be warned, the terminal will close on errors) or just run it in directly in your console.
