@@ -1,198 +1,176 @@
 ---
-title: Write Rust commands
+title: Create Rust Commands
 ---
 
-The JavaScript frontend communicates with the backend through `commands`.
-A command is a string message that's sent to the backend with the `invoke` and `promisified` API calls,
-and can be listened on the backend with the `invoke_handler` callback.
+Tauri provides a simple yet powerful "command" system for calling Rust functions from your web app. Commands can accept arguments and return values. They can also return errors and be `async`.
 
-Tauri by default serializes every message to a JSON string, so you can use `serde_json` on the backend to deserialize it.
+## Basic Example
 
-## Synchronous commands
-
-A synchronous command is sent to the backend with the `invoke` API:
-
-```js
-// with a module bundler (recommended):
-import { invoke } from 'tauri/api/tauri'
-// with vanilla JS:
-var invoke = window.__TAURI__.tauri.invoke
-
-// then call it:
-invoke({
-  cmd: 'doSomething',
-  count: 5,
-  payload: {
-    state: 'some string data',
-    data: 17
-  }
-})
-```
-
-To read the message on Rust, use the `invoke_handler`:
+Commands are defined in your `src-tauri/src/main.rs` file. To create a command, just add a function and annotate it with `#[tauri::command]`:
 
 ```rust
-use serde::Deserialize;
-
-#[derive(Deserialize)]
-struct DoSomethingPayload {
-  state: String,
-  data: u64
+#[tauri::command]
+fn my_custom_command() {
+  println!("I was invoked from JS!");
 }
+```
 
-// The commands definitions
-// Deserialized from JS
-#[derive(Deserialize)]
-#[serde(tag = "cmd", rename_all = "camelCase")]
-enum Cmd {
-  DoSomething {
-    count: u64,
-    payload: DoSomethingPayload,
-  }
-}
+You will have to provide a list of your commands to the builder function like so:
 
+```rust
+// Also in main.rs
 fn main() {
-  tauri::AppBuilder::new()
-    .invoke_handler(|_webview, arg| {
-      use Cmd::*;
-      match serde_json::from_str(arg) {
-        Err(e) => Err(e.to_string()),
-        Ok(command) => {
-          match command {
-            DoSomething { count, payload } => {
-              // do some synchronous operation with `count` and `payload` sent from the frontend
-              // note that this blocks the UI thread, so prefer asynchronous commands for long-running tasks
-            }
-          }
-          Ok(())
-        }
-      }
-    })
+  tauri::AppBuilder::<Context>::new()
+    // This is where you pass in your commands
+    .invoke_handler(tauri::generate_handler![my_custom_command])
     .build()
+    .unwrap()
     .run();
 }
 ```
 
-## Asynchronous commands
-
-An asynchronous command is sent to the backend with the `promisified` API:
+Now, you can invoke the command from your JS code:
 
 ```js
-// with a module bundler (recommended):
-import { promisified } from 'tauri/api/tauri'
-// with vanilla JS:
-var promisified = window.__TAURI__.tauri.promisified
+// With the Tauri API npm package:
+import { invoke } from '@tauri-apps/api/tauri'
+// With the Tauri global script:
+const invoke = window.__TAURI__.invoke
 
-// then call it:
-promisified({
-  cmd: 'doSomething',
-  count: 5,
-  payload: {
-    state: 'some string data',
-    data: 17
-  }
-}).then(response => {
-  // do something with the Ok() response
-  const { value, message } = response
-}).catch(error => {
-  // do something with the Err() response string
-})
+// Invoke the command
+invoke('my_custom_command')
 ```
 
-To read the message on Rust, use the `invoke_handler` and the `tauri::execute_promise` helper.
-The code executed with this kind of command will be execute on a separate thread.
-To run code on the main thread, use `tauri::execute_promise_sync` instead.
+## Passing Arguments
 
-Note that there's two additional properties: `callback` and `error`.
-
-- The `callback` parameter is the name of the command Promise's `resolve` function.
-- The `error` parameter is the name of the command Promise's `reject` function.
-
-The `Result` returned from the `tauri::execute_promise` function is used to determine if the Promise should resolve or reject.
-If it's an `Ok` variant, we `resolve` the Promise with its value serialized to JSON. Otherwise, we `reject` with the error as string.
+Your command handlers can take arguments:
 
 ```rust
-use serde::{Deserialize, Serialize};
+#[tauri::command]
+fn my_custom_command(message: String) {
+  println!("I was invoked from JS, with this message: {}", message);
+}
+```
 
-#[derive(Deserialize)]
-struct DoSomethingPayload {
-  state: String,
-  data: u64,
+Arguments should be passed as a JSON object:
+
+```js
+invoke('my_custom_command', { message: 'Hello!' })
+```
+
+Arguments can be of any type, as long as they implement [Serde::Deserialize](https://serde.rs/derive.html).
+
+## Returning Data
+
+Command handlers can return data as well:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> String {
+  "Hello from Rust!".into()
+}
+```
+
+The `invoke` function returns a promise that resolves with the returned value:
+
+```js
+invoke('my_custom_command').then((message) => console.log(message))
+```
+
+Returned data can be of any type, as long as it implements [Serde::Serialize](https://serde.rs/derive.html).
+
+## Error Handling
+
+If your handler could fail and needs to be able to return an error, have the function return a `Result`:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> Result<String, String> {
+  // If something fails
+  Err("This failed!".into())
+  // If it worked
+  Ok("This worked!".into())
+}
+```
+
+If the command returns an error, the promise will reject, otherwise it resolves:
+
+```js
+invoke('my_custom_command')
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error))
+```
+
+## Async Commands
+
+If your command needs to run asynchronously, simply declare it as `async`:
+
+```rust
+#[tauri::command]
+async fn my_custom_command() {
+  // Call another async function and wait for it to finish
+  let result = some_async_function().await;
+  println!("Result: {}", result);
+}
+```
+
+Since invoking the command from JS already returns a promise, it works just like any other command:
+
+```js
+invoke('my_custom_command').then(() => console.log('Completed!'))
+```
+
+## Accessing the WebviewManager in Commands
+
+If your command needs access to the WebviewManager (TODO: add link), add `with_manager` to the `command` annotation:
+
+```rust
+#[tauri::command(with_manager)]
+async fn my_custom_command(manager: tauri::WebviewManager) {
+  println!("Window: {}", manager.current_window_label());
+}
+```
+
+## Complete Example
+
+Any or all of the above features can be combined:
+
+```rust
+// Definition in main.rs
+
+#[derive(serde::Serialize)]
+struct CustomResponse {
+  message: String,
+  other_val: usize,
 }
 
-// The commands definitions
-// Deserialized from JS
-#[derive(Deserialize)]
-#[serde(tag = "cmd", rename_all = "camelCase")]
-enum Cmd {
-  DoSomething {
-    count: u64,
-    payload: DoSomethingPayload,
-    callback: String,
-    error: String,
-  },
-}
-
-#[derive(Serialize)]
-struct Response<'a> {
-  value: u64,
-  message: &'a str,
-}
-
-// An error type we define
-// We could also use the `anyhow` lib here
-#[derive(Debug, Clone)]
-struct CommandError<'a> {
-  message: &'a str,
-}
-
-impl<'a> CommandError<'a> {
-  fn new(message: &'a str) -> Self {
-    Self { message }
-  }
-}
-
-impl<'a> std::fmt::Display for CommandError<'a> {
-  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-    write!(f, "{}", self.message)
-  }
-}
-
-// Tauri uses the `anyhow` lib so custom error types must implement std::error::Error
-// and the function call should call `.into()` on it
-impl<'a> std::error::Error for CommandError<'a> {}
-
-fn main() {
-  tauri::AppBuilder::new()
-    .invoke_handler(|_webview, arg| {
-      use Cmd::*;
-      match serde_json::from_str(arg) {
-        Err(e) => Err(e.to_string()),
-        Ok(command) => {
-          match command {
-            DoSomething { count, payload, callback, error } => tauri::execute_promise(
-              _webview,
-              move || {
-                if count > 5 {
-                  let response = Response {
-                    value: 5,
-                    message: "async response!",
-                  };
-                  Ok(response)
-                } else {
-                  Err(CommandError::new("count should be > 5").into())
-                }
-              },
-              callback,
-              error,
-            ),
-          }
-          Ok(())
-        }
-      }
+#[tauri::command(with_manager)]
+async fn my_custom_command(
+  manager: tauri::WebviewManager,
+  number: usize,
+) -> Result<CustomResponse, String> {
+  println!("Called from {}", manager.current_window_label());
+  let result: Option<String> = some_other_function().await;
+  if let Some(message) = result {
+    Ok(CustomResponse {
+      message,
+      other_val: 42 + number,
     })
-    .build()
-    .run();
+  } else {
+    Err("No result".into())
+  }
 }
+```
 
+```js
+// Invocation from JS
+
+invoke('my_custom_command', {
+  message: 'Hi',
+  number: 42,
+})
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e))
 ```
