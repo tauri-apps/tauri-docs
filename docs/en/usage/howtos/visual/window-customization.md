@@ -79,14 +79,14 @@ Finally, you'll need to make the buttons work:
 TODO: TOGGLE MAXIMIZE
 
 ```js
-import { manager as window } from '@tauri-apps/api/window'
+import { appWindow } from '@tauri-apps/api/window'
 document
   .getElementById('titlebar-minimize')
-  .addEventListener('click', () => window.minimize())
+  .addEventListener('click', () => appWindow.minimize())
 document
   .getElementById('titlebar-maximize')
-  .addEventListener('click', () => window.maximize())
+  .addEventListener('click', () => appWindow.maximize())
 document
   .getElementById('titlebar-close')
-  .addEventListener('click', () => window.close())
+  .addEventListener('click', () => appWindow.close())
 ```
