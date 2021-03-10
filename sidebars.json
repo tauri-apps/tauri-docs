@@ -62,7 +62,8 @@
               "type": "category",
               "items": [
                 "usage/howtos/visual/icons",
-                "usage/howtos/visual/splashscreen"
+                "usage/howtos/visual/splashscreen",
+                "usage/howtos/visual/window-customization"
               ]
             }
           ]
@@ -72,10 +73,7 @@
         {
           "label": "CI/CD",
           "type": "category",
-          "items": [
-            "usage/ci-cd/workflow",
-            "usage/ci-cd/cross-platform"
-          ]
+          "items": ["usage/ci-cd/workflow", "usage/ci-cd/cross-platform"]
         },
         "usage/contributor-guide"
       ]
