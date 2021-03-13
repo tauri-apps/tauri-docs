@@ -20,11 +20,10 @@ You will have to provide a list of your commands to the builder function like so
 ```rust
 // Also in main.rs
 fn main() {
-  tauri::AppBuilder::<Context>::new()
+  tauri::AppBuilder::new()
     // This is where you pass in your commands
     .invoke_handler(tauri::generate_handler![my_custom_command])
-    .build()
-    .unwrap()
+    .build(tauri::generate_context!())
     .run();
 }
 ```

@@ -40,22 +40,21 @@ If you are waiting for your web code, you'll want to create a `close_splashscree
 ```rust title=src-tauri/main.rs
 // Create the command:
 #[tauri::command(with_manager)]
-async fn close_splashscreen(manager: tauri::WebviewManager) {
+fn close_splashscreen(manager: tauri::WebviewManager) {
   // Close splashscreen
-  if let Ok(splashscreen) = manager.get_webview("splashscreen").await {
+  if let Ok(splashscreen) = manager.get_webview("splashscreen") {
     splashscreen.close().unwrap();
   }
   // Show main window
-  manager.get_webview("main").await.unwrap().show().unwrap();
+  manager.get_webview("main").unwrap().show().unwrap();
 }
 
 // Register the command:
 fn main() {
-  tauri::AppBuilder::<Context>::new()
+  tauri::AppBuilder::new()
     // Add this line
     .invoke_handler(tauri::generate_handler![close_splashscreen])
-    .build()
-    .unwrap()
+    .build(tauri::generate_context!())
     .run();
 }
 
@@ -82,19 +81,18 @@ If you are waiting for Rust code to run, put it in the `setup` function handler 
 
 ```rust title=src-tauri/main.rs
 fn main() {
-  tauri::AppBuilder::<Context>::new()
+  tauri::AppBuilder::new()
     .setup(|manager| async move {
       // Run initialization code here
       // ...
 
       // After it's done, close the splashscreen and display the main window
-      if let Ok(splashscreen) = manager.get_webview("splashscreen").await {
+      if let Ok(splashscreen) = manager.get_webview("splashscreen") {
         splashscreen.close().unwrap();
       }
-      manager.get_webview("main").await.unwrap().show().unwrap();
+      manager.get_webview("main").unwrap().show().unwrap();
     })
-    .build()
-    .unwrap()
+    .build(tauri::generate_context!())
     .run();
 }
 ```
