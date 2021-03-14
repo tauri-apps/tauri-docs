@@ -88,7 +88,6 @@ Here's what you need to add to your tauri.conf.json file:
   },
   "allowlist": {                  // all API values are default false
     "all": false,                 // use this flag to enable all API features
-    "answer": true,               // enable rust to direct the UI
     "event": true,                // enable binding to message
     "execute": false,             // enable application execution
     "listFiles": false,           // list files in a directory
