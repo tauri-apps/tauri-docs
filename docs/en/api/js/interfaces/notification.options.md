@@ -1,5 +1,4 @@
 ---
-id: "notification.options"
 title: "Interface: Options"
 sidebar_label: "Options"
 custom_edit_url: null
@@ -10,25 +9,21 @@ hide_title: true
 
 [notification](../modules/notification.md).Options
 
-## Hierarchy
-
-* **Options**
-
 ## Properties
 
 ### body
 
-• `Optional` **body**: *undefined* \| *string*
+• `Optional` **body**: *string*
 
-Defined in: [notification.ts:5](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/notification.ts#L5)
+Defined in: [notification.ts:5](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L5)
 
 ___
 
 ### icon
 
-• `Optional` **icon**: *undefined* \| *string*
+• `Optional` **icon**: *string*
 
-Defined in: [notification.ts:6](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/notification.ts#L6)
+Defined in: [notification.ts:6](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L6)
 
 ___
 
@@ -36,4 +31,4 @@ ___
 
 • **title**: *string*
 
-Defined in: [notification.ts:4](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/notification.ts#L4)
+Defined in: [notification.ts:4](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L4)

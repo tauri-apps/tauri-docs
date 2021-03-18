@@ -1,5 +1,4 @@
 ---
-id: "event"
 title: "Module: event"
 sidebar_label: "event"
 custom_edit_url: null
@@ -8,17 +7,31 @@ hide_title: true
 
 # Module: event
 
-## Table of contents
+## References
 
-### Interfaces
+### listen
 
-- [Event](../interfaces/event.event-1.md)
+Re-exports: [listen](helpers_event.md#listen)
 
-### Type aliases
+___
 
-- [EventCallback](../types/event.eventcallback.md)
+### once
 
-### Functions
+Re-exports: [once](helpers_event.md#once)
 
-- [emit](../functions/event.emit.md)
-- [listen](../functions/event.listen.md)
+## Functions
+
+### emit
+
+▸ **emit**(`event`: *string*, `payload?`: *string*): *Promise*<void\>
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`event` | *string* |
+`payload?` | *string* |
+
+**Returns:** *Promise*<void\>
+
+Defined in: [event.ts:3](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/event.ts#L3)

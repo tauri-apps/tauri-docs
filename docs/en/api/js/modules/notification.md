@@ -1,5 +1,4 @@
 ---
-id: "notification"
 title: "Module: notification"
 sidebar_label: "notification"
 custom_edit_url: null
@@ -14,13 +13,54 @@ hide_title: true
 
 - [Options](../interfaces/notification.options.md)
 
-### Type aliases
+## Type aliases
 
-- [PartialOptions](../types/notification.partialoptions.md)
-- [Permission](../types/notification.permission.md)
+### PartialOptions
 
-### Functions
+Ƭ **PartialOptions**: *Omit*<[*Options*](../interfaces/notification.options.md), *title*\>
 
-- [isPermissionGranted](../functions/notification.ispermissiongranted.md)
-- [requestPermission](../functions/notification.requestpermission.md)
-- [sendNotification](../functions/notification.sendnotification.md)
+Defined in: [notification.ts:9](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L9)
+
+___
+
+### Permission
+
+Ƭ **Permission**: *granted* \| *denied* \| *default*
+
+Defined in: [notification.ts:10](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L10)
+
+## Functions
+
+### isPermissionGranted
+
+▸ **isPermissionGranted**(): *Promise*<boolean \| *null*\>
+
+**Returns:** *Promise*<boolean \| *null*\>
+
+Defined in: [notification.ts:12](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L12)
+
+___
+
+### requestPermission
+
+▸ **requestPermission**(): *Promise*<[*Permission*](notification.md#permission)\>
+
+**Returns:** *Promise*<[*Permission*](notification.md#permission)\>
+
+Defined in: [notification.ts:24](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L24)
+
+___
+
+### sendNotification
+
+▸ **sendNotification**(`options`: [*Options*](../interfaces/notification.options.md) \| *string*): *void*
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`options` | [*Options*](../interfaces/notification.options.md) \| *string* |
+
+**Returns:** *void*
+
+Defined in: [notification.ts:28](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/notification.ts#L28)

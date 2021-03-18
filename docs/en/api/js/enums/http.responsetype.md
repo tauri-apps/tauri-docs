@@ -1,5 +1,4 @@
 ---
-id: "http.responsetype"
 title: "Enumeration: ResponseType"
 sidebar_label: "ResponseType"
 custom_edit_url: null
@@ -16,7 +15,7 @@ hide_title: true
 
 • **Binary**: = 3
 
-Defined in: [http.ts:6](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L6)
+Defined in: [http.ts:11](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L11)
 
 ___
 
@@ -24,7 +23,7 @@ ___
 
 • **JSON**: = 1
 
-Defined in: [http.ts:4](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L4)
+Defined in: [http.ts:9](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L9)
 
 ___
 
@@ -32,4 +31,4 @@ ___
 
 • **Text**: = 2
 
-Defined in: [http.ts:5](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L5)
+Defined in: [http.ts:10](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L10)

@@ -1,5 +1,4 @@
 ---
-id: "bundle"
 title: "Module: bundle"
 sidebar_label: "bundle"
 custom_edit_url: null
@@ -34,9 +33,15 @@ Re-exports: [fs](fs.md)
 
 ___
 
+### globalShortcut
+
+Re-exports: [globalShortcut](globalshortcut.md)
+
+___
+
 ### http
 
-Renames and exports: [default](http.md#default)
+Re-exports: [http](http.md)
 
 ___
 
@@ -52,9 +57,9 @@ Re-exports: [path](path.md)
 
 ___
 
-### process
+### shell
 
-Re-exports: [process](process.md)
+Re-exports: [shell](shell.md)
 
 ___
 

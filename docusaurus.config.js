@@ -160,8 +160,7 @@ const siteConfig = {
       {
         docs: {
           path: './docs/' + language,
-          sidebarPath: require.resolve('./sidebars'),
-          // sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: require.resolve('./sidebars.json'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },
         theme: {
@@ -178,28 +177,6 @@ const siteConfig = {
       },
     ],
     path.resolve('./plugins/external-assets'),
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        id: 'typedoc-interactor',
-        // docsRoot: 'docs',
-        entryPoints: ['../tauri/cli/tauri.js/api-src'],
-        tsconfig: '../tauri/cli/tauri.js/tsconfig.api.json',
-        // TypeDoc options (see typedoc --help)
-        out: 'en/api/js',
-        // readme: '../../packages/interactor/API.md',
-        sidebar: {
-          sidebarFile: './typedoc-sidebar.js',
-          fullNames: false,
-          readmeLabel: false,
-          globalsLabel: 'Globals',
-        },
-        toc: false,
-        readme: 'none',
-        excludeExternals: true,
-        allReflectionsHaveOwnDocument: true,
-      },
-    ],
   ],
 }
 

@@ -1,5 +1,4 @@
 ---
-id: "cli"
 title: "Module: cli"
 sidebar_label: "cli"
 custom_edit_url: null
@@ -16,6 +15,14 @@ hide_title: true
 - [CliMatches](../interfaces/cli.climatches.md)
 - [SubcommandMatch](../interfaces/cli.subcommandmatch.md)
 
-### Functions
+## Functions
 
-- [getMatches](../functions/cli.getmatches.md)
+### getMatches
+
+▸ **getMatches**(): *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
+
+gets the CLI matches
+
+**Returns:** *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
+
+Defined in: [cli.ts:29](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/cli.ts#L29)

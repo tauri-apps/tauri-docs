@@ -1,5 +1,4 @@
 ---
-id: "dialog.opendialogoptions"
 title: "Interface: OpenDialogOptions"
 sidebar_label: "OpenDialogOptions"
 custom_edit_url: null
@@ -10,38 +9,34 @@ hide_title: true
 
 [dialog](../modules/dialog.md).OpenDialogOptions
 
-## Hierarchy
-
-* **OpenDialogOptions**
-
 ## Properties
 
 ### defaultPath
 
-• `Optional` **defaultPath**: *undefined* \| *string*
+• `Optional` **defaultPath**: *string*
 
-Defined in: [dialog.ts:5](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/dialog.ts#L5)
+Defined in: [dialog.ts:10](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/dialog.ts#L10)
 
 ___
 
 ### directory
 
-• `Optional` **directory**: *undefined* \| *boolean*
+• `Optional` **directory**: *boolean*
 
-Defined in: [dialog.ts:7](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/dialog.ts#L7)
+Defined in: [dialog.ts:12](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/dialog.ts#L12)
 
 ___
 
-### filter
+### filters
 
-• `Optional` **filter**: *undefined* \| *string*
+• `Optional` **filters**: [*DialogFilter*](dialog.dialogfilter.md)[]
 
-Defined in: [dialog.ts:4](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/dialog.ts#L4)
+Defined in: [dialog.ts:9](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/dialog.ts#L9)
 
 ___
 
 ### multiple
 
-• `Optional` **multiple**: *undefined* \| *boolean*
+• `Optional` **multiple**: *boolean*
 
-Defined in: [dialog.ts:6](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/dialog.ts#L6)
+Defined in: [dialog.ts:11](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/dialog.ts#L11)

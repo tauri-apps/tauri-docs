@@ -1,5 +1,4 @@
 ---
-id: "http.httpoptions"
 title: "Interface: HttpOptions"
 sidebar_label: "HttpOptions"
 custom_edit_url: null
@@ -10,105 +9,53 @@ hide_title: true
 
 [http](../modules/http.md).HttpOptions
 
-## Hierarchy
-
-* **HttpOptions**
-
 ## Properties
-
-### allowCompression
-
-• **allowCompression**: *boolean*
-
-Defined in: [http.ts:39](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L39)
-
-___
 
 ### body
 
-• `Optional` **body**: *undefined* \| *string* \| *object*
+• `Optional` **body**: [*Body*](../classes/http.body.md)
 
-Defined in: [http.ts:33](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L33)
-
-___
-
-### bodyType
-
-• **bodyType**: [*BodyType*](../enums/http.bodytype.md)
-
-Defined in: [http.ts:41](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L41)
-
-___
-
-### connectTimeout
-
-• **connectTimeout**: *number*
-
-Defined in: [http.ts:36](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L36)
-
-___
-
-### followRedirects
-
-• **followRedirects**: *boolean*
-
-Defined in: [http.ts:34](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L34)
+Defined in: [http.ts:58](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L58)
 
 ___
 
 ### headers
 
-• `Optional` **headers**: *undefined* \| *Record*<*string*, *any*\>
+• `Optional` **headers**: *Record*<string, any\>
 
-Defined in: [http.ts:31](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L31)
-
-___
-
-### maxRedirections
-
-• **maxRedirections**: *boolean*
-
-Defined in: [http.ts:35](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L35)
+Defined in: [http.ts:56](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L56)
 
 ___
 
 ### method
 
-• **method**: [*HttpVerb*](../types/http.httpverb.md)
+• **method**: [*HttpVerb*](../modules/http.md#httpverb)
 
-Defined in: [http.ts:29](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L29)
-
-___
-
-### params
-
-• `Optional` **params**: *undefined* \| *Record*<*string*, *any*\>
-
-Defined in: [http.ts:32](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L32)
+Defined in: [http.ts:54](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L54)
 
 ___
 
-### readTimeout
+### query
 
-• **readTimeout**: *number*
+• `Optional` **query**: *Record*<string, any\>
 
-Defined in: [http.ts:37](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L37)
+Defined in: [http.ts:57](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L57)
 
 ___
 
 ### responseType
 
-• `Optional` **responseType**: *undefined* \| [*JSON*](../enums/http.responsetype.md#json) \| [*Text*](../enums/http.responsetype.md#text) \| [*Binary*](../enums/http.responsetype.md#binary)
+• `Optional` **responseType**: [*ResponseType*](../enums/http.responsetype.md)
 
-Defined in: [http.ts:40](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L40)
+Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L60)
 
 ___
 
 ### timeout
 
-• **timeout**: *number*
+• `Optional` **timeout**: *number*
 
-Defined in: [http.ts:38](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L38)
+Defined in: [http.ts:59](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L59)
 
 ___
 
@@ -116,4 +63,4 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:30](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/http.ts#L30)
+Defined in: [http.ts:55](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/http.ts#L55)

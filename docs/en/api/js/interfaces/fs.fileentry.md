@@ -1,5 +1,4 @@
 ---
-id: "fs.fileentry"
 title: "Interface: FileEntry"
 sidebar_label: "FileEntry"
 custom_edit_url: null
@@ -10,25 +9,21 @@ hide_title: true
 
 [fs](../modules/fs.md).FileEntry
 
-## Hierarchy
-
-* **FileEntry**
-
 ## Properties
 
 ### children
 
-• `Optional` **children**: *undefined* \| [*FileEntry*](fs.fileentry.md)[]
+• `Optional` **children**: [*FileEntry*](fs.fileentry.md)[]
 
-Defined in: [fs.ts:49](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/fs.ts#L49)
+Defined in: [fs.ts:49](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/fs.ts#L49)
 
 ___
 
 ### name
 
-• `Optional` **name**: *undefined* \| *string*
+• `Optional` **name**: *string*
 
-Defined in: [fs.ts:47](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/fs.ts#L47)
+Defined in: [fs.ts:47](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/fs.ts#L47)
 
 ___
 
@@ -36,4 +31,4 @@ ___
 
 • **path**: *string*
 
-Defined in: [fs.ts:44](https://github.com/tauri-apps/tauri/blob/237b49b/cli/tauri.js/api-src/fs.ts#L44)
+Defined in: [fs.ts:44](https://github.com/tauri-apps/tauri/blob/29a1c33a/api/src/fs.ts#L44)
