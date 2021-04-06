@@ -12,7 +12,7 @@ TODO: LINKS
 
 - [Through tauri.conf.json](https://tauri.studio/en/docs/api/config/#tauri.windows)
 - [Through the JS API]
-- [Through the WebviewManager in Rust]
+- [Through the Window in Rust]
 
 ## Creating a Custom Titlebar
 

@@ -119,14 +119,14 @@ Since invoking the command from JS already returns a promise, it works just like
 invoke('my_custom_command').then(() => console.log('Completed!'))
 ```
 
-## Accessing the WebviewManager in Commands
+## Accessing the Window in Commands
 
-If your command needs access to the WebviewManager (TODO: add link), add `with_manager` to the `command` annotation:
+If your command needs access to the Window (TODO: add link), add `with_window` to the `command` annotation:
 
 ```rust
-#[tauri::command(with_manager)]
-async fn my_custom_command(manager: tauri::WebviewManager) {
-  println!("Window: {}", manager.current_window_label());
+#[tauri::command(with_window)]
+async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
+  println!("Window: {}", window.label());
 }
 ```
 
@@ -143,12 +143,12 @@ struct CustomResponse {
   other_val: usize,
 }
 
-#[tauri::command(with_manager)]
-async fn my_custom_command(
-  manager: tauri::WebviewManager,
+#[tauri::command(with_window)]
+async fn my_custom_command<M: tauri::Params>(
+  window: tauri::Window<M>,
   number: usize,
 ) -> Result<CustomResponse, String> {
-  println!("Called from {}", manager.current_window_label());
+  println!("Called from {}", window.label());
   let result: Option<String> = some_other_function().await;
   if let Some(message) = result {
     Ok(CustomResponse {

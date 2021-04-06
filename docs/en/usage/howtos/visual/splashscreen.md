@@ -25,7 +25,7 @@ First, create a `splashscreen.html` in your `distDir` that contains the HTML cod
 +   "width": 400,
 +   "height": 200,
 +   "decorations": false,
-+   "url": "tauri://splashscreen.html",
++   "url": "splashscreen.html",
 +   "label": "splashscreen"
 + }
 ]
@@ -39,14 +39,14 @@ If you are waiting for your web code, you'll want to create a `close_splashscree
 
 ```rust title=src-tauri/main.rs
 // Create the command:
-#[tauri::command(with_manager)]
-fn close_splashscreen(manager: tauri::WebviewManager) {
+#[tauri::command(with_window)]
+fn close_splashscreen<M: Params>(window: tauri::Window<M>) {
   // Close splashscreen
-  if let Ok(splashscreen) = manager.get_webview("splashscreen") {
+  if let Ok(splashscreen) = window.get_webview("splashscreen") {
     splashscreen.close().unwrap();
   }
   // Show main window
-  manager.get_webview("main").unwrap().show().unwrap();
+  window.get_webview("main").unwrap().show().unwrap();
 }
 
 // Register the command:
@@ -77,20 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### Waiting for Rust
 
-If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `WebviewManager`:
+If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
 ```rust title=src-tauri/main.rs
 fn main() {
   tauri::AppBuilder::new()
-    .setup(|manager| async move {
+    .setup(|app| {
       // Run initialization code here
       // ...
 
       // After it's done, close the splashscreen and display the main window
-      if let Ok(splashscreen) = manager.get_webview("splashscreen") {
+      if let Ok(splashscreen) = app.get_window("splashscreen") {
         splashscreen.close().unwrap();
       }
-      manager.get_webview("main").unwrap().show().unwrap();
+      app.get_window("main").unwrap().show().unwrap();
     })
     .build(tauri::generate_context!())
     .run();

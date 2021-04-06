@@ -30,13 +30,11 @@ npm install tauri --save
 ## Tauri
 
 ```ts
-import { invoke, promisified } from 'tauri/api/tauri'
-invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
-promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+import { invoke } from 'tauri/api/tauri'
+invoke({ cmd: 'myCommandName' }).then(() => { ... })
 // alternatively:
 import * as tauri from 'tauri/api/tauri'
-tauri.invoke({ cmd: 'myCommandName', param1: 'something', param2: { value: 5 } })
-tauri.promisified({ cmd: 'myAsyncCommandName' }).then(() => { ... })
+tauri.invoke({ cmd: 'myCommandName' }).then(() => { ... })
 ```
 
 ### Functions
@@ -49,17 +47,6 @@ function invoke(args: any): void
 ```
 
 Invokes a command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
-
-```ts
-/**
- * @param {any} args the command definition object/string
- */
-function promisified(args: any): Promise<any>
-```
-
-Invokes an async command to the backend layer. It can be read with the `invoke_handler` callback on Rust.
-Also, Tauri automatically adds two properties: `callback` and `error`, which are the function names of the Promise resolve and reject functions.
-It's meant to be used along with `tauri::execute_promise`.
 
 ## Dialog
 
