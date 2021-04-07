@@ -149,8 +149,7 @@ tauri init (consumer)
 ## modes
 
 - build
-  - embedded-server
-  - no-server
+  - custom-protocol
 - dev
   - their devserver
   - our devserver (future possibility, after alpha)

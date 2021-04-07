@@ -107,7 +107,6 @@ App directory structure
 
 App
   tauri - 0.3.0
-  mode - embedded-server
   build-type - bundle
   CSP - default-src data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'
   Windows - Edge

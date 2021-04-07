@@ -132,10 +132,6 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "embeddedServer", type: "object",
-    child: <Properties anchorRoot="tauri.embeddedServer" rows={[{ property: "active", optional: true, type: "boolean", description: `Set it to <code>false</code> if you plan to serve your application statically.` }]} />
-  },
-  {
     property: "bundle", type: "object",
     child: <Properties anchorRoot="tauri.bundle" rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
@@ -273,9 +269,6 @@ Instead of launching the app directly, we configure the bundled app to run a scr
         "subcommands": null
       }
     }
-  },
-  "embeddedServer": {
-    "active": true
   },
   "bundle": {
     "active": true,

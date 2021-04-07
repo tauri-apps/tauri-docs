@@ -14,7 +14,7 @@ A synchronous command is sent to the backend with the `invoke` API:
 
 ```js
 // with a module bundler (recommended):
-import { invoke } from 'tauri/api/tauri'
+import { invoke } from '@tauri-apps/api/tauri'
 // with vanilla JS:
 var invoke = window.__TAURI__.tauri.invoke
 
@@ -79,7 +79,7 @@ An asynchronous command is sent to the backend with the `promisified` API:
 
 ```js
 // with a module bundler (recommended):
-import { promisified } from 'tauri/api/tauri'
+import { promisified } from '@tauri-apps/api/tauri'
 // with vanilla JS:
 var promisified = window.__TAURI__.tauri.promisified
 

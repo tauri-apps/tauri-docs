@@ -99,7 +99,7 @@ $ tauri build
    -> transform tauri.conf.js:conf.allowlist to toml
      -> manipulate Cargo.toml for API allow features
    -> spawns cargo 'module' `tauri-cli` (using /cli/tauri.js/helpers/spawn.js)
-      - feature 'embedded-server' : 'no-server'
+      - feature 'custom-protoocol'
       - --release (or debug)
       - --target
         // The target is currently implicit based upon the OS
@@ -149,8 +149,7 @@ tauri init (consumer)
 ## modes
 
 - build
-  - embedded-server
-  - no-server
+  - custom-protocol
 - dev
   - their devserver
   - our devserver (future possibility, after alpha)

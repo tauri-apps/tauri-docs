@@ -132,10 +132,6 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "embeddedServer", type: "object",
-    child: <Properties anchorRoot="tauri.embeddedServer" rows={[{ property: "active", optional: true, type: "boolean", description: `Set it to <code>false</code> if you plan to serve your application statically.` }]} />
-  },
-  {
     property: "bundle", type: "object",
     child: <Properties anchorRoot="tauri.bundle" rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
@@ -197,7 +193,6 @@ It's composed of the following properties:
       { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
       { property: "saveDialog", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
       { property: "setTitle", optional: true, type: "boolean", description: `Set the webview window title.` },
-      { property: "updater", optional: true, type: "boolean", description: `Update the application.` },
       { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
     ]} />
   },

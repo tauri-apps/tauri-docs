@@ -5,16 +5,16 @@ title: JavaScript
 
 import Alert from '@theme/Alert'
 
-Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/tauri" target="_blank">Tauri package</a> in the "api" directory.
+Here is the JS API, exposed by the <a href="https://www.npmjs.com/package/@tauri-apps/api" target="_blank">API package</a>.
 
 Note that you can either enable or disable these APIs in your [tauri.conf.json](/docs/api/config). Please refer to the "allowlist" section.
 
 If you haven't done it so far, add the package _locally_ to your project:
 
 ```sh
-yarn add tauri
+yarn add @tauri-apps/api
 # OR
-npm install tauri --save
+npm install @tauri-apps/api --save
 ```
 
 <Alert title="Warning" icon="alert" type="warning">
@@ -30,10 +30,10 @@ npm install tauri --save
 ## Tauri
 
 ```ts
-import { invoke } from 'tauri/api/tauri'
+import { invoke } from '@tauri-apps/api/tauri'
 invoke({ cmd: 'myCommandName' }).then(() => { ... })
 // alternatively:
-import * as tauri from 'tauri/api/tauri'
+import * as tauri from '@tauri-apps/api/tauri'
 tauri.invoke({ cmd: 'myCommandName' }).then(() => { ... })
 ```
 
@@ -51,10 +51,10 @@ Invokes a command to the backend layer. It can be read with the `invoke_handler`
 ## Dialog
 
 ```ts
-import { open, save } from 'tauri/api/dialog'
+import { open, save } from '@tauri-apps/api/dialog'
 open(...); save(...);
 // alternatively:
-import * as dialog from 'tauri/api/dialog'
+import * as dialog from '@tauri-apps/api/dialog'
 dialog.open(...); dialog.save(...)
 ```
 
@@ -103,10 +103,10 @@ Open a file/directory save dialog
 ## Event
 
 ```ts
-import { emit, listen } from 'tauri/api/event'
+import { emit, listen } from '@tauri-apps/api/event'
 emit('event name', 'payload'); listen('event name', payload => { ... })
 // alternatively:
-import * as event from 'tauri/api/event'
+import * as event from '@tauri-apps/api/event'
 event.emit('event name', 'payload'); event.listen('event name', payload => { ... })
 ```
 
@@ -168,10 +168,10 @@ import {
   removeFile,
   renameFile,
   writeFile,
-} from 'tauri/api/fs'
+} from '@tauri-apps/api/fs'
 readDir('/path/to/dir/')
 // alternatively:
-import * as fs from 'tauri/api/fs'
+import * as fs from '@tauri-apps/api/fs'
 fs.readDir('/path/to/dir/')
 ```
 
@@ -407,7 +407,7 @@ writes a binary file
 ## HTTP
 
 ```ts
-import http from 'tauri/api/http'
+import http from '@tauri-apps/api/http'
 http.get('https://some.url')
 ```
 
@@ -632,10 +632,10 @@ class Notification {
 ## Process
 
 ```ts
-import { execute } from 'tauri/api/process'
+import { execute } from '@tauri-apps/api/process'
 execute('script-name', ['--some', 'args'])
 // alternatively:
-import * as process from 'tauri/api/process'
+import * as process from '@tauri-apps/api/process'
 process.execute('script-name', ['--some', 'args'])
 ```
 
@@ -666,10 +666,10 @@ Spawns a process
 ## Window
 
 ```ts
-import { open, setTitle } from 'tauri/api/window'
+import { open, setTitle } from '@tauri-apps/api/window'
 open('https://some.url')
 // alternatively:
-import * as window from 'tauri/api/window'
+import * as window from '@tauri-apps/api/window'
 window.open('https://some.url')
 ```
 
