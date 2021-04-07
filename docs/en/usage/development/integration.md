@@ -154,7 +154,3 @@ See more about [patterns](/docs/usage/patterns/about-patterns).
 On windows, you must <a href="/docs/getting-started/setup-windows/#4-enable-loopback">enable loopback</a> during development.
 
 </Alert>
-
-## Vue CLI Plugin Tauri
-
-If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).

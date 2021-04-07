@@ -53,7 +53,7 @@ Why? Because it is an interactive leap into coding with Rust that forces you to 
 
 At some point, learning about Rust will require a visit to the manual. Check it out:
 
-- [Rust 1.31.0+](https://doc.rust-lang.org/stable/book/) by Steve Klabnik & Carol Nichols
+- [Rust 1.49+](https://doc.rust-lang.org/stable/book/) by Steve Klabnik & Carol Nichols
 
 And finally, there are a couple Rust communities on Discord that you can always fall back on if you need extra support:
 

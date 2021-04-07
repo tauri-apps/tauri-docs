@@ -120,7 +120,7 @@ This information can be very helpful when triaging problems.
 ## `src-tauri/tauri.conf.json`
 
 Edit `src-tauri/tauri.conf.json`:
-Depending on your development setup, you will probably need to update two important entry points for tauri:
+Depending on your development setup, you will probably need to update two important entry points for Tauri:
 
 - your bundled assets (`distDir`)
 - your development server (`devPath`)
@@ -151,10 +151,6 @@ See more about [patterns](/docs/usage/patterns/about-patterns).
 - `"127.0.0.1"`
 - `"0.0.0.0"`
 
-On windows, you must enable loopback during development. [todo: add link](https://github.com/tauri-apps/tauri/wiki/04.-MS-Windows-Setup)
+On windows, you must <a href="/docs/getting-started/setup-windows/#4-enable-loopback">enable loopback</a> during development.
 
 </Alert>
-
-## Vue CLI Plugin Tauri
-
-If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).

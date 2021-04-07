@@ -31,6 +31,6 @@ First, make sure that all required languages / compilers are installed and avail
     windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
 }} />
 
-After that, you'll be ready to [add Tauri to your project!](/docs/usage/development/integration)
+After that, you'll be ready to [start a new project](/docs/usage/development/starting) or [add Tauri to your project!](/docs/usage/development/integration)
 
 Or read more about [Tauri under the hood](/docs/getting-started/technical-details).

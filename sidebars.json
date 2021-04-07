@@ -20,10 +20,17 @@
           "label": "Development",
           "type": "category",
           "items": [
-            "usage/development/integration",
-            "usage/development/development",
-            "usage/development/debugging",
-            "usage/development/publishing",
+            "usage/development/starting",
+            {
+              "label": "Add to project",
+              "type": "category",
+              "items": [
+                "usage/development/integration",
+                "usage/development/development",
+                "usage/development/debugging",
+                "usage/development/publishing"
+              ]
+            },
             "usage/development/updating"
           ]
         },
