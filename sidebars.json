@@ -91,7 +91,6 @@
       "items": [
         "api/config",
         "api/cli",
-        "api/js",
         {
           "label": "Rust",
           "type": "category",
@@ -342,6 +341,83 @@
                 },
                 "api/rust/tauri_utils/enum.Error",
                 "api/rust/tauri_utils/type.Result"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "JavaScript",
+          "type": "category",
+          "items": [
+            "api/js/index",
+            {
+              "type": "category",
+              "label": "Modules",
+              "items": [
+                "api/js/modules/app",
+                "api/js/modules/bundle",
+                "api/js/modules/cli",
+                "api/js/modules/dialog",
+                "api/js/modules/event",
+                "api/js/modules/fs",
+                "api/js/modules/globalshortcut",
+                "api/js/modules/helpers_event",
+                "api/js/modules/helpers_tauri",
+                "api/js/modules/http",
+                "api/js/modules/index",
+                "api/js/modules/notification",
+                "api/js/modules/path",
+                "api/js/modules/shell",
+                "api/js/modules/tauri",
+                "api/js/modules/updater",
+                "api/js/modules/window"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Enumerations",
+              "items": [
+                "api/js/enums/fs.basedirectory",
+                "api/js/enums/http.responsetype"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Classes",
+              "items": [
+                "api/js/classes/http.body",
+                "api/js/classes/http.client",
+                "api/js/classes/shell.child",
+                "api/js/classes/shell.command",
+                "api/js/classes/window.webviewwindow"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Interfaces",
+              "items": [
+                "api/js/interfaces/cli.argmatch",
+                "api/js/interfaces/cli.climatches",
+                "api/js/interfaces/cli.subcommandmatch",
+                "api/js/interfaces/dialog.dialogfilter",
+                "api/js/interfaces/dialog.opendialogoptions",
+                "api/js/interfaces/dialog.savedialogoptions",
+                "api/js/interfaces/fs.fileentry",
+                "api/js/interfaces/fs.fsbinaryfileoption",
+                "api/js/interfaces/fs.fsdiroptions",
+                "api/js/interfaces/fs.fsoptions",
+                "api/js/interfaces/fs.fstextfileoption",
+                "api/js/interfaces/helpers_event.event",
+                "api/js/interfaces/helpers_tauri.tauricommand",
+                "api/js/interfaces/http.clientoptions",
+                "api/js/interfaces/http.httpoptions",
+                "api/js/interfaces/http.response",
+                "api/js/interfaces/notification.options",
+                "api/js/interfaces/tauri.invokeargs",
+                "api/js/interfaces/updater.updatemanifest",
+                "api/js/interfaces/updater.updateresult",
+                "api/js/interfaces/updater.updatestatusresult",
+                "api/js/interfaces/window.windowoptions"
               ]
             }
           ]
