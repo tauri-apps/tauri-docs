@@ -36,6 +36,13 @@ It's composed of the following properties:
 }
 ```
 
+## `package`
+
+<Properties anchorRoot="package" rows={[
+  { property: "name", optional: true, type: "string", description: `Application binary name. Converted to snake-case on Linux.` },
+  { property: "version", optional: true, type: "string", description: `Application version.` }
+]}/>
+
 ## `tauri`
 
 <Properties anchorRoot="tauri" rows={[
