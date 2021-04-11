@@ -178,24 +178,58 @@ It's composed of the following properties:
     property: "allowlist", type: "object",
     child: <Properties anchorRoot="tauri.allowlist" rows={[
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
-      { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
-      { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from WebView.` },
-      { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
-      { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
-      { property: "notification", optional: true, type: "boolean", description: `Enable system notifications.` },
-      { property: "open", optional: true, type: "boolean", description: `Open link in the user's default browser.` },
-      { property: "openDialog", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
-      { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
-      { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
-      { property: "readTextFile", optional: true, type: "boolean", description: `Read text file from local filesystem.` },
-      { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
-      { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
-      { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
-      { property: "saveDialog", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
-      { property: "setTitle", optional: true, type: "boolean", description: `Set the WebView window title.` },
-      { property: "updater", optional: true, type: "boolean", description: `Update the application.` },
-      { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
+      {
+        property: "fs", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.fs" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all file system API features.` },
+          { property: "readTextFile", optional: true, type: "boolean", description: `Read text file from local filesystem.` },
+          { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
+          { property: "writeFile", optional: true, type: "boolean", description: `Write text file to local filesystem.` },
+          { property: "writeBinaryFile", optional: true, type: "boolean", description: `Write binary file to local filesystem.` },
+          { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
+          { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
+          { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
+          { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
+          { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
+          { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
+          { property: "path", optional: true, type: "boolean", description: `Resolve system paths.` },
+        ]}/>
+      },
+      {
+        property: "window", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.window" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all window API features.` },
+          { property: "create", optional: true, type: "boolean", description: `Allows dynamic window creation.` },
+        ]}/>
+      },
+      {
+        property: "shell", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.shell" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all shell API features.` },
+          { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
+          { property: "open", optional: true, type: "boolean", description: `Open URL with the user's default application.` },
+        ]}/>
+      },
+      {
+        property: "dialog", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.dialog" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all dialog API features.` },
+          { property: "open", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
+          { property: "save", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
+        ]}/>
+      },
+      {
+        property: "http", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.http" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all HTTP API features.` },
+          { property: "request", optional: true, type: "boolean", description: `Allows making HTTP requests.` },
+        ]}/>
+      },
+      {
+        property: "notification", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.notification" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all notification API features.` },
+        ]}/>
+      },
+      {
+        property: "globalShortcut", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.globalShortcut" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all global shortcut API features.` },
+        ]}/>
+      },
     ]} />
   },
   {
