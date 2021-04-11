@@ -127,16 +127,16 @@
             "description": "Setup secure context to enable access to restricted APIs."
           },
           {
+            "label": "Self Updater",
+            "description": "Update Tauri Apps from within Tauri."
+          },
+          {
             "label": "Iframe with native API",
             "description": "Opt-in feature enabling for iframe dialog with Tauri and the native API."
           },
           {
             "label": "Scoped FileSystem",
             "description": "For improved security of files interaction."
-          },
-          {
-            "label": "Self Updater",
-            "description": "Update Tauri Apps from within Tauri."
           },
           {
             "label": "Beta Release",

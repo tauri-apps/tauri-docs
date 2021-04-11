@@ -155,32 +155,37 @@ const Roadmap = ({ siteConfig }) => {
     },
     {
       icon: 'ti-loop',
-      color: COLORS.sky,
+      color: COLORS.green,
       targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-smallcap',
-      color: COLORS.sky,
+      color: COLORS.green,
       targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-layout-grid3-alt',
-      color: COLORS.sky,
+      color: COLORS.green,
       targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-cup',
-      color: COLORS.sky,
+      color: COLORS.green,
       targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-layout-sidebar-none',
-      color: COLORS.blue,
+      color: COLORS.green,
       targetQuarter: 'Q1 2021',
     },
     {
       icon: 'ti-lock',
-      color: COLORS.blue,
+      color: COLORS.green,
+      targetQuarter: '2021',
+    },
+    {
+      icon: 'ti-download',
+      color: COLORS.green,
       targetQuarter: '2021',
     },
     {
@@ -192,11 +197,6 @@ const Roadmap = ({ siteConfig }) => {
       icon: 'ti-package',
       color: COLORS.blue,
       targetQuarter: '2021',
-    },
-    {
-      icon: 'ti-download',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
     },
     {
       icon: 'ti-flag-alt',
