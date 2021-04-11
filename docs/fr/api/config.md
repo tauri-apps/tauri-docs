@@ -233,14 +233,29 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "window", type: "object",
-    child: <Properties anchorRoot="tauri.window" rows={[
-      { property: "title", type: "string", description: `Initial window title.` },
-      { property: "width", optional: true, type: "number", description: `Initial window width.` },
-      { property: "height", optional: true, type: "number", description: `Initial window height.` },
-      { property: "resizable", optional: true, type: "boolean", description: `Enable window resizing.` },
-      { property: "fullscreen", optional: true, type: "boolean", description: `Set window as fullscreen.` },
-    ]} />
+    property: "windows", type: "WindowConfig[]",
+    child: <Array type="WindowConfig" name="window">
+      <Properties anchorRoot="tauri.windows" rows={[
+        { property: "label", type: "string", description: `Window id to reference on the codebase.` },
+        { property: "url", type: "string", description: `URL to load on the webview.` },
+        { property: "x", type: "number", description: `The horizontal position of the window's top left corner.` },
+        { property: "y", type: "number", description: `The vertical position of the window's top left corner.` },
+        { property: "width", optional: true, type: "number", description: `Initial window width.` },
+        { property: "height", optional: true, type: "number", description: `Initial window height.` },
+        { property: "minWidth", type: "number", description: `The minimum window width.` },
+        { property: "minHeight", type: "number", description: `The minimum window height.` },
+        { property: "maxWidth", type: "number", description: `The maximum window width.` },
+        { property: "minHeight", type: "number", description: `The minimum window height.` },
+        { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not..` },
+        { property: "title", type: "string", description: `Window title.` },
+        { property: "fullscreen", optional: true, type: "boolean", description: `Whether the window starts as fullscreen or not.` },
+        { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not.` },
+        { property: "maximized", optional: true, type: "boolean", description: `Whether the window is maximized or not.` },
+        { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
+        { property: "decorations", optional: true, type: "boolean", description: `Whether the window should have borders and bars.` },
+        { property: "alwaysOnTop", optional: true, type: "boolean", description: `Whether the window should always be on top of other windows.` },
+      ]}/>
+    </Array>
   },
   {
     property: "security", type: "object",
