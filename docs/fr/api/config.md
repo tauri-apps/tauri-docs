@@ -266,12 +266,6 @@ It's composed of the following properties:
 </div>` },
     ]} />
   },
-  {
-    property: "edge", type: "object",
-    child: <Properties anchorRoot="tauri.edge" rows={[
-      { property: "active", optional: true, type: "boolean", description: `Whether you want to build with Microsoft Edge  or with Microsoft Internet Explorer.` },
-    ]} />
-  },
 ]} />
 
 <!-- Dirty trick to have an anchor without make it appear in the table of contents -->
@@ -355,9 +349,6 @@ Instead of launching the app directly, we configure the bundled app to run a scr
   },
   "security": {
     "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
-  },
-  "edge": {
-    "active": true
   }
 }
 ```

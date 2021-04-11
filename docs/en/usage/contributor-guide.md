@@ -47,6 +47,6 @@ mkdir ../../examples/vanillajs && cd "$_"
 
 ```ini
   [dependencies.tauri]
-  path = "../../../../tauri"
-  features = [ "all-api", "edge" ]
+  path = "../../../../core/tauri"
+  features = [ "all-api" ]
 ```
