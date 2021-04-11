@@ -36,20 +36,6 @@ It's composed of the following properties:
 }
 ```
 
-## `ctx`
-
-<Properties anchorRoot="ctx" rows={[
-  { property: "debug", optional: true, type: "boolean", description: `Tells the CLI to build on debug mode instead of release. Can also be used as <code>tauri build --debug</code>.` },
-  { property: "exitOnPanic", optional: true, type: "boolean", description: `Whether or not the WebView should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
-]} />
-
-```js title=Example
-"ctx" {
-  "debug": false,
-  "exitOnPanic": false,
-}
-```
-
 ## `tauri`
 
 <Properties anchorRoot="tauri" rows={[
