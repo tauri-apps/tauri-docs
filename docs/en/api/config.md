@@ -161,6 +161,11 @@ It's composed of the following properties:
         { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
         { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
       },
+      { property: "windows", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows" rows={[
+        { property: "digestAlgorithm", optional: true, type: "string", description: `Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.` },
+        { property: "certificateThumbprint", optional: true, type: "string[]", description: `Specifies the SHA1 hash of the signing certificate.` },
+        { property: "timestampUrl", optional: true, type: "string[]", description: `Server to use during timestamping.` }]} />
+      },
       { property: "macOS", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.macOS" rows={[
         { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
         { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum macOS X version that the bundled application supports.` },
@@ -170,7 +175,10 @@ It's composed of the following properties:
       <div class="alert alert--info" role="alert" style="margin-top: 10px;">
         It should be a lowercase, without port and protocol domain name.
       </div>
-      ` }]} /> },
+      ` },
+        { property: "signingIdentity", optional: true, type: "string", description: `Identity to use for code signing.` },
+        { property: "entitlements", optional: true, type: "string", description: `Path to the entitlements file.` },
+      ]} /> },
     ]} />
   },
   {
