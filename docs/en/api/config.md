@@ -135,7 +135,7 @@ It's composed of the following properties:
     property: "bundle", type: "object",
     child: <Properties anchorRoot="tauri.bundle" rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
-      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"] or the string 'all' to make every supported bundle. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
+      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "app", "msi", "appimage", "dmg"] or the string 'all' to make every supported bundle. By default we bundle everything your target supports (app/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
       { property: "icon", optional: true, type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
       { property: "resources", optional: true, type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
@@ -161,16 +161,16 @@ It's composed of the following properties:
         { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
         { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
       },
-      { property: "osx", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.osx" rows={[
+      { property: "macOS", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.macOS" rows={[
         { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
         { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum macOS X version that the bundled application supports.` },
         { property: "license", optional: true, type: "string", description: `The path to the license file to add to the DMG.` },
-        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
-      { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.
+        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` },
+        { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.
       <div class="alert alert--info" role="alert" style="margin-top: 10px;">
         It should be a lowercase, without port and protocol domain name.
       </div>
-      ` },
+      ` }]} /> },
     ]} />
   },
   {
@@ -284,11 +284,11 @@ Instead of launching the app directly, we configure the bundled app to run a scr
     "deb": {
       "depends": []
     },
-    "osx": {
+    "macOS": {
       "frameworks": [],
-      "minimumSystemVersion": ""
-    },
-    "exceptionDomain": ""
+      "minimumSystemVersion": "",
+      "exceptionDomain": ""
+    }
   },
   "allowlist": {
     "all": true

@@ -35,7 +35,7 @@ You should know that this technique might flag your binary as a virus on Windows
 
     $ brew install upx
     $ yarn tauri build
-    $ upx --ultra-brute src-tauri/target/release/bundle/osx/app.app/Contents/macOS/app
+    $ upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app
                            Ultimate Packer for eXecutables
                               Copyright (C) 1996 - 2018
     UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
