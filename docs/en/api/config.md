@@ -266,12 +266,6 @@ It's composed of the following properties:
 </div>` },
     ]} />
   },
-  {
-    property: "inliner", type: "object",
-    child: <Properties anchorRoot="tauri.inliner" rows={[
-      { property: "active", optional: true, type: "boolean", description: `Enable the inliner. See more <a href="https://github.com/tauri-apps/tauri-inliner/" target="_blank">on our GitHub</a>.` },
-    ]} />
-  },
 ]} />
 
 <!-- Dirty trick to have an anchor without make it appear in the table of contents -->
@@ -352,9 +346,6 @@ Instead of launching the app directly, we configure the bundled app to run a scr
   },
   "security": {
     "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
-  },
-  "inliner": {
-    "active": true
   }
 }
 ```

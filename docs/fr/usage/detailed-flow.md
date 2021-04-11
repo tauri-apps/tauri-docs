@@ -123,7 +123,6 @@ $ tauri build
 | C   | tauri-update     | update, optional                  | rust                       | active   | Lucas, Tensor, Khionu, Daniel |
 | C   | cli/tauri-cli    | asset bundler                     | rust, bash                 | active   | Tensor, Daniel                |
 | O   | tauri-webpack    | devland-dep, webpack, no-server   | ES6                        | active   | Lucas, Benoit                 |
-| O   | tauri-inliner    | cli-dep                           | ES5                        | fork     | Lucas, Daniel                 |
 | O   | tauri-includedir | tauri-dep                         | rust                       | fork     | Lucas, Tensor                 |
 | O   | tauri-toml       | cli-dep                           | ES5                        | fork     | Lucas, Daniel, Noah           |
 | S   | smoke-tests      | testing                           | html/js/css/rust           | in use   | respective authors            |
