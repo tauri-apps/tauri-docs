@@ -5,10 +5,6 @@ title: Multiwin
 import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
-This pattern is not available for now.
-</Alert>
-
 import Rater from '@theme/Rater'
 
 <div className="row">
@@ -83,12 +79,14 @@ import Mermaid, { colors } from '@theme/Mermaid'
 Here's what you need to add to your tauri.conf.json file:
 ```json
 "tauri": {
-  "embeddedServer": {
-    "active": false               // do not use a localhost server
-  },
-  "allowlist": {                  // all API endpoints are default false
-    "event": true,                // Use the EVENT API for injections
-  }
+  "allowlist": {},                  // all API endpoints are default false
+  "windows": [{
+    "title": "Window1",
+    "label": "main",
+  }, {
+    "title": "Splash",
+    "label": "splashscreen"
+  }]
 }
 
 ```
