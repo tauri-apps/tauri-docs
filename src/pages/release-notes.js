@@ -16,37 +16,25 @@ const packagesData = [
     label: 'Rust CLI',
     value: 'cli.rs',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/cli/core/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.rs/CHANGELOG.md',
   },
   {
     label: 'Node.js CLI',
     value: 'cli.js',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/cli/tauri.js/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.js/CHANGELOG.md',
   },
   {
     label: 'create-tauri-app',
     value: 'create-tauri-app',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/cli/create-tauri-app/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
   },
   {
     label: 'Core',
     value: 'core',
     changelogUrl:
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
-  },
-  {
-    label: 'Core API',
-    value: 'core-api',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri-api/CHANGELOG.md',
-  },
-  {
-    label: 'Core Updater',
-    value: 'core-updater',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri-updater/CHANGELOG.md',
   }
 ]
 
