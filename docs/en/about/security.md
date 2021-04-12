@@ -100,4 +100,5 @@ Use industrial-grade pentester-tooling (via our forthcoming Tauri-Frida GUI) to 
 After the build is before the delivery, and Tauri will provide you with tools never seen before. Stay tuned!
 
 ### Audits
+
 We are currently in the process of our first external audit. When complete, we will publish the results here.
