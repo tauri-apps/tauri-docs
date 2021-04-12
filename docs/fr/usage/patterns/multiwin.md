@@ -12,7 +12,7 @@ import Rater from '@theme/Rater'
     <table>
       <tr>
         <td>Ease of Use</td>
-        <td><Rater value="1"/></td>
+        <td><Rater value="4"/></td>
       </tr>
       <tr>
         <td>Extensibility</td>
@@ -34,19 +34,19 @@ import Rater from '@theme/Rater'
   <div className="col col--4">
     Pros:
     <ul>
-      <li>Access to GL context</li>
+      <li>Windows can be spawned or destroyed at runtime</li>
       <li>Separation of concerns</li>
     </ul>
     Cons:
     <ul>
-      <li>Extremely complex</li>
+      <li>Somewhat complex</li>
     </ul>
   </div>
 </div>
 
 ## Description
 
-The Multiwin recipe will allow you to have multiple windows, some of which may be GL based.
+The Multiwin recipe will allow you to have multiple windows.
 
 ## Diagram
 
@@ -59,7 +59,7 @@ import Mermaid, { colors } from '@theme/Mermaid'
       subgraph WEBVIEW
       F
       end
-      subgraph GLUTIN
+      subgraph WINIT
       G
       end
       subgraph RUST
@@ -67,9 +67,9 @@ import Mermaid, { colors } from '@theme/Mermaid'
       end
       A[Binary]
       F[Window]
-      G[GL Window]
+      G[Window]
       H{Bootstrap}
-      style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
+      style WINIT stroke:${colors.blue.dark},stroke-width:4px
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
