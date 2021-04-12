@@ -67,10 +67,6 @@ This means that your apps cannot be easily decompiled as is the case with Electr
 
 ## Ecosystem
 
-### Dependency Rescue
-
-Sometimes the Tauri team finds packages in the wild that technically work and are highly valuable, but are out of date and include vulnerabilities. A great example of this is [tauri-inliner](https://github.com/tauri-apps/tauri-inliner). Merely including this module would have introduced over 30 vulnerabilities to our core. So we forked the original library, updated vulnerable modules to the latest versions and modified changed function signatures. Once adopted, we will continue to maintain these libraries.
-
 ### Build Pipelines and Artifact Authenticity
 
 The process of releasing our source-code artifacts is highly automated, yet mandates kickoff and review from real humans. Our current release strategy uses a combination of Github Actions and IOTO Tangle publication
@@ -104,5 +100,4 @@ Use industrial-grade pentester-tooling (via our forthcoming Tauri-Frida GUI) to 
 After the build is before the delivery, and Tauri will provide you with tools never seen before. Stay tuned!
 
 ### Audits
-
-We have not yet undertaken an audit, but this is planned for realization before the 1.0 stable release.
+We are currently in the process of our first external audit. When complete, we will publish the results here.
