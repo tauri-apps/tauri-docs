@@ -57,6 +57,7 @@
             "usage/howtos/cli",
             "usage/howtos/command",
             "usage/howtos/plugin",
+            "usage/howtos/updater",
             {
               "label": "Visual",
               "type": "category",
