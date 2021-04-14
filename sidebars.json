@@ -7,8 +7,7 @@
         "getting-started/intro",
         "getting-started/setup-linux",
         "getting-started/setup-macos",
-        "getting-started/setup-windows",
-        "getting-started/technical-details"
+        "getting-started/setup-windows"
       ]
     },
     {
@@ -69,7 +68,6 @@
             }
           ]
         },
-        "usage/detailed-flow",
         {
           "label": "CI/CD",
           "type": "category",

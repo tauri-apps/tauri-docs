@@ -66,7 +66,7 @@ Please ignore the following items for now since breaking changes may happen freq
 - docs/api;
 - docs/tips;
 - all files in docs/usage/ci-cd;
-- docs/usage/detailed-flow and docs/usage/contributor-guide.
+- docs/usage/contributor-guide.
 
 ## License
 

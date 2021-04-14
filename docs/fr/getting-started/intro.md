@@ -32,5 +32,3 @@ First, make sure that all required languages / compilers are installed and avail
 }} />
 
 After that, you'll be ready to [add Tauri to your project!](/docs/usage/development/integration)
-
-Or read more about [Tauri under the hood](/docs/getting-started/technical-details).

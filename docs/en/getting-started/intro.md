@@ -34,5 +34,3 @@ Follow the platform-specific guides to get started:
 }} />
 
 After that, you'll be ready to [add Tauri to your project!](/docs/usage/development/integration)
-
-Or read more about [Tauri under the hood](/docs/getting-started/technical-details).
