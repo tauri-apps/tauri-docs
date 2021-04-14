@@ -1,7 +1,7 @@
 {
   "config": {
     "announcementBar": {
-      "validationApp": "New Validation App Coming Soon"
+       "validationApp": "New Validation App Coming Soon"
     },
     "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },
