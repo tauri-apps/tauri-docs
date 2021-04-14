@@ -87,7 +87,7 @@ Event: `tauri://update`
 
 ### Rust
 ```rust
-window.emit("tauri://update", None);
+window.emit("tauri://update".to_string(), None);
 ```
 
 ### Javascript
@@ -109,7 +109,7 @@ body       Note announced by the server
 
 ### Rust
 ```rust
-window.listen("tauri://update-available", move |msg| {
+window.listen("tauri://update-available".to_string(), move |msg| {
   println!("New version available: {:?}", msg);
 })
 ```
@@ -130,7 +130,7 @@ Event: `tauri://update-install`
 
 ### Rust
 ```rust
-window.emit("tauri://update-install", None);
+window.emit("tauri://update-install".to_string(), None);
 ```
 
 ### Javascript
@@ -155,7 +155,7 @@ ERROR is emitted when there is an error with the updater. We suggest to listen t
 
 ### Rust
 ```rust
-window.listen("tauri://update-status", move |msg| {
+window.listen("tauri://update-status".to_string(), move |msg| {
   println!("New status: {:?}", msg);
 })
 ```
