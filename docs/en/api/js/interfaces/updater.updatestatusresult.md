@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **error**: *string*
 
-Defined in: [updater.ts:6](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L6)
+Defined in: [updater.ts:10](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L10)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **status**: [*UpdateStatus*](../modules/updater.md#updatestatus)
 
-Defined in: [updater.ts:7](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L7)
+Defined in: [updater.ts:11](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L11)

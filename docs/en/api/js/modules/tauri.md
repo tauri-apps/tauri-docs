@@ -19,7 +19,7 @@ hide_title: true
 
 ▸ **invoke**<T\>(`cmd`: *string*, `args?`: [*InvokeArgs*](../interfaces/tauri.invokeargs.md)): *Promise*<T\>
 
-sends a message to the backend
+Sends a message to the backend.
 
 #### Type parameters:
 
@@ -29,16 +29,16 @@ Name |
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`cmd` | *string* |
-`args` | [*InvokeArgs*](../interfaces/tauri.invokeargs.md) |
+Name | Type | Default value |
+:------ | :------ | :------ |
+`cmd` | *string* | - |
+`args` | [*InvokeArgs*](../interfaces/tauri.invokeargs.md) | {} |
 
 **Returns:** *Promise*<T\>
 
-Promise resolving or rejecting to the backend response
+A promise resolving or rejecting to the backend response.
 
-Defined in: [tauri.ts:51](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/tauri.ts#L51)
+Defined in: [tauri.ts:55](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L55)
 
 ___
 
@@ -55,4 +55,4 @@ Name | Type | Default value |
 
 **Returns:** *string*
 
-Defined in: [tauri.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/tauri.ts#L18)
+Defined in: [tauri.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L22)

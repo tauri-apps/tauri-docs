@@ -19,7 +19,7 @@ hide_title: true
 
 Ƭ **TauriModule**: *App* \| *Fs* \| *Window* \| *Shell* \| *Event* \| *Internal* \| *Dialog* \| *Cli* \| *Notification* \| *Http* \| *GlobalShortcut*
 
-Defined in: [helpers/tauri.ts:3](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/helpers/tauri.ts#L3)
+Defined in: [helpers/tauri.ts:7](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/helpers/tauri.ts#L7)
 
 ## Functions
 
@@ -41,4 +41,4 @@ Name | Type |
 
 **Returns:** *Promise*<T\>
 
-Defined in: [helpers/tauri.ts:22](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/helpers/tauri.ts#L22)
+Defined in: [helpers/tauri.ts:26](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/helpers/tauri.ts#L26)

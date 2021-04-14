@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **alwaysOnTop**: *boolean*
 
-Defined in: [window.ts:460](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L460)
+Defined in: [window.ts:495](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L495)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • `Optional` **decorations**: *boolean*
 
-Defined in: [window.ts:459](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L459)
+Defined in: [window.ts:494](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L494)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Optional` **fullscreen**: *boolean*
 
-Defined in: [window.ts:456](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L456)
+Defined in: [window.ts:491](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L491)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Optional` **height**: *number*
 
-Defined in: [window.ts:449](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L449)
+Defined in: [window.ts:484](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L484)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • `Optional` **maxHeight**: *number*
 
-Defined in: [window.ts:453](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L453)
+Defined in: [window.ts:488](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L488)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • `Optional` **maxWidth**: *number*
 
-Defined in: [window.ts:452](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L452)
+Defined in: [window.ts:487](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L487)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • `Optional` **maximized**: *boolean*
 
-Defined in: [window.ts:457](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L457)
+Defined in: [window.ts:492](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L492)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 • `Optional` **minHeight**: *number*
 
-Defined in: [window.ts:451](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L451)
+Defined in: [window.ts:486](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L486)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 • `Optional` **minWidth**: *number*
 
-Defined in: [window.ts:450](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L450)
+Defined in: [window.ts:485](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L485)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 • `Optional` **resizable**: *boolean*
 
-Defined in: [window.ts:454](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L454)
+Defined in: [window.ts:489](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L489)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 • `Optional` **title**: *string*
 
-Defined in: [window.ts:455](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L455)
+Defined in: [window.ts:490](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L490)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 • `Optional` **url**: *string*
 
-Defined in: [window.ts:445](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L445)
+Defined in: [window.ts:480](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L480)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 • `Optional` **visible**: *boolean*
 
-Defined in: [window.ts:458](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L458)
+Defined in: [window.ts:493](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L493)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 • `Optional` **width**: *number*
 
-Defined in: [window.ts:448](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L448)
+Defined in: [window.ts:483](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L483)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 • `Optional` **x**: *number*
 
-Defined in: [window.ts:446](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L446)
+Defined in: [window.ts:481](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L481)
 
 ___
 
@@ -135,4 +135,4 @@ ___
 
 • `Optional` **y**: *number*
 
-Defined in: [window.ts:447](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L447)
+Defined in: [window.ts:482](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L482)

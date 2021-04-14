@@ -15,9 +15,9 @@ hide_title: true
 
 • **occurrences**: *number*
 
-number of occurrences
+Number of occurrences
 
-Defined in: [cli.ts:13](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/cli.ts#L13)
+Defined in: [cli.ts:17](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L17)
 
 ___
 
@@ -29,4 +29,4 @@ string if takes value
 boolean if flag
 string[] or null if takes multiple values
 
-Defined in: [cli.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/cli.ts#L9)
+Defined in: [cli.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L13)

@@ -23,7 +23,7 @@ Name | Type |
 
 **Returns:** [*Child*](shell.child.md)
 
-Defined in: [shell.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/shell.ts#L74)
+Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L79)
 
 ## Properties
 
@@ -31,7 +31,7 @@ Defined in: [shell.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/
 
 • **pid**: *number*
 
-Defined in: [shell.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/shell.ts#L74)
+Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L79)
 
 ## Methods
 
@@ -41,7 +41,7 @@ Defined in: [shell.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:91](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/shell.ts#L91)
+Defined in: [shell.ts:96](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L96)
 
 ___
 
@@ -57,4 +57,4 @@ Name | Type |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:80](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/shell.ts#L80)
+Defined in: [shell.ts:85](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L85)

@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **defaultPath**: *string*
 
-Defined in: [dialog.ts:10](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L10)
+Defined in: [dialog.ts:14](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L14)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • `Optional` **directory**: *boolean*
 
-Defined in: [dialog.ts:12](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L12)
+Defined in: [dialog.ts:16](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L16)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Optional` **filters**: [*DialogFilter*](dialog.dialogfilter.md)[]
 
-Defined in: [dialog.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L9)
+Defined in: [dialog.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L13)
 
 ___
 
@@ -39,4 +39,4 @@ ___
 
 • `Optional` **multiple**: *boolean*
 
-Defined in: [dialog.ts:11](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L11)
+Defined in: [dialog.ts:15](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L15)

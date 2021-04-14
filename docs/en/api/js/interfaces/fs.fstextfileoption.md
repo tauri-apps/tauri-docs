@@ -15,7 +15,7 @@ hide_title: true
 
 • **contents**: *string*
 
-Defined in: [fs.ts:36](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L36)
+Defined in: [fs.ts:40](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L40)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **path**: *string*
 
-Defined in: [fs.ts:35](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L35)
+Defined in: [fs.ts:39](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L39)

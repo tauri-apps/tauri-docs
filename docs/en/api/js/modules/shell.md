@@ -20,16 +20,16 @@ hide_title: true
 
 ▸ **open**(`path`: *string*, `openWith?`: *string*): *Promise*<void\>
 
-opens a path or URL with the system's default app,
-or the one specified with `openWith`
+Opens a path or URL with the system's default app,
+or the one specified with `openWith`.
 
 #### Parameters:
 
 Name | Type | Description |
 :------ | :------ | :------ |
 `path` | *string* | the path or URL to open   |
-`openWith?` | *string* | the app to open the file or URL with    |
+`openWith?` | *string* | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:200](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/shell.ts#L200)
+Defined in: [shell.ts:205](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L205)

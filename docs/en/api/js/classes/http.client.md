@@ -23,7 +23,7 @@ Name | Type |
 
 **Returns:** [*Client*](http.client.md)
 
-Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L74)
+Defined in: [http.ts:78](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L78)
 
 ## Properties
 
@@ -31,7 +31,7 @@ Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/s
 
 • **id**: *number*
 
-Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L74)
+Defined in: [http.ts:78](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L78)
 
 ## Methods
 
@@ -39,7 +39,7 @@ Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/s
 
 ▸ **delete**<T\>(`url`: *string*, `options?`: [*RequestOptions*](../modules/http.md#requestoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a DELETE request
+Makes a DELETE request.
 
 #### Type parameters:
 
@@ -51,14 +51,14 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`url` | *string* | request URL   |
-`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | request options    |
+`url` | *string* | Request URL   |
+`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | Request options   |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:194](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L194)
+Defined in: [http.ts:194](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L194)
 
 ___
 
@@ -66,11 +66,11 @@ ___
 
 ▸ **drop**(): *Promise*<void\>
 
-drops the client instance
+Drops the client instance.
 
 **Returns:** *Promise*<void\>
 
-Defined in: [http.ts:82](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L82)
+Defined in: [http.ts:88](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L88)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 ▸ **get**<T\>(`url`: *string*, `options?`: [*RequestOptions*](../modules/http.md#requestoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a GET request
+Makes a GET request.
 
 #### Type parameters:
 
@@ -90,14 +90,14 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`url` | *string* | request URL   |
-`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | request options    |
+`url` | *string* | Request URL   |
+`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | - |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:118](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L118)
+Defined in: [http.ts:122](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L122)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 ▸ **patch**<T\>(`url`: *string*, `options?`: [*RequestOptions*](../modules/http.md#requestoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a PATCH request
+Makes a PATCH request.
 
 #### Type parameters:
 
@@ -117,14 +117,14 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`url` | *string* | request URL   |
-`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | request options    |
+`url` | *string* | Request URL   |
+`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | Request options   |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:178](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L178)
+Defined in: [http.ts:179](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L179)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 ▸ **post**<T\>(`url`: *string*, `body?`: [*Body*](http.body.md), `options?`: [*RequestOptions*](../modules/http.md#requestoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a POST request
+Makes a POST request.
 
 #### Type parameters:
 
@@ -144,15 +144,15 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`url` | *string* | request URL   |
-`body?` | [*Body*](http.body.md) | request body   |
-`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | request options    |
+`url` | *string* | Request URL   |
+`body?` | [*Body*](http.body.md) | - |
+`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | - |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:135](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L135)
+Defined in: [http.ts:138](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L138)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 ▸ **put**<T\>(`url`: *string*, `body?`: [*Body*](http.body.md), `options?`: [*RequestOptions*](../modules/http.md#requestoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a PUT request
+Makes a PUT request.
 
 #### Type parameters:
 
@@ -172,15 +172,15 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`url` | *string* | request URL   |
-`body?` | [*Body*](http.body.md) | request body   |
-`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | request options    |
+`url` | *string* | Request URL   |
+`body?` | [*Body*](http.body.md) | - |
+`options?` | [*RequestOptions*](../modules/http.md#requestoptions) | - |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:157](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L157)
+Defined in: [http.ts:159](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L159)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 
 ▸ **request**<T\>(`options`: [*HttpOptions*](../interfaces/http.httpoptions.md)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-makes a HTTP request
+Makes a HTTP request.
 
 #### Type parameters:
 
@@ -200,10 +200,10 @@ Name |
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`options` | [*HttpOptions*](../interfaces/http.httpoptions.md) | request options    |
+`options` | [*HttpOptions*](../interfaces/http.httpoptions.md) | Request options   |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-promise resolving to the response
+A promise resolving to the response.
 
-Defined in: [http.ts:99](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L99)
+Defined in: [http.ts:104](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L104)

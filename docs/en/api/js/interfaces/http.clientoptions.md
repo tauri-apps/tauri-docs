@@ -15,7 +15,7 @@ hide_title: true
 
 • **connectTimeout**: *number*
 
-Defined in: [http.ts:5](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L5)
+Defined in: [http.ts:9](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L9)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **maxRedirections**: *number*
 
-Defined in: [http.ts:4](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L4)
+Defined in: [http.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L8)

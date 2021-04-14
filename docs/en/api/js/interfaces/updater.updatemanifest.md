@@ -15,7 +15,7 @@ hide_title: true
 
 • **body**: *string*
 
-Defined in: [updater.ts:13](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L13)
+Defined in: [updater.ts:17](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L17)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • **date**: *string*
 
-Defined in: [updater.ts:12](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L12)
+Defined in: [updater.ts:16](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L16)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **version**: *string*
 
-Defined in: [updater.ts:11](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L11)
+Defined in: [updater.ts:15](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L15)

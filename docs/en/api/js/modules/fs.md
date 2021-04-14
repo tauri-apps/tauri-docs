@@ -33,19 +33,19 @@ Renames and exports: [BaseDirectory](../enums/fs.basedirectory.md)
 
 ▸ **copyFile**(`source`: *string*, `destination`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-Copy file
+Copys a file to a destination.
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`source` | *string* |
-`destination` | *string* |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`source` | *string* | - | A path of the file to copy   |
+`destination` | *string* | - | A path for the destination file   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:275](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L275)
+Defined in: [fs.ts:266](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L266)
 
 ___
 
@@ -53,20 +53,20 @@ ___
 
 ▸ **createDir**(`dir`: *string*, `options?`: [*FsDirOptions*](../interfaces/fs.fsdiroptions.md)): *Promise*<void\>
 
-Creates a directory
+Creates a directory.
 If one of the path's parent components doesn't exist
-and the `recursive` option isn't set to true, it will be rejected
+and the `recursive` option isn't set to true, it will be rejected.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`dir` | *string* | path to the directory to create   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`dir` | *string* | - | Path to the directory to create   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:228](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L228)
+Defined in: [fs.ts:222](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L222)
 
 ___
 
@@ -74,20 +74,20 @@ ___
 
 ▸ **readBinaryFile**(`filePath`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<number[]\>
 
-**`name`** readBinaryFile
-
-**`description`** Reads a file as binary
+Reads a file as binary.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`filePath` | *string* | path to the file   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`filePath` | *string* | - | Path to the file   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<number[]\>
 
-Defined in: [fs.ts:83](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L83)
+A promise resolving to an array of the file bytes.
+
+Defined in: [fs.ts:87](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L87)
 
 ___
 
@@ -95,18 +95,18 @@ ___
 
 ▸ **readDir**(`dir`: *string*, `options?`: [*FsDirOptions*](../interfaces/fs.fsdiroptions.md)): *Promise*<[*FileEntry*](../interfaces/fs.fileentry.md)[]\>
 
-list directory files
+List directory files.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`dir` | *string* | path to the directory to read   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`dir` | *string* | - | Path to the directory to read   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
 
 **Returns:** *Promise*<[*FileEntry*](../interfaces/fs.fileentry.md)[]\>
 
-Defined in: [fs.ts:203](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L203)
+Defined in: [fs.ts:199](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L199)
 
 ___
 
@@ -114,20 +114,20 @@ ___
 
 ▸ **readTextFile**(`filePath`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<string\>
 
-**`name`** readTextFile
-
-**`description`** Reads a file as text
+Reads a file as text.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`filePath` | *string* | path to the file   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`filePath` | *string* | - | Path to the file   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<string\>
 
-Defined in: [fs.ts:61](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L61)
+A promise resolving to a string of the file content.
+
+Defined in: [fs.ts:66](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L66)
 
 ___
 
@@ -135,19 +135,19 @@ ___
 
 ▸ **removeDir**(`dir`: *string*, `options?`: [*FsDirOptions*](../interfaces/fs.fsdiroptions.md)): *Promise*<void\>
 
-Removes a directory
-If the directory is not empty and the `recursive` option isn't set to true, it will be rejected
+Removes a directory.
+If the directory is not empty and the `recursive` option isn't set to true, it will be rejected.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`dir` | *string* | path to the directory to remove   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`dir` | *string* | - | Path to the directory to remove   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:252](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L252)
+Defined in: [fs.ts:244](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L244)
 
 ___
 
@@ -155,18 +155,18 @@ ___
 
 ▸ **removeFile**(`file`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-Removes a file
+Removes a file.
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`file` | *string* | path to the file to remove   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | - |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`file` | *string* | - | Path to the file to remove   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:299](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L299)
+Defined in: [fs.ts:289](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L289)
 
 ___
 
@@ -178,15 +178,15 @@ Renames a file
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`oldPath` | *string* |
-`newPath` | *string* |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`oldPath` | *string* | - | A path of the file to rename   |
+`newPath` | *string* | - | A path of the new file name   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:322](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L322)
+Defined in: [fs.ts:311](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L311)
 
 ___
 
@@ -194,18 +194,18 @@ ___
 
 ▸ **writeBinaryFile**(`file`: [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md), `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-writes a binary file
+Writes a binary file
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`file` | [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md) |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`file` | [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md) | - | File configuration object   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:172](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L172)
+Defined in: [fs.ts:170](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L170)
 
 ___
 
@@ -213,15 +213,15 @@ ___
 
 ▸ **writeFile**(`file`: [*FsTextFileOption*](../interfaces/fs.fstextfileoption.md), `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-writes a text file
+Writes a text file.
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`file` | [*FsTextFileOption*](../interfaces/fs.fstextfileoption.md) |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`file` | [*FsTextFileOption*](../interfaces/fs.fstextfileoption.md) | - | File configuration object   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:107](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/fs.ts#L107)
+Defined in: [fs.ts:108](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L108)

@@ -19,7 +19,7 @@ hide_title: true
 
 • **\_\_tauriModule**: [*TauriModule*](../modules/helpers_tauri.md#taurimodule)
 
-Defined in: [helpers/tauri.ts:17](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/helpers/tauri.ts#L17)
+Defined in: [helpers/tauri.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/helpers/tauri.ts#L21)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • `Optional` **mainThread**: *boolean*
 
-Defined in: [helpers/tauri.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/helpers/tauri.ts#L18)
+Defined in: [helpers/tauri.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/helpers/tauri.ts#L22)

@@ -13,13 +13,11 @@ hide_title: true
 
 ▸ **appDir**(): *Promise*<string\>
 
-**`name`** appDir
-
-**`description`** Returns the path to the suggested directory for your app config files.
+Returns the path to the suggested directory for your app config files.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L9)
+Defined in: [path.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L13)
 
 ___
 
@@ -27,13 +25,11 @@ ___
 
 ▸ **audioDir**(): *Promise*<string\>
 
-**`name`** audioDir
-
-**`description`** Returns the path to the user's audio directory.
+Returns the path to the user's audio directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:25](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L25)
+Defined in: [path.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L29)
 
 ___
 
@@ -41,13 +37,11 @@ ___
 
 ▸ **cacheDir**(): *Promise*<string\>
 
-**`name`** cacheDir
-
-**`description`** Returns the path to the user's cache directory.
+Returns the path to the user's cache directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:41](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L41)
+Defined in: [path.ts:45](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L45)
 
 ___
 
@@ -55,13 +49,11 @@ ___
 
 ▸ **configDir**(): *Promise*<string\>
 
-**`name`** configDir
-
-**`description`** Returns the path to the user's config directory.
+Returns the path to the user's config directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:57](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L57)
+Defined in: [path.ts:61](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L61)
 
 ___
 
@@ -69,13 +61,11 @@ ___
 
 ▸ **currentDir**(): *Promise*<string\>
 
-**`name`** currentDir
-
-**`descriptionreturns`** Returns the path to the current working dir.
+Returns the path to the current working directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:297](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L297)
+Defined in: [path.ts:301](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L301)
 
 ___
 
@@ -83,13 +73,11 @@ ___
 
 ▸ **dataDir**(): *Promise*<string\>
 
-**`name`** dataDir
-
-**`description`** Returns the path to the user's data directory.
+Returns the path to the user's data directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:73](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L73)
+Defined in: [path.ts:77](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L77)
 
 ___
 
@@ -97,13 +85,11 @@ ___
 
 ▸ **desktopDir**(): *Promise*<string\>
 
-**`name`** desktopDir
-
-**`description`** Returns the path to the user's desktop directory.
+Returns the path to the user's desktop directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:89](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L89)
+Defined in: [path.ts:93](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L93)
 
 ___
 
@@ -111,13 +97,11 @@ ___
 
 ▸ **documentDir**(): *Promise*<string\>
 
-**`name`** documentDir
-
-**`description`** Returns the path to the user's document directory.
+Returns the path to the user's document directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:105](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L105)
+Defined in: [path.ts:109](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L109)
 
 ___
 
@@ -125,13 +109,11 @@ ___
 
 ▸ **downloadDir**(): *Promise*<string\>
 
-**`name`** downloadDir
-
-**`description`** Returns the path to the user's download directory.
+Returns the path to the user's download directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:121](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L121)
+Defined in: [path.ts:125](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L125)
 
 ___
 
@@ -139,13 +121,11 @@ ___
 
 ▸ **executableDir**(): *Promise*<string\>
 
-**`name`** executableDir
-
-**`description`** Returns the path to the user's executable directory.
+Returns the path to the user's executable directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:137](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L137)
+Defined in: [path.ts:141](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L141)
 
 ___
 
@@ -153,13 +133,11 @@ ___
 
 ▸ **fontDir**(): *Promise*<string\>
 
-**`name`** fontDir
-
-**`description`** Returns the path to the user's font directory.
+Returns the path to the user's font directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:153](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L153)
+Defined in: [path.ts:157](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L157)
 
 ___
 
@@ -167,13 +145,11 @@ ___
 
 ▸ **homeDir**(): *Promise*<string\>
 
-**`name`** homeDir
-
-**`description`** Returns the path to the user's home directory.
+Returns the path to the user's home directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:169](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L169)
+Defined in: [path.ts:173](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L173)
 
 ___
 
@@ -181,13 +157,11 @@ ___
 
 ▸ **localDataDir**(): *Promise*<string\>
 
-**`name`** localDataDir
-
-**`description`** Returns the path to the user's local data directory.
+Returns the path to the user's local data directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:185](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L185)
+Defined in: [path.ts:189](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L189)
 
 ___
 
@@ -195,13 +169,11 @@ ___
 
 ▸ **pictureDir**(): *Promise*<string\>
 
-**`name`** pictureDir
-
-**`description`** Returns the path to the user's picture directory.
+Returns the path to the user's picture directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:201](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L201)
+Defined in: [path.ts:205](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L205)
 
 ___
 
@@ -209,13 +181,11 @@ ___
 
 ▸ **publicDir**(): *Promise*<string\>
 
-**`name`** publicDir
-
-**`description`** Returns the path to the user's public directory.
+Returns the path to the user's public directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:217](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L217)
+Defined in: [path.ts:221](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L221)
 
 ___
 
@@ -223,20 +193,20 @@ ___
 
 ▸ **resolvePath**(`path`: *string*, `directory`: [*BaseDirectory*](../enums/fs.basedirectory.md)): *Promise*<string\>
 
-**`name`** resolvePath
-
-**`descriptionreturns`** Resolves the path with the optional base directory.
+Resolves the path with the optional base directory.
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`path` | *string* |
-`directory` | [*BaseDirectory*](../enums/fs.basedirectory.md) |
+Name | Type | Description |
+:------ | :------ | :------ |
+`path` | *string* | A path to resolve   |
+`directory` | [*BaseDirectory*](../enums/fs.basedirectory.md) | A base directory to use when resolving the given path   |
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:313](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L313)
+A path resolved to the given base directory.
+
+Defined in: [path.ts:319](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L319)
 
 ___
 
@@ -244,13 +214,11 @@ ___
 
 ▸ **resourceDir**(): *Promise*<string\>
 
-**`name`** resourceDir
-
-**`description`** Returns the path to the user's resource directory.
+Returns the path to the user's resource directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:233](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L233)
+Defined in: [path.ts:237](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L237)
 
 ___
 
@@ -258,13 +226,11 @@ ___
 
 ▸ **runtimeDir**(): *Promise*<string\>
 
-**`name`** runtimeDir
-
-**`descriptionreturns`** Returns the path to the user's runtime directory.
+Returns the path to the user's runtime directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:249](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L249)
+Defined in: [path.ts:253](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L253)
 
 ___
 
@@ -272,13 +238,11 @@ ___
 
 ▸ **templateDir**(): *Promise*<string\>
 
-**`name`** templateDir
-
-**`descriptionreturns`** Returns the path to the user's template directory.
+Returns the path to the user's template directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:265](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L265)
+Defined in: [path.ts:269](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L269)
 
 ___
 
@@ -286,10 +250,8 @@ ___
 
 ▸ **videoDir**(): *Promise*<string\>
 
-**`name`** videoDir
-
-**`descriptionreturns`** Returns the path to the user's video dir.
+Returns the path to the user's video directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:281](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/path.ts#L281)
+Defined in: [path.ts:285](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L285)

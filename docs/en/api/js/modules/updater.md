@@ -21,7 +21,7 @@ hide_title: true
 
 Ƭ **UpdateStatus**: *PENDING* \| *ERROR* \| *DONE* \| *UPTODATE*
 
-Defined in: [updater.ts:3](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L3)
+Defined in: [updater.ts:7](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L7)
 
 ## Functions
 
@@ -31,7 +31,7 @@ Defined in: [updater.ts:3](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api
 
 **Returns:** *Promise*<[*UpdateResult*](../interfaces/updater.updateresult.md)\>
 
-Defined in: [updater.ts:68](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L68)
+Defined in: [updater.ts:72](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L72)
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 **Returns:** *Promise*<void\>
 
-Defined in: [updater.ts:21](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L21)
+Defined in: [updater.ts:25](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L25)

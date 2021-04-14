@@ -17,7 +17,7 @@ hide_title: true
 
 #### Type declaration:
 
-Defined in: [cli.ts:22](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/cli.ts#L22)
+Defined in: [cli.ts:26](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L26)
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 • **subcommand**: *null* \| [*SubcommandMatch*](cli.subcommandmatch.md)
 
-Defined in: [cli.ts:23](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/cli.ts#L23)
+Defined in: [cli.ts:27](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L27)

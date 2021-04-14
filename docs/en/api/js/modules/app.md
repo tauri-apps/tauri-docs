@@ -11,23 +11,19 @@ hide_title: true
 
 ### exit
 
-▸ **exit**(`exitCode?`: Number): *Promise*<string\>
+▸ **exit**(`exitCode?`: *number*): *Promise*<void\>
 
-**`name`** exit
-
-**`description`** Exits immediately with exitCode.
+Exits immediately with the given `exitCode`.
 
 #### Parameters:
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`exitCode` | Number | 0 |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`exitCode` | *number* | 0 | The exit code to use   |
 
-**Returns:** *Promise*<string\>
+**Returns:** *Promise*<void\>
 
-Application is closing, nothing is returned
-
-Defined in: [app.ts:54](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/app.ts#L54)
+Defined in: [app.ts:58](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/app.ts#L58)
 
 ___
 
@@ -35,15 +31,13 @@ ___
 
 ▸ **getName**(): *Promise*<string\>
 
-**`name`** getName
-
-**`description`** Get application name
+Gets the application name.
 
 **Returns:** *Promise*<string\>
 
-Promise resolving to application name
+A promise resolving to application name.
 
-Defined in: [app.ts:23](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/app.ts#L23)
+Defined in: [app.ts:27](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/app.ts#L27)
 
 ___
 
@@ -51,15 +45,13 @@ ___
 
 ▸ **getTauriVersion**(): *Promise*<string\>
 
-**`name`** getTauriVersion
-
-**`description`** Get tauri version
+Gets the tauri version.
 
 **Returns:** *Promise*<string\>
 
-Promise resolving to tauri version
+A promise resolving to tauri version.
 
-Defined in: [app.ts:38](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/app.ts#L38)
+Defined in: [app.ts:42](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/app.ts#L42)
 
 ___
 
@@ -67,28 +59,22 @@ ___
 
 ▸ **getVersion**(): *Promise*<string\>
 
-**`name`** getVersion
-
-**`description`** Get application version
+Gets the application version.
 
 **Returns:** *Promise*<string\>
 
-Promise resolving to application version
+A promise resolving to application version.
 
-Defined in: [app.ts:8](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/app.ts#L8)
+Defined in: [app.ts:12](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/app.ts#L12)
 
 ___
 
 ### relaunch
 
-▸ **relaunch**(): *Promise*<string\>
+▸ **relaunch**(): *Promise*<void\>
 
-**`name`** relaunch
+Exits the current instance of the app then relaunches it.
 
-**`description`** Relaunches the app when current instance exits.
+**Returns:** *Promise*<void\>
 
-**Returns:** *Promise*<string\>
-
-Application is restarting, nothing is returned
-
-Defined in: [app.ts:70](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/app.ts#L70)
+Defined in: [app.ts:74](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/app.ts#L74)

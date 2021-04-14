@@ -19,4 +19,4 @@ hide_title: true
 
 • `Optional` **mainThread**: *boolean*
 
-Defined in: [tauri.ts:40](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/tauri.ts#L40)
+Defined in: [tauri.ts:44](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L44)

@@ -12,6 +12,7 @@ hide_title: true
 ### Classes
 
 - [WebviewWindow](../classes/window.webviewwindow.md)
+- [WindowManager](../classes/window.windowmanager.md)
 
 ### Interfaces
 
@@ -21,9 +22,9 @@ hide_title: true
 
 ### appWindow
 
-• `Const` **appWindow**: *WindowManager*
+• `Const` **appWindow**: [*WindowManager*](../classes/window.windowmanager.md)
 
-Defined in: [window.ts:442](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L442)
+Defined in: [window.ts:477](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L477)
 
 ## Functions
 
@@ -33,7 +34,7 @@ Defined in: [window.ts:442](https://github.com/tauri-apps/tauri/blob/b9cbaad4/ap
 
 **Returns:** WindowDef[]
 
-Defined in: [window.ts:21](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L21)
+Defined in: [window.ts:26](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L26)
 
 ___
 
@@ -43,4 +44,4 @@ ___
 
 **Returns:** WebviewWindowHandle
 
-Defined in: [window.ts:17](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/window.ts#L17)
+Defined in: [window.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/window.ts#L22)

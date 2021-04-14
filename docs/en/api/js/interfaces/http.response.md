@@ -21,7 +21,7 @@ Name |
 
 • **data**: T
 
-Defined in: [http.ts:70](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L70)
+Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L74)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **headers**: *Record*<string, string\>
 
-Defined in: [http.ts:69](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L69)
+Defined in: [http.ts:73](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L73)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **status**: *number*
 
-Defined in: [http.ts:68](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L68)
+Defined in: [http.ts:72](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L72)
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:67](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L67)
+Defined in: [http.ts:71](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L71)

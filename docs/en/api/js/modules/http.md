@@ -30,7 +30,7 @@ hide_title: true
 
 Ƭ **FetchOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *url*\>
 
-Defined in: [http.ts:64](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L64)
+Defined in: [http.ts:68](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L68)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 Ƭ **HttpVerb**: *GET* \| *POST* \| *PUT* \| *DELETE* \| *PATCH* \| *HEAD* \| *OPTIONS* \| *CONNECT* \| *TRACE*
 
-Defined in: [http.ts:42](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L42)
+Defined in: [http.ts:46](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L46)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 Ƭ **Part**: *string* \| *number*[]
 
-Defined in: [http.ts:14](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L14)
+Defined in: [http.ts:18](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L18)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **RequestOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *method* \| *url*\>
 
-Defined in: [http.ts:63](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L63)
+Defined in: [http.ts:67](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L67)
 
 ## Functions
 
@@ -77,7 +77,7 @@ Name | Type |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-Defined in: [http.ts:215](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L215)
+Defined in: [http.ts:215](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L215)
 
 ___
 
@@ -93,4 +93,4 @@ Name | Type |
 
 **Returns:** *Promise*<[*Client*](../classes/http.client.md)\>
 
-Defined in: [http.ts:203](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L203)
+Defined in: [http.ts:203](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L203)

@@ -15,7 +15,7 @@ hide_title: true
 
 • **Binary**: = 3
 
-Defined in: [http.ts:11](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L11)
+Defined in: [http.ts:15](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L15)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • **JSON**: = 1
 
-Defined in: [http.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L9)
+Defined in: [http.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L13)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **Text**: = 2
 
-Defined in: [http.ts:10](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L10)
+Defined in: [http.ts:14](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L14)

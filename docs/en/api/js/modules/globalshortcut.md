@@ -7,6 +7,26 @@ hide_title: true
 
 # Module: globalShortcut
 
+## Type aliases
+
+### ShortcutHandler
+
+Ƭ **ShortcutHandler**: (`shortcut`: *string*) => *void*
+
+#### Type declaration:
+
+▸ (`shortcut`: *string*): *void*
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`shortcut` | *string* |
+
+**Returns:** *void*
+
+Defined in: [globalShortcut.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L8)
+
 ## Functions
 
 ### isRegistered
@@ -17,53 +37,53 @@ Determines whether the given shortcut is registered by this application or not.
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`shortcut` | *string* |
+Name | Type | Description |
+:------ | :------ | :------ |
+`shortcut` | *string* | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
 
 **Returns:** *Promise*<boolean\>
 
-promise resolving to the state
+A promise resolving to the state.
 
-Defined in: [globalShortcut.ts:48](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/globalShortcut.ts#L48)
+Defined in: [globalShortcut.ts:58](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L58)
 
 ___
 
 ### register
 
-▸ **register**(`shortcut`: *string*, `handler`: (`shortcut`: *string*) => *void*): *Promise*<void\>
+▸ **register**(`shortcut`: *string*, `handler`: [*ShortcutHandler*](globalshortcut.md#shortcuthandler)): *Promise*<void\>
 
-Register a global shortcut
+Register a global shortcut.
 
 #### Parameters:
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`shortcut` | *string* | shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
-`handler` | (`shortcut`: *string*) => *void* | shortcut handler callback - takes the triggered shortcut as argument    |
+`shortcut` | *string* | Shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
+`handler` | [*ShortcutHandler*](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/globalShortcut.ts#L9)
+Defined in: [globalShortcut.ts:17](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L17)
 
 ___
 
 ### registerAll
 
-▸ **registerAll**(`shortcuts`: *string*[], `handler`: (`shortcut`: *string*) => *void*): *Promise*<void\>
+▸ **registerAll**(`shortcuts`: *string*[], `handler`: [*ShortcutHandler*](globalshortcut.md#shortcuthandler)): *Promise*<void\>
 
-Register a collection of global shortcuts
+Register a collection of global shortcuts.
 
 #### Parameters:
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`shortcuts` | *string*[] | array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
-`handler` | (`shortcut`: *string*) => *void* | shortcut handler callback - takes the triggered shortcut as argument    |
+`shortcuts` | *string*[] | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
+`handler` | [*ShortcutHandler*](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:28](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/globalShortcut.ts#L28)
+Defined in: [globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L38)
 
 ___
 
@@ -71,17 +91,17 @@ ___
 
 ▸ **unregister**(`shortcut`: *string*): *Promise*<void\>
 
-Unregister a global shortcut
+Unregister a global shortcut.
 
 #### Parameters:
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`shortcut` | *string* | shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q    |
+`shortcut` | *string* | shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:62](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/globalShortcut.ts#L62)
+Defined in: [globalShortcut.ts:74](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L74)
 
 ___
 
@@ -93,4 +113,4 @@ Unregisters all shortcuts registered by the application.
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:75](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/globalShortcut.ts#L75)
+Defined in: [globalShortcut.ts:89](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L89)

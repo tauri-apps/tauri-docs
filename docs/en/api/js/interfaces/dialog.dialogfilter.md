@@ -15,7 +15,7 @@ hide_title: true
 
 • **extensions**: *string*[]
 
-Defined in: [dialog.ts:5](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L5)
+Defined in: [dialog.ts:9](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L9)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **name**: *string*
 
-Defined in: [dialog.ts:4](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L4)
+Defined in: [dialog.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L8)

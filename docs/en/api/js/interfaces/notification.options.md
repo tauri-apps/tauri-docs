@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **body**: *string*
 
-Defined in: [notification.ts:5](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L5)
+Defined in: [notification.ts:9](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L9)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • `Optional` **icon**: *string*
 
-Defined in: [notification.ts:6](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L6)
+Defined in: [notification.ts:10](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L10)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **title**: *string*
 
-Defined in: [notification.ts:4](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L4)
+Defined in: [notification.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L8)

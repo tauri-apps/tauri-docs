@@ -21,21 +21,19 @@ hide_title: true
 
 ▸ **open**(`options?`: [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md)): *Promise*<string \| string[]\>
 
-**`name`** openDialog
-
-**`description`** Open a file/directory selection dialog
+Open a file/directory selection dialog
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`options` | [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md) |
+Name | Type | Default value |
+:------ | :------ | :------ |
+`options` | [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md) | {} |
 
 **Returns:** *Promise*<string \| string[]\>
 
-Promise resolving to the select path(s)
+A promise resolving to the selected path(s)
 
-Defined in: [dialog.ts:30](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L30)
+Defined in: [dialog.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L29)
 
 ___
 
@@ -43,18 +41,16 @@ ___
 
 ▸ **save**(`options?`: [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md)): *Promise*<string\>
 
-**`name`** save
-
-**`description`** Open a file/directory save dialog
+Open a file/directory save dialog.
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`options` | [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md) |
+Name | Type | Default value |
+:------ | :------ | :------ |
+`options` | [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md) | {} |
 
 **Returns:** *Promise*<string\>
 
-Promise resolving to the select path
+A promise resolving to the selected path.
 
-Defined in: [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/dialog.ts#L55)
+Defined in: [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L51)

@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **body**: [*Body*](../classes/http.body.md)
 
-Defined in: [http.ts:58](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L58)
+Defined in: [http.ts:62](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L62)
 
 ___
 
@@ -23,7 +23,7 @@ ___
 
 • `Optional` **headers**: *Record*<string, any\>
 
-Defined in: [http.ts:56](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L56)
+Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L60)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **method**: [*HttpVerb*](../modules/http.md#httpverb)
 
-Defined in: [http.ts:54](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L54)
+Defined in: [http.ts:58](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L58)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Optional` **query**: *Record*<string, any\>
 
-Defined in: [http.ts:57](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L57)
+Defined in: [http.ts:61](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L61)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • `Optional` **responseType**: [*ResponseType*](../enums/http.responsetype.md)
 
-Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L60)
+Defined in: [http.ts:64](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L64)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • `Optional` **timeout**: *number*
 
-Defined in: [http.ts:59](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L59)
+Defined in: [http.ts:63](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L63)
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:55](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L55)
+Defined in: [http.ts:59](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L59)

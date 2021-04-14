@@ -19,7 +19,7 @@ hide_title: true
 
 Ƭ **PartialOptions**: *Omit*<[*Options*](../interfaces/notification.options.md), *title*\>
 
-Defined in: [notification.ts:9](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L9)
+Defined in: [notification.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L13)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 Ƭ **Permission**: *granted* \| *denied* \| *default*
 
-Defined in: [notification.ts:10](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L10)
+Defined in: [notification.ts:14](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L14)
 
 ## Functions
 
@@ -35,9 +35,11 @@ Defined in: [notification.ts:10](https://github.com/tauri-apps/tauri/blob/b9cbaa
 
 ▸ **isPermissionGranted**(): *Promise*<boolean \| *null*\>
 
+Checks if the permission to send notifications is granted.
+
 **Returns:** *Promise*<boolean \| *null*\>
 
-Defined in: [notification.ts:12](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L12)
+Defined in: [notification.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L21)
 
 ___
 
@@ -45,9 +47,13 @@ ___
 
 ▸ **requestPermission**(): *Promise*<[*Permission*](notification.md#permission)\>
 
+Requests the permission to send notifications.
+
 **Returns:** *Promise*<[*Permission*](notification.md#permission)\>
 
-Defined in: [notification.ts:24](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L24)
+A promise resolving to whether the user granted the permission or not.
+
+Defined in: [notification.ts:38](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L38)
 
 ___
 
@@ -55,12 +61,14 @@ ___
 
 ▸ **sendNotification**(`options`: [*Options*](../interfaces/notification.options.md) \| *string*): *void*
 
+Sends a notification to the user.
+
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`options` | [*Options*](../interfaces/notification.options.md) \| *string* |
+Name | Type | Description |
+:------ | :------ | :------ |
+`options` | [*Options*](../interfaces/notification.options.md) \| *string* | Notification options   |
 
 **Returns:** *void*
 
-Defined in: [notification.ts:28](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/notification.ts#L28)
+Defined in: [notification.ts:48](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L48)

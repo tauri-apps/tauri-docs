@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **manifest**: [*UpdateManifest*](updater.updatemanifest.md)
 
-Defined in: [updater.ts:17](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L17)
+Defined in: [updater.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L21)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **shouldUpdate**: *boolean*
 
-Defined in: [updater.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/updater.ts#L18)
+Defined in: [updater.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L22)

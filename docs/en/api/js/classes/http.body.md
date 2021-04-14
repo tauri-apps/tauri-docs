@@ -24,7 +24,7 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L18)
+Defined in: [http.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L22)
 
 ## Properties
 
@@ -32,7 +32,7 @@ Defined in: [http.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/s
 
 • **payload**: *unknown*
 
-Defined in: [http.ts:18](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L18)
+Defined in: [http.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L22)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **type**: *string*
 
-Defined in: [http.ts:17](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L17)
+Defined in: [http.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L21)
 
 ## Methods
 
@@ -56,7 +56,7 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:37](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L37)
+Defined in: [http.ts:41](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L41)
 
 ___
 
@@ -72,7 +72,7 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:25](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L25)
+Defined in: [http.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L29)
 
 ___
 
@@ -88,7 +88,7 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:29](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L29)
+Defined in: [http.ts:33](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L33)
 
 ___
 
@@ -104,4 +104,4 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:33](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/http.ts#L33)
+Defined in: [http.ts:37](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L37)

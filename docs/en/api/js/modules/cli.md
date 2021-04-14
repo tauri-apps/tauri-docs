@@ -21,8 +21,10 @@ hide_title: true
 
 ▸ **getMatches**(): *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
 
-gets the CLI matches
+Gets the CLI matches.
 
 **Returns:** *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
 
-Defined in: [cli.ts:29](https://github.com/tauri-apps/tauri/blob/b9cbaad4/api/src/cli.ts#L29)
+A promise resolving to cli matches.
+
+Defined in: [cli.ts:35](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L35)
