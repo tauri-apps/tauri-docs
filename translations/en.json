@@ -1,7 +1,7 @@
 {
   "config": {
     "announcementBar": {
-      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a> - <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.dmg\" target=\"_blank\">macOS - dmg</a> - <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a> - <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+      "validationApp": "New Validation App Coming Soon"
     },
     "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },
@@ -70,7 +70,7 @@
             "description": "Technical Release Candidate for desktop, edge cases and bugs acceptable."
           },
           {
-            "label": "Sideloader",
+            "label": "Sidecar",
             "description": "Integrate and instrument other binaries."
           },
           {
@@ -131,6 +131,22 @@
             "description": "Update Tauri Apps from within Tauri."
           },
           {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
+          },
+          {
+            "label": "Beta Release",
+            "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "Security Audit",
+            "description": "3rd party security audit of core libraries."
+          },
+          {
+            "label": "WebRTC",
+            "description": "Rust-based webrtc."
+          },
+          {
             "label": "Iframe with native API",
             "description": "Opt-in feature enabling for iframe dialog with Tauri and the native API."
           },
@@ -139,16 +155,8 @@
             "description": "For improved security of files interaction."
           },
           {
-            "label": "Beta Release",
-            "description": "Generally stable on Desktop, API locked down."
-          },
-          {
             "label": "Clipboard",
             "description": "Enable programmatic and keyboard access to clipboard."
-          },
-          {
-            "label": "Channel API",
-            "description": "Send messages through a channel."
           },
           {
             "label": "One-Time Commands",
@@ -161,10 +169,6 @@
           {
             "label": "DENO Bindings",
             "description": "Use Deno to build your App's backend."
-          },
-          {
-            "label": "Security Audit",
-            "description": "3rd party security audit of core libraries."
           },
           {
             "label": "Mobile Bundler",

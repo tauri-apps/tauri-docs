@@ -1,14 +1,14 @@
 {
   "config": {
     "announcementBar": {
-      "validationApp": "🚀 Download our validation app to take Tauri for a test drive: <br/> <i class=\"ti-linux\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app_0.1.0_amd64.deb\" target=\"_blank\">Linux - deb</a> - <i class=\"ti-apple\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.dmg\" target=\"_blank\">macOS - dmg</a> - <i class=\"ti-microsoft\"></i> <a href=\"https://github.com/tauri-apps/tauri/releases/download/0.5.2-binaries/app.x64.msi\" target=\"_blank\">Windows - msi</a> - <i class=\"ti-github\"></i> <a href=\"https://github.com/tauri-apps/tauri/tree/dev/tauri/examples/communication\" target=\"_blank\">Source</a>"
+      "validationApp": "New Validation App Coming Soon"
     },
     "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },
   "pages": {
     "index": {
       "description": "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.",
-      "subtitle": "Créez des applications desktop plus petites, rapides et plus sécurisées<br />avec une interface web",
+      "subtitle": "Build smaller, faster, and more secure <br />desktop applications with a web frontend",
       "learnMore": "Learn more",
       "getStarted": "Get started",
       "feature": {
@@ -47,6 +47,7 @@
         "todo": "To Do",
         "milestone": "Milestone",
         "ready": "Ready",
+        "released": "Released",
         "items": [
           {
             "label": "CLI",
@@ -69,7 +70,7 @@
             "description": "Technical Release Candidate for desktop, edge cases and bugs acceptable."
           },
           {
-            "label": "Sideloader",
+            "label": "Sidecar",
             "description": "Integrate and instrument other binaries."
           },
           {
@@ -102,52 +103,36 @@
             "description": "Update core dependencies automatically from the CLI."
           },
           {
-            "label": "Self Updater",
-            "description": "Update Tauri Apps from within Tauri."
-          },
-          {
-            "label": "Clipboard",
-            "description": "Enable programmatic and keyboard access to clipboard."
+            "label": "Webview Bindings",
+            "description": "New pure Rust Webview bindings."
           },
           {
             "label": "Keyboard Shortcuts",
             "description": "Hook and react to keypresses."
           },
           {
-            "label": "Channel API",
-            "description": "Send messages through a channel."
-          },
-          {
-            "label": "One-Time Commands",
-            "description": "Run a command that is no longer available after first run."
-          },
-          {
-            "label": "WASM Bundler",
-            "description": "Manufacture WASM bundler for use in websites."
-          },
-          {
-            "label": "App Tray",
-            "description": "Desktop Cross-platform Icon Tray."
-          },
-          {
-            "label": "Webview Bindings",
-            "description": "Use official Webview bindings."
-          },
-          {
             "label": "Multi Window",
             "description": "Run multiple window instances in Tauri."
+          },
+          {
+            "label": "Rust-based CLI",
+            "description": "Create Rust CLI."
           },
           {
             "label": "Transparent Window",
             "description": "Have transparent windows."
           },
           {
-            "label": "Rust-based CLI",
-            "description": "Create rust CLI with DENO bindings and binary."
+            "label": "Secure Context for Web APIs",
+            "description": "Setup secure context to enable access to restricted APIs."
           },
           {
-            "label": "DENO Bindings",
-            "description": "Use Deno to build your App's backend."
+            "label": "Self Updater",
+            "description": "Update Tauri Apps from within Tauri."
+          },
+          {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
           },
           {
             "label": "Beta Release",
@@ -156,6 +141,34 @@
           {
             "label": "Security Audit",
             "description": "3rd party security audit of core libraries."
+          },
+          {
+            "label": "WebRTC",
+            "description": "Rust-based webrtc."
+          },
+          {
+            "label": "Iframe with native API",
+            "description": "Opt-in feature enabling for iframe dialog with Tauri and the native API."
+          },
+          {
+            "label": "Scoped FileSystem",
+            "description": "For improved security of files interaction."
+          },
+          {
+            "label": "Clipboard",
+            "description": "Enable programmatic and keyboard access to clipboard."
+          },
+          {
+            "label": "One-Time Commands",
+            "description": "Run a command that is no longer available after first run."
+          },
+          {
+            "label": "App Tray",
+            "description": "Desktop Cross-platform Icon Tray."
+          },
+          {
+            "label": "DENO Bindings",
+            "description": "Use Deno to build your App's backend."
           },
           {
             "label": "Mobile Bundler",
