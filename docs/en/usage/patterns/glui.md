@@ -80,9 +80,6 @@ import Mermaid, { colors } from '@theme/Mermaid'
 Here's what you need to add to your tauri.conf.json file:
 ```json
 "tauri": {
-  "embeddedServer": {
-    "active": false               // do not use a localhost server
-  },
   "allowlist": {                  // all API endpoints are default false
     "all": false,                 // disable the api
   },

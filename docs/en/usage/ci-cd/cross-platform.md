@@ -1,6 +1,5 @@
 ---
-id: cross-platform
-title: Cross-platform compilation
+title: Cross-Platform Compilation
 ---
 
-Coming soon!
+How to use GH Action for Building: a glance at Tauri Action.

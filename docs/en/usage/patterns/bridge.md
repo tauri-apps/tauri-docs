@@ -83,20 +83,19 @@ import Mermaid, { colors } from '@theme/Mermaid'
 Here's what you need to add to your tauri.conf.json file:
 ```json
 "tauri": {
-  "embeddedServer": {
-    "active": false               // do not use a localhost server
-  },
   "allowlist": {                  // all API values are default false
     "all": false,                 // use this flag to enable all API features
-    "answer": true,               // enable rust to direct the UI
-    "event": true,                // enable binding to message
-    "execute": false,             // enable application execution
-    "listFiles": false,           // list files in a directory
-    "open": false,                // open link in a browser
-    "readBinaryFile": false,      // read binary file from local filesystem
-    "readTextFile": false,        // read text file from local filesystem
-    "setTitle": false,            // set the window title
-    "writeFile": false            // write file to local filesystem
+    "shell": {
+      "execute": false,             // enable application execution
+      "open": false,                // open link/path in the default app
+    },
+    "fs": {
+      "listFiles": false,           // list files in a directory
+      "readBinaryFile": false,      // read binary file from local filesystem
+      "readTextFile": false,        // read text file from local filesystem
+      "setTitle": false,            // set the window title
+      "writeFile": false            // write file to local filesystem
+    }
   }
 }
 

@@ -1,5 +1,4 @@
 ---
-id: contributor-guide
 title: Contributor Guide
 ---
 
@@ -8,11 +7,11 @@ todo: make this friendlier and more complete
 Tauri is a polyglot system that uses:
 
 - git
-- node
-- rust
-- github actions
+- Node.js
+- Rust
+- GitHub actions
 
-It can be developed on Mac, Linux and Windows.
+It can be developed on macOS, Linux and Windows.
 
 ## Contribution Flow
 
@@ -48,6 +47,6 @@ mkdir ../../examples/vanillajs && cd "$_"
 
 ```ini
   [dependencies.tauri]
-  path = "../../../../tauri"
-  features = [ "all-api", "edge" ]
+  path = "../../../../core/tauri"
+  features = [ "all-api" ]
 ```

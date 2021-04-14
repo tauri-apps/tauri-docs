@@ -65,7 +65,7 @@ fn main() {
   let awesome_plugin = MyAwesomePlugin::new();
   tauri::AppBuilder::new()
     .plugin(awesome_plugin)
-    .build()
+    .build(tauri::generate_context!())
     .run();
 }
 ```

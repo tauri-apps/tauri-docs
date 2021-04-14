@@ -36,19 +36,12 @@ It's composed of the following properties:
 }
 ```
 
-## `ctx`
+## `package`
 
-<Properties anchorRoot="ctx" rows={[
-  { property: "debug", optional: true, type: "boolean", description: `Tells the CLI to build on debug mode instead of release. Can also be used as <code>tauri build --debug</code>.` },
-  { property: "exitOnPanic", optional: true, type: "boolean", description: `Whether or not the webview should be killed if some Rust code error happened. Can also be used as <code>tauri dev --exit-on-panic</code> or <code>tauri dev -e</code>.` }
-]} />
-
-```js title=Example
-"ctx" {
-  "debug": false,
-  "exitOnPanic": false,
-}
-```
+<Properties anchorRoot="package" rows={[
+  { property: "name", optional: true, type: "string", description: `Application binary name. Converted to snake-case on Linux.` },
+  { property: "version", optional: true, type: "string", description: `Application version.` }
+]}/>
 
 ## `tauri`
 
@@ -132,14 +125,10 @@ It's composed of the following properties:
     ]} />
   },
   {
-    property: "embeddedServer", type: "object",
-    child: <Properties anchorRoot="tauri.embeddedServer" rows={[{ property: "active", optional: true, type: "boolean", description: `Set it to <code>false</code> if you plan to serve your application statically.` }]} />
-  },
-  {
     property: "bundle", type: "object",
     child: <Properties anchorRoot="tauri.bundle" rows={[
       { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain <code>cargo build</code>.` },
-      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "osx", "msi", "appimage", "dmg"] or the string 'all' to make every supported bundle. By default we bundle everything your target supports (osx/dmg on mac, deb/appimage on linux, msi on windows).` },
+      { property: "targets", optional: true, type: "string | string[]", description: `An array of the bundles you want to generate; e.g. ["deb", "app", "msi", "appimage", "dmg"] or the string 'all' to make every supported bundle. By default we bundle everything your target supports (app/dmg on mac, deb/appimage on linux, msi on windows).` },
       { property: "identifier", type: "string", description: `A string that uniquely identifies your application, in reverse-DNS form (for example, "com.example.appname" or "io.github.username.project"). For OS X and iOS, this is used as the bundle's CFBundleIdentifier value; for Windows, this is hashed to create an application GUID.` },
       { property: "icon", optional: true, type: "string[]", description: `A list of (relative to src-tauri) icon paths to use for your application bundle.` },
       { property: "resources", optional: true, type: "string[]", description: `A list of files or directories which will be copied to the resources section of the bundle. Globs are supported.` },
@@ -165,51 +154,108 @@ It's composed of the following properties:
         { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
         { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
       },
-      { property: "osx", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.osx" rows={[
+      { property: "windows", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows" rows={[
+        { property: "digestAlgorithm", optional: true, type: "string", description: `Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.` },
+        { property: "certificateThumbprint", optional: true, type: "string[]", description: `Specifies the SHA1 hash of the signing certificate.` },
+        { property: "timestampUrl", optional: true, type: "string[]", description: `Server to use during timestamping.` }]} />
+      },
+      { property: "macOS", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.macOS" rows={[
         { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
         { property: "minimumSystemVersion", optional: true, type: "string", description: `A version string indicating the minimum macOS X version that the bundled application supports.` },
         { property: "license", optional: true, type: "string", description: `The path to the license file to add to the DMG.` },
-        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} /> },
-      { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.
+        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` },
+        { property: "exceptionDomain", optional: true, type: "string", description: `Allows your application to communicate with the outside world.
       <div class="alert alert--info" role="alert" style="margin-top: 10px;">
         It should be a lowercase, without port and protocol domain name.
       </div>
       ` },
+        { property: "signingIdentity", optional: true, type: "string", description: `Identity to use for code signing.` },
+        { property: "entitlements", optional: true, type: "string", description: `Path to the entitlements file.` },
+      ]} /> },
     ]} />
   },
   {
     property: "allowlist", type: "object",
     child: <Properties anchorRoot="tauri.allowlist" rows={[
       { property: "all", type: "boolean", description: `Use this flag to enable all API features.` },
-      { property: "createDir", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "copyFile", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
-      { property: "event", optional: true, type: "boolean", description: `Enable listening to messages from webview.` },
-      { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
-      { property: "listFiles", optional: true, type: "boolean", description: `Get a list of files in a directory.` },
-      { property: "notification", optional: true, type: "boolean", description: `Enable system notifications.` },
-      { property: "open", optional: true, type: "boolean", description: `Open link in the user's default browser.` },
-      { property: "openDialog", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
-      { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
-      { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
-      { property: "readTextFile", optional: true, type: "boolean", description: `Read text file from local filesystem.` },
-      { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
-      { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
-      { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
-      { property: "saveDialog", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
-      { property: "setTitle", optional: true, type: "boolean", description: `Set the webview window title.` },
-      { property: "updater", optional: true, type: "boolean", description: `Update the application.` },
-      { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
+      {
+        property: "fs", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.fs" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all file system API features.` },
+          { property: "readTextFile", optional: true, type: "boolean", description: `Read text file from local filesystem.` },
+          { property: "readBinaryFile", optional: true, type: "boolean", description: `Read binary file from local filesystem.` },
+          { property: "writeFile", optional: true, type: "boolean", description: `Write text file to local filesystem.` },
+          { property: "writeBinaryFile", optional: true, type: "boolean", description: `Write binary file to local filesystem.` },
+          { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
+          { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
+          { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
+          { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
+          { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
+          { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
+          { property: "path", optional: true, type: "boolean", description: `Resolve system paths.` },
+        ]}/>
+      },
+      {
+        property: "window", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.window" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all window API features.` },
+          { property: "create", optional: true, type: "boolean", description: `Allows dynamic window creation.` },
+        ]}/>
+      },
+      {
+        property: "shell", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.shell" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all shell API features.` },
+          { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
+          { property: "open", optional: true, type: "boolean", description: `Open URL with the user's default application.` },
+        ]}/>
+      },
+      {
+        property: "dialog", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.dialog" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all dialog API features.` },
+          { property: "open", optional: true, type: "boolean", description: `Open dialog window to pick files.` },
+          { property: "save", optional: true, type: "boolean", description: `Open dialog window to pick where to save files.` },
+        ]}/>
+      },
+      {
+        property: "http", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.http" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all HTTP API features.` },
+          { property: "request", optional: true, type: "boolean", description: `Allows making HTTP requests.` },
+        ]}/>
+      },
+      {
+        property: "notification", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.notification" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all notification API features.` },
+        ]}/>
+      },
+      {
+        property: "globalShortcut", optional: true, type: "object", child: <Properties anchorRoot="tauri.allowlist.globalShortcut" rows={[
+          { property: "all", type: "boolean", description: `Use this flag to enable all global shortcut API features.` },
+        ]}/>
+      },
     ]} />
   },
   {
-    property: "window", type: "object",
-    child: <Properties anchorRoot="tauri.window" rows={[
-      { property: "title", type: "string", description: `Initial window title.` },
-      { property: "width", optional: true, type: "number", description: `Initial window width.` },
-      { property: "height", optional: true, type: "number", description: `Initial window height.` },
-      { property: "resizable", optional: true, type: "boolean", description: `Enable window resizing.` },
-      { property: "fullscreen", optional: true, type: "boolean", description: `Set window as fullscreen.` },
-    ]} />
+    property: "windows", type: "WindowConfig[]",
+    child: <Array type="WindowConfig" name="window">
+      <Properties anchorRoot="tauri.windows" rows={[
+        { property: "label", type: "string", description: `Window id to reference on the codebase.` },
+        { property: "url", type: "string", description: `URL to load on the webview.` },
+        { property: "x", type: "number", description: `The horizontal position of the window's top left corner.` },
+        { property: "y", type: "number", description: `The vertical position of the window's top left corner.` },
+        { property: "width", optional: true, type: "number", description: `Initial window width.` },
+        { property: "height", optional: true, type: "number", description: `Initial window height.` },
+        { property: "minWidth", type: "number", description: `The minimum window width.` },
+        { property: "minHeight", type: "number", description: `The minimum window height.` },
+        { property: "maxWidth", type: "number", description: `The maximum window width.` },
+        { property: "minHeight", type: "number", description: `The minimum window height.` },
+        { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not..` },
+        { property: "title", type: "string", description: `Window title.` },
+        { property: "fullscreen", optional: true, type: "boolean", description: `Whether the window starts as fullscreen or not.` },
+        { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not.` },
+        { property: "maximized", optional: true, type: "boolean", description: `Whether the window is maximized or not.` },
+        { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
+        { property: "decorations", optional: true, type: "boolean", description: `Whether the window should have borders and bars.` },
+        { property: "alwaysOnTop", optional: true, type: "boolean", description: `Whether the window should always be on top of other windows.` },
+      ]}/>
+    </Array>
   },
   {
     property: "security", type: "object",
@@ -218,18 +264,6 @@ It's composed of the following properties:
       <div class="alert alert--warning" role="alert" style="margin-top: 10px;">
   This is a really important part of the configuration since it helps you ensure your webview is secured. See more <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">on Mozilla</a>.
 </div>` },
-    ]} />
-  },
-  {
-    property: "edge", type: "object",
-    child: <Properties anchorRoot="tauri.edge" rows={[
-      { property: "active", optional: true, type: "boolean", description: `Whether you want to build with Microsoft Edge  or with Microsoft Internet Explorer.` },
-    ]} />
-  },
-  {
-    property: "inliner", type: "object",
-    child: <Properties anchorRoot="tauri.inliner" rows={[
-      { property: "active", optional: true, type: "boolean", description: `Enable the inliner. See more <a href="https://github.com/tauri-apps/tauri-inliner/" target="_blank">on our GitHub</a>.` },
     ]} />
   },
 ]} />
@@ -297,30 +331,24 @@ Instead of launching the app directly, we configure the bundled app to run a scr
     "deb": {
       "depends": []
     },
-    "osx": {
+    "macOS": {
       "frameworks": [],
-      "minimumSystemVersion": ""
-    },
-    "exceptionDomain": ""
+      "minimumSystemVersion": "",
+      "exceptionDomain": ""
+    }
   },
   "allowlist": {
     "all": true
   },
-  "window": {
+  "windows": [{
     "title": "Tauri App",
     "width": 800,
     "height": 600,
     "resizable": true,
     "fullscreen": false
-  },
+  }],
   "security": {
     "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
-  },
-  "edge": {
-    "active": true
-  },
-  "inliner": {
-    "active": true
   }
 }
 ```

@@ -13,29 +13,29 @@ import styles from './styles.module.css'
 
 const packagesData = [
   {
-    label: 'Bundler',
-    value: 'bundler',
+    label: 'Rust CLI',
+    value: 'cli.rs',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/cli/tauri-bundler/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.rs/CHANGELOG.md',
   },
   {
     label: 'Node.js CLI',
-    value: 'node-cli',
+    value: 'cli.js',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/cli/tauri.js/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.js/CHANGELOG.md',
   },
   {
-    label: 'Rust core',
-    value: 'rust-core',
+    label: 'create-tauri-app',
+    value: 'create-tauri-app',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tauri/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
   },
   {
-    label: 'Rust API',
-    value: 'rust-api',
+    label: 'Core',
+    value: 'core',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tauri-api/CHANGELOG.md',
-  },
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+  }
 ]
 
 function fetchChangelog(url) {

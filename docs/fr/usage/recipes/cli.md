@@ -139,7 +139,7 @@ fn main() {
 ### JavaScript
 
 ```js
-import { getMatches } from 'tauri/api/cli'
+import { getMatches } from '@tauri-apps/api/cli'
 
 getMatches().then((matches) => {
   // do something with the { args, subcommand } matches

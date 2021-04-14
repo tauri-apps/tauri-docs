@@ -17,20 +17,20 @@ import Link from '@docusaurus/Link'
 cd project-folder
 
 # Not required if you already have a package.json:
-# npm init
-# OR
 # yarn init
-
-yarn add tauri
 # OR
-npm install tauri --save
+# npm init
+
+yarn add @tauri-apps/cli
+# OR
+npm install @tauri-apps/cli
 ```
 
 <Alert title="Note">
   You can install Tauri as both a local and a global dependency, but we recommend installing it locally.
 </Alert>
 
-If you decide to use Tauri as a local package with npm, you will _have to_ define a custom script to your package.json:
+If you decide to use Tauri as a local package with npm (not yarn), you will have to define a custom script to your package.json:
 
 ```js title=package.json
 {
@@ -41,7 +41,7 @@ If you decide to use Tauri as a local package with npm, you will _have to_ defin
 }
 ```
 
-### 2. Initialize Tauri
+### 2. Initialize Tauri in Your App
 
 <Command name="init" />
 
@@ -107,7 +107,6 @@ App directory structure
 
 App
   tauri - 0.3.0
-  mode - embedded-server
   build-type - bundle
   CSP - default-src data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'
   Windows - Edge
@@ -117,44 +116,11 @@ App
 
 This information can be very helpful when triaging problems.
 
-## `src-tauri/tauri.conf.json`
-
-Edit `src-tauri/tauri.conf.json`:
-Depending on your development setup, you will probably need to update two important entry points for Tauri:
-
-- your bundled assets (`distDir`)
-- your development server (`devPath`)
-
-See more about tauri.conf.json configuration <a href="/docs/api/config#build">here</a>.
-
-```json
-{
-  "build": {
-    "distDir": "../dist/spa",
-    "devPath": "http://localhost:7334"
-  }
-}
-```
-
 ### Patterns
 
 We've also defined prebuilt configurations called "Patterns". They may help you to customize Tauri to fit your needs.
-See more about [patterns](/docs/usage/patterns/about-patterns).
-
-<Alert type="info" title="Note">
-  Technically you can point the devPath at a folder, and Tauri will try to serve those assets statically.
-</Alert>
-
-<Alert type="warning" title="Warning" icon="alert">
-  On some system setups, localhost may not be available. A general rule of thumb is to use exactly the same domain as your devServer. You can try to switch localhost here with:
-
-- `"127.0.0.1"`
-- `"0.0.0.0"`
-
-On windows, you must <a href="/docs/getting-started/setup-windows/#4-enable-loopback">enable loopback</a> during development.
-
-</Alert>
+[See more about patterns](/docs/usage/patterns/about-patterns).
 
 ## Vue CLI Plugin Tauri
 
-If you are using Vue CLI 3/4, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).
+If you are using Vue CLI, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).

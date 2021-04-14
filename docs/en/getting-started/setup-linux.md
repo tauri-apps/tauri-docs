@@ -95,7 +95,7 @@ You may want to use an alternative to npm:
 
 The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
-```
+```bash
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
@@ -112,23 +112,7 @@ latest update on 2019-12-19, rust version 1.40.0
 
 You may need to restart your terminal if the command does not work.
 
-## 4. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
-
-If you already had rustup installed before following this guide, make sure that you update Rust:
-
-```sh
-$ rustup update stable
-```
-
-After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
-
-Install Tauri bundler through Cargo:
-
-```sh
-$ cargo install tauri-bundler --force
-```
-
-## 5. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
+## 4. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
 
 In order to run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
 Since vcXsrv has been used internally, it's the one we recommend to install.
@@ -139,15 +123,13 @@ Open the X server and then run `export DISPLAY=:0` in the terminal. You should n
 
 ### WSL Version 2
 
-You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument.  Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
+You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
 
 <Alert type="info" title="Note">
 
 Don't forget that you'll have to use the "export" command anytime you want to use a graphical application, for each newly opened terminal.
 
 You can download some examples to try with `sudo apt-get install x11-apps`. xeyes is always a good one. It can be handy when troubleshooting WSL issues.
-
-There are some known issues on WSL 2 regarding loopback; that is running a localhost server from the terminal. If you are on WSL 2, be wary of this. You can find information regarding that [here](https://github.com/microsoft/WSL/issues/4636).
 </Alert>
 
 ## Continue
