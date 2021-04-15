@@ -74,22 +74,6 @@ latest update on 2019-12-19, rust version 1.40.0
 
 You may need to restart your terminal if the command does not work.
 
-## 4. Tauri Bundler&nbsp;<Icon title="alert" color="danger"/>
-
-If you already had rustup installed before following this guide, make sure that you update Rust:
-
-```sh
-$ rustup update stable
-```
-
-After you have installed Rust and other required dependencies, it is wise to restart your terminal before continuing.
-
-Install Tauri bundler through Cargo:
-
-```sh
-$ cargo install tauri-bundler --force
-```
-
 ## Continue
 
 Now that you have set up the macOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/usage/development/integration).
