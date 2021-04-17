@@ -11,6 +11,7 @@ Here you will find howtos and techniques to add to your own project in order to 
 ## A Step Further
 
 - [Understanding Tauri Patterns](/docs/usage/patterns/about-patterns)
+- [Generate a Vue/Tauri project](/docs/usage/development/starting)
 - [Add Tauri to my existing project](/docs/usage/development/integration)
 - [Tauri Development Cycle](/docs/usage/development/development)
 

@@ -4,31 +4,33 @@ title: Introduction
 
 import OSList from '@theme/OSList'
 
-Here you will find instructions to setup and customize Tauri on your environment.
+Welcome to Tauri! This guide will help you create your first Tauri app. It should only take about 10 minutes, although it could take longer if you have a slower internet connection.
 
-If you find an error or something unclear, or would like to propose an improvement, you have several options:<br />
+If you find an error or something unclear, or would like to propose an improvement, you have several options:
 
-1. Open an issue on our [Github Repo](https://github.com/tauri-apps/tauri-docs).<br />
-2. Visit our [Discord server](https://discord.gg/SpmNs4S) and raise your concern.<br />
-3. Request to join the education working group on Discord to gain access to its discussion channel.
+1. Open an issue on our [Github Repo](https://github.com/tauri-apps/tauri-docs)
+2. Visit our [Discord server](https://discord.gg/tauri) and raise your concern
+3. Request to join the education working group on Discord to gain access to its discussion channel
 
-## How Tauri Works
+## Steps
 
-1. Create your web app with your frontend framework of choice and bundle it into HTML/CSS/JS.
-2. The Tauri.js CLI takes the output and rigs the underlying native code according to your configuration.
-3. In dev mode it creates a webview window with debugging and hot-module-reloading.
-4. In build mode it rigs the bundler and creates native installers according to your settings.
+1. Install and configure system prerequisites
+2. Create a web app with your frontend framework of choice
+3. Use the Tauri CLI to setup Tauri in your app
+4. Write native Rust code to add functionality or improve performance (totally optional)
+5. Use `tauri dev` to develop your app with features like hot module reloading and webview devtools
+6. Use `tauri build` to package your app into a tiny installer
 
 ### Setting up Your Environment
 
-This guide assumes that you know what the command line is, how to install packages on your operating system and generally know your way around the development side of computing. 
+Before creating an app, you'll have to install and configure some developer tools. This guide assumes that you know what the command line is, how to install packages on your operating system, and generally know your way around the development side of computing.
 
-First, make sure that all required languages / compilers are installed and available in your PATH. Read more about the details for your local development environment:
+Follow the platform-specific guides to get started:
 
 <OSList content={{
-    linux: { title: 'Linux Setup', link: '/docs/getting-started/setup-linux'},
-    macos: { title: 'macOS Setup', link: '/docs/getting-started/setup-macos'},
-    windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
+linux: { title: 'Linux Setup', link: '/docs/getting-started/setup-linux'},
+macos: { title: 'macOS Setup', link: '/docs/getting-started/setup-macos'},
+windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
 }} />
 
-After that, you'll be ready to [add Tauri to your project!](/docs/usage/development/integration)
+After that, you'll be ready to [start a new project](/docs/usage/development/starting) or [add Tauri to your project!](/docs/usage/development/integration)
