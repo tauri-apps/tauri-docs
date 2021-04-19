@@ -205,7 +205,7 @@ h2 > [class^='ti-'] {
 }
 
 [class*='announcementBar_'] {
-  height: auto !important;
+  min-height: 52px;
 }
 
 [class*='property_'] .hash-link {
