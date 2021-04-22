@@ -18,43 +18,66 @@ Plugins allow you to hook into the Tauri application lifecycle and introduce new
 To write a plugin you just need to implement the `tauri::plugin::Plugin` trait:
 
 ```rust
-use tauri::{plugin::Plugin, Webview};
+use tauri::{plugin::{Plugin, Result as PluginResult}, PageLoadPayload, Params, Window, InvokeMessage};
 
-struct MyAwesomePlugin {
+struct MyAwesomePlugin<M: Params> {
+  invoke_handler: Box<dyn Fn(InvokeMessage<M>) + Send + Sync>,
   // plugin state, configuration fields
 }
+
+// the plugin custom command handlers if you choose to extend the API.
+#[tauri::command]
+// this will be accessible with `invoke('plugin:awesome|initialize')`.
+// where `awesome` is the plugin name.
+fn initialize() {}
+
+#[tauri::command]
+// this will be accessible with `invoke('plugin:awesome|do_something')`.
+fn do_something() {}
 
 impl MyAwesomePlugin {
   // you can add configuration fields here,
   // see https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
   pub fn new() -> Self {
-    Self {}
+    Self {
+      invoke_handler: Box::new(tauri::generate_handler![initialize, do_something]),
+    }
   }
 }
 
-impl Plugin for MyAwesomePlugin {
-  /// The JS script to evaluate on init.
+impl<M: Params> Plugin<M> for MyAwesomePlugin<M> {
+  /// The plugin name. Must be defined and used on the `invoke` calls.
+  fn name(&self) -> &'static str {
+    "awesome"
+  }
+
+  /// The JS script to evaluate on initialization.
   /// Useful when your plugin is accessible through `window`
   /// or needs to perform a JS task on app initialization
-  /// e.g. "window.localStorage = { ... the plugin interface }"
-  fn init_script(&self) -> Option<String> {
+  /// e.g. "window.awesomePlugin = { ... the plugin interface }"
+  fn initialization_script(&self) -> Option<String> {
     None
   }
 
-  /// Callback invoked when the webview is created.
-  fn created(&self, webview: &mut Webview) {}
+  /// initialize plugin with the config provided on `tauri.conf.json > plugins > $yourPluginName` or the default value.
+  fn initialize(&self, config: serde_json::Value) -> PluginResult<()> {
+    Ok(())
+  }
 
-  /// Callback invoked when the webview is ready.
-  fn ready(&self, webview: &mut Webview) {}
+  /// Callback invoked when the Window is created.
+  fn created(&self, window: Window<M>) {}
 
-  fn extend_api(&self, webview: &mut Webview, payload: &str) -> Result<bool, String> {
-    // extend the API here, following the Command guide
-    // if you're not going to use this, you can just remove it
+  /// Callback invoked when the webview performs a navigation.
+  fn on_page_load(&self, window: Window<M>, payload: PageLoadPayload) {}
+
+  /// Extend the invoke handler.
+  fn extend_api(&mut self, message: InvokeMessage<M>) {
+    (self.invoke_handler)(message)
   }
 }
 ```
 
-Note that each function on the `Plugin` trait is optional.
+Note that each function on the `Plugin` trait is optional, except the `name` function.
 
 ## Using a plugin
 
@@ -72,4 +95,7 @@ fn main() {
 
 ## Official Tauri Plugins
 
-- [Logging (WIP)](https://github.com/tauri-apps/tauri-log-plugin-rs)
+- [Stronghold (WIP)](https://github.com/tauri-apps/tauri-plugin-stronghold)
+- [Authenticator (WIP)](https://github.com/tauri-apps/tauri-plugin-authenticator)
+- [Logging (WIP)](https://github.com/tauri-apps/tauri-plugin-log)
+- [SQL (WIP)](https://github.com/tauri-apps/tauri-plugin-sql)
