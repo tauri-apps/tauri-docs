@@ -20,11 +20,11 @@ You will have to provide a list of your commands to the builder function like so
 ```rust
 // Also in main.rs
 fn main() {
-  tauri::AppBuilder::new()
+  tauri::Builder::default()
     // This is where you pass in your commands
     .invoke_handler(tauri::generate_handler![my_custom_command])
-    .build(tauri::generate_context!())
-    .run();
+    .run(tauri::generate_context!())
+    .expect("failed to run app");
 }
 ```
 
@@ -46,18 +46,18 @@ Your command handlers can take arguments:
 
 ```rust
 #[tauri::command]
-fn my_custom_command(message: String) {
-  println!("I was invoked from JS, with this message: {}", message);
+fn my_custom_command(invoke_message: String) {
+  println!("I was invoked from JS, with this message: {}", invoke_message);
 }
 ```
 
-Arguments should be passed as a JSON object:
+Arguments should be passed as a JSON object with camelCase keys:
 
 ```js
-invoke('my_custom_command', { message: 'Hello!' })
+invoke('my_custom_command', { invokeMessage: 'Hello!' })
 ```
 
-Arguments can be of any type, as long as they implement [Serde::Deserialize](https://serde.rs/derive.html).
+Arguments can be of any type, as long as they implement [serde::Deserialize](https://serde.rs/derive.html).
 
 ## Returning Data
 
