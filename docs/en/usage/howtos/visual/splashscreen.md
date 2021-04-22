@@ -51,11 +51,11 @@ fn close_splashscreen<M: Params>(window: tauri::Window<M>) {
 
 // Register the command:
 fn main() {
-  tauri::AppBuilder::new()
+  tauri::Builder::default()
     // Add this line
     .invoke_handler(tauri::generate_handler![close_splashscreen])
-    .build(tauri::generate_context!())
-    .run();
+    .run(tauri::generate_context!())
+    .expect("failed to run app");
 }
 
 ```
@@ -80,19 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
 If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
 ```rust title=src-tauri/main.rs
+use tauri::Manager;
 fn main() {
-  tauri::AppBuilder::new()
+  tauri::Builder::default()
     .setup(|app| {
       // Run initialization code here
       // ...
 
       // After it's done, close the splashscreen and display the main window
-      if let Ok(splashscreen) = app.get_window("splashscreen") {
+      if let Some(splashscreen) = app.get_window(&"splashscreen".into()) {
         splashscreen.close().unwrap();
       }
-      app.get_window("main").unwrap().show().unwrap();
+      app.get_window(&"main".into()).unwrap().show().unwrap();
+      Ok(())
     })
-    .build(tauri::generate_context!())
-    .run();
+    .run(tauri::generate_context!())
+    .expect("failed to run app");
 }
 ```
