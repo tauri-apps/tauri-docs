@@ -63,10 +63,10 @@ To use a plugin, just pass an instance of the `MyAwesomePlugin` struct to the Ap
 ```rust
 fn main() {
   let awesome_plugin = MyAwesomePlugin::new();
-  tauri::AppBuilder::new()
+  tauri::Builder::default()
     .plugin(awesome_plugin)
-    .build(tauri::generate_context!())
-    .run();
+    .run(tauri::generate_context!())
+    .expect("failed to run app");
 }
 ```
 
