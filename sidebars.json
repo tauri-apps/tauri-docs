@@ -41,29 +41,29 @@
           ]
         },
         {
-          "label": "Howtos",
+          "label": "Guides",
           "type": "category",
           "items": [
             {
               "label": "Bundler",
               "type": "category",
               "items": [
-                "usage/howtos/bundler/introduction",
-                "usage/howtos/bundler/anti-bloat",
-                "usage/howtos/bundler/sidecar"
+                "usage/guides/bundler/introduction",
+                "usage/guides/bundler/anti-bloat",
+                "usage/guides/bundler/sidecar"
               ]
             },
-            "usage/howtos/cli",
-            "usage/howtos/command",
-            "usage/howtos/plugin",
-            "usage/howtos/updater",
+            "usage/guides/cli",
+            "usage/guides/command",
+            "usage/guides/plugin",
+            "usage/guides/updater",
             {
               "label": "Visual",
               "type": "category",
               "items": [
-                "usage/howtos/visual/icons",
-                "usage/howtos/visual/splashscreen",
-                "usage/howtos/visual/window-customization"
+                "usage/guides/visual/icons",
+                "usage/guides/visual/splashscreen",
+                "usage/guides/visual/window-customization"
               ]
             }
           ]
