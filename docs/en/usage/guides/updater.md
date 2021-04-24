@@ -11,7 +11,7 @@ Add this in tauri.conf.json
 "updater": {
     "active": true,
     "endpoints": [
-        "https://releases.myapp.com/{target}}/{current_version}}"
+        "https://releases.myapp.com/{{target}}/{{current_version}}"
     ],
     "dialog": true,
     "pubkey": ""
@@ -57,7 +57,7 @@ If the user accepts, the download and install are initialized. The user will be 
 **Attention, you need to _disable built-in dialog_ in your [tauri configuration](#configuration), otherwise, events aren't emitted and the javascript API will NOT work.**
 
 
-```
+```js
 import { checkUpdate, installUpdate } from "@tauri-apps/api/updater";
 import { relaunch } from "@tauri-apps/api/app";
 try {
@@ -101,7 +101,7 @@ emit("tauri://update");
 Event: `tauri://update-available`
 
 Emitted data:
-```
+```none
 version    Version announced by the server
 date       Date announced by the server
 body       Note announced by the server
@@ -144,7 +144,7 @@ emit("tauri://update-install");
 Event: `tauri://update-status`
 
 Emitted data:
-```
+```none
 status    [ERROR/PENDING/DONE]
 error     String/null
 ```
@@ -236,7 +236,7 @@ You can see how it's [bundled with the CI](https://github.com/tauri-apps/tauri/b
 
 On MACOS we create a .tar.gz from the whole application. (.app)
 
-```
+```none
 target/release/bundle
 └── osx
     └── app.app
@@ -248,7 +248,7 @@ target/release/bundle
 
 On Windows we create a .zip from the MSI, when downloaded and validated, we run the MSI install.
 
-```
+```none
 target/release
 └── app.x64.msi
 └── app.x64.msi.zip (update bundle)
@@ -259,7 +259,7 @@ target/release
 
 On Linux, we create a .tar.gz from the AppImage.
 
-```
+```none
 target/release/bundle
 └── appimage
     └── app.AppImage
