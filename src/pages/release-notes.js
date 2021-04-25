@@ -13,28 +13,34 @@ import styles from './styles.module.css'
 
 const packagesData = [
   {
-    label: 'Rust CLI',
+    label: 'Core',
+    value: 'core',
+    changelogUrl:
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+  },
+  {
+    label: 'CLI',
     value: 'cli.rs',
     changelogUrl:
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.rs/CHANGELOG.md',
   },
   {
-    label: 'Node.js CLI',
-    value: 'cli.js',
+    label: 'Bundler',
+    value: 'bundler',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.js/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
+  },
+  {
+    label: 'WRY',
+    value: 'wry',
+    changelogUrl:
+      'https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md',
   },
   {
     label: 'create-tauri-app',
     value: 'create-tauri-app',
     changelogUrl:
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
-  },
-  {
-    label: 'Core',
-    value: 'core',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
   }
 ]
 
@@ -46,10 +52,10 @@ function fetchChangelog(url) {
       return versionsChangelog.map((versionChangelog) => {
         const [version, ...contents] = versionChangelog.split('\n')
         return {
-          version: version.replace('[', '').replace(']', ''),
+          version: version.replace('\\[', '').replace(']', ''),
           notes: contents.filter((line) => !!line).join('\n'),
         }
-      })
+      }).filter(({ version }) => !version.includes('Not Published'))
     })
 }
 
