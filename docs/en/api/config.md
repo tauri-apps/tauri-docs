@@ -158,7 +158,18 @@ It's composed of the following properties:
       { property: "windows", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows" rows={[
         { property: "digestAlgorithm", optional: true, type: "string", description: `Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.` },
         { property: "certificateThumbprint", optional: true, type: "string[]", description: `Specifies the SHA1 hash of the signing certificate.` },
-        { property: "timestampUrl", optional: true, type: "string[]", description: `Server to use during timestamping.` }]} />
+        { property: "timestampUrl", optional: true, type: "string[]", description: `Server to use during timestamping.` },
+        { property: "wix", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows.wix" rows={[
+          { property: "template", optional: true, type: "string", description: `A custom .wxs template to use.` },
+          { property: "fragmentPaths", optional: true, type: "string[]", description: `A list of paths to .wxs files with WiX fragments to use.` },
+          { property: "componentGroupRefs", optional: true, type: "string[]", description: `The ComponentGroup element ids you want to reference from the fragments.` },
+          { property: "componentRefs", optional: true, type: "string[]", description: `The Component element ids you want to reference from the fragments.` },
+          { property: "featureGroupRefs", optional: true, type: "string[]", description: `The FeatureGroup element ids you want to reference from the fragments.` },
+          { property: "featureRefs", optional: true, type: "string[]", description: `The Feature element ids you want to reference from the fragments.` },
+          { property: "mergeRefs", optional: true, type: "string[]", description: `The Merge element ids you want to reference from the fragments.` },
+          { property: "skipWebviewInstall", optional: true, type: "boolean", description: `Disables the Webview2 runtime installation after app install.` }]} />
+        }
+        ]} />
       },
       { property: "macOS", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.macOS" rows={[
         { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
