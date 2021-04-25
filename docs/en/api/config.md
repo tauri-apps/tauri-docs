@@ -152,7 +152,8 @@ It's composed of the following properties:
       { property: "longDescription", optional: true, type: "string", description: `A longer, multi-line description of the application.` },
       { property: "deb", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.deb" rows={[
         { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
-        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="#bootstrapper">boostrapper script</a>.` }]} />
+        { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the <a href="/en/docs/usage/guides/bundler/debian#bootstrapper">boostrapper script</a>.` },
+        { property: "files", optional: true, type: "{ [path: string]: string }", description: `The files to include on the package. See <a href="/en/docs/usage/guides/bundler/debian#custom-files">the debian guide</a>.` }]} />
       },
       { property: "windows", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows" rows={[
         { property: "digestAlgorithm", optional: true, type: "string", description: `Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.` },
