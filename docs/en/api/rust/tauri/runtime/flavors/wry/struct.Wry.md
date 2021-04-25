@@ -1,44 +1,44 @@
 ---
-title: "struct.Settings"
+title: "struct.Wry"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[Wry](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Wry { /* fields omitted */ }
 
-Tauri Settings.
+A Tauri [`Runtime`](/docs/api/rust/tauri/../../../../tauri/runtime/trait.Runtime.html "Runtime") wrapper around \[`wry::Application`].
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Runtime for Wry`
 
-#### `fn default() -> Settings`
+#### `type Dispatcher = WryDispatcher`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+The message dispatcher.
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `fn new() -> Result<Self>`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+Creates a new webview runtime.
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+#### `fn create_window<M: Params<Runtime = Self>>( &mut self, pending: PendingWindow<M> ) -> Result<DetachedWindow<M>>`
 
-### `impl Serialize for Settings`
+Create a new webview window.
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `fn run(self)`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Run the webview runtime.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl !RefUnwindSafe for Wry`
 
-### `impl Send for Settings`
+### `impl !Send for Wry`
 
-### `impl Sync for Settings`
+### `impl !Sync for Wry`
 
-### `impl Unpin for Settings`
+### `impl Unpin for Wry`
 
-### `impl UnwindSafe for Settings`
+### `impl !UnwindSafe for Wry`
 
 ## Blanket Implementations
 
@@ -59,8 +59,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

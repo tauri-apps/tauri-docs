@@ -1,44 +1,37 @@
 ---
-title: "struct.Settings"
+title: "enum.AskResponse"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[AskResponse](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub enum AskResponse {
+        Yes,
+        No,
+    }
 
-Tauri Settings.
+Response for the ask dialog
 
-## Trait Implementations
+## Variants
 
-### `impl Default for Settings`
+`Yes`
 
-#### `fn default() -> Settings`
+User confirmed.
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+`No`
 
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+User denied.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for AskResponse`
 
-### `impl Send for Settings`
+### `impl Send for AskResponse`
 
-### `impl Sync for Settings`
+### `impl Sync for AskResponse`
 
-### `impl Unpin for Settings`
+### `impl Unpin for AskResponse`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for AskResponse`
 
 ## Blanket Implementations
 
@@ -59,8 +52,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

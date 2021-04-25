@@ -1,44 +1,47 @@
 ---
-title: "struct.Settings"
+title: "struct.Context"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Context](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Context<A: Assets> {
+        pub config: Config,
+        pub assets: A,
+        pub default_window_icon: Option<Vec<u8>>,
+        pub package_info: PackageInfo,
+    }
 
-Tauri Settings.
+User supplied data required inside of a Tauri application.
 
-## Trait Implementations
+## Fields
 
-### `impl Default for Settings`
+`config: Config`
 
-#### `fn default() -> Settings`
+The config the application was prepared with.
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+`assets: A`
 
-### `impl<'de> Deserialize<'de> for Settings`
+The assets to be served directly by Tauri.
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+`default_window_icon: Option<Vec<u8>>`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+The default window icon Tauri should use when creating windows.
 
-### `impl Serialize for Settings`
+`package_info: PackageInfo`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Package information.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<A> RefUnwindSafe for Context<A> where A: RefUnwindSafe,`
 
-### `impl Send for Settings`
+### `impl<A> Send for Context<A>`
 
-### `impl Sync for Settings`
+### `impl<A> Sync for Context<A>`
 
-### `impl Unpin for Settings`
+### `impl<A> Unpin for Context<A> where A: Unpin,`
 
-### `impl UnwindSafe for Settings`
+### `impl<A> UnwindSafe for Context<A> where A: UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -59,8 +62,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

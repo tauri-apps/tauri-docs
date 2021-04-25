@@ -1,44 +1,62 @@
 ---
-title: "struct.Settings"
+title: "struct.Move"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Move](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Move<'a> { /* fields omitted */ }
 
-Tauri Settings.
+Moves a file from the given path to the specified destination.
+
+`source` and `dest` must be on the same filesystem. If `replace_using_temp` is specified, the destination file will be replaced using the given temporary path.
+
+-   Errors:
+
+    -   Io - copying / renaming
+
+## Implementations
+
+### `impl<'a> Move<'a>`
+
+#### `pub fn from_source(source: &'a Path) -> Move<'a>`
+
+Specify source file
+
+#### `pub fn replace_using_temp(&mut self, temp: &'a Path) -> &mutSelf`
+
+If specified and the destination file already exists, the "destination" file will be moved to the given temporary location before the "source" file is moved to the "destination" file.
+
+In the event of an `io` error while renaming "source" to "destination", the temporary file will be moved back to "destination".
+
+The `temp` dir must be explicitly provided since `rename` operations require files to live on the same filesystem.
+
+#### `pub fn to_dest(&self, dest: &Path) -> Result<()>`
+
+Move source file to specified destination (replace whole directory)
+
+#### `pub fn walk_to_dest(&self, dest: &Path) -> Result<()>`
+
+Walk in the source and copy all files and create directories if needed by replacing existing elements. (equivalent to a cp -R)
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl<'a> Debug for Move<'a>`
 
-#### `fn default() -> Settings`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<'a> RefUnwindSafe for Move<'a>`
 
-### `impl Send for Settings`
+### `impl<'a> Send for Move<'a>`
 
-### `impl Sync for Settings`
+### `impl<'a> Sync for Move<'a>`
 
-### `impl Unpin for Settings`
+### `impl<'a> Unpin for Move<'a>`
 
-### `impl UnwindSafe for Settings`
+### `impl<'a> UnwindSafe for Move<'a>`
 
 ## Blanket Implementations
 
@@ -59,8 +77,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

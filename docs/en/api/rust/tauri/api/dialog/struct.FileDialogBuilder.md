@@ -1,44 +1,68 @@
 ---
-title: "struct.Settings"
+title: "struct.FileDialogBuilder"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[FileDialogBuilder](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct FileDialogBuilder(_);
 
-Tauri Settings.
+The file dialog builder. Constructs file picker dialogs that can select single/multiple files or directories.
+
+## Implementations
+
+### `impl FileDialogBuilder`
+
+#### `pub fn new() -> Self`
+
+Gets the default file dialog builder.
+
+#### `pub fn add_filter(self, name: impl AsRef<str>, extensions: &[&str]) -> Self`
+
+Add file extension filter. Takes in the name of the filter, and list of extensions
+
+#### `pub fn set_directory<P: AsRef<Path>>(self, directory: P) -> Self`
+
+Set starting directory of the dialog.
+
+#### `pub fn set_file_name(self, file_name: &str) -> Self`
+
+Set starting file name of the dialog.
+
+#### `pub fn pick_file(self) -> Option<PathBuf>`
+
+Pick one file.
+
+#### `pub fn pick_files(self) -> Option<Vec<PathBuf>>`
+
+Pick multiple files.
+
+#### `pub fn pick_folder(self) -> Option<PathBuf>`
+
+Pick one folder.
+
+#### `pub fn save_file(self) -> Option<PathBuf>`
+
+Opens save file dialog.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Default for FileDialogBuilder`
 
-#### `fn default() -> Settings`
+#### `fn default() -> FileDialogBuilder`
 
 Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for FileDialogBuilder`
 
-### `impl Send for Settings`
+### `impl Send for FileDialogBuilder`
 
-### `impl Sync for Settings`
+### `impl !Sync for FileDialogBuilder`
 
-### `impl Unpin for Settings`
+### `impl Unpin for FileDialogBuilder`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for FileDialogBuilder`
 
 ## Blanket Implementations
 
@@ -59,8 +83,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

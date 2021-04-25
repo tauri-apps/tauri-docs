@@ -1,44 +1,55 @@
 ---
-title: "struct.Settings"
+title: "enum.Body"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[Body](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub enum Body {
+        Form(FormBody),
+        Json(Value),
+        Text(String),
+        Bytes(Vec<u8>),
+    }
 
-Tauri Settings.
+A body for the request.
+
+## Variants
+
+`Form(FormBody)`
+
+A multipart formdata body.
+
+`Json(Value)`
+
+A JSON body.
+
+`Text(String)`
+
+A text string body.
+
+`Bytes(Vec<u8>)`
+
+A byte array body.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
-
-#### `fn default() -> Settings`
-
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for Body`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for Body`
 
-### `impl Send for Settings`
+### `impl Send for Body`
 
-### `impl Sync for Settings`
+### `impl Sync for Body`
 
-### `impl Unpin for Settings`
+### `impl Unpin for Body`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for Body`
 
 ## Blanket Implementations
 

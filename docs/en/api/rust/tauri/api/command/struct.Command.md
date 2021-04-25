@@ -1,44 +1,44 @@
 ---
-title: "struct.Settings"
+title: "struct.Command"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[Command](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Command { /* fields omitted */ }
 
-Tauri Settings.
+API to spawn commands.
 
-## Trait Implementations
+## Implementations
 
-### `impl Default for Settings`
+### `impl Command`
 
-#### `fn default() -> Settings`
+#### `pub fn new<S: Into<String>>(program: S) -> Self`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Creates a new Command for launching the given program.
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `pub fn new_sidecar<S: Into<String>>(program: S) -> Result<Self>`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+Creates a new Command for launching the given sidecar program.
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+#### `pub fn args<I, S>(self, args: I) -> Self where I: IntoIterator<Item = S>, S: AsRef<str>,`
 
-### `impl Serialize for Settings`
+Append args to the command.
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `pub fn spawn(self) -> Result<(Receiver<CommandEvent>, CommandChild)>`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Spawns the command.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for Command`
 
-### `impl Send for Settings`
+### `impl Send for Command`
 
-### `impl Sync for Settings`
+### `impl Sync for Command`
 
-### `impl Unpin for Settings`
+### `impl Unpin for Command`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for Command`
 
 ## Blanket Implementations
 
@@ -59,8 +59,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

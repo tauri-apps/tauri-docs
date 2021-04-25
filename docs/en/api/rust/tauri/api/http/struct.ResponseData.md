@@ -1,28 +1,16 @@
 ---
-title: "struct.Settings"
+title: "struct.ResponseData"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[ResponseData](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct ResponseData { /* fields omitted */ }
 
-Tauri Settings.
+The response type.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
-
-#### `fn default() -> Settings`
-
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
+### `impl Serialize for ResponseData`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
@@ -30,15 +18,15 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for ResponseData`
 
-### `impl Send for Settings`
+### `impl Send for ResponseData`
 
-### `impl Sync for Settings`
+### `impl Sync for ResponseData`
 
-### `impl Unpin for Settings`
+### `impl Unpin for ResponseData`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for ResponseData`
 
 ## Blanket Implementations
 
@@ -59,8 +47,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

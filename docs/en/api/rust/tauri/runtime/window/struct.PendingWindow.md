@@ -1,44 +1,64 @@
 ---
-title: "struct.Settings"
+title: "struct.PendingWindow"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[PendingWindow](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct PendingWindow<M: Params> {
+        pub label: M::Label,
+        pub url: WindowUrl,
+        pub attributes: <<M::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes,
+        pub rpc_handler: Option<Box<dyn Fn(DetachedWindow<M>, RpcRequest) + Send>>,
+        pub file_drop_handler: Option<Box<dyn Fn(FileDropEvent, DetachedWindow<M>) -> bool + Send>>,
+    }
 
-Tauri Settings.
+A webview window that has yet to be built.
 
-## Trait Implementations
+## Fields
 
-### `impl Default for Settings`
+`label: M::Label`
 
-#### `fn default() -> Settings`
+The label that the window will be named.
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+`url: WindowUrl`
 
-### `impl<'de> Deserialize<'de> for Settings`
+The url the window will open with.
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+`attributes: <<M::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+The [`Attributes`](/docs/api/rust/tauri/../../../tauri/runtime/webview/trait.Attributes.html "Attributes") that the webview window be created with.
 
-### `impl Serialize for Settings`
+`rpc_handler: Option<Box<dyn Fn(DetachedWindow<M>, RpcRequest) + Send>>`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+How to handle RPC calls on the webview window.
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+`file_drop_handler: Option<Box<dyn Fn(FileDropEvent, DetachedWindow<M>) -> bool + Send>>`
+
+How to handle a file dropping onto the webview window.
+
+## Implementations
+
+### `impl<M: Params> PendingWindow<M>`
+
+#### `pub fn new( attributes: <<M::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes, label: M::Label, url: WindowUrl ) -> Self`
+
+Create a new [`PendingWindow`](/docs/api/rust/tauri/../../../tauri/runtime/window/struct.PendingWindow.html "PendingWindow") with a label and starting url.
+
+#### `pub fn with_config( window_config: WindowConfig, label: M::Label, url: WindowUrl ) -> Self`
+
+Create a new [`PendingWindow`](/docs/api/rust/tauri/../../../tauri/runtime/window/struct.PendingWindow.html "PendingWindow") from a [`WindowConfig`](/docs/api/rust/tauri/../../../tauri/api/config/struct.WindowConfig.html "WindowConfig") with a label and starting url.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<M> !RefUnwindSafe for PendingWindow<M>`
 
-### `impl Send for Settings`
+### `impl<M> Send for PendingWindow<M>`
 
-### `impl Sync for Settings`
+### `impl<M> !Sync for PendingWindow<M>`
 
-### `impl Unpin for Settings`
+### `impl<M> Unpin for PendingWindow<M> where <<<M as Params>::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes: Unpin, <M as Params>::Label: Unpin,`
 
-### `impl UnwindSafe for Settings`
+### `impl<M> !UnwindSafe for PendingWindow<M>`
 
 ## Blanket Implementations
 
@@ -59,8 +79,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

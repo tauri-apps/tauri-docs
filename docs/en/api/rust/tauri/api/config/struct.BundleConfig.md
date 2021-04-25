@@ -1,44 +1,78 @@
 ---
-title: "struct.Settings"
+title: "struct.BundleConfig"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[BundleConfig](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct BundleConfig {
+        pub identifier: String,
+    }
 
-Tauri Settings.
+The bundler configuration object.
+
+## Fields
+
+`identifier: String`
+
+The bundle identifier.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Debug for BundleConfig`
 
-#### `fn default() -> Settings`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+
+### `impl Default for BundleConfig`
+
+#### `pub fn default() -> BundleConfig`
 
 Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for BundleConfig`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+#### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<BundleConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
+### `impl PartialEq<BundleConfig> for BundleConfig`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `pub fn eq(&self, other: &BundleConfig) -> bool`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+
+#### `pub fn ne(&self, other: &BundleConfig) -> bool`
+
+This method tests for `!=`.
+
+### `impl StructuralPartialEq for BundleConfig`
+
+### `impl ToTokens for BundleConfig`
+
+#### `pub fn to_tokens(&self, tokens: &mut TokenStream)`
+
+Write `self` to the given `TokenStream`. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#tymethod.to_tokens)
+
+#### `pub fn to_token_stream(&self) -> TokenStream`
+
+Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.to_token_stream)
+
+#### `pub fn into_token_stream(self) -> TokenStream`
+
+Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.into_token_stream)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for BundleConfig`
 
-### `impl Send for Settings`
+### `impl Send for BundleConfig`
 
-### `impl Sync for Settings`
+### `impl Sync for BundleConfig`
 
-### `impl Unpin for Settings`
+### `impl Unpin for BundleConfig`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for BundleConfig`
 
 ## Blanket Implementations
 

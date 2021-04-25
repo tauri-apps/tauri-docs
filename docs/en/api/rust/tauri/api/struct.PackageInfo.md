@@ -1,44 +1,55 @@
 ---
-title: "struct.Settings"
+title: "struct.PackageInfo"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[PackageInfo](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct PackageInfo {
+        pub name: String,
+        pub version: String,
+    }
 
-Tauri Settings.
+`App` package information.
+
+## Fields
+
+`name: String`
+
+App name.
+
+`version: String`
+
+App version.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Clone for PackageInfo`
 
-#### `fn default() -> Settings`
+#### `fn clone(&self) -> PackageInfo`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+### `impl Debug for PackageInfo`
 
-### `impl Serialize for Settings`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for PackageInfo`
 
-### `impl Send for Settings`
+### `impl Send for PackageInfo`
 
-### `impl Sync for Settings`
+### `impl Sync for PackageInfo`
 
-### `impl Unpin for Settings`
+### `impl Unpin for PackageInfo`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for PackageInfo`
 
 ## Blanket Implementations
 
@@ -59,8 +70,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 
@@ -109,6 +118,24 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
+
+The resulting type after obtaining ownership.
+
+#### `pub fn to_owned(&self) -> T`
+
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+
+#### `pub fn clone_into(&self, target: &mutT)`
+
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
+
+recently added
+
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

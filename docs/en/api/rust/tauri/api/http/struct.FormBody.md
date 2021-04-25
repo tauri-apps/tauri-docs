@@ -1,44 +1,40 @@
 ---
-title: "struct.Settings"
+title: "struct.FormBody"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[FormBody](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct FormBody(_);
 
-Tauri Settings.
+Form body definition.
+
+## Implementations
+
+### `impl FormBody`
+
+#### `pub fn new(data: HashMap<String, FormPart>) -> Self`
+
+Creates a new form body.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
-
-#### `fn default() -> Settings`
-
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for FormBody`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for FormBody`
 
-### `impl Send for Settings`
+### `impl Send for FormBody`
 
-### `impl Sync for Settings`
+### `impl Sync for FormBody`
 
-### `impl Unpin for Settings`
+### `impl Unpin for FormBody`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for FormBody`
 
 ## Blanket Implementations
 
