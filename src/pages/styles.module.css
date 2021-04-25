@@ -86,6 +86,11 @@
   display: flex;
 }
 
+.verticalTabsPanes {
+  flex: none;
+  text-align: center;
+}
+
 .verticalTabsPane {
   cursor: pointer;
   padding: 10px;
@@ -121,7 +126,7 @@
 
 .changelogSearchInput::placeholder {
   color: var(--ifm-font-color-base);
-  opacity: 1; 
+  opacity: 1;
 }
 
 .changelog .tabs__item {
