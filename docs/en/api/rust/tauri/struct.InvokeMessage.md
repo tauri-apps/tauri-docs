@@ -1,44 +1,62 @@
 ---
-title: "struct.Settings"
+title: "struct.InvokeMessage"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[InvokeMessage](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct InvokeMessage<M: Params> { /* fields omitted */ }
 
-Tauri Settings.
+An invoke message.
 
-## Trait Implementations
+## Implementations
 
-### `impl Default for Settings`
+### `impl<M: Params> InvokeMessage<M>`
 
-#### `fn default() -> Settings`
+#### `pub fn command(&self) -> &str`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+The invoke command.
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `pub fn payload(&self) -> Value`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+The invoke payload.
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+#### `pub fn window(&self) -> Window<M>`
 
-### `impl Serialize for Settings`
+The window that received the invoke.
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `pub fn respond_async<T: Serialize, Err: Serialize, F: Future<Output = Result<T, Err>> + Send + 'static>( self, task: F )`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Reply to the invoke promise with an async task.
+
+#### `pub fn respond_closure<T: Serialize, Err: Serialize, F: FnOnce() -> Result<T, Err>>( self, f: F )`
+
+Reply to the invoke promise running the given closure.
+
+#### `pub fn resolve<S: Serialize>(self, value: S)`
+
+Resolve the invoke promise with a value.
+
+#### `pub fn reject<S: Serialize>(self, value: S)`
+
+Reject the invoke promise with a value.
+
+#### `pub async fn return_task<T: Serialize, Err: Serialize, F: Future<Output = Result<T, Err>> + Send + 'static>( window: Window<M>, task: F, success_callback: String, error_callback: String )`
+
+Asynchronously executes the given task and evaluates its Result to the JS promise described by the `success_callback` and `error_callback` function names.
+
+If the Result `is_ok()`, the callback will be the `success_callback` function name and the argument will be the Ok value. If the Result `is_err()`, the callback will be the `error_callback` function name and the argument will be the Err value.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<M> !RefUnwindSafe for InvokeMessage<M>`
 
-### `impl Send for Settings`
+### `impl<M> Send for InvokeMessage<M>`
 
-### `impl Sync for Settings`
+### `impl<M> Sync for InvokeMessage<M> where <<M as Params>::Runtime as Runtime>::Dispatcher: Sync,`
 
-### `impl Unpin for Settings`
+### `impl<M> Unpin for InvokeMessage<M> where <<M as Params>::Runtime as Runtime>::Dispatcher: Unpin, <M as Params>::Label: Unpin,`
 
-### `impl UnwindSafe for Settings`
+### `impl<M> !UnwindSafe for InvokeMessage<M>`
 
 ## Blanket Implementations
 
@@ -59,8 +77,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

@@ -1,44 +1,116 @@
 ---
-title: "struct.Settings"
+title: "struct.HttpRequestBuilder"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[HttpRequestBuilder](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct HttpRequestBuilder {
+        pub method: String,
+        pub url: String,
+        pub query: Option<HashMap<String, String>>,
+        pub headers: Option<HashMap<String, String>>,
+        pub body: Option<Body>,
+        pub timeout: Option<u64>,
+        pub response_type: Option<ResponseType>,
+    }
 
-Tauri Settings.
+The builder for a HTTP request.
+
+# [Examples](/docs/api/rust/tauri/about:blank#examples)
+
+    use tauri::api::http::{ HttpRequestBuilder, ResponseType, ClientBuilder };
+    async fn run() {
+      let client = ClientBuilder::new()
+        .max_redirections(3)
+        .build()
+        .unwrap();
+      let mut request_builder = HttpRequestBuilder::new("GET", "http://example.com");
+      let request = request_builder.response_type(ResponseType::Text);
+
+      if let Ok(response) = client.send(request).await {
+        println!("got response");
+      } else {
+        println!("Something Happened!");
+      }
+    }
+
+## Fields
+
+`method: String`
+
+The request method (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, CONNECT or TRACE)
+
+`url: String`
+
+The request URL
+
+`query: Option<HashMap<String, String>>`
+
+The request query params
+
+`headers: Option<HashMap<String, String>>`
+
+The request headers
+
+`body: Option<Body>`
+
+The request body
+
+`timeout: Option<u64>`
+
+Timeout for the whole request
+
+`response_type: Option<ResponseType>`
+
+The response type (defaults to Json)
+
+## Implementations
+
+### `impl HttpRequestBuilder`
+
+#### `pub fn new(method: impl Into<String>, url: impl Into<String>) -> Self`
+
+Initializes a new instance of the HttpRequestrequest_builder.
+
+#### `pub fn query(self, query: HashMap<String, String>) -> Self`
+
+Sets the request params.
+
+#### `pub fn headers(self, headers: HashMap<String, String>) -> Self`
+
+Sets the request headers.
+
+#### `pub fn body(self, body: Body) -> Self`
+
+Sets the request body.
+
+#### `pub fn timeout(self, timeout: u64) -> Self`
+
+Sets the general request timeout.
+
+#### `pub fn response_type(self, response_type: ResponseType) -> Self`
+
+Sets the type of the response. Interferes with the way we read the response.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
-
-#### `fn default() -> Settings`
-
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for HttpRequestBuilder`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for HttpRequestBuilder`
 
-### `impl Send for Settings`
+### `impl Send for HttpRequestBuilder`
 
-### `impl Sync for Settings`
+### `impl Sync for HttpRequestBuilder`
 
-### `impl Unpin for Settings`
+### `impl Unpin for HttpRequestBuilder`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for HttpRequestBuilder`
 
 ## Blanket Implementations
 

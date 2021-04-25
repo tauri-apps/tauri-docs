@@ -1,44 +1,32 @@
 ---
-title: "struct.Settings"
+title: "struct.CustomProtocol"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[CustomProtocol](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct CustomProtocol {
+        pub protocol: Box<dyn Fn(&str) -> Result<Vec<u8>> + Send + Sync>,
+    }
 
-Tauri Settings.
+Uses a custom URI scheme handler to resolve file requests
 
-## Trait Implementations
+## Fields
 
-### `impl Default for Settings`
+`protocol: Box<dyn Fn(&str) -> Result<Vec<u8>> + Send + Sync>`
 
-#### `fn default() -> Settings`
-
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Handler for protocol
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl !RefUnwindSafe for CustomProtocol`
 
-### `impl Send for Settings`
+### `impl Send for CustomProtocol`
 
-### `impl Sync for Settings`
+### `impl Sync for CustomProtocol`
 
-### `impl Unpin for Settings`
+### `impl Unpin for CustomProtocol`
 
-### `impl UnwindSafe for Settings`
+### `impl !UnwindSafe for CustomProtocol`
 
 ## Blanket Implementations
 
@@ -59,8 +47,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

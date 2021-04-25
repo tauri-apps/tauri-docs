@@ -1,44 +1,88 @@
 ---
-title: "struct.Settings"
+title: "struct.BuildConfig"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[BuildConfig](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct BuildConfig {
+        pub dev_path: String,
+        pub dist_dir: String,
+        pub with_global_tauri: bool,
+    }
 
-Tauri Settings.
+The Build configuration object.
+
+## Fields
+
+`dev_path: String`
+
+the devPath config.
+
+`dist_dir: String`
+
+the dist config.
+
+`with_global_tauri: bool`
+
+Whether we should inject the Tauri API on `window.__TAURI__` or not.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Debug for BuildConfig`
 
-#### `fn default() -> Settings`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+
+### `impl Default for BuildConfig`
+
+#### `pub fn default() -> BuildConfig`
 
 Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for BuildConfig`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+#### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<BuildConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
+### `impl PartialEq<BuildConfig> for BuildConfig`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `pub fn eq(&self, other: &BuildConfig) -> bool`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
+
+#### `pub fn ne(&self, other: &BuildConfig) -> bool`
+
+This method tests for `!=`.
+
+### `impl StructuralPartialEq for BuildConfig`
+
+### `impl ToTokens for BuildConfig`
+
+#### `pub fn to_tokens(&self, tokens: &mut TokenStream)`
+
+Write `self` to the given `TokenStream`. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#tymethod.to_tokens)
+
+#### `pub fn to_token_stream(&self) -> TokenStream`
+
+Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.to_token_stream)
+
+#### `pub fn into_token_stream(self) -> TokenStream`
+
+Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.into_token_stream)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for BuildConfig`
 
-### `impl Send for Settings`
+### `impl Send for BuildConfig`
 
-### `impl Sync for Settings`
+### `impl Sync for BuildConfig`
 
-### `impl Unpin for Settings`
+### `impl Unpin for BuildConfig`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for BuildConfig`
 
 ## Blanket Implementations
 

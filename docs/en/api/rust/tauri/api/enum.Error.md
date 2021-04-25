@@ -1,44 +1,113 @@
 ---
-title: "struct.Settings"
+title: "enum.Error"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub enum Error {
+        Architecture,
+        Os,
+        Environment,
+        UnsupportedPlatform,
+        ParentProcess,
+        ParentPid,
+        ChildProcess,
+        Io(Error),
+    }
 
-Tauri Settings.
+The error types.
+
+## Variants
+
+`Architecture`
+
+Target triple architecture error
+
+`Os`
+
+Target triple OS error
+
+`Environment`
+
+Target triple environment error
+
+`UnsupportedPlatform`
+
+Tried to get resource on an unsupported platform.
+
+`ParentProcess`
+
+Get parent process error
+
+`ParentPid`
+
+Get parent process PID error
+
+`ChildProcess`
+
+Get child process error
+
+`Io(Error)`
+
+IO error.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Debug for Error`
 
-#### `fn default() -> Settings`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl Display for Error`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+#### `pub fn fmt(&self, __formatter: &mut Formatter<'_>) -> Result<(), Error>`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
 
-### `impl Serialize for Settings`
+### `impl Error for Error`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `pub fn source(&self) -> Option<&(dyn Error + 'static)>`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
+
+#### `pub fn backtrace(&self) -> Option<&Backtrace>`
+
+🔬 This is a nightly-only experimental API. (`backtrace`)
+
+Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
+
+#### `pub fn description(&self) -> &str`1.0.0
+
+👎 Deprecated since 1.42.0:
+
+use the Display impl or to_string()
+
+[Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
+
+#### `pub fn cause(&self) -> Option<&dyn Error>`1.0.0
+
+👎 Deprecated since 1.33.0:
+
+replaced by Error::source, which can support downcasting
+
+### `impl From<Error> for Error`
+
+#### `pub fn from(source: Error) -> Error`
+
+Performs the conversion.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl !RefUnwindSafe for Error`
 
-### `impl Send for Settings`
+### `impl Send for Error`
 
-### `impl Sync for Settings`
+### `impl Sync for Error`
 
-### `impl Unpin for Settings`
+### `impl Unpin for Error`
 
-### `impl UnwindSafe for Settings`
+### `impl !UnwindSafe for Error`
 
 ## Blanket Implementations
 
@@ -59,8 +128,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 
@@ -109,6 +176,12 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToString for T where T: Display + ?Sized,`
+
+#### `pub default fn to_string(&self) -> String`
+
+Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

@@ -1,44 +1,36 @@
 ---
-title: "struct.Settings"
+title: "struct.WryIcon"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[WryIcon](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct WryIcon(_);
 
-Tauri Settings.
+Wrapper around a \[`wry::Icon`] that can be created from an [`Icon`](/docs/api/rust/tauri/../../../../tauri/enum.Icon.html "Icon").
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl TryFrom<Icon> for WryIcon`
 
-#### `fn default() -> Settings`
+#### `type Error = Error`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+The type returned in the event of a conversion error.
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `fn try_from(icon: Icon) -> Result<Self, Self::Error>`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Performs the conversion.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for WryIcon`
 
-### `impl Send for Settings`
+### `impl Send for WryIcon`
 
-### `impl Sync for Settings`
+### `impl Sync for WryIcon`
 
-### `impl Unpin for Settings`
+### `impl Unpin for WryIcon`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for WryIcon`
 
 ## Blanket Implementations
 
@@ -59,8 +51,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

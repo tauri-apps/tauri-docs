@@ -1,44 +1,40 @@
 ---
-title: "struct.Settings"
+title: "struct.EmbeddedAssets"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[EmbeddedAssets](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct EmbeddedAssets(_);
 
-Tauri Settings.
+[`Assets`](/docs/api/rust/tauri/../../../tauri/api/assets/trait.Assets.html "Assets") implementation that only contains compile-time compressed and embedded assets.
+
+## Implementations
+
+### `impl EmbeddedAssets`
+
+#### `pub const fn from_zstd(map: Map<&'static str, &'static [u8]>) -> EmbeddedAssets`
+
+Wrap a [zstd](https://facebook.github.io/zstd/) compressed [`phf::Map`](/docs/api/rust/tauri/../../../tauri/api/assets/phf/struct.Map.html "phf::Map").
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Assets for EmbeddedAssets`
 
-#### `fn default() -> Settings`
+#### `pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]>> where Key: Into<AssetKey>,`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Get the content of the passed [`AssetKey`](/docs/api/rust/tauri/../../../tauri/api/assets/struct.AssetKey.html "AssetKey").
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for EmbeddedAssets`
 
-### `impl Send for Settings`
+### `impl Send for EmbeddedAssets`
 
-### `impl Sync for Settings`
+### `impl Sync for EmbeddedAssets`
 
-### `impl Unpin for Settings`
+### `impl Unpin for EmbeddedAssets`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for EmbeddedAssets`
 
 ## Blanket Implementations
 
@@ -59,8 +55,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

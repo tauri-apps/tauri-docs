@@ -1,44 +1,93 @@
 ---
-title: "struct.Settings"
+title: "struct.Set"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[set](/docs/api/rust/tauri/index.html)::​[Set](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Set<T> where
+        T: 'static,  { /* fields omitted */ }
 
-Tauri Settings.
+An immutable set constructed at compile time.
+
+## [Note](/docs/api/rust/tauri/about:blank#note)
+
+The fields of this struct are public so that they may be initialized by the `phf_set!` macro and code generation. They are subject to change at any time and should never be accessed directly.
+
+## Implementations
+
+### `impl<T> Set<T>`
+
+#### `pub fn len(&self) -> usize`
+
+Returns the number of elements in the `Set`.
+
+#### `pub fn is_empty(&self) -> bool`
+
+Returns true if the `Set` contains no elements.
+
+#### `pub fn get_key<U>(&self, key: &U) -> Option<&T> where T: Borrow<U>, U: Eq + PhfHash + ?Sized,`
+
+Returns a reference to the set's internal static instance of the given key.
+
+This can be useful for interning schemes.
+
+#### `pub fn contains<U>(&self, value: &U) -> boolwhere T: Borrow<U>, U: Eq + PhfHash + ?Sized,`
+
+Returns true if `value` is in the `Set`.
+
+#### `pub fn iter(&'a self) -> Iter<'a, T>ⓘ Notable traits for Iter<'a, T> impl<'a, T> Iterator for Iter<'a, T>type Item = &'aT;`
+
+Returns an iterator over the values in the set.
+
+Values are returned in an arbitrary but fixed order.
+
+### `impl<T> Set<T> where T: Eq + PhfHash,`
+
+#### `pub fn is_disjoint(&self, other: &Set<T>) -> bool`
+
+Returns true if `other` shares no elements with `self`.
+
+#### `pub fn is_subset(&self, other: &Set<T>) -> bool`
+
+Returns true if `other` contains all values in `self`.
+
+#### `pub fn is_superset(&self, other: &Set<T>) -> bool`
+
+Returns true if `self` contains all values in `other`.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl<T> Debug for Set<T> where T: Debug,`
 
-#### `fn default() -> Settings`
+#### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'a, T> IntoIterator for &'a Set<T>`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+#### `type Item = &'aT`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+The type of the elements being iterated over.
 
-### `impl Serialize for Settings`
+#### `type IntoIter = Iter<'a, T>`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+Which kind of iterator are we turning this into?
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+#### `pub fn into_iter(self) -> Iter<'a, T>ⓘ Notable traits for Iter<'a, T> impl<'a, T> Iterator for Iter<'a, T>type Item = &'aT;`
+
+Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<T> RefUnwindSafe for Set<T> where T: RefUnwindSafe,`
 
-### `impl Send for Settings`
+### `impl<T> Send for Set<T> where T: Send + Sync,`
 
-### `impl Sync for Settings`
+### `impl<T> Sync for Set<T> where T: Sync,`
 
-### `impl Unpin for Settings`
+### `impl<T> Unpin for Set<T> where T: Unpin,`
 
-### `impl UnwindSafe for Settings`
+### `impl<T> UnwindSafe for Set<T> where T: RefUnwindSafe + UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -59,8 +108,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

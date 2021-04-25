@@ -1,44 +1,71 @@
 ---
-title: "struct.Settings"
+title: "struct.ClientBuilder"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[ClientBuilder](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct ClientBuilder {
+        pub max_redirections: Option<usize>,
+        pub connect_timeout: Option<u64>,
+    }
 
-Tauri Settings.
+Client builder.
+
+## Fields
+
+`max_redirections: Option<usize>`
+
+Max number of redirections to follow
+
+`connect_timeout: Option<u64>`
+
+Connect timeout in seconds for the request
+
+## Implementations
+
+### `impl ClientBuilder`
+
+#### `pub fn new() -> Self`
+
+Creates a new client builder with the default options.
+
+#### `pub fn max_redirections(self, max_redirections: usize) -> Self`
+
+Sets the maximum number of redirections.
+
+#### `pub fn connect_timeout(self, connect_timeout: u64) -> Self`
+
+Sets the connection timeout.
+
+#### `pub fn build(self) -> Result<Client>`
+
+Builds the ClientOptions.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Default for ClientBuilder`
 
-#### `fn default() -> Settings`
+#### `fn default() -> ClientBuilder`
 
 Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl<'de> Deserialize<'de> for Settings`
+### `impl<'de> Deserialize<'de> for ClientBuilder`
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for ClientBuilder`
 
-### `impl Send for Settings`
+### `impl Send for ClientBuilder`
 
-### `impl Sync for Settings`
+### `impl Sync for ClientBuilder`
 
-### `impl Unpin for Settings`
+### `impl Unpin for ClientBuilder`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for ClientBuilder`
 
 ## Blanket Implementations
 

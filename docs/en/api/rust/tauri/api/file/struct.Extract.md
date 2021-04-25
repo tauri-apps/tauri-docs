@@ -1,44 +1,52 @@
 ---
-title: "struct.Settings"
+title: "struct.Extract"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Extract](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct Extract<'a> { /* fields omitted */ }
 
-Tauri Settings.
+The extract manager.
+
+## Implementations
+
+### `impl<'a> Extract<'a>`
+
+#### `pub fn from_source(source: &'a Path) -> Extract<'a>`
+
+Create an \`Extractor from a source path
+
+#### `pub fn archive_format(&mut self, format: ArchiveFormat) -> &mutSelf`
+
+Specify an archive format of the source being extracted. If not specified, the archive format will determined from the file extension.
+
+#### `pub fn extract_into(&self, into_dir: &Path) -> Result<()>`
+
+Extract an entire source archive into a specified path. If the source is a single compressed file and not an archive, it will be extracted into a file with the same name inside of `into_dir`.
+
+#### `pub fn extract_file<T: AsRef<Path>>( &self, into_dir: &Path, file_to_extract: T ) -> Result<()>`
+
+Extract a single file from a source and save to a file of the same name in `into_dir`. If the source is a single compressed file, it will be saved with the name `file_to_extract` in the specified `into_dir`.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl<'a> Debug for Extract<'a>`
 
-#### `fn default() -> Settings`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
-
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl<'a> RefUnwindSafe for Extract<'a>`
 
-### `impl Send for Settings`
+### `impl<'a> Send for Extract<'a>`
 
-### `impl Sync for Settings`
+### `impl<'a> Sync for Extract<'a>`
 
-### `impl Unpin for Settings`
+### `impl<'a> Unpin for Extract<'a>`
 
-### `impl UnwindSafe for Settings`
+### `impl<'a> UnwindSafe for Extract<'a>`
 
 ## Blanket Implementations
 
@@ -59,8 +67,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

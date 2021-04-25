@@ -1,28 +1,42 @@
 ---
-title: "struct.Settings"
+title: "struct.DiskEntry"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[DiskEntry](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    pub struct DiskEntry {
+        pub path: PathBuf,
+        pub name: Option<String>,
+        pub children: Option<Vec<DiskEntry>>,
+    }
 
-Tauri Settings.
+The result of the `read_dir` function.
+
+A DiskEntry is either a file or a directory. The `children` Vec is always `Some` if the entry is a directory.
+
+## Fields
+
+`path: PathBuf`
+
+The path to this entry.
+
+`name: Option<String>`
+
+The name of this entry (file name with extension or directory name)
+
+`children: Option<Vec<DiskEntry>>`
+
+The children of this entry if it's a directory.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Debug for DiskEntry`
 
-#### `fn default() -> Settings`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for Settings`
-
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Settings`
+### `impl Serialize for DiskEntry`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
@@ -30,15 +44,15 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for DiskEntry`
 
-### `impl Send for Settings`
+### `impl Send for DiskEntry`
 
-### `impl Sync for Settings`
+### `impl Sync for DiskEntry`
 
-### `impl Unpin for Settings`
+### `impl Unpin for DiskEntry`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for DiskEntry`
 
 ## Blanket Implementations
 
@@ -59,8 +73,6 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
 

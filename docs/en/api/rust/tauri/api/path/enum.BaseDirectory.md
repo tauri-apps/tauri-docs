@@ -1,44 +1,154 @@
 ---
-title: "struct.Settings"
+title: "enum.BaseDirectory"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+    #[repr(u16)]pub enum BaseDirectory {
+        Audio,
+        Cache,
+        Config,
+        Data,
+        LocalData,
+        Desktop,
+        Document,
+        Download,
+        Executable,
+        Font,
+        Home,
+        Picture,
+        Public,
+        Runtime,
+        Template,
+        Video,
+        Resource,
+        App,
+        Current,
+    }
 
-Tauri Settings.
+A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
+
+For more information, check the [dirs_next documentation](https://docs.rs/dirs_next/).
+
+## Variants
+
+`Audio`
+
+The Audio directory.
+
+`Cache`
+
+The Cache directory.
+
+`Config`
+
+The Config directory.
+
+`Data`
+
+The Data directory.
+
+`LocalData`
+
+The LocalData directory.
+
+`Desktop`
+
+The Desktop directory.
+
+`Document`
+
+The Document directory.
+
+`Download`
+
+The Download directory.
+
+`Executable`
+
+The Executable directory.
+
+`Font`
+
+The Font directory.
+
+`Home`
+
+The Home directory.
+
+`Picture`
+
+The Picture directory.
+
+`Public`
+
+The Public directory.
+
+`Runtime`
+
+The Runtime directory.
+
+`Template`
+
+The Template directory.
+
+`Video`
+
+The Video directory.
+
+`Resource`
+
+The Resource directory.
+
+`App`
+
+The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
+
+`Current`
+
+The current working directory.
 
 ## Trait Implementations
 
-### `impl Default for Settings`
+### `impl Clone for BaseDirectory`
 
-#### `fn default() -> Settings`
+#### `fn clone(&self) -> BaseDirectory`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-### `impl<'de> Deserialize<'de> for Settings`
+#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+
+### `impl Debug for BaseDirectory`
+
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+
+### `impl<'de> Deserialize<'de> for BaseDirectory`
+
+#### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl Serialize for Settings`
+### `impl Serialize for BaseDirectory`
 
-#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+#### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
 Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Settings`
+### `impl RefUnwindSafe for BaseDirectory`
 
-### `impl Send for Settings`
+### `impl Send for BaseDirectory`
 
-### `impl Sync for Settings`
+### `impl Sync for BaseDirectory`
 
-### `impl Unpin for Settings`
+### `impl Unpin for BaseDirectory`
 
-### `impl UnwindSafe for Settings`
+### `impl UnwindSafe for BaseDirectory`
 
 ## Blanket Implementations
 
@@ -109,6 +219,24 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
+
+The resulting type after obtaining ownership.
+
+#### `pub fn to_owned(&self) -> T`
+
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+
+#### `pub fn clone_into(&self, target: &mutT)`
+
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
+
+recently added
+
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 
