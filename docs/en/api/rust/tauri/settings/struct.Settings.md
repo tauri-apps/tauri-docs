@@ -4,9 +4,11 @@ title: "struct.Settings"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
 
-    pub struct Settings {
-        pub allow_notification: Option<bool>,
-    }
+```
+pub struct Settings {
+    pub allow_notification: Option<bool>,
+}
+```
 
 Tauri Settings.
 
@@ -28,13 +30,13 @@ Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/ni
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.117/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for Settings`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.117/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -52,19 +54,19 @@ Serialize this value into the given Serde serializer. [Read more](https://docs.r
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type_id(&self) -> TypeId`
+#### `pub fn type_id(&self) -> TypeId`
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
-#### `fn borrow(&self) -> &T`
+#### `pub fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow_mut(&mut self) -> &mutT`
+#### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
@@ -72,19 +74,29 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 
 ### `impl<T> From<T> for T`
 
-#### `fn from(t: T) -> T`
+#### `pub fn from(t: T) -> T`
 
 Performs the conversion.
 
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### `fn into(self) -> U`
+#### `pub fn into(self) -> U`
 
 Performs the conversion.
 
 ### `impl<T> Pointable for T`
 
-#### `const ALIGN: usize`
+#### `pub const ALIGN: usize`
 
 The alignment of pointer.
 
@@ -92,19 +104,19 @@ The alignment of pointer.
 
 The type for initializers.
 
-#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
 
 Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
 
-#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
 
 Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
 
-#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
 
 Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
 
-#### `unsafe fn drop(ptr: usize)`
+#### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
 
@@ -114,7 +126,7 @@ Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tau
 
 The type returned in the event of a conversion error.
 
-#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -124,10 +136,10 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
-#### `fn vzip(self) -> V`
+#### `pub fn vzip(self) -> V`

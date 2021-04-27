@@ -4,37 +4,53 @@ title: "trait.Plugin"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[plugin](/docs/api/rust/tauri/index.html)::​[Plugin](/docs/api/rust/tauri/)
 
-    pub trait Plugin {
-        fn init_script(&self) -> Option<String> { ... }
+```
+pub trait Plugin<M: Params>: Send {
+    fn name(&self) -> &'static str;
 
-        fn created(&self, webview: &mut Webview<'_>) { ... }
+    fn initialize(&mut self, config: JsonValue) -> Result<()> { ... }
 
-        fn ready(&self, webview: &mut Webview<'_>) { ... }
+    fn initialization_script(&self) -> Option<String> { ... }
 
-        fn extend_api(
-            &self, 
-            webview: &mut Webview<'_>, 
-            payload: &str
-        ) -> Result<bool, String> { ... }
-    }
+    fn created(&mut self, window: Window<M>) { ... }
+
+    fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload) { ... }
+
+    fn extend_api(&mut self, message: InvokeMessage<M>) { ... }
+}
+```
 
 The plugin interface.
 
+## Required methods
+
+### `fn name(&self) -> &'static str`
+
+The plugin name. Used as key on the plugin config object.
+
+Loading content...
+
 ## Provided methods
 
-### `fn init_script(&self) -> Option<String>`
+### `fn initialize(&mut self, config: JsonValue) -> Result<()>`
 
-The JS script to evaluate on init.
+Initialize the plugin.
 
-### `fn created(&self, webview: &mut Webview<'_>)`
+### `fn initialization_script(&self) -> Option<String>`
 
-Callback invoked when the WebView is created.
+The JS script to evaluate on webview initialization. The script is wrapped into its own context with `(function () { /* your script here */ })();`, so global variables must be assigned to `window` instead of implicity declared.
 
-### `fn ready(&self, WebView: &mut Webview<'_>)`
+It's guaranteed that this script is executed before the page is loaded.
 
-Callback invoked when the WebView is ready.
+### `fn created(&mut self, window: Window<M>)`
 
-### `fn extend_api( &self, webview: &mut Webview<'_>, payload: &str ) -> Result<bool, String>`
+Callback invoked when the webview is created.
+
+### `fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload)`
+
+Callback invoked when the webview performs a navigation.
+
+### `fn extend_api(&mut self, message: InvokeMessage<M>)`
 
 Add invoke_handler API extension commands.
 

@@ -4,69 +4,115 @@ title: "struct.App"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[App](/docs/api/rust/tauri/)
 
-    pub struct App { /* fields omitted */ }
+```
+pub struct App<P: Params> { /* fields omitted */ }
+```
 
-The application runner.
+A handle to the currently running application.
 
-## Implementations
+This type implements [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager.html "Manager") which allows for manipulation of global application items.
 
-### `impl App`
+## Trait Implementations
 
-#### `pub fn run(self)`
+### `impl<P: Params> Manager<P> for App<P>`
 
-Runs the app until it finishes.
+#### `fn config(&self) -> &Config`
 
-#### `pub fn splashscreen_html(&self) -> Option<&String>`
+The [`Config`](/docs/api/rust/tauri/../tauri/api/config/struct.Config.html "Config") the manager was created with.
 
-Returns the splashscreen HTML.
+#### `fn emit_all<S: Serialize + Clone>( &self, event: M::Event, payload: Option<S> ) -> Result<()>`
+
+Emits a event to all windows.
+
+#### `fn emit_to<S: Serialize + Clone>( &self, label: &M::Label, event: M::Event, payload: Option<S> ) -> Result<()>`
+
+Emits an event to a window with the specified label.
+
+#### `fn create_window(&mut self, pending: PendingWindow<M>) -> Result<Window<M>>`
+
+Creates a new [`Window`](/docs/api/rust/tauri/../tauri/struct.Window.html "Window") on the [`Runtime`](/docs/api/rust/tauri/../tauri/runtime/trait.Runtime.html "Runtime") and attaches it to the [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager.html "Manager").
+
+#### `fn listen_global<F>(&self, event: M::Event, handler: F) -> EventHandler where F: Fn(Event) + Send + 'static,`
+
+Listen to a global event.
+
+#### `fn once_global<F>(&self, event: M::Event, handler: F) -> EventHandler where F: Fn(Event) + Send + 'static,`
+
+Listen to a global event only once.
+
+#### `fn trigger_global(&self, event: M::Event, data: Option<String>)`
+
+Trigger a global event.
+
+#### `fn unlisten(&self, handler_id: EventHandler)`
+
+Remove an event listener.
+
+#### `fn get_window(&self, label: &M::Label) -> Option<Window<M>>`
+
+Fetch a single window from the manager.
+
+#### `fn windows(&self) -> HashMap<M::Label, Window<M>>`
+
+Fetch all managed windows.
 
 ## Auto Trait Implementations
 
-### `impl !RefUnwindSafe for App`
+### `impl<P> !RefUnwindSafe for App<P>`
 
-### `impl !Send for App`
+### `impl<P> Send for App<P> where <P as Params>::Runtime: Send,`
 
-### `impl !Sync for App`
+### `impl<P> Sync for App<P> where <P as Params>::Runtime: Sync,`
 
-### `impl Unpin for App`
+### `impl<P> Unpin for App<P> where <P as Params>::Runtime: Unpin,`
 
-### `impl !UnwindSafe for App`
+### `impl<P> !UnwindSafe for App<P>`
 
 ## Blanket Implementations
 
 ### `impl<T> Any for T where T: 'static + ?Sized,`
 
-#### `fn type_id(&self) -> TypeId`
+#### `pub fn type_id(&self) -> TypeId`
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
 ### `impl<T> Borrow<T> for T where T: ?Sized,`
 
-#### `fn borrow(&self) -> &T`
+#### `pub fn borrow(&self) -> &T`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
 ### `impl<T> BorrowMut<T> for T where T: ?Sized,`
 
-#### `fn borrow_mut(&mut self) -> &mutT`
+#### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
 ### `impl<T> From<T> for T`
 
-#### `fn from(t: T) -> T`
+#### `pub fn from(t: T) -> T`
 
 Performs the conversion.
 
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
-#### `fn into(self) -> U`
+#### `pub fn into(self) -> U`
 
 Performs the conversion.
 
 ### `impl<T> Pointable for T`
 
-#### `const ALIGN: usize`
+#### `pub const ALIGN: usize`
 
 The alignment of pointer.
 
@@ -74,19 +120,19 @@ The alignment of pointer.
 
 The type for initializers.
 
-#### `unsafe fn init(init: <T as Pointable>::Init) -> usize`
+#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
 
 Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
 
-#### `unsafe fn deref<'a>(ptr: usize) -> &'aT`
+#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
 
 Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
 
-#### `unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
+#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
 
 Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
 
-#### `unsafe fn drop(ptr: usize)`
+#### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
 
@@ -96,7 +142,7 @@ Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tau
 
 The type returned in the event of a conversion error.
 
-#### `fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
 
 Performs the conversion.
 
@@ -106,10 +152,10 @@ Performs the conversion.
 
 The type returned in the event of a conversion error.
 
-#### `fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
 
 Performs the conversion.
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
-#### `fn vzip(self) -> V`
+#### `pub fn vzip(self) -> V`
