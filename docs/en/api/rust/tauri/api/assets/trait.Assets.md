@@ -4,7 +4,7 @@ title: "trait.Assets"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[Assets](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Assets: 'static + Send + Sync {
     pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]>>
     where

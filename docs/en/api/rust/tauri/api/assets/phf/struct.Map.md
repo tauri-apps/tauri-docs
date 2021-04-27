@@ -4,7 +4,7 @@ title: "struct.Map"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[api](/docs/api/rust/tauri/../../index.html)::​[assets](/docs/api/rust/tauri/../index.html)::​[phf](/docs/api/rust/tauri/index.html)::​[Map](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Map<K, V> where
     K: 'static,
     V: 'static,  { /* fields omitted */ }

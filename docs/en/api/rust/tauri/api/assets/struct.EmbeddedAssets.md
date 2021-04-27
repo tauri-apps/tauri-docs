@@ -4,7 +4,7 @@ title: "struct.EmbeddedAssets"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[EmbeddedAssets](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct EmbeddedAssets(_);
 ```
 

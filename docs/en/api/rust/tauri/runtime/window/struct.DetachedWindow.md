@@ -4,7 +4,7 @@ title: "struct.DetachedWindow"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[DetachedWindow](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct DetachedWindow<M: Params> {
     pub label: M::Label,
     pub dispatcher: <M::Runtime as Runtime>::Dispatcher,

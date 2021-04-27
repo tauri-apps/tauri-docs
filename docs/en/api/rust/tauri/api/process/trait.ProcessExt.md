@@ -4,7 +4,7 @@ title: "trait.ProcessExt"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[ProcessExt](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait ProcessExt: Debug {
     pub fn kill(&self, signal: Signal) -> bool;
 
@@ -46,7 +46,7 @@ Contains all the methods of the [`Process`](/docs/api/rust/tauri/../../../tauri/
 
 Sends the given `signal` to the process.
 
-```
+```rs
 use sysinfo::{ProcessExt, Signal, System, SystemExt};
 
 let s = System::new();
@@ -59,7 +59,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the name of the process.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -72,7 +72,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the command line.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -85,7 +85,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the path to the process.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -98,7 +98,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the pid of the process.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -113,7 +113,7 @@ Returns the environment of the process.
 
 Always empty on Windows, except for current process.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -128,7 +128,7 @@ Returns the current working directory.
 
 Always empty on Windows.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -143,7 +143,7 @@ Returns the path of the root directory.
 
 Always empty on Windows.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -156,7 +156,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the memory usage (in kB).
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -169,7 +169,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the virtual memory usage (in kB).
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -182,7 +182,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the parent pid.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -195,7 +195,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the status of the processus.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -208,7 +208,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns the time of process launch (in seconds).
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -225,7 +225,7 @@ If you want a value between 0% and 100%, divide the returned value by the number
 
 **Warning**: If you want accurate CPU usage number, better leave a bit of time between two calls of this method (200 ms for example).
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();
@@ -240,7 +240,7 @@ Returns number of bytes read and written to disk.
 
 /!\\ On Windows, this method actually returns **ALL** I/O read and written bytes.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new();

@@ -4,7 +4,7 @@ title: "trait.Manager"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Manager](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Manager<M: Params>: ManagerBase<M> {
     fn config(&self) -> &Config { ... }
 

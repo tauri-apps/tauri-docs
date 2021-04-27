@@ -4,7 +4,7 @@ title: "struct.DiskEntry"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[DiskEntry](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct DiskEntry {
     pub path: PathBuf,
     pub name: Option<String>,

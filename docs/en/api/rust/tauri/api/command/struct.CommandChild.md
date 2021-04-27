@@ -4,7 +4,7 @@ title: "struct.CommandChild"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[CommandChild](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct CommandChild { /* fields omitted */ }
 ```
 

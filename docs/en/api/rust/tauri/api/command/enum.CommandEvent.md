@@ -4,7 +4,7 @@ title: "enum.CommandEvent"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[CommandEvent](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum CommandEvent {
     Stderr(String),
     Stdout(String),

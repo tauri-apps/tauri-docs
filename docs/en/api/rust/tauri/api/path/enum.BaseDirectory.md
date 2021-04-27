@@ -4,7 +4,7 @@ title: "enum.BaseDirectory"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
-```
+```rs
 #[repr(u16)]pub enum BaseDirectory {
     Audio,
     Cache,

@@ -4,7 +4,7 @@ title: "enum.ResponseType"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[ResponseType](/docs/api/rust/tauri/)
 
-```
+```rs
 #[repr(u16)]pub enum ResponseType {
     Json,
     Text,

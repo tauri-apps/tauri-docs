@@ -4,7 +4,7 @@ title: "fn.channel"
 
 # Function [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[channel](/docs/api/rust/tauri/)
 
-```
+```rs
 pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
 ```
 
@@ -24,7 +24,7 @@ Panics if the buffer capacity is 0.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]

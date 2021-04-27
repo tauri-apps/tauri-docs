@@ -4,7 +4,7 @@ title: "trait.PhfHash"
 
 # Trait [tauri](/docs/api/rust/tauri/../../../index.html)::​[api](/docs/api/rust/tauri/../../index.html)::​[assets](/docs/api/rust/tauri/../index.html)::​[phf](/docs/api/rust/tauri/index.html)::​[PhfHash](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait PhfHash {
     pub fn phf_hash<H>(&self, state: &mut H)
     where

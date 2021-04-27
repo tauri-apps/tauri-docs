@@ -4,7 +4,7 @@ title: "macro.tauri_build_context"
 
 # Macro [tauri](/docs/api/rust/tauri/index.html)::​[tauri_build_context](/docs/api/rust/tauri/)
 
-```
+```rs
 macro_rules! tauri_build_context {
     () => { ... };
 }

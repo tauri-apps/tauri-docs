@@ -4,7 +4,7 @@ title: "struct.Notification"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[notification](/docs/api/rust/tauri/index.html)::​[Notification](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Notification { /* fields omitted */ }
 ```
 
@@ -12,7 +12,7 @@ The Notification definition. Allows you to construct a Notification data and sen
 
 # [Example](/docs/api/rust/tauri/about:blank#example)
 
-```
+```rs
 use tauri::api::notification::Notification;
 // shows a notification with the given title and body
 Notification::new("studio.tauri.example")

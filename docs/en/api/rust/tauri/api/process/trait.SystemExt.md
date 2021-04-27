@@ -4,7 +4,7 @@ title: "trait.SystemExt"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[SystemExt](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait SystemExt: Default + Debug {
     pub fn new_with_specifics(refreshes: RefreshKind) -> Self;
 
@@ -106,7 +106,7 @@ Contains all the methods of the [`System`](/docs/api/rust/tauri/../../../tauri/a
 
 Creates a new [`System`](/docs/api/rust/tauri/../../../tauri/api/process/struct.System.html) instance and refresh the data corresponding to the given \[`RefreshKind`].
 
-```
+```rs
 use sysinfo::{RefreshKind, System, SystemExt};
 
 // We want everything except disks.
@@ -125,7 +125,7 @@ let disks = system.get_disks();
 
 Refreshes RAM and SWAP usage.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -136,7 +136,7 @@ s.refresh_memory();
 
 Refreshes CPU usage.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -147,7 +147,7 @@ s.refresh_cpu();
 
 Refreshes components list.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new();
@@ -158,7 +158,7 @@ s.refresh_components_list();
 
 Gets all processes and updates their information.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -169,7 +169,7 @@ s.refresh_processes();
 
 Refreshes _only_ the process corresponding to `pid`. Returns `false` if the process doesn't exist. If it isn't listed yet, it'll be added.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -180,7 +180,7 @@ s.refresh_process(1337);
 
 The disk list will be emptied then completely recomputed.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -191,7 +191,7 @@ s.refresh_disks_list();
 
 Refreshes users list.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -202,7 +202,7 @@ s.refresh_users_list();
 
 Returns the process list.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new_all();
@@ -215,7 +215,7 @@ for (pid, process) in s.get_processes() {
 
 Returns the process corresponding to the given pid or `None` if no such process exists.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new_all();
@@ -228,7 +228,7 @@ if let Some(process) = s.get_process(1337) {
 
 Returns "global" processors information (aka the addition of all the processors).
 
-```
+```rs
 use sysinfo::{ProcessorExt, System, SystemExt};
 
 let s = System::new();
@@ -239,7 +239,7 @@ println!("{}%", s.get_global_processor_info().get_cpu_usage());
 
 Returns the list of the processors.
 
-```
+```rs
 use sysinfo::{ProcessorExt, System, SystemExt};
 
 let s = System::new();
@@ -256,7 +256,7 @@ In case there are multiple CPUs, it will combine the physical core count of all 
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{ProcessorExt, System, SystemExt};
 
 let s = System::new();
@@ -267,7 +267,7 @@ println!("{:?}", s.get_physical_core_count());
 
 Returns the RAM size in kB.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -282,7 +282,7 @@ Generally, "free" memory refers to unallocated memory whereas "available" memory
 
 Side note: Windows doesn't report "free" memory so this method returns the same value as [`get_available_memory`](/docs/api/rust/tauri/about:blank#tymethod.get_available_memory).
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -297,7 +297,7 @@ Generally, "free" memory refers to unallocated memory whereas "available" memory
 
 Side note: Windows doesn't report "free" memory so [`get_free_memory`](/docs/api/rust/tauri/about:blank#tymethod.get_free_memory) returns the same value as this method.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -308,7 +308,7 @@ println!("{} kB", s.get_available_memory());
 
 Returns the amound of used RAM in kB.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -319,7 +319,7 @@ println!("{} kB", s.get_used_memory());
 
 Returns the SWAP size in kB.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -330,7 +330,7 @@ println!("{} kB", s.get_total_swap());
 
 Returns the amount of free SWAP in kB.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -341,7 +341,7 @@ println!("{} kB", s.get_free_swap());
 
 Returns the amount of used SWAP in kB.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -352,7 +352,7 @@ println!("{} kB", s.get_used_swap());
 
 Returns the components list.
 
-```
+```rs
 use sysinfo::{ComponentExt, System, SystemExt};
 
 let s = System::new_all();
@@ -365,7 +365,7 @@ for component in s.get_components() {
 
 Returns a mutable components list.
 
-```
+```rs
 use sysinfo::{ComponentExt, System, SystemExt};
 
 let mut s = System::new_all();
@@ -378,7 +378,7 @@ for component in s.get_components_mut() {
 
 Returns the disks list.
 
-```
+```rs
 use sysinfo::{DiskExt, System, SystemExt};
 
 let s = System::new_all();
@@ -391,7 +391,7 @@ for disk in s.get_disks() {
 
 Returns the users list.
 
-```
+```rs
 use sysinfo::{System, SystemExt, UserExt};
 
 let mut s = System::new_all();
@@ -404,7 +404,7 @@ for user in s.get_users() {
 
 Returns the disks list.
 
-```
+```rs
 use sysinfo::{DiskExt, System, SystemExt};
 
 let mut s = System::new_all();
@@ -417,7 +417,7 @@ for disk in s.get_disks_mut() {
 
 Returns the network interfaces object.
 
-```
+```rs
 use sysinfo::{NetworkExt, NetworksExt, System, SystemExt};
 
 let s = System::new_all();
@@ -436,7 +436,7 @@ for (interface_name, data) in networks {
 
 Returns a mutable access to network interfaces.
 
-```
+```rs
 use sysinfo::{NetworkExt, NetworksExt, System, SystemExt};
 
 let mut s = System::new_all();
@@ -448,7 +448,7 @@ networks.refresh_networks_list();
 
 Returns system uptime (in seconds).
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -459,7 +459,7 @@ println!("System running since {} seconds", s.get_uptime());
 
 Returns the time (in seconds) when the system booted since UNIX epoch.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -470,7 +470,7 @@ println!("System booted at {} seconds", s.get_boot_time());
 
 Returns the system load average value.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -489,7 +489,7 @@ Returns the system name.
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -502,7 +502,7 @@ Returns the system's kernel version.
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -515,7 +515,7 @@ Returns the system version (e.g. for MacOS this will return 11.1 rather than the
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -528,7 +528,7 @@ Returns the system long os version (e.g "MacOS 11.2 BigSur").
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -541,7 +541,7 @@ Returns the system hostname based off DNS
 
 **Important**: this information is computed every time this function is called.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -558,7 +558,7 @@ Creates a new [`System`](/docs/api/rust/tauri/../../../tauri/api/process/struct.
 
 Use the [`refresh_all`](/docs/api/rust/tauri/about:blank#method.refresh_all) method to update its internal information (or any of the `refresh_` method).
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new();
@@ -570,7 +570,7 @@ Creates a new [`System`](/docs/api/rust/tauri/../../../tauri/api/process/struct.
 
 It is an equivalent of [`SystemExt::new_with_specifics`](/docs/api/rust/tauri/../../../tauri/api/process/trait.SystemExt.html#tymethod.new_with_specifics "SystemExt::new_with_specifics")`(`\[`RefreshKind::everything`]`())`.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let s = System::new_all();
@@ -580,7 +580,7 @@ let s = System::new_all();
 
 Refreshes according to the given \[`RefreshKind`]. It calls the corresponding "refresh\_" methods.
 
-```
+```rs
 use sysinfo::{RefreshKind, System, SystemExt};
 
 let mut s = System::new_all();
@@ -595,7 +595,7 @@ Refreshes system information (RAM, swap, CPU usage and components' temperature).
 
 If you want some more specific refreshes, you might be interested into looking at [`refresh_memory`](/docs/api/rust/tauri/../../../tauri/api/process/trait.SystemExt.html#tymethod.refresh_memory), [`refresh_cpu`](/docs/api/rust/tauri/../../../tauri/api/process/trait.SystemExt.html#tymethod.refresh_memory) and [`refresh_components`](/docs/api/rust/tauri/../../../tauri/api/process/trait.SystemExt.html#method.refresh_components).
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -606,7 +606,7 @@ s.refresh_system();
 
 Refreshes components' temperature.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -617,7 +617,7 @@ s.refresh_components();
 
 Refreshes the listed disks' information.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -628,7 +628,7 @@ s.refresh_disks();
 
 Refreshes networks data.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -637,7 +637,7 @@ s.refresh_networks();
 
 It is a shortcut for:
 
-```
+```rs
 use sysinfo::{NetworksExt, System, SystemExt};
 
 let mut s = System::new_all();
@@ -649,7 +649,7 @@ networks.refresh();
 
 The network list will be updated: removing not existing anymore interfaces and adding new ones.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -658,7 +658,7 @@ s.refresh_networks_list();
 
 This is a shortcut for:
 
-```
+```rs
 use sysinfo::{NetworksExt, System, SystemExt};
 
 let mut s = System::new_all();
@@ -672,7 +672,7 @@ Refreshes all system, processes, disks and network interfaces information.
 
 Please note that it doesn't recompute disks list, components list, network interfaces list nor users list.
 
-```
+```rs
 use sysinfo::{System, SystemExt};
 
 let mut s = System::new_all();
@@ -683,7 +683,7 @@ s.refresh_all();
 
 Returns a list of process containing the given `name`.
 
-```
+```rs
 use sysinfo::{ProcessExt, System, SystemExt};
 
 let s = System::new_all();

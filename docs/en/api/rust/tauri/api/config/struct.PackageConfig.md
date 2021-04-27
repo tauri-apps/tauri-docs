@@ -4,7 +4,7 @@ title: "struct.PackageConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[PackageConfig](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct PackageConfig {
     pub product_name: Option<String>,
     pub version: Option<String>,

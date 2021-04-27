@@ -4,7 +4,7 @@ title: "type.OnPageLoad"
 
 # Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[OnPageLoad](/docs/api/rust/tauri/)
 
-```
+```rs
 type OnPageLoad<M> = dyn Fn(Window<M>, PageLoadPayload) + Send + Sync + 'static;
 ```
 

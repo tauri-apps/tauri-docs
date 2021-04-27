@@ -4,7 +4,7 @@ title: "struct.BundleConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[BundleConfig](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct BundleConfig {
     pub identifier: String,
 }

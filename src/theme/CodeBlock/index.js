@@ -76,7 +76,9 @@ const getHighlightDirectiveRegex = (
 }
 // select comment styles based on language
 const highlightDirectiveRegex = (lang) => {
+  console.log(lang);
   switch (lang) {
+    case 'json':
     case 'js':
     case 'javascript':
     case 'ts':
@@ -95,6 +97,7 @@ const highlightDirectiveRegex = (lang) => {
       return getHighlightDirectiveRegex(['python'])
 
     case 'rust':
+    case 'rs':
       return getHighlightDirectiveRegex(['rust', 'rustBlock'])
 
     default:
@@ -187,7 +190,6 @@ export default ({ children, className: languageClassName, title }) => {
         index += 1
       }
     }
-    highlightLines = rangeParser.parse(range)
     code = lines.join('\n')
   }
 

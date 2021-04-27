@@ -4,7 +4,7 @@ title: "struct.ShortcutManager"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[shortcuts](/docs/api/rust/tauri/index.html)::​[ShortcutManager](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct ShortcutManager(_);
 ```
 

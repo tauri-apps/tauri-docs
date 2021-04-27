@@ -4,7 +4,7 @@ title: "struct.Response"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[Response](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Response(_, _);
 ```
 

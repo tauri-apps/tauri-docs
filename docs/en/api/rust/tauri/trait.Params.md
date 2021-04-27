@@ -4,7 +4,7 @@ title: "trait.Params"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Params](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Params: ParamsBase {
     type Event: Tag;
     type Label: Tag;

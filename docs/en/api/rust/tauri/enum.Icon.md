@@ -4,7 +4,7 @@ title: "enum.Icon"
 
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Icon](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum Icon {
     File(PathBuf),
     Raw(Vec<u8>),

@@ -4,7 +4,7 @@ title: "enum.Error"
 
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum Error {
     CreateWebview(String),
     CreateWindow,

@@ -4,7 +4,7 @@ title: "enum.Signal"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[Signal](/docs/api/rust/tauri/)
 
-```
+```rs
 #[repr(C)]pub enum Signal {
     Hangup,
     Interrupt,

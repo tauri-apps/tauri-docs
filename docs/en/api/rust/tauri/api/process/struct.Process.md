@@ -4,7 +4,7 @@ title: "struct.Process"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[Process](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Process {
     pub uid: u32,
     pub gid: u32,

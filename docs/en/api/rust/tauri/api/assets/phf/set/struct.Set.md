@@ -4,7 +4,7 @@ title: "struct.Set"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[set](/docs/api/rust/tauri/index.html)::​[Set](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Set<T> where
     T: 'static,  { /* fields omitted */ }
 ```

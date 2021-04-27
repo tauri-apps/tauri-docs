@@ -4,7 +4,7 @@ title: "trait.Attributes"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[Attributes](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Attributes: AttributesBase {
     type Icon: TryFrom<Icon, Error = Error>;
     fn new() -> Self;

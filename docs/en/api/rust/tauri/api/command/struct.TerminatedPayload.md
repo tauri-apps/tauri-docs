@@ -4,7 +4,7 @@ title: "struct.TerminatedPayload"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[TerminatedPayload](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct TerminatedPayload {
     pub code: Option<i32>,
     pub signal: Option<i32>,

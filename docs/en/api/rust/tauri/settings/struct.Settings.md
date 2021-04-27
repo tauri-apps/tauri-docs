@@ -4,7 +4,7 @@ title: "struct.Settings"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Settings {
     pub allow_notification: Option<bool>,
 }

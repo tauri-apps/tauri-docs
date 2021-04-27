@@ -4,7 +4,7 @@ title: "trait.Runtime"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[runtime](/docs/api/rust/tauri/index.html)::​[Runtime](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Runtime: Sized + 'static {
     type Dispatcher: Dispatch<Runtime = Self>;
     fn new() -> Result<Self>;

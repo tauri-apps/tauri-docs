@@ -4,7 +4,7 @@ title: "trait.Dispatch"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[runtime](/docs/api/rust/tauri/index.html)::​[Dispatch](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Dispatch: Clone + Send + Sized + 'static {
     type Runtime: Runtime;
     type Icon: TryFrom<Icon, Error = Error>;

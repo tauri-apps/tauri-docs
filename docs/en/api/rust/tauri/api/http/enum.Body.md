@@ -4,7 +4,7 @@ title: "enum.Body"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[Body](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum Body {
     Form(FormBody),
     Json(Value),

@@ -4,7 +4,7 @@ title: "enum.WindowUrl"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowUrl](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum WindowUrl {
     External(Url),
     App(PathBuf),

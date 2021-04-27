@@ -4,7 +4,7 @@ title: "struct.SubcommandMatches"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[SubcommandMatches](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct SubcommandMatches {
     pub name: String,
     pub matches: Matches,

@@ -4,7 +4,7 @@ title: "macro.phf_map"
 
 # Macro [tauri](/docs/api/rust/tauri/../../../index.html)::​[api](/docs/api/rust/tauri/../../index.html)::​[assets](/docs/api/rust/tauri/../index.html)::​[phf](/docs/api/rust/tauri/index.html)::​[phf_map](/docs/api/rust/tauri/)
 
-```
+```rs
 macro_rules! phf_map {
     #[::proc_macro_hack::proc_macro_hack] => { ... };
 }
@@ -18,7 +18,7 @@ Requires the `"macros"` feature.
 
 ⓘ
 
-```
+```rs
 use ::phf::{phf_map, Map};
 
 static MY_MAP: Map<&'static str, u32> = phf_map! {

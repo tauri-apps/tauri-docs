@@ -4,7 +4,7 @@ title: "struct.Receiver"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Receiver](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Receiver<T> { /* fields omitted */ }
 ```
 
@@ -30,7 +30,7 @@ Note that if [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Rec
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -48,7 +48,7 @@ async fn main() {
 
 Values are buffered:
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -81,7 +81,7 @@ This function panics if called within an asynchronous execution context.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```
+```rs
 use std::thread;
 use tokio::runtime::Runtime;
 use tokio::sync::mpsc;
@@ -112,7 +112,7 @@ To guarantee that no messages are dropped, after calling `close()`, `recv()` mus
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]

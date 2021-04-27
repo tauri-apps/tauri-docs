@@ -4,7 +4,7 @@ title: "struct.Values"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[map](/docs/api/rust/tauri/index.html)::​[Values](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Values<'a, K, V> where
     K: 'a,
     V: 'a,  { /* fields omitted */ }

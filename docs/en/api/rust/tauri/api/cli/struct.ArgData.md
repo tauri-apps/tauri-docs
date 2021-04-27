@@ -4,7 +4,7 @@ title: "struct.ArgData"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[ArgData](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct ArgData {
     pub value: Value,
     pub occurrences: u64,

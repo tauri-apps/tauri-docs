@@ -4,7 +4,7 @@ title: "fn.format_callback"
 
 # Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[rpc](/docs/api/rust/tauri/index.html)::​[format_callback](/docs/api/rust/tauri/)
 
-```
+```rs
 pub fn format_callback<T: Serialize, S: AsRef<str>>(
     function_name: S, 
     arg: &T
@@ -17,14 +17,14 @@ This will serialize primitive JSON types (e.g. booleans, strings, numbers, etc.)
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tauri::api::rpc::format_callback;
 // callback with a string argument
 let cb = format_callback("callback-function-name", &"the string response").expect("failed to serialize");
 assert!(cb.contains(r#"window["callback-function-name"]("the string response")"#));
 ```
 
-```
+```rs
 use tauri::api::rpc::format_callback;
 use serde::Serialize;
 

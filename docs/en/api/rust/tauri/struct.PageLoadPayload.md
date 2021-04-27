@@ -4,7 +4,7 @@ title: "struct.PageLoadPayload"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[PageLoadPayload](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct PageLoadPayload { /* fields omitted */ }
 ```
 

@@ -4,7 +4,7 @@ title: "struct.AssetKey"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[AssetKey](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct AssetKey(_);
 ```
 

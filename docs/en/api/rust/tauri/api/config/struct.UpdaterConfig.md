@@ -4,7 +4,7 @@ title: "struct.UpdaterConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[UpdaterConfig](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct UpdaterConfig {
     pub active: bool,
     pub dialog: bool,

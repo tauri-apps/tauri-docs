@@ -4,7 +4,7 @@ title: "struct.Builder"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Builder](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Builder<E, L, A, R> where
     E: Tag,
     L: Tag,

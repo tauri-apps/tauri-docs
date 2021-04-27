@@ -4,7 +4,7 @@ title: "trait.AttributesBase"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[AttributesBase](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait AttributesBase: Sized { }
 ```
 

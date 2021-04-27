@@ -4,7 +4,7 @@ title: "struct.App"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[App](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct App<P: Params> { /* fields omitted */ }
 ```
 

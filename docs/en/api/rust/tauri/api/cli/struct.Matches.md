@@ -4,7 +4,7 @@ title: "struct.Matches"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[Matches](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Matches {
     pub args: HashMap<String, ArgData>,
     pub subcommand: Option<Box<SubcommandMatches>>,

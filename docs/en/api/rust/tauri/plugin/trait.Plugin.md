@@ -4,7 +4,7 @@ title: "trait.Plugin"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[plugin](/docs/api/rust/tauri/index.html)::​[Plugin](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Plugin<M: Params>: Send {
     fn name(&self) -> &'static str;
 

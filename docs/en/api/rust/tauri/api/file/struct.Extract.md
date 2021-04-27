@@ -4,7 +4,7 @@ title: "struct.Extract"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Extract](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Extract<'a> { /* fields omitted */ }
 ```
 

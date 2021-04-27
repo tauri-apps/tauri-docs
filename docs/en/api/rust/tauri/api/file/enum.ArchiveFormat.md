@@ -4,7 +4,7 @@ title: "enum.ArchiveFormat"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[ArchiveFormat](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum ArchiveFormat {
     Tar(Option<Compression>),
     Plain(Option<Compression>),

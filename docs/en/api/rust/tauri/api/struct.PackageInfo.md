@@ -4,7 +4,7 @@ title: "struct.PackageInfo"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[PackageInfo](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct PackageInfo {
     pub name: String,
     pub version: String,

@@ -4,7 +4,7 @@ title: "struct.Move"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Move](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Move<'a> { /* fields omitted */ }
 ```
 

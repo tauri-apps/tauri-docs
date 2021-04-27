@@ -4,7 +4,7 @@ title: "struct.Window"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Window](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Window<P: Params> { /* fields omitted */ }
 ```
 

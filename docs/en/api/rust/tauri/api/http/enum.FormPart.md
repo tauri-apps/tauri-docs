@@ -4,7 +4,7 @@ title: "enum.FormPart"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[FormPart](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum FormPart {
     File(PathBuf),
     Text(String),

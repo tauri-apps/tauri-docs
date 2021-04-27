@@ -4,7 +4,7 @@ title: "macro.generate_context"
 
 # Macro [tauri](/docs/api/rust/tauri/index.html)::​[generate_context](/docs/api/rust/tauri/)
 
-```
+```rs
 generate_context!() { /* proc-macro */ }
 ```
 

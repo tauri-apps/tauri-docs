@@ -4,7 +4,7 @@ title: "struct.CliConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[CliConfig](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct CliConfig {
     pub description: Option<String>,
     pub long_description: Option<String>,

@@ -4,7 +4,7 @@ title: "struct.RwLock"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[RwLock](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct RwLock<T> where
     T: ?Sized,  { /* fields omitted */ }
 ```
@@ -21,7 +21,7 @@ The type parameter `T` represents the data that this lock protects. It is requir
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 #[tokio::main]
@@ -55,7 +55,7 @@ Creates a new instance of an `RwLock<T>` which is unlocked.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 let lock = RwLock::new(5);
@@ -67,7 +67,7 @@ Creates a new instance of an `RwLock<T>` which is unlocked and allows a maximum 
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 let lock = RwLock::with_max_readers(5, 1024);
@@ -89,7 +89,7 @@ Returns an RAII guard which will drop this read access of the `RwLock` when drop
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -126,7 +126,7 @@ Returns an RAII guard which will drop this read access of the `RwLock` when drop
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -157,7 +157,7 @@ If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/a
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -190,7 +190,7 @@ This method is identical to [`RwLock::try_read`](/docs/api/rust/tauri/../../taur
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -223,7 +223,7 @@ Returns an RAII guard which will drop the write access of this `RwLock` when dro
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 #[tokio::main]
@@ -247,7 +247,7 @@ Returns an RAII guard which will drop the write access of this `RwLock` when dro
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-8)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -268,7 +268,7 @@ If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/a
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-9)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 #[tokio::main]
@@ -292,7 +292,7 @@ This method is identical to [`RwLock::try_write`](/docs/api/rust/tauri/../../tau
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-10)
 
-```
+```rs
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -315,7 +315,7 @@ Since this call borrows the `RwLock` mutably, no actual locking needs to take pl
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-11)
 
-```
+```rs
 use tokio::sync::RwLock;
 
 fn main() {

@@ -4,7 +4,7 @@ title: "struct.Sender"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Sender](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Sender<T> { /* fields omitted */ }
 ```
 
@@ -32,7 +32,7 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 In the following example, each call to `send` will block until the previously sent value was received.
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -62,7 +62,7 @@ This allows the producers to get notified when interest in the produced values i
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -101,7 +101,7 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -151,7 +151,7 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 In the following example, each call to `send_timeout` will block until the previously sent value was received, unless the timeout has elapsed.
 
-```
+```rs
 use tokio::sync::mpsc;
 use tokio::time::{sleep, Duration};
 
@@ -187,7 +187,7 @@ This function panics if called within an asynchronous execution context.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-```
+```rs
 use std::thread;
 use tokio::runtime::Runtime;
 use tokio::sync::mpsc;
@@ -210,7 +210,7 @@ fn main() {
 
 Checks if the channel has been closed. This happens when the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html) is dropped, or when the [`Receiver::close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) method is called.
 
-```
+```rs
 let (tx, rx) = tokio::sync::mpsc::channel::<()>(42);
 assert!(!tx.is_closed());
 
@@ -232,7 +232,7 @@ Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message relea
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -264,7 +264,7 @@ Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message relea
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -297,7 +297,7 @@ Returns `true` if senders belong to the same channel.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-```
+```rs
 let (tx, rx) = tokio::sync::mpsc::channel::<()>(1);
 let  tx2 = tx.clone();
 assert!(tx.same_channel(&tx2));
@@ -314,7 +314,7 @@ The capacity goes down when sending a value by calling [`send`](/docs/api/rust/t
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-8)
 
-```
+```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]

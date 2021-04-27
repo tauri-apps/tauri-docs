@@ -4,7 +4,7 @@ title: "struct.Context"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Context](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Context<A: Assets> {
     pub config: Config,
     pub assets: A,

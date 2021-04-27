@@ -4,7 +4,7 @@ title: "struct.Mutex"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Mutex](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct Mutex<T> where
     T: ?Sized,  { /* fields omitted */ }
 ```
@@ -27,7 +27,7 @@ Additionally, when you _do_ want shared access to an IO resource, it is often be
 
 # [Examples:](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tokio::sync::Mutex;
 use std::sync::Arc;
 
@@ -46,7 +46,7 @@ async fn main() {
 }
 ```
 
-```
+```rs
 use tokio::sync::Mutex;
 use std::sync::Arc;
 
@@ -94,7 +94,7 @@ Creates a new lock in an unlocked state ready for use.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```
+```rs
 use tokio::sync::Mutex;
 
 let lock = Mutex::new(5);
@@ -106,7 +106,7 @@ Locks this mutex, causing the current task to yield until the lock has been acqu
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```
+```rs
 use tokio::sync::Mutex;
 
 #[tokio::main]
@@ -126,7 +126,7 @@ This method is identical to [`Mutex::lock`](/docs/api/rust/tauri/../../tauri/asy
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
-```
+```rs
 use tokio::sync::Mutex;
 use std::sync::Arc;
 
@@ -145,7 +145,7 @@ Attempts to acquire the lock, and returns [`TryLockError`](/docs/api/rust/tauri/
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-```
+```rs
 use tokio::sync::Mutex;
 
 let mutex = Mutex::new(1);
@@ -162,7 +162,7 @@ Since this call borrows the `Mutex` mutably, no actual locking needs to take pla
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-```
+```rs
 use tokio::sync::Mutex;
 
 fn main() {
@@ -181,7 +181,7 @@ This method is identical to [`Mutex::try_lock`](/docs/api/rust/tauri/../../tauri
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-```
+```rs
 use tokio::sync::Mutex;
 use std::sync::Arc;
 
@@ -197,7 +197,7 @@ Consumes the mutex, returning the underlying data.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-```
+```rs
 use tokio::sync::Mutex;
 
 #[tokio::main]

@@ -4,7 +4,7 @@ title: "struct.WryIcon"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[WryIcon](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct WryIcon(_);
 ```
 

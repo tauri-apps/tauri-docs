@@ -4,7 +4,7 @@ title: "struct.PluginConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[PluginConfig](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct PluginConfig(pub HashMap<String, Value, RandomState>);
 ```
 

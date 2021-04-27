@@ -4,7 +4,7 @@ title: "trait.Tag"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[tag](/docs/api/rust/tauri/index.html)::​[Tag](/docs/api/rust/tauri/)
 
-```
+```rs
 pub trait Tag: Hash + Eq + FromStr + Display + Debug + Clone + Send + Sync + 'static { }
 ```
 
@@ -26,7 +26,7 @@ To avoid Tauri panicking during the application runtime, have your type be able 
 
 # [Example](/docs/api/rust/tauri/about:blank#example)
 
-```
+```rs
 use std::fmt;
 use std::str::FromStr;
 

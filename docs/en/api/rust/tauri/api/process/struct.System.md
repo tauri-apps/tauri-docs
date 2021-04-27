@@ -4,7 +4,7 @@ title: "struct.System"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[System](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct System { /* fields omitted */ }
 ```
 

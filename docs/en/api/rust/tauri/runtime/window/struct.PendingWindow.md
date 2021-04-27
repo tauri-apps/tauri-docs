@@ -4,7 +4,7 @@ title: "struct.PendingWindow"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[PendingWindow](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct PendingWindow<M: Params> {
     pub label: M::Label,
     pub url: WindowUrl,

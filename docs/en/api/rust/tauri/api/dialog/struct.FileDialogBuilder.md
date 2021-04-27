@@ -4,7 +4,7 @@ title: "struct.FileDialogBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[FileDialogBuilder](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct FileDialogBuilder(_);
 ```
 

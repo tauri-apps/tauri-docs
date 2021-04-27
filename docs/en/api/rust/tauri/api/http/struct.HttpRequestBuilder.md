@@ -4,7 +4,7 @@ title: "struct.HttpRequestBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[HttpRequestBuilder](/docs/api/rust/tauri/)
 
-```
+```rs
 pub struct HttpRequestBuilder {
     pub method: String,
     pub url: String,
@@ -20,7 +20,7 @@ The builder for a HTTP request.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```
+```rs
 use tauri::api::http::{ HttpRequestBuilder, ResponseType, ClientBuilder };
 async fn run() {
   let client = ClientBuilder::new()

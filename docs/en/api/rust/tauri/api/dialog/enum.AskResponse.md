@@ -4,7 +4,7 @@ title: "enum.AskResponse"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[AskResponse](/docs/api/rust/tauri/)
 
-```
+```rs
 pub enum AskResponse {
     Yes,
     No,
