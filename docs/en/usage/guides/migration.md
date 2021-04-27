@@ -3,13 +3,96 @@ title: Migrating from 0.x
 ---
 
 First of all if you still have `tauri` as dependency in your `package.json`
-replace it with a recent version of `@tauri-apps/cli`.
+replace it with a recent version of `@tauri-apps/cli`.
 
 For example:
 
 ```diff
 - "tauri": "^0.14.1"
-+ "@tauri-apps/cli": "^1.0.0-beta-rc.2"
++ "@tauri-apps/cli": "^1.0.0-beta-rc.4"
+```
+
+Next update your `Cargo.toml`:
+
+- add `tauri-build` as a new build-dependency, e.g.:
+
+  ```toml
+  [build-dependencies]
+  tauri-build = { version = "1.0.0-beta-rc.0" }
+  ```
+
+- update the version of `tauri` to e.g. `1.0.0-beta-rc.4`
+- remove all old features of the `tauri` dependency
+- remove all features, that tauri added and add `custom-protocol` as a new one:
+  
+  ```diff
+  [features]
+  - embedded-server = [ "tauri/embedded-server" ]
+  - no-server = [ "tauri/no-server" ]
+  + custom-protocol = [ "tauri/custom-protocol" ]
+  + default = [ "custom-protocol" ]
+
+Update your `tauri.conf.json` like this:
+
+- remove `ctx`
+- remove the `embeddedServer`
+- rename `osx` to `macOS` and add some fields:
+  - `"exceptionDomain": ""`
+  - `"signingIdentity": null`
+  - `"entitlements": null`
+- remove the `exceptionDomain`
+- add a configuration for `windows`:
+  - `"certificateThumbprint": null`
+  - `"digestAlgorithm": "sha256"`
+  - `"timestampUrl": ""`
+- make the `window` definition into an array and call it `windows`
+- remove `inliner`
+
+> for more information about the config see [here](../../api/config.md)
+
+```diff
+  {
+-   "ctx": {},
+    "tauri": {
+-     "embeddedServer": {
+-       "active": true
+-     },
+      "bundle": {
+-       "osx": {
++       "macOS": {
+          "frameworks": [],
+          "minimumSystemVersion": "",
+-         "useBootstrapper": false
++         "useBootstrapper": false,
++         "exceptionDomain": "",
++         "signingIdentity": null,
++         "entitlements": null
+        },
+-       "exceptionDomain": ""
++       "windows": {
++         "certificateThumbprint": null,
++         "digestAlgorithm": "sha256",
++         "timestampUrl": ""
++       }
+      },
++     "updater": {
++       "active": false
++     },
+-     "window": {
++     "windows": [
+        {
+          "title": "Calciumdibromid",
+          "width": 800,
+          "height": 600,
+          "resizable": true,
+          "fullscreen": false
+        }
++     ],
+-     "inliner": {
+-       "active": true
+-     }
+    }
+  }
 ```
 
 ## Commands
