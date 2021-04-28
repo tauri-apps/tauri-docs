@@ -298,8 +298,8 @@ Complete the following steps to migrate your code:
 - if you import parts of the tauri-api with `tauri/api/*` replace it with `@tauri-apps/api/*`, e.g.:
 
   ```diff
-  - import { dialog } from 'tauri/api';
-  + import { dialog } from '@tauri-apps/api';
+  - import { invoke } from 'tauri/api/tauri';
+  + import { invoke } from '@tauri-apps/api/tauri';
   ```
 
 The old example code should look like this now:

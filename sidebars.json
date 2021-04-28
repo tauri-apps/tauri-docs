@@ -44,6 +44,7 @@
           "label": "Guides",
           "type": "category",
           "items": [
+            "usage/guides/migration",
             {
               "label": "Bundler",
               "type": "category",
