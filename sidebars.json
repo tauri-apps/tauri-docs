@@ -50,7 +50,8 @@
               "items": [
                 "usage/guides/bundler/introduction",
                 "usage/guides/bundler/anti-bloat",
-                "usage/guides/bundler/sidecar"
+                "usage/guides/bundler/sidecar",
+                "usage/guides/bundler/debian"
               ]
             },
             "usage/guides/cli",
