@@ -3,7 +3,8 @@ title: Migrating from 0.x
 ---
 
 First of all if you still have `tauri` as dependency in your `package.json`
-replace it with a recent version of `@tauri-apps/cli`.
+replace it with a recent version of `@tauri-apps/cli` (make sure to also change
+the import path in your JavaScript/TypeScript files, see [JavaScript](#javascript)).
 
 For example:
 
@@ -14,11 +15,14 @@ For example:
 
 Next update your `Cargo.toml`:
 
-- add `tauri-build` as a new build-dependency, e.g.:
+- add `tauri-build` as a new build-dependency and remove `winres`, e.g.:
 
-  ```toml
-  [build-dependencies]
-  tauri-build = { version = "1.0.0-beta-rc.0" }
+  ```diff
+  + [build-dependencies]
+  + tauri-build = { version = "1.0.0-beta-rc.0" }
+
+  - [target."cfg(windows)".build-dependencies]
+  - winres = "0.1"
   ```
 
 - update the version of `tauri` to e.g. `1.0.0-beta-rc.4`
@@ -31,6 +35,7 @@ Next update your `Cargo.toml`:
   - no-server = [ "tauri/no-server" ]
   + custom-protocol = [ "tauri/custom-protocol" ]
   + default = [ "custom-protocol" ]
+  ```
 
 Update your `tauri.conf.json` like this:
 
@@ -287,8 +292,15 @@ promisified({
 Complete the following steps to migrate your code:
 
 - replace all `promisified`-calls with `invoke`-calls
-- extract the `cmd` attribute of the argument object as first parameter (you
-  may have to rename it)
+- extract the `cmd` attribute of the argument object as first parameter  
+  (you may have to rename it to `snake_case` as the `cmd` parameter is now the
+  name of the function in Rust)
+- if you import parts of the tauri-api with `tauri/api/*` replace it with `@tauri-apps/api/*`, e.g.:
+
+  ```diff
+  - import { dialog } from 'tauri/api';
+  + import { dialog } from '@tauri-apps/api';
+  ```
 
 The old example code should look like this now:
 
