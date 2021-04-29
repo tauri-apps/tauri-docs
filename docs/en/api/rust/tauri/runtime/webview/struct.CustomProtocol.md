@@ -4,9 +4,11 @@ title: "struct.CustomProtocol"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[CustomProtocol](/docs/api/rust/tauri/)
 
-    pub struct CustomProtocol {
-        pub protocol: Box<dyn Fn(&str) -> Result<Vec<u8>> + Send + Sync>,
-    }
+```rs
+pub struct CustomProtocol {
+    pub protocol: Box<dyn Fn(&str) -> Result<Vec<u8>> + Send + Sync>,
+}
+```
 
 Uses a custom URI scheme handler to resolve file requests
 

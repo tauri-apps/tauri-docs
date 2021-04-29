@@ -4,9 +4,19 @@ title: "struct.Settings"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
 
-    pub struct Settings {}
+```rs
+pub struct Settings {
+    pub allow_notification: Option<bool>,
+}
+```
 
 Tauri Settings.
+
+## Fields
+
+`allow_notification: Option<bool>`
+
+Whether the user allows notifications or not.
 
 ## Trait Implementations
 

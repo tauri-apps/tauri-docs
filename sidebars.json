@@ -151,6 +151,16 @@
                       ]
                     },
                     {
+                      "label": "cli",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/cli/fn.get_matches",
+                        "api/rust/tauri/api/cli/struct.ArgData",
+                        "api/rust/tauri/api/cli/struct.Matches",
+                        "api/rust/tauri/api/cli/struct.SubcommandMatches"
+                      ]
+                    },
+                    {
                       "label": "command",
                       "type": "category",
                       "items": [
@@ -240,6 +250,13 @@
                       ]
                     },
                     {
+                      "label": "notification",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/notification/struct.Notification"
+                      ]
+                    },
+                    {
                       "label": "path",
                       "type": "category",
                       "items": [
@@ -298,6 +315,13 @@
                       "type": "category",
                       "items": [
                         "api/rust/tauri/api/shell/fn.open"
+                      ]
+                    },
+                    {
+                      "label": "shortcuts",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/shortcuts/struct.ShortcutManager"
                       ]
                     },
                     {
@@ -422,6 +446,26 @@
                   "items": [
                     "api/rust/tauri/settings/fn.read_settings",
                     "api/rust/tauri/settings/struct.Settings"
+                  ]
+                },
+                {
+                  "label": "updater",
+                  "type": "category",
+                  "items": [
+                    {
+                      "label": "error",
+                      "type": "category",
+                      "items": []
+                    },
+                    "api/rust/tauri/updater/enum.Error",
+                    "api/rust/tauri/updater/constant.EVENT_CHECK_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_INSTALL_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_ERROR",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_PENDING",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_SUCCESS",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_UPTODATE",
+                    "api/rust/tauri/updater/constant.EVENT_UPDATE_AVAILABLE"
                   ]
                 },
                 "api/rust/tauri/enum.Error",

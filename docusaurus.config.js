@@ -33,6 +33,7 @@ const siteConfig = {
     //   backgroundColor: 'var(--ifm-color-primary)',
     // },
     navbar: {
+      hideOnScroll: false,
       title: ' ',
       logo: {
         alt: 'Tauri Logo',
@@ -174,7 +175,6 @@ const siteConfig = {
       },
     ],
     path.resolve('./plugins/external-assets'),
-    path.resolve('./plugins/url-loader'),
   ],
 }
 

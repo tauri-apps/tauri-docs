@@ -4,12 +4,14 @@ title: "enum.CommandEvent"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[CommandEvent](/docs/api/rust/tauri/)
 
-    pub enum CommandEvent {
-        Stderr(String),
-        Stdout(String),
-        Error(String),
-        Terminated(TerminatedPayload),
-    }
+```rs
+pub enum CommandEvent {
+    Stderr(String),
+    Stdout(String),
+    Error(String),
+    Terminated(TerminatedPayload),
+}
+```
 
 A event sent to the command callback.
 

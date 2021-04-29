@@ -4,11 +4,13 @@ title: "struct.BuildConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[BuildConfig](/docs/api/rust/tauri/)
 
-    pub struct BuildConfig {
-        pub dev_path: String,
-        pub dist_dir: String,
-        pub with_global_tauri: bool,
-    }
+```rs
+pub struct BuildConfig {
+    pub dev_path: String,
+    pub dist_dir: String,
+    pub with_global_tauri: bool,
+}
+```
 
 The Build configuration object.
 

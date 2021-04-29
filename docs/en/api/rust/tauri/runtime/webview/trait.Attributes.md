@@ -4,64 +4,66 @@ title: "trait.Attributes"
 
 # Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[Attributes](/docs/api/rust/tauri/)
 
-    pub trait Attributes: AttributesBase {
-        type Icon: TryFrom<Icon, Error = Error>;
-        fn new() -> Self;
+```rs
+pub trait Attributes: AttributesBase {
+    type Icon: TryFrom<Icon, Error = Error>;
+    fn new() -> Self;
 
-        fn with_config(config: WindowConfig) -> Self;
+    fn with_config(config: WindowConfig) -> Self;
 
-        fn initialization_script(self, init: &str) -> Self;
+    fn initialization_script(self, init: &str) -> Self;
 
-        fn x(self, x: f64) -> Self;
+    fn x(self, x: f64) -> Self;
 
-        fn y(self, y: f64) -> Self;
+    fn y(self, y: f64) -> Self;
 
-        fn width(self, width: f64) -> Self;
+    fn width(self, width: f64) -> Self;
 
-        fn height(self, height: f64) -> Self;
+    fn height(self, height: f64) -> Self;
 
-        fn min_width(self, min_width: f64) -> Self;
+    fn min_width(self, min_width: f64) -> Self;
 
-        fn min_height(self, min_height: f64) -> Self;
+    fn min_height(self, min_height: f64) -> Self;
 
-        fn max_width(self, max_width: f64) -> Self;
+    fn max_width(self, max_width: f64) -> Self;
 
-        fn max_height(self, max_height: f64) -> Self;
+    fn max_height(self, max_height: f64) -> Self;
 
-        fn resizable(self, resizable: bool) -> Self;
+    fn resizable(self, resizable: bool) -> Self;
 
-        fn title<S: Into<String>>(self, title: S) -> Self;
+    fn title<S: Into<String>>(self, title: S) -> Self;
 
-        fn fullscreen(self, fullscreen: bool) -> Self;
+    fn fullscreen(self, fullscreen: bool) -> Self;
 
-        fn maximized(self, maximized: bool) -> Self;
+    fn maximized(self, maximized: bool) -> Self;
 
-        fn visible(self, visible: bool) -> Self;
+    fn visible(self, visible: bool) -> Self;
 
-        fn transparent(self, transparent: bool) -> Self;
+    fn transparent(self, transparent: bool) -> Self;
 
-        fn decorations(self, decorations: bool) -> Self;
+    fn decorations(self, decorations: bool) -> Self;
 
-        fn always_on_top(self, always_on_top: bool) -> Self;
+    fn always_on_top(self, always_on_top: bool) -> Self;
 
-        fn icon(self, icon: Self::Icon) -> Self;
+    fn icon(self, icon: Self::Icon) -> Self;
 
-        fn has_icon(&self) -> bool;
+    fn has_icon(&self) -> bool;
 
-        fn user_data_path(self, user_data_path: Option<PathBuf>) -> Self;
+    fn user_data_path(self, user_data_path: Option<PathBuf>) -> Self;
 
-        fn url(self, url: String) -> Self;
+    fn url(self, url: String) -> Self;
 
-        fn has_uri_scheme_protocol(&self, name: &str) -> bool;
+    fn has_uri_scheme_protocol(&self, name: &str) -> bool;
 
-        fn register_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>> + Send + Sync + 'static>(
-            self, 
-            uri_scheme: N, 
-            protocol: H
-        ) -> Self;
+    fn register_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>> + Send + Sync + 'static>(
+        self, 
+        uri_scheme: N, 
+        protocol: H
+    ) -> Self;
 
-        fn build(self) -> Self;
-    }
+    fn build(self) -> Self;
+}
+```
 
 A builder for all attributes related to a single webview.
 

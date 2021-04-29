@@ -4,10 +4,12 @@ title: "enum.WindowUrl"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowUrl](/docs/api/rust/tauri/)
 
-    pub enum WindowUrl {
-        External(Url),
-        App(PathBuf),
-    }
+```rs
+pub enum WindowUrl {
+    External(Url),
+    App(PathBuf),
+}
+```
 
 The window webview URL options.
 

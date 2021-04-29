@@ -4,11 +4,13 @@ title: "struct.DiskEntry"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[DiskEntry](/docs/api/rust/tauri/)
 
-    pub struct DiskEntry {
-        pub path: PathBuf,
-        pub name: Option<String>,
-        pub children: Option<Vec<DiskEntry>>,
-    }
+```rs
+pub struct DiskEntry {
+    pub path: PathBuf,
+    pub name: Option<String>,
+    pub children: Option<Vec<DiskEntry>>,
+}
+```
 
 The result of the `read_dir` function.
 

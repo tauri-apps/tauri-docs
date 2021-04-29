@@ -4,14 +4,16 @@ title: "struct.CliConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[CliConfig](/docs/api/rust/tauri/)
 
-    pub struct CliConfig {
-        pub description: Option<String>,
-        pub long_description: Option<String>,
-        pub before_help: Option<String>,
-        pub after_help: Option<String>,
-        pub args: Option<Vec<CliArg, Global>>,
-        pub subcommands: Option<HashMap<String, CliConfig, RandomState>>,
-    }
+```rs
+pub struct CliConfig {
+    pub description: Option<String>,
+    pub long_description: Option<String>,
+    pub before_help: Option<String>,
+    pub after_help: Option<String>,
+    pub args: Option<Vec<CliArg, Global>>,
+    pub subcommands: Option<HashMap<String, CliConfig, RandomState>>,
+}
+```
 
 The CLI root command definition.
 

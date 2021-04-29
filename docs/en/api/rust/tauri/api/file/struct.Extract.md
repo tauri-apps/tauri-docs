@@ -4,7 +4,9 @@ title: "struct.Extract"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Extract](/docs/api/rust/tauri/)
 
-    pub struct Extract<'a> { /* fields omitted */ }
+```rs
+pub struct Extract<'a> { /* fields omitted */ }
+```
 
 The extract manager.
 

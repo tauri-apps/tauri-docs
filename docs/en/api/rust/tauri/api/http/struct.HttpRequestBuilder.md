@@ -4,35 +4,39 @@ title: "struct.HttpRequestBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[HttpRequestBuilder](/docs/api/rust/tauri/)
 
-    pub struct HttpRequestBuilder {
-        pub method: String,
-        pub url: String,
-        pub query: Option<HashMap<String, String>>,
-        pub headers: Option<HashMap<String, String>>,
-        pub body: Option<Body>,
-        pub timeout: Option<u64>,
-        pub response_type: Option<ResponseType>,
-    }
+```rs
+pub struct HttpRequestBuilder {
+    pub method: String,
+    pub url: String,
+    pub query: Option<HashMap<String, String>>,
+    pub headers: Option<HashMap<String, String>>,
+    pub body: Option<Body>,
+    pub timeout: Option<u64>,
+    pub response_type: Option<ResponseType>,
+}
+```
 
 The builder for a HTTP request.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-    use tauri::api::http::{ HttpRequestBuilder, ResponseType, ClientBuilder };
-    async fn run() {
-      let client = ClientBuilder::new()
-        .max_redirections(3)
-        .build()
-        .unwrap();
-      let mut request_builder = HttpRequestBuilder::new("GET", "http://example.com");
-      let request = request_builder.response_type(ResponseType::Text);
+```rs
+use tauri::api::http::{ HttpRequestBuilder, ResponseType, ClientBuilder };
+async fn run() {
+  let client = ClientBuilder::new()
+    .max_redirections(3)
+    .build()
+    .unwrap();
+  let mut request_builder = HttpRequestBuilder::new("GET", "http://example.com");
+  let request = request_builder.response_type(ResponseType::Text);
 
-      if let Ok(response) = client.send(request).await {
-        println!("got response");
-      } else {
-        println!("Something Happened!");
-      }
-    }
+  if let Ok(response) = client.send(request).await {
+    println!("got response");
+  } else {
+    println!("Something Happened!");
+  }
+}
+```
 
 ## Fields
 

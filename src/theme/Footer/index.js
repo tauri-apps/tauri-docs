@@ -4,53 +4,55 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, { useCallback } from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import React, { useCallback } from 'react'
+import clsx from 'clsx'
+import Link from '@docusaurus/Link'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 import useThemeContext from '@theme/hooks/useThemeContext'
-import styles from './styles.module.css';
+import styles from './styles.module.css'
 import Toggle from '@theme/Toggle'
+import '@fontsource/tauri'
 
 function FooterLink({ to, href, label, prependBaseUrlToHref, ...props }) {
-  const toUrl = useBaseUrl(to);
+  const toUrl = useBaseUrl(to)
   const normalizedHref = useBaseUrl(href, {
     forcePrependBaseUrl: true,
-  });
+  })
   return (
     <Link
       className="footer__link-item"
       {...(href
         ? {
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          href: prependBaseUrlToHref ? normalizedHref : href,
-        }
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            href: prependBaseUrlToHref ? normalizedHref : href,
+          }
         : {
-          to: toUrl,
-        })}
-      {...props}>
+            to: toUrl,
+          })}
+      {...props}
+    >
       {label}
     </Link>
-  );
+  )
 }
 
 const FooterLogo = ({ url, alt }) => (
   <img className="footer__logo" alt={alt} src={url} />
-);
+)
 
 function Footer() {
-  const context = useDocusaurusContext();
+  const context = useDocusaurusContext()
   const { isDarkTheme, setLightTheme, setDarkTheme } = useThemeContext()
-  const { siteConfig = {} } = context;
-  const { themeConfig = {} } = siteConfig;
-  const { footer } = themeConfig;
-  const { copyright, links = [], logo = {} } = footer || {};
-  const logoUrl = useBaseUrl(logo.src);
+  const { siteConfig = {} } = context
+  const { themeConfig = {} } = siteConfig
+  const { footer } = themeConfig
+  const { copyright, links = [], logo = {} } = footer || {}
+  const logoUrl = useBaseUrl(logo.src)
 
   if (!footer) {
-    return null;
+    return null
   }
 
   const onToggleChange = useCallback(
@@ -62,7 +64,8 @@ function Footer() {
     <footer
       className={clsx('footer', {
         'footer--dark': footer.style === 'dark',
-      })}>
+      })}
+    >
       <div className="container">
         {links && links.length > 0 && (
           <div className="row footer__links">
@@ -72,42 +75,40 @@ function Footer() {
                   <h4 className="footer__title">{linkItem.title}</h4>
                 ) : null}
                 {linkItem.items != null &&
-                  Array.isArray(linkItem.items) &&
-                  linkItem.items.length > 0 ? (
-                    <ul className="footer__items">
-                      {linkItem.items.map((item, key) =>
-                        item.html ? (
-                          <li
-                            key={key}
-                            className="footer__item" // Developer provided the HTML, so assume it's safe.
-                            // eslint-disable-next-line react/no-danger
-                            dangerouslySetInnerHTML={{
-                              __html: item.html,
-                            }}
-                          />
-                        ) : (
-                            <li key={item.href || item.to} className="footer__item">
-                              <FooterLink {...item} />
-                            </li>
-                          ),
-                      )}
-                    </ul>
-                  ) : null}
+                Array.isArray(linkItem.items) &&
+                linkItem.items.length > 0 ? (
+                  <ul className="footer__items">
+                    {linkItem.items.map((item, key) =>
+                      item.html ? (
+                        <li
+                          key={key}
+                          className="footer__item" // Developer provided the HTML, so assume it's safe.
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: item.html,
+                          }}
+                        />
+                      ) : (
+                        <li key={item.href || item.to} className="footer__item">
+                          <FooterLink {...item} />
+                        </li>
+                      )
+                    )}
+                  </ul>
+                ) : null}
               </div>
             ))}
           </div>
         )}
-        {
-          (!siteConfig
-            .themeConfig
-            .colorMode.disableSwitch.
-            disableColorModeSwitch && <Toggle
-              className={styles.displayOnlyInLargeViewport}
-              aria-label="Dark mode toggle"
-              checked={isDarkTheme}
-              onChange={onToggleChange}
-            />)
-        }
+        {!siteConfig.themeConfig.colorMode.disableSwitch
+          .disableColorModeSwitch && (
+          <Toggle
+            className={styles.displayOnlyInLargeViewport}
+            aria-label="Dark mode toggle"
+            checked={isDarkTheme}
+            onChange={onToggleChange}
+          />
+        )}
         {(logo || copyright) && (
           <div className="text--center">
             {logo && logo.src && (
@@ -117,12 +118,13 @@ function Footer() {
                     href={logo.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.footerLogoLink}>
+                    className={styles.footerLogoLink}
+                  >
                     <FooterLogo alt={logo.alt} url={logoUrl} />
                   </a>
                 ) : (
-                    <FooterLogo alt={logo.alt} url={logoUrl} />
-                  )}
+                  <FooterLogo alt={logo.alt} url={logoUrl} />
+                )}
               </div>
             )}
 
@@ -136,7 +138,7 @@ function Footer() {
         )}
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

@@ -4,11 +4,13 @@ title: "enum.FileDropEvent"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[FileDropEvent](/docs/api/rust/tauri/)
 
-    pub enum FileDropEvent {
-        Hovered(Vec<PathBuf>),
-        Dropped(Vec<PathBuf>),
-        Cancelled,
-    }
+```rs
+pub enum FileDropEvent {
+    Hovered(Vec<PathBuf>),
+    Dropped(Vec<PathBuf>),
+    Cancelled,
+}
+```
 
 The file drop event payload.
 

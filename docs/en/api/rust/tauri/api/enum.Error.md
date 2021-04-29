@@ -4,16 +4,18 @@ title: "enum.Error"
 
 # Enum [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
-    pub enum Error {
-        Architecture,
-        Os,
-        Environment,
-        UnsupportedPlatform,
-        ParentProcess,
-        ParentPid,
-        ChildProcess,
-        Io(Error),
-    }
+```rs
+pub enum Error {
+    Architecture,
+    Os,
+    Environment,
+    UnsupportedPlatform,
+    ParentProcess,
+    ParentPid,
+    ChildProcess,
+    Io(Error),
+}
+```
 
 The error types.
 

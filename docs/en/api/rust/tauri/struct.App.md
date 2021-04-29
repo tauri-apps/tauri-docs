@@ -4,7 +4,9 @@ title: "struct.App"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[App](/docs/api/rust/tauri/)
 
-    pub struct App<P: Params> { /* fields omitted */ }
+```rs
+pub struct App<P: Params> { /* fields omitted */ }
+```
 
 A handle to the currently running application.
 

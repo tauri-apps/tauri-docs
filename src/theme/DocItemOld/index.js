@@ -47,7 +47,7 @@ function DocTOC({headings}) {
         )}
         {!isBlocked && (
           <div
-            class="flat"
+            className="flat"
             data-ea-publisher="tauristudio"
             data-ea-type="text"
           ></div>

@@ -4,11 +4,13 @@ title: "struct.Builder"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Builder](/docs/api/rust/tauri/)
 
-    pub struct Builder<E, L, A, R> where
-        E: Tag,
-        L: Tag,
-        A: Assets,
-        R: Runtime,  { /* fields omitted */ }
+```rs
+pub struct Builder<E, L, A, R> where
+    E: Tag,
+    L: Tag,
+    A: Assets,
+    R: Runtime,  { /* fields omitted */ }
+```
 
 Builds a Tauri application.
 

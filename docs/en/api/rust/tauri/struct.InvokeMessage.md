@@ -4,7 +4,9 @@ title: "struct.InvokeMessage"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[InvokeMessage](/docs/api/rust/tauri/)
 
-    pub struct InvokeMessage<M: Params> { /* fields omitted */ }
+```rs
+pub struct InvokeMessage<M: Params> { /* fields omitted */ }
+```
 
 An invoke message.
 

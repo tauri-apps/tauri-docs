@@ -4,7 +4,9 @@ title: "struct.Command"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[Command](/docs/api/rust/tauri/)
 
-    pub struct Command { /* fields omitted */ }
+```rs
+pub struct Command { /* fields omitted */ }
+```
 
 API to spawn commands.
 

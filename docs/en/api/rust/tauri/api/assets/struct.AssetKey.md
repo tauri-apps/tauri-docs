@@ -4,7 +4,9 @@ title: "struct.AssetKey"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[AssetKey](/docs/api/rust/tauri/)
 
-    pub struct AssetKey(_);
+```rs
+pub struct AssetKey(_);
+```
 
 Represent an asset file path in a normalized way.
 

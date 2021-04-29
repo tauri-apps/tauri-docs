@@ -4,26 +4,29 @@ title: "enum.Error"
 
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
-    pub enum Error {
-        CreateWebview(String),
-        CreateWindow,
-        WebviewNotFound,
-        FailedToSendMessage,
-        AssetNotFound(String),
-        Json(Error),
-        UnknownApi(Option<Error>),
-        FailedToExecuteApi(Error),
-        Io(Error),
-        Base64Decode(DecodeError),
-        InvalidIcon(String),
-        HttpClientNotInitialized,
-        ApiNotEnabled(String),
-        ApiNotAllowlisted(String),
-        InvalidArgs(&'static str, Error),
-        Setup(String),
-        PluginInitialization(String, String),
-        DialogDefaultPathNotExists(PathBuf),
-    }
+```rs
+pub enum Error {
+    CreateWebview(String),
+    CreateWindow,
+    WebviewNotFound,
+    FailedToSendMessage,
+    AssetNotFound(String),
+    Json(Error),
+    UnknownApi(Option<Error>),
+    FailedToExecuteApi(Error),
+    Io(Error),
+    Base64Decode(DecodeError),
+    InvalidIcon(String),
+    HttpClientNotInitialized,
+    ApiNotEnabled(String),
+    ApiNotAllowlisted(String),
+    InvalidArgs(&'static str, Error),
+    Setup(String),
+    TauriUpdater(Error),
+    PluginInitialization(String, String),
+    DialogDefaultPathNotExists(PathBuf),
+}
+```
 
 Runtime errors that can happen inside a Tauri application.
 
@@ -93,6 +96,10 @@ Invalid args when running a command.
 
 Encountered an error in the setup hook,
 
+`TauriUpdater(Error)`
+
+Tauri updater error.
+
 `PluginInitialization(String, String)`
 
 Error initializing plugin.
@@ -144,6 +151,12 @@ replaced by Error::source, which can support downcasting
 ### `impl From<DecodeError> for Error`
 
 #### `fn from(source: DecodeError) -> Self`
+
+Performs the conversion.
+
+### `impl From<Error> for Error`
+
+#### `fn from(source: Error) -> Self`
 
 Performs the conversion.
 

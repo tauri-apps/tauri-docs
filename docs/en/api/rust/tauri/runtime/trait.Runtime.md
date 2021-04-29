@@ -4,17 +4,19 @@ title: "trait.Runtime"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[runtime](/docs/api/rust/tauri/index.html)::​[Runtime](/docs/api/rust/tauri/)
 
-    pub trait Runtime: Sized + 'static {
-        type Dispatcher: Dispatch<Runtime = Self>;
-        fn new() -> Result<Self>;
+```rs
+pub trait Runtime: Sized + 'static {
+    type Dispatcher: Dispatch<Runtime = Self>;
+    fn new() -> Result<Self>;
 
-        fn create_window<P: Params<Runtime = Self>>(
-            &mut self, 
-            pending: PendingWindow<P>
-        ) -> Result<DetachedWindow<P>>;
+    fn create_window<P: Params<Runtime = Self>>(
+        &mut self, 
+        pending: PendingWindow<P>
+    ) -> Result<DetachedWindow<P>>;
 
-        fn run(self);
-    }
+    fn run(self);
+}
+```
 
 The webview runtime interface.
 

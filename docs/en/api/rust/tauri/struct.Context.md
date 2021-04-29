@@ -4,12 +4,14 @@ title: "struct.Context"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Context](/docs/api/rust/tauri/)
 
-    pub struct Context<A: Assets> {
-        pub config: Config,
-        pub assets: A,
-        pub default_window_icon: Option<Vec<u8>>,
-        pub package_info: PackageInfo,
-    }
+```rs
+pub struct Context<A: Assets> {
+    pub config: Config,
+    pub assets: A,
+    pub default_window_icon: Option<Vec<u8>>,
+    pub package_info: PackageInfo,
+}
+```
 
 User supplied data required inside of a Tauri application.
 

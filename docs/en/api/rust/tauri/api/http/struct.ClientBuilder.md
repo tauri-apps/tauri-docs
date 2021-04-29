@@ -4,10 +4,12 @@ title: "struct.ClientBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[ClientBuilder](/docs/api/rust/tauri/)
 
-    pub struct ClientBuilder {
-        pub max_redirections: Option<usize>,
-        pub connect_timeout: Option<u64>,
-    }
+```rs
+pub struct ClientBuilder {
+    pub max_redirections: Option<usize>,
+    pub connect_timeout: Option<u64>,
+}
+```
 
 Client builder.
 

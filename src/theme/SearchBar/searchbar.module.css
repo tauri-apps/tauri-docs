@@ -7,7 +7,7 @@
   height: 41px;
   display: flex;
   align-content: center;
-  align-items: first baseline;
+  align-items: center;
 }
 
 .search:focus{
