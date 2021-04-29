@@ -536,7 +536,8 @@
                 "api/js/classes/http.client",
                 "api/js/classes/shell.child",
                 "api/js/classes/shell.command",
-                "api/js/classes/window.webviewwindow"
+                "api/js/classes/window.webviewwindow",
+                "api/js/classes/window.windowmanager"
               ]
             },
             {
@@ -549,6 +550,7 @@
                 "api/js/interfaces/dialog.dialogfilter",
                 "api/js/interfaces/dialog.opendialogoptions",
                 "api/js/interfaces/dialog.savedialogoptions",
+                "api/js/interfaces/event.event-1",
                 "api/js/interfaces/fs.fileentry",
                 "api/js/interfaces/fs.fsbinaryfileoption",
                 "api/js/interfaces/fs.fsdiroptions",
