@@ -76,7 +76,6 @@ const getHighlightDirectiveRegex = (
 }
 // select comment styles based on language
 const highlightDirectiveRegex = (lang) => {
-  console.log(lang);
   switch (lang) {
     case 'json':
     case 'js':
