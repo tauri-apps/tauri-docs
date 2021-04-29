@@ -4,10 +4,12 @@ title: "struct.PackageConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[PackageConfig](/docs/api/rust/tauri/)
 
-    pub struct PackageConfig {
-        pub product_name: Option<String>,
-        pub version: Option<String>,
-    }
+```rs
+pub struct PackageConfig {
+    pub product_name: Option<String>,
+    pub version: Option<String>,
+}
+```
 
 The package configuration.
 

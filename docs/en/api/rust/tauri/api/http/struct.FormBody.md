@@ -4,7 +4,9 @@ title: "struct.FormBody"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[FormBody](/docs/api/rust/tauri/)
 
-    pub struct FormBody(_);
+```rs
+pub struct FormBody(_);
+```
 
 Form body definition.
 

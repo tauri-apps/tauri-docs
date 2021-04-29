@@ -4,10 +4,12 @@ title: "enum.Icon"
 
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Icon](/docs/api/rust/tauri/)
 
-    pub enum Icon {
-        File(PathBuf),
-        Raw(Vec<u8>),
-    }
+```rs
+pub enum Icon {
+    File(PathBuf),
+    Raw(Vec<u8>),
+}
+```
 
 A icon definition.
 

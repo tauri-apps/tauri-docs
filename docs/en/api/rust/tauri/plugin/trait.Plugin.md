@@ -4,19 +4,21 @@ title: "trait.Plugin"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[plugin](/docs/api/rust/tauri/index.html)::​[Plugin](/docs/api/rust/tauri/)
 
-    pub trait Plugin<M: Params>: Send {
-        fn name(&self) -> &'static str;
+```rs
+pub trait Plugin<M: Params>: Send {
+    fn name(&self) -> &'static str;
 
-        fn initialize(&mut self, config: JsonValue) -> Result<()> { ... }
+    fn initialize(&mut self, config: JsonValue) -> Result<()> { ... }
 
-        fn initialization_script(&self) -> Option<String> { ... }
+    fn initialization_script(&self) -> Option<String> { ... }
 
-        fn created(&mut self, window: Window<M>) { ... }
+    fn created(&mut self, window: Window<M>) { ... }
 
-        fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload) { ... }
+    fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload) { ... }
 
-        fn extend_api(&mut self, message: InvokeMessage<M>) { ... }
-    }
+    fn extend_api(&mut self, message: InvokeMessage<M>) { ... }
+}
+```
 
 The plugin interface.
 

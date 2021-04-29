@@ -4,9 +4,11 @@ title: "struct.Entries"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[map](/docs/api/rust/tauri/index.html)::​[Entries](/docs/api/rust/tauri/)
 
-    pub struct Entries<'a, K, V> where
-        K: 'a,
-        V: 'a,  { /* fields omitted */ }
+```rs
+pub struct Entries<'a, K, V> where
+    K: 'a,
+    V: 'a,  { /* fields omitted */ }
+```
 
 An iterator over the key/value pairs in a `Map`.
 

@@ -4,7 +4,9 @@ title: "struct.Window"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Window](/docs/api/rust/tauri/)
 
-    pub struct Window<P: Params> { /* fields omitted */ }
+```rs
+pub struct Window<P: Params> { /* fields omitted */ }
+```
 
 A webview window managed by Tauri.
 

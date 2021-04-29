@@ -4,8 +4,10 @@ title: "struct.Iter"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[set](/docs/api/rust/tauri/index.html)::​[Iter](/docs/api/rust/tauri/)
 
-    pub struct Iter<'a, T> where
-        T: 'static,  { /* fields omitted */ }
+```rs
+pub struct Iter<'a, T> where
+    T: 'static,  { /* fields omitted */ }
+```
 
 An iterator over the values in a `Set`.
 

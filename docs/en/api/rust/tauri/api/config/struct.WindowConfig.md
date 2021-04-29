@@ -4,26 +4,28 @@ title: "struct.WindowConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowConfig](/docs/api/rust/tauri/)
 
-    pub struct WindowConfig {
-        pub label: String,
-        pub url: WindowUrl,
-        pub x: Option<f64>,
-        pub y: Option<f64>,
-        pub width: f64,
-        pub height: f64,
-        pub min_width: Option<f64>,
-        pub min_height: Option<f64>,
-        pub max_width: Option<f64>,
-        pub max_height: Option<f64>,
-        pub resizable: bool,
-        pub title: String,
-        pub fullscreen: bool,
-        pub transparent: bool,
-        pub maximized: bool,
-        pub visible: bool,
-        pub decorations: bool,
-        pub always_on_top: bool,
-    }
+```rs
+pub struct WindowConfig {
+    pub label: String,
+    pub url: WindowUrl,
+    pub x: Option<f64>,
+    pub y: Option<f64>,
+    pub width: f64,
+    pub height: f64,
+    pub min_width: Option<f64>,
+    pub min_height: Option<f64>,
+    pub max_width: Option<f64>,
+    pub max_height: Option<f64>,
+    pub resizable: bool,
+    pub title: String,
+    pub fullscreen: bool,
+    pub transparent: bool,
+    pub maximized: bool,
+    pub visible: bool,
+    pub decorations: bool,
+    pub always_on_top: bool,
+}
+```
 
 The window configuration object.
 

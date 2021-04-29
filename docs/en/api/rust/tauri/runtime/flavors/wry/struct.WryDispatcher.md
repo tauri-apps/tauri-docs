@@ -4,7 +4,9 @@ title: "struct.WryDispatcher"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[WryDispatcher](/docs/api/rust/tauri/)
 
-    pub struct WryDispatcher { /* fields omitted */ }
+```rs
+pub struct WryDispatcher { /* fields omitted */ }
+```
 
 The Tauri [`Dispatch`](/docs/api/rust/tauri/../../../../tauri/runtime/trait.Dispatch.html "Dispatch") for [`Wry`](/docs/api/rust/tauri/../../../../tauri/runtime/flavors/wry/struct.Wry.html "Wry").
 

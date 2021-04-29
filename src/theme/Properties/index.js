@@ -15,7 +15,7 @@ function Header(row, anchorRoot) {
         }: ${row.type}</span></code><a
         aria-hidden="true"
         tabindex="-1"
-        class="hash-link"
+        className="hash-link"
         href="#${(anchorRoot ? anchorRoot + '.' : '') + row.property}"
         title="Direct link to heading"
       >

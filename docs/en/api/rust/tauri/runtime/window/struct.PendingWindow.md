@@ -4,13 +4,15 @@ title: "struct.PendingWindow"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[PendingWindow](/docs/api/rust/tauri/)
 
-    pub struct PendingWindow<M: Params> {
-        pub label: M::Label,
-        pub url: WindowUrl,
-        pub attributes: <<M::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes,
-        pub rpc_handler: Option<Box<dyn Fn(DetachedWindow<M>, RpcRequest) + Send>>,
-        pub file_drop_handler: Option<Box<dyn Fn(FileDropEvent, DetachedWindow<M>) -> bool + Send>>,
-    }
+```rs
+pub struct PendingWindow<M: Params> {
+    pub label: M::Label,
+    pub url: WindowUrl,
+    pub attributes: <<M::Runtime as Runtime>::Dispatcher as Dispatch>::Attributes,
+    pub rpc_handler: Option<Box<dyn Fn(DetachedWindow<M>, RpcRequest) + Send>>,
+    pub file_drop_handler: Option<Box<dyn Fn(FileDropEvent, DetachedWindow<M>) -> bool + Send>>,
+}
+```
 
 A webview window that has yet to be built.
 

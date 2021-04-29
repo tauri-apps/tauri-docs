@@ -4,9 +4,11 @@ title: "enum.Compression"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Compression](/docs/api/rust/tauri/)
 
-    pub enum Compression {
-        Gz,
-    }
+```rs
+pub enum Compression {
+    Gz,
+}
+```
 
 The supported compression types.
 

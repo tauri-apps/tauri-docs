@@ -4,12 +4,14 @@ title: "struct.Process"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[Process](/docs/api/rust/tauri/)
 
-    pub struct Process {
-        pub uid: u32,
-        pub gid: u32,
-        pub tasks: HashMap<i32, Process, RandomState>,
-        // some fields omitted
-    }
+```rs
+pub struct Process {
+    pub uid: u32,
+    pub gid: u32,
+    pub tasks: HashMap<i32, Process, RandomState>,
+    // some fields omitted
+}
+```
 
 Struct containing a process' information.
 

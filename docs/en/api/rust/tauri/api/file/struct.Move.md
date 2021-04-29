@@ -4,7 +4,9 @@ title: "struct.Move"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Move](/docs/api/rust/tauri/)
 
-    pub struct Move<'a> { /* fields omitted */ }
+```rs
+pub struct Move<'a> { /* fields omitted */ }
+```
 
 Moves a file from the given path to the specified destination.
 

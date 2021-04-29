@@ -4,7 +4,9 @@ title: "struct.Wry"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[Wry](/docs/api/rust/tauri/)
 
-    pub struct Wry { /* fields omitted */ }
+```rs
+pub struct Wry { /* fields omitted */ }
+```
 
 A Tauri [`Runtime`](/docs/api/rust/tauri/../../../../tauri/runtime/trait.Runtime.html "Runtime") wrapper around \[`wry::Application`].
 

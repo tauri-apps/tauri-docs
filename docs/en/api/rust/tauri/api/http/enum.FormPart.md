@@ -4,11 +4,13 @@ title: "enum.FormPart"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[FormPart](/docs/api/rust/tauri/)
 
-    pub enum FormPart {
-        File(PathBuf),
-        Text(String),
-        Bytes(Vec<u8>),
-    }
+```rs
+pub enum FormPart {
+    File(PathBuf),
+    Text(String),
+    Bytes(Vec<u8>),
+}
+```
 
 FormBody data types.
 

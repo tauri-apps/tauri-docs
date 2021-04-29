@@ -4,7 +4,9 @@ title: "struct.Client"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[Client](/docs/api/rust/tauri/)
 
-    pub struct Client(_);
+```rs
+pub struct Client(_);
+```
 
 The HTTP client.
 

@@ -10,10 +10,10 @@
 @import 'hljs-light.css';
 @import 'tabs.css';
 @import '~@fontsource/tauri';
-@import '~@fontsource/roboto';
 
 /* You can override the default Infima variables here. */
 :root {
+  font-family: 'Tauri';
   --ifm-color-primary: #67d6ed;
   --ifm-color-primary-dark: #49cee9;
   --ifm-color-primary-darker: #39cae8;
@@ -245,6 +245,7 @@ h2 > [class^='ti-'] {
 .meilisearch-autocomplete {
   vertical-align: middle;
   max-width: calc(100% - 16px);
+  line-height: 1.2;
 }
 
 .meilisearch-autocomplete .dsb-dropdown-menu [class^='dsb-dataset-'],

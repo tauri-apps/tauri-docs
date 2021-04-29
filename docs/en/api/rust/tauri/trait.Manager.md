@@ -4,42 +4,44 @@ title: "trait.Manager"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Manager](/docs/api/rust/tauri/)
 
-    pub trait Manager<M: Params>: ManagerBase<M> {
-        fn config(&self) -> &Config { ... }
+```rs
+pub trait Manager<M: Params>: ManagerBase<M> {
+    fn config(&self) -> &Config { ... }
 
-        fn emit_all<S: Serialize + Clone>(
-            &self, 
-            event: M::Event, 
-            payload: Option<S>
-        ) -> Result<()> { ... }
+    fn emit_all<S: Serialize + Clone>(
+        &self, 
+        event: M::Event, 
+        payload: Option<S>
+    ) -> Result<()> { ... }
 
-        fn emit_to<S: Serialize + Clone>(
-            &self, 
-            label: &M::Label, 
-            event: M::Event, 
-            payload: Option<S>
-        ) -> Result<()> { ... }
+    fn emit_to<S: Serialize + Clone>(
+        &self, 
+        label: &M::Label, 
+        event: M::Event, 
+        payload: Option<S>
+    ) -> Result<()> { ... }
 
-        fn create_window(&mut self, pending: PendingWindow<M>) -> Result<Window<M>> { ... }
+    fn create_window(&mut self, pending: PendingWindow<M>) -> Result<Window<M>> { ... }
 
-        fn listen_global<F>(&self, event: M::Event, handler: F) -> EventHandler
-        where
-            F: Fn(Event) + Send + 'static,
-        { ... }
+    fn listen_global<F>(&self, event: M::Event, handler: F) -> EventHandler
+    where
+        F: Fn(Event) + Send + 'static,
+    { ... }
 
-        fn once_global<F>(&self, event: M::Event, handler: F) -> EventHandler
-        where
-            F: Fn(Event) + Send + 'static,
-        { ... }
+    fn once_global<F>(&self, event: M::Event, handler: F) -> EventHandler
+    where
+        F: Fn(Event) + Send + 'static,
+    { ... }
 
-        fn trigger_global(&self, event: M::Event, data: Option<String>) { ... }
+    fn trigger_global(&self, event: M::Event, data: Option<String>) { ... }
 
-        fn unlisten(&self, handler_id: EventHandler) { ... }
+    fn unlisten(&self, handler_id: EventHandler) { ... }
 
-        fn get_window(&self, label: &M::Label) -> Option<Window<M>> { ... }
+    fn get_window(&self, label: &M::Label) -> Option<Window<M>> { ... }
 
-        fn windows(&self) -> HashMap<M::Label, Window<M>> { ... }
-    }
+    fn windows(&self) -> HashMap<M::Label, Window<M>> { ... }
+}
+```
 
 Manages a running application.
 

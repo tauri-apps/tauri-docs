@@ -4,8 +4,10 @@ title: "struct.Mutex"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Mutex](/docs/api/rust/tauri/)
 
-    pub struct Mutex<T> where
-        T: ?Sized,  { /* fields omitted */ }
+```rs
+pub struct Mutex<T> where
+    T: ?Sized,  { /* fields omitted */ }
+```
 
 An asynchronous `Mutex`-like type.
 
@@ -25,48 +27,52 @@ Additionally, when you _do_ want shared access to an IO resource, it is often be
 
 # [Examples:](/docs/api/rust/tauri/about:blank#examples)
 
-    use tokio::sync::Mutex;
-    use std::sync::Arc;
+```rs
+use tokio::sync::Mutex;
+use std::sync::Arc;
 
-    #[tokio::main]
-    async fn main() {
-        let data1 = Arc::new(Mutex::new(0));
-        let data2 = Arc::clone(&data1);
+#[tokio::main]
+async fn main() {
+    let data1 = Arc::new(Mutex::new(0));
+    let data2 = Arc::clone(&data1);
 
-        tokio::spawn(async move {
-            let mut lock = data2.lock().await;
-            *lock += 1;
-        });
-
-        let mut lock = data1.lock().await;
+    tokio::spawn(async move {
+        let mut lock = data2.lock().await;
         *lock += 1;
-    }
+    });
 
-    use tokio::sync::Mutex;
-    use std::sync::Arc;
+    let mut lock = data1.lock().await;
+    *lock += 1;
+}
+```
 
-    #[tokio::main]
-    async fn main() {
-        let count = Arc::new(Mutex::new(0));
+```rs
+use tokio::sync::Mutex;
+use std::sync::Arc;
 
-        for i in 0..5 {
-            let my_count = Arc::clone(&count);
-            tokio::spawn(async move {
-                for j in 0..10 {
-                    let mut lock = my_count.lock().await;
-                    *lock += 1;
-                    println!("{} {} {}", i, j, lock);
-                }
-            });
-        }
+#[tokio::main]
+async fn main() {
+    let count = Arc::new(Mutex::new(0));
 
-        loop {
-            if *count.lock().await >= 50 {
-                break;
+    for i in 0..5 {
+        let my_count = Arc::clone(&count);
+        tokio::spawn(async move {
+            for j in 0..10 {
+                let mut lock = my_count.lock().await;
+                *lock += 1;
+                println!("{} {} {}", i, j, lock);
             }
-        }
-        println!("Count hit 50.");
+        });
     }
+
+    loop {
+        if *count.lock().await >= 50 {
+            break;
+        }
+    }
+    println!("Count hit 50.");
+}
+```
 
 There are a few things of note here to pay attention to in this example.
 
@@ -88,9 +94,11 @@ Creates a new lock in an unlocked state ready for use.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-    use tokio::sync::Mutex;
+```rs
+use tokio::sync::Mutex;
 
-    let lock = Mutex::new(5);
+let lock = Mutex::new(5);
+```
 
 #### `pub async fn lock(&'_ self) -> MutexGuard<'_, T>`
 
@@ -98,15 +106,17 @@ Locks this mutex, causing the current task to yield until the lock has been acqu
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-    use tokio::sync::Mutex;
+```rs
+use tokio::sync::Mutex;
 
-    #[tokio::main]
-    async fn main() {
-        let mutex = Mutex::new(1);
+#[tokio::main]
+async fn main() {
+    let mutex = Mutex::new(1);
 
-        let mut n = mutex.lock().await;
-        *n = 2;
-    }
+    let mut n = mutex.lock().await;
+    *n = 2;
+}
+```
 
 #### `pub async fn lock_owned(self: Arc<Mutex<T>>) -> OwnedMutexGuard<T>`
 
@@ -116,16 +126,18 @@ This method is identical to [`Mutex::lock`](/docs/api/rust/tauri/../../tauri/asy
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
-    use tokio::sync::Mutex;
-    use std::sync::Arc;
+```rs
+use tokio::sync::Mutex;
+use std::sync::Arc;
 
-    #[tokio::main]
-    async fn main() {
-        let mutex = Arc::new(Mutex::new(1));
+#[tokio::main]
+async fn main() {
+    let mutex = Arc::new(Mutex::new(1));
 
-        let mut n = mutex.clone().lock_owned().await;
-        *n = 2;
-    }
+    let mut n = mutex.clone().lock_owned().await;
+    *n = 2;
+}
+```
 
 #### `pub fn try_lock(&self) -> Result<MutexGuard<'_, T>, TryLockError>`
 
@@ -133,12 +145,14 @@ Attempts to acquire the lock, and returns [`TryLockError`](/docs/api/rust/tauri/
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-    use tokio::sync::Mutex;
+```rs
+use tokio::sync::Mutex;
 
-    let mutex = Mutex::new(1);
+let mutex = Mutex::new(1);
 
-    let n = mutex.try_lock()?;
-    assert_eq!(*n, 1);
+let n = mutex.try_lock()?;
+assert_eq!(*n, 1);
+```
 
 #### `pub fn get_mut(&mut self) -> &mutT`
 
@@ -148,14 +162,16 @@ Since this call borrows the `Mutex` mutably, no actual locking needs to take pla
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-    use tokio::sync::Mutex;
+```rs
+use tokio::sync::Mutex;
 
-    fn main() {
-        let mut mutex = Mutex::new(1);
+fn main() {
+    let mut mutex = Mutex::new(1);
 
-        let n = mutex.get_mut();
-        *n = 2;
-    }
+    let n = mutex.get_mut();
+    *n = 2;
+}
+```
 
 #### `pub fn try_lock_owned( self: Arc<Mutex<T>> ) -> Result<OwnedMutexGuard<T>, TryLockError>`
 
@@ -165,13 +181,15 @@ This method is identical to [`Mutex::try_lock`](/docs/api/rust/tauri/../../tauri
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-    use tokio::sync::Mutex;
-    use std::sync::Arc;
+```rs
+use tokio::sync::Mutex;
+use std::sync::Arc;
 
-    let mutex = Arc::new(Mutex::new(1));
+let mutex = Arc::new(Mutex::new(1));
 
-    let n = mutex.clone().try_lock_owned()?;
-    assert_eq!(*n, 1);
+let n = mutex.clone().try_lock_owned()?;
+assert_eq!(*n, 1);
+```
 
 #### `pub fn into_inner(self) -> T`
 
@@ -179,15 +197,17 @@ Consumes the mutex, returning the underlying data.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-    use tokio::sync::Mutex;
+```rs
+use tokio::sync::Mutex;
 
-    #[tokio::main]
-    async fn main() {
-        let mutex = Mutex::new(1);
+#[tokio::main]
+async fn main() {
+    let mutex = Mutex::new(1);
 
-        let n = mutex.into_inner();
-        assert_eq!(n, 1);
-    }
+    let n = mutex.into_inner();
+    assert_eq!(n, 1);
+}
+```
 
 ## Trait Implementations
 

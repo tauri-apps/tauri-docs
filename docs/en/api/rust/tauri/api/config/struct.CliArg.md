@@ -4,31 +4,33 @@ title: "struct.CliArg"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[CliArg](/docs/api/rust/tauri/)
 
-    pub struct CliArg {
-        pub short: Option<char>,
-        pub name: String,
-        pub description: Option<String>,
-        pub long_description: Option<String>,
-        pub takes_value: Option<bool>,
-        pub multiple: Option<bool>,
-        pub multiple_occurrences: Option<bool>,
-        pub number_of_values: Option<u64>,
-        pub possible_values: Option<Vec<String, Global>>,
-        pub min_values: Option<u64>,
-        pub max_values: Option<u64>,
-        pub required: Option<bool>,
-        pub required_unless_present: Option<String>,
-        pub required_unless_present_all: Option<Vec<String, Global>>,
-        pub required_unless_present_any: Option<Vec<String, Global>>,
-        pub conflicts_with: Option<String>,
-        pub conflicts_with_all: Option<Vec<String, Global>>,
-        pub requires: Option<String>,
-        pub requires_all: Option<Vec<String, Global>>,
-        pub requires_if: Option<Vec<String, Global>>,
-        pub required_if_eq: Option<Vec<String, Global>>,
-        pub require_equals: Option<bool>,
-        pub index: Option<u64>,
-    }
+```rs
+pub struct CliArg {
+    pub short: Option<char>,
+    pub name: String,
+    pub description: Option<String>,
+    pub long_description: Option<String>,
+    pub takes_value: Option<bool>,
+    pub multiple: Option<bool>,
+    pub multiple_occurrences: Option<bool>,
+    pub number_of_values: Option<u64>,
+    pub possible_values: Option<Vec<String, Global>>,
+    pub min_values: Option<u64>,
+    pub max_values: Option<u64>,
+    pub required: Option<bool>,
+    pub required_unless_present: Option<String>,
+    pub required_unless_present_all: Option<Vec<String, Global>>,
+    pub required_unless_present_any: Option<Vec<String, Global>>,
+    pub conflicts_with: Option<String>,
+    pub conflicts_with_all: Option<Vec<String, Global>>,
+    pub requires: Option<String>,
+    pub requires_all: Option<Vec<String, Global>>,
+    pub requires_if: Option<Vec<String, Global>>,
+    pub required_if_eq: Option<Vec<String, Global>>,
+    pub require_equals: Option<bool>,
+    pub index: Option<u64>,
+}
+```
 
 A CLI argument definition
 

@@ -3,6 +3,10 @@
   margin-bottom: 30px;
 }
 
+.osList h3 {
+  margin: 0;
+}
+
 .osIcon {
   font-size: 3em;
 }

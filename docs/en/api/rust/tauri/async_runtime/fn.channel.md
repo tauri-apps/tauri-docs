@@ -4,7 +4,9 @@ title: "fn.channel"
 
 # Function [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[channel](/docs/api/rust/tauri/)
 
-    pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
+```rs
+pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
+```
 
 Creates a bounded mpsc channel for communicating between asynchronous tasks with backpressure.
 
@@ -22,22 +24,24 @@ Panics if the buffer capacity is 0.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-    use tokio::sync::mpsc;
+```rs
+use tokio::sync::mpsc;
 
-    #[tokio::main]
-    async fn main() {
-        let (tx, mut rx) = mpsc::channel(100);
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(100);
 
-        tokio::spawn(async move {
-            for i in 0..10 {
-                if let Err(_) = tx.send(i).await {
-                    println!("receiver dropped");
-                    return;
-                }
+    tokio::spawn(async move {
+        for i in 0..10 {
+            if let Err(_) = tx.send(i).await {
+                println!("receiver dropped");
+                return;
             }
-        });
-
-        while let Some(i) = rx.recv().await {
-            println!("got = {}", i);
         }
+    });
+
+    while let Some(i) = rx.recv().await {
+        println!("got = {}", i);
     }
+}
+```

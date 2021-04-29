@@ -4,7 +4,9 @@ title: "struct.WryAttributes"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[WryAttributes](/docs/api/rust/tauri/)
 
-    pub struct WryAttributes { /* fields omitted */ }
+```rs
+pub struct WryAttributes { /* fields omitted */ }
+```
 
 Wry attributes.
 

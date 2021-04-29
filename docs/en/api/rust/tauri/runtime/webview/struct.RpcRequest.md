@@ -4,10 +4,12 @@ title: "struct.RpcRequest"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[runtime](/docs/api/rust/tauri/../index.html)::​[webview](/docs/api/rust/tauri/index.html)::​[RpcRequest](/docs/api/rust/tauri/)
 
-    pub struct RpcRequest {
-        pub command: String,
-        pub params: Option<JsonValue>,
-    }
+```rs
+pub struct RpcRequest {
+    pub command: String,
+    pub params: Option<JsonValue>,
+}
+```
 
 Rpc request.
 

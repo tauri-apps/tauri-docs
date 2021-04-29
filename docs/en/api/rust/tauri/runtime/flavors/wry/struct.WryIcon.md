@@ -4,7 +4,9 @@ title: "struct.WryIcon"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[runtime](/docs/api/rust/tauri/../../index.html)::​[flavors](/docs/api/rust/tauri/../index.html)::​[wry](/docs/api/rust/tauri/index.html)::​[WryIcon](/docs/api/rust/tauri/)
 
-    pub struct WryIcon(_);
+```rs
+pub struct WryIcon(_);
+```
 
 Wrapper around a \[`wry::Icon`] that can be created from an [`Icon`](/docs/api/rust/tauri/../../../../tauri/enum.Icon.html "Icon").
 

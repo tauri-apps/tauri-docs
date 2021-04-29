@@ -4,12 +4,14 @@ title: "struct.TauriConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[TauriConfig](/docs/api/rust/tauri/)
 
-    pub struct TauriConfig {
-        pub windows: Vec<WindowConfig, Global>,
-        pub cli: Option<CliConfig>,
-        pub bundle: BundleConfig,
-        pub updater: UpdaterConfig,
-    }
+```rs
+pub struct TauriConfig {
+    pub windows: Vec<WindowConfig, Global>,
+    pub cli: Option<CliConfig>,
+    pub bundle: BundleConfig,
+    pub updater: UpdaterConfig,
+}
+```
 
 The Tauri configuration object.
 

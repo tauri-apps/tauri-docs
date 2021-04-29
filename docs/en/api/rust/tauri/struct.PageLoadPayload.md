@@ -4,7 +4,9 @@ title: "struct.PageLoadPayload"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[PageLoadPayload](/docs/api/rust/tauri/)
 
-    pub struct PageLoadPayload { /* fields omitted */ }
+```rs
+pub struct PageLoadPayload { /* fields omitted */ }
+```
 
 The payload for the [`OnPageLoad`](/docs/api/rust/tauri/../tauri/type.OnPageLoad.html "OnPageLoad") hook.
 

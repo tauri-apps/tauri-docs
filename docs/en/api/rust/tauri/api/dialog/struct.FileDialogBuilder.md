@@ -4,7 +4,9 @@ title: "struct.FileDialogBuilder"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[FileDialogBuilder](/docs/api/rust/tauri/)
 
-    pub struct FileDialogBuilder(_);
+```rs
+pub struct FileDialogBuilder(_);
+```
 
 The file dialog builder. Constructs file picker dialogs that can select single/multiple files or directories.
 

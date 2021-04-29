@@ -4,27 +4,29 @@ title: "enum.BaseDirectory"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
-    #[repr(u16)]pub enum BaseDirectory {
-        Audio,
-        Cache,
-        Config,
-        Data,
-        LocalData,
-        Desktop,
-        Document,
-        Download,
-        Executable,
-        Font,
-        Home,
-        Picture,
-        Public,
-        Runtime,
-        Template,
-        Video,
-        Resource,
-        App,
-        Current,
-    }
+```rs
+#[repr(u16)]pub enum BaseDirectory {
+    Audio,
+    Cache,
+    Config,
+    Data,
+    LocalData,
+    Desktop,
+    Document,
+    Download,
+    Executable,
+    Font,
+    Home,
+    Picture,
+    Public,
+    Runtime,
+    Template,
+    Video,
+    Resource,
+    App,
+    Current,
+}
+```
 
 A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
 

@@ -4,59 +4,61 @@ title: "trait.Dispatch"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[runtime](/docs/api/rust/tauri/index.html)::​[Dispatch](/docs/api/rust/tauri/)
 
-    pub trait Dispatch: Clone + Send + Sized + 'static {
-        type Runtime: Runtime;
-        type Icon: TryFrom<Icon, Error = Error>;
-        type Attributes: Attributes<Icon = Self::Icon> + AttributesBase + Clone + Send;
-        fn create_window<P: Params<Runtime = Self::Runtime>>(
-            &mut self, 
-            pending: PendingWindow<P>
-        ) -> Result<DetachedWindow<P>>;
+```rs
+pub trait Dispatch: Clone + Send + Sized + 'static {
+    type Runtime: Runtime;
+    type Icon: TryFrom<Icon, Error = Error>;
+    type Attributes: Attributes<Icon = Self::Icon> + AttributesBase + Clone + Send;
+    fn create_window<P: Params<Runtime = Self::Runtime>>(
+        &mut self, 
+        pending: PendingWindow<P>
+    ) -> Result<DetachedWindow<P>>;
 
-        fn set_resizable(&self, resizable: bool) -> Result<()>;
+    fn set_resizable(&self, resizable: bool) -> Result<()>;
 
-        fn set_title<S: Into<String>>(&self, title: S) -> Result<()>;
+    fn set_title<S: Into<String>>(&self, title: S) -> Result<()>;
 
-        fn maximize(&self) -> Result<()>;
+    fn maximize(&self) -> Result<()>;
 
-        fn unmaximize(&self) -> Result<()>;
+    fn unmaximize(&self) -> Result<()>;
 
-        fn minimize(&self) -> Result<()>;
+    fn minimize(&self) -> Result<()>;
 
-        fn unminimize(&self) -> Result<()>;
+    fn unminimize(&self) -> Result<()>;
 
-        fn show(&self) -> Result<()>;
+    fn show(&self) -> Result<()>;
 
-        fn hide(&self) -> Result<()>;
+    fn hide(&self) -> Result<()>;
 
-        fn close(&self) -> Result<()>;
+    fn close(&self) -> Result<()>;
 
-        fn set_decorations(&self, decorations: bool) -> Result<()>;
+    fn set_decorations(&self, decorations: bool) -> Result<()>;
 
-        fn set_always_on_top(&self, always_on_top: bool) -> Result<()>;
+    fn set_always_on_top(&self, always_on_top: bool) -> Result<()>;
 
-        fn set_width(&self, width: f64) -> Result<()>;
+    fn set_width(&self, width: f64) -> Result<()>;
 
-        fn set_height(&self, height: f64) -> Result<()>;
+    fn set_height(&self, height: f64) -> Result<()>;
 
-        fn resize(&self, width: f64, height: f64) -> Result<()>;
+    fn resize(&self, width: f64, height: f64) -> Result<()>;
 
-        fn set_min_size(&self, min_width: f64, min_height: f64) -> Result<()>;
+    fn set_min_size(&self, min_width: f64, min_height: f64) -> Result<()>;
 
-        fn set_max_size(&self, max_width: f64, max_height: f64) -> Result<()>;
+    fn set_max_size(&self, max_width: f64, max_height: f64) -> Result<()>;
 
-        fn set_x(&self, x: f64) -> Result<()>;
+    fn set_x(&self, x: f64) -> Result<()>;
 
-        fn set_y(&self, y: f64) -> Result<()>;
+    fn set_y(&self, y: f64) -> Result<()>;
 
-        fn set_position(&self, x: f64, y: f64) -> Result<()>;
+    fn set_position(&self, x: f64, y: f64) -> Result<()>;
 
-        fn set_fullscreen(&self, fullscreen: bool) -> Result<()>;
+    fn set_fullscreen(&self, fullscreen: bool) -> Result<()>;
 
-        fn set_icon(&self, icon: Self::Icon) -> Result<()>;
+    fn set_icon(&self, icon: Self::Icon) -> Result<()>;
 
-        fn eval_script<S: Into<String>>(&self, script: S) -> Result<()>;
-    }
+    fn eval_script<S: Into<String>>(&self, script: S) -> Result<()>;
+}
+```
 
 Webview dispatcher. A thread-safe handle to the webview API.
 

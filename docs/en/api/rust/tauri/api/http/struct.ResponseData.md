@@ -4,7 +4,9 @@ title: "struct.ResponseData"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[ResponseData](/docs/api/rust/tauri/)
 
-    pub struct ResponseData { /* fields omitted */ }
+```rs
+pub struct ResponseData { /* fields omitted */ }
+```
 
 The response type.
 

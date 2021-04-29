@@ -4,9 +4,11 @@ title: "struct.Map"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[map](/docs/api/rust/tauri/index.html)::​[Map](/docs/api/rust/tauri/)
 
-    pub struct Map<K, V> where
-        K: 'static,
-        V: 'static,  { /* fields omitted */ }
+```rs
+pub struct Map<K, V> where
+    K: 'static,
+    V: 'static,  { /* fields omitted */ }
+```
 
 An immutable map constructed at compile time.
 

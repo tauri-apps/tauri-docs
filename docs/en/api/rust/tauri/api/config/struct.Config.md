@@ -4,12 +4,14 @@ title: "struct.Config"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[Config](/docs/api/rust/tauri/)
 
-    pub struct Config {
-        pub package: PackageConfig,
-        pub tauri: TauriConfig,
-        pub build: BuildConfig,
-        pub plugins: PluginConfig,
-    }
+```rs
+pub struct Config {
+    pub package: PackageConfig,
+    pub tauri: TauriConfig,
+    pub build: BuildConfig,
+    pub plugins: PluginConfig,
+}
+```
 
 The tauri.conf.json mapper.
 
