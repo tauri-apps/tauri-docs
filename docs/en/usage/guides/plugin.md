@@ -93,6 +93,13 @@ fn main() {
 }
 ```
 
+To use a command provided by a plugin directly in JavaScript you have to call the command like this:
+
+```js
+// name: 'plugin:<plugin_name>|<command_function_name>'
+invoke('plugin:awesome|do_something')
+```
+
 ## Official Tauri Plugins
 
 - [Stronghold (WIP)](https://github.com/tauri-apps/tauri-plugin-stronghold)
