@@ -134,7 +134,7 @@ async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
 
 Any or all of the above features can be combined:
 
-```rust
+```rust title=main.rs
 // Definition in main.rs
 
 #[derive(serde::Serialize)]
@@ -158,6 +158,13 @@ async fn my_custom_command<M: tauri::Params>(
   } else {
     Err("No result".into())
   }
+}
+
+fn main() {
+  tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
