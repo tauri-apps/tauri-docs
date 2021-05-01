@@ -8,6 +8,7 @@
 }
 
 .row .property {
+  margin-top: -12px;
   height: 42px;
 }
 
@@ -37,5 +38,5 @@
 
 .property code {
   position: relative;
-  top: -12px;
+  top: -3px;
 }

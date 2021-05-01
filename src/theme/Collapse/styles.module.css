@@ -9,9 +9,8 @@
 }
 
 .header::after {
-  background-image: var(--ifm-menu-link-sublist-icon);
-  background-size: 2rem 2rem;
-  background-position: center;
+  background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
+  filter: var(--ifm-menu-link-sublist-icon-filter);
   content: ' ';
   display: inline-block;
   height: 1.25rem;
@@ -19,9 +18,7 @@
   transition: transform var(--ifm-transition-fast) linear;
   transform: rotate(90deg);
   margin-top: -8px;
-  background-color: var(--ifm-background-color);
 }
-
 
 .header.active::after {
   transform: rotate(180deg);
