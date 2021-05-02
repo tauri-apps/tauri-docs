@@ -121,10 +121,10 @@ invoke('my_custom_command').then(() => console.log('Completed!'))
 
 ## Accessing the Window in Commands
 
-If your command needs access to the Window (TODO: add link), add `with_window` to the `command` annotation:
+Commands can access the `Window` instance that invoked the message:
 
 ```rust
-#[tauri::command(with_window)]
+#[tauri::command]
 async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
   println!("Window: {}", window.label());
 }
@@ -134,7 +134,7 @@ async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
 
 Any or all of the above features can be combined:
 
-```rust
+```rust title=main.rs
 // Definition in main.rs
 
 #[derive(serde::Serialize)]
@@ -143,7 +143,7 @@ struct CustomResponse {
   other_val: usize,
 }
 
-#[tauri::command(with_window)]
+#[tauri::command]
 async fn my_custom_command<M: tauri::Params>(
   window: tauri::Window<M>,
   number: usize,
@@ -158,6 +158,13 @@ async fn my_custom_command<M: tauri::Params>(
   } else {
     Err("No result".into())
   }
+}
+
+fn main() {
+  tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
