@@ -38,26 +38,39 @@ Now, your main window will be hidden and the splashscreen window will show when 
 If you are waiting for your web code, you'll want to create a `close_splashscreen` [command](../command.md).
 
 ```rust title=src-tauri/main.rs
-// Create the command:
-#[tauri::command(with_window)]
-fn close_splashscreen<M: Params>(window: tauri::Window<M>) {
+use std::sync::{Arc, Mutex};
+use tauri::{Manager, Params, State, Window};
+
+struct SplashscreenWindow<P: Params>(Arc<Mutex<Window<P>>>);
+struct MainWindow<P: Params>(Arc<Mutex<Window<P>>>);
+
+#[tauri::command]
+fn close_splashscreen<P: Params>(
+  splashscreen: State<'_, SplashscreenWindow<P>>,
+  main: State<'_, MainWindow<P>>,
+) {
   // Close splashscreen
-  if let Ok(splashscreen) = window.get_webview("splashscreen") {
-    splashscreen.close().unwrap();
-  }
+  splashscreen.0.lock().unwrap().close().unwrap();
   // Show main window
-  window.get_webview("main").unwrap().show().unwrap();
+  main.0.lock().unwrap().show().unwrap();
 }
 
-// Register the command:
 fn main() {
   tauri::Builder::default()
-    // Add this line
+    .setup(|app| {
+      // set the splashscreen and main windows to be globally available with the tauri state API
+      app.manage(SplashscreenWindow(Arc::new(Mutex::new(
+        app.get_window("splashscreen").unwrap(),
+      ))));
+      app.manage(MainWindow(Arc::new(Mutex::new(
+        app.get_window("main").unwrap(),
+      ))));
+      Ok(())
+    })
     .invoke_handler(tauri::generate_handler![close_splashscreen])
     .run(tauri::generate_context!())
-    .expect("failed to run app");
+    .expect("error while running tauri application");
 }
-
 ```
 
 Then, you can call it from your JS:
