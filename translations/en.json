@@ -258,6 +258,9 @@
         },
         {
           "description": "Write Arabic text on apps that don't support bidirectional text."
+        },
+        {
+          "description": "Generate \"experiment wise safety sheets\" in compliance to European law."
         }
       ],
       "yourProject": "Your project",
