@@ -29,6 +29,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/bidirectional/',
     screenshots: ['0.png'].map((image) => imgPath + 'bidirectional/' + image),
   },
+  {
+    title: 'Calciumdibromid',
+    image: imgPath + 'cabr2/logo.png',
+    link: 'https://github.com/Calciumdibromid/CaBr2',
+    screenshots: ['0.png'].map((image) => imgPath + 'cabr2/' + image),
+  },
 ]
 
 const customStyles = {
