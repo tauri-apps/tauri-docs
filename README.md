@@ -72,4 +72,4 @@ Please ignore the following items for now since breaking changes may happen freq
 
 MIT License
 
-Copyright (c) 2020 Tauri Team
+Copyright (c) 2020-2021 Tauri Programme within The Commons Conservancy
