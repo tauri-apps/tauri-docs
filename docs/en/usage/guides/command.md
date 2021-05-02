@@ -125,8 +125,30 @@ Commands can access the `Window` instance that invoked the message:
 
 ```rust
 #[tauri::command]
-async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
+async fn my_custom_command<P: tauri::Params>(window: tauri::Window<P>) {
   println!("Window: {}", window.label());
+}
+```
+
+## Accessing managed state
+
+Tauri can manage state using the `manage` function on `tauri::Builder`.
+The state can be accessed on a command using `tauri::State`:
+
+```rust
+struct MyState(String);
+
+#[tauri::command]
+fn my_custom_command(state: tauri::State<'_, MyState>) {
+  assert_eq!(state.0 == "some state value", true);
+}
+
+fn main() {
+  tauri::Builder::default()
+    .manage(MyState("some state value".into()))
+    .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
@@ -137,16 +159,23 @@ Any or all of the above features can be combined:
 ```rust title=main.rs
 // Definition in main.rs
 
+struct Database;
+
 #[derive(serde::Serialize)]
 struct CustomResponse {
   message: String,
   other_val: usize,
 }
 
+async fn some_other_function() -> Option<String> {
+  Some("response".into())
+}
+
 #[tauri::command]
-async fn my_custom_command<M: tauri::Params>(
-  window: tauri::Window<M>,
+async fn my_custom_command<P: tauri::Params>(
+  window: tauri::Window<P>,
   number: usize,
+  database: tauri::State<'_, Database>,
 ) -> Result<CustomResponse, String> {
   println!("Called from {}", window.label());
   let result: Option<String> = some_other_function().await;
@@ -162,6 +191,7 @@ async fn my_custom_command<M: tauri::Params>(
 
 fn main() {
   tauri::Builder::default()
+    .manage(Database {})
     .invoke_handler(tauri::generate_handler![my_custom_command])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
@@ -172,7 +202,6 @@ fn main() {
 // Invocation from JS
 
 invoke('my_custom_command', {
-  message: 'Hi',
   number: 42,
 })
   .then((res) =>
