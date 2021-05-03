@@ -25,6 +25,7 @@ First, create a `splashscreen.html` in your `distDir` that contains the HTML cod
 +   "width": 400,
 +   "height": 200,
 +   "decorations": false,
++   "resizable": false,
 +   "url": "splashscreen.html",
 +   "label": "splashscreen"
 + }
