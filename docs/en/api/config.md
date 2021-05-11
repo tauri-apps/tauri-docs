@@ -270,6 +270,12 @@ It's composed of the following properties:
     </Array>
   },
   {
+    property: "systemTray", type: "object",
+    child: <Properties anchorRoot="tauri.systemTray" rows={[
+      { property: "iconPath", type: "string", description: `The path of the icon to use on the system tray. On macOS and Linux, the ".png" extension is enforced; on Windows, a ".ico" file with the same name must exist.` }
+    ]}/>
+  },
+  {
     property: "security", type: "object",
     child: <Properties anchorRoot="tauri.security" rows={[
       { property: "csp", optional: true, type: "string", description: `The Content Security Policy. 

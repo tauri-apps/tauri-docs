@@ -18,10 +18,13 @@ Plugins allow you to hook into the Tauri application lifecycle and introduce new
 To write a plugin you just need to implement the `tauri::plugin::Plugin` trait:
 
 ```rust
-use tauri::{plugin::{Plugin, Result as PluginResult}, PageLoadPayload, Params, Window, InvokeMessage};
+use tauri::{
+  plugin::{Plugin, Result as PluginResult},
+  App, Invoke, PageLoadPayload, Params, Window,
+};
 
-struct MyAwesomePlugin<M: Params> {
-  invoke_handler: Box<dyn Fn(InvokeMessage<M>) + Send + Sync>,
+struct MyAwesomePlugin<P: Params> {
+  invoke_handler: Box<dyn Fn(Invoke<P>) + Send + Sync>,
   // plugin state, configuration fields
 }
 
@@ -35,7 +38,7 @@ fn initialize() {}
 // this will be accessible with `invoke('plugin:awesome|do_something')`.
 fn do_something() {}
 
-impl MyAwesomePlugin {
+impl<P: Params> MyAwesomePlugin<P> {
   // you can add configuration fields here,
   // see https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
   pub fn new() -> Self {
@@ -45,7 +48,7 @@ impl MyAwesomePlugin {
   }
 }
 
-impl<M: Params> Plugin<M> for MyAwesomePlugin<M> {
+impl<P: Params> Plugin<P> for MyAwesomePlugin<P> {
   /// The plugin name. Must be defined and used on the `invoke` calls.
   fn name(&self) -> &'static str {
     "awesome"
@@ -60,19 +63,19 @@ impl<M: Params> Plugin<M> for MyAwesomePlugin<M> {
   }
 
   /// initialize plugin with the config provided on `tauri.conf.json > plugins > $yourPluginName` or the default value.
-  fn initialize(&self, config: serde_json::Value) -> PluginResult<()> {
+  fn initialize(&mut self, app: &App<P>, config: serde_json::Value) -> PluginResult<()> {
     Ok(())
   }
 
   /// Callback invoked when the Window is created.
-  fn created(&self, window: Window<M>) {}
+  fn created(&mut self, window: Window<P>) {}
 
   /// Callback invoked when the webview performs a navigation.
-  fn on_page_load(&self, window: Window<M>, payload: PageLoadPayload) {}
+  fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload) {}
 
   /// Extend the invoke handler.
-  fn extend_api(&mut self, message: InvokeMessage<M>) {
-    (self.invoke_handler)(message)
+  fn extend_api(&mut self, invoke: Invoke<P>) {
+    (self.invoke_handler)(invoke)
   }
 }
 ```

@@ -2,8 +2,6 @@
 title: Splashscreen
 ---
 
-import Link from '@docusaurus/Link'
-
 If your webpage could take some time to load, or if you need to run an initialization procedure in Rust before displaying your main window, a splashscreen could improve the loading experience for the user.
 
 ### Setup
@@ -25,6 +23,7 @@ First, create a `splashscreen.html` in your `distDir` that contains the HTML cod
 +   "width": 400,
 +   "height": 200,
 +   "decorations": false,
++   "resizable": false,
 +   "url": "splashscreen.html",
 +   "label": "splashscreen"
 + }
@@ -38,26 +37,39 @@ Now, your main window will be hidden and the splashscreen window will show when 
 If you are waiting for your web code, you'll want to create a `close_splashscreen` [command](../command.md).
 
 ```rust title=src-tauri/main.rs
-// Create the command:
-#[tauri::command(with_window)]
-fn close_splashscreen<M: Params>(window: tauri::Window<M>) {
+use std::sync::{Arc, Mutex};
+use tauri::{Manager, State, Window};
+
+struct SplashscreenWindow(Arc<Mutex<Window>>);
+struct MainWindow(Arc<Mutex<Window>>);
+
+#[tauri::command]
+fn close_splashscreen(
+  splashscreen: State<'_, SplashscreenWindow>,
+  main: State<'_, MainWindow>,
+) {
   // Close splashscreen
-  if let Ok(splashscreen) = window.get_webview("splashscreen") {
-    splashscreen.close().unwrap();
-  }
+  splashscreen.0.lock().unwrap().close().unwrap();
   // Show main window
-  window.get_webview("main").unwrap().show().unwrap();
+  main.0.lock().unwrap().show().unwrap();
 }
 
-// Register the command:
 fn main() {
   tauri::Builder::default()
-    // Add this line
+    .setup(|app| {
+      // set the splashscreen and main windows to be globally available with the tauri state API
+      app.manage(SplashscreenWindow(Arc::new(Mutex::new(
+        app.get_window("splashscreen").unwrap(),
+      ))));
+      app.manage(MainWindow(Arc::new(Mutex::new(
+        app.get_window("main").unwrap(),
+      ))));
+      Ok(())
+    })
     .invoke_handler(tauri::generate_handler![close_splashscreen])
     .run(tauri::generate_context!())
-    .expect("failed to run app");
+    .expect("error while running tauri application");
 }
-
 ```
 
 Then, you can call it from your JS:
@@ -80,18 +92,23 @@ document.addEventListener('DOMContentLoaded', () => {
 If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
 ```rust title=src-tauri/main.rs
+use std::{thread::sleep, time::Duration};
 use tauri::Manager;
 fn main() {
   tauri::Builder::default()
     .setup(|app| {
-      // Run initialization code here
-      // ...
+      let splashscreen_window = app.get_window("splashscreen").unwrap();
+      let main_window = app.get_window("main").unwrap();
+      // we perform the initialization code on a new task so the app doesn't freeze
+      tauri::async_runtime::spawn(async move {
+        println!("Initializing...");
+        sleep(Duration::from_secs(2));
+        println!("Done initializing.");
 
-      // After it's done, close the splashscreen and display the main window
-      if let Some(splashscreen) = app.get_window(&"splashscreen".into()) {
-        splashscreen.close().unwrap();
-      }
-      app.get_window(&"main".into()).unwrap().show().unwrap();
+        // After it's done, close the splashscreen and display the main window
+        splashscreen_window.close().unwrap();
+        main_window.show().unwrap();
+      });
       Ok(())
     })
     .run(tauri::generate_context!())

@@ -121,12 +121,34 @@ invoke('my_custom_command').then(() => console.log('Completed!'))
 
 ## Accessing the Window in Commands
 
-If your command needs access to the Window (TODO: add link), add `with_window` to the `command` annotation:
+Commands can access the `Window` instance that invoked the message:
 
 ```rust
-#[tauri::command(with_window)]
-async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
+#[tauri::command]
+async fn my_custom_command(window: tauri::Window) {
   println!("Window: {}", window.label());
+}
+```
+
+## Accessing managed state
+
+Tauri can manage state using the `manage` function on `tauri::Builder`.
+The state can be accessed on a command using `tauri::State`:
+
+```rust
+struct MyState(String);
+
+#[tauri::command]
+fn my_custom_command(state: tauri::State<'_, MyState>) {
+  assert_eq!(state.0 == "some state value", true);
+}
+
+fn main() {
+  tauri::Builder::default()
+    .manage(MyState("some state value".into()))
+    .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
@@ -134,8 +156,10 @@ async fn my_custom_command<M: tauri::Params>(window: tauri::Window<M>) {
 
 Any or all of the above features can be combined:
 
-```rust
+```rust title=main.rs
 // Definition in main.rs
+
+struct Database;
 
 #[derive(serde::Serialize)]
 struct CustomResponse {
@@ -143,10 +167,15 @@ struct CustomResponse {
   other_val: usize,
 }
 
-#[tauri::command(with_window)]
-async fn my_custom_command<M: tauri::Params>(
-  window: tauri::Window<M>,
+async fn some_other_function() -> Option<String> {
+  Some("response".into())
+}
+
+#[tauri::command]
+async fn my_custom_command(
+  window: tauri::Window,
   number: usize,
+  database: tauri::State<'_, Database>,
 ) -> Result<CustomResponse, String> {
   println!("Called from {}", window.label());
   let result: Option<String> = some_other_function().await;
@@ -159,13 +188,20 @@ async fn my_custom_command<M: tauri::Params>(
     Err("No result".into())
   }
 }
+
+fn main() {
+  tauri::Builder::default()
+    .manage(Database {})
+    .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
 ```
 
 ```js
 // Invocation from JS
 
 invoke('my_custom_command', {
-  message: 'Hi',
   number: 42,
 })
   .then((res) =>

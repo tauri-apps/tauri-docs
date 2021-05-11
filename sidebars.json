@@ -65,7 +65,9 @@
               "items": [
                 "usage/guides/visual/icons",
                 "usage/guides/visual/splashscreen",
-                "usage/guides/visual/window-customization"
+                "usage/guides/visual/window-customization",
+                "usage/guides/visual/menu",
+                "usage/guides/visual/system-tray"
               ]
             }
           ]
