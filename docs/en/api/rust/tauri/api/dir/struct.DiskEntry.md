@@ -4,19 +4,19 @@ title: "struct.DiskEntry"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[DiskEntry](/docs/api/rust/tauri/)
 
-```rs
-pub struct DiskEntry {
-    pub path: PathBuf,
-    pub name: Option<String>,
-    pub children: Option<Vec<DiskEntry>>,
-}
-```
+    #[non_exhaustive]pub struct DiskEntry {
+        pub path: PathBuf,
+        pub name: Option<String>,
+        pub children: Option<Vec<DiskEntry>>,
+    }
 
 The result of the `read_dir` function.
 
 A DiskEntry is either a file or a directory. The `children` Vec is always `Some` if the entry is a directory.
 
-## Fields
+## Fields (Non-exhaustive)
+
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
 `path: PathBuf`
 
@@ -28,7 +28,7 @@ The name of this entry (file name with extension or directory name)
 
 `children: Option<Vec<DiskEntry>>`
 
-The children of this entry if it's a directory.
+The children of this entry if it’s a directory.
 
 ## Trait Implementations
 
@@ -86,11 +86,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

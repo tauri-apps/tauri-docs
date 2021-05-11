@@ -4,33 +4,31 @@ title: "struct.CliArg"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[CliArg](/docs/api/rust/tauri/)
 
-```rs
-pub struct CliArg {
-    pub short: Option<char>,
-    pub name: String,
-    pub description: Option<String>,
-    pub long_description: Option<String>,
-    pub takes_value: Option<bool>,
-    pub multiple: Option<bool>,
-    pub multiple_occurrences: Option<bool>,
-    pub number_of_values: Option<u64>,
-    pub possible_values: Option<Vec<String, Global>>,
-    pub min_values: Option<u64>,
-    pub max_values: Option<u64>,
-    pub required: Option<bool>,
-    pub required_unless_present: Option<String>,
-    pub required_unless_present_all: Option<Vec<String, Global>>,
-    pub required_unless_present_any: Option<Vec<String, Global>>,
-    pub conflicts_with: Option<String>,
-    pub conflicts_with_all: Option<Vec<String, Global>>,
-    pub requires: Option<String>,
-    pub requires_all: Option<Vec<String, Global>>,
-    pub requires_if: Option<Vec<String, Global>>,
-    pub required_if_eq: Option<Vec<String, Global>>,
-    pub require_equals: Option<bool>,
-    pub index: Option<u64>,
-}
-```
+    pub struct CliArg {
+        pub short: Option<char>,
+        pub name: String,
+        pub description: Option<String>,
+        pub long_description: Option<String>,
+        pub takes_value: Option<bool>,
+        pub multiple: Option<bool>,
+        pub multiple_occurrences: Option<bool>,
+        pub number_of_values: Option<u64>,
+        pub possible_values: Option<Vec<String, Global>>,
+        pub min_values: Option<u64>,
+        pub max_values: Option<u64>,
+        pub required: Option<bool>,
+        pub required_unless_present: Option<String>,
+        pub required_unless_present_all: Option<Vec<String, Global>>,
+        pub required_unless_present_any: Option<Vec<String, Global>>,
+        pub conflicts_with: Option<String>,
+        pub conflicts_with_all: Option<Vec<String, Global>>,
+        pub requires: Option<String>,
+        pub requires_all: Option<Vec<String, Global>>,
+        pub requires_if: Option<Vec<String, Global>>,
+        pub required_if_eq: Option<Vec<String, Global>>,
+        pub require_equals: Option<bool>,
+        pub index: Option<u64>,
+    }
 
 A CLI argument definition
 
@@ -60,8 +58,8 @@ Specifies that the argument takes a value at run time.
 
 NOTE: values for arguments may be specified in any of the following methods
 
--   Using a space such as -o value or --option value
--   Using an equals and no space such as -o=value or --option=value
+-   Using a space such as -o value or –option value
+-   Using an equals and no space such as -o=value or –option=value
 -   Use a short and no space such as -ovalue
 
 `multiple: Option<bool>`
@@ -69,7 +67,7 @@ NOTE: values for arguments may be specified in any of the following methods
 Specifies that the argument may appear more than once.
 
 -   For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences.
--   For options there is a distinct difference in multiple occurrences vs multiple values. For example, --opt val1 val2 is one occurrence, but two values. Whereas --opt val1 --opt val2 is two occurrences.
+-   For options there is a distinct difference in multiple occurrences vs multiple values. For example, –opt val1 val2 is one occurrence, but two values. Whereas –opt val1 –opt val2 is two occurrences.
 
 `multiple_occurrences: Option<bool>``number_of_values: Option<u64>``possible_values: Option<Vec<String, Global>>`
 
@@ -77,11 +75,11 @@ Specifies a list of possible values for this argument. At runtime, the CLI verif
 
 `min_values: Option<u64>`
 
-Specifies the minimum number of values for this argument. For example, if you had a -fargument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values.
+Specifies the minimum number of values for this argument. For example, if you had a -fargument where you wanted at least 2 ‘files’, you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values.
 
 `max_values: Option<u64>`
 
-Specifies the maximum number of values are for this argument. For example, if you had a -fargument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values.
+Specifies the maximum number of values are for this argument. For example, if you had a -fargument where you wanted up to 3 ‘files’, you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values.
 
 `required: Option<bool>`
 
@@ -92,19 +90,19 @@ Sets whether or not the argument is required by default.
 
 `required_unless_present: Option<String>`
 
-Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present.
+Sets an arg that override this arg’s required setting i.e. this arg will be required unless this other argument is present.
 
 `required_unless_present_all: Option<Vec<String, Global>>`
 
-Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present.
+Sets args that override this arg’s required setting i.e. this arg will be required unless all these other arguments are present.
 
 `required_unless_present_any: Option<Vec<String, Global>>`
 
-Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present.
+Sets args that override this arg’s required setting i.e. this arg will be required unless at least one of these other arguments are present.
 
 `conflicts_with: Option<String>`
 
-Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa.
+Sets a conflicting argument by name i.e. when using this argument, the following argument can’t be present and vice versa.
 
 `conflicts_with_all: Option<Vec<String, Global>>`
 
@@ -120,15 +118,15 @@ Sts multiple arguments by names that are required when this one is present i.e. 
 
 `requires_if: Option<Vec<String, Global>>`
 
-Allows a conditional requirement with the signature \[arg, value] the requirement will only become valid if `arg`'s value equals `${value}`.
+Allows a conditional requirement with the signature \[arg, value] the requirement will only become valid if `arg`’s value equals `${value}`.
 
 `required_if_eq: Option<Vec<String, Global>>`
 
-Allows specifying that an argument is required conditionally with the signature \[arg, value] the requirement will only become valid if the `arg`'s value equals `${value}`.
+Allows specifying that an argument is required conditionally with the signature \[arg, value] the requirement will only become valid if the `arg`’s value equals `${value}`.
 
 `require_equals: Option<bool>`
 
-Requires that options use the --option=val syntax i.e. an equals between the option and associated value.
+Requires that options use the –option=val syntax i.e. an equals between the option and associated value.
 
 `index: Option<u64>`
 
@@ -158,7 +156,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn default() -> CliArg`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl<'de> Deserialize<'de> for CliArg`
 
@@ -224,6 +222,12 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
+### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+
+#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
+
 ### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
@@ -236,11 +240,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

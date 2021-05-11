@@ -4,11 +4,9 @@ title: "struct.Values"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[map](/docs/api/rust/tauri/index.html)::​[Values](/docs/api/rust/tauri/)
 
-```rs
-pub struct Values<'a, K, V> where
-    K: 'a,
-    V: 'a,  { /* fields omitted */ }
-```
+    pub struct Values<'a, K, V> where
+        V: 'a,
+        K: 'a,  { /* fields omitted */ }
 
 An iterator over the values in a `Map`.
 
@@ -38,7 +36,7 @@ This is the reverse version of [`Iterator::try_fold()`](https://doc.rust-lang.or
 
 #### `pub fn rfold<B, F>(self, init: B, f: F) -> B where F: FnMut(B, Self::Item) -> B,`1.27.0
 
-An iterator method that reduces the iterator's elements to a single, final value, starting from the back. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html#method.rfold)
+An iterator method that reduces the iterator’s elements to a single, final value, starting from the back. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html#method.rfold)
 
 #### `pub fn rfind<P>(&mut self, predicate: P) -> Option<Self::Item> where P: FnMut(&Self::Item) -> bool,`1.27.0
 
@@ -100,7 +98,7 @@ Takes two iterators and creates a new iterator over both in sequence. [Read more
 
 #### `pub fn zip<U>(self, other: U) -> Zip<Self, <U as IntoIterator>::IntoIter> where U: IntoIterator,`1.0.0
 
-'Zips up' two iterators into a single iterator of pairs. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.zip)
+‘Zips up’ two iterators into a single iterator of pairs. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.zip)
 
 #### `pub fn intersperse(self, separator: Self::Item) -> Intersperse<Self> where Self::Item: Clone,`
 
@@ -288,7 +286,7 @@ Returns the element that gives the minimum value with respect to the specified c
 
 #### `pub fn rev(self) -> Rev<Self> where Self: DoubleEndedIterator,`1.0.0
 
-Reverses an iterator's direction. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.rev)
+Reverses an iterator’s direction. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.rev)
 
 #### `pub fn unzip<A, B, FromA, FromB>(self) -> (FromA, FromB)where Self: Iterator<Item = (A, B)>, FromA: Default + Extend<A>, FromB: Default + Extend<B>,`1.0.0
 
@@ -430,11 +428,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

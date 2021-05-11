@@ -4,9 +4,7 @@ title: "struct.AssetKey"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[AssetKey](/docs/api/rust/tauri/)
 
-```rs
-pub struct AssetKey(_);
-```
+    pub struct AssetKey(_);
 
 Represent an asset file path in a normalized way.
 
@@ -92,19 +90,19 @@ This method tests for `!=`.
 
 This method returns an ordering between `self` and `other` values if one exists. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial_cmp)
 
-#### `pub fn lt(&self, other: &AssetKey) -> bool`
+#### `#[must_use]pub fn lt(&self, other: &Rhs) -> bool`1.0.0
 
 This method tests less than (for `self` and `other`) and is used by the `<` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt)
 
-#### `pub fn le(&self, other: &AssetKey) -> bool`
+#### `#[must_use]pub fn le(&self, other: &Rhs) -> bool`1.0.0
 
 This method tests less than or equal to (for `self` and `other`) and is used by the `<=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le)
 
-#### `pub fn gt(&self, other: &AssetKey) -> bool`
+#### `#[must_use]pub fn gt(&self, other: &Rhs) -> bool`1.0.0
 
 This method tests greater than (for `self` and `other`) and is used by the `>` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt)
 
-#### `pub fn ge(&self, other: &AssetKey) -> bool`
+#### `#[must_use]pub fn ge(&self, other: &Rhs) -> bool`1.0.0
 
 This method tests greater than or equal to (for `self` and `other`) and is used by the `>=` operator. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge)
 
@@ -160,11 +158,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

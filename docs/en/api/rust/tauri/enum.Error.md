@@ -4,35 +4,40 @@ title: "enum.Error"
 
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
-```rs
-pub enum Error {
-    CreateWebview(String),
-    CreateWindow,
-    WebviewNotFound,
-    FailedToSendMessage,
-    AssetNotFound(String),
-    Json(Error),
-    UnknownApi(Option<Error>),
-    FailedToExecuteApi(Error),
-    Io(Error),
-    Base64Decode(DecodeError),
-    InvalidIcon(String),
-    HttpClientNotInitialized,
-    ApiNotEnabled(String),
-    ApiNotAllowlisted(String),
-    InvalidArgs(&'static str, Error),
-    Setup(String),
-    TauriUpdater(Error),
-    PluginInitialization(String, String),
-    DialogDefaultPathNotExists(PathBuf),
-}
-```
+    #[non_exhaustive]pub enum Error {
+        Runtime(Error),
+        CreateWebview(Box<dyn Error + Send>),
+        CreateWindow,
+        WebviewNotFound,
+        FailedToSendMessage,
+        AssetNotFound(String),
+        Json(Error),
+        UnknownApi(Option<Error>),
+        FailedToExecuteApi(Error),
+        Io(Error),
+        Base64Decode(DecodeError),
+        InvalidIcon(Box<dyn Error + Send>),
+        HttpClientNotInitialized,
+        ApiNotEnabled(String),
+        ApiNotAllowlisted(String),
+        InvalidArgs(&'static str, Error),
+        Setup(Box<dyn Error + Send>),
+        PluginInitialization(String, String),
+        DialogDefaultPathNotExists(PathBuf),
+        SystemTray(Box<dyn Error + Send>),
+    }
 
 Runtime errors that can happen inside a Tauri application.
 
-## Variants
+## Variants (Non-exhaustive)
 
-`CreateWebview(String)`
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
+
+`Runtime(Error)`
+
+Runtime error.
+
+`CreateWebview(Box<dyn Error + Send>)`
 
 Failed to create webview.
 
@@ -42,7 +47,7 @@ Failed to create window.
 
 `WebviewNotFound`
 
-Can't access webview dispatcher because the webview was closed or not found.
+Can’t access webview dispatcher because the webview was closed or not found.
 
 `FailedToSendMessage`
 
@@ -72,7 +77,7 @@ IO error.
 
 Failed to decode base64.
 
-`InvalidIcon(String)`
+`InvalidIcon(Box<dyn Error + Send>)`
 
 Failed to load window icon.
 
@@ -92,13 +97,9 @@ API not whitelisted on tauri.conf.json
 
 Invalid args when running a command.
 
-`Setup(String)`
+`Setup(Box<dyn Error + Send>)`
 
 Encountered an error in the setup hook,
-
-`TauriUpdater(Error)`
-
-Tauri updater error.
 
 `PluginInitialization(String, String)`
 
@@ -106,7 +107,11 @@ Error initializing plugin.
 
 `DialogDefaultPathNotExists(PathBuf)`
 
-`default_path` provided to dialog API doesn't exist.
+`default_path` provided to dialog API doesn’t exist.
+
+`SystemTray(Box<dyn Error + Send>)`
+
+Encountered an error creating the app system tray,
 
 ## Trait Implementations
 
@@ -178,13 +183,19 @@ Performs the conversion.
 
 Performs the conversion.
 
+### `impl From<Error> for InvokeError`
+
+#### `fn from(error: Error) -> Self`
+
+Performs the conversion.
+
 ## Auto Trait Implementations
 
 ### `impl !RefUnwindSafe for Error`
 
 ### `impl Send for Error`
 
-### `impl Sync for Error`
+### `impl !Sync for Error`
 
 ### `impl Unpin for Error`
 
@@ -220,11 +231,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
@@ -257,6 +268,12 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<D> ToJsString for D where D: Display,`
+
+#### `pub fn to_js_string(&self) -> Result<String, Error>`
+
+Turn any [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 

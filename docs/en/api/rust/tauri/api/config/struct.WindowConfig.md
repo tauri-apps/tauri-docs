@@ -4,28 +4,26 @@ title: "struct.WindowConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowConfig](/docs/api/rust/tauri/)
 
-```rs
-pub struct WindowConfig {
-    pub label: String,
-    pub url: WindowUrl,
-    pub x: Option<f64>,
-    pub y: Option<f64>,
-    pub width: f64,
-    pub height: f64,
-    pub min_width: Option<f64>,
-    pub min_height: Option<f64>,
-    pub max_width: Option<f64>,
-    pub max_height: Option<f64>,
-    pub resizable: bool,
-    pub title: String,
-    pub fullscreen: bool,
-    pub transparent: bool,
-    pub maximized: bool,
-    pub visible: bool,
-    pub decorations: bool,
-    pub always_on_top: bool,
-}
-```
+    pub struct WindowConfig {
+        pub label: String,
+        pub url: WindowUrl,
+        pub x: Option<f64>,
+        pub y: Option<f64>,
+        pub width: f64,
+        pub height: f64,
+        pub min_width: Option<f64>,
+        pub min_height: Option<f64>,
+        pub max_width: Option<f64>,
+        pub max_height: Option<f64>,
+        pub resizable: bool,
+        pub title: String,
+        pub fullscreen: bool,
+        pub transparent: bool,
+        pub maximized: bool,
+        pub visible: bool,
+        pub decorations: bool,
+        pub always_on_top: bool,
+    }
 
 The window configuration object.
 
@@ -41,11 +39,11 @@ The window webview URL.
 
 `x: Option<f64>`
 
-The horizontal position of the window's top left corner
+The horizontal position of the window’s top left corner
 
 `y: Option<f64>`
 
-The vertical position of the window's top left corner
+The vertical position of the window’s top left corner
 
 `width: f64`
 
@@ -125,7 +123,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn default() -> WindowConfig`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl<'de> Deserialize<'de> for WindowConfig`
 
@@ -191,6 +189,12 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
+### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+
+#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
+
 ### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
@@ -203,11 +207,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

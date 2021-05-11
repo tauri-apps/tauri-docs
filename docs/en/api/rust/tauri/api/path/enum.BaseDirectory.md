@@ -4,35 +4,36 @@ title: "enum.BaseDirectory"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
-```rs
-#[repr(u16)]pub enum BaseDirectory {
-    Audio,
-    Cache,
-    Config,
-    Data,
-    LocalData,
-    Desktop,
-    Document,
-    Download,
-    Executable,
-    Font,
-    Home,
-    Picture,
-    Public,
-    Runtime,
-    Template,
-    Video,
-    Resource,
-    App,
-    Current,
-}
-```
+    #[repr(u16)]
+    #[non_exhaustive]pub enum BaseDirectory {
+        Audio,
+        Cache,
+        Config,
+        Data,
+        LocalData,
+        Desktop,
+        Document,
+        Download,
+        Executable,
+        Font,
+        Home,
+        Picture,
+        Public,
+        Runtime,
+        Template,
+        Video,
+        Resource,
+        App,
+        Current,
+    }
 
 A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
 
 For more information, check the [dirs_next documentation](https://docs.rs/dirs_next/).
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Audio`
 
@@ -104,7 +105,7 @@ The Resource directory.
 
 `App`
 
-The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
+The default App config directory. Resolves to ${BaseDirectory::Config}/${config.tauri.bundle.identifier}
 
 `Current`
 
@@ -172,6 +173,12 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
+### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+
+#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
+
 ### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 
 ### `impl<T> From<T> for T`
@@ -184,11 +191,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

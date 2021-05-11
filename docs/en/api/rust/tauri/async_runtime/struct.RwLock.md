@@ -4,10 +4,8 @@ title: "struct.RwLock"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[RwLock](/docs/api/rust/tauri/)
 
-```rs
-pub struct RwLock<T> where
-    T: ?Sized,  { /* fields omitted */ }
-```
+    pub struct RwLock<T> where
+        T: ?Sized,  { /* fields omitted */ }
 
 An asynchronous reader-writer lock.
 
@@ -15,35 +13,33 @@ This type of lock allows a number of readers or at most one writer at any point 
 
 In comparison, a [`Mutex`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html) does not distinguish between readers or writers that acquire the lock, therefore causing any tasks waiting for the lock to become available to yield. An `RwLock` will allow any number of readers to acquire the lock as long as a writer is not holding the lock.
 
-The priority policy of Tokio's read-write lock is _fair_ (or [_write-preferring_](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock#Priority_policies)), in order to ensure that readers cannot starve writers. Fairness is ensured using a first-in, first-out queue for the tasks awaiting the lock; if a task that wishes to acquire the write lock is at the head of the queue, read locks will not be given out until the write lock has been released. This is in contrast to the Rust standard library's `std::sync::RwLock`, where the priority policy is dependent on the operating system's implementation.
+The priority policy of Tokio’s read-write lock is _fair_ (or [_write-preferring_](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock#Priority_policies)), in order to ensure that readers cannot starve writers. Fairness is ensured using a first-in, first-out queue for the tasks awaiting the lock; if a task that wishes to acquire the write lock is at the head of the queue, read locks will not be given out until the write lock has been released. This is in contrast to the Rust standard library’s `std::sync::RwLock`, where the priority policy is dependent on the operating system’s implementation.
 
 The type parameter `T` represents the data that this lock protects. It is required that `T` satisfies [`Send`](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html) to be shared across threads. The RAII guards returned from the locking methods implement [`Deref`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html) (and [`DerefMut`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.DerefMut.html) for the `write` methods) to allow access to the content of the lock.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let lock = RwLock::new(5);
+    #[tokio::main]
+    async fn main() {
+        let lock = RwLock::new(5);
 
-    // many reader locks can be held at once
-    {
-        let r1 = lock.read().await;
-        let r2 = lock.read().await;
-        assert_eq!(*r1, 5);
-        assert_eq!(*r2, 5);
-    } // read locks are dropped at this point
+        // many reader locks can be held at once
+        {
+            let r1 = lock.read().await;
+            let r2 = lock.read().await;
+            assert_eq!(*r1, 5);
+            assert_eq!(*r2, 5);
+        } // read locks are dropped at this point
 
-    // only one write lock may be held, however
-    {
-        let mut w = lock.write().await;
-        *w += 1;
-        assert_eq!(*w, 6);
-    } // write lock is dropped here
-}
-```
+        // only one write lock may be held, however
+        {
+            let mut w = lock.write().await;
+            *w += 1;
+            assert_eq!(*w, 6);
+        } // write lock is dropped here
+    }
 
 ## Implementations
 
@@ -55,11 +51,9 @@ Creates a new instance of an `RwLock<T>` which is unlocked.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-let lock = RwLock::new(5);
-```
+    let lock = RwLock::new(5);
 
 #### `pub fn with_max_readers(value: T, max_reads: u32) -> RwLock<T>`
 
@@ -67,11 +61,9 @@ Creates a new instance of an `RwLock<T>` which is unlocked and allows a maximum 
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-let lock = RwLock::with_max_readers(5, 1024);
-```
+    let lock = RwLock::with_max_readers(5, 1024);
 
 # [Panics](/docs/api/rust/tauri/about:blank#panics)
 
@@ -89,28 +81,26 @@ Returns an RAII guard which will drop this read access of the `RwLock` when drop
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let lock = Arc::new(RwLock::new(1));
-    let c_lock = lock.clone();
+    #[tokio::main]
+    async fn main() {
+        let lock = Arc::new(RwLock::new(1));
+        let c_lock = lock.clone();
 
-    let n = lock.read().await;
-    assert_eq!(*n, 1);
+        let n = lock.read().await;
+        assert_eq!(*n, 1);
 
-    tokio::spawn(async move {
-        // While main has an active read lock, we acquire one too.
-        let r = c_lock.read().await;
-        assert_eq!(*r, 1);
-    }).await.expect("The spawned task has panicked");
+        tokio::spawn(async move {
+            // While main has an active read lock, we acquire one too.
+            let r = c_lock.read().await;
+            assert_eq!(*r, 1);
+        }).await.expect("The spawned task has panicked");
 
-    // Drop the guard after the spawned task finishes.
-    drop(n);
-}
-```
+        // Drop the guard after the spawned task finishes.
+        drop(n);
+    }
 
 #### `pub async fn read_owned(self: Arc<RwLock<T>>) -> OwnedRwLockReadGuard<T, T>`
 
@@ -126,92 +116,86 @@ Returns an RAII guard which will drop this read access of the `RwLock` when drop
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let lock = Arc::new(RwLock::new(1));
-    let c_lock = lock.clone();
+    #[tokio::main]
+    async fn main() {
+        let lock = Arc::new(RwLock::new(1));
+        let c_lock = lock.clone();
 
-    let n = lock.read_owned().await;
-    assert_eq!(*n, 1);
+        let n = lock.read_owned().await;
+        assert_eq!(*n, 1);
 
-    tokio::spawn(async move {
-        // While main has an active read lock, we acquire one too.
-        let r = c_lock.read_owned().await;
-        assert_eq!(*r, 1);
-    }).await.expect("The spawned task has panicked");
+        tokio::spawn(async move {
+            // While main has an active read lock, we acquire one too.
+            let r = c_lock.read_owned().await;
+            assert_eq!(*r, 1);
+        }).await.expect("The spawned task has panicked");
 
-    // Drop the guard after the spawned task finishes.
-    drop(n);
-}
-```
+        // Drop the guard after the spawned task finishes.
+        drop(n);
+    }
 
 #### `pub fn try_read(&self) -> Result<RwLockReadGuard<'_, T>, TryLockError>`
 
 Attempts to acquire this `RwLock` with shared read access.
 
-If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release read access when dropped.
+If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release read access when dropped.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let lock = Arc::new(RwLock::new(1));
-    let c_lock = lock.clone();
+    #[tokio::main]
+    async fn main() {
+        let lock = Arc::new(RwLock::new(1));
+        let c_lock = lock.clone();
 
-    let v = lock.try_read().unwrap();
-    assert_eq!(*v, 1);
+        let v = lock.try_read().unwrap();
+        assert_eq!(*v, 1);
 
-    tokio::spawn(async move {
-        // While main has an active read lock, we acquire one too.
-        let n = c_lock.read().await;
-        assert_eq!(*n, 1);
-    }).await.expect("The spawned task has panicked");
+        tokio::spawn(async move {
+            // While main has an active read lock, we acquire one too.
+            let n = c_lock.read().await;
+            assert_eq!(*n, 1);
+        }).await.expect("The spawned task has panicked");
 
-    // Drop the guard when spawned task finishes.
-    drop(v);
-}
-```
+        // Drop the guard when spawned task finishes.
+        drop(v);
+    }
 
 #### `pub fn try_read_owned( self: Arc<RwLock<T>> ) -> Result<OwnedRwLockReadGuard<T, T>, TryLockError>`
 
 Attempts to acquire this `RwLock` with shared read access.
 
-If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release read access when dropped.
+If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release read access when dropped.
 
 This method is identical to [`RwLock::try_read`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.try_read "RwLock::try_read"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let lock = Arc::new(RwLock::new(1));
-    let c_lock = lock.clone();
+    #[tokio::main]
+    async fn main() {
+        let lock = Arc::new(RwLock::new(1));
+        let c_lock = lock.clone();
 
-    let v = lock.try_read_owned().unwrap();
-    assert_eq!(*v, 1);
+        let v = lock.try_read_owned().unwrap();
+        assert_eq!(*v, 1);
 
-    tokio::spawn(async move {
-        // While main has an active read lock, we acquire one too.
-        let n = c_lock.read_owned().await;
-        assert_eq!(*n, 1);
-    }).await.expect("The spawned task has panicked");
+        tokio::spawn(async move {
+            // While main has an active read lock, we acquire one too.
+            let n = c_lock.read_owned().await;
+            assert_eq!(*n, 1);
+        }).await.expect("The spawned task has panicked");
 
-    // Drop the guard when spawned task finishes.
-    drop(v);
-}
-```
+        // Drop the guard when spawned task finishes.
+        drop(v);
+    }
 
 #### `pub async fn write(&'_ self) -> RwLockWriteGuard<'_, T>`
 
@@ -223,17 +207,15 @@ Returns an RAII guard which will drop the write access of this `RwLock` when dro
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-  let lock = RwLock::new(1);
+    #[tokio::main]
+    async fn main() {
+      let lock = RwLock::new(1);
 
-  let mut n = lock.write().await;
-  *n = 2;
-}
-```
+      let mut n = lock.write().await;
+      *n = 2;
+    }
 
 #### `pub async fn write_owned(self: Arc<RwLock<T>>) -> OwnedRwLockWriteGuard<T>`
 
@@ -247,84 +229,76 @@ Returns an RAII guard which will drop the write access of this `RwLock` when dro
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-8)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-  let lock = Arc::new(RwLock::new(1));
+    #[tokio::main]
+    async fn main() {
+      let lock = Arc::new(RwLock::new(1));
 
-  let mut n = lock.write_owned().await;
-  *n = 2;
-}
-```
+      let mut n = lock.write_owned().await;
+      *n = 2;
+    }
 
 #### `pub fn try_write(&self) -> Result<RwLockWriteGuard<'_, T>, TryLockError>`
 
 Attempts to acquire this `RwLock` with exclusive write access.
 
-If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release write access when dropped.
+If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release write access when dropped.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-9)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let rw = RwLock::new(1);
+    #[tokio::main]
+    async fn main() {
+        let rw = RwLock::new(1);
 
-    let v = rw.read().await;
-    assert_eq!(*v, 1);
+        let v = rw.read().await;
+        assert_eq!(*v, 1);
 
-    assert!(rw.try_write().is_err());
-}
-```
+        assert!(rw.try_write().is_err());
+    }
 
 #### `pub fn try_write_owned( self: Arc<RwLock<T>> ) -> Result<OwnedRwLockWriteGuard<T>, TryLockError>`
 
 Attempts to acquire this `RwLock` with exclusive write access.
 
-If the access couldn't be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release write access when dropped.
+If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release write access when dropped.
 
 This method is identical to [`RwLock::try_write`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.try_write "RwLock::try_write"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-10)
 
-```rs
-use std::sync::Arc;
-use tokio::sync::RwLock;
+    use std::sync::Arc;
+    use tokio::sync::RwLock;
 
-#[tokio::main]
-async fn main() {
-    let rw = Arc::new(RwLock::new(1));
+    #[tokio::main]
+    async fn main() {
+        let rw = Arc::new(RwLock::new(1));
 
-    let v = Arc::clone(&rw).read_owned().await;
-    assert_eq!(*v, 1);
+        let v = Arc::clone(&rw).read_owned().await;
+        assert_eq!(*v, 1);
 
-    assert!(rw.try_write_owned().is_err());
-}
-```
+        assert!(rw.try_write_owned().is_err());
+    }
 
 #### `pub fn get_mut(&mut self) -> &mutT`
 
 Returns a mutable reference to the underlying data.
 
-Since this call borrows the `RwLock` mutably, no actual locking needs to take place -- the mutable borrow statically guarantees no locks exist.
+Since this call borrows the `RwLock` mutably, no actual locking needs to take place – the mutable borrow statically guarantees no locks exist.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-11)
 
-```rs
-use tokio::sync::RwLock;
+    use tokio::sync::RwLock;
 
-fn main() {
-    let mut lock = RwLock::new(1);
+    fn main() {
+        let mut lock = RwLock::new(1);
 
-    let n = lock.get_mut();
-    *n = 2;
-}
-```
+        let n = lock.get_mut();
+        *n = 2;
+    }
 
 #### `pub fn into_inner(self) -> T`
 
@@ -342,7 +316,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn default() -> RwLock<T>`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl<T> From<T> for RwLock<T>`
 
@@ -398,11 +372,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

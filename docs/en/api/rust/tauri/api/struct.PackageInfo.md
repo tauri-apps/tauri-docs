@@ -4,12 +4,10 @@ title: "struct.PackageInfo"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[PackageInfo](/docs/api/rust/tauri/)
 
-```rs
-pub struct PackageInfo {
-    pub name: String,
-    pub version: String,
-}
-```
+    pub struct PackageInfo {
+        pub name: String,
+        pub version: String,
+    }
 
 `App` package information.
 
@@ -23,11 +21,19 @@ App name.
 
 App version.
 
+## Implementations
+
+### `impl PackageInfo`
+
+#### `pub fn package_name(&self) -> String`
+
+Returns the application package name. On macOS and Windows it’s the `name` field, and on Linux it’s the `name` in `kebab-case`.
+
 ## Trait Implementations
 
 ### `impl Clone for PackageInfo`
 
-#### `fn clone(&self) -> PackageInfo`
+#### `pub fn clone(&self) -> PackageInfo`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -37,7 +43,7 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 ### `impl Debug for PackageInfo`
 
-#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
@@ -83,11 +89,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

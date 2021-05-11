@@ -4,9 +4,7 @@ title: "struct.Sender"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Sender](/docs/api/rust/tauri/)
 
-```rs
-pub struct Sender<T> { /* fields omitted */ }
-```
+    pub struct Sender<T> { /* fields omitted */ }
 
 Send values to the associated `Receiver`.
 
@@ -32,27 +30,25 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 In the following example, each call to `send` will block until the previously sent value was received.
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(1);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(1);
 
-    tokio::spawn(async move {
-        for i in 0..10 {
-            if let Err(_) = tx.send(i).await {
-                println!("receiver dropped");
-                return;
+        tokio::spawn(async move {
+            for i in 0..10 {
+                if let Err(_) = tx.send(i).await {
+                    println!("receiver dropped");
+                    return;
+                }
             }
-        }
-    });
+        });
 
-    while let Some(i) = rx.recv().await {
-        println!("got = {}", i);
+        while let Some(i) = rx.recv().await {
+            println!("got = {}", i);
+        }
     }
-}
-```
 
 #### `pub async fn closed(&'_ self)`
 
@@ -62,36 +58,34 @@ This allows the producers to get notified when interest in the produced values i
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx1, rx) = mpsc::channel::<()>(1);
-    let tx2 = tx1.clone();
-    let tx3 = tx1.clone();
-    let tx4 = tx1.clone();
-    let tx5 = tx1.clone();
-    tokio::spawn(async move {
-        drop(rx);
-    });
+    #[tokio::main]
+    async fn main() {
+        let (tx1, rx) = mpsc::channel::<()>(1);
+        let tx2 = tx1.clone();
+        let tx3 = tx1.clone();
+        let tx4 = tx1.clone();
+        let tx5 = tx1.clone();
+        tokio::spawn(async move {
+            drop(rx);
+        });
 
-    futures::join!(
-        tx1.closed(),
-        tx2.closed(),
-        tx3.closed(),
-        tx4.closed(),
-        tx5.closed()
-    );
-    println!("Receiver dropped");
-}
-```
+        futures::join!(
+            tx1.closed(),
+            tx2.closed(),
+            tx3.closed(),
+            tx4.closed(),
+            tx5.closed()
+        );
+        println!("Receiver dropped");
+    }
 
 #### `pub fn try_send(&self, message: T) -> Result<(), TrySendError<T>>`
 
 Attempts to immediately send a message on this `Sender`
 
-This method differs from [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send) by returning immediately if the channel's buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
+This method differs from [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send) by returning immediately if the channel’s buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
 
 # [Errors](/docs/api/rust/tauri/about:blank#errors-1)
 
@@ -101,41 +95,39 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    // Create a channel with buffer size 1
-    let (tx1, mut rx) = mpsc::channel(1);
-    let tx2 = tx1.clone();
+    #[tokio::main]
+    async fn main() {
+        // Create a channel with buffer size 1
+        let (tx1, mut rx) = mpsc::channel(1);
+        let tx2 = tx1.clone();
 
-    tokio::spawn(async move {
-        tx1.send(1).await.unwrap();
-        tx1.send(2).await.unwrap();
-        // task waits until the receiver receives a value.
-    });
+        tokio::spawn(async move {
+            tx1.send(1).await.unwrap();
+            tx1.send(2).await.unwrap();
+            // task waits until the receiver receives a value.
+        });
 
-    tokio::spawn(async move {
-        // This will return an error and send
-        // no message if the buffer is full
-        let _ = tx2.try_send(3);
-    });
+        tokio::spawn(async move {
+            // This will return an error and send
+            // no message if the buffer is full
+            let _ = tx2.try_send(3);
+        });
 
-    let mut msg;
-    msg = rx.recv().await.unwrap();
-    println!("message {} received", msg);
+        let mut msg;
+        msg = rx.recv().await.unwrap();
+        println!("message {} received", msg);
 
-    msg = rx.recv().await.unwrap();
-    println!("message {} received", msg);
+        msg = rx.recv().await.unwrap();
+        println!("message {} received", msg);
 
-    // Third message may have never been sent
-    match rx.recv().await {
-        Some(msg) => println!("message {} received", msg),
-        None => println!("the third message was never sent"),
+        // Third message may have never been sent
+        match rx.recv().await {
+            Some(msg) => println!("message {} received", msg),
+            None => println!("the third message was never sent"),
+        }
     }
-}
-```
 
 #### `pub async fn send_timeout( &'_ self, value: T, timeout: Duration ) -> Result<(), SendTimeoutError<T>>`
 
@@ -151,29 +143,27 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 
 In the following example, each call to `send_timeout` will block until the previously sent value was received, unless the timeout has elapsed.
 
-```rs
-use tokio::sync::mpsc;
-use tokio::time::{sleep, Duration};
+    use tokio::sync::mpsc;
+    use tokio::time::{sleep, Duration};
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(1);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(1);
 
-    tokio::spawn(async move {
-        for i in 0..10 {
-            if let Err(e) = tx.send_timeout(i, Duration::from_millis(100)).await {
-                println!("send error: #{:?}", e);
-                return;
+        tokio::spawn(async move {
+            for i in 0..10 {
+                if let Err(e) = tx.send_timeout(i, Duration::from_millis(100)).await {
+                    println!("send error: #{:?}", e);
+                    return;
+                }
             }
-        }
-    });
+        });
 
-    while let Some(i) = rx.recv().await {
-        println!("got = {}", i);
-        sleep(Duration::from_millis(200)).await;
+        while let Some(i) = rx.recv().await {
+            println!("got = {}", i);
+            sleep(Duration::from_millis(200)).await;
+        }
     }
-}
-```
 
 #### `pub fn blocking_send(&self, value: T) -> Result<(), SendError<T>>`
 
@@ -187,40 +177,36 @@ This function panics if called within an asynchronous execution context.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
-```rs
-use std::thread;
-use tokio::runtime::Runtime;
-use tokio::sync::mpsc;
+    use std::thread;
+    use tokio::runtime::Runtime;
+    use tokio::sync::mpsc;
 
-fn main() {
-    let (tx, mut rx) = mpsc::channel::<u8>(1);
+    fn main() {
+        let (tx, mut rx) = mpsc::channel::<u8>(1);
 
-    let sync_code = thread::spawn(move || {
-        tx.blocking_send(10).unwrap();
-    });
+        let sync_code = thread::spawn(move || {
+            tx.blocking_send(10).unwrap();
+        });
 
-    Runtime::new().unwrap().block_on(async move {
-        assert_eq!(Some(10), rx.recv().await);
-    });
-    sync_code.join().unwrap()
-}
-```
+        Runtime::new().unwrap().block_on(async move {
+            assert_eq!(Some(10), rx.recv().await);
+        });
+        sync_code.join().unwrap()
+    }
 
 #### `pub fn is_closed(&self) -> bool`
 
 Checks if the channel has been closed. This happens when the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html) is dropped, or when the [`Receiver::close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) method is called.
 
-```rs
-let (tx, rx) = tokio::sync::mpsc::channel::<()>(42);
-assert!(!tx.is_closed());
+    let (tx, rx) = tokio::sync::mpsc::channel::<()>(42);
+    assert!(!tx.is_closed());
 
-let tx2 = tx.clone();
-assert!(!tx2.is_closed());
+    let tx2 = tx.clone();
+    assert!(!tx2.is_closed());
 
-drop(rx);
-assert!(tx.is_closed());
-assert!(tx2.is_closed());
-```
+    drop(rx);
+    assert!(tx.is_closed());
+    assert!(tx2.is_closed());
 
 #### `pub async fn reserve(&'_ self) -> Result<Permit<'_, T>, SendError<()>>`
 
@@ -232,27 +218,25 @@ Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message relea
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(1);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(1);
 
-    // Reserve capacity
-    let permit = tx.reserve().await.unwrap();
+        // Reserve capacity
+        let permit = tx.reserve().await.unwrap();
 
-    // Trying to send directly on the `tx` will fail due to no
-    // available capacity.
-    assert!(tx.try_send(123).is_err());
+        // Trying to send directly on the `tx` will fail due to no
+        // available capacity.
+        assert!(tx.try_send(123).is_err());
 
-    // Sending on the permit succeeds
-    permit.send(456);
+        // Sending on the permit succeeds
+        permit.send(456);
 
-    // The value sent on the permit is received
-    assert_eq!(rx.recv().await.unwrap(), 456);
-}
-```
+        // The value sent on the permit is received
+        assert_eq!(rx.recv().await.unwrap(), 456);
+    }
 
 #### `pub fn try_reserve(&self) -> Result<Permit<'_, T>, TrySendError<()>>`
 
@@ -264,32 +248,30 @@ Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message relea
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(1);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(1);
 
-    // Reserve capacity
-    let permit = tx.try_reserve().unwrap();
+        // Reserve capacity
+        let permit = tx.try_reserve().unwrap();
 
-    // Trying to send directly on the `tx` will fail due to no
-    // available capacity.
-    assert!(tx.try_send(123).is_err());
+        // Trying to send directly on the `tx` will fail due to no
+        // available capacity.
+        assert!(tx.try_send(123).is_err());
 
-    // Trying to reserve an additional slot on the `tx` will
-    // fail because there is no capacity.
-    assert!(tx.try_reserve().is_err());
+        // Trying to reserve an additional slot on the `tx` will
+        // fail because there is no capacity.
+        assert!(tx.try_reserve().is_err());
 
-    // Sending on the permit succeeds
-    permit.send(456);
+        // Sending on the permit succeeds
+        permit.send(456);
 
-    // The value sent on the permit is received
-    assert_eq!(rx.recv().await.unwrap(), 456);
+        // The value sent on the permit is received
+        assert_eq!(rx.recv().await.unwrap(), 456);
 
-}
-```
+    }
 
 #### `pub fn same_channel(&self, other: &Sender<T>) -> bool`
 
@@ -297,14 +279,12 @@ Returns `true` if senders belong to the same channel.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
-```rs
-let (tx, rx) = tokio::sync::mpsc::channel::<()>(1);
-let  tx2 = tx.clone();
-assert!(tx.same_channel(&tx2));
+    let (tx, rx) = tokio::sync::mpsc::channel::<()>(1);
+    let  tx2 = tx.clone();
+    assert!(tx.same_channel(&tx2));
 
-let (tx3, rx3) = tokio::sync::mpsc::channel::<()>(1);
-assert!(!tx3.same_channel(&tx2));
-```
+    let (tx3, rx3) = tokio::sync::mpsc::channel::<()>(1);
+    assert!(!tx3.same_channel(&tx2));
 
 #### `pub fn capacity(&self) -> usize`
 
@@ -314,25 +294,23 @@ The capacity goes down when sending a value by calling [`send`](/docs/api/rust/t
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-8)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel::<()>(5);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel::<()>(5);
 
-    assert_eq!(tx.capacity(), 5);
+        assert_eq!(tx.capacity(), 5);
 
-    // Making a reservation drops the capacity by one.
-    let permit = tx.reserve().await.unwrap();
-    assert_eq!(tx.capacity(), 4);
+        // Making a reservation drops the capacity by one.
+        let permit = tx.reserve().await.unwrap();
+        assert_eq!(tx.capacity(), 4);
 
-    // Sending and receiving a value increases the caapcity by one.
-    permit.send(());
-    rx.recv().await.unwrap();
-    assert_eq!(tx.capacity(), 5);
-}
-```
+        // Sending and receiving a value increases the caapcity by one.
+        permit.send(());
+        rx.recv().await.unwrap();
+        assert_eq!(tx.capacity(), 5);
+    }
 
 ## Trait Implementations
 
@@ -394,11 +372,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

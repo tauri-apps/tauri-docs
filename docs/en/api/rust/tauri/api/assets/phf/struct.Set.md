@@ -4,10 +4,8 @@ title: "struct.Set"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[api](/docs/api/rust/tauri/../../index.html)::​[assets](/docs/api/rust/tauri/../index.html)::​[phf](/docs/api/rust/tauri/index.html)::​[Set](/docs/api/rust/tauri/)
 
-```rs
-pub struct Set<T> where
-    T: 'static,  { /* fields omitted */ }
-```
+    pub struct Set<T> where
+        T: 'static,  { /* fields omitted */ }
 
 An immutable set constructed at compile time.
 
@@ -29,7 +27,7 @@ Returns true if the `Set` contains no elements.
 
 #### `pub fn get_key<U>(&self, key: &U) -> Option<&T> where T: Borrow<U>, U: Eq + PhfHash + ?Sized,`
 
-Returns a reference to the set's internal static instance of the given key.
+Returns a reference to the set’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
@@ -121,11 +119,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

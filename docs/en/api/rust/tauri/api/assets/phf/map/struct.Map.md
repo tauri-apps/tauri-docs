@@ -4,11 +4,9 @@ title: "struct.Map"
 
 # Struct [tauri](/docs/api/rust/tauri/../../../../index.html)::​[api](/docs/api/rust/tauri/../../../index.html)::​[assets](/docs/api/rust/tauri/../../index.html)::​[phf](/docs/api/rust/tauri/../index.html)::​[map](/docs/api/rust/tauri/index.html)::​[Map](/docs/api/rust/tauri/)
 
-```rs
-pub struct Map<K, V> where
-    K: 'static,
-    V: 'static,  { /* fields omitted */ }
-```
+    pub struct Map<K, V> where
+        V: 'static,
+        K: 'static,  { /* fields omitted */ }
 
 An immutable map constructed at compile time.
 
@@ -38,7 +36,7 @@ Returns a reference to the value that `key` maps to.
 
 #### `pub fn get_key<T>(&self, key: &T) -> Option<&K> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
 
-Returns a reference to the map's internal static instance of the given key.
+Returns a reference to the map’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
@@ -66,7 +64,7 @@ Values are returned in an arbitrary but fixed order.
 
 ## Trait Implementations
 
-### `impl<K, V> Debug for Map<K, V> where K: Debug, V: Debug,`
+### `impl<K, V> Debug for Map<K, V> where V: Debug, K: Debug,`
 
 #### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
 
@@ -138,11 +136,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

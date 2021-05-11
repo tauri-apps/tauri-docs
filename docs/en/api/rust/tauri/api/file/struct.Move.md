@@ -4,9 +4,7 @@ title: "struct.Move"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Move](/docs/api/rust/tauri/)
 
-```rs
-pub struct Move<'a> { /* fields omitted */ }
-```
+    pub struct Move<'a> { /* fields omitted */ }
 
 Moves a file from the given path to the specified destination.
 
@@ -26,9 +24,9 @@ Specify source file
 
 #### `pub fn replace_using_temp(&mut self, temp: &'a Path) -> &mutSelf`
 
-If specified and the destination file already exists, the "destination" file will be moved to the given temporary location before the "source" file is moved to the "destination" file.
+If specified and the destination file already exists, the “destination” file will be moved to the given temporary location before the “source” file is moved to the “destination” file.
 
-In the event of an `io` error while renaming "source" to "destination", the temporary file will be moved back to "destination".
+In the event of an `io` error while renaming “source” to “destination”, the temporary file will be moved back to “destination”.
 
 The `temp` dir must be explicitly provided since `rename` operations require files to live on the same filesystem.
 
@@ -90,11 +88,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
