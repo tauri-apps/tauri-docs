@@ -47,6 +47,7 @@ struct MainWindow<P: Params>(Arc<Mutex<Window<P>>>);
 
 #[tauri::command]
 fn close_splashscreen<P: Params>(
+  _: Window<P>, // force inference of P
   splashscreen: State<'_, SplashscreenWindow<P>>,
   main: State<'_, MainWindow<P>>,
 ) {
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
 ```rust title=src-tauri/main.rs
+use std::{thread::sleep, time::Duration};
 use tauri::Manager;
 fn main() {
   tauri::Builder::default()
