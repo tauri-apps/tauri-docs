@@ -2,8 +2,6 @@
 title: Splashscreen
 ---
 
-import Link from '@docusaurus/Link'
-
 If your webpage could take some time to load, or if you need to run an initialization procedure in Rust before displaying your main window, a splashscreen could improve the loading experience for the user.
 
 ### Setup
@@ -40,15 +38,15 @@ If you are waiting for your web code, you'll want to create a `close_splashscree
 
 ```rust title=src-tauri/main.rs
 use std::sync::{Arc, Mutex};
-use tauri::{Manager, Params, State, Window};
+use tauri::{Manager, State, Window};
 
-struct SplashscreenWindow<P: Params>(Arc<Mutex<Window<P>>>);
-struct MainWindow<P: Params>(Arc<Mutex<Window<P>>>);
+struct SplashscreenWindow(Arc<Mutex<Window>>);
+struct MainWindow(Arc<Mutex<Window>>);
 
 #[tauri::command]
-fn close_splashscreen<P: Params>(
-  splashscreen: State<'_, SplashscreenWindow<P>>,
-  main: State<'_, MainWindow<P>>,
+fn close_splashscreen(
+  splashscreen: State<'_, SplashscreenWindow>,
+  main: State<'_, MainWindow>,
 ) {
   // Close splashscreen
   splashscreen.0.lock().unwrap().close().unwrap();
@@ -94,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
 ```rust title=src-tauri/main.rs
+use std::{thread::sleep, time::Duration};
 use tauri::Manager;
 fn main() {
   tauri::Builder::default()

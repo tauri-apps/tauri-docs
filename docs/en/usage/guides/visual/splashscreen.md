@@ -38,16 +38,15 @@ If you are waiting for your web code, you'll want to create a `close_splashscree
 
 ```rust title=src-tauri/main.rs
 use std::sync::{Arc, Mutex};
-use tauri::{Manager, Params, State, Window};
+use tauri::{Manager, State, Window};
 
-struct SplashscreenWindow<P: Params>(Arc<Mutex<Window<P>>>);
-struct MainWindow<P: Params>(Arc<Mutex<Window<P>>>);
+struct SplashscreenWindow(Arc<Mutex<Window>>);
+struct MainWindow(Arc<Mutex<Window>>);
 
 #[tauri::command]
-fn close_splashscreen<P: Params>(
-  _: Window<P>, // force inference of P
-  splashscreen: State<'_, SplashscreenWindow<P>>,
-  main: State<'_, MainWindow<P>>,
+fn close_splashscreen(
+  splashscreen: State<'_, SplashscreenWindow>,
+  main: State<'_, MainWindow>,
 ) {
   // Close splashscreen
   splashscreen.0.lock().unwrap().close().unwrap();

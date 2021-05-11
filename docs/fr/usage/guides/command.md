@@ -125,7 +125,7 @@ Commands can access the `Window` instance that invoked the message:
 
 ```rust
 #[tauri::command]
-async fn my_custom_command<P: tauri::Params>(window: tauri::Window<P>) {
+async fn my_custom_command(window: tauri::Window) {
   println!("Window: {}", window.label());
 }
 ```
@@ -172,8 +172,8 @@ async fn some_other_function() -> Option<String> {
 }
 
 #[tauri::command]
-async fn my_custom_command<P: tauri::Params>(
-  window: tauri::Window<P>,
+async fn my_custom_command(
+  window: tauri::Window,
   number: usize,
   database: tauri::State<'_, Database>,
 ) -> Result<CustomResponse, String> {
