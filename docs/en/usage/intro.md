@@ -16,5 +16,24 @@ Here you will find guides and techniques to add to your own project in order to 
 
 ## Guides
 
-- [How to embed custom binaries](/docs/usage/guides/bundler/sidecar)
-- [How to customize app icons](/docs/usage/guides/visual/icons)
+### App
+
+- [Read command line arguments](/docs/usage/guides/cli)
+- [Communicate with the backend](/docs/usage/guides/command)
+- [Configure the app updater](/docs/usage/guides/updater)
+
+### Tauri
+
+- [Create Tauri plugins](/docs/usage/guides/plugin)
+
+### Bundle
+
+- [Embed custom binaries](/docs/usage/guides/bundler/sidecar)
+- [Reduce bundle size](/docs/usage/guides/bundler/anti-bloat)
+
+### UI
+
+- [Customize app icons](/docs/usage/guides/visual/icons)
+- [Customize window appearance](/docs/usage/guides/visual/window-customization)
+- [Create window menus](/docs/usage/guides/visual/menu)
+- [Customize app system tray](/docs/usage/guides/visual/system-tray)
