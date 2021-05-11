@@ -35,6 +35,12 @@ const projects = [
     link: 'https://github.com/Calciumdibromid/CaBr2',
     screenshots: ['0.png'].map((image) => imgPath + 'cabr2/' + image),
   },
+  {
+    title: 'SimpleSTT',
+    image: imgPath + 'simple-stt/logo.png',
+    link: 'https://github.com/mmpneo/simple-obs-stt',
+    screenshots: ['0.png'].map((image) => imgPath + 'simple-stt/' + image),
+  },
 ]
 
 const customStyles = {
