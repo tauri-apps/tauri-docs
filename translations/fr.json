@@ -258,6 +258,12 @@
         },
         {
           "description": "Write Arabic text on apps that don't support bidirectional text."
+        },
+        {
+          "description": ""
+        },
+        {
+          "description": "Real-time speech-to-text and keyboard input captions for OBS."
         }
       ],
       "yourProject": "Your project",

@@ -261,6 +261,9 @@
         },
         {
           "description": "Generate \"experiment wise safety sheets\" in compliance to European law."
+        },
+        {
+          "description": "Real-time speech-to-text/keyboard input captions for OBS."
         }
       ],
       "yourProject": "Your project",
