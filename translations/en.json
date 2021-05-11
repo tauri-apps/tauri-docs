@@ -131,12 +131,20 @@
             "description": "Update Tauri Apps from within Tauri."
           },
           {
-            "label": "Channel API",
-            "description": "Send messages through a channel."
+            "label": "Window Menus",
+            "description": "Desktop Cross-platform Window Menus."
+          },
+          {
+            "label": "App Tray",
+            "description": "Desktop Cross-platform Icon Tray."
           },
           {
             "label": "Beta Release",
             "description": "Generally stable on Desktop, API locked down."
+          },
+          {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
           },
           {
             "label": "Security Audit",
@@ -161,10 +169,6 @@
           {
             "label": "One-Time Commands",
             "description": "Run a command that is no longer available after first run."
-          },
-          {
-            "label": "App Tray",
-            "description": "Desktop Cross-platform Icon Tray."
           },
           {
             "label": "DENO Bindings",

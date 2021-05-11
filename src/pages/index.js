@@ -200,17 +200,23 @@ const Roadmap = ({ siteConfig }) => {
       label: 'Secure Context for Web APIs',
       icon: 'ti-lock',
       color: COLORS.green,
-      targetQuarter: '2021',
+      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Self Updater',
       icon: 'ti-download',
       color: COLORS.green,
-      targetQuarter: '2021',
+      targetQuarter: 'Q1 2021',
     },
     {
-      label: 'Channel API',
-      icon: 'ti-rss-alt',
+      label: 'Window Menus',
+      icon: 'ti-menu',
+      color: COLORS.green,
+      targetQuarter: 'Q2 2021',
+    },
+    {
+      label: 'App Tray',
+      icon: 'ti-panel',
       color: COLORS.green,
       targetQuarter: 'Q2 2021',
     },
@@ -219,6 +225,12 @@ const Roadmap = ({ siteConfig }) => {
       icon: 'ti-flag-alt',
       color: COLORS.green,
       targetQuarter: 'Q2 2021',
+    },
+    {
+      label: 'Channel API',
+      icon: 'ti-rss-alt',
+      color: COLORS.blue,
+      targetQuarter: '2021',
     },
     {
       label: 'Security Audit',
@@ -253,12 +265,6 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'One-Time Commands',
       icon: 'ti-upload',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'App Tray',
-      icon: 'ti-panel',
       color: COLORS.blue,
       targetQuarter: 'Planned',
     },
