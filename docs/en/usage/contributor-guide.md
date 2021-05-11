@@ -34,15 +34,15 @@ Hi! We, the maintainers, are really excited that you are interested in contribut
 
 - If adding new feature:
 
-  - Provide convincing reason to add this feature. Ideally you should open a suggestion issue first and have it greenlighted before working on it.
+  - Provide a convincing reason to add this feature. Ideally you should open a suggestion issue first and have it greenlighted before working on it.
 
 - If fixing a bug:
   - If you are resolving a special issue, add `(fix: #xxxx[,#xxx])` (#xxxx is the issue id) in your PR title for a better release log, e.g. `fix: update entities encoding/decoding (fix #3899)`.
-  - Provide detailed description of the bug in the PR, or link to an issue that does.
+  - Provide a detailed description of the bug in the PR, or link to an issue that does.
 
 ## Development Guide
 
-**NOTE: Tauri is undergoing rapid development right now, and the docs match the latest published version of Tauri. They are horribly out of date when compared with the code in the dev branch. This contributor guide is up-to-date, but it doesn't cover all of Tauri's functions in depth. If you have any questions, don't hesitate to ask in our Discord server.**
+**NOTE: Tauri is undergoing rapid development right now, and the docs match the latest published version of Tauri. This contributor guide is up-to-date, but it doesn't cover all of Tauri's functions in depth. If you have any questions, don't hesitate to ask in our Discord server.**
 
 ### General Setup
 
