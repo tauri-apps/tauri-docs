@@ -31,6 +31,12 @@ const packagesData = [
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
   },
   {
+    label: 'TAO',
+    value: 'tao',
+    changelogUrl:
+      'https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md',
+  },
+  {
     label: 'WRY',
     value: 'wry',
     changelogUrl:
