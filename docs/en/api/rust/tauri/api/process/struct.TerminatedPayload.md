@@ -4,10 +4,12 @@ title: "struct.TerminatedPayload"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[TerminatedPayload](/docs/api/rust/tauri/)
 
-    pub struct TerminatedPayload {
-        pub code: Option<i32>,
-        pub signal: Option<i32>,
-    }
+```rs
+pub struct TerminatedPayload {
+    pub code: Option<i32>,
+    pub signal: Option<i32>,
+}
+```
 
 Payload for the `Terminated` command event.
 
@@ -87,11 +89,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

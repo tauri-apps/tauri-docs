@@ -143,6 +143,16 @@
                       ]
                     },
                     {
+                      "label": "cli",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/cli/fn.get_matches",
+                        "api/rust/tauri/api/cli/struct.ArgData",
+                        "api/rust/tauri/api/cli/struct.Matches",
+                        "api/rust/tauri/api/cli/struct.SubcommandMatches"
+                      ]
+                    },
+                    {
                       "label": "config",
                       "type": "category",
                       "items": [
@@ -231,6 +241,13 @@
                       ]
                     },
                     {
+                      "label": "notification",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/notification/struct.Notification"
+                      ]
+                    },
+                    {
                       "label": "path",
                       "type": "category",
                       "items": [
@@ -291,6 +308,13 @@
                       "type": "category",
                       "items": [
                         "api/rust/tauri/api/shell/fn.open"
+                      ]
+                    },
+                    {
+                      "label": "shortcuts",
+                      "type": "category",
+                      "items": [
+                        "api/rust/tauri/api/shortcuts/struct.ShortcutManager"
                       ]
                     },
                     {
@@ -368,9 +392,30 @@
                   "items": []
                 },
                 {
+                  "label": "updater",
+                  "type": "category",
+                  "items": [
+                    {
+                      "label": "error",
+                      "type": "category",
+                      "items": []
+                    },
+                    "api/rust/tauri/updater/enum.Error",
+                    "api/rust/tauri/updater/constant.EVENT_CHECK_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_INSTALL_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_ERROR",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_PENDING",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_SUCCESS",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_UPDATE",
+                    "api/rust/tauri/updater/constant.EVENT_STATUS_UPTODATE",
+                    "api/rust/tauri/updater/constant.EVENT_UPDATE_AVAILABLE"
+                  ]
+                },
+                {
                   "label": "window",
                   "type": "category",
                   "items": [
+                    "api/rust/tauri/window/struct.MenuEvent",
                     "api/rust/tauri/window/struct.Monitor",
                     "api/rust/tauri/window/struct.Window"
                   ]
@@ -378,14 +423,17 @@
                 "api/rust/tauri/enum.Error",
                 "api/rust/tauri/enum.Icon",
                 "api/rust/tauri/enum.InvokeResponse",
+                "api/rust/tauri/enum.MenuItem",
                 "api/rust/tauri/enum.Position",
                 "api/rust/tauri/enum.Size",
+                "api/rust/tauri/enum.SystemTrayMenuItem",
                 "api/rust/tauri/enum.WindowEvent",
                 "api/rust/tauri/enum.WindowUrl",
                 "api/rust/tauri/struct.App",
                 "api/rust/tauri/struct.Builder",
                 "api/rust/tauri/struct.Config",
                 "api/rust/tauri/struct.Context",
+                "api/rust/tauri/struct.CustomMenuItem",
                 "api/rust/tauri/struct.GlobalWindowEvent",
                 "api/rust/tauri/struct.Invoke",
                 "api/rust/tauri/struct.InvokeError",
@@ -393,13 +441,16 @@
                 "api/rust/tauri/struct.InvokeResolver",
                 "api/rust/tauri/struct.LogicalPosition",
                 "api/rust/tauri/struct.LogicalSize",
+                "api/rust/tauri/struct.Menu",
                 "api/rust/tauri/struct.PackageInfo",
                 "api/rust/tauri/struct.PageLoadPayload",
                 "api/rust/tauri/struct.PhysicalPosition",
                 "api/rust/tauri/struct.PhysicalSize",
                 "api/rust/tauri/struct.State",
                 "api/rust/tauri/struct.StateManager",
+                "api/rust/tauri/struct.SystemTrayEvent",
                 "api/rust/tauri/struct.WebviewAttributes",
+                "api/rust/tauri/struct.WindowMenuEvent",
                 "api/rust/tauri/struct.Wry",
                 "api/rust/tauri/trait.Assets",
                 "api/rust/tauri/trait.Manager",

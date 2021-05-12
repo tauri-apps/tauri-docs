@@ -4,13 +4,15 @@ title: "struct.Builder"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Builder](/docs/api/rust/tauri/)
 
-    pub struct Builder<E, L, MID, TID, A, R> where
-        E: Tag,
-        L: Tag,
-        MID: MenuId,
-        TID: MenuId,
-        A: Assets,
-        R: Runtime,  { /* fields omitted */ }
+```rs
+pub struct Builder<E, L, MID, TID, A, R> where
+    E: Tag,
+    L: Tag,
+    MID: MenuId,
+    TID: MenuId,
+    A: Assets,
+    R: Runtime,  { /* fields omitted */ }
+```
 
 Builds a Tauri application.
 
@@ -54,36 +56,54 @@ Panics if state of type `T` is already being managed.
 
 ⓘ
 
-    use tauri::State;
+```rs
+use tauri::State;
 
-    struct MyInt(isize);
-    struct MyString(String);
+struct MyInt(isize);
+struct MyString(String);
 
-    #[tauri::command]
-    fn int_command(state: State<'_, MyInt>) -> String {
-        format!("The stateful int is: {}", state.0)
-    }
+#[tauri::command]
+fn int_command(state: State<'_, MyInt>) -> String {
+    format!("The stateful int is: {}", state.0)
+}
 
-    #[tauri::command]
-    fn string_command<'r>(state: State<'r, MyString>) {
-        println!("state: {}", state.inner().0);
-    }
+#[tauri::command]
+fn string_command<'r>(state: State<'r, MyString>) {
+    println!("state: {}", state.inner().0);
+}
 
-    fn main() {
-        tauri::Builder::default()
-            .manage(MyInt(10))
-            .manage(MyString("Hello, managed state!".to_string()))
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
+fn main() {
+    tauri::Builder::default()
+        .manage(MyInt(10))
+        .manage(MyString("Hello, managed state!".to_string()))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
 
 #### `pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self where F: FnOnce(<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
 
 Creates a new webview window.
 
+#### `pub fn system_tray(self, items: Vec<SystemTrayMenuItem<TID>>) -> Self`
+
+Adds the icon configured on `tauri.conf.json` to the system tray with the specified menu items.
+
+#### `pub fn menu(self, menu: Vec<Menu<MID>>) -> Self`
+
+Sets the menu to use on all windows.
+
+#### `pub fn on_menu_event<F: Fn(WindowMenuEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
+
+Registers a menu event handler for all windows.
+
 #### `pub fn on_window_event<F: Fn(GlobalWindowEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
 
 Registers a window event handler for all windows.
+
+#### `pub fn on_system_tray_event<F: Fn(&AppHandle<Args<E, L, MID, TID, A, R>>, SystemTrayEvent<TID>) + Send + Sync + 'static>( self, handler: F ) -> Self`
+
+Registers a system tray event handler.
 
 #### `pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>( self, uri_scheme: N, protocol: H ) -> Self`
 
@@ -116,7 +136,7 @@ Returns the “default value” for a type. [Read more](https://doc.rust-lang.or
 
 ### `impl<E, L, MID, TID, A, R> !Sync for Builder<E, L, MID, TID, A, R>`
 
-### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
+### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, MID: Unpin, TID: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
 
 ### `impl<E, L, MID, TID, A, R> !UnwindSafe for Builder<E, L, MID, TID, A, R>`
 
@@ -150,11 +170,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

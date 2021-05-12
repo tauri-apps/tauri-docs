@@ -4,8 +4,10 @@ title: "trait.TagRef"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[TagRef](/docs/api/rust/tauri/)
 
-    pub trait TagRef<T>: Display + ToOwned<Owned = T> + PartialEq<T> + Eq + Hash where
-        T: Tag + Borrow<Self>, { }
+```rs
+pub trait TagRef<T>: Display + ToOwned<Owned = T> + PartialEq<T> + Eq + Hash where
+    T: Tag + Borrow<Self>, { }
+```
 
 A reference to a [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag").
 

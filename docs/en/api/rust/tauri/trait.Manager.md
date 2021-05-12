@@ -4,73 +4,75 @@ title: "trait.Manager"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Manager](/docs/api/rust/tauri/)
 
-    pub trait Manager<P: Params>: ManagerBase<P> {
-        fn config(&self) -> Arc<Config> { ... }
+```rs
+pub trait Manager<P: Params>: ManagerBase<P> {
+    fn config(&self) -> Arc<Config> { ... }
 
-        fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()>
-        where
-            P::Event: Borrow<E>,
-            E: TagRef<P::Event>,
-            S: Serialize + Clone,
-        { ... }
+    fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()>
+    where
+        P::Event: Borrow<E>,
+        E: TagRef<P::Event>,
+        S: Serialize + Clone,
+    { ... }
 
-        fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
-            &self, 
-            label: &L, 
-            event: &E, 
-            payload: S
-        ) -> Result<()>
-        where
-            P::Label: Borrow<L>,
-            P::Event: Borrow<E>,
-            L: TagRef<P::Label>,
-            E: TagRef<P::Event>,
-        { ... }
+    fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
+        &self, 
+        label: &L, 
+        event: &E, 
+        payload: S
+    ) -> Result<()>
+    where
+        P::Label: Borrow<L>,
+        P::Event: Borrow<E>,
+        L: TagRef<P::Label>,
+        E: TagRef<P::Event>,
+    { ... }
 
-        fn listen_global<E: Into<P::Event>, F>(
-            &self, 
-            event: E, 
-            handler: F
-        ) -> EventHandler
-        where
-            F: Fn(Event) + Send + 'static,
-        { ... }
+    fn listen_global<E: Into<P::Event>, F>(
+        &self, 
+        event: E, 
+        handler: F
+    ) -> EventHandler
+    where
+        F: Fn(Event) + Send + 'static,
+    { ... }
 
-        fn once_global<E: Into<P::Event>, F>(
-            &self, 
-            event: E, 
-            handler: F
-        ) -> EventHandler
-        where
-            F: Fn(Event) + Send + 'static,
-        { ... }
+    fn once_global<E: Into<P::Event>, F>(
+        &self, 
+        event: E, 
+        handler: F
+    ) -> EventHandler
+    where
+        F: Fn(Event) + Send + 'static,
+    { ... }
 
-        fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>)
-        where
-            P::Event: Borrow<E>,
-            E: TagRef<P::Event>,
-        { ... }
+    fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>)
+    where
+        P::Event: Borrow<E>,
+        E: TagRef<P::Event>,
+    { ... }
 
-        fn unlisten(&self, handler_id: EventHandler) { ... }
+    fn unlisten(&self, handler_id: EventHandler) { ... }
 
-        fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>>
-        where
-            P::Label: Borrow<L>,
-            L: TagRef<P::Label>,
-        { ... }
+    fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>>
+    where
+        P::Label: Borrow<L>,
+        L: TagRef<P::Label>,
+    { ... }
 
-        fn windows(&self) -> HashMap<P::Label, Window<P>> { ... }
+    fn windows(&self) -> HashMap<P::Label, Window<P>> { ... }
 
-        fn manage<T>(&self, state: T)
-        where
-            T: Send + Sync + 'static,
-        { ... }
+    fn manage<T>(&self, state: T)
+    where
+        T: Send + Sync + 'static,
+    { ... }
 
-        fn state<T>(&self) -> State<'_, T>
-        where
-            T: Send + Sync + 'static,
-        { ... }
-    }
+    fn state<T>(&self) -> State<'_, T>
+    where
+        T: Send + Sync + 'static,
+    { ... }
+}
+```
 
 Manages a running application.
 

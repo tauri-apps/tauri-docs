@@ -4,7 +4,9 @@ title: "attr.command"
 
 # Attribute Macro [tauri](/docs/api/rust/tauri/index.html)::​[command](/docs/api/rust/tauri/)
 
-    #[command]
+```rs
+#[command]
+```
 
 Mark a function as a command handler. It creates a wrapper function with the necessary glue code.
 

@@ -4,12 +4,14 @@ title: "struct.WebviewAttributes"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[WebviewAttributes](/docs/api/rust/tauri/)
 
-    pub struct WebviewAttributes {
-        pub url: WindowUrl,
-        pub initialization_scripts: Vec<String, Global>,
-        pub data_directory: Option<PathBuf>,
-        pub uri_scheme_protocols: HashMap<String, Box<dyn Fn(&str) + 'static + Send + Sync, Global>, RandomState>,
-    }
+```rs
+pub struct WebviewAttributes {
+    pub url: WindowUrl,
+    pub initialization_scripts: Vec<String, Global>,
+    pub data_directory: Option<PathBuf>,
+    pub uri_scheme_protocols: HashMap<String, Box<dyn Fn(&str) + 'static + Send + Sync, Global>, RandomState>,
+}
+```
 
 The attributes used to create an webview.
 
@@ -37,7 +39,7 @@ Data directory for the webview.
 
 Whether the webview URI scheme protocol is defined or not.
 
-#### `pub fn register_uri_scheme_protocol<N, H>( self, uri_scheme: N, protocol: H ) -> WebviewAttributeswhere N: Into<String>, H: 'static + Fn(&str) -> Result<Vec<u8, Global>, Box<dyn Error + 'static, Global>> + Send + Sync,`
+#### `pub fn register_uri_scheme_protocol<N, H>( self, uri_scheme: N, protocol: H ) -> WebviewAttributeswhere H: 'static + Fn(&str) -> Result<Vec<u8, Global>, Box<dyn Error + 'static, Global>> + Send + Sync, N: Into<String>,`
 
 Registers a webview protocol handler. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
 
@@ -88,11 +90,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

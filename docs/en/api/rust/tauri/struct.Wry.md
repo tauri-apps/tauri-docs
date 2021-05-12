@@ -4,9 +4,11 @@ title: "struct.Wry"
 
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Wry](/docs/api/rust/tauri/)
 
-    pub struct Wry { /* fields omitted */ }
+```rs
+pub struct Wry { /* fields omitted */ }
+```
 
-A Tauri \[`Runtime`] wrapper around wry.
+A Tauri [`Runtime`](/docs/api/rust/tauri/../tauri_runtime/trait.Runtime.html "Runtime") wrapper around wry.
 
 ## Trait Implementations
 
@@ -23,6 +25,14 @@ Creates a new webview runtime.
 #### `pub fn create_window<P>( &self, pending: PendingWindow<P> ) -> Result<DetachedWindow<P>, Error> where P: Params<Runtime = Wry>,`
 
 Create a new webview window.
+
+#### `pub fn system_tray<I>( &self, icon: Icon, menu_items: Vec<SystemTrayMenuItem<I>, Global> ) -> Result<(), Error> where I: MenuId,`
+
+Adds the icon to the system tray with the specified menu items.
+
+#### `pub fn on_system_tray_event<F>(&mut self, f: F) -> Uuidwhere F: 'static + Fn(&SystemTrayEvent) + Send,`
+
+Registers a system tray event handler.
 
 #### `pub fn run(self)`
 
@@ -70,11 +80,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
