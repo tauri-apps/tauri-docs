@@ -4,28 +4,26 @@ title: "struct.WindowConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[WindowConfig](/docs/api/rust/tauri/)
 
-```rs
-pub struct WindowConfig {
-    pub label: String,
-    pub url: WindowUrl,
-    pub x: Option<f64>,
-    pub y: Option<f64>,
-    pub width: f64,
-    pub height: f64,
-    pub min_width: Option<f64>,
-    pub min_height: Option<f64>,
-    pub max_width: Option<f64>,
-    pub max_height: Option<f64>,
-    pub resizable: bool,
-    pub title: String,
-    pub fullscreen: bool,
-    pub transparent: bool,
-    pub maximized: bool,
-    pub visible: bool,
-    pub decorations: bool,
-    pub always_on_top: bool,
-}
-```
+    pub struct WindowConfig {
+        pub label: String,
+        pub url: WindowUrl,
+        pub x: Option<f64>,
+        pub y: Option<f64>,
+        pub width: f64,
+        pub height: f64,
+        pub min_width: Option<f64>,
+        pub min_height: Option<f64>,
+        pub max_width: Option<f64>,
+        pub max_height: Option<f64>,
+        pub resizable: bool,
+        pub title: String,
+        pub fullscreen: bool,
+        pub transparent: bool,
+        pub maximized: bool,
+        pub visible: bool,
+        pub decorations: bool,
+        pub always_on_top: bool,
+    }
 
 The window configuration object.
 
@@ -131,7 +129,7 @@ Returns the “default value” for a type. [Read more](https://doc.rust-lang.or
 
 #### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<WindowConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<WindowConfig> for WindowConfig`
 
@@ -209,11 +207,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

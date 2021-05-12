@@ -4,9 +4,7 @@ title: "trait.Tag"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Tag](/docs/api/rust/tauri/)
 
-```rs
-pub trait Tag: 'static + Hash + Eq + FromStr + Display + Debug + Clone + Send + Sync { }
-```
+    pub trait Tag: 'static + Hash + Eq + FromStr + Display + Debug + Clone + Send + Sync { }
 
 Represents a “string-able” type.
 
@@ -26,49 +24,47 @@ To avoid Tauri panicking during the application runtime, have your type be able 
 
 # [Example](/docs/api/rust/tauri/about:blank#example)
 
-```rs
-use std::fmt;
-use std::str::FromStr;
+    use std::fmt;
+    use std::str::FromStr;
 
-#[derive(Debug, Clone, Hash, Eq, PartialEq)]
-enum Event {
-  Foo,
-  Bar,
-  Unknown(String),
-}
+    #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+    enum Event {
+      Foo,
+      Bar,
+      Unknown(String),
+    }
 
-impl fmt::Display for Event {
-  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    f.write_str(match self {
-      Self::Foo => "foo",
-      Self::Bar => "bar",
-      Self::Unknown(s) => &s
-    })
-  }
-}
+    impl fmt::Display for Event {
+      fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(match self {
+          Self::Foo => "foo",
+          Self::Bar => "bar",
+          Self::Unknown(s) => &s
+        })
+      }
+    }
 
-impl FromStr for Event {
-  type Err = std::convert::Infallible;
+    impl FromStr for Event {
+      type Err = std::convert::Infallible;
 
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
-    Ok(match s {
-      "foo" => Self::Foo,
-      "bar" => Self::Bar,
-      other => Self::Unknown(other.to_string())
-    })
-  }
-}
+      fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(match s {
+          "foo" => Self::Foo,
+          "bar" => Self::Bar,
+          other => Self::Unknown(other.to_string())
+        })
+      }
+    }
 
-// safe to unwrap because we know it's infallible due to our FromStr implementation.
-let event: Event = "tauri://file-drop".parse().unwrap();
+    // safe to unwrap because we know it's infallible due to our FromStr implementation.
+    let event: Event = "tauri://file-drop".parse().unwrap();
 
-// show that this event type can be represented as a Tag, a requirement for using it in Tauri.
-fn is_file_drop(tag: impl tauri_runtime::tag::Tag) {
-  assert_eq!("tauri://file-drop", tag.to_string());
-}
+    // show that this event type can be represented as a Tag, a requirement for using it in Tauri.
+    fn is_file_drop(tag: impl tauri_runtime::tag::Tag) {
+      assert_eq!("tauri://file-drop", tag.to_string());
+    }
 
-is_file_drop(event);
-```
+    is_file_drop(event);
 
 ## Implementors
 

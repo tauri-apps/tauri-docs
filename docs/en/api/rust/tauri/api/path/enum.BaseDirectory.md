@@ -4,30 +4,28 @@ title: "enum.BaseDirectory"
 
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
-```rs
-#[repr(u16)]
-#[non_exhaustive]pub enum BaseDirectory {
-    Audio,
-    Cache,
-    Config,
-    Data,
-    LocalData,
-    Desktop,
-    Document,
-    Download,
-    Executable,
-    Font,
-    Home,
-    Picture,
-    Public,
-    Runtime,
-    Template,
-    Video,
-    Resource,
-    App,
-    Current,
-}
-```
+    #[repr(u16)]
+    #[non_exhaustive]pub enum BaseDirectory {
+        Audio,
+        Cache,
+        Config,
+        Data,
+        LocalData,
+        Desktop,
+        Document,
+        Download,
+        Executable,
+        Font,
+        Home,
+        Picture,
+        Public,
+        Runtime,
+        Template,
+        Video,
+        Resource,
+        App,
+        Current,
+    }
 
 A Base Directory to use. The base directory is the optional root of a FS operation. If informed by the API call, all paths will be relative to the path of the given directory.
 
@@ -135,13 +133,13 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for BaseDirectory`
 
 #### `fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -193,11 +191,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

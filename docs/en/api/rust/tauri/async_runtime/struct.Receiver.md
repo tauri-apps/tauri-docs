@@ -4,9 +4,7 @@ title: "struct.Receiver"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Receiver](/docs/api/rust/tauri/)
 
-```rs
-pub struct Receiver<T> { /* fields omitted */ }
-```
+    pub struct Receiver<T> { /* fields omitted */ }
 
 Receive values from the associated `Sender`.
 
@@ -30,38 +28,34 @@ Note that if [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Rec
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(100);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(100);
 
-    tokio::spawn(async move {
-        tx.send("hello").await.unwrap();
-    });
+        tokio::spawn(async move {
+            tx.send("hello").await.unwrap();
+        });
 
-    assert_eq!(Some("hello"), rx.recv().await);
-    assert_eq!(None, rx.recv().await);
-}
-```
+        assert_eq!(Some("hello"), rx.recv().await);
+        assert_eq!(None, rx.recv().await);
+    }
 
 Values are buffered:
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(100);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(100);
 
-    tx.send("hello").await.unwrap();
-    tx.send("world").await.unwrap();
+        tx.send("hello").await.unwrap();
+        tx.send("world").await.unwrap();
 
-    assert_eq!(Some("hello"), rx.recv().await);
-    assert_eq!(Some("world"), rx.recv().await);
-}
-```
+        assert_eq!(Some("hello"), rx.recv().await);
+        assert_eq!(Some("world"), rx.recv().await);
+    }
 
 #### `pub fn blocking_recv(&mut self) -> Option<T>`
 
@@ -81,26 +75,24 @@ This function panics if called within an asynchronous execution context.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
-```rs
-use std::thread;
-use tokio::runtime::Runtime;
-use tokio::sync::mpsc;
+    use std::thread;
+    use tokio::runtime::Runtime;
+    use tokio::sync::mpsc;
 
-fn main() {
-    let (tx, mut rx) = mpsc::channel::<u8>(10);
+    fn main() {
+        let (tx, mut rx) = mpsc::channel::<u8>(10);
 
-    let sync_code = thread::spawn(move || {
-        assert_eq!(Some(10), rx.blocking_recv());
-    });
-
-    Runtime::new()
-        .unwrap()
-        .block_on(async move {
-            let _ = tx.send(10).await;
+        let sync_code = thread::spawn(move || {
+            assert_eq!(Some(10), rx.blocking_recv());
         });
-    sync_code.join().unwrap()
-}
-```
+
+        Runtime::new()
+            .unwrap()
+            .block_on(async move {
+                let _ = tx.send(10).await;
+            });
+        sync_code.join().unwrap()
+    }
 
 #### `pub fn close(&mut self)`
 
@@ -112,30 +104,28 @@ To guarantee that no messages are dropped, after calling `close()`, `recv()` mus
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
-```rs
-use tokio::sync::mpsc;
+    use tokio::sync::mpsc;
 
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(20);
+    #[tokio::main]
+    async fn main() {
+        let (tx, mut rx) = mpsc::channel(20);
 
-    tokio::spawn(async move {
-        let mut i = 0;
-        while let Ok(permit) = tx.reserve().await {
-            permit.send(i);
-            i += 1;
+        tokio::spawn(async move {
+            let mut i = 0;
+            while let Ok(permit) = tx.reserve().await {
+                permit.send(i);
+                i += 1;
+            }
+        });
+
+        rx.close();
+
+        while let Some(msg) = rx.recv().await {
+            println!("got {}", msg);
         }
-    });
 
-    rx.close();
-
-    while let Some(msg) = rx.recv().await {
-        println!("got {}", msg);
+        // Channel closed and no messages are lost.
     }
-
-    // Channel closed and no messages are lost.
-}
-```
 
 #### `pub fn poll_recv(&mut self, cx: &mut Context<'_>) -> Poll<Option<T>>`
 
@@ -199,11 +189,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

@@ -4,16 +4,14 @@ title: "struct.CliConfig"
 
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[CliConfig](/docs/api/rust/tauri/)
 
-```rs
-pub struct CliConfig {
-    pub description: Option<String>,
-    pub long_description: Option<String>,
-    pub before_help: Option<String>,
-    pub after_help: Option<String>,
-    pub args: Option<Vec<CliArg, Global>>,
-    pub subcommands: Option<HashMap<String, CliConfig, RandomState>>,
-}
-```
+    pub struct CliConfig {
+        pub description: Option<String>,
+        pub long_description: Option<String>,
+        pub before_help: Option<String>,
+        pub after_help: Option<String>,
+        pub args: Option<Vec<CliArg, Global>>,
+        pub subcommands: Option<HashMap<String, CliConfig, RandomState>>,
+    }
 
 The CLI root command definition.
 
@@ -71,7 +69,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<CliConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<CliConfig> for CliConfig`
 
@@ -149,11 +147,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

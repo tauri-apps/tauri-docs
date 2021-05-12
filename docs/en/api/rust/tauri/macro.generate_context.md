@@ -4,9 +4,7 @@ title: "macro.generate_context"
 
 # Macro [tauri](/docs/api/rust/tauri/index.html)::​[generate_context](/docs/api/rust/tauri/)
 
-```rs
-generate_context!() { /* proc-macro */ }
-```
+    generate_context!() { /* proc-macro */ }
 
 Reads the config file at compile time and generates a [`Context`](/docs/api/rust/tauri/../tauri/struct.Context.html "Context") based on its content.
 

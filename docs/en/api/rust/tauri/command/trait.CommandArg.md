@@ -4,11 +4,9 @@ title: "trait.CommandArg"
 
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[CommandArg](/docs/api/rust/tauri/)
 
-```rs
-pub trait CommandArg<'de, P: Params>: Sized {
-    fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>;
-}
-```
+    pub trait CommandArg<'de, P: Params>: Sized {
+        fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>;
+    }
 
 Trait implemented by command arguments to derive a value from a [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem").
 

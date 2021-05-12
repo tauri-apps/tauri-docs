@@ -4,9 +4,7 @@ title: "struct.Window"
 
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[Window](/docs/api/rust/tauri/)
 
-```rs
-pub struct Window<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
-```
+    pub struct Window<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
 
 A webview window managed by Tauri.
 
@@ -51,10 +49,6 @@ Evaluates JavaScript on this window.
 #### `pub fn on_window_event<F: Fn(&WindowEvent) + Send + 'static>(&self, f: F)`
 
 Registers a window event listener.
-
-#### `pub fn on_menu_event<F: Fn(MenuEvent<P::MenuId>) + Send + 'static>(&self, f: F)`
-
-Registers a menu event listener.
 
 #### `pub fn scale_factor(&self) -> Result<f64>`
 
@@ -314,11 +308,11 @@ Performs the conversion.
 
 #### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
 
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.instrument)
 
 #### `pub fn in_current_span(self) -> Instrumented<Self>`
 
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.26/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
