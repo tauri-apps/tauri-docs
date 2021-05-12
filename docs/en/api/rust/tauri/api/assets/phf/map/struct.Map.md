@@ -6,8 +6,8 @@ title: "struct.Map"
 
 ```rs
 pub struct Map<K, V> where
-    K: 'static,
-    V: 'static,  { /* fields omitted */ }
+    V: 'static,
+    K: 'static,  { /* fields omitted */ }
 ```
 
 An immutable map constructed at compile time.
@@ -38,7 +38,7 @@ Returns a reference to the value that `key` maps to.
 
 #### `pub fn get_key<T>(&self, key: &T) -> Option<&K> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
 
-Returns a reference to the map's internal static instance of the given key.
+Returns a reference to the map’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
@@ -66,7 +66,7 @@ Values are returned in an arbitrary but fixed order.
 
 ## Trait Implementations
 
-### `impl<K, V> Debug for Map<K, V> where K: Debug, V: Debug,`
+### `impl<K, V> Debug for Map<K, V> where V: Debug, K: Debug,`
 
 #### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
 

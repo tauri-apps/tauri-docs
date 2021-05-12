@@ -5,35 +5,43 @@ title: "enum.Icon"
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Icon](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Icon {
+#[non_exhaustive]pub enum Icon {
     File(PathBuf),
-    Raw(Vec<u8>),
+    Raw(Vec<u8, Global>),
 }
 ```
 
 A icon definition.
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `File(PathBuf)`
 
 Icon from file path.
 
-`Raw(Vec<u8>)`
+`Raw(Vec<u8, Global>)`
 
 Icon from raw bytes.
 
 ## Trait Implementations
 
-### `impl TryFrom<Icon> for WryIcon`
+### `impl Clone for Icon`
 
-#### `type Error = Error`
+#### `pub fn clone(&self) -> Icon`
 
-The type returned in the event of a conversion error.
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `fn try_from(icon: Icon) -> Result<Self, Self::Error>`
+#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
 
-Performs the conversion.
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+
+### `impl Debug for Icon`
+
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
@@ -114,6 +122,24 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
+
+The resulting type after obtaining ownership.
+
+#### `pub fn to_owned(&self) -> T`
+
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+
+#### `pub fn clone_into(&self, target: &mutT)`
+
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
+
+recently added
+
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

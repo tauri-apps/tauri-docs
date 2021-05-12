@@ -8,4 +8,4 @@ title: "fn.cache_dir"
 pub fn cache_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's cache directory.
+Returns the path to the user’s cache directory.

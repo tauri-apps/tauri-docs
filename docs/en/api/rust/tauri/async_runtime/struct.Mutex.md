@@ -17,7 +17,7 @@ This type acts similarly to [`std::sync::Mutex`](https://doc.rust-lang.org/night
 
 Contrary to popular belief, it is ok and often preferred to use the ordinary [`Mutex`](https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html) from the standard library in asynchronous code.
 
-The feature that the async mutex offers over the blocking mutex is the ability to keep it locked across an `.await` point. This makes the async mutex more expensive than the blocking mutex, so the blocking mutex should be preferred in the cases where it can be used. The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection. If the value behind the mutex is just data, it's usually appropriate to use a blocking mutex such as the one in the standard library or [`parking_lot`](https://docs.rs/parking_lot).
+The feature that the async mutex offers over the blocking mutex is the ability to keep it locked across an `.await` point. This makes the async mutex more expensive than the blocking mutex, so the blocking mutex should be preferred in the cases where it can be used. The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection. If the value behind the mutex is just data, it’s usually appropriate to use a blocking mutex such as the one in the standard library or [`parking_lot`](https://docs.rs/parking_lot).
 
 Note that, although the compiler will not prevent the std `Mutex` from holding its guard across `.await` points in situations where the task is not movable between threads, this virtually never leads to correct concurrent code in practice as it can easily lead to deadlocks.
 
@@ -80,7 +80,7 @@ There are a few things of note here to pay attention to in this example.
 2.  Each spawned task obtains a lock and releases it on every iteration.
 3.  Mutation of the data protected by the Mutex is done by de-referencing the obtained lock as seen on lines 12 and 19.
 
-Tokio's Mutex works in a simple FIFO (first in, first out) style where all calls to [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.lock) complete in the order they were performed. In that way the Mutex is "fair" and predictable in how it distributes the locks to inner data. Locks are released and reacquired after every iteration, so basically, each thread goes to the back of the line after it increments the value once. Note that there's some unpredictability to the timing between when the threads are started, but once they are going they alternate predictably. Finally, since there is only a single valid lock at any given time, there is no possibility of a race condition when mutating the inner value.
+Tokio’s Mutex works in a simple FIFO (first in, first out) style where all calls to [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.lock) complete in the order they were performed. In that way the Mutex is “fair” and predictable in how it distributes the locks to inner data. Locks are released and reacquired after every iteration, so basically, each thread goes to the back of the line after it increments the value once. Note that there’s some unpredictability to the timing between when the threads are started, but once they are going they alternate predictably. Finally, since there is only a single valid lock at any given time, there is no possibility of a race condition when mutating the inner value.
 
 Note that in contrast to [`std::sync::Mutex`](https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html), this implementation does not poison the mutex when a thread holding the [`MutexGuard`](/docs/api/rust/tauri/struct@MutexGuard) panics. In such a case, the mutex will be unlocked. If the panic is caught, this might leave the data protected by the mutex in an inconsistent state.
 
@@ -158,7 +158,7 @@ assert_eq!(*n, 1);
 
 Returns a mutable reference to the underlying data.
 
-Since this call borrows the `Mutex` mutably, no actual locking needs to take place -- the mutable borrow statically guarantees no locks exist.
+Since this call borrows the `Mutex` mutably, no actual locking needs to take place – the mutable borrow statically guarantees no locks exist.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
@@ -221,7 +221,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn default() -> Mutex<T>`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl<T> From<T> for Mutex<T>`
 

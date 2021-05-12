@@ -8,7 +8,7 @@ title: "struct.EmbeddedAssets"
 pub struct EmbeddedAssets(_);
 ```
 
-[`Assets`](/docs/api/rust/tauri/../../../tauri/api/assets/trait.Assets.html "Assets") implementation that only contains compile-time compressed and embedded assets.
+[`Assets`](/docs/api/rust/tauri/../../../tauri/trait.Assets.html "Assets") implementation that only contains compile-time compressed and embedded assets.
 
 ## Implementations
 

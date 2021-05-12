@@ -5,7 +5,7 @@ title: "struct.ArgData"
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[ArgData](/docs/api/rust/tauri/)
 
 ```rs
-pub struct ArgData {
+#[non_exhaustive]pub struct ArgData {
     pub value: Value,
     pub occurrences: u64,
 }
@@ -13,14 +13,16 @@ pub struct ArgData {
 
 The resolution of a arg match.
 
-## Fields
+## Fields (Non-exhaustive)
+
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
 `value: Value`
 
 The value of the arg.
 
--   Value::Bool if it's a flag,
--   Value::Array if it's multiple,
+-   Value::Bool if it’s a flag,
+-   Value::Array if it’s multiple,
 -   Value::String if it has value,
 -   Value::Null otherwise.
 
@@ -40,7 +42,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn default() -> ArgData`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl Serialize for ArgData`
 

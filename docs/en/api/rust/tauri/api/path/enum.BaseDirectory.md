@@ -5,7 +5,8 @@ title: "enum.BaseDirectory"
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[BaseDirectory](/docs/api/rust/tauri/)
 
 ```rs
-#[repr(u16)]pub enum BaseDirectory {
+#[repr(u16)]
+#[non_exhaustive]pub enum BaseDirectory {
     Audio,
     Cache,
     Config,
@@ -32,7 +33,9 @@ A Base Directory to use. The base directory is the optional root of a FS operati
 
 For more information, check the [dirs_next documentation](https://docs.rs/dirs_next/).
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Audio`
 
@@ -104,7 +107,7 @@ The Resource directory.
 
 `App`
 
-The default App config directory. Resolves to ${CONFIG_DIR}/${APP_NAME}
+The default App config directory. Resolves to ${BaseDirectory::Config}/${config.tauri.bundle.identifier}
 
 `Current`
 
@@ -171,6 +174,12 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+
+### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+
+#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
 
 ### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 

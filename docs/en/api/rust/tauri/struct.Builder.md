@@ -5,9 +5,11 @@ title: "struct.Builder"
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Builder](/docs/api/rust/tauri/)
 
 ```rs
-pub struct Builder<E, L, A, R> where
+pub struct Builder<E, L, MID, TID, A, R> where
     E: Tag,
     L: Tag,
+    MID: MenuId,
+    TID: MenuId,
     A: Assets,
     R: Runtime,  { /* fields omitted */ }
 ```
@@ -16,40 +18,101 @@ Builds a Tauri application.
 
 ## Implementations
 
-### `impl<E, L, A, R> Builder<E, L, A, R> where E: Tag, L: Tag, A: Assets, R: Runtime,`
+### `impl<E, L, MID, TID, A, R> Builder<E, L, MID, TID, A, R> where E: Tag, L: Tag, MID: MenuId, TID: MenuId, A: Assets, R: Runtime,`
 
 #### `pub fn new() -> Self`
 
 Creates a new App builder.
 
-#### `pub fn invoke_handler<F>(self, invoke_handler: F) -> Self where F: Fn(InvokeMessage<Args<E, L, A, R>>) + Send + Sync + 'static,`
+#### `pub fn invoke_handler<F>(self, invoke_handler: F) -> Self where F: Fn(Invoke<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static,`
 
 Defines the JS message handler callback.
 
-#### `pub fn setup<F>(self, setup: F) -> Self where F: Fn(&mut App<Args<E, L, A, R>>) -> Result<(), Box<dyn Error>> + Send + 'static,`
+#### `pub fn setup<F>(self, setup: F) -> Self where F: Fn(&mut App<Args<E, L, MID, TID, A, R>>) -> Result<(), Box<dyn Error + Send>> + Send + 'static,`
 
 Defines the setup hook.
 
-#### `pub fn on_page_load<F>(self, on_page_load: F) -> Self where F: Fn(Window<Args<E, L, A, R>>, PageLoadPayload) + Send + Sync + 'static,`
+#### `pub fn on_page_load<F>(self, on_page_load: F) -> Self where F: Fn(Window<Args<E, L, MID, TID, A, R>>, PageLoadPayload) + Send + Sync + 'static,`
 
 Defines the page load hook.
 
-#### `pub fn plugin<P: Plugin<Args<E, L, A, R>> + 'static>(self, plugin: P) -> Self`
+#### `pub fn plugin<P: Plugin<Args<E, L, MID, TID, A, R>> + 'static>( self, plugin: P ) -> Self`
 
 Adds a plugin to the runtime.
 
-#### `pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self where F: FnOnce(<R::Dispatcher as Dispatch>::Attributes) -> <R::Dispatcher as Dispatch>::Attributes,`
+#### `pub fn manage<T>(self, state: T) -> Self where T: Send + Sync + 'static,`
 
-Creates a new webview.
+Add `state` to the state managed by the application.
 
-#### `pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>> + Send + Sync + 'static>( self, uri_scheme: N, protocol: H ) -> Self`
+This method can be called any number of times as long as each call refers to a different `T`.
+
+Managed state can be retrieved by any request handler via the [`State`](/docs/api/rust/tauri/../tauri/struct.State.html) request guard. In particular, if a value of type `T` is managed by Tauri, adding `State<T>` to the list of arguments in a request handler instructs Tauri to retrieve the managed value.
+
+# [Panics](/docs/api/rust/tauri/about:blank#panics)
+
+Panics if state of type `T` is already being managed.
+
+# [Example](/docs/api/rust/tauri/about:blank#example)
+
+ⓘ
+
+```rs
+use tauri::State;
+
+struct MyInt(isize);
+struct MyString(String);
+
+#[tauri::command]
+fn int_command(state: State<'_, MyInt>) -> String {
+    format!("The stateful int is: {}", state.0)
+}
+
+#[tauri::command]
+fn string_command<'r>(state: State<'r, MyString>) {
+    println!("state: {}", state.inner().0);
+}
+
+fn main() {
+    tauri::Builder::default()
+        .manage(MyInt(10))
+        .manage(MyString("Hello, managed state!".to_string()))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+#### `pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self where F: FnOnce(<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
+
+Creates a new webview window.
+
+#### `pub fn system_tray(self, items: Vec<SystemTrayMenuItem<TID>>) -> Self`
+
+Adds the icon configured on `tauri.conf.json` to the system tray with the specified menu items.
+
+#### `pub fn menu(self, menu: Vec<Menu<MID>>) -> Self`
+
+Sets the menu to use on all windows.
+
+#### `pub fn on_menu_event<F: Fn(WindowMenuEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
+
+Registers a menu event handler for all windows.
+
+#### `pub fn on_window_event<F: Fn(GlobalWindowEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
+
+Registers a window event handler for all windows.
+
+#### `pub fn on_system_tray_event<F: Fn(&AppHandle<Args<E, L, MID, TID, A, R>>, SystemTrayEvent<TID>) + Send + Sync + 'static>( self, handler: F ) -> Self`
+
+Registers a system tray event handler.
+
+#### `pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>( self, uri_scheme: N, protocol: H ) -> Self`
 
 Registers a URI scheme protocol available to all webviews. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
 
 # [Arguments](/docs/api/rust/tauri/about:blank#arguments)
 
 -   `uri_scheme` The URI scheme to register, such as `example`.
--   `protocol` the protocol associated with the given URI scheme. It's a function that takes an URL such as `example://localhost/asset.css`.
+-   `protocol` the protocol associated with the given URI scheme. It’s a function that takes an URL such as `example://localhost/asset.css`.
 
 #### `pub fn run(self, context: Context<A>) -> Result<()>`
 
@@ -57,25 +120,25 @@ Runs the configured Tauri application.
 
 ## Trait Implementations
 
-### `impl<A: Assets> Default for Builder<String, String, A, Wry>`
+### `impl<A: Assets> Default for Builder<String, String, String, String, A, Wry>`
 
 Make `Wry` the default `Runtime` for `Builder`
 
 #### `fn default() -> Self`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
-### `impl<E, L, A, R> !RefUnwindSafe for Builder<E, L, A, R>`
+### `impl<E, L, MID, TID, A, R> !RefUnwindSafe for Builder<E, L, MID, TID, A, R>`
 
-### `impl<E, L, A, R> Send for Builder<E, L, A, R>`
+### `impl<E, L, MID, TID, A, R> Send for Builder<E, L, MID, TID, A, R> where <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Send,`
 
-### `impl<E, L, A, R> !Sync for Builder<E, L, A, R>`
+### `impl<E, L, MID, TID, A, R> !Sync for Builder<E, L, MID, TID, A, R>`
 
-### `impl<E, L, A, R> Unpin for Builder<E, L, A, R> where L: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::Attributes: Unpin,`
+### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, MID: Unpin, TID: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
 
-### `impl<E, L, A, R> !UnwindSafe for Builder<E, L, A, R>`
+### `impl<E, L, MID, TID, A, R> !UnwindSafe for Builder<E, L, MID, TID, A, R>`
 
 ## Blanket Implementations
 

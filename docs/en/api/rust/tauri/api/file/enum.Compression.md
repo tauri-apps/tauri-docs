@@ -5,14 +5,16 @@ title: "enum.Compression"
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[Compression](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Compression {
+#[non_exhaustive]pub enum Compression {
     Gz,
 }
 ```
 
 The supported compression types.
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Gz`
 

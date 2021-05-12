@@ -5,33 +5,42 @@ title: "struct.Context"
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[Context](/docs/api/rust/tauri/)
 
 ```rs
-pub struct Context<A: Assets> {
-    pub config: Config,
-    pub assets: A,
-    pub default_window_icon: Option<Vec<u8>>,
-    pub package_info: PackageInfo,
-}
+pub struct Context<A: Assets> { /* fields omitted */ }
 ```
 
 User supplied data required inside of a Tauri application.
 
-## Fields
+# [Stability](/docs/api/rust/tauri/about:blank#stability)
 
-`config: Config`
+This is the output of the `tauri::generate_context!` macro, and is not considered part of the stable API. Unless you know what you are doing and are prepared for this type to have breaking changes, do not create it yourself.
+
+## Implementations
+
+### `impl<A: Assets> Context<A>`
+
+#### `pub fn config(&self) -> &Config`
 
 The config the application was prepared with.
 
-`assets: A`
+#### `pub fn assets(&self) -> Arc<A>`
 
 The assets to be served directly by Tauri.
 
-`default_window_icon: Option<Vec<u8>>`
+#### `pub fn default_window_icon(&self) -> Option<&[u8]>`
 
 The default window icon Tauri should use when creating windows.
 
-`package_info: PackageInfo`
+#### `pub fn system_tray_icon(&self) -> Option<&Icon>`
+
+The icon to use use on the system tray UI.
+
+#### `pub fn package_info(&self) -> &PackageInfo`
 
 Package information.
+
+#### `pub fn new( config: Config, assets: Arc<A>, default_window_icon: Option<Vec<u8>>, system_tray_icon: Option<Icon>, package_info: PackageInfo ) -> Self`
+
+Create a new [`Context`](/docs/api/rust/tauri/../tauri/struct.Context.html "Context") from the minimal required items.
 
 ## Auto Trait Implementations
 
@@ -41,9 +50,9 @@ Package information.
 
 ### `impl<A> Sync for Context<A>`
 
-### `impl<A> Unpin for Context<A> where A: Unpin,`
+### `impl<A> Unpin for Context<A>`
 
-### `impl<A> UnwindSafe for Context<A> where A: UnwindSafe,`
+### `impl<A> UnwindSafe for Context<A> where A: RefUnwindSafe,`
 
 ## Blanket Implementations
 

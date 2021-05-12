@@ -8,4 +8,4 @@ title: "fn.video_dir"
 pub fn video_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's video dir
+Returns the path to the user’s video dir

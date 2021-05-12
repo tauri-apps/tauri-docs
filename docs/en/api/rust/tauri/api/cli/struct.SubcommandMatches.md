@@ -5,7 +5,7 @@ title: "struct.SubcommandMatches"
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[SubcommandMatches](/docs/api/rust/tauri/)
 
 ```rs
-pub struct SubcommandMatches {
+#[non_exhaustive]pub struct SubcommandMatches {
     pub name: String,
     pub matches: Matches,
 }
@@ -13,7 +13,9 @@ pub struct SubcommandMatches {
 
 The matched subcommand.
 
-## Fields
+## Fields (Non-exhaustive)
+
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
 `name: String`
 
@@ -35,7 +37,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `fn default() -> SubcommandMatches`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl Serialize for SubcommandMatches`
 

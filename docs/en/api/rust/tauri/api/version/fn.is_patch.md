@@ -8,4 +8,4 @@ title: "fn.is_patch"
 pub fn is_patch(current: &str, other: &str) -> Result<bool>
 ```
 
-Check if a the "other" version is a patch bump from the "current"
+Check if a the “other” version is a patch bump from the “current”

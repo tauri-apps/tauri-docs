@@ -23,11 +23,19 @@ App name.
 
 App version.
 
+## Implementations
+
+### `impl PackageInfo`
+
+#### `pub fn package_name(&self) -> String`
+
+Returns the application package name. On macOS and Windows it’s the `name` field, and on Linux it’s the `name` in `kebab-case`.
+
 ## Trait Implementations
 
 ### `impl Clone for PackageInfo`
 
-#### `fn clone(&self) -> PackageInfo`
+#### `pub fn clone(&self) -> PackageInfo`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -37,7 +45,7 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 ### `impl Debug for PackageInfo`
 
-#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 

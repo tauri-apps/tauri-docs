@@ -22,9 +22,9 @@ This receiver can be turned into a `Stream` using [`ReceiverStream`](https://doc
 
 Receives the next value for this receiver.
 
-This method returns `None` if the channel has been closed and there are no remaining messages in the channel's buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) is called.
+This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) is called.
 
-If there are no messages in the channel's buffer, but the channel has not yet been closed, this method will sleep until a message is sent or the channel is closed.
+If there are no messages in the channel’s buffer, but the channel has not yet been closed, this method will sleep until a message is sent or the channel is closed.
 
 Note that if [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) is called, but there are still outstanding [`Permits`](/docs/api/rust/tauri/struct@crate::sync::mpsc::Permit) from before it was closed, the channel is not considered closed by `recv` until the permits are released.
 
@@ -67,9 +67,9 @@ async fn main() {
 
 Blocking receive to call outside of asynchronous contexts.
 
-This method returns `None` if the channel has been closed and there are no remaining messages in the channel's buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) is called.
+This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html#method.close) is called.
 
-If there are no messages in the channel's buffer, but the channel has not yet been closed, this method will block until a message is sent or the channel is closed.
+If there are no messages in the channel’s buffer, but the channel has not yet been closed, this method will block until a message is sent or the channel is closed.
 
 This method is intended for use cases where you are sending from asynchronous code to synchronous code, and will work even if the sender is not using [`blocking_send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.blocking_send) to send the message.
 

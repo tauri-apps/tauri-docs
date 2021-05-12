@@ -91,7 +91,7 @@ async fn main() {
 
 Attempts to immediately send a message on this `Sender`
 
-This method differs from [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send) by returning immediately if the channel's buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
+This method differs from [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send) by returning immediately if the channel’s buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
 
 # [Errors](/docs/api/rust/tauri/about:blank#errors-1)
 

@@ -26,9 +26,9 @@ Specify source file
 
 #### `pub fn replace_using_temp(&mut self, temp: &'a Path) -> &mutSelf`
 
-If specified and the destination file already exists, the "destination" file will be moved to the given temporary location before the "source" file is moved to the "destination" file.
+If specified and the destination file already exists, the “destination” file will be moved to the given temporary location before the “source” file is moved to the “destination” file.
 
-In the event of an `io` error while renaming "source" to "destination", the temporary file will be moved back to "destination".
+In the event of an `io` error while renaming “source” to “destination”, the temporary file will be moved back to “destination”.
 
 The `temp` dir must be explicitly provided since `rename` operations require files to live on the same filesystem.
 

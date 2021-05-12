@@ -8,4 +8,4 @@ title: "fn.home_dir"
 pub fn home_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's home directory.
+Returns the path to the user’s home directory.

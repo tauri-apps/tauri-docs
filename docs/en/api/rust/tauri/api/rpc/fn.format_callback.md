@@ -13,7 +13,7 @@ pub fn format_callback<T: Serialize, S: AsRef<str>>(
 
 Formats a function name and argument to be evaluated as callback.
 
-This will serialize primitive JSON types (e.g. booleans, strings, numbers, etc.) as JavaScript literals, but will serialize arrays and objects whose serialized JSON string is smaller than 1 GB and larger than 10 KiB with `JSON.parse('...')`. https&#x3A;//github.com/GoogleChromeLabs/json-parse-benchmark
+This will serialize primitive JSON types (e.g. booleans, strings, numbers, etc.) as JavaScript literals, but will serialize arrays and objects whose serialized JSON string is smaller than 1 GB and larger than 10 KiB with `JSON.parse('...')`. See [json-parse-benchmark](https://github.com/GoogleChromeLabs/json-parse-benchmark).
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 

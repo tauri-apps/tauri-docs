@@ -8,4 +8,4 @@ title: "fn.data_dir"
 pub fn data_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's data directory.
+Returns the path to the user’s data directory.

@@ -5,18 +5,18 @@ title: "trait.Plugin"
 # Trait [tauri](/docs/api/rust/tauri/../index.html)::​[plugin](/docs/api/rust/tauri/index.html)::​[Plugin](/docs/api/rust/tauri/)
 
 ```rs
-pub trait Plugin<M: Params>: Send {
+pub trait Plugin<P: Params>: Send {
     fn name(&self) -> &'static str;
 
-    fn initialize(&mut self, config: JsonValue) -> Result<()> { ... }
+    fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()> { ... }
 
     fn initialization_script(&self) -> Option<String> { ... }
 
-    fn created(&mut self, window: Window<M>) { ... }
+    fn created(&mut self, window: Window<P>) { ... }
 
-    fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload) { ... }
+    fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload) { ... }
 
-    fn extend_api(&mut self, message: InvokeMessage<M>) { ... }
+    fn extend_api(&mut self, invoke: Invoke<P>) { ... }
 }
 ```
 
@@ -32,7 +32,7 @@ Loading content...
 
 ## Provided methods
 
-### `fn initialize(&mut self, config: JsonValue) -> Result<()>`
+### `fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()>`
 
 Initialize the plugin.
 
@@ -40,17 +40,17 @@ Initialize the plugin.
 
 The JS script to evaluate on webview initialization. The script is wrapped into its own context with `(function () { /* your script here */ })();`, so global variables must be assigned to `window` instead of implicity declared.
 
-It's guaranteed that this script is executed before the page is loaded.
+It’s guaranteed that this script is executed before the page is loaded.
 
-### `fn created(&mut self, window: Window<M>)`
+### `fn created(&mut self, window: Window<P>)`
 
 Callback invoked when the webview is created.
 
-### `fn on_page_load(&mut self, window: Window<M>, payload: PageLoadPayload)`
+### `fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload)`
 
 Callback invoked when the webview performs a navigation.
 
-### `fn extend_api(&mut self, message: InvokeMessage<M>)`
+### `fn extend_api(&mut self, invoke: Invoke<P>)`
 
 Add invoke_handler API extension commands.
 

@@ -8,4 +8,4 @@ title: "type.Result"
 type Result<T> = Result<T, Error>;
 ```
 
-Result type alias using the crate's error type.
+Result type alias using the crate’s error type.

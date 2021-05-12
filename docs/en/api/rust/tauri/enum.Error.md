@@ -5,8 +5,9 @@ title: "enum.Error"
 # Enum [tauri](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Error {
-    CreateWebview(String),
+#[non_exhaustive]pub enum Error {
+    Runtime(Error),
+    CreateWebview(Box<dyn Error + Send>),
     CreateWindow,
     WebviewNotFound,
     FailedToSendMessage,
@@ -16,23 +17,30 @@ pub enum Error {
     FailedToExecuteApi(Error),
     Io(Error),
     Base64Decode(DecodeError),
-    InvalidIcon(String),
+    InvalidIcon(Box<dyn Error + Send>),
     HttpClientNotInitialized,
     ApiNotEnabled(String),
     ApiNotAllowlisted(String),
     InvalidArgs(&'static str, Error),
-    Setup(String),
+    Setup(Box<dyn Error + Send>),
     TauriUpdater(Error),
     PluginInitialization(String, String),
     DialogDefaultPathNotExists(PathBuf),
+    SystemTray(Box<dyn Error + Send>),
 }
 ```
 
 Runtime errors that can happen inside a Tauri application.
 
-## Variants
+## Variants (Non-exhaustive)
 
-`CreateWebview(String)`
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
+
+`Runtime(Error)`
+
+Runtime error.
+
+`CreateWebview(Box<dyn Error + Send>)`
 
 Failed to create webview.
 
@@ -42,7 +50,7 @@ Failed to create window.
 
 `WebviewNotFound`
 
-Can't access webview dispatcher because the webview was closed or not found.
+Can’t access webview dispatcher because the webview was closed or not found.
 
 `FailedToSendMessage`
 
@@ -72,7 +80,7 @@ IO error.
 
 Failed to decode base64.
 
-`InvalidIcon(String)`
+`InvalidIcon(Box<dyn Error + Send>)`
 
 Failed to load window icon.
 
@@ -92,7 +100,7 @@ API not whitelisted on tauri.conf.json
 
 Invalid args when running a command.
 
-`Setup(String)`
+`Setup(Box<dyn Error + Send>)`
 
 Encountered an error in the setup hook,
 
@@ -106,7 +114,11 @@ Error initializing plugin.
 
 `DialogDefaultPathNotExists(PathBuf)`
 
-`default_path` provided to dialog API doesn't exist.
+`default_path` provided to dialog API doesn’t exist.
+
+`SystemTray(Box<dyn Error + Send>)`
+
+Encountered an error creating the app system tray,
 
 ## Trait Implementations
 
@@ -174,6 +186,18 @@ Performs the conversion.
 
 ### `impl From<Error> for Error`
 
+#### `fn from(source: Error) -> Self`
+
+Performs the conversion.
+
+### `impl From<Error> for Error`
+
+#### `fn from(error: Error) -> Self`
+
+Performs the conversion.
+
+### `impl From<Error> for InvokeError`
+
 #### `fn from(error: Error) -> Self`
 
 Performs the conversion.
@@ -184,7 +208,7 @@ Performs the conversion.
 
 ### `impl Send for Error`
 
-### `impl Sync for Error`
+### `impl !Sync for Error`
 
 ### `impl Unpin for Error`
 
@@ -257,6 +281,12 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<D> ToJsString for D where D: Display,`
+
+#### `pub fn to_js_string(&self) -> Result<String, Error>`
+
+Turn any [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 

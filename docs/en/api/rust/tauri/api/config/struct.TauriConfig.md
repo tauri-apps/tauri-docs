@@ -10,6 +10,8 @@ pub struct TauriConfig {
     pub cli: Option<CliConfig>,
     pub bundle: BundleConfig,
     pub updater: UpdaterConfig,
+    pub security: SecurityConfig,
+    pub system_tray: Option<SystemTrayConfig>,
 }
 ```
 
@@ -33,6 +35,14 @@ The bundler configuration.
 
 The updater configuration.
 
+`security: SecurityConfig`
+
+The security configuration.
+
+`system_tray: Option<SystemTrayConfig>`
+
+System tray configuration.
+
 ## Trait Implementations
 
 ### `impl Debug for TauriConfig`
@@ -45,7 +55,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 #### `pub fn default() -> TauriConfig`
 
-Returns the "default value" for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl<'de> Deserialize<'de> for TauriConfig`
 
@@ -110,6 +120,12 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 #### `pub fn borrow_mut(&mut self) -> &mutT`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+
+### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+
+#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
 
 ### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
 

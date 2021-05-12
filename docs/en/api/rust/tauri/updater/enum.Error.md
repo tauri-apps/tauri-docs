@@ -5,7 +5,7 @@ title: "enum.Error"
 # Enum [tauri](/docs/api/rust/tauri/../index.html)::​[updater](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Error {
+#[non_exhaustive]pub enum Error {
     Io(Error),
     Reqwest(Error),
     Semver(SemVerError),
@@ -25,7 +25,9 @@ pub enum Error {
 
 All errors that can occur while running the updater.
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Io(Error)`
 
@@ -81,7 +83,7 @@ Public key found in `tauri.conf.json` but no signature announced remotely.
 
 `UpToDate`
 
-Triggered when there is NO error and the two versions are equals. On client side, it's important to catch this error.
+Triggered when there is NO error and the two versions are equals. On client side, it’s important to catch this error.
 
 ## Trait Implementations
 
@@ -256,6 +258,12 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<D> ToJsString for D where D: Display,`
+
+#### `pub fn to_js_string(&self) -> Result<String, Error>`
+
+Turn any [`Tag`](/docs/api/rust/tauri/../../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 

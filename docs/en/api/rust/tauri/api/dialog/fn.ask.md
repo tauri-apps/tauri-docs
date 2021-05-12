@@ -8,4 +8,4 @@ title: "fn.ask"
 pub fn ask(title: impl AsRef<str>, message: impl AsRef<str>) -> AskResponse
 ```
 
-Displays a dialog with a message and an optional title with a "yes" and a "no" button
+Displays a dialog with a message and an optional title with a “yes” and a “no” button

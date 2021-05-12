@@ -8,4 +8,4 @@ title: "fn.public_dir"
 pub fn public_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's public directory.
+Returns the path to the user’s public directory.

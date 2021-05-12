@@ -8,4 +8,4 @@ title: "fn.document_dir"
 pub fn document_dir() -> Option<PathBuf>
 ```
 
-Returns the path to the user's document directory.
+Returns the path to the user’s document directory.

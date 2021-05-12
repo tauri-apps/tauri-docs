@@ -8,4 +8,4 @@ title: "fn.is_compatible"
 pub fn is_compatible(first: &str, second: &str) -> Result<bool>
 ```
 
-Check if the "second" semver is compatible with the "first"
+Check if the “second” semver is compatible with the “first”

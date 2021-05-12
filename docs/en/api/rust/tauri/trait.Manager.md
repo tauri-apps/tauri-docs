@@ -5,75 +5,100 @@ title: "trait.Manager"
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Manager](/docs/api/rust/tauri/)
 
 ```rs
-pub trait Manager<M: Params>: ManagerBase<M> {
-    fn config(&self) -> &Config { ... }
+pub trait Manager<P: Params>: ManagerBase<P> {
+    fn config(&self) -> Arc<Config> { ... }
 
-    fn emit_all<S: Serialize + Clone>(
+    fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()>
+    where
+        P::Event: Borrow<E>,
+        E: TagRef<P::Event>,
+        S: Serialize + Clone,
+    { ... }
+
+    fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
         &self, 
-        event: M::Event, 
-        payload: Option<S>
-    ) -> Result<()> { ... }
+        label: &L, 
+        event: &E, 
+        payload: S
+    ) -> Result<()>
+    where
+        P::Label: Borrow<L>,
+        P::Event: Borrow<E>,
+        L: TagRef<P::Label>,
+        E: TagRef<P::Event>,
+    { ... }
 
-    fn emit_to<S: Serialize + Clone>(
+    fn listen_global<E: Into<P::Event>, F>(
         &self, 
-        label: &M::Label, 
-        event: M::Event, 
-        payload: Option<S>
-    ) -> Result<()> { ... }
-
-    fn create_window(&mut self, pending: PendingWindow<M>) -> Result<Window<M>> { ... }
-
-    fn listen_global<F>(&self, event: M::Event, handler: F) -> EventHandler
+        event: E, 
+        handler: F
+    ) -> EventHandler
     where
         F: Fn(Event) + Send + 'static,
     { ... }
 
-    fn once_global<F>(&self, event: M::Event, handler: F) -> EventHandler
+    fn once_global<E: Into<P::Event>, F>(
+        &self, 
+        event: E, 
+        handler: F
+    ) -> EventHandler
     where
         F: Fn(Event) + Send + 'static,
     { ... }
 
-    fn trigger_global(&self, event: M::Event, data: Option<String>) { ... }
+    fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>)
+    where
+        P::Event: Borrow<E>,
+        E: TagRef<P::Event>,
+    { ... }
 
     fn unlisten(&self, handler_id: EventHandler) { ... }
 
-    fn get_window(&self, label: &M::Label) -> Option<Window<M>> { ... }
+    fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>>
+    where
+        P::Label: Borrow<L>,
+        L: TagRef<P::Label>,
+    { ... }
 
-    fn windows(&self) -> HashMap<M::Label, Window<M>> { ... }
+    fn windows(&self) -> HashMap<P::Label, Window<P>> { ... }
+
+    fn manage<T>(&self, state: T)
+    where
+        T: Send + Sync + 'static,
+    { ... }
+
+    fn state<T>(&self) -> State<'_, T>
+    where
+        T: Send + Sync + 'static,
+    { ... }
 }
 ```
 
 Manages a running application.
 
-TODO: expand these docs
-
 ## Provided methods
 
-### `fn config(&self) -> &Config`
+### `fn config(&self) -> Arc<Config>`
 
-The [`Config`](/docs/api/rust/tauri/../tauri/api/config/struct.Config.html "Config") the manager was created with.
+The [`Config`](/docs/api/rust/tauri/../tauri/struct.Config.html "Config") the manager was created with.
 
-### `fn emit_all<S: Serialize + Clone>( &self, event: M::Event, payload: Option<S> ) -> Result<()>`
+### `fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> where P::Event: Borrow<E>, E: TagRef<P::Event>, S: Serialize + Clone,`
 
 Emits a event to all windows.
 
-### `fn emit_to<S: Serialize + Clone>( &self, label: &M::Label, event: M::Event, payload: Option<S> ) -> Result<()>`
+### `fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>( &self, label: &L, event: &E, payload: S ) -> Result<()> where P::Label: Borrow<L>, P::Event: Borrow<E>, L: TagRef<P::Label>, E: TagRef<P::Event>,`
 
 Emits an event to a window with the specified label.
 
-### `fn create_window(&mut self, pending: PendingWindow<M>) -> Result<Window<M>>`
-
-Creates a new [`Window`](/docs/api/rust/tauri/../tauri/struct.Window.html "Window") on the [`Runtime`](/docs/api/rust/tauri/../tauri/runtime/trait.Runtime.html "Runtime") and attaches it to the [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager.html "Manager").
-
-### `fn listen_global<F>(&self, event: M::Event, handler: F) -> EventHandler where F: Fn(Event) + Send + 'static,`
+### `fn listen_global<E: Into<P::Event>, F>( &self, event: E, handler: F ) -> EventHandler where F: Fn(Event) + Send + 'static,`
 
 Listen to a global event.
 
-### `fn once_global<F>(&self, event: M::Event, handler: F) -> EventHandler where F: Fn(Event) + Send + 'static,`
+### `fn once_global<E: Into<P::Event>, F>( &self, event: E, handler: F ) -> EventHandler where F: Fn(Event) + Send + 'static,`
 
 Listen to a global event only once.
 
-### `fn trigger_global(&self, event: M::Event, data: Option<String>)`
+### `fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>) where P::Event: Borrow<E>, E: TagRef<P::Event>,`
 
 Trigger a global event.
 
@@ -81,13 +106,21 @@ Trigger a global event.
 
 Remove an event listener.
 
-### `fn get_window(&self, label: &M::Label) -> Option<Window<M>>`
+### `fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>> where P::Label: Borrow<L>, L: TagRef<P::Label>,`
 
 Fetch a single window from the manager.
 
-### `fn windows(&self) -> HashMap<M::Label, Window<M>>`
+### `fn windows(&self) -> HashMap<P::Label, Window<P>>`
 
 Fetch all managed windows.
+
+### `fn manage<T>(&self, state: T) where T: Send + Sync + 'static,`
+
+Add `state` to the state managed by the application. See [`crate::Builder`](/docs/api/rust/tauri/../tauri/struct.Builder.html#manage "crate::Builder") for instructions.
+
+### `fn state<T>(&self) -> State<'_, T> where T: Send + Sync + 'static,`
+
+Gets the managed state for the type `T`.
 
 Loading content...
 

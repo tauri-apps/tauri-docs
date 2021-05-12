@@ -5,7 +5,7 @@ title: "enum.ArchiveFormat"
 # Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[ArchiveFormat](/docs/api/rust/tauri/)
 
 ```rs
-pub enum ArchiveFormat {
+#[non_exhaustive]pub enum ArchiveFormat {
     Tar(Option<Compression>),
     Plain(Option<Compression>),
     Zip,
@@ -14,7 +14,9 @@ pub enum ArchiveFormat {
 
 The supported archive formats.
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Tar(Option<Compression>)`
 

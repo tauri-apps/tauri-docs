@@ -5,60 +5,50 @@ title: "struct.InvokeMessage"
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[InvokeMessage](/docs/api/rust/tauri/)
 
 ```rs
-pub struct InvokeMessage<M: Params> { /* fields omitted */ }
+pub struct InvokeMessage<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
 ```
 
 An invoke message.
 
 ## Implementations
 
-### `impl<M: Params> InvokeMessage<M>`
+### `impl<P: Params> InvokeMessage<P>`
 
 #### `pub fn command(&self) -> &str`
 
 The invoke command.
 
-#### `pub fn payload(&self) -> Value`
-
-The invoke payload.
-
-#### `pub fn window(&self) -> Window<M>`
+#### `pub fn window(&self) -> Window<P>`
 
 The window that received the invoke.
 
-#### `pub fn respond_async<T: Serialize, Err: Serialize, F: Future<Output = Result<T, Err>> + Send + 'static>( self, task: F )`
+#### `pub fn window_ref(&self) -> &Window<P>`
 
-Reply to the invoke promise with an async task.
+A reference to window that received the invoke.
 
-#### `pub fn respond_closure<T: Serialize, Err: Serialize, F: FnOnce() -> Result<T, Err>>( self, f: F )`
+#### `pub fn payload(&self) -> &JsonValue`
 
-Reply to the invoke promise running the given closure.
+A reference to the payload the invoke received.
 
-#### `pub fn resolve<S: Serialize>(self, value: S)`
+#### `pub fn state(&self) -> Arc<StateManager>`
 
-Resolve the invoke promise with a value.
+The state manager associated with the application
 
-#### `pub fn reject<S: Serialize>(self, value: S)`
+#### `pub fn state_ref(&self) -> &StateManager`
 
-Reject the invoke promise with a value.
-
-#### `pub async fn return_task<T: Serialize, Err: Serialize, F: Future<Output = Result<T, Err>> + Send + 'static>( window: Window<M>, task: F, success_callback: String, error_callback: String )`
-
-Asynchronously executes the given task and evaluates its Result to the JS promise described by the `success_callback` and `error_callback` function names.
-
-If the Result `is_ok()`, the callback will be the `success_callback` function name and the argument will be the Ok value. If the Result `is_err()`, the callback will be the `error_callback` function name and the argument will be the Err value.
+A reference to the state manager associated with application.
 
 ## Auto Trait Implementations
 
-### `impl<M> !RefUnwindSafe for InvokeMessage<M>`
+### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for InvokeMessage<P>`
 
-### `impl<M> Send for InvokeMessage<M>`
+### `impl<P> Send for InvokeMessage<P>`
 
-### `impl<M> Sync for InvokeMessage<M> where <<M as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl<P> Sync for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
 
-### `impl<M> Unpin for InvokeMessage<M> where <<M as Params>::Runtime as Runtime>::Dispatcher: Unpin, <M as Params>::Label: Unpin,`
+### `impl<P> Unpin for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
 
-### `impl<M> !UnwindSafe for InvokeMessage<M>`
+### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for InvokeMessage<P>`
 
 ## Blanket Implementations
 

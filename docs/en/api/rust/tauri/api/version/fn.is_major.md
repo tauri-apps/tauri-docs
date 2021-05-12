@@ -8,4 +8,4 @@ title: "fn.is_major"
 pub fn is_major(current: &str, other: &str) -> Result<bool>
 ```
 
-Check if a the "other" version is a major bump from the "current"
+Check if a the “other” version is a major bump from the “current”

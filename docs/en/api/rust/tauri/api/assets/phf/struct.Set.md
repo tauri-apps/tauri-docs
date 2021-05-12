@@ -29,7 +29,7 @@ Returns true if the `Set` contains no elements.
 
 #### `pub fn get_key<U>(&self, key: &U) -> Option<&T> where T: Borrow<U>, U: Eq + PhfHash + ?Sized,`
 
-Returns a reference to the set's internal static instance of the given key.
+Returns a reference to the set’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 

@@ -5,7 +5,7 @@ title: "enum.Error"
 # Enum [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Error {
+#[non_exhaustive]pub enum Error {
     Architecture,
     Os,
     Environment,
@@ -19,7 +19,9 @@ pub enum Error {
 
 The error types.
 
-## Variants
+## Variants (Non-exhaustive)
+
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
 `Architecture`
 
@@ -178,6 +180,12 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<D> ToJsString for D where D: Display,`
+
+#### `pub fn to_js_string(&self) -> Result<String, Error>`
+
+Turn any [`Tag`](/docs/api/rust/tauri/../../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 
