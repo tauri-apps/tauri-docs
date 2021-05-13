@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: event
 
+The event system allows you to emit events to the backend and listen to events from it.
+
 ## Table of contents
 
 ### Interfaces
@@ -37,7 +39,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [event.ts:18](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L18)
+Defined in: [event.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L23)
 
 ___
 
@@ -51,7 +53,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [event.ts:20](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L20)
+Defined in: [event.ts:25](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L25)
 
 ## Functions
 
@@ -70,7 +72,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [event.ts:86](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L86)
+Defined in: [event.ts:91](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L91)
 
 ___
 
@@ -97,7 +99,7 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:46](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L46)
+Defined in: [event.ts:51](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L51)
 
 ___
 
@@ -124,4 +126,4 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:69](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L69)
+Defined in: [event.ts:74](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L74)

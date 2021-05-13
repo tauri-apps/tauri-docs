@@ -15,7 +15,7 @@ hide_title: true
 
 • **contents**: ArrayBuffer
 
-Defined in: [fs.ts:45](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L45)
+Defined in: [fs.ts:50](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L50)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **path**: *string*
 
-Defined in: [fs.ts:44](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L44)
+Defined in: [fs.ts:49](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L49)

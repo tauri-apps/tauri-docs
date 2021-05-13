@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: tauri
 
+Invoke your custom commands.
+
 ## Table of contents
 
 ### Interfaces
@@ -29,22 +31,25 @@ Name |
 
 #### Parameters:
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`cmd` | *string* | - |
-`args` | [*InvokeArgs*](../interfaces/tauri.invokeargs.md) | {} |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`cmd` | *string* | - | The command name.   |
+`args` | [*InvokeArgs*](../interfaces/tauri.invokeargs.md) | {} | The optional arguments to pass to the command.   |
 
 **Returns:** *Promise*<T\>
 
 A promise resolving or rejecting to the backend response.
 
-Defined in: [tauri.ts:55](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L55)
+Defined in: [tauri.ts:68](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/tauri.ts#L68)
 
 ___
 
 ### transformCallback
 
 ▸ **transformCallback**(`callback?`: (`response`: *any*) => *void*, `once?`: *boolean*): *string*
+
+Transforms a callback function to a string identifier that can be passed to the backend.
+The backend uses the identifier to `eval()` the callback.
 
 #### Parameters:
 
@@ -55,4 +60,6 @@ Name | Type | Default value |
 
 **Returns:** *string*
 
-Defined in: [tauri.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L22)
+A unique identifier associated with the callback function.
+
+Defined in: [tauri.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/tauri.ts#L35)

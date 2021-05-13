@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: cli
 
+Parse arguments from your Command Line Interface.
+
 ## Table of contents
 
 ### Interfaces
@@ -21,10 +23,10 @@ hide_title: true
 
 ▸ **getMatches**(): *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
 
-Gets the CLI matches.
+Parse the arguments provided to the current process and get the matches using the configuration defined `tauri.conf.json > tauri > cli`.
 
 **Returns:** *Promise*<[*CliMatches*](../interfaces/cli.climatches.md)\>
 
-A promise resolving to cli matches.
+A promise resolving to the parsed arguments.
 
-Defined in: [cli.ts:35](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L35)
+Defined in: [cli.ts:40](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L40)

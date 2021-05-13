@@ -9,22 +9,7 @@ hide_title: true
 
 [http](../modules/http.md).Body
 
-## Constructors
-
-### constructor
-
-\+ **new Body**(`type`: *string*, `payload`: *unknown*): [*Body*](http.body.md)
-
-#### Parameters:
-
-Name | Type |
-:------ | :------ |
-`type` | *string* |
-`payload` | *unknown* |
-
-**Returns:** [*Body*](http.body.md)
-
-Defined in: [http.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L22)
+The body object to be used on POST and PUT requests.
 
 ## Properties
 
@@ -32,7 +17,7 @@ Defined in: [http.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooli
 
 • **payload**: *unknown*
 
-Defined in: [http.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L22)
+Defined in: [http.ts:28](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L28)
 
 ___
 
@@ -40,13 +25,15 @@ ___
 
 • **type**: *string*
 
-Defined in: [http.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L21)
+Defined in: [http.ts:27](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L27)
 
 ## Methods
 
 ### bytes
 
 ▸ `Static`**bytes**(`bytes`: *number*[]): [*Body*](http.body.md)
+
+Creates a new byte array body.
 
 #### Parameters:
 
@@ -56,7 +43,9 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:41](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L41)
+The body object ready to be used on the POST and PUT requests.
+
+Defined in: [http.ts:76](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L76)
 
 ___
 
@@ -64,15 +53,19 @@ ___
 
 ▸ `Static`**form**(`data`: *Record*<string, [*Part*](../modules/http.md#part)\>): [*Body*](http.body.md)
 
+Creates a new form data body.
+
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`data` | *Record*<string, [*Part*](../modules/http.md#part)\> |
+Name | Type | Description |
+:------ | :------ | :------ |
+`data` | *Record*<string, [*Part*](../modules/http.md#part)\> | The body data.    |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L29)
+The body object ready to be used on the POST and PUT requests.
+
+Defined in: [http.ts:43](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L43)
 
 ___
 
@@ -80,21 +73,27 @@ ___
 
 ▸ `Static`**json**(`data`: *Record*<any, any\>): [*Body*](http.body.md)
 
+Creates a new JSON body.
+
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`data` | *Record*<any, any\> |
+Name | Type | Description |
+:------ | :------ | :------ |
+`data` | *Record*<any, any\> | The body JSON object.    |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:33](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L33)
+The body object ready to be used on the POST and PUT requests.
+
+Defined in: [http.ts:54](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L54)
 
 ___
 
 ### text
 
 ▸ `Static`**text**(`value`: *string*): [*Body*](http.body.md)
+
+Creates a new UTF-8 string body.
 
 #### Parameters:
 
@@ -104,4 +103,6 @@ Name | Type |
 
 **Returns:** [*Body*](http.body.md)
 
-Defined in: [http.ts:37](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L37)
+The body object ready to be used on the POST and PUT requests.
+
+Defined in: [http.ts:65](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L65)

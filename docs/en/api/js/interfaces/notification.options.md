@@ -9,13 +9,17 @@ hide_title: true
 
 [notification](../modules/notification.md).Options
 
+Options to send a notification.
+
 ## Properties
 
 ### body
 
 • `Optional` **body**: *string*
 
-Defined in: [notification.ts:9](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L9)
+Optional notification body.
+
+Defined in: [notification.ts:19](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L19)
 
 ___
 
@@ -23,7 +27,9 @@ ___
 
 • `Optional` **icon**: *string*
 
-Defined in: [notification.ts:10](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L10)
+Optional notification icon.
+
+Defined in: [notification.ts:21](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L21)
 
 ___
 
@@ -31,4 +37,6 @@ ___
 
 • **title**: *string*
 
-Defined in: [notification.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L8)
+Notification title.
+
+Defined in: [notification.ts:17](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L17)

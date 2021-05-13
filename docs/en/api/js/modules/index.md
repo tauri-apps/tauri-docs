@@ -7,8 +7,4 @@ hide_title: true
 
 # Module: index
 
-## References
-
-### default
-
-Renames and exports: [bundle](bundle.md)
+The Tauri API allows you to interface with the backend layer.

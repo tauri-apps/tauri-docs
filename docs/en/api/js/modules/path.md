@@ -14,10 +14,11 @@ hide_title: true
 ▸ **appDir**(): *Promise*<string\>
 
 Returns the path to the suggested directory for your app config files.
+Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value configured on `tauri.conf.json > tauri > bundle > identifier`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L13)
+Defined in: [path.ts:19](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L19)
 
 ___
 
@@ -26,10 +27,16 @@ ___
 ▸ **audioDir**(): *Promise*<string\>
 
 Returns the path to the user's audio directory.
+# Linux
+Resolves to `$XDG_MUSIC_DIR`.
+# macOS
+Resolves to `$HOME/Music`.
+# Windows
+Resolves to `{FOLDERID_Music}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L29)
+Defined in: [path.ts:41](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L41)
 
 ___
 
@@ -38,10 +45,16 @@ ___
 ▸ **cacheDir**(): *Promise*<string\>
 
 Returns the path to the user's cache directory.
+# Linux
+Resolves to `$XDG_CACHE_HOME` or `$HOME/.cache`.
+# macOS
+Resolves to `$HOME/Library/Caches`.
+# Windows
+Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:45](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L45)
+Defined in: [path.ts:63](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L63)
 
 ___
 
@@ -50,10 +63,16 @@ ___
 ▸ **configDir**(): *Promise*<string\>
 
 Returns the path to the user's config directory.
+# Linux
+Resolves to `$XDG_CONFIG_HOME` or `$HOME/.config`.
+# macOS
+Resolves to `$HOME/Library/Application Support`.
+# Windows
+Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:61](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L61)
+Defined in: [path.ts:85](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L85)
 
 ___
 
@@ -65,7 +84,7 @@ Returns the path to the current working directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:301](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L301)
+Defined in: [path.ts:403](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L403)
 
 ___
 
@@ -74,10 +93,16 @@ ___
 ▸ **dataDir**(): *Promise*<string\>
 
 Returns the path to the user's data directory.
+# Linux
+Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
+# macOS
+Resolves to `$HOME/Library/Application Support`.
+# Windows
+Resolves to `{FOLDERID_RoamingAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:77](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L77)
+Defined in: [path.ts:107](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L107)
 
 ___
 
@@ -86,10 +111,16 @@ ___
 ▸ **desktopDir**(): *Promise*<string\>
 
 Returns the path to the user's desktop directory.
+# Linux
+Resolves to `$XDG_DESKTOP_DIR`.
+# macOS
+Resolves to `$HOME/Library/Desktop`.
+# Windows
+Resolves to `{FOLDERID_Desktop}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:93](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L93)
+Defined in: [path.ts:129](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L129)
 
 ___
 
@@ -98,10 +129,16 @@ ___
 ▸ **documentDir**(): *Promise*<string\>
 
 Returns the path to the user's document directory.
+# Linux
+Resolves to `$XDG_DOCUMENTS_DIR`.
+# macOS
+Resolves to `$HOME/Documents`.
+# Windows
+Resolves to `{FOLDERID_Documents}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:109](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L109)
+Defined in: [path.ts:151](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L151)
 
 ___
 
@@ -110,10 +147,16 @@ ___
 ▸ **downloadDir**(): *Promise*<string\>
 
 Returns the path to the user's download directory.
+# Linux
+Resolves to `$XDG_DOWNLOAD_DIR`.
+# macOS
+Resolves to `$HOME/Downloads`.
+# Windows
+Resolves to `{FOLDERID_Downloads}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:125](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L125)
+Defined in: [path.ts:173](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L173)
 
 ___
 
@@ -122,10 +165,16 @@ ___
 ▸ **executableDir**(): *Promise*<string\>
 
 Returns the path to the user's executable directory.
+# Linux
+Resolves to `$XDG_BIN_HOME/../bin` or `$XDG_DATA_HOME/../bin` or `$HOME/.local/bin`.
+# macOS
+Not supported.
+# Windows
+Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:141](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L141)
+Defined in: [path.ts:195](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L195)
 
 ___
 
@@ -134,10 +183,16 @@ ___
 ▸ **fontDir**(): *Promise*<string\>
 
 Returns the path to the user's font directory.
+# Linux
+Resolves to `$XDG_DATA_HOME/fonts` or `$HOME/.local/share/fonts`.
+# macOS
+Resolves to `$HOME/Library/Fonts`.
+# Windows
+Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:157](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L157)
+Defined in: [path.ts:217](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L217)
 
 ___
 
@@ -146,10 +201,16 @@ ___
 ▸ **homeDir**(): *Promise*<string\>
 
 Returns the path to the user's home directory.
+# Linux
+Resolves to `$HOME`.
+# macOS
+Resolves to `$HOME`.
+# Windows
+Resolves to `{FOLDERID_Profile}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:173](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L173)
+Defined in: [path.ts:239](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L239)
 
 ___
 
@@ -158,10 +219,16 @@ ___
 ▸ **localDataDir**(): *Promise*<string\>
 
 Returns the path to the user's local data directory.
+# Linux
+Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
+# macOS
+Resolves to `$HOME/Library/Application Support`.
+# Windows
+Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:189](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L189)
+Defined in: [path.ts:261](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L261)
 
 ___
 
@@ -170,10 +237,16 @@ ___
 ▸ **pictureDir**(): *Promise*<string\>
 
 Returns the path to the user's picture directory.
+# Linux
+Resolves to `$XDG_PICTURES_DIR`.
+# macOS
+Resolves to `$HOME/Pictures`.
+# Windows
+Resolves to `{FOLDERID_Pictures}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:205](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L205)
+Defined in: [path.ts:283](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L283)
 
 ___
 
@@ -182,10 +255,16 @@ ___
 ▸ **publicDir**(): *Promise*<string\>
 
 Returns the path to the user's public directory.
+# Linux
+Resolves to `$XDG_PUBLICSHARE_DIR`.
+# macOS
+Resolves to `$HOME/Public`.
+# Windows
+Resolves to `{FOLDERID_Public}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:221](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L221)
+Defined in: [path.ts:305](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L305)
 
 ___
 
@@ -206,7 +285,7 @@ Name | Type | Description |
 
 A path resolved to the given base directory.
 
-Defined in: [path.ts:319](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L319)
+Defined in: [path.ts:421](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L421)
 
 ___
 
@@ -218,7 +297,7 @@ Returns the path to the user's resource directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:237](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L237)
+Defined in: [path.ts:321](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L321)
 
 ___
 
@@ -227,10 +306,16 @@ ___
 ▸ **runtimeDir**(): *Promise*<string\>
 
 Returns the path to the user's runtime directory.
+# Linux
+Resolves to `$XDG_RUNTIME_DIR`.
+# macOS
+Not supported.
+# Windows
+Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:253](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L253)
+Defined in: [path.ts:343](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L343)
 
 ___
 
@@ -239,10 +324,16 @@ ___
 ▸ **templateDir**(): *Promise*<string\>
 
 Returns the path to the user's template directory.
+# Linux
+Resolves to `$XDG_TEMPLATES_DIR`.
+# macOS
+Not supported.
+# Windows
+Resolves to `{FOLDERID_Templates}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:269](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L269)
+Defined in: [path.ts:365](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L365)
 
 ___
 
@@ -251,7 +342,13 @@ ___
 ▸ **videoDir**(): *Promise*<string\>
 
 Returns the path to the user's video directory.
+# Linux
+Resolves to `$XDG_VIDEOS_DIR`.
+# macOS
+Resolves to `$HOME/Movies`.
+# Windows
+Resolves to `{FOLDERID_Videos}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:285](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/path.ts#L285)
+Defined in: [path.ts:387](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L387)

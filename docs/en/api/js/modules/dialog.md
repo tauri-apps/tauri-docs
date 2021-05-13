@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: dialog
 
+Native system dialogs for opening and saving files.
+
 ## Table of contents
 
 ### Interfaces
@@ -33,7 +35,7 @@ Name | Type | Default value |
 
 A promise resolving to the selected path(s)
 
-Defined in: [dialog.ts:29](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L29)
+Defined in: [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L51)
 
 ___
 
@@ -53,4 +55,4 @@ Name | Type | Default value |
 
 A promise resolving to the selected path.
 
-Defined in: [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L51)
+Defined in: [dialog.ts:72](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L72)

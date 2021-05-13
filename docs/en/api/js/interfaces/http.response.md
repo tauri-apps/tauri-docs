@@ -9,6 +9,8 @@ hide_title: true
 
 [http](../modules/http.md).Response
 
+Response object.
+
 ## Type parameters
 
 Name |
@@ -21,7 +23,9 @@ Name |
 
 • **data**: T
 
-Defined in: [http.ts:74](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L74)
+The response data.
+
+Defined in: [http.ts:118](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L118)
 
 ___
 
@@ -29,7 +33,9 @@ ___
 
 • **headers**: *Record*<string, string\>
 
-Defined in: [http.ts:73](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L73)
+The response headers.
+
+Defined in: [http.ts:116](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L116)
 
 ___
 
@@ -37,7 +43,9 @@ ___
 
 • **status**: *number*
 
-Defined in: [http.ts:72](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L72)
+The response status code.
+
+Defined in: [http.ts:114](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L114)
 
 ___
 
@@ -45,4 +53,6 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:71](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L71)
+The request URL.
+
+Defined in: [http.ts:112](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L112)

@@ -23,7 +23,7 @@ Name |
 
 Event name
 
-Defined in: [event.ts:11](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L11)
+Defined in: [event.ts:16](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L16)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 Event identifier used to unlisten
 
-Defined in: [event.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L13)
+Defined in: [event.ts:18](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L18)
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 Event payload
 
-Defined in: [event.ts:15](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/event.ts#L15)
+Defined in: [event.ts:20](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L20)

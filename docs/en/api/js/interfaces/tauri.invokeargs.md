@@ -9,14 +9,10 @@ hide_title: true
 
 [tauri](../modules/tauri.md).InvokeArgs
 
+Command arguments.
+
 ## Indexable
 
 ▪ [key: *string*]: *unknown*
 
-## Properties
-
-### mainThread
-
-• `Optional` **mainThread**: *boolean*
-
-Defined in: [tauri.ts:44](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/tauri.ts#L44)
+Command arguments.
