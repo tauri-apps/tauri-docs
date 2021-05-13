@@ -1,65 +1,37 @@
 ---
-title: "Class: WebviewWindow"
-sidebar_label: "WebviewWindow"
+title: "Class: WebviewWindowHandle"
+sidebar_label: "WebviewWindowHandle"
 custom_edit_url: null
 hide_title: true
 ---
 
-# Class: WebviewWindow
+# Class: WebviewWindowHandle
 
-[window](../modules/window.md).WebviewWindow
+[window](../modules/window.md).WebviewWindowHandle
 
-Create new webview windows and get a handle to existing ones.
-
-**`example`** 
-```typescript
-// loading embedded asset:
-const webview = new WebviewWindow('theUniqueLabel', {
-  url: 'path/to/page.html'
-})
-// alternatively, load a remote URL:
-const webview = new WebviewWindow('theUniqueLabel', {
-  url: 'https://github.com/tauri-apps/tauri'
-})
-
-webview.once('tauri://created', function () {
- // webview window successfully created
-})
-webview.once('tauri://error', function (e) {
- // an error happened creating the webview window
-})
-
-// emit an event to the backend
-await webview.emit("some event", "data")
-// listen to an event from the backend
-const unlisten = await webview.listen("event name", e => {})
-unlisten()
-```
+A webview window handle allows emitting and listening to events from the backend that are tied to the window.
 
 ## Hierarchy
 
-* [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+* **WebviewWindowHandle**
 
-  ↳ **WebviewWindow**
+  ↳ [*WebviewWindow*](window.webviewwindow.md)
 
 ## Constructors
 
 ### constructor
 
-\+ `Private`**new WebviewWindow**(`label`: *string*, `options?`: [*WindowOptions*](../interfaces/window.windowoptions.md)): [*WebviewWindow*](window.webviewwindow.md)
+\+ **new WebviewWindowHandle**(`label`: *string*): [*WebviewWindowHandle*](window.webviewwindowhandle.md)
 
 #### Parameters:
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`label` | *string* | - |
-`options` | [*WindowOptions*](../interfaces/window.windowoptions.md) | {} |
+Name | Type |
+:------ | :------ |
+`label` | *string* |
 
-**Returns:** [*WebviewWindow*](window.webviewwindow.md)
+**Returns:** [*WebviewWindowHandle*](window.webviewwindowhandle.md)
 
-Overrides: [WebviewWindowHandle](window.webviewwindowhandle.md)
-
-Defined in: [window.ts:234](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L234)
+Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L128)
 
 ## Properties
 
@@ -68,8 +40,6 @@ Defined in: [window.ts:234](https://github.com/tauri-apps/tauri/blob/a68b4ee8/to
 • **label**: *string*
 
 Window label.
-
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[label](window.webviewwindowhandle.md#label)
 
 Defined in: [window.ts:126](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L126)
 
@@ -82,8 +52,6 @@ ___
 Local event listeners.
 
 #### Type declaration:
-
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[listeners](window.webviewwindowhandle.md#listeners)
 
 Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L128)
 
@@ -108,8 +76,6 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
-
 Defined in: [window.ts:192](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L192)
 
 ___
@@ -128,8 +94,6 @@ Name | Type | Description |
 `payload?` | *string* | Event payload.    |
 
 **Returns:** *Promise*<void\>
-
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
 Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L181)
 
@@ -158,8 +122,6 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
-
 Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L143)
 
 ___
@@ -187,26 +149,4 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
-
 Defined in: [window.ts:164](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L164)
-
-___
-
-### getByLabel
-
-▸ `Static`**getByLabel**(`label`: *string*): *null* \| [*WebviewWindowHandle*](window.webviewwindowhandle.md)
-
-Gets the WebviewWindow handle for the webview associated with the given label.
-
-#### Parameters:
-
-Name | Type | Description |
-:------ | :------ | :------ |
-`label` | *string* | The webview window label.   |
-
-**Returns:** *null* \| [*WebviewWindowHandle*](window.webviewwindowhandle.md)
-
-The handle to communicate with the webview or null if the webview doesn't exist.
-
-Defined in: [window.ts:259](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L259)

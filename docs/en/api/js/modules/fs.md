@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: fs
 
+Access the file system.
+
 ## Table of contents
 
 ### Enumerations
@@ -39,13 +41,15 @@ Copys a file to a destination.
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`source` | *string* | - | A path of the file to copy   |
-`destination` | *string* | - | A path for the destination file   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`source` | *string* | - | A path of the file to copy.   |
+`destination` | *string* | - | A path for the destination file.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:266](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L266)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:274](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L274)
 
 ___
 
@@ -55,18 +59,20 @@ ___
 
 Creates a directory.
 If one of the path's parent components doesn't exist
-and the `recursive` option isn't set to true, it will be rejected.
+and the `recursive` option isn't set to true, the promise will be rejected.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`dir` | *string* | - | Path to the directory to create   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
+`dir` | *string* | - | Path to the directory to create.   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:222](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L222)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:230](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L230)
 
 ___
 
@@ -74,20 +80,20 @@ ___
 
 ▸ **readBinaryFile**(`filePath`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<number[]\>
 
-Reads a file as binary.
+Reads a file as byte array.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`filePath` | *string* | - | Path to the file   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`filePath` | *string* | - | Path to the file.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<number[]\>
 
-A promise resolving to an array of the file bytes.
+A promise resolving to the file bytes array.
 
-Defined in: [fs.ts:87](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L87)
+Defined in: [fs.ts:92](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L92)
 
 ___
 
@@ -101,12 +107,14 @@ List directory files.
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`dir` | *string* | - | Path to the directory to read   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
+`dir` | *string* | - | Path to the directory to read.   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<[*FileEntry*](../interfaces/fs.fileentry.md)[]\>
 
-Defined in: [fs.ts:199](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L199)
+A promise resolving to the directory entries.
+
+Defined in: [fs.ts:207](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L207)
 
 ___
 
@@ -114,20 +122,20 @@ ___
 
 ▸ **readTextFile**(`filePath`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<string\>
 
-Reads a file as text.
+Reads a file as UTF-8 encoded string.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`filePath` | *string* | - | Path to the file   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`filePath` | *string* | - | Path to the file.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<string\>
 
-A promise resolving to a string of the file content.
+A promise resolving to the file content as a UTF-8 encoded string.
 
-Defined in: [fs.ts:66](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L66)
+Defined in: [fs.ts:71](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L71)
 
 ___
 
@@ -136,18 +144,20 @@ ___
 ▸ **removeDir**(`dir`: *string*, `options?`: [*FsDirOptions*](../interfaces/fs.fsdiroptions.md)): *Promise*<void\>
 
 Removes a directory.
-If the directory is not empty and the `recursive` option isn't set to true, it will be rejected.
+If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`dir` | *string* | - | Path to the directory to remove   |
-`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | - |
+`dir` | *string* | - | Path to the directory to remove.   |
+`options` | [*FsDirOptions*](../interfaces/fs.fsdiroptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:244](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L244)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:252](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L252)
 
 ___
 
@@ -161,12 +171,14 @@ Removes a file.
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`file` | *string* | - | Path to the file to remove   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`file` | *string* | - | Path to the file to remove.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:289](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L289)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:297](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L297)
 
 ___
 
@@ -174,19 +186,21 @@ ___
 
 ▸ **renameFile**(`oldPath`: *string*, `newPath`: *string*, `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-Renames a file
+Renames a file.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`oldPath` | *string* | - | A path of the file to rename   |
-`newPath` | *string* | - | A path of the new file name   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`oldPath` | *string* | - | A path of the file to rename.   |
+`newPath` | *string* | - | A path of the new file name.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:311](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L311)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:319](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L319)
 
 ___
 
@@ -194,18 +208,20 @@ ___
 
 ▸ **writeBinaryFile**(`file`: [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md), `options?`: [*FsOptions*](../interfaces/fs.fsoptions.md)): *Promise*<void\>
 
-Writes a binary file
+Writes a binary file.
 
 #### Parameters:
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`file` | [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md) | - | File configuration object   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`file` | [*FsBinaryFileOption*](../interfaces/fs.fsbinaryfileoption.md) | - | Write configuration object.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:170](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L170)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:178](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L178)
 
 ___
 
@@ -219,9 +235,11 @@ Writes a text file.
 
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
-`file` | [*FsTextFileOption*](../interfaces/fs.fstextfileoption.md) | - | File configuration object   |
-`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | - |
+`file` | [*FsTextFileOption*](../interfaces/fs.fstextfileoption.md) | - | File configuration object.   |
+`options` | [*FsOptions*](../interfaces/fs.fsoptions.md) | {} | Configuration object.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [fs.ts:108](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L108)
+A promise indicating the success or failure of the operation.
+
+Defined in: [fs.ts:113](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L113)

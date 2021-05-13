@@ -9,13 +9,15 @@ hide_title: true
 
 [http](../modules/http.md).HttpOptions
 
+Options object sent to the backend.
+
 ## Properties
 
 ### body
 
 • `Optional` **body**: [*Body*](../classes/http.body.md)
 
-Defined in: [http.ts:62](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L62)
+Defined in: [http.ts:99](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L99)
 
 ___
 
@@ -23,7 +25,7 @@ ___
 
 • `Optional` **headers**: *Record*<string, any\>
 
-Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L60)
+Defined in: [http.ts:97](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L97)
 
 ___
 
@@ -31,7 +33,7 @@ ___
 
 • **method**: [*HttpVerb*](../modules/http.md#httpverb)
 
-Defined in: [http.ts:58](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L58)
+Defined in: [http.ts:95](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L95)
 
 ___
 
@@ -39,7 +41,7 @@ ___
 
 • `Optional` **query**: *Record*<string, any\>
 
-Defined in: [http.ts:61](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L61)
+Defined in: [http.ts:98](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L98)
 
 ___
 
@@ -47,7 +49,7 @@ ___
 
 • `Optional` **responseType**: [*ResponseType*](../enums/http.responsetype.md)
 
-Defined in: [http.ts:64](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L64)
+Defined in: [http.ts:101](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L101)
 
 ___
 
@@ -55,7 +57,7 @@ ___
 
 • `Optional` **timeout**: *number*
 
-Defined in: [http.ts:63](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L63)
+Defined in: [http.ts:100](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L100)
 
 ___
 
@@ -63,4 +65,4 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:59](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L59)
+Defined in: [http.ts:96](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L96)

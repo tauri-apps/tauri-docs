@@ -14,6 +14,11 @@ hide_title: true
 - [Child](../classes/shell.child.md)
 - [Command](../classes/shell.command.md)
 
+### Interfaces
+
+- [ChildProcess](../interfaces/shell.childprocess.md)
+- [SpawnOptions](../interfaces/shell.spawnoptions.md)
+
 ## Functions
 
 ### open
@@ -23,13 +28,23 @@ hide_title: true
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
 
+**`example`** 
+```typescript
+// opens the given URL on the default browser:
+await open('https://github.com/tauri-apps/tauri')
+// opens the given URL using `firefox`:
+await open('https://github.com/tauri-apps/tauri', 'firefox')
+// opens a file using the default program:
+await open('/path/to/file')
+```
+
 #### Parameters:
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`path` | *string* | the path or URL to open   |
-`openWith?` | *string* | - |
+`path` | *string* | The path or URL to open.   |
+`openWith?` | *string* | The app to open the file or URL with. Defaults to the system default application for the specified path type.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:205](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L205)
+Defined in: [shell.ts:340](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L340)

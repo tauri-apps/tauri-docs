@@ -15,7 +15,7 @@ hide_title: true
 
 • **matches**: [*CliMatches*](cli.climatches.md)
 
-Defined in: [cli.ts:22](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L22)
+Defined in: [cli.ts:27](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L27)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **name**: *string*
 
-Defined in: [cli.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/cli.ts#L21)
+Defined in: [cli.ts:26](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L26)

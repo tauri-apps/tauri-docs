@@ -23,7 +23,7 @@ Name | Type |
 
 **Returns:** [*Child*](shell.child.md)
 
-Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L79)
+Defined in: [shell.ts:115](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L115)
 
 ## Properties
 
@@ -31,7 +31,9 @@ Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tool
 
 • **pid**: *number*
 
-Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L79)
+The child process `pid`.
+
+Defined in: [shell.ts:115](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L115)
 
 ## Methods
 
@@ -39,9 +41,13 @@ Defined in: [shell.ts:79](https://github.com/tauri-apps/tauri/blob/850a99a5/tool
 
 ▸ **kill**(): *Promise*<void\>
 
+Kills the child process.
+
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:96](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L96)
+A promise indicating the success or failure of the operation.
+
+Defined in: [shell.ts:151](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L151)
 
 ___
 
@@ -49,12 +55,24 @@ ___
 
 ▸ **write**(`data`: *string* \| *number*[]): *Promise*<void\>
 
+Writes `data` to the `stdin`.
+
+**`example`** 
+```typescript
+const command = new Command('node')
+const child = await command.spawn()
+await child.write('message')
+await child.write([0, 1, 2, 3, 4, 5])
+```
+
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`data` | *string* \| *number*[] |
+Name | Type | Description |
+:------ | :------ | :------ |
+`data` | *string* \| *number*[] | The message to write, either a string or a byte array.   |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:85](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/shell.ts#L85)
+A promise indicating the success or failure of the operation.
+
+Defined in: [shell.ts:135](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L135)

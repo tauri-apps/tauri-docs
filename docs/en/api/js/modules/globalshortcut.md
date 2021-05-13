@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: globalShortcut
 
+Register global shortcuts.
+
 ## Type aliases
 
 ### ShortcutHandler
@@ -25,7 +27,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [globalShortcut.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L8)
+Defined in: [globalShortcut.ts:13](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L13)
 
 ## Functions
 
@@ -45,7 +47,7 @@ Name | Type | Description |
 
 A promise resolving to the state.
 
-Defined in: [globalShortcut.ts:58](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L58)
+Defined in: [globalShortcut.ts:63](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L63)
 
 ___
 
@@ -64,7 +66,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:17](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L17)
+Defined in: [globalShortcut.ts:22](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L22)
 
 ___
 
@@ -83,7 +85,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L38)
+Defined in: [globalShortcut.ts:43](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L43)
 
 ___
 
@@ -101,7 +103,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:74](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L74)
+Defined in: [globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L79)
 
 ___
 
@@ -113,4 +115,4 @@ Unregisters all shortcuts registered by the application.
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:89](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/globalShortcut.ts#L89)
+Defined in: [globalShortcut.ts:94](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L94)

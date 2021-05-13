@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: notification
 
+Send notifications to your user. Can also be used with the Notification Web API.
+
 ## Table of contents
 
 ### Interfaces
@@ -15,19 +17,13 @@ hide_title: true
 
 ## Type aliases
 
-### PartialOptions
-
-Ƭ **PartialOptions**: *Omit*<[*Options*](../interfaces/notification.options.md), *title*\>
-
-Defined in: [notification.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L13)
-
-___
-
 ### Permission
 
 Ƭ **Permission**: *granted* \| *denied* \| *default*
 
-Defined in: [notification.ts:14](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L14)
+Possible permission values.
+
+Defined in: [notification.ts:25](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L25)
 
 ## Functions
 
@@ -39,7 +35,7 @@ Checks if the permission to send notifications is granted.
 
 **Returns:** *Promise*<boolean \| *null*\>
 
-Defined in: [notification.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L21)
+Defined in: [notification.ts:32](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L32)
 
 ___
 
@@ -53,7 +49,7 @@ Requests the permission to send notifications.
 
 A promise resolving to whether the user granted the permission or not.
 
-Defined in: [notification.ts:38](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L38)
+Defined in: [notification.ts:49](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L49)
 
 ___
 
@@ -67,8 +63,8 @@ Sends a notification to the user.
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`options` | [*Options*](../interfaces/notification.options.md) \| *string* | Notification options   |
+`options` | [*Options*](../interfaces/notification.options.md) \| *string* | Notification options.    |
 
 **Returns:** *void*
 
-Defined in: [notification.ts:48](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/notification.ts#L48)
+Defined in: [notification.ts:58](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L58)

@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: updater
 
+Customize the auto updater flow.
+
 ## Table of contents
 
 ### Interfaces
@@ -21,7 +23,7 @@ hide_title: true
 
 Ƭ **UpdateStatus**: *PENDING* \| *ERROR* \| *DONE* \| *UPTODATE*
 
-Defined in: [updater.ts:7](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L7)
+Defined in: [updater.ts:12](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L12)
 
 ## Functions
 
@@ -29,9 +31,13 @@ Defined in: [updater.ts:7](https://github.com/tauri-apps/tauri/blob/850a99a5/too
 
 ▸ **checkUpdate**(): *Promise*<[*UpdateResult*](../interfaces/updater.updateresult.md)\>
 
+Checks if an update is available.
+
 **Returns:** *Promise*<[*UpdateResult*](../interfaces/updater.updateresult.md)\>
 
-Defined in: [updater.ts:72](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L72)
+Promise resolving to the update status.
+
+Defined in: [updater.ts:87](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L87)
 
 ___
 
@@ -39,6 +45,10 @@ ___
 
 ▸ **installUpdate**(): *Promise*<void\>
 
+Install the update if there's one available.
+
 **Returns:** *Promise*<void\>
 
-Defined in: [updater.ts:25](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/updater.ts#L25)
+A promise indicating the success or failure of the operation.
+
+Defined in: [updater.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L35)

@@ -15,7 +15,7 @@ hide_title: true
 
 • `Optional` **dir**: [*BaseDirectory*](../enums/fs.basedirectory.md)
 
-Defined in: [fs.ts:34](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L34)
+Defined in: [fs.ts:39](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L39)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • `Optional` **recursive**: *boolean*
 
-Defined in: [fs.ts:35](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/fs.ts#L35)
+Defined in: [fs.ts:40](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L40)

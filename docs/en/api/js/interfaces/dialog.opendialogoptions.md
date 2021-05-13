@@ -9,13 +9,17 @@ hide_title: true
 
 [dialog](../modules/dialog.md).OpenDialogOptions
 
+Options for the open dialog.
+
 ## Properties
 
 ### defaultPath
 
 • `Optional` **defaultPath**: *string*
 
-Defined in: [dialog.ts:14](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L14)
+Initial directory or file path. It must exist.
+
+Defined in: [dialog.ts:31](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L31)
 
 ___
 
@@ -23,7 +27,9 @@ ___
 
 • `Optional` **directory**: *boolean*
 
-Defined in: [dialog.ts:16](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L16)
+Whether the dialog is a directory selection or not.
+
+Defined in: [dialog.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L35)
 
 ___
 
@@ -31,7 +37,9 @@ ___
 
 • `Optional` **filters**: [*DialogFilter*](dialog.dialogfilter.md)[]
 
-Defined in: [dialog.ts:13](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L13)
+The filters of the dialog.
+
+Defined in: [dialog.ts:29](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L29)
 
 ___
 
@@ -39,4 +47,6 @@ ___
 
 • `Optional` **multiple**: *boolean*
 
-Defined in: [dialog.ts:15](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L15)
+Whether the dialog allows multiple selection or not.
+
+Defined in: [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L33)

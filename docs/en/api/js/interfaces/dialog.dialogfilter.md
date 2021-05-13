@@ -9,13 +9,22 @@ hide_title: true
 
 [dialog](../modules/dialog.md).DialogFilter
 
+Extension filters for the file dialog.
+
 ## Properties
 
 ### extensions
 
 • **extensions**: *string*[]
 
-Defined in: [dialog.ts:9](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L9)
+Extensions to filter, without a `.` prefix.
+
+**`example`** 
+```typescript
+extensions: ['svg', 'png']
+```
+
+Defined in: [dialog.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L23)
 
 ___
 
@@ -23,4 +32,6 @@ ___
 
 • **name**: *string*
 
-Defined in: [dialog.ts:8](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L8)
+Filter name.
+
+Defined in: [dialog.ts:15](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L15)

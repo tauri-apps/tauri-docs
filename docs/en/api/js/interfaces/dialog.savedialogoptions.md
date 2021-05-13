@@ -9,13 +9,17 @@ hide_title: true
 
 [dialog](../modules/dialog.md).SaveDialogOptions
 
+Options for the save dialog.
+
 ## Properties
 
 ### defaultPath
 
 • `Optional` **defaultPath**: *string*
 
-Defined in: [dialog.ts:21](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L21)
+Initial directory or file path. It must exist.
+
+Defined in: [dialog.ts:43](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L43)
 
 ___
 
@@ -23,4 +27,6 @@ ___
 
 • `Optional` **filters**: [*DialogFilter*](dialog.dialogfilter.md)[]
 
-Defined in: [dialog.ts:20](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/dialog.ts#L20)
+The filters of the dialog.
+
+Defined in: [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L41)

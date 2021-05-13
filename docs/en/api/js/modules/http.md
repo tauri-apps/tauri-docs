@@ -7,6 +7,8 @@ hide_title: true
 
 # Module: http
 
+Access the HTTP client written in Rust.
+
 ## Table of contents
 
 ### Enumerations
@@ -30,7 +32,9 @@ hide_title: true
 
 Ƭ **FetchOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *url*\>
 
-Defined in: [http.ts:68](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L68)
+Options for the `fetch` API.
+
+Defined in: [http.ts:107](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L107)
 
 ___
 
@@ -38,7 +42,9 @@ ___
 
 Ƭ **HttpVerb**: *GET* \| *POST* \| *PUT* \| *DELETE* \| *PATCH* \| *HEAD* \| *OPTIONS* \| *CONNECT* \| *TRACE*
 
-Defined in: [http.ts:46](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L46)
+The request HTTP verb.
+
+Defined in: [http.ts:82](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L82)
 
 ___
 
@@ -46,7 +52,7 @@ ___
 
 Ƭ **Part**: *string* \| *number*[]
 
-Defined in: [http.ts:18](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L18)
+Defined in: [http.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L23)
 
 ___
 
@@ -54,13 +60,17 @@ ___
 
 Ƭ **RequestOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *method* \| *url*\>
 
-Defined in: [http.ts:67](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L67)
+Request options.
+
+Defined in: [http.ts:105](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L105)
 
 ## Functions
 
 ### fetch
 
 ▸ **fetch**<T\>(`url`: *string*, `options?`: [*FetchOptions*](http.md#fetchoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
+
+Perform an HTTP request using the default client.
 
 #### Type parameters:
 
@@ -70,14 +80,16 @@ Name |
 
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`url` | *string* |
-`options?` | [*FetchOptions*](http.md#fetchoptions) |
+Name | Type | Description |
+:------ | :------ | :------ |
+`url` | *string* | The request URL.   |
+`options?` | [*FetchOptions*](http.md#fetchoptions) | The fetch options.   |
 
 **Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
 
-Defined in: [http.ts:215](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L215)
+The response object.
+
+Defined in: [http.ts:275](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L275)
 
 ___
 
@@ -85,12 +97,16 @@ ___
 
 ▸ **getClient**(`options?`: [*ClientOptions*](../interfaces/http.clientoptions.md)): *Promise*<[*Client*](../classes/http.client.md)\>
 
+Creates a new client using the specified options.
+
 #### Parameters:
 
-Name | Type |
-:------ | :------ |
-`options?` | [*ClientOptions*](../interfaces/http.clientoptions.md) |
+Name | Type | Description |
+:------ | :------ | :------ |
+`options?` | [*ClientOptions*](../interfaces/http.clientoptions.md) | Client configuration.    |
 
 **Returns:** *Promise*<[*Client*](../classes/http.client.md)\>
 
-Defined in: [http.ts:203](https://github.com/tauri-apps/tauri/blob/850a99a5/tooling/api/src/http.ts#L203)
+A promise resolving to the client instance.
+
+Defined in: [http.ts:255](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L255)
