@@ -4,9 +4,7 @@ title: "trait.MenuId"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[MenuId](/docs/api/rust/tauri/)
 
-```rs
-pub trait MenuId: 'static + Serialize + Hash + Eq + Debug + Clone + Send + Sync { }
-```
+    pub trait MenuId: 'static + Serialize + Hash + Eq + Debug + Clone + Send + Sync { }
 
 A type that can be derived into a menu id.
 

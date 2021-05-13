@@ -4,16 +4,14 @@ title: "trait.Params"
 
 # Trait [tauri](/docs/api/rust/tauri/index.html)::​[Params](/docs/api/rust/tauri/)
 
-```rs
-pub trait Params: 'static + ParamsBase {
-    type Event: Tag;
-    type Label: Tag;
-    type MenuId: MenuId;
-    type SystemTrayMenuId: MenuId;
-    type Assets: Assets;
-    type Runtime: Runtime;
-}
-```
+    pub trait Params: 'static + ParamsBase {
+        type Event: Tag;
+        type Label: Tag;
+        type MenuId: MenuId;
+        type SystemTrayMenuId: MenuId;
+        type Assets: Assets;
+        type Runtime: Runtime;
+    }
 
 Types associated with the running Tauri application.
 
