@@ -37,6 +37,27 @@ const features = [
   ],
 ]
 
+const OSCard = ({ title, link, brand, highlight }) => (
+  <div className="col col--4 feature">
+    <div className="card">
+      <div className="card__body">
+        <div className="text--center">
+          <i className={'ti-' + brand} style={{ fontSize: '3em' }} />
+        </div>
+        <h3 style={{margin: '10px 0 0'}}>{title}</h3>
+        <p style={{fontSize: '.9em'}}>validation app</p>
+      </div>
+      <div className="card__footer">
+        <Link to={useBaseUrl(link)}>
+          <button className={classnames('button button--secondary button--block', highlight ? styles.rainbow : '')} style={{border: 'none'}}>
+            Try it out!
+          </button>
+        </Link>
+      </div>
+    </div>
+  </div>
+)
+
 function Feature({ imageUrl, link, siteConfig, index }) {
   const imgUrl = useBaseUrl(imageUrl)
   return (
@@ -112,7 +133,7 @@ const Roadmap = ({ siteConfig }) => {
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
-    {      
+    {
       label: 'Alpha Release',
       icon: 'ti-flag-alt',
       color: COLORS.green,
@@ -377,9 +398,16 @@ const Roadmap = ({ siteConfig }) => {
   )
 }
 
+const getOS = () => {
+  if (navigator.appVersion.indexOf('Win') != -1) return 'Windows'
+  if (navigator.appVersion.indexOf('Mac') != -1) return 'macOS'
+  if (navigator.appVersion.indexOf('Linux') != -1) return 'Linux'
+}
+
 function Home() {
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
+  const OS = getOS()
   return (
     <Layout
       title={`${siteConfig.tagline}`}
@@ -437,6 +465,17 @@ function Home() {
         {features && features.length && (
           <section className={classnames('features', styles.features)}>
             <div className="container">
+              <h2 style={{ textAlign: 'center', position: 'relative' }}>
+                Major OS Example Apps
+              </h2>
+              <div className="row">
+                <OSCard title="macOS" link="" brand="apple" highlight={OS === 'macOS'} />
+                <OSCard title="Linux" link="" brand="linux" highlight={OS === 'Linux'} />
+                <OSCard title="Windows" link="" brand="microsoft" highlight={OS === 'Windows'} />
+              </div>
+
+              <hr style={{margin: '20px 0 40px'}}/>
+
               {features.map((row, index) => {
                 return (
                   <div className="row" key={index}>
