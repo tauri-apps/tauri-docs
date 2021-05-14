@@ -1,7 +1,7 @@
 {
   "config": {
     "announcementBar": {
-       "validationApp": "New Validation App Coming Soon"
+       "betaSentence": "Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a>"
     },
     "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },

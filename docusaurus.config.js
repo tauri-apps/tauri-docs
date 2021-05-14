@@ -27,11 +27,11 @@ const siteConfig = {
     colorMode: {
       defaultMode: 'dark'
     },
-    // announcementBar: {
-    //   id: 'testapp',
-    //   content: t.config.announcementBar.validationApp,
-    //   backgroundColor: 'var(--ifm-color-primary)',
-    // },
+    announcementBar: {
+      id: 'beta',
+      content: t.config.announcementBar.betaSentence,
+      backgroundColor: 'var(--ifm-color-primary)',
+    },
     navbar: {
       hideOnScroll: false,
       title: ' ',
