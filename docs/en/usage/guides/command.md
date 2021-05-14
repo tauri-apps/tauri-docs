@@ -146,7 +146,7 @@ The state can be accessed on a command using `tauri::State`:
 struct MyState(String);
 
 #[tauri::command]
-fn my_custom_command(state: tauri::State<'_, MyState>) {
+fn my_custom_command(state: tauri::State<MyState>) {
   assert_eq!(state.0 == "some state value", true);
 }
 
