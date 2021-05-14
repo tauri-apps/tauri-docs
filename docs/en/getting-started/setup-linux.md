@@ -28,6 +28,11 @@ values={[
 ]}>
 <TabItem value="debian">
 
+If you are using Ubuntu, be sure to add the "Universe" apt repository:
+```sh
+$ sudo add-apt-repository universe
+```
+
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
@@ -36,7 +41,6 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     squashfs-tools \
     libssl-dev \
     libgtk-3-dev \
-    webkit2gtk-4.0 \
     libgtksourceview-3.0-dev \
     libappindicator3-dev
 ```
