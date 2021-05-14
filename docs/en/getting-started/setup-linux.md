@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 - `wget` and `squashfs-tools` are used on AppImage bundling.
 - `libssl-dev` is used on the HTTP API.
 - GTK is used by `tao`[https://github.com/tauri-apps/tao] to create windows.
-- `webkit2gtk-4.0` is the webview provider used by [wry](https://github.com/tauri-apps/wry).
+- `libwebkit2gtk-4.0-dev` is the webview provider used by [wry](https://github.com/tauri-apps/wry).
 - `libgtksourceview-3.0-dev` is needed when creating window menus or system tray menus.
 - `libappindicator3-dev` is needed for system tray.
 
