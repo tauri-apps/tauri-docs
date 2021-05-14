@@ -45,8 +45,8 @@ struct MainWindow(Arc<Mutex<Window>>);
 
 #[tauri::command]
 fn close_splashscreen(
-  splashscreen: State<'_, SplashscreenWindow>,
-  main: State<'_, MainWindow>,
+  splashscreen: State<SplashscreenWindow>,
+  main: State<MainWindow>,
 ) {
   // Close splashscreen
   splashscreen.0.lock().unwrap().close().unwrap();
