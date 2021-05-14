@@ -44,12 +44,18 @@ const OSCard = ({ title, link, brand, highlight }) => (
         <div className="text--center">
           <i className={'ti-' + brand} style={{ fontSize: '3em' }} />
         </div>
-        <h3 style={{margin: '10px 0 0'}}>{title}</h3>
-        <p style={{fontSize: '.9em'}}>validation app</p>
+        <h3 style={{ margin: '10px 0 0' }}>{title}</h3>
+        <p style={{ fontSize: '.9em' }}>validation app</p>
       </div>
       <div className="card__footer">
         <Link to={useBaseUrl(link)}>
-          <button className={classnames('button button--secondary button--block', highlight ? styles.rainbow : '')} style={{border: 'none'}}>
+          <button
+            className={classnames(
+              'button button--secondary button--block',
+              highlight ? styles.rainbow : ''
+            )}
+            style={{ border: 'none' }}
+          >
             Try it out!
           </button>
         </Link>
@@ -399,6 +405,9 @@ const Roadmap = ({ siteConfig }) => {
 }
 
 const getOS = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
   if (navigator.appVersion.indexOf('Win') != -1) return 'Windows'
   if (navigator.appVersion.indexOf('Mac') != -1) return 'macOS'
   if (navigator.appVersion.indexOf('Linux') != -1) return 'Linux'
@@ -469,12 +478,27 @@ function Home() {
                 Major OS Example Apps
               </h2>
               <div className="row">
-                <OSCard title="macOS" link="" brand="apple" highlight={OS === 'macOS'} />
-                <OSCard title="Linux" link="" brand="linux" highlight={OS === 'Linux'} />
-                <OSCard title="Windows" link="" brand="microsoft" highlight={OS === 'Windows'} />
+                <OSCard
+                  title="macOS"
+                  link=""
+                  brand="apple"
+                  highlight={OS === 'macOS'}
+                />
+                <OSCard
+                  title="Linux"
+                  link=""
+                  brand="linux"
+                  highlight={OS === 'Linux'}
+                />
+                <OSCard
+                  title="Windows"
+                  link=""
+                  brand="microsoft"
+                  highlight={OS === 'Windows'}
+                />
               </div>
 
-              <hr style={{margin: '20px 0 40px'}}/>
+              <hr style={{ margin: '20px 0 40px' }} />
 
               {features.map((row, index) => {
                 return (
