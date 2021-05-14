@@ -296,3 +296,8 @@ html[data-theme='light'] .header-github-link::before {
 .react-toggle {
   display: inline-block;
 }
+
+#announcement-beta {
+  font-weight: bold;
+  margin-top: 10px;
+}
