@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 
 - `wget` and `squashfs-tools` are used on AppImage bundling.
 - `libssl-dev` is used on the HTTP API.
-- GTK is used by `tao`[https://github.com/tauri-apps/tao] to create windows.
+- GTK is used by [tao](https://github.com/tauri-apps/tao) to create windows.
 - `libwebkit2gtk-4.0-dev` is the webview provider used by [wry](https://github.com/tauri-apps/wry).
 - `libgtksourceview-3.0-dev` is needed when creating window menus or system tray menus.
 - `libappindicator3-dev` is needed for system tray.
@@ -28,6 +28,11 @@ values={[
 ]}>
 <TabItem value="debian">
 
+If you are using Ubuntu, be sure to add the "Universe" apt repository:
+```sh
+$ sudo add-apt-repository universe
+```
+
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
@@ -36,7 +41,6 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     squashfs-tools \
     libssl-dev \
     libgtk-3-dev \
-    webkit2gtk-4.0 \
     libgtksourceview-3.0-dev \
     libappindicator3-dev
 ```
