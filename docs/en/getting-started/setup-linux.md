@@ -71,7 +71,7 @@ $ sudo dnf group install "C Development Tools and Libraries" && \
         openssl-devel \
         gtk3 \
         webkit2gtk3-devel.x86_64 \
-        gtksourceview-3.0 \
+        gtksourceview3 \
         libappindicator-devel
 ```
 
