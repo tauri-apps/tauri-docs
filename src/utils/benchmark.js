@@ -9,7 +9,7 @@ export function reshape(data) {
     maxMemory: createColumns(data, 'max_memory'),
     threadCount: createThreadCountColumns(data),
     syscallCount: createSyscallCountColumns(data),
-    cargoDeps: createColumns1(data, 'cargo_deps'),
+    cargoDeps: createColumns(data, 'cargo_deps'),
   }
 }
 
