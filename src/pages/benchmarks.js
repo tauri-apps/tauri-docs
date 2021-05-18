@@ -94,16 +94,29 @@ function BenchmarkChart(props) {
 function Benchmarks() {
   const recentWryUrl =
     'https://tauri-apps.github.io/benchmark_results/wry-recent.json?'
+    const recentElectronUrl =
+    'https://tauri-apps.github.io/benchmark_results/electron-recent.json?'
 
   const [wryData, setWryData] = useState([])
+  const [electronData, setElectronData] = useState([])
+
+  console.log({wryData});
+  console.log({electronData})
 
   React.useEffect(() => {
-    setWryData(null)
     fetch(recentWryUrl).then(async (response) => {
       const rawData = await response.json()
       if (rawData && rawData.length > 0) {
         const data = reshape(rawData)
         setWryData(data)
+      }
+    })
+
+    fetch(recentElectronUrl).then(async (response) => {
+      const rawData = await response.json()
+      if (rawData && rawData.length > 0) {
+        const data = reshape(rawData)
+        setElectronData(data)
       }
     })
   }, [])
@@ -112,61 +125,119 @@ function Benchmarks() {
     <Layout title="Benchmarks">
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
-        <section className="text--center">
-          <h2>Execution time</h2>
-          <div>
-            <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.execTime}
-              yLabel="seconds"
-              yTickFormat={formatLogScale}
-            />
+        <section className="text--center row">
+        <div class="col">
+            <h2>Execution time (wry)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={wryData}
+                columns={wryData?.execTime}
+                yLabel="seconds"
+                yTickFormat={formatLogScale}
+              />
+            </div>
+          </div>
+          <div class="col">
+            <h2>Execution time (electron)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={electronData}
+                columns={electronData?.execTime}
+                yLabel="seconds"
+                yTickFormat={formatLogScale}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="text--center margin-top--xl row">
+          <div class="col">
+            <h2>Binary size (wry)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={wryData}
+                columns={wryData?.binarySize}
+                yLabel={'megabytes'}
+                yTickFormat={formatMB}
+              />
+            </div>
+          </div>
+          <div class="col">
+            <h2>Binary size (electron)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={electronData}
+                columns={electronData?.binarySize}
+                yLabel={'megabytes'}
+                yTickFormat={formatMB}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="text--center margin-top--xl row">
+        <div class="col">
+            <h2>Memory memory usage (wry)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={wryData}
+                columns={wryData?.maxMemory}
+                yLabel="megabytes"
+                yTickFormat={formatMB}
+              />
+            </div>
+          </div>
+          <div class="col">
+            <h2>Max memory usage (electron)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={electronData}
+                columns={electronData?.maxMemory}
+                yLabel="megabytes"
+                yTickFormat={formatMB}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="text--center margin-top--xl row">
+          <div class="col">
+            <h2>Thread count (wry)</h2>
+            <div>
+              <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} />
+            </div>
+          </div>
+          <div class="col">
+            <h2>Thread count (electron)</h2>
+            <div>
+              <BenchmarkOrLoading data={electronData} columns={electronData?.threadCount} />
+            </div>
+          </div>
+        </section>
+
+        <section className="text--center margin-top--xl row">
+          <div className="col">
+            <h2>Syscall count (wry)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={wryData}
+                columns={wryData?.syscallCount}
+              />
+            </div>
+          </div>
+          <div className="col">
+            <h2>Syscall count (electron)</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={electronData}
+                columns={electronData?.syscallCount}
+              />
+            </div>
           </div>
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Binary size</h2>
-          <div>
-            <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.binarySize}
-              yLabel={'megabytes'}
-              yTickFormat={formatMB}
-            />
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl">
-          <h2>Max memory usage</h2>
-          <div>
-            <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.maxMemory}
-              yLabel="megabytes"
-              yTickFormat={formatMB}
-            />
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl">
-          <h2>Thread count</h2>
-          <div>
-            <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} />
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl">
-          <h2>Syscall count</h2>
-          <div>
-            <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.syscallCount}
-            />
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl">
-          <h2>Cargo Dependencies</h2>
+          <h2>Cargo Dependencies (wry)</h2>
           <div>
             <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
           </div>
@@ -177,6 +248,7 @@ function Benchmarks() {
 }
 
 function BenchmarkOrLoading(props) {
+  console.log({props})
   return props.data && props.columns && typeof window !== 'undefined' ? (
     <BenchmarkChart
       columns={props.columns}
