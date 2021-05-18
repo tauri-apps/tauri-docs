@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { reshape, formatMB, formatLogScale, logScale } from '../utils/benchmark'
 import Layout from '@theme/Layout'
-import ApexChart from 'react-apexcharts'
 
 // todo better styling'
 function BenchmarkLoading() {
@@ -14,6 +13,7 @@ function BenchmarkLoading() {
 
 // todo maybe split wry/tauri charts?
 function BenchmarkChart(props) {
+  const ApexChart = require('react-apexcharts').default
   const [id] = useState(Math.random().toString())
 
   const shortSha1List = props.sha1List.map((s) => s.slice(0, 6))
@@ -174,7 +174,7 @@ function Benchmarks() {
 }
 
 function BenchmarkOrLoading(props) {
-  return props.data && props.columns ? (
+  return props.data && props.columns && typeof window !== 'undefined' ? (
     <BenchmarkChart
       columns={props.columns}
       sha1List={props.data.sha1List}
