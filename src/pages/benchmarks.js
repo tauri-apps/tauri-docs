@@ -137,6 +137,18 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
+          <h2>Max memory usage</h2>
+          <div>
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.maxMemory}
+              yLabel="megabytes"
+              yTickFormat={formatMB}
+            />
+          </div>
+        </section>
+
+        <section className="text--center margin-top--xl">
           <h2>Thread count</h2>
           <div>
             <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} />
@@ -157,18 +169,6 @@ function Benchmarks() {
           <h2>Cargo Dependencies</h2>
           <div>
             <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl">
-          <h2>Max memory usage</h2>
-          <div>
-            <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.maxMemory}
-              yLabel="megabytes"
-              yTickFormat={formatMB}
-            />
           </div>
         </section>
       </div>
