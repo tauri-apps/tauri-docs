@@ -96,3 +96,9 @@ html[data-theme="dark"] .hljs-strong {
     font-weight: bold;
   }
 }
+
+html[data-theme="dark"] .apexcharts-tooltip-title,
+html[data-theme="dark"] .apexcharts-tooltip-text-label,
+html[data-theme="dark"] .apexcharts-tooltip-text-value {
+  color: #000;
+}

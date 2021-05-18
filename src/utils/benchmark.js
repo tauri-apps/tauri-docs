@@ -47,11 +47,11 @@ function createColumns(data, benchmarkName) {
         const b = d[benchmarkName]
         if (b[variety] != null) {
           const v = b[variety]
-          if (benchmarkName === 'benchmark') {
+          if (benchmarkName === 'exec_time') {
             const meanValue = v ? v.mean : 0
-            return meanValue || null
+            return Number(meanValue) || null
           } else {
-            return v
+            return Number(v)
           }
         }
       }

@@ -68,6 +68,9 @@ function BenchmarkChart(props) {
         enabled: false,
       },
     },
+    theme: {
+      palette: 'palette4',
+    },
   }
 
   const series = cols.sort((a, b) => {
