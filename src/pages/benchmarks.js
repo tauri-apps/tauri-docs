@@ -176,7 +176,7 @@ function Benchmarks() {
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
         <section className="text--center">
-          <h2>Execution time</h2>
+          <h2>Execution Time</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -196,7 +196,7 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Binary size</h2>
+          <h2>Binary Size</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -216,7 +216,7 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Memory memory usage</h2>
+          <h2>Memory Usage</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -236,7 +236,7 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Thread count</h2>
+          <h2>Thread Count</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -254,7 +254,7 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Syscall count</h2>
+          <h2>Syscall Count</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
