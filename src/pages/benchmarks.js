@@ -243,7 +243,7 @@ function Benchmarks() {
           reporting how many have been found so far using web workers.
         </p>
         <section>
-          <h2>Execution time</h2>
+          <h2>Execution Time</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -272,7 +272,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2>Binary size</h2>
+          <h2>Binary Size</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -296,7 +296,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2>Memory memory usage</h2>
+          <h2>Memory Usage</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -320,7 +320,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2>Thread count</h2>
+          <h2>Thread Count</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -339,7 +339,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2>Syscall count</h2>
+          <h2>Syscall Count</h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
