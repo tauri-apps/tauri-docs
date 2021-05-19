@@ -51,7 +51,6 @@ function BenchmarkChart(props) {
   const options = React.useMemo(() => {
     return {
       chart: {
-        stacked: true,
         toolbar: {
           show: true,
         },
@@ -101,17 +100,12 @@ function BenchmarkChart(props) {
       ...series.map((data) => {
         return {
           ...data,
-          type: 'area',
-          fill: '#000',
           color: get_graph_color(data.name),
-          stroke: 1,
         }
       }),
       ...props.extraDatas.map((data) => {
         return {
           ...data,
-          type: 'area',
-          fill: '#000',
           color: get_graph_color(data.name),
         }
       }),
