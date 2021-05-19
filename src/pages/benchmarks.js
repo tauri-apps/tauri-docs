@@ -10,7 +10,7 @@ function get_graph_color(label_name) {
     case 'electron_hello_world':
       return '#9FEAF9'
     case 'wry_custom_protocol':
-      return '#FF9E36'
+      return '#B4FF36'
     case 'wry_hello_world':
       return '#FB898D'
     case 'wry_cpu_intensive':
@@ -67,7 +67,7 @@ function BenchmarkChart(props) {
         background: 'transparent',
       },
       stroke: {
-        width: 5,
+        width: 2,
         curve: 'smooth',
       },
       legend: {
@@ -173,9 +173,76 @@ function Benchmarks() {
 
   return (
     <Layout title="Benchmarks">
-      <div className="container margin-vert--lg">
-        <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
-        <section className="text--center">
+      <div className="container margin-vert--lg" style={{ maxWidth: '860px' }}>
+        <h1 className="margin-bottom--md">Benchmarks</h1>
+        <p>
+          All benchmarks run on Github Actions on <code>ubuntu-latest</code>{' '}
+          matrix. We measure various metrics of the following applications:
+        </p>
+        <ul className="margin-bottom--md">
+          <li>
+            <a
+              href="https://github.com/tauri-apps/tauri/tree/feat/benches/core/tauri/bench/tests/cpu_intensive"
+              target="_blank"
+            >
+              tauri_cpu_intensive
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/tauri/tree/feat/benches/core/tauri/bench/tests/helloworld"
+              target="_blank"
+            >
+              tauri_hello_world
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/cpu_intensive.rs"
+              target="_blank"
+            >
+              wry_cpu_intensive
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/hello_world.rs"
+              target="_blank"
+            >
+              wry_hello_world
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/custom_protocol.rs"
+              target="_blank"
+            >
+              wry_custom_protocol
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/cpu_intensive"
+              target="_blank"
+            >
+              electron_cpu_intensive
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/hello_world"
+              target="_blank"
+            >
+              electron_hello_world
+            </a>
+          </li>
+        </ul>
+        <p className="margin-bottom--xl">
+          * The CPU intensive benchmark measures how much time it takes to
+          calculate all the prime numbers under XXXX wihtout blocking the UI and
+          reporting how many have been found so far using web workers.
+        </p>
+        <section>
           <h2>Execution time</h2>
           <div>
             <BenchmarkOrLoading
@@ -193,9 +260,18 @@ function Benchmarks() {
               yTickFormat={formatLogScale}
             />
           </div>
+          <p>
+            This shows how much time total it takes intialize the application
+            and wait the <code>DOMContentLoaded</code> event. We use{' '}
+            <a href="https://github.com/sharkdp/hyperfine" target="_blank">
+              hyperfine
+            </a>{' '}
+            under the hood and run 3 warm-up sequence then, we run 10 sequences
+            to calculate the average execution time.
+          </p>
         </section>
 
-        <section className="text--center margin-top--xl">
+        <section className="margin-top--xl">
           <h2>Binary size</h2>
           <div>
             <BenchmarkOrLoading
@@ -213,9 +289,13 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
+          <p>
+            We track the size of various files here. All binary are compiled in
+            release mode.
+          </p>
         </section>
 
-        <section className="text--center margin-top--xl">
+        <section className="margin-top--xl">
           <h2>Memory memory usage</h2>
           <div>
             <BenchmarkOrLoading
@@ -233,9 +313,13 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
+          <p>
+            We use <code>time -v</code> to get the max memory usage during
+            execution. Smaller is better.
+          </p>
         </section>
 
-        <section className="text--center margin-top--xl">
+        <section className="margin-top--xl">
           <h2>Thread count</h2>
           <div>
             <BenchmarkOrLoading
@@ -251,9 +335,10 @@ function Benchmarks() {
               }
             />
           </div>
+          <p>How many threads the application use. Smaller is better.</p>
         </section>
 
-        <section className="text--center margin-top--xl">
+        <section className="margin-top--xl">
           <h2>Syscall count</h2>
           <div>
             <BenchmarkOrLoading
@@ -269,9 +354,13 @@ function Benchmarks() {
               }
             />
           </div>
+          <p>
+            How many total syscalls are performed when executing a given
+            application. Smaller is better.
+          </p>
         </section>
 
-        <section className="text--center margin-top--xl row">
+        <section className="margin-top--xl row">
           <div className="col">
             <h2>WRY Dependencies</h2>
             <div>
