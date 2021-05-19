@@ -15,6 +15,10 @@ function get_graph_color(label_name) {
       return '#FB898D'
     case 'wry_cpu_intensive':
       return '#ff8e13'
+    case 'tauri_hello_world':
+      return '#EA7D8C'
+    case 'tauri_cpu_intensive':
+      return '#DE354C'
     case 'tao_rlib':
       return '#FF1438'
     case 'wry_rlib':
@@ -44,7 +48,7 @@ function BenchmarkChart(props) {
 
   function viewCommitOnClick(c1, c2, { dataPointIndex }) {
     window.open(
-      `https://github.com/tauri-apps/wry/commit/${props.sha1List[dataPointIndex]}`
+      `https://github.com/tauri-apps/tauri/commit/${props.sha1List[dataPointIndex]}`
     )
   }
 
@@ -131,10 +135,14 @@ function BenchmarkChart(props) {
 function Benchmarks() {
   const recentWryUrl =
     'https://tauri-apps.github.io/benchmark_results/wry-recent.json?'
+  const recentTauriUrl =
+    'https://tauri-apps.github.io/benchmark_results/tauri-recent.json?'
+
   const recentElectronUrl =
     'https://tauri-apps.github.io/benchmark_results/electron-recent.json?'
 
   const [wryData, setWryData] = useState([])
+  const [tauriData, setTauriData] = useState([])
   const [electronData, setElectronData] = useState([])
 
   React.useEffect(() => {
@@ -143,6 +151,14 @@ function Benchmarks() {
       if (rawData && rawData.length > 0) {
         const data = reshape(rawData)
         setWryData(data)
+      }
+    })
+
+    fetch(recentTauriUrl).then(async (response) => {
+      const rawData = await response.json()
+      if (rawData && rawData.length > 0) {
+        const data = reshape(rawData)
+        setTauriData(data)
       }
     })
 
@@ -160,13 +176,18 @@ function Benchmarks() {
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
         <section className="text--center">
-          <h2>Execution time (wry)</h2>
+          <h2>Execution time</h2>
           <div>
             <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.execTime}
+              data={tauriData}
+              columns={tauriData?.execTime}
               extraDatas={
-                electronData?.execTime ? sort_cols(electronData.execTime) : []
+                electronData?.execTime && wryData?.execTime
+                  ? [
+                      ...sort_cols(electronData.execTime),
+                      ...sort_cols(wryData.execTime),
+                    ]
+                  : []
               }
               yLabel="seconds"
               yTickFormat={formatLogScale}
@@ -175,14 +196,17 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Binary size (wry)</h2>
+          <h2>Binary size</h2>
           <div>
             <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.binarySize}
+              data={tauriData}
+              columns={tauriData?.binarySize}
               extraDatas={
-                electronData?.binarySize
-                  ? sort_cols(electronData.binarySize)
+                electronData?.binarySize && wryData?.binarySize
+                  ? [
+                      ...sort_cols(electronData.binarySize),
+                      ...sort_cols(wryData.binarySize),
+                    ]
                   : []
               }
               yLabel={'megabytes'}
@@ -192,13 +216,18 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Memory memory usage (wry)</h2>
+          <h2>Memory memory usage</h2>
           <div>
             <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.maxMemory}
+              data={tauriData}
+              columns={tauriData?.maxMemory}
               extraDatas={
-                electronData?.maxMemory ? sort_cols(electronData.maxMemory) : []
+                electronData?.maxMemory && wryData?.maxMemory
+                  ? [
+                      ...sort_cols(electronData.maxMemory),
+                      ...sort_cols(wryData.maxMemory),
+                    ]
+                  : []
               }
               yLabel="megabytes"
               yTickFormat={formatMB}
@@ -207,14 +236,17 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Thread count (wry)</h2>
+          <h2>Thread count</h2>
           <div>
             <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.threadCount}
+              data={tauriData}
+              columns={tauriData?.threadCount}
               extraDatas={
-                electronData?.threadCount
-                  ? sort_cols(electronData.threadCount)
+                electronData?.threadCount && wryData?.threadCount
+                  ? [
+                      ...sort_cols(electronData.threadCount),
+                      ...sort_cols(wryData.threadCount),
+                    ]
                   : []
               }
             />
@@ -222,24 +254,38 @@ function Benchmarks() {
         </section>
 
         <section className="text--center margin-top--xl">
-          <h2>Syscall count (wry)</h2>
+          <h2>Syscall count</h2>
           <div>
             <BenchmarkOrLoading
-              data={wryData}
-              columns={wryData?.syscallCount}
+              data={tauriData}
+              columns={tauriData?.syscallCount}
               extraDatas={
-                electronData?.syscallCount
-                  ? sort_cols(electronData.syscallCount)
+                electronData?.syscallCount && wryData?.syscallCount
+                  ? [
+                      ...sort_cols(electronData.syscallCount),
+                      ...sort_cols(wryData.syscallCount),
+                    ]
                   : []
               }
             />
           </div>
         </section>
 
-        <section className="text--center margin-top--xl">
-          <h2>Cargo Dependencies (wry)</h2>
-          <div>
-            <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
+        <section className="text--center margin-top--xl row">
+          <div className="col">
+            <h2>WRY Dependencies</h2>
+            <div>
+              <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
+            </div>
+          </div>
+          <div className="col">
+            <h2>Tauri Dependencies</h2>
+            <div>
+              <BenchmarkOrLoading
+                data={tauriData}
+                columns={tauriData?.cargoDeps}
+              />
+            </div>
           </div>
         </section>
       </div>
