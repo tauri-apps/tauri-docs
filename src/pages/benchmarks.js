@@ -24,12 +24,6 @@ function BenchmarkChart(props) {
     )
   }
 
-  const cols = props.columns.map((d) => ({ name: d.name, data: [...d.data] }))
-
-  if (props.yTickFormat && props.yTickFormat === formatLogScale) {
-    logScale(cols)
-  }
-
   const options = {
     chart: {
       toolbar: {
@@ -43,8 +37,8 @@ function BenchmarkChart(props) {
       },
     },
     stroke: {
-      width: 1,
-      curve: 'straight',
+      width: 2,
+      curve: 'smooth',
     },
     legend: {
       show: true,
@@ -71,14 +65,17 @@ function BenchmarkChart(props) {
     theme: {
       palette: 'palette4',
     },
+    
   }
 
-  const series = cols.sort((a, b) => {
-    // Sort by last benchmark.
-    const aLast = a.data[a.data.length - 1]
-    const bLast = b.data[b.data.length - 1]
-    return (bLast ?? 0) - (aLast ?? 0)
-  })
+  let series = sort_cols(props.columns);
+  if (props.extraDatas && props.extraDatas.length > 0) {
+    series = [...series, ...props.extraDatas]
+  }
+
+  if (props.yTickFormat && props.yTickFormat === formatLogScale) {
+    logScale(series)
+  }
 
   return (
     <ApexChart
@@ -100,9 +97,6 @@ function Benchmarks() {
   const [wryData, setWryData] = useState([])
   const [electronData, setElectronData] = useState([])
 
-  console.log({wryData});
-  console.log({electronData})
-
   React.useEffect(() => {
     fetch(recentWryUrl).then(async (response) => {
       const rawData = await response.json()
@@ -121,119 +115,66 @@ function Benchmarks() {
     })
   }, [])
 
+
   return (
     <Layout title="Benchmarks">
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
-        <section className="text--center row">
-        <div class="col">
+        <section className="text--center">
             <h2>Execution time (wry)</h2>
             <div>
               <BenchmarkOrLoading
                 data={wryData}
                 columns={wryData?.execTime}
+                extraDatas={electronData?.execTime ? sort_cols(electronData.execTime) : []}
                 yLabel="seconds"
                 yTickFormat={formatLogScale}
               />
             </div>
-          </div>
-          <div class="col">
-            <h2>Execution time (electron)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={electronData}
-                columns={electronData?.execTime}
-                yLabel="seconds"
-                yTickFormat={formatLogScale}
-              />
-            </div>
-          </div>
         </section>
 
-        <section className="text--center margin-top--xl row">
-          <div class="col">
+        <section className="text--center margin-top--xl">
             <h2>Binary size (wry)</h2>
             <div>
               <BenchmarkOrLoading
                 data={wryData}
                 columns={wryData?.binarySize}
+                extraDatas={electronData?.binarySize ? sort_cols(electronData.binarySize) : []}
                 yLabel={'megabytes'}
                 yTickFormat={formatMB}
               />
             </div>
-          </div>
-          <div class="col">
-            <h2>Binary size (electron)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={electronData}
-                columns={electronData?.binarySize}
-                yLabel={'megabytes'}
-                yTickFormat={formatMB}
-              />
-            </div>
-          </div>
         </section>
 
-        <section className="text--center margin-top--xl row">
-        <div class="col">
+        <section className="text--center margin-top--xl">
             <h2>Memory memory usage (wry)</h2>
             <div>
               <BenchmarkOrLoading
                 data={wryData}
                 columns={wryData?.maxMemory}
+                extraDatas={electronData?.maxMemory ? sort_cols(electronData.maxMemory) : []}
                 yLabel="megabytes"
                 yTickFormat={formatMB}
               />
             </div>
-          </div>
-          <div class="col">
-            <h2>Max memory usage (electron)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={electronData}
-                columns={electronData?.maxMemory}
-                yLabel="megabytes"
-                yTickFormat={formatMB}
-              />
-            </div>
+        </section>
+
+        <section className="text--center margin-top--xl">
+          <h2>Thread count (wry)</h2>
+          <div>
+            <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} extraDatas={electronData?.threadCount ? sort_cols(electronData.threadCount) : []} />
           </div>
         </section>
 
-        <section className="text--center margin-top--xl row">
-          <div class="col">
-            <h2>Thread count (wry)</h2>
-            <div>
-              <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} />
-            </div>
-          </div>
-          <div class="col">
-            <h2>Thread count (electron)</h2>
-            <div>
-              <BenchmarkOrLoading data={electronData} columns={electronData?.threadCount} />
-            </div>
-          </div>
-        </section>
-
-        <section className="text--center margin-top--xl row">
-          <div className="col">
+        <section className="text--center margin-top--xl">
             <h2>Syscall count (wry)</h2>
             <div>
               <BenchmarkOrLoading
                 data={wryData}
                 columns={wryData?.syscallCount}
+                extraDatas={electronData?.syscallCount ? sort_cols(electronData.syscallCount) : []}
               />
             </div>
-          </div>
-          <div className="col">
-            <h2>Syscall count (electron)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={electronData}
-                columns={electronData?.syscallCount}
-              />
-            </div>
-          </div>
         </section>
 
         <section className="text--center margin-top--xl">
@@ -247,11 +188,23 @@ function Benchmarks() {
   )
 }
 
+function sort_cols(columns) {
+  return columns.sort((a, b) => {
+    // Sort by last benchmark.
+    const aLast = a.data[a.data.length - 1]
+    const bLast = b.data[b.data.length - 1]
+    return (bLast ?? 0) - (aLast ?? 0)
+  })
+}
+
 function BenchmarkOrLoading(props) {
-  console.log({props})
+  function prepare_columns(columns) {
+    return columns.map((d) => ({ name: d.name, data: [...d.data] }))
+  }
   return props.data && props.columns && typeof window !== 'undefined' ? (
     <BenchmarkChart
-      columns={props.columns}
+      columns={prepare_columns(props.columns)}
+      extraDatas={props.extraDatas ? props.extraDatas : []}
       sha1List={props.data.sha1List}
       yLabel={props.yLabel}
       yTickFormat={props.yTickFormat}
