@@ -1,6 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { reshape, formatMB, formatLogScale, logScale } from '../utils/benchmark'
 import Layout from '@theme/Layout'
+import useThemeContext from '@theme/hooks/useThemeContext'
+
+function get_graph_color(label_name) {
+  switch (label_name) {
+    case 'electron_cpu_intensive':
+      return '#0EB9DB'
+    case 'electron_hello_world':
+      return '#9FEAF9'
+    case 'wry_custom_protocol':
+      return '#FF9E36'
+    case 'wry_hello_world':
+      return '#FB898D'
+    case 'wry_cpu_intensive':
+      return '#ff8e13'
+    case 'tao_rlib':
+      return '#FF1438'
+    case 'wry_rlib':
+      return '#D4FF14'
+
+    default:
+      return '#303846'
+  }
+}
 
 // todo better styling'
 function BenchmarkLoading() {
@@ -13,6 +36,7 @@ function BenchmarkLoading() {
 
 // todo maybe split wry/tauri charts?
 function BenchmarkChart(props) {
+  const { isDarkTheme } = useThemeContext()
   const ApexChart = require('react-apexcharts').default
   const [id] = useState(Math.random().toString())
 
@@ -24,53 +48,75 @@ function BenchmarkChart(props) {
     )
   }
 
-  const options = {
-    chart: {
-      toolbar: {
+  const options = React.useMemo(() => {
+    return {
+      chart: {
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+        animations: {
+          enabled: false,
+        },
+        events: {
+          markerClick: viewCommitOnClick,
+        },
+        background: 'transparent',
+      },
+      stroke: {
+        width: 5,
+        curve: 'smooth',
+      },
+      legend: {
         show: true,
+        showForSingleSeries: true,
+        position: 'bottom',
       },
-      animations: {
-        enabled: false,
+      yaxis: {
+        labels: {
+          formatter: props.yTickFormat,
+        },
+        title: {
+          text: props.yLabel,
+        },
       },
-      events: {
-        markerClick: viewCommitOnClick,
+      xaxis: {
+        labels: {
+          show: false,
+        },
+        categories: shortSha1List,
+        tooltip: {
+          enabled: false,
+        },
       },
-    },
-    stroke: {
-      width: 2,
-      curve: 'smooth',
-    },
-    legend: {
-      show: true,
-      showForSingleSeries: true,
-      position: 'bottom',
-    },
-    yaxis: {
-      labels: {
-        formatter: props.yTickFormat,
+      theme: {
+        mode: isDarkTheme ? 'dark' : 'light',
       },
-      title: {
-        text: props.yLabel,
-      },
-    },
-    xaxis: {
-      labels: {
-        show: false,
-      },
-      categories: shortSha1List,
-      tooltip: {
-        enabled: false,
-      },
-    },
-    theme: {
-      palette: 'palette4',
-    },
-    
-  }
+    }
+  }, [isDarkTheme])
 
-  let series = sort_cols(props.columns);
+  let series = sort_cols(props.columns)
   if (props.extraDatas && props.extraDatas.length > 0) {
-    series = [...series, ...props.extraDatas]
+    series = [
+      ...series.map((data) => {
+        return {
+          ...data,
+          type: 'area',
+          fill: '#000',
+          color: get_graph_color(data.name),
+          stroke: 1,
+        }
+      }),
+      ...props.extraDatas.map((data) => {
+        return {
+          ...data,
+          type: 'area',
+          fill: '#000',
+          color: get_graph_color(data.name),
+        }
+      }),
+    ]
+    console.log({ series })
   }
 
   if (props.yTickFormat && props.yTickFormat === formatLogScale) {
@@ -91,7 +137,7 @@ function BenchmarkChart(props) {
 function Benchmarks() {
   const recentWryUrl =
     'https://tauri-apps.github.io/benchmark_results/wry-recent.json?'
-    const recentElectronUrl =
+  const recentElectronUrl =
     'https://tauri-apps.github.io/benchmark_results/electron-recent.json?'
 
   const [wryData, setWryData] = useState([])
@@ -115,66 +161,85 @@ function Benchmarks() {
     })
   }, [])
 
-
   return (
     <Layout title="Benchmarks">
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Benchmarks</h1>
         <section className="text--center">
-            <h2>Execution time (wry)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={wryData}
-                columns={wryData?.execTime}
-                extraDatas={electronData?.execTime ? sort_cols(electronData.execTime) : []}
-                yLabel="seconds"
-                yTickFormat={formatLogScale}
-              />
-            </div>
+          <h2>Execution time (wry)</h2>
+          <div>
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.execTime}
+              extraDatas={
+                electronData?.execTime ? sort_cols(electronData.execTime) : []
+              }
+              yLabel="seconds"
+              yTickFormat={formatLogScale}
+            />
+          </div>
         </section>
 
         <section className="text--center margin-top--xl">
-            <h2>Binary size (wry)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={wryData}
-                columns={wryData?.binarySize}
-                extraDatas={electronData?.binarySize ? sort_cols(electronData.binarySize) : []}
-                yLabel={'megabytes'}
-                yTickFormat={formatMB}
-              />
-            </div>
+          <h2>Binary size (wry)</h2>
+          <div>
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.binarySize}
+              extraDatas={
+                electronData?.binarySize
+                  ? sort_cols(electronData.binarySize)
+                  : []
+              }
+              yLabel={'megabytes'}
+              yTickFormat={formatMB}
+            />
+          </div>
         </section>
 
         <section className="text--center margin-top--xl">
-            <h2>Memory memory usage (wry)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={wryData}
-                columns={wryData?.maxMemory}
-                extraDatas={electronData?.maxMemory ? sort_cols(electronData.maxMemory) : []}
-                yLabel="megabytes"
-                yTickFormat={formatMB}
-              />
-            </div>
+          <h2>Memory memory usage (wry)</h2>
+          <div>
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.maxMemory}
+              extraDatas={
+                electronData?.maxMemory ? sort_cols(electronData.maxMemory) : []
+              }
+              yLabel="megabytes"
+              yTickFormat={formatMB}
+            />
+          </div>
         </section>
 
         <section className="text--center margin-top--xl">
           <h2>Thread count (wry)</h2>
           <div>
-            <BenchmarkOrLoading data={wryData} columns={wryData?.threadCount} extraDatas={electronData?.threadCount ? sort_cols(electronData.threadCount) : []} />
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.threadCount}
+              extraDatas={
+                electronData?.threadCount
+                  ? sort_cols(electronData.threadCount)
+                  : []
+              }
+            />
           </div>
         </section>
 
         <section className="text--center margin-top--xl">
-            <h2>Syscall count (wry)</h2>
-            <div>
-              <BenchmarkOrLoading
-                data={wryData}
-                columns={wryData?.syscallCount}
-                extraDatas={electronData?.syscallCount ? sort_cols(electronData.syscallCount) : []}
-              />
-            </div>
+          <h2>Syscall count (wry)</h2>
+          <div>
+            <BenchmarkOrLoading
+              data={wryData}
+              columns={wryData?.syscallCount}
+              extraDatas={
+                electronData?.syscallCount
+                  ? sort_cols(electronData.syscallCount)
+                  : []
+              }
+            />
+          </div>
         </section>
 
         <section className="text--center margin-top--xl">

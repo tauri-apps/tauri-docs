@@ -3,102 +3,96 @@
 /* @author: ericwbailey */
 
 /* Comment */
-html[data-theme="dark"] .hljs-comment,
-html[data-theme="dark"] .hljs-quote {
+html[data-theme='dark'] .hljs-comment,
+html[data-theme='dark'] .hljs-quote {
   color: #d4d0ab;
 }
 
 /* Red */
-html[data-theme="dark"] .hljs-variable,
-html[data-theme="dark"] .hljs-template-variable,
-html[data-theme="dark"] .hljs-tag,
-html[data-theme="dark"] .hljs-name,
-html[data-theme="dark"] .hljs-selector-id,
-html[data-theme="dark"] .hljs-selector-class,
-html[data-theme="dark"] .hljs-regexp,
-html[data-theme="dark"] .hljs-deletion {
+html[data-theme='dark'] .hljs-variable,
+html[data-theme='dark'] .hljs-template-variable,
+html[data-theme='dark'] .hljs-tag,
+html[data-theme='dark'] .hljs-name,
+html[data-theme='dark'] .hljs-selector-id,
+html[data-theme='dark'] .hljs-selector-class,
+html[data-theme='dark'] .hljs-regexp,
+html[data-theme='dark'] .hljs-deletion {
   color: #ffa07a;
 }
 
 /* Orange */
-html[data-theme="dark"] .hljs-number,
-html[data-theme="dark"] .hljs-built_in,
-html[data-theme="dark"] .hljs-builtin-name,
-html[data-theme="dark"] .hljs-literal,
-html[data-theme="dark"] .hljs-type,
-html[data-theme="dark"] .hljs-params,
-html[data-theme="dark"] .hljs-meta,
-html[data-theme="dark"] .hljs-link {
+html[data-theme='dark'] .hljs-number,
+html[data-theme='dark'] .hljs-built_in,
+html[data-theme='dark'] .hljs-builtin-name,
+html[data-theme='dark'] .hljs-literal,
+html[data-theme='dark'] .hljs-type,
+html[data-theme='dark'] .hljs-params,
+html[data-theme='dark'] .hljs-meta,
+html[data-theme='dark'] .hljs-link {
   color: #f5ab35;
 }
 
 /* Yellow */
-html[data-theme="dark"] .hljs-attribute {
+html[data-theme='dark'] .hljs-attribute {
   color: #ffd700;
 }
 
 /* Green */
-html[data-theme="dark"] .hljs-string,
-html[data-theme="dark"] .hljs-symbol,
-html[data-theme="dark"] .hljs-bullet,
-html[data-theme="dark"] .hljs-addition {
+html[data-theme='dark'] .hljs-string,
+html[data-theme='dark'] .hljs-symbol,
+html[data-theme='dark'] .hljs-bullet,
+html[data-theme='dark'] .hljs-addition {
   color: #abe338;
 }
 
 /* Blue */
-html[data-theme="dark"] .hljs-title,
-html[data-theme="dark"] .hljs-section {
+html[data-theme='dark'] .hljs-title,
+html[data-theme='dark'] .hljs-section {
   color: #00e0e0;
 }
 
 /* Purple */
-html[data-theme="dark"] .hljs-keyword,
-html[data-theme="dark"] .hljs-selector-tag {
+html[data-theme='dark'] .hljs-keyword,
+html[data-theme='dark'] .hljs-selector-tag {
   color: #dcc6e0;
 }
 
-html[data-theme="dark"] .hljs {
+html[data-theme='dark'] .hljs {
   display: block;
   overflow-x: auto;
   color: #f8f8f2;
   padding: 0.5em;
 }
 
-html[data-theme="dark"] .hljs-emphasis {
+html[data-theme='dark'] .hljs-emphasis {
   font-style: italic;
 }
 
-html[data-theme="dark"] .hljs-strong {
+html[data-theme='dark'] .hljs-strong {
   font-weight: bold;
 }
 
 @media screen and (-ms-high-contrast: active) {
-  html[data-theme="dark"] .hljs-addition,
-  html[data-theme="dark"] .hljs-attribute,
-  html[data-theme="dark"] .hljs-built_in,
-  html[data-theme="dark"] .hljs-builtin-name,
-  html[data-theme="dark"] .hljs-bullet,
-  html[data-theme="dark"] .hljs-comment,
-  html[data-theme="dark"] .hljs-link,
-  html[data-theme="dark"] .hljs-literal,
-  html[data-theme="dark"] .hljs-meta,
-  html[data-theme="dark"] .hljs-number,
-  html[data-theme="dark"] .hljs-params,
-  html[data-theme="dark"] .hljs-string,
-  html[data-theme="dark"] .hljs-symbol,
-  html[data-theme="dark"] .hljs-type,
-  html[data-theme="dark"] .hljs-quote {
+  html[data-theme='dark'] .hljs-addition,
+  html[data-theme='dark'] .hljs-attribute,
+  html[data-theme='dark'] .hljs-built_in,
+  html[data-theme='dark'] .hljs-builtin-name,
+  html[data-theme='dark'] .hljs-bullet,
+  html[data-theme='dark'] .hljs-comment,
+  html[data-theme='dark'] .hljs-link,
+  html[data-theme='dark'] .hljs-literal,
+  html[data-theme='dark'] .hljs-meta,
+  html[data-theme='dark'] .hljs-number,
+  html[data-theme='dark'] .hljs-params,
+  html[data-theme='dark'] .hljs-string,
+  html[data-theme='dark'] .hljs-symbol,
+  html[data-theme='dark'] .hljs-type,
+  html[data-theme='dark'] .hljs-quote {
     color: highlight;
   }
 
-  html[data-theme="dark"] .hljs-keyword,
-  html[data-theme="dark"] .hljs-selector-tag {
+  html[data-theme='dark'] .hljs-keyword,
+  html[data-theme='dark'] .hljs-selector-tag {
     font-weight: bold;
   }
-}
-
-html[data-theme="dark"] .apexcharts-tooltip-title,
-html[data-theme="dark"] .apexcharts-tooltip-text-label,
-html[data-theme="dark"] .apexcharts-tooltip-text-value {
-  color: #000;
 }
