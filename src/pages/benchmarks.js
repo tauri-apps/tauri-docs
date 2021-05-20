@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { reshape, formatMB, formatLogScale, logScale } from '../utils/benchmark'
 import Layout from '@theme/Layout'
+import Alert from '@theme/Alert'
+import Icon from '@theme/Icon'
 import useThemeContext from '@theme/hooks/useThemeContext'
+import ContentLoader from 'react-content-loader'
 
 function get_graph_color(label_name) {
   switch (label_name) {
@@ -29,11 +32,29 @@ function get_graph_color(label_name) {
   }
 }
 
-// todo better styling'
-function BenchmarkLoading() {
+function BenchmarkLoading(props) {
   return (
     <div style={{ height: 335 }}>
-      <span>Loading...</span>
+      <ContentLoader
+        speed={1}
+        width='100%'
+        height='200'
+        viewBox="0 0 100% 200"
+        backgroundColor="#DDD"
+        foregroundColor="#AAA"
+        {...props}
+      >
+        <rect x="25%" y="160" rx="0" ry="0" width="4%" height="40" />
+        <rect x="30%" y="145" rx="0" ry="0" width="4%" height="55" />
+        <rect x="35%" y="126" rx="0" ry="0" width="4%" height="74" />
+        <rect x="40%" y="80" rx="0" ry="0" width="4%" height="120" />
+        <rect x="45%" y="142" rx="0" ry="0" width="4%" height="58" />
+        <rect x="50%" y="195" rx="0" ry="0" width="4%" height="5" />
+        <rect x="55%" y="190" rx="0" ry="0" width="4%" height="10" />
+        <rect x="60%" y="50" rx="0" ry="0" width="4%" height="150" />
+        <rect x="65%" y="80" rx="0" ry="0" width="4%" height="120" />
+        <rect x="70%" y="168" rx="0" ry="0" width="4%" height="32" />
+      </ContentLoader>
     </div>
   )
 }
@@ -238,12 +259,16 @@ function Benchmarks() {
           </li>
         </ul>
         <p className="margin-bottom--xl">
-          * The CPU intensive benchmark measures how much time it takes to
-          calculate all the prime numbers under XXXX wihtout blocking the UI and
-          reporting how many have been found so far using web workers.
+          <Alert title="Note" icon="light-bulb">
+            The CPU intensive benchmark measures how much time it takes to
+            calculate all the prime numbers under XXXX without blocking the UI and
+            reporting how many have been found so far using web workers.
+          </Alert>
         </p>
         <section>
-          <h2>Execution Time</h2>
+          <h2 id="execution-time" class="anchorify">
+            <a href="#execution-time"><Icon title="timer" /> Execution Time</a>
+          </h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -251,16 +276,16 @@ function Benchmarks() {
               extraDatas={
                 electronData?.execTime && wryData?.execTime
                   ? [
-                      ...sort_cols(electronData.execTime),
-                      ...sort_cols(wryData.execTime),
-                    ]
+                    ...sort_cols(electronData.execTime),
+                    ...sort_cols(wryData.execTime),
+                  ]
                   : []
               }
               yLabel="seconds"
               yTickFormat={formatLogScale}
             />
           </div>
-          <p>
+          <Alert title="Note" icon="light-bulb">
             This shows how much time total it takes intialize the application
             and wait the <code>DOMContentLoaded</code> event. We use{' '}
             <a href="https://github.com/sharkdp/hyperfine" target="_blank">
@@ -268,11 +293,13 @@ function Benchmarks() {
             </a>{' '}
             under the hood and run 3 warm-up sequence then, we run 10 sequences
             to calculate the average execution time.
-          </p>
+          </Alert>
         </section>
 
         <section className="margin-top--xl">
-          <h2>Binary Size</h2>
+          <h2 href="#binary-size" class="anchorify">
+            <a href="#binary-size"><Icon title="package" /> Binary Size</a>
+          </h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -280,23 +307,24 @@ function Benchmarks() {
               extraDatas={
                 electronData?.binarySize && wryData?.binarySize
                   ? [
-                      ...sort_cols(electronData.binarySize),
-                      ...sort_cols(wryData.binarySize),
-                    ]
+                    ...sort_cols(electronData.binarySize),
+                    ...sort_cols(wryData.binarySize),
+                  ]
                   : []
               }
               yLabel={'megabytes'}
               yTickFormat={formatMB}
             />
           </div>
-          <p>
-            We track the size of various files here. All binary are compiled in
-            release mode.
-          </p>
+          <Alert title="Note" icon="light-bulb">
+            We track the size of various files here. All binaries are compiled in <u>release mode</u>.
+          </Alert>
         </section>
 
         <section className="margin-top--xl">
-          <h2>Memory Usage</h2>
+          <h2 id="#memory-usage" class="anchorify">
+            <a href="#memory-usage"><Icon title="dashboard" /> Memory Usage</a>
+          </h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -304,23 +332,25 @@ function Benchmarks() {
               extraDatas={
                 electronData?.maxMemory && wryData?.maxMemory
                   ? [
-                      ...sort_cols(electronData.maxMemory),
-                      ...sort_cols(wryData.maxMemory),
-                    ]
+                    ...sort_cols(electronData.maxMemory),
+                    ...sort_cols(wryData.maxMemory),
+                  ]
                   : []
               }
               yLabel="megabytes"
               yTickFormat={formatMB}
             />
           </div>
-          <p>
+          <Alert title="Note" icon="light-bulb">
             We use <code>time -v</code> to get the max memory usage during
             execution. Smaller is better.
-          </p>
+          </Alert>
         </section>
 
         <section className="margin-top--xl">
-          <h2>Thread Count</h2>
+          <h2 id="#thread-count" class="anchorify">
+            <a href="#thread-count"><Icon title="pulse" /> Thread Count</a>
+          </h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -328,18 +358,20 @@ function Benchmarks() {
               extraDatas={
                 electronData?.threadCount && wryData?.threadCount
                   ? [
-                      ...sort_cols(electronData.threadCount),
-                      ...sort_cols(wryData.threadCount),
-                    ]
+                    ...sort_cols(electronData.threadCount),
+                    ...sort_cols(wryData.threadCount),
+                  ]
                   : []
               }
             />
           </div>
-          <p>How many threads the application use. Smaller is better.</p>
+          <Alert title="Note" icon="light-bulb">How many threads the application use. Smaller is better.</Alert>
         </section>
 
         <section className="margin-top--xl">
-          <h2>Syscall Count</h2>
+          <h2 id="syscall-count" class="anchorify">
+            <a href="#syscall-count"><Icon title="pulse" /> Syscall Count</a>
+          </h2>
           <div>
             <BenchmarkOrLoading
               data={tauriData}
@@ -347,28 +379,32 @@ function Benchmarks() {
               extraDatas={
                 electronData?.syscallCount && wryData?.syscallCount
                   ? [
-                      ...sort_cols(electronData.syscallCount),
-                      ...sort_cols(wryData.syscallCount),
-                    ]
+                    ...sort_cols(electronData.syscallCount),
+                    ...sort_cols(wryData.syscallCount),
+                  ]
                   : []
               }
             />
           </div>
-          <p>
+          <Alert title="Note" icon="light-bulb">
             How many total syscalls are performed when executing a given
             application. Smaller is better.
-          </p>
+          </Alert>
         </section>
 
         <section className="margin-top--xl row">
           <div className="col">
-            <h2>WRY Dependencies</h2>
+            <h2 id="wry-dependencies" class="anchorify">
+              <a href="#wry-dependencies"><Icon title="package" /> WRY Dependencies</a>
+            </h2>
             <div>
               <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
             </div>
           </div>
           <div className="col">
-            <h2>Tauri Dependencies</h2>
+            <h2 id="tauri-dependencies" class="anchorify">
+              <a href="#tauri-dependencies"><Icon title="package" /> Tauri Dependencies</a>
+            </h2>
             <div>
               <BenchmarkOrLoading
                 data={tauriData}
@@ -395,7 +431,7 @@ function BenchmarkOrLoading(props) {
   function prepare_columns(columns) {
     return columns.map((d) => ({ name: d.name, data: [...d.data] }))
   }
-  return props.data && props.columns && typeof window !== 'undefined' ? (
+  return false && props.data && props.columns && typeof window !== 'undefined' ? (
     <BenchmarkChart
       columns={prepare_columns(props.columns)}
       extraDatas={props.extraDatas ? props.extraDatas : []}
