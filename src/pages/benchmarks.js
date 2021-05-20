@@ -8,6 +8,18 @@ import ContentLoader from 'react-content-loader'
 
 function get_graph_color(label_name) {
   switch (label_name) {
+    case 'Tauri Linux':
+      return '#184e77'
+    case 'Tauri Windows':
+      return '#38a3a5'
+    case 'Tauri macOS':
+      return '#1a759f'
+    case 'WRY Linux':
+      return '#f25c54'
+    case 'WRY Windows':
+      return '#f87a63'
+    case 'WRY macOS':
+      return '#d81159'
     case 'electron_cpu_intensive':
       return '#0EB9DB'
     case 'electron_hello_world':
@@ -37,8 +49,8 @@ function BenchmarkLoading(props) {
     <div style={{ height: 335 }}>
       <ContentLoader
         speed={1}
-        width='100%'
-        height='200'
+        width="100%"
+        height="200"
         viewBox="0 0 100% 200"
         backgroundColor="#DDD"
         foregroundColor="#AAA"
@@ -192,6 +204,8 @@ function Benchmarks() {
     })
   }, [])
 
+  console.log(tauriData?.cargoDeps)
+
   return (
     <Layout title="Benchmarks">
       <div className="container margin-vert--lg" style={{ maxWidth: '860px' }}>
@@ -261,13 +275,15 @@ function Benchmarks() {
         <p className="margin-bottom--xl">
           <Alert title="Note" icon="light-bulb">
             The CPU intensive benchmark measures how much time it takes to
-            calculate all the prime numbers under XXXX without blocking the UI and
-            reporting how many have been found so far using web workers.
+            calculate all the prime numbers under XXXX without blocking the UI
+            and reporting how many have been found so far using web workers.
           </Alert>
         </p>
         <section>
           <h2 id="execution-time" class="anchorify">
-            <a href="#execution-time"><Icon title="timer" /> Execution Time</a>
+            <a href="#execution-time">
+              <Icon title="timer" /> Execution Time
+            </a>
           </h2>
           <div>
             <BenchmarkOrLoading
@@ -276,9 +292,9 @@ function Benchmarks() {
               extraDatas={
                 electronData?.execTime && wryData?.execTime
                   ? [
-                    ...sort_cols(electronData.execTime),
-                    ...sort_cols(wryData.execTime),
-                  ]
+                      ...sort_cols(electronData.execTime),
+                      ...sort_cols(wryData.execTime),
+                    ]
                   : []
               }
               yLabel="seconds"
@@ -298,7 +314,9 @@ function Benchmarks() {
 
         <section className="margin-top--xl">
           <h2 href="#binary-size" class="anchorify">
-            <a href="#binary-size"><Icon title="package" /> Binary Size</a>
+            <a href="#binary-size">
+              <Icon title="package" /> Binary Size
+            </a>
           </h2>
           <div>
             <BenchmarkOrLoading
@@ -307,9 +325,9 @@ function Benchmarks() {
               extraDatas={
                 electronData?.binarySize && wryData?.binarySize
                   ? [
-                    ...sort_cols(electronData.binarySize),
-                    ...sort_cols(wryData.binarySize),
-                  ]
+                      ...sort_cols(electronData.binarySize),
+                      ...sort_cols(wryData.binarySize),
+                    ]
                   : []
               }
               yLabel={'megabytes'}
@@ -317,13 +335,16 @@ function Benchmarks() {
             />
           </div>
           <Alert title="Note" icon="light-bulb">
-            We track the size of various files here. All binaries are compiled in <u>release mode</u>.
+            We track the size of various files here. All binaries are compiled
+            in <u>release mode</u>.
           </Alert>
         </section>
 
         <section className="margin-top--xl">
           <h2 id="#memory-usage" class="anchorify">
-            <a href="#memory-usage"><Icon title="dashboard" /> Memory Usage</a>
+            <a href="#memory-usage">
+              <Icon title="dashboard" /> Memory Usage
+            </a>
           </h2>
           <div>
             <BenchmarkOrLoading
@@ -332,9 +353,9 @@ function Benchmarks() {
               extraDatas={
                 electronData?.maxMemory && wryData?.maxMemory
                   ? [
-                    ...sort_cols(electronData.maxMemory),
-                    ...sort_cols(wryData.maxMemory),
-                  ]
+                      ...sort_cols(electronData.maxMemory),
+                      ...sort_cols(wryData.maxMemory),
+                    ]
                   : []
               }
               yLabel="megabytes"
@@ -349,7 +370,9 @@ function Benchmarks() {
 
         <section className="margin-top--xl">
           <h2 id="#thread-count" class="anchorify">
-            <a href="#thread-count"><Icon title="pulse" /> Thread Count</a>
+            <a href="#thread-count">
+              <Icon title="pulse" /> Thread Count
+            </a>
           </h2>
           <div>
             <BenchmarkOrLoading
@@ -358,19 +381,23 @@ function Benchmarks() {
               extraDatas={
                 electronData?.threadCount && wryData?.threadCount
                   ? [
-                    ...sort_cols(electronData.threadCount),
-                    ...sort_cols(wryData.threadCount),
-                  ]
+                      ...sort_cols(electronData.threadCount),
+                      ...sort_cols(wryData.threadCount),
+                    ]
                   : []
               }
             />
           </div>
-          <Alert title="Note" icon="light-bulb">How many threads the application use. Smaller is better.</Alert>
+          <Alert title="Note" icon="light-bulb">
+            How many threads the application use. Smaller is better.
+          </Alert>
         </section>
 
         <section className="margin-top--xl">
           <h2 id="syscall-count" class="anchorify">
-            <a href="#syscall-count"><Icon title="pulse" /> Syscall Count</a>
+            <a href="#syscall-count">
+              <Icon title="pulse" /> Syscall Count
+            </a>
           </h2>
           <div>
             <BenchmarkOrLoading
@@ -379,9 +406,9 @@ function Benchmarks() {
               extraDatas={
                 electronData?.syscallCount && wryData?.syscallCount
                   ? [
-                    ...sort_cols(electronData.syscallCount),
-                    ...sort_cols(wryData.syscallCount),
-                  ]
+                      ...sort_cols(electronData.syscallCount),
+                      ...sort_cols(wryData.syscallCount),
+                    ]
                   : []
               }
             />
@@ -392,25 +419,30 @@ function Benchmarks() {
           </Alert>
         </section>
 
-        <section className="margin-top--xl row">
-          <div className="col">
-            <h2 id="wry-dependencies" class="anchorify">
-              <a href="#wry-dependencies"><Icon title="package" /> WRY Dependencies</a>
-            </h2>
-            <div>
-              <BenchmarkOrLoading data={wryData} columns={wryData?.cargoDeps} />
-            </div>
-          </div>
-          <div className="col">
-            <h2 id="tauri-dependencies" class="anchorify">
-              <a href="#tauri-dependencies"><Icon title="package" /> Tauri Dependencies</a>
-            </h2>
-            <div>
-              <BenchmarkOrLoading
-                data={tauriData}
-                columns={tauriData?.cargoDeps}
-              />
-            </div>
+        <section className="margin-top--xl">
+          <h2 id="tauri-dependencies" class="anchorify">
+            <a href="#tauri-dependencies">
+              <Icon title="package" /> Dependencies
+            </a>
+          </h2>
+          <div>
+            <BenchmarkOrLoading
+              data={tauriData}
+              columns={
+                tauriData?.cargoDeps
+                  ? tauriData.cargoDeps.map((data) => {
+                      return { ...data, name: `Tauri ${data.name}` }
+                    })
+                  : undefined
+              }
+              extraDatas={
+                wryData?.cargoDeps
+                  ? wryData.cargoDeps.map((data) => {
+                      return { ...data, name: `WRY ${data.name}` }
+                    })
+                  : undefined
+              }
+            />
           </div>
         </section>
       </div>
