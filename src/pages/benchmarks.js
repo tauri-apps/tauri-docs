@@ -431,7 +431,7 @@ function BenchmarkOrLoading(props) {
   function prepare_columns(columns) {
     return columns.map((d) => ({ name: d.name, data: [...d.data] }))
   }
-  return false && props.data && props.columns && typeof window !== 'undefined' ? (
+  return props.data && props.columns && typeof window !== 'undefined' ? (
     <BenchmarkChart
       columns={prepare_columns(props.columns)}
       extraDatas={props.extraDatas ? props.extraDatas : []}
