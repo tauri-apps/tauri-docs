@@ -30,7 +30,7 @@ We've seen better binary sizes from `"s"` for tauri example applications, but re
 #### Unstable Rust Compression Features
 
 <Alert type="warning" title="Warning" icon="alert">
-The following suggestions are all unstable features and require a nightly toolchain. See the [Unstable Features](https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features) documentation for more information of what this entails.
+The following suggestions are all unstable features and require a nightly toolchain. See the <a href="https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features">Unstable Features</a> documentation for more information of what this entails.
 </Alert>
 
 The following methods involve using unstable compiler features and require having a rust nightly toolchain installed. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following: 
