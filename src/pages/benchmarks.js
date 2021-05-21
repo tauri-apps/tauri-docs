@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { reshape, formatMB, formatLogScale, logScale } from '../utils/benchmark'
+import { reshape, formatMB, formatExecTime } from '../utils/benchmark'
 import Layout from '@theme/Layout'
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
@@ -150,10 +150,6 @@ function BenchmarkChart(props) {
     console.log({ series })
   }
 
-  if (props.yTickFormat && props.yTickFormat === formatLogScale) {
-    logScale(series)
-  }
-
   return (
     <ApexChart
       key={id}
@@ -280,7 +276,7 @@ function Benchmarks() {
           </Alert>
         </p>
         <section>
-          <h2 id="execution-time" class="anchorify">
+          <h2 id="execution-time" className="anchorify">
             <a href="#execution-time">
               <Icon title="timer" /> Execution Time
             </a>
@@ -298,7 +294,7 @@ function Benchmarks() {
                   : []
               }
               yLabel="seconds"
-              yTickFormat={formatLogScale}
+              yTickFormat={formatExecTime}
             />
           </div>
           <Alert title="Note" icon="light-bulb">
@@ -313,7 +309,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2 href="#binary-size" class="anchorify">
+          <h2 href="#binary-size" className="anchorify">
             <a href="#binary-size">
               <Icon title="package" /> Binary Size
             </a>
@@ -341,7 +337,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2 id="#memory-usage" class="anchorify">
+          <h2 id="#memory-usage" className="anchorify">
             <a href="#memory-usage">
               <Icon title="dashboard" /> Memory Usage
             </a>
@@ -369,7 +365,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2 id="#thread-count" class="anchorify">
+          <h2 id="#thread-count" className="anchorify">
             <a href="#thread-count">
               <Icon title="pulse" /> Thread Count
             </a>
@@ -394,7 +390,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2 id="syscall-count" class="anchorify">
+          <h2 id="syscall-count" className="anchorify">
             <a href="#syscall-count">
               <Icon title="pulse" /> Syscall Count
             </a>
@@ -420,7 +416,7 @@ function Benchmarks() {
         </section>
 
         <section className="margin-top--xl">
-          <h2 id="tauri-dependencies" class="anchorify">
+          <h2 id="tauri-dependencies" className="anchorify">
             <a href="#tauri-dependencies">
               <Icon title="package" /> Dependencies
             </a>

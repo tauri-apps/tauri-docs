@@ -17,19 +17,8 @@ export function formatMB(bytes) {
   return (bytes / (1024 * 1024)).toFixed(2)
 }
 
-export function formatLogScale(t) {
-  return (Math.pow(10, t) / TimeScaleFactor).toFixed(4)
-}
-
-export function logScale(columns) {
-  for (const col of columns) {
-    for (let i = 0; i < col.data.length; i++) {
-      if (col.data[i] == null || col.data[i] === 0) {
-        continue
-      }
-      col.data[i] = Math.log10(Number(col.data[i]) * TimeScaleFactor)
-    }
-  }
+export function formatExecTime(t) {
+  return t.toFixed(4)
 }
 
 function getBenchmarkVarieties(data, benchmarkName) {
