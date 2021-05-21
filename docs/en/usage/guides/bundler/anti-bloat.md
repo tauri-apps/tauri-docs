@@ -41,11 +41,11 @@ The following methods involve using unstable compiler features and require havin
 
 The Rust Standard Library comes precompiled. You can instead apply the optimization options used for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple that you are targeting.
 
-    $ cargo +nightly build --release -Z build-std --target x86-64-unknown-linux-gnu
+    $ cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
 
 If you are using `panic = "abort"` in your release profile optimizations, then you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can be used to remove some additional binary size. The following applies both:
 
-    $ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86-64-unknown-linux-gnu
+    $ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
 
 See the unstable documentation for more details about [`-Z build-std`](https://doc.rust-lang.org/cargo/reference/unstable.html#build-std) and [`-Z build-std-features`](https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features).
 
