@@ -22,6 +22,7 @@ Add this to your `src-tauri/Cargo.toml`
     opt-level = "s"
 
 <Alert title="Note">
+
 There is also `opt-level = "z"` available to try and squeeze some more size out of the resulting binary. `"s"` and `"z"` can sometimes be smaller than the other, so test it with your own application!
 
 We've seen better binary sizes from `"s"` for tauri example applications, but real world applications can always differ.
@@ -38,13 +39,13 @@ The following methods involve using unstable compiler features and require havin
     $ rustup toolchain install nightly
     $ rustup component add rust-src --toolchain nightly
 
-The Rust Standard Library comes precompiled. You can instead apply the optimization options used for the rest of your binary + dependencies to the std with the following command:
+The Rust Standard Library comes precompiled. You can instead apply the optimization options used for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple that you are targeting.
 
-    $ cargo +nightly build --release -Z build-std
+    $ cargo +nightly build --release -Z build-std --target x86-64-unknown-linux-gnu
 
 If you are using `panic = "abort"` in your release profile optimizations, then you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can be used to remove some additional binary size. The following applies both:
 
-    $ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort
+    $ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86-64-unknown-linux-gnu
 
 See the unstable documentation for more details about [`-Z build-std`](https://doc.rust-lang.org/cargo/reference/unstable.html#build-std) and [`-Z build-std-features`](https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features).
 
