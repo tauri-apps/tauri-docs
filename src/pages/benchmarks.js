@@ -213,7 +213,7 @@ function Benchmarks() {
         <ul className="margin-bottom--md">
           <li>
             <a
-              href="https://github.com/tauri-apps/tauri/tree/feat/benches/core/tauri/bench/tests/cpu_intensive"
+              href="https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/cpu_intensive"
               target="_blank"
             >
               tauri_cpu_intensive
@@ -221,7 +221,7 @@ function Benchmarks() {
           </li>
           <li>
             <a
-              href="https://github.com/tauri-apps/tauri/tree/feat/benches/core/tauri/bench/tests/helloworld"
+              href="https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/helloworld"
               target="_blank"
             >
               tauri_hello_world
@@ -229,7 +229,7 @@ function Benchmarks() {
           </li>
           <li>
             <a
-              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/cpu_intensive.rs"
+              href="https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/cpu_intensive.rs"
               target="_blank"
             >
               wry_cpu_intensive
@@ -237,7 +237,7 @@ function Benchmarks() {
           </li>
           <li>
             <a
-              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/hello_world.rs"
+              href="https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/hello_world.rs"
               target="_blank"
             >
               wry_hello_world
@@ -245,7 +245,7 @@ function Benchmarks() {
           </li>
           <li>
             <a
-              href="https://github.com/tauri-apps/wry/blob/feat/benches/bench/tests/src/custom_protocol.rs"
+              href="https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/custom_protocol.rs"
               target="_blank"
             >
               wry_custom_protocol
@@ -359,8 +359,11 @@ function Benchmarks() {
             />
           </div>
           <Alert title="Note" icon="light-bulb">
-            We use <code>time -v</code> to get the max memory usage during
-            execution. Smaller is better.
+            We use{' '}
+            <a href="https://pypi.org/project/memory-profiler/" target="_blank">
+              mprof
+            </a>{' '}
+            to get the max memory usage during execution. Smaller is better.
           </Alert>
         </section>
 

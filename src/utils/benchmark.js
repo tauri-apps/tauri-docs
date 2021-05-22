@@ -18,7 +18,7 @@ export function formatMB(bytes) {
 }
 
 export function formatExecTime(t) {
-  return t.toFixed(4)
+  return t.toFixed(0)
 }
 
 function getBenchmarkVarieties(data, benchmarkName) {
