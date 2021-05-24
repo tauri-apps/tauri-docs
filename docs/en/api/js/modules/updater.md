@@ -1,5 +1,4 @@
 ---
-title: "Module: updater"
 sidebar_label: "updater"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,8 @@ hide_title: true
 # Module: updater
 
 Customize the auto updater flow.
+
+This package is also accessible with `window.__TAURI__.updater` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
 ## Table of contents
 
@@ -23,7 +24,7 @@ Customize the auto updater flow.
 
 Ƭ **UpdateStatus**: *PENDING* \| *ERROR* \| *DONE* \| *UPTODATE*
 
-Defined in: [updater.ts:12](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L12)
+Defined in: [updater.ts:14](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -37,7 +38,7 @@ Checks if an update is available.
 
 Promise resolving to the update status.
 
-Defined in: [updater.ts:87](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L87)
+Defined in: [updater.ts:89](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L89)
 
 ___
 
@@ -51,4 +52,4 @@ Install the update if there's one available.
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [updater.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L35)
+Defined in: [updater.ts:37](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L37)

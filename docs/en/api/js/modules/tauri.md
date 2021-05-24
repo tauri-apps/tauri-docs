@@ -1,5 +1,4 @@
 ---
-title: "Module: tauri"
 sidebar_label: "tauri"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,8 @@ hide_title: true
 # Module: tauri
 
 Invoke your custom commands.
+
+This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
 ## Table of contents
 
@@ -40,7 +41,7 @@ Name | Type | Default value | Description |
 
 A promise resolving or rejecting to the backend response.
 
-Defined in: [tauri.ts:68](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/tauri.ts#L68)
+Defined in: [tauri.ts:70](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/tauri.ts#L70)
 
 ___
 
@@ -62,4 +63,4 @@ Name | Type | Default value |
 
 A unique identifier associated with the callback function.
 
-Defined in: [tauri.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/tauri.ts#L35)
+Defined in: [tauri.ts:37](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/tauri.ts#L37)

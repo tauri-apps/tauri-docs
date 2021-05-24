@@ -1,5 +1,4 @@
 ---
-title: "Module: http"
 sidebar_label: "http"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,23 @@ hide_title: true
 # Module: http
 
 Access the HTTP client written in Rust.
+
+This package is also accessible with `window.__TAURI__.http` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "http": {
+        "all": true, // enable all http APIs
+        "request": true // enable HTTP request API
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Table of contents
 
@@ -34,7 +50,7 @@ Access the HTTP client written in Rust.
 
 Options for the `fetch` API.
 
-Defined in: [http.ts:107](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L107)
+Defined in: [http.ts:124](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L124)
 
 ___
 
@@ -44,7 +60,7 @@ ___
 
 The request HTTP verb.
 
-Defined in: [http.ts:82](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L82)
+Defined in: [http.ts:99](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L99)
 
 ___
 
@@ -52,7 +68,7 @@ ___
 
 Ƭ **Part**: *string* \| *number*[]
 
-Defined in: [http.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L23)
+Defined in: [http.ts:40](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L40)
 
 ___
 
@@ -62,7 +78,7 @@ ___
 
 Request options.
 
-Defined in: [http.ts:105](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L105)
+Defined in: [http.ts:122](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L122)
 
 ## Functions
 
@@ -89,7 +105,7 @@ Name | Type | Description |
 
 The response object.
 
-Defined in: [http.ts:275](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L275)
+Defined in: [http.ts:292](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L292)
 
 ___
 
@@ -109,4 +125,4 @@ Name | Type | Description |
 
 A promise resolving to the client instance.
 
-Defined in: [http.ts:255](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L255)
+Defined in: [http.ts:272](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L272)

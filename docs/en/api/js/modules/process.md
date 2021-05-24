@@ -1,5 +1,4 @@
 ---
-title: "Module: process"
 sidebar_label: "process"
 custom_edit_url: null
 hide_title: true
@@ -25,7 +24,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [process.ts:18](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/process.ts#L18)
+Defined in: [process.ts:20](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/process.ts#L20)
 
 ___
 
@@ -39,4 +38,4 @@ Exits the current instance of the app then relaunches it.
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [process.ts:33](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/process.ts#L33)
+Defined in: [process.ts:35](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/process.ts#L35)

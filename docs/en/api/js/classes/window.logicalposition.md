@@ -1,5 +1,4 @@
 ---
-title: "Class: LogicalPosition"
 sidebar_label: "LogicalPosition"
 custom_edit_url: null
 hide_title: true
@@ -26,7 +25,7 @@ Name | Type |
 
 **Returns:** [*LogicalPosition*](window.logicalposition.md)
 
-Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L59)
+Defined in: [window.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L76)
 
 ## Properties
 
@@ -34,7 +33,7 @@ Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/a68b4ee8/too
 
 • **type**: *string*= 'Logical'
 
-Defined in: [window.ts:57](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L57)
+Defined in: [window.ts:74](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L74)
 
 ___
 
@@ -42,7 +41,7 @@ ___
 
 • **x**: *number*
 
-Defined in: [window.ts:58](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L58)
+Defined in: [window.ts:75](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L75)
 
 ___
 
@@ -50,4 +49,4 @@ ___
 
 • **y**: *number*
 
-Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L59)
+Defined in: [window.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L76)

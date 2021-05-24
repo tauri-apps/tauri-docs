@@ -1,5 +1,4 @@
 ---
-title: "Module: path"
 sidebar_label: "path"
 custom_edit_url: null
 hide_title: true
@@ -18,7 +17,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:19](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L19)
+Defined in: [path.ts:36](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L36)
 
 ___
 
@@ -36,7 +35,7 @@ Resolves to `{FOLDERID_Music}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:41](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L41)
+Defined in: [path.ts:58](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L58)
 
 ___
 
@@ -54,7 +53,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:63](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L63)
+Defined in: [path.ts:80](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L80)
 
 ___
 
@@ -72,7 +71,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:85](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L85)
+Defined in: [path.ts:102](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L102)
 
 ___
 
@@ -84,7 +83,7 @@ Returns the path to the current working directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:403](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L403)
+Defined in: [path.ts:420](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L420)
 
 ___
 
@@ -102,7 +101,7 @@ Resolves to `{FOLDERID_RoamingAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:107](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L107)
+Defined in: [path.ts:124](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L124)
 
 ___
 
@@ -120,7 +119,7 @@ Resolves to `{FOLDERID_Desktop}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:129](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L129)
+Defined in: [path.ts:146](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L146)
 
 ___
 
@@ -138,7 +137,7 @@ Resolves to `{FOLDERID_Documents}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:151](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L151)
+Defined in: [path.ts:168](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L168)
 
 ___
 
@@ -156,7 +155,7 @@ Resolves to `{FOLDERID_Downloads}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:173](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L173)
+Defined in: [path.ts:190](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L190)
 
 ___
 
@@ -174,7 +173,7 @@ Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:195](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L195)
+Defined in: [path.ts:212](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L212)
 
 ___
 
@@ -192,7 +191,7 @@ Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:217](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L217)
+Defined in: [path.ts:234](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L234)
 
 ___
 
@@ -210,7 +209,7 @@ Resolves to `{FOLDERID_Profile}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:239](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L239)
+Defined in: [path.ts:256](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L256)
 
 ___
 
@@ -228,7 +227,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:261](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L261)
+Defined in: [path.ts:278](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L278)
 
 ___
 
@@ -246,7 +245,7 @@ Resolves to `{FOLDERID_Pictures}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:283](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L283)
+Defined in: [path.ts:300](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L300)
 
 ___
 
@@ -264,7 +263,7 @@ Resolves to `{FOLDERID_Public}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:305](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L305)
+Defined in: [path.ts:322](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L322)
 
 ___
 
@@ -285,7 +284,7 @@ Name | Type | Description |
 
 A path resolved to the given base directory.
 
-Defined in: [path.ts:421](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L421)
+Defined in: [path.ts:438](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L438)
 
 ___
 
@@ -297,7 +296,7 @@ Returns the path to the user's resource directory.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:321](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L321)
+Defined in: [path.ts:338](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -315,7 +314,7 @@ Not supported.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:343](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L343)
+Defined in: [path.ts:360](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L360)
 
 ___
 
@@ -333,7 +332,7 @@ Resolves to `{FOLDERID_Templates}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:365](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L365)
+Defined in: [path.ts:382](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L382)
 
 ___
 
@@ -351,4 +350,4 @@ Resolves to `{FOLDERID_Videos}`.
 
 **Returns:** *Promise*<string\>
 
-Defined in: [path.ts:387](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/path.ts#L387)
+Defined in: [path.ts:404](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/path.ts#L404)

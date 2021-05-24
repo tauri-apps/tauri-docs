@@ -1,5 +1,4 @@
 ---
-title: "Module: app"
 sidebar_label: "app"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,8 @@ hide_title: true
 # Module: app
 
 Get application metadata.
+
+This package is also accessible with `window.__TAURI__.app` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
 ## Functions
 
@@ -21,7 +22,7 @@ Gets the application name.
 
 A promise resolving to application name.
 
-Defined in: [app.ts:31](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/app.ts#L31)
+Defined in: [app.ts:33](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/app.ts#L33)
 
 ___
 
@@ -35,7 +36,7 @@ Gets the tauri version.
 
 A promise resolving to tauri version.
 
-Defined in: [app.ts:45](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/app.ts#L45)
+Defined in: [app.ts:47](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/app.ts#L47)
 
 ___
 
@@ -49,4 +50,4 @@ Gets the application version.
 
 A promise resolving to the application version.
 
-Defined in: [app.ts:17](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/app.ts#L17)
+Defined in: [app.ts:19](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/app.ts#L19)

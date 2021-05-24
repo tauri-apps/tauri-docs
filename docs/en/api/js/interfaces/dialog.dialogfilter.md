@@ -1,5 +1,4 @@
 ---
-title: "Interface: DialogFilter"
 sidebar_label: "DialogFilter"
 custom_edit_url: null
 hide_title: true
@@ -24,7 +23,7 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-Defined in: [dialog.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L23)
+Defined in: [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L41)
 
 ___
 
@@ -34,4 +33,4 @@ ___
 
 Filter name.
 
-Defined in: [dialog.ts:15](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L15)
+Defined in: [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L33)

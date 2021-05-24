@@ -1,5 +1,4 @@
 ---
-title: "Module: cli"
 sidebar_label: "cli"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,8 @@ hide_title: true
 # Module: cli
 
 Parse arguments from your Command Line Interface.
+
+This package is also accessible with `window.__TAURI__.cli` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
 ## Table of contents
 
@@ -29,4 +30,4 @@ Parse the arguments provided to the current process and get the matches using th
 
 A promise resolving to the parsed arguments.
 
-Defined in: [cli.ts:40](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L40)
+Defined in: [cli.ts:42](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/cli.ts#L42)

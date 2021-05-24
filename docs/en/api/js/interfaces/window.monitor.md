@@ -1,5 +1,4 @@
 ---
-title: "Interface: Monitor"
 sidebar_label: "Monitor"
 custom_edit_url: null
 hide_title: true
@@ -19,7 +18,7 @@ Allows you to retrieve information about a given monitor.
 
 Human-readable name of the monitor
 
-Defined in: [window.ts:17](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L17)
+Defined in: [window.ts:34](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L34)
 
 ___
 
@@ -29,7 +28,7 @@ ___
 
 the Top-left corner position of the monitor relative to the larger full screen area.
 
-Defined in: [window.ts:21](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L21)
+Defined in: [window.ts:38](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L38)
 
 ___
 
@@ -39,7 +38,7 @@ ___
 
 The scale factor that can be used to map physical pixels to logical pixels.
 
-Defined in: [window.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L23)
+Defined in: [window.ts:40](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L40)
 
 ___
 
@@ -49,4 +48,4 @@ ___
 
 The monitor's resolution.
 
-Defined in: [window.ts:19](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L19)
+Defined in: [window.ts:36](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L36)

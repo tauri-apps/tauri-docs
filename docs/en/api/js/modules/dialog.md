@@ -1,5 +1,4 @@
 ---
-title: "Module: dialog"
 sidebar_label: "dialog"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,24 @@ hide_title: true
 # Module: dialog
 
 Native system dialogs for opening and saving files.
+
+This package is also accessible with `window.__TAURI__.dialog` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "dialog": {
+        "all": true, // enable all dialog APIs
+        "open": true, // enable file open API
+        "save": true // enable file save API
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Table of contents
 
@@ -35,7 +52,7 @@ Name | Type | Default value |
 
 A promise resolving to the selected path(s)
 
-Defined in: [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L51)
+Defined in: [dialog.ts:69](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L69)
 
 ___
 
@@ -55,4 +72,4 @@ Name | Type | Default value |
 
 A promise resolving to the selected path.
 
-Defined in: [dialog.ts:72](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L72)
+Defined in: [dialog.ts:90](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L90)

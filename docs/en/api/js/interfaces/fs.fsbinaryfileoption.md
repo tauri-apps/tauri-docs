@@ -1,5 +1,4 @@
 ---
-title: "Interface: FsBinaryFileOption"
 sidebar_label: "FsBinaryFileOption"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • **contents**: ArrayBuffer
 
-Defined in: [fs.ts:50](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L50)
+Defined in: [fs.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L76)
 
 ___
 
@@ -23,4 +22,4 @@ ___
 
 • **path**: *string*
 
-Defined in: [fs.ts:49](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L49)
+Defined in: [fs.ts:75](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L75)

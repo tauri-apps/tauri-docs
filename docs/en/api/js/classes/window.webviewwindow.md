@@ -1,5 +1,4 @@
 ---
-title: "Class: WebviewWindow"
 sidebar_label: "WebviewWindow"
 custom_edit_url: null
 hide_title: true
@@ -46,7 +45,7 @@ unlisten()
 
 ### constructor
 
-\+ `Private`**new WebviewWindow**(`label`: *string*, `options?`: [*WindowOptions*](../interfaces/window.windowoptions.md)): [*WebviewWindow*](window.webviewwindow.md)
+\+ **new WebviewWindow**(`label`: *string*, `options?`: [*WindowOptions*](../interfaces/window.windowoptions.md)): [*WebviewWindow*](window.webviewwindow.md)
 
 #### Parameters:
 
@@ -59,7 +58,7 @@ Name | Type | Default value |
 
 Overrides: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:234](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L234)
+Defined in: [window.ts:251](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L251)
 
 ## Properties
 
@@ -71,7 +70,7 @@ Window label.
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[label](window.webviewwindowhandle.md#label)
 
-Defined in: [window.ts:126](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L126)
+Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L143)
 
 ___
 
@@ -85,7 +84,7 @@ Local event listeners.
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[listeners](window.webviewwindowhandle.md#listeners)
 
-Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L128)
+Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
 
 ## Methods
 
@@ -110,7 +109,7 @@ Name | Type |
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:192](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L192)
+Defined in: [window.ts:209](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L209)
 
 ___
 
@@ -131,7 +130,7 @@ Name | Type | Description |
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L181)
+Defined in: [window.ts:198](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L198)
 
 ___
 
@@ -160,7 +159,7 @@ A promise resolving to a function to unlisten to the event.
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L143)
+Defined in: [window.ts:160](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L160)
 
 ___
 
@@ -189,7 +188,7 @@ A promise resolving to a function to unlisten to the event.
 
 Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:164](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L164)
+Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L181)
 
 ___
 
@@ -209,4 +208,4 @@ Name | Type | Description |
 
 The handle to communicate with the webview or null if the webview doesn't exist.
 
-Defined in: [window.ts:259](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L259)
+Defined in: [window.ts:276](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L276)

@@ -1,5 +1,4 @@
 ---
-title: "Enumeration: BaseDirectory"
 sidebar_label: "BaseDirectory"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • **App**: = 18
 
-Defined in: [fs.ts:30](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L30)
+Defined in: [fs.ts:56](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L56)
 
 ___
 
@@ -23,7 +22,7 @@ ___
 
 • **Audio**: = 1
 
-Defined in: [fs.ts:13](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L13)
+Defined in: [fs.ts:39](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L39)
 
 ___
 
@@ -31,7 +30,7 @@ ___
 
 • **Cache**: = 2
 
-Defined in: [fs.ts:14](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L14)
+Defined in: [fs.ts:40](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L40)
 
 ___
 
@@ -39,7 +38,7 @@ ___
 
 • **Config**: = 3
 
-Defined in: [fs.ts:15](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L15)
+Defined in: [fs.ts:41](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L41)
 
 ___
 
@@ -47,7 +46,7 @@ ___
 
 • **Current**: = 19
 
-Defined in: [fs.ts:31](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L31)
+Defined in: [fs.ts:57](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L57)
 
 ___
 
@@ -55,7 +54,7 @@ ___
 
 • **Data**: = 4
 
-Defined in: [fs.ts:16](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L16)
+Defined in: [fs.ts:42](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L42)
 
 ___
 
@@ -63,7 +62,7 @@ ___
 
 • **Desktop**: = 6
 
-Defined in: [fs.ts:18](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L18)
+Defined in: [fs.ts:44](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L44)
 
 ___
 
@@ -71,7 +70,7 @@ ___
 
 • **Document**: = 7
 
-Defined in: [fs.ts:19](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L19)
+Defined in: [fs.ts:45](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L45)
 
 ___
 
@@ -79,7 +78,7 @@ ___
 
 • **Download**: = 8
 
-Defined in: [fs.ts:20](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L20)
+Defined in: [fs.ts:46](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L46)
 
 ___
 
@@ -87,7 +86,7 @@ ___
 
 • **Executable**: = 9
 
-Defined in: [fs.ts:21](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L21)
+Defined in: [fs.ts:47](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L47)
 
 ___
 
@@ -95,7 +94,7 @@ ___
 
 • **Font**: = 10
 
-Defined in: [fs.ts:22](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L22)
+Defined in: [fs.ts:48](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L48)
 
 ___
 
@@ -103,7 +102,7 @@ ___
 
 • **Home**: = 11
 
-Defined in: [fs.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L23)
+Defined in: [fs.ts:49](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L49)
 
 ___
 
@@ -111,7 +110,7 @@ ___
 
 • **LocalData**: = 5
 
-Defined in: [fs.ts:17](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L17)
+Defined in: [fs.ts:43](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L43)
 
 ___
 
@@ -119,7 +118,7 @@ ___
 
 • **Picture**: = 12
 
-Defined in: [fs.ts:24](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L24)
+Defined in: [fs.ts:50](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L50)
 
 ___
 
@@ -127,7 +126,7 @@ ___
 
 • **Public**: = 13
 
-Defined in: [fs.ts:25](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L25)
+Defined in: [fs.ts:51](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L51)
 
 ___
 
@@ -135,7 +134,7 @@ ___
 
 • **Resource**: = 17
 
-Defined in: [fs.ts:29](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L29)
+Defined in: [fs.ts:55](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L55)
 
 ___
 
@@ -143,7 +142,7 @@ ___
 
 • **Runtime**: = 14
 
-Defined in: [fs.ts:26](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L26)
+Defined in: [fs.ts:52](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L52)
 
 ___
 
@@ -151,7 +150,7 @@ ___
 
 • **Template**: = 15
 
-Defined in: [fs.ts:27](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L27)
+Defined in: [fs.ts:53](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L53)
 
 ___
 
@@ -159,4 +158,4 @@ ___
 
 • **Video**: = 16
 
-Defined in: [fs.ts:28](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L28)
+Defined in: [fs.ts:54](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L54)

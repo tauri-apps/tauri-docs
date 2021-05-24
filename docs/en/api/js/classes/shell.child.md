@@ -1,5 +1,4 @@
 ---
-title: "Class: Child"
 sidebar_label: "Child"
 custom_edit_url: null
 hide_title: true
@@ -23,7 +22,7 @@ Name | Type |
 
 **Returns:** [*Child*](shell.child.md)
 
-Defined in: [shell.ts:115](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L115)
+Defined in: [shell.ts:133](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L133)
 
 ## Properties
 
@@ -33,7 +32,7 @@ Defined in: [shell.ts:115](https://github.com/tauri-apps/tauri/blob/a68b4ee8/too
 
 The child process `pid`.
 
-Defined in: [shell.ts:115](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L115)
+Defined in: [shell.ts:133](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L133)
 
 ## Methods
 
@@ -47,7 +46,7 @@ Kills the child process.
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [shell.ts:151](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L151)
+Defined in: [shell.ts:169](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L169)
 
 ___
 
@@ -75,4 +74,4 @@ Name | Type | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [shell.ts:135](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L135)
+Defined in: [shell.ts:153](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L153)

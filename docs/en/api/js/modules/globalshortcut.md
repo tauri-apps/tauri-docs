@@ -1,5 +1,4 @@
 ---
-title: "Module: globalShortcut"
 sidebar_label: "globalShortcut"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,22 @@ hide_title: true
 # Module: globalShortcut
 
 Register global shortcuts.
+
+This package is also accessible with `window.__TAURI__.globalShortcut` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "globalShortcut": {
+        "all": true // enable all global shortcut APIs
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Type aliases
 
@@ -27,7 +42,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [globalShortcut.ts:13](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L13)
+Defined in: [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
@@ -47,7 +62,7 @@ Name | Type | Description |
 
 A promise resolving to the state.
 
-Defined in: [globalShortcut.ts:63](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L63)
+Defined in: [globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L79)
 
 ___
 
@@ -66,7 +81,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:22](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L22)
+Defined in: [globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L38)
 
 ___
 
@@ -85,7 +100,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:43](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L43)
+Defined in: [globalShortcut.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L59)
 
 ___
 
@@ -103,7 +118,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L79)
+Defined in: [globalShortcut.ts:95](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L95)
 
 ___
 
@@ -115,4 +130,4 @@ Unregisters all shortcuts registered by the application.
 
 **Returns:** *Promise*<void\>
 
-Defined in: [globalShortcut.ts:94](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/globalShortcut.ts#L94)
+Defined in: [globalShortcut.ts:110](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/globalShortcut.ts#L110)
