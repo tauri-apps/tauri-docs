@@ -18,7 +18,7 @@ The HTTP client.
 
 Executes an HTTP request
 
-The response will be transformed to String, If reading the response as binary, the byte array will be serialized using serde_json
+The response will be transformed to String, If reading the response as binary, the byte array will be serialized using serde_json.
 
 ## Trait Implementations
 
@@ -34,7 +34,7 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 ## Auto Trait Implementations
 
-### `impl !RefUnwindSafe for Client`
+### `impl RefUnwindSafe for Client`
 
 ### `impl Send for Client`
 
@@ -42,7 +42,7 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 ### `impl Unpin for Client`
 
-### `impl !UnwindSafe for Client`
+### `impl UnwindSafe for Client`
 
 ## Blanket Implementations
 
@@ -69,16 +69,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

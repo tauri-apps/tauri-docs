@@ -128,6 +128,8 @@ Loading content...
 
 ### `impl<P: Params> Manager<P> for App<P>`
 
+### `impl<P: Params> Manager<P> for AppHandle<P>`
+
 ### `impl<P: Params> Manager<P> for Window<P>`
 
 Loading content...

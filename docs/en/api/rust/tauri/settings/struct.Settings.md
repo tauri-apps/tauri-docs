@@ -5,20 +5,10 @@ title: "struct.Settings"
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
 
 ```rs
-#[non_exhaustive]pub struct Settings {
-    pub allow_notification: Option<bool>,
-}
+#[non_exhaustive]pub struct Settings {}
 ```
 
 Tauri Settings.
-
-## Fields (Non-exhaustive)
-
-Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
-
-`allow_notification: Option<bool>`
-
-Whether the user allows notifications or not.
 
 ## Trait Implementations
 
@@ -32,13 +22,13 @@ Returns the “default value” for a type. [Read more](https://doc.rust-lang.or
 
 #### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl Serialize for Settings`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
@@ -85,16 +75,6 @@ Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../.
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
