@@ -61,7 +61,7 @@ unlisten()
 
 #### Defined in
 
-[window.ts:251](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L251)
+[window.ts:251](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L251)
 
 ## Properties
 
@@ -77,7 +77,7 @@ Window label.
 
 #### Defined in
 
-[window.ts:143](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L143)
+[window.ts:143](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L143)
 
 ___
 
@@ -97,7 +97,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:145](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L145)
+[window.ts:145](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L145)
 
 ## Methods
 
@@ -128,7 +128,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:209](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L209)
+[window.ts:209](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L209)
 
 ___
 
@@ -155,7 +155,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:198](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L198)
+[window.ts:198](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L198)
 
 ___
 
@@ -190,7 +190,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:160](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L160)
+[window.ts:160](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L160)
 
 ___
 
@@ -225,7 +225,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:181](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L181)
+[window.ts:181](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L181)
 
 ___
 
@@ -249,4 +249,4 @@ The handle to communicate with the webview or null if the webview doesn't exist.
 
 #### Defined in
 
-[window.ts:276](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L276)
+[window.ts:276](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L276)
