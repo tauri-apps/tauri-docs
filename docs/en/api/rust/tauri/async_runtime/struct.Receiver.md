@@ -108,7 +108,7 @@ Closes the receiving half of a channel without dropping it.
 
 This prevents any further messages from being sent on the channel while still enabling the receiver to drain messages that are buffered. Any outstanding [`Permit`](/docs/api/rust/tauri/Permit) values will still be able to send messages.
 
-To guarantee that no messages are dropped, after calling `close()`, `recv()` must be called until `None` is returned. If there are outstanding [`Permit`](/docs/api/rust/tauri/Permit) values, the `recv` method will not return `None` until those are released.
+To guarantee that no messages are dropped, after calling `close()`, `recv()` must be called until `None` is returned. If there are outstanding [`Permit`](/docs/api/rust/tauri/Permit) or [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) values, the `recv` method will not return `None` until those are released.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-2)
 
@@ -194,16 +194,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

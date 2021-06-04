@@ -16,11 +16,23 @@ This type implements [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager.htm
 
 ### `impl<P: Params> App<P>`
 
-#### `pub fn create_window<F>( &mut self, label: P::Label, url: WindowUrl, setup: F ) -> Result<()> where F: FnOnce(<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
+#### `pub fn create_window<F>( &self, label: P::Label, url: WindowUrl, setup: F ) -> Result<()> where F: FnOnce(<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
 
 Creates a new webview window.
 
+### `impl<P: Params> App<P>`
+
+#### `pub fn handle(&self) -> AppHandle<P>`
+
+Gets a handle to the application instance.
+
 ## Trait Implementations
+
+### `impl<P: Params> Drop for App<P>`
+
+#### `fn drop(&mut self)`
+
+Executes the destructor for this type. [Read more](https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop)
 
 ### `impl<P: Params> Manager<P> for App<P>`
 
@@ -105,16 +117,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

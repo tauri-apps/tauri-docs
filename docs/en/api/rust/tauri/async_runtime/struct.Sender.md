@@ -254,6 +254,66 @@ async fn main() {
 }
 ```
 
+#### `pub async fn reserve_owned(self) -> Result<OwnedPermit<T>, SendError<()>>`
+
+Wait for channel capacity, moving the `Sender` and returning an owned permit. Once capacity to send one message is available, it is reserved for the caller.
+
+This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.reserve), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `reserve_owned`.
+
+If the channel is full, the function waits for the number of unreceived messages to become less than the channel capacity. Capacity to send one message is reserved for the caller. An [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) is returned to track the reserved capacity. The [`send`](/docs/api/rust/tauri/ownedpermit::send) function on [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) consumes the reserved capacity.
+
+Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a message releases the capacity back to the channel.
+
+# [Examples](/docs/api/rust/tauri/about:blank#examples-6)
+
+Sending a message using an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit):
+
+```rs
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(1);
+
+    // Reserve capacity, moving the sender.
+    let permit = tx.reserve_owned().await.unwrap();
+
+    // Send a message, consuming the permit and returning
+    // the moved sender.
+    let tx = permit.send(123);
+
+    // The value sent on the permit is received.
+    assert_eq!(rx.recv().await.unwrap(), 123);
+
+    // The sender can now be used again.
+    tx.send(456).await.unwrap();
+}
+```
+
+When multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed, or the sender cannot be moved by value, it can be inexpensively cloned before calling `reserve_owned`:
+
+```rs
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(1);
+
+    // Clone the sender and reserve capacity.
+    let permit = tx.clone().reserve_owned().await.unwrap();
+
+    // Trying to send directly on the `tx` will fail due to no
+    // available capacity.
+    assert!(tx.try_send(123).is_err());
+
+    // Sending on the permit succeeds.
+    permit.send(456);
+
+    // The value sent on the permit is received
+    assert_eq!(rx.recv().await.unwrap(), 456);
+}
+```
+
 #### `pub fn try_reserve(&self) -> Result<Permit<'_, T>, TrySendError<()>>`
 
 Try to acquire a slot in the channel without waiting for the slot to become available.
@@ -262,7 +322,7 @@ If the channel is full this function will return \[`TrySendError`], otherwise if
 
 Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message releases the capacity back to the channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-6)
+# [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
 ```rs
 use tokio::sync::mpsc;
@@ -291,11 +351,50 @@ async fn main() {
 }
 ```
 
+#### `pub fn try_reserve_owned( self ) -> Result<OwnedPermit<T>, TrySendError<Sender<T>>>`
+
+Try to acquire a slot in the channel without waiting for the slot to become available, returning an owned permit.
+
+This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::try_reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.try_reserve "Sender::try_reserve"), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `try_reserve_owned`.
+
+If the channel is full this function will return a \[`TrySendError`]. Since the sender is taken by value, the `TrySendError` returned in this case contains the sender, so that it may be used again. Otherwise, if there is a slot available, this method will return an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) that can then be used to [`send`](/docs/api/rust/tauri/ownedpermit::send) on the channel with a guaranteed slot. This function is similar to [`reserve_owned`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.reserve_owned) except it does not await for the slot to become available.
+
+Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a message releases the capacity back to the channel.
+
+# [Examples](/docs/api/rust/tauri/about:blank#examples-8)
+
+```rs
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(1);
+
+    // Reserve capacity
+    let permit = tx.clone().try_reserve_owned().unwrap();
+
+    // Trying to send directly on the `tx` will fail due to no
+    // available capacity.
+    assert!(tx.try_send(123).is_err());
+
+    // Trying to reserve an additional slot on the `tx` will
+    // fail because there is no capacity.
+    assert!(tx.try_reserve().is_err());
+
+    // Sending on the permit succeeds
+    permit.send(456);
+
+    // The value sent on the permit is received
+    assert_eq!(rx.recv().await.unwrap(), 456);
+
+}
+```
+
 #### `pub fn same_channel(&self, other: &Sender<T>) -> bool`
 
 Returns `true` if senders belong to the same channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-7)
+# [Examples](/docs/api/rust/tauri/about:blank#examples-9)
 
 ```rs
 let (tx, rx) = tokio::sync::mpsc::channel::<()>(1);
@@ -312,7 +411,7 @@ Returns the current capacity of the channel.
 
 The capacity goes down when sending a value by calling [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.send) or by reserving capacity with [`reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender.html#method.reserve). The capacity goes up when values are received by the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver.html "Receiver").
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-8)
+# [Examples](/docs/api/rust/tauri/about:blank#examples-10)
 
 ```rs
 use tokio::sync::mpsc;
@@ -389,16 +488,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
