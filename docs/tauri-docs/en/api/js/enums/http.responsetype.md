@@ -17,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[http.ts:37](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/http.ts#L37)
+[http.ts:37](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/http.ts#L37)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 #### Defined in
 
-[http.ts:35](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/http.ts#L35)
+[http.ts:35](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/http.ts#L35)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[http.ts:36](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/http.ts#L36)
+[http.ts:36](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/http.ts#L36)

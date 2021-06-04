@@ -55,7 +55,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/dialog.ts#L69)
+[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/dialog.ts#L69)
 
 ___
 
@@ -79,4 +79,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/dialog.ts#L90)
+[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/dialog.ts#L90)

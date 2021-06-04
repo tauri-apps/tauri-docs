@@ -51,7 +51,7 @@ The manager for the current window. Allows you to manipulate the window object.
 
 #### Defined in
 
-[window.ts:780](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L780)
+[window.ts:780](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L780)
 
 ## Functions
 
@@ -67,7 +67,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:853](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L853)
+[window.ts:853](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L853)
 
 ___
 
@@ -84,7 +84,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:830](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L830)
+[window.ts:830](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L830)
 
 ___
 
@@ -102,7 +102,7 @@ The list of webview handles.
 
 #### Defined in
 
-[window.ts:130](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L130)
+[window.ts:130](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L130)
 
 ___
 
@@ -120,7 +120,7 @@ The current window handle.
 
 #### Defined in
 
-[window.ts:121](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L121)
+[window.ts:121](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L121)
 
 ___
 
@@ -137,4 +137,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:843](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/window.ts#L843)
+[window.ts:843](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/window.ts#L843)

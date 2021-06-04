@@ -43,7 +43,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[event.ts:25](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/event.ts#L25)
+[event.ts:25](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/event.ts#L25)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[event.ts:27](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/event.ts#L27)
+[event.ts:27](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/event.ts#L27)
 
 ## Functions
 
@@ -84,7 +84,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:93](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/event.ts#L93)
+[event.ts:93](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/event.ts#L93)
 
 ___
 
@@ -115,7 +115,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:53](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/event.ts#L53)
+[event.ts:53](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/event.ts#L53)
 
 ___
 
@@ -146,4 +146,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:76](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/event.ts#L76)
+[event.ts:76](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/event.ts#L76)

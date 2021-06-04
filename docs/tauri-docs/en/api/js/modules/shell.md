@@ -49,4 +49,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/shell.ts#L358)
+[shell.ts:358](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/shell.ts#L358)

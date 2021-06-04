@@ -39,7 +39,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:41](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/notification.ts#L41)
+[notification.ts:41](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/notification.ts#L41)
 
 ## Functions
 
@@ -55,7 +55,7 @@ Checks if the permission to send notifications is granted.
 
 #### Defined in
 
-[notification.ts:48](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/notification.ts#L48)
+[notification.ts:48](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/notification.ts#L48)
 
 ___
 
@@ -73,7 +73,7 @@ A promise resolving to whether the user granted the permission or not.
 
 #### Defined in
 
-[notification.ts:65](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/notification.ts#L65)
+[notification.ts:65](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/notification.ts#L65)
 
 ___
 
@@ -95,4 +95,4 @@ Sends a notification to the user.
 
 #### Defined in
 
-[notification.ts:74](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/notification.ts#L74)
+[notification.ts:74](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/notification.ts#L74)

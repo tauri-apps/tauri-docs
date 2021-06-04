@@ -28,7 +28,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 #### Defined in
 
-[path.ts:36](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L36)
+[path.ts:36](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L36)
 
 ___
 
@@ -50,7 +50,7 @@ Resolves to `{FOLDERID_Music}`.
 
 #### Defined in
 
-[path.ts:58](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L58)
+[path.ts:58](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L58)
 
 ___
 
@@ -72,7 +72,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:80](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L80)
+[path.ts:80](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L80)
 
 ___
 
@@ -94,7 +94,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:102](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L102)
+[path.ts:102](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L102)
 
 ___
 
@@ -110,7 +110,7 @@ Returns the path to the current working directory.
 
 #### Defined in
 
-[path.ts:420](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L420)
+[path.ts:420](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L420)
 
 ___
 
@@ -132,7 +132,7 @@ Resolves to `{FOLDERID_RoamingAppData}`.
 
 #### Defined in
 
-[path.ts:124](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L124)
+[path.ts:124](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L124)
 
 ___
 
@@ -154,7 +154,7 @@ Resolves to `{FOLDERID_Desktop}`.
 
 #### Defined in
 
-[path.ts:146](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L146)
+[path.ts:146](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L146)
 
 ___
 
@@ -176,7 +176,7 @@ Resolves to `{FOLDERID_Documents}`.
 
 #### Defined in
 
-[path.ts:168](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L168)
+[path.ts:168](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L168)
 
 ___
 
@@ -198,7 +198,7 @@ Resolves to `{FOLDERID_Downloads}`.
 
 #### Defined in
 
-[path.ts:190](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L190)
+[path.ts:190](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L190)
 
 ___
 
@@ -220,7 +220,7 @@ Not supported.
 
 #### Defined in
 
-[path.ts:212](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L212)
+[path.ts:212](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L212)
 
 ___
 
@@ -242,7 +242,7 @@ Not supported.
 
 #### Defined in
 
-[path.ts:234](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L234)
+[path.ts:234](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L234)
 
 ___
 
@@ -264,7 +264,7 @@ Resolves to `{FOLDERID_Profile}`.
 
 #### Defined in
 
-[path.ts:256](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L256)
+[path.ts:256](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L256)
 
 ___
 
@@ -286,7 +286,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:278](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L278)
+[path.ts:278](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L278)
 
 ___
 
@@ -308,7 +308,7 @@ Resolves to `{FOLDERID_Pictures}`.
 
 #### Defined in
 
-[path.ts:300](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L300)
+[path.ts:300](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L300)
 
 ___
 
@@ -330,7 +330,7 @@ Resolves to `{FOLDERID_Public}`.
 
 #### Defined in
 
-[path.ts:322](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L322)
+[path.ts:322](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L322)
 
 ___
 
@@ -355,7 +355,7 @@ A path resolved to the given base directory.
 
 #### Defined in
 
-[path.ts:438](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L438)
+[path.ts:438](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L438)
 
 ___
 
@@ -371,7 +371,7 @@ Returns the path to the user's resource directory.
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L338)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -393,7 +393,7 @@ Not supported.
 
 #### Defined in
 
-[path.ts:360](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L360)
+[path.ts:360](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L360)
 
 ___
 
@@ -415,7 +415,7 @@ Resolves to `{FOLDERID_Templates}`.
 
 #### Defined in
 
-[path.ts:382](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L382)
+[path.ts:382](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L382)
 
 ___
 
@@ -437,4 +437,4 @@ Resolves to `{FOLDERID_Videos}`.
 
 #### Defined in
 
-[path.ts:404](https://github.com/tauri-apps/tauri/blob/4bee3a7/tooling/api/src/path.ts#L404)
+[path.ts:404](https://github.com/tauri-apps/tauri/blob/1be3546/tooling/api/src/path.ts#L404)
