@@ -42,7 +42,7 @@ const projects = [
     screenshots: ['0.png'].map((image) => imgPath + 'simple-stt/' + image),
   },
   {
-    title: 'TAUnoRIs',
+    title: 'TAUnorRIs',
     image: imgPath + 'taunorris/logo.png',
     link: 'https://github.com/fkromer/taunorris',
     screenshots: ['0.png'].map((image) => imgPath + 'taunorris/' + image),
