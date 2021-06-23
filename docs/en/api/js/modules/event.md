@@ -1,5 +1,4 @@
 ---
-title: "Module: event"
 sidebar_label: "event"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,8 @@ hide_title: true
 # Module: event
 
 The event system allows you to emit events to the backend and listen to events from it.
+
+This package is also accessible with `window.__TAURI__.event` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
 ## Table of contents
 
@@ -39,7 +40,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [event.ts:23](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L23)
+Defined in: [event.ts:25](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L25)
 
 ___
 
@@ -53,7 +54,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [event.ts:25](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L25)
+Defined in: [event.ts:27](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L27)
 
 ## Functions
 
@@ -72,7 +73,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [event.ts:91](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L91)
+Defined in: [event.ts:93](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L93)
 
 ___
 
@@ -99,7 +100,7 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:51](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L51)
+Defined in: [event.ts:53](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L53)
 
 ___
 
@@ -126,4 +127,4 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:74](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/event.ts#L74)
+Defined in: [event.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L76)

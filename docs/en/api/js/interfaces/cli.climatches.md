@@ -1,5 +1,4 @@
 ---
-title: "Interface: CliMatches"
 sidebar_label: "CliMatches"
 custom_edit_url: null
 hide_title: true
@@ -17,7 +16,7 @@ hide_title: true
 
 #### Type declaration:
 
-Defined in: [cli.ts:31](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L31)
+Defined in: [cli.ts:33](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/cli.ts#L33)
 
 ___
 
@@ -25,4 +24,4 @@ ___
 
 • **subcommand**: *null* \| [*SubcommandMatch*](cli.subcommandmatch.md)
 
-Defined in: [cli.ts:32](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/cli.ts#L32)
+Defined in: [cli.ts:34](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/cli.ts#L34)

@@ -5,7 +5,7 @@ title: "struct.Response"
 # Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[http](/docs/api/rust/tauri/index.html)::​[Response](/docs/api/rust/tauri/)
 
 ```rs
-pub struct Response(_, _);
+pub struct Response(_, _, _);
 ```
 
 The HTTP response.
@@ -13,6 +13,10 @@ The HTTP response.
 ## Implementations
 
 ### `impl Response`
+
+#### `pub async fn bytes(self) -> Result<RawResponse>`
+
+Reads the response as raw bytes.
 
 #### `pub async fn read(self) -> Result<ResponseData>`
 
@@ -24,7 +28,7 @@ Reads the response and returns its info.
 
 ### `impl Send for Response`
 
-### `impl Sync for Response`
+### `impl !Sync for Response`
 
 ### `impl Unpin for Response`
 
@@ -55,16 +59,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

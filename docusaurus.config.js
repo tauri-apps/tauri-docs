@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 // const versions = require('./versions.json')
 
 const languages = require('./supported-languages')
@@ -7,6 +8,7 @@ const language = process.env.LANGUAGE || 'en'
 
 const t = require(`./translations/${language}.json`)
 
+const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 
@@ -24,6 +26,7 @@ const siteConfig = {
     languages,
     language,
     t,
+    version,
     colorMode: {
       defaultMode: 'dark'
     },
@@ -158,7 +161,7 @@ const siteConfig = {
       {
         docs: {
           path: './docs/' + language,
-          sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },
         theme: {

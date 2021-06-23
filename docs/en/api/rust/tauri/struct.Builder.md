@@ -52,6 +52,42 @@ Managed state can be retrieved by any request handler via the [`State`](/docs/ap
 
 Panics if state of type `T` is already being managed.
 
+# [Mutability](/docs/api/rust/tauri/about:blank#mutability)
+
+Since the managed state is global and must be [`Send`](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "Send") + [`Sync`](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "Sync"), mutations can only happen through interior mutability:
+
+ⓘ
+
+```rs
+use std::{collections::HashMap, sync::Mutex};
+use tauri::State;
+// here we use Mutex to achieve interior mutability
+struct Storage(Mutex<HashMap<u64, String>>);
+struct Connection;
+struct DbConnection(Mutex<Option<Connection>>);
+
+#[tauri::command]
+fn connect(connection: State<DbConnection>) {
+  // initialize the connection, mutating the state with interior mutability
+  *connection.0.lock().unwrap() = Some(Connection {});
+}
+
+#[tauri::command]
+fn storage_insert(key: u64, value: String, storage: State<Storage>) {
+  // mutate the storage behind the Mutex
+  storage.0.lock().unwrap().insert(key, value);
+}
+
+fn main() {
+  Builder::default()
+    .manage(Storage(Default::default()))
+    .manage(DbConnection(Default::default()))
+    .invoke_handler(tauri::generate_handler&#33;[connect, storage_insert])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
 # [Example](/docs/api/rust/tauri/about:blank#example)
 
 ⓘ
@@ -63,7 +99,7 @@ struct MyInt(isize);
 struct MyString(String);
 
 #[tauri::command]
-fn int_command(state: State<'_, MyInt>) -> String {
+fn int_command(state: State<MyInt>) -> String {
     format!("The stateful int is: {}", state.0)
 }
 
@@ -76,6 +112,7 @@ fn main() {
     tauri::Builder::default()
         .manage(MyInt(10))
         .manage(MyString("Hello, managed state!".to_string()))
+        .invoke_handler(tauri::generate_handler&#33;[int_command, string_command])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -85,25 +122,9 @@ fn main() {
 
 Creates a new webview window.
 
-#### `pub fn system_tray(self, items: Vec<SystemTrayMenuItem<TID>>) -> Self`
-
-Adds the icon configured on `tauri.conf.json` to the system tray with the specified menu items.
-
-#### `pub fn menu(self, menu: Vec<Menu<MID>>) -> Self`
-
-Sets the menu to use on all windows.
-
-#### `pub fn on_menu_event<F: Fn(WindowMenuEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
-
-Registers a menu event handler for all windows.
-
 #### `pub fn on_window_event<F: Fn(GlobalWindowEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>( self, handler: F ) -> Self`
 
 Registers a window event handler for all windows.
-
-#### `pub fn on_system_tray_event<F: Fn(&AppHandle<Args<E, L, MID, TID, A, R>>, SystemTrayEvent<TID>) + Send + Sync + 'static>( self, handler: F ) -> Self`
-
-Registers a system tray event handler.
 
 #### `pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>( self, uri_scheme: N, protocol: H ) -> Self`
 
@@ -113,6 +134,10 @@ Registers a URI scheme protocol available to all webviews. Leverages [setURLSche
 
 -   `uri_scheme` The URI scheme to register, such as `example`.
 -   `protocol` the protocol associated with the given URI scheme. It’s a function that takes an URL such as `example://localhost/asset.css`.
+
+#### `pub fn build( self, context: Context<A> ) -> Result<App<Args<E, L, MID, TID, A, R>>>`
+
+Builds the application.
 
 #### `pub fn run(self, context: Context<A>) -> Result<()>`
 
@@ -136,7 +161,7 @@ Returns the “default value” for a type. [Read more](https://doc.rust-lang.or
 
 ### `impl<E, L, MID, TID, A, R> !Sync for Builder<E, L, MID, TID, A, R>`
 
-### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, MID: Unpin, TID: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
+### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
 
 ### `impl<E, L, MID, TID, A, R> !UnwindSafe for Builder<E, L, MID, TID, A, R>`
 
@@ -165,16 +190,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

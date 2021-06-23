@@ -1,5 +1,4 @@
 ---
-title: "Class: Body"
 sidebar_label: "Body"
 custom_edit_url: null
 hide_title: true
@@ -17,7 +16,7 @@ The body object to be used on POST and PUT requests.
 
 • **payload**: *unknown*
 
-Defined in: [http.ts:28](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L28)
+Defined in: [http.ts:45](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L45)
 
 ___
 
@@ -25,7 +24,7 @@ ___
 
 • **type**: *string*
 
-Defined in: [http.ts:27](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L27)
+Defined in: [http.ts:44](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L44)
 
 ## Methods
 
@@ -45,7 +44,7 @@ Name | Type |
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:76](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L76)
+Defined in: [http.ts:93](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L93)
 
 ___
 
@@ -65,7 +64,7 @@ Name | Type | Description |
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:43](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L43)
+Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L60)
 
 ___
 
@@ -85,7 +84,7 @@ Name | Type | Description |
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:54](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L54)
+Defined in: [http.ts:71](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L71)
 
 ___
 
@@ -105,4 +104,4 @@ Name | Type |
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:65](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L65)
+Defined in: [http.ts:82](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L82)

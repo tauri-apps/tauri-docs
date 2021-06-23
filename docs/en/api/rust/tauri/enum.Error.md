@@ -16,14 +16,12 @@ title: "enum.Error"
     UnknownApi(Option<Error>),
     FailedToExecuteApi(Error),
     Io(Error),
-    Base64Decode(DecodeError),
     InvalidIcon(Box<dyn Error + Send>),
     HttpClientNotInitialized,
     ApiNotEnabled(String),
     ApiNotAllowlisted(String),
     InvalidArgs(&'static str, Error),
     Setup(Box<dyn Error + Send>),
-    TauriUpdater(Error),
     PluginInitialization(String, String),
     DialogDefaultPathNotExists(PathBuf),
     SystemTray(Box<dyn Error + Send>),
@@ -76,10 +74,6 @@ Failed to execute tauri API.
 
 IO error.
 
-`Base64Decode(DecodeError)`
-
-Failed to decode base64.
-
 `InvalidIcon(Box<dyn Error + Send>)`
 
 Failed to load window icon.
@@ -103,10 +97,6 @@ Invalid args when running a command.
 `Setup(Box<dyn Error + Send>)`
 
 Encountered an error in the setup hook,
-
-`TauriUpdater(Error)`
-
-Tauri updater error.
 
 `PluginInitialization(String, String)`
 
@@ -159,18 +149,6 @@ use the Display impl or to_string()
 👎 Deprecated since 1.33.0:
 
 replaced by Error::source, which can support downcasting
-
-### `impl From<DecodeError> for Error`
-
-#### `fn from(source: DecodeError) -> Self`
-
-Performs the conversion.
-
-### `impl From<Error> for Error`
-
-#### `fn from(source: Error) -> Self`
-
-Performs the conversion.
 
 ### `impl From<Error> for Error`
 
@@ -239,16 +217,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

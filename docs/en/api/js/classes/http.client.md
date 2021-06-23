@@ -1,5 +1,4 @@
 ---
-title: "Class: Client"
 sidebar_label: "Client"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • **id**: *number*
 
-Defined in: [http.ts:122](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L122)
+Defined in: [http.ts:139](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L139)
 
 ## Methods
 
@@ -42,7 +41,7 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:239](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L239)
+Defined in: [http.ts:256](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L256)
 
 ___
 
@@ -54,7 +53,7 @@ Drops the client instance.
 
 **Returns:** *Promise*<void\>
 
-Defined in: [http.ts:133](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L133)
+Defined in: [http.ts:150](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L150)
 
 ___
 
@@ -81,7 +80,7 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:167](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L167)
+Defined in: [http.ts:184](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L184)
 
 ___
 
@@ -108,7 +107,7 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:224](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L224)
+Defined in: [http.ts:241](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L241)
 
 ___
 
@@ -136,7 +135,7 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:183](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L183)
+Defined in: [http.ts:200](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L200)
 
 ___
 
@@ -164,7 +163,7 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:204](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L204)
+Defined in: [http.ts:221](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L221)
 
 ___
 
@@ -190,4 +189,4 @@ Name | Type | Description |
 
 A promise resolving to the response.
 
-Defined in: [http.ts:149](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L149)
+Defined in: [http.ts:166](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L166)

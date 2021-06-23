@@ -22,21 +22,41 @@ This is the output of the `tauri::generate_context!` macro, and is not considere
 
 The config the application was prepared with.
 
+#### `pub fn config_mut(&mut self) -> &mut Config`
+
+A mutable reference to the config the application was prepared with.
+
 #### `pub fn assets(&self) -> Arc<A>`
 
 The assets to be served directly by Tauri.
+
+#### `pub fn assets_mut(&mut self) -> &mut Arc<A>`
+
+A mutable reference to the assets to be served directly by Tauri.
 
 #### `pub fn default_window_icon(&self) -> Option<&[u8]>`
 
 The default window icon Tauri should use when creating windows.
 
+#### `pub fn default_window_icon_mut(&mut self) -> &mut Option<Vec<u8>>`
+
+A mutable reference to the default window icon Tauri should use when creating windows.
+
 #### `pub fn system_tray_icon(&self) -> Option<&Icon>`
 
-The icon to use use on the system tray UI.
+The icon to use on the system tray UI.
+
+#### `pub fn system_tray_icon_mut(&mut self) -> &mut Option<Icon>`
+
+A mutable reference to the icon to use on the system tray UI.
 
 #### `pub fn package_info(&self) -> &PackageInfo`
 
 Package information.
+
+#### `pub fn package_info_mut(&mut self) -> &mut PackageInfo`
+
+A mutable reference to the package information.
 
 #### `pub fn new( config: Config, assets: Arc<A>, default_window_icon: Option<Vec<u8>>, system_tray_icon: Option<Icon>, package_info: PackageInfo ) -> Self`
 
@@ -79,16 +99,6 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

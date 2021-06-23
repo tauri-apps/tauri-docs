@@ -8,9 +8,11 @@ Tauri provides lots of options for customizing the look and feel of your app's w
 
 There are three ways to change the window configuration:
 
+TODO: LINKS
+
 - [Through tauri.conf.json](https://tauri.studio/en/docs/api/config/#tauri.windows)
-- [Through the JS API](https://tauri.studio/en/docs/api/js/modules/window)
-- [Through the Window in Rust](https://tauri.studio/en/docs/api/rust/tauri/struct.Window)
+- [Through the JS API]
+- [Through the Window in Rust]
 
 ## Creating a Custom Titlebar
 
@@ -49,7 +51,7 @@ You'll need to add some CSS for the titlebar to keep it at the top of the screen
 Now, you'll need to add the HTML for the titlebar. Put this at the top of your `<body>` tag:
 
 ```html
-<div class="titlebar" data-tauri-drag-region>
+<div class="drag-region titlebar">
   <div class="titlebar-button" id="titlebar-minimize">
     <img
       src="https://api.iconify.design/mdi:window-minimize.svg"
@@ -73,6 +75,8 @@ Note that you may need to move the rest of your content down so that the titleba
 ### JS
 
 Finally, you'll need to make the buttons work:
+
+TODO: TOGGLE MAXIMIZE
 
 ```js
 import { appWindow } from '@tauri-apps/api/window'

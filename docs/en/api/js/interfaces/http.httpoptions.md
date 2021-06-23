@@ -1,5 +1,4 @@
 ---
-title: "Interface: HttpOptions"
 sidebar_label: "HttpOptions"
 custom_edit_url: null
 hide_title: true
@@ -17,7 +16,7 @@ Options object sent to the backend.
 
 • `Optional` **body**: [*Body*](../classes/http.body.md)
 
-Defined in: [http.ts:99](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L99)
+Defined in: [http.ts:116](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L116)
 
 ___
 
@@ -25,7 +24,7 @@ ___
 
 • `Optional` **headers**: *Record*<string, any\>
 
-Defined in: [http.ts:97](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L97)
+Defined in: [http.ts:114](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L114)
 
 ___
 
@@ -33,7 +32,7 @@ ___
 
 • **method**: [*HttpVerb*](../modules/http.md#httpverb)
 
-Defined in: [http.ts:95](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L95)
+Defined in: [http.ts:112](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L112)
 
 ___
 
@@ -41,7 +40,7 @@ ___
 
 • `Optional` **query**: *Record*<string, any\>
 
-Defined in: [http.ts:98](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L98)
+Defined in: [http.ts:115](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L115)
 
 ___
 
@@ -49,7 +48,7 @@ ___
 
 • `Optional` **responseType**: [*ResponseType*](../enums/http.responsetype.md)
 
-Defined in: [http.ts:101](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L101)
+Defined in: [http.ts:118](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L118)
 
 ___
 
@@ -57,7 +56,7 @@ ___
 
 • `Optional` **timeout**: *number*
 
-Defined in: [http.ts:100](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L100)
+Defined in: [http.ts:117](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L117)
 
 ___
 
@@ -65,4 +64,4 @@ ___
 
 • **url**: *string*
 
-Defined in: [http.ts:96](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L96)
+Defined in: [http.ts:113](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L113)

@@ -1,5 +1,4 @@
 ---
-title: "Interface: Response<T>"
 sidebar_label: "Response"
 custom_edit_url: null
 hide_title: true
@@ -25,7 +24,7 @@ Name |
 
 The response data.
 
-Defined in: [http.ts:118](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L118)
+Defined in: [http.ts:135](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L135)
 
 ___
 
@@ -35,7 +34,7 @@ ___
 
 The response headers.
 
-Defined in: [http.ts:116](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L116)
+Defined in: [http.ts:133](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L133)
 
 ___
 
@@ -45,7 +44,7 @@ ___
 
 The response status code.
 
-Defined in: [http.ts:114](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L114)
+Defined in: [http.ts:131](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L131)
 
 ___
 
@@ -55,4 +54,4 @@ ___
 
 The request URL.
 
-Defined in: [http.ts:112](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L112)
+Defined in: [http.ts:129](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L129)

@@ -1,5 +1,4 @@
 ---
-title: "Module: window"
 sidebar_label: "window"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,23 @@ hide_title: true
 # Module: window
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
+
+This package is also accessible with `window.__TAURI__.window` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "window": {
+        "all": true, // enable all window APIs
+        "create": true // enable window creation
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Table of contents
 
@@ -34,7 +50,7 @@ Provides APIs to create windows, communicate with other windows and manipulate t
 
 The manager for the current window. Allows you to manipulate the window object.
 
-Defined in: [window.ts:660](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L660)
+Defined in: [window.ts:720](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L720)
 
 ## Functions
 
@@ -46,7 +62,7 @@ Returns the list of all the monitors available on the system.
 
 **Returns:** *Promise*<[*Monitor*](../interfaces/window.monitor.md)[]\>
 
-Defined in: [window.ts:729](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L729)
+Defined in: [window.ts:789](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L789)
 
 ___
 
@@ -59,7 +75,7 @@ Returns `null` if current monitor can't be detected.
 
 **Returns:** *Promise*<[*Monitor*](../interfaces/window.monitor.md) \| *null*\>
 
-Defined in: [window.ts:706](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L706)
+Defined in: [window.ts:766](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L766)
 
 ___
 
@@ -73,7 +89,7 @@ Gets metadata for all available webview windows.
 
 The list of webview handles.
 
-Defined in: [window.ts:113](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L113)
+Defined in: [window.ts:130](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L130)
 
 ___
 
@@ -87,7 +103,7 @@ Get a handle to the current webview window. Allows emitting and listening to eve
 
 The current window handle.
 
-Defined in: [window.ts:104](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L104)
+Defined in: [window.ts:121](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L121)
 
 ___
 
@@ -100,4 +116,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 **Returns:** *Promise*<[*Monitor*](../interfaces/window.monitor.md) \| *null*\>
 
-Defined in: [window.ts:719](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L719)
+Defined in: [window.ts:779](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L779)

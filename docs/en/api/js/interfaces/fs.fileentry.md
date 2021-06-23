@@ -1,5 +1,4 @@
 ---
-title: "Interface: FileEntry"
 sidebar_label: "FileEntry"
 custom_edit_url: null
 hide_title: true
@@ -17,7 +16,7 @@ hide_title: true
 
 Children of this entry if it's a directory; null otherwise
 
-Defined in: [fs.ts:61](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L61)
+Defined in: [fs.ts:87](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L87)
 
 ___
 
@@ -28,7 +27,7 @@ ___
 Name of the directory/file
 can be null if the path terminates with `..`
 
-Defined in: [fs.ts:59](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L59)
+Defined in: [fs.ts:85](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L85)
 
 ___
 
@@ -36,4 +35,4 @@ ___
 
 • **path**: *string*
 
-Defined in: [fs.ts:54](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L54)
+Defined in: [fs.ts:80](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L80)
