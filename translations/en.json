@@ -1,7 +1,7 @@
 {
   "config": {
     "announcementBar": {
-       "betaSentence": "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>"
+      "betaSentence": "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>"
     },
     "tagline": "Build smaller, faster, and more secure desktop applications with a web frontend"
   },
@@ -85,7 +85,6 @@
             "label": "Native Notifications",
             "description": "Cross-platform notifications using polyfilled WEB API."
           },
-
           {
             "label": "GH Action for Building Apps",
             "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
@@ -268,6 +267,12 @@
         },
         {
           "description": "Real-time speech-to-text/keyboard input captions for OBS."
+        },
+        {
+          "description": "Local client for chucknorris.io built with Tauri and Vue.js 3."
+        },
+        {
+          "description": "Reversably introduce bugs into your code so that you can safely practice debugging."
         }
       ],
       "yourProject": "Your project",
