@@ -270,6 +270,9 @@
         },
         {
           "description": "Local client for chucknorris.io built with Tauri and Vue.js 3."
+        },
+        {
+          "description": "Reversably introduce bugs into your code so that you can safely practice debugging."
         }
       ],
       "yourProject": "Your project",
