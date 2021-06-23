@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import Layout from '@theme/Layout'
-import classnames from 'classnames'
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
