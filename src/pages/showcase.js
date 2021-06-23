@@ -41,6 +41,18 @@ const projects = [
     link: 'https://github.com/mmpneo/simple-obs-stt',
     screenshots: ['0.png'].map((image) => imgPath + 'simple-stt/' + image),
   },
+  {
+    title: 'TAUnorRIs',
+    image: imgPath + 'taunorris/logo.png',
+    link: 'https://github.com/fkromer/taunorris',
+    screenshots: ['0.png'].map((image) => imgPath + 'taunorris/' + image),
+  },
+  {
+    title: 'Debug Trainer',
+    image: imgPath + 'debug-trainer/logo.png',
+    link: 'https://github.com/kickstartcoding/debug_trainer_app',
+    screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
+  },
 ]
 
 const customStyles = {
