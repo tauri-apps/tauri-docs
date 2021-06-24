@@ -89,13 +89,19 @@
 .verticalTabsPanes {
   flex: none;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--ifm-toc-border-color);
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 .verticalTabsPane {
   cursor: pointer;
   padding: 10px;
-  border-right: 2px solid var(--ifm-toc-border-color);
-  border-radius: 0.25rem 0 0 0.25rem;
+  flex: 1 1 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .verticalTabList {
@@ -131,4 +137,9 @@
 
 .changelog .tabs__item {
   display: block !important;
+}
+
+.verticalTabContent {
+  max-height: 60vh;
+  overflow: auto;
 }

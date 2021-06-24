@@ -1,5 +1,4 @@
 ---
-title: "Module: event"
 sidebar_label: "event"
 custom_edit_url: null
 hide_title: true

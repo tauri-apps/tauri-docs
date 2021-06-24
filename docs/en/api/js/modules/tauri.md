@@ -1,5 +1,4 @@
 ---
-title: "Module: tauri"
 sidebar_label: "tauri"
 custom_edit_url: null
 hide_title: true

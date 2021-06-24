@@ -1,5 +1,4 @@
 ---
-title: "Class: PhysicalPosition"
 sidebar_label: "PhysicalPosition"
 custom_edit_url: null
 hide_title: true

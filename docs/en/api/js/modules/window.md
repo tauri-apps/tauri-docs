@@ -1,5 +1,4 @@
 ---
-title: "Module: window"
 sidebar_label: "window"
 custom_edit_url: null
 hide_title: true

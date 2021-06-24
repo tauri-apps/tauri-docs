@@ -1,5 +1,4 @@
 ---
-title: "Interface: FileEntry"
 sidebar_label: "FileEntry"
 custom_edit_url: null
 hide_title: true

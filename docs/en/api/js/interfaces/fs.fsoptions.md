@@ -1,5 +1,4 @@
 ---
-title: "Interface: FsOptions"
 sidebar_label: "FsOptions"
 custom_edit_url: null
 hide_title: true

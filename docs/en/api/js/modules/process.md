@@ -1,5 +1,4 @@
 ---
-title: "Module: process"
 sidebar_label: "process"
 custom_edit_url: null
 hide_title: true

@@ -1,5 +1,4 @@
 ---
-title: "Class: LogicalSize"
 sidebar_label: "LogicalSize"
 custom_edit_url: null
 hide_title: true

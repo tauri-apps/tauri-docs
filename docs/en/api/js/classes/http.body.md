@@ -1,5 +1,4 @@
 ---
-title: "Class: Body"
 sidebar_label: "Body"
 custom_edit_url: null
 hide_title: true

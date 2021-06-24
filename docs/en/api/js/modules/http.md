@@ -1,5 +1,4 @@
 ---
-title: "Module: http"
 sidebar_label: "http"
 custom_edit_url: null
 hide_title: true

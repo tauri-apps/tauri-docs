@@ -1,5 +1,4 @@
 ---
-title: "Interface: WindowOptions"
 sidebar_label: "WindowOptions"
 custom_edit_url: null
 hide_title: true

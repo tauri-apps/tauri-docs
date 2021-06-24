@@ -1,5 +1,4 @@
 ---
-title: "Class: LogicalPosition"
 sidebar_label: "LogicalPosition"
 custom_edit_url: null
 hide_title: true

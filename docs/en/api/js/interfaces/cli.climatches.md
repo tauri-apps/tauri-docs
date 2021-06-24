@@ -1,5 +1,4 @@
 ---
-title: "Interface: CliMatches"
 sidebar_label: "CliMatches"
 custom_edit_url: null
 hide_title: true

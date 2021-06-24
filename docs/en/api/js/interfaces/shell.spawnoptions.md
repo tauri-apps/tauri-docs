@@ -1,5 +1,4 @@
 ---
-title: "Interface: SpawnOptions"
 sidebar_label: "SpawnOptions"
 custom_edit_url: null
 hide_title: true

@@ -1,5 +1,4 @@
 ---
-title: "Module: shell"
 sidebar_label: "shell"
 custom_edit_url: null
 hide_title: true

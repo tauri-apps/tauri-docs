@@ -1,5 +1,4 @@
 ---
-title: "Interface: ChildProcess"
 sidebar_label: "ChildProcess"
 custom_edit_url: null
 hide_title: true

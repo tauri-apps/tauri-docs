@@ -1,5 +1,4 @@
 ---
-title: "Interface: ClientOptions"
 sidebar_label: "ClientOptions"
 custom_edit_url: null
 hide_title: true

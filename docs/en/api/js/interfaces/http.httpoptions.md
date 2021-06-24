@@ -1,5 +1,4 @@
 ---
-title: "Interface: HttpOptions"
 sidebar_label: "HttpOptions"
 custom_edit_url: null
 hide_title: true

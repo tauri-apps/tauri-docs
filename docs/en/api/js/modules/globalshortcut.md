@@ -1,5 +1,4 @@
 ---
-title: "Module: globalShortcut"
 sidebar_label: "globalShortcut"
 custom_edit_url: null
 hide_title: true

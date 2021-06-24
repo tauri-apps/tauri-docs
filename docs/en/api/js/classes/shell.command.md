@@ -1,5 +1,4 @@
 ---
-title: "Class: Command"
 sidebar_label: "Command"
 custom_edit_url: null
 hide_title: true

@@ -1,5 +1,4 @@
 ---
-title: "Module: dialog"
 sidebar_label: "dialog"
 custom_edit_url: null
 hide_title: true

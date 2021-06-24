@@ -1,5 +1,4 @@
 ---
-title: "Interface: FsBinaryFileOption"
 sidebar_label: "FsBinaryFileOption"
 custom_edit_url: null
 hide_title: true

@@ -1,5 +1,4 @@
 ---
-title: "Class: Child"
 sidebar_label: "Child"
 custom_edit_url: null
 hide_title: true

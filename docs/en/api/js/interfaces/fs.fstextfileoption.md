@@ -1,5 +1,4 @@
 ---
-title: "Interface: FsTextFileOption"
 sidebar_label: "FsTextFileOption"
 custom_edit_url: null
 hide_title: true

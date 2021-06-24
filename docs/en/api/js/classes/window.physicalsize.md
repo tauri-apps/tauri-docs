@@ -1,5 +1,4 @@
 ---
-title: "Class: PhysicalSize"
 sidebar_label: "PhysicalSize"
 custom_edit_url: null
 hide_title: true

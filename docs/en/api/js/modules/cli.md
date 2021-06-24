@@ -1,5 +1,4 @@
 ---
-title: "Module: cli"
 sidebar_label: "cli"
 custom_edit_url: null
 hide_title: true

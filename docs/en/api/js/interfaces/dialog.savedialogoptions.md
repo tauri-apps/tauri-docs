@@ -1,5 +1,4 @@
 ---
-title: "Interface: SaveDialogOptions"
 sidebar_label: "SaveDialogOptions"
 custom_edit_url: null
 hide_title: true

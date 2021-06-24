@@ -1,5 +1,4 @@
 ---
-title: "Class: Client"
 sidebar_label: "Client"
 custom_edit_url: null
 hide_title: true

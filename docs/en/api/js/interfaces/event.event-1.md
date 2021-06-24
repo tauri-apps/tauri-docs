@@ -1,5 +1,4 @@
 ---
-title: "Interface: Event<T>"
 sidebar_label: "Event"
 custom_edit_url: null
 hide_title: true

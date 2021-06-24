@@ -1,5 +1,4 @@
 ---
-title: "Module: path"
 sidebar_label: "path"
 custom_edit_url: null
 hide_title: true

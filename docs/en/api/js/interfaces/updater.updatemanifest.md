@@ -1,5 +1,4 @@
 ---
-title: "Interface: UpdateManifest"
 sidebar_label: "UpdateManifest"
 custom_edit_url: null
 hide_title: true

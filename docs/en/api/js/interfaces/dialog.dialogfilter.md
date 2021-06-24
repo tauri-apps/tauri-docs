@@ -1,5 +1,4 @@
 ---
-title: "Interface: DialogFilter"
 sidebar_label: "DialogFilter"
 custom_edit_url: null
 hide_title: true

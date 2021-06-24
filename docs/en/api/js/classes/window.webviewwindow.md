@@ -1,5 +1,4 @@
 ---
-title: "Class: WebviewWindow"
 sidebar_label: "WebviewWindow"
 custom_edit_url: null
 hide_title: true

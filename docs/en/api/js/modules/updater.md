@@ -1,5 +1,4 @@
 ---
-title: "Module: updater"
 sidebar_label: "updater"
 custom_edit_url: null
 hide_title: true

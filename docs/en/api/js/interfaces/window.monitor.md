@@ -1,5 +1,4 @@
 ---
-title: "Interface: Monitor"
 sidebar_label: "Monitor"
 custom_edit_url: null
 hide_title: true

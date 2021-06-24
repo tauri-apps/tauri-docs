@@ -1,5 +1,4 @@
 ---
-title: "Module: notification"
 sidebar_label: "notification"
 custom_edit_url: null
 hide_title: true

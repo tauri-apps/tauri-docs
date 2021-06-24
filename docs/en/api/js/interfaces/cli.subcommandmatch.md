@@ -1,5 +1,4 @@
 ---
-title: "Interface: SubcommandMatch"
 sidebar_label: "SubcommandMatch"
 custom_edit_url: null
 hide_title: true

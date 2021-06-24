@@ -1,5 +1,4 @@
 ---
-title: "Class: WindowManager"
 sidebar_label: "WindowManager"
 custom_edit_url: null
 hide_title: true

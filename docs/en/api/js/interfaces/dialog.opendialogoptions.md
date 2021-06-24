@@ -1,5 +1,4 @@
 ---
-title: "Interface: OpenDialogOptions"
 sidebar_label: "OpenDialogOptions"
 custom_edit_url: null
 hide_title: true

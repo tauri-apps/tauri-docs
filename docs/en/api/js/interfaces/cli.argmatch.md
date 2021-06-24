@@ -1,5 +1,4 @@
 ---
-title: "Interface: ArgMatch"
 sidebar_label: "ArgMatch"
 custom_edit_url: null
 hide_title: true

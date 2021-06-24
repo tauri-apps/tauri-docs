@@ -1,5 +1,4 @@
 ---
-title: "Interface: FsDirOptions"
 sidebar_label: "FsDirOptions"
 custom_edit_url: null
 hide_title: true

@@ -1,5 +1,4 @@
 ---
-title: "Interface: Options"
 sidebar_label: "Options"
 custom_edit_url: null
 hide_title: true

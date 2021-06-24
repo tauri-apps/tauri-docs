@@ -1,5 +1,4 @@
 ---
-title: "Enumeration: BaseDirectory"
 sidebar_label: "BaseDirectory"
 custom_edit_url: null
 hide_title: true

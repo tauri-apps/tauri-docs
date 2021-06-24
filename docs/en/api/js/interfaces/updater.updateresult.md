@@ -1,5 +1,4 @@
 ---
-title: "Interface: UpdateResult"
 sidebar_label: "UpdateResult"
 custom_edit_url: null
 hide_title: true

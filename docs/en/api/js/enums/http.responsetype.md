@@ -1,5 +1,4 @@
 ---
-title: "Enumeration: ResponseType"
 sidebar_label: "ResponseType"
 custom_edit_url: null
 hide_title: true

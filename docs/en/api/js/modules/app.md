@@ -1,5 +1,4 @@
 ---
-title: "Module: app"
 sidebar_label: "app"
 custom_edit_url: null
 hide_title: true
