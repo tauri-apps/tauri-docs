@@ -24,6 +24,8 @@ function get_graph_color(label_name) {
       return '#0EB9DB'
     case 'electron_hello_world':
       return '#9FEAF9'
+    case 'electron_3mb_transfer':
+      return '#032E37'
     case 'wry_custom_protocol':
       return '#B4FF36'
     case 'wry_hello_world':
@@ -34,6 +36,8 @@ function get_graph_color(label_name) {
       return '#EA7D8C'
     case 'tauri_cpu_intensive':
       return '#DE354C'
+    case 'tauri_3mb_transfer':
+      return '#8A3595'
     case 'tao_rlib':
       return '#FF1438'
     case 'wry_rlib':
@@ -229,6 +233,14 @@ function Benchmarks() {
           </li>
           <li>
             <a
+              href="https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/files_transfer"
+              target="_blank"
+            >
+              tauri_3mb_transfer
+            </a>
+          </li>
+          <li>
+            <a
               href="https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/cpu_intensive.rs"
               target="_blank"
             >
@@ -265,6 +277,14 @@ function Benchmarks() {
               target="_blank"
             >
               electron_hello_world
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/file_transfer"
+              target="_blank"
+            >
+              electron_3mb_transfer
             </a>
           </li>
         </ul>
