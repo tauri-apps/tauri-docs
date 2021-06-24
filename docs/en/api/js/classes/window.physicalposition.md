@@ -1,5 +1,4 @@
 ---
-title: "Class: PhysicalPosition"
 sidebar_label: "PhysicalPosition"
 custom_edit_url: null
 hide_title: true
@@ -26,7 +25,7 @@ Name | Type |
 
 **Returns:** [*PhysicalPosition*](window.physicalposition.md)
 
-Defined in: [window.ts:71](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L71)
+Defined in: [window.ts:88](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L88)
 
 ## Properties
 
@@ -34,7 +33,7 @@ Defined in: [window.ts:71](https://github.com/tauri-apps/tauri/blob/a68b4ee8/too
 
 • **type**: *string*= 'Physical'
 
-Defined in: [window.ts:69](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L69)
+Defined in: [window.ts:86](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L86)
 
 ___
 
@@ -42,7 +41,7 @@ ___
 
 • **x**: *number*
 
-Defined in: [window.ts:70](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L70)
+Defined in: [window.ts:87](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L87)
 
 ___
 
@@ -50,7 +49,7 @@ ___
 
 • **y**: *number*
 
-Defined in: [window.ts:71](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L71)
+Defined in: [window.ts:88](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L88)
 
 ## Methods
 
@@ -68,4 +67,4 @@ Name | Type |
 
 **Returns:** [*LogicalPosition*](window.logicalposition.md)
 
-Defined in: [window.ts:79](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L79)
+Defined in: [window.ts:96](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L96)

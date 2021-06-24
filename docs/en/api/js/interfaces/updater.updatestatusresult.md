@@ -1,5 +1,4 @@
 ---
-title: "Interface: UpdateStatusResult"
 sidebar_label: "UpdateStatusResult"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • `Optional` **error**: *string*
 
-Defined in: [updater.ts:15](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L15)
+Defined in: [updater.ts:17](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L17)
 
 ___
 
@@ -23,4 +22,4 @@ ___
 
 • **status**: [*UpdateStatus*](../modules/updater.md#updatestatus)
 
-Defined in: [updater.ts:16](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L16)
+Defined in: [updater.ts:18](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L18)

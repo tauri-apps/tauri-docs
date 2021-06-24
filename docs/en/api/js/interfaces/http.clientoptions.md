@@ -1,5 +1,4 @@
 ---
-title: "Interface: ClientOptions"
 sidebar_label: "ClientOptions"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • **connectTimeout**: *number*
 
-Defined in: [http.ts:14](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L14)
+Defined in: [http.ts:31](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L31)
 
 ___
 
@@ -23,4 +22,4 @@ ___
 
 • **maxRedirections**: *number*
 
-Defined in: [http.ts:13](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/http.ts#L13)
+Defined in: [http.ts:30](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L30)

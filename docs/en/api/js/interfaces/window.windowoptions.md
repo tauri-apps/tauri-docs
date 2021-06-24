@@ -1,5 +1,4 @@
 ---
-title: "Interface: WindowOptions"
 sidebar_label: "WindowOptions"
 custom_edit_url: null
 hide_title: true
@@ -19,7 +18,7 @@ Configuration for the window to create.
 
 Whether the window should always be on top of other windows or not.
 
-Defined in: [window.ts:699](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L699)
+Defined in: [window.ts:759](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L759)
 
 ___
 
@@ -29,7 +28,7 @@ ___
 
 Whether the window should have borders and bars or not.
 
-Defined in: [window.ts:697](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L697)
+Defined in: [window.ts:757](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L757)
 
 ___
 
@@ -39,7 +38,7 @@ ___
 
 Whether the window is in fullscreen mode or not.
 
-Defined in: [window.ts:689](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L689)
+Defined in: [window.ts:749](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L749)
 
 ___
 
@@ -49,7 +48,7 @@ ___
 
 The initial height.
 
-Defined in: [window.ts:675](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L675)
+Defined in: [window.ts:735](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L735)
 
 ___
 
@@ -59,7 +58,7 @@ ___
 
 The maximum height. Only applies if `maxWidth` is also set.
 
-Defined in: [window.ts:683](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L683)
+Defined in: [window.ts:743](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L743)
 
 ___
 
@@ -69,7 +68,7 @@ ___
 
 The maximum width. Only applies if `maxHeight` is also set.
 
-Defined in: [window.ts:681](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L681)
+Defined in: [window.ts:741](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L741)
 
 ___
 
@@ -79,7 +78,7 @@ ___
 
 Whether the window should be maximized upon creation or not.
 
-Defined in: [window.ts:693](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L693)
+Defined in: [window.ts:753](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L753)
 
 ___
 
@@ -89,7 +88,7 @@ ___
 
 The minimum height. Only applies if `minWidth` is also set.
 
-Defined in: [window.ts:679](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L679)
+Defined in: [window.ts:739](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L739)
 
 ___
 
@@ -99,7 +98,7 @@ ___
 
 The minimum width. Only applies if `minHeight` is also set.
 
-Defined in: [window.ts:677](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L677)
+Defined in: [window.ts:737](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L737)
 
 ___
 
@@ -109,7 +108,7 @@ ___
 
 Whether the window is resizable or not.
 
-Defined in: [window.ts:685](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L685)
+Defined in: [window.ts:745](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L745)
 
 ___
 
@@ -119,7 +118,7 @@ ___
 
 Window title.
 
-Defined in: [window.ts:687](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L687)
+Defined in: [window.ts:747](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L747)
 
 ___
 
@@ -129,7 +128,7 @@ ___
 
 Whether the window is transparent or not.
 
-Defined in: [window.ts:691](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L691)
+Defined in: [window.ts:751](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L751)
 
 ___
 
@@ -139,7 +138,7 @@ ___
 
 Remote URL or local file path to open, e.g. `https://github.com/tauri-apps` or `path/to/page.html`.
 
-Defined in: [window.ts:667](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L667)
+Defined in: [window.ts:727](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L727)
 
 ___
 
@@ -149,7 +148,7 @@ ___
 
 Whether the window should be immediately visible upon creation or not.
 
-Defined in: [window.ts:695](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L695)
+Defined in: [window.ts:755](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L755)
 
 ___
 
@@ -159,7 +158,7 @@ ___
 
 The initial width.
 
-Defined in: [window.ts:673](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L673)
+Defined in: [window.ts:733](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L733)
 
 ___
 
@@ -169,7 +168,7 @@ ___
 
 The initial vertical position. Only applies if `y` is also set.
 
-Defined in: [window.ts:669](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L669)
+Defined in: [window.ts:729](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L729)
 
 ___
 
@@ -179,4 +178,4 @@ ___
 
 The initial horizontal position. Only applies if `x` is also set.
 
-Defined in: [window.ts:671](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L671)
+Defined in: [window.ts:731](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L731)

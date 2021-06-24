@@ -1,5 +1,4 @@
 ---
-title: "Class: WebviewWindowHandle"
 sidebar_label: "WebviewWindowHandle"
 custom_edit_url: null
 hide_title: true
@@ -31,7 +30,7 @@ Name | Type |
 
 **Returns:** [*WebviewWindowHandle*](window.webviewwindowhandle.md)
 
-Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L128)
+Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
 
 ## Properties
 
@@ -41,7 +40,7 @@ Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/to
 
 Window label.
 
-Defined in: [window.ts:126](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L126)
+Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L143)
 
 ___
 
@@ -53,7 +52,7 @@ Local event listeners.
 
 #### Type declaration:
 
-Defined in: [window.ts:128](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L128)
+Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
 
 ## Methods
 
@@ -76,7 +75,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [window.ts:192](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L192)
+Defined in: [window.ts:209](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L209)
 
 ___
 
@@ -95,7 +94,7 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L181)
+Defined in: [window.ts:198](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L198)
 
 ___
 
@@ -122,7 +121,7 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L143)
+Defined in: [window.ts:160](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L160)
 
 ___
 
@@ -149,4 +148,4 @@ Name | Type | Description |
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [window.ts:164](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L164)
+Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L181)

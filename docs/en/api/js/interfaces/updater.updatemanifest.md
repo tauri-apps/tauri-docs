@@ -1,5 +1,4 @@
 ---
-title: "Interface: UpdateManifest"
 sidebar_label: "UpdateManifest"
 custom_edit_url: null
 hide_title: true
@@ -15,7 +14,7 @@ hide_title: true
 
 • **body**: *string*
 
-Defined in: [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L22)
+Defined in: [updater.ts:24](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L24)
 
 ___
 
@@ -23,7 +22,7 @@ ___
 
 • **date**: *string*
 
-Defined in: [updater.ts:21](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L21)
+Defined in: [updater.ts:23](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L23)
 
 ___
 
@@ -31,4 +30,4 @@ ___
 
 • **version**: *string*
 
-Defined in: [updater.ts:20](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L20)
+Defined in: [updater.ts:22](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L22)

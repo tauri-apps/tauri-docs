@@ -39,7 +39,7 @@ It's composed of the following properties:
 ## `package`
 
 <Properties anchorRoot="package" rows={[
-  { property: "productName", optional: true, type: "string", description: `Application binary name. Converted to snake-case on Linux.` },
+  { property: "name", optional: true, type: "string", description: `Application binary name. Converted to snake-case on Linux.` },
   { property: "version", optional: true, type: "string", description: `Application version.` }
 ]}/>
 
@@ -268,12 +268,6 @@ It's composed of the following properties:
         { property: "alwaysOnTop", optional: true, type: "boolean", description: `Whether the window should always be on top of other windows.` },
       ]}/>
     </Array>
-  },
-  {
-    property: "systemTray", type: "object",
-    child: <Properties anchorRoot="tauri.systemTray" rows={[
-      { property: "iconPath", type: "string", description: `The path of the icon to use on the system tray. On macOS and Linux, the ".png" extension is enforced; on Windows, a ".ico" file with the same name must exist.` }
-    ]}/>
   },
   {
     property: "security", type: "object",

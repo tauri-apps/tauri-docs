@@ -1,5 +1,4 @@
 ---
-title: "Class: Command"
 sidebar_label: "Command"
 custom_edit_url: null
 hide_title: true
@@ -52,7 +51,7 @@ Name | Type | Default value | Description |
 
 Overrides: EventEmitter&lt;&#x27;close&#x27; | &#x27;error&#x27;&gt;.constructor
 
-Defined in: [shell.ts:189](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L189)
+Defined in: [shell.ts:207](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L207)
 
 ## Properties
 
@@ -62,7 +61,7 @@ Defined in: [shell.ts:189](https://github.com/tauri-apps/tauri/blob/a68b4ee8/too
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-Defined in: [shell.ts:189](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L189)
+Defined in: [shell.ts:207](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L207)
 
 ___
 
@@ -72,7 +71,7 @@ ___
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-Defined in: [shell.ts:187](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L187)
+Defined in: [shell.ts:205](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L205)
 
 ## Methods
 
@@ -95,7 +94,7 @@ assert(output.stderr === '')
 
 A promise resolving to the child process output.
 
-Defined in: [shell.ts:274](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L274)
+Defined in: [shell.ts:292](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L292)
 
 ___
 
@@ -118,7 +117,7 @@ The `this` instance for chained calls.
 
 Inherited from: EventEmitter.on
 
-Defined in: [shell.ts:107](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L107)
+Defined in: [shell.ts:125](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L125)
 
 ___
 
@@ -132,7 +131,7 @@ Executes the command as a child process, returning a handle to it.
 
 A promise resolving to the child process handle.
 
-Defined in: [shell.ts:237](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L237)
+Defined in: [shell.ts:255](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L255)
 
 ___
 
@@ -158,4 +157,4 @@ Name | Type | Default value | Description |
 
 **Returns:** [*Command*](shell.command.md)
 
-Defined in: [shell.ts:222](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L222)
+Defined in: [shell.ts:240](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L240)

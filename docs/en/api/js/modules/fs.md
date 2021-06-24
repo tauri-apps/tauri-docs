@@ -1,5 +1,4 @@
 ---
-title: "Module: fs"
 sidebar_label: "fs"
 custom_edit_url: null
 hide_title: true
@@ -8,6 +7,32 @@ hide_title: true
 # Module: fs
 
 Access the file system.
+
+This package is also accessible with `window.__TAURI__.fs` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "fs": {
+        "all": true, // enable all FS APIs
+        "readTextFile": true,
+        "readBinaryFile": true,
+        "writeFile": true,
+        "writeBinaryFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Table of contents
 
@@ -49,7 +74,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:274](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L274)
+Defined in: [fs.ts:300](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L300)
 
 ___
 
@@ -72,7 +97,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:230](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L230)
+Defined in: [fs.ts:256](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L256)
 
 ___
 
@@ -93,7 +118,7 @@ Name | Type | Default value | Description |
 
 A promise resolving to the file bytes array.
 
-Defined in: [fs.ts:92](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L92)
+Defined in: [fs.ts:118](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L118)
 
 ___
 
@@ -114,7 +139,7 @@ Name | Type | Default value | Description |
 
 A promise resolving to the directory entries.
 
-Defined in: [fs.ts:207](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L207)
+Defined in: [fs.ts:233](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L233)
 
 ___
 
@@ -135,7 +160,7 @@ Name | Type | Default value | Description |
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
-Defined in: [fs.ts:71](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L71)
+Defined in: [fs.ts:97](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L97)
 
 ___
 
@@ -157,7 +182,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:252](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L252)
+Defined in: [fs.ts:278](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L278)
 
 ___
 
@@ -178,7 +203,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:297](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L297)
+Defined in: [fs.ts:323](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L323)
 
 ___
 
@@ -200,7 +225,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:319](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L319)
+Defined in: [fs.ts:345](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L345)
 
 ___
 
@@ -221,7 +246,7 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:178](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L178)
+Defined in: [fs.ts:204](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L204)
 
 ___
 
@@ -242,4 +267,4 @@ Name | Type | Default value | Description |
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [fs.ts:113](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/fs.ts#L113)
+Defined in: [fs.ts:139](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L139)

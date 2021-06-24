@@ -52,10 +52,6 @@ Evaluates JavaScript on this window.
 
 Registers a window event listener.
 
-#### `pub fn on_menu_event<F: Fn(MenuEvent<P::MenuId>) + Send + 'static>(&self, f: F)`
-
-Registers a menu event listener.
-
 #### `pub fn scale_factor(&self) -> Result<f64>`
 
 Returns the scale factor that can be used to map logical pixels to physical pixels, and vice versa.
@@ -87,6 +83,18 @@ Gets the window’s current fullscreen state.
 #### `pub fn is_maximized(&self) -> Result<bool>`
 
 Gets the window’s current maximized state.
+
+#### `pub fn is_decorated(&self) -> Result<bool>`
+
+Gets the window’s current decoration state.
+
+#### `pub fn is_resizable(&self) -> Result<bool>`
+
+Gets the window’s current resizable state.
+
+#### `pub fn is_visible(&self) -> Result<bool>`
+
+Gets the window’s current vibility state.
 
 #### `pub fn current_monitor(&self) -> Result<Option<Monitor>>`
 
@@ -172,9 +180,17 @@ Sets this window’s position.
 
 Determines if this window should be fullscreen.
 
+#### `pub fn set_focus(&self) -> Result<()>`
+
+Bring the window to front and focus.
+
 #### `pub fn set_icon(&self, icon: Icon) -> Result<()>`
 
 Sets this window’ icon.
+
+#### `pub fn set_skip_taskbar(&self, skip: bool) -> Result<()>`
+
+Whether to show the window icon in the task bar or not.
 
 #### `pub fn start_dragging(&self) -> Result<()>`
 
@@ -298,27 +314,11 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<Q, K> Equivalent<K> for Q where K: Borrow<Q> + ?Sized, Q: Eq + ?Sized,`
-
-#### `pub fn equivalent(&self, key: &K) -> bool`
-
-Compare self to `key` and return `true` if they are equal.
-
 ### `impl<T> From<T> for T`
 
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

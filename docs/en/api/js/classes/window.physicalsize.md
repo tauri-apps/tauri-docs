@@ -1,5 +1,4 @@
 ---
-title: "Class: PhysicalSize"
 sidebar_label: "PhysicalSize"
 custom_edit_url: null
 hide_title: true
@@ -26,7 +25,7 @@ Name | Type |
 
 **Returns:** [*PhysicalSize*](window.physicalsize.md)
 
-Defined in: [window.ts:42](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L42)
+Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L59)
 
 ## Properties
 
@@ -34,7 +33,7 @@ Defined in: [window.ts:42](https://github.com/tauri-apps/tauri/blob/a68b4ee8/too
 
 • **height**: *number*
 
-Defined in: [window.ts:42](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L42)
+Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L59)
 
 ___
 
@@ -42,7 +41,7 @@ ___
 
 • **type**: *string*= 'Physical'
 
-Defined in: [window.ts:40](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L40)
+Defined in: [window.ts:57](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L57)
 
 ___
 
@@ -50,7 +49,7 @@ ___
 
 • **width**: *number*
 
-Defined in: [window.ts:41](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L41)
+Defined in: [window.ts:58](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L58)
 
 ## Methods
 
@@ -68,4 +67,4 @@ Name | Type |
 
 **Returns:** [*LogicalSize*](window.logicalsize.md)
 
-Defined in: [window.ts:50](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/window.ts#L50)
+Defined in: [window.ts:67](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L67)

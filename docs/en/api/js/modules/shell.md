@@ -1,5 +1,4 @@
 ---
-title: "Module: shell"
 sidebar_label: "shell"
 custom_edit_url: null
 hide_title: true
@@ -47,4 +46,4 @@ Name | Type | Description |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [shell.ts:340](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/shell.ts#L340)
+Defined in: [shell.ts:358](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L358)

@@ -19,11 +19,13 @@ pub struct WindowConfig {
     pub resizable: bool,
     pub title: String,
     pub fullscreen: bool,
+    pub focus: bool,
     pub transparent: bool,
     pub maximized: bool,
     pub visible: bool,
     pub decorations: bool,
     pub always_on_top: bool,
+    pub skip_taskbar: bool,
 }
 ```
 
@@ -83,6 +85,10 @@ The window title.
 
 Whether the window starts as fullscreen or not.
 
+`focus: bool`
+
+Whether the window will be initially hidden or focused.
+
 `transparent: bool`
 
 Whether the window is transparent or not.
@@ -102,6 +108,10 @@ Whether the window should have borders and bars.
 `always_on_top: bool`
 
 Whether the window should always be on top of other windows.
+
+`skip_taskbar: bool`
+
+Whether or not the window icon should be added to the taskbar.
 
 ## Trait Implementations
 
@@ -131,7 +141,7 @@ Returns the “default value” for a type. [Read more](https://doc.rust-lang.or
 
 #### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<WindowConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### `impl PartialEq<WindowConfig> for WindowConfig`
 
@@ -204,16 +214,6 @@ Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../.
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
-
-### `impl<T> Instrument for T`
-
-#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
-
-Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
-
-#### `pub fn in_current_span(self) -> Instrumented<Self>`
-
-Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
