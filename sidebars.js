@@ -19,6 +19,11 @@ module.exports = {
         'about/security',
         'about/governance',
         'about/book',
+        {
+          type: 'link',
+          label: 'Benchmarks',
+          href: '/benchmarks',
+        },
       ],
     },
   ],
