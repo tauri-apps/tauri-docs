@@ -1,8 +1,9 @@
 ---
-title: "struct.InvokeMessage"
+title: Struct tauri::InvokeMessage
+sidebar_label: struct.InvokeMessage
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[InvokeMessage](/docs/api/rust/tauri/)
+# Struct tauri::InvokeMessage,\[−]\[src],\[−],−
 
 ```rs
 pub struct InvokeMessage<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
@@ -12,31 +13,73 @@ An invoke message.
 
 ## Implementations
 
-### `impl<P: Params> InvokeMessage<P>`
+### `Params`
 
-#### `pub fn command(&self) -> &str`
+#### `command`
 
 The invoke command.
 
-#### `pub fn window(&self) -> Window<P>`
+```rs
+pub fn command(&self) -> &str
+```
+
+Defined in: [hooks.rs:267-269](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L267-269)
+
+#### `window`
 
 The window that received the invoke.
 
-#### `pub fn window_ref(&self) -> &Window<P>`
+```rs
+pub fn window(&self) -> Window<P>
+```
+
+Defined in: [hooks.rs:273-275](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L273-275)
+
+#### `window_ref`
 
 A reference to window that received the invoke.
 
-#### `pub fn payload(&self) -> &JsonValue`
+```rs
+pub fn window_ref(&self) -> &Window<P>
+```
+
+Defined in: [hooks.rs:279-281](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L279-281)
+
+#### `payload`
 
 A reference to the payload the invoke received.
 
-#### `pub fn state(&self) -> Arc<StateManager>`
+```rs
+pub fn payload(&self) -> &JsonValue
+```
+
+Defined in: [hooks.rs:285-287](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L285-287)
+
+#### `state`
 
 The state manager associated with the application
 
-#### `pub fn state_ref(&self) -> &StateManager`
+```rs
+pub fn state(&self) -> Arc<StateManager>
+```
+
+Defined in: [hooks.rs:291-293](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L291-293)
+
+#### `state_ref`
 
 A reference to the state manager associated with application.
+
+```rs
+pub fn state_ref(&self) -> &StateManager
+```
+
+Defined in: [hooks.rs:297-299](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L297-299)
+
+```rs
+impl<P: Params> InvokeMessage<P>
+```
+
+Defined in: [hooks.rs:249-300](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L249-300)
 
 ## Auto Trait Implementations
 
@@ -44,89 +87,159 @@ A reference to the state manager associated with application.
 
 ### `impl<P> Send for InvokeMessage<P>`
 
-### `impl<P> Sync for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl<P> Sync for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::ClipboardManager: Sync, <<P as Params>::Runtime as Runtime>::Dispatcher: Sync, <<P as Params>::Runtime as Runtime>::GlobalShortcutManager: Sync, <<P as Params>::Runtime as Runtime>::Handle: Sync,`
 
-### `impl<P> Unpin for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl<P> Unpin for InvokeMessage<P> where <<P as Params>::Runtime as Runtime>::ClipboardManager: Unpin, <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <<P as Params>::Runtime as Runtime>::GlobalShortcutManager: Unpin, <<P as Params>::Runtime as Runtime>::Handle: Unpin, <P as Params>::Label: Unpin,`
 
 ### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for InvokeMessage<P>`
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+#### `type_id`
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
-#### `pub fn borrow(&self) -> &T`
+Defined in: [any.rs:132](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)
+
+```rs
+impl<T> Any for T 
+where
+    T: 'static + ?Sized, 
+```
+
+Defined in: [any.rs:131-135](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)
+
+### `Borrow`
+
+#### `borrow`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+```rs
+pub fn borrow(&self) -> &T
+```
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+Defined in: [borrow.rs:210](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)
+
+```rs
+impl<T> Borrow<T> for T 
+where
+    T: ?Sized, 
+```
+
+Defined in: [borrow.rs:208-213](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)
+
+### `BorrowMut`
+
+#### `borrow_mut`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<T> for T`
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
-#### `pub fn from(t: T) -> T`
+Defined in: [borrow.rs:217](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)
+
+```rs
+impl<T> BorrowMut<T> for T 
+where
+    T: ?Sized, 
+```
+
+Defined in: [borrow.rs:216-220](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)
+
+### `From`
+
+#### `from`
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+```rs
+pub fn from(t: T) -> T
+```
 
-#### `pub fn into(self) -> U`
+Defined in: [mod.rs:545](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)
+
+```rs
+impl<T> From<T> for T
+```
+
+Defined in: [mod.rs:544-548](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)
+
+### `Into`
+
+#### `into`
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+```rs
+pub fn into(self) -> U
+```
 
-#### `pub const ALIGN: usize`
+Defined in: [mod.rs:537](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)
 
-The alignment of pointer.
+```rs
+impl<T, U> Into<U> for T 
+where
+    U: From<T>, 
+```
 
-#### `type Init = T`
+Defined in: [mod.rs:533-540](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)
 
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+### `TryFrom`
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
+
+Defined in: [mod.rs:587](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)
+
+```rs
+impl<T, U> TryFrom<U> for T 
+where
+    U: Into<T>, 
+```
+
+Defined in: [mod.rs:581-590](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)
+
+### `TryInto`
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
 
 Performs the conversion.
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
+
+Defined in: [mod.rs:573](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)
+
+```rs
+impl<T, U> TryInto<U> for T 
+where
+    U: TryFrom<T>, 
+```
+
+Defined in: [mod.rs:567-576](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

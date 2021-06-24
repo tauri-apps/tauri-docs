@@ -1,4 +1,5 @@
 ---
+title: "Interface: FsDirOptions"
 sidebar_label: "FsDirOptions"
 custom_edit_url: null
 hide_title: true
@@ -12,14 +13,18 @@ hide_title: true
 
 ### dir
 
-• `Optional` **dir**: [*BaseDirectory*](../enums/fs.basedirectory.md)
+• `Optional` **dir**: [BaseDirectory](../enums/fs.basedirectory.md)
 
-Defined in: [fs.ts:65](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L65)
+#### Defined in
+
+[fs.ts:65](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L65)
 
 ___
 
 ### recursive
 
-• `Optional` **recursive**: *boolean*
+• `Optional` **recursive**: `boolean`
 
-Defined in: [fs.ts:66](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L66)
+#### Defined in
+
+[fs.ts:66](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L66)

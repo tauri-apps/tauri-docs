@@ -1,4 +1,5 @@
 ---
+title: "Interface: SaveDialogOptions"
 sidebar_label: "SaveDialogOptions"
 custom_edit_url: null
 hide_title: true
@@ -14,18 +15,22 @@ Options for the save dialog.
 
 ### defaultPath
 
-• `Optional` **defaultPath**: *string*
+• `Optional` **defaultPath**: `string`
 
 Initial directory or file path. It must exist.
 
-Defined in: [dialog.ts:61](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L61)
+#### Defined in
+
+[dialog.ts:61](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L61)
 
 ___
 
 ### filters
 
-• `Optional` **filters**: [*DialogFilter*](dialog.dialogfilter.md)[]
+• `Optional` **filters**: [DialogFilter](dialog.dialogfilter.md)[]
 
 The filters of the dialog.
 
-Defined in: [dialog.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L59)
+#### Defined in
+
+[dialog.ts:59](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L59)

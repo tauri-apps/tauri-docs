@@ -1,8 +1,9 @@
 ---
-title: "fn.current_binary"
+title: Fn tauri::api::process::current_binary
+sidebar_label: fn.current_binary
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[current_binary](/docs/api/rust/tauri/)
+# Function tauri::api::process::current_binary,\[−]\[src],\[−],−
 
 ```rs
 pub fn current_binary() -> Option<PathBuf>

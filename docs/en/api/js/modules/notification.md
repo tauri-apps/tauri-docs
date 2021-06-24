@@ -1,4 +1,5 @@
 ---
+title: "Module: notification"
 sidebar_label: "notification"
 custom_edit_url: null
 hide_title: true
@@ -24,9 +25,7 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-## Table of contents
-
-### Interfaces
+## Interfaces
 
 - [Options](../interfaces/notification.options.md)
 
@@ -34,52 +33,66 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### Permission
 
-Ƭ **Permission**: *granted* \| *denied* \| *default*
+Ƭ **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
 
 Possible permission values.
 
-Defined in: [notification.ts:41](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/notification.ts#L41)
+#### Defined in
+
+[notification.ts:41](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/notification.ts#L41)
 
 ## Functions
 
 ### isPermissionGranted
 
-▸ **isPermissionGranted**(): *Promise*<boolean \| *null*\>
+▸ **isPermissionGranted**(): `Promise`<boolean \| ``null``\>
 
 Checks if the permission to send notifications is granted.
 
-**Returns:** *Promise*<boolean \| *null*\>
+#### Returns
 
-Defined in: [notification.ts:48](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/notification.ts#L48)
+`Promise`<boolean \| ``null``\>
+
+#### Defined in
+
+[notification.ts:48](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/notification.ts#L48)
 
 ___
 
 ### requestPermission
 
-▸ **requestPermission**(): *Promise*<[*Permission*](notification.md#permission)\>
+▸ **requestPermission**(): `Promise`<[Permission](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
-**Returns:** *Promise*<[*Permission*](notification.md#permission)\>
+#### Returns
+
+`Promise`<[Permission](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 
-Defined in: [notification.ts:65](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/notification.ts#L65)
+#### Defined in
+
+[notification.ts:65](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/notification.ts#L65)
 
 ___
 
 ### sendNotification
 
-▸ **sendNotification**(`options`: [*Options*](../interfaces/notification.options.md) \| *string*): *void*
+▸ **sendNotification**(`options`): `void`
 
 Sends a notification to the user.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`options` | [*Options*](../interfaces/notification.options.md) \| *string* | Notification options.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options` | [Options](../interfaces/notification.options.md) \| `string` | Notification options. |
 
-**Returns:** *void*
+#### Returns
 
-Defined in: [notification.ts:74](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/notification.ts#L74)
+`void`
+
+#### Defined in
+
+[notification.ts:74](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/notification.ts#L74)

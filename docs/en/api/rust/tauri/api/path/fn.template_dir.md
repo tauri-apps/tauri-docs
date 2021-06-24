@@ -1,8 +1,9 @@
 ---
-title: "fn.template_dir"
+title: Fn tauri::api::path::template_dir
+sidebar_label: fn.template_dir
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[template_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::template_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn template_dir() -> Option<PathBuf>

@@ -1,4 +1,5 @@
 ---
+title: "Class: WebviewWindowHandle"
 sidebar_label: "WebviewWindowHandle"
 custom_edit_url: null
 hide_title: true
@@ -12,140 +13,162 @@ A webview window handle allows emitting and listening to events from the backend
 
 ## Hierarchy
 
-* **WebviewWindowHandle**
+- **WebviewWindowHandle**
 
-  ↳ [*WebviewWindow*](window.webviewwindow.md)
+  ↳ [WebviewWindow](window.webviewwindow.md)
 
 ## Constructors
 
 ### constructor
 
-\+ **new WebviewWindowHandle**(`label`: *string*): [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+• **new WebviewWindowHandle**(`label`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`label` | *string* |
+| Name | Type |
+| :------ | :------ |
+| `label` | `string` |
 
-**Returns:** [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+#### Defined in
 
-Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L161)
 
 ## Properties
 
 ### label
 
-• **label**: *string*
+• **label**: `string`
 
 Window label.
 
-Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L143)
+#### Defined in
+
+[window.ts:159](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L159)
 
 ___
 
 ### listeners
 
-• **listeners**: *object*
+• **listeners**: `Object`
 
 Local event listeners.
 
-#### Type declaration:
+#### Index signature
 
-Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
+▪ [key: `string`]: [EventCallback](../modules/event.md#eventcallback)<any\>[]
+
+#### Defined in
+
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L161)
 
 ## Methods
 
 ### \_handleTauriEvent
 
-▸ **_handleTauriEvent**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *boolean*
+▸ **_handleTauriEvent**<T\>(`event`, `handler`): `boolean`
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`event` | *string* |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> |
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` |
+| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> |
 
-**Returns:** *boolean*
+#### Returns
 
-Defined in: [window.ts:209](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L209)
+`boolean`
+
+#### Defined in
+
+[window.ts:225](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L225)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`: *string*, `payload?`: *string*): *Promise*<void\>
+▸ **emit**(`event`, `payload?`): `Promise`<void\>
 
 Emits an event to the backend, tied to the webview window.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`payload?` | *string* | Event payload.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `payload?` | `string` | Event payload. |
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Defined in: [window.ts:198](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L198)
+`Promise`<void\>
+
+#### Defined in
+
+[window.ts:214](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L214)
 
 ___
 
 ### listen
 
-▸ **listen**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+▸ **listen**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> | Event handler.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> | Event handler. |
 
-**Returns:** *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [window.ts:160](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L160)
+#### Defined in
+
+[window.ts:176](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L176)
 
 ___
 
 ### once
 
-▸ **once**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+▸ **once**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> | Event handler.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> | Event handler. |
 
-**Returns:** *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L181)
+#### Defined in
+
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L197)

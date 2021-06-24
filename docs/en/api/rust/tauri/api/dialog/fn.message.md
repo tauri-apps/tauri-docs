@@ -1,8 +1,9 @@
 ---
-title: "fn.message"
+title: Fn tauri::api::dialog::message
+sidebar_label: fn.message
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[message](/docs/api/rust/tauri/)
+# Function tauri::api::dialog::message,\[−]\[src],\[−],−
 
 ```rs
 pub fn message(title: impl AsRef<str>, message: impl AsRef<str>)

@@ -1,4 +1,5 @@
 ---
+title: "Module: event"
 sidebar_label: "event"
 custom_edit_url: null
 hide_title: true
@@ -10,9 +11,7 @@ The event system allows you to emit events to the backend and listen to events f
 
 This package is also accessible with `window.__TAURI__.event` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
-## Table of contents
-
-### Interfaces
+## Interfaces
 
 - [Event](../interfaces/event.event-1.md)
 
@@ -20,111 +19,131 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 ### EventCallback
 
-Ƭ **EventCallback**<T\>: (`event`: [*Event*](../interfaces/event.event-1.md)<T\>) => *void*
+Ƭ **EventCallback**<T\>: (`event`: [Event](../interfaces/event.event-1.md)<T\>) => `void`
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Type declaration:
+#### Type declaration
 
-▸ (`event`: [*Event*](../interfaces/event.event-1.md)<T\>): *void*
+▸ (`event`): `void`
 
-#### Parameters:
+##### Parameters
 
-Name | Type |
-:------ | :------ |
-`event` | [*Event*](../interfaces/event.event-1.md)<T\> |
+| Name | Type |
+| :------ | :------ |
+| `event` | [Event](../interfaces/event.event-1.md)<T\> |
 
-**Returns:** *void*
+##### Returns
 
-Defined in: [event.ts:25](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L25)
+`void`
+
+#### Defined in
+
+[event.ts:25](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L25)
 
 ___
 
 ### UnlistenFn
 
-Ƭ **UnlistenFn**: () => *void*
+Ƭ **UnlistenFn**: () => `void`
 
-#### Type declaration:
+#### Type declaration
 
-▸ (): *void*
+▸ (): `void`
 
-**Returns:** *void*
+##### Returns
 
-Defined in: [event.ts:27](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L27)
+`void`
+
+#### Defined in
+
+[event.ts:27](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L27)
 
 ## Functions
 
 ### emit
 
-▸ **emit**(`event`: *string*, `payload?`: *string*): *Promise*<void\>
+▸ **emit**(`event`, `payload?`): `Promise`<void\>
 
 Emits an event to the backend.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name   |
-`payload?` | *string* | - |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name |
+| `payload?` | `string` | - |
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Defined in: [event.ts:93](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L93)
+`Promise`<void\>
+
+#### Defined in
+
+[event.ts:93](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L93)
 
 ___
 
 ### listen
 
-▸ **listen**<T\>(`event`: *string*, `handler`: [*EventCallback*](event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](event.md#unlistenfn)\>
+▸ **listen**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](event.md#unlistenfn)\>
 
 Listen to an event from the backend.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name   |
-`handler` | [*EventCallback*](event.md#eventcallback)<T\> | Event handler callback   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name |
+| `handler` | [EventCallback](event.md#eventcallback)<T\> | Event handler callback |
 
-**Returns:** *Promise*<[*UnlistenFn*](event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[UnlistenFn](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:53](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L53)
+#### Defined in
+
+[event.ts:53](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L53)
 
 ___
 
 ### once
 
-▸ **once**<T\>(`event`: *string*, `handler`: [*EventCallback*](event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](event.md#unlistenfn)\>
+▸ **once**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](event.md#unlistenfn)\>
 
 Listen to an one-off event from the backend.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name   |
-`handler` | [*EventCallback*](event.md#eventcallback)<T\> | Event handler callback   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name |
+| `handler` | [EventCallback](event.md#eventcallback)<T\> | Event handler callback |
 
-**Returns:** *Promise*<[*UnlistenFn*](event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[UnlistenFn](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Defined in: [event.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L76)
+#### Defined in
+
+[event.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L76)

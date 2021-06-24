@@ -1,8 +1,9 @@
 ---
-title: "struct.Config"
+title: Struct tauri::Config
+sidebar_label: struct.Config
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Config](/docs/api/rust/tauri/)
+# Struct tauri::Config,\[−],\[−],−
 
 ```rs
 pub struct Config {
@@ -71,13 +72,25 @@ This method tests for `!=`.
 
 Write `self` to the given `TokenStream`. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#tymethod.to_tokens)
 
-#### `pub fn to_token_stream(&self) -> TokenStream`
+#### `to_token_stream`
 
 Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.to_token_stream)
 
-#### `pub fn into_token_stream(self) -> TokenStream`
+```rs
+pub fn to_token_stream(&self) -> TokenStream
+```
+
+Defined in: [to_tokens.rs:61](https://github.com/https://blob/01d4ada/core/tauri/src/https://docs.rs/quote/1.0.9/src/quote/to_tokens.rs#L61)
+
+#### `into_token_stream`
 
 Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.into_token_stream)
+
+```rs
+pub fn into_token_stream(self) -> TokenStream
+```
+
+Defined in: [to_tokens.rs:71-73](https://github.com/https://blob/01d4ada/core/tauri/src/https://docs.rs/quote/1.0.9/src/quote/to_tokens.rs#L71-73)
 
 ## Auto Trait Implementations
 
@@ -93,89 +106,182 @@ Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+#### `type_id`
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
-#### `pub fn borrow(&self) -> &T`
+Defined in: [any.rs:132](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)
+
+```rs
+impl<T> Any for T 
+where
+    T: 'static + ?Sized, 
+```
+
+Defined in: [any.rs:131-135](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)
+
+### `Borrow`
+
+#### `borrow`
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+```rs
+pub fn borrow(&self) -> &T
+```
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+Defined in: [borrow.rs:210](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)
+
+```rs
+impl<T> Borrow<T> for T 
+where
+    T: ?Sized, 
+```
+
+Defined in: [borrow.rs:208-213](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)
+
+### `BorrowMut`
+
+#### `borrow_mut`
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
-#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+Defined in: [borrow.rs:217](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)
 
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../tauri/command/trait.CommandArg.html#tymethod.from_command)
+```rs
+impl<T> BorrowMut<T> for T 
+where
+    T: ?Sized, 
+```
 
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
+Defined in: [borrow.rs:216-220](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)
 
-### `impl<T> From<T> for T`
+### `CommandArg`
 
-#### `pub fn from(t: T) -> T`
+#### `from_command`
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/../tauri/command/trait.CommandArg#tymethod.from_command)
+
+```rs
+pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>
+```
+
+Defined in: [command.rs:48-51](https://github.com/https://blob/01d4ada/core/tauri/src/command.rs#L48-51)
+
+```rs
+impl<'de, D, P> CommandArg<'de, P> for D 
+where
+    P: Params,
+    D: Deserialize<'de>, 
+```
+
+Defined in: [command.rs:47-52](https://github.com/https://blob/01d4ada/core/tauri/src/command.rs#L47-52)
+
+### `DeserializeOwned`
+
+```rs
+impl<T> DeserializeOwned for T 
+where
+    T: for<'de> Deserialize<'de>, 
+```
+
+Defined in: [mod.rs:603](https://github.com/https://blob/01d4ada/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L603)
+
+### `From`
+
+#### `from`
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+```rs
+pub fn from(t: T) -> T
+```
 
-#### `pub fn into(self) -> U`
+Defined in: [mod.rs:545](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)
+
+```rs
+impl<T> From<T> for T
+```
+
+Defined in: [mod.rs:544-548](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)
+
+### `Into`
+
+#### `into`
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+```rs
+pub fn into(self) -> U
+```
 
-#### `pub const ALIGN: usize`
+Defined in: [mod.rs:537](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)
 
-The alignment of pointer.
+```rs
+impl<T, U> Into<U> for T 
+where
+    U: From<T>, 
+```
 
-#### `type Init = T`
+Defined in: [mod.rs:533-540](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)
 
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+### `TryFrom`
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
+
+Defined in: [mod.rs:587](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)
+
+```rs
+impl<T, U> TryFrom<U> for T 
+where
+    U: Into<T>, 
+```
+
+Defined in: [mod.rs:581-590](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)
+
+### `TryInto`
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
 
 Performs the conversion.
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
+
+Defined in: [mod.rs:573](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)
+
+```rs
+impl<T, U> TryInto<U> for T 
+where
+    U: TryFrom<T>, 
+```
+
+Defined in: [mod.rs:567-576](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

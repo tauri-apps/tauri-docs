@@ -1,4 +1,5 @@
 ---
+title: "Interface: InvokeArgs"
 sidebar_label: "InvokeArgs"
 custom_edit_url: null
 hide_title: true
@@ -12,6 +13,4 @@ Command arguments.
 
 ## Indexable
 
-▪ [key: *string*]: *unknown*
-
-Command arguments.
+▪ [key: `string`]: `unknown`

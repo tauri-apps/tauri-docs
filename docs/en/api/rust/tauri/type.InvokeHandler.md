@@ -1,8 +1,9 @@
 ---
-title: "type.InvokeHandler"
+title: Type tauri::InvokeHandler
+sidebar_label: type.InvokeHandler
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[InvokeHandler](/docs/api/rust/tauri/)
+# Type Definition tauri::InvokeHandler,\[−]\[src],\[−],−
 
 ```rs
 type InvokeHandler<P> = dyn Fn(Invoke<P>) + Send + Sync + 'static;

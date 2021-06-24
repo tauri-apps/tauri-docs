@@ -1,8 +1,9 @@
 ---
-title: "fn.cache_dir"
+title: Fn tauri::api::path::cache_dir
+sidebar_label: fn.cache_dir
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[cache_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::cache_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn cache_dir() -> Option<PathBuf>

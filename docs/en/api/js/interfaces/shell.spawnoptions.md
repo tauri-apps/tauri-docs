@@ -1,4 +1,5 @@
 ---
+title: "Interface: SpawnOptions"
 sidebar_label: "SpawnOptions"
 custom_edit_url: null
 hide_title: true
@@ -12,20 +13,26 @@ hide_title: true
 
 ### cwd
 
-• `Optional` **cwd**: *string*
+• `Optional` **cwd**: `string`
 
 Current working directory.
 
-Defined in: [shell.ts:34](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L34)
+#### Defined in
+
+[shell.ts:34](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L34)
 
 ___
 
 ### env
 
-• `Optional` **env**: *object*
+• `Optional` **env**: `Object`
 
 Environment variables. set to `null` to clear the process env.
 
-#### Type declaration:
+#### Index signature
 
-Defined in: [shell.ts:36](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L36)
+▪ [name: `string`]: `string`
+
+#### Defined in
+
+[shell.ts:36](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L36)
