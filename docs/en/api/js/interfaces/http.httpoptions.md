@@ -14,54 +14,68 @@ Options object sent to the backend.
 
 ### body
 
-• `Optional` **body**: [*Body*](../classes/http.body.md)
+• `Optional` **body**: [Body](../classes/http.body.md)
 
-Defined in: [http.ts:116](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L116)
+#### Defined in
+
+[http.ts:116](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L116)
 
 ___
 
 ### headers
 
-• `Optional` **headers**: *Record*<string, any\>
+• `Optional` **headers**: `Record`<string, any\>
 
-Defined in: [http.ts:114](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L114)
+#### Defined in
+
+[http.ts:114](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L114)
 
 ___
 
 ### method
 
-• **method**: [*HttpVerb*](../modules/http.md#httpverb)
+• **method**: [HttpVerb](../modules/http.md#httpverb)
 
-Defined in: [http.ts:112](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L112)
+#### Defined in
+
+[http.ts:112](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L112)
 
 ___
 
 ### query
 
-• `Optional` **query**: *Record*<string, any\>
+• `Optional` **query**: `Record`<string, any\>
 
-Defined in: [http.ts:115](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L115)
+#### Defined in
+
+[http.ts:115](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L115)
 
 ___
 
 ### responseType
 
-• `Optional` **responseType**: [*ResponseType*](../enums/http.responsetype.md)
+• `Optional` **responseType**: [ResponseType](../enums/http.responsetype.md)
 
-Defined in: [http.ts:118](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L118)
+#### Defined in
+
+[http.ts:118](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L118)
 
 ___
 
 ### timeout
 
-• `Optional` **timeout**: *number*
+• `Optional` **timeout**: `number`
 
-Defined in: [http.ts:117](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L117)
+#### Defined in
+
+[http.ts:117](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L117)
 
 ___
 
 ### url
 
-• **url**: *string*
+• **url**: `string`
 
-Defined in: [http.ts:113](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L113)
+#### Defined in
+
+[http.ts:113](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L113)

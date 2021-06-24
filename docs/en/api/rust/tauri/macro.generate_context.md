@@ -1,14 +1,15 @@
 ---
-title: "macro.generate_context"
+title: Macro tauri::generate_context
+sidebar_label: macro.generate_context
 ---
 
-# Macro [tauri](/docs/api/rust/tauri/index.html)::​[generate_context](/docs/api/rust/tauri/)
+# Macro tauri::generate_context,\[−],\[−],−
 
 ```rs
 generate_context!() { /* proc-macro */ }
 ```
 
-Reads the config file at compile time and generates a [`Context`](/docs/api/rust/tauri/../tauri/struct.Context.html "Context") based on its content.
+Reads the config file at compile time and generates a [`Context`](/docs/api/rust/tauri/../tauri/struct.Context "Context") based on its content.
 
 The default config file path is a `tauri.conf.json` file inside the Cargo manifest directory of the crate being built.
 

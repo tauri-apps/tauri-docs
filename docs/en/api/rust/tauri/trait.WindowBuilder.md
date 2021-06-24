@@ -1,14 +1,17 @@
 ---
-title: "trait.WindowBuilder"
+title: Trait tauri::WindowBuilder
+sidebar_label: trait.WindowBuilder
 ---
 
-# Trait [tauri](/docs/api/rust/tauri/index.html)::​[WindowBuilder](/docs/api/rust/tauri/)
+# Trait tauri::WindowBuilder,\[−],\[−],−
 
 ```rs
 pub trait WindowBuilder: WindowBuilderBase {
     pub fn new() -> Self;
 
     pub fn with_config(config: WindowConfig) -> Self;
+
+    pub fn center(self) -> Self;
 
     pub fn position(self, x: f64, y: f64) -> Self;
 
@@ -58,7 +61,11 @@ Initializes a new window attributes builder.
 
 ### `pub fn with_config(config: WindowConfig) -> Self`
 
-Initializes a new webview builder from a [`WindowConfig`](/docs/api/rust/tauri/../tauri/api/config/struct.WindowConfig.html "WindowConfig")
+Initializes a new webview builder from a [`WindowConfig`](/docs/api/rust/tauri/../tauri/api/config/struct.WindowConfig "WindowConfig")
+
+### `pub fn center(self) -> Self`
+
+Show window in the center of the screen.
 
 ### `pub fn position(self, x: f64, y: f64) -> Self`
 
@@ -124,8 +131,6 @@ Sets whether or not the window icon should be added to the taskbar.
 
 Whether the icon was set or not.
 
-Loading content...
-
 ## Implementations on Foreign Types
 
 ### `impl WindowBuilder for WindowBuilderWrapper`
@@ -133,6 +138,8 @@ Loading content...
 #### `pub fn new() -> WindowBuilderWrapper`
 
 #### `pub fn with_config(config: WindowConfig) -> WindowBuilderWrapper`
+
+#### `pub fn center(self) -> WindowBuilderWrapper`
 
 #### `pub fn position(self, x: f64, y: f64) -> WindowBuilderWrapper`
 
@@ -166,8 +173,4 @@ Loading content...
 
 #### `pub fn has_icon(&self) -> bool`
 
-Loading content...
-
 ## Implementors
-
-Loading content...

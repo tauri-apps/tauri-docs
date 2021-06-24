@@ -10,36 +10,42 @@ hide_title: true
 
 ## Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
 ## Properties
 
 ### event
 
-• **event**: *string*
+• **event**: `string`
 
 Event name
 
-Defined in: [event.ts:18](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L18)
+#### Defined in
+
+[event.ts:18](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L18)
 
 ___
 
 ### id
 
-• **id**: *number*
+• **id**: `number`
 
 Event identifier used to unlisten
 
-Defined in: [event.ts:20](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L20)
+#### Defined in
+
+[event.ts:20](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L20)
 
 ___
 
 ### payload
 
-• **payload**: T
+• **payload**: `T`
 
 Event payload
 
-Defined in: [event.ts:22](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/event.ts#L22)
+#### Defined in
+
+[event.ts:22](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/event.ts#L22)

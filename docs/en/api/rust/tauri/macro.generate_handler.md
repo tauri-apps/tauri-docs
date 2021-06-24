@@ -1,8 +1,9 @@
 ---
-title: "macro.generate_handler"
+title: Macro tauri::generate_handler
+sidebar_label: macro.generate_handler
 ---
 
-# Macro [tauri](/docs/api/rust/tauri/index.html)::​[generate_handler](/docs/api/rust/tauri/)
+# Macro tauri::generate_handler,\[−],\[−],−
 
 ```rs
 generate_handler!() { /* proc-macro */ }

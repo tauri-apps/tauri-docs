@@ -1,8 +1,9 @@
 ---
-title: "fn.compare"
+title: Fn tauri::api::version::compare
+sidebar_label: fn.compare
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[version](/docs/api/rust/tauri/index.html)::​[compare](/docs/api/rust/tauri/)
+# Function tauri::api::version::compare,\[−]\[src],\[−],−
 
 ```rs
 pub fn compare(first: &str, second: &str) -> Result<i32>

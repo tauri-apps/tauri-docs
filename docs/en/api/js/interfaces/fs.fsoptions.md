@@ -12,6 +12,8 @@ hide_title: true
 
 ### dir
 
-• `Optional` **dir**: [*BaseDirectory*](../enums/fs.basedirectory.md)
+• `Optional` **dir**: [BaseDirectory](../enums/fs.basedirectory.md)
 
-Defined in: [fs.ts:61](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L61)
+#### Defined in
+
+[fs.ts:61](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L61)

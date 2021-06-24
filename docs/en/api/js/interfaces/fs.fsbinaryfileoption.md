@@ -12,14 +12,18 @@ hide_title: true
 
 ### contents
 
-• **contents**: ArrayBuffer
+• **contents**: `ArrayBuffer`
 
-Defined in: [fs.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L76)
+#### Defined in
+
+[fs.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L76)
 
 ___
 
 ### path
 
-• **path**: *string*
+• **path**: `string`
 
-Defined in: [fs.ts:75](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L75)
+#### Defined in
+
+[fs.ts:75](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L75)

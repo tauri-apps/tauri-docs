@@ -1,8 +1,9 @@
 ---
-title: "type.Result"
+title: Type tauri::Result
+sidebar_label: type.Result
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[Result](/docs/api/rust/tauri/)
+# Type Definition tauri::Result,\[−]\[src],\[−],−
 
 ```rs
 type Result<T> = Result<T, Error>;

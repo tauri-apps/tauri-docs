@@ -14,39 +14,45 @@ A size represented in logical pixels.
 
 ### constructor
 
-\+ **new LogicalSize**(`width`: *number*, `height`: *number*): [*LogicalSize*](window.logicalsize.md)
+• **new LogicalSize**(`width`, `height`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`width` | *number* |
-`height` | *number* |
+| Name | Type |
+| :------ | :------ |
+| `width` | `number` |
+| `height` | `number` |
 
-**Returns:** [*LogicalSize*](window.logicalsize.md)
+#### Defined in
 
-Defined in: [window.ts:47](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L47)
+[window.ts:47](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L47)
 
 ## Properties
 
 ### height
 
-• **height**: *number*
+• **height**: `number`
 
-Defined in: [window.ts:47](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L47)
+#### Defined in
+
+[window.ts:47](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L47)
 
 ___
 
 ### type
 
-• **type**: *string*= 'Logical'
+• **type**: `string` = 'Logical'
 
-Defined in: [window.ts:45](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L45)
+#### Defined in
+
+[window.ts:45](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L45)
 
 ___
 
 ### width
 
-• **width**: *number*
+• **width**: `number`
 
-Defined in: [window.ts:46](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L46)
+#### Defined in
+
+[window.ts:46](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L46)

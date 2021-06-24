@@ -1,8 +1,9 @@
 ---
-title: "fn.restart"
+title: Fn tauri::api::process::restart
+sidebar_label: fn.restart
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[restart](/docs/api/rust/tauri/)
+# Function tauri::api::process::restart,\[−]\[src],\[−],−
 
 ```rs
 pub fn restart()

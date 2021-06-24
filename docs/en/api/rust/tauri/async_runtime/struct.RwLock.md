@@ -1,8 +1,9 @@
 ---
-title: "struct.RwLock"
+title: Struct tauri::async_runtime::RwLock
+sidebar_label: struct.RwLock
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[RwLock](/docs/api/rust/tauri/)
+# Struct tauri::async_runtime::RwLock,\[−],\[−],−
 
 ```rs
 pub struct RwLock<T> where
@@ -13,7 +14,7 @@ An asynchronous reader-writer lock.
 
 This type of lock allows a number of readers or at most one writer at any point in time. The write portion of this lock typically allows modification of the underlying data (exclusive access) and the read portion of this lock typically allows for read-only access (shared access).
 
-In comparison, a [`Mutex`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html) does not distinguish between readers or writers that acquire the lock, therefore causing any tasks waiting for the lock to become available to yield. An `RwLock` will allow any number of readers to acquire the lock as long as a writer is not holding the lock.
+In comparison, a [`Mutex`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex) does not distinguish between readers or writers that acquire the lock, therefore causing any tasks waiting for the lock to become available to yield. An `RwLock` will allow any number of readers to acquire the lock as long as a writer is not holding the lock.
 
 The priority policy of Tokio’s read-write lock is _fair_ (or [_write-preferring_](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock#Priority_policies)), in order to ensure that readers cannot starve writers. Fairness is ensured using a first-in, first-out queue for the tasks awaiting the lock; if a task that wishes to acquire the write lock is at the head of the queue, read locks will not be given out until the write lock has been released. This is in contrast to the Rust standard library’s `std::sync::RwLock`, where the priority policy is dependent on the operating system’s implementation.
 
@@ -83,7 +84,7 @@ Locks this `RwLock` with shared read access, causing the current task to yield u
 
 The calling task will yield until there are no writers which hold the lock. There may be other readers inside the lock when the task resumes.
 
-Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html "RwLock"), read locks are not granted until prior write locks, to prevent starvation. Therefore deadlock may occur if a read lock is held by the current task, a write lock attempt is made, and then a subsequent read lock attempt is made by the current task.
+Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock "RwLock"), read locks are not granted until prior write locks, to prevent starvation. Therefore deadlock may occur if a read lock is held by the current task, a write lock attempt is made, and then a subsequent read lock attempt is made by the current task.
 
 Returns an RAII guard which will drop this read access of the `RwLock` when dropped.
 
@@ -118,9 +119,9 @@ Locks this `RwLock` with shared read access, causing the current task to yield u
 
 The calling task will yield until there are no writers which hold the lock. There may be other readers inside the lock when the task resumes.
 
-This method is identical to [`RwLock::read`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.read "RwLock::read"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
+This method is identical to [`RwLock::read`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock#method.read "RwLock::read"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
-Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html "RwLock"), read locks are not granted until prior write locks, to prevent starvation. Therefore deadlock may occur if a read lock is held by the current task, a write lock attempt is made, and then a subsequent read lock attempt is made by the current task.
+Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock "RwLock"), read locks are not granted until prior write locks, to prevent starvation. Therefore deadlock may occur if a read lock is held by the current task, a write lock attempt is made, and then a subsequent read lock attempt is made by the current task.
 
 Returns an RAII guard which will drop this read access of the `RwLock` when dropped.
 
@@ -186,7 +187,7 @@ Attempts to acquire this `RwLock` with shared read access.
 
 If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release read access when dropped.
 
-This method is identical to [`RwLock::try_read`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.try_read "RwLock::try_read"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
+This method is identical to [`RwLock::try_read`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock#method.try_read "RwLock::try_read"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
@@ -241,7 +242,7 @@ Locks this `RwLock` with exclusive write access, causing the current task to yie
 
 The calling task will yield while other writers or readers currently have access to the lock.
 
-This method is identical to [`RwLock::write`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.write "RwLock::write"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
+This method is identical to [`RwLock::write`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock#method.write "RwLock::write"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
 Returns an RAII guard which will drop the write access of this `RwLock` when dropped.
 
@@ -288,7 +289,7 @@ Attempts to acquire this `RwLock` with exclusive write access.
 
 If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs/api/rust/tauri/TryLockError). Otherwise, an RAII guard is returned which will release write access when dropped.
 
-This method is identical to [`RwLock::try_write`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock.html#method.try_write "RwLock::try_write"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
+This method is identical to [`RwLock::try_write`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.RwLock#method.try_write "RwLock::try_write"), except that the returned guard references the `RwLock` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html "Arc") rather than by borrowing it. Therefore, the `RwLock` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `RwLock` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-10)
 
@@ -364,85 +365,59 @@ Performs the conversion.
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `impl<T> Any for T where T: 'static + ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135 "goto source code")
 
-#### `pub fn type_id(&self) -> TypeId`
+#### `pub fn type_id(&self) -> TypeId`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132 "goto source code")
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+### `impl<T> Borrow<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213 "goto source code")
 
-#### `pub fn borrow(&self) -> &T`
+#### `pub fn borrow(&self) -> &T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210 "goto source code")
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+### `impl<T> BorrowMut<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220 "goto source code")
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+#### `pub fn borrow_mut(&mut self) -> &mutT`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217 "goto source code")
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<!> for T`
+### `impl<T> From<!> for T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#559-563 "goto source code")
 
-#### `pub fn from(t: !) -> T`
-
-Performs the conversion.
-
-### `impl<T> From<T> for T`
-
-#### `pub fn from(t: T) -> T`
+#### `pub fn from(t: !) -> T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#560 "goto source code")
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+### `impl<T> From<T> for T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `pub fn into(self) -> U`
+#### `pub fn from(t: T) -> T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+### `impl<T, U> Into<U> for T where U: From<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-#### `pub const ALIGN: usize`
+#### `pub fn into(self) -> U`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537 "goto source code")
 
-The alignment of pointer.
+Performs the conversion.
 
-#### `type Init = T`
-
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+### `impl<T, U> TryFrom<U> for T where U: Into<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590 "goto source code")
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576 "goto source code")
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 

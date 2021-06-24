@@ -12,14 +12,18 @@ hide_title: true
 
 ### contents
 
-• **contents**: *string*
+• **contents**: `string`
 
-Defined in: [fs.ts:71](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L71)
+#### Defined in
+
+[fs.ts:71](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L71)
 
 ___
 
 ### path
 
-• **path**: *string*
+• **path**: `string`
 
-Defined in: [fs.ts:70](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L70)
+#### Defined in
+
+[fs.ts:70](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L70)

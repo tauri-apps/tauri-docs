@@ -1,8 +1,9 @@
 ---
-title: "fn.is_dir"
+title: Fn tauri::api::dir::is_dir
+sidebar_label: fn.is_dir
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[is_dir](/docs/api/rust/tauri/)
+# Function tauri::api::dir::is_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn is_dir<P: AsRef<Path>>(path: P) -> Result<bool>

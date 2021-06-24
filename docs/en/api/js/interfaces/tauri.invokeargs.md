@@ -12,6 +12,4 @@ Command arguments.
 
 ## Indexable
 
-▪ [key: *string*]: *unknown*
-
-Command arguments.
+▪ [key: `string`]: `unknown`

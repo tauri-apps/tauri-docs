@@ -12,51 +12,57 @@ hide_title: true
 
 ### constructor
 
-\+ **new Child**(`pid`: *number*): [*Child*](shell.child.md)
+• **new Child**(`pid`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`pid` | *number* |
+| Name | Type |
+| :------ | :------ |
+| `pid` | `number` |
 
-**Returns:** [*Child*](shell.child.md)
+#### Defined in
 
-Defined in: [shell.ts:133](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L133)
+[shell.ts:133](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L133)
 
 ## Properties
 
 ### pid
 
-• **pid**: *number*
+• **pid**: `number`
 
 The child process `pid`.
 
-Defined in: [shell.ts:133](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L133)
+#### Defined in
+
+[shell.ts:133](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L133)
 
 ## Methods
 
 ### kill
 
-▸ **kill**(): *Promise*<void\>
+▸ **kill**(): `Promise`<void\>
 
 Kills the child process.
 
-**Returns:** *Promise*<void\>
+#### Returns
+
+`Promise`<void\>
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [shell.ts:169](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L169)
+#### Defined in
+
+[shell.ts:169](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L169)
 
 ___
 
 ### write
 
-▸ **write**(`data`: *string* \| *number*[]): *Promise*<void\>
+▸ **write**(`data`): `Promise`<void\>
 
 Writes `data` to the `stdin`.
 
-**`example`** 
+**`example`**
 ```typescript
 const command = new Command('node')
 const child = await command.spawn()
@@ -64,14 +70,18 @@ await child.write('message')
 await child.write([0, 1, 2, 3, 4, 5])
 ```
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`data` | *string* \| *number*[] | The message to write, either a string or a byte array.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `string` \| `number`[] | The message to write, either a string or a byte array. |
 
-**Returns:** *Promise*<void\>
+#### Returns
+
+`Promise`<void\>
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [shell.ts:153](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L153)
+#### Defined in
+
+[shell.ts:153](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L153)

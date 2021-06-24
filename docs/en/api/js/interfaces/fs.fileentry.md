@@ -12,27 +12,33 @@ hide_title: true
 
 ### children
 
-• `Optional` **children**: [*FileEntry*](fs.fileentry.md)[]
+• `Optional` **children**: [FileEntry](fs.fileentry.md)[]
 
 Children of this entry if it's a directory; null otherwise
 
-Defined in: [fs.ts:87](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L87)
+#### Defined in
+
+[fs.ts:87](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L87)
 
 ___
 
 ### name
 
-• `Optional` **name**: *string*
+• `Optional` **name**: `string`
 
 Name of the directory/file
 can be null if the path terminates with `..`
 
-Defined in: [fs.ts:85](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L85)
+#### Defined in
+
+[fs.ts:85](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L85)
 
 ___
 
 ### path
 
-• **path**: *string*
+• **path**: `string`
 
-Defined in: [fs.ts:80](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/fs.ts#L80)
+#### Defined in
+
+[fs.ts:80](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L80)

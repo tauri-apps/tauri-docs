@@ -12,16 +12,22 @@ hide_title: true
 
 ### args
 
-• **args**: *object*
+• **args**: `Object`
 
-#### Type declaration:
+#### Index signature
 
-Defined in: [cli.ts:33](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/cli.ts#L33)
+▪ [name: `string`]: [ArgMatch](cli.argmatch.md)
+
+#### Defined in
+
+[cli.ts:33](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/cli.ts#L33)
 
 ___
 
 ### subcommand
 
-• **subcommand**: *null* \| [*SubcommandMatch*](cli.subcommandmatch.md)
+• **subcommand**: ``null`` \| [SubcommandMatch](cli.subcommandmatch.md)
 
-Defined in: [cli.ts:34](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/cli.ts#L34)
+#### Defined in
+
+[cli.ts:34](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/cli.ts#L34)

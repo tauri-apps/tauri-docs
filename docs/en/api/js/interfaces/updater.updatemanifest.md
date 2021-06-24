@@ -12,22 +12,28 @@ hide_title: true
 
 ### body
 
-• **body**: *string*
+• **body**: `string`
 
-Defined in: [updater.ts:24](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L24)
+#### Defined in
+
+[updater.ts:24](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L24)
 
 ___
 
 ### date
 
-• **date**: *string*
+• **date**: `string`
 
-Defined in: [updater.ts:23](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L23)
+#### Defined in
+
+[updater.ts:23](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L23)
 
 ___
 
 ### version
 
-• **version**: *string*
+• **version**: `string`
 
-Defined in: [updater.ts:22](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L22)
+#### Defined in
+
+[updater.ts:22](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L22)

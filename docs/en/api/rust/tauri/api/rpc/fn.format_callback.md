@@ -1,8 +1,9 @@
 ---
-title: "fn.format_callback"
+title: Fn tauri::api::rpc::format_callback
+sidebar_label: fn.format_callback
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[rpc](/docs/api/rust/tauri/index.html)::​[format_callback](/docs/api/rust/tauri/)
+# Function tauri::api::rpc::format_callback,\[−]\[src],\[−],−
 
 ```rs
 pub fn format_callback<T: Serialize, S: AsRef<str>>(

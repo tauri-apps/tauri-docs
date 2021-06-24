@@ -1,8 +1,9 @@
 ---
-title: "fn.is_major"
+title: Fn tauri::api::version::is_major
+sidebar_label: fn.is_major
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[version](/docs/api/rust/tauri/index.html)::​[is_major](/docs/api/rust/tauri/)
+# Function tauri::api::version::is_major,\[−]\[src],\[−],−
 
 ```rs
 pub fn is_major(current: &str, other: &str) -> Result<bool>

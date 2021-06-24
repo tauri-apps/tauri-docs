@@ -12,14 +12,18 @@ hide_title: true
 
 ### error
 
-• `Optional` **error**: *string*
+• `Optional` **error**: `string`
 
-Defined in: [updater.ts:17](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L17)
+#### Defined in
+
+[updater.ts:17](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L17)
 
 ___
 
 ### status
 
-• **status**: [*UpdateStatus*](../modules/updater.md#updatestatus)
+• **status**: [UpdateStatus](../modules/updater.md#updatestatus)
 
-Defined in: [updater.ts:18](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/updater.ts#L18)
+#### Defined in
+
+[updater.ts:18](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L18)

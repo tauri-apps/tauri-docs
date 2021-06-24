@@ -14,57 +14,67 @@ A size represented in physical pixels.
 
 ### constructor
 
-\+ **new PhysicalSize**(`width`: *number*, `height`: *number*): [*PhysicalSize*](window.physicalsize.md)
+• **new PhysicalSize**(`width`, `height`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`width` | *number* |
-`height` | *number* |
+| Name | Type |
+| :------ | :------ |
+| `width` | `number` |
+| `height` | `number` |
 
-**Returns:** [*PhysicalSize*](window.physicalsize.md)
+#### Defined in
 
-Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L59)
+[window.ts:59](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L59)
 
 ## Properties
 
 ### height
 
-• **height**: *number*
+• **height**: `number`
 
-Defined in: [window.ts:59](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L59)
+#### Defined in
+
+[window.ts:59](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L59)
 
 ___
 
 ### type
 
-• **type**: *string*= 'Physical'
+• **type**: `string` = 'Physical'
 
-Defined in: [window.ts:57](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L57)
+#### Defined in
+
+[window.ts:57](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L57)
 
 ___
 
 ### width
 
-• **width**: *number*
+• **width**: `number`
 
-Defined in: [window.ts:58](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L58)
+#### Defined in
+
+[window.ts:58](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L58)
 
 ## Methods
 
 ### toLogical
 
-▸ **toLogical**(`scaleFactor`: *number*): [*LogicalSize*](window.logicalsize.md)
+▸ **toLogical**(`scaleFactor`): [LogicalSize](window.logicalsize.md)
 
 Converts the physical size to a logical one.
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`scaleFactor` | *number* |
+| Name | Type |
+| :------ | :------ |
+| `scaleFactor` | `number` |
 
-**Returns:** [*LogicalSize*](window.logicalsize.md)
+#### Returns
 
-Defined in: [window.ts:67](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L67)
+[LogicalSize](window.logicalsize.md)
+
+#### Defined in
+
+[window.ts:67](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L67)

@@ -1,8 +1,9 @@
 ---
-title: "fn.picture_dir"
+title: Fn tauri::api::path::picture_dir
+sidebar_label: fn.picture_dir
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[picture_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::picture_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn picture_dir() -> Option<PathBuf>

@@ -14,23 +14,27 @@ Extension filters for the file dialog.
 
 ### extensions
 
-• **extensions**: *string*[]
+• **extensions**: `string`[]
 
 Extensions to filter, without a `.` prefix.
 
-**`example`** 
+**`example`**
 ```typescript
 extensions: ['svg', 'png']
 ```
 
-Defined in: [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L41)
+#### Defined in
+
+[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L41)
 
 ___
 
 ### name
 
-• **name**: *string*
+• **name**: `string`
 
 Filter name.
 
-Defined in: [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L33)
+#### Defined in
+
+[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L33)

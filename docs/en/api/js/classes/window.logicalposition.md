@@ -14,39 +14,45 @@ A position represented in logical pixels.
 
 ### constructor
 
-\+ **new LogicalPosition**(`x`: *number*, `y`: *number*): [*LogicalPosition*](window.logicalposition.md)
+• **new LogicalPosition**(`x`, `y`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`x` | *number* |
-`y` | *number* |
+| Name | Type |
+| :------ | :------ |
+| `x` | `number` |
+| `y` | `number` |
 
-**Returns:** [*LogicalPosition*](window.logicalposition.md)
+#### Defined in
 
-Defined in: [window.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L76)
+[window.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L76)
 
 ## Properties
 
 ### type
 
-• **type**: *string*= 'Logical'
+• **type**: `string` = 'Logical'
 
-Defined in: [window.ts:74](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L74)
+#### Defined in
+
+[window.ts:74](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L74)
 
 ___
 
 ### x
 
-• **x**: *number*
+• **x**: `number`
 
-Defined in: [window.ts:75](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L75)
+#### Defined in
+
+[window.ts:75](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L75)
 
 ___
 
 ### y
 
-• **y**: *number*
+• **y**: `number`
 
-Defined in: [window.ts:76](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L76)
+#### Defined in
+
+[window.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L76)

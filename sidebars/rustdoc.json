@@ -26,6 +26,24 @@
                     ]
                   },
                   {
+                    "label": "ordered_map",
+                    "type": "category",
+                    "items": [
+                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Entries",
+                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Keys",
+                      "api/rust/tauri/api/assets/phf/ordered_map/struct.OrderedMap",
+                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Values"
+                    ]
+                  },
+                  {
+                    "label": "ordered_set",
+                    "type": "category",
+                    "items": [
+                      "api/rust/tauri/api/assets/phf/ordered_set/struct.Iter",
+                      "api/rust/tauri/api/assets/phf/ordered_set/struct.OrderedSet"
+                    ]
+                  },
+                  {
                     "label": "set",
                     "type": "category",
                     "items": [
@@ -34,9 +52,13 @@
                     ]
                   },
                   "api/rust/tauri/api/assets/phf/struct.Map",
+                  "api/rust/tauri/api/assets/phf/struct.OrderedMap",
+                  "api/rust/tauri/api/assets/phf/struct.OrderedSet",
                   "api/rust/tauri/api/assets/phf/struct.Set",
                   "api/rust/tauri/api/assets/phf/trait.PhfHash",
                   "api/rust/tauri/api/assets/phf/macro.phf_map",
+                  "api/rust/tauri/api/assets/phf/macro.phf_ordered_map",
+                  "api/rust/tauri/api/assets/phf/macro.phf_ordered_set",
                   "api/rust/tauri/api/assets/phf/macro.phf_set"
                 ]
               },
@@ -271,6 +293,7 @@
       "api/rust/tauri/enum.InvokeResponse",
       "api/rust/tauri/enum.Position",
       "api/rust/tauri/enum.Size",
+      "api/rust/tauri/enum.UserAttentionType",
       "api/rust/tauri/enum.WindowEvent",
       "api/rust/tauri/enum.WindowUrl",
       "api/rust/tauri/struct.App",

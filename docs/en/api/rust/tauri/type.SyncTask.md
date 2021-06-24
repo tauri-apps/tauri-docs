@@ -1,8 +1,9 @@
 ---
-title: "type.SyncTask"
+title: Type tauri::SyncTask
+sidebar_label: type.SyncTask
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[SyncTask](/docs/api/rust/tauri/)
+# Type Definition tauri::SyncTask,\[−]\[src],\[−],−
 
 ```rs
 type SyncTask = Box<dyn FnOnce() + Send>;
