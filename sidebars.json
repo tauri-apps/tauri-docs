@@ -57,6 +57,7 @@
             },
             "usage/guides/cli",
             "usage/guides/command",
+            "usage/guides/events",
             "usage/guides/plugin",
             "usage/guides/updater",
             {
