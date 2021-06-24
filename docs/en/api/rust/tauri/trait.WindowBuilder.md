@@ -10,6 +10,10 @@ pub trait WindowBuilder: WindowBuilderBase {
 
     pub fn with_config(config: WindowConfig) -> Self;
 
+    pub fn menu<I>(self, menu: Vec<Menu<I>, Global>) -> Self
+    where
+        I: MenuId;
+
     pub fn position(self, x: f64, y: f64) -> Self;
 
     pub fn inner_size(self, min_width: f64, min_height: f64) -> Self;
@@ -26,8 +30,6 @@ pub trait WindowBuilder: WindowBuilderBase {
 
     pub fn fullscreen(self, fullscreen: bool) -> Self;
 
-    pub fn focus(self) -> Self;
-
     pub fn maximized(self, maximized: bool) -> Self;
 
     pub fn visible(self, visible: bool) -> Self;
@@ -40,15 +42,15 @@ pub trait WindowBuilder: WindowBuilderBase {
 
     pub fn icon(self, icon: Icon) -> Result<Self, Error>;
 
-    pub fn skip_taskbar(self, skip: bool) -> Self;
-
     pub fn has_icon(&self) -> bool;
+
+    pub fn has_menu(&self) -> bool;
 }
 ```
 
 A builder for all attributes related to a single webview.
 
-This trait is only meant to be implemented by a custom [`Runtime`](/docs/api/rust/tauri/crate::Runtime) and not by applications.
+This trait is only meant to be implemented by a custom [`Runtime`](/docs/api/rust/tauri/../tauri_runtime/trait.Runtime.html) and not by applications.
 
 ## Required methods
 
@@ -59,6 +61,10 @@ Initializes a new window attributes builder.
 ### `pub fn with_config(config: WindowConfig) -> Self`
 
 Initializes a new webview builder from a [`WindowConfig`](/docs/api/rust/tauri/../tauri/api/config/struct.WindowConfig.html "WindowConfig")
+
+### `pub fn menu<I>(self, menu: Vec<Menu<I>, Global>) -> Self where I: MenuId,`
+
+Sets the menu for the window.
 
 ### `pub fn position(self, x: f64, y: f64) -> Self`
 
@@ -88,10 +94,6 @@ The title of the window in the title bar.
 
 Whether to start the window in fullscreen or not.
 
-### `pub fn focus(self) -> Self`
-
-Whether the window will be initially hidden or focused.
-
 ### `pub fn maximized(self, maximized: bool) -> Self`
 
 Whether the window should be maximized upon creation.
@@ -116,13 +118,13 @@ Whether the window should always be on top of other windows.
 
 Sets the window icon.
 
-### `pub fn skip_taskbar(self, skip: bool) -> Self`
-
-Sets whether or not the window icon should be added to the taskbar.
-
 ### `pub fn has_icon(&self) -> bool`
 
 Whether the icon was set or not.
+
+### `pub fn has_menu(&self) -> bool`
+
+Whether the menu was set or not.
 
 Loading content...
 
@@ -134,6 +136,8 @@ Loading content...
 
 #### `pub fn with_config(config: WindowConfig) -> WindowBuilderWrapper`
 
+#### `pub fn menu<I>(self, menu: Vec<Menu<I>, Global>) -> WindowBuilderWrapperwhere I: MenuId,`
+
 #### `pub fn position(self, x: f64, y: f64) -> WindowBuilderWrapper`
 
 #### `pub fn inner_size(self, width: f64, height: f64) -> WindowBuilderWrapper`
@@ -144,11 +148,9 @@ Loading content...
 
 #### `pub fn resizable(self, resizable: bool) -> WindowBuilderWrapper`
 
-#### `pub fn title<S>(self, title: S) -> WindowBuilderWrapper where S: Into<String>,`
+#### `pub fn title<S>(self, title: S) -> WindowBuilderWrapperwhere S: Into<String>,`
 
 #### `pub fn fullscreen(self, fullscreen: bool) -> WindowBuilderWrapper`
-
-#### `pub fn focus(self) -> WindowBuilderWrapper`
 
 #### `pub fn maximized(self, maximized: bool) -> WindowBuilderWrapper`
 
@@ -162,9 +164,9 @@ Loading content...
 
 #### `pub fn icon(self, icon: Icon) -> Result<WindowBuilderWrapper, Error>`
 
-#### `pub fn skip_taskbar(self, skip: bool) -> WindowBuilderWrapper`
-
 #### `pub fn has_icon(&self) -> bool`
+
+#### `pub fn has_menu(&self) -> bool`
 
 Loading content...
 

@@ -1,28 +1,28 @@
 ---
-title: "struct.SecurityConfig"
+title: "struct.MenuEvent"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[SecurityConfig](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[MenuEvent](/docs/api/rust/tauri/)
 
 ```rs
-pub struct SecurityConfig {
-    pub csp: Option<String>,
-}
+pub struct MenuEvent<I: MenuId> { /* fields omitted */ }
 ```
 
-Security configuration.
+The window menu event.
 
-## Fields
+## Implementations
 
-`csp: Option<String>`
+### `impl<I: MenuId> MenuEvent<I>`
 
-Content security policy to inject to HTML files with the custom protocol.
+#### `pub fn menu_item_id(&self) -> &I`
+
+The menu item id.
 
 ## Trait Implementations
 
-### `impl Clone for SecurityConfig`
+### `impl<I: Clone + MenuId> Clone for MenuEvent<I>`
 
-#### `pub fn clone(&self) -> SecurityConfig`
+#### `fn clone(&self) -> MenuEvent<I>`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -30,61 +30,23 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl Debug for SecurityConfig`
+### `impl<I: Debug + MenuId> Debug for MenuEvent<I>`
 
-#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl Default for SecurityConfig`
-
-#### `pub fn default() -> SecurityConfig`
-
-Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-### `impl<'de> Deserialize<'de> for SecurityConfig`
-
-#### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<SecurityConfig, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl PartialEq<SecurityConfig> for SecurityConfig`
-
-#### `pub fn eq(&self, other: &SecurityConfig) -> bool`
-
-This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
-
-#### `pub fn ne(&self, other: &SecurityConfig) -> bool`
-
-This method tests for `!=`.
-
-### `impl StructuralPartialEq for SecurityConfig`
-
-### `impl ToTokens for SecurityConfig`
-
-#### `pub fn to_tokens(&self, tokens: &mut TokenStream)`
-
-Write `self` to the given `TokenStream`. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#tymethod.to_tokens)
-
-#### `pub fn to_token_stream(&self) -> TokenStream`
-
-Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.to_token_stream)
-
-#### `pub fn into_token_stream(self) -> TokenStream`
-
-Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.into_token_stream)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for SecurityConfig`
+### `impl<I> RefUnwindSafe for MenuEvent<I> where I: RefUnwindSafe,`
 
-### `impl Send for SecurityConfig`
+### `impl<I> Send for MenuEvent<I>`
 
-### `impl Sync for SecurityConfig`
+### `impl<I> Sync for MenuEvent<I>`
 
-### `impl Unpin for SecurityConfig`
+### `impl<I> Unpin for MenuEvent<I> where I: Unpin,`
 
-### `impl UnwindSafe for SecurityConfig`
+### `impl<I> UnwindSafe for MenuEvent<I> where I: UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -106,19 +68,21 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
-
-#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
-
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
-
 ### `impl<T> From<T> for T`
 
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

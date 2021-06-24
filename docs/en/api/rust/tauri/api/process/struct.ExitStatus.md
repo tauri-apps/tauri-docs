@@ -1,39 +1,38 @@
 ---
-title: "struct.Invoke"
+title: "struct.ExitStatus"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Invoke](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[ExitStatus](/docs/api/rust/tauri/)
 
 ```rs
-pub struct Invoke<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> {
-    pub message: InvokeMessage<P>,
-    pub resolver: InvokeResolver<P>,
-}
+pub struct ExitStatus { /* fields omitted */ }
 ```
 
-The message and resolver given to a custom command.
+Describes the result of a process after it has terminated.
 
-## Fields
+## Implementations
 
-`message: InvokeMessage<P>`
+### `impl ExitStatus`
 
-The message passed.
+#### `pub fn code(&self) -> Option<i32>`
 
-`resolver: InvokeResolver<P>`
+Returns the exit code of the process, if any.
 
-The resolver of the message.
+#### `pub fn success(&self) -> bool`
+
+Was termination successful? Signal termination is not considered a success, and success is defined as a zero exit status.
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for Invoke<P>`
+### `impl RefUnwindSafe for ExitStatus`
 
-### `impl<P> Send for Invoke<P>`
+### `impl Send for ExitStatus`
 
-### `impl<P> Sync for Invoke<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for ExitStatus`
 
-### `impl<P> Unpin for Invoke<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for ExitStatus`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for Invoke<P>`
+### `impl UnwindSafe for ExitStatus`
 
 ## Blanket Implementations
 
@@ -60,6 +59,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

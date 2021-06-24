@@ -1,28 +1,36 @@
 ---
-title: "struct.State"
+title: "enum.SystemTrayMenuItem"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[State](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/index.html)::​[SystemTrayMenuItem](/docs/api/rust/tauri/)
 
 ```rs
-pub struct State<'r, T: Send + Sync + 'static>(_);
+#[non_exhaustive]pub enum SystemTrayMenuItem<I> where
+    I: MenuId,  {
+    Custom(CustomMenuItem<I>),
+    Separator,
+}
 ```
 
-A guard for a state value.
+System tray menu item.
 
-## Implementations
+## Variants (Non-exhaustive)
 
-### `impl<'r, T: Send + Sync + 'static> State<'r, T>`
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
-#### `pub fn inner(&self) -> &'rT`
+`Custom(CustomMenuItem<I>)`
 
-Retrieve a borrow to the underlying value with a lifetime of `'r`. Using this method is typically unnecessary as `State` implements [`std::ops::Deref`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html "std::ops::Deref") with a [`std::ops::Deref::Target`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html#associatedtype.Target "std::ops::Deref::Target") of `T`.
+A custom menu item.
+
+`Separator`
+
+A separator.
 
 ## Trait Implementations
 
-### `impl<T: Send + Sync + 'static> Clone for State<'_, T>`
+### `impl<I> Clone for SystemTrayMenuItem<I> where I: Clone + MenuId,`
 
-#### `fn clone(&self) -> Self`
+#### `pub fn clone(&self) -> SystemTrayMenuItem<I>`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -30,33 +38,23 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>`
+### `impl<I> Debug for SystemTrayMenuItem<I> where I: Debug + MenuId,`
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
-Grabs the [`State`](/docs/api/rust/tauri/../tauri/struct.State.html "State") from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem.html "CommandItem"). This will never fail.
-
-### `impl<T: Send + Sync + 'static> Deref for State<'_, T>`
-
-#### `type Target = T`
-
-The resulting type after dereferencing.
-
-#### `fn deref(&self) -> &T`
-
-Dereferences the value.
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl<'r, T> RefUnwindSafe for State<'r, T> where T: RefUnwindSafe,`
+### `impl<I> RefUnwindSafe for SystemTrayMenuItem<I> where I: RefUnwindSafe,`
 
-### `impl<'r, T> Send for State<'r, T>`
+### `impl<I> Send for SystemTrayMenuItem<I>`
 
-### `impl<'r, T> Sync for State<'r, T>`
+### `impl<I> Sync for SystemTrayMenuItem<I>`
 
-### `impl<'r, T> Unpin for State<'r, T>`
+### `impl<I> Unpin for SystemTrayMenuItem<I> where I: Unpin,`
 
-### `impl<'r, T> UnwindSafe for State<'r, T> where T: RefUnwindSafe,`
+### `impl<I> UnwindSafe for SystemTrayMenuItem<I> where I: UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -83,6 +81,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

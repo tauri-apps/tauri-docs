@@ -5,10 +5,20 @@ title: "struct.Settings"
 # Struct [tauri](/docs/api/rust/tauri/../index.html)::​[settings](/docs/api/rust/tauri/index.html)::​[Settings](/docs/api/rust/tauri/)
 
 ```rs
-#[non_exhaustive]pub struct Settings {}
+#[non_exhaustive]pub struct Settings {
+    pub allow_notification: Option<bool>,
+}
 ```
 
 Tauri Settings.
+
+## Fields (Non-exhaustive)
+
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
+
+`allow_notification: Option<bool>`
+
+Whether the user allows notifications or not.
 
 ## Trait Implementations
 

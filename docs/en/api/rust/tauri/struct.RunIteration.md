@@ -5,14 +5,17 @@ title: "struct.RunIteration"
 # Struct [tauri](/docs/api/rust/tauri/index.html)::​[RunIteration](/docs/api/rust/tauri/)
 
 ```rs
-pub struct RunIteration {
-    pub webview_count: usize,
+#[non_exhaustive]pub struct SubcommandMatches {
+    pub name: String,
+    pub matches: Matches,
 }
 ```
 
 Metadata for a runtime event loop iteration on `run_iteration`.
 
-## Fields
+## Fields (Non-exhaustive)
+
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
 `webview_count: usize`
 
@@ -32,7 +35,9 @@ Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/ni
 
 #### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+#### `fn default() -> SubcommandMatches`
+
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ### `impl Default for RunIteration`
 

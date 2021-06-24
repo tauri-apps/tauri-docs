@@ -32,17 +32,17 @@ The [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage.html
 
 ### `impl<'de, P: Params> Deserializer<'de> for CommandItem<'de, P>`
 
-A [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html "Deserializer") wrapper around [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem").
+A [`Deserializer`](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html "Deserializer") wrapper around [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem").
 
-If the key doesn’t exist, an error will be returned if the deserialized type is not expecting an optional item. If the key does exist, the value will be called with [`Value`](https://docs.rs/serde_json/1.0.64/serde_json/value/enum.Value.html)’s [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html "Deserializer") implementation.
+If the key doesn’t exist, an error will be returned if the deserialized type is not expecting an optional item. If the key does exist, the value will be called with [`Value`](https://docs.rs/serde_json/1.0.64/serde_json/value/enum.Value.html)’s [`Deserializer`](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html "Deserializer") implementation.
 
 #### `type Error = Error`
 
-The error type that can be returned if some error occurs during deserialization. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#associatedtype.Error)
+The error type that can be returned if some error occurs during deserialization. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#associatedtype.Error)
 
 #### `fn deserialize_any<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Require the `Deserializer` to figure out how to drive the visitor based on what data type is in the input. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_any)
+Require the `Deserializer` to figure out how to drive the visitor based on what data type is in the input. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_any)
 
 #### `fn deserialize_bool<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
@@ -94,23 +94,23 @@ Hint that the `Deserialize` type is expecting a `char` value.
 
 #### `fn deserialize_str<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a string value and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_str)
+Hint that the `Deserialize` type is expecting a string value and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_str)
 
 #### `fn deserialize_string<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a string value and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_string)
+Hint that the `Deserialize` type is expecting a string value and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_string)
 
 #### `fn deserialize_bytes<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a byte array and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)
+Hint that the `Deserialize` type is expecting a byte array and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)
 
 #### `fn deserialize_byte_buf<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a byte array and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)
+Hint that the `Deserialize` type is expecting a byte array and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)
 
 #### `fn deserialize_option<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting an optional value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_option)
+Hint that the `Deserialize` type is expecting an optional value. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_option)
 
 #### `fn deserialize_unit<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
@@ -118,11 +118,11 @@ Hint that the `Deserialize` type is expecting a unit value.
 
 #### `fn deserialize_unit_struct<V: Visitor<'de>>( self, name: &'static str, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a unit struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)
+Hint that the `Deserialize` type is expecting a unit struct with a particular name. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)
 
 #### `fn deserialize_newtype_struct<V: Visitor<'de>>( self, name: &'static str, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a newtype struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)
+Hint that the `Deserialize` type is expecting a newtype struct with a particular name. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)
 
 #### `fn deserialize_seq<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
@@ -130,11 +130,11 @@ Hint that the `Deserialize` type is expecting a sequence of values.
 
 #### `fn deserialize_tuple<V: Visitor<'de>>( self, len: usize, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a sequence of values and knows how many values there are without looking at the serialized data. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)
+Hint that the `Deserialize` type is expecting a sequence of values and knows how many values there are without looking at the serialized data. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)
 
 #### `fn deserialize_tuple_struct<V: Visitor<'de>>( self, name: &'static str, len: usize, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a tuple struct with a particular name and number of fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)
+Hint that the `Deserialize` type is expecting a tuple struct with a particular name and number of fields. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)
 
 #### `fn deserialize_map<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
@@ -142,31 +142,31 @@ Hint that the `Deserialize` type is expecting a map of key-value pairs.
 
 #### `fn deserialize_struct<V: Visitor<'de>>( self, name: &'static str, fields: &'static [&'static str], visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting a struct with a particular name and fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)
+Hint that the `Deserialize` type is expecting a struct with a particular name and fields. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)
 
 #### `fn deserialize_enum<V: Visitor<'de>>( self, name: &'static str, fields: &'static [&'static str], visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting an enum value with a particular name and possible variants. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)
+Hint that the `Deserialize` type is expecting an enum value with a particular name and possible variants. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)
 
 #### `fn deserialize_identifier<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type is expecting the name of a struct field or the discriminant of an enum variant. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)
+Hint that the `Deserialize` type is expecting the name of a struct field or the discriminant of an enum variant. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)
 
 #### `fn deserialize_ignored_any<V: Visitor<'de>>( self, visitor: V ) -> Result<V::Value, Self::Error>`
 
-Hint that the `Deserialize` type needs to deserialize a value whose type doesn’t matter because it is ignored. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)
+Hint that the `Deserialize` type needs to deserialize a value whose type doesn’t matter because it is ignored. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)
 
 #### `pub fn deserialize_i128<V>( self, visitor: V ) -> Result<<V as Visitor<'de>>::Value, Self::Error> where V: Visitor<'de>,`
 
-Hint that the `Deserialize` type is expecting an `i128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_i128)
+Hint that the `Deserialize` type is expecting an `i128` value. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#method.deserialize_i128)
 
 #### `pub fn deserialize_u128<V>( self, visitor: V ) -> Result<<V as Visitor<'de>>::Value, Self::Error> where V: Visitor<'de>,`
 
-Hint that the `Deserialize` type is expecting an `u128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_u128)
+Hint that the `Deserialize` type is expecting an `u128` value. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#method.deserialize_u128)
 
 #### `pub fn is_human_readable(&self) -> bool`
 
-Determine whether `Deserialize` implementations should expect to deserialize their human-readable form. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.is_human_readable)
+Determine whether `Deserialize` implementations should expect to deserialize their human-readable form. [Read more](https://docs.rs/serde/1.0.125/serde/de/trait.Deserializer.html#method.is_human_readable)
 
 ## Auto Trait Implementations
 
@@ -205,6 +205,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

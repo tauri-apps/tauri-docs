@@ -1,40 +1,45 @@
 ---
-title: "struct.Monitor"
+title: "enum.CommandEvent"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[window](/docs/api/rust/tauri/index.html)::​[Monitor](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[CommandEvent](/docs/api/rust/tauri/)
 
 ```rs
-pub struct Monitor { /* fields omitted */ }
+#[non_exhaustive]pub enum CommandEvent {
+    Stderr(String),
+    Stdout(String),
+    Error(String),
+    Terminated(TerminatedPayload),
+}
 ```
 
-Monitor descriptor.
+A event sent to the command callback.
 
-## Implementations
+## Variants (Non-exhaustive)
 
-### `impl Monitor`
+Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
-#### `pub fn name(&self) -> Option<&String>`
+`Stderr(String)`
 
-Returns a human-readable name of the monitor. Returns None if the monitor doesn’t exist anymore.
+Stderr line.
 
-#### `pub fn size(&self) -> &PhysicalSize<u32>`
+`Stdout(String)`
 
-Returns the monitor’s resolution.
+Stdout line.
 
-#### `pub fn position(&self) -> &PhysicalPosition<i32>`
+`Error(String)`
 
-Returns the top-left corner position of the monitor relative to the larger full screen area.
+An error happened.
 
-#### `pub fn scale_factor(&self) -> f64`
+`Terminated(TerminatedPayload)`
 
-Returns the scale factor that can be used to map logical pixels to physical pixels, and vice versa.
+Command process terminated.
 
 ## Trait Implementations
 
-### `impl Clone for Monitor`
+### `impl Clone for CommandEvent`
 
-#### `fn clone(&self) -> Monitor`
+#### `fn clone(&self) -> CommandEvent`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -42,35 +47,29 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl Debug for Monitor`
+### `impl Debug for CommandEvent`
 
 #### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl From<Monitor> for Monitor`
-
-#### `fn from(monitor: RuntimeMonitor) -> Self`
-
-Performs the conversion.
-
-### `impl Serialize for Monitor`
+### `impl Serialize for CommandEvent`
 
 #### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Monitor`
+### `impl RefUnwindSafe for CommandEvent`
 
-### `impl Send for Monitor`
+### `impl Send for CommandEvent`
 
-### `impl Sync for Monitor`
+### `impl Sync for CommandEvent`
 
-### `impl Unpin for Monitor`
+### `impl Unpin for CommandEvent`
 
-### `impl UnwindSafe for Monitor`
+### `impl UnwindSafe for CommandEvent`
 
 ## Blanket Implementations
 
@@ -97,6 +96,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

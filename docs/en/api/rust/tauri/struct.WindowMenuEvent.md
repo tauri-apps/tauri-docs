@@ -1,65 +1,38 @@
 ---
-title: "struct.PackageInfo"
+title: "struct.WindowMenuEvent"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[PackageInfo](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[WindowMenuEvent](/docs/api/rust/tauri/)
 
 ```rs
-pub struct PackageInfo {
-    pub name: String,
-    pub version: String,
-}
+pub struct WindowMenuEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
 ```
 
-`App` package information.
-
-## Fields
-
-`name: String`
-
-App name.
-
-`version: String`
-
-App version.
+A menu event that was triggered on a window.
 
 ## Implementations
 
-### `impl PackageInfo`
+### `impl<P: Params> WindowMenuEvent<P>`
 
-#### `pub fn package_name(&self) -> String`
+#### `pub fn menu_item_id(&self) -> &P::MenuId`
 
-Returns the application package name. On macOS and Windows it’s the `name` field, and on Linux it’s the `name` in `kebab-case`.
+The menu item id.
 
-## Trait Implementations
+#### `pub fn window(&self) -> &Window<P>`
 
-### `impl Clone for PackageInfo`
-
-#### `pub fn clone(&self) -> PackageInfo`
-
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
-
-#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
-
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-### `impl Debug for PackageInfo`
-
-#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
-
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+The window that the menu belongs to.
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for PackageInfo`
+### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for WindowMenuEvent<P>`
 
-### `impl Send for PackageInfo`
+### `impl<P> Send for WindowMenuEvent<P>`
 
-### `impl Sync for PackageInfo`
+### `impl<P> Sync for WindowMenuEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
 
-### `impl Unpin for PackageInfo`
+### `impl<P> Unpin for WindowMenuEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin, <P as Params>::MenuId: Unpin,`
 
-### `impl UnwindSafe for PackageInfo`
+### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for WindowMenuEvent<P>`
 
 ## Blanket Implementations
 
@@ -86,6 +59,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
@@ -118,24 +101,6 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T> ToOwned for T where T: Clone,`
-
-#### `type Owned = T`
-
-The resulting type after obtaining ownership.
-
-#### `pub fn to_owned(&self) -> T`
-
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-#### `pub fn clone_into(&self, target: &mutT)`
-
-🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
-
-recently added
-
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

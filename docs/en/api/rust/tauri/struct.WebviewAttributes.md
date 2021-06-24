@@ -39,7 +39,7 @@ Data directory for the webview.
 
 Whether the webview URI scheme protocol is defined or not.
 
-#### `pub fn register_uri_scheme_protocol<N, H>( self, uri_scheme: N, protocol: H ) -> WebviewAttributeswhere N: Into<String>, H: 'static + Fn(&str) -> Result<Vec<u8, Global>, Box<dyn Error + 'static, Global>> + Send + Sync,`
+#### `pub fn register_uri_scheme_protocol<N, H>( self, uri_scheme: N, protocol: H ) -> WebviewAttributeswhere H: 'static + Fn(&str) -> Result<Vec<u8, Global>, Box<dyn Error + 'static, Global>> + Send + Sync, N: Into<String>,`
 
 Registers a webview protocol handler. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
 
@@ -85,6 +85,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

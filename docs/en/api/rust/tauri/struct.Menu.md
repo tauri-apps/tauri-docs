@@ -1,38 +1,60 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.Menu"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[Menu](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct Menu<I> where
+    I: MenuId,  {
+    pub title: String,
+    pub items: Vec<MenuItem<I>, Global>,
+}
 ```
 
-A window event that was triggered on the specified window.
+A window menu.
+
+## Fields
+
+`title: String``items: Vec<MenuItem<I>, Global>`
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl<I> Menu<I> where I: MenuId,`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn new<T>(title: T, items: Vec<MenuItem<I>, Global>) -> Menu<I> where T: Into<String>,`
 
-The eventpayload.
+Creates a new window menu with the given title and items.
 
-#### `pub fn window(&self) -> &Window<P>`
+## Trait Implementations
 
-The window that the menu belongs to.
+### `impl<I> Clone for Menu<I> where I: Clone + MenuId,`
+
+#### `pub fn clone(&self) -> Menu<I>`
+
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+
+#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
+
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+
+### `impl<I> Debug for Menu<I> where I: Debug + MenuId,`
+
+#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl<I> RefUnwindSafe for Menu<I> where I: RefUnwindSafe,`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl<I> Send for Menu<I>`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl<I> Sync for Menu<I>`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl<I> Unpin for Menu<I> where I: Unpin,`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl<I> UnwindSafe for Menu<I> where I: UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -101,6 +123,24 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
+
+The resulting type after obtaining ownership.
+
+#### `pub fn to_owned(&self) -> T`
+
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+
+#### `pub fn clone_into(&self, target: &mutT)`
+
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
+
+recently added
+
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

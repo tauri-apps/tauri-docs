@@ -2,119 +2,88 @@
 title: "enum.Error"
 ---
 
-# Enum [tauri](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
+# Enum [tauri](/docs/api/rust/tauri/../index.html)::​[updater](/docs/api/rust/tauri/index.html)::​[Error](/docs/api/rust/tauri/)
 
 ```rs
 #[non_exhaustive]pub enum Error {
-    Runtime(Error),
-    CreateWebview(Box<dyn Error + Send>),
-    CreateWindow,
-    WebviewNotFound,
-    FailedToSendMessage,
-    AssetNotFound(String),
-    Json(Error),
-    UnknownApi(Option<Error>),
-    FailedToExecuteApi(Error),
     Io(Error),
-    Base64Decode(DecodeError),
-    InvalidIcon(Box<dyn Error + Send>),
-    HttpClientNotInitialized,
-    ApiNotEnabled(String),
-    ApiNotAllowlisted(String),
-    InvalidArgs(&'static str, Error),
-    Setup(Box<dyn Error + Send>),
-    TauriUpdater(Error),
-    PluginInitialization(String, String),
-    DialogDefaultPathNotExists(PathBuf),
-    SystemTray(Box<dyn Error + Send>),
+    Reqwest(Error),
+    Semver(SemVerError),
+    SerdeJson(Error),
+    Minisign(Error),
+    Base64(DecodeError),
+    Utf8(Utf8Error),
+    TauriApi(Error),
+    Network(String),
+    RemoteMetadata(String),
+    Builder(String),
+    UnsupportedPlatform,
+    PubkeyButNoSignature,
+    UpToDate,
 }
 ```
 
-Runtime errors that can happen inside a Tauri application.
+All errors that can occur while running the updater.
 
 ## Variants (Non-exhaustive)
 
 Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.
 
-`Runtime(Error)`
-
-Runtime error.
-
-`CreateWebview(Box<dyn Error + Send>)`
-
-Failed to create webview.
-
-`CreateWindow`
-
-Failed to create window.
-
-`WebviewNotFound`
-
-Can’t access webview dispatcher because the webview was closed or not found.
-
-`FailedToSendMessage`
-
-Failed to send message to webview.
-
-`AssetNotFound(String)`
-
-Embedded asset not found.
-
-`Json(Error)`
-
-Failed to serialize/deserialize.
-
-`UnknownApi(Option<Error>)`
-
-Unknown API type.
-
-`FailedToExecuteApi(Error)`
-
-Failed to execute tauri API.
-
 `Io(Error)`
 
-IO error.
+IO Errors.
 
-`Base64Decode(DecodeError)`
+`Reqwest(Error)`
 
-Failed to decode base64.
+Reqwest Errors.
 
-`InvalidIcon(Box<dyn Error + Send>)`
+`Semver(SemVerError)`
 
-Failed to load window icon.
+Semver Errors.
 
-`HttpClientNotInitialized`
+`SerdeJson(Error)`
 
-Client with specified ID not found.
+JSON (Serde) Errors.
 
-`ApiNotEnabled(String)`
+`Minisign(Error)`
 
-API not enabled by Tauri.
+Minisign is used for signature validation.
 
-`ApiNotAllowlisted(String)`
+`Base64(DecodeError)`
 
-API not whitelisted on tauri.conf.json
+Error with Minisign base64 decoding.
 
-`InvalidArgs(&'static str, Error)`
+`Utf8(Utf8Error)`
 
-Invalid args when running a command.
+UTF8 Errors in signature.
 
-`Setup(Box<dyn Error + Send>)`
+`TauriApi(Error)`
 
-Encountered an error in the setup hook,
+Tauri utils, mainly extract and file move.
 
-`PluginInitialization(String, String)`
+`Network(String)`
 
-Error initializing plugin.
+Network error.
 
-`DialogDefaultPathNotExists(PathBuf)`
+`RemoteMetadata(String)`
 
-`default_path` provided to dialog API doesn’t exist.
+Metadata (JSON) error.
 
-`SystemTray(Box<dyn Error + Send>)`
+`Builder(String)`
 
-Encountered an error creating the app system tray,
+Error building updater.
+
+`UnsupportedPlatform`
+
+Updater is not supported for current operating system or platform.
+
+`PubkeyButNoSignature`
+
+Public key found in `tauri.conf.json` but no signature announced remotely.
+
+`UpToDate`
+
+Triggered when there is NO error and the two versions are equals. On client side, it’s important to catch this error.
 
 ## Trait Implementations
 
@@ -156,6 +125,18 @@ use the Display impl or to_string()
 
 replaced by Error::source, which can support downcasting
 
+### `impl From<DecodeError> for Error`
+
+#### `fn from(source: DecodeError) -> Self`
+
+Performs the conversion.
+
+### `impl From<Error> for Error`
+
+#### `fn from(source: Error) -> Self`
+
+Performs the conversion.
+
 ### `impl From<Error> for Error`
 
 #### `fn from(source: Error) -> Self`
@@ -176,25 +157,25 @@ Performs the conversion.
 
 ### `impl From<Error> for Error`
 
-#### `fn from(error: Error) -> Self`
-
-Performs the conversion.
-
-### `impl From<Error> for InvokeError`
-
 #### `fn from(source: Error) -> Self`
 
 Performs the conversion.
 
 ### `impl From<Error> for Error`
 
-#### `fn from(error: Error) -> Self`
+#### `fn from(source: Error) -> Self`
 
 Performs the conversion.
 
-### `impl From<Error> for InvokeError`
+### `impl From<SemVerError> for Error`
 
-#### `fn from(error: Error) -> Self`
+#### `fn from(source: SemVerError) -> Self`
+
+Performs the conversion.
+
+### `impl From<Utf8Error> for Error`
+
+#### `fn from(source: Utf8Error) -> Self`
 
 Performs the conversion.
 
@@ -204,7 +185,7 @@ Performs the conversion.
 
 ### `impl Send for Error`
 
-### `impl !Sync for Error`
+### `impl Sync for Error`
 
 ### `impl Unpin for Error`
 
@@ -235,6 +216,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 
@@ -272,7 +263,7 @@ Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tau
 
 #### `pub fn to_js_string(&self) -> Result<String, Error>`
 
-Turn any [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
+Turn any [`Tag`](/docs/api/rust/tauri/../../tauri/trait.Tag.html "Tag") into the JavaScript representation of a string.
 
 ### `impl<T> ToString for T where T: Display + ?Sized,`
 

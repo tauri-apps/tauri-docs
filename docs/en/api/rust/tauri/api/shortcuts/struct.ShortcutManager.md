@@ -1,38 +1,58 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.ShortcutManager"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[shortcuts](/docs/api/rust/tauri/index.html)::​[ShortcutManager](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct ShortcutManager(_);
 ```
 
-A window event that was triggered on the specified window.
+The shortcut manager builder.
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl ShortcutManager`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn new() -> Self`
 
-The eventpayload.
+Initializes a new instance of the shortcut manager.
 
-#### `pub fn window(&self) -> &Window<P>`
+#### `pub fn is_registered(&self, shortcut: String) -> Result<bool>`
 
-The window that the menu belongs to.
+Determines whether the given hotkey is registered or not.
+
+#### `pub fn register<H: FnMut() + Send + 'static>( &mut self, shortcut: String, handler: H ) -> Result<()>`
+
+Registers a new shortcut handler.
+
+#### `pub fn unregister(&mut self, shortcut: String) -> Result<()>`
+
+Unregister a previously registered shortcut handler.
+
+#### `pub fn unregister_all(&mut self) -> Result<()>`
+
+Unregisters all shortcuts registered by this application.
+
+## Trait Implementations
+
+### `impl Default for ShortcutManager`
+
+#### `fn default() -> ShortcutManager`
+
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl RefUnwindSafe for ShortcutManager`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for ShortcutManager`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for ShortcutManager`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for ShortcutManager`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl UnwindSafe for ShortcutManager`
 
 ## Blanket Implementations
 

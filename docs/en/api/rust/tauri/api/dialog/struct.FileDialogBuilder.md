@@ -1,38 +1,70 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.FileDialogBuilder"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[FileDialogBuilder](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct FileDialogBuilder(_);
 ```
 
-A window event that was triggered on the specified window.
+The file dialog builder. Constructs file picker dialogs that can select single/multiple files or directories.
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl FileDialogBuilder`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn new() -> Self`
 
-The eventpayload.
+Gets the default file dialog builder.
 
-#### `pub fn window(&self) -> &Window<P>`
+#### `pub fn add_filter(self, name: impl AsRef<str>, extensions: &[&str]) -> Self`
 
-The window that the menu belongs to.
+Add file extension filter. Takes in the name of the filter, and list of extensions
+
+#### `pub fn set_directory<P: AsRef<Path>>(self, directory: P) -> Self`
+
+Set starting directory of the dialog.
+
+#### `pub fn set_file_name(self, file_name: &str) -> Self`
+
+Set starting file name of the dialog.
+
+#### `pub fn pick_file(self) -> Option<PathBuf>`
+
+Pick one file.
+
+#### `pub fn pick_files(self) -> Option<Vec<PathBuf>>`
+
+Pick multiple files.
+
+#### `pub fn pick_folder(self) -> Option<PathBuf>`
+
+Pick one folder.
+
+#### `pub fn save_file(self) -> Option<PathBuf>`
+
+Opens save file dialog.
+
+## Trait Implementations
+
+### `impl Default for FileDialogBuilder`
+
+#### `fn default() -> FileDialogBuilder`
+
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl RefUnwindSafe for FileDialogBuilder`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for FileDialogBuilder`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl !Sync for FileDialogBuilder`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for FileDialogBuilder`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl UnwindSafe for FileDialogBuilder`
 
 ## Blanket Implementations
 

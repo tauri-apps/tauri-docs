@@ -1,60 +1,61 @@
 ---
-title: "struct.InvokeError"
+title: "struct.Matches"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[InvokeError](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[Matches](/docs/api/rust/tauri/)
 
 ```rs
-pub struct InvokeError(_);
+#[non_exhaustive]pub struct Matches {
+    pub args: HashMap<String, ArgData>,
+    pub subcommand: Option<Box<SubcommandMatches>>,
+}
 ```
 
-Error response from an [`InvokeMessage`](/docs/api/rust/tauri/../tauri/struct.InvokeMessage.html "InvokeMessage").
+The arg matches of a command.
 
-## Implementations
+## Fields (Non-exhaustive)
 
-### `impl InvokeError`
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
-#### `pub fn from_serde_json(error: Error) -> Self`
+`args: HashMap<String, ArgData>`
 
-Create an [`InvokeError`](/docs/api/rust/tauri/../tauri/struct.InvokeError.html "InvokeError") as a string of the [`serde_json::Error`](https://docs.rs/serde_json/1.0.64/serde_json/error/struct.Error.html "serde_json::Error") message.
+Data structure mapping each found arg with its resolution.
+
+`subcommand: Option<Box<SubcommandMatches>>`
+
+The matched subcommand if found.
 
 ## Trait Implementations
 
-### `impl Debug for InvokeError`
+### `impl Debug for Matches`
 
 #### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl From<Error> for InvokeError`
+### `impl Default for Matches`
 
-#### `fn from(error: Error) -> Self`
+#### `fn default() -> Matches`
 
-Performs the conversion.
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl From<InvokeError> for InvokeResponse`
+### `impl Serialize for Matches`
 
-#### `fn from(error: InvokeError) -> Self`
+#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Performs the conversion.
-
-### `impl<T: Serialize> From<T> for InvokeError`
-
-#### `fn from(value: T) -> Self`
-
-Performs the conversion.
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for InvokeError`
+### `impl RefUnwindSafe for Matches`
 
-### `impl Send for InvokeError`
+### `impl Send for Matches`
 
-### `impl Sync for InvokeError`
+### `impl Sync for Matches`
 
-### `impl Unpin for InvokeError`
+### `impl Unpin for Matches`
 
-### `impl UnwindSafe for InvokeError`
+### `impl UnwindSafe for Matches`
 
 ## Blanket Implementations
 
@@ -81,6 +82,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

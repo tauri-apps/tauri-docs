@@ -1,38 +1,66 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.Command"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[Command](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct Command { /* fields omitted */ }
 ```
 
-A window event that was triggered on the specified window.
+API to spawn commands.
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl Command`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn new<S: Into<String>>(program: S) -> Self`
 
-The eventpayload.
+Creates a new Command for launching the given program.
 
-#### `pub fn window(&self) -> &Window<P>`
+#### `pub fn new_sidecar<S: Into<String>>(program: S) -> Result<Self>`
 
-The window that the menu belongs to.
+Creates a new Command for launching the given sidecar program.
+
+#### `pub fn args<I, S>(self, args: I) -> Self where I: IntoIterator<Item = S>, S: AsRef<str>,`
+
+Append args to the command.
+
+#### `pub fn env_clear(self) -> Self`
+
+Clears the entire environment map for the child process.
+
+#### `pub fn envs(self, env: HashMap<String, String>) -> Self`
+
+Adds or updates multiple environment variable mappings.
+
+#### `pub fn current_dir(self, current_dir: PathBuf) -> Self`
+
+Sets the working directory for the child process.
+
+#### `pub fn spawn(self) -> Result<(Receiver<CommandEvent>, CommandChild)>`
+
+Spawns the command.
+
+#### `pub fn status(self) -> Result<ExitStatus>`
+
+Executes a command as a child process, waiting for it to finish and collecting its exit status. Stdin, stdout and stderr are ignored.
+
+#### `pub fn output(self) -> Result<Output>`
+
+Executes the command as a child process, waiting for it to finish and collecting all of its output. Stdin is ignored.
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl RefUnwindSafe for Command`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for Command`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for Command`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for Command`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl UnwindSafe for Command`
 
 ## Blanket Implementations
 

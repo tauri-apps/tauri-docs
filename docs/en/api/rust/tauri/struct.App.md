@@ -16,15 +16,9 @@ This type implements [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager.htm
 
 ### `impl<P: Params> App<P>`
 
-#### `pub fn create_window<F>( &self, label: P::Label, url: WindowUrl, setup: F ) -> Result<()> where F: FnOnce(<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
+#### `pub fn create_window<F>( &mut self, label: P::Label, url: WindowUrl, setup: F ) -> Result<()> where F: FnOnce(<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<<P::Runtime as Runtime>::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes),`
 
 Creates a new webview window.
-
-### `impl<P: Params> App<P>`
-
-#### `pub fn handle(&self) -> AppHandle<P>`
-
-Gets a handle to the application instance.
 
 ## Trait Implementations
 

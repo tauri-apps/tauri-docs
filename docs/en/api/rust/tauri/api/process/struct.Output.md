@@ -1,38 +1,44 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.Output"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[Output](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct Output {
+    pub status: ExitStatus,
+    pub stdout: String,
+    pub stderr: String,
+}
 ```
 
-A window event that was triggered on the specified window.
+The output of a finished process.
 
-## Implementations
+## Fields
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+`status: ExitStatus`
 
-#### `pub fn event(&self) -> &WindowEvent`
+The status (exit code) of the process.
 
-The eventpayload.
+`stdout: String`
 
-#### `pub fn window(&self) -> &Window<P>`
+The data that the process wrote to stdout.
 
-The window that the menu belongs to.
+`stderr: String`
+
+The data that the process wrote to stderr.
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl RefUnwindSafe for Output`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for Output`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for Output`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for Output`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl UnwindSafe for Output`
 
 ## Blanket Implementations
 

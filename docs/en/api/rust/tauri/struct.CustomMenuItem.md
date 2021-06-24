@@ -1,33 +1,36 @@
 ---
-title: "enum.Size"
+title: "struct.CustomMenuItem"
 ---
 
-# Enum [tauri](/docs/api/rust/tauri/index.html)::​[Size](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[CustomMenuItem](/docs/api/rust/tauri/)
 
 ```rs
-pub enum Size {
-    Physical(PhysicalSize<u32>),
-    Logical(LogicalSize<f64>),
+pub struct CustomMenuItem<I> where
+    I: MenuId,  {
+    pub id: I,
+    pub name: String,
 }
 ```
 
-A size that’s either physical or logical.
+A custom menu item.
 
-## Variants
+## Fields
 
-`Physical(PhysicalSize<u32>)`
+`id: I``name: String`
 
-Physical size.
+## Implementations
 
-`Logical(LogicalSize<f64>)`
+### `impl<I> CustomMenuItem<I> where I: MenuId,`
 
-Logical size.
+#### `pub fn new<T>(id: I, title: T) -> CustomMenuItem<I> where T: Into<String>,`
+
+Create new custom menu item.
 
 ## Trait Implementations
 
-### `impl Clone for Size`
+### `impl<I> Clone for CustomMenuItem<I> where I: Clone + MenuId,`
 
-#### `pub fn clone(&self) -> Size`
+#### `pub fn clone(&self) -> CustomMenuItem<I>`
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -35,35 +38,23 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl Debug for Size`
+### `impl<I> Debug for CustomMenuItem<I> where I: Debug + MenuId,`
 
 #### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'de> Deserialize<'de> for Size`
-
-#### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<Size, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
-
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
-
-### `impl Serialize for Size`
-
-#### `pub fn serialize<__S>( &self, __serializer: __S ) -> Result<<__S as Serializer>::Ok, <__S as Serializer>::Error> where __S: Serializer,`
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
-
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Size`
+### `impl<I> RefUnwindSafe for CustomMenuItem<I> where I: RefUnwindSafe,`
 
-### `impl Send for Size`
+### `impl<I> Send for CustomMenuItem<I>`
 
-### `impl Sync for Size`
+### `impl<I> Sync for CustomMenuItem<I>`
 
-### `impl Unpin for Size`
+### `impl<I> Unpin for CustomMenuItem<I> where I: Unpin,`
 
-### `impl UnwindSafe for Size`
+### `impl<I> UnwindSafe for CustomMenuItem<I> where I: UnwindSafe,`
 
 ## Blanket Implementations
 
@@ -85,19 +76,21 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nig
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
-
-#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
-
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../tauri/command/trait.CommandArg.html#tymethod.from_command)
-
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
-
 ### `impl<T> From<T> for T`
 
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

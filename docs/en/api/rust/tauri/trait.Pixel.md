@@ -35,37 +35,37 @@ Loading content...
 
 ## Implementations on Foreign Types
 
-### `impl Pixel for u8`
+### `impl Pixel for i16`
 
-#### `pub fn from_f64(f: f64) -> u8`
+#### `pub fn from_f64(f: f64) -> i16`
 
 ### `impl Pixel for i32`
 
 #### `pub fn from_f64(f: f64) -> i32`
 
-### `impl Pixel for u32`
+### `impl Pixel for u16`
 
-#### `pub fn from_f64(f: f64) -> u32`
+#### `pub fn from_f64(f: f64) -> u16`
 
 ### `impl Pixel for i8`
 
 #### `pub fn from_f64(f: f64) -> i8`
 
-### `impl Pixel for f64`
-
-#### `pub fn from_f64(f: f64) -> f64`
-
-### `impl Pixel for u16`
-
-#### `pub fn from_f64(f: f64) -> u16`
-
 ### `impl Pixel for f32`
 
 #### `pub fn from_f64(f: f64) -> f32`
 
-### `impl Pixel for i16`
+### `impl Pixel for u32`
 
-#### `pub fn from_f64(f: f64) -> i16`
+#### `pub fn from_f64(f: f64) -> u32`
+
+### `impl Pixel for u8`
+
+#### `pub fn from_f64(f: f64) -> u8`
+
+### `impl Pixel for f64`
+
+#### `pub fn from_f64(f: f64) -> f64`
 
 Loading content...
 

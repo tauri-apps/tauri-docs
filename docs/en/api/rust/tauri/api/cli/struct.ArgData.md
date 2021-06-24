@@ -1,67 +1,66 @@
 ---
-title: "enum.InvokeResponse"
+title: "struct.ArgData"
 ---
 
-# Enum [tauri](/docs/api/rust/tauri/index.html)::​[InvokeResponse](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[cli](/docs/api/rust/tauri/index.html)::​[ArgData](/docs/api/rust/tauri/)
 
 ```rs
-pub enum InvokeResponse {
-    Ok(JsonValue),
-    Err(InvokeError),
+#[non_exhaustive]pub struct ArgData {
+    pub value: Value,
+    pub occurrences: u64,
 }
 ```
 
-Response from a [`InvokeMessage`](/docs/api/rust/tauri/../tauri/struct.InvokeMessage.html "InvokeMessage") passed to the [`InvokeResolver`](/docs/api/rust/tauri/../tauri/struct.InvokeResolver.html "InvokeResolver").
+The resolution of a arg match.
 
-## Variants
+## Fields (Non-exhaustive)
 
-`Ok(JsonValue)`
+Non-exhaustive structs could have additional fields added in future. Therefore, non-exhaustive structs cannot be constructed in external crates using the traditional `Struct {{ .. }}` syntax; cannot be matched against without a wildcard `..`; and struct update syntax will not work.
 
-Resolve the promise.
+`value: Value`
 
-`Err(InvokeError)`
+The value of the arg.
 
-Reject the promise.
+-   Value::Bool if it’s a flag,
+-   Value::Array if it’s multiple,
+-   Value::String if it has value,
+-   Value::Null otherwise.
 
-## Implementations
+`occurrences: u64`
 
-### `impl InvokeResponse`
-
-#### `pub fn into_result(self) -> Result<JsonValue, JsonValue>`
-
-Turn a [`InvokeResponse`](/docs/api/rust/tauri/../tauri/enum.InvokeResponse.html "InvokeResponse") back into a serializable result.
+The number of occurrences of the arg. e.g. `./app --arg 1 --arg 2 --arg 2 3 4` results in three occurrences.
 
 ## Trait Implementations
 
-### `impl Debug for InvokeResponse`
+### `impl Debug for ArgData`
 
 #### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl From<InvokeError> for InvokeResponse`
+### `impl Default for ArgData`
 
-#### `fn from(error: InvokeError) -> Self`
+#### `fn default() -> ArgData`
 
-Performs the conversion.
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
-### `impl<T: Serialize> From<Result<T, InvokeError>> for InvokeResponse`
+### `impl Serialize for ArgData`
 
-#### `fn from(result: Result<T, InvokeError>) -> Self`
+#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
 
-Performs the conversion.
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for InvokeResponse`
+### `impl RefUnwindSafe for ArgData`
 
-### `impl Send for InvokeResponse`
+### `impl Send for ArgData`
 
-### `impl Sync for InvokeResponse`
+### `impl Sync for ArgData`
 
-### `impl Unpin for InvokeResponse`
+### `impl Unpin for ArgData`
 
-### `impl UnwindSafe for InvokeResponse`
+### `impl UnwindSafe for ArgData`
 
 ## Blanket Implementations
 
@@ -88,6 +87,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

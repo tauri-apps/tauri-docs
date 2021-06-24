@@ -1,38 +1,34 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.SystemTrayEvent"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/index.html)::​[SystemTrayEvent](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct SystemTrayEvent<I: MenuId> { /* fields omitted */ }
 ```
 
-A window event that was triggered on the specified window.
+System tray event.
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl<I: MenuId> SystemTrayEvent<I>`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn menu_item_id(&self) -> &I`
 
-The eventpayload.
-
-#### `pub fn window(&self) -> &Window<P>`
-
-The window that the menu belongs to.
+The menu item id.
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl<I> RefUnwindSafe for SystemTrayEvent<I> where I: RefUnwindSafe,`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl<I> Send for SystemTrayEvent<I>`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl<I> Sync for SystemTrayEvent<I>`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl<I> Unpin for SystemTrayEvent<I> where I: Unpin,`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl<I> UnwindSafe for SystemTrayEvent<I> where I: UnwindSafe,`
 
 ## Blanket Implementations
 

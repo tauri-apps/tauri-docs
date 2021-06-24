@@ -1,38 +1,63 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.TerminatedPayload"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[TerminatedPayload](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct TerminatedPayload {
+    pub code: Option<i32>,
+    pub signal: Option<i32>,
+}
 ```
 
-A window event that was triggered on the specified window.
+Payload for the `Terminated` command event.
 
-## Implementations
+## Fields
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+`code: Option<i32>`
 
-#### `pub fn event(&self) -> &WindowEvent`
+Exit code of the process.
 
-The eventpayload.
+`signal: Option<i32>`
 
-#### `pub fn window(&self) -> &Window<P>`
+If the process was terminated by a signal, represents that signal.
 
-The window that the menu belongs to.
+## Trait Implementations
+
+### `impl Clone for TerminatedPayload`
+
+#### `fn clone(&self) -> TerminatedPayload`
+
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+
+#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
+
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+
+### `impl Debug for TerminatedPayload`
+
+#### `fn fmt(&self, f: &mut Formatter<'_>) -> Result`
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+
+### `impl Serialize for TerminatedPayload`
+
+#### `fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where __S: Serializer,`
+
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.125/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl RefUnwindSafe for TerminatedPayload`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for TerminatedPayload`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for TerminatedPayload`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for TerminatedPayload`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl UnwindSafe for TerminatedPayload`
 
 ## Blanket Implementations
 
@@ -101,6 +126,24 @@ Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:b
 #### `pub unsafe fn drop(ptr: usize)`
 
 Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
+
+### `impl<T> ToOwned for T where T: Clone,`
+
+#### `type Owned = T`
+
+The resulting type after obtaining ownership.
+
+#### `pub fn to_owned(&self) -> T`
+
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
+
+#### `pub fn clone_into(&self, target: &mutT)`
+
+🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
+
+recently added
+
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
 ### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
 

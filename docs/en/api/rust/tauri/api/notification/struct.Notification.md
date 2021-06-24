@@ -1,34 +1,69 @@
 ---
-title: "struct.StateManager"
+title: "struct.Notification"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[StateManager](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[notification](/docs/api/rust/tauri/index.html)::​[Notification](/docs/api/rust/tauri/)
 
 ```rs
-pub struct StateManager(_);
+pub struct Notification { /* fields omitted */ }
 ```
 
-The Tauri state manager.
+The Notification definition. Allows you to construct a Notification data and send it.
+
+# [Example](/docs/api/rust/tauri/about:blank#example)
+
+```rs
+use tauri::api::notification::Notification;
+// shows a notification with the given title and body
+Notification::new("studio.tauri.example")
+  .title("New message")
+  .body("You've got a new message.")
+  .show();
+```
 
 ## Implementations
 
-### `impl StateManager`
+### `impl Notification`
 
-#### `pub fn get<T: Send + Sync + 'static>(&self) -> State<'_, T>`
+#### `pub fn new(identifier: impl Into<String>) -> Self`
 
-Gets the state associated with the specified type.
+Initializes a instance of a Notification.
+
+#### `pub fn body(self, body: impl Into<String>) -> Self`
+
+Sets the notification body.
+
+#### `pub fn title(self, title: impl Into<String>) -> Self`
+
+Sets the notification title.
+
+#### `pub fn icon(self, icon: impl Into<String>) -> Self`
+
+Sets the notification icon.
+
+#### `pub fn show(self) -> Result<()>`
+
+Shows the notification.
+
+## Trait Implementations
+
+### `impl Default for Notification`
+
+#### `fn default() -> Notification`
+
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
-### `impl !RefUnwindSafe for StateManager`
+### `impl RefUnwindSafe for Notification`
 
-### `impl Send for StateManager`
+### `impl Send for Notification`
 
-### `impl Sync for StateManager`
+### `impl Sync for Notification`
 
-### `impl Unpin for StateManager`
+### `impl Unpin for Notification`
 
-### `impl UnwindSafe for StateManager`
+### `impl UnwindSafe for Notification`
 
 ## Blanket Implementations
 
@@ -55,6 +90,16 @@ Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/night
 #### `pub fn from(t: T) -> T`
 
 Performs the conversion.
+
+### `impl<T> Instrument for T`
+
+#### `pub fn instrument(self, span: Span) -> Instrumented<Self>`
+
+Instruments this type with the provided `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.instrument)
+
+#### `pub fn in_current_span(self) -> Instrumented<Self>`
+
+Instruments this type with the [current](/docs/api/rust/tauri/../struct.Span.html#method.current) `Span`, returning an `Instrumented` wrapper. [Read more](https://docs.rs/tracing/0.1.25/tracing/instrument/trait.Instrument.html#method.in_current_span)
 
 ### `impl<T, U> Into<U> for T where U: From<T>,`
 

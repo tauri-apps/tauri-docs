@@ -1,38 +1,42 @@
 ---
-title: "struct.GlobalWindowEvent"
+title: "struct.CommandChild"
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[GlobalWindowEvent](/docs/api/rust/tauri/)
+# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[process](/docs/api/rust/tauri/index.html)::​[CommandChild](/docs/api/rust/tauri/)
 
 ```rs
-pub struct GlobalWindowEvent<P: Params = Args<String, String, String, String, EmbeddedAssets, Wry>> { /* fields omitted */ }
+pub struct CommandChild { /* fields omitted */ }
 ```
 
-A window event that was triggered on the specified window.
+Child spawned.
 
 ## Implementations
 
-### `impl<P: Params> GlobalWindowEvent<P>`
+### `impl CommandChild`
 
-#### `pub fn event(&self) -> &WindowEvent`
+#### `pub fn write(&mut self, buf: &[u8]) -> Result<()>`
 
-The eventpayload.
+Write to process stdin.
 
-#### `pub fn window(&self) -> &Window<P>`
+#### `pub fn kill(self) -> Result<()>`
 
-The window that the menu belongs to.
+Send a kill signal to the child.
+
+#### `pub fn pid(&self) -> u32`
+
+Returns the process pid.
 
 ## Auto Trait Implementations
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !RefUnwindSafe for GlobalWindowEvent<P>`
+### `impl !RefUnwindSafe for CommandChild`
 
-### `impl<P> Send for GlobalWindowEvent<P>`
+### `impl Send for CommandChild`
 
-### `impl<P> Sync for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Sync,`
+### `impl Sync for CommandChild`
 
-### `impl<P> Unpin for GlobalWindowEvent<P> where <<P as Params>::Runtime as Runtime>::Dispatcher: Unpin, <P as Params>::Label: Unpin,`
+### `impl Unpin for CommandChild`
 
-### `impl<P = Args<String, String, String, String, EmbeddedAssets, Wry>> !UnwindSafe for GlobalWindowEvent<P>`
+### `impl !UnwindSafe for CommandChild`
 
 ## Blanket Implementations
 
