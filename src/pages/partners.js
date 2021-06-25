@@ -6,7 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 const Avatar = ({ name, tags, image, description, link }) => {
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
-
+  const isContribute = tags.includes("contribute");
   return (
     <div className="col col--4 margin-bottom--lg">
       <div
@@ -47,14 +47,35 @@ const Avatar = ({ name, tags, image, description, link }) => {
                   </li>
                 ))}
               </ul>
-              <small className="avatar__subtitle">{description}</small>
+              <p 
+                style={{
+                  paddingTop: isContribute ? "1em" : "0",
+                  fontSize: "0.9em",
+                  fontWeight: isContribute ? "bolder" : "lighter",
+                  display: "-webkit-box",
+                  height: "5em",
+                  lineHeight: "1.3em",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  '-webkit-line-clamp': "4",
+                  '-webkit-box-orient': "vertical",
+                }}
+              >
+                {description}
+              </p>
             </div>
           </div>
         </div>
         <div className="card__footer">
           <a href={link} target="_blank">
-            <button className="button button--secondary">
-              {siteConfig.themeConfig.t.global.discover}
+            <button className={isContribute ? 
+                "button button--primary" : 
+                "button button--secondary"
+              }>
+              {isContribute ? 
+                siteConfig.themeConfig.t.global.contribute : 
+                siteConfig.themeConfig.t.global.discover
+              }
             </button>
           </a>
         </div>
@@ -68,6 +89,21 @@ function Partners() {
 
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
+
+  const premium_sponsors = [
+    {
+      name: <>1Password</>,
+      link: 'https://1password.com',
+      tags: ['security', 'privacy'],
+      image: imgPath + '1P_logo_256px.png',
+    },
+    {
+      name: <>Your Company</>,
+      link: 'https://opencollective.com/tauri/contribute/sponsor-11057/checkout',
+      tags: ['contribute', 'open collective'],
+      image: imgPath + 'OpenCollective_logo.svg',
+    }
+  ]
 
   const sponsors = [
     {
@@ -213,6 +249,20 @@ function Partners() {
         <h1 className="text--center margin-bottom--xl">
           {siteConfig.themeConfig.t.pages.partners.partnersLabel}
         </h1>
+        <section>
+          <h2>Premium Sponsors</h2>
+          <div className="row">
+            {premium_sponsors.map((sponsor, index) => {
+              const item = {
+                ...sponsor,
+                description:
+                  siteConfig.themeConfig.t.pages.partners.premium_sponsors[index]
+                    .description,
+              }
+              return <Avatar {...item} key={index} />
+            })}
+          </div>
+        </section>
         <section>
           <h2>Sponsors</h2>
           <div className="row">
