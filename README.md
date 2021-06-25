@@ -4,7 +4,11 @@ This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern 
 
 [![Deploys By Netlify](https://www.netlify.com/img/global/badges/netlify-light.svg)](https://www.netlify.com)
 
-You can check the state of a PR by looking at the Deploy preview that Netlify builds and is mentioned in its bot's comment.
+You can check the state of a "documentation" PR by looking at it's Deploy preview on the PR in GitHub where Netlify builds and checks and is mentioned in its bot's comment.
+
+Our current [CI/CD file](https://github.com/tauri-apps/tauri/blob/dev/.github/workflows/update-docs.yml) on GitHub builds and deploys this `tauri-apps/tauri-docs` repo automatically for our [own Docusaurus site](https://tauri.studio/en/docs/getting-started/intro)
+
+But you can locally develop and deploy the site to help contribute following the below instructions.
 
 ### Installation
 
@@ -50,7 +54,9 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 
 ### Contributing
 
-Feel free to open an issue/a PR if you find something weird in the docs, your feedback is more than welcome!
+Feel free to open an issue or Pull Request (PR) if you find something weird in this `tauri-docs` repo.
+Your PR once submitted to us, will automatically deploy to a temporary Netlify instance for us or you to review through GitHub's CI/CD checks.
+Your feedback is more than welcome!
 
 We're working with Crowdin to manage translations, if you feel like you want to lend a hand for translations, take a look at the documentation project: https://tauri.crowdin.com/documentation
 
