@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::http::Body
 sidebar_label: enum.Body
+custom_edit_url: null
 ---
 
 # Enum tauri::api::http&#x3A;:Body,\[−]\[src],\[−],−

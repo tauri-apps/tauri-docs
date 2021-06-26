@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::file::Extract
 sidebar_label: struct.Extract
+custom_edit_url: null
 ---
 
 # Struct tauri::api::file::Extract,\[−]\[src],\[−],−

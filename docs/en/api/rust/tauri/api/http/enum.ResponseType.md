@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::http::ResponseType
 sidebar_label: enum.ResponseType
+custom_edit_url: null
 ---
 
 # Enum tauri::api::http&#x3A;:ResponseType,\[−]\[src],\[−],−

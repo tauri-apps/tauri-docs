@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::Size
 sidebar_label: enum.Size
+custom_edit_url: null
 ---
 
 # Enum tauri::Size,\[−],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::UserAttentionType
 sidebar_label: enum.UserAttentionType
+custom_edit_url: null
 ---
 
 # Enum tauri::UserAttentionType,\[−],\[−],−

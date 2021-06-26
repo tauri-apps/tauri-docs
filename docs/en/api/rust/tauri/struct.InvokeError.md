@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::InvokeError
 sidebar_label: struct.InvokeError
+custom_edit_url: null
 ---
 
 # Struct tauri::InvokeError,\[−]\[src],\[−],−

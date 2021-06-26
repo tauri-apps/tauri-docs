@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::config::SystemTrayConfig
 sidebar_label: struct.SystemTrayConfig
+custom_edit_url: null
 ---
 
 # Struct tauri::api::config::SystemTrayConfig,\[−],\[−],−

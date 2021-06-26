@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::command::CommandItem
 sidebar_label: struct.CommandItem
+custom_edit_url: null
 ---
 
 # Struct tauri::command::CommandItem,\[−]\[src],\[−],−

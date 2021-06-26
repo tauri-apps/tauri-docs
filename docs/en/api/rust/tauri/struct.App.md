@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::App
 sidebar_label: struct.App
+custom_edit_url: null
 ---
 
 # Struct tauri::App,\[−]\[src],\[−],−

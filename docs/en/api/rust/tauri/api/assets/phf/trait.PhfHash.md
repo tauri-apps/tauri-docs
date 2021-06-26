@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::api::assets::phf::PhfHash
 sidebar_label: trait.PhfHash
+custom_edit_url: null
 ---
 
 # Trait tauri::api::assets::phf::PhfHash,\[−]\[src],\[−],−

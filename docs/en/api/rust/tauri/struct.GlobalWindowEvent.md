@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::GlobalWindowEvent
 sidebar_label: struct.GlobalWindowEvent
+custom_edit_url: null
 ---
 
 # Struct tauri::GlobalWindowEvent,\[−]\[src],\[−],−

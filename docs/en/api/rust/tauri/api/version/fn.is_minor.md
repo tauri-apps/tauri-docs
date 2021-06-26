@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::version::is_minor
 sidebar_label: fn.is_minor
+custom_edit_url: null
 ---
 
 # Function tauri::api::version::is_minor,\[−]\[src],\[−],−

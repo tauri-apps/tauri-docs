@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::path::BaseDirectory
 sidebar_label: enum.BaseDirectory
+custom_edit_url: null
 ---
 
 # Enum tauri::api::path::BaseDirectory,\[−]\[src],\[−],−

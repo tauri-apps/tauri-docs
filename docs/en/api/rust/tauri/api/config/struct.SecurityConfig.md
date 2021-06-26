@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::config::SecurityConfig
 sidebar_label: struct.SecurityConfig
+custom_edit_url: null
 ---
 
 # Struct tauri::api::config::SecurityConfig,\[−],\[−],−

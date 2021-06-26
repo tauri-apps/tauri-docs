@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::WindowEvent
 sidebar_label: enum.WindowEvent
+custom_edit_url: null
 ---
 
 # Enum tauri::WindowEvent,\[−],\[−],−

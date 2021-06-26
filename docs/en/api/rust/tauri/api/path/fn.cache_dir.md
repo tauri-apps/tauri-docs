@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::cache_dir
 sidebar_label: fn.cache_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::cache_dir,\[−]\[src],\[−],−

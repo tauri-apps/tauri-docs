@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::http::HttpRequestBuilder
 sidebar_label: struct.HttpRequestBuilder
+custom_edit_url: null
 ---
 
 # Struct tauri::api::http&#x3A;:HttpRequestBuilder,\[−]\[src],\[−],−

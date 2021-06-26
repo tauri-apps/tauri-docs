@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::plugin::Plugin
 sidebar_label: trait.Plugin
+custom_edit_url: null
 ---
 
 # Trait tauri::plugin::Plugin,\[−]\[src],\[−],−

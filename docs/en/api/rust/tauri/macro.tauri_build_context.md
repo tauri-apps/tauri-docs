@@ -1,6 +1,7 @@
 ---
 title: Macro tauri::tauri_build_context
 sidebar_label: macro.tauri_build_context
+custom_edit_url: null
 ---
 
 # Macro tauri::tauri_build_context,\[−]\[src],\[−],−

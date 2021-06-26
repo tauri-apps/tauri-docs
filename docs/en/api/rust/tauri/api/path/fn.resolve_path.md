@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::resolve_path
 sidebar_label: fn.resolve_path
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::resolve_path,\[−]\[src],\[−],−

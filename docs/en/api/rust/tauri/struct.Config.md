@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::Config
 sidebar_label: struct.Config
+custom_edit_url: null
 ---
 
 # Struct tauri::Config,\[−],\[−],−

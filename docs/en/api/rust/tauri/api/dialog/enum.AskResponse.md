@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::dialog::AskResponse
 sidebar_label: enum.AskResponse
+custom_edit_url: null
 ---
 
 # Enum tauri::api::dialog::AskResponse,\[−]\[src],\[−],−

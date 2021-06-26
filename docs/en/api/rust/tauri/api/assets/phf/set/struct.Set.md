@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::phf::set::Set
 sidebar_label: struct.Set
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::phf::set::Set,\[−]\[src],\[−],−

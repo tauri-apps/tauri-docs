@@ -1,6 +1,7 @@
 ---
 title: Macro tauri::generate_context
 sidebar_label: macro.generate_context
+custom_edit_url: null
 ---
 
 # Macro tauri::generate_context,\[−],\[−],−

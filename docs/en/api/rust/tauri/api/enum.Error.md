@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::Error
 sidebar_label: enum.Error
+custom_edit_url: null
 ---
 
 # Enum tauri::api::Error,\[−],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::async_runtime::spawn
 sidebar_label: fn.spawn
+custom_edit_url: null
 ---
 
 # Function tauri::async_runtime::spawn,\[−]\[src],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::dir::DiskEntry
 sidebar_label: struct.DiskEntry
+custom_edit_url: null
 ---
 
 # Struct tauri::api::dir::DiskEntry,\[−]\[src],\[−],−

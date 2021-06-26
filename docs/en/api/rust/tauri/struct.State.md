@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::State
 sidebar_label: struct.State
+custom_edit_url: null
 ---
 
 # Struct tauri::State,\[−]\[src],\[−],−

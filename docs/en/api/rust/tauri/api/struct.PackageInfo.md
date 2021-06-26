@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::PackageInfo
 sidebar_label: struct.PackageInfo
+custom_edit_url: null
 ---
 
 # Struct tauri::api::PackageInfo,\[−],\[−],−

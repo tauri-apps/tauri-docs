@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::InvokeResolver
 sidebar_label: struct.InvokeResolver
+custom_edit_url: null
 ---
 
 # Struct tauri::InvokeResolver,\[−]\[src],\[−],−

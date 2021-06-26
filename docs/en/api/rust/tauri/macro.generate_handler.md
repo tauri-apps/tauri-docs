@@ -1,6 +1,7 @@
 ---
 title: Macro tauri::generate_handler
 sidebar_label: macro.generate_handler
+custom_edit_url: null
 ---
 
 # Macro tauri::generate_handler,\[−],\[−],−

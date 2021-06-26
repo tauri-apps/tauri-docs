@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::WindowUrl
 sidebar_label: enum.WindowUrl
+custom_edit_url: null
 ---
 
 # Enum tauri::WindowUrl,\[−],\[−],−

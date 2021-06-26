@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::window::Window
 sidebar_label: struct.Window
+custom_edit_url: null
 ---
 
 # Struct tauri::window::Window,\[−]\[src],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::phf::Map
 sidebar_label: struct.Map
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::phf::Map,\[−]\[src],\[−],−

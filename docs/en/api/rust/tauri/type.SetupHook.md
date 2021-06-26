@@ -1,6 +1,7 @@
 ---
 title: Type tauri::SetupHook
 sidebar_label: type.SetupHook
+custom_edit_url: null
 ---
 
 # Type Definition tauri::SetupHook,\[−]\[src],\[−],−

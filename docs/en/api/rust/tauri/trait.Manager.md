@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::Manager
 sidebar_label: trait.Manager
+custom_edit_url: null
 ---
 
 # Trait tauri::Manager,\[−]\[src],\[−],−

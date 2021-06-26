@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::command::CommandArg
 sidebar_label: trait.CommandArg
+custom_edit_url: null
 ---
 
 # Trait tauri::command::CommandArg,\[−]\[src],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::MenuId
 sidebar_label: trait.MenuId
+custom_edit_url: null
 ---
 
 # Trait tauri::MenuId,\[−],\[−],−

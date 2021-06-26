@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::public_dir
 sidebar_label: fn.public_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::public_dir,\[−]\[src],\[−],−

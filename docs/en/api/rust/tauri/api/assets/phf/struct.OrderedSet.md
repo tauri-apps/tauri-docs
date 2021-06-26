@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::phf::OrderedSet
 sidebar_label: struct.OrderedSet
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::phf::OrderedSet,\[−]\[src],\[−],−

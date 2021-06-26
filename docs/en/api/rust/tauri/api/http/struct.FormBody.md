@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::http::FormBody
 sidebar_label: struct.FormBody
+custom_edit_url: null
 ---
 
 # Struct tauri::api::http&#x3A;:FormBody,\[−]\[src],\[−],−

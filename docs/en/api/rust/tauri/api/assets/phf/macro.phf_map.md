@@ -1,6 +1,7 @@
 ---
 title: Macro tauri::api::assets::phf::phf_map
 sidebar_label: macro.phf_map
+custom_edit_url: null
 ---
 
 # Macro tauri::api::assets::phf::phf_map,\[−]\[src],\[−],−

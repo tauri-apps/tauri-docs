@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::settings::read_settings
 sidebar_label: fn.read_settings
+custom_edit_url: null
 ---
 
 # Function tauri::settings::read_settings,\[−]\[src],\[−],−

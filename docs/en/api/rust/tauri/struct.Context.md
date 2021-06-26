@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::Context
 sidebar_label: struct.Context
+custom_edit_url: null
 ---
 
 # Struct tauri::Context,\[−]\[src],\[−],−

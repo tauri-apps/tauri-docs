@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::file::Compression
 sidebar_label: enum.Compression
+custom_edit_url: null
 ---
 
 # Enum tauri::api::file::Compression,\[−]\[src],\[−],−

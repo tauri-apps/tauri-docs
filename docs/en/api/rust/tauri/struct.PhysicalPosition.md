@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::PhysicalPosition
 sidebar_label: struct.PhysicalPosition
+custom_edit_url: null
 ---
 
 # Struct tauri::PhysicalPosition,\[−],\[−],−

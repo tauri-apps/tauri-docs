@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::platform::target_triple
 sidebar_label: fn.target_triple
+custom_edit_url: null
 ---
 
 # Function tauri::api::platform::target_triple,\[−],\[−],−

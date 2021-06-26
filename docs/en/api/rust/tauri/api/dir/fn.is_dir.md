@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::dir::is_dir
 sidebar_label: fn.is_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::dir::is_dir,\[−]\[src],\[−],−

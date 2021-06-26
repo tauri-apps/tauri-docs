@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::http::FormPart
 sidebar_label: enum.FormPart
+custom_edit_url: null
 ---
 
 # Enum tauri::api::http&#x3A;:FormPart,\[−]\[src],\[−],−
