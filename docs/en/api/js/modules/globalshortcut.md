@@ -1,4 +1,5 @@
 ---
+title: "Module: globalShortcut"
 sidebar_label: "globalShortcut"
 custom_edit_url: null
 hide_title: true
@@ -46,13 +47,13 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L29)
+[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
 ### isRegistered
 
-▸ **isRegistered**(`shortcut`): `Promise`<boolean\>
+▸ **isRegistered**(`shortcut`): `Promise`<`boolean`\>
 
 Determines whether the given shortcut is registered by this application or not.
 
@@ -64,19 +65,19 @@ Determines whether the given shortcut is registered by this application or not.
 
 #### Returns
 
-`Promise`<boolean\>
+`Promise`<`boolean`\>
 
 A promise resolving to the state.
 
 #### Defined in
 
-[globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L79)
+[globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L79)
 
 ___
 
 ### register
 
-▸ **register**(`shortcut`, `handler`): `Promise`<void\>
+▸ **register**(`shortcut`, `handler`): `Promise`<`void`\>
 
 Register a global shortcut.
 
@@ -85,21 +86,21 @@ Register a global shortcut.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `shortcut` | `string` | Shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q |
-| `handler` | [ShortcutHandler](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
+| `handler` | [`ShortcutHandler`](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L38)
+[globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L38)
 
 ___
 
 ### registerAll
 
-▸ **registerAll**(`shortcuts`, `handler`): `Promise`<void\>
+▸ **registerAll**(`shortcuts`, `handler`): `Promise`<`void`\>
 
 Register a collection of global shortcuts.
 
@@ -108,21 +109,21 @@ Register a collection of global shortcuts.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `shortcuts` | `string`[] | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
-| `handler` | [ShortcutHandler](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
+| `handler` | [`ShortcutHandler`](globalshortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[globalShortcut.ts:59](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L59)
+[globalShortcut.ts:59](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L59)
 
 ___
 
 ### unregister
 
-▸ **unregister**(`shortcut`): `Promise`<void\>
+▸ **unregister**(`shortcut`): `Promise`<`void`\>
 
 Unregister a global shortcut.
 
@@ -134,24 +135,24 @@ Unregister a global shortcut.
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[globalShortcut.ts:95](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L95)
+[globalShortcut.ts:95](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L95)
 
 ___
 
 ### unregisterAll
 
-▸ **unregisterAll**(): `Promise`<void\>
+▸ **unregisterAll**(): `Promise`<`void`\>
 
 Unregisters all shortcuts registered by the application.
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[globalShortcut.ts:110](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/globalShortcut.ts#L110)
+[globalShortcut.ts:110](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/globalShortcut.ts#L110)

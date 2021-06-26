@@ -1,4 +1,5 @@
 ---
+title: "Interface: ChildProcess"
 sidebar_label: "ChildProcess"
 custom_edit_url: null
 hide_title: true
@@ -18,7 +19,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 #### Defined in
 
-[shell.ts:46](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L46)
+[shell.ts:46](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L46)
 
 ___
 
@@ -30,7 +31,7 @@ If the process was terminated by a signal, represents that signal.
 
 #### Defined in
 
-[shell.ts:48](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L48)
+[shell.ts:48](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L48)
 
 ___
 
@@ -42,7 +43,7 @@ The data that the process wrote to `stderr`.
 
 #### Defined in
 
-[shell.ts:52](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L52)
+[shell.ts:52](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L52)
 
 ___
 
@@ -54,4 +55,4 @@ The data that the process wrote to `stdout`.
 
 #### Defined in
 
-[shell.ts:50](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L50)
+[shell.ts:50](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L50)

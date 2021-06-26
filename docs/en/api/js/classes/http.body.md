@@ -1,4 +1,5 @@
 ---
+title: "Class: Body"
 sidebar_label: "Body"
 custom_edit_url: null
 hide_title: true
@@ -18,7 +19,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:45](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L45)
+[http.ts:45](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L45)
 
 ___
 
@@ -28,13 +29,13 @@ ___
 
 #### Defined in
 
-[http.ts:44](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L44)
+[http.ts:44](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L44)
 
 ## Methods
 
 ### bytes
 
-▸ `Static` **bytes**(`bytes`): [Body](http.body.md)
+▸ `Static` **bytes**(`bytes`): [`Body`](http.body.md)
 
 Creates a new byte array body.
 
@@ -46,19 +47,19 @@ Creates a new byte array body.
 
 #### Returns
 
-[Body](http.body.md)
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:93](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L93)
+[http.ts:93](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L93)
 
 ___
 
 ### form
 
-▸ `Static` **form**(`data`): [Body](http.body.md)
+▸ `Static` **form**(`data`): [`Body`](http.body.md)
 
 Creates a new form data body.
 
@@ -66,23 +67,23 @@ Creates a new form data body.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `Record`<string, [Part](../modules/http.md#part)\> | The body data. |
+| `data` | `Record`<`string`, [`Part`](../modules/http.md#part)\> | The body data. |
 
 #### Returns
 
-[Body](http.body.md)
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:60](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L60)
+[http.ts:60](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L60)
 
 ___
 
 ### json
 
-▸ `Static` **json**(`data`): [Body](http.body.md)
+▸ `Static` **json**(`data`): [`Body`](http.body.md)
 
 Creates a new JSON body.
 
@@ -90,23 +91,23 @@ Creates a new JSON body.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `Record`<any, any\> | The body JSON object. |
+| `data` | `Record`<`any`, `any`\> | The body JSON object. |
 
 #### Returns
 
-[Body](http.body.md)
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:71](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L71)
+[http.ts:71](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L71)
 
 ___
 
 ### text
 
-▸ `Static` **text**(`value`): [Body](http.body.md)
+▸ `Static` **text**(`value`): [`Body`](http.body.md)
 
 Creates a new UTF-8 string body.
 
@@ -118,10 +119,10 @@ Creates a new UTF-8 string body.
 
 #### Returns
 
-[Body](http.body.md)
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:82](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L82)
+[http.ts:82](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L82)

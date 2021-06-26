@@ -77,13 +77,25 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
 
-#### `pub fn backtrace(&self) -> Option<&Backtrace>`[\[src\]](https://doc.rust-lang.org/nightly/src/std/error.rs.html#127 "goto source code")
+#### `backtrace`
+
+```rs
+pub fn backtrace(&self) -> Option<&Backtrace>
+```
+
+_Defined in: [error.rs:127](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L127)_
 
 🔬 This is a nightly-only experimental API. (`backtrace`)
 
 Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
 
-#### `pub fn description(&self) -> &str`1.0.0[\[src\]](https://doc.rust-lang.org/nightly/src/std/error.rs.html#139 "goto source code")
+#### `description`
+
+```rs
+pub fn description(&self) -> &str
+```
+
+_Defined in: [error.rs:139](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L139)_
 
 👎 Deprecated since 1.42.0:
 
@@ -91,7 +103,13 @@ use the Display impl or to_string()
 
 [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
 
-#### `pub fn cause(&self) -> Option<&dyn Error>`1.0.0[\[src\]](https://doc.rust-lang.org/nightly/src/std/error.rs.html#149 "goto source code")
+#### `cause`
+
+```rs
+pub fn cause(&self) -> Option<&dyn Error>
+```
+
+_Defined in: [error.rs:149](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L149)_
 
 👎 Deprecated since 1.33.0:
 
@@ -117,35 +135,99 @@ Performs the conversion.
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135 "goto source code")
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132 "goto source code")
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213 "goto source code")
+_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210 "goto source code")
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220 "goto source code")
+_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217 "goto source code")
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<T> for T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548 "goto source code")
+_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from(t: T) -> T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545 "goto source code")
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540 "goto source code")
+_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537 "goto source code")
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `impl<D> ToJsString for D where D: Display,`
 
@@ -153,31 +235,70 @@ Performs the conversion.
 
 Turn any [`Tag`](/docs/api/rust/tauri/../../tauri/trait.Tag "Tag") into the JavaScript representation of a string.
 
-### `impl<T> ToString for T where T: Display + ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2261-2274 "goto source code")
+### `ToString`
 
-#### `pub default fn to_string(&self) -> String`[\[src\]](https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2267 "goto source code")
+```rs
+impl<T> ToString for T where
+    T: Display + ?Sized, 
+```
+
+_Defined in: [string.rs:2261-2274](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2261-2274)_
+
+#### `to_string`
+
+```rs
+pub default fn to_string(&self) -> String
+```
 
 Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590 "goto source code")
+_Defined in: [string.rs:2267](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2267)_
+
+### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587 "goto source code")
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576 "goto source code")
+_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573 "goto source code")
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

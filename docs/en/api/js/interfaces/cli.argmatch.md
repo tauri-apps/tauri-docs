@@ -1,4 +1,5 @@
 ---
+title: "Interface: ArgMatch"
 sidebar_label: "ArgMatch"
 custom_edit_url: null
 hide_title: true
@@ -18,7 +19,7 @@ Number of occurrences
 
 #### Defined in
 
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/cli.ts#L24)
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/cli.ts#L24)
 
 ___
 
@@ -32,4 +33,4 @@ string[] or null if takes multiple values
 
 #### Defined in
 
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/cli.ts#L20)
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/cli.ts#L20)

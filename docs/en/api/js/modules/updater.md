@@ -1,4 +1,5 @@
 ---
+title: "Module: updater"
 sidebar_label: "updater"
 custom_edit_url: null
 hide_title: true
@@ -24,40 +25,40 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
 ### checkUpdate
 
-▸ **checkUpdate**(): `Promise`<[UpdateResult](../interfaces/updater.updateresult.md)\>
+▸ **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.updateresult.md)\>
 
 Checks if an update is available.
 
 #### Returns
 
-`Promise`<[UpdateResult](../interfaces/updater.updateresult.md)\>
+`Promise`<[`UpdateResult`](../interfaces/updater.updateresult.md)\>
 
 Promise resolving to the update status.
 
 #### Defined in
 
-[updater.ts:89](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L89)
+[updater.ts:89](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/updater.ts#L89)
 
 ___
 
 ### installUpdate
 
-▸ **installUpdate**(): `Promise`<void\>
+▸ **installUpdate**(): `Promise`<`void`\>
 
 Install the update if there's one available.
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[updater.ts:37](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/updater.ts#L37)
+[updater.ts:37](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/updater.ts#L37)

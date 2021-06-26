@@ -25,212 +25,864 @@ This differs from the standard library’s `Hash` trait in that `PhfHash`’s re
 
 ## Required methods
 
-### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#65 "goto source code")
+### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
 Feeds the value into the state given, updating the hasher as necessary.
 
+_Defined in: [lib.rs:65](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L65)_
+
 ## Provided methods
 
-### `pub fn phf_hash_slice<H>(data: &[Self], state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#68-70 "goto source code")
+### `phf_hash_slice`
+
+```rs
+pub fn phf_hash_slice<H>(data: &[Self], state: &mut H) where
+    H: Hasher, 
+```
 
 Feeds a slice of this type into the state provided.
 
+_Defined in: [lib.rs:68-70](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L68-70)_
+
 ## Implementations on Foreign Types
 
-### `impl PhfHash for [u8; 4]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#393 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#393 "goto source code")
+```rs
+impl PhfHash for [u8; 4]
+```
 
-### `impl PhfHash for [u8; 15]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#404 "goto source code")
+_Defined in: [lib.rs:393](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L393)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#404 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 5]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#394 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#394 "goto source code")
+_Defined in: [lib.rs:393](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L393)_
 
-### `impl PhfHash for Vec<u8, Global>`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#209-214 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#211 "goto source code")
+```rs
+impl PhfHash for [u8; 15]
+```
 
-### `impl PhfHash for i16`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#346 "goto source code")
+_Defined in: [lib.rs:404](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L404)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#346 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 14]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#403 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#403 "goto source code")
+_Defined in: [lib.rs:404](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L404)_
 
-### `impl PhfHash for [u8; 22]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#411 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#411 "goto source code")
+```rs
+impl PhfHash for [u8; 5]
+```
 
-### `impl PhfHash for bool`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#353 "goto source code")
+_Defined in: [lib.rs:394](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L394)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#353 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 20]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#409 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#409 "goto source code")
+_Defined in: [lib.rs:394](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L394)_
 
-### `impl PhfHash for u8`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#343 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#343 "goto source code")
+```rs
+impl PhfHash for Vec<u8, Global>
+```
 
-### `impl PhfHash for [u8; 2]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#391 "goto source code")
+_Defined in: [lib.rs:209-214](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L209-214)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#391 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for i32`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#348 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#348 "goto source code")
+_Defined in: [lib.rs:211](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L211)_
 
-### `impl PhfHash for [u8; 32]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#421 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#421 "goto source code")
+```rs
+impl PhfHash for i16
+```
 
-### `impl PhfHash for i8`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#344 "goto source code")
+_Defined in: [lib.rs:346](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L346)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#344 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 7]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#396 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#396 "goto source code")
+_Defined in: [lib.rs:346](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L346)_
 
-### `impl PhfHash for [u8; 3]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#392 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#392 "goto source code")
+```rs
+impl PhfHash for [u8; 14]
+```
 
-### `impl PhfHash for [u8; 27]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#416 "goto source code")
+_Defined in: [lib.rs:403](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L403)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#416 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 10]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#399 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#399 "goto source code")
+_Defined in: [lib.rs:403](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L403)_
 
-### `impl PhfHash for [u8]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#247-252 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#249 "goto source code")
+```rs
+impl PhfHash for [u8; 22]
+```
 
-### `impl PhfHash for [u8; 28]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#417 "goto source code")
+_Defined in: [lib.rs:411](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L411)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#417 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 21]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#410 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#410 "goto source code")
+_Defined in: [lib.rs:411](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L411)_
 
-### `impl PhfHash for i64`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#350 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#350 "goto source code")
+```rs
+impl PhfHash for bool
+```
 
-### `impl PhfHash for String`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#201-206 "goto source code")
+_Defined in: [lib.rs:353](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L353)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#203 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 11]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#400 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#400 "goto source code")
+_Defined in: [lib.rs:353](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L353)_
 
-### `impl PhfHash for [u8; 30]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#419 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#419 "goto source code")
+```rs
+impl PhfHash for [u8; 20]
+```
 
-### `impl PhfHash for [u8; 16]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#405 "goto source code")
+_Defined in: [lib.rs:409](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L409)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#405 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for u32`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#347 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#347 "goto source code")
+_Defined in: [lib.rs:409](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L409)_
 
-### `impl PhfHash for [u8; 8]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#397 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#397 "goto source code")
+```rs
+impl PhfHash for u8
+```
 
-### `impl PhfHash for [u8; 23]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#412 "goto source code")
+_Defined in: [lib.rs:343](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L343)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#412 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for u16`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#345 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#345 "goto source code")
+_Defined in: [lib.rs:343](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L343)_
 
-### `impl PhfHash for [u8; 19]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#408 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#408 "goto source code")
+```rs
+impl PhfHash for [u8; 2]
+```
 
-### `impl PhfHash for [u8; 31]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#420 "goto source code")
+_Defined in: [lib.rs:391](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L391)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#420 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 6]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#395 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#395 "goto source code")
+_Defined in: [lib.rs:391](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L391)_
 
-### `impl PhfHash for [u8; 25]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#414 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#414 "goto source code")
+```rs
+impl PhfHash for i32
+```
 
-### `impl PhfHash for u64`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#349 "goto source code")
+_Defined in: [lib.rs:348](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L348)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#349 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for i128`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#352 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#352 "goto source code")
+_Defined in: [lib.rs:348](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L348)_
 
-### `impl PhfHash for [u8; 12]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#401 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#401 "goto source code")
+```rs
+impl PhfHash for [u8; 32]
+```
 
-### `impl PhfHash for [u8; 18]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#407 "goto source code")
+_Defined in: [lib.rs:421](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L421)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#407 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for str`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#240-245 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#242 "goto source code")
+_Defined in: [lib.rs:421](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L421)_
 
-### `impl PhfHash for [u8; 13]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#402 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#402 "goto source code")
+```rs
+impl PhfHash for i8
+```
 
-### `impl PhfHash for char`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#355-360 "goto source code")
+_Defined in: [lib.rs:344](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L344)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#357 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 24]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#413 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#413 "goto source code")
+_Defined in: [lib.rs:344](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L344)_
 
-### `impl PhfHash for [u8; 9]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#398 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#398 "goto source code")
+```rs
+impl PhfHash for [u8; 7]
+```
 
-### `impl<'a, T> PhfHash for &'aT where T: 'a + PhfHash + ?Sized,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#216-220 "goto source code")
+_Defined in: [lib.rs:396](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L396)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#217 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 29]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#418 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#418 "goto source code")
+_Defined in: [lib.rs:396](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L396)_
 
-### `impl PhfHash for [u8; 26]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#415 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#415 "goto source code")
+```rs
+impl PhfHash for [u8; 3]
+```
 
-### `impl PhfHash for [u8; 17]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#406 "goto source code")
+_Defined in: [lib.rs:392](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L392)_
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#406 "goto source code")
+#### `phf_hash`
 
-### `impl PhfHash for [u8; 1]`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#390 "goto source code")
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#390 "goto source code")
+_Defined in: [lib.rs:392](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L392)_
 
-### `impl PhfHash for u128`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#351 "goto source code")
+### `PhfHash`
 
-#### `pub fn phf_hash<H>(&self, state: &mutH) where H: Hasher,`[\[src\]](https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs.html#351 "goto source code")
+```rs
+impl PhfHash for [u8; 27]
+```
+
+_Defined in: [lib.rs:416](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L416)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:416](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L416)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 10]
+```
+
+_Defined in: [lib.rs:399](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L399)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:399](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L399)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8]
+```
+
+_Defined in: [lib.rs:247-252](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L247-252)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:249](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L249)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 28]
+```
+
+_Defined in: [lib.rs:417](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L417)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:417](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L417)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 21]
+```
+
+_Defined in: [lib.rs:410](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L410)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:410](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L410)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for i64
+```
+
+_Defined in: [lib.rs:350](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L350)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:350](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L350)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for String
+```
+
+_Defined in: [lib.rs:201-206](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L201-206)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:203](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L203)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 11]
+```
+
+_Defined in: [lib.rs:400](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L400)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:400](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L400)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 30]
+```
+
+_Defined in: [lib.rs:419](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L419)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:419](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L419)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 16]
+```
+
+_Defined in: [lib.rs:405](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L405)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:405](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L405)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for u32
+```
+
+_Defined in: [lib.rs:347](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L347)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:347](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L347)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 8]
+```
+
+_Defined in: [lib.rs:397](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L397)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:397](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L397)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 23]
+```
+
+_Defined in: [lib.rs:412](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L412)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:412](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L412)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for u16
+```
+
+_Defined in: [lib.rs:345](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L345)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:345](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L345)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 19]
+```
+
+_Defined in: [lib.rs:408](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L408)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:408](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L408)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 31]
+```
+
+_Defined in: [lib.rs:420](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L420)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:420](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L420)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 6]
+```
+
+_Defined in: [lib.rs:395](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L395)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:395](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L395)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 25]
+```
+
+_Defined in: [lib.rs:414](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L414)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:414](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L414)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for u64
+```
+
+_Defined in: [lib.rs:349](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L349)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:349](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L349)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for i128
+```
+
+_Defined in: [lib.rs:352](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L352)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:352](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L352)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 12]
+```
+
+_Defined in: [lib.rs:401](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L401)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:401](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L401)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 18]
+```
+
+_Defined in: [lib.rs:407](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L407)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:407](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L407)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for str
+```
+
+_Defined in: [lib.rs:240-245](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L240-245)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:242](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L242)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 13]
+```
+
+_Defined in: [lib.rs:402](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L402)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:402](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L402)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for char
+```
+
+_Defined in: [lib.rs:355-360](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L355-360)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:357](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L357)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 24]
+```
+
+_Defined in: [lib.rs:413](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L413)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:413](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L413)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 9]
+```
+
+_Defined in: [lib.rs:398](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L398)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:398](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L398)_
+
+### `PhfHash`
+
+```rs
+impl<'a, T> PhfHash for &'a T where
+    T: 'a + PhfHash + ?Sized, 
+```
+
+_Defined in: [lib.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L216-220)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L217)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 29]
+```
+
+_Defined in: [lib.rs:418](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L418)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:418](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L418)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 26]
+```
+
+_Defined in: [lib.rs:415](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L415)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:415](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L415)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 17]
+```
+
+_Defined in: [lib.rs:406](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L406)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:406](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L406)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for [u8; 1]
+```
+
+_Defined in: [lib.rs:390](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L390)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:390](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L390)_
+
+### `PhfHash`
+
+```rs
+impl PhfHash for u128
+```
+
+_Defined in: [lib.rs:351](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L351)_
+
+#### `phf_hash`
+
+```rs
+pub fn phf_hash<H>(&self, state: &mut H) where
+    H: Hasher, 
+```
+
+_Defined in: [lib.rs:351](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf_shared/0.9/src/phf_shared/lib.rs#L351)_
 
 ## Implementors

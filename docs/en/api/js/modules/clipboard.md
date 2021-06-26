@@ -15,25 +15,25 @@ This package is also accessible with `window.__TAURI__.clipboard` when `tauri.co
 
 ### readText
 
-▸ **readText**(): `Promise`<string \| ``null``\>
+▸ **readText**(): `Promise`<`string` \| ``null``\>
 
 Gets the clipboard content as plain text.
 
 #### Returns
 
-`Promise`<string \| ``null``\>
+`Promise`<`string` \| ``null``\>
 
 A promise resolving to the clipboard content as plain text.
 
 #### Defined in
 
-[clipboard.ts:34](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/clipboard.ts#L34)
+[clipboard.ts:34](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/clipboard.ts#L34)
 
 ___
 
 ### writeText
 
-▸ **writeText**(`text`): `Promise`<void\>
+▸ **writeText**(`text`): `Promise`<`void`\>
 
 Writes a plain text to the clipboard.
 
@@ -45,10 +45,10 @@ Writes a plain text to the clipboard.
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[clipboard.ts:19](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/clipboard.ts#L19)
+[clipboard.ts:19](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/clipboard.ts#L19)

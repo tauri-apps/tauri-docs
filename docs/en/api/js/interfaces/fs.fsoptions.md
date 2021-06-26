@@ -1,4 +1,5 @@
 ---
+title: "Interface: FsOptions"
 sidebar_label: "FsOptions"
 custom_edit_url: null
 hide_title: true
@@ -12,8 +13,8 @@ hide_title: true
 
 ### dir
 
-• `Optional` **dir**: [BaseDirectory](../enums/fs.basedirectory.md)
+• `Optional` **dir**: [`BaseDirectory`](../enums/fs.basedirectory.md)
 
 #### Defined in
 
-[fs.ts:61](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L61)
+[fs.ts:61](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/fs.ts#L61)

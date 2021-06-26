@@ -15,7 +15,7 @@ Attention type to request on a window.
 
 ### Critical
 
-• **Critical** = 1
+• **Critical** = `1`
 
 ## Platform-specific
  - **macOS:** Bounces the dock icon until the application is in focus.
@@ -23,13 +23,13 @@ Attention type to request on a window.
 
 #### Defined in
 
-[window.ts:123](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L123)
+[window.ts:123](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L123)
 
 ___
 
 ### Informational
 
-• **Informational** = 2
+• **Informational** = `2`
 
 ## Platform-specific
 - **macOS:** Bounces the dock icon once.
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[window.ts:129](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L129)
+[window.ts:129](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L129)

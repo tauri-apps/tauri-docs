@@ -1,4 +1,5 @@
 ---
+title: "Class: WebviewWindowHandle"
 sidebar_label: "WebviewWindowHandle"
 custom_edit_url: null
 hide_title: true
@@ -12,9 +13,9 @@ A webview window handle allows emitting and listening to events from the backend
 
 ## Hierarchy
 
-- **WebviewWindowHandle**
+- **`WebviewWindowHandle`**
 
-  ↳ [WebviewWindow](window.webviewwindow.md)
+  ↳ [`WebviewWindow`](window.webviewwindow.md)
 
 ## Constructors
 
@@ -30,7 +31,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L161)
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L161)
 
 ## Properties
 
@@ -42,7 +43,7 @@ Window label.
 
 #### Defined in
 
-[window.ts:159](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L159)
+[window.ts:159](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L159)
 
 ___
 
@@ -54,17 +55,17 @@ Local event listeners.
 
 #### Index signature
 
-▪ [key: `string`]: [EventCallback](../modules/event.md#eventcallback)<any\>[]
+▪ [key: `string`]: [`EventCallback`](../modules/event.md#eventcallback)<`any`\>[]
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L161)
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L161)
 
 ## Methods
 
 ### \_handleTauriEvent
 
-▸ **_handleTauriEvent**<T\>(`event`, `handler`): `boolean`
+▸ **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
 #### Type parameters
 
@@ -77,7 +78,7 @@ Local event listeners.
 | Name | Type |
 | :------ | :------ |
 | `event` | `string` |
-| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> |
 
 #### Returns
 
@@ -85,13 +86,13 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:225](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L225)
+[window.ts:225](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L225)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`, `payload?`): `Promise`<void\>
+▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
@@ -104,17 +105,17 @@ Emits an event to the backend, tied to the webview window.
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[window.ts:214](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L214)
+[window.ts:214](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L214)
 
 ___
 
 ### listen
 
-▸ **listen**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
+▸ **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
@@ -129,23 +130,23 @@ Listen to an event emitted by the backend that is tied to the webview window.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `event` | `string` | Event name. |
-| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> | Event handler. |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
 #### Returns
 
-`Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
+`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:176](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L176)
+[window.ts:176](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L176)
 
 ___
 
 ### once
 
-▸ **once**<T\>(`event`, `handler`): `Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
+▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
@@ -160,14 +161,14 @@ Listen to an one-off event emitted by the backend that is tied to the webview wi
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `event` | `string` | Event name. |
-| `handler` | [EventCallback](../modules/event.md#eventcallback)<T\> | Event handler. |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
 #### Returns
 
-`Promise`<[UnlistenFn](../modules/event.md#unlistenfn)\>
+`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:197](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L197)
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L197)

@@ -26,32 +26,68 @@ The plugin interface.
 
 ## Required methods
 
-### `fn name(&self) -> &'static str`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#17 "goto source code")
+### `name`
+
+```rs
+fn name(&self) -> &'static str
+```
 
 The plugin name. Used as key on the plugin config object.
 
+_Defined in: [plugin.rs:17](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L17)_
+
 ## Provided methods
 
-### `fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#21-23 "goto source code")
+### `initialize`
+
+```rs
+fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()>
+```
 
 Initialize the plugin.
 
-### `fn initialization_script(&self) -> Option<String>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#30-32 "goto source code")
+_Defined in: [plugin.rs:21-23](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L21-23)_
+
+### `initialization_script`
+
+```rs
+fn initialization_script(&self) -> Option<String>
+```
 
 The JS script to evaluate on webview initialization. The script is wrapped into its own context with `(function () { /* your script here */ })();`, so global variables must be assigned to `window` instead of implicity declared.
 
 It’s guaranteed that this script is executed before the page is loaded.
 
-### `fn created(&mut self, window: Window<P>)`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#36 "goto source code")
+_Defined in: [plugin.rs:30-32](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L30-32)_
+
+### `created`
+
+```rs
+fn created(&mut self, window: Window<P>)
+```
 
 Callback invoked when the webview is created.
 
-### `fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload)`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#40 "goto source code")
+_Defined in: [plugin.rs:36](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L36)_
+
+### `on_page_load`
+
+```rs
+fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload)
+```
 
 Callback invoked when the webview performs a navigation.
 
-### `fn extend_api(&mut self, invoke: Invoke<P>)`[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#44 "goto source code")
+_Defined in: [plugin.rs:40](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L40)_
+
+### `extend_api`
+
+```rs
+fn extend_api(&mut self, invoke: Invoke<P>)
+```
 
 Add invoke_handler API extension commands.
+
+_Defined in: [plugin.rs:44](https://github.com/https://blob/710a4f9/core/tauri/src/../plugin.rs#L44)_
 
 ## Implementors

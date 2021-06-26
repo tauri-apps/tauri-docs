@@ -1,4 +1,5 @@
 ---
+title: "Module: shell"
 sidebar_label: "shell"
 custom_edit_url: null
 hide_title: true
@@ -20,7 +21,7 @@ hide_title: true
 
 ### open
 
-▸ **open**(`path`, `openWith?`): `Promise`<void\>
+▸ **open**(`path`, `openWith?`): `Promise`<`void`\>
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
@@ -44,8 +45,8 @@ await open('/path/to/file')
 
 #### Returns
 
-`Promise`<void\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L358)
+[shell.ts:358](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L358)
