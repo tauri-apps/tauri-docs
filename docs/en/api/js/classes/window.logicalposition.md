@@ -1,4 +1,5 @@
 ---
+title: "Class: LogicalPosition"
 sidebar_label: "LogicalPosition"
 custom_edit_url: null
 hide_title: true
@@ -25,17 +26,17 @@ A position represented in logical pixels.
 
 #### Defined in
 
-[window.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L76)
+[window.ts:76](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L76)
 
 ## Properties
 
 ### type
 
-• **type**: `string` = 'Logical'
+• **type**: `string` = `'Logical'`
 
 #### Defined in
 
-[window.ts:74](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L74)
+[window.ts:74](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L74)
 
 ___
 
@@ -45,7 +46,7 @@ ___
 
 #### Defined in
 
-[window.ts:75](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L75)
+[window.ts:75](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L75)
 
 ___
 
@@ -55,4 +56,4 @@ ___
 
 #### Defined in
 
-[window.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L76)
+[window.ts:76](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L76)

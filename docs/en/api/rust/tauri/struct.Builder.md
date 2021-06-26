@@ -22,66 +22,80 @@ Builds a Tauri application.
 
 ### `Builder`
 
-#### `new`
+```rs
+impl<E, L, MID, TID, A, R> Builder<E, L, MID, TID, A, R> where
+    E: Tag,
+    L: Tag,
+    MID: MenuId,
+    TID: MenuId,
+    A: Assets,
+    R: Runtime, 
+```
 
-Creates a new App builder.
+_Defined in: [app.rs:415-877](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L415-877)_
+
+#### `new`
 
 ```rs
 pub fn new() -> Self
 ```
 
-Defined in: [app.rs:425-444](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L425-444)
+Creates a new App builder.
+
+_Defined in: [app.rs:425-444](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L425-444)_
 
 #### `invoke_handler`
 
-Defines the JS message handler callback.
-
 ```rs
-pub fn invoke_handler<F>(self, invoke_handler: F) -> Self 
-where
-    F: Fn(Invoke<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static, 
+pub fn invoke_handler<F>(self, invoke_handler: F) -> Self where
+    F: Fn(Invoke<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static, 
 ```
 
-Defined in: [app.rs:447-453](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L447-453)
+Defines the JS message handler callback.
+
+_Defined in: [app.rs:447-453](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L447-453)_
 
 #### `setup`
 
-Defines the setup hook.
-
 ```rs
-pub fn setup<F>(self, setup: F) -> Self 
-where
-    F: Fn(&mut App<Args<E, L, MID, TID, A, R>>) -> Result<(), Box<dyn Error + Send>> + Send + 'static, 
+pub fn setup<F>(self, setup: F) -> Self where
+    F: Fn(&mut App<Args<E, L, MID, TID, A, R>>) -> Result<(), Box<dyn Error + Send>> + Send + 'static, 
 ```
 
-Defined in: [app.rs:456-464](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L456-464)
+Defines the setup hook.
+
+_Defined in: [app.rs:456-464](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L456-464)_
 
 #### `on_page_load`
 
-Defines the page load hook.
-
 ```rs
-pub fn on_page_load<F>(self, on_page_load: F) -> Self 
-where
-    F: Fn(Window<Args<E, L, MID, TID, A, R>>, PageLoadPayload) + Send + Sync + 'static, 
+pub fn on_page_load<F>(self, on_page_load: F) -> Self where
+    F: Fn(Window<Args<E, L, MID, TID, A, R>>, PageLoadPayload) + Send + Sync + 'static, 
 ```
 
-Defined in: [app.rs:467-473](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L467-473)
+Defines the page load hook.
+
+_Defined in: [app.rs:467-473](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L467-473)_
 
 #### `plugin`
 
-Adds a plugin to the runtime.
-
 ```rs
 pub fn plugin<P: Plugin<Args<E, L, MID, TID, A, R>> + 'static>(
-    self,
-    plugin: P
+    self, 
+    plugin: P
 ) -> Self
 ```
 
-Defined in: [app.rs:476-479](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L476-479)
+Adds a plugin to the runtime.
+
+_Defined in: [app.rs:476-479](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L476-479)_
 
 #### `manage`
+
+```rs
+pub fn manage<T>(self, state: T) -> Self where
+    T: Send + Sync + 'static, 
+```
 
 Add `state` to the state managed by the application.
 
@@ -159,40 +173,41 @@ fn main() {
 }
 ```
 
-```rs
-pub fn manage<T>(self, state: T) -> Self 
-where
-    T: Send + Sync + 'static, 
-```
-
-Defined in: [app.rs:556-566](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L556-566)
+_Defined in: [app.rs:556-566](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L556-566)_
 
 #### `create_window`
 
-Creates a new webview window.
-
 ```rs
-pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self 
-where
-    F: FnOnce(<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes), 
+pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self where
+    F: FnOnce(<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes), 
 ```
 
-Defined in: [app.rs:569-589](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L569-589)
+Creates a new webview window.
+
+_Defined in: [app.rs:569-589](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L569-589)_
 
 #### `on_window_event`
 
-Registers a window event handler for all windows.
-
 ```rs
 pub fn on_window_event<F: Fn(GlobalWindowEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>(
-    self,
-    handler: F
+    self, 
+    handler: F
 ) -> Self
 ```
 
-Defined in: [app.rs:621-629](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L621-629)
+Registers a window event handler for all windows.
+
+_Defined in: [app.rs:621-629](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L621-629)_
 
 #### `register_global_uri_scheme_protocol`
+
+```rs
+pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>(
+    self, 
+    uri_scheme: N, 
+    protocol: H
+) -> Self
+```
 
 Registers a URI scheme protocol available to all webviews. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
 
@@ -201,74 +216,52 @@ Registers a URI scheme protocol available to all webviews. Leverages [setURLSche
 -   `uri_scheme` The URI scheme to register, such as `example`.
 -   `protocol` the protocol associated with the given URI scheme. It’s a function that takes an URL such as `example://localhost/asset.css`.
 
-
-```rs
-pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str
-) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>(
-    self,
-    uri_scheme: N,
-    protocol: H) -> Self
-```
-
-Defined in: [app.rs:653-668](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L653-668)
+_Defined in: [app.rs:653-668](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L653-668)_
 
 #### `build`
 
-Builds the application.
-
 ```rs
 pub fn build(
-    self,
-    context: Context<A>
+    self, 
+    context: Context<A>
 ) -> Result<App<Args<E, L, MID, TID, A, R>>>
 ```
 
-Defined in: [app.rs:672-854](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L672-854)
+Builds the application.
+
+_Defined in: [app.rs:672-854](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L672-854)_
 
 #### `run`
-
-Runs the configured Tauri application.
 
 ```rs
 pub fn run(self, context: Context<A>) -> Result<()>
 ```
 
-Defined in: [app.rs:857-876](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L857-876)
+Runs the configured Tauri application.
 
-```rs
-impl<E, L, MID, TID, A, R> Builder<E, L, MID, TID, A, R> 
-where
-    E: Tag,
-    L: Tag,
-    MID: MenuId,
-    TID: MenuId,
-    A: Assets,
-    R: Runtime, 
-```
-
-Defined in: [app.rs:415-877](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L415-877)
+_Defined in: [app.rs:857-876](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L857-876)_
 
 ## Trait Implementations
 
 ### `Assets`
 
-Make `Wry` the default `Runtime` for `Builder`
-
 ```rs
 impl<A: Assets> Default for Builder<String, String, String, String, A, Wry>
 ```
 
-Defined in: [app.rs:887-891](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L887-891)
+Make `Wry` the default `Runtime` for `Builder`
+
+_Defined in: [app.rs:887-891](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L887-891)_
 
 #### `default`
-
-Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
 
 ```rs
 fn default() -> Self
 ```
 
-Defined in: [app.rs:888-890](https://github.com/https://blob/01d4ada/core/tauri/src/app.rs#L888-890)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+
+_Defined in: [app.rs:888-890](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L888-890)_
 
 ## Auto Trait Implementations
 
@@ -286,103 +279,106 @@ Defined in: [app.rs:888-890](https://github.com/https://blob/01d4ada/core/tauri/
 
 ### `Any`
 
-#### `type_id`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
 
 ```rs
 pub fn type_id(&self) -> TypeId
 ```
 
-Defined in: [any.rs:132](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-```rs
-impl<T> Any for T 
-where
-    T: 'static + ?Sized, 
-```
-
-Defined in: [any.rs:131-135](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)
+_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
-#### `borrow`
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
 
 ```rs
 pub fn borrow(&self) -> &T
 ```
 
-Defined in: [borrow.rs:210](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-```rs
-impl<T> Borrow<T> for T 
-where
-    T: ?Sized, 
-```
-
-Defined in: [borrow.rs:208-213](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)
+_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
-#### `borrow_mut`
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
 
 ```rs
 pub fn borrow_mut(&mut self) -> &mut T
 ```
 
-Defined in: [borrow.rs:217](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-```rs
-impl<T> BorrowMut<T> for T 
-where
-    T: ?Sized, 
-```
-
-Defined in: [borrow.rs:216-220](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)
+_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
-
-#### `from`
-
-Performs the conversion.
-
-```rs
-pub fn from(t: T) -> T
-```
-
-Defined in: [mod.rs:545](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)
 
 ```rs
 impl<T> From<T> for T
 ```
 
-Defined in: [mod.rs:544-548](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
-#### `into`
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
 
-Performs the conversion.
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
 
 ```rs
 pub fn into(self) -> U
 ```
 
-Defined in: [mod.rs:537](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)
+Performs the conversion.
 
-```rs
-impl<T, U> Into<U> for T 
-where
-    U: From<T>, 
-```
-
-Defined in: [mod.rs:533-540](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)
+_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -390,23 +386,22 @@ The type returned in the event of a conversion error.
 
 #### `try_from`
 
-Performs the conversion.
-
 ```rs
 pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 ```
 
-Defined in: [mod.rs:587](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)
+Performs the conversion.
 
-```rs
-impl<T, U> TryFrom<U> for T 
-where
-    U: Into<T>, 
-```
-
-Defined in: [mod.rs:581-590](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)
+_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -414,21 +409,13 @@ The type returned in the event of a conversion error.
 
 #### `try_into`
 
-Performs the conversion.
-
 ```rs
 pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 ```
 
-Defined in: [mod.rs:573](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)
+Performs the conversion.
 
-```rs
-impl<T, U> TryInto<U> for T 
-where
-    U: TryFrom<T>, 
-```
-
-Defined in: [mod.rs:567-576](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)
+_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

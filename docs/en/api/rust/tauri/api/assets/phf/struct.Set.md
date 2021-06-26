@@ -19,55 +19,143 @@ The fields of this struct are public so that they may be initialized by the `phf
 
 ## Implementations
 
-### `impl<T> Set<T>`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#30-70 "goto source code")
+### `Set`
 
-#### `pub fn len(&self) -> usize`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#32 "goto source code")
+```rs
+impl<T> Set<T>
+```
+
+_Defined in: [set.rs:30-70](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L30-70)_
+
+#### `len`
+
+```rs
+pub fn len(&self) -> usize
+```
 
 Returns the number of elements in the `Set`.
 
-#### `pub fn is_empty(&self) -> bool`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#37 "goto source code")
+_Defined in: [set.rs:32](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L32)_
+
+#### `is_empty`
+
+```rs
+pub fn is_empty(&self) -> bool
+```
 
 Returns true if the `Set` contains no elements.
 
-#### `pub fn get_key<U>(&self, key: &U) -> Option<&T> where T: PhfBorrow<U>, U: Eq + PhfHash + ?Sized,`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#45-48 "goto source code")
+_Defined in: [set.rs:37](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L37)_
+
+#### `get_key`
+
+```rs
+pub fn get_key<U>(&self, key: &U) -> Option<&T> where
+    T: PhfBorrow<U>,
+    U: Eq + PhfHash + ?Sized, 
+```
 
 Returns a reference to the set’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
-#### `pub fn contains<U>(&self, value: &U) -> boolwhere T: PhfBorrow<U>, U: Eq + PhfHash + ?Sized,`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#54-57 "goto source code")
+_Defined in: [set.rs:45-48](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L45-48)_
+
+#### `contains`
+
+```rs
+pub fn contains<U>(&self, value: &U) -> bool where
+    T: PhfBorrow<U>,
+    U: Eq + PhfHash + ?Sized, 
+```
 
 Returns true if `value` is in the `Set`.
 
-#### `pub fn iter(&self) -> Iter<'_, T>ⓘ Notable traits for Iter<'a, T> impl<'a, T> Iterator for Iter<'a, T>type Item = &'aT;`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#65 "goto source code")
+_Defined in: [set.rs:54-57](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L54-57)_
+
+#### `iter`
+
+```rs
+pub fn iter(&self) -> Iter<'_, T>ⓘ
+Notable traits for Iter<'a, T>
+impl<'a, T> Iterator for Iter<'a, T>
+    type Item = &'a T;
+
+```
 
 Returns an iterator over the values in the set.
 
 Values are returned in an arbitrary but fixed order.
 
-### `impl<T> Set<T> where T: Eq + PhfHash + PhfBorrow<T>,`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#72-90 "goto source code")
+_Defined in: [set.rs:65](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L65)_
 
-#### `pub fn is_disjoint(&self, other: &Set<T>) -> bool`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#77 "goto source code")
+### `Set`
+
+```rs
+impl<T> Set<T> where
+    T: Eq + PhfHash + PhfBorrow<T>, 
+```
+
+_Defined in: [set.rs:72-90](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L72-90)_
+
+#### `is_disjoint`
+
+```rs
+pub fn is_disjoint(&self, other: &Set<T>) -> bool
+```
 
 Returns true if `other` shares no elements with `self`.
 
-#### `pub fn is_subset(&self, other: &Set<T>) -> bool`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#82 "goto source code")
+_Defined in: [set.rs:77](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L77)_
+
+#### `is_subset`
+
+```rs
+pub fn is_subset(&self, other: &Set<T>) -> bool
+```
 
 Returns true if `other` contains all values in `self`.
 
-#### `pub fn is_superset(&self, other: &Set<T>) -> bool`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#87 "goto source code")
+_Defined in: [set.rs:82](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L82)_
+
+#### `is_superset`
+
+```rs
+pub fn is_superset(&self, other: &Set<T>) -> bool
+```
 
 Returns true if `self` contains all values in `other`.
 
+_Defined in: [set.rs:87](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L87)_
+
 ## Trait Implementations
 
-### `impl<T> Debug for Set<T> where T: Debug,`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#21-28 "goto source code")
+### `Debug`
 
-#### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#25 "goto source code")
+```rs
+impl<T> Debug for Set<T> where
+    T: Debug, 
+```
+
+_Defined in: [set.rs:21-28](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L21-28)_
+
+#### `fmt`
+
+```rs
+pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>
+```
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'a, T> IntoIterator for &'a Set<T>`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#92-99 "goto source code")
+_Defined in: [set.rs:25](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L25)_
+
+### `IntoIterator`
+
+```rs
+impl<'a, T> IntoIterator for &'a Set<T>
+```
+
+_Defined in: [set.rs:92-99](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L92-99)_
 
 #### `type Item = &'aT`
 
@@ -77,9 +165,19 @@ The type of the elements being iterated over.
 
 Which kind of iterator are we turning this into?
 
-#### `pub fn into_iter(self) -> Iter<'a, T>ⓘ Notable traits for Iter<'a, T> impl<'a, T> Iterator for Iter<'a, T>type Item = &'aT;`[\[src\]](https://docs.rs/phf/0.9/src/phf/set.rs.html#96 "goto source code")
+#### `into_iter`
+
+```rs
+pub fn into_iter(self) -> Iter<'a, T>ⓘ
+Notable traits for Iter<'a, T>
+impl<'a, T> Iterator for Iter<'a, T>
+    type Item = &'a T;
+
+```
 
 Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter)
+
+_Defined in: [set.rs:96](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L96)_
 
 ## Auto Trait Implementations
 
@@ -95,55 +193,145 @@ Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135 "goto source code")
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132 "goto source code")
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213 "goto source code")
+_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210 "goto source code")
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220 "goto source code")
+_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217 "goto source code")
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<T> for T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548 "goto source code")
+_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from(t: T) -> T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545 "goto source code")
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540 "goto source code")
+_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537 "goto source code")
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590 "goto source code")
+_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+
+### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587 "goto source code")
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576 "goto source code")
+_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573 "goto source code")
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

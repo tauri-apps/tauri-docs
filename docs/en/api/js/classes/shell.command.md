@@ -1,4 +1,5 @@
 ---
+title: "Class: Command"
 sidebar_label: "Command"
 custom_edit_url: null
 hide_title: true
@@ -29,7 +30,7 @@ console.log('pid:', child.pid)
 
 - `EventEmitter`<``"close"`` \| ``"error"``\>
 
-  ↳ **Command**
+  ↳ **`Command`**
 
 ## Constructors
 
@@ -44,8 +45,8 @@ Creates a new `Command` instance.
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `program` | `string` | `undefined` | The program to execute. |
-| `args` | `string` \| `string`[] | [] | Program arguments. |
-| `options?` | [SpawnOptions](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
 
 #### Overrides
 
@@ -53,7 +54,7 @@ EventEmitter&lt;&#x27;close&#x27; \| &#x27;error&#x27;\&gt;.constructor
 
 #### Defined in
 
-[shell.ts:207](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L207)
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L207)
 
 ## Properties
 
@@ -65,7 +66,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:207](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L207)
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L207)
 
 ___
 
@@ -77,13 +78,13 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:205](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L205)
+[shell.ts:205](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L205)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[ChildProcess](../interfaces/shell.childprocess.md)\>
+▸ **execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.childprocess.md)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
@@ -98,13 +99,13 @@ assert(output.stderr === '')
 
 #### Returns
 
-`Promise`<[ChildProcess](../interfaces/shell.childprocess.md)\>
+`Promise`<[`ChildProcess`](../interfaces/shell.childprocess.md)\>
 
 A promise resolving to the child process output.
 
 #### Defined in
 
-[shell.ts:292](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L292)
+[shell.ts:292](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L292)
 
 ___
 
@@ -133,31 +134,31 @@ EventEmitter.on
 
 #### Defined in
 
-[shell.ts:125](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L125)
+[shell.ts:125](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L125)
 
 ___
 
 ### spawn
 
-▸ **spawn**(): `Promise`<[Child](shell.child.md)\>
+▸ **spawn**(): `Promise`<[`Child`](shell.child.md)\>
 
 Executes the command as a child process, returning a handle to it.
 
 #### Returns
 
-`Promise`<[Child](shell.child.md)\>
+`Promise`<[`Child`](shell.child.md)\>
 
 A promise resolving to the child process handle.
 
 #### Defined in
 
-[shell.ts:255](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L255)
+[shell.ts:255](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L255)
 
 ___
 
 ### sidecar
 
-▸ `Static` **sidecar**(`program`, `args?`, `options?`): [Command](shell.command.md)
+▸ `Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.command.md)
 
 Creates a command to execute the given sidecar program.
 
@@ -172,13 +173,13 @@ const output = await command.execute()
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `program` | `string` | `undefined` | The program to execute. |
-| `args` | `string` \| `string`[] | [] | Program arguments. |
-| `options?` | [SpawnOptions](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
 
 #### Returns
 
-[Command](shell.command.md)
+[`Command`](shell.command.md)
 
 #### Defined in
 
-[shell.ts:240](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/shell.ts#L240)
+[shell.ts:240](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L240)

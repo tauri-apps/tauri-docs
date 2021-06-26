@@ -1,4 +1,5 @@
 ---
+title: "Interface: FsBinaryFileOption"
 sidebar_label: "FsBinaryFileOption"
 custom_edit_url: null
 hide_title: true
@@ -16,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[fs.ts:76](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L76)
+[fs.ts:76](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/fs.ts#L76)
 
 ___
 
@@ -26,4 +27,4 @@ ___
 
 #### Defined in
 
-[fs.ts:75](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/fs.ts#L75)
+[fs.ts:75](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/fs.ts#L75)

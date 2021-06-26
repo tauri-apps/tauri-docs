@@ -1,4 +1,5 @@
 ---
+title: "Class: LogicalSize"
 sidebar_label: "LogicalSize"
 custom_edit_url: null
 hide_title: true
@@ -25,7 +26,7 @@ A size represented in logical pixels.
 
 #### Defined in
 
-[window.ts:47](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L47)
+[window.ts:47](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L47)
 
 ## Properties
 
@@ -35,17 +36,17 @@ A size represented in logical pixels.
 
 #### Defined in
 
-[window.ts:47](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L47)
+[window.ts:47](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L47)
 
 ___
 
 ### type
 
-• **type**: `string` = 'Logical'
+• **type**: `string` = `'Logical'`
 
 #### Defined in
 
-[window.ts:45](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L45)
+[window.ts:45](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L45)
 
 ___
 
@@ -55,4 +56,4 @@ ___
 
 #### Defined in
 
-[window.ts:46](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L46)
+[window.ts:46](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L46)

@@ -1,4 +1,5 @@
 ---
+title: "Module: window"
 sidebar_label: "window"
 custom_edit_url: null
 hide_title: true
@@ -48,46 +49,46 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### appWindow
 
-• `Const` **appWindow**: [WindowManager](../classes/window.windowmanager.md)
+• `Const` **appWindow**: [`WindowManager`](../classes/window.windowmanager.md)
 
 The manager for the current window. Allows you to manipulate the window object.
 
 #### Defined in
 
-[window.ts:846](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L846)
+[window.ts:846](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L846)
 
 ## Functions
 
 ### availableMonitors
 
-▸ **availableMonitors**(): `Promise`<[Monitor](../interfaces/window.monitor.md)[]\>
+▸ **availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md)[]\>
 
 Returns the list of all the monitors available on the system.
 
 #### Returns
 
-`Promise`<[Monitor](../interfaces/window.monitor.md)[]\>
+`Promise`<[`Monitor`](../interfaces/window.monitor.md)[]\>
 
 #### Defined in
 
-[window.ts:921](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L921)
+[window.ts:921](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L921)
 
 ___
 
 ### currentMonitor
 
-▸ **currentMonitor**(): `Promise`<[Monitor](../interfaces/window.monitor.md) \| ``null``\>
+▸ **currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
 
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
 
 #### Returns
 
-`Promise`<[Monitor](../interfaces/window.monitor.md) \| ``null``\>
+`Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:898](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L898)
+[window.ts:898](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L898)
 
 ___
 
@@ -105,39 +106,39 @@ The list of webview handles.
 
 #### Defined in
 
-[window.ts:146](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L146)
+[window.ts:146](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L146)
 
 ___
 
 ### getCurrent
 
-▸ **getCurrent**(): [WebviewWindowHandle](../classes/window.webviewwindowhandle.md)
+▸ **getCurrent**(): [`WebviewWindowHandle`](../classes/window.webviewwindowhandle.md)
 
 Get a handle to the current webview window. Allows emitting and listening to events from the backend that are tied to the window.
 
 #### Returns
 
-[WebviewWindowHandle](../classes/window.webviewwindowhandle.md)
+[`WebviewWindowHandle`](../classes/window.webviewwindowhandle.md)
 
 The current window handle.
 
 #### Defined in
 
-[window.ts:137](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L137)
+[window.ts:137](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L137)
 
 ___
 
 ### primaryMonitor
 
-▸ **primaryMonitor**(): `Promise`<[Monitor](../interfaces/window.monitor.md) \| ``null``\>
+▸ **primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
 
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
 
 #### Returns
 
-`Promise`<[Monitor](../interfaces/window.monitor.md) \| ``null``\>
+`Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:911](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/window.ts#L911)
+[window.ts:911](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L911)

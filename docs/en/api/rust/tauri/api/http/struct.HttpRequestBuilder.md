@@ -72,39 +72,94 @@ The response type (defaults to Json)
 
 ## Implementations
 
-### `impl HttpRequestBuilder`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#277-320 "goto source code")
+### `HttpRequestBuilder`
 
-#### `pub fn new(method: impl Into<String>, url: impl Into<String>) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#279-289 "goto source code")
+```rs
+impl HttpRequestBuilder
+```
+
+_Defined in: [http.rs:277-320](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L277-320)_
+
+#### `new`
+
+```rs
+pub fn new(method: impl Into<String>, url: impl Into<String>) -> Self
+```
 
 Initializes a new instance of the HttpRequestrequest_builder.
 
-#### `pub fn query(self, query: HashMap<String, String>) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#292-295 "goto source code")
+_Defined in: [http.rs:279-289](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L279-289)_
+
+#### `query`
+
+```rs
+pub fn query(self, query: HashMap<String, String>) -> Self
+```
 
 Sets the request params.
 
-#### `pub fn headers(self, headers: HashMap<String, String>) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#298-301 "goto source code")
+_Defined in: [http.rs:292-295](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L292-295)_
+
+#### `headers`
+
+```rs
+pub fn headers(self, headers: HashMap<String, String>) -> Self
+```
 
 Sets the request headers.
 
-#### `pub fn body(self, body: Body) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#304-307 "goto source code")
+_Defined in: [http.rs:298-301](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L298-301)_
+
+#### `body`
+
+```rs
+pub fn body(self, body: Body) -> Self
+```
 
 Sets the request body.
 
-#### `pub fn timeout(self, timeout: u64) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#310-313 "goto source code")
+_Defined in: [http.rs:304-307](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L304-307)_
+
+#### `timeout`
+
+```rs
+pub fn timeout(self, timeout: u64) -> Self
+```
 
 Sets the general request timeout.
 
-#### `pub fn response_type(self, response_type: ResponseType) -> Self`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#316-319 "goto source code")
+_Defined in: [http.rs:310-313](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L310-313)_
+
+#### `response_type`
+
+```rs
+pub fn response_type(self, response_type: ResponseType) -> Self
+```
 
 Sets the type of the response. Interferes with the way we read the response.
 
+_Defined in: [http.rs:316-319](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L316-319)_
+
 ## Trait Implementations
 
-### `impl<'de> Deserialize<'de> for HttpRequestBuilder`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#258 "goto source code")
+### `Deserialize`
 
-#### `fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where __D: Deserializer<'de>,`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#258 "goto source code")
+```rs
+impl<'de> Deserialize<'de> for HttpRequestBuilder
+```
+
+_Defined in: [http.rs:258](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L258)_
+
+#### `deserialize`
+
+```rs
+fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where
+    __D: Deserializer<'de>, 
+```
 
 Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
+
+_Defined in: [http.rs:258](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L258)_
 
 ## Auto Trait Implementations
 
@@ -120,63 +175,174 @@ Deserialize this value from the given Serde deserializer. [Read more](https://do
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135 "goto source code")
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`[\[src\]](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132 "goto source code")
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213 "goto source code")
+_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210 "goto source code")
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220 "goto source code")
+_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`[\[src\]](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217 "goto source code")
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/command.rs#47-52 "goto source code")
+_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../../src/tauri/command.rs#48-51 "goto source code")
+### `CommandArg`
+
+```rs
+impl<'de, D, P> CommandArg<'de, P> for D where
+    P: Params,
+    D: Deserialize<'de>, 
+```
+
+_Defined in: [command.rs:47-52](https://github.com/https://blob/710a4f9/core/tauri/src/../../command.rs#L47-52)_
+
+#### `from_command`
+
+```rs
+pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>
+```
 
 Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg#tymethod.from_command)
 
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`[\[src\]](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#603 "goto source code")
+_Defined in: [command.rs:48-51](https://github.com/https://blob/710a4f9/core/tauri/src/../../command.rs#L48-51)_
 
-### `impl<T> From<T> for T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548 "goto source code")
+### `DeserializeOwned`
 
-#### `pub fn from(t: T) -> T`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545 "goto source code")
+```rs
+impl<T> DeserializeOwned for T where
+    T: for<'de> Deserialize<'de>, 
+```
+
+_Defined in: [mod.rs:603](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L603)_
+
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540 "goto source code")
+_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537 "goto source code")
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590 "goto source code")
+_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+
+### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587 "goto source code")
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576 "goto source code")
+_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`[\[src\]](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573 "goto source code")
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

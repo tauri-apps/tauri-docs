@@ -1,4 +1,5 @@
 ---
+title: "Module: dialog"
 sidebar_label: "dialog"
 custom_edit_url: null
 hide_title: true
@@ -36,7 +37,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### open
 
-▸ **open**(`options?`): `Promise`<string \| string[]\>
+▸ **open**(`options?`): `Promise`<`string` \| `string`[]\>
 
 Open a file/directory selection dialog
 
@@ -44,23 +45,23 @@ Open a file/directory selection dialog
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [OpenDialogOptions](../interfaces/dialog.opendialogoptions.md) |
+| `options` | [`OpenDialogOptions`](../interfaces/dialog.opendialogoptions.md) |
 
 #### Returns
 
-`Promise`<string \| string[]\>
+`Promise`<`string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L69)
+[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/dialog.ts#L69)
 
 ___
 
 ### save
 
-▸ **save**(`options?`): `Promise`<string\>
+▸ **save**(`options?`): `Promise`<`string`\>
 
 Open a file/directory save dialog.
 
@@ -68,14 +69,14 @@ Open a file/directory save dialog.
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [SaveDialogOptions](../interfaces/dialog.savedialogoptions.md) |
+| `options` | [`SaveDialogOptions`](../interfaces/dialog.savedialogoptions.md) |
 
 #### Returns
 
-`Promise`<string\>
+`Promise`<`string`\>
 
 A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/dialog.ts#L90)
+[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/dialog.ts#L90)

@@ -1,4 +1,5 @@
 ---
+title: "Interface: ClientOptions"
 sidebar_label: "ClientOptions"
 custom_edit_url: null
 hide_title: true
@@ -16,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[http.ts:31](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L31)
+[http.ts:31](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L31)
 
 ___
 
@@ -26,4 +27,4 @@ ___
 
 #### Defined in
 
-[http.ts:30](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/http.ts#L30)
+[http.ts:30](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L30)

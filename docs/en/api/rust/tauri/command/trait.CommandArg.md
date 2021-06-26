@@ -28,38 +28,92 @@ Tauri implements [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.C
 
 -   `T where T: serde::Deserialize`
 
-    -   Any type that implements `Deserialize` can automatically be used as a [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg").
+-   Any type that implements `Deserialize` can automatically be used as a [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg").
 
 ## Required methods
 
-### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#43 "goto source code")
+### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
 Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem").
 
 If the derivation fails, the corresponding message will be rejected using [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage#reject "InvokeMessage").
 
+_Defined in: [command.rs:43](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L43)_
+
 ## Implementors
 
-### `impl<'de, D: Deserialize<'de>, P: Params> CommandArg<'de, P> for D`[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#47-52 "goto source code")
+### `Deserialize`
+
+```rs
+impl<'de, D: Deserialize<'de>, P: Params> CommandArg<'de, P> for D
+```
 
 Automatically implement [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg") for any type that can be deserialized.
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#48-51 "goto source code")
+_Defined in: [command.rs:47-52](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L47-52)_
 
-### `impl<'de, P: Params> CommandArg<'de, P> for AppHandle<P>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#137-142 "goto source code")
+#### `from_command`
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#139-141 "goto source code")
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
+
+_Defined in: [command.rs:48-51](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L48-51)_
+
+### `Params`
+
+```rs
+impl<'de, P: Params> CommandArg<'de, P> for AppHandle<P>
+```
+
+_Defined in: [app.rs:137-142](https://github.com/https://blob/710a4f9/core/tauri/src/../app.rs#L137-142)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
 Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem") and returns the associated [`AppHandle`](/docs/api/rust/tauri/../../tauri/struct.AppHandle "AppHandle"). This will never fail.
 
-### `impl<'de, P: Params> CommandArg<'de, P> for Window<P>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#136-141 "goto source code")
+_Defined in: [app.rs:139-141](https://github.com/https://blob/710a4f9/core/tauri/src/../app.rs#L139-141)_
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#138-140 "goto source code")
+### `Params`
+
+```rs
+impl<'de, P: Params> CommandArg<'de, P> for Window<P>
+```
+
+_Defined in: [window.rs:136-141](https://github.com/https://blob/710a4f9/core/tauri/src/../window.rs#L136-141)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
 Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
 
-### `impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/state.rs#37-42 "goto source code")
+_Defined in: [window.rs:138-140](https://github.com/https://blob/710a4f9/core/tauri/src/../window.rs#L138-140)_
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`[\[src\]](/docs/api/rust/tauri/../../src/tauri/state.rs#39-41 "goto source code")
+### `Send`
+
+```rs
+impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>
+```
+
+_Defined in: [state.rs:37-42](https://github.com/https://blob/710a4f9/core/tauri/src/../state.rs#L37-42)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
 Grabs the [`State`](/docs/api/rust/tauri/../../tauri/struct.State "State") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
+
+_Defined in: [state.rs:39-41](https://github.com/https://blob/710a4f9/core/tauri/src/../state.rs#L39-41)_

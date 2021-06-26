@@ -116,185 +116,185 @@ Encountered an error creating the app system tray,
 
 ### `Debug`
 
-#### `fmt`
+```rs
+impl Debug for Error
+```
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+#### `fmt`
 
 ```rs
 fn fmt(&self, f: &mut Formatter<'_>) -> Result
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-```rs
-impl Debug for Error
-```
-
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
 ### `Display`
-
-#### `fmt`
-
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
-
-```rs
-fn fmt(&self, __formatter: &mut Formatter<'_>) -> Result
-```
-
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
 
 ```rs
 impl Display for Error
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+#### `fmt`
+
+```rs
+fn fmt(&self, __formatter: &mut Formatter<'_>) -> Result
+```
+
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt)
+
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
 ### `Error`
-
-#### `source`
-
-The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
-
-```rs
-fn source(&self) -> Option<&(dyn Error + 'static)>
-```
-
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
-
-#### `backtrace`
-
-🔬 This is a nightly-only experimental API. (`backtrace`)
-
-```rs
-pub fn backtrace(&self) -> Option<&Backtrace>
-```
-
-Defined in: [error.rs:127](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L127)
-
-Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
-
-#### `description`
-
-👎 Deprecated since 1.42.0:
-
-use the Display impl or to_string()
-
-```rs
-pub fn description(&self) -> &str
-```
-
-Defined in: [error.rs:139](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L139)
-
-[Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
-
-#### `cause`
-
-👎 Deprecated since 1.33.0:
-
-replaced by Error::source, which can support downcasting
-
-```rs
-pub fn cause(&self) -> Option<&dyn Error>
-```
-
-Defined in: [error.rs:149](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L149)
 
 ```rs
 impl Error for Error
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
-### `From`
-
-#### `from`
-
-Performs the conversion.
+#### `source`
 
 ```rs
-fn from(source: Error) -> Self
+fn source(&self) -> Option<&(dyn Error + 'static)>
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+The lower-level source of this error, if any. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source)
+
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+#### `backtrace`
+
+```rs
+pub fn backtrace(&self) -> Option<&Backtrace>
+```
+
+_Defined in: [error.rs:127](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L127)_
+
+🔬 This is a nightly-only experimental API. (`backtrace`)
+
+Returns a stack backtrace, if available, of where this error occurred. [Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace)
+
+#### `description`
+
+```rs
+pub fn description(&self) -> &str
+```
+
+_Defined in: [error.rs:139](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L139)_
+
+👎 Deprecated since 1.42.0:
+
+use the Display impl or to_string()
+
+[Read more](https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description)
+
+#### `cause`
+
+```rs
+pub fn cause(&self) -> Option<&dyn Error>
+```
+
+_Defined in: [error.rs:149](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L149)_
+
+👎 Deprecated since 1.33.0:
+
+replaced by Error::source, which can support downcasting
+
+### `From`
 
 ```rs
 impl From<Error> for Error
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
-
-### `From`
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
 #### `from`
-
-Performs the conversion.
 
 ```rs
 fn from(source: Error) -> Self
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+Performs the conversion.
+
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+### `From`
 
 ```rs
 impl From<Error> for Error
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
-
-### `From`
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
 #### `from`
-
-Performs the conversion.
 
 ```rs
 fn from(source: Error) -> Self
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
+Performs the conversion.
+
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+### `From`
 
 ```rs
 impl From<Error> for Error
 ```
 
-Defined in: [error.rs:8](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L8)
-
-### `From`
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
 
 #### `from`
 
+```rs
+fn from(source: Error) -> Self
+```
+
 Performs the conversion.
+
+_Defined in: [error.rs:8](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L8)_
+
+### `From`
+
+```rs
+impl From<Error> for Error
+```
+
+_Defined in: [error.rs:78-86](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L78-86)_
+
+#### `from`
 
 ```rs
 fn from(error: Error) -> Self
 ```
 
-Defined in: [error.rs:79-85](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L79-85)
-
-```rs
-impl From<Error> for Error
-```
-
-Defined in: [error.rs:78-86](https://github.com/https://blob/01d4ada/core/tauri/src/error.rs#L78-86)
-
-### `From`
-
-#### `from`
-
 Performs the conversion.
 
-```rs
-fn from(error: Error) -> Self
-```
+_Defined in: [error.rs:79-85](https://github.com/https://blob/710a4f9/core/tauri/src/error.rs#L79-85)_
 
-Defined in: [hooks.rs:71-73](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L71-73)
+### `From`
 
 ```rs
 impl From<Error> for InvokeError
 ```
 
-Defined in: [hooks.rs:69-74](https://github.com/https://blob/01d4ada/core/tauri/src/hooks.rs#L69-74)
+_Defined in: [hooks.rs:69-74](https://github.com/https://blob/710a4f9/core/tauri/src/hooks.rs#L69-74)_
+
+#### `from`
+
+```rs
+fn from(error: Error) -> Self
+```
+
+Performs the conversion.
+
+_Defined in: [hooks.rs:71-73](https://github.com/https://blob/710a4f9/core/tauri/src/hooks.rs#L71-73)_
 
 ## Auto Trait Implementations
 
@@ -312,101 +312,97 @@ Defined in: [hooks.rs:69-74](https://github.com/https://blob/01d4ada/core/tauri/
 
 ### `Any`
 
-#### `type_id`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
 
 ```rs
 pub fn type_id(&self) -> TypeId
 ```
 
-Defined in: [any.rs:132](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-```rs
-impl<T> Any for T 
-where
-    T: 'static + ?Sized, 
-```
-
-Defined in: [any.rs:131-135](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)
+_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
-#### `borrow`
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
 
 ```rs
 pub fn borrow(&self) -> &T
 ```
 
-Defined in: [borrow.rs:210](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-```rs
-impl<T> Borrow<T> for T 
-where
-    T: ?Sized, 
-```
-
-Defined in: [borrow.rs:208-213](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)
+_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
-#### `borrow_mut`
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
 
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
 
 ```rs
 pub fn borrow_mut(&mut self) -> &mut T
 ```
 
-Defined in: [borrow.rs:217](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-```rs
-impl<T> BorrowMut<T> for T 
-where
-    T: ?Sized, 
-```
-
-Defined in: [borrow.rs:216-220](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)
+_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
-
-#### `from`
-
-Performs the conversion.
-
-```rs
-pub fn from(t: T) -> T
-```
-
-Defined in: [mod.rs:545](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)
 
 ```rs
 impl<T> From<T> for T
 ```
 
-Defined in: [mod.rs:544-548](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
-#### `into`
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
 
-Performs the conversion.
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
 
 ```rs
 pub fn into(self) -> U
 ```
 
-Defined in: [mod.rs:537](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)
+Performs the conversion.
 
-```rs
-impl<T, U> Into<U> for T 
-where
-    U: From<T>, 
-```
-
-Defined in: [mod.rs:533-540](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)
+_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `impl<D> ToJsString for D where D: Display,`
 
@@ -416,25 +412,31 @@ Turn any [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag "Tag") into the JavaScr
 
 ### `ToString`
 
-#### `to_string`
+```rs
+impl<T> ToString for T where
+    T: Display + ?Sized, 
+```
 
-Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
+_Defined in: [string.rs:2261-2274](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2261-2274)_
+
+#### `to_string`
 
 ```rs
 pub default fn to_string(&self) -> String
 ```
 
-Defined in: [string.rs:2267](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2267)
+Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
-```rs
-impl<T> ToString for T 
-where
-    T: Display + ?Sized, 
-```
-
-Defined in: [string.rs:2261-2274](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2261-2274)
+_Defined in: [string.rs:2267](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2267)_
 
 ### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -442,23 +444,22 @@ The type returned in the event of a conversion error.
 
 #### `try_from`
 
-Performs the conversion.
-
 ```rs
 pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 ```
 
-Defined in: [mod.rs:587](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)
+Performs the conversion.
 
-```rs
-impl<T, U> TryFrom<U> for T 
-where
-    U: Into<T>, 
-```
-
-Defined in: [mod.rs:581-590](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)
+_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -466,21 +467,13 @@ The type returned in the event of a conversion error.
 
 #### `try_into`
 
-Performs the conversion.
-
 ```rs
 pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 ```
 
-Defined in: [mod.rs:573](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)
+Performs the conversion.
 
-```rs
-impl<T, U> TryInto<U> for T 
-where
-    U: TryFrom<T>, 
-```
-
-Defined in: [mod.rs:567-576](https://github.com/https://blob/01d4ada/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)
+_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

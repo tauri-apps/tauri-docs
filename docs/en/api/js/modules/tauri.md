@@ -1,4 +1,5 @@
 ---
+title: "Module: tauri"
 sidebar_label: "tauri"
 custom_edit_url: null
 hide_title: true
@@ -18,7 +19,7 @@ This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.j
 
 ### invoke
 
-▸ **invoke**<T\>(`cmd`, `args?`): `Promise`<T\>
+▸ **invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
 
 Sends a message to the backend.
 
@@ -33,17 +34,17 @@ Sends a message to the backend.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `cmd` | `string` | The command name. |
-| `args` | [InvokeArgs](../interfaces/tauri.invokeargs.md) | The optional arguments to pass to the command. |
+| `args` | [`InvokeArgs`](../interfaces/tauri.invokeargs.md) | The optional arguments to pass to the command. |
 
 #### Returns
 
-`Promise`<T\>
+`Promise`<`T`\>
 
 A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/tauri.ts#L70)
+[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/tauri.ts#L70)
 
 ___
 
@@ -59,7 +60,7 @@ The backend uses the identifier to `eval()` the callback.
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `callback?` | (`response`: `any`) => `void` | `undefined` |
-| `once` | `boolean` | false |
+| `once` | `boolean` | `false` |
 
 #### Returns
 
@@ -69,4 +70,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/01d4ada/tooling/api/src/tauri.ts#L37)
+[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/tauri.ts#L37)
