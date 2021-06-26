@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::app_dir
 sidebar_label: fn.app_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::app_dir,\[−]\[src],\[−],−

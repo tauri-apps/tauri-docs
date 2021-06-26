@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::config::AppUrl
 sidebar_label: enum.AppUrl
+custom_edit_url: null
 ---
 
 # Enum tauri::api::config::AppUrl,\[−],\[−],−

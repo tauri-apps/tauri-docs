@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::file::Move
 sidebar_label: struct.Move
+custom_edit_url: null
 ---
 
 # Struct tauri::api::file::Move,\[−]\[src],\[−],−

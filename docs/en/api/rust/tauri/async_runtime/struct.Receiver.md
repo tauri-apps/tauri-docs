@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::async_runtime::Receiver
 sidebar_label: struct.Receiver
+custom_edit_url: null
 ---
 
 # Struct tauri::async_runtime::Receiver,\[−],\[−],−

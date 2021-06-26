@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::async_runtime::Mutex
 sidebar_label: struct.Mutex
+custom_edit_url: null
 ---
 
 # Struct tauri::async_runtime::Mutex,\[−],\[−],−

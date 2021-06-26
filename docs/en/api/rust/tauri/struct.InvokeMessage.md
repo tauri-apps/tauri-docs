@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::InvokeMessage
 sidebar_label: struct.InvokeMessage
+custom_edit_url: null
 ---
 
 # Struct tauri::InvokeMessage,\[−]\[src],\[−],−

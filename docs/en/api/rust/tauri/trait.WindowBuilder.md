@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::WindowBuilder
 sidebar_label: trait.WindowBuilder
+custom_edit_url: null
 ---
 
 # Trait tauri::WindowBuilder,\[−],\[−],−

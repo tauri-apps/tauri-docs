@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::video_dir
 sidebar_label: fn.video_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::video_dir,\[−]\[src],\[−],−

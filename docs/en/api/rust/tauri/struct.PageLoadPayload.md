@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::PageLoadPayload
 sidebar_label: struct.PageLoadPayload
+custom_edit_url: null
 ---
 
 # Struct tauri::PageLoadPayload,\[−]\[src],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::Icon
 sidebar_label: enum.Icon
+custom_edit_url: null
 ---
 
 # Enum tauri::Icon,\[−],\[−],−

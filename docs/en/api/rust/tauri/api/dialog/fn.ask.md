@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::dialog::ask
 sidebar_label: fn.ask
+custom_edit_url: null
 ---
 
 # Function tauri::api::dialog::ask,\[−]\[src],\[−],−

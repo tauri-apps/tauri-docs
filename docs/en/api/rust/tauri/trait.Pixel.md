@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::Pixel
 sidebar_label: trait.Pixel
+custom_edit_url: null
 ---
 
 # Trait tauri::Pixel,\[−],\[−],−

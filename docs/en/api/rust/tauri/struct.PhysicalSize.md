@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::PhysicalSize
 sidebar_label: struct.PhysicalSize
+custom_edit_url: null
 ---
 
 # Struct tauri::PhysicalSize,\[−],\[−],−

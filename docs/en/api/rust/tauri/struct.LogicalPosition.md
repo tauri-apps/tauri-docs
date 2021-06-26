@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::LogicalPosition
 sidebar_label: struct.LogicalPosition
+custom_edit_url: null
 ---
 
 # Struct tauri::LogicalPosition,\[−],\[−],−

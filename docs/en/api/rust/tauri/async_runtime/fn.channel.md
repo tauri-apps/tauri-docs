@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::async_runtime::channel
 sidebar_label: fn.channel
+custom_edit_url: null
 ---
 
 # Function tauri::async_runtime::channel,\[−],\[−],−

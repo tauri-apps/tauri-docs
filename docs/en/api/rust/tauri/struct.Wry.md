@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::Wry
 sidebar_label: struct.Wry
+custom_edit_url: null
 ---
 
 # Struct tauri::Wry,\[−],\[−],−

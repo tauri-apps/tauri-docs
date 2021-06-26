@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::http::RawResponse
 sidebar_label: struct.RawResponse
+custom_edit_url: null
 ---
 
 # Struct tauri::api::http&#x3A;:RawResponse,\[−]\[src],\[−],−

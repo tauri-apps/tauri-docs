@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::LogicalSize
 sidebar_label: struct.LogicalSize
+custom_edit_url: null
 ---
 
 # Struct tauri::LogicalSize,\[−],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Macro tauri::api::assets::phf::phf_ordered_map
 sidebar_label: macro.phf_ordered_map
+custom_edit_url: null
 ---
 
 # Macro tauri::api::assets::phf::phf_ordered_map,\[−]\[src],\[−],−

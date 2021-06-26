@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::EmbeddedAssets
 sidebar_label: struct.EmbeddedAssets
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::EmbeddedAssets,\[−],\[−],−

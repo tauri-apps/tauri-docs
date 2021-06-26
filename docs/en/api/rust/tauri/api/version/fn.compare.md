@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::version::compare
 sidebar_label: fn.compare
+custom_edit_url: null
 ---
 
 # Function tauri::api::version::compare,\[−]\[src],\[−],−

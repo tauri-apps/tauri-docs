@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::StateManager
 sidebar_label: struct.StateManager
+custom_edit_url: null
 ---
 
 # Struct tauri::StateManager,\[−]\[src],\[−],−

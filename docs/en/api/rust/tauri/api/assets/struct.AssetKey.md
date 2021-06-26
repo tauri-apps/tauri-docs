@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::AssetKey
 sidebar_label: struct.AssetKey
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::AssetKey,\[−],\[−],−

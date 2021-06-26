@@ -1,6 +1,7 @@
 ---
 title: Attr tauri::command
 sidebar_label: attr.command
+custom_edit_url: null
 ---
 
 # Attribute Macro tauri::command,\[−],\[−],−

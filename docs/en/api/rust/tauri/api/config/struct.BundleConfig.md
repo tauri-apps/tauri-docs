@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::config::BundleConfig
 sidebar_label: struct.BundleConfig
+custom_edit_url: null
 ---
 
 # Struct tauri::api::config::BundleConfig,\[−],\[−],−

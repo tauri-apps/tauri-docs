@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::html::inject_csp
 sidebar_label: fn.inject_csp
+custom_edit_url: null
 ---
 
 # Function tauri::api::html::inject_csp,\[−],\[−],−

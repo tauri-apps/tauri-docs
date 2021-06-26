@@ -1,6 +1,7 @@
 ---
 title: Enum tauri::api::file::ArchiveFormat
 sidebar_label: enum.ArchiveFormat
+custom_edit_url: null
 ---
 
 # Enum tauri::api::file::ArchiveFormat,\[−]\[src],\[−],−

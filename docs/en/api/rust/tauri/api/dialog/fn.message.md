@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::dialog::message
 sidebar_label: fn.message
+custom_edit_url: null
 ---
 
 # Function tauri::api::dialog::message,\[−]\[src],\[−],−

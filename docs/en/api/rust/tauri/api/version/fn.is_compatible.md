@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::version::is_compatible
 sidebar_label: fn.is_compatible
+custom_edit_url: null
 ---
 
 # Function tauri::api::version::is_compatible,\[−]\[src],\[−],−

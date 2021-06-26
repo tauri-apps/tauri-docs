@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::http::Client
 sidebar_label: struct.Client
+custom_edit_url: null
 ---
 
 # Struct tauri::api::http&#x3A;:Client,\[−]\[src],\[−],−

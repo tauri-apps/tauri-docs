@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::api::assets::phf::ordered_map::Values
 sidebar_label: struct.Values
+custom_edit_url: null
 ---
 
 # Struct tauri::api::assets::phf::ordered_map::Values,\[−]\[src],\[−],−

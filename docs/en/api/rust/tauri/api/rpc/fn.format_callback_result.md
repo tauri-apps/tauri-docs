@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::rpc::format_callback_result
 sidebar_label: fn.format_callback_result
+custom_edit_url: null
 ---
 
 # Function tauri::api::rpc::format_callback_result,\[−]\[src],\[−],−

@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::dir::read_dir
 sidebar_label: fn.read_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::dir::read_dir,\[−]\[src],\[−],−

@@ -50,7 +50,7 @@ function DocItem(props) {
   // See https://github.com/facebook/docusaurus/issues/3362
 
   const showVersionBadge = versions.length > 1;
-  const tauriEditURL = editUrl.replace(siteConfig.presets[0][1].docs.editUrl + 'docs/en/', 'https://github.com/tauri-apps/tauri/edit/dev/docs/')
+  const tauriEditURL = editUrl ? editUrl.replace(siteConfig.presets[0][1].docs.editUrl + 'docs/en/', 'https://github.com/tauri-apps/tauri/edit/dev/docs/') : null
   return (
     <>
       <Seo

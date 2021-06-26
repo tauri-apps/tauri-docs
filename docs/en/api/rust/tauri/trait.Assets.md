@@ -1,6 +1,7 @@
 ---
 title: Trait tauri::Assets
 sidebar_label: trait.Assets
+custom_edit_url: null
 ---
 
 # Trait tauri::Assets,\[−],\[−],−

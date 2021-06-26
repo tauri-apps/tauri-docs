@@ -1,6 +1,7 @@
 ---
 title: Struct tauri::WebviewAttributes
 sidebar_label: struct.WebviewAttributes
+custom_edit_url: null
 ---
 
 # Struct tauri::WebviewAttributes,\[−],\[−],−

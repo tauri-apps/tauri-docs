@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::download_dir
 sidebar_label: fn.download_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::download_dir,\[−]\[src],\[−],−

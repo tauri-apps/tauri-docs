@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::resource_dir
 sidebar_label: fn.resource_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::resource_dir,\[−]\[src],\[−],−

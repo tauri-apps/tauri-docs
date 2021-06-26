@@ -1,6 +1,7 @@
 ---
 title: Type tauri::OnPageLoad
 sidebar_label: type.OnPageLoad
+custom_edit_url: null
 ---
 
 # Type Definition tauri::OnPageLoad,\[−]\[src],\[−],−

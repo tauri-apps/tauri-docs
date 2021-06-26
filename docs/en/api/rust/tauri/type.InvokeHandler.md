@@ -1,6 +1,7 @@
 ---
 title: Type tauri::InvokeHandler
 sidebar_label: type.InvokeHandler
+custom_edit_url: null
 ---
 
 # Type Definition tauri::InvokeHandler,\[−]\[src],\[−],−

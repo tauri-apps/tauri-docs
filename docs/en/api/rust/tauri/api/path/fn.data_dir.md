@@ -1,6 +1,7 @@
 ---
 title: Fn tauri::api::path::data_dir
 sidebar_label: fn.data_dir
+custom_edit_url: null
 ---
 
 # Function tauri::api::path::data_dir,\[−]\[src],\[−],−
