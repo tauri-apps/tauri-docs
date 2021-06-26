@@ -23,7 +23,7 @@ It's composed of the following properties:
 {property: "devPath", type: "string", description: `Can be a path—either absolute or relative—to a folder or a URL (like a live reload server).`},
 {property: "beforeDevCommand", optional: true, type: "string", description: `A command to run before starting Tauri in dev mode.`},
 {property: "beforeBuildCommand", optional: true, type: "string", description: `A command to run before starting Tauri in build mode.`},
-{property: "withGlobalTauri", optional: true, type: "boolean", description: "Enables the API injection to the window.__TAURI__ object. Useful if you're using Vanilla JS instead of importing the API using Rollup or Webpack."}
+{property: "withGlobalTauri", optional: true, type: "boolean", description: "Enables the API injection to the window.__TAURI__ object. Useful if you're using Vanilla JS instead of importing the API using Rollup or Webpack. Reduces the command security since any external code can access it, so be careful with XSS attacks."}
 ]}/>
 
 ```js title=Example
@@ -160,6 +160,7 @@ It's composed of the following properties:
         { property: "certificateThumbprint", optional: true, type: "string[]", description: `Specifies the SHA1 hash of the signing certificate.` },
         { property: "timestampUrl", optional: true, type: "string[]", description: `Server to use during timestamping.` },
         { property: "wix", optional: true, type: "object", child: <Properties anchorRoot="tauri.bundle.windows.wix" rows={[
+          { property: "language", optional: true, type: "string", description: `The installer language. See https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables.` },
           { property: "template", optional: true, type: "string", description: `A custom .wxs template to use.` },
           { property: "fragmentPaths", optional: true, type: "string[]", description: `A list of paths to .wxs files with WiX fragments to use.` },
           { property: "componentGroupRefs", optional: true, type: "string[]", description: `The ComponentGroup element ids you want to reference from the fragments.` },
@@ -167,7 +168,8 @@ It's composed of the following properties:
           { property: "featureGroupRefs", optional: true, type: "string[]", description: `The FeatureGroup element ids you want to reference from the fragments.` },
           { property: "featureRefs", optional: true, type: "string[]", description: `The Feature element ids you want to reference from the fragments.` },
           { property: "mergeRefs", optional: true, type: "string[]", description: `The Merge element ids you want to reference from the fragments.` },
-          { property: "skipWebviewInstall", optional: true, type: "boolean", description: `Disables the Webview2 runtime installation after app install.` }]} />
+          { property: "skipWebviewInstall", optional: true, type: "boolean", description: `Disables the Webview2 runtime installation after app install.` },
+          { property: "license", optional: true, type: "string", description: `The path to the license file to render on the installer. Must be an RTF file, so if a different extension is provided, we convert it to the RTF format.` }]} />
         }
         ]} />
       },
@@ -250,6 +252,8 @@ It's composed of the following properties:
       <Properties anchorRoot="tauri.windows" rows={[
         { property: "label", type: "string", description: `Window id to reference on the codebase.` },
         { property: "url", type: "string", description: `URL to load on the webview.` },
+        { property: "fileDropEnabled", type: "boolean", description: `Whether the file drop handler is enabled or not on the webview. Disabling it is required to use drag and drop on the frontend on Windows.` },
+        { property: "center", type: "boolean", description: `Show window in the center of the screen.` },
         { property: "x", type: "number", description: `The horizontal position of the window's top left corner.` },
         { property: "y", type: "number", description: `The vertical position of the window's top left corner.` },
         { property: "width", optional: true, type: "number", description: `Initial window width.` },
@@ -257,15 +261,17 @@ It's composed of the following properties:
         { property: "minWidth", type: "number", description: `The minimum window width.` },
         { property: "minHeight", type: "number", description: `The minimum window height.` },
         { property: "maxWidth", type: "number", description: `The maximum window width.` },
-        { property: "minHeight", type: "number", description: `The minimum window height.` },
+        { property: "maxHeight", type: "number", description: `The maximum window height.` },
         { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not..` },
         { property: "title", type: "string", description: `Window title.` },
         { property: "fullscreen", optional: true, type: "boolean", description: `Whether the window starts as fullscreen or not.` },
+        { property: "focus", optional: true, type: "boolean", description: `Whether the window will be initially hidden or focused.` },
         { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not.` },
         { property: "maximized", optional: true, type: "boolean", description: `Whether the window is maximized or not.` },
         { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
         { property: "decorations", optional: true, type: "boolean", description: `Whether the window should have borders and bars.` },
         { property: "alwaysOnTop", optional: true, type: "boolean", description: `Whether the window should always be on top of other windows.` },
+        { property: "skipTaskbar", optional: true, type: "boolean", description: `Whether or not the window icon should be added to the taskbar.` },
       ]}/>
     </Array>
   },
@@ -357,7 +363,7 @@ Instead of launching the app directly, we configure the bundled app to run a scr
     "fullscreen": false
   }],
   "security": {
-    "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
+    "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self'"
   }
 }
 ```

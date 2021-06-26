@@ -1,8 +1,10 @@
 ---
-title: "trait.CommandArg"
+title: Trait tauri::command::CommandArg
+sidebar_label: trait.CommandArg
+custom_edit_url: null
 ---
 
-# Trait [tauri](/docs/api/rust/tauri/../index.html)::​[command](/docs/api/rust/tauri/index.html)::​[CommandArg](/docs/api/rust/tauri/)
+# Trait tauri::command::CommandArg,\[−]\[src],\[−],−
 
 ```rs
 pub trait CommandArg<'de, P: Params>: Sized {
@@ -10,52 +12,108 @@ pub trait CommandArg<'de, P: Params>: Sized {
 }
 ```
 
-Trait implemented by command arguments to derive a value from a [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem").
+Trait implemented by command arguments to derive a value from a [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem").
 
 # [Command Arguments](/docs/api/rust/tauri/about:blank#command-arguments)
 
-A command argument is any type that represents an item parsable from a [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem"). Most implementations will use the data stored in [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage.html "InvokeMessage") since [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem") is mostly a wrapper around it.
+A command argument is any type that represents an item parsable from a [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). Most implementations will use the data stored in [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage "InvokeMessage") since [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem") is mostly a wrapper around it.
 
 # [Provided Implementations](/docs/api/rust/tauri/about:blank#provided-implementations)
 
-Tauri implements [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg.html "CommandArg") automatically for a number of types.
+Tauri implements [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg") automatically for a number of types.
 
--   [`crate::Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window.html "crate::Window")
+-   [`crate::Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "crate::Window")
 
--   [`crate::State`](/docs/api/rust/tauri/../../tauri/struct.State.html "crate::State")
+-   [`crate::State`](/docs/api/rust/tauri/../../tauri/struct.State "crate::State")
 
 -   `T where T: serde::Deserialize`
 
-    -   Any type that implements `Deserialize` can automatically be used as a [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg.html "CommandArg").
+-   Any type that implements `Deserialize` can automatically be used as a [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg").
 
 ## Required methods
 
-### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+### `from_command`
 
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem").
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
-If the derivation fails, the corresponding message will be rejected using [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage.html#reject "InvokeMessage").
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem").
 
-Loading content...
+If the derivation fails, the corresponding message will be rejected using [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage#reject "InvokeMessage").
+
+_Defined in: [command.rs:43](https://github.com/https://blob/2a65ac1/core/tauri/src/../command.rs#L43)_
 
 ## Implementors
 
-### `impl<'de, D: Deserialize<'de>, P: Params> CommandArg<'de, P> for D`
+### `Deserialize`
 
-Automatically implement [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg.html "CommandArg") for any type that can be deserialized.
+```rs
+impl<'de, D: Deserialize<'de>, P: Params> CommandArg<'de, P> for D
+```
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+Automatically implement [`CommandArg`](/docs/api/rust/tauri/../../tauri/command/trait.CommandArg "CommandArg") for any type that can be deserialized.
 
-### `impl<'de, P: Params> CommandArg<'de, P> for Window<P>`
+_Defined in: [command.rs:47-52](https://github.com/https://blob/2a65ac1/core/tauri/src/../command.rs#L47-52)_
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+#### `from_command`
 
-Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window.html "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem"). This will never fail.
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
 
-### `impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>`
+_Defined in: [command.rs:48-51](https://github.com/https://blob/2a65ac1/core/tauri/src/../command.rs#L48-51)_
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+### `Params`
 
-Grabs the [`State`](/docs/api/rust/tauri/../../tauri/struct.State.html "State") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem.html "CommandItem"). This will never fail.
+```rs
+impl<'de, P: Params> CommandArg<'de, P> for AppHandle<P>
+```
 
-Loading content...
+_Defined in: [app.rs:137-142](https://github.com/https://blob/2a65ac1/core/tauri/src/../app.rs#L137-142)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
+
+Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem") and returns the associated [`AppHandle`](/docs/api/rust/tauri/../../tauri/struct.AppHandle "AppHandle"). This will never fail.
+
+_Defined in: [app.rs:139-141](https://github.com/https://blob/2a65ac1/core/tauri/src/../app.rs#L139-141)_
+
+### `Params`
+
+```rs
+impl<'de, P: Params> CommandArg<'de, P> for Window<P>
+```
+
+_Defined in: [window.rs:136-141](https://github.com/https://blob/2a65ac1/core/tauri/src/../window.rs#L136-141)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
+
+Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
+
+_Defined in: [window.rs:138-140](https://github.com/https://blob/2a65ac1/core/tauri/src/../window.rs#L138-140)_
+
+### `Send`
+
+```rs
+impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>
+```
+
+_Defined in: [state.rs:37-42](https://github.com/https://blob/2a65ac1/core/tauri/src/../state.rs#L37-42)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
+
+Grabs the [`State`](/docs/api/rust/tauri/../../tauri/struct.State "State") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
+
+_Defined in: [state.rs:39-41](https://github.com/https://blob/2a65ac1/core/tauri/src/../state.rs#L39-41)_

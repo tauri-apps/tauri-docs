@@ -1,8 +1,10 @@
 ---
-title: "attr.command"
+title: Attr tauri::command
+sidebar_label: attr.command
+custom_edit_url: null
 ---
 
-# Attribute Macro [tauri](/docs/api/rust/tauri/index.html)::​[command](/docs/api/rust/tauri/)
+# Attribute Macro tauri::command,\[−],\[−],−
 
 ```rs
 #[command]

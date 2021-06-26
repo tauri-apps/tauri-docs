@@ -1,8 +1,10 @@
 ---
-title: "struct.TauriConfig"
+title: Struct tauri::api::config::TauriConfig
+sidebar_label: struct.TauriConfig
+custom_edit_url: null
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[config](/docs/api/rust/tauri/index.html)::​[TauriConfig](/docs/api/rust/tauri/)
+# Struct tauri::api::config::TauriConfig,\[−],\[−],−
 
 ```rs
 pub struct TauriConfig {
@@ -81,13 +83,25 @@ This method tests for `!=`.
 
 Write `self` to the given `TokenStream`. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#tymethod.to_tokens)
 
-#### `pub fn to_token_stream(&self) -> TokenStream`
+#### `to_token_stream`
+
+```rs
+pub fn to_token_stream(&self) -> TokenStream
+```
 
 Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.to_token_stream)
 
-#### `pub fn into_token_stream(self) -> TokenStream`
+_Defined in: [to_tokens.rs:61](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/quote/1.0.9/src/quote/to_tokens.rs#L61)_
+
+#### `into_token_stream`
+
+```rs
+pub fn into_token_stream(self) -> TokenStream
+```
 
 Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs/quote/1.0.9/quote/to_tokens/trait.ToTokens.html#method.into_token_stream)
+
+_Defined in: [to_tokens.rs:71-73](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/quote/1.0.9/src/quote/to_tokens.rs#L71-73)_
 
 ## Auto Trait Implementations
 
@@ -103,89 +117,174 @@ Convert `self` directly into a `TokenStream` object. [Read more](https://docs.rs
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+_Defined in: [any.rs:132](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+_Defined in: [borrow.rs:210](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<'de, D, P> CommandArg<'de, P> for D where P: Params, D: Deserialize<'de>,`
+_Defined in: [borrow.rs:217](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>`
+### `CommandArg`
 
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem.html "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg.html#tymethod.from_command)
+```rs
+impl<'de, D, P> CommandArg<'de, P> for D where
+    P: Params,
+    D: Deserialize<'de>, 
+```
 
-### `impl<T> DeserializeOwned for T where T: for<'de> Deserialize<'de>,`
+_Defined in: [command.rs:47-52](https://github.com/https://blob/2a65ac1/core/tauri/src/../../command.rs#L47-52)_
 
-### `impl<T> From<T> for T`
+#### `from_command`
 
-#### `pub fn from(t: T) -> T`
+```rs
+pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>
+```
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg#tymethod.from_command)
+
+_Defined in: [command.rs:48-51](https://github.com/https://blob/2a65ac1/core/tauri/src/../../command.rs#L48-51)_
+
+### `DeserializeOwned`
+
+```rs
+impl<T> DeserializeOwned for T where
+    T: for<'de> Deserialize<'de>, 
+```
+
+_Defined in: [mod.rs:603](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L603)_
+
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+_Defined in: [mod.rs:545](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+_Defined in: [mod.rs:537](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
-#### `pub const ALIGN: usize`
+### `TryFrom`
 
-The alignment of pointer.
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
 
-#### `type Init = T`
-
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+_Defined in: [mod.rs:587](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

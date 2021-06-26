@@ -1,8 +1,10 @@
 ---
-title: "fn.inject_csp"
+title: Fn tauri::api::html::inject_csp
+sidebar_label: fn.inject_csp
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[html](/docs/api/rust/tauri/index.html)::​[inject_csp](/docs/api/rust/tauri/)
+# Function tauri::api::html::inject_csp,\[−],\[−],−
 
 ```rs
 pub fn inject_csp<H>(html: H, csp: &str) -> String where

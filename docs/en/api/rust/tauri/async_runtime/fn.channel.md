@@ -1,8 +1,10 @@
 ---
-title: "fn.channel"
+title: Fn tauri::async_runtime::channel
+sidebar_label: fn.channel
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[channel](/docs/api/rust/tauri/)
+# Function tauri::async_runtime::channel,\[−],\[−],−
 
 ```rs
 pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
@@ -10,13 +12,13 @@ pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
 
 Creates a bounded mpsc channel for communicating between asynchronous tasks with backpressure.
 
-The channel will buffer up to the provided number of messages. Once the buffer is full, attempts to `send` new messages will wait until a message is received from the channel. The provided buffer capacity must be at least 1.
+The channel will buffer up to the provided number of messages. Once the buffer is full, attempts to send new messages will wait until a message is received from the channel. The provided buffer capacity must be at least 1.
 
 All data sent on `Sender` will become available on `Receiver` in the same order as it was sent.
 
 The `Sender` can be cloned to `send` to the same channel from multiple code locations. Only one `Receiver` is supported.
 
-If the `Receiver` is disconnected while trying to `send`, the `send` method will return a `SendError`. Similarly, if `Sender` is disconnected while trying to `recv`, the `recv` method will return a `RecvError`.
+If the `Receiver` is disconnected while trying to `send`, the `send` method will return a `SendError`. Similarly, if `Sender` is disconnected while trying to `recv`, the `recv` method will return `None`.
 
 # [Panics](/docs/api/rust/tauri/about:blank#panics)
 

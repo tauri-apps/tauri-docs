@@ -1,8 +1,10 @@
 ---
-title: "fn.local_data_dir"
+title: Fn tauri::api::path::local_data_dir
+sidebar_label: fn.local_data_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[local_data_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::local_data_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn local_data_dir() -> Option<PathBuf>

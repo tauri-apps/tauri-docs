@@ -1,8 +1,10 @@
 ---
-title: "trait.Params"
+title: Trait tauri::Params
+sidebar_label: trait.Params
+custom_edit_url: null
 ---
 
-# Trait [tauri](/docs/api/rust/tauri/index.html)::​[Params](/docs/api/rust/tauri/)
+# Trait tauri::Params,\[−],\[−],−
 
 ```rs
 pub trait Params: 'static + ParamsBase {
@@ -43,8 +45,4 @@ Assets that Tauri should serve from itself.
 
 The underlying webview runtime used by the Tauri application.
 
-Loading content...
-
 ## Implementors
-
-Loading content...

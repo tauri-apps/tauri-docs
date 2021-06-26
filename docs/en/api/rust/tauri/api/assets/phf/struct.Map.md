@@ -1,8 +1,10 @@
 ---
-title: "struct.Map"
+title: Struct tauri::api::assets::phf::Map
+sidebar_label: struct.Map
+custom_edit_url: null
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../../../index.html)::​[api](/docs/api/rust/tauri/../../index.html)::​[assets](/docs/api/rust/tauri/../index.html)::​[phf](/docs/api/rust/tauri/index.html)::​[Map](/docs/api/rust/tauri/)
+# Struct tauri::api::assets::phf::Map,\[−]\[src],\[−],−
 
 ```rs
 pub struct Map<K, V> where
@@ -18,71 +20,185 @@ The fields of this struct are public so that they may be initialized by the `phf
 
 ## Implementations
 
-### `impl<K, V> Map<K, V>`
+### `Map`
 
-#### `pub fn is_empty(&self) -> bool`
+```rs
+impl<K, V> Map<K, V>
+```
+
+_Defined in: [map.rs:47-134](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L47-134)_
+
+#### `is_empty`
+
+```rs
+pub fn is_empty(&self) -> bool
+```
 
 Returns true if the `Map` is empty.
 
-#### `pub fn len(&self) -> usize`
+_Defined in: [map.rs:49](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L49)_
+
+#### `len`
+
+```rs
+pub fn len(&self) -> usize
+```
 
 Returns the number of entries in the `Map`.
 
-#### `pub fn contains_key<T>(&self, key: &T) -> boolwhere T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
+_Defined in: [map.rs:54](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L54)_
+
+#### `contains_key`
+
+```rs
+pub fn contains_key<T>(&self, key: &T) -> bool where
+    T: Eq + PhfHash + ?Sized,
+    K: PhfBorrow<T>, 
+```
 
 Determines if `key` is in the `Map`.
 
-#### `pub fn get<T>(&self, key: &T) -> Option<&V> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
+_Defined in: [map.rs:59-62](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L59-62)_
+
+#### `get`
+
+```rs
+pub fn get<T>(&self, key: &T) -> Option<&V> where
+    T: Eq + PhfHash + ?Sized,
+    K: PhfBorrow<T>, 
+```
 
 Returns a reference to the value that `key` maps to.
 
-#### `pub fn get_key<T>(&self, key: &T) -> Option<&K> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
+_Defined in: [map.rs:68-71](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L68-71)_
+
+#### `get_key`
+
+```rs
+pub fn get_key<T>(&self, key: &T) -> Option<&K> where
+    T: Eq + PhfHash + ?Sized,
+    K: PhfBorrow<T>, 
+```
 
 Returns a reference to the map’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
-#### `pub fn get_entry<T>(&self, key: &T) -> Option<(&K, &V)> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
+_Defined in: [map.rs:80-83](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L80-83)_
+
+#### `get_entry`
+
+```rs
+pub fn get_entry<T>(&self, key: &T) -> Option<(&K, &V)> where
+    T: Eq + PhfHash + ?Sized,
+    K: PhfBorrow<T>, 
+```
 
 Like `get`, but returns both the key and the value.
 
-#### `pub fn entries(&'a self) -> Entries<'a, K, V>ⓘ Notable traits for Entries<'a, K, V> impl<'a, K, V> Iterator for Entries<'a, K, V>type Item = (&'aK, &'aV);`
+_Defined in: [map.rs:89-92](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L89-92)_
+
+#### `entries`
+
+```rs
+pub fn entries(&self) -> Entries<'_, K, V>ⓘ
+Notable traits for Entries<'a, K, V>
+impl<'a, K, V> Iterator for Entries<'a, K, V>
+    type Item = (&'a K, &'a V);
+
+```
 
 Returns an iterator over the key/value pairs in the map.
 
 Entries are returned in an arbitrary but fixed order.
 
-#### `pub fn keys(&'a self) -> Keys<'a, K, V>ⓘ Notable traits for Keys<'a, K, V> impl<'a, K, V> Iterator for Keys<'a, K, V>type Item = &'aK;`
+_Defined in: [map.rs:111](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L111)_
+
+#### `keys`
+
+```rs
+pub fn keys(&self) -> Keys<'_, K, V>ⓘ
+Notable traits for Keys<'a, K, V>
+impl<'a, K, V> Iterator for Keys<'a, K, V>
+    type Item = &'a K;
+
+```
 
 Returns an iterator over the keys in the map.
 
 Keys are returned in an arbitrary but fixed order.
 
-#### `pub fn values(&'a self) -> Values<'a, K, V>ⓘ Notable traits for Values<'a, K, V> impl<'a, K, V> Iterator for Values<'a, K, V>type Item = &'aV;`
+_Defined in: [map.rs:120](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L120)_
+
+#### `values`
+
+```rs
+pub fn values(&self) -> Values<'_, K, V>ⓘ
+Notable traits for Values<'a, K, V>
+impl<'a, K, V> Iterator for Values<'a, K, V>
+    type Item = &'a V;
+
+```
 
 Returns an iterator over the values in the map.
 
 Values are returned in an arbitrary but fixed order.
 
+_Defined in: [map.rs:129](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L129)_
+
 ## Trait Implementations
 
-### `impl<K, V> Debug for Map<K, V> where V: Debug, K: Debug,`
+### `Debug`
 
-#### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
+```rs
+impl<K, V> Debug for Map<K, V> where
+    V: Debug,
+    K: Debug, 
+```
+
+_Defined in: [map.rs:25-33](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L25-33)_
+
+#### `fmt`
+
+```rs
+pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>
+```
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<'a, K, V, T> Index<&'aT> for Map<K, V> where T: Eq + PhfHash + ?Sized, K: Borrow<T>,`
+_Defined in: [map.rs:30](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L30)_
+
+### `Index`
+
+```rs
+impl<'a, K, V, T> Index<&'a T> for Map<K, V> where
+    T: Eq + PhfHash + ?Sized,
+    K: PhfBorrow<T>, 
+```
+
+_Defined in: [map.rs:35-45](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L35-45)_
 
 #### `type Output = V`
 
 The returned type after indexing.
 
-#### `pub fn index(&self, k: &'aT) -> &V`
+#### `index`
+
+```rs
+pub fn index(&self, k: &'a T) -> &V
+```
 
 Performs the indexing (`container[index]`) operation.
 
-### `impl<'a, K, V> IntoIterator for &'a Map<K, V>`
+_Defined in: [map.rs:42](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L42)_
+
+### `IntoIterator`
+
+```rs
+impl<'a, K, V> IntoIterator for &'a Map<K, V>
+```
+
+_Defined in: [map.rs:136-143](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L136-143)_
 
 #### `type Item = (&'aK, &'aV)`
 
@@ -92,9 +208,19 @@ The type of the elements being iterated over.
 
 Which kind of iterator are we turning this into?
 
-#### `pub fn into_iter(self) -> Entries<'a, K, V>ⓘ Notable traits for Entries<'a, K, V> impl<'a, K, V> Iterator for Entries<'a, K, V>type Item = (&'aK, &'aV);`
+#### `into_iter`
+
+```rs
+pub fn into_iter(self) -> Entries<'a, K, V>ⓘ
+Notable traits for Entries<'a, K, V>
+impl<'a, K, V> Iterator for Entries<'a, K, V>
+    type Item = (&'a K, &'a V);
+
+```
 
 Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter)
+
+_Defined in: [map.rs:140](https://github.com/https://blob/2a65ac1/core/tauri/src/https://docs.rs/phf/0.9/src/phf/map.rs#L140)_
 
 ## Auto Trait Implementations
 
@@ -110,81 +236,145 @@ Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+_Defined in: [any.rs:132](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+_Defined in: [borrow.rs:210](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<T> for T`
+_Defined in: [borrow.rs:217](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from(t: T) -> T`
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+_Defined in: [mod.rs:545](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+_Defined in: [mod.rs:537](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
-#### `pub const ALIGN: usize`
+### `TryFrom`
 
-The alignment of pointer.
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
 
-#### `type Init = T`
-
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+_Defined in: [mod.rs:587](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

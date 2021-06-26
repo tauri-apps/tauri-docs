@@ -1,8 +1,10 @@
 ---
-title: "trait.Tag"
+title: Trait tauri::Tag
+sidebar_label: trait.Tag
+custom_edit_url: null
 ---
 
-# Trait [tauri](/docs/api/rust/tauri/index.html)::​[Tag](/docs/api/rust/tauri/)
+# Trait tauri::Tag,\[−],\[−],−
 
 ```rs
 pub trait Tag: 'static + Hash + Eq + FromStr + Display + Debug + Clone + Send + Sync { }
@@ -10,7 +12,7 @@ pub trait Tag: 'static + Hash + Eq + FromStr + Display + Debug + Clone + Send + 
 
 Represents a “string-able” type.
 
-The type is required to be able to be represented as a string [`Display`](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "Display"), along with knowing how to be parsed from the string representation [`FromStr`](https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html "FromStr"). To make sure things stay easy to debug, both the [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag") and the [`FromStr::Err`](https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html#associatedtype.Err "FromStr::Err") must implement [`Debug`](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "Debug").
+The type is required to be able to be represented as a string [`Display`](https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html "Display"), along with knowing how to be parsed from the string representation [`FromStr`](https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html "FromStr"). To make sure things stay easy to debug, both the [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag "Tag") and the [`FromStr::Err`](https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html#associatedtype.Err "FromStr::Err") must implement [`Debug`](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html "Debug").
 
 [`Clone`](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html "Clone"), [`Hash`](https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html "Hash"), and [`Eq`](https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html "Eq") are needed so that it can represent un-hashable types.
 
@@ -74,6 +76,4 @@ is_file_drop(event);
 
 ### `impl<T, E> Tag for T where T: Hash + Eq + FromStr<Err = E> + Display + Debug + Clone + Send + Sync + 'static, E: Debug,`
 
-Automatically implement [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag.html "Tag") for all types that fit the requirements.
-
-Loading content...
+Automatically implement [`Tag`](/docs/api/rust/tauri/../tauri/trait.Tag "Tag") for all types that fit the requirements.

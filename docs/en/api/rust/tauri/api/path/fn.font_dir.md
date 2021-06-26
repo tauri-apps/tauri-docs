@@ -1,8 +1,10 @@
 ---
-title: "fn.font_dir"
+title: Fn tauri::api::path::font_dir
+sidebar_label: fn.font_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[font_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::font_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn font_dir() -> Option<PathBuf>

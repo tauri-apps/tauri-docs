@@ -1,8 +1,10 @@
 ---
-title: "fn.ask"
+title: Fn tauri::api::dialog::ask
+sidebar_label: fn.ask
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dialog](/docs/api/rust/tauri/index.html)::​[ask](/docs/api/rust/tauri/)
+# Function tauri::api::dialog::ask,\[−]\[src],\[−],−
 
 ```rs
 pub fn ask(title: impl AsRef<str>, message: impl AsRef<str>) -> AskResponse

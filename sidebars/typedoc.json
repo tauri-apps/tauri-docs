@@ -4,6 +4,7 @@
     "items": [
       "api/js/modules/app",
       "api/js/modules/cli",
+      "api/js/modules/clipboard",
       "api/js/modules/dialog",
       "api/js/modules/event",
       "api/js/modules/fs",
@@ -24,7 +25,8 @@
   {
     "items": [
       "api/js/enums/fs.basedirectory",
-      "api/js/enums/http.responsetype"
+      "api/js/enums/http.responsetype",
+      "api/js/enums/window.userattentiontype"
     ],
     "type": "category",
     "label": "Enumerations"
@@ -33,6 +35,7 @@
     "items": [
       "api/js/classes/http.body",
       "api/js/classes/http.client",
+      "api/js/classes/http.response",
       "api/js/classes/shell.child",
       "api/js/classes/shell.command",
       "api/js/classes/window.logicalposition",
@@ -62,7 +65,6 @@
       "api/js/interfaces/fs.fstextfileoption",
       "api/js/interfaces/http.clientoptions",
       "api/js/interfaces/http.httpoptions",
-      "api/js/interfaces/http.response",
       "api/js/interfaces/notification.options",
       "api/js/interfaces/shell.childprocess",
       "api/js/interfaces/shell.spawnoptions",

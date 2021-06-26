@@ -1,8 +1,10 @@
 ---
-title: "fn.resource_dir"
+title: Fn tauri::api::platform::resource_dir
+sidebar_label: fn.resource_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[platform](/docs/api/rust/tauri/index.html)::​[resource_dir](/docs/api/rust/tauri/)
+# Function tauri::api::platform::resource_dir,\[−],\[−],−
 
 ```rs
 pub fn resource_dir(package_info: &PackageInfo) -> Result<PathBuf, Error>

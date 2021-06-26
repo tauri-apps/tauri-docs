@@ -1,4 +1,5 @@
 ---
+title: "Module: dialog"
 sidebar_label: "dialog"
 custom_edit_url: null
 hide_title: true
@@ -26,9 +27,7 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-## Table of contents
-
-### Interfaces
+## Interfaces
 
 - [DialogFilter](../interfaces/dialog.dialogfilter.md)
 - [OpenDialogOptions](../interfaces/dialog.opendialogoptions.md)
@@ -38,38 +37,46 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### open
 
-▸ **open**(`options?`: [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md)): *Promise*<string \| string[]\>
+▸ **open**(`options?`): `Promise`<`string` \| `string`[]\>
 
 Open a file/directory selection dialog
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`options` | [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md) | {} |
+| Name | Type |
+| :------ | :------ |
+| `options` | [`OpenDialogOptions`](../interfaces/dialog.opendialogoptions.md) |
 
-**Returns:** *Promise*<string \| string[]\>
+#### Returns
+
+`Promise`<`string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
-Defined in: [dialog.ts:69](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L69)
+#### Defined in
+
+[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/dialog.ts#L69)
 
 ___
 
 ### save
 
-▸ **save**(`options?`: [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md)): *Promise*<string\>
+▸ **save**(`options?`): `Promise`<`string`\>
 
 Open a file/directory save dialog.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`options` | [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md) | {} |
+| Name | Type |
+| :------ | :------ |
+| `options` | [`SaveDialogOptions`](../interfaces/dialog.savedialogoptions.md) |
 
-**Returns:** *Promise*<string\>
+#### Returns
+
+`Promise`<`string`\>
 
 A promise resolving to the selected path.
 
-Defined in: [dialog.ts:90](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/dialog.ts#L90)
+#### Defined in
+
+[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/dialog.ts#L90)

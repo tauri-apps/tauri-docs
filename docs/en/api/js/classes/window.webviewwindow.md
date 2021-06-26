@@ -1,4 +1,5 @@
 ---
+title: "Class: WebviewWindow"
 sidebar_label: "WebviewWindow"
 custom_edit_url: null
 hide_title: true
@@ -10,7 +11,7 @@ hide_title: true
 
 Create new webview windows and get a handle to existing ones.
 
-**`example`** 
+**`example`**
 ```typescript
 // loading embedded asset:
 const webview = new WebviewWindow('theUniqueLabel', {
@@ -37,175 +38,215 @@ unlisten()
 
 ## Hierarchy
 
-* [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+- [`WebviewWindowHandle`](window.webviewwindowhandle.md)
 
-  ↳ **WebviewWindow**
+  ↳ **`WebviewWindow`**
 
 ## Constructors
 
 ### constructor
 
-\+ **new WebviewWindow**(`label`: *string*, `options?`: [*WindowOptions*](../interfaces/window.windowoptions.md)): [*WebviewWindow*](window.webviewwindow.md)
+• **new WebviewWindow**(`label`, `options?`)
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`label` | *string* | - |
-`options` | [*WindowOptions*](../interfaces/window.windowoptions.md) | {} |
+| Name | Type |
+| :------ | :------ |
+| `label` | `string` |
+| `options` | [`WindowOptions`](../interfaces/window.windowoptions.md) |
 
-**Returns:** [*WebviewWindow*](window.webviewwindow.md)
+#### Overrides
 
-Overrides: [WebviewWindowHandle](window.webviewwindowhandle.md)
+[WebviewWindowHandle](window.webviewwindowhandle.md).[constructor](window.webviewwindowhandle.md#constructor)
 
-Defined in: [window.ts:251](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L251)
+#### Defined in
+
+[window.ts:267](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L267)
 
 ## Properties
 
 ### label
 
-• **label**: *string*
+• **label**: `string`
 
 Window label.
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[label](window.webviewwindowhandle.md#label)
+#### Inherited from
 
-Defined in: [window.ts:143](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L143)
+[WebviewWindowHandle](window.webviewwindowhandle.md).[label](window.webviewwindowhandle.md#label)
+
+#### Defined in
+
+[window.ts:159](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L159)
 
 ___
 
 ### listeners
 
-• **listeners**: *object*
+• **listeners**: `Object`
 
 Local event listeners.
 
-#### Type declaration:
+#### Index signature
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md).[listeners](window.webviewwindowhandle.md#listeners)
+▪ [key: `string`]: [`EventCallback`](../modules/event.md#eventcallback)<`any`\>[]
 
-Defined in: [window.ts:145](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L145)
+#### Inherited from
+
+[WebviewWindowHandle](window.webviewwindowhandle.md).[listeners](window.webviewwindowhandle.md#listeners)
+
+#### Defined in
+
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L161)
 
 ## Methods
 
 ### \_handleTauriEvent
 
-▸ **_handleTauriEvent**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *boolean*
+▸ **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`event` | *string* |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> |
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> |
 
-**Returns:** *boolean*
+#### Returns
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
+`boolean`
 
-Defined in: [window.ts:209](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L209)
+#### Inherited from
+
+[WebviewWindowHandle](window.webviewwindowhandle.md).[_handleTauriEvent](window.webviewwindowhandle.md#_handletaurievent)
+
+#### Defined in
+
+[window.ts:225](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L225)
 
 ___
 
 ### emit
 
-▸ **emit**(`event`: *string*, `payload?`: *string*): *Promise*<void\>
+▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`payload?` | *string* | Event payload.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `payload?` | `string` | Event payload. |
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
+`Promise`<`void`\>
 
-Defined in: [window.ts:198](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L198)
+#### Inherited from
+
+[WebviewWindowHandle](window.webviewwindowhandle.md).[emit](window.webviewwindowhandle.md#emit)
+
+#### Defined in
+
+[window.ts:214](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L214)
 
 ___
 
 ### listen
 
-▸ **listen**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+▸ **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> | Event handler.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-**Returns:** *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
+#### Inherited from
 
-Defined in: [window.ts:160](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L160)
+[WebviewWindowHandle](window.webviewwindowhandle.md).[listen](window.webviewwindowhandle.md#listen)
+
+#### Defined in
+
+[window.ts:176](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L176)
 
 ___
 
 ### once
 
-▸ **once**<T\>(`event`: *string*, `handler`: [*EventCallback*](../modules/event.md#eventcallback)<T\>): *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *string* | Event name.   |
-`handler` | [*EventCallback*](../modules/event.md#eventcallback)<T\> | Event handler.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-**Returns:** *Promise*<[*UnlistenFn*](../modules/event.md#unlistenfn)\>
+#### Returns
+
+`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 
-Inherited from: [WebviewWindowHandle](window.webviewwindowhandle.md)
+#### Inherited from
 
-Defined in: [window.ts:181](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L181)
+[WebviewWindowHandle](window.webviewwindowhandle.md).[once](window.webviewwindowhandle.md#once)
+
+#### Defined in
+
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L197)
 
 ___
 
 ### getByLabel
 
-▸ `Static`**getByLabel**(`label`: *string*): *null* \| [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+▸ `Static` **getByLabel**(`label`): ``null`` \| [`WebviewWindowHandle`](window.webviewwindowhandle.md)
 
 Gets the WebviewWindow handle for the webview associated with the given label.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`label` | *string* | The webview window label.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `label` | `string` | The webview window label. |
 
-**Returns:** *null* \| [*WebviewWindowHandle*](window.webviewwindowhandle.md)
+#### Returns
+
+``null`` \| [`WebviewWindowHandle`](window.webviewwindowhandle.md)
 
 The handle to communicate with the webview or null if the webview doesn't exist.
 
-Defined in: [window.ts:276](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/window.ts#L276)
+#### Defined in
+
+[window.ts:292](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/window.ts#L292)

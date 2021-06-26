@@ -1,8 +1,10 @@
 ---
-title: "struct.Mutex"
+title: Struct tauri::async_runtime::Mutex
+sidebar_label: struct.Mutex
+custom_edit_url: null
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/../index.html)::​[async_runtime](/docs/api/rust/tauri/index.html)::​[Mutex](/docs/api/rust/tauri/)
+# Struct tauri::async_runtime::Mutex,\[−],\[−],−
 
 ```rs
 pub struct Mutex<T> where
@@ -11,7 +13,7 @@ pub struct Mutex<T> where
 
 An asynchronous `Mutex`-like type.
 
-This type acts similarly to [`std::sync::Mutex`](https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html), with two major differences: [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.lock) is an async method so does not block, and the lock guard is designed to be held across `.await` points.
+This type acts similarly to [`std::sync::Mutex`](https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html), with two major differences: [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex#method.lock) is an async method so does not block, and the lock guard is designed to be held across `.await` points.
 
 # [Which kind of mutex should you use?](/docs/api/rust/tauri/about:blank#which-kind-of-mutex-should-you-use)
 
@@ -80,7 +82,7 @@ There are a few things of note here to pay attention to in this example.
 2.  Each spawned task obtains a lock and releases it on every iteration.
 3.  Mutation of the data protected by the Mutex is done by de-referencing the obtained lock as seen on lines 12 and 19.
 
-Tokio’s Mutex works in a simple FIFO (first in, first out) style where all calls to [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.lock) complete in the order they were performed. In that way the Mutex is “fair” and predictable in how it distributes the locks to inner data. Locks are released and reacquired after every iteration, so basically, each thread goes to the back of the line after it increments the value once. Note that there’s some unpredictability to the timing between when the threads are started, but once they are going they alternate predictably. Finally, since there is only a single valid lock at any given time, there is no possibility of a race condition when mutating the inner value.
+Tokio’s Mutex works in a simple FIFO (first in, first out) style where all calls to [`lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex#method.lock) complete in the order they were performed. In that way the Mutex is “fair” and predictable in how it distributes the locks to inner data. Locks are released and reacquired after every iteration, so basically, each thread goes to the back of the line after it increments the value once. Note that there’s some unpredictability to the timing between when the threads are started, but once they are going they alternate predictably. Finally, since there is only a single valid lock at any given time, there is no possibility of a race condition when mutating the inner value.
 
 Note that in contrast to [`std::sync::Mutex`](https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html), this implementation does not poison the mutex when a thread holding the [`MutexGuard`](/docs/api/rust/tauri/struct@MutexGuard) panics. In such a case, the mutex will be unlocked. If the panic is caught, this might leave the data protected by the mutex in an inconsistent state.
 
@@ -122,7 +124,7 @@ async fn main() {
 
 Locks this mutex, causing the current task to yield until the lock has been acquired. When the lock has been acquired, this returns an \[`OwnedMutexGuard`].
 
-This method is identical to [`Mutex::lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.lock "Mutex::lock"), except that the returned guard references the `Mutex` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html) rather than by borrowing it. Therefore, the `Mutex` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `Mutex` alive by holding an `Arc`.
+This method is identical to [`Mutex::lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex#method.lock "Mutex::lock"), except that the returned guard references the `Mutex` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html) rather than by borrowing it. Therefore, the `Mutex` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `Mutex` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
@@ -177,7 +179,7 @@ fn main() {
 
 Attempts to acquire the lock, and returns [`TryLockError`](/docs/api/rust/tauri/TryLockError) if the lock is currently held somewhere else.
 
-This method is identical to [`Mutex::try_lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex.html#method.try_lock "Mutex::try_lock"), except that the returned guard references the `Mutex` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html) rather than by borrowing it. Therefore, the `Mutex` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `Mutex` alive by holding an `Arc`.
+This method is identical to [`Mutex::try_lock`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Mutex#method.try_lock "Mutex::try_lock"), except that the returned guard references the `Mutex` with an [`Arc`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html) rather than by borrowing it. Therefore, the `Mutex` must be wrapped in an `Arc` to call this method, and the guard will live for the `'static` lifetime, as it keeps the `Mutex` alive by holding an `Arc`.
 
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
@@ -243,87 +245,163 @@ Performs the conversion.
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+_Defined in: [any.rs:132](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+_Defined in: [borrow.rs:210](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<!> for T`
+_Defined in: [borrow.rs:217](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from(t: !) -> T`
+### `From`
+
+```rs
+impl<T> From<!> for T
+```
+
+_Defined in: [mod.rs:559-563](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L559-563)_
+
+#### `from`
+
+```rs
+pub fn from(t: !) -> T
+```
 
 Performs the conversion.
 
-### `impl<T> From<T> for T`
+_Defined in: [mod.rs:560](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L560)_
 
-#### `pub fn from(t: T) -> T`
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+_Defined in: [mod.rs:545](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+_Defined in: [mod.rs:537](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
-#### `pub const ALIGN: usize`
+### `TryFrom`
 
-The alignment of pointer.
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
 
-#### `type Init = T`
-
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+_Defined in: [mod.rs:587](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

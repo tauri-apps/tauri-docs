@@ -1,8 +1,10 @@
 ---
-title: "struct.State"
+title: Struct tauri::State
+sidebar_label: struct.State
+custom_edit_url: null
 ---
 
-# Struct [tauri](/docs/api/rust/tauri/index.html)::​[State](/docs/api/rust/tauri/)
+# Struct tauri::State,\[−]\[src],\[−],−
 
 ```rs
 pub struct State<'r, T: Send + Sync + 'static>(_);
@@ -12,39 +14,93 @@ A guard for a state value.
 
 ## Implementations
 
-### `impl<'r, T: Send + Sync + 'static> State<'r, T>`
+### `Send`
 
-#### `pub fn inner(&self) -> &'rT`
+```rs
+impl<'r, T: Send + Sync + 'static> State<'r, T>
+```
+
+_Defined in: [state.rs:12-20](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L12-20)_
+
+#### `inner`
+
+```rs
+pub fn inner(&self) -> &'r T
+```
 
 Retrieve a borrow to the underlying value with a lifetime of `'r`. Using this method is typically unnecessary as `State` implements [`std::ops::Deref`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html "std::ops::Deref") with a [`std::ops::Deref::Target`](https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html#associatedtype.Target "std::ops::Deref::Target") of `T`.
 
+_Defined in: [state.rs:17-19](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L17-19)_
+
 ## Trait Implementations
 
-### `impl<T: Send + Sync + 'static> Clone for State<'_, T>`
+### `Send`
 
-#### `fn clone(&self) -> Self`
+```rs
+impl<T: Send + Sync + 'static> Clone for State<'_, T>
+```
+
+_Defined in: [state.rs:31-35](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L31-35)_
+
+#### `clone`
+
+```rs
+fn clone(&self) -> Self
+```
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `pub fn clone_from(&mut self, source: &Self)`1.0.0
+_Defined in: [state.rs:32-34](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L32-34)_
+
+#### `clone_from`
+
+```rs
+pub fn clone_from(&mut self, source: &Self)
+```
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-### `impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>`
+_Defined in: [clone.rs:130](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/clone.rs#L130)_
 
-#### `fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>`
+### `Send`
 
-Grabs the [`State`](/docs/api/rust/tauri/../tauri/struct.State.html "State") from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem.html "CommandItem"). This will never fail.
+```rs
+impl<'r, 'de: 'r, T: Send + Sync + 'static, P: Params> CommandArg<'de, P> for State<'r, T>
+```
 
-### `impl<T: Send + Sync + 'static> Deref for State<'_, T>`
+_Defined in: [state.rs:37-42](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L37-42)_
+
+#### `from_command`
+
+```rs
+fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
+```
+
+Grabs the [`State`](/docs/api/rust/tauri/../tauri/struct.State "State") from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
+
+_Defined in: [state.rs:39-41](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L39-41)_
+
+### `Send`
+
+```rs
+impl<T: Send + Sync + 'static> Deref for State<'_, T>
+```
+
+_Defined in: [state.rs:22-29](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L22-29)_
 
 #### `type Target = T`
 
 The resulting type after dereferencing.
 
-#### `fn deref(&self) -> &T`
+#### `deref`
+
+```rs
+fn deref(&self) -> &T
+```
 
 Dereferences the value.
+
+_Defined in: [state.rs:26-28](https://github.com/https://blob/2a65ac1/core/tauri/src/state.rs#L26-28)_
 
 ## Auto Trait Implementations
 
@@ -60,73 +116,130 @@ Dereferences the value.
 
 ## Blanket Implementations
 
-### `impl<T> Any for T where T: 'static + ?Sized,`
+### `Any`
 
-#### `pub fn type_id(&self) -> TypeId`
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-### `impl<T> Borrow<T> for T where T: ?Sized,`
+_Defined in: [any.rs:132](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
-#### `pub fn borrow(&self) -> &T`
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-### `impl<T> BorrowMut<T> for T where T: ?Sized,`
+_Defined in: [borrow.rs:210](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
-#### `pub fn borrow_mut(&mut self) -> &mutT`
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### `impl<T> From<T> for T`
+_Defined in: [borrow.rs:217](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
-#### `pub fn from(t: T) -> T`
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
 
 Performs the conversion.
 
-### `impl<T, U> Into<U> for T where U: From<T>,`
+_Defined in: [mod.rs:545](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
-#### `pub fn into(self) -> U`
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
 
 Performs the conversion.
 
-### `impl<T> Pointable for T`
+_Defined in: [mod.rs:537](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
-#### `pub const ALIGN: usize`
+### `ToOwned`
 
-The alignment of pointer.
+```rs
+impl<T> ToOwned for T where
+    T: Clone, 
+```
 
-#### `type Init = T`
-
-The type for initializers.
-
-#### `pub unsafe fn init(init: <T as Pointable>::Init) -> usize`
-
-Initializes a with the given initializer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.init)
-
-#### `pub unsafe fn deref<'a>(ptr: usize) -> &'aT`
-
-Dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref)
-
-#### `pub unsafe fn deref_mut<'a>(ptr: usize) -> &'a mutT`
-
-Mutably dereferences the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.deref_mut)
-
-#### `pub unsafe fn drop(ptr: usize)`
-
-Drops the object pointed to by the given pointer. [Read more](/docs/api/rust/tauri/about:blank#tymethod.drop)
-
-### `impl<T> ToOwned for T where T: Clone,`
+_Defined in: [borrow.rs:81-93](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L81-93)_
 
 #### `type Owned = T`
 
 The resulting type after obtaining ownership.
 
-#### `pub fn to_owned(&self) -> T`
+#### `to_owned`
+
+```rs
+pub fn to_owned(&self) -> T
+```
 
 Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-#### `pub fn clone_into(&self, target: &mutT)`
+_Defined in: [borrow.rs:86](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L86)_
+
+#### `clone_into`
+
+```rs
+pub fn clone_into(&self, target: &mut T)
+```
+
+_Defined in: [borrow.rs:90](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L90)_
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
@@ -134,25 +247,51 @@ recently added
 
 Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
-### `impl<T, U> TryFrom<U> for T where U: Into<T>,`
+### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>`
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
 
 Performs the conversion.
 
-### `impl<T, U> TryInto<U> for T where U: TryFrom<T>,`
+_Defined in: [mod.rs:587](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
 The type returned in the event of a conversion error.
 
-#### `pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>`
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
 
 Performs the conversion.
+
+_Defined in: [mod.rs:573](https://github.com/https://blob/2a65ac1/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

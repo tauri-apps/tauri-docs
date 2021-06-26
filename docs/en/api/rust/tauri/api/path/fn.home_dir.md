@@ -1,8 +1,10 @@
 ---
-title: "fn.home_dir"
+title: Fn tauri::api::path::home_dir
+sidebar_label: fn.home_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[home_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::home_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn home_dir() -> Option<PathBuf>

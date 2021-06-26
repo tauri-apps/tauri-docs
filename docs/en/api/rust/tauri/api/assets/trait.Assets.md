@@ -1,8 +1,10 @@
 ---
-title: "trait.Assets"
+title: Trait tauri::api::assets::Assets
+sidebar_label: trait.Assets
+custom_edit_url: null
 ---
 
-# Trait [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[assets](/docs/api/rust/tauri/index.html)::​[Assets](/docs/api/rust/tauri/)
+# Trait tauri::api::assets::Assets,\[−],\[−],−
 
 ```rs
 pub trait Assets: 'static + Send + Sync {
@@ -18,14 +20,10 @@ Represents a container of file assets that are retrievable during runtime.
 
 ### `pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]>> where Key: Into<AssetKey>,`
 
-Get the content of the passed [`AssetKey`](/docs/api/rust/tauri/../../../tauri/api/assets/struct.AssetKey.html "AssetKey").
-
-Loading content...
+Get the content of the passed [`AssetKey`](/docs/api/rust/tauri/../../../tauri/api/assets/struct.AssetKey "AssetKey").
 
 ## Implementors
 
 ### `impl Assets for EmbeddedAssets`
 
 #### `pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]>> where Key: Into<AssetKey>,`
-
-Loading content...

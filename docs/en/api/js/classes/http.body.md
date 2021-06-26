@@ -1,4 +1,5 @@
 ---
+title: "Class: Body"
 sidebar_label: "Body"
 custom_edit_url: null
 hide_title: true
@@ -14,94 +15,114 @@ The body object to be used on POST and PUT requests.
 
 ### payload
 
-• **payload**: *unknown*
+• **payload**: `unknown`
 
-Defined in: [http.ts:45](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L45)
+#### Defined in
+
+[http.ts:45](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L45)
 
 ___
 
 ### type
 
-• **type**: *string*
+• **type**: `string`
 
-Defined in: [http.ts:44](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L44)
+#### Defined in
+
+[http.ts:44](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L44)
 
 ## Methods
 
 ### bytes
 
-▸ `Static`**bytes**(`bytes`: *number*[]): [*Body*](http.body.md)
+▸ `Static` **bytes**(`bytes`): [`Body`](http.body.md)
 
 Creates a new byte array body.
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`bytes` | *number*[] |
+| Name | Type |
+| :------ | :------ |
+| `bytes` | `number`[] |
 
-**Returns:** [*Body*](http.body.md)
+#### Returns
+
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:93](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L93)
+#### Defined in
+
+[http.ts:93](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L93)
 
 ___
 
 ### form
 
-▸ `Static`**form**(`data`: *Record*<string, [*Part*](../modules/http.md#part)\>): [*Body*](http.body.md)
+▸ `Static` **form**(`data`): [`Body`](http.body.md)
 
 Creates a new form data body.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`data` | *Record*<string, [*Part*](../modules/http.md#part)\> | The body data.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `Record`<`string`, [`Part`](../modules/http.md#part)\> | The body data. |
 
-**Returns:** [*Body*](http.body.md)
+#### Returns
+
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:60](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L60)
+#### Defined in
+
+[http.ts:60](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L60)
 
 ___
 
 ### json
 
-▸ `Static`**json**(`data`: *Record*<any, any\>): [*Body*](http.body.md)
+▸ `Static` **json**(`data`): [`Body`](http.body.md)
 
 Creates a new JSON body.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`data` | *Record*<any, any\> | The body JSON object.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `Record`<`any`, `any`\> | The body JSON object. |
 
-**Returns:** [*Body*](http.body.md)
+#### Returns
+
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:71](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L71)
+#### Defined in
+
+[http.ts:71](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L71)
 
 ___
 
 ### text
 
-▸ `Static`**text**(`value`: *string*): [*Body*](http.body.md)
+▸ `Static` **text**(`value`): [`Body`](http.body.md)
 
 Creates a new UTF-8 string body.
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
-:------ | :------ |
-`value` | *string* |
+| Name | Type |
+| :------ | :------ |
+| `value` | `string` |
 
-**Returns:** [*Body*](http.body.md)
+#### Returns
+
+[`Body`](http.body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
-Defined in: [http.ts:82](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L82)
+#### Defined in
+
+[http.ts:82](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L82)

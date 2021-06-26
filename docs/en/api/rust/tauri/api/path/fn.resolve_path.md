@@ -1,8 +1,10 @@
 ---
-title: "fn.resolve_path"
+title: Fn tauri::api::path::resolve_path
+sidebar_label: fn.resolve_path
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[resolve_path](/docs/api/rust/tauri/)
+# Function tauri::api::path::resolve_path,\[−]\[src],\[−],−
 
 ```rs
 pub fn resolve_path<P: AsRef<Path>>(

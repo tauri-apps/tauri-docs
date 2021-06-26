@@ -1,4 +1,5 @@
 ---
+title: "Module: http"
 sidebar_label: "http"
 custom_edit_url: null
 hide_title: true
@@ -25,104 +26,118 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-## Table of contents
-
-### Enumerations
+## Enumerations
 
 - [ResponseType](../enums/http.responsetype.md)
 
-### Classes
+## Classes
 
 - [Body](../classes/http.body.md)
 - [Client](../classes/http.client.md)
+- [Response](../classes/http.response.md)
 
-### Interfaces
+## Interfaces
 
 - [ClientOptions](../interfaces/http.clientoptions.md)
 - [HttpOptions](../interfaces/http.httpoptions.md)
-- [Response](../interfaces/http.response.md)
 
 ## Type aliases
 
 ### FetchOptions
 
-Ƭ **FetchOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *url*\>
+Ƭ **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.httpoptions.md), ``"url"``\>
 
 Options for the `fetch` API.
 
-Defined in: [http.ts:124](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L124)
+#### Defined in
+
+[http.ts:124](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L124)
 
 ___
 
 ### HttpVerb
 
-Ƭ **HttpVerb**: *GET* \| *POST* \| *PUT* \| *DELETE* \| *PATCH* \| *HEAD* \| *OPTIONS* \| *CONNECT* \| *TRACE*
+Ƭ **HttpVerb**: ``"GET"`` \| ``"POST"`` \| ``"PUT"`` \| ``"DELETE"`` \| ``"PATCH"`` \| ``"HEAD"`` \| ``"OPTIONS"`` \| ``"CONNECT"`` \| ``"TRACE"``
 
 The request HTTP verb.
 
-Defined in: [http.ts:99](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L99)
+#### Defined in
+
+[http.ts:99](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L99)
 
 ___
 
 ### Part
 
-Ƭ **Part**: *string* \| *number*[]
+Ƭ **Part**: ``"string"`` \| `number`[]
 
-Defined in: [http.ts:40](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L40)
+#### Defined in
+
+[http.ts:40](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L40)
 
 ___
 
 ### RequestOptions
 
-Ƭ **RequestOptions**: *Omit*<[*HttpOptions*](../interfaces/http.httpoptions.md), *method* \| *url*\>
+Ƭ **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.httpoptions.md), ``"method"`` \| ``"url"``\>
 
 Request options.
 
-Defined in: [http.ts:122](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L122)
+#### Defined in
+
+[http.ts:122](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L122)
 
 ## Functions
 
 ### fetch
 
-▸ **fetch**<T\>(`url`: *string*, `options?`: [*FetchOptions*](http.md#fetchoptions)): *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
+▸ **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.response.md)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
-#### Type parameters:
+#### Type parameters
 
-Name |
-:------ |
-`T` |
+| Name |
+| :------ |
+| `T` |
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`url` | *string* | The request URL.   |
-`options?` | [*FetchOptions*](http.md#fetchoptions) | The fetch options.   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `url` | `string` | The request URL. |
+| `options?` | [`FetchOptions`](http.md#fetchoptions) | The fetch options. |
 
-**Returns:** *Promise*<[*Response*](../interfaces/http.response.md)<T\>\>
+#### Returns
+
+`Promise`<[`Response`](../classes/http.response.md)<`T`\>\>
 
 The response object.
 
-Defined in: [http.ts:292](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L292)
+#### Defined in
+
+[http.ts:335](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L335)
 
 ___
 
 ### getClient
 
-▸ **getClient**(`options?`: [*ClientOptions*](../interfaces/http.clientoptions.md)): *Promise*<[*Client*](../classes/http.client.md)\>
+▸ **getClient**(`options?`): `Promise`<[`Client`](../classes/http.client.md)\>
 
 Creates a new client using the specified options.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`options?` | [*ClientOptions*](../interfaces/http.clientoptions.md) | Client configuration.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`ClientOptions`](../interfaces/http.clientoptions.md) | Client configuration. |
 
-**Returns:** *Promise*<[*Client*](../classes/http.client.md)\>
+#### Returns
+
+`Promise`<[`Client`](../classes/http.client.md)\>
 
 A promise resolving to the client instance.
 
-Defined in: [http.ts:272](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L272)
+#### Defined in
+
+[http.ts:315](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L315)

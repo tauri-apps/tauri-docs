@@ -1,8 +1,10 @@
 ---
-title: "fn.document_dir"
+title: Fn tauri::api::path::document_dir
+sidebar_label: fn.document_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[document_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::document_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn document_dir() -> Option<PathBuf>

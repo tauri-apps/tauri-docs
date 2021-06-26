@@ -1,8 +1,10 @@
 ---
-title: "type.OnPageLoad"
+title: Type tauri::OnPageLoad
+sidebar_label: type.OnPageLoad
+custom_edit_url: null
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[OnPageLoad](/docs/api/rust/tauri/)
+# Type Definition tauri::OnPageLoad,\[−]\[src],\[−],−
 
 ```rs
 type OnPageLoad<P> = dyn Fn(Window<P>, PageLoadPayload) + Send + Sync + 'static;

@@ -1,8 +1,10 @@
 ---
-title: "fn.public_dir"
+title: Fn tauri::api::path::public_dir
+sidebar_label: fn.public_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[public_dir](/docs/api/rust/tauri/)
+# Function tauri::api::path::public_dir,\[−]\[src],\[−],−
 
 ```rs
 pub fn public_dir() -> Option<PathBuf>

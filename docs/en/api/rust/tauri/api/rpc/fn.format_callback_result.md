@@ -1,8 +1,10 @@
 ---
-title: "fn.format_callback_result"
+title: Fn tauri::api::rpc::format_callback_result
+sidebar_label: fn.format_callback_result
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[rpc](/docs/api/rust/tauri/index.html)::​[format_callback_result](/docs/api/rust/tauri/)
+# Function tauri::api::rpc::format_callback_result,\[−]\[src],\[−],−
 
 ```rs
 pub fn format_callback_result<T: Serialize, E: Serialize>(

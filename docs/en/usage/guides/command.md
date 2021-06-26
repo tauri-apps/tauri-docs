@@ -137,6 +137,19 @@ async fn my_custom_command(window: tauri::Window) {
 }
 ```
 
+## Accessing an AppHandle in Commands
+
+Commands can access an `AppHandle` instance:
+
+```rust
+#[tauri::command]
+async fn my_custom_command(app_handle: tauri::AppHandle) {
+  let app_dir = app_handle.path_resolver().app_dir();
+  use tauri::GlobalShortcutManager;
+  app_handle.global_shortcut_manager().register("CTRL + U", move || {});
+}
+```
+
 ## Accessing managed state
 
 Tauri can manage state using the `manage` function on `tauri::Builder`.
@@ -154,6 +167,31 @@ fn main() {
   tauri::Builder::default()
     .manage(MyState("some state value".into()))
     .invoke_handler(tauri::generate_handler![my_custom_command])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+## Creating Multiple Commands
+
+The `tauri::generate_handler!` macro takes an array of commands. To register
+multiple commands, you cannot call invoke_handler multiple times. Only the last
+call will be used. You must pass each command to a single call of
+`tauri::generate_handler!`.
+
+```rust
+#[tauri::command]
+fn cmd_a() -> String {
+	"Command a"
+}
+#[tauri::command]
+fn cmd_b() -> String {
+	"Command b"
+}
+
+fn main() {
+  tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![cmd_a, cmd_b])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

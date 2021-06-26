@@ -1,4 +1,5 @@
 ---
+title: "Class: Command"
 sidebar_label: "Command"
 custom_edit_url: null
 hide_title: true
@@ -11,7 +12,7 @@ hide_title: true
 The entry point for spawning child processes.
 It emits the `close` and `error` events.
 
-**`example`** 
+**`example`**
 ```typescript
 const command = new Command('node')
 command.on('close', data => {
@@ -27,61 +28,67 @@ console.log('pid:', child.pid)
 
 ## Hierarchy
 
-* *EventEmitter*<*close* \| *error*\>
+- `EventEmitter`<``"close"`` \| ``"error"``\>
 
-  ↳ **Command**
+  ↳ **`Command`**
 
 ## Constructors
 
 ### constructor
 
-\+ **new Command**(`program`: *string*, `args?`: *string* \| *string*[], `options?`: [*SpawnOptions*](../interfaces/shell.spawnoptions.md)): [*Command*](shell.command.md)
+• **new Command**(`program`, `args?`, `options?`)
 
 Creates a new `Command` instance.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value | Description |
-:------ | :------ | :------ | :------ |
-`program` | *string* | - | The program to execute.   |
-`args` | *string* \| *string*[] | [] | Program arguments.   |
-`options?` | [*SpawnOptions*](../interfaces/shell.spawnoptions.md) | - | Spawn options.    |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `program` | `string` | `undefined` | The program to execute. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
 
-**Returns:** [*Command*](shell.command.md)
+#### Overrides
 
-Overrides: EventEmitter&lt;&#x27;close&#x27; | &#x27;error&#x27;&gt;.constructor
+EventEmitter&lt;&#x27;close&#x27; \| &#x27;error&#x27;\&gt;.constructor
 
-Defined in: [shell.ts:207](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L207)
+#### Defined in
+
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L207)
 
 ## Properties
 
 ### stderr
 
-• `Readonly` **stderr**: *EventEmitter*<*data*\>
+• `Readonly` **stderr**: `EventEmitter`<``"data"``\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-Defined in: [shell.ts:207](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L207)
+#### Defined in
+
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L207)
 
 ___
 
 ### stdout
 
-• `Readonly` **stdout**: *EventEmitter*<*data*\>
+• `Readonly` **stdout**: `EventEmitter`<``"data"``\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-Defined in: [shell.ts:205](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L205)
+#### Defined in
+
+[shell.ts:205](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L205)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): *Promise*<[*ChildProcess*](../interfaces/shell.childprocess.md)\>
+▸ **execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.childprocess.md)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
-**`example`** 
+**`example`**
 ```typescript
 const output = await new Command('echo', 'message').execute()
 assert(output.code === 0)
@@ -90,71 +97,89 @@ assert(output.stdout === 'message')
 assert(output.stderr === '')
 ```
 
-**Returns:** *Promise*<[*ChildProcess*](../interfaces/shell.childprocess.md)\>
+#### Returns
+
+`Promise`<[`ChildProcess`](../interfaces/shell.childprocess.md)\>
 
 A promise resolving to the child process output.
 
-Defined in: [shell.ts:292](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L292)
+#### Defined in
+
+[shell.ts:292](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L292)
 
 ___
 
 ### on
 
-▸ **on**(`event`: *close* \| *error*, `handler`: (`arg`: *any*) => *void*): *EventEmitter*<*close* \| *error*\>
+▸ **on**(`event`, `handler`): `EventEmitter`<``"close"`` \| ``"error"``\>
 
 Listen to an event from the child process.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`event` | *close* \| *error* | The event name.   |
-`handler` | (`arg`: *any*) => *void* | The event handler.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | ``"close"`` \| ``"error"`` | The event name. |
+| `handler` | (`arg`: `any`) => `void` | The event handler. |
 
-**Returns:** *EventEmitter*<*close* \| *error*\>
+#### Returns
+
+`EventEmitter`<``"close"`` \| ``"error"``\>
 
 The `this` instance for chained calls.
 
-Inherited from: EventEmitter.on
+#### Inherited from
 
-Defined in: [shell.ts:125](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L125)
+EventEmitter.on
+
+#### Defined in
+
+[shell.ts:125](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L125)
 
 ___
 
 ### spawn
 
-▸ **spawn**(): *Promise*<[*Child*](shell.child.md)\>
+▸ **spawn**(): `Promise`<[`Child`](shell.child.md)\>
 
 Executes the command as a child process, returning a handle to it.
 
-**Returns:** *Promise*<[*Child*](shell.child.md)\>
+#### Returns
+
+`Promise`<[`Child`](shell.child.md)\>
 
 A promise resolving to the child process handle.
 
-Defined in: [shell.ts:255](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L255)
+#### Defined in
+
+[shell.ts:255](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L255)
 
 ___
 
 ### sidecar
 
-▸ `Static`**sidecar**(`program`: *string*, `args?`: *string* \| *string*[], `options?`: [*SpawnOptions*](../interfaces/shell.spawnoptions.md)): [*Command*](shell.command.md)
+▸ `Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.command.md)
 
 Creates a command to execute the given sidecar program.
 
-**`example`** 
+**`example`**
 ```typescript
 const command = Command.sidecar('my-sidecar')
 const output = await command.execute()
 ```
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value | Description |
-:------ | :------ | :------ | :------ |
-`program` | *string* | - | The program to execute.   |
-`args` | *string* \| *string*[] | [] | Program arguments.   |
-`options?` | [*SpawnOptions*](../interfaces/shell.spawnoptions.md) | - | Spawn options.   |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `program` | `string` | `undefined` | The program to execute. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.spawnoptions.md) | `undefined` | Spawn options. |
 
-**Returns:** [*Command*](shell.command.md)
+#### Returns
 
-Defined in: [shell.ts:240](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/shell.ts#L240)
+[`Command`](shell.command.md)
+
+#### Defined in
+
+[shell.ts:240](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/shell.ts#L240)

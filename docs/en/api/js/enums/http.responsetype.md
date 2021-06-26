@@ -1,4 +1,5 @@
 ---
+title: "Enumeration: ResponseType"
 sidebar_label: "ResponseType"
 custom_edit_url: null
 hide_title: true
@@ -12,22 +13,28 @@ hide_title: true
 
 ### Binary
 
-• **Binary**: = 3
+• **Binary** = `3`
 
-Defined in: [http.ts:37](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L37)
+#### Defined in
+
+[http.ts:37](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L37)
 
 ___
 
 ### JSON
 
-• **JSON**: = 1
+• **JSON** = `1`
 
-Defined in: [http.ts:35](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L35)
+#### Defined in
+
+[http.ts:35](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L35)
 
 ___
 
 ### Text
 
-• **Text**: = 2
+• **Text** = `2`
 
-Defined in: [http.ts:36](https://github.com/tauri-apps/tauri/blob/3afef190/tooling/api/src/http.ts#L36)
+#### Defined in
+
+[http.ts:36](https://github.com/tauri-apps/tauri/blob/2a65ac1/tooling/api/src/http.ts#L36)

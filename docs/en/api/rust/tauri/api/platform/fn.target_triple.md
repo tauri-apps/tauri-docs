@@ -1,8 +1,10 @@
 ---
-title: "fn.target_triple"
+title: Fn tauri::api::platform::target_triple
+sidebar_label: fn.target_triple
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[platform](/docs/api/rust/tauri/index.html)::​[target_triple](/docs/api/rust/tauri/)
+# Function tauri::api::platform::target_triple,\[−],\[−],−
 
 ```rs
 pub fn target_triple() -> Result<String, Error>
