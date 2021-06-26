@@ -301,3 +301,7 @@ html[data-theme='light'] .header-github-link::before {
   font-weight: bold;
   margin-top: 10px;
 }
+
+html[data-theme="light"] a {
+  text-shadow: 0px 0px 1px #215b59;
+}
