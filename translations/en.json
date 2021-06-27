@@ -281,6 +281,9 @@
         },
         {
           "description": "Reversably introduce bugs into your code so that you can safely practice debugging."
+        },
+        {
+          "description": "A lite and simple two-factor authentication app for desktop."
         }
       ],
       "yourProject": "Your project",
