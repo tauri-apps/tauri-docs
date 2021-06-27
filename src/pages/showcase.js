@@ -53,6 +53,12 @@ const projects = [
     link: 'https://github.com/kickstartcoding/debug_trainer_app',
     screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
   },
+    {
+    title: 'Authme Lite',
+    image: imgPath + 'authme-lite/logo.png',
+    link: 'https://github.com/Levminer/authme-lite',
+    screenshots: ['0.png'].map((image) => imgPath + 'authme-lite/' + image),
+  },
 ]
 
 const customStyles = {
