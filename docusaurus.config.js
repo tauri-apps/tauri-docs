@@ -11,6 +11,7 @@ const t = require(`./translations/${language}.json`)
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
+const discordURL = 'https://discord.com/invite/tauri'
 
 const siteConfig = {
   title: 'Tauri Studio',
@@ -66,6 +67,10 @@ const siteConfig = {
               label: t.navbar.showcase,
               to: 'showcase',
             },
+            {
+              label: 'Discord',
+              to: discordURL,
+            },
           ],
         },
         {
@@ -106,7 +111,7 @@ const siteConfig = {
             },
             {
               label: 'Discord',
-              href: 'https://discord.gg/SpmNs4S',
+              href: discordURL,
             },
             {
               label: 'Twitter',
