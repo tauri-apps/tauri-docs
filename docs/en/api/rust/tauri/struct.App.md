@@ -22,7 +22,7 @@ This type implements [`Manager`](/docs/api/rust/tauri/../tauri/trait.Manager "Ma
 impl<P: Params> App<P>
 ```
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `create_window`
 
@@ -38,7 +38,7 @@ pub fn create_window<F>(
 
 Creates a new webview window.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `path_resolver`
 
@@ -48,7 +48,7 @@ pub fn path_resolver(&self) -> PathResolver
 
 The path resolver for the application.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `global_shortcut_manager`
 
@@ -60,7 +60,7 @@ pub fn global_shortcut_manager(
 
 Gets a copy of the global shortcut manager instance.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `clipboard_manager`
 
@@ -70,7 +70,7 @@ pub fn clipboard_manager(&self) -> <P::Runtime as Runtime>::ClipboardManager
 
 Gets a copy of the clipboard manager instance.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `config`
 
@@ -80,7 +80,7 @@ pub fn config(&self) -> Arc<Config>
 
 Gets the app’s configuration, defined on the `tauri.conf.json` file.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 #### `package_info`
 
@@ -90,7 +90,7 @@ pub fn package_info(&self) -> &PackageInfo
 
 Gets the app’s package information.
 
-_Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L265)_
+_Defined in: [app.rs:265](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L265)_
 
 ### `Params`
 
@@ -98,7 +98,7 @@ _Defined in: [app.rs:265](https://github.com/https://blob/710a4f9/core/tauri/src
 impl<P: Params> App<P>
 ```
 
-_Defined in: [app.rs:268-302](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L268-302)_
+_Defined in: [app.rs:268-302](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L268-302)_
 
 #### `handle`
 
@@ -108,7 +108,7 @@ pub fn handle(&self) -> AppHandle<P>
 
 Gets a handle to the application instance.
 
-_Defined in: [app.rs:270-272](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L270-272)_
+_Defined in: [app.rs:270-272](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L270-272)_
 
 ## Trait Implementations
 
@@ -118,7 +118,7 @@ _Defined in: [app.rs:270-272](https://github.com/https://blob/710a4f9/core/tauri
 impl<P: Params> Manager<P> for App<P>
 ```
 
-_Defined in: [app.rs:183](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L183)_
+_Defined in: [app.rs:183](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L183)_
 
 #### `config`
 
@@ -128,7 +128,7 @@ fn config(&self) -> Arc<Config>
 
 The [`Config`](/docs/api/rust/tauri/../tauri/struct.Config "Config") the manager was created with.
 
-_Defined in: [lib.rs:247-249](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L247-249)_
+_Defined in: [lib.rs:247-249](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L247-249)_
 
 #### `emit_all`
 
@@ -141,7 +141,7 @@ fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> where
 
 Emits a event to all windows.
 
-_Defined in: [lib.rs:252-259](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L252-259)_
+_Defined in: [lib.rs:252-259](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L252-259)_
 
 #### `emit_to`
 
@@ -160,7 +160,7 @@ fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
 
 Emits an event to a window with the specified label.
 
-_Defined in: [lib.rs:262-277](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L262-277)_
+_Defined in: [lib.rs:262-277](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L262-277)_
 
 #### `listen_global`
 
@@ -175,7 +175,7 @@ fn listen_global<E: Into<P::Event>, F>(
 
 Listen to a global event.
 
-_Defined in: [lib.rs:280-285](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L280-285)_
+_Defined in: [lib.rs:280-285](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L280-285)_
 
 #### `once_global`
 
@@ -190,7 +190,7 @@ fn once_global<E: Into<P::Event>, F>(
 
 Listen to a global event only once.
 
-_Defined in: [lib.rs:288-293](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L288-293)_
+_Defined in: [lib.rs:288-293](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L288-293)_
 
 #### `trigger_global`
 
@@ -202,7 +202,7 @@ fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>) where
 
 Trigger a global event.
 
-_Defined in: [lib.rs:296-302](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L296-302)_
+_Defined in: [lib.rs:296-302](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L296-302)_
 
 #### `unlisten`
 
@@ -212,7 +212,7 @@ fn unlisten(&self, handler_id: EventHandler)
 
 Remove an event listener.
 
-_Defined in: [lib.rs:305-307](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L305-307)_
+_Defined in: [lib.rs:305-307](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L305-307)_
 
 #### `get_window`
 
@@ -224,7 +224,7 @@ fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>> where
 
 Fetch a single window from the manager.
 
-_Defined in: [lib.rs:310-316](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L310-316)_
+_Defined in: [lib.rs:310-316](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L310-316)_
 
 #### `windows`
 
@@ -234,7 +234,7 @@ fn windows(&self) -> HashMap<P::Label, Window<P>>
 
 Fetch all managed windows.
 
-_Defined in: [lib.rs:319-321](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L319-321)_
+_Defined in: [lib.rs:319-321](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L319-321)_
 
 #### `manage`
 
@@ -245,7 +245,7 @@ fn manage<T>(&self, state: T) where
 
 Add `state` to the state managed by the application. See [`crate::Builder`](/docs/api/rust/tauri/../tauri/struct.Builder#manage "crate::Builder") for instructions. [Read more](/docs/api/rust/tauri/../tauri/trait.Manager#method.manage)
 
-_Defined in: [lib.rs:325-330](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L325-330)_
+_Defined in: [lib.rs:325-330](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L325-330)_
 
 #### `state`
 
@@ -256,7 +256,7 @@ fn state<T>(&self) -> State<'_, T> where
 
 Gets the managed state for the type `T`.
 
-_Defined in: [lib.rs:333-338](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L333-338)_
+_Defined in: [lib.rs:333-338](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L333-338)_
 
 ## Auto Trait Implementations
 
@@ -279,7 +279,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -289,7 +289,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -298,7 +298,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -308,7 +308,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -317,7 +317,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -327,7 +327,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -335,7 +335,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -345,7 +345,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -354,7 +354,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -364,7 +364,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `TryFrom`
 
@@ -373,7 +373,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -387,7 +387,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -396,7 +396,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -410,7 +410,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/4339b46/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

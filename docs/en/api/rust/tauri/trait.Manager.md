@@ -88,7 +88,7 @@ fn config(&self) -> Arc<Config>
 
 The [`Config`](/docs/api/rust/tauri/../tauri/struct.Config "Config") the manager was created with.
 
-_Defined in: [lib.rs:247-249](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L247-249)_
+_Defined in: [lib.rs:247-249](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L247-249)_
 
 ### `emit_all`
 
@@ -101,7 +101,7 @@ fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> where
 
 Emits a event to all windows.
 
-_Defined in: [lib.rs:252-259](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L252-259)_
+_Defined in: [lib.rs:252-259](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L252-259)_
 
 ### `emit_to`
 
@@ -120,7 +120,7 @@ fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
 
 Emits an event to a window with the specified label.
 
-_Defined in: [lib.rs:262-277](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L262-277)_
+_Defined in: [lib.rs:262-277](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L262-277)_
 
 ### `listen_global`
 
@@ -135,7 +135,7 @@ fn listen_global<E: Into<P::Event>, F>(
 
 Listen to a global event.
 
-_Defined in: [lib.rs:280-285](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L280-285)_
+_Defined in: [lib.rs:280-285](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L280-285)_
 
 ### `once_global`
 
@@ -150,7 +150,7 @@ fn once_global<E: Into<P::Event>, F>(
 
 Listen to a global event only once.
 
-_Defined in: [lib.rs:288-293](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L288-293)_
+_Defined in: [lib.rs:288-293](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L288-293)_
 
 ### `trigger_global`
 
@@ -162,7 +162,7 @@ fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>) where
 
 Trigger a global event.
 
-_Defined in: [lib.rs:296-302](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L296-302)_
+_Defined in: [lib.rs:296-302](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L296-302)_
 
 ### `unlisten`
 
@@ -172,7 +172,7 @@ fn unlisten(&self, handler_id: EventHandler)
 
 Remove an event listener.
 
-_Defined in: [lib.rs:305-307](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L305-307)_
+_Defined in: [lib.rs:305-307](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L305-307)_
 
 ### `get_window`
 
@@ -184,7 +184,7 @@ fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>> where
 
 Fetch a single window from the manager.
 
-_Defined in: [lib.rs:310-316](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L310-316)_
+_Defined in: [lib.rs:310-316](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L310-316)_
 
 ### `windows`
 
@@ -194,7 +194,7 @@ fn windows(&self) -> HashMap<P::Label, Window<P>>
 
 Fetch all managed windows.
 
-_Defined in: [lib.rs:319-321](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L319-321)_
+_Defined in: [lib.rs:319-321](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L319-321)_
 
 ### `manage`
 
@@ -205,7 +205,7 @@ fn manage<T>(&self, state: T) where
 
 Add `state` to the state managed by the application. See [`crate::Builder`](/docs/api/rust/tauri/../tauri/struct.Builder#manage "crate::Builder") for instructions.
 
-_Defined in: [lib.rs:325-330](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L325-330)_
+_Defined in: [lib.rs:325-330](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L325-330)_
 
 ### `state`
 
@@ -216,7 +216,7 @@ fn state<T>(&self) -> State<'_, T> where
 
 Gets the managed state for the type `T`.
 
-_Defined in: [lib.rs:333-338](https://github.com/https://blob/710a4f9/core/tauri/src/lib.rs#L333-338)_
+_Defined in: [lib.rs:333-338](https://github.com/https://blob/4339b46/core/tauri/src/lib.rs#L333-338)_
 
 ## Implementors
 
@@ -226,7 +226,7 @@ _Defined in: [lib.rs:333-338](https://github.com/https://blob/710a4f9/core/tauri
 impl<P: Params> Manager<P> for App<P>
 ```
 
-_Defined in: [app.rs:183](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L183)_
+_Defined in: [app.rs:183](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L183)_
 
 ### `Params`
 
@@ -234,7 +234,7 @@ _Defined in: [app.rs:183](https://github.com/https://blob/710a4f9/core/tauri/src
 impl<P: Params> Manager<P> for AppHandle<P>
 ```
 
-_Defined in: [app.rs:153](https://github.com/https://blob/710a4f9/core/tauri/src/app.rs#L153)_
+_Defined in: [app.rs:153](https://github.com/https://blob/4339b46/core/tauri/src/app.rs#L153)_
 
 ### `Params`
 
@@ -242,4 +242,4 @@ _Defined in: [app.rs:153](https://github.com/https://blob/710a4f9/core/tauri/src
 impl<P: Params> Manager<P> for Window<P>
 ```
 
-_Defined in: [window.rs:121](https://github.com/https://blob/710a4f9/core/tauri/src/window.rs#L121)_
+_Defined in: [window.rs:121](https://github.com/https://blob/4339b46/core/tauri/src/window.rs#L121)_

@@ -31,7 +31,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L161)
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L161)
 
 ## Properties
 
@@ -43,7 +43,7 @@ Window label.
 
 #### Defined in
 
-[window.ts:159](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L159)
+[window.ts:159](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L159)
 
 ___
 
@@ -59,7 +59,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L161)
+[window.ts:161](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L161)
 
 ## Methods
 
@@ -86,7 +86,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:225](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L225)
+[window.ts:225](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L225)
 
 ___
 
@@ -109,7 +109,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:214](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L214)
+[window.ts:214](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L214)
 
 ___
 
@@ -140,7 +140,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:176](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L176)
+[window.ts:176](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L176)
 
 ___
 
@@ -171,4 +171,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:197](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L197)
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/window.ts#L197)

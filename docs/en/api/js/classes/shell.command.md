@@ -54,7 +54,7 @@ EventEmitter&lt;&#x27;close&#x27; \| &#x27;error&#x27;\&gt;.constructor
 
 #### Defined in
 
-[shell.ts:207](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L207)
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L207)
 
 ## Properties
 
@@ -66,7 +66,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:207](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L207)
+[shell.ts:207](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L207)
 
 ___
 
@@ -78,7 +78,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:205](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L205)
+[shell.ts:205](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L205)
 
 ## Methods
 
@@ -105,7 +105,7 @@ A promise resolving to the child process output.
 
 #### Defined in
 
-[shell.ts:292](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L292)
+[shell.ts:292](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L292)
 
 ___
 
@@ -134,7 +134,7 @@ EventEmitter.on
 
 #### Defined in
 
-[shell.ts:125](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L125)
+[shell.ts:125](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L125)
 
 ___
 
@@ -152,7 +152,7 @@ A promise resolving to the child process handle.
 
 #### Defined in
 
-[shell.ts:255](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L255)
+[shell.ts:255](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L255)
 
 ___
 
@@ -182,4 +182,4 @@ const output = await command.execute()
 
 #### Defined in
 
-[shell.ts:240](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/shell.ts#L240)
+[shell.ts:240](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/shell.ts#L240)

@@ -44,7 +44,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/tauri.ts#L70)
+[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/tauri.ts#L70)
 
 ___
 
@@ -70,4 +70,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/tauri.ts#L37)
+[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/tauri.ts#L37)

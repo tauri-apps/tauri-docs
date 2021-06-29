@@ -17,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[cli.ts:29](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/cli.ts#L29)
+[cli.ts:29](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/cli.ts#L29)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[cli.ts:28](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/cli.ts#L28)
+[cli.ts:28](https://github.com/tauri-apps/tauri/blob/4339b46/tooling/api/src/cli.ts#L28)
