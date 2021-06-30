@@ -28,7 +28,7 @@ The fields of this struct are public so that they may be initialized by the `phf
 impl<K, V> OrderedMap<K, V>
 ```
 
-_Defined in: [ordered_map.rs:53-166](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L53-166)_
+_Defined in: [ordered_map.rs:53-166](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L53-166)_
 
 #### `len`
 
@@ -38,7 +38,7 @@ pub fn len(&self) -> usize
 
 Returns the number of entries in the `Map`.
 
-_Defined in: [ordered_map.rs:55](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L55)_
+_Defined in: [ordered_map.rs:55](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L55)_
 
 #### `is_empty`
 
@@ -48,7 +48,7 @@ pub fn is_empty(&self) -> bool
 
 Returns true if the `Map` is empty.
 
-_Defined in: [ordered_map.rs:60](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L60)_
+_Defined in: [ordered_map.rs:60](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L60)_
 
 #### `get`
 
@@ -60,7 +60,7 @@ pub fn get<T>(&self, key: &T) -> Option<&V> where
 
 Returns a reference to the value that `key` maps to.
 
-_Defined in: [ordered_map.rs:65-68](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L65-68)_
+_Defined in: [ordered_map.rs:65-68](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L65-68)_
 
 #### `get_key`
 
@@ -74,7 +74,7 @@ Returns a reference to the map’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
-_Defined in: [ordered_map.rs:77-80](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L77-80)_
+_Defined in: [ordered_map.rs:77-80](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L77-80)_
 
 #### `contains_key`
 
@@ -86,7 +86,7 @@ pub fn contains_key<T>(&self, key: &T) -> bool where
 
 Determines if `key` is in the `Map`.
 
-_Defined in: [ordered_map.rs:86-89](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L86-89)_
+_Defined in: [ordered_map.rs:86-89](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L86-89)_
 
 #### `get_index`
 
@@ -98,7 +98,7 @@ pub fn get_index<T>(&self, key: &T) -> Option<usize> where
 
 Returns the index of the key within the list used to initialize the ordered map.
 
-_Defined in: [ordered_map.rs:96-99](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L96-99)_
+_Defined in: [ordered_map.rs:96-99](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L96-99)_
 
 #### `index`
 
@@ -108,7 +108,7 @@ pub fn index(&self, index: usize) -> Option<(&K, &V)>
 
 Returns references to both the key and values at an index within the list used to initialize the ordered map. See `.get_index(key)`.
 
-_Defined in: [ordered_map.rs:106](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L106)_
+_Defined in: [ordered_map.rs:106](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L106)_
 
 #### `get_entry`
 
@@ -120,7 +120,7 @@ pub fn get_entry<T>(&self, key: &T) -> Option<(&K, &V)> where
 
 Like `get`, but returns both the key and the value.
 
-_Defined in: [ordered_map.rs:111-114](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L111-114)_
+_Defined in: [ordered_map.rs:111-114](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L111-114)_
 
 #### `entries`
 
@@ -136,7 +136,7 @@ Returns an iterator over the key/value pairs in the map.
 
 Entries are returned in the same order in which they were defined.
 
-_Defined in: [ordered_map.rs:143](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L143)_
+_Defined in: [ordered_map.rs:143](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L143)_
 
 #### `keys`
 
@@ -152,7 +152,7 @@ Returns an iterator over the keys in the map.
 
 Keys are returned in the same order in which they were defined.
 
-_Defined in: [ordered_map.rs:152](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L152)_
+_Defined in: [ordered_map.rs:152](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L152)_
 
 #### `values`
 
@@ -168,7 +168,7 @@ Returns an iterator over the values in the map.
 
 Values are returned in the same order in which they were defined.
 
-_Defined in: [ordered_map.rs:161](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L161)_
+_Defined in: [ordered_map.rs:161](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L161)_
 
 ## Trait Implementations
 
@@ -180,7 +180,7 @@ impl<K, V> Debug for OrderedMap<K, V> where
     K: Debug, 
 ```
 
-_Defined in: [ordered_map.rs:31-39](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L31-39)_
+_Defined in: [ordered_map.rs:31-39](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L31-39)_
 
 #### `fmt`
 
@@ -190,7 +190,7 @@ pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-_Defined in: [ordered_map.rs:36](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L36)_
+_Defined in: [ordered_map.rs:36](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L36)_
 
 ### `Index`
 
@@ -200,7 +200,7 @@ impl<'a, K, V, T> Index<&'a T> for OrderedMap<K, V> where
     K: PhfBorrow<T>, 
 ```
 
-_Defined in: [ordered_map.rs:41-51](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L41-51)_
+_Defined in: [ordered_map.rs:41-51](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L41-51)_
 
 #### `type Output = V`
 
@@ -214,7 +214,7 @@ pub fn index(&self, k: &'a T) -> &V
 
 Performs the indexing (`container[index]`) operation.
 
-_Defined in: [ordered_map.rs:48](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L48)_
+_Defined in: [ordered_map.rs:48](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L48)_
 
 ### `IntoIterator`
 
@@ -222,7 +222,7 @@ _Defined in: [ordered_map.rs:48](https://github.com/https://blob/710a4f9/core/ta
 impl<'a, K, V> IntoIterator for &'a OrderedMap<K, V>
 ```
 
-_Defined in: [ordered_map.rs:168-175](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L168-175)_
+_Defined in: [ordered_map.rs:168-175](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L168-175)_
 
 #### `type Item = (&'aK, &'aV)`
 
@@ -244,7 +244,7 @@ impl<'a, K, V> Iterator for Entries<'a, K, V>
 
 Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter)
 
-_Defined in: [ordered_map.rs:172](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L172)_
+_Defined in: [ordered_map.rs:172](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/ordered_map.rs#L172)_
 
 ## Auto Trait Implementations
 
@@ -267,7 +267,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -277,7 +277,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -286,7 +286,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -296,7 +296,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -305,7 +305,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -315,7 +315,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -323,7 +323,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -333,7 +333,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -342,7 +342,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -352,7 +352,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `TryFrom`
 
@@ -361,7 +361,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -375,7 +375,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -384,7 +384,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -398,7 +398,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

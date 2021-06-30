@@ -137,7 +137,8 @@
             "label": "html",
             "type": "category",
             "items": [
-              "api/rust/tauri/api/html/fn.inject_csp"
+              "api/rust/tauri/api/html/fn.inject_csp",
+              "api/rust/tauri/api/html/fn.inject_invoke_key_token"
             ]
           },
           {

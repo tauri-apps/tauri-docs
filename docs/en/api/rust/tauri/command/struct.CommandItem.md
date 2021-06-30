@@ -42,7 +42,7 @@ A [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.htm
 
 If the key doesn’t exist, an error will be returned if the deserialized type is not expecting an optional item. If the key does exist, the value will be called with [`Value`](https://docs.rs/serde_json/1.0.64/serde_json/value/enum.Value.html)’s [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html "Deserializer") implementation.
 
-_Defined in: [command.rs:87-146](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L87-146)_
+_Defined in: [command.rs:87-146](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L87-146)_
 
 #### `type Error = Error`
 
@@ -59,7 +59,7 @@ fn deserialize_any<V: Visitor<'de>>(
 
 Require the `Deserializer` to figure out how to drive the visitor based on what data type is in the input. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_any)
 
-_Defined in: [command.rs:90](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L90)_
+_Defined in: [command.rs:90](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L90)_
 
 #### `deserialize_bool`
 
@@ -72,7 +72,7 @@ fn deserialize_bool<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `bool` value.
 
-_Defined in: [command.rs:91](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L91)_
+_Defined in: [command.rs:91](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L91)_
 
 #### `deserialize_i8`
 
@@ -85,7 +85,7 @@ fn deserialize_i8<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an `i8` value.
 
-_Defined in: [command.rs:92](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L92)_
+_Defined in: [command.rs:92](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L92)_
 
 #### `deserialize_i16`
 
@@ -98,7 +98,7 @@ fn deserialize_i16<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an `i16` value.
 
-_Defined in: [command.rs:93](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L93)_
+_Defined in: [command.rs:93](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L93)_
 
 #### `deserialize_i32`
 
@@ -111,7 +111,7 @@ fn deserialize_i32<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an `i32` value.
 
-_Defined in: [command.rs:94](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L94)_
+_Defined in: [command.rs:94](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L94)_
 
 #### `deserialize_i64`
 
@@ -124,7 +124,7 @@ fn deserialize_i64<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an `i64` value.
 
-_Defined in: [command.rs:95](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L95)_
+_Defined in: [command.rs:95](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L95)_
 
 #### `deserialize_u8`
 
@@ -137,7 +137,7 @@ fn deserialize_u8<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `u8` value.
 
-_Defined in: [command.rs:96](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L96)_
+_Defined in: [command.rs:96](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L96)_
 
 #### `deserialize_u16`
 
@@ -150,7 +150,7 @@ fn deserialize_u16<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `u16` value.
 
-_Defined in: [command.rs:97](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L97)_
+_Defined in: [command.rs:97](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L97)_
 
 #### `deserialize_u32`
 
@@ -163,7 +163,7 @@ fn deserialize_u32<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `u32` value.
 
-_Defined in: [command.rs:98](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L98)_
+_Defined in: [command.rs:98](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L98)_
 
 #### `deserialize_u64`
 
@@ -176,7 +176,7 @@ fn deserialize_u64<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `u64` value.
 
-_Defined in: [command.rs:99](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L99)_
+_Defined in: [command.rs:99](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L99)_
 
 #### `deserialize_f32`
 
@@ -189,7 +189,7 @@ fn deserialize_f32<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `f32` value.
 
-_Defined in: [command.rs:100](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L100)_
+_Defined in: [command.rs:100](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L100)_
 
 #### `deserialize_f64`
 
@@ -202,7 +202,7 @@ fn deserialize_f64<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `f64` value.
 
-_Defined in: [command.rs:101](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L101)_
+_Defined in: [command.rs:101](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L101)_
 
 #### `deserialize_char`
 
@@ -215,7 +215,7 @@ fn deserialize_char<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a `char` value.
 
-_Defined in: [command.rs:102](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L102)_
+_Defined in: [command.rs:102](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L102)_
 
 #### `deserialize_str`
 
@@ -228,7 +228,7 @@ fn deserialize_str<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a string value and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_str)
 
-_Defined in: [command.rs:103](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L103)_
+_Defined in: [command.rs:103](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L103)_
 
 #### `deserialize_string`
 
@@ -241,7 +241,7 @@ fn deserialize_string<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a string value and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_string)
 
-_Defined in: [command.rs:104](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L104)_
+_Defined in: [command.rs:104](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L104)_
 
 #### `deserialize_bytes`
 
@@ -254,7 +254,7 @@ fn deserialize_bytes<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a byte array and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)
 
-_Defined in: [command.rs:105](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L105)_
+_Defined in: [command.rs:105](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L105)_
 
 #### `deserialize_byte_buf`
 
@@ -267,7 +267,7 @@ fn deserialize_byte_buf<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a byte array and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)
 
-_Defined in: [command.rs:106](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L106)_
+_Defined in: [command.rs:106](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L106)_
 
 #### `deserialize_option`
 
@@ -280,7 +280,7 @@ fn deserialize_option<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an optional value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_option)
 
-_Defined in: [command.rs:108-113](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L108-113)_
+_Defined in: [command.rs:108-113](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L108-113)_
 
 #### `deserialize_unit`
 
@@ -293,7 +293,7 @@ fn deserialize_unit<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a unit value.
 
-_Defined in: [command.rs:115](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L115)_
+_Defined in: [command.rs:115](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L115)_
 
 #### `deserialize_unit_struct`
 
@@ -307,7 +307,7 @@ fn deserialize_unit_struct<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a unit struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)
 
-_Defined in: [command.rs:116](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L116)_
+_Defined in: [command.rs:116](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L116)_
 
 #### `deserialize_newtype_struct`
 
@@ -321,7 +321,7 @@ fn deserialize_newtype_struct<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a newtype struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)
 
-_Defined in: [command.rs:117](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L117)_
+_Defined in: [command.rs:117](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L117)_
 
 #### `deserialize_seq`
 
@@ -334,7 +334,7 @@ fn deserialize_seq<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a sequence of values.
 
-_Defined in: [command.rs:118](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L118)_
+_Defined in: [command.rs:118](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L118)_
 
 #### `deserialize_tuple`
 
@@ -348,7 +348,7 @@ fn deserialize_tuple<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a sequence of values and knows how many values there are without looking at the serialized data. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)
 
-_Defined in: [command.rs:119](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L119)_
+_Defined in: [command.rs:119](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L119)_
 
 #### `deserialize_tuple_struct`
 
@@ -363,7 +363,7 @@ fn deserialize_tuple_struct<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a tuple struct with a particular name and number of fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)
 
-_Defined in: [command.rs:121-126](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L121-126)_
+_Defined in: [command.rs:121-126](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L121-126)_
 
 #### `deserialize_map`
 
@@ -376,7 +376,7 @@ fn deserialize_map<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a map of key-value pairs.
 
-_Defined in: [command.rs:128](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L128)_
+_Defined in: [command.rs:128](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L128)_
 
 #### `deserialize_struct`
 
@@ -391,7 +391,7 @@ fn deserialize_struct<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting a struct with a particular name and fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)
 
-_Defined in: [command.rs:130-135](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L130-135)_
+_Defined in: [command.rs:130-135](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L130-135)_
 
 #### `deserialize_enum`
 
@@ -406,7 +406,7 @@ fn deserialize_enum<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting an enum value with a particular name and possible variants. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)
 
-_Defined in: [command.rs:137-142](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L137-142)_
+_Defined in: [command.rs:137-142](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L137-142)_
 
 #### `deserialize_identifier`
 
@@ -419,7 +419,7 @@ fn deserialize_identifier<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type is expecting the name of a struct field or the discriminant of an enum variant. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)
 
-_Defined in: [command.rs:144](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L144)_
+_Defined in: [command.rs:144](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L144)_
 
 #### `deserialize_ignored_any`
 
@@ -432,7 +432,7 @@ fn deserialize_ignored_any<V: Visitor<'de>>(
 
 Hint that the `Deserialize` type needs to deserialize a value whose type doesn’t matter because it is ignored. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)
 
-_Defined in: [command.rs:145](https://github.com/https://blob/710a4f9/core/tauri/src/../command.rs#L145)_
+_Defined in: [command.rs:145](https://github.com/https://blob/e663bdd/core/tauri/src/../command.rs#L145)_
 
 #### `deserialize_i128`
 
@@ -446,7 +446,7 @@ pub fn deserialize_i128<V>(
 
 Hint that the `Deserialize` type is expecting an `i128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_i128)
 
-_Defined in: [mod.rs:947-949](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L947-949)_
+_Defined in: [mod.rs:947-949](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L947-949)_
 
 #### `deserialize_u128`
 
@@ -460,7 +460,7 @@ pub fn deserialize_u128<V>(
 
 Hint that the `Deserialize` type is expecting an `u128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_u128)
 
-_Defined in: [mod.rs:981-983](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L981-983)_
+_Defined in: [mod.rs:981-983](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L981-983)_
 
 #### `is_human_readable`
 
@@ -470,7 +470,7 @@ pub fn is_human_readable(&self) -> bool
 
 Determine whether `Deserialize` implementations should expect to deserialize their human-readable form. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.is_human_readable)
 
-_Defined in: [mod.rs:1213](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L1213)_
+_Defined in: [mod.rs:1213](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/serde/1.0.126/src/serde/de/mod.rs#L1213)_
 
 ## Auto Trait Implementations
 
@@ -493,7 +493,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -503,7 +503,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -512,7 +512,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -522,7 +522,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -531,7 +531,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -541,7 +541,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -549,7 +549,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -559,7 +559,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -568,7 +568,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -578,7 +578,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `TryFrom`
 
@@ -587,7 +587,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -601,7 +601,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -610,7 +610,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -624,7 +624,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

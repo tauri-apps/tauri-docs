@@ -7,8 +7,7 @@ custom_edit_url: null
 # Function tauri::api::html::inject_csp,\[−],\[−],−
 
 ```rs
-pub fn inject_csp<H>(html: H, csp: &str) -> String where
-    H: Into<Tendril<UTF8, NonAtomic>>, 
+pub fn inject_csp(document: &mut NodeRef, csp: &str)
 ```
 
 Injects a content security policy to the HTML.
