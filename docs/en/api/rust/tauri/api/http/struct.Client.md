@@ -20,7 +20,7 @@ The HTTP client.
 impl Client
 ```
 
-_Defined in: [http.rs:75-127](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L75-127)_
+_Defined in: [http.rs:75-127](https://github.com/https://blob/e663bdd/core/tauri/src/../../api/http.rs#L75-127)_
 
 #### `send`
 
@@ -32,7 +32,7 @@ Executes an HTTP request
 
 The response will be transformed to String, If reading the response as binary, the byte array will be serialized using serde_json.
 
-_Defined in: [http.rs:80-126](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L80-126)_
+_Defined in: [http.rs:80-126](https://github.com/https://blob/e663bdd/core/tauri/src/../../api/http.rs#L80-126)_
 
 ## Trait Implementations
 
@@ -42,7 +42,7 @@ _Defined in: [http.rs:80-126](https://github.com/https://blob/710a4f9/core/tauri
 impl Clone for Client
 ```
 
-_Defined in: [http.rs:71](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L71)_
+_Defined in: [http.rs:71](https://github.com/https://blob/e663bdd/core/tauri/src/../../api/http.rs#L71)_
 
 #### `clone`
 
@@ -52,7 +52,7 @@ fn clone(&self) -> Client
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-_Defined in: [http.rs:71](https://github.com/https://blob/710a4f9/core/tauri/src/../../api/http.rs#L71)_
+_Defined in: [http.rs:71](https://github.com/https://blob/e663bdd/core/tauri/src/../../api/http.rs#L71)_
 
 #### `clone_from`
 
@@ -62,7 +62,7 @@ pub fn clone_from(&mut self, source: &Self)
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-_Defined in: [clone.rs:130](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/clone.rs#L130)_
+_Defined in: [clone.rs:130](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/clone.rs#L130)_
 
 ## Auto Trait Implementations
 
@@ -85,7 +85,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -95,7 +95,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -104,7 +104,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -114,7 +114,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -123,7 +123,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -133,7 +133,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -141,7 +141,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -151,7 +151,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -160,7 +160,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -170,7 +170,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `ToOwned`
 
@@ -179,7 +179,7 @@ impl<T> ToOwned for T where
     T: Clone, 
 ```
 
-_Defined in: [borrow.rs:81-93](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L81-93)_
+_Defined in: [borrow.rs:81-93](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L81-93)_
 
 #### `type Owned = T`
 
@@ -193,7 +193,7 @@ pub fn to_owned(&self) -> T
 
 Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-_Defined in: [borrow.rs:86](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L86)_
+_Defined in: [borrow.rs:86](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L86)_
 
 #### `clone_into`
 
@@ -201,7 +201,7 @@ _Defined in: [borrow.rs:86](https://github.com/https://blob/710a4f9/core/tauri/s
 pub fn clone_into(&self, target: &mut T)
 ```
 
-_Defined in: [borrow.rs:90](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L90)_
+_Defined in: [borrow.rs:90](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L90)_
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
@@ -216,7 +216,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -230,7 +230,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -239,7 +239,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -253,7 +253,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

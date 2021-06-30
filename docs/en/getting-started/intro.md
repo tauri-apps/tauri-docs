@@ -4,7 +4,7 @@ title: Introduction
 
 import OSList from '@theme/OSList'
 
-Welcome to Tauri! 
+Welcome to Tauri!
 
 Tauri is a polyglot and generic system that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for Desktop Computers using a combination of [Rust](https://www.rust-lang.org/) tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API / Rust API so that webviews can control the system via message passing.
 

@@ -23,7 +23,7 @@ Attention type to request on a window.
 
 #### Defined in
 
-[window.ts:123](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L123)
+[window.ts:123](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L123)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[window.ts:129](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/window.ts#L129)
+[window.ts:129](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L129)

@@ -17,4 +17,4 @@ hide_title: true
 
 #### Defined in
 
-[fs.ts:61](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/fs.ts#L61)
+[fs.ts:61](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/fs.ts#L61)

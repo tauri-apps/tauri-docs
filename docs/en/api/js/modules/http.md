@@ -51,7 +51,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:124](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L124)
+[http.ts:124](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L124)
 
 ___
 
@@ -63,7 +63,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:99](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L99)
+[http.ts:99](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L99)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[http.ts:40](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L40)
+[http.ts:40](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L40)
 
 ___
 
@@ -85,7 +85,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:122](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L122)
+[http.ts:122](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L122)
 
 ## Functions
 
@@ -116,7 +116,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:335](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L335)
+[http.ts:335](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L335)
 
 ___
 
@@ -140,4 +140,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:315](https://github.com/tauri-apps/tauri/blob/710a4f9/tooling/api/src/http.ts#L315)
+[http.ts:315](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/http.ts#L315)

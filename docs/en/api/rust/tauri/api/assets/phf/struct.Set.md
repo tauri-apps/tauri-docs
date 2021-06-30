@@ -25,7 +25,7 @@ The fields of this struct are public so that they may be initialized by the `phf
 impl<T> Set<T>
 ```
 
-_Defined in: [set.rs:30-70](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L30-70)_
+_Defined in: [set.rs:30-70](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L30-70)_
 
 #### `len`
 
@@ -35,7 +35,7 @@ pub fn len(&self) -> usize
 
 Returns the number of elements in the `Set`.
 
-_Defined in: [set.rs:32](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L32)_
+_Defined in: [set.rs:32](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L32)_
 
 #### `is_empty`
 
@@ -45,7 +45,7 @@ pub fn is_empty(&self) -> bool
 
 Returns true if the `Set` contains no elements.
 
-_Defined in: [set.rs:37](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L37)_
+_Defined in: [set.rs:37](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L37)_
 
 #### `get_key`
 
@@ -59,7 +59,7 @@ Returns a reference to the set’s internal static instance of the given key.
 
 This can be useful for interning schemes.
 
-_Defined in: [set.rs:45-48](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L45-48)_
+_Defined in: [set.rs:45-48](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L45-48)_
 
 #### `contains`
 
@@ -71,7 +71,7 @@ pub fn contains<U>(&self, value: &U) -> bool where
 
 Returns true if `value` is in the `Set`.
 
-_Defined in: [set.rs:54-57](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L54-57)_
+_Defined in: [set.rs:54-57](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L54-57)_
 
 #### `iter`
 
@@ -87,7 +87,7 @@ Returns an iterator over the values in the set.
 
 Values are returned in an arbitrary but fixed order.
 
-_Defined in: [set.rs:65](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L65)_
+_Defined in: [set.rs:65](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L65)_
 
 ### `Set`
 
@@ -96,7 +96,7 @@ impl<T> Set<T> where
     T: Eq + PhfHash + PhfBorrow<T>, 
 ```
 
-_Defined in: [set.rs:72-90](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L72-90)_
+_Defined in: [set.rs:72-90](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L72-90)_
 
 #### `is_disjoint`
 
@@ -106,7 +106,7 @@ pub fn is_disjoint(&self, other: &Set<T>) -> bool
 
 Returns true if `other` shares no elements with `self`.
 
-_Defined in: [set.rs:77](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L77)_
+_Defined in: [set.rs:77](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L77)_
 
 #### `is_subset`
 
@@ -116,7 +116,7 @@ pub fn is_subset(&self, other: &Set<T>) -> bool
 
 Returns true if `other` contains all values in `self`.
 
-_Defined in: [set.rs:82](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L82)_
+_Defined in: [set.rs:82](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L82)_
 
 #### `is_superset`
 
@@ -126,7 +126,7 @@ pub fn is_superset(&self, other: &Set<T>) -> bool
 
 Returns true if `self` contains all values in `other`.
 
-_Defined in: [set.rs:87](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L87)_
+_Defined in: [set.rs:87](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L87)_
 
 ## Trait Implementations
 
@@ -137,7 +137,7 @@ impl<T> Debug for Set<T> where
     T: Debug, 
 ```
 
-_Defined in: [set.rs:21-28](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L21-28)_
+_Defined in: [set.rs:21-28](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L21-28)_
 
 #### `fmt`
 
@@ -147,7 +147,7 @@ pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
 
-_Defined in: [set.rs:25](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L25)_
+_Defined in: [set.rs:25](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L25)_
 
 ### `IntoIterator`
 
@@ -155,7 +155,7 @@ _Defined in: [set.rs:25](https://github.com/https://blob/710a4f9/core/tauri/src/
 impl<'a, T> IntoIterator for &'a Set<T>
 ```
 
-_Defined in: [set.rs:92-99](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L92-99)_
+_Defined in: [set.rs:92-99](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L92-99)_
 
 #### `type Item = &'aT`
 
@@ -177,7 +177,7 @@ impl<'a, T> Iterator for Iter<'a, T>
 
 Creates an iterator from a value. [Read more](https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter)
 
-_Defined in: [set.rs:96](https://github.com/https://blob/710a4f9/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L96)_
+_Defined in: [set.rs:96](https://github.com/https://blob/e663bdd/core/tauri/src/https://docs.rs/phf/0.9/src/phf/set.rs#L96)_
 
 ## Auto Trait Implementations
 
@@ -200,7 +200,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -210,7 +210,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -219,7 +219,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -229,7 +229,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -238,7 +238,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -248,7 +248,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -256,7 +256,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -266,7 +266,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -275,7 +275,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -285,7 +285,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `TryFrom`
 
@@ -294,7 +294,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -308,7 +308,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -317,7 +317,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -331,7 +331,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

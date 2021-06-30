@@ -83,7 +83,7 @@ The lower-level source of this error, if any. [Read more](https://doc.rust-lang.
 pub fn backtrace(&self) -> Option<&Backtrace>
 ```
 
-_Defined in: [error.rs:127](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L127)_
+_Defined in: [error.rs:127](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L127)_
 
 🔬 This is a nightly-only experimental API. (`backtrace`)
 
@@ -95,7 +95,7 @@ Returns a stack backtrace, if available, of where this error occurred. [Read mor
 pub fn description(&self) -> &str
 ```
 
-_Defined in: [error.rs:139](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L139)_
+_Defined in: [error.rs:139](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L139)_
 
 👎 Deprecated since 1.42.0:
 
@@ -109,7 +109,7 @@ use the Display impl or to_string()
 pub fn cause(&self) -> Option<&dyn Error>
 ```
 
-_Defined in: [error.rs:149](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L149)_
+_Defined in: [error.rs:149](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/std/error.rs#L149)_
 
 👎 Deprecated since 1.33.0:
 
@@ -142,7 +142,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
 
 #### `type_id`
 
@@ -152,7 +152,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
 
 ### `Borrow`
 
@@ -161,7 +161,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
 
 #### `borrow`
 
@@ -171,7 +171,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
 
 ### `BorrowMut`
 
@@ -180,7 +180,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
 
 #### `borrow_mut`
 
@@ -190,7 +190,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
 
 ### `From`
 
@@ -198,7 +198,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/710a4f9/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
 
 #### `from`
 
@@ -208,7 +208,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
 
 ### `Into`
 
@@ -217,7 +217,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
 
 #### `into`
 
@@ -227,7 +227,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
 
 ### `impl<D> ToJsString for D where D: Display,`
 
@@ -242,7 +242,7 @@ impl<T> ToString for T where
     T: Display + ?Sized, 
 ```
 
-_Defined in: [string.rs:2261-2274](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2261-2274)_
+_Defined in: [string.rs:2261-2274](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2261-2274)_
 
 #### `to_string`
 
@@ -252,7 +252,7 @@ pub default fn to_string(&self) -> String
 
 Converts the given value to a `String`. [Read more](https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string)
 
-_Defined in: [string.rs:2267](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2267)_
+_Defined in: [string.rs:2267](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/string.rs#L2267)_
 
 ### `TryFrom`
 
@@ -261,7 +261,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
 
 #### `type Error = Infallible`
 
@@ -275,7 +275,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
 
 ### `TryInto`
 
@@ -284,7 +284,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -298,7 +298,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/710a4f9/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 
