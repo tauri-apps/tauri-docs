@@ -8,7 +8,8 @@ custom_edit_url: null
 
 ```rs
 pub trait Assets: 'static + Send + Sync {
-    pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]>>
+    pub fn get<Key>(&self, key: Key) -> Option<Cow<'_, [u8]
+>>
     where
         Key: Into<AssetKey>;
 }

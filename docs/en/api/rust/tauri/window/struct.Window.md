@@ -22,7 +22,7 @@ This type also implements [`Manager`](/docs/api/rust/tauri/../../tauri/trait.Man
 impl<P: Params> Window<P>
 ```
 
-_Defined in: [window.rs:143-694](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L143-694)_
+_Defined in: [window.rs:147-709](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L147-709)_
 
 #### `create_window`
 
@@ -38,7 +38,7 @@ pub fn create_window<F>(
 
 Creates a new webview window.
 
-_Defined in: [window.rs:158-182](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L158-182)_
+_Defined in: [window.rs:162-186](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L162-186)_
 
 #### `label`
 
@@ -48,7 +48,7 @@ pub fn label(&self) -> &P::Label
 
 The label of this window.
 
-_Defined in: [window.rs:237-239](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L237-239)_
+_Defined in: [window.rs:241-243](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L241-243)_
 
 #### `emit`
 
@@ -61,7 +61,7 @@ pub fn emit<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> where
 
 Emits an event to the current window.
 
-_Defined in: [window.rs:242-257](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L242-257)_
+_Defined in: [window.rs:246-261](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L246-261)_
 
 #### `emit_others`
 
@@ -74,7 +74,7 @@ pub fn emit_others<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> wh
 
 Emits an event on all windows except this one.
 
-_Defined in: [window.rs:260-267](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L260-267)_
+_Defined in: [window.rs:264-271](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L264-271)_
 
 #### `listen`
 
@@ -85,7 +85,7 @@ pub fn listen<E: Into<P::Event>, F>(&self, event: E, handler: F) -> EventHandle
 
 Listen to an event on this window.
 
-_Defined in: [window.rs:270-276](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L270-276)_
+_Defined in: [window.rs:274-280](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L274-280)_
 
 #### `once`
 
@@ -96,7 +96,7 @@ pub fn once<E: Into<P::Event>, F>(&self, event: E, handler: F) -> EventHandler 
 
 Listen to a an event on this window a single time.
 
-_Defined in: [window.rs:279-285](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L279-285)_
+_Defined in: [window.rs:283-289](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L283-289)_
 
 #### `trigger`
 
@@ -108,7 +108,7 @@ pub fn trigger<E: ?Sized>(&self, event: &E, data: Option<String>) where
 
 Triggers an event on this window.
 
-_Defined in: [window.rs:288-295](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L288-295)_
+_Defined in: [window.rs:292-299](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L292-299)_
 
 #### `eval`
 
@@ -118,7 +118,7 @@ pub fn eval(&self, js: &str) -> Result<()>
 
 Evaluates JavaScript on this window.
 
-_Defined in: [window.rs:298-300](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L298-300)_
+_Defined in: [window.rs:302-304](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L302-304)_
 
 #### `on_window_event`
 
@@ -128,7 +128,7 @@ pub fn on_window_event<F: Fn(&WindowEvent) + Send + 'static>(&self, f: F)
 
 Registers a window event listener.
 
-_Defined in: [window.rs:303-305](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L303-305)_
+_Defined in: [window.rs:307-309](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L307-309)_
 
 #### `scale_factor`
 
@@ -142,7 +142,7 @@ Returns the scale factor that can be used to map logical pixels to physical pixe
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:339-341](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L339-341)_
+_Defined in: [window.rs:340-342](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L340-342)_
 
 #### `inner_position`
 
@@ -156,7 +156,7 @@ Returns the position of the top-left hand corner of the window’s client area r
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:349-351](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L349-351)_
+_Defined in: [window.rs:350-352](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L350-352)_
 
 #### `outer_position`
 
@@ -170,7 +170,7 @@ Returns the position of the top-left hand corner of the window relative to the t
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:359-361](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L359-361)_
+_Defined in: [window.rs:360-362](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L360-362)_
 
 #### `inner_size`
 
@@ -186,7 +186,7 @@ The client area is the content of the window, excluding the title bar and border
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:371-373](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L371-373)_
+_Defined in: [window.rs:372-374](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L372-374)_
 
 #### `outer_size`
 
@@ -202,7 +202,7 @@ These dimensions include the title bar and borders. If you don’t want that (an
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:383-385](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L383-385)_
+_Defined in: [window.rs:384-386](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L384-386)_
 
 #### `is_fullscreen`
 
@@ -216,7 +216,7 @@ Gets the window’s current fullscreen state.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:393-395](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L393-395)_
+_Defined in: [window.rs:394-396](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L394-396)_
 
 #### `is_maximized`
 
@@ -230,7 +230,7 @@ Gets the window’s current maximized state.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:403-405](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L403-405)_
+_Defined in: [window.rs:404-406](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L404-406)_
 
 #### `is_decorated`
 
@@ -244,7 +244,7 @@ Gets the window’s current decoration state.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:413-415](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L413-415)_
+_Defined in: [window.rs:414-416](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L414-416)_
 
 #### `is_resizable`
 
@@ -258,7 +258,7 @@ Gets the window’s current resizable state.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:423-425](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L423-425)_
+_Defined in: [window.rs:424-426](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L424-426)_
 
 #### `is_visible`
 
@@ -272,7 +272,7 @@ Gets the window’s current vibility state.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:433-435](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L433-435)_
+_Defined in: [window.rs:434-436](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L434-436)_
 
 #### `current_monitor`
 
@@ -292,7 +292,7 @@ Returns None if current monitor can’t be detected.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:449-456](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L449-456)_
+_Defined in: [window.rs:450-457](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L450-457)_
 
 #### `primary_monitor`
 
@@ -312,7 +312,7 @@ Returns None if it can’t identify any monitor as a primary one.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:470-477](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L470-477)_
+_Defined in: [window.rs:471-478](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L471-478)_
 
 #### `available_monitors`
 
@@ -330,7 +330,19 @@ Returns the list of all the monitors available on the system.
 
 Panics if the app is not running yet, usually when called on the [`setup`](/docs/api/rust/tauri/../../tauri/struct.Builder#method.setup) closure. You can spawn a task to use the API using the [`async_runtime`](/docs/api/rust/tauri/../../tauri/async_runtime/index) to prevent the panic.
 
-_Defined in: [window.rs:489-496](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L489-496)_
+_Defined in: [window.rs:490-497](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L490-497)_
+
+#### `gtk_window`
+
+```rs
+pub fn gtk_window(&self) -> Result<ApplicationWindow>
+```
+
+Returns the `ApplicatonWindow` from gtk crate that is used by this window.
+
+Note that this can only be used on the main thread.
+
+_Defined in: [window.rs:525-527](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L525-527)_
 
 #### `center`
 
@@ -340,7 +352,7 @@ pub fn center(&self) -> Result<()>
 
 Centers the window.
 
-_Defined in: [window.rs:517-519](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L517-519)_
+_Defined in: [window.rs:532-534](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L532-534)_
 
 #### `request_user_attention`
 
@@ -359,7 +371,7 @@ Providing `None` will unset the request for user attention. Unsetting the reques
 
 -   **macOS:** `None` has no effect.
 
-_Defined in: [window.rs:531-540](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L531-540)_
+_Defined in: [window.rs:546-555](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L546-555)_
 
 #### `print`
 
@@ -369,7 +381,7 @@ pub fn print(&self) -> Result<()>
 
 Opens the dialog to prints the contents of the webview. Currently only supported on macOS on `wry`. `window.print()` works on all platforms.
 
-_Defined in: [window.rs:545-547](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L545-547)_
+_Defined in: [window.rs:560-562](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L560-562)_
 
 #### `set_resizable`
 
@@ -379,7 +391,7 @@ pub fn set_resizable(&self, resizable: bool) -> Result<()>
 
 Determines if this window should be resizable.
 
-_Defined in: [window.rs:550-556](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L550-556)_
+_Defined in: [window.rs:565-571](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L565-571)_
 
 #### `set_title`
 
@@ -389,7 +401,7 @@ pub fn set_title(&self, title: &str) -> Result<()>
 
 Set this window’s title.
 
-_Defined in: [window.rs:559-565](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L559-565)_
+_Defined in: [window.rs:574-580](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L574-580)_
 
 #### `maximize`
 
@@ -399,7 +411,7 @@ pub fn maximize(&self) -> Result<()>
 
 Maximizes this window.
 
-_Defined in: [window.rs:568-570](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L568-570)_
+_Defined in: [window.rs:583-585](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L583-585)_
 
 #### `unmaximize`
 
@@ -409,7 +421,7 @@ pub fn unmaximize(&self) -> Result<()>
 
 Un-maximizes this window.
 
-_Defined in: [window.rs:573-575](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L573-575)_
+_Defined in: [window.rs:588-590](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L588-590)_
 
 #### `minimize`
 
@@ -419,7 +431,7 @@ pub fn minimize(&self) -> Result<()>
 
 Minimizes this window.
 
-_Defined in: [window.rs:578-580](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L578-580)_
+_Defined in: [window.rs:593-595](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L593-595)_
 
 #### `unminimize`
 
@@ -429,7 +441,7 @@ pub fn unminimize(&self) -> Result<()>
 
 Un-minimizes this window.
 
-_Defined in: [window.rs:583-585](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L583-585)_
+_Defined in: [window.rs:598-600](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L598-600)_
 
 #### `show`
 
@@ -439,7 +451,7 @@ pub fn show(&self) -> Result<()>
 
 Show this window.
 
-_Defined in: [window.rs:588-590](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L588-590)_
+_Defined in: [window.rs:603-605](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L603-605)_
 
 #### `hide`
 
@@ -449,7 +461,7 @@ pub fn hide(&self) -> Result<()>
 
 Hide this window.
 
-_Defined in: [window.rs:593-595](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L593-595)_
+_Defined in: [window.rs:608-610](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L608-610)_
 
 #### `close`
 
@@ -459,7 +471,7 @@ pub fn close(&self) -> Result<()>
 
 Closes this window.
 
-_Defined in: [window.rs:598-600](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L598-600)_
+_Defined in: [window.rs:613-615](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L613-615)_
 
 #### `set_decorations`
 
@@ -469,7 +481,7 @@ pub fn set_decorations(&self, decorations: bool) -> Result<()>
 
 Determines if this window should be [decorated](https://en.wikipedia.org/wiki/Window_(computing)#Window_decoration).
 
-_Defined in: [window.rs:605-611](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L605-611)_
+_Defined in: [window.rs:620-626](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L620-626)_
 
 #### `set_always_on_top`
 
@@ -479,7 +491,7 @@ pub fn set_always_on_top(&self, always_on_top: bool) -> Result<()>
 
 Determines if this window should always be on top of other windows.
 
-_Defined in: [window.rs:614-620](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L614-620)_
+_Defined in: [window.rs:629-635](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L629-635)_
 
 #### `set_size`
 
@@ -489,7 +501,7 @@ pub fn set_size<S: Into<Size>>(&self, size: S) -> Result<()>
 
 Resizes this window.
 
-_Defined in: [window.rs:623-629](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L623-629)_
+_Defined in: [window.rs:638-644](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L638-644)_
 
 #### `set_min_size`
 
@@ -499,7 +511,7 @@ pub fn set_min_size<S: Into<Size>>(&self, size: Option<S>) -> Result<()>
 
 Sets this window’s minimum size.
 
-_Defined in: [window.rs:632-638](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L632-638)_
+_Defined in: [window.rs:647-653](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L647-653)_
 
 #### `set_max_size`
 
@@ -509,7 +521,7 @@ pub fn set_max_size<S: Into<Size>>(&self, size: Option<S>) -> Result<()>
 
 Sets this window’s maximum size.
 
-_Defined in: [window.rs:641-647](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L641-647)_
+_Defined in: [window.rs:656-662](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L656-662)_
 
 #### `set_position`
 
@@ -519,7 +531,7 @@ pub fn set_position<Pos: Into<Position>>(&self, position: Pos) -> Result<()>
 
 Sets this window’s position.
 
-_Defined in: [window.rs:650-656](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L650-656)_
+_Defined in: [window.rs:665-671](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L665-671)_
 
 #### `set_fullscreen`
 
@@ -529,7 +541,7 @@ pub fn set_fullscreen(&self, fullscreen: bool) -> Result<()>
 
 Determines if this window should be fullscreen.
 
-_Defined in: [window.rs:659-665](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L659-665)_
+_Defined in: [window.rs:674-680](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L674-680)_
 
 #### `set_focus`
 
@@ -539,7 +551,7 @@ pub fn set_focus(&self) -> Result<()>
 
 Bring the window to front and focus.
 
-_Defined in: [window.rs:668-670](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L668-670)_
+_Defined in: [window.rs:683-685](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L683-685)_
 
 #### `set_icon`
 
@@ -549,7 +561,7 @@ pub fn set_icon(&self, icon: Icon) -> Result<()>
 
 Sets this window’ icon.
 
-_Defined in: [window.rs:673-675](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L673-675)_
+_Defined in: [window.rs:688-690](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L688-690)_
 
 #### `set_skip_taskbar`
 
@@ -559,7 +571,7 @@ pub fn set_skip_taskbar(&self, skip: bool) -> Result<()>
 
 Whether to show the window icon in the task bar or not.
 
-_Defined in: [window.rs:678-684](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L678-684)_
+_Defined in: [window.rs:693-699](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L693-699)_
 
 #### `start_dragging`
 
@@ -569,7 +581,7 @@ pub fn start_dragging(&self) -> Result<()>
 
 Starts dragging the window.
 
-_Defined in: [window.rs:687-689](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L687-689)_
+_Defined in: [window.rs:702-704](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L702-704)_
 
 ## Trait Implementations
 
@@ -579,7 +591,7 @@ _Defined in: [window.rs:687-689](https://github.com/https://blob/e663bdd/core/ta
 impl<P: Params> Clone for Window<P>
 ```
 
-_Defined in: [window.rs:96-104](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L96-104)_
+_Defined in: [window.rs:100-108](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L100-108)_
 
 #### `clone`
 
@@ -589,7 +601,7 @@ fn clone(&self) -> Self
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
 
-_Defined in: [window.rs:97-103](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L97-103)_
+_Defined in: [window.rs:101-107](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L101-107)_
 
 #### `clone_from`
 
@@ -599,7 +611,7 @@ pub fn clone_from(&mut self, source: &Self)
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-_Defined in: [clone.rs:130](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/clone.rs#L130)_
+_Defined in: [clone.rs:130](https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130)_
 
 ### `Params`
 
@@ -607,7 +619,7 @@ _Defined in: [clone.rs:130](https://github.com/https://blob/e663bdd/core/tauri/s
 impl<'de, P: Params> CommandArg<'de, P> for Window<P>
 ```
 
-_Defined in: [window.rs:136-141](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L136-141)_
+_Defined in: [window.rs:140-145](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L140-145)_
 
 #### `from_command`
 
@@ -617,7 +629,7 @@ fn from_command(command: CommandItem<'de, P>) -> Result<Self, InvokeError>
 
 Grabs the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem"). This will never fail.
 
-_Defined in: [window.rs:138-140](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L138-140)_
+_Defined in: [window.rs:142-144](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L142-144)_
 
 ### `Params`
 
@@ -625,7 +637,7 @@ _Defined in: [window.rs:138-140](https://github.com/https://blob/e663bdd/core/ta
 impl<P: Params> Eq for Window<P>
 ```
 
-_Defined in: [window.rs:113](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L113)_
+_Defined in: [window.rs:117](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L117)_
 
 ### `Params`
 
@@ -633,7 +645,7 @@ _Defined in: [window.rs:113](https://github.com/https://blob/e663bdd/core/tauri/
 impl<P: Params> Hash for Window<P>
 ```
 
-_Defined in: [window.rs:106-111](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L106-111)_
+_Defined in: [window.rs:110-115](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L110-115)_
 
 #### `hash`
 
@@ -643,18 +655,20 @@ fn hash<H: Hasher>(&self, state: &mut H)
 
 Only use the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window")’s label to represent its hash.
 
-_Defined in: [window.rs:108-110](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L108-110)_
+_Defined in: [window.rs:112-114](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L112-114)_
 
 #### `hash_slice`
 
 ```rs
-pub fn hash_slice<H>(data: &[Self], state: &mut H) where
+pub fn hash_slice<H>(data: &[Self]
+
+, state: &mut H) where
     H: Hasher, 
 ```
 
 Feeds a slice of this type into the given [`Hasher`](https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html "Hasher"). [Read more](https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice)
 
-_Defined in: [mod.rs:190-192](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/hash/mod.rs#L190-192)_
+_Defined in: [mod.rs:190-192](https://doc.rust-lang.org/nightly/src/core/hash/mod.rs.html#190-192)_
 
 ### `Params`
 
@@ -662,7 +676,7 @@ _Defined in: [mod.rs:190-192](https://github.com/https://blob/e663bdd/core/tauri
 impl<P: Params> Manager<P> for Window<P>
 ```
 
-_Defined in: [window.rs:121](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L121)_
+_Defined in: [window.rs:125](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L125)_
 
 #### `config`
 
@@ -672,7 +686,7 @@ fn config(&self) -> Arc<Config>
 
 The [`Config`](/docs/api/rust/tauri/../../tauri/struct.Config "Config") the manager was created with.
 
-_Defined in: [lib.rs:247-249](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L247-249)_
+_Defined in: [lib.rs:251-253](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L251-253)_
 
 #### `emit_all`
 
@@ -685,7 +699,7 @@ fn emit_all<E: ?Sized, S>(&self, event: &E, payload: S) -> Result<()> where
 
 Emits a event to all windows.
 
-_Defined in: [lib.rs:252-259](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L252-259)_
+_Defined in: [lib.rs:256-263](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L256-263)_
 
 #### `emit_to`
 
@@ -704,7 +718,7 @@ fn emit_to<E: ?Sized, L: ?Sized, S: Serialize + Clone>(
 
 Emits an event to a window with the specified label.
 
-_Defined in: [lib.rs:262-277](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L262-277)_
+_Defined in: [lib.rs:266-281](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L266-281)_
 
 #### `listen_global`
 
@@ -719,7 +733,7 @@ fn listen_global<E: Into<P::Event>, F>(
 
 Listen to a global event.
 
-_Defined in: [lib.rs:280-285](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L280-285)_
+_Defined in: [lib.rs:284-289](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L284-289)_
 
 #### `once_global`
 
@@ -734,7 +748,7 @@ fn once_global<E: Into<P::Event>, F>(
 
 Listen to a global event only once.
 
-_Defined in: [lib.rs:288-293](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L288-293)_
+_Defined in: [lib.rs:292-297](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L292-297)_
 
 #### `trigger_global`
 
@@ -746,7 +760,7 @@ fn trigger_global<E: ?Sized>(&self, event: &E, data: Option<String>) where
 
 Trigger a global event.
 
-_Defined in: [lib.rs:296-302](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L296-302)_
+_Defined in: [lib.rs:300-306](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L300-306)_
 
 #### `unlisten`
 
@@ -756,7 +770,7 @@ fn unlisten(&self, handler_id: EventHandler)
 
 Remove an event listener.
 
-_Defined in: [lib.rs:305-307](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L305-307)_
+_Defined in: [lib.rs:309-311](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L309-311)_
 
 #### `get_window`
 
@@ -768,7 +782,7 @@ fn get_window<L: ?Sized>(&self, label: &L) -> Option<Window<P>> where
 
 Fetch a single window from the manager.
 
-_Defined in: [lib.rs:310-316](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L310-316)_
+_Defined in: [lib.rs:314-320](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L314-320)_
 
 #### `windows`
 
@@ -778,7 +792,7 @@ fn windows(&self) -> HashMap<P::Label, Window<P>>
 
 Fetch all managed windows.
 
-_Defined in: [lib.rs:319-321](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L319-321)_
+_Defined in: [lib.rs:323-325](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L323-325)_
 
 #### `manage`
 
@@ -789,7 +803,7 @@ fn manage<T>(&self, state: T) where
 
 Add `state` to the state managed by the application. See [`crate::Builder`](/docs/api/rust/tauri/../../tauri/struct.Builder#manage "crate::Builder") for instructions. [Read more](/docs/api/rust/tauri/../../tauri/trait.Manager#method.manage)
 
-_Defined in: [lib.rs:325-330](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L325-330)_
+_Defined in: [lib.rs:329-334](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L329-334)_
 
 #### `state`
 
@@ -800,7 +814,7 @@ fn state<T>(&self) -> State<'_, T> where
 
 Gets the managed state for the type `T`.
 
-_Defined in: [lib.rs:333-338](https://github.com/https://blob/e663bdd/core/tauri/src/../lib.rs#L333-338)_
+_Defined in: [lib.rs:337-342](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/lib.rs#L337-342)_
 
 ### `Params`
 
@@ -808,7 +822,7 @@ _Defined in: [lib.rs:333-338](https://github.com/https://blob/e663bdd/core/tauri
 impl<P: Params> PartialEq<Window<P>> for Window<P>
 ```
 
-_Defined in: [window.rs:114-119](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L114-119)_
+_Defined in: [window.rs:118-123](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L118-123)_
 
 #### `eq`
 
@@ -818,17 +832,19 @@ fn eq(&self, other: &Self) -> bool
 
 Only use the [`Window`](/docs/api/rust/tauri/../../tauri/window/struct.Window "Window")’s label to compare equality.
 
-_Defined in: [window.rs:116-118](https://github.com/https://blob/e663bdd/core/tauri/src/../window.rs#L116-118)_
+_Defined in: [window.rs:120-122](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L120-122)_
 
 #### `ne`
 
 ```rs
-#[must_use]pub fn ne(&self, other: &Rhs) -> bool
+#[must_use]
+
+pub fn ne(&self, other: &Rhs) -> bool
 ```
 
 This method tests for `!=`.
 
-_Defined in: [cmp.rs:213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/cmp.rs#L213)_
+_Defined in: [cmp.rs:213](https://doc.rust-lang.org/nightly/src/core/cmp.rs.html#213)_
 
 ## Auto Trait Implementations
 
@@ -851,7 +867,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
 
 #### `type_id`
 
@@ -861,7 +877,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
 
 ### `Borrow`
 
@@ -870,7 +886,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
 
 #### `borrow`
 
@@ -880,7 +896,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
 
 ### `BorrowMut`
 
@@ -889,7 +905,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
 
 #### `borrow_mut`
 
@@ -899,7 +915,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
 
 ### `From`
 
@@ -907,7 +923,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
 
 #### `from`
 
@@ -917,7 +933,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
 
 ### `Into`
 
@@ -926,7 +942,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
 
 #### `into`
 
@@ -936,7 +952,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
 
 ### `ToOwned`
 
@@ -945,7 +961,7 @@ impl<T> ToOwned for T where
     T: Clone, 
 ```
 
-_Defined in: [borrow.rs:81-93](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L81-93)_
+_Defined in: [borrow.rs:81-93](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#81-93)_
 
 #### `type Owned = T`
 
@@ -959,7 +975,7 @@ pub fn to_owned(&self) -> T
 
 Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-_Defined in: [borrow.rs:86](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L86)_
+_Defined in: [borrow.rs:86](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86)_
 
 #### `clone_into`
 
@@ -967,7 +983,7 @@ _Defined in: [borrow.rs:86](https://github.com/https://blob/e663bdd/core/tauri/s
 pub fn clone_into(&self, target: &mut T)
 ```
 
-_Defined in: [borrow.rs:90](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L90)_
+_Defined in: [borrow.rs:90](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90)_
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
@@ -982,7 +998,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
 
 #### `type Error = Infallible`
 
@@ -996,7 +1012,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
 
 ### `TryInto`
 
@@ -1005,7 +1021,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -1019,7 +1035,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

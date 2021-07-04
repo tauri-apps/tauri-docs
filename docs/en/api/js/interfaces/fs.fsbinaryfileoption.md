@@ -17,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[fs.ts:76](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/fs.ts#L76)
+[fs.ts:76](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L76)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[fs.ts:75](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/fs.ts#L75)
+[fs.ts:75](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L75)

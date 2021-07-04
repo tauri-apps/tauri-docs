@@ -34,7 +34,7 @@ fn name(&self) -> &'static str
 
 The plugin name. Used as key on the plugin config object.
 
-_Defined in: [plugin.rs:17](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L17)_
+_Defined in: [plugin.rs:17](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L17)_
 
 ## Provided methods
 
@@ -46,7 +46,7 @@ fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()>
 
 Initialize the plugin.
 
-_Defined in: [plugin.rs:21-23](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L21-23)_
+_Defined in: [plugin.rs:21-23](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L21-23)_
 
 ### `initialization_script`
 
@@ -58,7 +58,7 @@ The JS script to evaluate on webview initialization. The script is wrapped into 
 
 It’s guaranteed that this script is executed before the page is loaded.
 
-_Defined in: [plugin.rs:30-32](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L30-32)_
+_Defined in: [plugin.rs:30-32](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L30-32)_
 
 ### `created`
 
@@ -68,7 +68,7 @@ fn created(&mut self, window: Window<P>)
 
 Callback invoked when the webview is created.
 
-_Defined in: [plugin.rs:36](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L36)_
+_Defined in: [plugin.rs:36](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L36)_
 
 ### `on_page_load`
 
@@ -78,7 +78,7 @@ fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload)
 
 Callback invoked when the webview performs a navigation.
 
-_Defined in: [plugin.rs:40](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L40)_
+_Defined in: [plugin.rs:40](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L40)_
 
 ### `extend_api`
 
@@ -88,6 +88,6 @@ fn extend_api(&mut self, invoke: Invoke<P>)
 
 Add invoke_handler API extension commands.
 
-_Defined in: [plugin.rs:44](https://github.com/https://blob/e663bdd/core/tauri/src/../plugin.rs#L44)_
+_Defined in: [plugin.rs:44](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L44)_
 
 ## Implementors

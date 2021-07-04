@@ -8,6 +8,7 @@ custom_edit_url: null
 
 ```rs
 #[command]
+
 ```
 
 Mark a function as a command handler. It creates a wrapper function with the necessary glue code.

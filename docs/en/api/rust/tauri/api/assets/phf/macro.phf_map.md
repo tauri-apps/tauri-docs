@@ -8,7 +8,8 @@ custom_edit_url: null
 
 ```rs
 macro_rules! phf_map {
-    #[::proc_macro_hack::proc_macro_hack] => { ... };
+    #[::proc_macro_hack::proc_macro_hack]
+ => { ... };
 }
 ```
 
@@ -27,6 +28,7 @@ static MY_MAP: Map<&'static str, u32> = phf_map! {
 };
 
 fn main () {
-    assert_eq!(MY_MAP["hello"], 1);
+    assert_eq!(MY_MAP["hello"]
+, 1);
 }
 ```

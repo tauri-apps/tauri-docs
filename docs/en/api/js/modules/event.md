@@ -43,7 +43,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[event.ts:25](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/event.ts#L25)
+[event.ts:43](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L43)
+
+___
+
+### EventName
+
+Ƭ **EventName**: ``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://destroyed"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"`` \| `string`
+
+#### Defined in
+
+[event.ts:25](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L25)
 
 ___
 
@@ -61,7 +71,7 @@ ___
 
 #### Defined in
 
-[event.ts:27](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/event.ts#L27)
+[event.ts:45](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L45)
 
 ## Functions
 
@@ -84,7 +94,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:93](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/event.ts#L93)
+[event.ts:111](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L111)
 
 ___
 
@@ -104,7 +114,7 @@ Listen to an event from the backend.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | `string` | Event name |
+| `event` | [`EventName`](event.md#eventname) | Event name |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback |
 
 #### Returns
@@ -115,7 +125,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:53](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/event.ts#L53)
+[event.ts:71](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L71)
 
 ___
 
@@ -135,7 +145,7 @@ Listen to an one-off event from the backend.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | `string` | Event name |
+| `event` | [`EventName`](event.md#eventname) | Event name |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback |
 
 #### Returns
@@ -146,4 +156,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:76](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/event.ts#L76)
+[event.ts:94](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L94)

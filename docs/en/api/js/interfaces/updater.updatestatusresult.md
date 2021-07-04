@@ -17,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[updater.ts:17](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/updater.ts#L17)
+[updater.ts:17](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/updater.ts#L17)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[updater.ts:18](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/updater.ts#L18)
+[updater.ts:18](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/updater.ts#L18)

@@ -26,7 +26,7 @@ A size represented in logical pixels.
 
 #### Defined in
 
-[window.ts:47](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L47)
+[window.ts:107](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L107)
 
 ## Properties
 
@@ -36,7 +36,7 @@ A size represented in logical pixels.
 
 #### Defined in
 
-[window.ts:47](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L47)
+[window.ts:107](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L107)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[window.ts:45](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L45)
+[window.ts:105](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L105)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[window.ts:46](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L46)
+[window.ts:106](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L106)

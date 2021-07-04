@@ -27,6 +27,7 @@ The type parameter `T` represents the data that this lock protects. It is requir
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let lock = RwLock::new(5);
 
@@ -89,6 +90,10 @@ Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tau
 
 Returns an RAII guard which will drop this read access of the `RwLock` when dropped.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety)
+
+This method uses a queue to fairly distribute locks in the order they were requested. Cancelling a call to `read` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-3)
 
 ```rs
@@ -96,6 +101,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let lock = Arc::new(RwLock::new(1));
     let c_lock = lock.clone();
@@ -126,6 +132,10 @@ Note that under the priority policy of [`RwLock`](/docs/api/rust/tauri/../../tau
 
 Returns an RAII guard which will drop this read access of the `RwLock` when dropped.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-1)
+
+This method uses a queue to fairly distribute locks in the order they were requested. Cancelling a call to `read_owned` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-4)
 
 ```rs
@@ -133,6 +143,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let lock = Arc::new(RwLock::new(1));
     let c_lock = lock.clone();
@@ -164,6 +175,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let lock = Arc::new(RwLock::new(1));
     let c_lock = lock.clone();
@@ -197,6 +209,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let lock = Arc::new(RwLock::new(1));
     let c_lock = lock.clone();
@@ -223,12 +236,17 @@ The calling task will yield while other writers or readers currently have access
 
 Returns an RAII guard which will drop the write access of this `RwLock` when dropped.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-2)
+
+This method uses a queue to fairly distribute locks in the order they were requested. Cancelling a call to `write` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-7)
 
 ```rs
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
   let lock = RwLock::new(1);
 
@@ -247,6 +265,10 @@ This method is identical to [`RwLock::write`](/docs/api/rust/tauri/../../tauri/a
 
 Returns an RAII guard which will drop the write access of this `RwLock` when dropped.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-3)
+
+This method uses a queue to fairly distribute locks in the order they were requested. Cancelling a call to `write_owned` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-8)
 
 ```rs
@@ -254,6 +276,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
   let lock = Arc::new(RwLock::new(1));
 
@@ -274,6 +297,7 @@ If the access couldn’t be acquired immediately, returns [`TryLockError`](/docs
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let rw = RwLock::new(1);
 
@@ -299,6 +323,7 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 
 #[tokio::main]
+
 async fn main() {
     let rw = Arc::new(RwLock::new(1));
 
@@ -373,7 +398,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
 
 #### `type_id`
 
@@ -383,7 +408,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
 
 ### `Borrow`
 
@@ -392,7 +417,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
 
 #### `borrow`
 
@@ -402,7 +427,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
 
 ### `BorrowMut`
 
@@ -411,7 +436,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
 
 #### `borrow_mut`
 
@@ -421,7 +446,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
 
 ### `From`
 
@@ -429,7 +454,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/
 impl<T> From<!> for T
 ```
 
-_Defined in: [mod.rs:559-563](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L559-563)_
+_Defined in: [mod.rs:559-563](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#559-563)_
 
 #### `from`
 
@@ -439,7 +464,7 @@ pub fn from(t: !) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:560](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L560)_
+_Defined in: [mod.rs:560](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#560)_
 
 ### `From`
 
@@ -447,7 +472,7 @@ _Defined in: [mod.rs:560](https://github.com/https://blob/e663bdd/core/tauri/src
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
 
 #### `from`
 
@@ -457,7 +482,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
 
 ### `Into`
 
@@ -466,7 +491,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
 
 #### `into`
 
@@ -476,7 +501,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
 
 ### `TryFrom`
 
@@ -485,7 +510,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
 
 #### `type Error = Infallible`
 
@@ -499,7 +524,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
 
 ### `TryInto`
 
@@ -508,7 +533,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -522,7 +547,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

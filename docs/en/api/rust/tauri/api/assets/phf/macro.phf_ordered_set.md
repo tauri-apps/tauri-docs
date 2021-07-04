@@ -8,7 +8,8 @@ custom_edit_url: null
 
 ```rs
 macro_rules! phf_ordered_set {
-    #[proc_macro_hack::proc_macro_hack] => { ... };
+    #[proc_macro_hack::proc_macro_hack]
+ => { ... };
 }
 ```
 

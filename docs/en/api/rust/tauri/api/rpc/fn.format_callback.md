@@ -23,7 +23,8 @@ This will serialize primitive JSON types (e.g. booleans, strings, numbers, etc.)
 use tauri::api::rpc::format_callback;
 // callback with a string argument
 let cb = format_callback("callback-function-name", &"the string response").expect("failed to serialize");
-assert!(cb.contains(r#"window["callback-function-name"]("the string response")"#));
+assert!(cb.contains(r#"window["callback-function-name"]
+("the string response")"#));
 ```
 
 ```rs
@@ -32,6 +33,7 @@ use serde::Serialize;
 
 // callback with large JSON argument
 #[derive(Serialize)]
+
 struct MyResponse {
   value: String
 }

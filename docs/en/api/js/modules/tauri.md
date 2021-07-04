@@ -17,6 +17,31 @@ This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.j
 
 ## Functions
 
+### convertFileSrc
+
+▸ **convertFileSrc**(`filePath`): `string`
+
+Convert a device file path to an URL that can be loaded by the webview.
+Note that `asset:` must be allowed on the `csp` value configured on `tauri.conf.json`.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `filePath` | `string` | the file path. On Windows, the drive name must be omitted, i.e. using `/Users/user/file.png` instead of `C:/Users/user/file.png`. |
+
+#### Returns
+
+`string`
+
+the URL that can be used as source on the webview
+
+#### Defined in
+
+[tauri.ts:99](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L99)
+
+___
+
 ### invoke
 
 ▸ **invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
@@ -44,7 +69,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/tauri.ts#L70)
+[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L70)
 
 ___
 
@@ -70,4 +95,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/tauri.ts#L37)
+[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L37)
