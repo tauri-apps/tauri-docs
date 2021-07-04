@@ -17,6 +17,8 @@ A webview window handle allows emitting and listening to events from the backend
 
   ↳ [`WebviewWindow`](window.webviewwindow.md)
 
+  ↳ [`WindowManager`](window.windowmanager.md)
+
 ## Constructors
 
 ### constructor
@@ -31,7 +33,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L161)
+[window.ts:221](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L221)
 
 ## Properties
 
@@ -43,7 +45,7 @@ Window label.
 
 #### Defined in
 
-[window.ts:159](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L159)
+[window.ts:219](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L219)
 
 ___
 
@@ -59,7 +61,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:161](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L161)
+[window.ts:221](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L221)
 
 ## Methods
 
@@ -86,7 +88,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:225](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L225)
+[window.ts:285](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L285)
 
 ___
 
@@ -109,7 +111,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:214](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L214)
+[window.ts:274](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L274)
 
 ___
 
@@ -140,7 +142,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:176](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L176)
+[window.ts:236](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L236)
 
 ___
 
@@ -171,4 +173,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:197](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/window.ts#L197)
+[window.ts:257](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L257)

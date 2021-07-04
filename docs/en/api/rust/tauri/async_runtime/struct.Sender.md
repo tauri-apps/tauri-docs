@@ -30,6 +30,12 @@ A successful send occurs when it is determined that the other end of the channel
 
 If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver) handle dropping, the function returns an error. The error includes the value passed to `send`.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety)
+
+If `send` is used as the event in a [`tokio::select!`](/docs/api/rust/tauri/crate::select) statement and some other branch completes first, then it is guaranteed that the message was not sent.
+
+This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `send` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples)
 
 In the following example, each call to `send` will block until the previously sent value was received.
@@ -38,6 +44,7 @@ In the following example, each call to `send` will block until the previously se
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -62,12 +69,17 @@ Completes when the receiver has dropped.
 
 This allows the producers to get notified when interest in the produced values is canceled and immediately stop doing work.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-1)
+
+This method is cancel safe. Once the channel is closed, it stays closed forever and all future calls to `closed` will return immediately.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-1)
 
 ```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx1, rx) = mpsc::channel::<()>(1);
     let tx2 = tx1.clone();
@@ -107,6 +119,7 @@ If the receive half of the channel is closed, either due to [`close`](/docs/api/
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     // Create a channel with buffer size 1
     let (tx1, mut rx) = mpsc::channel(1);
@@ -158,6 +171,7 @@ use tokio::sync::mpsc;
 use tokio::time::{sleep, Duration};
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -232,12 +246,17 @@ If the channel is full, the function waits for the number of unreceived messages
 
 Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message releases the capacity back to the channel.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-2)
+
+This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `reserve` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-5)
 
 ```rs
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -266,6 +285,10 @@ If the channel is full, the function waits for the number of unreceived messages
 
 Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a message releases the capacity back to the channel.
 
+# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-3)
+
+This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `reserve_owned` makes you lose your place in the queue.
+
 # [Examples](/docs/api/rust/tauri/about:blank#examples-6)
 
 Sending a message using an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit):
@@ -274,6 +297,7 @@ Sending a message using an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit):
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -298,6 +322,7 @@ When multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed, or 
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -330,6 +355,7 @@ Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message relea
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -369,6 +395,7 @@ Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel(1);
 
@@ -419,6 +446,7 @@ The capacity goes down when sending a value by calling [`send`](/docs/api/rust/t
 use tokio::sync::mpsc;
 
 #[tokio::main]
+
 async fn main() {
     let (tx, mut rx) = mpsc::channel::<()>(5);
 
@@ -451,7 +479,7 @@ pub fn clone_from(&mut self, source: &Self)
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
 
-_Defined in: [clone.rs:130](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/clone.rs#L130)_
+_Defined in: [clone.rs:130](https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130)_
 
 ### `impl<T> Debug for Sender<T>`
 
@@ -480,7 +508,7 @@ impl<T> Any for T where
     T: 'static + ?Sized, 
 ```
 
-_Defined in: [any.rs:131-135](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L131-135)_
+_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
 
 #### `type_id`
 
@@ -490,7 +518,7 @@ pub fn type_id(&self) -> TypeId
 
 Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
 
-_Defined in: [any.rs:132](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/any.rs#L132)_
+_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
 
 ### `Borrow`
 
@@ -499,7 +527,7 @@ impl<T> Borrow<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:208-213](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L208-213)_
+_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
 
 #### `borrow`
 
@@ -509,7 +537,7 @@ pub fn borrow(&self) -> &T
 
 Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [borrow.rs:210](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L210)_
+_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
 
 ### `BorrowMut`
 
@@ -518,7 +546,7 @@ impl<T> BorrowMut<T> for T where
     T: ?Sized, 
 ```
 
-_Defined in: [borrow.rs:216-220](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L216-220)_
+_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
 
 #### `borrow_mut`
 
@@ -528,7 +556,7 @@ pub fn borrow_mut(&mut self) -> &mut T
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/borrow.rs#L217)_
+_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
 
 ### `From`
 
@@ -536,7 +564,7 @@ _Defined in: [borrow.rs:217](https://github.com/https://blob/e663bdd/core/tauri/
 impl<T> From<T> for T
 ```
 
-_Defined in: [mod.rs:544-548](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L544-548)_
+_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
 
 #### `from`
 
@@ -546,7 +574,7 @@ pub fn from(t: T) -> T
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L545)_
+_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
 
 ### `Into`
 
@@ -555,7 +583,7 @@ impl<T, U> Into<U> for T where
     U: From<T>, 
 ```
 
-_Defined in: [mod.rs:533-540](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L533-540)_
+_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
 
 #### `into`
 
@@ -565,7 +593,7 @@ pub fn into(self) -> U
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L537)_
+_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
 
 ### `ToOwned`
 
@@ -574,7 +602,7 @@ impl<T> ToOwned for T where
     T: Clone, 
 ```
 
-_Defined in: [borrow.rs:81-93](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L81-93)_
+_Defined in: [borrow.rs:81-93](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#81-93)_
 
 #### `type Owned = T`
 
@@ -588,7 +616,7 @@ pub fn to_owned(&self) -> T
 
 Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-_Defined in: [borrow.rs:86](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L86)_
+_Defined in: [borrow.rs:86](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86)_
 
 #### `clone_into`
 
@@ -596,7 +624,7 @@ _Defined in: [borrow.rs:86](https://github.com/https://blob/e663bdd/core/tauri/s
 pub fn clone_into(&self, target: &mut T)
 ```
 
-_Defined in: [borrow.rs:90](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/alloc/borrow.rs#L90)_
+_Defined in: [borrow.rs:90](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90)_
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
@@ -611,7 +639,7 @@ impl<T, U> TryFrom<U> for T where
     U: Into<T>, 
 ```
 
-_Defined in: [mod.rs:581-590](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L581-590)_
+_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
 
 #### `type Error = Infallible`
 
@@ -625,7 +653,7 @@ pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L587)_
+_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
 
 ### `TryInto`
 
@@ -634,7 +662,7 @@ impl<T, U> TryInto<U> for T where
     U: TryFrom<T>, 
 ```
 
-_Defined in: [mod.rs:567-576](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L567-576)_
+_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
 
 #### `type Error = <U as TryFrom<T>>::Error`
 
@@ -648,7 +676,7 @@ pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://github.com/https://blob/e663bdd/core/tauri/src/https://doc.rust-lang.org/nightly/src/core/convert/mod.rs#L573)_
+_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
 
 ### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
 

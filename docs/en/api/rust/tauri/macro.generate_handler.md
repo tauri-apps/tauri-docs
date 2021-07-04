@@ -19,6 +19,7 @@ Accepts a list of commands functions. Creates a handler that allows commands to 
 ```rs
 use tauri::command;
 #[command]
+
 fn command_one() {}
 #[command]
 fn command_two() {}

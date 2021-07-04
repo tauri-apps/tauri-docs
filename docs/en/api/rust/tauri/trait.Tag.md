@@ -33,6 +33,7 @@ use std::fmt;
 use std::str::FromStr;
 
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+
 enum Event {
   Foo,
   Bar,

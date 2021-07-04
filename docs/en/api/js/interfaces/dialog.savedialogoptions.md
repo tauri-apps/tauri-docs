@@ -21,7 +21,7 @@ Initial directory or file path. It must exist.
 
 #### Defined in
 
-[dialog.ts:61](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/dialog.ts#L61)
+[dialog.ts:61](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/dialog.ts#L61)
 
 ___
 
@@ -33,4 +33,4 @@ The filters of the dialog.
 
 #### Defined in
 
-[dialog.ts:59](https://github.com/tauri-apps/tauri/blob/e663bdd/tooling/api/src/dialog.ts#L59)
+[dialog.ts:59](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/dialog.ts#L59)
