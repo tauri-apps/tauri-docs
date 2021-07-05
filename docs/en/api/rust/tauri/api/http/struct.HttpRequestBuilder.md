@@ -1,0 +1,349 @@
+---
+title: Struct tauri::api::http::HttpRequestBuilder
+sidebar_label: struct.HttpRequestBuilder
+custom_edit_url: null
+---
+
+# Struct tauri::api::http&#x3A;:HttpRequestBuilder,\[−]\[src],\[−],−
+
+```rs
+pub struct HttpRequestBuilder {
+    pub method: String,
+    pub url: String,
+    pub query: Option<HashMap<String, String>>,
+    pub headers: Option<HashMap<String, String>>,
+    pub body: Option<Body>,
+    pub timeout: Option<u64>,
+    pub response_type: Option<ResponseType>,
+}
+```
+
+The builder for a HTTP request.
+
+# [Examples](/docs/api/rust/tauri/about:blank#examples)
+
+```rs
+use tauri::api::http::{ HttpRequestBuilder, ResponseType, ClientBuilder };
+async fn run() {
+  let client = ClientBuilder::new()
+    .max_redirections(3)
+    .build()
+    .unwrap();
+  let mut request_builder = HttpRequestBuilder::new("GET", "http://example.com");
+  let request = request_builder.response_type(ResponseType::Text);
+
+  if let Ok(response) = client.send(request).await {
+    println!("got response");
+  } else {
+    println!("Something Happened!");
+  }
+}
+```
+
+## Fields
+
+`method: String`
+
+The request method (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, CONNECT or TRACE)
+
+`url: String`
+
+The request URL
+
+`query: Option<HashMap<String, String>>`
+
+The request query params
+
+`headers: Option<HashMap<String, String>>`
+
+The request headers
+
+`body: Option<Body>`
+
+The request body
+
+`timeout: Option<u64>`
+
+Timeout for the whole request
+
+`response_type: Option<ResponseType>`
+
+The response type (defaults to Json)
+
+## Implementations
+
+### `HttpRequestBuilder`
+
+```rs
+impl HttpRequestBuilder
+```
+
+_Defined in: [http.rs:277-320](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L277-320)_
+
+#### `new`
+
+```rs
+pub fn new(method: impl Into<String>, url: impl Into<String>) -> Self
+```
+
+Initializes a new instance of the HttpRequestrequest_builder.
+
+_Defined in: [http.rs:279-289](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L279-289)_
+
+#### `query`
+
+```rs
+pub fn query(self, query: HashMap<String, String>) -> Self
+```
+
+Sets the request params.
+
+_Defined in: [http.rs:292-295](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L292-295)_
+
+#### `headers`
+
+```rs
+pub fn headers(self, headers: HashMap<String, String>) -> Self
+```
+
+Sets the request headers.
+
+_Defined in: [http.rs:298-301](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L298-301)_
+
+#### `body`
+
+```rs
+pub fn body(self, body: Body) -> Self
+```
+
+Sets the request body.
+
+_Defined in: [http.rs:304-307](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L304-307)_
+
+#### `timeout`
+
+```rs
+pub fn timeout(self, timeout: u64) -> Self
+```
+
+Sets the general request timeout.
+
+_Defined in: [http.rs:310-313](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L310-313)_
+
+#### `response_type`
+
+```rs
+pub fn response_type(self, response_type: ResponseType) -> Self
+```
+
+Sets the type of the response. Interferes with the way we read the response.
+
+_Defined in: [http.rs:316-319](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L316-319)_
+
+## Trait Implementations
+
+### `Deserialize`
+
+```rs
+impl<'de> Deserialize<'de> for HttpRequestBuilder
+```
+
+_Defined in: [http.rs:258](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L258)_
+
+#### `deserialize`
+
+```rs
+fn deserialize<__D>(__deserializer: __D) -> Result<Self, __D::Error> where
+    __D: Deserializer<'de>, 
+```
+
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
+
+_Defined in: [http.rs:258](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/http.rs#L258)_
+
+## Auto Trait Implementations
+
+### `impl RefUnwindSafe for HttpRequestBuilder`
+
+### `impl Send for HttpRequestBuilder`
+
+### `impl Sync for HttpRequestBuilder`
+
+### `impl Unpin for HttpRequestBuilder`
+
+### `impl UnwindSafe for HttpRequestBuilder`
+
+## Blanket Implementations
+
+### `Any`
+
+```rs
+impl<T> Any for T where
+    T: 'static + ?Sized, 
+```
+
+_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+
+#### `type_id`
+
+```rs
+pub fn type_id(&self) -> TypeId
+```
+
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+
+_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+
+### `Borrow`
+
+```rs
+impl<T> Borrow<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+
+#### `borrow`
+
+```rs
+pub fn borrow(&self) -> &T
+```
+
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+
+_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
+
+### `BorrowMut`
+
+```rs
+impl<T> BorrowMut<T> for T where
+    T: ?Sized, 
+```
+
+_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
+
+#### `borrow_mut`
+
+```rs
+pub fn borrow_mut(&mut self) -> &mut T
+```
+
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
+
+_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
+
+### `CommandArg`
+
+```rs
+impl<'de, D, P> CommandArg<'de, P> for D where
+    P: Params,
+    D: Deserialize<'de>, 
+```
+
+_Defined in: [command.rs:47-52](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L47-52)_
+
+#### `from_command`
+
+```rs
+pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>
+```
+
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../../../tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/../../../tauri/command/trait.CommandArg#tymethod.from_command)
+
+_Defined in: [command.rs:48-51](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L48-51)_
+
+### `DeserializeOwned`
+
+```rs
+impl<T> DeserializeOwned for T where
+    T: for<'de> Deserialize<'de>, 
+```
+
+_Defined in: [mod.rs:603](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#603)_
+
+### `From`
+
+```rs
+impl<T> From<T> for T
+```
+
+_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
+
+#### `from`
+
+```rs
+pub fn from(t: T) -> T
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+
+### `Into`
+
+```rs
+impl<T, U> Into<U> for T where
+    U: From<T>, 
+```
+
+_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
+
+#### `into`
+
+```rs
+pub fn into(self) -> U
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+
+### `TryFrom`
+
+```rs
+impl<T, U> TryFrom<U> for T where
+    U: Into<T>, 
+```
+
+_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
+
+#### `type Error = Infallible`
+
+The type returned in the event of a conversion error.
+
+#### `try_from`
+
+```rs
+pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+
+### `TryInto`
+
+```rs
+impl<T, U> TryInto<U> for T where
+    U: TryFrom<T>, 
+```
+
+_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
+
+#### `type Error = <U as TryFrom<T>>::Error`
+
+The type returned in the event of a conversion error.
+
+#### `try_into`
+
+```rs
+pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
+```
+
+Performs the conversion.
+
+_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+
+### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
+
+#### `pub fn vzip(self) -> V`
