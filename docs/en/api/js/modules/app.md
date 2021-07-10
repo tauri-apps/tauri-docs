@@ -9,7 +9,9 @@ hide_title: true
 
 Get application metadata.
 
-This package is also accessible with `window.__TAURI__.app` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+import Imports from '@theme/Imports'
+
+<Imports mod="app" items="getName, getTauriVersion, getVersion" />
 
 ## Functions
 
