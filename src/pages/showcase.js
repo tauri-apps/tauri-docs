@@ -59,6 +59,12 @@ const projects = [
     link: 'https://github.com/Levminer/authme-lite',
     screenshots: ['0.png'].map((image) => imgPath + 'authme-lite/' + image),
   },
+  {
+    title: 'Mail-Dev',
+    image: imgPath + 'mail-dev/logo.png',
+    link: 'https://github.com/samirdjelal/mail-dev/',
+    screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
+  },
 ]
 
 const customStyles = {
