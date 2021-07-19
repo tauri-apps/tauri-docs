@@ -284,6 +284,9 @@
         },
         {
           "description": "A lite and simple two-factor authentication app for desktop."
+        },
+        {
+          "description": "Local SMTP Server For Email Testing/Debugging."
         }
       ],
       "yourProject": "Your project",
