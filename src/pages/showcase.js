@@ -109,6 +109,7 @@ function Showcase() {
                     textAlign: 'center',
                     backgroundColor: '#303846',
                     color: '#ffffff',
+                    height: '100%',
                   }}
                 >
                   <div
