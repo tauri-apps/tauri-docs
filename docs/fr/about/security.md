@@ -69,7 +69,7 @@ This means that your apps cannot be easily decompiled as is the case with Electr
 
 ### Build Pipelines and Artifact Authenticity
 
-The process of releasing our source-code artifacts is highly automated, yet mandates kickoff and review from real humans. Our current release strategy uses a combination of Github Actions and IOTO Tangle publication
+The process of releasing our source-code artifacts is highly automated, yet mandates kickoff and review from real humans. Our current release strategy uses a combination of Github Actions and IOTA Tangle publication
 
 ### Resilient PR and Approval Processes
 
