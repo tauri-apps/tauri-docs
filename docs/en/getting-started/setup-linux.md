@@ -122,7 +122,7 @@ Open the X server and then run `export DISPLAY=:0` in the terminal. You should n
 
 ### WSL Version 2
 
-You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
+You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolv.conf | grep nameserver`.
 
 <Alert type="info" title="Note">
 
