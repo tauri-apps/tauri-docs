@@ -7,13 +7,12 @@ import Alert from '@theme/Alert'
 
 Tauri ships with a default iconset based on its logo. This is probably NOT what you want when you ship your application. To remedy this common situation, Tauri provides the `icon` command that will take an input file and create all the icons needed for the various platforms:
 
-<Command name="icon"/>
+<Command name="icon [ICON-PATH]"/>
 
 ```sh
 Options
   --help, -h          Displays this message
   --log, l            Logging [boolean]
-  --icon, i           Source icon (png, 1240x1240 with transparency)
   --target, t         Target folder (default: 'src-tauri/icons')
   --compression, c    Compression type [pngquant|optipng|zopfli]
 ```

@@ -14,7 +14,7 @@ The tauri.js cli is composed in TypeScript and published as JavaScript.
 <Command name="info" />
 
 ```
-  Description
+  DESCRIPTION:
     Returns the known state of tauri dependencies and configuration
 ```
 
@@ -29,17 +29,26 @@ This command is pretty helpful when you need to have a quick overview of your ap
 <Command name="init" />
 
 ```
-  Description
+  DESCRIPTION:
     Inits the Tauri template. If Tauri cannot find the src-tauri/tauri.conf.json
     it will create one.
-  Usage
-    $ tauri init
-  Options
-    --help, -h        Displays this message
-    --force, -f       Force init to overwrite [conf|template|all]
-    --log, -l         Logging [boolean]
-    --directory, -d   Set target directory for init
-    --tauriPath, -t   Path of the Tauri project to use (relative to the cwd)
+  USAGE:
+    tauri init [FLAGS] [OPTIONS]
+
+  FLAGS:
+          --ci         Skip prompting for values
+      -f, --force      Force init to overwrite the src-tauri folder
+      -h, --help       Prints help information
+      -l, --log        Enables logging
+      -V, --version    Prints version information
+
+  OPTIONS:
+      -A, --app-name <app-name>            Name of your Tauri application
+      -P, --dev-path <dev-path>            Url of your dev server
+      -d, --directory <directory>          Set target directory for init
+      -D, --dist-dir <dist-dir>            Web assets location, relative to <project-dir>/src-tauri
+      -t, --tauri-path <tauri-path>        Path of the Tauri project to use (relative to the cwd)
+      -W, --window-title <window-title>    Window title of your Tauri application
 ```
 
 ## `dev`
@@ -47,12 +56,25 @@ This command is pretty helpful when you need to have a quick overview of your ap
 <Command name="dev" />
 
 ```
-  Description
+  DESCRIPTION:
     Tauri dev.
-  Usage
-    $ tauri dev
-  Options
-    --help, -h     Displays this message
+  USAGE:
+    tauri dev [FLAGS] [OPTIONS] [--] [args]...
+
+  ARGS:
+      <args>...    Args passed to the binary
+
+  FLAGS:
+      -e, --exit-on-panic    Exit on panic
+      -h, --help             Prints help information
+          --release          Run the code in release mode
+      -V, --version          Prints version information
+
+  OPTIONS:
+      -c, --config <config>           config JSON to merge with tauri.conf.json
+      -f, --features <features>...    list of cargo features to activate
+      -r, --runner <runner>           binary to use to run the application
+      -t, --target <target>...        target triple to build against
 ```
 
 This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
@@ -68,10 +90,10 @@ If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is 
 
 ## `deps`
 
-<Command name="deps update" />
+<Command name="deps" />
 
-```sh
-  Description
+```
+  DESCRIPTION:
     Tauri dependency management script
   Usage
     $ tauri deps [install|update]
@@ -83,13 +105,23 @@ If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is 
 <Command name="build" />
 
 ```
-  Description
+  DESCRIPTION:
     Tauri build.
-  Usage
-    $ tauri build
-  Options
-    --help, -h     Displays this message
-    --debug, -d    Build a tauri app with debugging
+  USAGE:
+    tauri build [FLAGS] [OPTIONS]
+
+  FLAGS:
+      -d, --debug      Builds with the debug flag
+      -h, --help       Prints help information
+      -v, --verbose    Enables verbose logging
+      -V, --version    Prints version information
+
+  OPTIONS:
+      -b, --bundle <bundle>...        list of bundles to package
+      -c, --config <config>           config JSON to merge with tauri.conf.json
+      -f, --features <features>...    list of cargo features to activate
+      -r, --runner <runner>           binary to use to build the application
+      -t, --target <target>...        target triple to build against
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.
@@ -103,18 +135,19 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 <Command name="icon" />
 
 ```
-  Description
+  DESCRIPTION:
     Create all the icons you need for your Tauri app.
+    The icon path is the source icon (png, 1240x1240 with transparency).
 
   Usage
-    $ tauri icon
+    $ tauri icon [ICON-PATH]
 
   Options
-    --help, -h          Displays this message
-    --log, -l            Logging [boolean]
-    --icon, -i           Source icon (png, 1240x1240 with transparency)
-    --target, -t         Target folder (default: 'src-tauri/icons')
-    --compression, -c    Compression type [pngquant|optipng|zopfli]
+      --help, -h          Displays this message
+      --log, l            Logging [boolean]
+      --target, t         Target folder (default: 'src-tauri/icons')
+      --compression, c    Compression type [optipng|zopfli]
+      --ci                Runs the script in CI mode
 ```
 
 This command will generate a set of icons, based on the source icon you've entered.
@@ -124,13 +157,38 @@ This command will generate a set of icons, based on the source icon you've enter
 <Command name="--version" />
 
 ```
-  Description
+  DESCRIPTION:
     Returns the current version of tauri
 ```
 
 This command will show the current version of Tauri.
 
+## `sign`
+
+<Command name="sign" />
+
+```
+  DESCRIPTION:
+    Tauri updates signer.
+
+  USAGE:
+      cargo tauri sign [FLAGS] [OPTIONS]
+
+  FLAGS:
+          --force          Overwrite private key even if it exists on the specified path
+      -g, --generate       Generate keypair to sign files
+      -h, --help           Prints help information
+          --no-password    Set empty password for your private key
+      -V, --version        Prints version information
+
+  OPTIONS:
+      -p, --password <password>                    Set private key password when signing
+      -k, --private-key <private-key>              Load the private key from a string
+      -f, --private-key-path <private-key-path>    Load the private key from a file
+          --sign-file <sign-file>                  Sign the specified file
+      -w, --write-keys <write-keys>                Write private key to a file
+```
+
 ## CLI usage
 
 See more about the usage through this [complete guide](/docs/usage/development/integration).
-
