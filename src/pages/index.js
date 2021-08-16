@@ -112,7 +112,7 @@ const Roadmap = ({ siteConfig }) => {
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
-    {      
+    {
       label: 'Alpha Release',
       icon: 'ti-flag-alt',
       color: COLORS.green,
