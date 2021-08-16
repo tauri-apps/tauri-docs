@@ -240,7 +240,7 @@ const Roadmap = ({ siteConfig }) => {
     },
     {
       label: 'WebRTC',
-      icon: 'ti-phone',
+      icon: 'ti-microphone',
       color: COLORS.blue,
       targetQuarter: '2021',
     },
