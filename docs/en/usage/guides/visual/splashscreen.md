@@ -38,15 +38,16 @@ Now, your main window will be hidden and the splashscreen window will show when 
 If you are waiting for your web code, you'll want to create a `close_splashscreen` [command](../command.md).
 
 ```rust title=src-tauri/main.rs
+use tauri::Manager;
 // Create the command:
-#[tauri::command(with_window)]
-fn close_splashscreen<M: Params>(window: tauri::Window<M>) {
+#[tauri::command]
+fn close_splashscreen(window: tauri::Window) {
   // Close splashscreen
-  if let Ok(splashscreen) = window.get_webview("splashscreen") {
+  if let Some(splashscreen) = window.get_window("splashscreen") {
     splashscreen.close().unwrap();
   }
   // Show main window
-  window.get_webview("main").unwrap().show().unwrap();
+  window.get_window("main").unwrap().show().unwrap();
 }
 
 // Register the command:
@@ -84,14 +85,19 @@ use tauri::Manager;
 fn main() {
   tauri::Builder::default()
     .setup(|app| {
-      // Run initialization code here
-      // ...
+      let splashscreen_window = app.get_window("splashscreen").unwrap();
+      let main_window = app.get_window("main").unwrap();
+      // we perform the initialization code on a new task so the app doesn't freeze
+      tauri::async_runtime::spawn(async move {
+        // initialize your app here instead of sleeping :)
+        println!("Initializing...");
+        std::thread::sleep(std::time::Duration::from_secs(2));
+        println!("Done initializing.");
 
-      // After it's done, close the splashscreen and display the main window
-      if let Some(splashscreen) = app.get_window(&"splashscreen".into()) {
-        splashscreen.close().unwrap();
-      }
-      app.get_window(&"main".into()).unwrap().show().unwrap();
+        // After it's done, close the splashscreen and display the main window
+        splashscreen_window.close().unwrap();
+        main_window.show().unwrap();
+      });
       Ok(())
     })
     .run(tauri::generate_context!())

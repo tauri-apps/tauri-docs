@@ -4,10 +4,17 @@ sidebar_label: fn.message
 custom_edit_url: null
 ---
 
-# Function tauri::api::dialog::message,\[−]\[src],\[−],−
+  # Function tauri::api::dialog::message,
 
 ```rs
-pub fn message(title: impl AsRef<str>, message: impl AsRef<str>)
+pub fn message<R: Runtime>(
+    parent_window: Option<&Window<R>>, 
+    title: impl AsRef<str>, 
+    message: impl AsRef<str>
+)
 ```
 
-Displays a message dialog
+Expand description
+
+Displays a message dialog.
+  

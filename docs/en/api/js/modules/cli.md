@@ -13,24 +13,24 @@ This package is also accessible with `window.__TAURI__.cli` when `tauri.conf.jso
 
 ## Interfaces
 
-- [ArgMatch](../interfaces/cli.argmatch.md)
-- [CliMatches](../interfaces/cli.climatches.md)
-- [SubcommandMatch](../interfaces/cli.subcommandmatch.md)
+- [ArgMatch](../interfaces/cli.ArgMatch.md)
+- [CliMatches](../interfaces/cli.CliMatches.md)
+- [SubcommandMatch](../interfaces/cli.SubcommandMatch.md)
 
 ## Functions
 
 ### getMatches
 
-▸ **getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.climatches.md)\>
+▸ **getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
 Parse the arguments provided to the current process and get the matches using the configuration defined `tauri.conf.json > tauri > cli`.
 
 #### Returns
 
-`Promise`<[`CliMatches`](../interfaces/cli.climatches.md)\>
+`Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
 A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:42](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/cli.ts#L42)
+[cli.ts:42](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/cli.ts#L42)

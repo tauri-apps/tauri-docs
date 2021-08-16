@@ -4,65 +4,68 @@ sidebar_label: trait.Pixel
 custom_edit_url: null
 ---
 
-# Trait tauri::Pixel,\[−],\[−],−
+  # Trait tauri::Pixel,
 
 ```rs
 pub trait Pixel: Copy + Into<f64> {
-    pub fn from_f64(f: f64) -> Self;
+    fn from_f64(f: f64) -> Self;
 
-    pub fn cast<P>(self) -> P
+    fn cast<P>(self) -> P
     where
         P: Pixel,
     { ... }
 }
 ```
 
+Expand description
+
 A pixel definition. Must be created from a `f64` value.
 
 ## Required methods
 
-### `pub fn from_f64(f: f64) -> Self`
+#### fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> Self
 
 Creates the pixel from the `f64` value.
 
 ## Provided methods
 
-### `pub fn cast<P>(self) -> P where P: Pixel,`
+#### fn [cast](/docs/api/rust/tauri/about:blank#method.cast)&lt;P>(self) -> P where P: [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel"),
 
 Casts a pixel.
 
 ## Implementations on Foreign Types
 
-### `impl Pixel for i8`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [i16](https://doc.rust-lang.org/1.54.0/std/primitive.i16.html)
 
-#### `pub fn from_f64(f: f64) -> i8`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [i16](https://doc.rust-lang.org/1.54.0/std/primitive.i16.html)
 
-### `impl Pixel for u8`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
 
-#### `pub fn from_f64(f: f64) -> u8`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
 
-### `impl Pixel for i32`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u32](https://doc.rust-lang.org/1.54.0/std/primitive.u32.html)
 
-#### `pub fn from_f64(f: f64) -> i32`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u32](https://doc.rust-lang.org/1.54.0/std/primitive.u32.html)
 
-### `impl Pixel for u32`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [i8](https://doc.rust-lang.org/1.54.0/std/primitive.i8.html)
 
-#### `pub fn from_f64(f: f64) -> u32`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [i8](https://doc.rust-lang.org/1.54.0/std/primitive.i8.html)
 
-### `impl Pixel for f64`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html)
 
-#### `pub fn from_f64(f: f64) -> f64`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html)
 
-### `impl Pixel for i16`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
 
-#### `pub fn from_f64(f: f64) -> i16`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
 
-### `impl Pixel for u16`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
 
-#### `pub fn from_f64(f: f64) -> u16`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
 
-### `impl Pixel for f32`
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
 
-#### `pub fn from_f64(f: f64) -> f32`
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
 
 ## Implementors
+  

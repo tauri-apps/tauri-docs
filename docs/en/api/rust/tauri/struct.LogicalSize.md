@@ -4,7 +4,7 @@ sidebar_label: struct.LogicalSize
 custom_edit_url: null
 ---
 
-# Struct tauri::LogicalSize,\[−],\[−],−
+  # Struct tauri::LogicalSize,
 
 ```rs
 pub struct LogicalSize<T> {
@@ -12,6 +12,8 @@ pub struct LogicalSize<T> {
     pub height: T,
 }
 ```
+
+Expand description
 
 A size represented in logical pixels.
 
@@ -27,313 +29,169 @@ Height.
 
 ## Implementations
 
-### `impl<T> LogicalSize<T> where T: Pixel,`
+### impl&lt;T> [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel"),
 
-#### `pub fn cast<X>(&self) -> LogicalSize<X> where X: Pixel,`
+#### pub fn [cast](/docs/api/rust/tauri/about:blank#method.cast)&lt;X>(&self) -> [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;X> where X: [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel"),
 
 Casts the logical size to another pixel type.
 
 ## Trait Implementations
 
-### `impl<T> Clone for LogicalSize<T> where T: Clone,`
+### impl&lt;T> [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone"),
 
-#### `pub fn clone(&self) -> LogicalSize<T>`
+#### pub fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `clone_from`
+#### fn [clone_from](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)(&mut self, source: [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)Self)1.0.0[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/clone.rs.html#130 "goto source code")
 
-```rs
-pub fn clone_from(&mut self, source: &Self)
-```
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+### impl&lt;T> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"),
 
-_Defined in: [clone.rs:130](https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130)_
+#### pub fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), [Error](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Error.html "struct core::fmt::Error")>
 
-### `impl<T> Copy for LogicalSize<T> where T: Copy,`
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<T> Debug for LogicalSize<T> where T: Debug,`
+### impl&lt;T> [Default](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html "trait core::default::Default") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Default](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html "trait core::default::Default"),
 
-#### `pub fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error>`
+#### pub fn [default](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html#tymethod.default)() -> [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html#tymethod.default)
 
-### `impl<T> Default for LogicalSize<T> where T: Default,`
+### impl&lt;'de, T> [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de> for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
 
-#### `pub fn default() -> LogicalSize<T>`
+#### pub fn [deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;\_\_D>( \_\_deserializer: \_\_D ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>, &lt;\_\_D as [Deserializer](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>>::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")> where \_\_D: [Deserializer](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>,
 
-Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
-### `impl<'de, T> Deserialize<'de> for LogicalSize<T> where T: Deserialize<'de>,`
+### impl&lt;T> [Hash](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html "trait core::hash::Hash") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Hash](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html "trait core::hash::Hash"),
 
-#### `pub fn deserialize<__D>( __deserializer: __D ) -> Result<LogicalSize<T>, <__D as Deserializer<'de>>::Error> where __D: Deserializer<'de>,`
+#### pub fn [hash](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html#tymethod.hash)&lt;\_\_H>(&self, state: [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)\_\_H) where \_\_H: [Hasher](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hasher.html "trait core::hash::Hasher"),
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Feeds this value into the given [`Hasher`](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hasher.html "Hasher"). [Read more](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html#tymethod.hash)
 
-### `impl<T> Eq for LogicalSize<T> where T: Eq,`
+#### fn [hash_slice](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html#method.hash_slice)&lt;H>(data: [&\[Self\]](https://doc.rust-lang.org/1.54.0/std/primitive.slice.html), state: [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)H) where H: [Hasher](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hasher.html "trait core::hash::Hasher"),1.3.0[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/hash/mod.rs.html#211-213 "goto source code")
 
-### `impl<T> Hash for LogicalSize<T> where T: Hash,`
+Feeds a slice of this type into the given [`Hasher`](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hasher.html "Hasher"). [Read more](https://doc.rust-lang.org/1.54.0/core/hash/trait.Hash.html#method.hash_slice)
 
-#### `pub fn hash<__H>(&self, state: &mut__H) where __H: Hasher,`
+### impl&lt;T> [PartialEq](https://doc.rust-lang.org/1.54.0/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;[LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>> for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [PartialEq](https://doc.rust-lang.org/1.54.0/core/cmp/trait.PartialEq.html "trait core::cmp::PartialEq")&lt;T>,
 
-Feeds this value into the given [`Hasher`](https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html "Hasher"). [Read more](https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash)
+#### pub fn [eq](https://doc.rust-lang.org/1.54.0/core/cmp/trait.PartialEq.html#tymethod.eq)(&self, other: &[LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)
 
-#### `hash_slice`
+This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/1.54.0/core/cmp/trait.PartialEq.html#tymethod.eq)
 
-```rs
-pub fn hash_slice<H>(data: &[Self]
-
-, state: &mut H) where
-    H: Hasher, 
-```
-
-Feeds a slice of this type into the given [`Hasher`](https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html "Hasher"). [Read more](https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice)
-
-_Defined in: [mod.rs:190-192](https://doc.rust-lang.org/nightly/src/core/hash/mod.rs.html#190-192)_
-
-### `impl<T> PartialEq<LogicalSize<T>> for LogicalSize<T> where T: PartialEq<T>,`
-
-#### `pub fn eq(&self, other: &LogicalSize<T>) -> bool`
-
-This method tests for `self` and `other` values to be equal, and is used by `==`. [Read more](https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq)
-
-#### `pub fn ne(&self, other: &LogicalSize<T>) -> bool`
+#### pub fn [ne](https://doc.rust-lang.org/1.54.0/core/cmp/trait.PartialEq.html#method.ne)(&self, other: &[LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)
 
 This method tests for `!=`.
 
-### `impl<T> Serialize for LogicalSize<T> where T: Serialize,`
+### impl&lt;T> [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"),
 
-#### `pub fn serialize<__S>( &self, __serializer: __S ) -> Result<<__S as Serializer>::Ok, <__S as Serializer>::Error> where __S: Serializer,`
+#### pub fn [serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>( &self, \_\_serializer: \_\_S ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;&lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Ok](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), &lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Error](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)
 
-### `impl<T> StructuralEq for LogicalSize<T>`
+### impl&lt;T> [Copy](https://doc.rust-lang.org/1.54.0/core/marker/trait.Copy.html "trait core::marker::Copy") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Copy](https://doc.rust-lang.org/1.54.0/core/marker/trait.Copy.html "trait core::marker::Copy"),
 
-### `impl<T> StructuralPartialEq for LogicalSize<T>`
+### impl&lt;T> [Eq](https://doc.rust-lang.org/1.54.0/core/cmp/trait.Eq.html "trait core::cmp::Eq") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Eq](https://doc.rust-lang.org/1.54.0/core/cmp/trait.Eq.html "trait core::cmp::Eq"),
+
+### impl&lt;T> [StructuralEq](https://doc.rust-lang.org/1.54.0/core/marker/trait.StructuralEq.html "trait core::marker::StructuralEq") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>
+
+### impl&lt;T> [StructuralPartialEq](https://doc.rust-lang.org/1.54.0/core/marker/trait.StructuralPartialEq.html "trait core::marker::StructuralPartialEq") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T>
 
 ## Auto Trait Implementations
 
-### `impl<T> RefUnwindSafe for LogicalSize<T> where T: RefUnwindSafe,`
+### impl&lt;T> [RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe"),
 
-### `impl<T> Send for LogicalSize<T> where T: Send,`
+### impl&lt;T> [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<T> Sync for LogicalSize<T> where T: Sync,`
+### impl&lt;T> [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"),
 
-### `impl<T> Unpin for LogicalSize<T> where T: Unpin,`
+### impl&lt;T> [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin"),
 
-### `impl<T> UnwindSafe for LogicalSize<T> where T: UnwindSafe,`
+### impl&lt;T> [UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [LogicalSize](/docs/api/rust/tauri/struct.LogicalSize "struct tauri::LogicalSize")&lt;T> where T: [UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe"),
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;'de, D, R> [CommandArg](/docs/api/rust/tauri/command/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for D where R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime"), D: [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,[\[src\]](/docs/api/rust/tauri/../src/tauri/command.rs#51-56 "goto source code")
 
-#### `borrow`
+#### pub fn [from_command](/docs/api/rust/tauri/command/trait.CommandArg#tymethod.from_command)([CommandItem](/docs/api/rust/tauri/command/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;D, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../src/tauri/command.rs#52-55 "goto source code")
 
-```rs
-pub fn borrow(&self) -> &T
-```
+Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/command/trait.CommandArg#tymethod.from_command)
 
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `CommandArg`
-
-```rs
-impl<'de, D, P> CommandArg<'de, P> for D where
-    P: Params,
-    D: Deserialize<'de>, 
-```
-
-_Defined in: [command.rs:47-52](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L47-52)_
-
-#### `from_command`
-
-```rs
-pub fn from_command(CommandItem<'de, P>) -> Result<D, InvokeError>
-```
-
-Derives an instance of `Self` from the [`CommandItem`](/docs/api/rust/tauri/../tauri/command/struct.CommandItem "CommandItem"). [Read more](/docs/api/rust/tauri/../tauri/command/trait.CommandArg#tymethod.from_command)
-
-_Defined in: [command.rs:48-51](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L48-51)_
-
-### `DeserializeOwned`
-
-```rs
-impl<T> DeserializeOwned for T where
-    T: for<'de> Deserialize<'de>, 
-```
-
-_Defined in: [mod.rs:603](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#603)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T> [ToOwned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where T: [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#84-96 "goto source code")
 
-### `impl<T> MenuId for T where T: Serialize + Hash + Eq + Debug + Clone + Send + Sync + 'static,`
-
-### `ToOwned`
-
-```rs
-impl<T> ToOwned for T where
-    T: Clone, 
-```
-
-_Defined in: [borrow.rs:81-93](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#81-93)_
-
-#### `type Owned = T`
+#### type [Owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T
 
 The resulting type after obtaining ownership.
 
-#### `to_owned`
+#### pub fn [to_owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)(&self) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#89 "goto source code")
 
-```rs
-pub fn to_owned(&self) -> T
-```
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-_Defined in: [borrow.rs:86](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86)_
-
-#### `clone_into`
-
-```rs
-pub fn clone_into(&self, target: &mut T)
-```
-
-_Defined in: [borrow.rs:90](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90)_
+#### pub fn [clone_into](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)(&self, target: [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T)[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#93 "goto source code")
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
-### `TryFrom`
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
 
-#### `pub fn vzip(self) -> V`
+### impl&lt;T> [DeserializeOwned](https://docs.rs/serde/1.0.127/serde/de/trait.DeserializeOwned.html "trait serde::de::DeserializeOwned") for T where T: for&lt;'de> [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
+
+[\[src\]](https://docs.rs/serde/1.0.127/src/serde/de/mod.rs.html#603 "goto source code")
+  

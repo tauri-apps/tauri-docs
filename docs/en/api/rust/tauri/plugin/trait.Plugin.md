@@ -4,90 +4,61 @@ sidebar_label: trait.Plugin
 custom_edit_url: null
 ---
 
-# Trait tauri::plugin::Plugin,\[−]\[src],\[−],−
+  # Trait tauri::plugin::Plugin,
 
 ```rs
-pub trait Plugin<P: Params>: Send {
+pub trait Plugin<R: Runtime>: Send {
     fn name(&self) -> &'static str;
 
-    fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()> { ... }
+    fn initialize(
+        &mut self, 
+        app: &AppHandle<R>, 
+        config: JsonValue
+    ) -> Result<()> { ... }
 
     fn initialization_script(&self) -> Option<String> { ... }
 
-    fn created(&mut self, window: Window<P>) { ... }
+    fn created(&mut self, window: Window<R>) { ... }
 
-    fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload) { ... }
+    fn on_page_load(&mut self, window: Window<R>, payload: PageLoadPayload) { ... }
 
-    fn extend_api(&mut self, invoke: Invoke<P>) { ... }
+    fn extend_api(&mut self, invoke: Invoke<R>) { ... }
 }
 ```
+
+Expand description
 
 The plugin interface.
 
 ## Required methods
 
-### `name`
-
-```rs
-fn name(&self) -> &'static str
-```
+#### fn [name](/docs/api/rust/tauri/about:blank#tymethod.name)(&self) -> &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#21 "goto source code")
 
 The plugin name. Used as key on the plugin config object.
 
-_Defined in: [plugin.rs:17](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L17)_
-
 ## Provided methods
 
-### `initialize`
+#### fn [initialize](/docs/api/rust/tauri/about:blank#method.initialize)(&mut self, app: &[AppHandle](/docs/api/rust/tauri/../struct.AppHandle "struct tauri::AppHandle")&lt;R>, config: [JsonValue](https://docs.rs/serde_json/1.0.66/serde_json/value/enum.Value.html "enum serde_json::value::Value")) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::plugin::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#25-27 "goto source code")
 
-```rs
-fn initialize(&mut self, app: &App<P>, config: JsonValue) -> Result<()>
-```
+Initializes the plugin.
 
-Initialize the plugin.
-
-_Defined in: [plugin.rs:21-23](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L21-23)_
-
-### `initialization_script`
-
-```rs
-fn initialization_script(&self) -> Option<String>
-```
+#### fn [initialization_script](/docs/api/rust/tauri/about:blank#method.initialization_script)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#34-36 "goto source code")
 
 The JS script to evaluate on webview initialization. The script is wrapped into its own context with `(function () { /* your script here */ })();`, so global variables must be assigned to `window` instead of implicity declared.
 
 It’s guaranteed that this script is executed before the page is loaded.
 
-_Defined in: [plugin.rs:30-32](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L30-32)_
-
-### `created`
-
-```rs
-fn created(&mut self, window: Window<P>)
-```
+#### fn [created](/docs/api/rust/tauri/about:blank#method.created)(&mut self, window: [Window](/docs/api/rust/tauri/../window/struct.Window "struct tauri::window::Window")&lt;R>)[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#40 "goto source code")
 
 Callback invoked when the webview is created.
 
-_Defined in: [plugin.rs:36](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L36)_
+#### fn [on_page_load](/docs/api/rust/tauri/about:blank#method.on_page_load)(&mut self, window: [Window](/docs/api/rust/tauri/../window/struct.Window "struct tauri::window::Window")&lt;R>, payload: [PageLoadPayload](/docs/api/rust/tauri/../struct.PageLoadPayload "struct tauri::PageLoadPayload"))[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#44 "goto source code")
 
-### `on_page_load`
+Callback invoked when the webview performs a navigation to a page.
 
-```rs
-fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload)
-```
+#### fn [extend_api](/docs/api/rust/tauri/about:blank#method.extend_api)(&mut self, invoke: [Invoke](/docs/api/rust/tauri/../struct.Invoke "struct tauri::Invoke")&lt;R>)[\[src\]](/docs/api/rust/tauri/../../src/tauri/plugin.rs#48 "goto source code")
 
-Callback invoked when the webview performs a navigation.
-
-_Defined in: [plugin.rs:40](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L40)_
-
-### `extend_api`
-
-```rs
-fn extend_api(&mut self, invoke: Invoke<P>)
-```
-
-Add invoke_handler API extension commands.
-
-_Defined in: [plugin.rs:44](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/plugin.rs#L44)_
+Extend commands to [`crate::Builder::invoke_handler`](/docs/api/rust/tauri/../struct.Builder#method.invoke_handler "crate::Builder::invoke_handler").
 
 ## Implementors
+  

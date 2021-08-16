@@ -4,15 +4,17 @@ sidebar_label: struct.CommandItem
 custom_edit_url: null
 ---
 
-# Struct tauri::command::CommandItem,\[−]\[src],\[−],−
+  # Struct tauri::command::CommandItem,
 
 ```rs
-pub struct CommandItem<'a, P: Params> {
+pub struct CommandItem<'a, R: Runtime> {
     pub name: &'static str,
     pub key: &'static str,
-    pub message: &'a InvokeMessage<P>,
+    pub message: &'a InvokeMessage<R>,
 }
 ```
+
+Expand description
 
 Represents a custom command.
 
@@ -26,610 +28,215 @@ The name of the command, e.g. `handler` on `#[command] fn handler(value: u64)`
 
 The key of the command item, e.g. `value` on `#[command] fn handler(value: u64)`
 
-`message: &'a InvokeMessage<P>`
+`message: &'a InvokeMessage<R>`
 
-The [`InvokeMessage`](/docs/api/rust/tauri/../../tauri/struct.InvokeMessage "InvokeMessage") that was passed to this command.
+The [`InvokeMessage`](/docs/api/rust/tauri/../struct.InvokeMessage "InvokeMessage") that was passed to this command.
 
 ## Trait Implementations
 
-### `Params`
+### impl&lt;'de, R: [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")> [Deserializer](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de> for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#91-150 "goto source code")
 
-```rs
-impl<'de, P: Params> Deserializer<'de> for CommandItem<'de, P>
-```
+A [`Deserializer`](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "Deserializer") wrapper around [`CommandItem`](/docs/api/rust/tauri/struct.CommandItem "CommandItem").
 
-A [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html "Deserializer") wrapper around [`CommandItem`](/docs/api/rust/tauri/../../tauri/command/struct.CommandItem "CommandItem").
+If the key doesn’t exist, an error will be returned if the deserialized type is not expecting an optional item. If the key does exist, the value will be called with [`Value`](https://docs.rs/serde_json/1.0.66/serde_json/value/enum.Value.html)’s [`Deserializer`](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "Deserializer") implementation.
 
-If the key doesn’t exist, an error will be returned if the deserialized type is not expecting an optional item. If the key does exist, the value will be called with [`Value`](https://docs.rs/serde_json/1.0.64/serde_json/value/enum.Value.html)’s [`Deserializer`](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html "Deserializer") implementation.
+#### type [Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error) = [Error](https://docs.rs/serde_json/1.0.66/serde_json/error/struct.Error.html "struct serde_json::error::Error")
 
-_Defined in: [command.rs:87-146](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L87-146)_
+The error type that can be returned if some error occurs during deserialization. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error)
 
-#### `type Error = Error`
+#### fn [deserialize_any](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_any)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#94 "goto source code")
 
-The error type that can be returned if some error occurs during deserialization. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#associatedtype.Error)
+Require the `Deserializer` to figure out how to drive the visitor based on what data type is in the input. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_any)
 
-#### `deserialize_any`
-
-```rs
-fn deserialize_any<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Require the `Deserializer` to figure out how to drive the visitor based on what data type is in the input. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_any)
-
-_Defined in: [command.rs:90](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L90)_
-
-#### `deserialize_bool`
-
-```rs
-fn deserialize_bool<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_bool](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_bool)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#95 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `bool` value.
 
-_Defined in: [command.rs:91](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L91)_
-
-#### `deserialize_i8`
-
-```rs
-fn deserialize_i8<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_i8](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_i8)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#96 "goto source code")
 
 Hint that the `Deserialize` type is expecting an `i8` value.
 
-_Defined in: [command.rs:92](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L92)_
-
-#### `deserialize_i16`
-
-```rs
-fn deserialize_i16<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_i16](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_i16)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#97 "goto source code")
 
 Hint that the `Deserialize` type is expecting an `i16` value.
 
-_Defined in: [command.rs:93](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L93)_
-
-#### `deserialize_i32`
-
-```rs
-fn deserialize_i32<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_i32](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_i32)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#98 "goto source code")
 
 Hint that the `Deserialize` type is expecting an `i32` value.
 
-_Defined in: [command.rs:94](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L94)_
-
-#### `deserialize_i64`
-
-```rs
-fn deserialize_i64<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_i64](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_i64)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#99 "goto source code")
 
 Hint that the `Deserialize` type is expecting an `i64` value.
 
-_Defined in: [command.rs:95](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L95)_
-
-#### `deserialize_u8`
-
-```rs
-fn deserialize_u8<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_u8](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_u8)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#100 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `u8` value.
 
-_Defined in: [command.rs:96](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L96)_
-
-#### `deserialize_u16`
-
-```rs
-fn deserialize_u16<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_u16](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_u16)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#101 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `u16` value.
 
-_Defined in: [command.rs:97](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L97)_
-
-#### `deserialize_u32`
-
-```rs
-fn deserialize_u32<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_u32](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_u32)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#102 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `u32` value.
 
-_Defined in: [command.rs:98](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L98)_
-
-#### `deserialize_u64`
-
-```rs
-fn deserialize_u64<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_u64](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_u64)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#103 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `u64` value.
 
-_Defined in: [command.rs:99](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L99)_
-
-#### `deserialize_f32`
-
-```rs
-fn deserialize_f32<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_f32](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_f32)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#104 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `f32` value.
 
-_Defined in: [command.rs:100](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L100)_
-
-#### `deserialize_f64`
-
-```rs
-fn deserialize_f64<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_f64](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_f64)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#105 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `f64` value.
 
-_Defined in: [command.rs:101](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L101)_
-
-#### `deserialize_char`
-
-```rs
-fn deserialize_char<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_char](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_char)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#106 "goto source code")
 
 Hint that the `Deserialize` type is expecting a `char` value.
 
-_Defined in: [command.rs:102](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L102)_
+#### fn [deserialize_str](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_str)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#107 "goto source code")
 
-#### `deserialize_str`
+Hint that the `Deserialize` type is expecting a string value and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_str)
 
-```rs
-fn deserialize_str<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_string](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_string)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#108 "goto source code")
 
-Hint that the `Deserialize` type is expecting a string value and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_str)
+Hint that the `Deserialize` type is expecting a string value and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_string)
 
-_Defined in: [command.rs:103](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L103)_
+#### fn [deserialize_bytes](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#109 "goto source code")
 
-#### `deserialize_string`
+Hint that the `Deserialize` type is expecting a byte array and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)
 
-```rs
-fn deserialize_string<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_byte_buf](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#110 "goto source code")
 
-Hint that the `Deserialize` type is expecting a string value and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_string)
+Hint that the `Deserialize` type is expecting a byte array and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)
 
-_Defined in: [command.rs:104](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L104)_
+#### fn [deserialize_option](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_option)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#112-117 "goto source code")
 
-#### `deserialize_bytes`
+Hint that the `Deserialize` type is expecting an optional value. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_option)
 
-```rs
-fn deserialize_bytes<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type is expecting a byte array and does not benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_bytes)
-
-_Defined in: [command.rs:105](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L105)_
-
-#### `deserialize_byte_buf`
-
-```rs
-fn deserialize_byte_buf<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type is expecting a byte array and would benefit from taking ownership of buffered data owned by the `Deserializer`. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_byte_buf)
-
-_Defined in: [command.rs:106](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L106)_
-
-#### `deserialize_option`
-
-```rs
-fn deserialize_option<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type is expecting an optional value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_option)
-
-_Defined in: [command.rs:108-113](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L108-113)_
-
-#### `deserialize_unit`
-
-```rs
-fn deserialize_unit<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_unit](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_unit)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#119 "goto source code")
 
 Hint that the `Deserialize` type is expecting a unit value.
 
-_Defined in: [command.rs:115](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L115)_
+#### fn [deserialize_unit_struct](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, name: &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#120 "goto source code")
 
-#### `deserialize_unit_struct`
+Hint that the `Deserialize` type is expecting a unit struct with a particular name. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)
 
-```rs
-fn deserialize_unit_struct<V: Visitor<'de>>(
-    self, 
-    name: &'static str, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_newtype_struct](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, name: &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#121 "goto source code")
 
-Hint that the `Deserialize` type is expecting a unit struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_unit_struct)
+Hint that the `Deserialize` type is expecting a newtype struct with a particular name. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)
 
-_Defined in: [command.rs:116](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L116)_
-
-#### `deserialize_newtype_struct`
-
-```rs
-fn deserialize_newtype_struct<V: Visitor<'de>>(
-    self, 
-    name: &'static str, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type is expecting a newtype struct with a particular name. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_newtype_struct)
-
-_Defined in: [command.rs:117](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L117)_
-
-#### `deserialize_seq`
-
-```rs
-fn deserialize_seq<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_seq](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_seq)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#122 "goto source code")
 
 Hint that the `Deserialize` type is expecting a sequence of values.
 
-_Defined in: [command.rs:118](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L118)_
+#### fn [deserialize_tuple](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, len: [usize](https://doc.rust-lang.org/1.54.0/std/primitive.usize.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#123 "goto source code")
 
-#### `deserialize_tuple`
+Hint that the `Deserialize` type is expecting a sequence of values and knows how many values there are without looking at the serialized data. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)
 
-```rs
-fn deserialize_tuple<V: Visitor<'de>>(
-    self, 
-    len: usize, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_tuple_struct](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, name: &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), len: [usize](https://doc.rust-lang.org/1.54.0/std/primitive.usize.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#125-130 "goto source code")
 
-Hint that the `Deserialize` type is expecting a sequence of values and knows how many values there are without looking at the serialized data. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple)
+Hint that the `Deserialize` type is expecting a tuple struct with a particular name and number of fields. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)
 
-_Defined in: [command.rs:119](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L119)_
-
-#### `deserialize_tuple_struct`
-
-```rs
-fn deserialize_tuple_struct<V: Visitor<'de>>(
-    self, 
-    name: &'static str, 
-    len: usize, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type is expecting a tuple struct with a particular name and number of fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_tuple_struct)
-
-_Defined in: [command.rs:121-126](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L121-126)_
-
-#### `deserialize_map`
-
-```rs
-fn deserialize_map<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_map](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_map)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#132 "goto source code")
 
 Hint that the `Deserialize` type is expecting a map of key-value pairs.
 
-_Defined in: [command.rs:128](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L128)_
+#### fn [deserialize_struct](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, name: &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), fields: [&'static \[](https://doc.rust-lang.org/1.54.0/std/primitive.slice.html)&'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)[\]](https://doc.rust-lang.org/1.54.0/std/primitive.slice.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#134-139 "goto source code")
 
-#### `deserialize_struct`
+Hint that the `Deserialize` type is expecting a struct with a particular name and fields. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)
 
-```rs
-fn deserialize_struct<V: Visitor<'de>>(
-    self, 
-    name: &'static str, 
-    fields: &'static [&'static str]
+#### fn [deserialize_enum](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, name: &'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), fields: [&'static \[](https://doc.rust-lang.org/1.54.0/std/primitive.slice.html)&'static [str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)[\]](https://doc.rust-lang.org/1.54.0/std/primitive.slice.html), visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#141-146 "goto source code")
 
-, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+Hint that the `Deserialize` type is expecting an enum value with a particular name and possible variants. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)
 
-Hint that the `Deserialize` type is expecting a struct with a particular name and fields. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_struct)
+#### fn [deserialize_identifier](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#148 "goto source code")
 
-_Defined in: [command.rs:130-135](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L130-135)_
+Hint that the `Deserialize` type is expecting the name of a struct field or the discriminant of an enum variant. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)
 
-#### `deserialize_enum`
+#### fn [deserialize_ignored_any](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)&lt;V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;V::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#149 "goto source code")
 
-```rs
-fn deserialize_enum<V: Visitor<'de>>(
-    self, 
-    name: &'static str, 
-    fields: &'static [&'static str]
+Hint that the `Deserialize` type needs to deserialize a value whose type doesn’t matter because it is ignored. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)
 
-, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [deserialize_i128](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.deserialize_i128)&lt;V>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;&lt;V as [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")> where V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>,[\[src\]](https://docs.rs/serde/1.0.127/src/serde/de/mod.rs.html#947-949 "goto source code")
 
-Hint that the `Deserialize` type is expecting an enum value with a particular name and possible variants. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_enum)
+Hint that the `Deserialize` type is expecting an `i128` value. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.deserialize_i128)
 
-_Defined in: [command.rs:137-142](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L137-142)_
+#### fn [deserialize_u128](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.deserialize_u128)&lt;V>( self, visitor: V ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;&lt;V as [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>>::[Value](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html#associatedtype.Value "type serde::de::Visitor::Value"), Self::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")> where V: [Visitor](https://docs.rs/serde/1.0.127/serde/de/trait.Visitor.html "trait serde::de::Visitor")&lt;'de>,[\[src\]](https://docs.rs/serde/1.0.127/src/serde/de/mod.rs.html#981-983 "goto source code")
 
-#### `deserialize_identifier`
+Hint that the `Deserialize` type is expecting an `u128` value. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.deserialize_u128)
 
-```rs
-fn deserialize_identifier<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
+#### fn [is_human_readable](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.is_human_readable)(&self) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)[\[src\]](https://docs.rs/serde/1.0.127/src/serde/de/mod.rs.html#1213 "goto source code")
 
-Hint that the `Deserialize` type is expecting the name of a struct field or the discriminant of an enum variant. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_identifier)
-
-_Defined in: [command.rs:144](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L144)_
-
-#### `deserialize_ignored_any`
-
-```rs
-fn deserialize_ignored_any<V: Visitor<'de>>(
-    self, 
-    visitor: V
-) -> Result<V::Value, Self::Error>
-```
-
-Hint that the `Deserialize` type needs to deserialize a value whose type doesn’t matter because it is ignored. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#tymethod.deserialize_ignored_any)
-
-_Defined in: [command.rs:145](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/command.rs#L145)_
-
-#### `deserialize_i128`
-
-```rs
-pub fn deserialize_i128<V>(
-    self, 
-    visitor: V
-) -> Result<<V as Visitor<'de>>::Value, Self::Error> where
-    V: Visitor<'de>, 
-```
-
-Hint that the `Deserialize` type is expecting an `i128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_i128)
-
-_Defined in: [mod.rs:947-949](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#947-949)_
-
-#### `deserialize_u128`
-
-```rs
-pub fn deserialize_u128<V>(
-    self, 
-    visitor: V
-) -> Result<<V as Visitor<'de>>::Value, Self::Error> where
-    V: Visitor<'de>, 
-```
-
-Hint that the `Deserialize` type is expecting an `u128` value. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.deserialize_u128)
-
-_Defined in: [mod.rs:981-983](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#981-983)_
-
-#### `is_human_readable`
-
-```rs
-pub fn is_human_readable(&self) -> bool
-```
-
-Determine whether `Deserialize` implementations should expect to deserialize their human-readable form. [Read more](https://docs.rs/serde/1.0.126/serde/de/trait.Deserializer.html#method.is_human_readable)
-
-_Defined in: [mod.rs:1213](https://docs.rs/serde/1.0.126/src/serde/de/mod.rs.html#1213)_
+Determine whether `Deserialize` implementations should expect to deserialize their human-readable form. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#method.is_human_readable)
 
 ## Auto Trait Implementations
 
-### `impl<'a, P> !RefUnwindSafe for CommandItem<'a, P>`
+### impl&lt;'a, R> \&#33;[RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'a, R>
 
-### `impl<'a, P> Send for CommandItem<'a, P> where <<P as Params>::Runtime as Runtime>::ClipboardManager: Sync, <<P as Params>::Runtime as Runtime>::Dispatcher: Sync, <<P as Params>::Runtime as Runtime>::GlobalShortcutManager: Sync, <<P as Params>::Runtime as Runtime>::Handle: Sync,`
+### impl&lt;'a, R> [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'a, R> where &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[ClipboardManager](/docs/api/rust/tauri/../trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[Dispatcher](/docs/api/rust/tauri/../trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[GlobalShortcutManager](/docs/api/rust/tauri/../trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[Handle](/docs/api/rust/tauri/../trait.Runtime#associatedtype.Handle "type tauri::Runtime::Handle"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"),
 
-### `impl<'a, P> Sync for CommandItem<'a, P> where <<P as Params>::Runtime as Runtime>::ClipboardManager: Sync, <<P as Params>::Runtime as Runtime>::Dispatcher: Sync, <<P as Params>::Runtime as Runtime>::GlobalShortcutManager: Sync, <<P as Params>::Runtime as Runtime>::Handle: Sync,`
+### impl&lt;'a, R> [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'a, R> where &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[ClipboardManager](/docs/api/rust/tauri/../trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[Dispatcher](/docs/api/rust/tauri/../trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[GlobalShortcutManager](/docs/api/rust/tauri/../trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"), &lt;R as [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")>::[Handle](/docs/api/rust/tauri/../trait.Runtime#associatedtype.Handle "type tauri::Runtime::Handle"): [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"),
 
-### `impl<'a, P> Unpin for CommandItem<'a, P>`
+### impl&lt;'a, R> [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'a, R>
 
-### `impl<'a, P> !UnwindSafe for CommandItem<'a, P>`
+### impl&lt;'a, R> \&#33;[UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'a, R>
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `borrow`
-
-```rs
-pub fn borrow(&self) -> &T
-```
-
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
-
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-### `TryFrom`
-
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
-
-#### `pub fn vzip(self) -> V`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
+  

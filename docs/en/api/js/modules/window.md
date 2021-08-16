@@ -87,117 +87,117 @@ type MenuClicked = string
 
 ## Enumerations
 
-- [UserAttentionType](../enums/window.userattentiontype.md)
+- [UserAttentionType](../enums/window.UserAttentionType.md)
 
 ## Classes
 
-- [LogicalPosition](../classes/window.logicalposition.md)
-- [LogicalSize](../classes/window.logicalsize.md)
-- [PhysicalPosition](../classes/window.physicalposition.md)
-- [PhysicalSize](../classes/window.physicalsize.md)
-- [WebviewWindow](../classes/window.webviewwindow.md)
-- [WebviewWindowHandle](../classes/window.webviewwindowhandle.md)
-- [WindowManager](../classes/window.windowmanager.md)
+- [LogicalPosition](../classes/window.LogicalPosition.md)
+- [LogicalSize](../classes/window.LogicalSize.md)
+- [PhysicalPosition](../classes/window.PhysicalPosition.md)
+- [PhysicalSize](../classes/window.PhysicalSize.md)
+- [WebviewWindow](../classes/window.WebviewWindow.md)
+- [WebviewWindowHandle](../classes/window.WebviewWindowHandle.md)
+- [WindowManager](../classes/window.WindowManager.md)
 
 ## Interfaces
 
-- [Monitor](../interfaces/window.monitor.md)
-- [WindowOptions](../interfaces/window.windowoptions.md)
+- [Monitor](../interfaces/window.Monitor.md)
+- [WindowOptions](../interfaces/window.WindowOptions.md)
 
 ## Variables
 
 ### appWindow
 
-• `Const` **appWindow**: [`WindowManager`](../classes/window.windowmanager.md)
+• `Const` **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
-The manager for the current window. Allows you to manipulate the window object, listen and emit events.
+The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:906](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L906)
+[window.ts:1132](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L1132)
 
 ## Functions
 
 ### availableMonitors
 
-▸ **availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md)[]\>
+▸ **availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 Returns the list of all the monitors available on the system.
 
 #### Returns
 
-`Promise`<[`Monitor`](../interfaces/window.monitor.md)[]\>
+`Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 #### Defined in
 
-[window.ts:981](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L981)
+[window.ts:1220](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L1220)
 
 ___
 
 ### currentMonitor
 
-▸ **currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
+▸ **currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
 
 #### Returns
 
-`Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
+`Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:958](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L958)
+[window.ts:1187](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L1187)
 
 ___
 
 ### getAll
 
-▸ **getAll**(): `WindowDef`[]
+▸ **getAll**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
 
-Gets metadata for all available webview windows.
+Gets an instance of `WebviewWindow` for all available webview windows.
 
 #### Returns
 
-`WindowDef`[]
+[`WebviewWindow`](../classes/window.WebviewWindow.md)[]
 
-The list of webview handles.
+The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:206](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L206)
+[window.ts:209](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L209)
 
 ___
 
 ### getCurrent
 
-▸ **getCurrent**(): [`WebviewWindowHandle`](../classes/window.webviewwindowhandle.md)
+▸ **getCurrent**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
-Get a handle to the current webview window. Allows emitting and listening to events from the backend that are tied to the window.
+Get an instance of `WebviewWindow` for the current webview window.
 
 #### Returns
 
-[`WebviewWindowHandle`](../classes/window.webviewwindowhandle.md)
+[`WebviewWindow`](../classes/window.WebviewWindow.md)
 
-The current window handle.
+The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:197](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L197)
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L197)
 
 ___
 
 ### primaryMonitor
 
-▸ **primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
+▸ **primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
 
 #### Returns
 
-`Promise`<[`Monitor`](../interfaces/window.monitor.md) \| ``null``\>
+`Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:971](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/window.ts#L971)
+[window.ts:1205](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L1205)
