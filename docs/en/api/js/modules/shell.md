@@ -9,13 +9,13 @@ hide_title: true
 
 ## Classes
 
-- [Child](../classes/shell.child.md)
-- [Command](../classes/shell.command.md)
+- [Child](../classes/shell.Child.md)
+- [Command](../classes/shell.Command.md)
 
 ## Interfaces
 
-- [ChildProcess](../interfaces/shell.childprocess.md)
-- [SpawnOptions](../interfaces/shell.spawnoptions.md)
+- [ChildProcess](../interfaces/shell.ChildProcess.md)
+- [SpawnOptions](../interfaces/shell.SpawnOptions.md)
 
 ## Functions
 
@@ -49,4 +49,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/shell.ts#L358)
+[shell.ts:358](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/shell.ts#L358)

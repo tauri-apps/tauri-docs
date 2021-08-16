@@ -13,9 +13,9 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 ## Interfaces
 
-- [UpdateManifest](../interfaces/updater.updatemanifest.md)
-- [UpdateResult](../interfaces/updater.updateresult.md)
-- [UpdateStatusResult](../interfaces/updater.updatestatusresult.md)
+- [UpdateManifest](../interfaces/updater.UpdateManifest.md)
+- [UpdateResult](../interfaces/updater.UpdateResult.md)
+- [UpdateStatusResult](../interfaces/updater.UpdateStatusResult.md)
 
 ## Type aliases
 
@@ -25,25 +25,25 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
 ### checkUpdate
 
-▸ **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.updateresult.md)\>
+▸ **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Checks if an update is available.
 
 #### Returns
 
-`Promise`<[`UpdateResult`](../interfaces/updater.updateresult.md)\>
+`Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Promise resolving to the update status.
 
 #### Defined in
 
-[updater.ts:89](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/updater.ts#L89)
+[updater.ts:89](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L89)
 
 ___
 
@@ -61,4 +61,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[updater.ts:37](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/updater.ts#L37)
+[updater.ts:37](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L37)

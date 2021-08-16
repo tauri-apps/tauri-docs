@@ -4,11 +4,13 @@ sidebar_label: fn.channel
 custom_edit_url: null
 ---
 
-# Function tauri::async_runtime::channel,\[−],\[−],−
+  # Function tauri::async_runtime::channel,
 
 ```rs
 pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>)
 ```
+
+Expand description
 
 Creates a bounded mpsc channel for communicating between asynchronous tasks with backpressure.
 
@@ -20,11 +22,11 @@ The `Sender` can be cloned to `send` to the same channel from multiple code loca
 
 If the `Receiver` is disconnected while trying to `send`, the `send` method will return a `SendError`. Similarly, if `Sender` is disconnected while trying to `recv`, the `recv` method will return `None`.
 
-# [Panics](/docs/api/rust/tauri/about:blank#panics)
+## Panics
 
 Panics if the buffer capacity is 0.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -48,3 +50,4 @@ async fn main() {
     }
 }
 ```
+  

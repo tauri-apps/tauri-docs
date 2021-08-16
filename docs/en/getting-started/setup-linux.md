@@ -28,7 +28,9 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     wget \
     libssl-dev \
     libgtk-3-dev \
-    squashfs-tools
+    libappindicator3-dev \
+    patchelf \
+    librsvg2-dev
 ```
 
 </TabItem>
@@ -42,7 +44,10 @@ $ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
     openssl \
     appmenu-gtk-module \
     gtk3 \
-    squashfs-tools
+    libappindicator-gtk3 \
+    patchelf \
+    librsvg \
+    libvips
 ```
 
 </TabItem>
@@ -53,12 +58,19 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
     curl \
     wget \
-    squashfs-tools \
+    libappindicator-gtk3 \ #
+    patchelf \
+    librsvg2-devel \
     && sudo dnf group install "C Development Tools and Libraries"
 ```
 
 </TabItem>
 </Tabs>
+
+### Optional dependencies:
+
+- `libappindicator`: needed to use the system tray feature.
+- `patchelf` and `librsvg`: needed to bundle `AppImage`.
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
@@ -122,7 +134,7 @@ Open the X server and then run `export DISPLAY=:0` in the terminal. You should n
 
 ### WSL Version 2
 
-You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolv.conf | grep nameserver`.
+You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
 
 <Alert type="info" title="Note">
 

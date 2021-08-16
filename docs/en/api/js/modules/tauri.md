@@ -13,7 +13,7 @@ This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.j
 
 ## Interfaces
 
-- [InvokeArgs](../interfaces/tauri.invokeargs.md)
+- [InvokeArgs](../interfaces/tauri.InvokeArgs.md)
 
 ## Functions
 
@@ -38,7 +38,7 @@ the URL that can be used as source on the webview
 
 #### Defined in
 
-[tauri.ts:99](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L99)
+[tauri.ts:102](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/tauri.ts#L102)
 
 ___
 
@@ -59,7 +59,7 @@ Sends a message to the backend.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `cmd` | `string` | The command name. |
-| `args` | [`InvokeArgs`](../interfaces/tauri.invokeargs.md) | The optional arguments to pass to the command. |
+| `args` | [`InvokeArgs`](../interfaces/tauri.InvokeArgs.md) | The optional arguments to pass to the command. |
 
 #### Returns
 
@@ -69,7 +69,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:70](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L70)
+[tauri.ts:74](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/tauri.ts#L74)
 
 ___
 
@@ -95,4 +95,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:37](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/tauri.ts#L37)
+[tauri.ts:41](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/tauri.ts#L41)

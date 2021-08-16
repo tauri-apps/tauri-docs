@@ -37,21 +37,21 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Enumerations
 
-- [BaseDirectory](../enums/fs.basedirectory.md)
+- [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ## Interfaces
 
-- [FileEntry](../interfaces/fs.fileentry.md)
-- [FsBinaryFileOption](../interfaces/fs.fsbinaryfileoption.md)
-- [FsDirOptions](../interfaces/fs.fsdiroptions.md)
-- [FsOptions](../interfaces/fs.fsoptions.md)
-- [FsTextFileOption](../interfaces/fs.fstextfileoption.md)
+- [FileEntry](../interfaces/fs.FileEntry.md)
+- [FsBinaryFileOption](../interfaces/fs.FsBinaryFileOption.md)
+- [FsDirOptions](../interfaces/fs.FsDirOptions.md)
+- [FsOptions](../interfaces/fs.FsOptions.md)
+- [FsTextFileOption](../interfaces/fs.FsTextFileOption.md)
 
 ## References
 
 ### Dir
 
-Renames and exports: [BaseDirectory](../enums/fs.basedirectory.md)
+Renames and exports: [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ## Functions
 
@@ -67,7 +67,7 @@ Copys a file to a destination.
 | :------ | :------ | :------ |
 | `source` | `string` | A path of the file to copy. |
 | `destination` | `string` | A path for the destination file. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -77,7 +77,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:300](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L300)
+[fs.ts:300](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L300)
 
 ___
 
@@ -94,7 +94,7 @@ and the `recursive` option isn't set to true, the promise will be rejected.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `dir` | `string` | Path to the directory to create. |
-| `options` | [`FsDirOptions`](../interfaces/fs.fsdiroptions.md) | Configuration object. |
+| `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -104,7 +104,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:256](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L256)
+[fs.ts:256](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L256)
 
 ___
 
@@ -119,7 +119,7 @@ Reads a file as byte array.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `filePath` | `string` | Path to the file. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -129,13 +129,13 @@ A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:118](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L118)
+[fs.ts:118](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L118)
 
 ___
 
 ### readDir
 
-▸ **readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.fileentry.md)[]\>
+▸ **readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
 
 List directory files.
 
@@ -144,17 +144,17 @@ List directory files.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `dir` | `string` | Path to the directory to read. |
-| `options` | [`FsDirOptions`](../interfaces/fs.fsdiroptions.md) | Configuration object. |
+| `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
 #### Returns
 
-`Promise`<[`FileEntry`](../interfaces/fs.fileentry.md)[]\>
+`Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
 
 A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:233](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L233)
+[fs.ts:233](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L233)
 
 ___
 
@@ -169,7 +169,7 @@ Reads a file as UTF-8 encoded string.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `filePath` | `string` | Path to the file. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -179,7 +179,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:97](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L97)
+[fs.ts:97](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L97)
 
 ___
 
@@ -195,7 +195,7 @@ If the directory is not empty and the `recursive` option isn't set to true, the 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `dir` | `string` | Path to the directory to remove. |
-| `options` | [`FsDirOptions`](../interfaces/fs.fsdiroptions.md) | Configuration object. |
+| `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -205,7 +205,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:278](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L278)
+[fs.ts:278](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L278)
 
 ___
 
@@ -220,7 +220,7 @@ Removes a file.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `file` | `string` | Path to the file to remove. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -230,7 +230,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:323](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L323)
+[fs.ts:323](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L323)
 
 ___
 
@@ -246,7 +246,7 @@ Renames a file.
 | :------ | :------ | :------ |
 | `oldPath` | `string` | A path of the file to rename. |
 | `newPath` | `string` | A path of the new file name. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -256,7 +256,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:345](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L345)
+[fs.ts:345](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L345)
 
 ___
 
@@ -270,8 +270,8 @@ Writes a binary file.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `file` | [`FsBinaryFileOption`](../interfaces/fs.fsbinaryfileoption.md) | Write configuration object. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `file` | [`FsBinaryFileOption`](../interfaces/fs.FsBinaryFileOption.md) | Write configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -281,7 +281,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:204](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L204)
+[fs.ts:204](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L204)
 
 ___
 
@@ -295,8 +295,8 @@ Writes a text file.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `file` | [`FsTextFileOption`](../interfaces/fs.fstextfileoption.md) | File configuration object. |
-| `options` | [`FsOptions`](../interfaces/fs.fsoptions.md) | Configuration object. |
+| `file` | [`FsTextFileOption`](../interfaces/fs.FsTextFileOption.md) | File configuration object. |
+| `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
 #### Returns
 
@@ -306,4 +306,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:139](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/fs.ts#L139)
+[fs.ts:139](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L139)

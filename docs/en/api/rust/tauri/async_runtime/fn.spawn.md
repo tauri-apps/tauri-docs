@@ -4,12 +4,18 @@ sidebar_label: fn.spawn
 custom_edit_url: null
 ---
 
-# Function tauri::async_runtime::spawn,\[−]\[src],\[−],−
+  # Function tauri::async_runtime::spawn,
 
 ```rs
-pub fn spawn<F>(task: F) where
+pub fn spawn<F>(task: F) -> JoinHandle<F::Output>ⓘ
+Notable traits for JoinHandle<T>
+impl<T> Future for JoinHandle<T>    type Output = Result<T>;
+ where
     F: Future + Send + 'static,
     F::Output: Send + 'static, 
 ```
 
-Spawn a future onto the runtime.
+Expand description
+
+Spawns a future onto the runtime.
+  

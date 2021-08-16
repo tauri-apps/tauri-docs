@@ -4,35 +4,37 @@ sidebar_label: struct.Receiver
 custom_edit_url: null
 ---
 
-# Struct tauri::async_runtime::Receiver,\[−],\[−],−
+  # Struct tauri::async_runtime::Receiver,
 
 ```rs
 pub struct Receiver<T> { /* fields omitted */ }
 ```
 
+Expand description
+
 Receive values from the associated `Sender`.
 
-Instances are created by the [`channel`](/docs/api/rust/tauri/../../tauri/async_runtime/fn.channel) function.
+Instances are created by the [`channel`](/docs/api/rust/tauri/fn.channel) function.
 
 This receiver can be turned into a `Stream` using [`ReceiverStream`](https://docs.rs/tokio-stream/0.1/tokio_stream/wrappers/struct.ReceiverStream.html).
 
 ## Implementations
 
-### `impl<T> Receiver<T>`
+### impl&lt;T> [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T>
 
-#### `pub async fn recv(&'_ mut self) -> Option<T>`
+#### pub async fn [recv](/docs/api/rust/tauri/about:blank#method.recv)(&'\_ mut self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;T>
 
 Receives the next value for this receiver.
 
-This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) is called.
+This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) is called.
 
-If there are no messages in the channel’s buffer, but the channel has not yet been closed, this method will sleep until a message is sent or the channel is closed. Note that if [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) is called, but there are still outstanding [`Permits`](/docs/api/rust/tauri/struct@crate::sync::mpsc::Permit) from before it was closed, the channel is not considered closed by `recv` until the permits are released.
+If there are no messages in the channel’s buffer, but the channel has not yet been closed, this method will sleep until a message is sent or the channel is closed. Note that if [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) is called, but there are still outstanding [`Permits`](/docs/api/rust/tauri/struct@crate::sync::mpsc::Permit) from before it was closed, the channel is not considered closed by `recv` until the permits are released.
 
-# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety)
+## Cancel safety
 
 This method is cancel safe. If `recv` is used as the event in a [`tokio::select!`](/docs/api/rust/tauri/crate::select) statement and some other branch completes first, it is guaranteed that no messages were received on this channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -69,23 +71,23 @@ async fn main() {
 }
 ```
 
-#### `pub fn blocking_recv(&mut self) -> Option<T>`
+#### pub fn [blocking_recv](/docs/api/rust/tauri/about:blank#method.blocking_recv)(&mut self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;T>
 
 Blocking receive to call outside of asynchronous contexts.
 
-This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) is called.
+This method returns `None` if the channel has been closed and there are no remaining messages in the channel’s buffer. This indicates that no further values can ever be received from this `Receiver`. The channel is closed when all senders have been dropped, or when [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) is called.
 
 If there are no messages in the channel’s buffer, but the channel has not yet been closed, this method will block until a message is sent or the channel is closed.
 
-This method is intended for use cases where you are sending from asynchronous code to synchronous code, and will work even if the sender is not using [`blocking_send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.blocking_send) to send the message.
+This method is intended for use cases where you are sending from asynchronous code to synchronous code, and will work even if the sender is not using [`blocking_send`](/docs/api/rust/tauri/struct.Sender#method.blocking_send) to send the message.
 
-Note that if [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) is called, but there are still outstanding [`Permits`](/docs/api/rust/tauri/struct@crate::sync::mpsc::Permit) from before it was closed, the channel is not considered closed by `blocking_recv` until the permits are released.
+Note that if [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) is called, but there are still outstanding [`Permits`](/docs/api/rust/tauri/struct@crate::sync::mpsc::Permit) from before it was closed, the channel is not considered closed by `blocking_recv` until the permits are released.
 
-# [Panics](/docs/api/rust/tauri/about:blank#panics)
+## Panics
 
 This function panics if called within an asynchronous execution context.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-1)
+## Examples
 
 ```rs
 use std::thread;
@@ -108,7 +110,7 @@ fn main() {
 }
 ```
 
-#### `pub fn close(&mut self)`
+#### pub fn [close](/docs/api/rust/tauri/about:blank#method.close)(&mut self)
 
 Closes the receiving half of a channel without dropping it.
 
@@ -116,7 +118,7 @@ This prevents any further messages from being sent on the channel while still en
 
 To guarantee that no messages are dropped, after calling `close()`, `recv()` must be called until `None` is returned. If there are outstanding [`Permit`](/docs/api/rust/tauri/Permit) or [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) values, the `recv` method will not return `None` until those are released.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-2)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -144,7 +146,7 @@ async fn main() {
 }
 ```
 
-#### `pub fn poll_recv(&mut self, cx: &mut Context<'_>) -> Poll<Option<T>>`
+#### pub fn [poll_recv](/docs/api/rust/tauri/about:blank#method.poll_recv)(&mut self, cx: &mut [Context](https://doc.rust-lang.org/1.54.0/core/task/wake/struct.Context.html "struct core::task::wake::Context")&lt;'\_>) -> [Poll](https://doc.rust-lang.org/1.54.0/core/task/poll/enum.Poll.html "enum core::task::poll::Poll")&lt;[Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;T>>
 
 Polls to receive the next message on this channel.
 
@@ -158,166 +160,77 @@ When the method returns `Poll::Pending`, the `Waker` in the provided `Context` i
 
 ## Trait Implementations
 
-### `impl<T> Debug for Receiver<T>`
+### impl&lt;T> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T>
 
-#### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
+#### pub fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, fmt: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), [Error](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Error.html "struct core::fmt::Error")>
 
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### `impl<T> Unpin for Receiver<T>`
+### impl&lt;T> [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T>
 
 ## Auto Trait Implementations
 
-### `impl<T> !RefUnwindSafe for Receiver<T>`
+### impl&lt;T> \&#33;[RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T>
 
-### `impl<T> Send for Receiver<T> where T: Send,`
+### impl&lt;T> [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T> where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<T> Sync for Receiver<T> where T: Send,`
+### impl&lt;T> [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T> where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<T> !UnwindSafe for Receiver<T>`
+### impl&lt;T> \&#33;[UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Receiver](/docs/api/rust/tauri/struct.Receiver "struct tauri::async_runtime::Receiver")&lt;T>
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `borrow`
-
-```rs
-pub fn borrow(&self) -> &T
-```
-
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
-
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-### `TryFrom`
-
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
-
-#### `pub fn vzip(self) -> V`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
+  

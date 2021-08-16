@@ -4,15 +4,17 @@ sidebar_label: macro.generate_handler
 custom_edit_url: null
 ---
 
-# Macro tauri::generate_handler,\[−],\[−],−
+  # Macro tauri::generate_handler,
 
 ```rs
 generate_handler!() { /* proc-macro */ }
 ```
 
+Expand description
+
 Accepts a list of commands functions. Creates a handler that allows commands to be called from JS with invoke().
 
-# [Example](/docs/api/rust/tauri/about:blank#example)
+## Example
 
 ⓘ
 
@@ -31,6 +33,7 @@ fn main() {
 }
 ```
 
-# [Stability](/docs/api/rust/tauri/about:blank#stability)
+## Stability
 
 The output of this macro is managed internally by Tauri, and should not be accessed directly on normal applications. It may have breaking changes in the future.
+  

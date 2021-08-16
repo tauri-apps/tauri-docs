@@ -3,95 +3,15 @@
     "label": "tauri",
     "type": "category",
     "items": [
+      "api/rust/tauri/index",
       {
         "label": "api",
         "type": "category",
         "items": [
           {
-            "label": "assets",
-            "type": "category",
-            "items": [
-              {
-                "label": "phf",
-                "type": "category",
-                "items": [
-                  {
-                    "label": "map",
-                    "type": "category",
-                    "items": [
-                      "api/rust/tauri/api/assets/phf/map/struct.Entries",
-                      "api/rust/tauri/api/assets/phf/map/struct.Keys",
-                      "api/rust/tauri/api/assets/phf/map/struct.Map",
-                      "api/rust/tauri/api/assets/phf/map/struct.Values"
-                    ]
-                  },
-                  {
-                    "label": "ordered_map",
-                    "type": "category",
-                    "items": [
-                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Entries",
-                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Keys",
-                      "api/rust/tauri/api/assets/phf/ordered_map/struct.OrderedMap",
-                      "api/rust/tauri/api/assets/phf/ordered_map/struct.Values"
-                    ]
-                  },
-                  {
-                    "label": "ordered_set",
-                    "type": "category",
-                    "items": [
-                      "api/rust/tauri/api/assets/phf/ordered_set/struct.Iter",
-                      "api/rust/tauri/api/assets/phf/ordered_set/struct.OrderedSet"
-                    ]
-                  },
-                  {
-                    "label": "set",
-                    "type": "category",
-                    "items": [
-                      "api/rust/tauri/api/assets/phf/set/struct.Iter",
-                      "api/rust/tauri/api/assets/phf/set/struct.Set"
-                    ]
-                  },
-                  "api/rust/tauri/api/assets/phf/struct.Map",
-                  "api/rust/tauri/api/assets/phf/struct.OrderedMap",
-                  "api/rust/tauri/api/assets/phf/struct.OrderedSet",
-                  "api/rust/tauri/api/assets/phf/struct.Set",
-                  "api/rust/tauri/api/assets/phf/trait.PhfHash",
-                  "api/rust/tauri/api/assets/phf/macro.phf_map",
-                  "api/rust/tauri/api/assets/phf/macro.phf_ordered_map",
-                  "api/rust/tauri/api/assets/phf/macro.phf_ordered_set",
-                  "api/rust/tauri/api/assets/phf/macro.phf_set"
-                ]
-              },
-              "api/rust/tauri/api/assets/struct.AssetKey",
-              "api/rust/tauri/api/assets/struct.EmbeddedAssets",
-              "api/rust/tauri/api/assets/trait.Assets"
-            ]
-          },
-          {
-            "label": "config",
-            "type": "category",
-            "items": [
-              "api/rust/tauri/api/config/enum.AppUrl",
-              "api/rust/tauri/api/config/enum.WindowUrl",
-              "api/rust/tauri/api/config/struct.BuildConfig",
-              "api/rust/tauri/api/config/struct.BundleConfig",
-              "api/rust/tauri/api/config/struct.CliArg",
-              "api/rust/tauri/api/config/struct.CliConfig",
-              "api/rust/tauri/api/config/struct.Config",
-              "api/rust/tauri/api/config/struct.PackageConfig",
-              "api/rust/tauri/api/config/struct.PluginConfig",
-              "api/rust/tauri/api/config/struct.SecurityConfig",
-              "api/rust/tauri/api/config/struct.SystemTrayConfig",
-              "api/rust/tauri/api/config/struct.TauriConfig",
-              "api/rust/tauri/api/config/struct.UpdaterConfig",
-              "api/rust/tauri/api/config/struct.WindowConfig"
-            ]
-          },
-          {
             "label": "dialog",
             "type": "category",
             "items": [
-              "api/rust/tauri/api/dialog/enum.AskResponse",
               "api/rust/tauri/api/dialog/fn.ask",
               "api/rust/tauri/api/dialog/fn.message"
             ]
@@ -131,14 +51,6 @@
               "api/rust/tauri/api/file/fn.read_string",
               "api/rust/tauri/api/file/struct.Extract",
               "api/rust/tauri/api/file/struct.Move"
-            ]
-          },
-          {
-            "label": "html",
-            "type": "category",
-            "items": [
-              "api/rust/tauri/api/html/fn.inject_csp",
-              "api/rust/tauri/api/html/fn.inject_invoke_key_token"
             ]
           },
           {
@@ -184,14 +96,6 @@
             ]
           },
           {
-            "label": "platform",
-            "type": "category",
-            "items": [
-              "api/rust/tauri/api/platform/fn.resource_dir",
-              "api/rust/tauri/api/platform/fn.target_triple"
-            ]
-          },
-          {
             "label": "process",
             "type": "category",
             "items": [
@@ -220,7 +124,6 @@
             ]
           },
           "api/rust/tauri/api/enum.Error",
-          "api/rust/tauri/api/struct.PackageInfo",
           "api/rust/tauri/api/type.Result"
         ]
       },
@@ -235,11 +138,16 @@
         "items": [
           "api/rust/tauri/async_runtime/fn.block_on",
           "api/rust/tauri/async_runtime/fn.channel",
+          "api/rust/tauri/async_runtime/fn.handle",
           "api/rust/tauri/async_runtime/fn.spawn",
+          "api/rust/tauri/async_runtime/struct.Handle",
+          "api/rust/tauri/async_runtime/struct.JoinHandle",
           "api/rust/tauri/async_runtime/struct.Mutex",
           "api/rust/tauri/async_runtime/struct.Receiver",
           "api/rust/tauri/async_runtime/struct.RwLock",
-          "api/rust/tauri/async_runtime/struct.Sender"
+          "api/rust/tauri/async_runtime/struct.Sender",
+          "api/rust/tauri/async_runtime/struct.TokioJoinHandle",
+          "api/rust/tauri/async_runtime/trait.RuntimeHandle"
         ]
       },
       {
@@ -285,13 +193,22 @@
         "label": "window",
         "type": "category",
         "items": [
+          {
+            "label": "menu",
+            "type": "category",
+            "items": []
+          },
+          "api/rust/tauri/window/struct.MenuEvent",
+          "api/rust/tauri/window/struct.MenuHandle",
           "api/rust/tauri/window/struct.Monitor",
           "api/rust/tauri/window/struct.Window"
         ]
       },
       "api/rust/tauri/enum.Error",
+      "api/rust/tauri/enum.Event",
       "api/rust/tauri/enum.Icon",
       "api/rust/tauri/enum.InvokeResponse",
+      "api/rust/tauri/enum.MenuItem",
       "api/rust/tauri/enum.Position",
       "api/rust/tauri/enum.Size",
       "api/rust/tauri/enum.UserAttentionType",
@@ -300,8 +217,10 @@
       "api/rust/tauri/struct.App",
       "api/rust/tauri/struct.AppHandle",
       "api/rust/tauri/struct.Builder",
+      "api/rust/tauri/struct.CloseRequestApi",
       "api/rust/tauri/struct.Config",
       "api/rust/tauri/struct.Context",
+      "api/rust/tauri/struct.CustomMenuItem",
       "api/rust/tauri/struct.GlobalWindowEvent",
       "api/rust/tauri/struct.Invoke",
       "api/rust/tauri/struct.InvokeError",
@@ -309,22 +228,26 @@
       "api/rust/tauri/struct.InvokeResolver",
       "api/rust/tauri/struct.LogicalPosition",
       "api/rust/tauri/struct.LogicalSize",
+      "api/rust/tauri/struct.Menu",
+      "api/rust/tauri/struct.MenuEvent",
       "api/rust/tauri/struct.PackageInfo",
       "api/rust/tauri/struct.PageLoadPayload",
+      "api/rust/tauri/struct.PathResolver",
       "api/rust/tauri/struct.PhysicalPosition",
       "api/rust/tauri/struct.PhysicalSize",
       "api/rust/tauri/struct.RunIteration",
       "api/rust/tauri/struct.State",
       "api/rust/tauri/struct.StateManager",
+      "api/rust/tauri/struct.Submenu",
       "api/rust/tauri/struct.WebviewAttributes",
+      "api/rust/tauri/struct.WindowMenuEvent",
       "api/rust/tauri/struct.Wry",
       "api/rust/tauri/trait.Assets",
+      "api/rust/tauri/trait.ClipboardManager",
+      "api/rust/tauri/trait.GlobalShortcutManager",
       "api/rust/tauri/trait.Manager",
-      "api/rust/tauri/trait.MenuId",
-      "api/rust/tauri/trait.Params",
       "api/rust/tauri/trait.Pixel",
-      "api/rust/tauri/trait.Tag",
-      "api/rust/tauri/trait.TagRef",
+      "api/rust/tauri/trait.Runtime",
       "api/rust/tauri/trait.WindowBuilder",
       "api/rust/tauri/type.InvokeHandler",
       "api/rust/tauri/type.OnPageLoad",

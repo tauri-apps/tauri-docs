@@ -29,9 +29,9 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Interfaces
 
-- [DialogFilter](../interfaces/dialog.dialogfilter.md)
-- [OpenDialogOptions](../interfaces/dialog.opendialogoptions.md)
-- [SaveDialogOptions](../interfaces/dialog.savedialogoptions.md)
+- [DialogFilter](../interfaces/dialog.DialogFilter.md)
+- [OpenDialogOptions](../interfaces/dialog.OpenDialogOptions.md)
+- [SaveDialogOptions](../interfaces/dialog.SaveDialogOptions.md)
 
 ## Functions
 
@@ -45,7 +45,7 @@ Open a file/directory selection dialog
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`OpenDialogOptions`](../interfaces/dialog.opendialogoptions.md) |
+| `options` | [`OpenDialogOptions`](../interfaces/dialog.OpenDialogOptions.md) |
 
 #### Returns
 
@@ -55,7 +55,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/dialog.ts#L69)
+[dialog.ts:73](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/dialog.ts#L73)
 
 ___
 
@@ -69,7 +69,7 @@ Open a file/directory save dialog.
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`SaveDialogOptions`](../interfaces/dialog.savedialogoptions.md) |
+| `options` | [`SaveDialogOptions`](../interfaces/dialog.SaveDialogOptions.md) |
 
 #### Returns
 
@@ -79,4 +79,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:90](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/dialog.ts#L90)
+[dialog.ts:94](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/dialog.ts#L94)

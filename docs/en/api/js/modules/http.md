@@ -28,30 +28,30 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Enumerations
 
-- [ResponseType](../enums/http.responsetype.md)
+- [ResponseType](../enums/http.ResponseType.md)
 
 ## Classes
 
-- [Body](../classes/http.body.md)
-- [Client](../classes/http.client.md)
-- [Response](../classes/http.response.md)
+- [Body](../classes/http.Body.md)
+- [Client](../classes/http.Client.md)
+- [Response](../classes/http.Response.md)
 
 ## Interfaces
 
-- [ClientOptions](../interfaces/http.clientoptions.md)
-- [HttpOptions](../interfaces/http.httpoptions.md)
+- [ClientOptions](../interfaces/http.ClientOptions.md)
+- [HttpOptions](../interfaces/http.HttpOptions.md)
 
 ## Type aliases
 
 ### FetchOptions
 
-Ƭ **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.httpoptions.md), ``"url"``\>
+Ƭ **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"url"``\>
 
 Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:124](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L124)
+[http.ts:124](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L124)
 
 ___
 
@@ -63,7 +63,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:99](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L99)
+[http.ts:99](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L99)
 
 ___
 
@@ -73,25 +73,25 @@ ___
 
 #### Defined in
 
-[http.ts:40](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L40)
+[http.ts:40](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L40)
 
 ___
 
 ### RequestOptions
 
-Ƭ **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.httpoptions.md), ``"method"`` \| ``"url"``\>
+Ƭ **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"method"`` \| ``"url"``\>
 
 Request options.
 
 #### Defined in
 
-[http.ts:122](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L122)
+[http.ts:122](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L122)
 
 ## Functions
 
 ### fetch
 
-▸ **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.response.md)<`T`\>\>
+▸ **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
@@ -110,19 +110,19 @@ Perform an HTTP request using the default client.
 
 #### Returns
 
-`Promise`<[`Response`](../classes/http.response.md)<`T`\>\>
+`Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 The response object.
 
 #### Defined in
 
-[http.ts:335](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L335)
+[http.ts:335](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L335)
 
 ___
 
 ### getClient
 
-▸ **getClient**(`options?`): `Promise`<[`Client`](../classes/http.client.md)\>
+▸ **getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
 
 Creates a new client using the specified options.
 
@@ -130,14 +130,14 @@ Creates a new client using the specified options.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | [`ClientOptions`](../interfaces/http.clientoptions.md) | Client configuration. |
+| `options?` | [`ClientOptions`](../interfaces/http.ClientOptions.md) | Client configuration. |
 
 #### Returns
 
-`Promise`<[`Client`](../classes/http.client.md)\>
+`Promise`<[`Client`](../classes/http.Client.md)\>
 
 A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:315](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/http.ts#L315)
+[http.ts:315](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/http.ts#L315)
