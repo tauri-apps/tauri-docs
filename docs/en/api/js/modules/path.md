@@ -11,7 +11,35 @@ hide_title: true
 
 ### BaseDirectory
 
-Re-exports: [BaseDirectory](../enums/fs.basedirectory.md)
+Re-exports: [BaseDirectory](../enums/fs.BaseDirectory.md)
+
+## Variables
+
+### delimiter
+
+• `Const` **delimiter**: ``";"`` \| ``":"``
+
+Provides the platform-specific path segment delimiter:
+- `;` on Windows
+- `:` on POSIX
+
+#### Defined in
+
+[path.ts:443](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L443)
+
+___
+
+### sep
+
+• `Const` **sep**: ``"\\"`` \| ``"/"``
+
+Provides the platform-specific path segment separator:
+- `\` on Windows
+- `/` on POSIX
+
+#### Defined in
+
+[path.ts:436](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L436)
 
 ## Functions
 
@@ -28,7 +56,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 #### Defined in
 
-[path.ts:36](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L36)
+[path.ts:36](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L36)
 
 ___
 
@@ -37,12 +65,12 @@ ___
 ▸ **audioDir**(): `Promise`<`string`\>
 
 Returns the path to the user's audio directory.
-# Linux
-Resolves to `$XDG_MUSIC_DIR`.
-# macOS
-Resolves to `$HOME/Music`.
-# Windows
-Resolves to `{FOLDERID_Music}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_MUSIC_DIR`.
+- **macOS:** Resolves to `$HOME/Music`.
+- **Windows:** Resolves to `{FOLDERID_Music}`.
 
 #### Returns
 
@@ -50,7 +78,30 @@ Resolves to `{FOLDERID_Music}`.
 
 #### Defined in
 
-[path.ts:58](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L58)
+[path.ts:58](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L58)
+
+___
+
+### basename
+
+▸ **basename**(`path`, `ext?`): `Promise`<`string`\>
+
+ Returns the last portion of a `path`. Trailing directory separators are ignored.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `path` | `string` | - |
+| `ext?` | `string` | An optional file extension to be removed from the returned path. |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:519](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L519)
 
 ___
 
@@ -59,12 +110,12 @@ ___
 ▸ **cacheDir**(): `Promise`<`string`\>
 
 Returns the path to the user's cache directory.
-# Linux
-Resolves to `$XDG_CACHE_HOME` or `$HOME/.cache`.
-# macOS
-Resolves to `$HOME/Library/Caches`.
-# Windows
-Resolves to `{FOLDERID_LocalAppData}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_CACHE_HOME` or `$HOME/.cache`.
+- **macOS:** Resolves to `$HOME/Library/Caches`.
+- **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Returns
 
@@ -72,7 +123,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:80](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L80)
+[path.ts:80](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L80)
 
 ___
 
@@ -81,12 +132,12 @@ ___
 ▸ **configDir**(): `Promise`<`string`\>
 
 Returns the path to the user's config directory.
-# Linux
-Resolves to `$XDG_CONFIG_HOME` or `$HOME/.config`.
-# macOS
-Resolves to `$HOME/Library/Application Support`.
-# Windows
-Resolves to `{FOLDERID_LocalAppData}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_CONFIG_HOME` or `$HOME/.config`.
+- **macOS:** Resolves to `$HOME/Library/Application Support`.
+- **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Returns
 
@@ -94,7 +145,7 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:102](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L102)
+[path.ts:102](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L102)
 
 ___
 
@@ -110,7 +161,7 @@ Returns the path to the current working directory.
 
 #### Defined in
 
-[path.ts:420](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L420)
+[path.ts:420](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L420)
 
 ___
 
@@ -119,12 +170,12 @@ ___
 ▸ **dataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's data directory.
-# Linux
-Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
-# macOS
-Resolves to `$HOME/Library/Application Support`.
-# Windows
-Resolves to `{FOLDERID_RoamingAppData}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
+- **macOS:** Resolves to `$HOME/Library/Application Support`.
+- **Windows:** Resolves to `{FOLDERID_RoamingAppData}`.
 
 #### Returns
 
@@ -132,7 +183,7 @@ Resolves to `{FOLDERID_RoamingAppData}`.
 
 #### Defined in
 
-[path.ts:124](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L124)
+[path.ts:124](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L124)
 
 ___
 
@@ -141,12 +192,12 @@ ___
 ▸ **desktopDir**(): `Promise`<`string`\>
 
 Returns the path to the user's desktop directory.
-# Linux
-Resolves to `$XDG_DESKTOP_DIR`.
-# macOS
-Resolves to `$HOME/Library/Desktop`.
-# Windows
-Resolves to `{FOLDERID_Desktop}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_DESKTOP_DIR`.
+- **macOS:** Resolves to `$HOME/Library/Desktop`.
+- **Windows:** Resolves to `{FOLDERID_Desktop}`.
 
 #### Returns
 
@@ -154,7 +205,29 @@ Resolves to `{FOLDERID_Desktop}`.
 
 #### Defined in
 
-[path.ts:146](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L146)
+[path.ts:146](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L146)
+
+___
+
+### dirname
+
+▸ **dirname**(`path`): `Promise`<`string`\>
+
+Returns the directory name of a `path`. Trailing directory separators are ignored.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:491](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L491)
 
 ___
 
@@ -163,12 +236,12 @@ ___
 ▸ **documentDir**(): `Promise`<`string`\>
 
 Returns the path to the user's document directory.
-# Linux
-Resolves to `$XDG_DOCUMENTS_DIR`.
-# macOS
-Resolves to `$HOME/Documents`.
-# Windows
-Resolves to `{FOLDERID_Documents}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_DOCUMENTS_DIR`.
+- **macOS:** Resolves to `$HOME/Documents`.
+- **Windows:** Resolves to `{FOLDERID_Documents}`.
 
 #### Returns
 
@@ -176,7 +249,7 @@ Resolves to `{FOLDERID_Documents}`.
 
 #### Defined in
 
-[path.ts:168](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L168)
+[path.ts:168](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L168)
 
 ___
 
@@ -185,12 +258,12 @@ ___
 ▸ **downloadDir**(): `Promise`<`string`\>
 
 Returns the path to the user's download directory.
-# Linux
-Resolves to `$XDG_DOWNLOAD_DIR`.
-# macOS
-Resolves to `$HOME/Downloads`.
-# Windows
-Resolves to `{FOLDERID_Downloads}`.
+
+## Platform-specific
+
+- **Linux**: Resolves to `$XDG_DOWNLOAD_DIR`.
+- **macOS**: Resolves to `$HOME/Downloads`.
+- **Windows**: Resolves to `{FOLDERID_Downloads}`.
 
 #### Returns
 
@@ -198,7 +271,7 @@ Resolves to `{FOLDERID_Downloads}`.
 
 #### Defined in
 
-[path.ts:190](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L190)
+[path.ts:190](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L190)
 
 ___
 
@@ -207,12 +280,12 @@ ___
 ▸ **executableDir**(): `Promise`<`string`\>
 
 Returns the path to the user's executable directory.
-# Linux
-Resolves to `$XDG_BIN_HOME/../bin` or `$XDG_DATA_HOME/../bin` or `$HOME/.local/bin`.
-# macOS
-Not supported.
-# Windows
-Not supported.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_BIN_HOME/../bin` or `$XDG_DATA_HOME/../bin` or `$HOME/.local/bin`.
+- **macOS:** Not supported.
+- **Windows:** Not supported.
 
 #### Returns
 
@@ -220,7 +293,29 @@ Not supported.
 
 #### Defined in
 
-[path.ts:212](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L212)
+[path.ts:212](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L212)
+
+___
+
+### extname
+
+▸ **extname**(`path`): `Promise`<`string`\>
+
+Returns the extension of the `path`.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:504](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L504)
 
 ___
 
@@ -229,12 +324,12 @@ ___
 ▸ **fontDir**(): `Promise`<`string`\>
 
 Returns the path to the user's font directory.
-# Linux
-Resolves to `$XDG_DATA_HOME/fonts` or `$HOME/.local/share/fonts`.
-# macOS
-Resolves to `$HOME/Library/Fonts`.
-# Windows
-Not supported.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_DATA_HOME/fonts` or `$HOME/.local/share/fonts`.
+- **macOS:** Resolves to `$HOME/Library/Fonts`.
+- **Windows:** Not supported.
 
 #### Returns
 
@@ -242,7 +337,7 @@ Not supported.
 
 #### Defined in
 
-[path.ts:234](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L234)
+[path.ts:234](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L234)
 
 ___
 
@@ -251,12 +346,12 @@ ___
 ▸ **homeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's home directory.
-# Linux
-Resolves to `$HOME`.
-# macOS
-Resolves to `$HOME`.
-# Windows
-Resolves to `{FOLDERID_Profile}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$HOME`.
+- **macOS:** Resolves to `$HOME`.
+- **Windows:** Resolves to `{FOLDERID_Profile}`.
 
 #### Returns
 
@@ -264,7 +359,49 @@ Resolves to `{FOLDERID_Profile}`.
 
 #### Defined in
 
-[path.ts:256](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L256)
+[path.ts:256](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L256)
+
+___
+
+### isAbsolute
+
+▸ **isAbsolute**(`path`): `Promise`<`boolean`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+#### Defined in
+
+[path.ts:530](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L530)
+
+___
+
+### join
+
+▸ **join**(...`paths`): `Promise`<`string`\>
+
+ Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `...paths` | `string`[] | A sequence of path segments. |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:478](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L478)
 
 ___
 
@@ -273,12 +410,12 @@ ___
 ▸ **localDataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's local data directory.
-# Linux
-Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
-# macOS
-Resolves to `$HOME/Library/Application Support`.
-# Windows
-Resolves to `{FOLDERID_LocalAppData}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
+- **macOS:** Resolves to `$HOME/Library/Application Support`.
+- **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Returns
 
@@ -286,7 +423,29 @@ Resolves to `{FOLDERID_LocalAppData}`.
 
 #### Defined in
 
-[path.ts:278](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L278)
+[path.ts:278](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L278)
+
+___
+
+### normalize
+
+▸ **normalize**(`path`): `Promise`<`string`\>
+
+Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:463](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L463)
 
 ___
 
@@ -295,12 +454,12 @@ ___
 ▸ **pictureDir**(): `Promise`<`string`\>
 
 Returns the path to the user's picture directory.
-# Linux
-Resolves to `$XDG_PICTURES_DIR`.
-# macOS
-Resolves to `$HOME/Pictures`.
-# Windows
-Resolves to `{FOLDERID_Pictures}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_PICTURES_DIR`.
+- **macOS:** Resolves to `$HOME/Pictures`.
+- **Windows:** Resolves to `{FOLDERID_Pictures}`.
 
 #### Returns
 
@@ -308,7 +467,7 @@ Resolves to `{FOLDERID_Pictures}`.
 
 #### Defined in
 
-[path.ts:300](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L300)
+[path.ts:300](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L300)
 
 ___
 
@@ -317,12 +476,12 @@ ___
 ▸ **publicDir**(): `Promise`<`string`\>
 
 Returns the path to the user's public directory.
-# Linux
-Resolves to `$XDG_PUBLICSHARE_DIR`.
-# macOS
-Resolves to `$HOME/Public`.
-# Windows
-Resolves to `{FOLDERID_Public}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_PUBLICSHARE_DIR`.
+- **macOS:** Resolves to `$HOME/Public`.
+- **Windows:** Resolves to `{FOLDERID_Public}`.
 
 #### Returns
 
@@ -330,32 +489,29 @@ Resolves to `{FOLDERID_Public}`.
 
 #### Defined in
 
-[path.ts:322](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L322)
+[path.ts:322](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L322)
 
 ___
 
-### resolvePath
+### resolve
 
-▸ **resolvePath**(`path`, `directory`): `Promise`<`string`\>
+▸ **resolve**(...`paths`): `Promise`<`string`\>
 
-Resolves the path with the optional base directory.
+Resolves a sequence of `paths` or `path` segments into an absolute path.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `path` | `string` | A path to resolve |
-| `directory` | [`BaseDirectory`](../enums/fs.basedirectory.md) | A base directory to use when resolving the given path |
+| `...paths` | `string`[] | A sequence of paths or path segments. |
 
 #### Returns
 
 `Promise`<`string`\>
 
-A path resolved to the given base directory.
-
 #### Defined in
 
-[path.ts:438](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L438)
+[path.ts:450](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L450)
 
 ___
 
@@ -371,7 +527,7 @@ Returns the path to the user's resource directory.
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L338)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -380,12 +536,12 @@ ___
 ▸ **runtimeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's runtime directory.
-# Linux
-Resolves to `$XDG_RUNTIME_DIR`.
-# macOS
-Not supported.
-# Windows
-Not supported.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_RUNTIME_DIR`.
+- **macOS:** Not supported.
+- **Windows:** Not supported.
 
 #### Returns
 
@@ -393,7 +549,7 @@ Not supported.
 
 #### Defined in
 
-[path.ts:360](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L360)
+[path.ts:360](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L360)
 
 ___
 
@@ -402,12 +558,12 @@ ___
 ▸ **templateDir**(): `Promise`<`string`\>
 
 Returns the path to the user's template directory.
-# Linux
-Resolves to `$XDG_TEMPLATES_DIR`.
-# macOS
-Not supported.
-# Windows
-Resolves to `{FOLDERID_Templates}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_TEMPLATES_DIR`.
+- **macOS:** Not supported.
+- **Windows:** Resolves to `{FOLDERID_Templates}`.
 
 #### Returns
 
@@ -415,7 +571,7 @@ Resolves to `{FOLDERID_Templates}`.
 
 #### Defined in
 
-[path.ts:382](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L382)
+[path.ts:382](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L382)
 
 ___
 
@@ -424,12 +580,12 @@ ___
 ▸ **videoDir**(): `Promise`<`string`\>
 
 Returns the path to the user's video directory.
-# Linux
-Resolves to `$XDG_VIDEOS_DIR`.
-# macOS
-Resolves to `$HOME/Movies`.
-# Windows
-Resolves to `{FOLDERID_Videos}`.
+
+## Platform-specific
+
+- **Linux:** Resolves to `$XDG_VIDEOS_DIR`.
+- **macOS:** Resolves to `$HOME/Movies`.
+- **Windows:** Resolves to `{FOLDERID_Videos}`.
 
 #### Returns
 
@@ -437,4 +593,4 @@ Resolves to `{FOLDERID_Videos}`.
 
 #### Defined in
 
-[path.ts:404](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/path.ts#L404)
+[path.ts:404](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/path.ts#L404)

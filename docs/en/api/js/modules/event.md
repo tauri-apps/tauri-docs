@@ -13,13 +13,13 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 ## Interfaces
 
-- [Event](../interfaces/event.event-1.md)
+- [Event](../interfaces/event.Event.md)
 
 ## Type aliases
 
 ### EventCallback
 
-Ƭ **EventCallback**<`T`\>: (`event`: [`Event`](../interfaces/event.event-1.md)<`T`\>) => `void`
+Ƭ **EventCallback**<`T`\>: (`event`: [`Event`](../interfaces/event.Event.md)<`T`\>) => `void`
 
 #### Type parameters
 
@@ -35,7 +35,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 | Name | Type |
 | :------ | :------ |
-| `event` | [`Event`](../interfaces/event.event-1.md)<`T`\> |
+| `event` | [`Event`](../interfaces/event.Event.md)<`T`\> |
 
 ##### Returns
 
@@ -43,17 +43,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[event.ts:43](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L43)
+[event.ts:45](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L45)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: ``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://destroyed"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"`` \| `string`
+Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://destroyed"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
 
 #### Defined in
 
-[event.ts:25](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L25)
+[event.ts:26](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L26)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[event.ts:45](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L45)
+[event.ts:47](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L47)
 
 ## Functions
 
@@ -94,7 +94,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:111](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L111)
+[event.ts:113](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L113)
 
 ___
 
@@ -125,7 +125,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:71](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L71)
+[event.ts:73](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L73)
 
 ___
 
@@ -156,4 +156,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:94](https://github.com/tauri-apps/tauri/blob/af634db/tooling/api/src/event.ts#L94)
+[event.ts:96](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/event.ts#L96)

@@ -4,10 +4,18 @@ sidebar_label: fn.ask
 custom_edit_url: null
 ---
 
-# Function tauri::api::dialog::ask,\[−]\[src],\[−],−
+  # Function tauri::api::dialog::ask,
 
 ```rs
-pub fn ask(title: impl AsRef<str>, message: impl AsRef<str>) -> AskResponse
+pub fn ask<R: Runtime, F: FnOnce(bool) + Send + 'static>(
+    parent_window: Option<&Window<R>>, 
+    title: impl AsRef<str>, 
+    message: impl AsRef<str>, 
+    f: F
+)
 ```
 
-Displays a dialog with a message and an optional title with a “yes” and a “no” button
+Expand description
+
+Displays a dialog with a message and an optional title with a “yes” and a “no” button.
+  

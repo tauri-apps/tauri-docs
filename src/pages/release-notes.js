@@ -18,6 +18,11 @@ const packagesData = [
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
   },
   {
+    label: 'API',
+    value: 'api',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
+  },
+  {
     label: 'CLI',
     value: 'cli.rs',
     changelogUrl:

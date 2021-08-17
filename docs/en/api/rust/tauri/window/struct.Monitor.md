@@ -4,340 +4,149 @@ sidebar_label: struct.Monitor
 custom_edit_url: null
 ---
 
-# Struct tauri::window::Monitor,\[−]\[src],\[−],−
+  # Struct tauri::window::Monitor,
 
 ```rs
 pub struct Monitor { /* fields omitted */ }
 ```
 
+Expand description
+
 Monitor descriptor.
 
 ## Implementations
 
-### `Monitor`
+### impl [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#58-79 "goto source code")
 
-```rs
-impl Monitor
-```
-
-_Defined in: [window.rs:62-83](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L62-83)_
-
-#### `name`
-
-```rs
-pub fn name(&self) -> Option<&String>
-```
+#### pub fn [name](/docs/api/rust/tauri/about:blank#method.name)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;&[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#61-63 "goto source code")
 
 Returns a human-readable name of the monitor. Returns None if the monitor doesn’t exist anymore.
 
-_Defined in: [window.rs:65-67](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L65-67)_
-
-#### `size`
-
-```rs
-pub fn size(&self) -> &PhysicalSize<u32>
-```
+#### pub fn [size](/docs/api/rust/tauri/about:blank#method.size)(&self) -> &[PhysicalSize](/docs/api/rust/tauri/../struct.PhysicalSize "struct tauri::PhysicalSize")&lt;[u32](https://doc.rust-lang.org/1.54.0/std/primitive.u32.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#66-68 "goto source code")
 
 Returns the monitor’s resolution.
 
-_Defined in: [window.rs:70-72](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L70-72)_
-
-#### `position`
-
-```rs
-pub fn position(&self) -> &PhysicalPosition<i32>
-```
+#### pub fn [position](/docs/api/rust/tauri/about:blank#method.position)(&self) -> &[PhysicalPosition](/docs/api/rust/tauri/../struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;[i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#71-73 "goto source code")
 
 Returns the top-left corner position of the monitor relative to the larger full screen area.
 
-_Defined in: [window.rs:75-77](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L75-77)_
-
-#### `scale_factor`
-
-```rs
-pub fn scale_factor(&self) -> f64
-```
+#### pub fn [scale_factor](/docs/api/rust/tauri/about:blank#method.scale_factor)(&self) -> [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#76-78 "goto source code")
 
 Returns the scale factor that can be used to map logical pixels to physical pixels, and vice versa.
 
-_Defined in: [window.rs:80-82](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L80-82)_
-
 ## Trait Implementations
 
-### `Clone`
+### impl [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-```rs
-impl Clone for Monitor
-```
+#### fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `clone`
+#### fn [clone_from](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)(&mut self, source: [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)Self)1.0.0[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/clone.rs.html#130 "goto source code")
 
-```rs
-fn clone(&self) -> Monitor
-```
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+### impl [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-#### `clone_from`
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
-```rs
-pub fn clone_from(&mut self, source: &Self)
-```
+### impl [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;Monitor> for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#47-56 "goto source code")
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
-
-_Defined in: [clone.rs:130](https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130)_
-
-### `Debug`
-
-```rs
-impl Debug for Monitor
-```
-
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
-
-#### `fmt`
-
-```rs
-fn fmt(&self, f: &mut Formatter<'_>) -> Result
-```
-
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
-
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
-
-### `From`
-
-```rs
-impl From<Monitor> for Monitor
-```
-
-_Defined in: [window.rs:51-60](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L51-60)_
-
-#### `from`
-
-```rs
-fn from(monitor: RuntimeMonitor) -> Self
-```
+#### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(monitor: RuntimeMonitor) -> Self[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#48-55 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [window.rs:52-59](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L52-59)_
+### impl [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-### `Serialize`
+#### fn [serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>(&self, \_\_serializer: \_\_S) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;\_\_S::[Ok](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), \_\_S::[Error](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#38 "goto source code")
 
-```rs
-impl Serialize for Monitor
-```
-
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
-
-#### `serialize`
-
-```rs
-fn serialize<__S>(&self, __serializer: __S) -> Result<__S::Ok, __S::Error> where
-    __S: Serializer, 
-```
-
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.126/serde/ser/trait.Serialize.html#tymethod.serialize)
-
-_Defined in: [window.rs:42](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/window.rs#L42)_
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 
-### `impl RefUnwindSafe for Monitor`
+### impl [RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")
 
-### `impl Send for Monitor`
+### impl [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")
 
-### `impl Sync for Monitor`
+### impl [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")
 
-### `impl Unpin for Monitor`
+### impl [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")
 
-### `impl UnwindSafe for Monitor`
+### impl [UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Monitor](/docs/api/rust/tauri/struct.Monitor "struct tauri::window::Monitor")
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `borrow`
-
-```rs
-pub fn borrow(&self) -> &T
-```
-
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
-
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T> [ToOwned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where T: [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#84-96 "goto source code")
 
-### `ToOwned`
-
-```rs
-impl<T> ToOwned for T where
-    T: Clone, 
-```
-
-_Defined in: [borrow.rs:81-93](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#81-93)_
-
-#### `type Owned = T`
+#### type [Owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T
 
 The resulting type after obtaining ownership.
 
-#### `to_owned`
+#### pub fn [to_owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)(&self) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#89 "goto source code")
 
-```rs
-pub fn to_owned(&self) -> T
-```
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-_Defined in: [borrow.rs:86](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86)_
-
-#### `clone_into`
-
-```rs
-pub fn clone_into(&self, target: &mut T)
-```
-
-_Defined in: [borrow.rs:90](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90)_
+#### pub fn [clone_into](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)(&self, target: [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T)[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#93 "goto source code")
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
-### `TryFrom`
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
-
-#### `pub fn vzip(self) -> V`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
+  

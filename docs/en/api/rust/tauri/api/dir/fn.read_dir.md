@@ -4,7 +4,7 @@ sidebar_label: fn.read_dir
 custom_edit_url: null
 ---
 
-# Function tauri::api::dir::read_dir,\[−]\[src],\[−],−
+  # Function tauri::api::dir::read_dir,
 
 ```rs
 pub fn read_dir<P: AsRef<Path>>(
@@ -13,4 +13,7 @@ pub fn read_dir<P: AsRef<Path>>(
 ) -> Result<Vec<DiskEntry>>
 ```
 
+Expand description
+
 Reads a directory. Can perform recursive operations.
+  

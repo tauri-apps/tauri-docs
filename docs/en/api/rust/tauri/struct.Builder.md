@@ -4,112 +4,55 @@ sidebar_label: struct.Builder
 custom_edit_url: null
 ---
 
-# Struct tauri::Builder,\[−]\[src],\[−],−
+  # Struct tauri::Builder,
 
 ```rs
-pub struct Builder<E, L, MID, TID, A, R> where
-    E: Tag,
-    L: Tag,
-    MID: MenuId,
-    TID: MenuId,
-    A: Assets,
-    R: Runtime,  { /* fields omitted */ }
+pub struct Builder<R: Runtime> { /* fields omitted */ }
 ```
+
+Expand description
 
 Builds a Tauri application.
 
 ## Implementations
 
-### `Builder`
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#587-1038 "goto source code")
 
-```rs
-impl<E, L, MID, TID, A, R> Builder<E, L, MID, TID, A, R> where
-    E: Tag,
-    L: Tag,
-    MID: MenuId,
-    TID: MenuId,
-    A: Assets,
-    R: Runtime, 
-```
-
-_Defined in: [app.rs:415-877](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L415-877)_
-
-#### `new`
-
-```rs
-pub fn new() -> Self
-```
+#### pub fn [new](/docs/api/rust/tauri/about:blank#method.new)() -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#589-606 "goto source code")
 
 Creates a new App builder.
 
-_Defined in: [app.rs:425-444](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L425-444)_
-
-#### `invoke_handler`
-
-```rs
-pub fn invoke_handler<F>(self, invoke_handler: F) -> Self where
-    F: Fn(Invoke<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static, 
-```
+#### pub fn [invoke_handler](/docs/api/rust/tauri/about:blank#method.invoke_handler)&lt;F>(self, invoke_handler: F) -> Self where F: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")([Invoke](/docs/api/rust/tauri/struct.Invoke "struct tauri::Invoke")&lt;R>) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#609-615 "goto source code")
 
 Defines the JS message handler callback.
 
-_Defined in: [app.rs:447-453](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L447-453)_
-
-#### `setup`
-
-```rs
-pub fn setup<F>(self, setup: F) -> Self where
-    F: Fn(&mut App<Args<E, L, MID, TID, A, R>>) -> Result<(), Box<dyn Error + Send>> + Send + 'static, 
-```
+#### pub fn [setup](/docs/api/rust/tauri/about:blank#method.setup)&lt;F>(self, setup: F) -> Self where F: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")(&mut [App](/docs/api/rust/tauri/struct.App "struct tauri::App")&lt;R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), [Box](https://doc.rust-lang.org/1.54.0/alloc/boxed/struct.Box.html "struct alloc::boxed::Box")&lt;dyn [Error](https://doc.rust-lang.org/1.54.0/std/error/trait.Error.html "trait std::error::Error") + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#618-624 "goto source code")
 
 Defines the setup hook.
 
-_Defined in: [app.rs:456-464](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L456-464)_
-
-#### `on_page_load`
-
-```rs
-pub fn on_page_load<F>(self, on_page_load: F) -> Self where
-    F: Fn(Window<Args<E, L, MID, TID, A, R>>, PageLoadPayload) + Send + Sync + 'static, 
-```
+#### pub fn [on_page_load](/docs/api/rust/tauri/about:blank#method.on_page_load)&lt;F>(self, on_page_load: F) -> Self where F: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")([Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>, [PageLoadPayload](/docs/api/rust/tauri/struct.PageLoadPayload "struct tauri::PageLoadPayload")) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#627-633 "goto source code")
 
 Defines the page load hook.
 
-_Defined in: [app.rs:467-473](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L467-473)_
-
-#### `plugin`
-
-```rs
-pub fn plugin<P: Plugin<Args<E, L, MID, TID, A, R>> + 'static>(
-    self, 
-    plugin: P
-) -> Self
-```
+#### pub fn [plugin](/docs/api/rust/tauri/about:blank#method.plugin)&lt;P: [Plugin](/docs/api/rust/tauri/plugin/trait.Plugin "trait tauri::plugin::Plugin")&lt;R> + 'static>(self, plugin: P) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#636-639 "goto source code")
 
 Adds a plugin to the runtime.
 
-_Defined in: [app.rs:476-479](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L476-479)_
-
-#### `manage`
-
-```rs
-pub fn manage<T>(self, state: T) -> Self where
-    T: Send + Sync + 'static, 
-```
+#### pub fn [manage](/docs/api/rust/tauri/about:blank#method.manage)&lt;T>(self, state: T) -> Self where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#716-726 "goto source code")
 
 Add `state` to the state managed by the application.
 
 This method can be called any number of times as long as each call refers to a different `T`.
 
-Managed state can be retrieved by any request handler via the [`State`](/docs/api/rust/tauri/../tauri/struct.State) request guard. In particular, if a value of type `T` is managed by Tauri, adding `State<T>` to the list of arguments in a request handler instructs Tauri to retrieve the managed value.
+Managed state can be retrieved by any request handler via the [`State`](/docs/api/rust/tauri/struct.State) request guard. In particular, if a value of type `T` is managed by Tauri, adding `State<T>` to the list of arguments in a request handler instructs Tauri to retrieve the managed value.
 
-# [Panics](/docs/api/rust/tauri/about:blank#panics)
+## Panics
 
 Panics if state of type `T` is already being managed.
 
-# [Mutability](/docs/api/rust/tauri/about:blank#mutability)
+## Mutability
 
-Since the managed state is global and must be [`Send`](https://doc.rust-lang.org/nightly/core/marker/trait.Send.html "Send") + [`Sync`](https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html "Sync"), mutations can only happen through interior mutability:
+Since the managed state is global and must be [`Send`](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "Send") + [`Sync`](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "Sync"), mutations can only happen through interior mutability:
 
 ⓘ
 
@@ -144,7 +87,7 @@ fn main() {
 }
 ```
 
-# [Example](/docs/api/rust/tauri/about:blank#example)
+## Example
 
 ⓘ
 
@@ -175,250 +118,114 @@ fn main() {
 }
 ```
 
-_Defined in: [app.rs:556-566](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L556-566)_
-
-#### `create_window`
-
-```rs
-pub fn create_window<F>(self, label: L, url: WindowUrl, setup: F) -> Self where
-    F: FnOnce(<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes) -> (<R::Dispatcher as Dispatch>::WindowBuilder, WebviewAttributes), 
-```
+#### pub fn [create_window](/docs/api/rust/tauri/about:blank#method.create_window)&lt;F>( self, label: impl [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>, url: [WindowUrl](/docs/api/rust/tauri/enum.WindowUrl "enum tauri::WindowUrl"), setup: F ) -> Self where F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")(&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")) -> [(](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html)&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")[)](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html),[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#729-749 "goto source code")
 
 Creates a new webview window.
 
-_Defined in: [app.rs:569-589](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L569-589)_
+#### pub fn [menu](/docs/api/rust/tauri/about:blank#method.menu)(self, menu: [Menu](/docs/api/rust/tauri/struct.Menu "struct tauri::Menu")) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#760-763 "goto source code")
 
-#### `on_window_event`
+Sets the menu to use on all windows.
 
-```rs
-pub fn on_window_event<F: Fn(GlobalWindowEvent<Args<E, L, MID, TID, A, R>>) + Send + Sync + 'static>(
-    self, 
-    handler: F
-) -> Self
-```
+#### pub fn [on_menu_event](/docs/api/rust/tauri/about:blank#method.on_menu_event)&lt;F: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")([WindowMenuEvent](/docs/api/rust/tauri/struct.WindowMenuEvent "struct tauri::WindowMenuEvent")&lt;R>) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static>( self, handler: F ) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#766-772 "goto source code")
+
+Registers a menu event handler for all windows.
+
+#### pub fn [on_window_event](/docs/api/rust/tauri/about:blank#method.on_window_event)&lt;F: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")([GlobalWindowEvent](/docs/api/rust/tauri/struct.GlobalWindowEvent "struct tauri::GlobalWindowEvent")&lt;R>) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static>( self, handler: F ) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#775-781 "goto source code")
 
 Registers a window event handler for all windows.
 
-_Defined in: [app.rs:621-629](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L621-629)_
-
-#### `register_global_uri_scheme_protocol`
-
-```rs
-pub fn register_global_uri_scheme_protocol<N: Into<String>, H: Fn(&str) -> Result<Vec<u8>, Box<dyn Error>> + Send + Sync + 'static>(
-    self, 
-    uri_scheme: N, 
-    protocol: H
-) -> Self
-```
+#### pub fn [register_global_uri_scheme_protocol](/docs/api/rust/tauri/about:blank#method.register_global_uri_scheme_protocol)&lt;N: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>, H: [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")(&[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[Vec](https://doc.rust-lang.org/1.54.0/alloc/vec/struct.Vec.html "struct alloc::vec::Vec")&lt;[u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)>, [Box](https://doc.rust-lang.org/1.54.0/alloc/boxed/struct.Box.html "struct alloc::boxed::Box")&lt;dyn [Error](https://doc.rust-lang.org/1.54.0/std/error/trait.Error.html "trait std::error::Error")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") + 'static>( self, uri_scheme: N, protocol: H ) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#805-820 "goto source code")
 
 Registers a URI scheme protocol available to all webviews. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
 
-# [Arguments](/docs/api/rust/tauri/about:blank#arguments)
+## Arguments
 
 -   `uri_scheme` The URI scheme to register, such as `example`.
 -   `protocol` the protocol associated with the given URI scheme. It’s a function that takes an URL such as `example://localhost/asset.css`.
 
-_Defined in: [app.rs:653-668](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L653-668)_
-
-#### `build`
-
-```rs
-pub fn build(
-    self, 
-    context: Context<A>
-) -> Result<App<Args<E, L, MID, TID, A, R>>>
-```
+#### pub fn [build](/docs/api/rust/tauri/about:blank#method.build)&lt;A: [Assets](/docs/api/rust/tauri/trait.Assets "trait tauri::Assets")>(self, context: [Context](/docs/api/rust/tauri/struct.Context "struct tauri::Context")&lt;A>) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[App](/docs/api/rust/tauri/struct.App "struct tauri::App")&lt;R>>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#824-1031 "goto source code")
 
 Builds the application.
 
-_Defined in: [app.rs:672-854](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L672-854)_
-
-#### `run`
-
-```rs
-pub fn run(self, context: Context<A>) -> Result<()>
-```
+#### pub fn [run](/docs/api/rust/tauri/about:blank#method.run)&lt;A: [Assets](/docs/api/rust/tauri/trait.Assets "trait tauri::Assets")>(self, context: [Context](/docs/api/rust/tauri/struct.Context "struct tauri::Context")&lt;A>) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#1034-1037 "goto source code")
 
 Runs the configured Tauri application.
 
-_Defined in: [app.rs:857-876](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L857-876)_
-
 ## Trait Implementations
 
-### `Assets`
-
-```rs
-impl<A: Assets> Default for Builder<String, String, String, String, A, Wry>
-```
+### impl [Default](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html "trait core::default::Default") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;[Wry](/docs/api/rust/tauri/struct.Wry "struct tauri::Wry")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#1049-1053 "goto source code")
 
 Make `Wry` the default `Runtime` for `Builder`
 
-_Defined in: [app.rs:887-891](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L887-891)_
+#### fn [default](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html#tymethod.default)() -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#1050-1052 "goto source code")
 
-#### `default`
-
-```rs
-fn default() -> Self
-```
-
-Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default)
-
-_Defined in: [app.rs:888-890](https://github.com/tauri-apps/tauri/blob/af634db/core/tauri/src/app.rs#L888-890)_
+Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html#tymethod.default)
 
 ## Auto Trait Implementations
 
-### `impl<E, L, MID, TID, A, R> !RefUnwindSafe for Builder<E, L, MID, TID, A, R>`
+### impl&lt;R> \&#33;[RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R>
 
-### `impl<E, L, MID, TID, A, R> Send for Builder<E, L, MID, TID, A, R> where <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Send,`
+### impl&lt;R> [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R> where &lt;&lt;R as [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")>::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<E, L, MID, TID, A, R> !Sync for Builder<E, L, MID, TID, A, R>`
+### impl&lt;R> \&#33;[Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R>
 
-### `impl<E, L, MID, TID, A, R> Unpin for Builder<E, L, MID, TID, A, R> where L: Unpin, <<R as Runtime>::Dispatcher as Dispatch>::WindowBuilder: Unpin,`
+### impl&lt;R> [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R> where &lt;&lt;R as [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")>::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder: [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin"),
 
-### `impl<E, L, MID, TID, A, R> !UnwindSafe for Builder<E, L, MID, TID, A, R>`
+### impl&lt;R> \&#33;[UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Builder](/docs/api/rust/tauri/struct.Builder "struct tauri::Builder")&lt;R>
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `borrow`
-
-```rs
-pub fn borrow(&self) -> &T
-```
-
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
-
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-### `TryFrom`
-
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
-
-#### `pub fn vzip(self) -> V`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
+  

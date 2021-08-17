@@ -4,39 +4,41 @@ sidebar_label: struct.Sender
 custom_edit_url: null
 ---
 
-# Struct tauri::async_runtime::Sender,\[−],\[−],−
+  # Struct tauri::async_runtime::Sender,
 
 ```rs
 pub struct Sender<T> { /* fields omitted */ }
 ```
 
+Expand description
+
 Send values to the associated `Receiver`.
 
-Instances are created by the [`channel`](/docs/api/rust/tauri/../../tauri/async_runtime/fn.channel) function.
+Instances are created by the [`channel`](/docs/api/rust/tauri/fn.channel) function.
 
 To use the `Sender` in a poll function, you can use the [`PollSender`](https://docs.rs/tokio-util/0.6/tokio_util/sync/struct.PollSender.html) utility.
 
 ## Implementations
 
-### `impl<T> Sender<T>`
+### impl&lt;T> [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-#### `pub async fn send(&'_ self, value: T) -> Result<(), SendError<T>>`
+#### pub async fn [send](/docs/api/rust/tauri/about:blank#method.send)(&'\_ self, value: T) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), SendError&lt;T>>
 
 Sends a value, waiting until there is capacity.
 
 A successful send occurs when it is determined that the other end of the channel has not hung up already. An unsuccessful send would be one where the corresponding receiver has already been closed. Note that a return value of `Err` means that the data will never be received, but a return value of `Ok` does not mean that the data will be received. It is possible for the corresponding receiver to hang up immediately after this function returns `Ok`.
 
-# [Errors](/docs/api/rust/tauri/about:blank#errors)
+## Errors
 
-If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver) handle dropping, the function returns an error. The error includes the value passed to `send`.
+If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/struct.Receiver) handle dropping, the function returns an error. The error includes the value passed to `send`.
 
-# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety)
+## Cancel safety
 
 If `send` is used as the event in a [`tokio::select!`](/docs/api/rust/tauri/crate::select) statement and some other branch completes first, then it is guaranteed that the message was not sent.
 
 This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `send` makes you lose your place in the queue.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples)
+## Examples
 
 In the following example, each call to `send` will block until the previously sent value was received.
 
@@ -63,17 +65,17 @@ async fn main() {
 }
 ```
 
-#### `pub async fn closed(&'_ self)`
+#### pub async fn [closed](/docs/api/rust/tauri/about:blank#method.closed)(&'\_ self)
 
 Completes when the receiver has dropped.
 
 This allows the producers to get notified when interest in the produced values is canceled and immediately stop doing work.
 
-# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-1)
+## Cancel safety
 
 This method is cancel safe. Once the channel is closed, it stays closed forever and all future calls to `closed` will return immediately.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-1)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -101,19 +103,19 @@ async fn main() {
 }
 ```
 
-#### `pub fn try_send(&self, message: T) -> Result<(), TrySendError<T>>`
+#### pub fn [try_send](/docs/api/rust/tauri/about:blank#method.try_send)(&self, message: T) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), TrySendError&lt;T>>
 
 Attempts to immediately send a message on this `Sender`
 
-This method differs from [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.send) by returning immediately if the channel’s buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
+This method differs from [`send`](/docs/api/rust/tauri/struct.Sender#method.send) by returning immediately if the channel’s buffer is full or no receiver is waiting to acquire some data. Compared with [`send`](/docs/api/rust/tauri/struct.Sender#method.send), this function has two failure cases instead of one (one for disconnection, one for a full buffer).
 
-# [Errors](/docs/api/rust/tauri/about:blank#errors-1)
+## Errors
 
-If the channel capacity has been reached, i.e., the channel has `n` buffered values where `n` is the argument passed to [`channel`](/docs/api/rust/tauri/../../tauri/async_runtime/fn.channel), then an error is returned.
+If the channel capacity has been reached, i.e., the channel has `n` buffered values where `n` is the argument passed to [`channel`](/docs/api/rust/tauri/fn.channel), then an error is returned.
 
-If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver "Receiver") handle dropping, the function returns an error. The error includes the value passed to `send`.
+If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/struct.Receiver "Receiver") handle dropping, the function returns an error. The error includes the value passed to `send`.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-2)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -152,17 +154,17 @@ async fn main() {
 }
 ```
 
-#### `pub async fn send_timeout( &'_ self, value: T, timeout: Duration ) -> Result<(), SendTimeoutError<T>>`
+#### pub async fn [send_timeout](/docs/api/rust/tauri/about:blank#method.send_timeout)( &'\_ self, value: T, timeout: [Duration](https://doc.rust-lang.org/1.54.0/core/time/struct.Duration.html "struct core::time::Duration") ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), SendTimeoutError&lt;T>>
 
 Sends a value, waiting until there is capacity, but only for a limited time.
 
-Shares the same success and error conditions as [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.send), adding one more condition for an unsuccessful send, which is when the provided timeout has elapsed, and there is no capacity available.
+Shares the same success and error conditions as [`send`](/docs/api/rust/tauri/struct.Sender#method.send), adding one more condition for an unsuccessful send, which is when the provided timeout has elapsed, and there is no capacity available.
 
-# [Errors](/docs/api/rust/tauri/about:blank#errors-2)
+## Errors
 
-If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver) having been dropped, the function returns an error. The error includes the value passed to `send`.
+If the receive half of the channel is closed, either due to [`close`](/docs/api/rust/tauri/struct.Receiver#method.close) being called or the [`Receiver`](/docs/api/rust/tauri/struct.Receiver) having been dropped, the function returns an error. The error includes the value passed to `send`.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-3)
+## Examples
 
 In the following example, each call to `send_timeout` will block until the previously sent value was received, unless the timeout has elapsed.
 
@@ -191,17 +193,17 @@ async fn main() {
 }
 ```
 
-#### `pub fn blocking_send(&self, value: T) -> Result<(), SendError<T>>`
+#### pub fn [blocking_send](/docs/api/rust/tauri/about:blank#method.blocking_send)(&self, value: T) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), SendError&lt;T>>
 
 Blocking send to call outside of asynchronous contexts.
 
-This method is intended for use cases where you are sending from synchronous code to asynchronous code, and will work even if the receiver is not using [`blocking_recv`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.blocking_recv) to receive the message.
+This method is intended for use cases where you are sending from synchronous code to asynchronous code, and will work even if the receiver is not using [`blocking_recv`](/docs/api/rust/tauri/struct.Receiver#method.blocking_recv) to receive the message.
 
-# [Panics](/docs/api/rust/tauri/about:blank#panics)
+## Panics
 
 This function panics if called within an asynchronous execution context.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-4)
+## Examples
 
 ```rs
 use std::thread;
@@ -222,9 +224,9 @@ fn main() {
 }
 ```
 
-#### `pub fn is_closed(&self) -> bool`
+#### pub fn [is_closed](/docs/api/rust/tauri/about:blank#method.is_closed)(&self) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)
 
-Checks if the channel has been closed. This happens when the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver) is dropped, or when the [`Receiver::close`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver#method.close) method is called.
+Checks if the channel has been closed. This happens when the [`Receiver`](/docs/api/rust/tauri/struct.Receiver) is dropped, or when the [`Receiver::close`](/docs/api/rust/tauri/struct.Receiver#method.close) method is called.
 
 ```rs
 let (tx, rx) = tokio::sync::mpsc::channel::<()>(42);
@@ -238,7 +240,7 @@ assert!(tx.is_closed());
 assert!(tx2.is_closed());
 ```
 
-#### `pub async fn reserve(&'_ self) -> Result<Permit<'_, T>, SendError<()>>`
+#### pub async fn [reserve](/docs/api/rust/tauri/about:blank#method.reserve)(&'\_ self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Permit&lt;'\_, T>, SendError&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>>
 
 Wait for channel capacity. Once capacity to send one message is available, it is reserved for the caller.
 
@@ -246,11 +248,11 @@ If the channel is full, the function waits for the number of unreceived messages
 
 Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message releases the capacity back to the channel.
 
-# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-2)
+## Cancel safety
 
 This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `reserve` makes you lose your place in the queue.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-5)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -275,21 +277,21 @@ async fn main() {
 }
 ```
 
-#### `pub async fn reserve_owned(self) -> Result<OwnedPermit<T>, SendError<()>>`
+#### pub async fn [reserve_owned](/docs/api/rust/tauri/about:blank#method.reserve_owned)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;OwnedPermit&lt;T>, SendError&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>>
 
 Wait for channel capacity, moving the `Sender` and returning an owned permit. Once capacity to send one message is available, it is reserved for the caller.
 
-This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.reserve), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `reserve_owned`.
+This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::reserve`](/docs/api/rust/tauri/struct.Sender#method.reserve), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `reserve_owned`.
 
 If the channel is full, the function waits for the number of unreceived messages to become less than the channel capacity. Capacity to send one message is reserved for the caller. An [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) is returned to track the reserved capacity. The [`send`](/docs/api/rust/tauri/ownedpermit::send) function on [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) consumes the reserved capacity.
 
 Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a message releases the capacity back to the channel.
 
-# [Cancel safety](/docs/api/rust/tauri/about:blank#cancel-safety-3)
+## Cancel safety
 
 This channel uses a queue to ensure that calls to `send` and `reserve` complete in the order they were requested. Cancelling a call to `reserve_owned` makes you lose your place in the queue.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-6)
+## Examples
 
 Sending a message using an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit):
 
@@ -341,15 +343,15 @@ async fn main() {
 }
 ```
 
-#### `pub fn try_reserve(&self) -> Result<Permit<'_, T>, TrySendError<()>>`
+#### pub fn [try_reserve](/docs/api/rust/tauri/about:blank#method.try_reserve)(&self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Permit&lt;'\_, T>, TrySendError&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>>
 
 Try to acquire a slot in the channel without waiting for the slot to become available.
 
-If the channel is full this function will return \[`TrySendError`], otherwise if there is a slot available it will return a [`Permit`](/docs/api/rust/tauri/Permit) that will then allow you to [`send`](/docs/api/rust/tauri/permit::send) on the channel with a guaranteed slot. This function is similar to [`reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.reserve) except it does not await for the slot to become available.
+If the channel is full this function will return \[`TrySendError`], otherwise if there is a slot available it will return a [`Permit`](/docs/api/rust/tauri/Permit) that will then allow you to [`send`](/docs/api/rust/tauri/permit::send) on the channel with a guaranteed slot. This function is similar to [`reserve`](/docs/api/rust/tauri/struct.Sender#method.reserve) except it does not await for the slot to become available.
 
 Dropping [`Permit`](/docs/api/rust/tauri/Permit) without sending a message releases the capacity back to the channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-7)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -379,17 +381,17 @@ async fn main() {
 }
 ```
 
-#### `pub fn try_reserve_owned( self ) -> Result<OwnedPermit<T>, TrySendError<Sender<T>>>`
+#### pub fn [try_reserve_owned](/docs/api/rust/tauri/about:blank#method.try_reserve_owned)( self ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;OwnedPermit&lt;T>, TrySendError&lt;[Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>>>
 
 Try to acquire a slot in the channel without waiting for the slot to become available, returning an owned permit.
 
-This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::try_reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.try_reserve "Sender::try_reserve"), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `try_reserve_owned`.
+This moves the sender _by value_, and returns an owned permit that can be used to send a message into the channel. Unlike [`Sender::try_reserve`](/docs/api/rust/tauri/struct.Sender#method.try_reserve "Sender::try_reserve"), this method may be used in cases where the permit must be valid for the `'static` lifetime. `Sender`s may be cloned cheaply (`Sender::clone` is essentially a reference count increment, comparable to [`Arc::clone`](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html#method.clone)), so when multiple [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit)s are needed or the `Sender` cannot be moved, it can be cloned prior to calling `try_reserve_owned`.
 
-If the channel is full this function will return a \[`TrySendError`]. Since the sender is taken by value, the `TrySendError` returned in this case contains the sender, so that it may be used again. Otherwise, if there is a slot available, this method will return an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) that can then be used to [`send`](/docs/api/rust/tauri/ownedpermit::send) on the channel with a guaranteed slot. This function is similar to [`reserve_owned`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.reserve_owned) except it does not await for the slot to become available.
+If the channel is full this function will return a \[`TrySendError`]. Since the sender is taken by value, the `TrySendError` returned in this case contains the sender, so that it may be used again. Otherwise, if there is a slot available, this method will return an [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) that can then be used to [`send`](/docs/api/rust/tauri/ownedpermit::send) on the channel with a guaranteed slot. This function is similar to [`reserve_owned`](/docs/api/rust/tauri/struct.Sender#method.reserve_owned) except it does not await for the slot to become available.
 
 Dropping the [`OwnedPermit`](/docs/api/rust/tauri/OwnedPermit) without sending a message releases the capacity back to the channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-8)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -419,11 +421,11 @@ async fn main() {
 }
 ```
 
-#### `pub fn same_channel(&self, other: &Sender<T>) -> bool`
+#### pub fn [same_channel](/docs/api/rust/tauri/about:blank#method.same_channel)(&self, other: &[Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)
 
 Returns `true` if senders belong to the same channel.
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-9)
+## Examples
 
 ```rs
 let (tx, rx) = tokio::sync::mpsc::channel::<()>(1);
@@ -434,13 +436,13 @@ let (tx3, rx3) = tokio::sync::mpsc::channel::<()>(1);
 assert!(!tx3.same_channel(&tx2));
 ```
 
-#### `pub fn capacity(&self) -> usize`
+#### pub fn [capacity](/docs/api/rust/tauri/about:blank#method.capacity)(&self) -> [usize](https://doc.rust-lang.org/1.54.0/std/primitive.usize.html)
 
 Returns the current capacity of the channel.
 
-The capacity goes down when sending a value by calling [`send`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.send) or by reserving capacity with [`reserve`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Sender#method.reserve). The capacity goes up when values are received by the [`Receiver`](/docs/api/rust/tauri/../../tauri/async_runtime/struct.Receiver "Receiver").
+The capacity goes down when sending a value by calling [`send`](/docs/api/rust/tauri/struct.Sender#method.send) or by reserving capacity with [`reserve`](/docs/api/rust/tauri/struct.Sender#method.reserve). The capacity goes up when values are received by the [`Receiver`](/docs/api/rust/tauri/struct.Receiver "Receiver").
 
-# [Examples](/docs/api/rust/tauri/about:blank#examples-10)
+## Examples
 
 ```rs
 use tokio::sync::mpsc;
@@ -465,219 +467,105 @@ async fn main() {
 
 ## Trait Implementations
 
-### `impl<T> Clone for Sender<T>`
+### impl&lt;T> [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-#### `pub fn clone(&self) -> Sender<T>`
+#### pub fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-Returns a copy of the value. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone)
+Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)
 
-#### `clone_from`
+#### fn [clone_from](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)(&mut self, source: [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)Self)1.0.0[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/clone.rs.html#130 "goto source code")
 
-```rs
-pub fn clone_from(&mut self, source: &Self)
-```
+Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)
 
-Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from)
+### impl&lt;T> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-_Defined in: [clone.rs:130](https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130)_
+#### pub fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, fmt: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html), [Error](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Error.html "struct core::fmt::Error")>
 
-### `impl<T> Debug for Sender<T>`
-
-#### `pub fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), Error>`
-
-Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt)
+Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
 ## Auto Trait Implementations
 
-### `impl<T> !RefUnwindSafe for Sender<T>`
+### impl&lt;T> \&#33;[RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-### `impl<T> Send for Sender<T> where T: Send,`
+### impl&lt;T> [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T> where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<T> Sync for Sender<T> where T: Send,`
+### impl&lt;T> [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T> where T: [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send"),
 
-### `impl<T> Unpin for Sender<T>`
+### impl&lt;T> [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
-### `impl<T> !UnwindSafe for Sender<T>`
+### impl&lt;T> \&#33;[UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [Sender](/docs/api/rust/tauri/struct.Sender "struct tauri::async_runtime::Sender")&lt;T>
 
 ## Blanket Implementations
 
-### `Any`
+### impl&lt;T> [Any](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html "trait core::any::Any") for T where T: 'static + ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#131-135 "goto source code")
 
-```rs
-impl<T> Any for T where
-    T: 'static + ?Sized, 
-```
+#### pub fn [type_id](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)(&self) -> [TypeId](https://doc.rust-lang.org/1.54.0/core/any/struct.TypeId.html "struct core::any::TypeId")[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/any.rs.html#132 "goto source code")
 
-_Defined in: [any.rs:131-135](https://doc.rust-lang.org/nightly/src/core/any.rs.html#131-135)_
+Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/1.54.0/core/any/trait.Any.html#tymethod.type_id)
 
-#### `type_id`
+### impl&lt;T> [Borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html "trait core::borrow::Borrow")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#208-213 "goto source code")
 
-```rs
-pub fn type_id(&self) -> TypeId
-```
+#### pub fn [borrow](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)(&self) -> [&](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#210 "goto source code")
 
-Gets the `TypeId` of `self`. [Read more](https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id)
+Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.Borrow.html#tymethod.borrow)
 
-_Defined in: [any.rs:132](https://doc.rust-lang.org/nightly/src/core/any.rs.html#132)_
+### impl&lt;T> [BorrowMut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html "trait core::borrow::BorrowMut")&lt;T> for T where T: ?[Sized](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sized.html "trait core::marker::Sized"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#216-220 "goto source code")
 
-### `Borrow`
+#### pub fn [borrow_mut](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)(&mut self) -> [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/borrow.rs.html#217 "goto source code")
 
-```rs
-impl<T> Borrow<T> for T where
-    T: ?Sized, 
-```
+Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-_Defined in: [borrow.rs:208-213](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213)_
+### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#544-548 "goto source code")
 
-#### `borrow`
-
-```rs
-pub fn borrow(&self) -> &T
-```
-
-Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow)
-
-_Defined in: [borrow.rs:210](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210)_
-
-### `BorrowMut`
-
-```rs
-impl<T> BorrowMut<T> for T where
-    T: ?Sized, 
-```
-
-_Defined in: [borrow.rs:216-220](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220)_
-
-#### `borrow_mut`
-
-```rs
-pub fn borrow_mut(&mut self) -> &mut T
-```
-
-Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
-
-_Defined in: [borrow.rs:217](https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217)_
-
-### `From`
-
-```rs
-impl<T> From<T> for T
-```
-
-_Defined in: [mod.rs:544-548](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#544-548)_
-
-#### `from`
-
-```rs
-pub fn from(t: T) -> T
-```
+#### pub fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(t: T) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#545 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:545](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#545)_
+### impl&lt;T, U> [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;U> for T where U: [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#533-540 "goto source code")
 
-### `Into`
-
-```rs
-impl<T, U> Into<U> for T where
-    U: From<T>, 
-```
-
-_Defined in: [mod.rs:533-540](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#533-540)_
-
-#### `into`
-
-```rs
-pub fn into(self) -> U
-```
+#### pub fn [into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html#tymethod.into)(self) -> U[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#537 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:537](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537)_
+### impl&lt;T> [ToOwned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html "trait alloc::borrow::ToOwned") for T where T: [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone"),[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#84-96 "goto source code")
 
-### `ToOwned`
-
-```rs
-impl<T> ToOwned for T where
-    T: Clone, 
-```
-
-_Defined in: [borrow.rs:81-93](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#81-93)_
-
-#### `type Owned = T`
+#### type [Owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#associatedtype.Owned) = T
 
 The resulting type after obtaining ownership.
 
-#### `to_owned`
+#### pub fn [to_owned](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)(&self) -> T[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#89 "goto source code")
 
-```rs
-pub fn to_owned(&self) -> T
-```
+Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
 
-Creates owned data from borrowed data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned)
-
-_Defined in: [borrow.rs:86](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86)_
-
-#### `clone_into`
-
-```rs
-pub fn clone_into(&self, target: &mut T)
-```
-
-_Defined in: [borrow.rs:90](https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90)_
+#### pub fn [clone_into](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)(&self, target: [&mut](https://doc.rust-lang.org/1.54.0/std/primitive.reference.html)T)[\[src\]](https://doc.rust-lang.org/1.54.0/src/alloc/borrow.rs.html#93 "goto source code")
 
 🔬 This is a nightly-only experimental API. (`toowned_clone_into`)
 
 recently added
 
-Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into)
+Uses borrowed data to replace owned data, usually by cloning. [Read more](https://doc.rust-lang.org/1.54.0/alloc/borrow/trait.ToOwned.html#method.clone_into)
 
-### `TryFrom`
+### impl&lt;T, U> [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U> for T where U: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#581-590 "goto source code")
 
-```rs
-impl<T, U> TryFrom<U> for T where
-    U: Into<T>, 
-```
-
-_Defined in: [mod.rs:581-590](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590)_
-
-#### `type Error = Infallible`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error) = [Infallible](https://doc.rust-lang.org/1.54.0/core/convert/enum.Infallible.html "enum core::convert::Infallible")
 
 The type returned in the event of a conversion error.
 
-#### `try_from`
-
-```rs
-pub fn try_from(value: U) -> Result<T, <T as TryFrom<U>>::Error>
-```
+#### pub fn [try_from](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#tymethod.try_from)(value: U) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, &lt;T as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;U>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#587 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:587](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587)_
+### impl&lt;T, U> [TryInto](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html "trait core::convert::TryInto")&lt;U> for T where U: [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>,[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#567-576 "goto source code")
 
-### `TryInto`
-
-```rs
-impl<T, U> TryInto<U> for T where
-    U: TryFrom<T>, 
-```
-
-_Defined in: [mod.rs:567-576](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576)_
-
-#### `type Error = <U as TryFrom<T>>::Error`
+#### type [Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#associatedtype.Error) = &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")
 
 The type returned in the event of a conversion error.
 
-#### `try_into`
-
-```rs
-pub fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
-```
+#### pub fn [try_into](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryInto.html#tymethod.try_into)(self) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;U, &lt;U as [TryFrom](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html "trait core::convert::TryFrom")&lt;T>>::[Error](https://doc.rust-lang.org/1.54.0/core/convert/trait.TryFrom.html#associatedtype.Error "type core::convert::TryFrom::Error")>[\[src\]](https://doc.rust-lang.org/1.54.0/src/core/convert/mod.rs.html#573 "goto source code")
 
 Performs the conversion.
 
-_Defined in: [mod.rs:573](https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573)_
+### impl&lt;V, T> VZip&lt;V> for T where V: MultiLane&lt;T>,
 
-### `impl<V, T> VZip<V> for T where V: MultiLane<T>,`
-
-#### `pub fn vzip(self) -> V`
+#### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
+  
