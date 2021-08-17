@@ -41,7 +41,7 @@ const siteConfig = {
       title: ' ',
       logo: {
         alt: 'Tauri Logo',
-        src: 'img/tauri.png',
+        src: 'img/tauri_with_wordmark.svg',
       },
       items: [
         { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },

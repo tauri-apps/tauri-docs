@@ -88,9 +88,10 @@ ul.roadmap::before {
   height: 100%;
   top: 0;
   bottom: 0;
-  left: 20px;
-  width: 3px;
+  left: 19px;
+  width: 4px;
   background-color: #ccd;
+  border-radius: 1em;
 }
 
 ul.roadmap li {
@@ -302,6 +303,17 @@ html[data-theme='light'] .header-github-link::before {
   margin-top: 10px;
 }
 
-html[data-theme="light"] a {
-  text-shadow: 0px 0px 1px #215b59;
+html[data-theme="light"] a {}
+
+html[data-theme="light"] .navbar__logo {display: none;}
+html[data-theme="light"] .navbar__brand {
+  display: block;
+  background: url(../../static/img/tauri_with_wordmark_dark.svg) no-repeat;
+  background-size: cover;
+  width: 97px;
+  height: 30px;
+}
+
+.badge--warning {
+  color: var(--ifm-button-color);
 }
