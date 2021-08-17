@@ -1,23 +1,19 @@
 ---
 title: Continuous Integration
 ---
-import Alert from '@theme/Alert'
-
-<Alert title="Currently In Development" type="danger" icon="alert">
-
-WebDriver support for Tauri is still in development and has not reached pre-alpha yet. This should change to an infobox
-after pre-alpha is released (soon™) that details its instability.
-</Alert>
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
 [`tauri-driver`] on your CI. The following example will use the [WebdriverIO] example we [previously built together] and
 GitHub Actions.
 
 This means the following assumptions:
+
 1. The Tauri application is in the repository root and the binary builds when running `cargo build --release`.
-2. The [WebDriverIO] test runner is in the `webdriver/` directory and runs when `yarn test` is used in that directory.
+2. The [WebDriverIO] test runner is in the `webdriver/webdriverio` directory and runs when `yarn test` is used in that
+   directory.
 
 The following is a commented GitHub Actions workflow file at `.github/workflows/webdriver.yml`
+
 ```yaml
 # run this action when the repository is pushed to
 on: [ push ]
@@ -30,10 +26,10 @@ jobs:
   test:
     # the display name the test job
     name: WebDriverIO Test Runner
-    
+
     # we want to run on the latest linux environment
     runs-on: ubuntu-latest
-    
+
     # the steps our job runs **in order**
     steps:
       # checkout the code on the workflow runner
@@ -80,7 +76,7 @@ jobs:
       # install our Node.js dependencies with Yarn
       - name: Yarn install
         run: yarn install
-        working-directory: webdriver/
+        working-directory: webdriver/webdriverio
 
       # install the latest version of `tauri-driver`.
       # note: the tauri-driver version is independent of any other Tauri versions
@@ -88,17 +84,17 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: install
-          args: --git "https://github.com/tauri-apps/tauri" --branch "feat/webdriver" tauri-driver
+          args: tauri-driver
 
       # run the WebdriverIO test suite.
       # we run it through `xvfb-run` (the dependency we installed earlier) to have a fake
       # display server which allows our application to run headless without any changes to the code
       - name: WebdriverIO
         run: xvfb-run yarn test
-        working-directory: webdriver/
+        working-directory: webdriver/webdriverio
 ```
 
 [WebDriver]: https://www.w3.org/TR/webdriver/
-[`tauri-driver`]: https://github.com/tauri-apps/tauri/tree/feat/webdriver/tooling/webdriver
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
 [WebdriverIO]: https://webdriver.io/
-[previously built together]: webdriverio
+[previously built together]: example/webdriverio

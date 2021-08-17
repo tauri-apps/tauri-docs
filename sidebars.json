@@ -70,16 +70,6 @@
                 "usage/guides/visual/menu",
                 "usage/guides/visual/system-tray"
               ]
-            },
-            {
-              "label": "WebDriver Testing",
-              "type": "category",
-              "items": [
-                "usage/guides/webdriver/introduction",
-                "usage/guides/webdriver/webdriverio",
-                "usage/guides/webdriver/selenium",
-                "usage/guides/webdriver/ci"
-              ]
             }
           ]
         },
