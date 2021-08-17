@@ -88,9 +88,10 @@ ul.roadmap::before {
   height: 100%;
   top: 0;
   bottom: 0;
-  left: 20px;
-  width: 3px;
+  left: 19px;
+  width: 4px;
   background-color: #ccd;
+  border-radius: 1em;
 }
 
 ul.roadmap li {

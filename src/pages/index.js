@@ -389,7 +389,6 @@ function Home() {
         <div className="container">
           <img
             src={useBaseUrl('img/tauri_with_wordmark.svg')}
-            style={{ maxWidth: 745 }}
           />
           <p
             className="hero__subtitle"
