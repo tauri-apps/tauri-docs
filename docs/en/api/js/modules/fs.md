@@ -77,7 +77,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:300](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L300)
+[fs.ts:300](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L300)
 
 ___
 
@@ -104,7 +104,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:256](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L256)
+[fs.ts:256](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L256)
 
 ___
 
@@ -129,7 +129,7 @@ A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:118](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L118)
+[fs.ts:118](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L118)
 
 ___
 
@@ -154,7 +154,7 @@ A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:233](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L233)
+[fs.ts:233](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L233)
 
 ___
 
@@ -179,7 +179,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:97](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L97)
+[fs.ts:97](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L97)
 
 ___
 
@@ -205,7 +205,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:278](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L278)
+[fs.ts:278](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L278)
 
 ___
 
@@ -230,7 +230,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:323](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L323)
+[fs.ts:323](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L323)
 
 ___
 
@@ -256,7 +256,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:345](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L345)
+[fs.ts:345](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L345)
 
 ___
 
@@ -281,7 +281,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:204](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L204)
+[fs.ts:204](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L204)
 
 ___
 
@@ -306,4 +306,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:139](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/fs.ts#L139)
+[fs.ts:139](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/fs.ts#L139)

@@ -19,7 +19,7 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:9](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/tauri.ts#L9)
+[helpers/tauri.ts:9](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/helpers/tauri.ts#L9)
 
 ## Functions
 
@@ -45,4 +45,4 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:31](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/tauri.ts#L31)
+[helpers/tauri.ts:31](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/helpers/tauri.ts#L31)

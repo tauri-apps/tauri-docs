@@ -19,7 +19,7 @@ Number of occurrences
 
 #### Defined in
 
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/cli.ts#L24)
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/cli.ts#L24)
 
 ___
 
@@ -33,4 +33,4 @@ string[] or null if takes multiple values
 
 #### Defined in
 
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/cli.ts#L20)
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/81d245f/tooling/api/src/cli.ts#L20)
