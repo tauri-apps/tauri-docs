@@ -10,7 +10,6 @@ Tauri will soon offer Plugin starter kits so the process of writing a Plugin cra
 For now it's recommended to follow the [official Tauri plugins](#official-tauri-plugins).
 </Alert>
 
-The Tauri Plugin system was introduced in [tauri v0.8.0](https://docs.rs/tauri/0.8.0/tauri/).
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
 
 ## Writing a Plugin
@@ -18,13 +17,10 @@ Plugins allow you to hook into the Tauri application lifecycle and introduce new
 To write a plugin you just need to implement the `tauri::plugin::Plugin` trait:
 
 ```rust
-use tauri::{
-  plugin::{Plugin, Result as PluginResult},
-  App, Invoke, PageLoadPayload, Params, Window,
-};
+use tauri::{plugin::{Plugin, Result as PluginResult}, Runtime, PageLoadPayload, Window, Invoke, AppHandle};
 
-struct MyAwesomePlugin<P: Params> {
-  invoke_handler: Box<dyn Fn(Invoke<P>) + Send + Sync>,
+struct MyAwesomePlugin<R: Runtime> {
+  invoke_handler: Box<dyn Fn(Invoke<R>) + Send + Sync>,
   // plugin state, configuration fields
 }
 
@@ -38,7 +34,7 @@ fn initialize() {}
 // this will be accessible with `invoke('plugin:awesome|do_something')`.
 fn do_something() {}
 
-impl<P: Params> MyAwesomePlugin<P> {
+impl<R: Runtime> MyAwesomePlugin<R> {
   // you can add configuration fields here,
   // see https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
   pub fn new() -> Self {
@@ -48,7 +44,7 @@ impl<P: Params> MyAwesomePlugin<P> {
   }
 }
 
-impl<P: Params> Plugin<P> for MyAwesomePlugin<P> {
+impl<R: Runtime> Plugin<R> for MyAwesomePlugin<R> {
   /// The plugin name. Must be defined and used on the `invoke` calls.
   fn name(&self) -> &'static str {
     "awesome"
@@ -63,19 +59,19 @@ impl<P: Params> Plugin<P> for MyAwesomePlugin<P> {
   }
 
   /// initialize plugin with the config provided on `tauri.conf.json > plugins > $yourPluginName` or the default value.
-  fn initialize(&mut self, app: &App<P>, config: serde_json::Value) -> PluginResult<()> {
+  fn initialize(&mut self, app: &AppHandle<R>, config: serde_json::Value) -> PluginResult<()> {
     Ok(())
   }
 
   /// Callback invoked when the Window is created.
-  fn created(&mut self, window: Window<P>) {}
+  fn created(&mut self, window: Window<R>) {}
 
   /// Callback invoked when the webview performs a navigation.
-  fn on_page_load(&mut self, window: Window<P>, payload: PageLoadPayload) {}
+  fn on_page_load(&mut self, window: Window<R>, payload: PageLoadPayload) {}
 
   /// Extend the invoke handler.
-  fn extend_api(&mut self, invoke: Invoke<P>) {
-    (self.invoke_handler)(invoke)
+  fn extend_api(&mut self, message: Invoke<R>) {
+    (self.invoke_handler)(message)
   }
 }
 ```

@@ -1,11 +1,16 @@
 ---
-title: "fn.read_binary"
+title: Fn tauri::api::file::read_binary
+sidebar_label: fn.read_binary
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[read_binary](/docs/api/rust/tauri/)
+  # Function tauri::api::file::read_binary,
 
 ```rs
 pub fn read_binary<P: AsRef<Path>>(file: P) -> Result<Vec<u8>>
 ```
 
+Expand description
+
 Reads a binary file.
+  

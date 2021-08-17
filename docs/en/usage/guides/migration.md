@@ -10,7 +10,7 @@ For example:
 
 ```diff
 - "tauri": "^0.14.1"
-+ "@tauri-apps/cli": "^1.0.0-beta.0"
++ "@tauri-apps/cli": "^1.0.0-beta-rc.4"
 ```
 
 Next update your `Cargo.toml`:
@@ -19,13 +19,13 @@ Next update your `Cargo.toml`:
 
   ```diff
   + [build-dependencies]
-  + tauri-build = { version = "1.0.0-beta.0" }
+  + tauri-build = { version = "1.0.0-beta-rc.0" }
 
   - [target."cfg(windows)".build-dependencies]
   - winres = "0.1"
   ```
 
-- update the version of `tauri` to e.g. `1.0.0-beta.0`
+- update the version of `tauri` to e.g. `1.0.0-beta-rc.4`
 - remove all old features of the `tauri` dependency
 - remove all features, that tauri added and add `custom-protocol` as a new one:
   
@@ -86,7 +86,7 @@ Update your `tauri.conf.json` like this:
 -     "window": {
 +     "windows": [
         {
-          "title": "Tauri App",
+          "title": "Calciumdibromid",
           "width": 800,
           "height": 600,
           "resizable": true,

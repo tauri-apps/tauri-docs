@@ -210,6 +210,14 @@
     },
     "partners": {
       "partnersLabel": "Partners",
+      "premium_sponsors": [
+        {
+          "description": "A password manager, digital vault, form filler and secure digital wallet. 1Password remembers all your passwords for you to help keep account information safe."
+        },
+        {
+          "description": "Become a premium sponsor to help the Tauri development."
+        }
+      ],
       "sponsors": [
         {
           "description": "This project's infrastructure is supported in part by Digital Ocean. Click the button here to visit the Digital Ocean website and get $100 credit that you can use within 60 days."
@@ -273,6 +281,12 @@
         },
         {
           "description": "Reversably introduce bugs into your code so that you can safely practice debugging."
+        },
+        {
+          "description": "A lite and simple two-factor authentication app for desktop."
+        },
+        {
+          "description": "Local SMTP Server For Email Testing/Debugging."
         }
       ],
       "yourProject": "Your project",
@@ -302,6 +316,7 @@
     "editPage": "Edit this page"
   },
   "global": {
-    "discover": "Discover"
+    "discover": "Discover",
+    "contribute": "Contribute"
   }
 }

@@ -7,64 +7,93 @@ hide_title: true
 
 # Module: notification
 
-Send notifications to your user. Can also be used with the Notification Web API.
+Send toast notifications (brief auto-expiring OS window element) to your user.
+Can also be used with the Notification Web API.
 
-## Table of contents
+This package is also accessible with `window.__TAURI__.notification` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
-### Interfaces
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "notification": {
+        "all": true // enable all notification APIs
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-- [Options](../interfaces/notification.options.md)
+## Interfaces
+
+- [Options](../interfaces/notification.Options.md)
 
 ## Type aliases
 
 ### Permission
 
-Ƭ **Permission**: *granted* \| *denied* \| *default*
+Ƭ **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
 
 Possible permission values.
 
-Defined in: [notification.ts:25](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L25)
+#### Defined in
+
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
 ### isPermissionGranted
 
-▸ **isPermissionGranted**(): *Promise*<boolean \| *null*\>
+▸ **isPermissionGranted**(): `Promise`<`boolean` \| ``null``\>
 
 Checks if the permission to send notifications is granted.
 
-**Returns:** *Promise*<boolean \| *null*\>
+#### Returns
 
-Defined in: [notification.ts:32](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L32)
+`Promise`<`boolean` \| ``null``\>
+
+#### Defined in
+
+[notification.ts:49](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L49)
 
 ___
 
 ### requestPermission
 
-▸ **requestPermission**(): *Promise*<[*Permission*](notification.md#permission)\>
+▸ **requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
-**Returns:** *Promise*<[*Permission*](notification.md#permission)\>
+#### Returns
+
+`Promise`<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 
-Defined in: [notification.ts:49](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L49)
+#### Defined in
+
+[notification.ts:66](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L66)
 
 ___
 
 ### sendNotification
 
-▸ **sendNotification**(`options`: [*Options*](../interfaces/notification.options.md) \| *string*): *void*
+▸ **sendNotification**(`options`): `void`
 
 Sends a notification to the user.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`options` | [*Options*](../interfaces/notification.options.md) \| *string* | Notification options.    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options` | [`Options`](../interfaces/notification.Options.md) \| `string` | Notification options. |
 
-**Returns:** *void*
+#### Returns
 
-Defined in: [notification.ts:58](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/notification.ts#L58)
+`void`
+
+#### Defined in
+
+[notification.ts:75](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L75)

@@ -9,50 +9,74 @@ hide_title: true
 
 Native system dialogs for opening and saving files.
 
-## Table of contents
+This package is also accessible with `window.__TAURI__.dialog` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
-### Interfaces
+The APIs must be allowlisted on `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "dialog": {
+        "all": true, // enable all dialog APIs
+        "open": true, // enable file open API
+        "save": true // enable file save API
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-- [DialogFilter](../interfaces/dialog.dialogfilter.md)
-- [OpenDialogOptions](../interfaces/dialog.opendialogoptions.md)
-- [SaveDialogOptions](../interfaces/dialog.savedialogoptions.md)
+## Interfaces
+
+- [DialogFilter](../interfaces/dialog.DialogFilter.md)
+- [OpenDialogOptions](../interfaces/dialog.OpenDialogOptions.md)
+- [SaveDialogOptions](../interfaces/dialog.SaveDialogOptions.md)
 
 ## Functions
 
 ### open
 
-▸ **open**(`options?`: [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md)): *Promise*<string \| string[]\>
+▸ **open**(`options?`): `Promise`<`string` \| `string`[]\>
 
 Open a file/directory selection dialog
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`options` | [*OpenDialogOptions*](../interfaces/dialog.opendialogoptions.md) | {} |
+| Name | Type |
+| :------ | :------ |
+| `options` | [`OpenDialogOptions`](../interfaces/dialog.OpenDialogOptions.md) |
 
-**Returns:** *Promise*<string \| string[]\>
+#### Returns
+
+`Promise`<`string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
-Defined in: [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L51)
+#### Defined in
+
+[dialog.ts:73](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/dialog.ts#L73)
 
 ___
 
 ### save
 
-▸ **save**(`options?`: [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md)): *Promise*<string\>
+▸ **save**(`options?`): `Promise`<`string`\>
 
 Open a file/directory save dialog.
 
-#### Parameters:
+#### Parameters
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`options` | [*SaveDialogOptions*](../interfaces/dialog.savedialogoptions.md) | {} |
+| Name | Type |
+| :------ | :------ |
+| `options` | [`SaveDialogOptions`](../interfaces/dialog.SaveDialogOptions.md) |
 
-**Returns:** *Promise*<string\>
+#### Returns
+
+`Promise`<`string`\>
 
 A promise resolving to the selected path.
 
-Defined in: [dialog.ts:72](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/dialog.ts#L72)
+#### Defined in
+
+[dialog.ts:94](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/dialog.ts#L94)

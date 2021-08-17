@@ -7,25 +7,22 @@ hide_title: true
 
 # @tauri-apps/api
 
-The `@tauri-apps/api` package is a JavaScript interface to the Tauri API.
-It is written in TypeScript and allows you to call core APIs and your own commands.
-Note that some APIs must be enabled under `tauri.conf.json > tauri > allowlist`, and each module explains the configuration.
-
-If you are not using a module bundler, you can use this API as a `window.__TAURI__` object by enabling it on `tauri.conf.json > build > withGlobalTauri`.
-
-## Table of contents
-
-### Modules
+## Modules
 
 - [app](modules/app.md)
 - [cli](modules/cli.md)
+- [clipboard](modules/clipboard.md)
 - [dialog](modules/dialog.md)
 - [event](modules/event.md)
 - [fs](modules/fs.md)
-- [globalShortcut](modules/globalshortcut.md)
+- [globalShortcut](modules/globalShortcut.md)
+- [helpers/event](modules/helpers_event.md)
+- [helpers/os-check](modules/helpers_os_check.md)
+- [helpers/tauri](modules/helpers_tauri.md)
 - [http](modules/http.md)
 - [index](modules/index.md)
 - [notification](modules/notification.md)
+- [os](modules/os.md)
 - [path](modules/path.md)
 - [process](modules/process.md)
 - [shell](modules/shell.md)

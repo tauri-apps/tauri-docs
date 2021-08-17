@@ -1,11 +1,16 @@
 ---
-title: "fn.read_string"
+title: Fn tauri::api::file::read_string
+sidebar_label: fn.read_string
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[file](/docs/api/rust/tauri/index.html)::​[read_string](/docs/api/rust/tauri/)
+  # Function tauri::api::file::read_string,
 
 ```rs
 pub fn read_string<P: AsRef<Path>>(file: P) -> Result<String>
 ```
 
+Expand description
+
 Reads a string file.
+  

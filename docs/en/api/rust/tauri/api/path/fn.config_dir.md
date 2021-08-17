@@ -1,11 +1,16 @@
 ---
-title: "fn.config_dir"
+title: Fn tauri::api::path::config_dir
+sidebar_label: fn.config_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[path](/docs/api/rust/tauri/index.html)::​[config_dir](/docs/api/rust/tauri/)
+  # Function tauri::api::path::config_dir,
 
 ```rs
 pub fn config_dir() -> Option<PathBuf>
 ```
 
+Expand description
+
 Returns the path to the user’s config directory.
+  

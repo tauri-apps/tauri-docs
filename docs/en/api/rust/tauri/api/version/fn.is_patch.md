@@ -1,11 +1,16 @@
 ---
-title: "fn.is_patch"
+title: Fn tauri::api::version::is_patch
+sidebar_label: fn.is_patch
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[version](/docs/api/rust/tauri/index.html)::​[is_patch](/docs/api/rust/tauri/)
+  # Function tauri::api::version::is_patch,
 
 ```rs
 pub fn is_patch(current: &str, other: &str) -> Result<bool>
 ```
 
+Expand description
+
 Check if a the “other” version is a patch bump from the “current”
+  

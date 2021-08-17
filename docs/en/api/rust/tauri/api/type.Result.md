@@ -1,11 +1,16 @@
 ---
-title: "type.Result"
+title: Type tauri::api::Result
+sidebar_label: type.Result
+custom_edit_url: null
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/../index.html)::​[api](/docs/api/rust/tauri/index.html)::​[Result](/docs/api/rust/tauri/)
+  # Type Definition tauri::api::Result,
 
 ```rs
 type Result<T> = Result<T, Error>;
 ```
 
-Result type alias using the crate’s error type.
+Expand description
+
+The result type of Tauri API module.
+  

@@ -1,11 +1,16 @@
 ---
-title: "type.SyncTask"
+title: Type tauri::SyncTask
+sidebar_label: type.SyncTask
+custom_edit_url: null
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[SyncTask](/docs/api/rust/tauri/)
+  # Type Definition tauri::SyncTask,
 
 ```rs
 type SyncTask = Box<dyn FnOnce() + Send>;
 ```
 
+Expand description
+
 A task to run on the main thread.
+  

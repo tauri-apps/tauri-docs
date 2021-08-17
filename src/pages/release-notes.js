@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '@theme/Layout'
-import classnames from 'classnames'
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -17,6 +16,11 @@ const packagesData = [
     value: 'core',
     changelogUrl:
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+  },
+  {
+    label: 'API',
+    value: 'api',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
   },
   {
     label: 'CLI',
@@ -47,7 +51,7 @@ const packagesData = [
     value: 'create-tauri-app',
     changelogUrl:
       'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
-  }
+  },
 ]
 
 function fetchChangelog(url) {
@@ -55,31 +59,46 @@ function fetchChangelog(url) {
     .then((response) => response.text())
     .then((changelog) => {
       const [_, ...versionsChangelog] = changelog.split('## ')
-      return versionsChangelog.map((versionChangelog) => {
-        const [version, ...contents] = versionChangelog.split('\n')
-        return {
-          version: version.replace('\\[', '').replace(']', ''),
-          notes: contents.filter((line) => !!line).join('\n'),
-        }
-      }).filter(({ version }) => !version.includes('Not Published'))
+      return versionsChangelog
+        .map((versionChangelog) => {
+          const [version, ...contents] = versionChangelog.split('\n')
+          return {
+            version: version.replace('\\[', '').replace(']', ''),
+            notes: contents.filter((line) => !!line).join('\n'),
+          }
+        })
+        .filter(({ version }) => !version.includes('Not Published'))
     })
 }
 
 function Changelog({ changelogs }) {
-  const values = changelogs.map(({ version, notes }) => ({
-    notes,
-    value: version,
-    label: version,
-  }))
+  const values = changelogs.map(({ version, notes }) => {
+    let realVersion = version.split(/\.(?=[^\.]+$)/)
+    return {
+      notes,
+      value: version,
+      label: version,
+      version: realVersion[0],
+      patch: realVersion[1],
+    }
+  })
 
-  const [activeValue, setActiveValue] = React.useState(values[0].value)
+  let allChangelogs = values.reduce((accumulator, currentValue) => {
+    ;(accumulator[currentValue['version']] =
+      accumulator[currentValue['version']] || []).push(currentValue)
+    return accumulator
+  }, {})
+
+  const [activeValue, setActiveValue] = React.useState(
+    Object.keys(allChangelogs)[0]
+  )
 
   return (
     <div className={styles.verticalTabs}>
       <div className={styles.verticalTabsPanes}>
-        {values.map(({ value, notes }) => {
+        {Object.entries(allChangelogs).map(([changelogVersion]) => {
           const dynamicStyles =
-            value === activeValue
+            changelogVersion === activeValue
               ? {
                   color: 'var(--ifm-color-primary)',
                   backgroundColor: 'var(--ifm-menu-color-background-active)',
@@ -90,24 +109,33 @@ function Changelog({ changelogs }) {
                 }
           return (
             <div
-              key={'pane-' + notes}
+              key={'pane-' + changelogVersion}
               className={styles.verticalTabsPane}
-              onClick={() => setActiveValue(value)}
+              onClick={() => setActiveValue(changelogVersion)}
               style={dynamicStyles}
             >
-              {value}
+              {changelogVersion}
             </div>
           )
         })}
       </div>
-      {values.map(({ value, notes }) => (
+      {Object.entries(allChangelogs).map(([changelogVersion, allReleases]) => (
         <div
-          key={'content-' + notes}
-          value={value}
+          key={'content-' + changelogVersion}
+          value={changelogVersion}
           className={styles.verticalTabContent}
-          style={{ display: value === activeValue ? 'block' : 'none' }}
+          style={{
+            display: changelogVersion === activeValue ? 'block' : 'none',
+          }}
         >
-          <ReactMarkdown source={notes} />
+          {allReleases.map(({ notes, value }) => {
+            return (
+              <div style={{ paddingLeft: 10 }}>
+                <h3>{value}</h3>
+                <ReactMarkdown source={notes} />
+              </div>
+            )
+          })}
         </div>
       ))}
     </div>

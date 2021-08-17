@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 // const versions = require('./versions.json')
 
 const languages = require('./supported-languages')
@@ -7,8 +8,10 @@ const language = process.env.LANGUAGE || 'en'
 
 const t = require(`./translations/${language}.json`)
 
+const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
+const discordURL = 'https://discord.com/invite/tauri'
 
 const siteConfig = {
   title: 'Tauri Studio',
@@ -24,6 +27,7 @@ const siteConfig = {
     languages,
     language,
     t,
+    version,
     colorMode: {
       defaultMode: 'dark'
     },
@@ -62,6 +66,10 @@ const siteConfig = {
             {
               label: t.navbar.showcase,
               to: 'showcase',
+            },
+            {
+              label: 'Discord',
+              to: discordURL,
             },
           ],
         },
@@ -103,7 +111,7 @@ const siteConfig = {
             },
             {
               label: 'Discord',
-              href: 'https://discord.gg/SpmNs4S',
+              href: discordURL,
             },
             {
               label: 'Twitter',
@@ -158,7 +166,7 @@ const siteConfig = {
       {
         docs: {
           path: './docs/' + language,
-          sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },
         theme: {

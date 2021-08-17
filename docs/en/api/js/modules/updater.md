@@ -9,46 +9,56 @@ hide_title: true
 
 Customize the auto updater flow.
 
-## Table of contents
+This package is also accessible with `window.__TAURI__.updater` when `tauri.conf.json > build > withGlobalTauri` is set to true.
 
-### Interfaces
+## Interfaces
 
-- [UpdateManifest](../interfaces/updater.updatemanifest.md)
-- [UpdateResult](../interfaces/updater.updateresult.md)
-- [UpdateStatusResult](../interfaces/updater.updatestatusresult.md)
+- [UpdateManifest](../interfaces/updater.UpdateManifest.md)
+- [UpdateResult](../interfaces/updater.UpdateResult.md)
+- [UpdateStatusResult](../interfaces/updater.UpdateStatusResult.md)
 
 ## Type aliases
 
 ### UpdateStatus
 
-Ƭ **UpdateStatus**: *PENDING* \| *ERROR* \| *DONE* \| *UPTODATE*
+Ƭ **UpdateStatus**: ``"PENDING"`` \| ``"ERROR"`` \| ``"DONE"`` \| ``"UPTODATE"``
 
-Defined in: [updater.ts:12](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L12)
+#### Defined in
+
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
 ### checkUpdate
 
-▸ **checkUpdate**(): *Promise*<[*UpdateResult*](../interfaces/updater.updateresult.md)\>
+▸ **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Checks if an update is available.
 
-**Returns:** *Promise*<[*UpdateResult*](../interfaces/updater.updateresult.md)\>
+#### Returns
+
+`Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Promise resolving to the update status.
 
-Defined in: [updater.ts:87](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L87)
+#### Defined in
+
+[updater.ts:89](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L89)
 
 ___
 
 ### installUpdate
 
-▸ **installUpdate**(): *Promise*<void\>
+▸ **installUpdate**(): `Promise`<`void`\>
 
 Install the update if there's one available.
 
-**Returns:** *Promise*<void\>
+#### Returns
+
+`Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-Defined in: [updater.ts:35](https://github.com/tauri-apps/tauri/blob/a68b4ee8/tooling/api/src/updater.ts#L35)
+#### Defined in
+
+[updater.ts:37](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L37)

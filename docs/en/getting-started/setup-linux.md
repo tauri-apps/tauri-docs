@@ -12,13 +12,6 @@ import TabItem from '@theme/TabItem';
 
 ## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
-- `wget` and `squashfs-tools` are used on AppImage bundling.
-- `libssl-dev` is used on the HTTP API.
-- GTK is used by [tao](https://github.com/tauri-apps/tao) to create windows.
-- `libwebkit2gtk-4.0-dev` is the webview provider used by [wry](https://github.com/tauri-apps/wry).
-- `libgtksourceview-3.0-dev` is needed when creating window menus or system tray menus.
-- `libappindicator3-dev` is needed for system tray.
-
 <Tabs
 defaultValue="debian"
 values={[
@@ -28,55 +21,56 @@ values={[
 ]}>
 <TabItem value="debian">
 
-If you are using Ubuntu, be sure to add the "Universe" apt repository:
-```sh
-$ sudo add-apt-repository universe
-```
-
 ```sh
 $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     wget \
-    squashfs-tools \
     libssl-dev \
     libgtk-3-dev \
-    libgtksourceview-3.0-dev \
-    libappindicator3-dev
+    libappindicator3-dev \
+    patchelf \
+    librsvg2-dev
 ```
 
 </TabItem>
 <TabItem value="arch">
 
 ```sh
-$ sudo pacman -S  base-devel \
+$ sudo pacman -Syy && sudo pacman -S  webkit2gtk \
+    base-devel \
     curl \
     wget \
-    squashfs-tools \
     openssl \
+    appmenu-gtk-module \
     gtk3 \
-    webkit2gtk \
-    gtksourceview3 \
     libappindicator-gtk3 \
+    patchelf \
+    librsvg \
+    libvips
 ```
 
 </TabItem>
 <TabItem value="fedora">
 
 ```sh
-$ sudo dnf group install "C Development Tools and Libraries" && \
-    sudo dnf check-update && sudo dnf install curl \
-        wget \
-        squashfs-tools \
-        openssl-devel \
-        gtk3 \
-        webkit2gtk3-devel.x86_64 \
-        gtksourceview3 \
-        libappindicator-devel
+$ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
+    openssl-devel \
+    curl \
+    wget \
+    libappindicator-gtk3 \ #
+    patchelf \
+    librsvg2-devel \
+    && sudo dnf group install "C Development Tools and Libraries"
 ```
 
 </TabItem>
 </Tabs>
+
+### Optional dependencies:
+
+- `libappindicator`: needed to use the system tray feature.
+- `patchelf` and `librsvg`: needed to bundle `AppImage`.
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 

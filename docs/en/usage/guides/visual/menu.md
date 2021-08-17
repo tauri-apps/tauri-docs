@@ -4,57 +4,27 @@ title: Window Menu
 
 Native application menus can be attached to a window.
 
-### Setup
-
-Enable the `menu` feature flag on `src-tauri/Cargo.toml`:
-
-```toml
-[dependencies]
-tauri = { version = "1.0.0-beta.0", features = ["menu"] }
-```
-
 ### Creating a menu
 
-To create a native window menu, import the `Menu`, `MenuItem` and `CustomMenuItem` types.
-The `MenuItem` enum contains a collection of platform-specific items (currently ignored on Windows).
+To create a native window menu, import the `Menu`, `Submenu`, `MenuItem` and `CustomMenuItem` types.
+The `MenuItem` enum contains a collection of platform-specific items (currently not implemented on Windows).
 The `CustomMenuItem` allows you to create your own menu items and add special functionality to them.
 
 ```rust
-use tauri::{CustomMenuItem, Menu, MenuItem};
+use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 ```
 
-Create a `Menu` array:
+Create a `Menu` instance:
 
 ```rust
 // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
 let quit = CustomMenuItem::new("quit".to_string(), "Quit");
 let close = CustomMenuItem::new("close".to_string(), "Close");
-let menu = vec![
-  // on macOS first menu is always app name
-  Menu::new("MyApp", vec![
-    MenuItem::Services,
-    MenuItem::Separator,
-    MenuItem::Hide,
-    MenuItem::HideOthers,
-    MenuItem::ShowAll,
-    MenuItem::Separator,
-    MenuItem::Custom(quit),
-    MenuItem::Custom(close),
-  ]),
-  Menu::new(
-    "Edit",
-    vec![
-      MenuItem::Undo,
-      MenuItem::Redo,
-      MenuItem::Separator,
-      MenuItem::Cut,
-      MenuItem::Copy,
-      MenuItem::Paste,
-      MenuItem::Separator,
-      MenuItem::SelectAll,
-    ],
-  )
-];
+let submenu = Submenu::new("File", Menu::new().add_item(quit).add_item(close));
+let menu = Menu::new()
+  .add_native_item(MenuItem::Copy)
+  .add_item(CustomMenuItem::new("hide", "Hide"))
+  .add_submenu(submenu);
 ```
 
 ### Adding the menu to all windows
@@ -62,10 +32,10 @@ let menu = vec![
 The defined menu can be set to all windows using the `menu` API on the `tauri::Builder` struct:
 
 ```rust
-use tauri::{CustomMenuItem, Menu, MenuItem};
+use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 
 fn main() {
-  let menu = vec![]; // insert the menu array here
+  let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
     .menu(menu)
     .run(tauri::generate_context!())
@@ -78,11 +48,11 @@ fn main() {
 You can create a window and set the menu to be used. This allows defining a specific menu set for each application window.
 
 ```rust
-use tauri::{CustomMenuItem, Menu, MenuItem};
+use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 use tauri::WindowBuilder;
 
 fn main() {
-  let menu = vec![]; // insert the menu array here
+  let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
     .create_window(
       "main-window".to_string(),
@@ -110,7 +80,7 @@ fn main() {
   tauri::Builder::default()
     .menu(menu)
     .on_menu_event(|event| {
-      match event.menu_item_id().as_str() {
+      match event.menu_item_id() {
         "quit" => {
           std::process::exit(0);
         }
@@ -159,5 +129,24 @@ fn main() {
     })
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
+}
+```
+
+### Updating menu items
+
+The `Window` struct has a `menu_handle` method, which allows updating menu items:
+
+```rust
+fn main() {
+  tauri::Builder::default()
+    .setup(|app| {
+      let main_window = app.get_window("main").unwrap();
+      let menu_handle = main_window.menu_handle();
+      std::thread::spawn(move || {
+        // you can also `set_selected`, `set_enabled` and `set_native_image` (macOS only).
+        menu_handle.get_item("item_id").set_title("New title");
+      })
+      Ok(())
+    })
 }
 ```

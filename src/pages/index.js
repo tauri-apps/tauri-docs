@@ -112,7 +112,7 @@ const Roadmap = ({ siteConfig }) => {
       color: COLORS.green,
       targetQuarter: 'Q4 2019',
     },
-    {      
+    {
       label: 'Alpha Release',
       icon: 'ti-flag-alt',
       color: COLORS.green,
@@ -240,7 +240,7 @@ const Roadmap = ({ siteConfig }) => {
     },
     {
       label: 'WebRTC',
-      icon: 'ti-phone',
+      icon: 'ti-microphone',
       color: COLORS.blue,
       targetQuarter: '2021',
     },

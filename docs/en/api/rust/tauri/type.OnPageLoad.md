@@ -1,11 +1,16 @@
 ---
-title: "type.OnPageLoad"
+title: Type tauri::OnPageLoad
+sidebar_label: type.OnPageLoad
+custom_edit_url: null
 ---
 
-# Type Definition [tauri](/docs/api/rust/tauri/index.html)::​[OnPageLoad](/docs/api/rust/tauri/)
+  # Type Definition tauri::OnPageLoad,
 
 ```rs
-type OnPageLoad<P> = dyn Fn(Window<P>, PageLoadPayload) + Send + Sync + 'static;
+type OnPageLoad<R> = dyn Fn(Window<R>, PageLoadPayload) + Send + Sync + 'static;
 ```
 
+Expand description
+
 A closure that is run once every time a window is created and loaded.
+  

@@ -53,6 +53,18 @@ const projects = [
     link: 'https://github.com/kickstartcoding/debug_trainer_app',
     screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
   },
+    {
+    title: 'Authme Lite',
+    image: imgPath + 'authme-lite/logo.png',
+    link: 'https://github.com/Levminer/authme-lite',
+    screenshots: ['0.png'].map((image) => imgPath + 'authme-lite/' + image),
+  },
+  {
+    title: 'Mail-Dev',
+    image: imgPath + 'mail-dev/logo.png',
+    link: 'https://github.com/samirdjelal/mail-dev/',
+    screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
+  },
 ]
 
 const customStyles = {
@@ -97,6 +109,7 @@ function Showcase() {
                     textAlign: 'center',
                     backgroundColor: '#303846',
                     color: '#ffffff',
+                    height: '100%',
                   }}
                 >
                   <div

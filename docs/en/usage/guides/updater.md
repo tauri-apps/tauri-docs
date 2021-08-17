@@ -87,7 +87,7 @@ Event: `tauri://update`
 
 ### Rust
 ```rust
-window.emit("tauri://update".to_string(), ());
+window.emit("tauri://update".to_string(), None);
 ```
 
 ### Javascript
@@ -130,7 +130,7 @@ Event: `tauri://update-install`
 
 ### Rust
 ```rust
-window.emit("tauri://update-install".to_string(), ());
+window.emit("tauri://update-install".to_string(), None);
 ```
 
 ### Javascript

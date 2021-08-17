@@ -1,8 +1,10 @@
 ---
-title: "fn.read_dir"
+title: Fn tauri::api::dir::read_dir
+sidebar_label: fn.read_dir
+custom_edit_url: null
 ---
 
-# Function [tauri](/docs/api/rust/tauri/../../index.html)::​[api](/docs/api/rust/tauri/../index.html)::​[dir](/docs/api/rust/tauri/index.html)::​[read_dir](/docs/api/rust/tauri/)
+  # Function tauri::api::dir::read_dir,
 
 ```rs
 pub fn read_dir<P: AsRef<Path>>(
@@ -11,4 +13,7 @@ pub fn read_dir<P: AsRef<Path>>(
 ) -> Result<Vec<DiskEntry>>
 ```
 
+Expand description
+
 Reads a directory. Can perform recursive operations.
+  
