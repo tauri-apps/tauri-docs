@@ -18,7 +18,7 @@ Resolver of a invoke message.
 
 ### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [InvokeResolver](/docs/api/rust/tauri/struct.InvokeResolver "struct tauri::InvokeResolver")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#127-236 "goto source code")
 
-#### pub fn [respond_async](/docs/api/rust/tauri/about:blank#method.respond_async)&lt;T, F>(self, task: F) where T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [Future](https://doc.rust-lang.org/1.54.0/core/future/future/trait.Future.html "trait core::future::future::Future")&lt;Output = [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#137-145 "goto source code")
+#### pub fn [respond_async](/docs/api/rust/tauri/about:blank#method.respond_async)&lt;T, F>(self, task: F) where T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [Future](https://doc.rust-lang.org/1.54.0/core/future/future/trait.Future.html "trait core::future::future::Future")&lt;Output = [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#137-145 "goto source code")
 
 Reply to the invoke promise with an async task.
 
@@ -26,19 +26,19 @@ Reply to the invoke promise with an async task.
 
 Reply to the invoke promise with an async task which is already serialized.
 
-#### pub fn [respond](/docs/api/rust/tauri/about:blank#method.respond)&lt;T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#158-160 "goto source code")
+#### pub fn [respond](/docs/api/rust/tauri/about:blank#method.respond)&lt;T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#158-160 "goto source code")
 
 Reply to the invoke promise with a serializable value.
 
-#### pub fn [respond_closure](/docs/api/rust/tauri/about:blank#method.respond_closure)&lt;T, F>(self, f: F) where T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#163-169 "goto source code")
+#### pub fn [respond_closure](/docs/api/rust/tauri/about:blank#method.respond_closure)&lt;T, F>(self, f: F) where T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#163-169 "goto source code")
 
 Reply to the invoke promise running the given closure.
 
-#### pub fn [resolve](/docs/api/rust/tauri/about:blank#method.resolve)&lt;T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: T)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#172-174 "goto source code")
+#### pub fn [resolve](/docs/api/rust/tauri/about:blank#method.resolve)&lt;T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: T)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#172-174 "goto source code")
 
 Resolve the invoke promise with a value.
 
-#### pub fn [reject](/docs/api/rust/tauri/about:blank#method.reject)&lt;T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: T)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#177-184 "goto source code")
+#### pub fn [reject](/docs/api/rust/tauri/about:blank#method.reject)&lt;T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(self, value: T)[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#177-184 "goto source code")
 
 Reject the invoke promise with a value.
 
@@ -46,7 +46,7 @@ Reject the invoke promise with a value.
 
 Reject the invoke promise with an [`InvokeError`](/docs/api/rust/tauri/struct.InvokeError "InvokeError").
 
-#### pub async fn [return_task](/docs/api/rust/tauri/about:blank#method.return_task)&lt;T, F>( window: [Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>, task: F, success_callback: [String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String"), error_callback: [String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String") ) where T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [Future](https://doc.rust-lang.org/1.54.0/core/future/future/trait.Future.html "trait core::future::future::Future")&lt;Output = [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#196-207 "goto source code")
+#### pub async fn [return_task](/docs/api/rust/tauri/about:blank#method.return_task)&lt;T, F>( window: [Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>, task: F, success_callback: [String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String"), error_callback: [String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String") ) where T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"), F: [Future](https://doc.rust-lang.org/1.54.0/core/future/future/trait.Future.html "trait core::future::future::Future")&lt;Output = [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static,[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#196-207 "goto source code")
 
 Asynchronously executes the given task and evaluates its Result to the JS promise described by the `success_callback` and `error_callback` function names.
 

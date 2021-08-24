@@ -16,21 +16,21 @@ A menu event that was triggered on a window.
 
 ## Implementations
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [WindowMenuEvent](/docs/api/rust/tauri/struct.WindowMenuEvent "struct tauri::WindowMenuEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#116-126 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [WindowMenuEvent](/docs/api/rust/tauri/struct.WindowMenuEvent "struct tauri::WindowMenuEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#117-127 "goto source code")
 
-#### pub fn [menu_item_id](/docs/api/rust/tauri/about:blank#method.menu_item_id)(&self) -> MenuIdRef&lt;'\_>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#118-120 "goto source code")
+#### pub fn [menu_item_id](/docs/api/rust/tauri/about:blank#method.menu_item_id)(&self) -> MenuIdRef&lt;'\_>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#119-121 "goto source code")
 
 The menu item id.
 
-#### pub fn [window](/docs/api/rust/tauri/about:blank#method.window)(&self) -> &[Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#123-125 "goto source code")
+#### pub fn [window](/docs/api/rust/tauri/about:blank#method.window)(&self) -> &[Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#124-126 "goto source code")
 
 The window that the menu belongs to.
 
 ## Trait Implementations
 
-### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [WindowMenuEvent](/docs/api/rust/tauri/struct.WindowMenuEvent "struct tauri::WindowMenuEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#110 "goto source code")
+### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [WindowMenuEvent](/docs/api/rust/tauri/struct.WindowMenuEvent "struct tauri::WindowMenuEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#111 "goto source code")
 
-#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#110 "goto source code")
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#111 "goto source code")
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 

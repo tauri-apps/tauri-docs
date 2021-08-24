@@ -18,57 +18,57 @@ This type implements [`Manager`](/docs/api/rust/tauri/trait.Manager "Manager") w
 
 ## Implementations
 
-### impl [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;[Wry](/docs/api/rust/tauri/struct.Wry "struct tauri::Wry")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#182-204 "goto source code")
+### impl [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;[Wry](/docs/api/rust/tauri/struct.Wry "struct tauri::Wry")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#183-205 "goto source code")
 
-#### pub fn [create_tao_window](/docs/api/rust/tauri/about:blank#method.create_tao_window)&lt;F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -> [(](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html)[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String"), WryWindowBuilder[)](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static>( &self, f: F ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[Arc](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html "struct alloc::sync::Arc")&lt;Window>>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#184-191 "goto source code")
+#### pub fn [create_tao_window](/docs/api/rust/tauri/about:blank#method.create_tao_window)&lt;F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")() -> [(](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html)[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String"), WryWindowBuilder[)](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html) + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + 'static>( &self, f: F ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[Arc](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html "struct alloc::sync::Arc")&lt;Window>>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#185-192 "goto source code")
 
 Create a new tao window using a callback. The event loop must be running at this point.
 
-#### pub fn [send_tao_window_event](/docs/api/rust/tauri/about:blank#method.send_tao_window_event)( &self, window_id: WindowId, message: WindowMessage ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#194-203 "goto source code")
+#### pub fn [send_tao_window_event](/docs/api/rust/tauri/about:blank#method.send_tao_window_event)( &self, window_id: WindowId, message: WindowMessage ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#195-204 "goto source code")
 
 Sends a window message to the event loop.
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#226-274 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#227-276 "goto source code")
 
-#### pub fn [plugin](/docs/api/rust/tauri/about:blank#method.plugin)&lt;P: [Plugin](/docs/api/rust/tauri/plugin/trait.Plugin "trait tauri::plugin::Plugin")&lt;R> + 'static>(&self, plugin: P) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#235-256 "goto source code")
+#### pub fn [plugin](/docs/api/rust/tauri/about:blank#method.plugin)&lt;P: [Plugin](/docs/api/rust/tauri/plugin/trait.Plugin "trait tauri::plugin::Plugin")&lt;R> + 'static>(&self, plugin: P) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#236-257 "goto source code")
 
 Adds a plugin to the runtime.
 
-#### pub fn [exit](/docs/api/rust/tauri/about:blank#method.exit)(&self, exit_code: [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html))[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#259-261 "goto source code")
+#### pub fn [exit](/docs/api/rust/tauri/about:blank#method.exit)(&self, exit_code: [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html))[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#260-263 "goto source code")
 
 Exits the app
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
-#### pub fn [create_window](/docs/api/rust/tauri/about:blank#method.create_window)&lt;F>( &self, label: impl [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>, url: [WindowUrl](/docs/api/rust/tauri/enum.WindowUrl "enum tauri::WindowUrl"), setup: F ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)> where F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")(&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")) -> [(](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html)&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")[)](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html),[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [create_window](/docs/api/rust/tauri/about:blank#method.create_window)&lt;F>( &self, label: impl [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>, url: [WindowUrl](/docs/api/rust/tauri/enum.WindowUrl "enum tauri::WindowUrl"), setup: F ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)> where F: [FnOnce](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.FnOnce.html "trait core::ops::function::FnOnce")(&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")) -> [(](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html)&lt;R::[Dispatcher](/docs/api/rust/tauri/trait.Runtime#associatedtype.Dispatcher "type tauri::Runtime::Dispatcher") as Dispatch>::WindowBuilder, [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")[)](https://doc.rust-lang.org/1.54.0/std/primitive.tuple.html),[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 Creates a new webview window.
 
-#### pub fn [path_resolver](/docs/api/rust/tauri/about:blank#method.path_resolver)(&self) -> [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [path_resolver](/docs/api/rust/tauri/about:blank#method.path_resolver)(&self) -> [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 The path resolver for the application.
 
-#### pub fn [global_shortcut_manager](/docs/api/rust/tauri/about:blank#method.global_shortcut_manager)(&self) -> R::[GlobalShortcutManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [global_shortcut_manager](/docs/api/rust/tauri/about:blank#method.global_shortcut_manager)(&self) -> R::[GlobalShortcutManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 Gets a copy of the global shortcut manager instance.
 
-#### pub fn [clipboard_manager](/docs/api/rust/tauri/about:blank#method.clipboard_manager)(&self) -> R::[ClipboardManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [clipboard_manager](/docs/api/rust/tauri/about:blank#method.clipboard_manager)(&self) -> R::[ClipboardManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 Gets a copy of the clipboard manager instance.
 
-#### pub fn [config](/docs/api/rust/tauri/about:blank#method.config)(&self) -> [Arc](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html "struct alloc::sync::Arc")&lt;[Config](/docs/api/rust/tauri/struct.Config "struct tauri::Config")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [config](/docs/api/rust/tauri/about:blank#method.config)(&self) -> [Arc](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html "struct alloc::sync::Arc")&lt;[Config](/docs/api/rust/tauri/struct.Config "struct tauri::Config")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 Gets the app’s configuration, defined on the `tauri.conf.json` file.
 
-#### pub fn [package_info](/docs/api/rust/tauri/about:blank#method.package_info)(&self) -> &[PackageInfo](/docs/api/rust/tauri/struct.PackageInfo "struct tauri::PackageInfo")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#394 "goto source code")
+#### pub fn [package_info](/docs/api/rust/tauri/about:blank#method.package_info)(&self) -> &[PackageInfo](/docs/api/rust/tauri/struct.PackageInfo "struct tauri::PackageInfo")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#396 "goto source code")
 
 Gets the app’s package information.
 
 ## Trait Implementations
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#206-217 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#207-218 "goto source code")
 
-#### fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#207-216 "goto source code")
+#### fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#208-217 "goto source code")
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -76,29 +76,29 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/c
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)
 
-### impl&lt;'de, R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/command/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#219-224 "goto source code")
+### impl&lt;'de, R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/command/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#220-225 "goto source code")
 
-#### fn [from_command](/docs/api/rust/tauri/command/trait.CommandArg#tymethod.from_command)(command: [CommandItem](/docs/api/rust/tauri/command/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Self, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#221-223 "goto source code")
+#### fn [from_command](/docs/api/rust/tauri/command/trait.CommandArg#tymethod.from_command)(command: [CommandItem](/docs/api/rust/tauri/command/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Self, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#222-224 "goto source code")
 
 Grabs the [`Window`](/docs/api/rust/tauri/window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/command/struct.CommandItem "CommandItem") and returns the associated [`AppHandle`](/docs/api/rust/tauri/struct.AppHandle "AppHandle"). This will never fail.
 
-### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R> where R::[Handle](/docs/api/rust/tauri/trait.Runtime#associatedtype.Handle "type tauri::Runtime::Handle"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"), R::[GlobalShortcutManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"), R::[ClipboardManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"),[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#171 "goto source code")
+### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R> where R::[Handle](/docs/api/rust/tauri/trait.Runtime#associatedtype.Handle "type tauri::Runtime::Handle"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"), R::[GlobalShortcutManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.GlobalShortcutManager "type tauri::Runtime::GlobalShortcutManager"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"), R::[ClipboardManager](/docs/api/rust/tauri/trait.Runtime#associatedtype.ClipboardManager "type tauri::Runtime::ClipboardManager"): [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug"),[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#172 "goto source code")
 
-#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#171 "goto source code")
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#172 "goto source code")
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Manager](/docs/api/rust/tauri/trait.Manager "trait tauri::Manager")&lt;R> for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#276 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Manager](/docs/api/rust/tauri/trait.Manager "trait tauri::Manager")&lt;R> for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#278 "goto source code")
 
 #### fn [config](/docs/api/rust/tauri/trait.Manager#method.config)(&self) -> [Arc](https://doc.rust-lang.org/1.54.0/alloc/sync/struct.Arc.html "struct alloc::sync::Arc")&lt;[Config](/docs/api/rust/tauri/struct.Config "struct tauri::Config")>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#256-258 "goto source code")
 
 The [`Config`](/docs/api/rust/tauri/struct.Config "Config") the manager was created with.
 
-#### fn [emit_all](/docs/api/rust/tauri/trait.Manager#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#261-263 "goto source code")
+#### fn [emit_all](/docs/api/rust/tauri/trait.Manager#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#261-263 "goto source code")
 
 Emits a event to all windows.
 
-#### fn [emit_to](/docs/api/rust/tauri/trait.Manager#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#266-270 "goto source code")
+#### fn [emit_to](/docs/api/rust/tauri/trait.Manager#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#266-270 "goto source code")
 
 Emits an event to a window with the specified label.
 

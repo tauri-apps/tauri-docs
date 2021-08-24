@@ -16,21 +16,21 @@ The path resolver is a helper for the application-specific [`crate::api::path`](
 
 ## Implementations
 
-### impl [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#155-165 "goto source code")
+### impl [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#156-166 "goto source code")
 
-#### pub fn [resource_dir](/docs/api/rust/tauri/about:blank#method.resource_dir)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;[PathBuf](https://doc.rust-lang.org/1.54.0/std/path/struct.PathBuf.html "struct std::path::PathBuf")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#157-159 "goto source code")
+#### pub fn [resource_dir](/docs/api/rust/tauri/about:blank#method.resource_dir)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;[PathBuf](https://doc.rust-lang.org/1.54.0/std/path/struct.PathBuf.html "struct std::path::PathBuf")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#158-160 "goto source code")
 
 Returns the path to the resource directory of this app.
 
-#### pub fn [app_dir](/docs/api/rust/tauri/about:blank#method.app_dir)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;[PathBuf](https://doc.rust-lang.org/1.54.0/std/path/struct.PathBuf.html "struct std::path::PathBuf")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#162-164 "goto source code")
+#### pub fn [app_dir](/docs/api/rust/tauri/about:blank#method.app_dir)(&self) -> [Option](https://doc.rust-lang.org/1.54.0/core/option/enum.Option.html "enum core::option::Option")&lt;[PathBuf](https://doc.rust-lang.org/1.54.0/std/path/struct.PathBuf.html "struct std::path::PathBuf")>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#163-165 "goto source code")
 
 Returns the path to the suggested directory for your app config files.
 
 ## Trait Implementations
 
-### impl [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#149 "goto source code")
+### impl [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone") for [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#150 "goto source code")
 
-#### fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#149 "goto source code")
+#### fn [clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)(&self) -> [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#150 "goto source code")
 
 Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#tymethod.clone)
 
@@ -38,9 +38,9 @@ Returns a copy of the value. [Read more](https://doc.rust-lang.org/1.54.0/core/c
 
 Performs copy-assignment from `source`. [Read more](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html#method.clone_from)
 
-### impl [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#149 "goto source code")
+### impl [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [PathResolver](/docs/api/rust/tauri/struct.PathResolver "struct tauri::PathResolver")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#150 "goto source code")
 
-#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#149 "goto source code")
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#150 "goto source code")
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 

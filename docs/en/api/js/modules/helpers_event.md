@@ -29,4 +29,4 @@ Emits an event to the backend.
 
 #### Defined in
 
-[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/event.ts#L18)
+[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/event.ts#L18)

@@ -26,7 +26,7 @@ A position represented in logical pixels.
 
 #### Defined in
 
-[window.ts:138](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L138)
+[window.ts:138](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L138)
 
 ## Properties
 
@@ -36,7 +36,7 @@ A position represented in logical pixels.
 
 #### Defined in
 
-[window.ts:134](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L134)
+[window.ts:134](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L134)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[window.ts:135](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L135)
+[window.ts:135](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L135)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[window.ts:136](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/window.ts#L136)
+[window.ts:136](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L136)

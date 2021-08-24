@@ -59,11 +59,11 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 Returns the “default value” for a type. [Read more](https://doc.rust-lang.org/1.54.0/core/default/trait.Default.html#tymethod.default)
 
-### impl&lt;'de, P> [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de> for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P> where P: [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
+### impl&lt;'de, P> [Deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de> for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P> where P: [Deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
 
-#### pub fn [deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;\_\_D>( \_\_deserializer: \_\_D ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P>, &lt;\_\_D as [Deserializer](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>>::[Error](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")> where \_\_D: [Deserializer](https://docs.rs/serde/1.0.127/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>,
+#### pub fn [deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html#tymethod.deserialize)&lt;\_\_D>( \_\_deserializer: \_\_D ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P>, &lt;\_\_D as [Deserializer](https://docs.rs/serde/1.0.129/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>>::[Error](https://docs.rs/serde/1.0.129/serde/de/trait.Deserializer.html#associatedtype.Error "type serde::de::Deserializer::Error")> where \_\_D: [Deserializer](https://docs.rs/serde/1.0.129/serde/de/trait.Deserializer.html "trait serde::de::Deserializer")&lt;'de>,
 
-Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html#tymethod.deserialize)
+Deserialize this value from the given Serde deserializer. [Read more](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html#tymethod.deserialize)
 
 ### impl&lt;T> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;PhysicalPositionWrapper&lt;T>> for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;T>
 
@@ -91,11 +91,11 @@ This method tests for `self` and `other` values to be equal, and is used by `==`
 
 This method tests for `!=`.
 
-### impl&lt;P> [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P> where P: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"),
+### impl&lt;P> [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P> where P: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize"),
 
-#### pub fn [serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>( &self, \_\_serializer: \_\_S ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;&lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Ok](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), &lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Error](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),
+#### pub fn [serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>( &self, \_\_serializer: \_\_S ) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;&lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Ok](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), &lt;\_\_S as [Serializer](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html "trait serde::ser::Serializer")>::[Error](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ### impl&lt;P> [Copy](https://doc.rust-lang.org/1.54.0/core/marker/trait.Copy.html "trait core::marker::Copy") for [PhysicalPosition](/docs/api/rust/tauri/struct.PhysicalPosition "struct tauri::PhysicalPosition")&lt;P> where P: [Copy](https://doc.rust-lang.org/1.54.0/core/marker/trait.Copy.html "trait core::marker::Copy"),
 
@@ -137,7 +137,7 @@ Immutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.5
 
 Mutably borrows from an owned value. [Read more](https://doc.rust-lang.org/1.54.0/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut)
 
-### impl&lt;'de, D, R> [CommandArg](/docs/api/rust/tauri/command/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for D where R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime"), D: [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,[\[src\]](/docs/api/rust/tauri/../src/tauri/command.rs#51-56 "goto source code")
+### impl&lt;'de, D, R> [CommandArg](/docs/api/rust/tauri/command/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for D where R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime"), D: [Deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,[\[src\]](/docs/api/rust/tauri/../src/tauri/command.rs#51-56 "goto source code")
 
 #### pub fn [from_command](/docs/api/rust/tauri/command/trait.CommandArg#tymethod.from_command)([CommandItem](/docs/api/rust/tauri/command/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;D, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../src/tauri/command.rs#52-55 "goto source code")
 
@@ -197,7 +197,7 @@ Performs the conversion.
 
 #### pub fn [vzip](/docs/api/rust/tauri/about:blank#tymethod.vzip)(self) -> V
 
-### impl&lt;T> [DeserializeOwned](https://docs.rs/serde/1.0.127/serde/de/trait.DeserializeOwned.html "trait serde::de::DeserializeOwned") for T where T: for&lt;'de> [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
+### impl&lt;T> [DeserializeOwned](https://docs.rs/serde/1.0.129/serde/de/trait.DeserializeOwned.html "trait serde::de::DeserializeOwned") for T where T: for&lt;'de> [Deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>,
 
-[\[src\]](https://docs.rs/serde/1.0.127/src/serde/de/mod.rs.html#603 "goto source code")
+[\[src\]](https://docs.rs/serde/1.0.129/src/serde/de/mod.rs.html#603 "goto source code")
   

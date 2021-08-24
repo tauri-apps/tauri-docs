@@ -42,7 +42,7 @@ If the derivation fails, the corresponding message will be rejected using [`Invo
 
 ## Implementors
 
-### impl&lt;'de, D: [Deserialize](https://docs.rs/serde/1.0.127/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>, R: [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for D[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#51-56 "goto source code")
+### impl&lt;'de, D: [Deserialize](https://docs.rs/serde/1.0.129/serde/de/trait.Deserialize.html "trait serde::de::Deserialize")&lt;'de>, R: [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for D[\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#51-56 "goto source code")
 
 Automatically implement [`CommandArg`](/docs/api/rust/tauri/trait.CommandArg "CommandArg") for any type that can be deserialized.
 
@@ -50,9 +50,9 @@ Automatically implement [`CommandArg`](/docs/api/rust/tauri/trait.CommandArg "Co
 
 [\[src\]](/docs/api/rust/tauri/../../src/tauri/command.rs#52-55 "goto source code")
 
-### impl&lt;'de, R: [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for [AppHandle](/docs/api/rust/tauri/../struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#219-224 "goto source code")
+### impl&lt;'de, R: [Runtime](/docs/api/rust/tauri/../trait.Runtime "trait tauri::Runtime")> [CommandArg](/docs/api/rust/tauri/trait.CommandArg "trait tauri::command::CommandArg")&lt;'de, R> for [AppHandle](/docs/api/rust/tauri/../struct.AppHandle "struct tauri::AppHandle")&lt;R>[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#220-225 "goto source code")
 
-#### fn [from_command](/docs/api/rust/tauri/about:blank#tymethod.from_command)(command: [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Self, [InvokeError](/docs/api/rust/tauri/../struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#221-223 "goto source code")
+#### fn [from_command](/docs/api/rust/tauri/about:blank#tymethod.from_command)(command: [CommandItem](/docs/api/rust/tauri/struct.CommandItem "struct tauri::command::CommandItem")&lt;'de, R>) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;Self, [InvokeError](/docs/api/rust/tauri/../struct.InvokeError "struct tauri::InvokeError")>[\[src\]](/docs/api/rust/tauri/../../src/tauri/app.rs#222-224 "goto source code")
 
 Grabs the [`Window`](/docs/api/rust/tauri/../window/struct.Window "Window") from the [`CommandItem`](/docs/api/rust/tauri/struct.CommandItem "CommandItem") and returns the associated [`AppHandle`](/docs/api/rust/tauri/../struct.AppHandle "AppHandle"). This will never fail.
 

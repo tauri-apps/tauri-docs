@@ -206,15 +206,15 @@ Performs the conversion.
 
 Performs the conversion.
 
-### impl [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[InvalidHeaderName](https://docs.rs/http/0.2.4/http/header/name/struct.InvalidHeaderName.html "struct http&#x3A;:header::name::InvalidHeaderName")> for [Error](/docs/api/rust/tauri/enum.Error "enum tauri::api::Error")[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
+### impl [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[InvalidHeaderName](/docs/api/rust/tauri/../http/header/struct.InvalidHeaderName "struct tauri::http&#x3A;:header::InvalidHeaderName")> for [Error](/docs/api/rust/tauri/enum.Error "enum tauri::api::Error")[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
 
-#### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(source: [InvalidHeaderName](https://docs.rs/http/0.2.4/http/header/name/struct.InvalidHeaderName.html "struct http&#x3A;:header::name::InvalidHeaderName")) -> Self[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
+#### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(source: [InvalidHeaderName](/docs/api/rust/tauri/../http/header/struct.InvalidHeaderName "struct tauri::http&#x3A;:header::InvalidHeaderName")) -> Self[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
 
 Performs the conversion.
 
-### impl [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[InvalidMethod](https://docs.rs/http/0.2.4/http/method/struct.InvalidMethod.html "struct http&#x3A;:method::InvalidMethod")> for [Error](/docs/api/rust/tauri/enum.Error "enum tauri::api::Error")[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
+### impl [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[InvalidMethod](/docs/api/rust/tauri/../http/method/struct.InvalidMethod "struct tauri::http&#x3A;:method::InvalidMethod")> for [Error](/docs/api/rust/tauri/enum.Error "enum tauri::api::Error")[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
 
-#### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(source: [InvalidMethod](https://docs.rs/http/0.2.4/http/method/struct.InvalidMethod.html "struct http&#x3A;:method::InvalidMethod")) -> Self[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
+#### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(source: [InvalidMethod](/docs/api/rust/tauri/../http/method/struct.InvalidMethod "struct tauri::http&#x3A;:method::InvalidMethod")) -> Self[\[src\]](/docs/api/rust/tauri/../../src/tauri/api/error.rs#6 "goto source code")
 
 Performs the conversion.
 

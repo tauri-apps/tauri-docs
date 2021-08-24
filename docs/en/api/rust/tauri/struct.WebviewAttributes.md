@@ -11,7 +11,6 @@ pub struct WebviewAttributes {
     pub url: WindowUrl,
     pub initialization_scripts: Vec<String, Global>,
     pub data_directory: Option<PathBuf>,
-    pub uri_scheme_protocols: HashMap<String, Box<dyn Fn(&str) + 'static + Send + Sync, Global>, RandomState>,
     pub file_drop_handler_enabled: bool,
 }
 ```
@@ -22,7 +21,7 @@ The attributes used to create an webview.
 
 ## Fields
 
-`url: WindowUrl``initialization_scripts: Vec<String, Global>``data_directory: Option<PathBuf>``uri_scheme_protocols: HashMap<String, Box<dyn Fn(&str) + 'static + Send + Sync, Global>, RandomState>``file_drop_handler_enabled: bool`
+`url: WindowUrl``initialization_scripts: Vec<String, Global>``data_directory: Option<PathBuf>``file_drop_handler_enabled: bool`
 
 ## Implementations
 
@@ -40,19 +39,6 @@ Sets the init script.
 
 Data directory for the webview.
 
-#### pub fn [has_uri_scheme_protocol](/docs/api/rust/tauri/about:blank#method.has_uri_scheme_protocol)(&self, name: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)) -> [bool](https://doc.rust-lang.org/1.54.0/std/primitive.bool.html)
-
-Whether the webview URI scheme protocol is defined or not.
-
-#### pub fn [register_uri_scheme_protocol](/docs/api/rust/tauri/about:blank#method.register_uri_scheme_protocol)&lt;N, H>( self, uri_scheme: N, protocol: H ) -> [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes") where N: [Into](https://doc.rust-lang.org/1.54.0/core/convert/trait.Into.html "trait core::convert::Into")&lt;[String](https://doc.rust-lang.org/1.54.0/alloc/string/struct.String.html "struct alloc::string::String")>, H: 'static + [Fn](https://doc.rust-lang.org/1.54.0/core/ops/function/trait.Fn.html "trait core::ops::function::Fn")(&[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html)) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;[Vec](https://doc.rust-lang.org/1.54.0/alloc/vec/struct.Vec.html "struct alloc::vec::Vec")&lt;[u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html), [Global](https://doc.rust-lang.org/1.54.0/alloc/alloc/struct.Global.html "struct alloc::alloc::Global")>, [Box](https://doc.rust-lang.org/1.54.0/alloc/boxed/struct.Box.html "struct alloc::boxed::Box")&lt;dyn [Error](https://doc.rust-lang.org/1.54.0/std/error/trait.Error.html "trait std::error::Error") + 'static, [Global](https://doc.rust-lang.org/1.54.0/alloc/alloc/struct.Global.html "struct alloc::alloc::Global")>> + [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") + [Sync](https://doc.rust-lang.org/1.54.0/core/marker/trait.Sync.html "trait core::marker::Sync"),
-
-Registers a webview protocol handler. Leverages [setURLSchemeHandler](https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/2875766-seturlschemehandler) on macOS, [AddWebResourceRequestedFilter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.addwebresourcerequestedfilter?view=webview2-dotnet-1.0.774.44) on Windows and [webkit-web-context-register-uri-scheme](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitWebContext.html#webkit-web-context-register-uri-scheme) on Linux.
-
-## Arguments
-
--   `uri_scheme` The URI scheme to register, such as `example`.
--   `protocol` the protocol associated with the given URI scheme. It’s a function that takes an URL such as `example://localhost/asset.css`.
-
 #### pub fn [disable_file_drop_handler](/docs/api/rust/tauri/about:blank#method.disable_file_drop_handler)(self) -> [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
 
 Disables the file drop handler. This is required to use drag and drop APIs on the front end on Windows.
@@ -67,7 +53,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 ## Auto Trait Implementations
 
-### impl \&#33;[RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
+### impl [RefUnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.RefUnwindSafe.html "trait std::panic::RefUnwindSafe") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
 
 ### impl [Send](https://doc.rust-lang.org/1.54.0/core/marker/trait.Send.html "trait core::marker::Send") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
 
@@ -75,7 +61,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 ### impl [Unpin](https://doc.rust-lang.org/1.54.0/core/marker/trait.Unpin.html "trait core::marker::Unpin") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
 
-### impl \&#33;[UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
+### impl [UnwindSafe](https://doc.rust-lang.org/1.54.0/std/panic/trait.UnwindSafe.html "trait std::panic::UnwindSafe") for [WebviewAttributes](/docs/api/rust/tauri/struct.WebviewAttributes "struct tauri::WebviewAttributes")
 
 ## Blanket Implementations
 

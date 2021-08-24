@@ -42,7 +42,7 @@ Performs the conversion.
 
 Performs the conversion.
 
-### impl&lt;T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#63-70 "goto source code")
+### impl&lt;T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;T> for [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#63-70 "goto source code")
 
 #### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(value: T) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#65-69 "goto source code")
 

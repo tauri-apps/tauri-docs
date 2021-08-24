@@ -17,7 +17,7 @@ hide_title: true
 
 #### Defined in
 
-[updater.ts:24](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L24)
+[updater.ts:24](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/updater.ts#L24)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 #### Defined in
 
-[updater.ts:23](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L23)
+[updater.ts:23](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/updater.ts#L23)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[updater.ts:22](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/updater.ts#L22)
+[updater.ts:22](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/updater.ts#L22)

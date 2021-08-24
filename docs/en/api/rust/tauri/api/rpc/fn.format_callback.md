@@ -31,7 +31,7 @@ let cb = format_callback("callback-function-name", &"the string response").unwra
 assert!(cb.contains(r#"window["callback-function-name"]("the string response")"#));
 ```
 
--   With types implement [`serde::Serialize`](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "serde::Serialize"):
+-   With types implement [`serde::Serialize`](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "serde::Serialize"):
 
 
 ```rs
