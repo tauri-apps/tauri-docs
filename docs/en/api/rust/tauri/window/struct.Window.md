@@ -28,11 +28,11 @@ Creates a new webview window.
 
 The label of this window.
 
-#### pub fn [emit](/docs/api/rust/tauri/about:blank#method.emit)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#242-251 "goto source code")
+#### pub fn [emit](/docs/api/rust/tauri/about:blank#method.emit)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#242-251 "goto source code")
 
 Emits an event to the current window.
 
-#### pub fn [emit_others](/docs/api/rust/tauri/about:blank#method.emit_others)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#254-256 "goto source code")
+#### pub fn [emit_others](/docs/api/rust/tauri/about:blank#method.emit_others)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/window.rs#254-256 "goto source code")
 
 Emits an event on all windows except this one.
 
@@ -371,11 +371,11 @@ Feeds a slice of this type into the given [`Hasher`](https://doc.rust-lang.org/1
 
 The [`Config`](/docs/api/rust/tauri/../struct.Config "Config") the manager was created with.
 
-#### fn [emit_all](/docs/api/rust/tauri/../trait.Manager#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/lib.rs#261-263 "goto source code")
+#### fn [emit_all](/docs/api/rust/tauri/../trait.Manager#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/lib.rs#261-263 "goto source code")
 
 Emits a event to all windows.
 
-#### fn [emit_to](/docs/api/rust/tauri/../trait.Manager#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/lib.rs#266-270 "goto source code")
+#### fn [emit_to](/docs/api/rust/tauri/../trait.Manager#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/../type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../../src/tauri/lib.rs#266-270 "goto source code")
 
 Emits an event to a window with the specified label.
 

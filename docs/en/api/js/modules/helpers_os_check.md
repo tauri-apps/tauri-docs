@@ -19,7 +19,7 @@ hide_title: true
 
 #### Defined in
 
-[helpers/os-check.ts:15](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/os-check.ts#L15)
+[helpers/os-check.ts:15](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/os-check.ts#L15)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[helpers/os-check.ts:11](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/os-check.ts#L11)
+[helpers/os-check.ts:11](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/os-check.ts#L11)

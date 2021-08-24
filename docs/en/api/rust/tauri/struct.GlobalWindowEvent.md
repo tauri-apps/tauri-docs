@@ -16,21 +16,21 @@ A window event that was triggered on the specified window.
 
 ## Implementations
 
-### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [GlobalWindowEvent](/docs/api/rust/tauri/struct.GlobalWindowEvent "struct tauri::GlobalWindowEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#136-146 "goto source code")
+### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [GlobalWindowEvent](/docs/api/rust/tauri/struct.GlobalWindowEvent "struct tauri::GlobalWindowEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#137-147 "goto source code")
 
-#### pub fn [event](/docs/api/rust/tauri/about:blank#method.event)(&self) -> &[WindowEvent](/docs/api/rust/tauri/enum.WindowEvent "enum tauri::WindowEvent")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#138-140 "goto source code")
+#### pub fn [event](/docs/api/rust/tauri/about:blank#method.event)(&self) -> &[WindowEvent](/docs/api/rust/tauri/enum.WindowEvent "enum tauri::WindowEvent")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#139-141 "goto source code")
 
 The event payload.
 
-#### pub fn [window](/docs/api/rust/tauri/about:blank#method.window)(&self) -> &[Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#143-145 "goto source code")
+#### pub fn [window](/docs/api/rust/tauri/about:blank#method.window)(&self) -> &[Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#144-146 "goto source code")
 
 The window that the menu belongs to.
 
 ## Trait Implementations
 
-### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [GlobalWindowEvent](/docs/api/rust/tauri/struct.GlobalWindowEvent "struct tauri::GlobalWindowEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#130 "goto source code")
+### impl&lt;R: [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") + [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [GlobalWindowEvent](/docs/api/rust/tauri/struct.GlobalWindowEvent "struct tauri::GlobalWindowEvent")&lt;R>[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#131 "goto source code")
 
-#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#130 "goto source code")
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#131 "goto source code")
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 

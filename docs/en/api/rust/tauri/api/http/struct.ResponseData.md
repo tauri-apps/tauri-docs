@@ -52,11 +52,11 @@ Response data.
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 
-### impl [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [ResponseData](/docs/api/rust/tauri/struct.ResponseData "struct tauri::api::http&#x3A;:ResponseData")[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#396 "goto source code")
+### impl [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") for [ResponseData](/docs/api/rust/tauri/struct.ResponseData "struct tauri::api::http&#x3A;:ResponseData")[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#396 "goto source code")
 
-#### fn [serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>(&self, \_\_serializer: \_\_S) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;\_\_S::[Ok](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), \_\_S::[Error](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.127/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#396 "goto source code")
+#### fn [serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html#tymethod.serialize)&lt;\_\_S>(&self, \_\_serializer: \_\_S) -> [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;\_\_S::[Ok](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html#associatedtype.Ok "type serde::ser::Serializer::Ok"), \_\_S::[Error](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html#associatedtype.Error "type serde::ser::Serializer::Error")> where \_\_S: [Serializer](https://docs.rs/serde/1.0.129/serde/ser/trait.Serializer.html "trait serde::ser::Serializer"),[\[src\]](/docs/api/rust/tauri/../../../src/tauri/api/http.rs#396 "goto source code")
 
-Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html#tymethod.serialize)
+Serialize this value into the given Serde serializer. [Read more](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html#tymethod.serialize)
 
 ## Auto Trait Implementations
 

@@ -16,17 +16,17 @@ Api exposed on the `CloseRequested` event.
 
 ## Implementations
 
-### impl [CloseRequestApi](/docs/api/rust/tauri/struct.CloseRequestApi "struct tauri::CloseRequestApi")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#66-71 "goto source code")
+### impl [CloseRequestApi](/docs/api/rust/tauri/struct.CloseRequestApi "struct tauri::CloseRequestApi")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#67-72 "goto source code")
 
-#### pub fn [prevent_close](/docs/api/rust/tauri/about:blank#method.prevent_close)(&self)[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#68-70 "goto source code")
+#### pub fn [prevent_close](/docs/api/rust/tauri/about:blank#method.prevent_close)(&self)[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#69-71 "goto source code")
 
 Prevents the window from being closed.
 
 ## Trait Implementations
 
-### impl [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [CloseRequestApi](/docs/api/rust/tauri/struct.CloseRequestApi "struct tauri::CloseRequestApi")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#63 "goto source code")
+### impl [Debug](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html "trait core::fmt::Debug") for [CloseRequestApi](/docs/api/rust/tauri/struct.CloseRequestApi "struct tauri::CloseRequestApi")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#64 "goto source code")
 
-#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#63 "goto source code")
+#### fn [fmt](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)(&self, f: &mut [Formatter](https://doc.rust-lang.org/1.54.0/core/fmt/struct.Formatter.html "struct core::fmt::Formatter")&lt;'\_>) -> [Result](https://doc.rust-lang.org/1.54.0/core/fmt/type.Result.html "type core::fmt::Result")[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#64 "goto source code")
 
 Formats the value using the given formatter. [Read more](https://doc.rust-lang.org/1.54.0/core/fmt/trait.Debug.html#tymethod.fmt)
 

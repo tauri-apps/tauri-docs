@@ -21,7 +21,7 @@ Optional notification body.
 
 #### Defined in
 
-[notification.ts:36](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L36)
+[notification.ts:36](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L36)
 
 ___
 
@@ -33,7 +33,7 @@ Optional notification icon.
 
 #### Defined in
 
-[notification.ts:38](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L38)
+[notification.ts:38](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L38)
 
 ___
 
@@ -45,4 +45,4 @@ Notification title.
 
 #### Defined in
 
-[notification.ts:34](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/notification.ts#L34)
+[notification.ts:34](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L34)

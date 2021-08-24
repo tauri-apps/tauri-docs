@@ -49,7 +49,7 @@ Formats the value using the given formatter. [Read more](https://doc.rust-lang.o
 
 Performs the conversion.
 
-### impl&lt;T: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> for [InvokeResponse](/docs/api/rust/tauri/enum.InvokeResponse "enum tauri::InvokeResponse")[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#99-110 "goto source code")
+### impl&lt;T: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize")> [From](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html "trait core::convert::From")&lt;[Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>> for [InvokeResponse](/docs/api/rust/tauri/enum.InvokeResponse "enum tauri::InvokeResponse")[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#99-110 "goto source code")
 
 #### fn [from](https://doc.rust-lang.org/1.54.0/core/convert/trait.From.html#tymethod.from)(result: [Result](https://doc.rust-lang.org/1.54.0/core/result/enum.Result.html "enum core::result::Result")&lt;T, [InvokeError](/docs/api/rust/tauri/struct.InvokeError "struct tauri::InvokeError")>) -> Self[\[src\]](/docs/api/rust/tauri/../src/tauri/hooks.rs#101-109 "goto source code")
 

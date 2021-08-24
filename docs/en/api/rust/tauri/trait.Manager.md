@@ -76,11 +76,11 @@ Manages a running application.
 
 The [`Config`](/docs/api/rust/tauri/struct.Config "Config") the manager was created with.
 
-#### fn [emit_all](/docs/api/rust/tauri/about:blank#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#261-263 "goto source code")
+#### fn [emit_all](/docs/api/rust/tauri/about:blank#method.emit_all)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>(&self, event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#261-263 "goto source code")
 
 Emits a event to all windows.
 
-#### fn [emit_to](/docs/api/rust/tauri/about:blank#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.127/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#266-270 "goto source code")
+#### fn [emit_to](/docs/api/rust/tauri/about:blank#method.emit_to)&lt;S: [Serialize](https://docs.rs/serde/1.0.129/serde/ser/trait.Serialize.html "trait serde::ser::Serialize") + [Clone](https://doc.rust-lang.org/1.54.0/core/clone/trait.Clone.html "trait core::clone::Clone")>( &self, label: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), event: &[str](https://doc.rust-lang.org/1.54.0/std/primitive.str.html), payload: S ) -> [Result](/docs/api/rust/tauri/type.Result "type tauri::Result")&lt;[()](https://doc.rust-lang.org/1.54.0/std/primitive.unit.html)>[\[src\]](/docs/api/rust/tauri/../src/tauri/lib.rs#266-270 "goto source code")
 
 Emits an event to a window with the specified label.
 
@@ -124,11 +124,11 @@ Tries to get the managed state for the type `T`. Returns `None` if the type is n
 
 ### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Manager](/docs/api/rust/tauri/trait.Manager "trait tauri::Manager")&lt;R> for [App](/docs/api/rust/tauri/struct.App "struct tauri::App")&lt;R>
 
-[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#306 "goto source code")
+[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#308 "goto source code")
 
 ### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Manager](/docs/api/rust/tauri/trait.Manager "trait tauri::Manager")&lt;R> for [AppHandle](/docs/api/rust/tauri/struct.AppHandle "struct tauri::AppHandle")&lt;R>
 
-[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#276 "goto source code")
+[\[src\]](/docs/api/rust/tauri/../src/tauri/app.rs#278 "goto source code")
 
 ### impl&lt;R: [Runtime](/docs/api/rust/tauri/trait.Runtime "trait tauri::Runtime")> [Manager](/docs/api/rust/tauri/trait.Manager "trait tauri::Manager")&lt;R> for [Window](/docs/api/rust/tauri/window/struct.Window "struct tauri::window::Window")&lt;R>
 

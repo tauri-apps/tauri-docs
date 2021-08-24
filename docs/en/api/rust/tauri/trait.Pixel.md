@@ -39,13 +39,25 @@ Casts a pixel.
 
 #### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [i16](https://doc.rust-lang.org/1.54.0/std/primitive.i16.html)
 
-### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
 
-#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
+
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
+
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
 
 ### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u32](https://doc.rust-lang.org/1.54.0/std/primitive.u32.html)
 
 #### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u32](https://doc.rust-lang.org/1.54.0/std/primitive.u32.html)
+
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
+
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
+
+### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
+
+#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)
 
 ### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [i8](https://doc.rust-lang.org/1.54.0/std/primitive.i8.html)
 
@@ -54,18 +66,6 @@ Casts a pixel.
 ### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html)
 
 #### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [i32](https://doc.rust-lang.org/1.54.0/std/primitive.i32.html)
-
-### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
-
-#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [f32](https://doc.rust-lang.org/1.54.0/std/primitive.f32.html)
-
-### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
-
-#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u8](https://doc.rust-lang.org/1.54.0/std/primitive.u8.html)
-
-### impl [Pixel](/docs/api/rust/tauri/trait.Pixel "trait tauri::Pixel") for [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
-
-#### pub fn [from_f64](/docs/api/rust/tauri/about:blank#tymethod.from_f64)(f: [f64](https://doc.rust-lang.org/1.54.0/std/primitive.f64.html)) -> [u16](https://doc.rust-lang.org/1.54.0/std/primitive.u16.html)
 
 ## Implementors
   

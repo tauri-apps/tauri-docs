@@ -21,4 +21,4 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:27](https://github.com/tauri-apps/tauri/blob/fbb405b/tooling/api/src/helpers/tauri.ts#L27)
+[helpers/tauri.ts:27](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/tauri.ts#L27)
