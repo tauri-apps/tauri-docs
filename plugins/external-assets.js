@@ -9,6 +9,12 @@ module.exports = (context, options) => ({
         //     src: context.baseUrl + 'js/ethicalads.min.js',
         //   },
         // },
+        {
+          tagName: 'script',
+          attributes: {
+            src: context.baseUrl + 'js/lottie-player.js',
+          },
+        },
       ],
     }
   },
