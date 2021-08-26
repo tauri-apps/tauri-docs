@@ -65,6 +65,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
+  {
+    title: 'Commandos',
+    image: imgPath + 'commandos/logo.png',
+    link: 'https://github.com/Commandos-app/Commandos/',
+    screenshots: ['0.png'].map((image) => imgPath + 'commandos/' + image),
+  },
 ]
 
 const customStyles = {

@@ -287,7 +287,10 @@
         },
         {
           "description": "Local SMTP Server For Email Testing/Debugging."
-        }
+        },
+		{
+	      "description": "Open Source Gis Client."
+		}
       ],
       "yourProject": "Your project",
       "addIt": "Add it!"
