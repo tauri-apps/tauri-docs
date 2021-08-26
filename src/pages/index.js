@@ -7,7 +7,7 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
-import '../../static/lottie-player.js'
+import '../utils/lottie-player.js'
 
 // See translations for label and description
 const features = [
