@@ -7,6 +7,7 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
+import '../../static/lottie-player.js'
 
 // See translations for label and description
 const features = [
@@ -387,9 +388,7 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <img
-            src={useBaseUrl('img/tauri_with_wordmark.svg')}
-          />
+          <lottie-player src="tauri-splash.json" background="transparent" speed="1" autoplay></lottie-player>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
