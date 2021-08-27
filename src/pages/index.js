@@ -387,9 +387,7 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <img
-            src={useBaseUrl('img/tauri_with_wordmark.svg')}
-          />
+          <lottie-player src="tauri-splash.json" background="transparent" speed="1" autoplay></lottie-player>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
