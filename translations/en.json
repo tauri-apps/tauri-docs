@@ -294,6 +294,7 @@
     }
   },
   "navbar": {
+    "blog": "Blog",
     "about": "About",
     "docs": "Docs",
     "api": "API",

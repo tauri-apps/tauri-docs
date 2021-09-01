@@ -44,7 +44,7 @@ const siteConfig = {
         src: 'img/tauri_with_wordmark.svg',
       },
       items: [
-        { to: 'blog', label: 'Blog', position: 'left' },
+        { to: 'blog', label: t.navbar.blog, position: 'left' },
         { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },
         {
           to: 'docs/getting-started/intro',
