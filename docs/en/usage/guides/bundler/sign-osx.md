@@ -9,7 +9,7 @@ import Alert from '@theme/Alert'
 
 Tauri has a smooth code-signing & notarization functionality built directly into the bundler and configured via the `tauri.conf.json` 
 
-This guide will give a brief overview of how to sign an application, and how to get the app notarized with apple. All in a GitHub action. 
+This guide will give a brief overview of how to sign an application, and how to get the app notarized with Apple. All in a GitHub action. 
 
 ## Prerequisits 
 - OSX - This will be needed to create/export the certificate.
@@ -27,7 +27,7 @@ The secrets I used are as follows
 
 | GitHub Secrets | Value for Variable |
 |     :---:      |        :---:            |
-|APPLE_CERTIFICATE| Base64 encoded version of your .p12 certificate. guide [here](https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions#reference)|
+|APPLE_CERTIFICATE| Base64 encoded version of your .p12 certificate. You can find a guide [here](https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions#reference)|
 |APPLE_CERTIFICATE_PASSWORD|Certificate password used on creation of certificate|
 |APPLE_SIGNING_IDENTITY|"Developer ID Application: Your Company, Inc (XXXXXXXXX)" shown in your keychain. you can also use `security find-identity -v -p codesigning` on OSX to find this identity |
 |APPLE_ID|this is the email used to request the certificate|
