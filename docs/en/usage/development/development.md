@@ -1,5 +1,5 @@
 ---
-title: App Development
+title: Development Cycle
 sidebar_label: 'App Development (2/4)'
 ---
 

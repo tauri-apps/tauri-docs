@@ -1,5 +1,5 @@
 ---
-title: App Debugging
+title: Debugging
 sidebar_label: 'App Debugging (3/4)'
 ---
 
