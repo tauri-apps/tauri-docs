@@ -1,6 +1,5 @@
 ---
 title: Integrate with Tauri
-sidebar_label: 'Tauri Integration (1/4)'
 ---
 
 import Alert from '@theme/Alert'
