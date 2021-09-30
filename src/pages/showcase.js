@@ -65,6 +65,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
+  {
+    title: 'ExcelMerger',
+    image: imgPath + 'excelmerger/logo.png',
+    link: 'https://github.com/Leon0824/ExcelMerger',
+    screenshots: ['0.png'].map((image) => imgPath + 'excelmerger/' + image),
+  },
 ]
 
 const customStyles = {

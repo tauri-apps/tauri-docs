@@ -287,6 +287,9 @@
         },
         {
           "description": "Local SMTP Server For Email Testing/Debugging."
+        },
+        {
+          "description": "ExcelMerger merges Excel files"
         }
       ],
       "yourProject": "Your project",
