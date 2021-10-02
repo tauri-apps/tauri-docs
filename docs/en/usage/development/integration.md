@@ -68,7 +68,7 @@ This will install `tauri-cli` as a Cargo subcommand on the cargo binary folder (
 cargo install tauri-cli --version ^1.0.0-beta
 ```
 
-More install options, see [`cargo install`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#description)
+For more installation options, see [`cargo install`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#description)
 
 #### Install Tauri API Package as a Dependency (optional):
 
