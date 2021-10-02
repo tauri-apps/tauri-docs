@@ -60,7 +60,7 @@ If you decide to use Tauri as a local package with npm (not yarn), you will have
 }
 ```
 
-#### Alternatively, install Tauri CLI as a cargo binary crate:
+#### Alternatively, install Tauri CLI as a cargo subcommand:
 
 This will install tauri-cli to your default path of cargo binary crates:
 
