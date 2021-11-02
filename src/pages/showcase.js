@@ -12,6 +12,12 @@ If you need to add some images, create a folder in /img/showcase so your stuff i
 */
 const projects = [
   {
+    title: 'BS Redis Desktop Client',
+    image: imgPath + 'bsredis/logo.svg',
+    link: 'https://bs.echosocket.com/',
+    screenshots: ['0.png'].map((image) => imgPath + 'bsredis/' + image),
+  },
+  {
     title: 'GUIJS',
     image: imgPath + 'guijs/logo.svg',
     link: 'https://guijs.dev/',
@@ -53,7 +59,7 @@ const projects = [
     link: 'https://github.com/kickstartcoding/debug_trainer_app',
     screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
   },
-    {
+  {
     title: 'Authme Lite',
     image: imgPath + 'authme-lite/logo.png',
     link: 'https://github.com/Levminer/authme-lite',
@@ -135,7 +141,7 @@ function Showcase() {
                           {
                             siteConfig.themeConfig.t.pages.showcase.projects[
                               index
-                            ].description
+                              ].description
                           }
                         </small>
                       </div>
