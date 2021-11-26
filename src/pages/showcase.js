@@ -65,6 +65,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
+  {
+    title: 'Tinker 2',
+    image: imgPath + 'tinker2/logo.png',
+    link: 'https://github.com/bangnokia/tinker2/',
+    screenshots: ['0.png'].map((image) => imgPath + 'tinker2/' + image),
+  },
 ]
 
 const customStyles = {

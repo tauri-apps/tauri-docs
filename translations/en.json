@@ -287,6 +287,9 @@
         },
         {
           "description": "Local SMTP Server For Email Testing/Debugging."
+        },
+        {
+          "description": "RELP desktop app tinker with your PHP applications without touching source code."
         }
       ],
       "yourProject": "Your project",
