@@ -65,6 +65,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
+  {
+    title: 'Xplorer',
+    image: imgPath + 'xplorer/logo.png',
+    link: 'https://github.com/kimlimjustin/xplorer/',
+    screenshots: ['0.png'].map((image) => imgPath + 'xplorer/' + image),
+  }
 ]
 
 const customStyles = {

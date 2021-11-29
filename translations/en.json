@@ -287,6 +287,9 @@
         },
         {
           "description": "Local SMTP Server For Email Testing/Debugging."
+        },
+        {
+          "description": "A customizable and modern file manager"
         }
       ],
       "yourProject": "Your project",
