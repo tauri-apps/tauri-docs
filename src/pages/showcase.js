@@ -71,6 +71,12 @@ const projects = [
     link: 'https://github.com/Commandos-app/Commandos/',
     screenshots: ['0.png'].map((image) => imgPath + 'commandos/' + image),
   },
+  {
+    title: 'ExcelMerger',
+    image: imgPath + 'excelmerger/logo.png',
+    link: 'https://github.com/Leon0824/ExcelMerger',
+    screenshots: ['0.png'].map((image) => imgPath + 'excelmerger/' + image),
+  },
 ]
 
 const customStyles = {
