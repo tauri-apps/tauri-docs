@@ -289,6 +289,9 @@
           "description": "Local SMTP Server For Email Testing/Debugging."
         },
         {
+          "description": "Open Source Git Client."
+        },
+        {
           "description": "ExcelMerger merges Excel files"
         }
       ],

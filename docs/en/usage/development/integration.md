@@ -26,7 +26,11 @@ Just follow the instructions and choose the web frontend framework you prefer. `
 
 ### 1. Add Tauri to Existing Project:
 
-This will install Tauri CLI package as a dev dependency:
+The Tauri CLI tool helps you build your project, so install it at first.
+
+You can install Tauri CLI [using `Node.js`](#Install-Tauri-CLI-package-as-a-dev-dependency:) or [using `Rust`](#Alternatively,-install-Tauri-CLI-as-a-cargo-subcommand:)
+
+#### Install Tauri CLI package as a dev dependency:
 
 ```bash
 cd project-folder
@@ -55,6 +59,16 @@ If you decide to use Tauri as a local package with npm (not yarn), you will have
   }
 }
 ```
+
+#### Alternatively, install Tauri CLI as a cargo subcommand:
+
+This will install `tauri-cli` as a Cargo subcommand on the cargo binary folder (by default on `$HOME/.cargo/bin`):
+
+```bash
+cargo install tauri-cli --version ^1.0.0-beta
+```
+
+For more installation options, see [`cargo install`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#description)
 
 #### Install Tauri API Package as a Dependency (optional):
 
