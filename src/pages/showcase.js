@@ -89,6 +89,12 @@ const projects = [
     link: 'https://github.com/kimlimjustin/xplorer/',
     screenshots: ['0.png'].map((image) => imgPath + 'xplorer/' + image),
   },
+  {
+    title: 'Kadium',
+    image: imgPath + 'kadium/logo.svg',
+    link: 'https://github.com/samirdjelal/mail-dev/',
+    screenshots: ['0.png'].map((image) => imgPath + 'kadium/' + image),
+  },
 ]
 
 const customStyles = {
