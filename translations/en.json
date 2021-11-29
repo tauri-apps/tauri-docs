@@ -296,6 +296,9 @@
         },
         {
           "description": "REPL desktop app tinker with your PHP applications without touching source code."
+        },
+        {
+          "description": "A customizable and modern file manager"
         }
       ],
       "yourProject": "Your project",

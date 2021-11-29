@@ -83,6 +83,12 @@ const projects = [
     link: 'https://github.com/bangnokia/tinker2/',
     screenshots: ['0.png'].map((image) => imgPath + 'tinker2/' + image),
   },
+  {
+    title: 'Xplorer',
+    image: imgPath + 'xplorer/logo.png',
+    link: 'https://github.com/kimlimjustin/xplorer/',
+    screenshots: ['0.png'].map((image) => imgPath + 'xplorer/' + image),
+  },
 ]
 
 const customStyles = {
