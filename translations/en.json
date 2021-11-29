@@ -289,7 +289,22 @@
           "description": "Local SMTP Server For Email Testing/Debugging."
         },
         {
-          "description": "Music file tagging app"
+          "description": "Open Source Git Client."
+        },
+        {
+          "description": "ExcelMerger merges Excel files"
+        },
+        {
+          "description": "REPL desktop app tinker with your PHP applications without touching source code."
+        },
+        {
+          "description": "A customizable and modern file manager"
+        },
+        {
+          "description": "App for staying ontop of YouTube channel uploads."
+        },
+        {
+          "description": "Music file tagging app."
         }
       ],
       "yourProject": "Your project",
