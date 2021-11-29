@@ -53,7 +53,7 @@ const projects = [
     link: 'https://github.com/kickstartcoding/debug_trainer_app',
     screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
   },
-    {
+  {
     title: 'Authme Lite',
     image: imgPath + 'authme-lite/logo.png',
     link: 'https://github.com/Levminer/authme-lite',
@@ -66,11 +66,29 @@ const projects = [
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
   {
+    title: 'Commandos',
+    image: imgPath + 'commandos/logo.png',
+    link: 'https://github.com/Commandos-app/Commandos/',
+    screenshots: ['0.png'].map((image) => imgPath + 'commandos/' + image),
+  },
+  {
+    title: 'ExcelMerger',
+    image: imgPath + 'excelmerger/logo.png',
+    link: 'https://github.com/Leon0824/ExcelMerger',
+    screenshots: ['0.png'].map((image) => imgPath + 'excelmerger/' + image),
+  },
+  {
+    title: 'Tinker 2',
+    image: imgPath + 'tinker2/logo.png',
+    link: 'https://github.com/bangnokia/tinker2/',
+    screenshots: ['0.png'].map((image) => imgPath + 'tinker2/' + image),
+  },
+  {
     title: 'Xplorer',
     image: imgPath + 'xplorer/logo.png',
     link: 'https://github.com/kimlimjustin/xplorer/',
     screenshots: ['0.png'].map((image) => imgPath + 'xplorer/' + image),
-  }
+  },
 ]
 
 const customStyles = {
