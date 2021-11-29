@@ -293,6 +293,9 @@
         },
         {
           "description": "ExcelMerger merges Excel files"
+        },
+        {
+          "description": "REPL desktop app tinker with your PHP applications without touching source code."
         }
       ],
       "yourProject": "Your project",
