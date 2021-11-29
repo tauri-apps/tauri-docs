@@ -65,6 +65,12 @@ const projects = [
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
+  {
+    title: 'Mr Tagger',
+    image: imgPath + 'mr-tagger/logo.svg',
+    link: 'https://github.com/probablykasper/mr-tagger',
+    screenshots: ['0.png'].map((image) => imgPath + 'mr-tagger/' + image),
+  },
 ]
 
 const customStyles = {

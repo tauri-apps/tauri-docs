@@ -287,6 +287,9 @@
         },
         {
           "description": "Local SMTP Server For Email Testing/Debugging."
+        },
+        {
+          "description": "Music file tagging app"
         }
       ],
       "yourProject": "Your project",
