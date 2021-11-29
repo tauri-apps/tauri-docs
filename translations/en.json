@@ -302,6 +302,9 @@
         },
         {
           "description": "App for staying ontop of YouTube channel uploads."
+        },
+        {
+          "description": "Music file tagging app."
         }
       ],
       "yourProject": "Your project",
