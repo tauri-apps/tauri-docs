@@ -66,11 +66,23 @@ const projects = [
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
   {
+    title: 'Commandos',
+    image: imgPath + 'commandos/logo.png',
+    link: 'https://github.com/Commandos-app/Commandos/',
+    screenshots: ['0.png'].map((image) => imgPath + 'commandos/' + image),
+  },
+  {
+    title: 'ExcelMerger',
+    image: imgPath + 'excelmerger/logo.png',
+    link: 'https://github.com/Leon0824/ExcelMerger',
+    screenshots: ['0.png'].map((image) => imgPath + 'excelmerger/' + image),
+  },
+  {
     title: 'Tinker 2',
     image: imgPath + 'tinker2/logo.png',
     link: 'https://github.com/bangnokia/tinker2/',
     screenshots: ['0.png'].map((image) => imgPath + 'tinker2/' + image),
-  },
+  }.
 ]
 
 const customStyles = {
