@@ -279,6 +279,9 @@
         },
         {
           "description": "ExcelMerger merges Excel files"
+        },
+        {
+          "description": "The Best Surprise Redis Desktop Client. Powered by Rust and Tauri."
         }
       ],
       "yourProject": "Your project",
