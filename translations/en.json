@@ -305,6 +305,9 @@
         },
         {
           "description": "Music file tagging app."
+        },
+        {
+          "description": "The Best Surprise Redis Desktop Client. Powered by Rust and Tauri."
         }
       ],
       "yourProject": "Your project",

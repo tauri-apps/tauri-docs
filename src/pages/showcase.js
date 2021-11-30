@@ -101,6 +101,12 @@ const projects = [
     link: 'https://github.com/probablykasper/mr-tagger',
     screenshots: ['0.png'].map((image) => imgPath + 'mr-tagger/' + image),
   },
+  {
+    title: 'BS Redis Desktop Client',
+    image: imgPath + 'bs-redis/logo.svg',
+    link: 'https://bs.echosocket.com/',
+    screenshots: ['0.png'].map((image) => imgPath + 'bs-redis/' + image)
+  }
 ]
 
 const customStyles = {
