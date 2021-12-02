@@ -112,7 +112,7 @@ const projects = [
     image: imgPath + 'rsyncinator/logo.svg',
     link: 'https://github.com/snipline/rsyncinator-desktop',
     screenshots: ['0.png'].map((image) => imgPath + 'rsyncinator/' + image)
-  },
+  }
 ]
 
 const customStyles = {
