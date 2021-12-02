@@ -106,6 +106,12 @@ const projects = [
     image: imgPath + 'bs-redis/logo.svg',
     link: 'https://bs.echosocket.com/',
     screenshots: ['0.png'].map((image) => imgPath + 'bs-redis/' + image)
+  },
+  {
+    title: 'Rsyncinator',
+    image: imgPath + 'rsyncinator/logo.png',
+    link: 'https://github.com/snipline/rsyncinator-desktop',
+    screenshots: ['0.png'].map((image) => imgPath + 'rsyncinator/' + image),
   }
 ]
 
