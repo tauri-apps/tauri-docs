@@ -109,9 +109,9 @@ const projects = [
   },
   {
     title: 'Rsyncinator',
-    image: imgPath + 'rsyncinator/logo.svg',
+    image: imgPath + 'rsyncinator/logo.png',
     link: 'https://github.com/snipline/rsyncinator-desktop',
-    screenshots: ['0.png'].map((image) => imgPath + 'rsyncinator/' + image)
+    screenshots: ['0.png'].map((image) => imgPath + 'rsyncinator/' + image),
   }
 ]
 

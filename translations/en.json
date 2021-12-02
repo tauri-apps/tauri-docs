@@ -308,6 +308,9 @@
         },
         {
           "description": "The Best Surprise Redis Desktop Client. Powered by Rust and Tauri."
+        },
+        {
+          "description": "An open source and multi-platform app for generating rsync commands to use in your terminal."
         }
       ],
       "yourProject": "Your project",
