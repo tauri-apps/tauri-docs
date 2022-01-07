@@ -85,7 +85,6 @@
             "label": "Native Notifications",
             "description": "Cross-platform notifications using polyfilled WEB API."
           },
-
           {
             "label": "GH Action for Building Apps",
             "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
@@ -293,7 +292,7 @@
     "partners": "Partners",
     "showcase": "Showcase",
     "usage": "Usage",
-    "gettingStarted": "Getting started",
+    "getStarted": "Get started",
     "contact": "Contact",
     "mail": "Mail",
     "network": "Network"

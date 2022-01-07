@@ -387,7 +387,12 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <lottie-player src="tauri-splash.json" background="transparent" speed="1" autoplay></lottie-player>
+          <lottie-player
+            src="tauri-splash.json"
+            background="transparent"
+            speed="1"
+            autoplay
+          ></lottie-player>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
@@ -416,7 +421,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/getting-started/intro')}
+                    to={useBaseUrl('docs/get-started/intro')}
                   >
                     <span>
                       {siteConfig.themeConfig.t.pages.index.getStarted}
