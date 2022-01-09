@@ -167,6 +167,7 @@ const siteConfig = {
         docs: {
           path: './docs/' + language,
           sidebarPath: require.resolve('./sidebars.js'),
+          showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
         },
         theme: {
