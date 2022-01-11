@@ -142,16 +142,12 @@
             "description": "Generally stable on Desktop, API locked down."
           },
           {
-            "label": "Channel API",
-            "description": "Send messages through a channel."
+            "label": "Clipboard",
+            "description": "Enable programmatic and keyboard access to clipboard."
           },
           {
             "label": "Security Audit",
             "description": "3rd party security audit of core libraries."
-          },
-          {
-            "label": "WebRTC",
-            "description": "Rust-based webrtc."
           },
           {
             "label": "Iframe with native API",
@@ -162,8 +158,12 @@
             "description": "For improved security of files interaction."
           },
           {
-            "label": "Clipboard",
-            "description": "Enable programmatic and keyboard access to clipboard."
+            "label": "Stable Release",
+            "description": "Stable on On all Platforms."
+          },
+          {
+            "label": "Channel API",
+            "description": "Send messages through a channel."
           },
           {
             "label": "One-Time Commands",
@@ -184,10 +184,6 @@
           {
             "label": "PureOS App Store",
             "description": "Verified builds for PureOS."
-          },
-          {
-            "label": "Stable Release",
-            "description": "Stable on On all Platforms."
           },
           {
             "label": "Other Bindings",
