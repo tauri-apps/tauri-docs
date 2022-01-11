@@ -21,7 +21,7 @@ function insertDashDashBeforeOption (value, name) {
 
 export default ({ name }) => {
   return (
-    <Tabs groupId="installMode" defaultValue="Yarn" values={types}>
+    <Tabs groupId="installMode" defaultValue="yarn tauri " values={types}>
       {types.map((type) => (
         <TabItem value={type.value}>
           <CodeBlock className="language-sh">
