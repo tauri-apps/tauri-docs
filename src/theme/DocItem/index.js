@@ -7,7 +7,6 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import DocPaginator from '@theme/DocPaginator';
-import DocVersionSuggestions from '@theme/DocVersionSuggestions';
 import Seo from '@theme/Seo';
 import LastUpdated from '@theme/LastUpdated';
 import TOC from '@theme/TOC';
@@ -67,7 +66,6 @@ function DocItem(props) {
           className={clsx('col', {
             [styles.docItemCol]: !hideTableOfContents,
           })}>
-          <DocVersionSuggestions />
           <div className={styles.docItemContainer}>
             <article>
               {showVersionBadge && (

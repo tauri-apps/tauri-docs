@@ -14,7 +14,6 @@ import useThemeContext from '@theme/hooks/useThemeContext'
 import useHideableNavbar from '@theme/hooks/useHideableNavbar'
 import useLockBodyScroll from '@theme/hooks/useLockBodyScroll'
 import Icon from '@theme/Icon'
-import useWindowSize, { windowSizes } from '@theme/hooks/useWindowSize'
 import useLogo from '@theme/hooks/useLogo'
 import styles from './styles.module.css'
 import NavbarItem from '@theme/NavbarItem' // retrocompatible with v1
@@ -64,12 +63,6 @@ function Navbar() {
   //   (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
   //   [setLightTheme, setDarkTheme]
   // )
-  const windowSize = useWindowSize()
-  useEffect(() => {
-    if (windowSize === windowSizes.desktop) {
-      setSidebarShown(false)
-    }
-  }, [windowSize])
   const { leftItems, rightItems } = splitNavItemsByPosition(items)
 
   const enabledLanguages = Object.entries(languages).filter(
