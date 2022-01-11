@@ -162,10 +162,6 @@
             "description": "Stable on On all Platforms."
           },
           {
-            "label": "WebRTC",
-            "description": "Rust-based webrtc."
-          },
-          {
             "label": "Channel API",
             "description": "Send messages through a channel."
           },

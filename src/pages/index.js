@@ -257,12 +257,6 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q1 2022',
     },
     {
-      label: 'WebRTC',
-      icon: 'ti-microphone',
-      color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
       label: 'Channel API',
       icon: 'ti-rss-alt',
       color: COLORS.blue,
