@@ -128,7 +128,6 @@ exports.config = {
       maxInstances: 1,
       "tauri:options": {
         application: "../../target/release/hello-tauri-webdriver",
-        args: ["app", "cli", "args"]
       },
     },
   ],
