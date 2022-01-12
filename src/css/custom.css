@@ -316,5 +316,5 @@ html[data-theme="light"] .navbar__brand {
 
 .badge--warning,
 .badge--warning:hover {
-  color: var(--ifm-button-color);
+  color: var(--ifm-button-color) !important;
 }
