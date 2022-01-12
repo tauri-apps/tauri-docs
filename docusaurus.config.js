@@ -91,6 +91,16 @@ const siteConfig = {
           className: 'header-github-link'
         },
         {
+          type: 'localeDropdown',
+          position: 'right',
+          dropdownItemsAfter: [
+            {
+              to: 'https://github.com/tauri-apps/tauri-docs#contributing',
+              label: 'Help us translate',
+            },
+          ],
+        },
+        {
           type: 'search',
           position: 'right',
         },
