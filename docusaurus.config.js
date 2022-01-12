@@ -44,7 +44,11 @@ const siteConfig = {
         src: 'img/tauri_with_wordmark.svg',
       },
       items: [
-        { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },
+        {
+          to: 'docs/about/intro',
+          label: t.navbar.about,
+          position: 'left'
+        },
         {
           to: 'docs/getting-started/intro',
           label: t.navbar.docs,
@@ -78,6 +82,10 @@ const siteConfig = {
           'aria-label': 'GitHub',
           position: 'right',
           className: 'header-github-link'
+        },
+        {
+          type: 'search',
+          position: 'right',
         },
       ],
     },
