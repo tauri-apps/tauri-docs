@@ -39,7 +39,6 @@ const siteConfig = {
     },
     navbar: {
       hideOnScroll: false,
-      title: ' ',
       logo: {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark.svg',

@@ -317,4 +317,6 @@ html[data-theme="light"] .navbar__brand {
 .badge--warning,
 .badge--warning:hover {
   color: var(--ifm-button-color) !important;
+  /* Fixes the background color on mobile */
+  background-color: var(--ifm-color-warning) !important;
 }
