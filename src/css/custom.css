@@ -314,6 +314,7 @@ html[data-theme="light"] .navbar__brand {
   height: 30px;
 }
 
-.badge--warning {
+.badge--warning,
+.badge--warning:hover {
   color: var(--ifm-button-color);
 }

@@ -29,7 +29,8 @@ const siteConfig = {
     t,
     version,
     colorMode: {
-      defaultMode: 'dark'
+      defaultMode: 'dark',
+      disableSwitch: true,
     },
     announcementBar: {
       id: 'beta',
@@ -76,6 +77,12 @@ const siteConfig = {
               to: discordURL,
             },
           ],
+        },
+        {
+          label: 'Beta',
+          to: "/#roadmap",
+          position: 'right',
+          className: 'badge badge--warning'
         },
         {
           href: repoUrl,
