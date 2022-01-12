@@ -3,6 +3,7 @@
   border-radius: 0.25rem;
   border: 2px solid var(--ifm-font-color-base);
   padding: 8px;
+  margin: 0 8px;
   height: 41px;
   display: flex;
   align-content: center;
