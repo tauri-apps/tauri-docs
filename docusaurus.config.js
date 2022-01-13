@@ -50,7 +50,7 @@ const siteConfig = {
           position: 'left'
         },
         {
-          to: 'docs/getting-started/intro',
+          to: 'docs/get-started/intro',
           label: t.navbar.docs,
           position: 'left',
         },
@@ -87,7 +87,7 @@ const siteConfig = {
           href: repoUrl,
           'aria-label': 'GitHub',
           position: 'right',
-          className: 'header-github-link'
+          className: 'header-github-link',
         },
         {
           type: 'localeDropdown',
@@ -113,8 +113,8 @@ const siteConfig = {
           title: t.navbar.docs,
           items: [
             {
-              label: t.navbar.gettingStarted,
-              to: 'docs/getting-started/intro',
+              label: t.navbar.getStarted,
+              to: 'docs/get-started/intro',
             },
             {
               label: t.navbar.usage,

@@ -44,7 +44,7 @@ node build.js
 
 supported-languages.js is the module containing the enabled/targeted languages for Tauri documentation site.
 
-Uncomment a language when at least "Getting started" and most of "Usage" docs are translated.
+Uncomment a language when at least "Get started" and most of "Usage" docs are translated.
 
 ## Deployment
 
@@ -70,7 +70,7 @@ To enable a language on the documentation website, we need to (at least) have th
 
 - strings from en.json;
 - docs/about/intro.md and docs/about/security.md;
-- all files in docs/getting-started;
+- all files in docs/get-started;
 - all files in docs/usage/development;
 
 Please ignore the following items for now since breaking changes may happen frequently:
