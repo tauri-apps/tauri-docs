@@ -17,7 +17,7 @@ const projects = [
     image: imgPath + 'guijs/logo.svg',
     link: 'https://guijs.dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'guijs/' + image),
-    description: translate({message: ""})
+    description: ""
   },
   {
     title: 'LuckyYou',
