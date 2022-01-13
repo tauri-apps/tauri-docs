@@ -1,10 +1,10 @@
 import React from 'react'
 import classnames from 'classnames'
-import styles from './rater.module.css'
+import styles from './styles.module.css'
 
 const Item = ({ backgroundColor }) => <span style={{ backgroundColor }}></span>
 
-const Rater = ({ value, color = '#67d6ed' }) => {
+const Rater = ({ value, color = '#FFC231' }) => {
   const items = []
 
   for (let i = 0; i < 5; ++i) {
