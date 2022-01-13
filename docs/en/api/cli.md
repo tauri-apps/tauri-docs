@@ -54,27 +54,6 @@ SUBCOMMANDS:
     plugin    Initialize a Tauri plugin.
 ```
 
-### `init plugin`
-
-<Command name="init plugin" />
-
-```
-Initializes a Tauri plugin project.
-
-USAGE:
-    cargo tauri init plugin [FLAGS] [OPTIONS] --name <name>
-
-FLAGS:
-    -a, --api        Initializes a Tauri plugin with TypeScript API.
-    -h, --help       Print help information
-    -V, --version    Print version information
-
-OPTIONS:
-    -d, --directory <directory>      Set target directory for init
-    -n, --name <name>                Name of your Tauri plugin
-    -t, --tauri-path <tauri-path>    Path of the Tauri project to use (relative to the cwd)
-```
-
 ## `dev`
 
 <Command name="dev" />
