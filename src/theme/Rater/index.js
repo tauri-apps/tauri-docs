@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import styles from './rater.module.css'
+import styles from './styles.module.css'
 
 const Item = ({ backgroundColor }) => <span style={{ backgroundColor }}></span>
 
