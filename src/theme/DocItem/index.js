@@ -7,13 +7,13 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import DocPaginator from '@theme/DocPaginator';
-import DocVersionSuggestions from '@theme/DocVersionSuggestions';
 import Seo from '@theme/Seo';
 import LastUpdated from '@theme/LastUpdated';
 import TOC from '@theme/TOC';
 import EditThisPage from '@theme/EditThisPage';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import DocVersionBanner from '@theme/DocVersionBanner';
 import {
   useActivePlugin,
   useVersions,
@@ -67,7 +67,7 @@ function DocItem(props) {
           className={clsx('col', {
             [styles.docItemCol]: !hideTableOfContents,
           })}>
-          <DocVersionSuggestions />
+            <DocVersionBanner />
           <div className={styles.docItemContainer}>
             <article>
               {showVersionBadge && (

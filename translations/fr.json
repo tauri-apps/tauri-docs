@@ -85,7 +85,6 @@
             "label": "Native Notifications",
             "description": "Cross-platform notifications using polyfilled WEB API."
           },
-
           {
             "label": "GH Action for Building Apps",
             "description": "Build your Web application as a Tauri binary for MacOS, Linux and Windows"
@@ -260,10 +259,25 @@
           "description": "Write Arabic text on apps that don't support bidirectional text."
         },
         {
-          "description": ""
+          "description": "Generate \"experiment wise safety sheets\" in compliance to European law."
         },
         {
           "description": "Real-time speech-to-text and keyboard input captions for OBS."
+        },
+        {
+          "description": "Local client for chucknorris.io built with Tauri and Vue.js 3."
+        },
+        {
+          "description": "Reversably introduce bugs into your code so that you can safely practice debugging."
+        },
+        {
+          "description": "A lite and simple two-factor authentication app for desktop."
+        },
+        {
+          "description": "Local SMTP Server For Email Testing/Debugging."
+        },
+        {
+          "description": "ExcelMerger merges Excel files"
         }
       ],
       "yourProject": "Your project",
@@ -278,7 +292,7 @@
     "partners": "Partners",
     "showcase": "Showcase",
     "usage": "Usage",
-    "gettingStarted": "Getting started",
+    "getStarted": "Get started",
     "contact": "Contact",
     "mail": "Mail",
     "network": "Network"

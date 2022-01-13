@@ -227,38 +227,38 @@ const Roadmap = ({ siteConfig }) => {
       targetQuarter: 'Q2 2021',
     },
     {
-      label: 'Channel API',
-      icon: 'ti-rss-alt',
-      color: COLORS.blue,
-      targetQuarter: '2021',
+      label: 'Clipboard',
+      icon: 'ti-clipboard',
+      color: COLORS.green,
+      targetQuarter: 'Q3 2021',
     },
     {
       label: 'Security Audit',
       icon: 'ti-magnet',
       color: COLORS.blue,
-      targetQuarter: 'Q2 2021',
-    },
-    {
-      label: 'WebRTC',
-      icon: 'ti-microphone',
-      color: COLORS.blue,
-      targetQuarter: '2021',
+      targetQuarter: 'Q1 2022',
     },
     {
       label: 'Iframe with native API',
       icon: 'ti-exchange-vertical',
       color: COLORS.blue,
-      targetQuarter: '2021',
+      targetQuarter: 'Q1 2022',
     },
     {
       label: 'Scoped FileSystem',
       icon: 'ti-package',
       color: COLORS.blue,
-      targetQuarter: '2021',
+      targetQuarter: 'Q1 2022',
     },
     {
-      label: 'Clipboard',
-      icon: 'ti-clipboard',
+      label: 'Stable Release',
+      icon: 'ti-flag-alt',
+      color: COLORS.red,
+      targetQuarter: 'Q1 2022',
+    },
+    {
+      label: 'Channel API',
+      icon: 'ti-rss-alt',
       color: COLORS.blue,
       targetQuarter: 'Planned',
     },
@@ -290,12 +290,6 @@ const Roadmap = ({ siteConfig }) => {
       label: 'PureOS App Store',
       icon: 'ti-shine',
       color: COLORS.blue,
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'Stable Release',
-      icon: 'ti-flag-alt',
-      color: COLORS.red,
       targetQuarter: 'Planned',
     },
     {
@@ -387,7 +381,13 @@ function Home() {
     >
       <header className={classnames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <lottie-player src="tauri-splash.json" background="transparent" speed="1" autoplay></lottie-player>
+          <lottie-player
+            src="tauri-splash.json"
+            background="transparent"
+            speed="1"
+            style={{width: "75%", margin: "auto"}}
+            autoplay
+          ></lottie-player>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
@@ -416,7 +416,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/getting-started/intro')}
+                    to={useBaseUrl('docs/get-started/intro')}
                   >
                     <span>
                       {siteConfig.themeConfig.t.pages.index.getStarted}
