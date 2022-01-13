@@ -55,6 +55,11 @@ const siteConfig = {
           position: 'left',
         },
         {
+          to: 'docs/api/config',
+          label:t.navbar.api,
+          position: 'left',
+        },
+        {
           to: 'release-notes',
           label: 'Release notes',
           position: 'left',
