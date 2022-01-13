@@ -1,32 +1,32 @@
 const path = require('path')
 const fs = require('fs')
-// const versions = require('./versions.json')
 
 const languages = require('./supported-languages')
 
 const language = process.env.LANGUAGE || 'en'
-
-const t = require(`./translations/${language}.json`)
 
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordURL = 'https://discord.com/invite/tauri'
 
-const siteConfig = {
+module.exports = {
   title: 'Tauri Studio',
-  tagline: t.config.tagline,
+  tagline:
+    'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/${language}/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
   onBrokenLinks: 'ignore',
-
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+  },
   themeConfig: {
     languages,
     language,
-    t,
     version,
     colorMode: {
       defaultMode: 'dark',
@@ -34,7 +34,7 @@ const siteConfig = {
     },
     announcementBar: {
       id: 'beta',
-      content: t.config.announcementBar.betaSentence,
+      content: "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
@@ -43,15 +43,16 @@ const siteConfig = {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark.svg',
       },
+      // Leading side
       items: [
         {
           to: 'docs/about/intro',
-          label: t.navbar.about,
-          position: 'left'
+          label: "About",
+          position: 'left',
         },
         {
           to: 'docs/get-started/intro',
-          label: t.navbar.docs,
+          label: "Docs",
           position: 'left',
         },
         {
@@ -60,28 +61,29 @@ const siteConfig = {
           position: 'left',
         },
         {
-          label: t.navbar.community,
+          label: "Community",
           position: 'left',
           items: [
             {
-              label: t.navbar.partners,
+              label: "Partners",
               to: 'partners',
             },
             {
-              label: t.navbar.showcase,
+              label: "Showcase",
               to: 'showcase',
             },
             {
-              label: 'Discord',
+              label: "Discord",
               to: discordURL,
             },
           ],
         },
+        // Trailing side
         {
           label: 'Beta',
-          to: "/#roadmap",
+          to: '/#roadmap',
           position: 'right',
-          className: 'badge badge--warning'
+          className: 'badge badge--warning',
         },
         {
           href: repoUrl,
@@ -110,14 +112,14 @@ const siteConfig = {
       style: 'dark',
       links: [
         {
-          title: t.navbar.docs,
+          title: "Docs",
           items: [
             {
-              label: t.navbar.getStarted,
+              label: "Get started",
               to: 'docs/get-started/intro',
             },
             {
-              label: t.navbar.usage,
+              label: "Usage",
               to: 'docs/usage/intro',
             },
             {
@@ -127,24 +129,24 @@ const siteConfig = {
           ],
         },
         {
-          title: t.navbar.contact,
+          title: "Contact",
           items: [
             {
-              label: t.navbar.mail,
+              label: "Mail",
               href: 'mailto:contact@tauri.studio',
             },
             {
-              label: 'Discord',
+              label: "Discord",
               href: discordURL,
             },
             {
-              label: 'Twitter',
+              label: "Twitter",
               href: 'https://twitter.com/TauriApps',
             },
           ],
         },
         {
-          title: t.navbar.network,
+          title: "Network",
           items: [
             {
               label: 'DevTo',
@@ -161,14 +163,14 @@ const siteConfig = {
           ],
         },
         {
-          title: t.navbar.community,
+          title: "Community",
           items: [
             {
-              label: t.navbar.partners,
+              label: "Partners",
               to: 'partners',
             },
             {
-              label: t.navbar.showcase,
+              label: "Showcase",
               to: 'showcase',
             },
             // TODO: add code of conduct
@@ -210,5 +212,3 @@ const siteConfig = {
     path.resolve('./plugins/external-assets'),
   ],
 }
-
-module.exports = siteConfig
