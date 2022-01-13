@@ -132,7 +132,7 @@ function Changelog({ changelogs }) {
             return (
               <div style={{ paddingLeft: 10 }}>
                 <h3>{value}</h3>
-                <ReactMarkdown source={notes} />
+                <ReactMarkdown children={notes} />
               </div>
             )
           })}

@@ -30,6 +30,7 @@ const siteConfig = {
     version,
     colorMode: {
       defaultMode: 'dark',
+      disableSwitch: true,
     },
     announcementBar: {
       id: 'beta',
@@ -38,13 +39,16 @@ const siteConfig = {
     },
     navbar: {
       hideOnScroll: false,
-      title: ' ',
       logo: {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark.svg',
       },
       items: [
-        { to: 'docs/about/intro', label: t.navbar.about, position: 'left' },
+        {
+          to: 'docs/about/intro',
+          label: t.navbar.about,
+          position: 'left'
+        },
         {
           to: 'docs/get-started/intro',
           label: t.navbar.docs,
@@ -74,10 +78,30 @@ const siteConfig = {
           ],
         },
         {
+          label: 'Beta',
+          to: "/#roadmap",
+          position: 'right',
+          className: 'badge badge--warning'
+        },
+        {
           href: repoUrl,
           'aria-label': 'GitHub',
           position: 'right',
           className: 'header-github-link',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+          dropdownItemsAfter: [
+            {
+              to: 'https://github.com/tauri-apps/tauri-docs#contributing',
+              label: 'Help us translate',
+            },
+          ],
+        },
+        {
+          type: 'search',
+          position: 'right',
         },
       ],
     },
@@ -157,7 +181,6 @@ const siteConfig = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
-    sidebarCollapsible: true,
   },
 
   presets: [
@@ -167,7 +190,9 @@ const siteConfig = {
         docs: {
           path: './docs/' + language,
           sidebarPath: require.resolve('./sidebars.js'),
+          showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
+          sidebarCollapsible: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
