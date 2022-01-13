@@ -51,7 +51,6 @@ OPTIONS:
 
 SUBCOMMANDS:
     help      Print this message or the help of the given subcommand(s)
-    plugin    Initialize a Tauri plugin.
 ```
 
 ## `dev`
