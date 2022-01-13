@@ -26,12 +26,6 @@ This command is pretty helpful when you need to have a quick overview of your ap
 
 {init}
 
-## `plugin init`
-
-<Command name="plugin init" />
-
-{plugin init}
-
 ## `dev`
 
 <Command name="dev" />
