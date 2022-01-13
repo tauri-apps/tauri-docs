@@ -439,7 +439,7 @@ function Home() {
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
-              __html: translate({message: "Build smaller, faster, and more secure <br />desktop applications with a web frontend"}),
+              __html: "Build smaller, faster, and more secure <br />desktop applications with a web frontend",
             }}
           ></p>
           <div className={styles.buttons}>
