@@ -1,5 +1,6 @@
 ---
 title: Setup for macOS
+pagination_next: development/integration
 ---
 
 import Alert from '@theme/Alert'
