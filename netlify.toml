@@ -1,9 +1,9 @@
 [build]
   publish = "build"
-  command = "node build-translations"
+  command = "yarn build"
 
 [context.production]
-  command = "node build-translations"
+  command = "yarn crowdin:sync && yarn build"
 
 [[redirects]]
   from = "/*"
