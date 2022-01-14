@@ -39,13 +39,13 @@ const features = [
       label: translate({message: "Patterns"}),
       description: translate({message: "Here to help choose important features with simple configuration"}),
       imageUrl: 'img/undraw_patterns.svg',
-      link: 'docs/usage/patterns/about-patterns',
+      link: 'docs/guides/patterns/about-patterns',
     },
     {
       label: translate({message: "Cross-platform Compilation"}),
       description: translate({message: "Allows to bundle binaries for major desktop platforms (mobile & WASM coming soon)"}),
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/usage/ci-cd/cross-platform',
+      link: 'docs/development/cross-platform',
     },
   ],
 ]
