@@ -1,9 +1,8 @@
-// Java must be installed for this due to the Crowdin CLI
-
 const { execSync } = require('child_process')
 
   console.log(`Running translations...`)
 
+  // Java must be installed for this due to the Crowdin CLI
   execSync(
     `crowdin:sync`,
     (error, stdout, stderr) => {
@@ -15,4 +14,8 @@ const { execSync } = require('child_process')
       console.error(`stderr: ${stderr}`)
     }
   )
+
   console.log('Done!')
+
+  // Run the normal build
+  execSync('node build')

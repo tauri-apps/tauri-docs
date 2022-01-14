@@ -7,7 +7,7 @@
     "build": "DOCUSAURUS_NO_DUPLICATE_TITLE_WARNING=false docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "crowdin:sync": "docusaurus write-translations && crowdin upload && crowdin download"
+    "crowdin:sync": "docusaurus write-translations"
   },
   "dependencies": {
     "@crowdin/cli": "3",
