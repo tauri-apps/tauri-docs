@@ -1,9 +1,9 @@
 [build]
   publish = "build"
-  command = "yarn crowdin:sync && yarn build"
+  command = "java -version && yarn crowdin:sync && yarn build"
 
 [context.production]
-  command = "java -version && yarn crowdin:sync && yarn build"
+  command = "yarn crowdin:sync && yarn build"
 
 [[redirects]]
   from = "/*"
