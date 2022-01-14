@@ -28,7 +28,8 @@ module.exports = {
     },
     announcementBar: {
       id: 'beta',
-      content: "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
+      content:
+        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
@@ -41,17 +42,17 @@ module.exports = {
       items: [
         {
           to: 'docs/about/intro',
-          label: "About",
+          label: 'About',
           position: 'left',
         },
         {
           to: 'docs/get-started/intro',
-          label: "Docs",
+          label: 'Docs',
           position: 'left',
         },
         {
           to: 'docs/api/config',
-          label: t.navbar.api,
+          label: 'API',
           position: 'left',
         },
         {
@@ -60,15 +61,15 @@ module.exports = {
           position: 'left',
         },
         {
-          label: "Community",
+          label: 'Community',
           position: 'left',
           items: [
             {
-              label: "Partners",
+              label: 'Partners',
               to: 'partners',
             },
             {
-              label: "Showcase",
+              label: 'Showcase',
               to: 'showcase',
             },
             {
@@ -111,14 +112,14 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: "Docs",
+          title: 'Docs',
           items: [
             {
-              label: "Get started",
+              label: 'Get started',
               to: 'docs/get-started/intro',
             },
             {
-              label: "Usage",
+              label: 'Usage',
               to: 'docs/usage/intro',
             },
             {
@@ -128,24 +129,24 @@ module.exports = {
           ],
         },
         {
-          title: "Contact",
+          title: 'Contact',
           items: [
             {
-              label: "Mail",
+              label: 'Mail',
               href: 'mailto:contact@tauri.studio',
             },
             {
-              label: "Discord",
+              label: 'Discord',
               href: discordURL,
             },
             {
-              label: "Twitter",
+              label: 'Twitter',
               href: 'https://twitter.com/TauriApps',
             },
           ],
         },
         {
-          title: "Network",
+          title: 'Network',
           items: [
             {
               label: 'DevTo',
@@ -162,14 +163,14 @@ module.exports = {
           ],
         },
         {
-          title: "Community",
+          title: 'Community',
           items: [
             {
-              label: "Partners",
+              label: 'Partners',
               to: 'partners',
             },
             {
-              label: "Showcase",
+              label: 'Showcase',
               to: 'showcase',
             },
             // TODO: add code of conduct
