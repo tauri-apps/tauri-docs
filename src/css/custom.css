@@ -25,13 +25,32 @@
   --ifm-color-primary-lightest: #66d8e6;
 
   /* Secondary colours */
-  --ifm-color-secondary: #FFC131;
-  --ifm-color-secondary-dark: #ffb813;
-  --ifm-color-secondary-darker: #ffb303;
-  --ifm-color-secondary-darkest: #d59500;
-  --ifm-color-secondary-light: #ffca4f;
-  --ifm-color-secondary-lighter: #ffcf5f;
-  --ifm-color-secondary-lightest: #ffdc8c;
+  --ifm-color-secondary: #F6F6F6;
+  --ifm-color-secondary-dark: #dddddd;
+  --ifm-color-secondary-darker: #d1d1d1;
+  --ifm-color-secondary-darkest: #acacac;
+  --ifm-color-secondary-light: #ffffff;
+  --ifm-color-secondary-lighter: #ffffff;
+  --ifm-color-secondary-lightest: #ffffff;
+
+  /* Semantic warning colours */
+  --ifm-color-warning: #ffc131;
+  --ifm-color-warning-dark: #ffb813;
+  --ifm-color-warning-darker: #ffb303;
+  --ifm-color-warning-darkest: #d59500;
+  --ifm-color-warning-light: #ffca4f;
+  --ifm-color-warning-lighter: #ffcf5f;
+  --ifm-color-warning-lightest: #ffdc8c;
+
+  /* Semantic info colours (same as primary) */
+  --ifm-color-info: #24C8DB;
+  --ifm-color-info-dark: #20b4c5;
+  --ifm-color-info-darker: #1faaba;
+  --ifm-color-info-darkest: #198c99;
+  --ifm-color-info-light: #3acddf;
+  --ifm-color-info-lighter: #45d0e0;
+  --ifm-color-info-lightest: #66d8e6;
+
 
   --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
