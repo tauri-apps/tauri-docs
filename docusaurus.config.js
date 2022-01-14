@@ -50,6 +50,11 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'docs/api/config',
+          label: t.navbar.api,
+          position: 'left',
+        },
+        {
           to: 'release-notes',
           label: 'Release notes',
           position: 'left',
@@ -67,8 +72,8 @@ module.exports = {
               to: 'showcase',
             },
             {
-              label: "Discord",
-              to: discordURL,
+              label: 'Discord',
+              href: discordURL,
             },
           ],
         },
