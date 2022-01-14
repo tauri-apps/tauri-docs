@@ -6,9 +6,11 @@
     "start": "DOCUSAURUS_NO_DUPLICATE_TITLE_WARNING=false docusaurus start",
     "build": "DOCUSAURUS_NO_DUPLICATE_TITLE_WARNING=false docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy"
+    "deploy": "docusaurus deploy",
+    "crowdin:sync": "docusaurus write-translations && crowdin upload && crowdin download"
   },
   "dependencies": {
+    "@crowdin/cli": "3",
     "@docusaurus/core": "^2.0.0-beta.14",
     "@docusaurus/preset-classic": "^2.0.0-beta.14",
     "@fontsource/roboto": "^4.5.1",
