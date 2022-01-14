@@ -1,10 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 
-const languages = require('./supported-languages')
-
-const language = process.env.LANGUAGE || 'en'
-
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
@@ -16,7 +12,7 @@ module.exports = {
     'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
-  baseUrl: `/${language}/`,
+  baseUrl: `/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
   onBrokenLinks: 'ignore',
@@ -25,8 +21,6 @@ module.exports = {
     locales: ['en', 'fr'],
   },
   themeConfig: {
-    languages,
-    language,
     version,
     colorMode: {
       defaultMode: 'dark',
@@ -190,7 +184,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          path: './docs/' + language,
+          path: './docs/',
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
@@ -203,12 +197,7 @@ module.exports = {
     ],
   ],
   plugins: [
-    [
-      path.resolve(__dirname, './plugins/dynamic-css.js'),
-      {
-        language,
-      },
-    ],
+    path.resolve(__dirname, './plugins/dynamic-css.js'),
     path.resolve('./plugins/external-assets'),
   ],
 }
