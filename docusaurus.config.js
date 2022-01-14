@@ -119,8 +119,8 @@ module.exports = {
               to: 'docs/get-started/intro',
             },
             {
-              label: 'Usage',
-              to: 'docs/usage/intro',
+              label: 'API',
+              to: 'docs/api/config/',
             },
             {
               to: 'release-notes',
