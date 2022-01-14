@@ -27,7 +27,7 @@ const SearchBar = ({className}) => {
     <div className={classNames(className, 'SearchBar', 'meilisearch-search-wrapper', styles.searchWrapper)}>
       <Icon title="search" className={classNames(styles.searchIcon)}/>
       <input
-        placeholder="Search..."
+        placeholder="Search"
         type="text"
         className={classNames(styles.search)}
         id="search-bar-input"
