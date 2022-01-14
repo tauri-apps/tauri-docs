@@ -379,7 +379,7 @@ function Home() {
       title={`${siteConfig.tagline}`}
       description={siteConfig.themeConfig.t.pages.index.description}
     >
-      <header className={classnames('hero hero--dark', styles.heroBanner)}>
+      <header className={classnames(styles.heroBanner)}>
         <div className="container">
           <lottie-player
             src="tauri-splash.json"
