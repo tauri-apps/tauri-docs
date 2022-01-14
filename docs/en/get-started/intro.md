@@ -1,5 +1,6 @@
 ---
 title: Introduction
+pagination_next: null
 ---
 
 import OSList from '@theme/OSList'
