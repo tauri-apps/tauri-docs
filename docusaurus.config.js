@@ -122,8 +122,8 @@ const siteConfig = {
               to: 'docs/get-started/intro',
             },
             {
-              label: t.navbar.usage,
-              to: 'docs/usage/intro',
+              label: t.navbar.api,
+              to: 'docs/api/config/',
             },
             {
               to: 'release-notes',
