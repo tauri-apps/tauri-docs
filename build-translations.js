@@ -1,3 +1,5 @@
+// Java must be installed for this due to the Crowdin CLI
+
 const { execSync } = require('child_process')
 
   console.log(`Running translations...`)
