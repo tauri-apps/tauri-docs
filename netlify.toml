@@ -1,6 +1,6 @@
 [build]
   publish = "build"
-  command = "node build"
+  command = "node build-translations"
 
 [context.production]
   command = "node build-translations"
