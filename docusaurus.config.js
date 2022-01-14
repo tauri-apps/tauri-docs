@@ -47,7 +47,7 @@ const siteConfig = {
         {
           to: 'docs/about/intro',
           label: t.navbar.about,
-          position: 'left'
+          position: 'left',
         },
         {
           to: 'docs/get-started/intro',
@@ -56,7 +56,7 @@ const siteConfig = {
         },
         {
           to: 'docs/api/config',
-          label:t.navbar.api,
+          label: t.navbar.api,
           position: 'left',
         },
         {
@@ -84,9 +84,9 @@ const siteConfig = {
         },
         {
           label: 'Beta',
-          to: "/#roadmap",
+          to: '/#roadmap',
           position: 'right',
-          className: 'badge badge--warning'
+          className: 'badge badge--warning',
         },
         {
           href: repoUrl,
