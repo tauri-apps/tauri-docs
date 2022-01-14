@@ -14,17 +14,38 @@
 /* You can override the default Infima variables here. */
 :root {
   font-family: 'Rubik';
-  --ifm-color-primary: #67d6ed;
-  --ifm-color-primary-dark: #49cee9;
-  --ifm-color-primary-darker: #39cae8;
-  --ifm-color-primary-darkest: #19b5d5;
-  --ifm-color-primary-light: #85def1;
-  --ifm-color-primary-lighter: #95e2f2;
-  --ifm-color-primary-lightest: #c2eff8;
+
+  /* Primary colours */
+  --ifm-color-primary: #24C8DB;
+  --ifm-color-primary-dark: #20b4c5;
+  --ifm-color-primary-darker: #1faaba;
+  --ifm-color-primary-darkest: #198c99;
+  --ifm-color-primary-light: #3acddf;
+  --ifm-color-primary-lighter: #45d0e0;
+  --ifm-color-primary-lightest: #66d8e6;
+
+  /* Secondary colours */
+  --ifm-color-secondary: #FFC131;
+  --ifm-color-secondary-dark: #ffb813;
+  --ifm-color-secondary-darker: #ffb303;
+  --ifm-color-secondary-darkest: #d59500;
+  --ifm-color-secondary-light: #ffca4f;
+  --ifm-color-secondary-lighter: #ffcf5f;
+  --ifm-color-secondary-lightest: #ffdc8c;
+
   --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
   --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
+
+  /* Navbar */
+  --ifm-navbar-height: 80px;
+  --ifm-navbar-padding-horizontal: 2rem;
+  --ifm-navbar-padding-vertical: 0;
+  --ifm-navbar-background-color: var(--ifm-background-color);
+  --ifm-navbar-shadow: none;
+
+  /* Navbar Items */
 }
 
 .markdown {
