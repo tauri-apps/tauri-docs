@@ -78,7 +78,7 @@ const siteConfig = {
             },
             {
               label: 'Discord',
-              to: discordURL,
+              href: discordURL,
             },
           ],
         },
