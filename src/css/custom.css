@@ -9,11 +9,11 @@
 @import 'hljs-dark.css';
 @import 'hljs-light.css';
 @import 'tabs.css';
-@import '~@fontsource/tauri';
+@import '~@fontsource/rubik';
 
 /* You can override the default Infima variables here. */
 :root {
-  font-family: 'Tauri';
+  font-family: 'Rubik';
   --ifm-color-primary: #67d6ed;
   --ifm-color-primary-dark: #49cee9;
   --ifm-color-primary-darker: #39cae8;
@@ -48,7 +48,7 @@
 }
 
 body {
-  font-family: 'Tauri';
+  font-family: 'Rubik';
 }
 
 ul.roadmap-legend {

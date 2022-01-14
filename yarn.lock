@@ -1861,15 +1861,10 @@
     tslib "^2.3.1"
     url-loader "^4.1.1"
 
-"@fontsource/roboto@^4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.1.tgz#63f7b783f755d8f6727eb60198627e7e1be3ac20"
-  integrity sha512-3mhfL+eNPG/woMNqwD/OHaW5qMpeGEBsDwzmhFmjB1yUV+M+M9P0NhP/AyHvnGz3DrqkvZ7CPzNMa+UkVLeELg==
-
-"@fontsource/tauri@4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.5.1.tgz#84bf570c7d93efbf2e1c0a5426de7db5b01e4ebc"
-  integrity sha512-XcHxF3xWmOGJSWUK1g9NhMBCteKqq5/cyxDS+une9Yjlme4JpsFtoCau1w51hWNj+zrUgkKRF5PUoMwrpt98Mw==
+"@fontsource/rubik@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.0.tgz#e6e86606903d7102c565eec4b1339298308c3acb"
+  integrity sha512-evvN6wFvc4gH9X3PuRkAfaWXJya5jcZxbMpAsiQIfq8KUCSBx74Rknm5M6hpRuB9AdxdchF/A3p18VkR9RZy2g==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
