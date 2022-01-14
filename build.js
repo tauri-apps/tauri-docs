@@ -1,12 +1,9 @@
 const { execSync } = require('child_process')
-const languages = Object.keys(require('./supported-languages'))
 
-languages.forEach(async (language) => {
-  console.log(`Building "${language}" docs version...`)
+  console.log(`Building docs...`)
 
-  // Trying to build concurrently made the generation crash, that's why we're using execSync here
   execSync(
-    `LANGUAGE=${language} yarn build --out-dir ./build/${language}`,
+    `yarn build`,
     (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`)
@@ -17,4 +14,3 @@ languages.forEach(async (language) => {
     }
   )
   console.log('Done!')
-})
