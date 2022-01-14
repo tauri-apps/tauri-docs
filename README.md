@@ -11,6 +11,7 @@ The **API docs** are generated from our [Rust](https://github.com/tauri-apps/tau
 
 In the end, as the guides and the API live in the Core repository, tauri-docs just holds the components and various pages that don't need to follow the Core repository version; this way, we don't pollute the Core repository with commits, PRs or issues related to the website only.
 
+Familiarize yourself with [Docusaurus i18n](https://docusaurus.io/docs/i18n/tutorial) documentation to make sure you're building with internationalization in mind.
 
 ## Installation
 
@@ -26,25 +27,26 @@ $ yarn start
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
 
-Note that only English language is supported during development phase in order to keep a small build time.
+To change your development locale to French for instance, you can use:
+```
+$ yarn run start -- --locale fr
+```
 
 ## Build
 
 ```
-$ LANGUAGE=${language} yarn build --out-dir ./build/${language}
+$ yarn build
 ```
 
-This command generates static content for a given language (default is "en") into the `build/${language}` directory and can be served using any static contents hosting service.
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-To build for all enabled languages, use:
-
+To build for only a specific locale (French here), use:
 ```
-node build.js
+$ yarn build -- --locale fr
 ```
+To enable a language for build, add it to `i18n.locales` in `docusaurus.config.js`.
 
-supported-languages.js is the module containing the enabled/targeted languages for Tauri documentation site.
-
-Uncomment a language when at least "Get started" and most of "Usage" docs are translated.
+Add a language when at least "Get started" and most of "Usage" docs are translated.
 
 ## Deployment
 
@@ -68,7 +70,6 @@ We're working with Crowdin to manage translations, if you feel like you want to 
 
 To enable a language on the documentation website, we need to (at least) have the following items translated:
 
-- strings from en.json;
 - docs/about/intro.md and docs/about/security.md;
 - all files in docs/get-started;
 - all files in docs/usage/development;
