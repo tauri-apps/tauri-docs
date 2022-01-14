@@ -87,7 +87,7 @@ const api = [
   {
     type: 'link',
     label: 'Rust (via Docs.rs)',
-    href: 'https://docs.rs/tauri/'
+    href: 'https://docs.rs/tauri/1.0.0-beta.8/'
   },
   {
     JavaScript: [
