@@ -18,7 +18,7 @@ module.exports = {
   onBrokenLinks: 'ignore',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr'],
+    locales: ['en'],
   },
   themeConfig: {
     version,
