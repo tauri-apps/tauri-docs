@@ -78,7 +78,7 @@ const navbarItems = [
     type: 'search',
     position: 'right',
   },
-],
+]
 
 const footerLinks = [
   {
@@ -156,7 +156,10 @@ const siteConfig = {
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
   onBrokenLinks: 'ignore',
-
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr']
+  },
   themeConfig: {
     languages,
     language,
@@ -177,7 +180,7 @@ const siteConfig = {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark.svg',
       },
-      items: navbarItems
+      items: navbarItems,
     },
 
     footer: {
