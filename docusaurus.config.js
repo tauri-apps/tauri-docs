@@ -1,8 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-// const versions = require('./versions.json')
-
-const t = require(`./translations/en.json`)
 
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
@@ -12,17 +9,17 @@ const discordURL = 'https://discord.com/invite/tauri'
 const navbarItems = [
   {
     to: 'docs/about/intro',
-    label: t.navbar.about,
+    label: 'About',
     position: 'left',
   },
   {
     to: 'docs/get-started/intro',
-    label: t.navbar.docs,
+    label: 'Docs',
     position: 'left',
   },
   {
     to: 'docs/api/config',
-    label: t.navbar.api,
+    label: 'API',
     position: 'left',
   },
   {
@@ -31,15 +28,15 @@ const navbarItems = [
     position: 'left',
   },
   {
-    label: t.navbar.community,
+    label: 'Community',
     position: 'left',
     items: [
       {
-        label: t.navbar.partners,
+        label: 'Partners',
         to: 'partners',
       },
       {
-        label: t.navbar.showcase,
+        label: 'Showcase',
         to: 'showcase',
       },
       {
@@ -78,27 +75,27 @@ const navbarItems = [
 
 const footerLinks = [
   {
-    title: t.navbar.docs,
+    title: 'Docs',
     items: [
       {
-        label: t.navbar.getStarted,
+        label: 'Get started',
         to: 'docs/get-started/intro',
       },
       {
-        label: t.navbar.api,
+        label: 'API',
         to: 'docs/api/config/',
       },
       {
-        to: 'release-notes',
         label: 'Release notes',
+        to: 'release-notes',
       },
     ],
   },
   {
-    title: t.navbar.contact,
+    title: 'Contact',
     items: [
       {
-        label: t.navbar.mail,
+        label: 'Mail',
         href: 'mailto:contact@tauri.studio',
       },
       {
@@ -112,7 +109,7 @@ const footerLinks = [
     ],
   },
   {
-    title: t.navbar.network,
+    title: 'Network',
     items: [
       {
         label: 'DevTo',
@@ -129,14 +126,14 @@ const footerLinks = [
     ],
   },
   {
-    title: t.navbar.community,
+    title: 'Community',
     items: [
       {
-        label: t.navbar.partners,
+        label: 'Partners',
         to: 'partners',
       },
       {
-        label: t.navbar.showcase,
+        label: 'Showcase',
         to: 'showcase',
       },
     ],
@@ -145,7 +142,7 @@ const footerLinks = [
 
 const siteConfig = {
   title: 'Tauri Studio',
-  tagline: t.config.tagline,
+  tagline: 'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/`,
@@ -157,7 +154,6 @@ const siteConfig = {
     locales: ['en', 'fr']
   },
   themeConfig: {
-    t,
     version,
     colorMode: {
       defaultMode: 'dark',
@@ -165,7 +161,7 @@ const siteConfig = {
     },
     announcementBar: {
       id: 'beta',
-      content: t.config.announcementBar.betaSentence,
+      content: "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
