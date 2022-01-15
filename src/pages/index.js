@@ -28,11 +28,11 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_patterns.svg',
-      link: 'docs/usage/patterns/about-patterns',
+      link: 'docs/guides/patterns/about-patterns',
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/usage/ci-cd/cross-platform',
+      link: 'docs/development/cross-platform',
     },
   ],
 ]

@@ -47,11 +47,16 @@ const siteConfig = {
         {
           to: 'docs/about/intro',
           label: t.navbar.about,
-          position: 'left'
+          position: 'left',
         },
         {
           to: 'docs/get-started/intro',
           label: t.navbar.docs,
+          position: 'left',
+        },
+        {
+          to: 'docs/api/config',
+          label: t.navbar.api,
           position: 'left',
         },
         {
@@ -73,15 +78,15 @@ const siteConfig = {
             },
             {
               label: 'Discord',
-              to: discordURL,
+              href: discordURL,
             },
           ],
         },
         {
           label: 'Beta',
-          to: "/#roadmap",
+          to: '/#roadmap',
           position: 'right',
-          className: 'badge badge--warning'
+          className: 'badge badge--warning',
         },
         {
           href: repoUrl,
@@ -117,8 +122,8 @@ const siteConfig = {
               to: 'docs/get-started/intro',
             },
             {
-              label: t.navbar.usage,
-              to: 'docs/usage/intro',
+              label: t.navbar.api,
+              to: 'docs/api/config/',
             },
             {
               to: 'release-notes',
