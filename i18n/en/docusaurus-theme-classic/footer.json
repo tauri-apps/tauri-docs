@@ -1,0 +1,66 @@
+{
+  "link.title.Docs": {
+    "message": "Docs",
+    "description": "The title of the footer links column with title=Docs in the footer"
+  },
+  "link.title.Contact": {
+    "message": "Contact",
+    "description": "The title of the footer links column with title=Contact in the footer"
+  },
+  "link.title.Network": {
+    "message": "Network",
+    "description": "The title of the footer links column with title=Network in the footer"
+  },
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.item.label.Get started": {
+    "message": "Get started",
+    "description": "The label of footer link with label=Get started linking to docs/get-started/intro"
+  },
+  "link.item.label.API": {
+    "message": "API",
+    "description": "The label of footer link with label=API linking to docs/api/config/"
+  },
+  "link.item.label.Release notes": {
+    "message": "Release notes",
+    "description": "The label of footer link with label=Release notes linking to release-notes"
+  },
+  "link.item.label.Mail": {
+    "message": "Mail",
+    "description": "The label of footer link with label=Mail linking to mailto:contact@tauri.studio"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.com/invite/tauri"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/TauriApps"
+  },
+  "link.item.label.DevTo": {
+    "message": "DevTo",
+    "description": "The label of footer link with label=DevTo linking to https://dev.to/tauri"
+  },
+  "link.item.label.OpenCollective": {
+    "message": "OpenCollective",
+    "description": "The label of footer link with label=OpenCollective linking to https://opencollective.com/tauri"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/tauri-apps/tauri"
+  },
+  "link.item.label.Partners": {
+    "message": "Partners",
+    "description": "The label of footer link with label=Partners linking to partners"
+  },
+  "link.item.label.Showcase": {
+    "message": "Showcase",
+    "description": "The label of footer link with label=Showcase linking to showcase"
+  },
+  "copyright": {
+    "message": "Copyright © 2022 Tauri Contributors. CC-BY / MIT",
+    "description": "The footer copyright"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "item.label.About": {
+    "message": "About",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item with label API"
+  },
+  "item.label.Release notes": {
+    "message": "Release notes",
+    "description": "Navbar item with label Release notes"
+  },
+  "item.label.Community": {
+    "message": "Community",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Beta": {
+    "message": "Beta",
+    "description": "Navbar item with label Beta"
+  },
+  "item.label.Partners": {
+    "message": "Partners",
+    "description": "Navbar item with label Partners"
+  },
+  "item.label.Showcase": {
+    "message": "Showcase",
+    "description": "Navbar item with label Showcase"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  }
+}
