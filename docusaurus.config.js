@@ -13,6 +13,140 @@ const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordURL = 'https://discord.com/invite/tauri'
 
+const navbarItems = [
+  {
+    to: 'docs/about/intro',
+    label: t.navbar.about,
+    position: 'left',
+  },
+  {
+    to: 'docs/get-started/intro',
+    label: t.navbar.docs,
+    position: 'left',
+  },
+  {
+    to: 'docs/api/config',
+    label: t.navbar.api,
+    position: 'left',
+  },
+  {
+    to: 'release-notes',
+    label: 'Release notes',
+    position: 'left',
+  },
+  {
+    label: t.navbar.community,
+    position: 'left',
+    items: [
+      {
+        label: t.navbar.partners,
+        to: 'partners',
+      },
+      {
+        label: t.navbar.showcase,
+        to: 'showcase',
+      },
+      {
+        label: 'Discord',
+        href: discordURL,
+      },
+    ],
+  },
+  {
+    label: 'Beta',
+    to: '/#roadmap',
+    position: 'right',
+    className: 'badge badge--warning',
+  },
+  {
+    href: repoUrl,
+    'aria-label': 'GitHub',
+    position: 'right',
+    className: 'header-github-link',
+  },
+  {
+    type: 'localeDropdown',
+    position: 'right',
+    dropdownItemsAfter: [
+      {
+        to: 'https://github.com/tauri-apps/tauri-docs#contributing',
+        label: 'Help us translate',
+      },
+    ],
+  },
+  {
+    type: 'search',
+    position: 'right',
+  },
+],
+
+const footerLinks = [
+  {
+    title: t.navbar.docs,
+    items: [
+      {
+        label: t.navbar.getStarted,
+        to: 'docs/get-started/intro',
+      },
+      {
+        label: t.navbar.api,
+        to: 'docs/api/config/',
+      },
+      {
+        to: 'release-notes',
+        label: 'Release notes',
+      },
+    ],
+  },
+  {
+    title: t.navbar.contact,
+    items: [
+      {
+        label: t.navbar.mail,
+        href: 'mailto:contact@tauri.studio',
+      },
+      {
+        label: 'Discord',
+        href: discordURL,
+      },
+      {
+        label: 'Twitter',
+        href: 'https://twitter.com/TauriApps',
+      },
+    ],
+  },
+  {
+    title: t.navbar.network,
+    items: [
+      {
+        label: 'DevTo',
+        href: 'https://dev.to/tauri',
+      },
+      {
+        label: 'OpenCollective',
+        href: 'https://opencollective.com/tauri',
+      },
+      {
+        label: 'GitHub',
+        href: repoUrl,
+      },
+    ],
+  },
+  {
+    title: t.navbar.community,
+    items: [
+      {
+        label: t.navbar.partners,
+        to: 'partners',
+      },
+      {
+        label: t.navbar.showcase,
+        to: 'showcase',
+      },
+    ],
+  },
+]
+
 const siteConfig = {
   title: 'Tauri Studio',
   tagline: t.config.tagline,
@@ -43,147 +177,12 @@ const siteConfig = {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark.svg',
       },
-      items: [
-        {
-          to: 'docs/about/intro',
-          label: t.navbar.about,
-          position: 'left',
-        },
-        {
-          to: 'docs/get-started/intro',
-          label: t.navbar.docs,
-          position: 'left',
-        },
-        {
-          to: 'docs/api/config',
-          label: t.navbar.api,
-          position: 'left',
-        },
-        {
-          to: 'release-notes',
-          label: 'Release notes',
-          position: 'left',
-        },
-        {
-          label: t.navbar.community,
-          position: 'left',
-          items: [
-            {
-              label: t.navbar.partners,
-              to: 'partners',
-            },
-            {
-              label: t.navbar.showcase,
-              to: 'showcase',
-            },
-            {
-              label: 'Discord',
-              href: discordURL,
-            },
-          ],
-        },
-        {
-          label: 'Beta',
-          to: '/#roadmap',
-          position: 'right',
-          className: 'badge badge--warning',
-        },
-        {
-          href: repoUrl,
-          'aria-label': 'GitHub',
-          position: 'right',
-          className: 'header-github-link',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-          dropdownItemsAfter: [
-            {
-              to: 'https://github.com/tauri-apps/tauri-docs#contributing',
-              label: 'Help us translate',
-            },
-          ],
-        },
-        {
-          type: 'search',
-          position: 'right',
-        },
-      ],
+      items: navbarItems
     },
 
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: t.navbar.docs,
-          items: [
-            {
-              label: t.navbar.getStarted,
-              to: 'docs/get-started/intro',
-            },
-            {
-              label: t.navbar.api,
-              to: 'docs/api/config/',
-            },
-            {
-              to: 'release-notes',
-              label: 'Release notes',
-            },
-          ],
-        },
-        {
-          title: t.navbar.contact,
-          items: [
-            {
-              label: t.navbar.mail,
-              href: 'mailto:contact@tauri.studio',
-            },
-            {
-              label: 'Discord',
-              href: discordURL,
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/TauriApps',
-            },
-          ],
-        },
-        {
-          title: t.navbar.network,
-          items: [
-            {
-              label: 'DevTo',
-              href: 'https://dev.to/tauri',
-            },
-            {
-              label: 'OpenCollective',
-              href: 'https://opencollective.com/tauri',
-            },
-            {
-              label: 'GitHub',
-              href: repoUrl,
-            },
-          ],
-        },
-        {
-          title: t.navbar.community,
-          items: [
-            {
-              label: t.navbar.partners,
-              to: 'partners',
-            },
-            {
-              label: t.navbar.showcase,
-              to: 'showcase',
-            },
-            // TODO: add code of conduct
-            // {
-            //   label: 'Second Doc',
-            //   to: 'docs/doc2',
-            // },
-          ],
-        },
-      ],
+      links: footerLinks,
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
   },
