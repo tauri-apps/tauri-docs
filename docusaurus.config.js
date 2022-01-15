@@ -2,11 +2,7 @@ const path = require('path')
 const fs = require('fs')
 // const versions = require('./versions.json')
 
-const languages = require('./supported-languages')
-
-const language = process.env.LANGUAGE || 'en'
-
-const t = require(`./translations/${language}.json`)
+const t = require(`./translations/en.json`)
 
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
@@ -152,7 +148,7 @@ const siteConfig = {
   tagline: t.config.tagline,
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
-  baseUrl: `/${language}/`,
+  baseUrl: `/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
   onBrokenLinks: 'ignore',
@@ -161,8 +157,6 @@ const siteConfig = {
     locales: ['en', 'fr']
   },
   themeConfig: {
-    languages,
-    language,
     t,
     version,
     colorMode: {
@@ -195,7 +189,7 @@ const siteConfig = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          path: './docs/' + language,
+          path: './docs/',
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
@@ -208,12 +202,7 @@ const siteConfig = {
     ],
   ],
   plugins: [
-    [
-      path.resolve(__dirname, './plugins/dynamic-css.js'),
-      {
-        language,
-      },
-    ],
+    path.resolve(__dirname, './plugins/dynamic-css.js'),
     path.resolve('./plugins/external-assets'),
   ],
 }
