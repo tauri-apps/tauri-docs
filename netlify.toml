@@ -1,36 +1,6 @@
 [build]
   publish = "build"
-  command = "node build"
-
-# [[redirects]]
-#   from = "/*"  
-#   to = "/pt-br/:splat"
-#   status = 302  
-#   conditions = {Country = ["BR"]}
-
-# [[redirects]]
-#   from = "/*"  
-#   to = "/zh-hans/:splat"
-#   status = 302  
-#   conditions = {Country = ["CN"]}
-
-# [[redirects]]
-#   from = "/*"  
-#   to = "/zh-hant/:splat"
-#   status = 302  
-#   conditions = {Country = ["HK", "TW"]}
-
-# [[redirects]]
-#   from = "/*"  
-#   to = "/ru/:splat"
-#   status = 302  
-#   conditions = {Country = ["RU"]}
-
-# [[redirects]]
-#   from = "/*"  
-#   to = "/fr/:splat"
-#   status = 302  
-#   conditions = {Country = ["FR"]}
+  command = "yarn build"
 
 [[redirects]]
   from = "/*"
