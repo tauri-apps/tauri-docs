@@ -1,0 +1,66 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.about.category.About Tauri": {
+    "message": "About Tauri",
+    "description": "The label for category About Tauri in sidebar about"
+  },
+  "sidebar.about.link.Benchmarks": {
+    "message": "Benchmarks",
+    "description": "The label for link Benchmarks in sidebar about, linking to /benchmarks"
+  },
+  "sidebar.docs.category.Get started": {
+    "message": "Get started",
+    "description": "The label for category Get started in sidebar docs"
+  },
+  "sidebar.docs.category.Development": {
+    "message": "Development",
+    "description": "The label for category Development in sidebar docs"
+  },
+  "sidebar.docs.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category Guides in sidebar docs"
+  },
+  "sidebar.docs.category.Patterns": {
+    "message": "Patterns",
+    "description": "The label for category Patterns in sidebar docs"
+  },
+  "sidebar.docs.category.Bundler": {
+    "message": "Bundler",
+    "description": "The label for category Bundler in sidebar docs"
+  },
+  "sidebar.docs.category.WebDriver Testing": {
+    "message": "WebDriver Testing",
+    "description": "The label for category WebDriver Testing in sidebar docs"
+  },
+  "sidebar.docs.category.Example Application": {
+    "message": "Example Application",
+    "description": "The label for category Example Application in sidebar docs"
+  },
+  "sidebar.api.category.JavaScript": {
+    "message": "JavaScript",
+    "description": "The label for category JavaScript in sidebar api"
+  },
+  "sidebar.api.category.Enums": {
+    "message": "Enums",
+    "description": "The label for category Enums in sidebar api"
+  },
+  "sidebar.api.category.Classes": {
+    "message": "Classes",
+    "description": "The label for category Classes in sidebar api"
+  },
+  "sidebar.api.category.Modules": {
+    "message": "Modules",
+    "description": "The label for category Modules in sidebar api"
+  },
+  "sidebar.api.category.Interfaces": {
+    "message": "Interfaces",
+    "description": "The label for category Interfaces in sidebar api"
+  },
+  "sidebar.api.link.Rust (via Docs.rs)": {
+    "message": "Rust (via Docs.rs)",
+    "description": "The label for link Rust (via Docs.rs) in sidebar api, linking to https://docs.rs/tauri/1.0.0-beta.8/"
+  }
+}
