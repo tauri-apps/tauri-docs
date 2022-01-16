@@ -24,6 +24,10 @@ const siteConfig = {
   onBrokenLinks: 'ignore',
 
   themeConfig: {
+    prism: {
+      theme: require('./src/theme/CodeBlockTheme'),
+      additionalLanguages: ['rust']
+    },
     languages,
     language,
     t,
