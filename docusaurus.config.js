@@ -154,6 +154,10 @@ const siteConfig = {
     locales: ['en']
   },
   themeConfig: {
+    prism: {
+      theme: require('./src/theme/CodeBlockTheme'),
+      additionalLanguages: ['rust']
+    },
     version,
     colorMode: {
       defaultMode: 'dark',

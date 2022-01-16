@@ -1,5 +1,5 @@
 import React from 'react'
-import CodeBlock from './CodeBlock'
+import CodeBlock from '@theme/CodeBlock'
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
