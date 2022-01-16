@@ -56,15 +56,22 @@
   --ifm-heading-line-height: 1.4;
   --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
+}
 
-  /* Navbar */
-  --ifm-navbar-height: 80px;
-  --ifm-navbar-padding-horizontal: 2rem;
-  --ifm-navbar-padding-vertical: 0;
-  --ifm-navbar-background-color: var(--ifm-background-color);
-  --ifm-navbar-shadow: none;
+.navbar {
+  height: 80px;
+  padding: 0 2rem;
+  background-color: var(--ifm-background-color);
+  border-bottom: 1px solid var(--ifm-background-surface-color);
+}
 
-  /* Navbar Items */
+.navbar__item {
+  transition: 0.2s ease;
+}
+
+/* background height needs to be set to 100% somehow */
+.navbar__item:hover {
+  background-color: var(--ifm-menu-color-background-hover);
 }
 
 .markdown {
@@ -338,8 +345,6 @@ html[data-theme='light'] .header-github-link::before {
   font-weight: bold;
   margin-top: 10px;
 }
-
-html[data-theme="light"] a {}
 
 html[data-theme="light"] .navbar__logo {display: none;}
 html[data-theme="light"] .navbar__brand {
