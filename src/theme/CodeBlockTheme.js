@@ -1,7 +1,12 @@
+const tauriOrange = "#FFC131"
+const tauriBlue = "#24C8DB"
+const tauriWhite = "F6F6F6"
+const tauriBlack  = "#0F0F0"
+
 module.exports = {
   plain: {
-    color: "#bfc7d5",
-    backgroundColor: "#292d3e",
+    color: tauriWhite,
+    backgroundColor: tauriBlack,
   },
   styles: [
     {
@@ -14,7 +19,7 @@ module.exports = {
     {
       types: ["string", "inserted"],
       style: {
-        color: "rgb(195, 232, 141)",
+        color: "#abe338",
       },
     },
     {
@@ -26,13 +31,13 @@ module.exports = {
     {
       types: ["builtin", "char", "constant", "function"],
       style: {
-        color: "rgb(130, 170, 255)",
+        color: tauriBlue,
       },
     },
     {
       types: ["punctuation", "selector"],
       style: {
-        color: "rgb(199, 146, 234)",
+        color: tauriWhite,
       },
     },
     {
@@ -44,7 +49,7 @@ module.exports = {
     {
       types: ["class-name", "attr-name"],
       style: {
-        color: "rgb(255, 203, 107)",
+        color: tauriOrange,
       },
     },
     {
