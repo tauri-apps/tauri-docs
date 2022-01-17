@@ -1,10 +1,3 @@
----
-title: "Interface: CliMatches"
-sidebar_label: "CliMatches"
-custom_edit_url: null
-hide_title: true
----
-
 # Interface: CliMatches
 
 [cli](../modules/cli.md).CliMatches
@@ -21,7 +14,7 @@ hide_title: true
 
 #### Defined in
 
-[cli.ts:33](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/cli.ts#L33)
+[cli.ts:33](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/cli.ts#L33)
 
 ___
 
@@ -31,4 +24,4 @@ ___
 
 #### Defined in
 
-[cli.ts:34](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/cli.ts#L34)
+[cli.ts:34](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/cli.ts#L34)

@@ -1,10 +1,3 @@
----
-title: "Interface: FsTextFileOption"
-sidebar_label: "FsTextFileOption"
-custom_edit_url: null
-hide_title: true
----
-
 # Interface: FsTextFileOption
 
 [fs](../modules/fs.md).FsTextFileOption
@@ -17,7 +10,7 @@ hide_title: true
 
 #### Defined in
 
-[fs.ts:71](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/fs.ts#L71)
+[fs.ts:72](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/fs.ts#L72)
 
 ___
 
@@ -27,4 +20,4 @@ ___
 
 #### Defined in
 
-[fs.ts:70](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/fs.ts#L70)
+[fs.ts:71](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/fs.ts#L71)

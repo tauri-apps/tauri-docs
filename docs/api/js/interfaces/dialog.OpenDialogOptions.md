@@ -1,10 +1,3 @@
----
-title: "Interface: OpenDialogOptions"
-sidebar_label: "OpenDialogOptions"
-custom_edit_url: null
-hide_title: true
----
-
 # Interface: OpenDialogOptions
 
 [dialog](../modules/dialog.md).OpenDialogOptions
@@ -17,11 +10,11 @@ Options for the open dialog.
 
 • `Optional` **defaultPath**: `string`
 
-Initial directory or file path. It must exist.
+Initial directory or file path.
 
 #### Defined in
 
-[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L49)
+[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/dialog.ts#L51)
 
 ___
 
@@ -33,7 +26,7 @@ Whether the dialog is a directory selection or not.
 
 #### Defined in
 
-[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L53)
+[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/dialog.ts#L55)
 
 ___
 
@@ -45,7 +38,7 @@ The filters of the dialog.
 
 #### Defined in
 
-[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L47)
+[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/dialog.ts#L49)
 
 ___
 
@@ -57,4 +50,16 @@ Whether the dialog allows multiple selection or not.
 
 #### Defined in
 
-[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L51)
+[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/dialog.ts#L53)
+
+___
+
+### title
+
+• `Optional` **title**: `string`
+
+The title of the dialog window.
+
+#### Defined in
+
+[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/dialog.ts#L47)

@@ -1,11 +1,4 @@
----
-title: "Module: app"
-sidebar_label: "app"
-custom_edit_url: null
-hide_title: true
----
-
-# Module: app
+# Namespace: app
 
 Get application metadata.
 
@@ -27,7 +20,7 @@ A promise resolving to application name.
 
 #### Defined in
 
-[app.ts:33](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/app.ts#L33)
+[app.ts:33](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/app.ts#L33)
 
 ___
 
@@ -45,7 +38,7 @@ A promise resolving to tauri version.
 
 #### Defined in
 
-[app.ts:47](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/app.ts#L47)
+[app.ts:47](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/app.ts#L47)
 
 ___
 
@@ -63,4 +56,4 @@ A promise resolving to the application version.
 
 #### Defined in
 
-[app.ts:19](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/app.ts#L19)
+[app.ts:19](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/app.ts#L19)

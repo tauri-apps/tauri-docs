@@ -1,10 +1,3 @@
----
-title: "Class: Child"
-sidebar_label: "Child"
-custom_edit_url: null
-hide_title: true
----
-
 # Class: Child
 
 [shell](../modules/shell.md).Child
@@ -23,7 +16,7 @@ hide_title: true
 
 #### Defined in
 
-[shell.ts:135](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/shell.ts#L135)
+[shell.ts:135](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/shell.ts#L135)
 
 ## Properties
 
@@ -35,7 +28,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:133](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/shell.ts#L133)
+[shell.ts:133](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/shell.ts#L133)
 
 ## Methods
 
@@ -53,7 +46,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:169](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/shell.ts#L169)
+[shell.ts:169](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/shell.ts#L169)
 
 ___
 
@@ -85,4 +78,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:153](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/shell.ts#L153)
+[shell.ts:153](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/shell.ts#L153)

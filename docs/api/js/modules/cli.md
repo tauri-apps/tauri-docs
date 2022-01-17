@@ -1,11 +1,4 @@
----
-title: "Module: cli"
-sidebar_label: "cli"
-custom_edit_url: null
-hide_title: true
----
-
-# Module: cli
+# Namespace: cli
 
 Parse arguments from your Command Line Interface.
 
@@ -33,4 +26,4 @@ A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:42](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/cli.ts#L42)
+[cli.ts:42](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/cli.ts#L42)

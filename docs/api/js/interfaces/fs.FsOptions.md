@@ -1,10 +1,3 @@
----
-title: "Interface: FsOptions"
-sidebar_label: "FsOptions"
-custom_edit_url: null
-hide_title: true
----
-
 # Interface: FsOptions
 
 [fs](../modules/fs.md).FsOptions
@@ -17,4 +10,4 @@ hide_title: true
 
 #### Defined in
 
-[fs.ts:61](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/fs.ts#L61)
+[fs.ts:62](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/fs.ts#L62)

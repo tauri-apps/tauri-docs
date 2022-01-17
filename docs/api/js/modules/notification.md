@@ -1,11 +1,4 @@
----
-title: "Module: notification"
-sidebar_label: "notification"
-custom_edit_url: null
-hide_title: true
----
-
-# Module: notification
+# Namespace: notification
 
 Send toast notifications (brief auto-expiring OS window element) to your user.
 Can also be used with the Notification Web API.
@@ -40,7 +33,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -56,7 +49,7 @@ Checks if the permission to send notifications is granted.
 
 #### Defined in
 
-[notification.ts:49](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L49)
+[notification.ts:49](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/notification.ts#L49)
 
 ___
 
@@ -74,7 +67,7 @@ A promise resolving to whether the user granted the permission or not.
 
 #### Defined in
 
-[notification.ts:66](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L66)
+[notification.ts:66](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/notification.ts#L66)
 
 ___
 
@@ -88,7 +81,7 @@ Sends a notification to the user.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`Options`](../interfaces/notification.Options.md) \| `string` | Notification options. |
+| `options` | `string` \| [`Options`](../interfaces/notification.Options.md) | Notification options. |
 
 #### Returns
 
@@ -96,4 +89,4 @@ Sends a notification to the user.
 
 #### Defined in
 
-[notification.ts:75](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L75)
+[notification.ts:75](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/notification.ts#L75)

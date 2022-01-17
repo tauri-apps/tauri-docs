@@ -1,10 +1,3 @@
----
-title: "Interface: Event<T>"
-sidebar_label: "Event"
-custom_edit_url: null
-hide_title: true
----
-
 # Interface: Event<T\>
 
 [event](../modules/event.md).Event
@@ -19,13 +12,13 @@ hide_title: true
 
 ### event
 
-• **event**: `string`
+• **event**: [`EventName`](../modules/event.md#eventname)
 
 Event name
 
 #### Defined in
 
-[event.ts:19](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/event.ts#L19)
+[event.ts:19](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/event.ts#L19)
 
 ___
 
@@ -37,7 +30,7 @@ Event identifier used to unlisten
 
 #### Defined in
 
-[event.ts:21](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/event.ts#L21)
+[event.ts:21](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/event.ts#L21)
 
 ___
 
@@ -49,4 +42,4 @@ Event payload
 
 #### Defined in
 
-[event.ts:23](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/event.ts#L23)
+[event.ts:23](https://github.com/tauri-apps/tauri/blob/2d73b99/tooling/api/src/event.ts#L23)
