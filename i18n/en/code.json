@@ -408,6 +408,9 @@
   "The awesome folks at wallaby.js comped the core team of Tauri with their futuristic REPL in the IDE test runner. If you avoid testing your JS because it takes so long - with wallaby you'll appreciate the immediate inline feedback. We do...": {
     "message": "The awesome folks at wallaby.js comped the core team of Tauri with their futuristic REPL in the IDE test runner. If you avoid testing your JS because it takes so long - with wallaby you'll appreciate the immediate inline feedback. We do..."
   },
+  "Keygen makes it easy for businesses to license and distribute their software applications.": {
+    "message": "Keygen makes it easy for businesses to license and distribute their software applications."
+  },
   "GUIJS is a toolkit for making your devlife easier. This collaboration enabled the extension of Tauri to have a new mode, the sidecar.": {
     "message": "GUIJS is a toolkit for making your devlife easier. This collaboration enabled the extension of Tauri to have a new mode, the sidecar."
   },

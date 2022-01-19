@@ -144,6 +144,13 @@ function Partners() {
       tags: ['testing', 'JS/TS'],
       image: imgPath + 'wallabyjs.png',
     },
+    {
+      name: <>Keygen</>,
+      description: translate({message: "Keygen makes it easy for businesses to license and distribute their software applications."}),
+      link: 'https://keygen.sh/',
+      tags: ['licensing', 'distribution', 'api'],
+      image: imgPath + 'keygen.png',
+    },
   ]
 
   const collaborators = [
