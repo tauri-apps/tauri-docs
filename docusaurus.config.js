@@ -24,7 +24,7 @@ const navbarItems = [
   },
   {
     to: 'release-notes',
-    label: 'Release notes',
+    label: 'Release Notes',
     position: 'left',
   },
   {
