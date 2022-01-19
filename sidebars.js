@@ -25,7 +25,7 @@ const docs = [
     Development: [
       'development/intro',
       'development/integration',
-      'development/development',
+      'development/development-cycle',
       'development/debugging',
       'development/ci-cd',
       'development/cross-platform',
