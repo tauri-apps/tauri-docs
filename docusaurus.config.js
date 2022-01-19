@@ -148,7 +148,6 @@ const siteConfig = {
   baseUrl: `/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
-  onBrokenLinks: 'ignore',
   i18n: {
     defaultLocale: 'en',
     locales: ['en']
@@ -190,6 +189,9 @@ const siteConfig = {
       {
         docs: {
           path: './docs/',
+          exclude: [
+            'api/rust/**'
+          ],
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
