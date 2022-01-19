@@ -148,7 +148,6 @@ const siteConfig = {
   baseUrl: `/`,
   favicon: 'img/favicon-32x32.png',
   url: 'https://tauri.studio',
-  onBrokenLinks: 'ignore',
   i18n: {
     defaultLocale: 'en',
     locales: ['en']
