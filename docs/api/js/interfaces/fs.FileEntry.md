@@ -14,7 +14,7 @@ Children of this entry if it's a directory; null otherwise
 
 #### Defined in
 
-[fs.ts:88](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/fs.ts#L88)
+[fs.ts:87](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L87)
 
 ___
 
@@ -27,7 +27,7 @@ can be null if the path terminates with `..`
 
 #### Defined in
 
-[fs.ts:86](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/fs.ts#L86)
+[fs.ts:85](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L85)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[fs.ts:81](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/fs.ts#L81)
+[fs.ts:80](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L80)

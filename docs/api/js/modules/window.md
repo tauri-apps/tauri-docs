@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / window
 
-# Namespace: window
+# Module: window
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
 
@@ -49,7 +49,9 @@ type MovePayload = PhysicalPosition
 
 #### 'tauri://close-requested'
 Emitted when the user requests the window to be closed.
-If a listener is registered for this event, Tauri won't close the window so you must call `appWindow.close()` manually.
+
+#### 'tauri://destroyed'
+Emitted after the window is closed.
 
 #### 'tauri://focus'
 Emitted when the window gains focus.
@@ -101,13 +103,13 @@ type MenuClicked = string
 
 ### appWindow
 
-• **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
+• `Const` **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1137](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1137)
+[window.ts:1132](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1132)
 
 ## Functions
 
@@ -123,7 +125,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:1231](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1231)
+[window.ts:1220](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1220)
 
 ___
 
@@ -140,7 +142,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:1198](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1198)
+[window.ts:1187](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1187)
 
 ___
 
@@ -158,7 +160,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:207](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L207)
+[window.ts:209](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L209)
 
 ___
 
@@ -176,7 +178,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:195](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L195)
+[window.ts:197](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L197)
 
 ___
 
@@ -193,4 +195,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:1216](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1216)
+[window.ts:1205](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1205)

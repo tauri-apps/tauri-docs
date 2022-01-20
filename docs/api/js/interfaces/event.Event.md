@@ -14,13 +14,13 @@
 
 ### event
 
-• **event**: [`EventName`](../modules/event.md#eventname)
+• **event**: `string`
 
 Event name
 
 #### Defined in
 
-[event.ts:19](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L19)
+[event.ts:19](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L19)
 
 ___
 
@@ -32,7 +32,7 @@ Event identifier used to unlisten
 
 #### Defined in
 
-[event.ts:21](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L21)
+[event.ts:21](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L21)
 
 ___
 
@@ -44,4 +44,4 @@ Event payload
 
 #### Defined in
 
-[event.ts:23](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L23)
+[event.ts:23](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L23)

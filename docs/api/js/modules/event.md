@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / event
 
-# Namespace: event
+# Module: event
 
 The event system allows you to emit events to the backend and listen to events from it.
 
@@ -38,17 +38,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[event.ts:44](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L44)
+[event.ts:45](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L45)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
+Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://destroyed"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
 
 #### Defined in
 
-[event.ts:26](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L26)
+[event.ts:26](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L26)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[event.ts:46](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L46)
+[event.ts:47](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L47)
 
 ## Functions
 
@@ -81,7 +81,7 @@ Emits an event to the backend.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `event` | `string` | Event name |
-| `payload?` | `unknown` | - |
+| `payload?` | `string` | - |
 
 #### Returns
 
@@ -89,7 +89,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:112](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L112)
+[event.ts:113](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L113)
 
 ___
 
@@ -120,7 +120,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:72](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L72)
+[event.ts:73](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L73)
 
 ___
 
@@ -151,4 +151,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:95](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/event.ts#L95)
+[event.ts:96](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L96)

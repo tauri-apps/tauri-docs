@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / os
 
-# Namespace: os
+# Module: os
 
 Provides operating system-related utility methods and properties.
 
@@ -24,7 +24,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### EOL
 
-• **EOL**: ``"\r\n"`` \| ``"\n"``
+• `Const` **EOL**: ``"\r\n"`` \| ``"\n"``
 
 The operating system-specific end-of-line marker.
 - `\n` on POSIX
@@ -32,40 +32,40 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:35](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L35)
+[os.ts:34](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L34)
 
 ## Functions
 
 ### arch
 
-▸ **arch**(): `Promise`<`LiteralUnion`<``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``, `string`\>\>
+▸ **arch**(): `Promise`<`string`\>
 
 Returns the operating system CPU architecture for which the tauri app was compiled. Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``, `string`\>\>
+`Promise`<`string`\>
 
 #### Defined in
 
-[os.ts:93](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L93)
+[os.ts:76](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L76)
 
 ___
 
 ### platform
 
-▸ **platform**(): `Promise`<`LiteralUnion`<``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``, `string`\>\>
+▸ **platform**(): `Promise`<`string`\>
 
 Returns a string identifying the operating system platform.
-The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
+The value is set at compile time. Possible values are `'aix'`, `'darwin'`, `'freebsd'`, `'linux'`, `'openbsd'`, `'sunos'`, and `'win32'`.
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``, `string`\>\>
+`Promise`<`string`\>
 
 #### Defined in
 
-[os.ts:41](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L41)
+[os.ts:40](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L40)
 
 ___
 
@@ -81,23 +81,23 @@ Returns the operating system's default directory for temporary files as a string
 
 #### Defined in
 
-[os.ts:120](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L120)
+[os.ts:88](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L88)
 
 ___
 
 ### type
 
-▸ **type**(): `Promise`<`LiteralUnion`<``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``, `string`\>\>
+▸ **type**(): `Promise`<`string`\>
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``, `string`\>\>
+`Promise`<`string`\>
 
 #### Defined in
 
-[os.ts:79](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L79)
+[os.ts:64](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L64)
 
 ___
 
@@ -113,4 +113,4 @@ Returns a string identifying the kernel version.
 
 #### Defined in
 
-[os.ts:67](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/os.ts#L67)
+[os.ts:52](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L52)

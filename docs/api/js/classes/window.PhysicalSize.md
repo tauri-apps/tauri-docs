@@ -21,7 +21,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:119](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L119)
+[window.ts:121](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L121)
 
 ## Properties
 
@@ -31,7 +31,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:117](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L117)
+[window.ts:119](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L119)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[window.ts:115](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L115)
+[window.ts:117](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L117)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[window.ts:116](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L116)
+[window.ts:118](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L118)
 
 ## Methods
 
@@ -73,4 +73,4 @@ Converts the physical size to a logical one.
 
 #### Defined in
 
-[window.ts:125](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L125)
+[window.ts:127](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L127)

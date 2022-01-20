@@ -24,7 +24,7 @@ Manage the current window object.
 
 | Name | Type |
 | :------ | :------ |
-| `label` | `undefined` \| ``null`` \| `string` |
+| `label` | `WindowLabel` |
 
 #### Inherited from
 
@@ -32,13 +32,13 @@ Manage the current window object.
 
 #### Defined in
 
-[window.ts:231](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L231)
+[window.ts:233](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L233)
 
 ## Properties
 
 ### label
 
-• **label**: `string`
+• **label**: `WindowLabel`
 
 Window label.
 
@@ -48,7 +48,7 @@ Window label.
 
 #### Defined in
 
-[window.ts:227](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L227)
+[window.ts:229](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L229)
 
 ___
 
@@ -68,7 +68,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:229](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L229)
+[window.ts:231](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L231)
 
 ## Methods
 
@@ -99,7 +99,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:297](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L297)
+[window.ts:295](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L295)
 
 ___
 
@@ -117,7 +117,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:491](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L491)
+[window.ts:489](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L489)
 
 ___
 
@@ -135,7 +135,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:736](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L736)
+[window.ts:734](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L734)
 
 ___
 
@@ -150,7 +150,7 @@ Emits an event to the backend, tied to the webview window.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `event` | `string` | Event name. |
-| `payload?` | `unknown` | Event payload. |
+| `payload?` | `string` | Event payload. |
 
 #### Returns
 
@@ -162,7 +162,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:286](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L286)
+[window.ts:284](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L284)
 
 ___
 
@@ -180,7 +180,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:716](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L716)
+[window.ts:714](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L714)
 
 ___
 
@@ -196,7 +196,7 @@ The position of the top-left hand corner of the window's client area relative to
 
 #### Defined in
 
-[window.ts:334](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L334)
+[window.ts:332](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L332)
 
 ___
 
@@ -213,7 +213,7 @@ The client area is the content of the window, excluding the title bar and border
 
 #### Defined in
 
-[window.ts:369](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L369)
+[window.ts:367](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L367)
 
 ___
 
@@ -229,7 +229,7 @@ Gets the window's current decorated state.
 
 #### Defined in
 
-[window.ts:436](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L436)
+[window.ts:434](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L434)
 
 ___
 
@@ -245,7 +245,7 @@ Gets the window's current fullscreen state.
 
 #### Defined in
 
-[window.ts:404](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L404)
+[window.ts:402](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L402)
 
 ___
 
@@ -261,7 +261,7 @@ Gets the window's current maximized state.
 
 #### Defined in
 
-[window.ts:420](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L420)
+[window.ts:418](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L418)
 
 ___
 
@@ -277,7 +277,7 @@ Gets the window's current resizable state.
 
 #### Defined in
 
-[window.ts:452](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L452)
+[window.ts:450](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L450)
 
 ___
 
@@ -293,7 +293,7 @@ Gets the window's current visible state.
 
 #### Defined in
 
-[window.ts:468](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L468)
+[window.ts:466](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L466)
 
 ___
 
@@ -328,7 +328,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:248](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L248)
+[window.ts:246](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L246)
 
 ___
 
@@ -346,7 +346,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:596](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L596)
+[window.ts:594](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L594)
 
 ___
 
@@ -364,7 +364,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:656](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L656)
+[window.ts:654](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L654)
 
 ___
 
@@ -399,7 +399,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:269](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L269)
+[window.ts:267](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L267)
 
 ___
 
@@ -415,7 +415,7 @@ The position of the top-left hand corner of the window relative to the top-left 
 
 #### Defined in
 
-[window.ts:350](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L350)
+[window.ts:348](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L348)
 
 ___
 
@@ -432,7 +432,7 @@ These dimensions include the title bar and borders. If you don't want that (and 
 
 #### Defined in
 
-[window.ts:388](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L388)
+[window.ts:386](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L386)
 
 ___
 
@@ -447,7 +447,7 @@ see `UserAttentionType` for details.
 Providing `null` will unset the request for user attention. Unsetting the request for
 user attention might not be done automatically by the WM when the window receives input.
 
-#### Platform-specific
+## Platform-specific
 
 - **macOS:** `null` has no effect.
 
@@ -465,7 +465,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:521](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L521)
+[window.ts:519](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L519)
 
 ___
 
@@ -481,7 +481,7 @@ The scale factor that can be used to map physical pixels to logical pixels.
 
 #### Defined in
 
-[window.ts:318](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L318)
+[window.ts:316](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L316)
 
 ___
 
@@ -505,7 +505,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:779](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L779)
+[window.ts:777](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L777)
 
 ___
 
@@ -529,7 +529,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:757](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L757)
+[window.ts:755](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L755)
 
 ___
 
@@ -547,7 +547,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:987](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L987)
+[window.ts:985](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L985)
 
 ___
 
@@ -571,7 +571,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:966](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L966)
+[window.ts:964](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L964)
 
 ___
 
@@ -595,7 +595,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1008](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1008)
+[window.ts:1006](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1006)
 
 ___
 
@@ -603,7 +603,7 @@ ___
 
 ▸ **setMaxSize**(`size`): `Promise`<`void`\>
 
-Sets the window maximum inner size. If the `size` argument is undefined, the constraint is unset.
+Sets the window max size. If the `size` argument is undefined, the max size is unset.
 
 **`example`**
 ```typescript
@@ -615,7 +615,7 @@ await appWindow.setMaxSize(new LogicalSize(600, 500))
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `size` | `undefined` \| ``null`` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size, or `null` to unset the constraint. |
+| `size` | `undefined` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical size. |
 
 #### Returns
 
@@ -625,7 +625,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:886](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L886)
+[window.ts:884](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L884)
 
 ___
 
@@ -633,7 +633,7 @@ ___
 
 ▸ **setMinSize**(`size`): `Promise`<`void`\>
 
-Sets the window minimum inner size. If the `size` argument is not provided, the constraint is unset.
+Sets the window min size. If the `size` argument is not provided, the min size is unset.
 
 **`example`**
 ```typescript
@@ -645,7 +645,7 @@ await appWindow.setMinSize(new PhysicalSize(600, 500))
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `size` | `undefined` \| ``null`` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size, or `null` to unset the constraint. |
+| `size` | `undefined` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical size. |
 
 #### Returns
 
@@ -655,7 +655,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:844](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L844)
+[window.ts:842](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L842)
 
 ___
 
@@ -663,7 +663,7 @@ ___
 
 ▸ **setPosition**(`position`): `Promise`<`void`\>
 
-Sets the window outer position.
+Sets the window position.
 
 **`example`**
 ```typescript
@@ -685,7 +685,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:928](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L928)
+[window.ts:926](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L926)
 
 ___
 
@@ -709,7 +709,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:553](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L553)
+[window.ts:551](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L551)
 
 ___
 
@@ -717,7 +717,7 @@ ___
 
 ▸ **setSize**(`size`): `Promise`<`void`\>
 
-Resizes the window with a new inner size.
+Resizes the window.
 
 **`example`**
 ```typescript
@@ -729,7 +729,7 @@ await appWindow.setSize(new LogicalSize(600, 500))
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `size` | [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size. |
+| `size` | [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical size. |
 
 #### Returns
 
@@ -739,7 +739,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:806](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L806)
+[window.ts:804](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L804)
 
 ___
 
@@ -763,7 +763,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1032](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1032)
+[window.ts:1030](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1030)
 
 ___
 
@@ -787,7 +787,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:575](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L575)
+[window.ts:573](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L573)
 
 ___
 
@@ -805,7 +805,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:696](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L696)
+[window.ts:694](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L694)
 
 ___
 
@@ -823,7 +823,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1053](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L1053)
+[window.ts:1051](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L1051)
 
 ___
 
@@ -841,7 +841,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:636](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L636)
+[window.ts:634](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L634)
 
 ___
 
@@ -859,7 +859,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:616](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L616)
+[window.ts:614](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L614)
 
 ___
 
@@ -877,4 +877,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:676](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L676)
+[window.ts:674](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L674)

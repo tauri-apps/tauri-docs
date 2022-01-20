@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[fs.ts:66](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/fs.ts#L66)
+[fs.ts:65](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L65)
 
 ___
 
@@ -22,4 +22,4 @@ ___
 
 #### Defined in
 
-[fs.ts:67](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/fs.ts#L67)
+[fs.ts:66](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L66)
