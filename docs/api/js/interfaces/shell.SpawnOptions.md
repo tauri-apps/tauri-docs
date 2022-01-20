@@ -14,7 +14,7 @@ Current working directory.
 
 #### Defined in
 
-[shell.ts:34](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L34)
+[shell.ts:34](https://github.com/tauri-apps/tauri/blob/8edc636/tooling/api/src/shell.ts#L34)
 
 ___
 
@@ -30,4 +30,4 @@ Environment variables. set to `null` to clear the process env.
 
 #### Defined in
 
-[shell.ts:36](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L36)
+[shell.ts:36](https://github.com/tauri-apps/tauri/blob/8edc636/tooling/api/src/shell.ts#L36)

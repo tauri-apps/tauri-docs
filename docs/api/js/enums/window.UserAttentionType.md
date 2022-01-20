@@ -12,13 +12,13 @@ Attention type to request on a window.
 
 • **Critical** = `1`
 
-## Platform-specific
+#### Platform-specific
  - **macOS:** Bounces the dock icon until the application is in focus.
 - **Windows:** Flashes both the window and the taskbar button until the application is in focus.
 
 #### Defined in
 
-[window.ts:183](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L183)
+[window.ts:181](https://github.com/tauri-apps/tauri/blob/8edc636/tooling/api/src/window.ts#L181)
 
 ___
 
@@ -26,10 +26,10 @@ ___
 
 • **Informational** = `2`
 
-## Platform-specific
+#### Platform-specific
 - **macOS:** Bounces the dock icon once.
 - **Windows:** Flashes the taskbar button until the application is in focus.
 
 #### Defined in
 
-[window.ts:189](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L189)
+[window.ts:187](https://github.com/tauri-apps/tauri/blob/8edc636/tooling/api/src/window.ts#L187)
