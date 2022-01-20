@@ -1,9 +1,4 @@
----
-title: "Class: Response<T>"
-sidebar_label: "Response"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [http](../modules/http.md) / Response
 
 # Class: Response<T\>
 
@@ -27,7 +22,7 @@ The response data.
 
 #### Defined in
 
-[http.ts:145](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L145)
+[http.ts:148](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L148)
 
 ___
 
@@ -39,7 +34,7 @@ The response headers.
 
 #### Defined in
 
-[http.ts:143](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L143)
+[http.ts:144](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L144)
 
 ___
 
@@ -51,7 +46,19 @@ A boolean indicating whether the response was successful (status in the range 20
 
 #### Defined in
 
-[http.ts:141](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L141)
+[http.ts:142](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L142)
+
+___
+
+### rawHeaders
+
+• **rawHeaders**: `Record`<`string`, `string`[]\>
+
+The response raw headers.
+
+#### Defined in
+
+[http.ts:146](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L146)
 
 ___
 
@@ -63,7 +70,7 @@ The response status code.
 
 #### Defined in
 
-[http.ts:139](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L139)
+[http.ts:140](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L140)
 
 ___
 
@@ -75,4 +82,4 @@ The request URL.
 
 #### Defined in
 
-[http.ts:137](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L137)
+[http.ts:138](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/http.ts#L138)

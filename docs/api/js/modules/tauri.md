@@ -1,11 +1,6 @@
----
-title: "Module: tauri"
-sidebar_label: "tauri"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / tauri
 
-# Module: tauri
+# Namespace: tauri
 
 Invoke your custom commands.
 
@@ -28,7 +23,7 @@ Note that `asset:` must be allowed on the `csp` value configured on `tauri.conf.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filePath` | `string` | the file path. On Windows, the drive name must be omitted, i.e. using `/Users/user/file.png` instead of `C:/Users/user/file.png`. |
+| `filePath` | `string` | the file path. |
 
 #### Returns
 
@@ -38,7 +33,7 @@ the URL that can be used as source on the webview
 
 #### Defined in
 
-[tauri.ts:102](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/tauri.ts#L102)
+[tauri.ts:103](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/tauri.ts#L103)
 
 ___
 
@@ -69,7 +64,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:74](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/tauri.ts#L74)
+[tauri.ts:75](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/tauri.ts#L75)
 
 ___
 
@@ -95,4 +90,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:41](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/tauri.ts#L41)
+[tauri.ts:42](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/tauri.ts#L42)

@@ -1,9 +1,4 @@
----
-title: "Enumeration: UserAttentionType"
-sidebar_label: "UserAttentionType"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [window](../modules/window.md) / UserAttentionType
 
 # Enumeration: UserAttentionType
 
@@ -17,13 +12,13 @@ Attention type to request on a window.
 
 • **Critical** = `1`
 
-## Platform-specific
+#### Platform-specific
  - **macOS:** Bounces the dock icon until the application is in focus.
 - **Windows:** Flashes both the window and the taskbar button until the application is in focus.
 
 #### Defined in
 
-[window.ts:183](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L183)
+[window.ts:181](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L181)
 
 ___
 
@@ -31,10 +26,10 @@ ___
 
 • **Informational** = `2`
 
-## Platform-specific
+#### Platform-specific
 - **macOS:** Bounces the dock icon once.
 - **Windows:** Flashes the taskbar button until the application is in focus.
 
 #### Defined in
 
-[window.ts:189](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L189)
+[window.ts:187](https://github.com/tauri-apps/tauri/blob/72b78f39/tooling/api/src/window.ts#L187)
