@@ -1,9 +1,4 @@
----
-title: "Interface: Options"
-sidebar_label: "Options"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [notification](../modules/notification.md) / Options
 
 # Interface: Options
 
@@ -21,7 +16,7 @@ Optional notification body.
 
 #### Defined in
 
-[notification.ts:36](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L36)
+[notification.ts:36](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/notification.ts#L36)
 
 ___
 
@@ -33,7 +28,7 @@ Optional notification icon.
 
 #### Defined in
 
-[notification.ts:38](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L38)
+[notification.ts:38](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/notification.ts#L38)
 
 ___
 
@@ -45,4 +40,4 @@ Notification title.
 
 #### Defined in
 
-[notification.ts:34](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/notification.ts#L34)
+[notification.ts:34](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/notification.ts#L34)

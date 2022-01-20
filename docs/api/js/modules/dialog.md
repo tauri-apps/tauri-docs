@@ -1,9 +1,4 @@
----
-title: "Module: dialog"
-sidebar_label: "dialog"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / dialog
 
 # Module: dialog
 
@@ -55,7 +50,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:73](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L73)
+[dialog.ts:73](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/dialog.ts#L73)
 
 ___
 
@@ -79,4 +74,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:94](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/dialog.ts#L94)
+[dialog.ts:94](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/dialog.ts#L94)

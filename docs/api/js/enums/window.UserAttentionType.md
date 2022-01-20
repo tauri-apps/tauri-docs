@@ -1,9 +1,4 @@
----
-title: "Enumeration: UserAttentionType"
-sidebar_label: "UserAttentionType"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [window](../modules/window.md) / UserAttentionType
 
 # Enumeration: UserAttentionType
 
@@ -23,7 +18,7 @@ Attention type to request on a window.
 
 #### Defined in
 
-[window.ts:183](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L183)
+[window.ts:183](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L183)
 
 ___
 
@@ -37,4 +32,4 @@ ___
 
 #### Defined in
 
-[window.ts:189](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L189)
+[window.ts:189](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L189)

@@ -1,9 +1,4 @@
----
-title: "Module: os"
-sidebar_label: "os"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / os
 
 # Module: os
 
@@ -37,7 +32,7 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:34](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L34)
+[os.ts:34](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L34)
 
 ## Functions
 
@@ -53,7 +48,7 @@ Returns the operating system CPU architecture for which the tauri app was compil
 
 #### Defined in
 
-[os.ts:76](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L76)
+[os.ts:76](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L76)
 
 ___
 
@@ -70,7 +65,7 @@ The value is set at compile time. Possible values are `'aix'`, `'darwin'`, `'fre
 
 #### Defined in
 
-[os.ts:40](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L40)
+[os.ts:40](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L40)
 
 ___
 
@@ -86,7 +81,7 @@ Returns the operating system's default directory for temporary files as a string
 
 #### Defined in
 
-[os.ts:88](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L88)
+[os.ts:88](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L88)
 
 ___
 
@@ -102,7 +97,7 @@ Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
 #### Defined in
 
-[os.ts:64](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L64)
+[os.ts:64](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L64)
 
 ___
 
@@ -118,4 +113,4 @@ Returns a string identifying the kernel version.
 
 #### Defined in
 
-[os.ts:52](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/os.ts#L52)
+[os.ts:52](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/os.ts#L52)

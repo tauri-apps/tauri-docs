@@ -1,9 +1,4 @@
----
-title: "Module: helpers/tauri"
-sidebar_label: "helpers/tauri"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / helpers/tauri
 
 # Module: helpers/tauri
 
@@ -19,7 +14,7 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:9](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/tauri.ts#L9)
+[helpers/tauri.ts:9](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/helpers/tauri.ts#L9)
 
 ## Functions
 
@@ -45,4 +40,4 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:31](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/tauri.ts#L31)
+[helpers/tauri.ts:31](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/helpers/tauri.ts#L31)

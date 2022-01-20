@@ -1,9 +1,4 @@
----
-title: "Module: cli"
-sidebar_label: "cli"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / cli
 
 # Module: cli
 
@@ -33,4 +28,4 @@ A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:42](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/cli.ts#L42)
+[cli.ts:42](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/cli.ts#L42)

@@ -1,9 +1,4 @@
----
-title: "Module: helpers/event"
-sidebar_label: "helpers/event"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / helpers/event
 
 # Module: helpers/event
 
@@ -29,4 +24,4 @@ Emits an event to the backend.
 
 #### Defined in
 
-[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/event.ts#L18)
+[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/helpers/event.ts#L18)

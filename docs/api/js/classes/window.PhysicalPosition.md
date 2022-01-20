@@ -1,9 +1,4 @@
----
-title: "Class: PhysicalPosition"
-sidebar_label: "PhysicalPosition"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [window](../modules/window.md) / PhysicalPosition
 
 # Class: PhysicalPosition
 
@@ -26,7 +21,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:150](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L150)
+[window.ts:150](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L150)
 
 ## Properties
 
@@ -36,7 +31,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:146](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L146)
+[window.ts:146](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L146)
 
 ___
 
@@ -46,7 +41,7 @@ ___
 
 #### Defined in
 
-[window.ts:147](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L147)
+[window.ts:147](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L147)
 
 ___
 
@@ -56,7 +51,7 @@ ___
 
 #### Defined in
 
-[window.ts:148](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L148)
+[window.ts:148](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L148)
 
 ## Methods
 
@@ -78,4 +73,4 @@ Converts the physical position to a logical one.
 
 #### Defined in
 
-[window.ts:156](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L156)
+[window.ts:156](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L156)

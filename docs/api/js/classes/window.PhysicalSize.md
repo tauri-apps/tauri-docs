@@ -1,9 +1,4 @@
----
-title: "Class: PhysicalSize"
-sidebar_label: "PhysicalSize"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [window](../modules/window.md) / PhysicalSize
 
 # Class: PhysicalSize
 
@@ -26,7 +21,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:121](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L121)
+[window.ts:121](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L121)
 
 ## Properties
 
@@ -36,7 +31,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:119](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L119)
+[window.ts:119](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L119)
 
 ___
 
@@ -46,7 +41,7 @@ ___
 
 #### Defined in
 
-[window.ts:117](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L117)
+[window.ts:117](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L117)
 
 ___
 
@@ -56,7 +51,7 @@ ___
 
 #### Defined in
 
-[window.ts:118](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L118)
+[window.ts:118](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L118)
 
 ## Methods
 
@@ -78,4 +73,4 @@ Converts the physical size to a logical one.
 
 #### Defined in
 
-[window.ts:127](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L127)
+[window.ts:127](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/window.ts#L127)

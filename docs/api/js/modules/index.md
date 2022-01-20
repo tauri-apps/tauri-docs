@@ -1,9 +1,4 @@
----
-title: "Module: index"
-sidebar_label: "index"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / index
 
 # Module: index
 

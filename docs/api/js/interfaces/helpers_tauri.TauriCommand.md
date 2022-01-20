@@ -1,9 +1,4 @@
----
-title: "Interface: TauriCommand"
-sidebar_label: "TauriCommand"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [helpers/tauri](../modules/helpers_tauri.md) / TauriCommand
 
 # Interface: TauriCommand
 
@@ -21,4 +16,4 @@ hide_title: true
 
 #### Defined in
 
-[helpers/tauri.ts:27](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/helpers/tauri.ts#L27)
+[helpers/tauri.ts:27](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/helpers/tauri.ts#L27)

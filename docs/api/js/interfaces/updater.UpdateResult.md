@@ -1,9 +1,4 @@
----
-title: "Interface: UpdateResult"
-sidebar_label: "UpdateResult"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [updater](../modules/updater.md) / UpdateResult
 
 # Interface: UpdateResult
 
@@ -17,7 +12,7 @@ hide_title: true
 
 #### Defined in
 
-[updater.ts:28](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/updater.ts#L28)
+[updater.ts:28](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/updater.ts#L28)
 
 ___
 
@@ -27,4 +22,4 @@ ___
 
 #### Defined in
 
-[updater.ts:29](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/updater.ts#L29)
+[updater.ts:29](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/updater.ts#L29)

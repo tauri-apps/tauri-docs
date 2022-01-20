@@ -1,9 +1,4 @@
----
-title: "Module: globalShortcut"
-sidebar_label: "globalShortcut"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / globalShortcut
 
 # Module: globalShortcut
 
@@ -47,7 +42,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L29)
+[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
@@ -71,7 +66,7 @@ A promise resolving to the state.
 
 #### Defined in
 
-[globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L79)
+[globalShortcut.ts:79](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L79)
 
 ___
 
@@ -94,7 +89,7 @@ Register a global shortcut.
 
 #### Defined in
 
-[globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L38)
+[globalShortcut.ts:38](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L38)
 
 ___
 
@@ -117,7 +112,7 @@ Register a collection of global shortcuts.
 
 #### Defined in
 
-[globalShortcut.ts:59](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L59)
+[globalShortcut.ts:59](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L59)
 
 ___
 
@@ -139,7 +134,7 @@ Unregister a global shortcut.
 
 #### Defined in
 
-[globalShortcut.ts:95](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L95)
+[globalShortcut.ts:95](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L95)
 
 ___
 
@@ -155,4 +150,4 @@ Unregisters all shortcuts registered by the application.
 
 #### Defined in
 
-[globalShortcut.ts:110](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/globalShortcut.ts#L110)
+[globalShortcut.ts:110](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/globalShortcut.ts#L110)
