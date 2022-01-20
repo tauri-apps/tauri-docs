@@ -92,7 +92,7 @@ const api = [
   },
   {
     type: 'category',
-    label: 'JavaScript',
+    label: 'JavaScript / TypeScript',
     link: {
       type: 'doc',
       id: 'api/js/index'
