@@ -1,9 +1,4 @@
----
-title: "Interface: InvokeArgs"
-sidebar_label: "InvokeArgs"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [tauri](../modules/tauri.md) / InvokeArgs
 
 # Interface: InvokeArgs
 

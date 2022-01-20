@@ -1,11 +1,6 @@
----
-title: "Module: clipboard"
-sidebar_label: "clipboard"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / clipboard
 
-# Module: clipboard
+# Namespace: clipboard
 
 Read and write to the system clipboard.
 
@@ -27,7 +22,7 @@ A promise resolving to the clipboard content as plain text.
 
 #### Defined in
 
-[clipboard.ts:34](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/clipboard.ts#L34)
+[clipboard.ts:34](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/clipboard.ts#L34)
 
 ___
 
@@ -51,4 +46,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[clipboard.ts:19](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/clipboard.ts#L19)
+[clipboard.ts:19](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/clipboard.ts#L19)

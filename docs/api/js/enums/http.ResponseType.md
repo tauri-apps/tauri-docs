@@ -1,9 +1,4 @@
----
-title: "Enumeration: ResponseType"
-sidebar_label: "ResponseType"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [http](../modules/http.md) / ResponseType
 
 # Enumeration: ResponseType
 
@@ -17,7 +12,7 @@ hide_title: true
 
 #### Defined in
 
-[http.ts:37](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L37)
+[http.ts:37](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L37)
 
 ___
 
@@ -27,7 +22,7 @@ ___
 
 #### Defined in
 
-[http.ts:35](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L35)
+[http.ts:35](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L35)
 
 ___
 
@@ -37,4 +32,4 @@ ___
 
 #### Defined in
 
-[http.ts:36](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L36)
+[http.ts:36](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L36)

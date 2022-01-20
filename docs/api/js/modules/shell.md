@@ -1,11 +1,6 @@
----
-title: "Module: shell"
-sidebar_label: "shell"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / shell
 
-# Module: shell
+# Namespace: shell
 
 ## Classes
 
@@ -49,4 +44,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/shell.ts#L358)
+[shell.ts:358](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/shell.ts#L358)

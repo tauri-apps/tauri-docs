@@ -1,11 +1,6 @@
----
-title: "Module: window"
-sidebar_label: "window"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / window
 
-# Module: window
+# Namespace: window
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
 
@@ -54,9 +49,7 @@ type MovePayload = PhysicalPosition
 
 #### 'tauri://close-requested'
 Emitted when the user requests the window to be closed.
-
-#### 'tauri://destroyed'
-Emitted after the window is closed.
+If a listener is registered for this event, Tauri won't close the window so you must call `appWindow.close()` manually.
 
 #### 'tauri://focus'
 Emitted when the window gains focus.
@@ -108,13 +101,13 @@ type MenuClicked = string
 
 ### appWindow
 
-• `Const` **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
+• **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1132](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L1132)
+[window.ts:1137](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L1137)
 
 ## Functions
 
@@ -130,7 +123,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:1220](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L1220)
+[window.ts:1231](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L1231)
 
 ___
 
@@ -147,7 +140,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:1187](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L1187)
+[window.ts:1198](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L1198)
 
 ___
 
@@ -165,7 +158,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:209](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L209)
+[window.ts:207](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L207)
 
 ___
 
@@ -183,7 +176,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:197](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L197)
+[window.ts:195](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L195)
 
 ___
 
@@ -200,4 +193,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:1205](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/window.ts#L1205)
+[window.ts:1216](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/window.ts#L1216)

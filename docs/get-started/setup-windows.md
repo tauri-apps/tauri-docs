@@ -1,6 +1,5 @@
 ---
 title: Setup for Windows
-pagination_next: development/integration
 ---
 
 import Alert from '@theme/Alert'

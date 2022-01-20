@@ -1,9 +1,4 @@
----
-title: "Class: Client"
-sidebar_label: "Client"
-custom_edit_url: null
-hide_title: true
----
+[@tauri-apps/api](../index.md) / [http](../modules/http.md) / Client
 
 # Class: Client
 
@@ -17,7 +12,7 @@ hide_title: true
 
 #### Defined in
 
-[http.ts:158](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L158)
+[http.ts:162](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L162)
 
 ## Methods
 
@@ -48,7 +43,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:299](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L299)
+[http.ts:306](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L306)
 
 ___
 
@@ -64,7 +59,7 @@ Drops the client instance.
 
 #### Defined in
 
-[http.ts:169](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L169)
+[http.ts:173](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L173)
 
 ___
 
@@ -95,7 +90,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:227](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L227)
+[http.ts:234](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L234)
 
 ___
 
@@ -126,7 +121,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:284](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L284)
+[http.ts:291](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L291)
 
 ___
 
@@ -158,7 +153,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:243](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L243)
+[http.ts:250](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L250)
 
 ___
 
@@ -190,7 +185,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:264](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L264)
+[http.ts:271](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L271)
 
 ___
 
@@ -220,4 +215,4 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:185](https://github.com/tauri-apps/tauri/blob/40d08a6/tooling/api/src/http.ts#L185)
+[http.ts:189](https://github.com/tauri-apps/tauri/blob/c32d191/tooling/api/src/http.ts#L189)
