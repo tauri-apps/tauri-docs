@@ -288,7 +288,7 @@ function Benchmarks() {
           </li>
         </ul>
         <p className="margin-bottom--xl">
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             The CPU intensive benchmark measures how much time it takes to
             calculate all the prime numbers under XXXX without blocking the UI
             and reporting how many have been found so far using web workers.
@@ -316,7 +316,7 @@ function Benchmarks() {
               yTickFormat={formatExecTime}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             This shows how much time total it takes intialize the application
             and wait the <code>DOMContentLoaded</code> event. We use{' '}
             <a href="https://github.com/sharkdp/hyperfine" target="_blank">
@@ -349,7 +349,7 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             We track the size of various files here. All binaries are compiled
             in <u>release mode</u>.
           </Alert>
@@ -377,7 +377,7 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             We use{' '}
             <a href="https://pypi.org/project/memory-profiler/" target="_blank">
               mprof
@@ -406,7 +406,7 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             How many threads the application use. Smaller is better.
           </Alert>
         </section>
@@ -431,7 +431,7 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             How many total syscalls are performed when executing a given
             application. Smaller is better.
           </Alert>

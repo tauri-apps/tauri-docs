@@ -1,25 +1,21 @@
 import React from 'react'
-import classnames from 'classnames'
 
-import Icon from '../Icon'
+const types = {
+  primary: "",
+  secondary: "",
+  success: "check-circle-fill",
+  info: "info-circle-fill",
+  warning: "exclamation-circle-fill",
+  danger: "x-octagon-fill"
+}
 
-import styles from './styles.module.css'
-
-export default ({ type = 'info', title, icon, children }) => (
-  <div
-    className={classnames('alert', 'alert--' + type, styles.alert)}
-    style={{ marginBottom: '30px' }}
-    role="alert"
-  >
-    {icon && (
-      <>
-        <Icon title={icon} className={styles.icon} />
-        &nbsp;
-      </>
-    )}
-    <div className={styles.container}>
-      {title && <span className={styles.title}>{title}</span>}
-      <div className={styles.content}>{children}</div>
+export default ({ type = 'info', title, children }) => (
+  <div class={`alert alert--${type}`} role="alert">
+    <strong>
+      <i class={`bi bi-${types[type]}`}/> {title}
+    </strong>
+    <div>
+      {children}
     </div>
   </div>
 )

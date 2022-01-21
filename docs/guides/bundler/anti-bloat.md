@@ -30,7 +30,7 @@ We've seen smaller binary sizes from `"s"` for Tauri example applications, but r
 
 #### Unstable Rust Compression Features
 
-<Alert type="warning" title="Warning" icon="alert">
+<Alert type="warning" title="Warning">
 The following suggestions are all unstable features and require a nightly toolchain. See the <a href="https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features">Unstable Features</a> documentation for more information of what this involves.
 </Alert>
 
@@ -89,7 +89,7 @@ UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packe
 
 Basically it compresses the binary and decompresses it at runtime. It should work for pretty much any binary type out there. Read more: https://github.com/upx/upx
 
-<Alert type="warning" title="Warning" icon="alert">
+<Alert type="warning" title="Warning">
 You should know that this technique might flag your binary as a virus on Windows and macOS - so use at your own discretion, and as always validate with [Frida](https://frida.re/docs/home/) and do real distribution testing!
 </Alert>
 

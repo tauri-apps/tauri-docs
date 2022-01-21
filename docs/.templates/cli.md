@@ -16,7 +16,7 @@ The `cli.js` command line interface is composed in TypeScript and published as a
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
 
-<Alert title="Note" icon="info-alt">
+<Alert title="Note">
 This command is pretty helpful when you need to have a quick overview of your application. When requesting some help, it can be useful that you share this report with us.
 </Alert>
 
@@ -38,7 +38,7 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 
 <a href="/docs/api/config#build">See more about the configuration.</a><br/><br/>
 
-<Alert title="Troubleshooting" type="warning" icon="alert">
+<Alert title="Troubleshooting" type="warning">
 
 If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
 </Alert>

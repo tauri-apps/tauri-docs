@@ -3,7 +3,7 @@ title: Updating Packages
 ---
 import Alert from '@theme/Alert'
 
-<Alert title="Please note" type="warning" icon="alert">
+<Alert title="Please note" type="warning">
     Especially during the alpha and beta phases, you are expected to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
 </Alert>
 
