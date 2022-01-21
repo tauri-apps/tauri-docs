@@ -94,8 +94,8 @@ function Changelog({ changelogs }) {
   )
 
   return (
-    <div className={styles.verticalTabs}>
-      <div className={styles.verticalTabsPanes}>
+    <div className={styles.verticalTabsContainer}>
+      <div className={styles.verticalTabsVersionColumn}>
         {Object.entries(allChangelogs).map(([changelogVersion]) => {
           const dynamicStyles =
             changelogVersion === activeValue
@@ -110,7 +110,7 @@ function Changelog({ changelogs }) {
           return (
             <div
               key={'pane-' + changelogVersion}
-              className={styles.verticalTabsPane}
+              className={styles.verticalTabsVersionText}
               onClick={() => setActiveValue(changelogVersion)}
               style={dynamicStyles}
             >
@@ -123,7 +123,7 @@ function Changelog({ changelogs }) {
         <div
           key={'content-' + changelogVersion}
           value={changelogVersion}
-          className={styles.verticalTabContent}
+          className={styles.verticalTabsReleaseNotesColumn}
           style={{
             display: changelogVersion === activeValue ? 'block' : 'none',
           }}
@@ -217,7 +217,7 @@ function ReleaseNotes() {
   return (
     <Layout title="Release notes" id="release-notes">
       <div className="container margin-vert--lg">
-        <h1 className="text--center margin-bottom--xl">Release notes</h1>
+        <h1 className="text--center margin-bottom--xl">Release Notes</h1>
         <div className={styles.changelogSearchContainer}>
           <input
             className={styles.changelogSearchInput}

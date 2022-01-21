@@ -26,25 +26,24 @@ $ yarn start
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
 
-Note that only English language is supported during development phase in order to keep a small build time.
+To develop in another language, use this command (setting your desired language):
+```
+$ yarn start --locale fr
+```
 
 ## Build
 
 ```
-$ LANGUAGE=${language} yarn build --out-dir ./build/${language}
+$ yarn build
 ```
 
-This command generates static content for a given language (default is "en") into the `build/${language}` directory and can be served using any static contents hosting service.
+This command generates static content and can be served using any static contents hosting service.
 
-To build for all enabled languages, use:
+To build for only a specific language use:
 
 ```
-node build.js
+yarn build --locale fr
 ```
-
-supported-languages.js is the module containing the enabled/targeted languages for Tauri documentation site.
-
-Uncomment a language when at least "Get started" and most of "Usage" docs are translated.
 
 ## Deployment
 
@@ -66,19 +65,16 @@ Your PR once submitted to us, will automatically deploy to a temporary Netlify i
 
 We're working with Crowdin to manage translations, if you feel like you want to lend a hand for translations, take a look at the documentation project: https://tauri.crowdin.com/documentation
 
-To enable a language on the documentation website, we need to (at least) have the following items translated:
+To add a language to the site, add it to `docusaurus.config.js`'s `siteconfig.i18n.locales` object.
 
-- strings from en.json;
+The following items should be translated before enabling a language:
+
+- strings in i18n/[language] json files
 - docs/about/intro.md and docs/about/security.md;
 - all files in docs/get-started;
-- all files in docs/usage/development;
+- all files in docs/development;
 
-Please ignore the following items for now since breaking changes may happen frequently:
 
-- docs/api;
-- docs/tips;
-- all files in docs/usage/ci-cd;
-- docs/usage/contributor-guide.
 
 ## License
 
