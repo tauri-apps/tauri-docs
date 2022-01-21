@@ -108,12 +108,12 @@ function Feature({ imageUrl, link, label, description }) {
 const Roadmap = ({ siteConfig }) => {
   const colors = {
     released: getComputedStyle(document.body).getPropertyValue(
-      '--ifm-color-success-lightest'
+      '--tauri-accent-green'
     ),
-    ready: getComputedStyle(document.body).getPropertyValue('--tauri-blue'),
-    todo: getComputedStyle(document.body).getPropertyValue('--tauri-orange'),
+    ready: getComputedStyle(document.body).getPropertyValue('--tauri-accent-blue'),
+    todo: getComputedStyle(document.body).getPropertyValue('--tauri-accent-orange'),
     milestone: getComputedStyle(document.body).getPropertyValue(
-      '--ifm-color-danger-lighter'
+      '--tauri-accent-purple'
     ),
   }
   // See translations for label/description

@@ -18,6 +18,12 @@
   --tauri-black: #0f0f0f; 
   --tauri-night: #070707;
   
+  --tauri-accent-purple: #AF52DE;
+  --tauri-accent-green: #34C759;
+  --tauri-accent-blue: #32ADE6;
+  --tauri-accent-red: #DB3A24;
+  --tauri-accent-orange: #FF9500;
+
   font-family: 'Rubik';
 
   /* Primary colours */
@@ -164,7 +170,7 @@ ul.roadmap li .icon {
   display: inline-block;
   margin-right: 20px;
   padding: 2px;
-  color: #000000;
+  color: var(--ifm-background-surface-color);
   text-align: center;
   font-size: 25px;
 }
