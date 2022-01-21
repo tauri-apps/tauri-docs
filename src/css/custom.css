@@ -67,6 +67,8 @@
 :root[data-theme='light'] {
   --ifm-background-color: var(--tauri-white);
   --ifm-navbar-background-color: #ffffff;
+
+  --ifm-footer-background-color: #ffffff;
 }
 
 .navbar {
@@ -104,6 +106,7 @@
   font-size: 1.6em;
 }
 
+/* Roadmap */
 ul.roadmap-legend {
   padding: 0;
   margin-bottom: 30px;
@@ -334,15 +337,6 @@ h2 > [class^='ti-'] {
 #announcement-beta {
   font-weight: bold;
   margin-top: 10px;
-}
-
-html[data-theme="light"] .navbar__logo {display: none;}
-html[data-theme="light"] .navbar__brand {
-  display: block;
-  background: url(../../static/img/tauri_with_wordmark_dark.svg) no-repeat;
-  background-size: cover;
-  width: 97px;
-  height: 30px;
 }
 
 .badge--warning,

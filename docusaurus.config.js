@@ -172,13 +172,13 @@ const siteConfig = {
       hideOnScroll: false,
       logo: {
         alt: 'Tauri Logo',
-        src: 'img/tauri_with_wordmark.svg',
+        src: 'img/tauri_with_wordmark_dark.svg',
+        srcDark: 'img/tauri_with_wordmark.svg'
       },
       items: navbarItems,
     },
 
     footer: {
-      style: 'dark',
       links: footerLinks,
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
