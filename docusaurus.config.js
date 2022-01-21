@@ -160,8 +160,11 @@ const siteConfig = {
     version,
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: true,
-      respectPrefersColorScheme: true
+      respectPrefersColorScheme: true,
+      switchConfig: {
+        darkIcon: '🌙',
+        lightIcon: '☀️'
+      }
     },
     announcementBar: {
       id: 'beta',
