@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import styles from './searchbar.module.css'
-import Icon from '@theme/Icon'
 
 const SearchBar = ({className}) => {
   const context = useDocusaurusContext()
@@ -25,7 +24,7 @@ const SearchBar = ({className}) => {
   }, [])
   return (
     <div className={classNames(className, 'SearchBar', 'meilisearch-search-wrapper', styles.searchWrapper)}>
-      <Icon title="search" className={classNames(styles.searchIcon)}/>
+      <i class="bi bi-search" />
       <input
         placeholder="Search"
         type="text"
