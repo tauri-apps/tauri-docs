@@ -55,7 +55,7 @@ const navbarItems = [
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
-    className: 'header-github-link',
+    className: 'bi bi-github',
   },
   {
     type: 'localeDropdown',
@@ -161,6 +161,7 @@ const siteConfig = {
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
+      respectPrefersColorScheme: true
     },
     announcementBar: {
       id: 'beta',
@@ -204,8 +205,7 @@ const siteConfig = {
     ],
   ],
   plugins: [
-    path.resolve(__dirname, './plugins/dynamic-css.js'),
-    path.resolve('./plugins/external-assets'),
+    path.resolve('./plugins/external-assets')
   ],
 }
 
