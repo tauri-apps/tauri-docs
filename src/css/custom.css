@@ -138,12 +138,11 @@ ul.roadmap::before {
   position: absolute;
   display: block;
   content: '';
-  height: 100%;
-  top: 0;
-  bottom: 0;
+  top: 10px;
+  bottom: 10px;
   left: 19px;
   width: 4px;
-  background-color: #ccd;
+  background-color: rgb(221, 221, 221);
   border-radius: 1em;
 }
 
