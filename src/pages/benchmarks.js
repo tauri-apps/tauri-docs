@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { reshape, formatMB, formatExecTime } from '../utils/benchmark'
 import Layout from '@theme/Layout'
 import Alert from '@theme/Alert'
-import Icon from '@theme/Icon'
 import useThemeContext from '@theme/hooks/useThemeContext'
 import ContentLoader from 'react-content-loader'
 
@@ -298,7 +297,7 @@ function Benchmarks() {
         <section>
           <h2 id="execution-time" className="anchorify">
             <a href="#execution-time">
-              <Icon title="timer" /> Execution Time
+              <i class="bi bi-stopwatch" /> Execution Time
             </a>
           </h2>
           <div>
@@ -331,7 +330,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 href="#binary-size" className="anchorify">
             <a href="#binary-size">
-              <Icon title="package" /> Binary Size
+              <i class="bi bi-box" /> Binary Size
             </a>
           </h2>
           <div>
@@ -359,7 +358,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="#memory-usage" className="anchorify">
             <a href="#memory-usage">
-              <Icon title="dashboard" /> Memory Usage
+              <i class="bi bi-memory" /> Memory Usage
             </a>
           </h2>
           <div>
@@ -390,7 +389,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="#thread-count" className="anchorify">
             <a href="#thread-count">
-              <Icon title="pulse" /> Thread Count
+              <i class="bi bi-cpu" /> Thread Count
             </a>
           </h2>
           <div>
@@ -415,7 +414,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="syscall-count" className="anchorify">
             <a href="#syscall-count">
-              <Icon title="pulse" /> Syscall Count
+              <i class="bi bi-activity" /> Syscall Count
             </a>
           </h2>
           <div>
@@ -441,7 +440,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="tauri-dependencies" className="anchorify">
             <a href="#tauri-dependencies">
-              <Icon title="package" /> Dependencies
+              <i class="bi bi-boxes" /> Dependencies
             </a>
           </h2>
           <div>
