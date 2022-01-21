@@ -467,7 +467,7 @@ function Home() {
                     to={useBaseUrl('docs/get-started/intro')}
                   >
                     <span>
-                      <Translate>Get started</Translate>
+                      <Translate>Get Started</Translate>
                     </span>
                   </Link>
                 </div>
