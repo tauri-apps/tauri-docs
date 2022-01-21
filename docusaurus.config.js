@@ -180,11 +180,14 @@ const siteConfig = {
       },
       items: navbarItems,
     },
-
     footer: {
       links: footerLinks,
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
+    metadata: [{
+      name: 'theme-color',
+      content: '#ffc131'
+    }]
   },
 
   presets: [
