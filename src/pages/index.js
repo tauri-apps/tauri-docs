@@ -14,7 +14,7 @@ function HeroAnimation() {
 
   return (
     <lottie-player
-      src={'lottie-animations/tauri-splash.json'}
+      src={'lottie/tauri-splash.json'}
       background="transparent"
       speed="1"
       style={{ width: '75%', margin: 'auto' }}
