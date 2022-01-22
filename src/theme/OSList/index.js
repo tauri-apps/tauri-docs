@@ -11,7 +11,7 @@ export default ({ content }) => {
           <div className="card">
             <div className="card__body">
               <Link to={content.linux.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'ti-linux')}></i>
+                <i className={classnames(styles.osIcon, 'bi bi-terminal-fill')}></i>
               </Link>
             </div>
             <div className="card__footer">
@@ -25,7 +25,7 @@ export default ({ content }) => {
           <div className="card">
             <div className="card__body">
               <Link to={content.macos.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'ti-apple')}></i>
+                <i className={classnames(styles.osIcon, 'bi bi-apple')}></i>
               </Link>
             </div>
             <div className="card__footer">
@@ -39,7 +39,7 @@ export default ({ content }) => {
           <div className="card">
             <div className="card__body">
               <Link to={content.windows.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'ti-microsoft')}></i>
+                <i className={classnames(styles.osIcon, 'bi bi-windows')}></i>
               </Link>
             </div>
             <div className="card__footer">
