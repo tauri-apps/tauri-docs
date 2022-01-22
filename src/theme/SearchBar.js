@@ -21,12 +21,12 @@ const SearchBar = () => {
     })
   }, [])
   return (
-    <div class='navbar__search'>
+    <div className='navbar__search'>
       <input
         placeholder="Search"
         type="search"
         id="search-bar-input"
-        class="navbar__search-input"
+        className="navbar__search-input"
       />
     </div>
   )
