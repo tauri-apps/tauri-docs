@@ -78,7 +78,7 @@
   --tauri-accent-purple: #AF52DE;
 
   /* Primary colours */
-  --ifm-color-primary: var(--tauri-blue);
+  --ifm-color-primary: var(--tauri-accent-blue);
   --ifm-color-primary-dark: darken(var(--ifm-color-primary), 10%);
   --ifm-color-primary-darker: darken(var(--ifm-color-primary-dark), 10%);
   --ifm-color-primary-darkest: darken(var(--ifm-color-primary-darker), 10%);
@@ -86,15 +86,14 @@
   --ifm-color-primary-lighter: lighten(var(--ifm-color-primary-light), 10%);
   --ifm-color-primary-lightest: lighten(var(--ifm-color-primary-lighter), 10%);
 
-
   /* Semantic info colours (same as primary) */
   --ifm-color-info: var(--tauri-accent-blue);
-  --ifm-color-info-dark: darken(var(--ifm-color-blue), 10%);
-  --ifm-color-info-darker: darken(var(--ifm-color-blue-dark), 10%);
-  --ifm-color-info-darkest: darken(var(--ifm-color-blue-darker), 10%);
-  --ifm-color-info-light: lighten(var(--ifm-color-blue), 10%);
-  --ifm-color-info-lighter: lighten(var(--ifm-color-blue-light), 10%);
-  --ifm-color-info-lightest: lighten(var(--ifm-color-blue-lighter), 10%);
+  --ifm-color-info-dark: darken(var(--ifm-color-info), 10%);
+  --ifm-color-info-darker: darken(var(--ifm-color-info-dark), 10%);
+  --ifm-color-info-darkest: darken(var(--ifm-color-info-darker), 10%);
+  --ifm-color-info-light: lighten(var(--ifm-color-info), 10%);
+  --ifm-color-info-lighter: lighten(var(--ifm-color-info-light), 10%);
+  --ifm-color-info-lightest: lighten(var(--ifm-color-info-lighter), 10%);
 
   /* Semantic warning colours */
   --ifm-color-warning: var(--tauri-accent-orange);
@@ -118,6 +117,83 @@
   --ifm-navbar-background-color: #ffffff;
 
   --ifm-footer-background-color: #ffffff;
+}
+
+.container::after, .container::before {
+  animation: buble 6s ease;
+  -webkit-animation: buble 6s ease;
+  -moz-animation: buble 6s ease;
+  -o-animation: buble 6s ease;
+  -ms-animation: buble 6s ease;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.04;
+  height: 200vh;
+  width: 200vh;
+  position: fixed;
+  content: '';
+  animation-duration: 9s !important;
+  top: -80%;
+}
+
+/* Background animation */
+.container::before {
+  background: radial-gradient(50% 50% at 50% 50%, var(--tauri-accent-purple) 0%, rgba(0, 0, 0, 0) 100%);
+  left: -60%;
+}
+
+.container::after {
+  background: radial-gradient(50% 50% at 50% 50%, var(--tauri-accent-blue) 0%, rgba(0, 0, 0, 0) 100%);
+  right: -70%;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;transform: translateY(30px);}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;transform: translateY(30px);}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;transform: translateY(30px);}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;transform: translateY(30px);}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;transform: translateY(30px);}
+  100% {opacity:1;}
+}
+
+@keyframes buble {
+  0% {top: -190%; transform: scale(0.4);}
+  100% {}
+}
+
+@-moz-keyframes buble {
+  0% {top: -190%; transform: scale(0.4);}
+  100% {}
+}
+
+@-webkit-keyframes buble {
+  0% {top: -190%; transform: scale(0.4);}
+  100% {}
+}
+@-o-keyframes buble {
+  0% {top: -190%; transform: scale(0.4);}
+  100% {}
+}
+
+@-ms-keyframes buble {
+  0% {top: -190%; transform: scale(0.4);}
+  100% {}
 }
 
 .navbar {
