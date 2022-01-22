@@ -10,11 +10,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 
-const HeroAnimation = () => {
+function HeroAnimation() {
   const { isDarkTheme } = useThemeContext()
 
   return (
-    <div>
     <lottie-player
       src={isDarkTheme ? 'tauri-splash.json' : 'tauri-splash-dark.json'}
       background="transparent"
@@ -22,8 +21,6 @@ const HeroAnimation = () => {
       style={{ width: '75%', margin: 'auto' }}
       autoplay
     ></lottie-player>
-    Theme is now {isDarkTheme ? 'Dark' : 'Light'}
-    </div>
   )
 }
 
