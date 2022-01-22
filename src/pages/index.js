@@ -1,7 +1,6 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade'
 import classnames from 'classnames'
-
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -9,13 +8,14 @@ import useThemeContext from '@theme/hooks/useThemeContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
+import "@lottiefiles/lottie-player"
 
 function HeroAnimation() {
   const { isDarkTheme } = useThemeContext()
 
   return (
     <lottie-player
-      src={isDarkTheme ? 'tauri-splash.json' : 'tauri-splash-dark.json'}
+      src={isDarkTheme ? 'lottie-animations/tauri-splash.json' : 'lottie-animations/tauri-splash-dark.json'}
       background="transparent"
       speed="1"
       style={{ width: '75%', margin: 'auto' }}

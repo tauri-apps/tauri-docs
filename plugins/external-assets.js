@@ -10,12 +10,6 @@ module.exports = (context, options) => ({
         //   },
         // },
         {
-          tagName: 'script',
-          attributes: {
-            src: context.baseUrl + 'js/lottie-player.js',
-          },
-        },
-        {
           tagName: 'meta',
           attributes: {
             property: 'og:type',
