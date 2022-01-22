@@ -14,6 +14,7 @@ const HeroAnimation = () => {
   const { isDarkTheme } = useThemeContext()
 
   return (
+    <div>
     <lottie-player
       src={isDarkTheme ? 'tauri-splash.json' : 'tauri-splash-dark.json'}
       background="transparent"
@@ -21,6 +22,8 @@ const HeroAnimation = () => {
       style={{ width: '75%', margin: 'auto' }}
       autoplay
     ></lottie-player>
+    Theme is now {isDarkTheme ? 'Dark' : 'Light'}
+    </div>
   )
 }
 
