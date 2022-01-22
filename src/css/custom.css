@@ -393,11 +393,6 @@ h2 > [class^='bi-'] {
   color: var(--ifm-font-color-base);
 }
 
-/* Fix react-toggle growing too wide */
-.react-toggle {
-  display: inline-block;
-}
-
 #announcement-beta {
   font-weight: bold;
   margin-top: 10px;
