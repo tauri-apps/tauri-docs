@@ -10,48 +10,30 @@ export default ({ content }) => {
         <Link to={content.linux.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <div className={styles.osIconLink}>
-                <i
-                  className={classnames(styles.osIcon, 'bi bi-terminal-fill')}
-                />
-              </div>
+              <i className={classnames(styles.osIcon, 'bi bi-terminal-fill')} />
             </div>
             <div className="card__footer">
-              <Link to={content.linux.link}>
-                <h3>{content.linux.title}</h3>
-              </Link>
+              <h3>{content.linux.title}</h3>
             </div>
           </div>
         </Link>
         <Link to={content.macos.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <div className={styles.osIconLink}>
-                <i
-                  className={classnames(styles.osIcon, 'bi bi-apple')}
-                />
-              </div>
+              <i className={classnames(styles.osIcon, 'bi bi-apple')} />
             </div>
             <div className="card__footer">
-              <Link to={content.macos.link}>
-                <h3>{content.macos.title}</h3>
-              </Link>
+              <h3>{content.macos.title}</h3>
             </div>
           </div>
         </Link>
         <Link to={content.windows.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <div className={styles.osIconLink}>
-                <i
-                  className={classnames(styles.osIcon, 'bi bi-windows')}
-                />
-              </div>
+              <i className={classnames(styles.osIcon, 'bi bi-windows')} />
             </div>
             <div className="card__footer">
-              <Link to={content.windows.link}>
-                <h3>{content.windows.title}</h3>
-              </Link>
+              <h3>{content.windows.title}</h3>
             </div>
           </div>
         </Link>
