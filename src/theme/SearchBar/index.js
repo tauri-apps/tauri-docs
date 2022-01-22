@@ -19,7 +19,7 @@ const SearchBar = ({className}) => {
       inputSelector: '#search-bar-input',
       debug: process.env.NODE_ENV === 'development',
       transformData(hits) {
-        return hits.map((hit) => ({ ...hit, url: '/en/docs/' + hit.url }))
+        return hits.map((hit) => ({ ...hit, url: '/docs/' + hit.url }))
       },
     })
   }, [])
