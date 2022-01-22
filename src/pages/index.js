@@ -448,9 +448,9 @@ const Roadmap = ({ siteConfig }) => {
       color: colors.todo,
       targetQuarter: translate({ message: '& BEYOND' }),
     },
-  ].map((item) => {
+  ].map((item, index) => {
     return (
-      <li key={item.title}>
+      <li key={index}>
         <Fade bottom>
           <div className="icon" style={{ backgroundColor: `var(${item.color})` }}>
             <span className={item.icon}></span>
