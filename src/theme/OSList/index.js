@@ -7,12 +7,14 @@ export default ({ content }) => {
   return (
     <div className={classnames(styles.osList, 'container')}>
       <div className="row">
-        <div className={classnames('col')}>
+        <Link to={content.linux.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <Link to={content.linux.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'bi bi-terminal-fill')}></i>
-              </Link>
+              <div className={styles.osIconLink}>
+                <i
+                  className={classnames(styles.osIcon, 'bi bi-terminal-fill')}
+                />
+              </div>
             </div>
             <div className="card__footer">
               <Link to={content.linux.link}>
@@ -20,13 +22,15 @@ export default ({ content }) => {
               </Link>
             </div>
           </div>
-        </div>
-        <div className={classnames('col')}>
+        </Link>
+        <Link to={content.macos.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <Link to={content.macos.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'bi bi-apple')}></i>
-              </Link>
+              <div className={styles.osIconLink}>
+                <i
+                  className={classnames(styles.osIcon, 'bi bi-apple')}
+                />
+              </div>
             </div>
             <div className="card__footer">
               <Link to={content.macos.link}>
@@ -34,13 +38,15 @@ export default ({ content }) => {
               </Link>
             </div>
           </div>
-        </div>
-        <div className={classnames('col')}>
+        </Link>
+        <Link to={content.windows.link} className={classnames('col')}>
           <div className="card">
             <div className="card__body">
-              <Link to={content.windows.link} className={styles.osIconLink}>
-                <i className={classnames(styles.osIcon, 'bi bi-windows')}></i>
-              </Link>
+              <div className={styles.osIconLink}>
+                <i
+                  className={classnames(styles.osIcon, 'bi bi-windows')}
+                />
+              </div>
             </div>
             <div className="card__footer">
               <Link to={content.windows.link}>
@@ -48,7 +54,7 @@ export default ({ content }) => {
               </Link>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )
