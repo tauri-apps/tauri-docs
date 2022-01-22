@@ -14,7 +14,7 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/get-started/intro',
+    to: 'docs/architecture',
     label: 'Docs',
     position: 'left',
   },
@@ -162,7 +162,7 @@ const siteConfig = {
     version,
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: true,
+      disableSwitch: false,
     },
     announcementBar: {
       id: 'beta',
