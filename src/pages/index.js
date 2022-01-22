@@ -8,15 +8,21 @@ import useThemeContext from '@theme/hooks/useThemeContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
-import "@lottiefiles/lottie-player"
+
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 
 function HeroAnimation() {
+  if (ExecutionEnvironment.canUseDOM) {
+    require('@lottiefiles/lottie-player')
+  }
 
-  const {isDarkTheme} = useThemeContext();
+  const { isDarkTheme } = useThemeContext()
 
   useEffect(() => {
     const player = document.querySelector('lottie-player')
-    player.load(isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json')
+    player.load(
+      isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json'
+    )
   })
 
   return (
@@ -457,7 +463,10 @@ const Roadmap = ({ siteConfig }) => {
     return (
       <li key={index}>
         <Fade bottom>
-          <div className="icon" style={{ backgroundColor: `var(${item.color})` }}>
+          <div
+            className="icon"
+            style={{ backgroundColor: `var(${item.color})` }}
+          >
             <span className={item.icon}></span>
           </div>
           <div className="content">
