@@ -9,7 +9,7 @@ import Icon from '@theme/Icon'
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies&nbsp;<Icon type="danger"/>
 
 
 You will need to have <a href="https://brew.sh/" target="_blank">Homebrew</a> installed to run the following command.
@@ -24,7 +24,7 @@ You will also need to make sure `xcode` is installed.
 $ xcode-select --install
 ```
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Node.js Runtime and Package Manager&nbsp;<Icon type="warning"/>
 
 ### Node.js (npm included)
 
@@ -54,7 +54,7 @@ You may want to use an alternative to npm:
 - <a href="https://yarnpkg.com/get-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc and Cargo Package Manager&nbsp;<Icon type="warning"/>
 
 The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
