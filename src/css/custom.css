@@ -113,9 +113,7 @@
   --ifm-color-danger-lighter: lighten(var(--ifm-color-danger-light), 10%);
   --ifm-color-danger-lightest: lighten(var(--ifm-color-danger-lighter), 10%);
 
-  --ifm-background-color: var(--tauri-white);
-  --ifm-navbar-background-color: #ffffff;
-
+  --ifm-background-color: #ffffff;
   --ifm-footer-background-color: #ffffff;
 }
 
