@@ -172,7 +172,7 @@ const siteConfig = {
     announcementBar: {
       id: 'beta',
       content:
-        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
+        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Read the blog post</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
