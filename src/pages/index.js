@@ -11,11 +11,10 @@ import Translate, { translate } from '@docusaurus/Translate'
 import "@lottiefiles/lottie-player"
 
 function HeroAnimation() {
-  const { isDarkTheme } = useThemeContext()
 
   return (
     <lottie-player
-      src={isDarkTheme ? 'lottie-animations/tauri-splash.json' : 'lottie-animations/tauri-splash-dark.json'}
+      src={'lottie-animations/tauri-splash.json'}
       background="transparent"
       speed="1"
       style={{ width: '75%', margin: 'auto' }}
