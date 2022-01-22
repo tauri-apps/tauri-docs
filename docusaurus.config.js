@@ -14,7 +14,7 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/get-started/intro',
+    to: 'docs/architecture',
     label: 'Docs',
     position: 'left',
   },

@@ -1,6 +1,4 @@
 # The Tauri Architecture
-https://tauri.studio
-https://github.com/tauri-apps/tauri
 
 ## Introduction
 Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for Desktop Computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API / Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
