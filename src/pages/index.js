@@ -165,7 +165,7 @@ const Roadmap = ({ siteConfig }) => {
         message:
           'Technical Release Candidate for desktop, edge cases and bugs acceptable',
       }),
-      icon: 'bi bi-flag',
+      icon: 'bi bi-flag-fill',
       color: colors.released,
       targetQuarter: 'Q4 2019',
     },
@@ -174,7 +174,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Integrate and instrument other binaries',
       }),
-      icon: 'bi bi-file-earmark-binary',
+      icon: 'bi bi-file-earmark-binary-fill',
       color: colors.released,
       targetQuarter: 'Q1 2020',
     },
@@ -183,7 +183,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Use a splashscreen while the main content is loading',
       }),
-      icon: 'bi bi-easel',
+      icon: 'bi bi-easel-fill',
       color: colors.released,
       targetQuarter: 'Q1 2020',
     },
@@ -192,7 +192,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Use a canonical location to store userdata',
       }),
-      icon: 'bi bi-hdd',
+      icon: 'bi bi-hdd-fill',
       color: colors.released,
       targetQuarter: 'Q2 2020',
     },
@@ -229,7 +229,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Build reusable plugins to extend Tauri core',
       }),
-      icon: 'bi bi-plug',
+      icon: 'bi bi-plug-fill',
       color: colors.released,
       targetQuarter: 'Q3 2020',
     },
@@ -252,7 +252,7 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'Keyboard Shortcuts',
       description: translate({ message: 'Hook and react to keypresses' }),
-      icon: 'bi bi-keyboard',
+      icon: 'bi bi-keyboard-fill',
       color: colors.released,
       targetQuarter: 'Q1 2021',
     },
@@ -268,7 +268,7 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'Rust-based CLI',
       description: translate({ message: 'Create Rust CLI' }),
-      icon: 'bi bi-terminal',
+      icon: 'bi bi-terminal-fill',
       color: colors.released,
       targetQuarter: 'Q1 2021',
     },
@@ -284,7 +284,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Setup secure context to enable access to restricted APIs',
       }),
-      icon: 'bi bi-lock',
+      icon: 'bi bi-lock-fill',
       color: colors.released,
       targetQuarter: 'Q1 2021',
     },
@@ -318,7 +318,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Generally stable on Desktop, API locked down',
       }),
-      icon: 'bi bi-bookmark-check',
+      icon: 'bi bi-bookmark-check-fill',
       color: colors.released,
       targetQuarter: 'Q2 2021',
     },
@@ -336,7 +336,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: '3rd party security audit of core libraries',
       }),
-      icon: 'bi bi-shield-check',
+      icon: 'bi bi-shield-fill-check',
       color: colors.todo,
       targetQuarter: 'Q1 2022',
     },
@@ -355,21 +355,21 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'For improved security of files interaction',
       }),
-      icon: 'bi bi-safe',
+      icon: 'bi bi-safe-fill',
       color: colors.todo,
       targetQuarter: 'Q1 2022',
     },
     {
       label: 'Stable Release',
       description: translate({ message: 'Stable on On all Platforms' }),
-      icon: 'bi bi-flag',
+      icon: 'bi bi-flag-fill',
       color: colors.milestone,
       targetQuarter: 'Q1 2022',
     },
     {
       label: 'Channel API',
       description: translate({ message: 'Send messages through a channel' }),
-      icon: 'bi bi-chat-dots',
+      icon: 'bi bi-chat-dots-fill',
       color: colors.todo,
       targetQuarter: 'Planned',
     },
@@ -378,7 +378,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Run a command that is no longer available after first run',
       }),
-      icon: 'bi bi-brightness-alt-high',
+      icon: 'bi bi-brightness-alt-high-fill',
       color: colors.todo,
       targetQuarter: 'Planned',
     },
@@ -396,7 +396,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'Bundle to all major mobile device operating systems',
       }),
-      icon: 'bi bi-phone',
+      icon: 'bi bi-phone-fill',
       color: colors.todo,
       targetQuarter: 'Planned',
     },
@@ -433,7 +433,7 @@ const Roadmap = ({ siteConfig }) => {
         message:
           'Candidate presentation for Webview Alternatives, including GL windowing',
       }),
-      icon: 'bi bi-brush',
+      icon: 'bi bi-brush-fill',
       color: colors.todo,
       targetQuarter: 'Planned',
     },
@@ -442,7 +442,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({
         message: 'A decompiler and threat analyzer for Tauri Apps, using Frida',
       }),
-      icon: 'bi bi-shield-exclamation',
+      icon: 'bi bi-shield-fill-exclamation',
       color: colors.todo,
       targetQuarter: 'Planned',
     },
@@ -452,7 +452,7 @@ const Roadmap = ({ siteConfig }) => {
         message:
           'Something missing? Got a great idea? We want you to help us make it happen',
       }),
-      icon: 'bi bi-stars',
+      icon: 'bi bi-infinity',
       color: colors.todo,
       targetQuarter: translate({ message: '& BEYOND' }),
     },
