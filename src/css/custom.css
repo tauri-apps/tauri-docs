@@ -21,9 +21,9 @@
   --tauri-night: #070707;
   
   /* Accents */
-  --tauri-accent-blue: #32ADE6;
+  --tauri-accent-blue: var(--tauri-blue);
   --tauri-accent-green: #34C759;
-  --tauri-accent-orange: #FF9500;
+  --tauri-accent-orange: var(--tauri-orange);
   --tauri-accent-red: #DB3A24;
   --tauri-accent-purple: #AF52DE;
 
