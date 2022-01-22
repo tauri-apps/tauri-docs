@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Fade from 'react-reveal/Fade'
 import classnames from 'classnames'
 import Layout from '@theme/Layout'
@@ -12,9 +12,15 @@ import "@lottiefiles/lottie-player"
 
 function HeroAnimation() {
 
+  const {isDarkTheme} = useThemeContext();
+
+  useEffect(() => {
+    const player = document.querySelector('lottie-player')
+    player.load(isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json')
+  })
+
   return (
     <lottie-player
-      src={'lottie/tauri-splash.json'}
       background="transparent"
       speed="1"
       style={{ width: '75%', margin: 'auto' }}
