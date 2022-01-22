@@ -106,12 +106,11 @@ function Feature({ imageUrl, link, label, description }) {
 }
 
 const Roadmap = ({ siteConfig }) => {
-  const styles = window.getComputedStyle(document.body)
   const colors = {
-    released: styles.getPropertyValue('--tauri-accent-green'),
-    ready: styles.getPropertyValue('--tauri-accent-blue'),
-    todo: styles.getPropertyValue('--tauri-accent-orange'),
-    milestone: styles.getPropertyValue('--tauri-accent-purple'),
+    released: '--tauri-accent-green',
+    ready: '--tauri-accent-blue',
+    todo: '--tauri-accent-orange',
+    milestone: '--tauri-accent-purple',
   }
   // See translations for label/description
   const items = [
@@ -453,7 +452,7 @@ const Roadmap = ({ siteConfig }) => {
     return (
       <li key={item.title}>
         <Fade bottom>
-          <div className="icon" style={{ backgroundColor: item.color }}>
+          <div className="icon" style={{ backgroundColor: `var(${item.color})` }}>
             <span className={item.icon}></span>
           </div>
           <div className="content">
@@ -476,19 +475,19 @@ const Roadmap = ({ siteConfig }) => {
       </p>
       <ul className="roadmap-legend">
         <li>
-          <span style={{ backgroundColor: colors.released }}></span>{' '}
+          <span style={{ backgroundColor: `var(${colors.released})` }}></span>{' '}
           <Translate>Released</Translate>
         </li>
         <li>
-          <span style={{ backgroundColor: colors.ready }}></span>{' '}
+          <span style={{ backgroundColor: `var(${colors.ready})` }}></span>{' '}
           <Translate>Ready</Translate>
         </li>
         <li>
-          <span style={{ backgroundColor: colors.todo }}></span>{' '}
+          <span style={{ backgroundColor: `var(${colors.todo})` }}></span>{' '}
           <Translate>To Do</Translate>
         </li>
         <li>
-          <span style={{ backgroundColor: colors.milestone }}></span>{' '}
+          <span style={{ backgroundColor: `var(${colors.milestone})` }}></span>{' '}
           <Translate>Milestone</Translate>
         </li>
       </ul>
