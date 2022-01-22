@@ -163,6 +163,7 @@ const siteConfig = {
     colorMode: {
       defaultMode: 'dark',
       respectPrefersColorScheme: true,
+      disableSwitch: true,
       switchConfig: {
         darkIcon: '🌙',
         lightIcon: '☀️'
