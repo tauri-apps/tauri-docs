@@ -106,19 +106,12 @@ function Feature({ imageUrl, link, label, description }) {
 }
 
 const Roadmap = ({ siteConfig }) => {
+  const styles = window.getComputedStyle(document.body)
   const colors = {
-    released: getComputedStyle(document.body).getPropertyValue(
-      '--tauri-accent-green'
-    ),
-    ready: getComputedStyle(document.body).getPropertyValue(
-      '--tauri-accent-blue'
-    ),
-    todo: getComputedStyle(document.body).getPropertyValue(
-      '--tauri-accent-orange'
-    ),
-    milestone: getComputedStyle(document.body).getPropertyValue(
-      '--tauri-accent-purple'
-    ),
+    released: styles.getPropertyValue('--tauri-accent-green'),
+    ready: styles.getPropertyValue('--tauri-accent-blue'),
+    todo: styles.getPropertyValue('--tauri-accent-orange'),
+    milestone: styles.getPropertyValue('--tauri-accent-purple'),
   }
   // See translations for label/description
   const items = [
