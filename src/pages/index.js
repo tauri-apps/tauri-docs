@@ -110,8 +110,12 @@ const Roadmap = ({ siteConfig }) => {
     released: getComputedStyle(document.body).getPropertyValue(
       '--tauri-accent-green'
     ),
-    ready: getComputedStyle(document.body).getPropertyValue('--tauri-accent-blue'),
-    todo: getComputedStyle(document.body).getPropertyValue('--tauri-accent-orange'),
+    ready: getComputedStyle(document.body).getPropertyValue(
+      '--tauri-accent-blue'
+    ),
+    todo: getComputedStyle(document.body).getPropertyValue(
+      '--tauri-accent-orange'
+    ),
     milestone: getComputedStyle(document.body).getPropertyValue(
       '--tauri-accent-purple'
     ),
