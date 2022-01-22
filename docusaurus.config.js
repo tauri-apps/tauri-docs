@@ -4,7 +4,8 @@ const fs = require('fs')
 const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
-const discordURL = 'https://discord.com/invite/tauri'
+const discordUrl = 'https://discord.com/invite/tauri'
+const devToUrl = 'https://dev.to/tauri'
 
 const navbarItems = [
   {
@@ -41,7 +42,7 @@ const navbarItems = [
       },
       {
         label: 'Discord',
-        href: discordURL,
+        href: discordUrl,
       },
     ],
   },
@@ -100,7 +101,7 @@ const footerLinks = [
       },
       {
         label: 'Discord',
-        href: discordURL,
+        href: discordUrl,
       },
       {
         label: 'Twitter',
@@ -112,8 +113,8 @@ const footerLinks = [
     title: 'Network',
     items: [
       {
-        label: 'DevTo',
-        href: 'https://dev.to/tauri',
+        label: 'DevTo Blog',
+        href: devToUrl,
       },
       {
         label: 'OpenCollective',
@@ -142,7 +143,8 @@ const footerLinks = [
 
 const siteConfig = {
   title: 'Tauri Studio',
-  tagline: 'Build smaller, faster, and more secure desktop applications with a web frontend',
+  tagline:
+    'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/`,
@@ -150,12 +152,12 @@ const siteConfig = {
   url: 'https://tauri.studio',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en']
+    locales: ['en'],
   },
   themeConfig: {
     prism: {
       theme: require('./src/theme/CodeBlockTheme'),
-      additionalLanguages: ['rust']
+      additionalLanguages: ['rust'],
     },
     version,
     colorMode: {
@@ -164,7 +166,8 @@ const siteConfig = {
     },
     announcementBar: {
       id: 'beta',
-      content: "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
+      content:
+        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
@@ -189,9 +192,7 @@ const siteConfig = {
       {
         docs: {
           path: './docs/',
-          exclude: [
-            'api/rust/**'
-          ],
+          exclude: ['api/rust/**'],
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
