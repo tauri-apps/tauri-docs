@@ -59,7 +59,7 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 Download and install the proper variant for your computer's architecture.
 
 
-## 4. Install WebView2
+## 4. Install WebView2&nbsp;<Icon type="danger"/>
 
 <Alert title="Note">
 WebView2 is pre-installed in Windows 11.
