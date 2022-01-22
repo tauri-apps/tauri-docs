@@ -11,6 +11,8 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  font-family: 'Rubik';
+
   --tauri-orange: #ffc131;
   --tauri-blue: #24c8d8;
   --tauri-white: #f6f6f6;
@@ -18,52 +20,49 @@
   --tauri-black: #0f0f0f; 
   --tauri-night: #070707;
   
-  --tauri-accent-purple: #AF52DE;
-  --tauri-accent-green: #34C759;
+  /* Accents */
   --tauri-accent-blue: #32ADE6;
-  --tauri-accent-red: #DB3A24;
+  --tauri-accent-green: #34C759;
   --tauri-accent-orange: #FF9500;
-
-  font-family: 'Rubik';
+  --tauri-accent-red: #DB3A24;
+  --tauri-accent-purple: #AF52DE;
 
   /* Primary colours */
   --ifm-color-primary: var(--tauri-blue);
-  --ifm-color-primary-dark: #20b4c5;
-  --ifm-color-primary-darker: #1faaba;
-  --ifm-color-primary-darkest: #198c99;
-  --ifm-color-primary-light: #3acddf;
-  --ifm-color-primary-lighter: #45d0e0;
-  --ifm-color-primary-lightest: #66d8e6;
+  --ifm-color-primary-dark: darken(var(--ifm-color-primary), 10%);
+  --ifm-color-primary-darker: darken(var(--ifm-color-primary-dark), 10%);
+  --ifm-color-primary-darkest: darken(var(--ifm-color-primary-darker), 10%);
+  --ifm-color-primary-light: lighten(var(--ifm-color-primary), 10%);
+  --ifm-color-primary-lighter: lighten(var(--ifm-color-primary-light), 10%);
+  --ifm-color-primary-lightest: lighten(var(--ifm-color-primary-lighter), 10%);
 
   /* Secondary colours */
-  --ifm-color-secondary: #F6F6F6;
-  --ifm-color-secondary-dark: #dddddd;
-  --ifm-color-secondary-darker: #d1d1d1;
-  --ifm-color-secondary-darkest: #acacac;
-  --ifm-color-secondary-light: #ffffff;
-  --ifm-color-secondary-lighter: #ffffff;
-  --ifm-color-secondary-lightest: #ffffff;
+  --ifm-color-secondary: var(--tauri-white);
+  --ifm-color-secondary-dark: darken(var(--ifm-color-secondary), 10%);
+  --ifm-color-secondary-darker: darken(var(--ifm-color-secondary-dark), 10%);
+  --ifm-color-secondary-darkest: darken(var(--ifm-color-secondary-darker), 10%);
+  --ifm-color-secondary-light: lighten(var(--ifm-color-secondary), 10%);
+  --ifm-color-secondary-lighter: lighten(var(--ifm-color-secondary-light), 10%);
+  --ifm-color-secondary-lightest: lighten(var(--ifm-color-secondary-lighter), 10%);
+
+  /* Semantic info colours */
+  --ifm-color-info: var(--tauri-blue);
+  --ifm-color-info-dark: darken(var(--ifm-color-blue), 10%);
+  --ifm-color-info-darker: darken(var(--ifm-color-blue-dark), 10%);
+  --ifm-color-info-darkest: darken(var(--ifm-color-blue-darker), 10%);
+  --ifm-color-info-light: lighten(var(--ifm-color-blue), 10%);
+  --ifm-color-info-lighter: lighten(var(--ifm-color-blue-light), 10%);
+  --ifm-color-info-lightest: lighten(var(--ifm-color-blue-lighter), 10%);
 
   /* Semantic warning colours */
   --ifm-color-warning: var(--tauri-orange);
-  --ifm-color-warning-dark: #ffb813;
-  --ifm-color-warning-darker: #ffb303;
-  --ifm-color-warning-darkest: #d59500;
-  --ifm-color-warning-light: #ffca4f;
-  --ifm-color-warning-lighter: #ffcf5f;
-  --ifm-color-warning-lightest: #ffdc8c;
+  --ifm-color-warning-dark: darken(var(--ifm-color-warning), 10%);
+  --ifm-color-warning-darker: darken(var(--ifm-color-warning-dark), 10%);
+  --ifm-color-warning-darkest: darken(var(--ifm-color-warning-darker), 10%);
+  --ifm-color-warning-light: lighten(var(--ifm-color-warning), 10%);
+  --ifm-color-warning-lighter: lighten(var(--ifm-color-warning-light), 10%);
+  --ifm-color-warning-lightest: lighten(var(--ifm-color-warning-lighter), 10%);
 
-  /* Semantic info colours (same as primary) */
-  --ifm-color-info: var(--tauri-blue);
-  --ifm-color-info-dark: #20b4c5;
-  --ifm-color-info-darker: #1faaba;
-  --ifm-color-info-darkest: #198c99;
-  --ifm-color-info-light: #3acddf;
-  --ifm-color-info-lighter: #45d0e0;
-  --ifm-color-info-lightest: #66d8e6;
-
-
-  --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
   --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
@@ -71,6 +70,50 @@
 
 /* Options for light colour */
 :root[data-theme='light'] {
+  /* Accents */
+  --tauri-accent-blue: #32ADE6;
+  --tauri-accent-green: #34C759;
+  --tauri-accent-orange: #FF9500;
+  --tauri-accent-red: #DB3A24;
+  --tauri-accent-purple: #AF52DE;
+
+  /* Primary colours */
+  --ifm-color-primary: var(--tauri-blue);
+  --ifm-color-primary-dark: darken(var(--ifm-color-primary), 10%);
+  --ifm-color-primary-darker: darken(var(--ifm-color-primary-dark), 10%);
+  --ifm-color-primary-darkest: darken(var(--ifm-color-primary-darker), 10%);
+  --ifm-color-primary-light: lighten(var(--ifm-color-primary), 10%);
+  --ifm-color-primary-lighter: lighten(var(--ifm-color-primary-light), 10%);
+  --ifm-color-primary-lightest: lighten(var(--ifm-color-primary-lighter), 10%);
+
+
+  /* Semantic info colours (same as primary) */
+  --ifm-color-info: var(--tauri-accent-blue);
+  --ifm-color-info-dark: darken(var(--ifm-color-blue), 10%);
+  --ifm-color-info-darker: darken(var(--ifm-color-blue-dark), 10%);
+  --ifm-color-info-darkest: darken(var(--ifm-color-blue-darker), 10%);
+  --ifm-color-info-light: lighten(var(--ifm-color-blue), 10%);
+  --ifm-color-info-lighter: lighten(var(--ifm-color-blue-light), 10%);
+  --ifm-color-info-lightest: lighten(var(--ifm-color-blue-lighter), 10%);
+
+  /* Semantic warning colours */
+  --ifm-color-warning: var(--tauri-accent-orange);
+  --ifm-color-warning-dark: darken(var(--ifm-color-warning), 10%);
+  --ifm-color-warning-darker: darken(var(--ifm-color-warning-dark), 10%);
+  --ifm-color-warning-darkest: darken(var(--ifm-color-warning-darker), 10%);
+  --ifm-color-warning-light: lighten(var(--ifm-color-warning), 10%);
+  --ifm-color-warning-lighter: lighten(var(--ifm-color-warning-light), 10%);
+  --ifm-color-warning-lightest: lighten(var(--ifm-color-warning-lighter), 10%);
+
+  /* Semantic danger colours */
+  --ifm-color-danger: var(--tauri-accent-red);
+  --ifm-color-danger-dark: darken(var(--ifm-color-danger), 10%);
+  --ifm-color-danger-darker: darken(var(--ifm-color-danger-dark), 10%);
+  --ifm-color-danger-darkest: darken(var(--ifm-color-danger-darker), 10%);
+  --ifm-color-danger-light: lighten(var(--ifm-color-danger), 10%);
+  --ifm-color-danger-lighter: lighten(var(--ifm-color-danger-light), 10%);
+  --ifm-color-danger-lightest: lighten(var(--ifm-color-danger-lighter), 10%);
+
   --ifm-background-color: var(--tauri-white);
   --ifm-navbar-background-color: #ffffff;
 
@@ -94,13 +137,6 @@
 
 .markdown {
   --ifm-heading-line-height: 1.4;
-}
-
-.docusaurus-highlight-code-line {
-  background-color: rgb(72, 77, 91);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
 }
 
 .features {
@@ -246,7 +282,7 @@ ul.roadmap li .content .description {
   height: 100%;
 }
 
-h2 > [class^='ti-'] {
+h2 > [class^='bi-'] {
   vertical-align: middle;
 }
 
