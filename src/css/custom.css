@@ -63,8 +63,6 @@
   --ifm-color-warning-lighter: lighten(var(--ifm-color-warning-light), 10%);
   --ifm-color-warning-lightest: lighten(var(--ifm-color-warning-lighter), 10%);
 
-  --ifm-heading-line-height: 1.4;
-  --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
 }
 
@@ -195,7 +193,7 @@
 }
 
 .navbar {
-  height: 80px;
+  /* height: 80px; */
   padding: 0 2rem;
   border-bottom: 1px solid var(--ifm-background-surface-color);
 }
