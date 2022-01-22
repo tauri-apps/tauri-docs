@@ -115,6 +115,10 @@
   --ifm-footer-background-color: #ffffff;
 }
 
+a:hover {
+  color: inherit;
+}
+
 .container::after, .container::before {
   animation: buble 6s ease;
   -webkit-animation: buble 6s ease;
