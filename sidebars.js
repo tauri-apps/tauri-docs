@@ -1,6 +1,4 @@
 const about = [
-  {
-    'About Tauri': [
       'about/intro',
       'about/security',
       'about/governance',
@@ -9,12 +7,11 @@ const about = [
         type: 'link',
         label: 'Benchmarks',
         href: '/benchmarks',
-      },
-    ],
-  },
+      }
 ]
 
 const docs = [
+  'architecture',
   {
     'Get started': [
       'get-started/intro',
@@ -80,6 +77,7 @@ const docs = [
       'guides/contributor-guide',
     ],
   },
+  'faq'
 ]
 
 const api = [
