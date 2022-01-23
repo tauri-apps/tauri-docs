@@ -17,16 +17,17 @@ function HeroAnimation() {
   }
 
   const { isDarkTheme } = useThemeContext()
-
-  useEffect(() => {
-    const player = document.querySelector('lottie-player')
-    player.load(
+  const  player = useRef(null)
+ 
+ useEffect(() => {
+    player.current.load(
       isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json'
     )
-  })
+  }, [isDarkTheme])
 
   return (
     <lottie-player
+      ref={player}
       background="transparent"
       speed="1"
       style={{ width: '75%', margin: 'auto' }}
