@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import classNames from 'classnames'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import useThemeContext from '@theme/hooks/useThemeContext'
+import './styles.css'
+import docsSearchBar from 'docs-searchbar.js'
 
 const SearchBar = () => {
   const context = useDocusaurusContext()
@@ -10,7 +10,6 @@ const SearchBar = () => {
   const { siteConfig = {} } = context
 
   useEffect(() => {
-    const docsSearchBar = require('docs-searchbar.js').default
     docsSearchBar({
       hostUrl: 'https://search.tauri.studio',
       apiKey:
@@ -19,9 +18,10 @@ const SearchBar = () => {
       inputSelector: '#search-bar-input',
       enableDarkMode: isDarkTheme
     })
-  }, [])
+  }, [isDarkTheme])
+
   return (
-    <div className='navbar__search'>
+    <div className={'navbar__search'}>
       <input
         placeholder="Search"
         type="search"
