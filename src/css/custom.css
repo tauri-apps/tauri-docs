@@ -147,7 +147,7 @@ a:hover {
   right: -70%;
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   0% {opacity:0;transform: translateY(30px);}
   100% {opacity:1;}
 }
@@ -194,7 +194,7 @@ a:hover {
 @-ms-keyframes buble {
   0% {top: -190%; transform: scale(0.4);}
   100% {}
-}
+} */
 
 .navbar {
   border-bottom: 1px solid var(--ifm-background-surface-color);
