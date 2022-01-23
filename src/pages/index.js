@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Fade from 'react-reveal/Fade'
 import classnames from 'classnames'
 import Layout from '@theme/Layout'
