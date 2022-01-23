@@ -119,6 +119,7 @@ a:hover {
   color: inherit;
 }
 
+/* Background animation */
 .container::after, .container::before {
   animation: buble 6s ease;
   -webkit-animation: buble 6s ease;
@@ -136,7 +137,6 @@ a:hover {
   top: -80%;
 }
 
-/* Background animation */
 .container::before {
   background: radial-gradient(50% 50% at 50% 50%, var(--tauri-accent-purple) 0%, rgba(0, 0, 0, 0) 100%);
   left: -60%;
@@ -197,13 +197,26 @@ a:hover {
 }
 
 .navbar {
-  /* height: 80px; */
-  padding: 0 2rem;
   border-bottom: 1px solid var(--ifm-background-surface-color);
+  padding: 0 var(--ifm-navbar-padding-horizontal);
 }
 
 .navbar__item {
   transition: 0.2s ease;
+  padding: 1rem var(--ifm-navbar-item-padding-horizontal);
+}
+
+.navbar__search {
+  padding: var(--ifm-navbar-item-padding-vertical) var(--ifm-navbar-item-padding-horizontal);
+  order: 1;
+}
+
+.badge--warning,
+.badge--warning:hover {
+  color: var(--ifm-button-color);
+  /* Fixes the background color on mobile */
+  background-color: var(--ifm-color-warning) !important;
+  padding: var(--ifm-navbar-item-padding-vertical) var(--ifm-navbar-item-padding-horizontal)
 }
 
 /* background height needs to be set to 100% somehow */
@@ -395,11 +408,4 @@ h2 > [class^='bi-'] {
 
 #announcement-beta {
   font-weight: bold;
-}
-
-.badge--warning,
-.badge--warning:hover {
-  color: var(--ifm-button-color) !important;
-  /* Fixes the background color on mobile */
-  background-color: var(--ifm-color-warning) !important;
 }
