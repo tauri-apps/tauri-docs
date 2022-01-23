@@ -530,7 +530,7 @@ function Home() {
             dangerouslySetInnerHTML={{
               __html: translate({
                 message:
-                  'Build smaller, faster, and more secure <br />desktop applications with a web frontend',
+                  'Build smaller, faster, and more secure desktop applications with a web frontend',
               }),
             }}
           ></p>
