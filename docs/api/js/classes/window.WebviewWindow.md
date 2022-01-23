@@ -527,7 +527,7 @@ see `UserAttentionType` for details.
 Providing `null` will unset the request for user attention. Unsetting the request for
 user attention might not be done automatically by the WM when the window receives input.
 
-## Platform-specific
+#### Platform-specific
 
 - **macOS:** `null` has no effect.
 
