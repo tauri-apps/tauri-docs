@@ -117,10 +117,9 @@ function Feature({ imageUrl, link, label, description }) {
   )
 }
 
-const Roadmap = ({ siteConfig }) => {
+const Roadmap = () => {
   const colors = {
-    released: '--tauri-accent-green',
-    ready: '--tauri-accent-blue',
+    released: '--tauri-accent-blue',
     todo: '--tauri-accent-orange',
     milestone: '--tauri-accent-purple',
   }
@@ -492,10 +491,6 @@ const Roadmap = ({ siteConfig }) => {
         <li>
           <span style={{ backgroundColor: `var(${colors.released})` }}></span>{' '}
           <Translate>Released</Translate>
-        </li>
-        <li>
-          <span style={{ backgroundColor: `var(${colors.ready})` }}></span>{' '}
-          <Translate>Ready</Translate>
         </li>
         <li>
           <span style={{ backgroundColor: `var(${colors.todo})` }}></span>{' '}
