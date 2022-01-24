@@ -68,12 +68,14 @@
 
 /* Options for light colour */
 :root[data-theme='light'] {
+  
+  --tauri-orange: #D58100;
+  --tauri-blue: #396CD8;
+
   /* Accents */
-  --tauri-accent-blue: #32ADE6;
-  --tauri-accent-green: #34C759;
-  --tauri-accent-orange: #FF9500;
+  --tauri-accent-green: #2b9c48;
   --tauri-accent-red: #DB3A24;
-  --tauri-accent-purple: #AF52DE;
+  --tauri-accent-purple: #B624DB;
 
   /* Primary colours */
   --ifm-color-primary: var(--tauri-accent-blue);
