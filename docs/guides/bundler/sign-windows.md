@@ -38,7 +38,7 @@ We will now need to import our `.pfx` file.
 
 1. Assign your export password to a variable using `$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'`
 
-2. Now Import the certificate using `Import-PfxCertificate -FilePath Certs/certificate.pfx -CertStoreLocation Cert:\LocalMachine\My -Password (ConvertTo-SecureString -String $env:WINDOWS_PFX_PASSWORD -Force -AsPlainText)`
+2. Now Import the certificate using `Import-PfxCertificate -FilePath Certs/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_PFX_PASSWORD -Force -AsPlainText)`
 
 ## C. Prepare Variables
 
@@ -79,3 +79,94 @@ info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PAT
 which shows you have successfully signed the `.exe`. 
 
 And thats it! You have successfully signed your .exe file.
+
+# BONUS: Sign your application with GitHub Actions.
+
+We can also create a workflow to sign the application with GitHub actions, this will help automate your Publish time. 
+
+## GitHub Secrets
+
+We will need to add a few GitHub secrets for the proper configuration of the GitHub Action. These can be named however you would like.
+- You can view [this](https://docs.github.com/en/actions/reference/encrypted-secrets) guide for how to add GitHub secrets. 
+
+The secrets I used are as follows
+
+| GitHub Secrets | Value for Variable |
+|     :---:      |        :---:            |
+|WINDOWS_CERTIFICATE| Base64 encoded version of your .pfx certificate, can be done using this command `certutil -encode certificate.pfx base64cert.txt` |
+|WINDOWS_CERTIFICATE_PASSWORD|Certificate export password used on creation of certificate .pfx|
+
+## Workflow Modifications
+
+
+1. We will need add a step in the workflow to properly import the certificate into the windows environment. This work flow accomplishes the following
+    1. Assign GitHub secrets to environment variables
+    2. Create a new `certificate` directory
+    3. Import `WINDOWS_CERTIFICATE` into tempCert.txt
+    4. use `certutil` to decode the tempCert.txt from base64 into a `.pfx` file.
+    5. remove tempCert.txt
+    6. Import the `.pfx` file into the Cert store of Windows & convert the `WINDOWS_CERTIFICATE_PASSWORD` to a secure string to be used in the import command.
+
+2. I will be using the tauri-action publish template available [here](https://github.com/tauri-apps/tauri-action)
+
+```
+name: "publish"
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: install Rust stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: install webkit2gtk (ubuntu only)
+      if: matrix.platform == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y webkit2gtk-4.0
+    - name: install app dependencies and build it
+      run: yarn && yarn build
+    - uses: tauri-apps/tauri-action@v0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+        releaseName: "App v__VERSION__"
+        releaseBody: "See the assets to download this version and install."
+        releaseDraft: true
+        prerelease: false
+```
+
+3. Right above `-name: install app dependencies and build it` you will want to add the following step
+
+```
+    - name: import windows certificate
+      if: matrix.platform == 'windows-latest'
+      env:
+        WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+        WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+      run: |
+        New-Item -ItemType directory -Path certificate
+        Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_PFX
+        certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+        Remove-Item –path certificate -include tempCert.txt
+        Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_PFX_PASSWORD -Force -AsPlainText)
+```
+4. Save, and push to your repo.
+
+5. You workflow will now be able to import your windows certificate and import it into the github runner, allowing for automated code-signing!
