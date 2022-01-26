@@ -35,7 +35,8 @@ The secrets I used are as follows
 |APPLE_CERTIFICATE_PASSWORD|Certificate password used on creation of certificate|
 |APPLE_IDENTITY_ID|"Developer ID Application: Your Company, Inc (XXXXXXXXX)" shown in your keychain. you can also use `security find-identity -v -p codesigning` on OSX to find this identity |
 |APPLE_ID|this is the email used to request the certificate|
-APPLE_PASSWORD|This is an app-specific password, that must also be created by the same account used to request the certificate. Guide [here](https://support.apple.com/en-ca/HT204397)| 
+|APPLE_PASSWORD|This is an app-specific password, that must also be created by the same account used to request the certificate. Guide [here](https://support.apple.com/en-ca/HT204397)|
+|APPLE_PROVIDER_SHORT_NAME|If your Apple ID is connected to more than one team, you need to specify the teams "provider short name" you want to use to notarize your app. [This page](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) describes how you can obtain this short name; search for `--list-providers`.|
 
 Once we have established the GitHub Secrets we will need to make some modifications to our GitHub publish action in `.github/workflows/main.yml` 
 
@@ -53,7 +54,14 @@ APPLE_ID: ${{ secrets.APPLE_ID }}
 APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
 ```
 
+If your Apple ID is connected to more than one team, add the `APPLE_PROVIDER_SHORT_NAME` environment variable as well:
+
+```
+APPLE_PROVIDER_SHORT_NAME: ${{ secrets.APPLE_PROVIDER_SHORT_NAME }}
+```
+
 If you are using the tauri-action publish template, then your result should look similar the the `env:` portion below. 
+
 ```
 name: "publish"
 on:
