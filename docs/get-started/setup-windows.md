@@ -46,7 +46,7 @@ This will install the most recent version of Node.js with npm.
 
 You may want to use an alternative to npm:
 
-- <a href="https://yarnpkg.com/get-started" target="_blank">Yarn</a>, is preferred by Tauri's team
+- <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
 ## 3. Rustc and Cargo Package Manager&nbsp;<Icon type="warning"/>
