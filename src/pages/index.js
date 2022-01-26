@@ -17,9 +17,9 @@ function HeroAnimation() {
   }
 
   const { isDarkTheme } = useThemeContext()
-  const  player = useRef(null)
- 
- useEffect(() => {
+  const player = useRef(null)
+
+  useEffect(() => {
     player.current.load(
       isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json'
     )
