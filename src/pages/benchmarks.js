@@ -3,7 +3,7 @@ import { reshape, formatMB, formatExecTime } from '../utils/benchmark'
 import Layout from '@theme/Layout'
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
-import useThemeContext from '@theme/hooks/useThemeContext'
+import { useColorMode } from '@docusaurus/theme-common'
 import ContentLoader from 'react-content-loader'
 
 function get_graph_color(label_name) {
@@ -77,7 +77,7 @@ function BenchmarkLoading(props) {
 
 // todo maybe split wry/tauri charts?
 function BenchmarkChart(props) {
-  const { isDarkTheme } = useThemeContext()
+  const { isDarkTheme } = useColorMode()
   const ApexChart = require('react-apexcharts').default
   const [id] = useState(Math.random().toString())
 
