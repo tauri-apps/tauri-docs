@@ -7,9 +7,9 @@ import Alert from '@theme/Alert'
 
 # Intro
 
-Code-signing will add a level of authenticity to your application, while it is not required it can often improve the user experience for your users. 
+Code-signing will add a level of authenticity to your application, while it is not required it can often improve the user experience for your users.
 
-# Prerequisites 
+# Prerequisites
 
 - Windows - you can likely use other platforms, but this tutorial is using Powershell native features.
 - Code signing certificate - you can aqquire one of these on services such as Digicert.com, Comodo.com, & Godaddy.com. In this guide we are using Comodo.com
@@ -23,7 +23,7 @@ There are a few things we will have to do to get our windows installation prepar
 ## A. Convert your `.cer` to `.pfx`
 
 1. You will need the following:
-	- certificate file (mine is `cert.cer`) 
+	- certificate file (mine is `cert.cer`)
 	- private key file (mine is `private-key.key`)
 
 2. Open up a command prompt and change to your current directory using `cd Documents/Certs`
@@ -32,7 +32,7 @@ There are a few things we will have to do to get our windows installation prepar
 
 4. You will be prompted to enter an export password **DON'T FORGET IT!**
 
-## B. Import your `.pfx` file into the keystore. 
+## B. Import your `.pfx` file into the keystore.
 
 We will now need to import our `.pfx` file.
 
@@ -52,13 +52,13 @@ Bag Attributes
 
 3. We will need the SHA digest algorythm used for your certificate (Hint: this is likely `sha256`
 
-4. We will also need a timestamp url, this is a time server used to verify the time of the certificate signing. Im using `http://timestamp.comodoca.com` but whoever you got your certificate from likely has one aswell. 
+4. We will also need a timestamp url, this is a time server used to verify the time of the certificate signing. Im using `http://timestamp.comodoca.com` but whoever you got your certificate from likely has one aswell.
 
 # Prepare `tauri.conf.json` file
 
 1. Now that we have our `certificateThumbprint`, `digestAlgorithm`, & `timestampUrl` we will open up the `tauri.conf.json`.
 
-2. In the `tauri.conf.json` you will look for the `tauri` -> `bundle` -> `windows` section. You will see there are three variable for the information we have captured. Fill it out like below. 
+2. In the `tauri.conf.json` you will look for the `tauri` -> `bundle` -> `windows` section. You will see there are three variable for the information we have captured. Fill it out like below.
 ```
 "windows": {
         "certificateThumbprint": "A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0",
@@ -74,22 +74,22 @@ Bag Attributes
 info: signing app
 info: running signtool "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\x64\\signtool.exe"
 info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PATH HERE
-``` 
+```
 
-which shows you have successfully signed the `.exe`. 
+which shows you have successfully signed the `.exe`.
 
 And thats it! You have successfully signed your .exe file.
 
 # BONUS: Sign your application with GitHub Actions.
 
-We can also create a workflow to sign the application with GitHub actions, this will help automate your Publish time. 
+We can also create a workflow to sign the application with GitHub actions, this will help automate your Publish time.
 
 ## GitHub Secrets
 
 We will need to add a few GitHub secrets for the proper configuration of the GitHub Action. These can be named however you would like.
-- You can view [this](https://docs.github.com/en/actions/reference/encrypted-secrets) guide for how to add GitHub secrets. 
+- You can view [this](https://docs.github.com/en/actions/reference/encrypted-secrets) guide for how to add GitHub secrets.
 
-The secrets I used are as follows
+The secrets we used are as follows
 
 | GitHub Secrets | Value for Variable |
 |     :---:      |        :---:            |
@@ -99,15 +99,15 @@ The secrets I used are as follows
 ## Workflow Modifications
 
 
-1. We will need add a step in the workflow to properly import the certificate into the windows environment. This work flow accomplishes the following
+1. We will need to add a step in the workflow to properly import the certificate into the windows environment. This work flow accomplishes the following
     1. Assign GitHub secrets to environment variables
     2. Create a new `certificate` directory
     3. Import `WINDOWS_CERTIFICATE` into tempCert.txt
-    4. use `certutil` to decode the tempCert.txt from base64 into a `.pfx` file.
-    5. remove tempCert.txt
+    4. Use `certutil` to decode the tempCert.txt from base64 into a `.pfx` file.
+    5. Remove tempCert.txt
     6. Import the `.pfx` file into the Cert store of Windows & convert the `WINDOWS_CERTIFICATE_PASSWORD` to a secure string to be used in the import command.
 
-2. I will be using the tauri-action publish template available [here](https://github.com/tauri-apps/tauri-action)
+2. We will be using the tauri-action publish template available [here](https://github.com/tauri-apps/tauri-action)
 
 ```
 name: "publish"
@@ -164,7 +164,7 @@ jobs:
         New-Item -ItemType directory -Path certificate
         Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_PFX
         certutil -decode certificate/tempCert.txt certificate/certificate.pfx
-        Remove-Item –path certificate -include tempCert.txt
+        Remove-Item -path certificate -include tempCert.txt
         Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_PFX_PASSWORD -Force -AsPlainText)
 ```
 4. Save, and push to your repo.
