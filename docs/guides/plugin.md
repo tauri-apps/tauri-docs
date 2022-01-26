@@ -91,6 +91,13 @@ fn main() {
 }
 ```
 
+## Conventions
+
+- Plugins should have a clear name with `tauri-plugin-` prefix.
+- Include `tauri-plugin` keyword in `Cargo.toml`/`package.json`.
+- Document your plugin in English.
+- Add an example app showcasing your plugin.
+
 ## Official Tauri Plugins
 
 - [Stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
