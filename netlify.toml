@@ -3,6 +3,49 @@
   command = "yarn build"
 
 [[redirects]]
+  from = "/en/docs/usage/intro.md"
+  to = "/docs/development/intro.md"
+
+[[redirects]]
+  from = "/en/docs/usage/ci-cd/cross-platform.md"
+  to = "/docs/development/cross-platform.md"
+
+[[redirects]]
+  from = "/en/docs/usage/ci-cd/workflow.md"
+  to = "/docs/development/ci-cd.md"
+
+[[redirects]]
+  from = "/en/docs/usage/guides/contributor-guide.md"
+  to = "/docs/guides/contributor-guide.md"
+
+[[redirects]]
+  from = "/en/docs/getting-started/*"
+  to = "/docs/get-started/:splat"
+
+[[redirects]]
+  from = "/en/docs/usage/guides/*"
+  to = "/docs/guides/:splat"
+
+[[redirects]]
+  from = "/en/docs/usage/development/*"
+  to = "/docs/guides/:splat"
+
+[[redirects]]
+  from = "/en/docs/usage/guides/patterns/*"
+  to = "/docs/guides/patterns/:splat"
+
+[[redirects]]
+  from = "/en/docs/usage/guides/visual/*"
+  to = "/docs/guides/:splat"
+
+[[redirects]]
+  from = "/en/docs/api/rust/*"
+  to = "https://docs.rs/tauri/1.0.0-beta.8/tauri/"
+
+[[redirects]]
+  from = "/docs/api/rust/*"
+  to = "https://docs.rs/tauri/1.0.0-beta.8/tauri/"
+
+[[redirects]]
   from = "/en/*"
   to = "/:splat"
-  status = 301
