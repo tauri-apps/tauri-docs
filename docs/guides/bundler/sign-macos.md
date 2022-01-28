@@ -16,6 +16,16 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 - Xcode 11 or above.
 - An Apple Developer account enrolled to the [Apple Developer Program](https://developer.apple.com/programs/).
 
+## tl;dr
+
+The Tauri code signing and notarization process is configured through the following environment variables:
+
+- `APPLE_SIGNING_IDENTITY`: the name of the keychain entry that contains the signing certificate.
+- `APPLE_CERTIFICATE`: base64 string of the `.p12` certificate, exported from the keychain. Useful if you don't have the certificate on the keychain (e.g. CI machines).
+- `APPLE_CERTIFICATE_PASSWORD`: the password for the `.p12` certificate.
+- `APPLE_ID` and `APPLE_PASSWORD`: your Apple account email and an [app-specific password](https://support.apple.com/en-ca/HT204397). Only required to notarize the app.
+- `APPLE_API_ISSUER` and `APPLE_API_KEY`: authentication with an App Store Connect API key instead of the Apple ID. Only required to notarize the app.
+
 ## Signing Tauri apps
 
 The first step to sign a macOS application is getting a signing certificate from the Apple Developer Program.
