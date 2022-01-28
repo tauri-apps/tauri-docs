@@ -13,7 +13,8 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 
 ## Requirements
 
-To sign a macOS application you must register an Apple Developer account and join the [Apple Developer Program](https://developer.apple.com/programs/).
+- Xcode 11 or above.
+- An Apple Developer account enrolled to the [Apple Developer Program](https://developer.apple.com/programs/).
 
 ## Signing Tauri apps
 
