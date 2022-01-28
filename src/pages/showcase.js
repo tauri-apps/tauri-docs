@@ -21,116 +21,160 @@ const projects = [
   },
   {
     title: 'LuckyYou',
-    description: translate({message: "A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call."}),
+    description: translate({
+      message:
+        'A free, tiny, simple, beautiful and useful app to do a lucky draw or make a roll call.',
+    }),
     image: imgPath + 'lucky-you/logo.png',
     link: 'https://github.com/jwenjian/lucky-you/',
     screenshots: ['0.png'].map((image) => imgPath + 'lucky-you/' + image),
   },
   {
     title: 'Bidirectional',
-    description: translate({message: "Write Arabic text on apps that don't support bidirectional text."}),
+    description: translate({
+      message:
+        "Write Arabic text on apps that don't support bidirectional text.",
+    }),
     image: imgPath + 'bidirectional/logo.png',
     link: 'https://github.com/samirdjelal/bidirectional/',
     screenshots: ['0.png'].map((image) => imgPath + 'bidirectional/' + image),
   },
   {
     title: 'Calciumdibromid',
-    description: translate({message: "Generate \"experiment wise safety sheets\" in compliance to European law."}),
+    description: translate({
+      message:
+        'Generate "experiment wise safety sheets" in compliance to European law.',
+    }),
     image: imgPath + 'cabr2/logo.png',
     link: 'https://github.com/Calciumdibromid/CaBr2',
     screenshots: ['0.png'].map((image) => imgPath + 'cabr2/' + image),
   },
   {
     title: 'SimpleSTT',
-    description: translate({message: "Real-time speech-to-text/keyboard input captions for OBS."}),
+    description: translate({
+      message: 'Real-time speech-to-text/keyboard input captions for OBS.',
+    }),
     image: imgPath + 'simple-stt/logo.png',
     link: 'https://github.com/mmpneo/simple-obs-stt',
     screenshots: ['0.png'].map((image) => imgPath + 'simple-stt/' + image),
   },
   {
     title: 'TAUnorRIs',
-    description: translate({message: "Local client for chucknorris.io built with Tauri and Vue.js 3."}),
+    description: translate({
+      message: 'Local client for chucknorris.io built with Tauri and Vue.js 3.',
+    }),
     image: imgPath + 'taunorris/logo.png',
     link: 'https://github.com/fkromer/taunorris',
     screenshots: ['0.png'].map((image) => imgPath + 'taunorris/' + image),
   },
   {
     title: 'Debug Trainer',
-    description: translate({message: "Reversably introduce bugs into your code so that you can safely practice debugging."}),
+    description: translate({
+      message:
+        'Reversably introduce bugs into your code so that you can safely practice debugging.',
+    }),
     image: imgPath + 'debug-trainer/logo.png',
     link: 'https://github.com/kickstartcoding/debug_trainer_app',
     screenshots: ['0.png'].map((image) => imgPath + 'debug-trainer/' + image),
   },
   {
     title: 'Authme Lite',
-    description: translate({message: "A lite and simple two-factor authentication app for desktop."}),
+    description: translate({
+      message: 'A lite and simple two-factor authentication app for desktop.',
+    }),
     image: imgPath + 'authme-lite/logo.png',
     link: 'https://github.com/Levminer/authme-lite',
     screenshots: ['0.png'].map((image) => imgPath + 'authme-lite/' + image),
   },
   {
     title: 'Mail-Dev',
-    description: translate({message: "Local SMTP Server For Email Testing/Debugging."}),
+    description: translate({
+      message: 'Local SMTP Server For Email Testing/Debugging.',
+    }),
     image: imgPath + 'mail-dev/logo.png',
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'mail-dev/' + image),
   },
   {
     title: 'Commandos',
-    description: translate({message: "Open Source Git Client."}),
+    description: translate({ message: 'Open Source Git Client.' }),
     image: imgPath + 'commandos/logo.png',
     link: 'https://github.com/Commandos-app/Commandos/',
     screenshots: ['0.png'].map((image) => imgPath + 'commandos/' + image),
   },
   {
     title: 'ExcelMerger',
-    description: translate({message: "ExcelMerger merges Excel files"}),
+    description: translate({ message: 'ExcelMerger merges Excel files' }),
     image: imgPath + 'excelmerger/logo.png',
     link: 'https://github.com/Leon0824/ExcelMerger',
     screenshots: ['0.png'].map((image) => imgPath + 'excelmerger/' + image),
   },
   {
     title: 'Tinker 2',
-    description: translate({message: "REPL desktop app tinker with your PHP applications without touching source code."}),
+    description: translate({
+      message:
+        'REPL desktop app tinker with your PHP applications without touching source code.',
+    }),
     image: imgPath + 'tinker2/logo.png',
     link: 'https://github.com/bangnokia/tinker2/',
     screenshots: ['0.png'].map((image) => imgPath + 'tinker2/' + image),
   },
   {
     title: 'Xplorer',
-    description: translate({message: "A customizable and modern file manager"}),
+    description: translate({
+      message: 'A customizable and modern file manager',
+    }),
     image: imgPath + 'xplorer/logo.png',
     link: 'https://github.com/kimlimjustin/xplorer/',
     screenshots: ['0.png'].map((image) => imgPath + 'xplorer/' + image),
   },
   {
     title: 'Kadium',
-    description: translate({message: "App for staying ontop of YouTube channel uploads."}),
+    description: translate({
+      message: 'App for staying ontop of YouTube channel uploads.',
+    }),
     image: imgPath + 'kadium/logo.svg',
     link: 'https://github.com/samirdjelal/mail-dev/',
     screenshots: ['0.png'].map((image) => imgPath + 'kadium/' + image),
   },
   {
     title: 'Mr Tagger',
-    description: translate({message: "Music file tagging app."}),
+    description: translate({ message: 'Music file tagging app.' }),
     image: imgPath + 'mr-tagger/logo.svg',
     link: 'https://github.com/probablykasper/mr-tagger',
     screenshots: ['0.png'].map((image) => imgPath + 'mr-tagger/' + image),
   },
   {
     title: 'BS Redis Desktop Client',
-    description: translate({message: "The Best Surprise Redis Desktop Client. Powered by Rust and Tauri."}),
+    description: translate({
+      message:
+        'The Best Surprise Redis Desktop Client. Powered by Rust and Tauri.',
+    }),
     image: imgPath + 'bs-redis/logo.svg',
     link: 'https://bs.echosocket.com/',
-    screenshots: ['0.png'].map((image) => imgPath + 'bs-redis/' + image)
+    screenshots: ['0.png'].map((image) => imgPath + 'bs-redis/' + image),
   },
   {
     title: 'Rsyncinator',
-    description: translate({message: "An open source and multi-platform app for generating rsync commands to use in your terminal."}),
+    description: translate({
+      message:
+        'An open source and multi-platform app for generating rsync commands to use in your terminal.',
+    }),
     image: imgPath + 'rsyncinator/logo.png',
     link: 'https://github.com/snipline/rsyncinator-desktop',
     screenshots: ['0.png'].map((image) => imgPath + 'rsyncinator/' + image),
-  }
+  },
+  {
+    title: 'Time Machine Inspector',
+    description: translate({
+      message: "Find out what's hogging up your backups.",
+    }),
+    image: imgPath + 'time-machine-inspector/logo.png',
+    link: 'https://github.com/probablykasper/time-machine-inspector',
+    screenshots: ['0.png'].map(
+      (image) => imgPath + 'time-machine-inspector/' + image
+    ),
+  },
 ]
 
 const customStyles = {
@@ -163,7 +207,9 @@ function Showcase() {
       <div className="container margin-vert--lg">
         <h1 className="text--center margin-bottom--xl">Showcase</h1>
         <p className="text--center">
-          <Translate>Here are the applications that have been made with Tauri!</Translate>
+          <Translate>
+            Here are the applications that have been made with Tauri!
+          </Translate>
         </p>
         <div className="row">
           {projects.map(
@@ -198,9 +244,7 @@ function Showcase() {
                       <div className="avatar__intro margin-left--none">
                         <h4 className="avatar__name">{title}</h4>
                         <small className="avatar__subtitle">
-                          {
-                            description
-                          }
+                          {description}
                         </small>
                       </div>
                     </div>
