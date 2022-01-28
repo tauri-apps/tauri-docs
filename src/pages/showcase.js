@@ -134,7 +134,7 @@ const projects = [
       message: 'App for staying ontop of YouTube channel uploads.',
     }),
     image: imgPath + 'kadium/logo.svg',
-    link: 'https://github.com/samirdjelal/mail-dev/',
+    link: 'https://github.com/probablykasper/kadium',
     screenshots: ['0.png'].map((image) => imgPath + 'kadium/' + image),
   },
   {
