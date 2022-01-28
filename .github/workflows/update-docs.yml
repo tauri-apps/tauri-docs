@@ -68,6 +68,8 @@ jobs:
       - name: Copy JS docs
         run: cp -r tauri/tooling/api/docs/* tauri-docs/docs/api/js/
 
+      # this doesn't really need to be run on the content generation and PR opening
+      # should this be removed and run at the same time as our netlify publish sequence
       # Indexing
       # - name: meilisearch indexation
       #   uses: tauri-apps/docusaurus-meilisearch-indexer@v1
