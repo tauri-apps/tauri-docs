@@ -1,60 +1,87 @@
 ---
-title: macOS - Code signing guide using Github Actions
+title: macOS - Code signing guide
 sidebar_label: macOS - Code signing
 ---
 
 import Alert from '@theme/Alert'
 
-## Intro
-
-Tauri has a smooth code-signing & notarization functionality built directly into the bundler and configured via the `tauri.conf.json` 
-
-This guide will give a brief overview of how to sign an application, and how to get the app notarized with Apple. All in a GitHub action. 
-
-## Prerequisits 
-- OSX - This will be needed to create/export the certificate.
-- [Apple Developer Program](https://developer.apple.com/programs/) subscription
-- [Developer ID Application](https://developer.apple.com/developer-id/) certificate
-  - see [this](https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions#reference) guide for additional help
-- Working Tauri application, being built and published via GitHub Actions, as shown in [tauri-action](https://github.com/tauri-apps/tauri-action)  
+This guide provides information on code signing and notarization for macOS applications.
 
 <Alert title="Note" icon="info-alt">
-If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will need to ensure the environment variable `CI=true` exists. For more information refer to [Issue #592](https://github.com/tauri-apps/tauri/issues/592).
+If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will need to ensure the environment variable <i>CI=true</i> exists. For more information refer to <a href="https://github.com/tauri-apps/tauri/issues/592">Issue #592</a>.
 </Alert>
 
-## GitHub Secrets
+## Requirements
 
-We will need to add a few GitHub secrets for the proper configuration of the GitHub Action. These can be named however you would like, but we must assign them to the correct Tauri variables, so keep them as relevant as possible. 
-- You can view [this](https://docs.github.com/en/actions/reference/encrypted-secrets) guide for how to add GitHub secrets. 
+To sign a macOS application you must register an Apple Developer account and join the [Apple Developer Program](https://developer.apple.com/programs/).
 
-The secrets I used are as follows
+## Signing Tauri apps
 
-| GitHub Secrets | Value for Variable |
-|     :---:      |        :---:            |
-|APPLE_CERTIFICATE| Base64 encoded version of your .p12 certificate. You can find a guide [here](https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions#reference)|
-|APPLE_CERTIFICATE_PASSWORD|Certificate password used on creation of certificate|
-|APPLE_IDENTITY_ID|"Developer ID Application: Your Company, Inc (XXXXXXXXX)" shown in your keychain. you can also use `security find-identity -v -p codesigning` on OSX to find this identity |
-|APPLE_ID|this is the email used to request the certificate|
-APPLE_PASSWORD|This is an app-specific password, that must also be created by the same account used to request the certificate. Guide [here](https://support.apple.com/en-ca/HT204397)| 
+The first step to sign a macOS application is getting a signing certificate from the Apple Developer Program.
 
-Once we have established the GitHub Secrets we will need to make some modifications to our GitHub publish action in `.github/workflows/main.yml` 
+### Creating a signing certificate
 
+To create a new signing certificate you must generate a Certificate Signing Request (CSR) file from your Mac computer. [This guide](https://help.apple.com/developer-account/#/devbfa00fef7) describes the process to create a CSR.
 
----
-### Workflow Modifications
+On your Apple Developer account, navigate to the [Certificates, IDs & Profiles page](https://developer.apple.com/account/resources/certificates/list) and click on the `Add` button to open the interface to create a new certificate. Choose the appropriate certificate type (`Apple Distribution` to submit apps to the App Store, and `Developer ID Application` to ship apps outside of the App Store). Upload your CSR and the certificate will be created.
 
-All we will have to do from here is assign the GitHub secrets to the proper environment variables. 
-```
-ENABLE_CODE_SIGNING: ${{ secrets.APPLE_CERTIFICATE }}
-APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_IDENTITY_ID }}
-APPLE_ID: ${{ secrets.APPLE_ID }}
-APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-```
+<Alert title="Note" icon="info-alt">
+Only the Apple Developer `Account Holder` can create <i>Developer ID Application</i> certificates, but it can be associated to a different Apple ID by creating a CSR with a different user email address.
+</Alert>
 
-If you are using the tauri-action publish template, then your result should look similar the the `env:` portion below. 
-```
+### Downloading a certificate
+
+On [Certificates, IDs & Profiles page](https://developer.apple.com/account/resources/certificates/list), click on the certificate you want to use and then click on the `Download` button. It will save a `.cer` file that once opened, installs the certificate on the keychain. The name of the keychain entry represents the `signing identity`, which can also be found by executing `$ security find-identity -v -p codesigning`.
+
+<Alert title="Note" icon="info-alt">
+A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>$ security find-identity -v -p codesigning</i> output.
+</Alert>
+
+### Signing the Tauri application
+
+The signing configuration is provided to the Tauri bundler via environment variables. You will need to configure the certificate to use and an optional authentication configuration to notarize the application.
+
+#### Certificate environment variables
+
+- `APPLE_SIGNING_IDENTITY`: this is the `signing identity` we highlighted above. It must be defined to sign apps both locally and on CI machines.
+
+Additionally, to simplify the process of code signing on CI, Tauri can install the certificate on the keychain for you if you define the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables.
+
+1. Open the `Keychain Access` app and find your certificate's keychain entry.
+2. Expand the entry, double click on the key item and select `Export "$KEYNAME"`.
+3. Select the path to save the `.p12` file and define the exported certificate password.
+4. Convert the `.p12` file to base64 running the following script on the terminal: `openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt`.
+5. Set the contents of the `certificate-base64.txt` file to the `APPLE_CERTIFICATE` environment variable.
+6. Set the certificate password to the `APPLE_CERTIFICATE_PASSWORD` environment variable.
+
+#### Authentication environment variables
+
+These variables are only required to notarize the application.
+
+<Alert title="Note" icon="info-alt">
+Notarization is required when using a <i>Developer ID Application</i> certificate.
+</Alert>
+
+- `APPLE_ID` and `APPLE_PASSWORD`: to authenticate with your Apple ID, set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password](https://support.apple.com/en-ca/HT204397) for the Apple account.
+- `APPLE_API_ISSUER` and `APPLE_API_KEY`: alternatively, you can authenticate using an App Store Connect API key. Open the App Store Connect's [Users and Access page](https://appstoreconnect.apple.com/access/users), select the `Keys` tab and click on the `Add` button; select a name and the `Developer` access. The `APPLE_API_ISSUER` (`Issuer ID`) is presented above the keys table, and the `APPLE_API_KEY` is the value on the `Key ID` column on that table. You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key). The private key file must be saved on `./private_keys`, `~/private_keys`, `~/.private_keys` or `~/.appstoreconnect/private_keys`, as stated on the `$ xcrun altool --help` command.
+
+### Building the application
+
+With all these environment variables set, the Tauri bundler will automatically sign and notarize your application when you run the `tauri build` command.
+
+### Example
+
+The following example uses GitHub Actions to sign an application using the [Tauri action](https://github.com/tauri-apps/tauri-action).
+
+On GitHub, we first define the environment variables we listed above as GitHub Secrets.
+
+<Alert title="Note" icon="info-alt">
+You can view <a href="https://docs.github.com/en/actions/reference/encrypted-secrets">this guide</a> to learn about GitHub secrets. 
+</Alert>
+
+Once we have established the GitHub Secrets we will create a GitHub publish workflow in `.github/workflows/main.yml`: 
+ 
+```yml
 name: "publish"
 on:
   push:
@@ -66,7 +93,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -79,11 +106,6 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-    - name: install webkit2gtk (ubuntu only)
-      if: matrix.platform == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y webkit2gtk-4.0
     - name: install app dependencies and build it
       run: yarn && yarn build
     - uses: tauri-apps/tauri-action@v0
@@ -96,9 +118,11 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
       with:
-        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+        tagName: app-v__VERSION__
         releaseName: "App v__VERSION__"
         releaseBody: "See the assets to download this version and install."
         releaseDraft: true
         prerelease: false
 ```
+
+The workflow pulls the secrets from GitHub and define them as environment variables before building the application using the Tauri action. The output is a GitHub release with the signed and notarized macOS application.
