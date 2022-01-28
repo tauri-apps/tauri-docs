@@ -119,7 +119,7 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
       with:
-        tagName: app-v__VERSION__
+        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
         releaseName: "App v__VERSION__"
         releaseBody: "See the assets to download this version and install."
         releaseDraft: true
