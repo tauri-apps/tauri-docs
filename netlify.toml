@@ -40,11 +40,11 @@
 
 [[redirects]]
   from = "/en/docs/api/rust/*"
-  to = "https://docs.rs/tauri/1.0.0-beta.8/tauri/"
+  to = "https://docs.rs/tauri/1.0.0-beta.8/:splat.html" # :splat  includes a "tauri" prefix
 
 [[redirects]]
   from = "/docs/api/rust/*"
-  to = "https://docs.rs/tauri/1.0.0-beta.8/tauri/"
+  to = "https://docs.rs/tauri/1.0.0-beta.8/:splat.html"
 
 [[redirects]]
   from = "/en/*"
