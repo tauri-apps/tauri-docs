@@ -486,6 +486,9 @@
   "An open source and multi-platform app for generating rsync commands to use in your terminal.": {
     "message": "An open source and multi-platform app for generating rsync commands to use in your terminal."
   },
+  "Find out what's hogging up your backups.": {
+    "message": "Find out what's hogging up your backups."
+  },
   "Here are the applications that have been made with Tauri!": {
     "message": "Here are the applications that have been made with Tauri!"
   },
