@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / shell
 
-# Module: shell
+# Namespace: shell
 
 ## Classes
 
@@ -44,4 +44,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L358)
+[shell.ts:358](https://github.com/tauri-apps/tauri/blob/8ab8d52/tooling/api/src/shell.ts#L358)
