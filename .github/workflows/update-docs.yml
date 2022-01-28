@@ -7,7 +7,7 @@ name: update-docs
 on:
   pull_request:
   repository_dispatch:
-    types: [update-docs]
+    types: [update-docs, test-update-docs]
   workflow_dispatch:
     inputs:
       gitName:
