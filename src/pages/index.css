@@ -110,3 +110,7 @@
 .feature .icon {
   background-color: var(--tauri-accent-orange);
 }
+
+.roadmap .icon {
+  background-color: var(--tauri-accent-blue);
+}

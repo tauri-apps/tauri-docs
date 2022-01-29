@@ -1,5 +1,4 @@
 import React from 'react'
-import Fade from 'react-reveal/Fade'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -96,8 +95,22 @@ function Capabilities() {
   )
 }
 
+function IconItem(props) {
+  return (
+    <div className="col col--4" id={props.index}>
+      <div className="icon">
+        <span className={props.item.icon}></span>
+      </div>
+      <div className="content">
+        <h3 className="title">{props.item.label}</h3>
+        <div className="description">{props.item.description}</div>
+      </div>
+    </div>
+  )
+}
+
 function Features() {
-  const features = [
+  const items = [
     {
       label: 'CLI',
       description: translate({
@@ -262,20 +275,13 @@ function Features() {
   ]
 
   return (
-    <div className="feature row">
-      {features.map((feature, index) => {
-        return (
-          <div className="col col--4" id={index}>
-            <div className="icon">
-              <span className={feature.icon}></span>
-            </div>
-            <div className="content">
-              <div className="title">{feature.label}</div>
-              <div className="description">{feature.description}</div>
-            </div>
-          </div>
-        )
-      })}
+    <div className="row">
+      <h2>Features</h2>
+      <div className="feature row">
+        {items.map((item, index) => {
+          return <IconItem item={item} index={index} />
+        })}
+      </div>
     </div>
   )
 }
@@ -289,7 +295,6 @@ function Roadmap() {
         message: '3rd party security audit of core libraries',
       }),
       icon: 'bi bi-shield-fill-check',
-      color: colors.todo,
       targetQuarter: 'Q1 2022',
     },
     {
@@ -299,7 +304,6 @@ function Roadmap() {
           'Opt-in feature enabling for iframe dialog with Tauri and the native API',
       }),
       icon: 'bi bi-bounding-box-circles',
-      color: colors.todo,
       targetQuarter: 'Q1 2022',
     },
     {
@@ -308,21 +312,18 @@ function Roadmap() {
         message: 'For improved security of files interaction',
       }),
       icon: 'bi bi-safe-fill',
-      color: colors.todo,
       targetQuarter: 'Q1 2022',
     },
     {
       label: 'Stable Release',
       description: translate({ message: 'Stable on On all Platforms' }),
       icon: 'bi bi-flag-fill',
-      color: colors.milestone,
       targetQuarter: 'Q1 2022',
     },
     {
       label: 'Channel API',
       description: translate({ message: 'Send messages through a channel' }),
       icon: 'bi bi-chat-dots-fill',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -331,7 +332,6 @@ function Roadmap() {
         message: 'Run a command that is no longer available after first run',
       }),
       icon: 'bi bi-brightness-alt-high-fill',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -340,7 +340,6 @@ function Roadmap() {
         message: "Use Deno to build your App's backend",
       }),
       icon: 'bi bi-box-seam',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -349,7 +348,6 @@ function Roadmap() {
         message: 'Bundle to all major mobile device operating systems',
       }),
       icon: 'bi bi-phone-fill',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -359,14 +357,12 @@ function Roadmap() {
           'Generate bundled binaries from select operating system environments',
       }),
       icon: 'bi bi-shuffle',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
       label: 'PureOS App Store',
       description: translate({ message: 'Verified builds for PureOS' }),
       icon: 'bi bi-shop-window',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -376,7 +372,6 @@ function Roadmap() {
           'Go, Nim, Python, C++ and other bindings are possible with the stable API',
       }),
       icon: 'bi bi-globe2',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -386,7 +381,6 @@ function Roadmap() {
           'Candidate presentation for Webview Alternatives, including GL windowing',
       }),
       icon: 'bi bi-brush-fill',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -395,7 +389,6 @@ function Roadmap() {
         message: 'A decompiler and threat analyzer for Tauri Apps, using Frida',
       }),
       icon: 'bi bi-shield-fill-exclamation',
-      color: colors.todo,
       targetQuarter: 'Planned',
     },
     {
@@ -405,52 +398,18 @@ function Roadmap() {
           'Something missing? Got a great idea? We want you to help us make it happen',
       }),
       icon: 'bi bi-infinity',
-      color: colors.todo,
       targetQuarter: translate({ message: '& BEYOND' }),
     },
-  ].map((item, index) => {
-    return (
-      <li key={index}>
-        <Fade bottom>
-          <div
-            className="icon"
-            style={{ backgroundColor: `var(${item.color})` }}
-          >
-            <span className={item.icon}></span>
-          </div>
-          <div className="content">
-            <div className="title">{item.label}</div>
-            <div className="description">{item.description}</div>
-          </div>
-          <div>{item.targetQuarter}</div>
-        </Fade>
-      </li>
-    )
-  })
+  ]
 
   return (
-    <div id="roadmap" className="container anchorify">
-      <h2 style={{ textAlign: 'center', position: 'relative' }}>
-        <Translate>Roadmap</Translate>
-      </h2>
-      <p style={{ textAlign: 'center', position: 'relative' }}>
-        <Translate>This roadmap is subject to change</Translate>
-      </p>
-      <ul className="roadmap-legend">
-        <li>
-          <span style={{ backgroundColor: `var(${colors.released})` }}></span>{' '}
-          <Translate>Released</Translate>
-        </li>
-        <li>
-          <span style={{ backgroundColor: `var(${colors.todo})` }}></span>{' '}
-          <Translate>To Do</Translate>
-        </li>
-        <li>
-          <span style={{ backgroundColor: `var(${colors.milestone})` }}></span>{' '}
-          <Translate>Milestone</Translate>
-        </li>
-      </ul>
-      <ul className="roadmap">{items}</ul>
+    <div className="row">
+      <h2>Roadmap</h2>
+      <div className="roadmap row">
+        {items.map((item, index) => {
+          return <IconItem item={item} index={index} />
+        })}
+      </div>
     </div>
   )
 }
@@ -516,9 +475,9 @@ function Home() {
             <Features />
           </section>
 
-          {/* <section className="roadmap-container">
-            <Roadmap siteConfig={siteConfig} />
-          </section> */}
+          <section>
+            <Roadmap />
+          </section>
         </main>
       </div>
     </Layout>
