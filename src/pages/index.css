@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  row-gap: 5rem;
 }
 
 .row {
@@ -9,8 +9,20 @@
   justify-content: center;
 }
 
+.header {
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-image {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  height: 55vh;
+}
+
 .hero__subtitle {
   margin-top: 26px;
+  text-align: center;
 }
 
 /* Buttons */
@@ -70,7 +82,7 @@
 }
 
 .capability .imageCol {
-  text-align: center;
+  text-align: right;
 }
 
 .capability .image {
@@ -94,6 +106,7 @@
 .icon-item {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .icon {
@@ -107,7 +120,11 @@
   flex-shrink: 0;
 }
 
-/* Features */
+.feature,
+.roadmap {
+  row-gap: 2rem;
+}
+
 .feature .icon {
   background-color: var(--tauri-accent-orange);
 }

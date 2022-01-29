@@ -6,10 +6,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import Translate, { translate } from '@docusaurus/Translate'
 import './index.css'
 
-function Hero() {
-  return <div style={{ fontSize: '15rem' }}>1.0</div>
-}
-
 function Capabilities() {
   const capabilities = [
     {
@@ -74,14 +70,14 @@ function Capabilities() {
       {capabilities.map((capability, index) => {
         return (
           <div className="row capability" key={index}>
-            <div className="col col--5">
+            <div className="col col--4">
               <h2 className="label">{capability.label}</h2>
               <h3>{capability.description}</h3>
               <h4 className="link">
                 <Link to={capability.link}>{capability.linkText}</Link>
               </h4>
             </div>
-            <div className="col col--4 col--offset-3 imageCol">
+            <div className="col col--4 imageCol">
               <img
                 className={'image'}
                 src={useBaseUrl(capability.imageUrl)}
@@ -176,87 +172,87 @@ function Features() {
       }),
       icon: 'bi bi-github',
     },
-    {
-      label: 'VS Code Extension',
-      description: translate({
-        message: 'Commands and validate tauri.conf.json',
-      }),
-      icon: 'bi bi-code',
-    },
-    {
-      label: 'Core Plugin System',
-      description: translate({
-        message: 'Build reusable plugins to extend Tauri core',
-      }),
-      icon: 'bi bi-plug-fill',
-    },
-    {
-      label: 'CLI Updater',
-      description: translate({
-        message: 'Update core dependencies automatically from the CLI',
-      }),
-      icon: 'bi bi-arrow-down-up',
-    },
-    {
-      label: 'Webview Bindings',
-      description: translate({ message: 'New pure Rust Webview bindings' }),
-      icon: 'bi bi-arrow-repeat',
-    },
-    {
-      label: 'Keyboard Shortcuts',
-      description: translate({ message: 'Hook and react to keypresses' }),
-      icon: 'bi bi-keyboard-fill',
-    },
-    {
-      label: 'Multi Window',
-      description: translate({
-        message: 'Run multiple window instances in Tauri',
-      }),
-      icon: 'bi bi-window-stack',
-    },
-    {
-      label: 'Rust-based CLI',
-      description: translate({ message: 'Create Rust CLI' }),
-      icon: 'bi bi-terminal-fill',
-    },
-    {
-      label: 'Transparent Window',
-      description: translate({ message: 'Have transparent windows' }),
-      icon: 'bi bi-fullscreen',
-    },
-    {
-      label: 'Secure Context for Web APIs',
-      description: translate({
-        message: 'Setup secure context to enable access to restricted APIs',
-      }),
-      icon: 'bi bi-lock-fill',
-    },
-    {
-      label: 'Self Updater',
-      description: translate({
-        message: 'Update Tauri Apps from within Tauri',
-      }),
-      icon: 'bi bi-box-arrow-in-down',
-    },
-    {
-      label: 'Window Menus',
-      description: translate({
-        message: 'Desktop Cross-platform Window Menus',
-      }),
-      icon: 'bi bi-menu-button',
-    },
-    {
-      label: 'App Tray',
-      description: translate({ message: 'Desktop Cross-platform Icon Tray' }),
-      icon: 'bi bi-menu-up',
-    },
-    {
-      label: 'Clipboard',
-      description: translate({
-        message: 'Enable programmatic and keyboard access to clipboard',
-      }),
-      icon: 'bi bi-clipboard',
-    },
+    // {
+    //   label: 'VS Code Extension',
+    //   description: translate({
+    //     message: 'Commands and validate tauri.conf.json',
+    //   }),
+    //   icon: 'bi bi-code',
+    // },
+    // {
+    //   label: 'Core Plugin System',
+    //   description: translate({
+    //     message: 'Build reusable plugins to extend Tauri core',
+    //   }),
+    //   icon: 'bi bi-plug-fill',
+    // },
+    // {
+    //   label: 'CLI Updater',
+    //   description: translate({
+    //     message: 'Update core dependencies automatically from the CLI',
+    //   }),
+    //   icon: 'bi bi-arrow-down-up',
+    // },
+    // {
+    //   label: 'Webview Bindings',
+    //   description: translate({ message: 'New pure Rust Webview bindings' }),
+    //   icon: 'bi bi-arrow-repeat',
+    // },
+    // {
+    //   label: 'Keyboard Shortcuts',
+    //   description: translate({ message: 'Hook and react to keypresses' }),
+    //   icon: 'bi bi-keyboard-fill',
+    // },
+    // {
+    //   label: 'Multi Window',
+    //   description: translate({
+    //     message: 'Run multiple window instances in Tauri',
+    //   }),
+    //   icon: 'bi bi-window-stack',
+    // },
+    // {
+    //   label: 'Rust-based CLI',
+    //   description: translate({ message: 'Create Rust CLI' }),
+    //   icon: 'bi bi-terminal-fill',
+    // },
+    // {
+    //   label: 'Transparent Window',
+    //   description: translate({ message: 'Have transparent windows' }),
+    //   icon: 'bi bi-fullscreen',
+    // },
+    // {
+    //   label: 'Secure Context for Web APIs',
+    //   description: translate({
+    //     message: 'Setup secure context to enable access to restricted APIs',
+    //   }),
+    //   icon: 'bi bi-lock-fill',
+    // },
+    // {
+    //   label: 'Self Updater',
+    //   description: translate({
+    //     message: 'Update Tauri Apps from within Tauri',
+    //   }),
+    //   icon: 'bi bi-box-arrow-in-down',
+    // },
+    // {
+    //   label: 'Window Menus',
+    //   description: translate({
+    //     message: 'Desktop Cross-platform Window Menus',
+    //   }),
+    //   icon: 'bi bi-menu-button',
+    // },
+    // {
+    //   label: 'App Tray',
+    //   description: translate({ message: 'Desktop Cross-platform Icon Tray' }),
+    //   icon: 'bi bi-menu-up',
+    // },
+    // {
+    //   label: 'Clipboard',
+    //   description: translate({
+    //     message: 'Enable programmatic and keyboard access to clipboard',
+    //   }),
+    //   icon: 'bi bi-clipboard',
+    // },
   ]
 
   return (
@@ -272,7 +268,6 @@ function Features() {
 }
 
 function Roadmap() {
-  // See translations for label/description
   const items = [
     {
       label: 'iframe with native API',
@@ -321,56 +316,56 @@ function Roadmap() {
       icon: 'bi bi-phone-fill',
       targetQuarter: 'Planned',
     },
-    {
-      label: 'Cross Compiler',
-      description: translate({
-        message:
-          'Generate bundled binaries from select operating system environments',
-      }),
-      icon: 'bi bi-shuffle',
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'PureOS App Store',
-      description: translate({ message: 'Verified builds for PureOS' }),
-      icon: 'bi bi-shop-window',
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'Other Bindings',
-      description: translate({
-        message:
-          'Go, Nim, Python, C++ and other bindings are possible with the stable API',
-      }),
-      icon: 'bi bi-globe2',
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'Alternative Renderer',
-      description: translate({
-        message:
-          'Candidate presentation for Webview Alternatives, including GL windowing',
-      }),
-      icon: 'bi bi-brush-fill',
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'Tauri-Frida',
-      description: translate({
-        message: 'A decompiler and threat analyzer for Tauri Apps, using Frida',
-      }),
-      icon: 'bi bi-shield-fill-exclamation',
-      targetQuarter: 'Planned',
-    },
-    {
-      label: 'The Future',
-      description: translate({
-        message:
-          'Something missing? Got a great idea? We want you to help us make it happen',
-      }),
-      icon: 'bi bi-infinity',
-      targetQuarter: translate({ message: '& BEYOND' }),
-    },
+    // {
+    //   label: 'Cross Compiler',
+    //   description: translate({
+    //     message:
+    //       'Generate bundled binaries from select operating system environments',
+    //   }),
+    //   icon: 'bi bi-shuffle',
+    //   targetQuarter: 'Planned',
+    // },
+    // {
+    //   label: 'PureOS App Store',
+    //   description: translate({ message: 'Verified builds for PureOS' }),
+    //   icon: 'bi bi-shop-window',
+    //   targetQuarter: 'Planned',
+    // },
+    // {
+    //   label: 'Other Bindings',
+    //   description: translate({
+    //     message:
+    //       'Go, Nim, Python, C++ and other bindings are possible with the stable API',
+    //   }),
+    //   icon: 'bi bi-globe2',
+    //   targetQuarter: 'Planned',
+    // },
+    // {
+    //   label: 'Alternative Renderer',
+    //   description: translate({
+    //     message:
+    //       'Candidate presentation for Webview Alternatives, including GL windowing',
+    //   }),
+    //   icon: 'bi bi-brush-fill',
+    //   targetQuarter: 'Planned',
+    // },
+    // {
+    //   label: 'Tauri-Frida',
+    //   description: translate({
+    //     message: 'A decompiler and threat analyzer for Tauri Apps, using Frida',
+    //   }),
+    //   icon: 'bi bi-shield-fill-exclamation',
+    //   targetQuarter: 'Planned',
+    // },
+    // {
+    //   label: 'The Future',
+    //   description: translate({
+    //     message:
+    //       'Something missing? Got a great idea? We want you to help us make it happen',
+    //   }),
+    //   icon: 'bi bi-infinity',
+    //   targetQuarter: translate({ message: '& BEYOND' }),
+    // },
   ]
 
   return (
@@ -397,86 +392,73 @@ function Home() {
       })}
     >
       <div className="container">
-        <header>
-          <div className="row">
-            <Hero />
+        <div className="row header">
+          <object
+            data={useBaseUrl('img/1_0.svg')}
+            type="image/svg+xml"
+            className="header-image"
+          />
+
+          <div>
+            <p className="hero__subtitle">
+              <Translate>
+                Build smaller, faster, and more secure desktop applications with
+                a web frontend
+              </Translate>
+            </p>
           </div>
 
-          <p className="hero__subtitle row">
-            <Translate>
-              Build smaller, faster, and more secure desktop applications with a
-              web frontend
-            </Translate>
-          </p>
-
-          <div className="row">
-            <div className="col col--4">
-              <Link
-                className={
-                  'button button--outline button--secondary button--lg about'
-                }
-                to={useBaseUrl('docs/about/intro')}
-              >
-                <span>
-                  <Translate>Learn More</Translate>
-                </span>
-              </Link>
-            </div>
-            <div className="col col--4">
-              <Link
-                className={
-                  'button button--outline button--secondary button--lg getStarted'
-                }
-                to={useBaseUrl('docs/get-started/intro')}
-              >
-                <span>
-                  <Translate>Get Started</Translate>
-                </span>
-              </Link>
-            </div>
+          <div className="col col--4">
+            <Link
+              className={
+                'button button--outline button--secondary button--lg getStarted'
+              }
+              to={useBaseUrl('docs/get-started/intro')}
+            >
+              <span>
+                <Translate>Get Started</Translate>
+              </span>
+            </Link>
           </div>
-        </header>
+        </div>
+        <section>
+          <Capabilities />
+        </section>
 
-        <main>
-          <section>
-            <Capabilities />
-          </section>
+        <section>
+          <Features />
+        </section>
 
-          <section>
-            <Features />
-          </section>
+        <section>
+          <Roadmap />
+        </section>
 
-          <section>
-            <Roadmap />
-          </section>
+        <section className="row">
+          <h1>
+            <Translate>Premium Sponsor</Translate>
+          </h1>
+          Todo
+        </section>
 
-          <section className="row">
-            <h1>
-              <Translate>Premium Sponsor</Translate>
-            </h1>
-            Todo
-          </section>
+        <section className="row">
+          <h1>
+            <Translate>Sponsors</Translate>
+          </h1>
+          Todo
+        </section>
 
-          <section className="row">
-            <h1>
-              <Translate>Sponsors</Translate>
-            </h1>
-            Todo
-          </section>
-
-          <section className="row">
-            <h1>
-              <Translate>Collaborators</Translate>
-            </h1>
-            Todo
-          </section>
-          <section className="row">
-            <h1>
-              <Translate>Patrons</Translate>
-            </h1>
-            Todo
-          </section>
-        </main>
+        <section className="row">
+          <h1>
+            <Translate>Collaborators</Translate>
+          </h1>
+          Todo
+        </section>
+        <section className="row">
+          <h1>
+            <Translate>Patrons</Translate>
+          </h1>
+          Todo
+        </section>
       </div>
     </Layout>
   )
