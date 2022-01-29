@@ -97,7 +97,7 @@ function Capabilities() {
 
 function IconItem(props) {
   return (
-    <div className="col col--4" id={props.index}>
+    <div className="icon-item col col--4">
       <div className="icon">
         <span className={props.item.icon}></span>
       </div>
@@ -139,14 +139,6 @@ function Features() {
         message: 'Bundle for all major desktops from native systems',
       }),
       icon: 'bi bi-boxes',
-    },
-    {
-      label: 'Alpha Release',
-      description: translate({
-        message:
-          'Technical Release Candidate for desktop, edge cases and bugs acceptable',
-      }),
-      icon: 'bi bi-flag-fill',
     },
     {
       label: 'Sidecar',
@@ -259,13 +251,6 @@ function Features() {
       icon: 'bi bi-menu-up',
     },
     {
-      label: 'Beta Release',
-      description: translate({
-        message: 'Generally stable on Desktop, API locked down',
-      }),
-      icon: 'bi bi-bookmark-check-fill',
-    },
-    {
       label: 'Clipboard',
       description: translate({
         message: 'Enable programmatic and keyboard access to clipboard',
@@ -276,10 +261,10 @@ function Features() {
 
   return (
     <div className="row">
-      <h2>Features</h2>
+      <h1>Features</h1>
       <div className="feature row">
         {items.map((item, index) => {
-          return <IconItem item={item} index={index} />
+          return <IconItem item={item} index={index} key={index} />
         })}
       </div>
     </div>
@@ -289,14 +274,6 @@ function Features() {
 function Roadmap() {
   // See translations for label/description
   const items = [
-    {
-      label: 'Security Audit',
-      description: translate({
-        message: '3rd party security audit of core libraries',
-      }),
-      icon: 'bi bi-shield-fill-check',
-      targetQuarter: 'Q1 2022',
-    },
     {
       label: 'iframe with native API',
       description: translate({
@@ -312,12 +289,6 @@ function Roadmap() {
         message: 'For improved security of files interaction',
       }),
       icon: 'bi bi-safe-fill',
-      targetQuarter: 'Q1 2022',
-    },
-    {
-      label: 'Stable Release',
-      description: translate({ message: 'Stable on On all Platforms' }),
-      icon: 'bi bi-flag-fill',
       targetQuarter: 'Q1 2022',
     },
     {
@@ -404,10 +375,10 @@ function Roadmap() {
 
   return (
     <div className="row">
-      <h2>Roadmap</h2>
+      <h1>Roadmap</h1>
       <div className="roadmap row">
         {items.map((item, index) => {
-          return <IconItem item={item} index={index} />
+          return <IconItem item={item} key={index} />
         })}
       </div>
     </div>
@@ -477,6 +448,33 @@ function Home() {
 
           <section>
             <Roadmap />
+          </section>
+
+          <section className="row">
+            <h1>
+              <Translate>Premium Sponsor</Translate>
+            </h1>
+            Todo
+          </section>
+
+          <section className="row">
+            <h1>
+              <Translate>Sponsors</Translate>
+            </h1>
+            Todo
+          </section>
+
+          <section className="row">
+            <h1>
+              <Translate>Collaborators</Translate>
+            </h1>
+            Todo
+          </section>
+          <section className="row">
+            <h1>
+              <Translate>Patrons</Translate>
+            </h1>
+            Todo
           </section>
         </main>
       </div>

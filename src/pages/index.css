@@ -90,8 +90,8 @@
   color: var(--tauri-blue);
 }
 
-/* Features */
-.feature .col {
+/* Icon Item */
+.icon-item {
   display: flex;
   gap: 1rem;
 }
@@ -107,6 +107,7 @@
   flex-shrink: 0;
 }
 
+/* Features */
 .feature .icon {
   background-color: var(--tauri-accent-orange);
 }
