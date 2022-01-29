@@ -170,16 +170,6 @@ a:hover {
   order: 1;
 }
 
-.badge--warning,
-.badge--warning:hover {
-  color: var(--ifm-button-color);
-  /* Fixes the background color on mobile */
-  background-color: var(--ifm-color-warning) !important;
-  padding: var(--ifm-navbar-item-padding-vertical)
-    var(--ifm-navbar-item-padding-horizontal);
-}
-
-/* background height needs to be set to 100% somehow */
 .navbar__item:hover {
   background-color: var(--ifm-menu-color-background-hover);
 }
@@ -232,10 +222,6 @@ h2 > [class^='bi-'] {
   pointer-events: none;
 }
 
-[class*='announcementBar_'] {
-  min-height: 52px;
-}
-
 [class*='property_'] .hash-link {
   display: inline-block;
   position: relative;
@@ -252,8 +238,4 @@ h2 > [class^='bi-'] {
 [data-ea-publisher].loaded .ea-content a:link,
 [data-ea-type].loaded .ea-content a:link {
   color: var(--ifm-font-color-base);
-}
-
-#announcement-beta {
-  font-weight: bold;
 }

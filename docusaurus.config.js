@@ -47,12 +47,6 @@ const navbarItems = [
     ],
   },
   {
-    label: 'Beta',
-    to: '/#roadmap',
-    position: 'right',
-    className: 'badge badge--warning',
-  },
-  {
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
@@ -166,21 +160,15 @@ const siteConfig = {
       disableSwitch: false,
       switchConfig: {
         darkIcon: '🌙',
-        lightIcon: '☀️'
-      }
-    },
-    announcementBar: {
-      id: 'beta',
-      content:
-        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Read the blog post</a></div>",
-      backgroundColor: 'var(--ifm-color-primary)',
+        lightIcon: '☀️',
+      },
     },
     navbar: {
       hideOnScroll: false,
       logo: {
         alt: 'Tauri Logo',
         src: 'img/tauri_with_wordmark_mono.svg',
-        srcDark: 'img/tauri_with_wordmark.svg'
+        srcDark: 'img/tauri_with_wordmark.svg',
       },
       items: navbarItems,
     },
@@ -188,10 +176,12 @@ const siteConfig = {
       links: footerLinks,
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
-    metadata: [{
-      name: 'theme-color',
-      content: '#ffc131'
-    }]
+    metadata: [
+      {
+        name: 'theme-color',
+        content: '#ffc131',
+      },
+    ],
   },
 
   presets: [
@@ -212,9 +202,7 @@ const siteConfig = {
       },
     ],
   ],
-  plugins: [
-    path.resolve('./plugins/external-assets')
-  ],
+  plugins: [path.resolve('./plugins/external-assets')],
 }
 
 module.exports = siteConfig
