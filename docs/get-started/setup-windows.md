@@ -14,7 +14,7 @@ For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies&nbsp;<Icon type="danger"/>
 
 You'll need to install Microsoft Visual Studio C++ build tools. <a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/" target="_blank">Download the installer here</a>, and then run it. When it asks you what packages you would like to install, select C++ Build Tools and make sure the Windows SDK is selected.
 
@@ -26,7 +26,7 @@ This is a big download (over 1GB) and takes the most time, so go grab a coffee.
 You may need to uninstall the 2017 version of the build tools if you have them. There are reports of Tauri not working with both the 2017 and 2019 versions installed.
 </Alert>
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Node.js Runtime and Package Manager&nbsp;<Icon type="warning"/>
 
 ### Node.js (npm included)
 
@@ -49,7 +49,7 @@ You may want to use an alternative to npm:
 - <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc and Cargo Package Manager&nbsp;<Icon type="warning"/>
 
 Now you will need to install <a href="https://www.rust-lang.org/" target="_blank">Rust</a>. The easiest way to do this is to use <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer.
 
@@ -59,7 +59,7 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 Download and install the proper variant for your computer's architecture.
 
 
-## 4. Install WebView2
+## 4. Install WebView2&nbsp;<Icon type="danger"/>
 
 <Alert title="Note">
 WebView2 is pre-installed in Windows 11.

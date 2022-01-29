@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies&nbsp;<Icon type="danger"/>
 
 <Tabs
 defaultValue="debian"
@@ -74,7 +74,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 - `libappindicator`: needed to use the system tray feature.
 - `patchelf` and `librsvg`: needed to bundle `AppImage`.
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Node.js Runtime and Package Manager&nbsp;<Icon type="warning"/>
 
 ### Node.js (npm included)
 
@@ -104,7 +104,7 @@ You may want to use an alternative to npm:
 - <a href="https://yarnpkg.com/getting-started" target="_blank">Yarn</a>, is preferred by Tauri's team
 - <a href="https://pnpm.js.org/en/installation" target="_blank">pnpm</a>
 
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 3. Rustc and Cargo Package Manager&nbsp;<Icon type="warning"/>
 
 The following command will install <a href="https://rustup.rs/" target="_blank">rustup</a>, the official installer for <a href="https://www.rust-lang.org/" target="_blank">Rust</a>.
 
@@ -125,7 +125,7 @@ latest update on 2019-12-19, rust version 1.40.0
 
 You may need to restart your terminal if the command does not work.
 
-## 4. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
+## 4. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon type="info"/>
 
 In order to run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
 Since vcXsrv has been used internally, it's the one we recommend to install.

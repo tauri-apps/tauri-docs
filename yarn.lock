@@ -1537,15 +1537,10 @@
     tslib "^2.3.1"
     url-loader "^4.1.1"
 
-"@fontsource/roboto@4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.2.tgz#98dd67e579984e255fac4315b496520d890ae989"
-  integrity sha512-KkMqloXIM64EvaVPOqC5Mkms0qdOWvx4nRvQBIMCoG0GGsDa8tFfNwhyowHeR9k09P0LuT5u09d29Y21JhaA6Q==
-
-"@fontsource/tauri@4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.5.2.tgz#83ac2aac2adc982a8fe5bd205ddb67253a41724d"
-  integrity sha512-lsyeQRvOEns5VzI+nFwGXH/djtn3Wlca2Bh5uJ7lqOTi94pU6tlW3lkmsOCnkOLMsuNbxYLLTFDG/BgXyi5bkg==
+"@fontsource/rubik@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.0.tgz#e6e86606903d7102c565eec4b1339298308c3acb"
+  integrity sha512-evvN6wFvc4gH9X3PuRkAfaWXJya5jcZxbMpAsiQIfq8KUCSBx74Rknm5M6hpRuB9AdxdchF/A3p18VkR9RZy2g==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.1"
@@ -2510,6 +2505,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+
+bootstrap-icons@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.7.2.tgz#4024e081e2c850602552e1fed6451e682d09322a"
+  integrity sha512-NiR2PqC73AQOPdVSu6GJfnk+hN2z6powcistXk1JgPnKuoV2FSdSl26w931Oz9HYbKCcKUSB6ncZTYJAYJl3QQ==
 
 boxen@^5.0.0, boxen@^5.0.1:
   version "5.1.2"

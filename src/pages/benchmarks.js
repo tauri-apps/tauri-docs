@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { reshape, formatMB, formatExecTime } from '../utils/benchmark'
 import Layout from '@theme/Layout'
 import Alert from '@theme/Alert'
-import Icon from '@theme/Icon'
 import useThemeContext from '@theme/hooks/useThemeContext'
 import ContentLoader from 'react-content-loader'
 
@@ -289,7 +288,7 @@ function Benchmarks() {
           </li>
         </ul>
         <p className="margin-bottom--xl">
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             The CPU intensive benchmark measures how much time it takes to
             calculate all the prime numbers under XXXX without blocking the UI
             and reporting how many have been found so far using web workers.
@@ -298,7 +297,7 @@ function Benchmarks() {
         <section>
           <h2 id="execution-time" className="anchorify">
             <a href="#execution-time">
-              <Icon title="timer" /> Execution Time
+              <i class="bi bi-stopwatch" /> Execution Time
             </a>
           </h2>
           <div>
@@ -317,7 +316,7 @@ function Benchmarks() {
               yTickFormat={formatExecTime}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             This shows how much time total it takes intialize the application
             and wait the <code>DOMContentLoaded</code> event. We use{' '}
             <a href="https://github.com/sharkdp/hyperfine" target="_blank">
@@ -331,7 +330,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 href="#binary-size" className="anchorify">
             <a href="#binary-size">
-              <Icon title="package" /> Binary Size
+              <i class="bi bi-box" /> Binary Size
             </a>
           </h2>
           <div>
@@ -350,7 +349,7 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             We track the size of various files here. All binaries are compiled
             in <u>release mode</u>.
           </Alert>
@@ -359,7 +358,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="#memory-usage" className="anchorify">
             <a href="#memory-usage">
-              <Icon title="dashboard" /> Memory Usage
+              <i class="bi bi-memory" /> Memory Usage
             </a>
           </h2>
           <div>
@@ -378,7 +377,7 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             We use{' '}
             <a href="https://pypi.org/project/memory-profiler/" target="_blank">
               mprof
@@ -390,7 +389,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="#thread-count" className="anchorify">
             <a href="#thread-count">
-              <Icon title="pulse" /> Thread Count
+              <i class="bi bi-cpu" /> Thread Count
             </a>
           </h2>
           <div>
@@ -407,7 +406,7 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             How many threads the application use. Smaller is better.
           </Alert>
         </section>
@@ -415,7 +414,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="syscall-count" className="anchorify">
             <a href="#syscall-count">
-              <Icon title="pulse" /> Syscall Count
+              <i class="bi bi-activity" /> Syscall Count
             </a>
           </h2>
           <div>
@@ -432,7 +431,7 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note" icon="light-bulb">
+          <Alert title="Note">
             How many total syscalls are performed when executing a given
             application. Smaller is better.
           </Alert>
@@ -441,7 +440,7 @@ function Benchmarks() {
         <section className="margin-top--xl">
           <h2 id="tauri-dependencies" className="anchorify">
             <a href="#tauri-dependencies">
-              <Icon title="package" /> Dependencies
+              <i class="bi bi-boxes" /> Dependencies
             </a>
           </h2>
           <div>

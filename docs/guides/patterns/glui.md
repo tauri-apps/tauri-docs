@@ -5,7 +5,7 @@ title: GLUI
 import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
+<Alert type="warning" title="Please note">
 This pattern is not available for now.
 </Alert>
 

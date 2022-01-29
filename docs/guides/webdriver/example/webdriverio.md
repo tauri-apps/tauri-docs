@@ -5,7 +5,7 @@ import Alert from '@theme/Alert'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-<Alert title="Example Application" type="info" icon="info-alt">
+<Alert title="Example Application" type="info">
 
 This [WebdriverIO] guide expects you to have already gone through the [example Application setup] in order to follow
 step-by-step. The general information may still be useful otherwise.

@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.hero__subtitle {
+  margin-top: 26px;
+}
+
+/* Buttons */
+.about,
+.getStarted {
+  border: double 4px transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  padding: 0;
+  transition: 0.2s;
+  color: var(--ifm-hero-text-color) !important;
+  display: flex;
+  justify-content: center;
+}
+
+.about:hover,
+.getStarted:hover {
+  color: var(--ifm-hero-background-color) !important;
+}
+
+.about {
+  background-image: linear-gradient(
+      var(--ifm-hero-background-color),
+      var(--ifm-hero-background-color)
+    ),
+    radial-gradient(circle at top left, #0198f1, #48f9c7);
+}
+
+.about:hover {
+  background-image: linear-gradient(transparent, transparent),
+    radial-gradient(circle at top left, #0198f1, #48f9c7);
+}
+
+.getStarted {
+  background-image: linear-gradient(
+      var(--ifm-hero-background-color),
+      var(--ifm-hero-background-color)
+    ),
+    radial-gradient(circle at top left, #fff04d, #ff8e13);
+}
+
+.getStarted:hover {
+  background-image: linear-gradient(transparent, transparent),
+    radial-gradient(circle at top left, #fff04d, #ff8e13);
+}
+
+.about span,
+.getStarted span {
+  padding: 10px;
+  display: inline-block;
+  font-size: 1.6em;
+}
+
+/* Capabilities */
+.capability .label {
+  color: var(--tauri-orange);
+}
+
+.capability .imageCol {
+  text-align: center;
+}
+
+.capability .image {
+  height: 200px;
+  width: 200px;
+}
+
+.capability a {
+  color: var(--ifm-color-content);
+  text-decoration: underline;
+  text-decoration-thickness: 0.15rem;
+  text-decoration-color: var(--tauri-blue);
+  text-underline-offset: 0.25rem;
+}
+
+.capability a:hover {
+  color: var(--tauri-blue);
+}
+
+/* Icon Item */
+.icon-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon {
+  height: 42px;
+  width: 42px;
+  border-radius: 50px;
+  padding: 2px;
+  color: var(--ifm-background-surface-color);
+  text-align: center;
+  font-size: 25px;
+  flex-shrink: 0;
+}
+
+/* Features */
+.feature .icon {
+  background-color: var(--tauri-accent-orange);
+}
+
+.roadmap .icon {
+  background-color: var(--tauri-accent-blue);
+}

@@ -3,7 +3,7 @@ title: Introduction
 ---
 import Alert from '@theme/Alert'
 
-<Alert title="Currently in pre-alpha" type="info" icon="info-alt">
+<Alert title="Currently in pre-alpha" type="info">
 
 Webdriver support for Tauri is still in pre-alpha. Tooling that is dedicated to it such as [tauri-driver] is still in
 active development and may change as necessary over time. Additionally, only Windows and Linux are currently supported.

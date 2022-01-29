@@ -6,7 +6,7 @@ import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
-<Alert title="Please note" type="warning" icon="alert">
+<Alert title="Please note" type="warning">
   You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="/docs/get-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
 </Alert>
 
