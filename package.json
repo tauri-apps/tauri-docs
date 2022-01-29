@@ -14,7 +14,6 @@
     "@docusaurus/core": "2.0.0-beta.14",
     "@docusaurus/preset-classic": "2.0.0-beta.14",
     "@fontsource/rubik": "4.5.0",
-    "@lottiefiles/lottie-player": "^1.5.4",
     "@mdx-js/react": "1.6.22",
     "apexcharts": "3.33.0",
     "bootstrap-icons": "^1.7.2",

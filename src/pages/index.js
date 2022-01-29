@@ -1,39 +1,15 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import Fade from 'react-reveal/Fade'
 import classnames from 'classnames'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import useThemeContext from '@theme/hooks/useThemeContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
-
-function HeroAnimation() {
-  if (ExecutionEnvironment.canUseDOM) {
-    require('@lottiefiles/lottie-player')
-  }
-
-  const { isDarkTheme } = useThemeContext()
-  const player = useRef(null)
-
-  useEffect(() => {
-    player.current.load(
-      isDarkTheme ? 'lottie/tauri-splash.json' : 'lottie/tauri-splash-dark.json'
-    )
-  }, [isDarkTheme])
-
-  return (
-    <lottie-player
-      ref={player}
-      background="transparent"
-      speed="1"
-      style={{ width: '75%', margin: 'auto' }}
-      autoplay
-    ></lottie-player>
-  )
+function Hero() {
+  return <h1>1.0</h1>
 }
 
 const features = [
@@ -519,7 +495,7 @@ function Home() {
     >
       <header className={classnames(styles.heroBanner)}>
         <div className="container">
-          <HeroAnimation />
+          <Hero />
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
