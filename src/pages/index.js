@@ -1,21 +1,22 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade'
-import classnames from 'classnames'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import styles from './styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
+import './index.css'
 
 function Hero() {
-  return <h1>1.0</h1>
+  return <div style={{ fontSize: '15rem' }}>1.0</div>
 }
 
-const features = [
-  [
+const Features = () => {
+  const features = [
     {
       imageUrl: 'img/undraw_brownfield.svg',
+      link: 'docs/about/security',
+      linkText: translate({ message: 'Frontend Guides' }),
       label: translate({ message: 'Brownfield' }),
       description: translate({
         message:
@@ -24,21 +25,24 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_open_source.svg',
+      link: 'docs/about/security',
+      linkText: translate({ message: 'Licensing Information' }),
       label: translate({ message: 'FLOSS' }),
       description: translate({ message: 'Relicensing is possible with Tauri' }),
     },
     {
       imageUrl: 'img/undraw_takeout_boxes.svg',
+      link: 'docs/about/security',
+      linkText: translate({ message: 'Benchmarks' }),
       label: translate({ message: 'Bundle' }),
       description: translate({
-        message: 'Zize of a Tauri App can be less than 600KB',
+        message: 'Size of a Tauri App can be less than 600KB',
       }),
     },
-  ],
-  [
     {
       imageUrl: 'img/undraw_security.svg',
       link: 'docs/about/security',
+      linkText: translate({ message: 'Ethos' }),
       label: translate({ message: 'Security' }),
       description: translate({
         message: "Tauri-Team's biggest priority and drives our innovation",
@@ -47,6 +51,7 @@ const features = [
     {
       imageUrl: 'img/undraw_patterns.svg',
       link: 'docs/guides/patterns/about-patterns',
+      linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Patterns' }),
       description: translate({
         message:
@@ -56,39 +61,37 @@ const features = [
     {
       imageUrl: 'img/undraw_cross_platform.svg',
       link: 'docs/development/cross-platform',
+      linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
         message:
           'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
       }),
     },
-  ],
-]
+  ]
 
-function Feature({ imageUrl, link, label, description }) {
-  const imgUrl = useBaseUrl(imageUrl)
   return (
-    <div className="col col--4 feature">
-      <div className="card">
-        <div className="card__body">
-          {imgUrl && (
-            <div className="text--center">
-              <img className={styles.featureImage} src={imgUrl} alt={label} />
+    <div>
+      {features.map((feature, index) => {
+        return (
+          <div className="row feature" key={index}>
+            <div className="col col--5">
+              <h2 className="featureLabel">{feature.label}</h2>
+              <h3>{feature.description}</h3>
+              <h4 className="featureLink">
+                <Link to={feature.link}>{feature.linkText}</Link>
+              </h4>
             </div>
-          )}
-          <h3>{label}</h3>
-          <p>{description}</p>
-        </div>
-        {link && (
-          <div className="card__footer">
-            <Link to={useBaseUrl(link)}>
-              <button className="button button--secondary button--block">
-                <Translate>See more</Translate>
-              </button>
-            </Link>
+            <div className="col col--4 col--offset-3 featureImageCol">
+              <img
+                className={'featureImage'}
+                src={useBaseUrl(feature.imageUrl)}
+                alt={feature.label}
+              />
+            </div>
           </div>
-        )}
-      </div>
+        )
+      })}
     </div>
   )
 }
@@ -493,79 +496,57 @@ function Home() {
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
       })}
     >
-      <header className={classnames(styles.heroBanner)}>
-        <div className="container">
-          <Hero />
-          <p
-            className="hero__subtitle"
-            dangerouslySetInnerHTML={{
-              __html: translate({
-                message:
-                  'Build smaller, faster, and more secure desktop applications with a web frontend',
-              }),
-            }}
-          ></p>
-          <div className={styles.buttons}>
-            <div className="container">
-              <div className="row">
-                <div className="col col--4 col--offset-2">
-                  <Link
-                    className={classnames(
-                      'button button--outline button--secondary button--lg',
-                      styles.about
-                    )}
-                    to={useBaseUrl('docs/about/intro')}
-                  >
-                    <span>
-                      <Translate>Learn More</Translate>
-                    </span>
-                  </Link>
-                </div>
-                <div className="col col--4">
-                  <Link
-                    className={classnames(
-                      'button button--outline button--secondary button--lg',
-                      styles.getStarted
-                    )}
-                    to={useBaseUrl('docs/get-started/intro')}
-                  >
-                    <span>
-                      <Translate>Get Started</Translate>
-                    </span>
-                  </Link>
-                </div>
-                <div className="col col--2"></div>
-              </div>
+      <div className="container">
+        <header>
+          <div className="row">
+            <Hero />
+          </div>
+
+          <p className="hero__subtitle row">
+            <Translate>
+              Build smaller, faster, and more secure desktop applications with a
+              web frontend
+            </Translate>
+          </p>
+
+          <div className="row">
+            <div className="col col--4">
+              <Link
+                className={
+                  'button button--outline button--secondary button--lg about'
+                }
+                to={useBaseUrl('docs/about/intro')}
+              >
+                <span>
+                  <Translate>Learn More</Translate>
+                </span>
+              </Link>
+            </div>
+            <div className="col col--4">
+              <Link
+                className={
+                  'button button--outline button--secondary button--lg getStarted'
+                }
+                to={useBaseUrl('docs/get-started/intro')}
+              >
+                <span>
+                  <Translate>Get Started</Translate>
+                </span>
+              </Link>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main>
-        {features && features.length && (
-          <section className={classnames('features', styles.features)}>
-            <div className="container">
-              {features.map((row, index) => {
-                return (
-                  <div className="row" key={index}>
-                    {row.map((props, idx) => (
-                      <Feature
-                        key={idx}
-                        {...props}
-                        siteConfig={siteConfig}
-                        index={idx + row.length * index}
-                      />
-                    ))}
-                  </div>
-                )
-              })}
-            </div>
+        <main>
+          <section>
+            <Features />
           </section>
-        )}
-        <section className="roadmap-container">
-          <Roadmap siteConfig={siteConfig} />
-        </section>
-      </main>
+
+          <section className="roadmap-container">
+            <Roadmap siteConfig={siteConfig} />
+          </section>
+        </main>
+      </div>
     </Layout>
   )
 }

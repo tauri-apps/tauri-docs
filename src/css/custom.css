@@ -17,15 +17,15 @@
   --tauri-blue: #24c8d8;
   --tauri-white: #f6f6f6;
   --tauri-coal: #2f2f2f;
-  --tauri-black: #0f0f0f; 
+  --tauri-black: #0f0f0f;
   --tauri-night: #070707;
-  
+
   /* Accents */
   --tauri-accent-blue: var(--tauri-blue);
-  --tauri-accent-green: #34C759;
+  --tauri-accent-green: #34c759;
   --tauri-accent-orange: var(--tauri-orange);
-  --tauri-accent-red: #DB3A24;
-  --tauri-accent-purple: #AF52DE;
+  --tauri-accent-red: #db3a24;
+  --tauri-accent-purple: #af52de;
 
   /* Primary colours */
   --ifm-color-primary: var(--tauri-blue);
@@ -43,7 +43,10 @@
   --ifm-color-secondary-darkest: darken(var(--ifm-color-secondary-darker), 10%);
   --ifm-color-secondary-light: lighten(var(--ifm-color-secondary), 10%);
   --ifm-color-secondary-lighter: lighten(var(--ifm-color-secondary-light), 10%);
-  --ifm-color-secondary-lightest: lighten(var(--ifm-color-secondary-lighter), 10%);
+  --ifm-color-secondary-lightest: lighten(
+    var(--ifm-color-secondary-lighter),
+    10%
+  );
 
   /* Semantic info colours */
   --ifm-color-info: var(--tauri-blue);
@@ -68,14 +71,13 @@
 
 /* Options for light colour */
 :root[data-theme='light'] {
-  
-  --tauri-orange: #D58100;
-  --tauri-blue: #396CD8;
+  --tauri-orange: #d58100;
+  --tauri-blue: #396cd8;
 
   /* Accents */
   --tauri-accent-green: #2b9c48;
-  --tauri-accent-red: #DB3A24;
-  --tauri-accent-purple: #B624DB;
+  --tauri-accent-red: #db3a24;
+  --tauri-accent-purple: #b624db;
 
   /* Primary colours */
   --ifm-color-primary: var(--tauri-accent-blue);
@@ -122,7 +124,8 @@ a:hover {
 }
 
 /* Background animation */
-.container::after, .container::before {
+.container::after,
+.container::before {
   overflow: hidden;
   z-index: -1;
   opacity: 0.04;
@@ -134,12 +137,20 @@ a:hover {
 }
 
 .container::before {
-  background: radial-gradient(50% 50% at 50% 50%, var(--tauri-accent-purple) 0%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--tauri-accent-purple) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
   left: -60%;
 }
 
 .container::after {
-  background: radial-gradient(50% 50% at 50% 50%, var(--tauri-accent-blue) 0%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--tauri-accent-blue) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
   right: -70%;
 }
 
@@ -154,7 +165,8 @@ a:hover {
 }
 
 .navbar__search {
-  padding: var(--ifm-navbar-item-padding-vertical) var(--ifm-navbar-item-padding-horizontal);
+  padding: var(--ifm-navbar-item-padding-vertical)
+    var(--ifm-navbar-item-padding-horizontal);
   order: 1;
 }
 
@@ -163,7 +175,8 @@ a:hover {
   color: var(--ifm-button-color);
   /* Fixes the background color on mobile */
   background-color: var(--ifm-color-warning) !important;
-  padding: var(--ifm-navbar-item-padding-vertical) var(--ifm-navbar-item-padding-horizontal)
+  padding: var(--ifm-navbar-item-padding-vertical)
+    var(--ifm-navbar-item-padding-horizontal);
 }
 
 /* background height needs to be set to 100% somehow */
@@ -173,100 +186,6 @@ a:hover {
 
 .markdown {
   --ifm-heading-line-height: 1.4;
-}
-
-.features {
-  margin: 60px 0;
-}
-
-.features h3 {
-  text-align: center;
-  font-size: 1.6em;
-}
-
-/* Roadmap */
-ul.roadmap-legend {
-  padding: 0;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-ul.roadmap-legend li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-ul.roadmap-legend li:last-child {
-  margin-right: 0;
-}
-
-ul.roadmap-legend li span {
-  display: inline-block;
-  height: 32px;
-  width: 32px;
-  border-radius: 50px;
-  vertical-align: middle;
-}
-
-ul.roadmap {
-  max-width: 960px;
-  margin: auto;
-  position: relative;
-  padding: 0;
-}
-
-ul.roadmap::before {
-  position: absolute;
-  display: block;
-  content: '';
-  top: 21px;
-  bottom: 42px;
-  left: 19px;
-  width: 4px;
-  background-color: rgb(221, 221, 221);
-  border-radius: 1em;
-}
-
-ul.roadmap li {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-ul.roadmap li .icon {
-  height: 42px;
-  width: 42px;
-  border-radius: 50px;
-  display: inline-block;
-  margin-right: 20px;
-  padding: 2px;
-  color: var(--ifm-background-surface-color);
-  text-align: center;
-  font-size: 25px;
-}
-
-ul.roadmap li .content {
-  flex: 1;
-  font-size: 1.2em;
-}
-
-ul.roadmap li .content .title {
-  font-weight: bold;
-}
-
-ul.roadmap li .content .description {
-  font-size: 0.8em;
-}
-
-.hero__subtitle {
-  margin-top: 26px;
-}
-
-.features .row .col {
-  align-self: center;
-  text-align: center;
 }
 
 .mermaid svg {
@@ -280,24 +199,6 @@ ul.roadmap li .content .description {
 
 .pattern-logo img {
   max-height: 191px;
-}
-
-.roadmap-container {
-  display: block;
-  position: relative;
-}
-
-.features .row .feature {
-  margin-bottom: 20px;
-}
-
-.features .col {
-  display: flex;
-  align-self: stretch !important;
-}
-
-.features .card {
-  width: 100%;
 }
 
 .videowrapper {
