@@ -11,8 +11,8 @@ function Hero() {
   return <div style={{ fontSize: '15rem' }}>1.0</div>
 }
 
-const Features = () => {
-  const features = [
+function Capabilities() {
+  const capabilities = [
     {
       imageUrl: 'img/undraw_brownfield.svg',
       link: 'docs/about/security',
@@ -72,21 +72,21 @@ const Features = () => {
 
   return (
     <div>
-      {features.map((feature, index) => {
+      {capabilities.map((capability, index) => {
         return (
-          <div className="row feature" key={index}>
+          <div className="row capability" key={index}>
             <div className="col col--5">
-              <h2 className="featureLabel">{feature.label}</h2>
-              <h3>{feature.description}</h3>
-              <h4 className="featureLink">
-                <Link to={feature.link}>{feature.linkText}</Link>
+              <h2 className="label">{capability.label}</h2>
+              <h3>{capability.description}</h3>
+              <h4 className="link">
+                <Link to={capability.link}>{capability.linkText}</Link>
               </h4>
             </div>
-            <div className="col col--4 col--offset-3 featureImageCol">
+            <div className="col col--4 col--offset-3 imageCol">
               <img
-                className={'featureImage'}
-                src={useBaseUrl(feature.imageUrl)}
-                alt={feature.label}
+                className={'image'}
+                src={useBaseUrl(capability.imageUrl)}
+                alt={capability.label}
               />
             </div>
           </div>
@@ -96,22 +96,14 @@ const Features = () => {
   )
 }
 
-const Roadmap = () => {
-  const colors = {
-    released: '--tauri-accent-blue',
-    todo: '--tauri-accent-orange',
-    milestone: '--tauri-accent-purple',
-  }
-  // See translations for label/description
-  const items = [
+function Features() {
+  const features = [
     {
       label: 'CLI',
       description: translate({
         message: 'Generate, develop and build Tauri apps from the command line',
       }),
       icon: 'bi bi-stars',
-      color: colors.released,
-      targetQuarter: 'Q4 2019',
     },
     {
       label: 'API',
@@ -120,8 +112,6 @@ const Roadmap = () => {
           'Finalize, audit, write documentation and create examples for the smoke-tests',
       }),
       icon: 'bi bi-wrench',
-      color: colors.released,
-      targetQuarter: 'Q4 2019',
     },
     {
       label: 'Testing & CI',
@@ -129,8 +119,6 @@ const Roadmap = () => {
         message: 'Implement CI with testing and bundle-pipeline validation',
       }),
       icon: 'bi bi-check-all',
-      color: colors.released,
-      targetQuarter: 'Q4 2019',
     },
     {
       label: 'Desktop Bundler',
@@ -138,8 +126,6 @@ const Roadmap = () => {
         message: 'Bundle for all major desktops from native systems',
       }),
       icon: 'bi bi-boxes',
-      color: colors.released,
-      targetQuarter: 'Q4 2019',
     },
     {
       label: 'Alpha Release',
@@ -148,8 +134,6 @@ const Roadmap = () => {
           'Technical Release Candidate for desktop, edge cases and bugs acceptable',
       }),
       icon: 'bi bi-flag-fill',
-      color: colors.released,
-      targetQuarter: 'Q4 2019',
     },
     {
       label: 'Sidecar',
@@ -157,8 +141,6 @@ const Roadmap = () => {
         message: 'Integrate and instrument other binaries',
       }),
       icon: 'bi bi-file-earmark-binary-fill',
-      color: colors.released,
-      targetQuarter: 'Q1 2020',
     },
     {
       label: 'Splashscreen',
@@ -166,8 +148,6 @@ const Roadmap = () => {
         message: 'Use a splashscreen while the main content is loading',
       }),
       icon: 'bi bi-easel-fill',
-      color: colors.released,
-      targetQuarter: 'Q1 2020',
     },
     {
       label: 'App Storage',
@@ -175,8 +155,6 @@ const Roadmap = () => {
         message: 'Use a canonical location to store userdata',
       }),
       icon: 'bi bi-hdd-fill',
-      color: colors.released,
-      targetQuarter: 'Q2 2020',
     },
     {
       label: 'Native Notifications',
@@ -184,8 +162,6 @@ const Roadmap = () => {
         message: 'Cross-platform notifications using polyfilled WEB API',
       }),
       icon: 'bi bi-app-indicator',
-      color: colors.released,
-      targetQuarter: 'Q2 2020',
     },
     {
       label: 'GitHub Action for Building Apps',
@@ -194,8 +170,6 @@ const Roadmap = () => {
           'Build your Web application as a Tauri binary for MacOS, Linux and Windows',
       }),
       icon: 'bi bi-github',
-      color: colors.released,
-      targetQuarter: 'Q3 2020',
     },
     {
       label: 'VS Code Extension',
@@ -203,8 +177,6 @@ const Roadmap = () => {
         message: 'Commands and validate tauri.conf.json',
       }),
       icon: 'bi bi-code',
-      color: colors.released,
-      targetQuarter: 'Q3 2020',
     },
     {
       label: 'Core Plugin System',
@@ -212,8 +184,6 @@ const Roadmap = () => {
         message: 'Build reusable plugins to extend Tauri core',
       }),
       icon: 'bi bi-plug-fill',
-      color: colors.released,
-      targetQuarter: 'Q3 2020',
     },
     {
       label: 'CLI Updater',
@@ -221,22 +191,16 @@ const Roadmap = () => {
         message: 'Update core dependencies automatically from the CLI',
       }),
       icon: 'bi bi-arrow-down-up',
-      color: colors.released,
-      targetQuarter: 'Q3 2020',
     },
     {
       label: 'Webview Bindings',
       description: translate({ message: 'New pure Rust Webview bindings' }),
       icon: 'bi bi-arrow-repeat',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Keyboard Shortcuts',
       description: translate({ message: 'Hook and react to keypresses' }),
       icon: 'bi bi-keyboard-fill',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Multi Window',
@@ -244,22 +208,16 @@ const Roadmap = () => {
         message: 'Run multiple window instances in Tauri',
       }),
       icon: 'bi bi-window-stack',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Rust-based CLI',
       description: translate({ message: 'Create Rust CLI' }),
       icon: 'bi bi-terminal-fill',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Transparent Window',
       description: translate({ message: 'Have transparent windows' }),
       icon: 'bi bi-fullscreen',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Secure Context for Web APIs',
@@ -267,8 +225,6 @@ const Roadmap = () => {
         message: 'Setup secure context to enable access to restricted APIs',
       }),
       icon: 'bi bi-lock-fill',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Self Updater',
@@ -276,8 +232,6 @@ const Roadmap = () => {
         message: 'Update Tauri Apps from within Tauri',
       }),
       icon: 'bi bi-box-arrow-in-down',
-      color: colors.released,
-      targetQuarter: 'Q1 2021',
     },
     {
       label: 'Window Menus',
@@ -285,15 +239,11 @@ const Roadmap = () => {
         message: 'Desktop Cross-platform Window Menus',
       }),
       icon: 'bi bi-menu-button',
-      color: colors.released,
-      targetQuarter: 'Q2 2021',
     },
     {
       label: 'App Tray',
       description: translate({ message: 'Desktop Cross-platform Icon Tray' }),
       icon: 'bi bi-menu-up',
-      color: colors.released,
-      targetQuarter: 'Q2 2021',
     },
     {
       label: 'Beta Release',
@@ -301,8 +251,6 @@ const Roadmap = () => {
         message: 'Generally stable on Desktop, API locked down',
       }),
       icon: 'bi bi-bookmark-check-fill',
-      color: colors.released,
-      targetQuarter: 'Q2 2021',
     },
     {
       label: 'Clipboard',
@@ -310,9 +258,31 @@ const Roadmap = () => {
         message: 'Enable programmatic and keyboard access to clipboard',
       }),
       icon: 'bi bi-clipboard',
-      color: colors.released,
-      targetQuarter: 'Q3 2021',
     },
+  ]
+
+  return (
+    <div className="feature row">
+      {features.map((feature, index) => {
+        return (
+          <div className="col col--4" id={index}>
+            <div className="icon">
+              <span className={feature.icon}></span>
+            </div>
+            <div className="content">
+              <div className="title">{feature.label}</div>
+              <div className="description">{feature.description}</div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function Roadmap() {
+  // See translations for label/description
+  const items = [
     {
       label: 'Security Audit',
       description: translate({
@@ -539,12 +509,16 @@ function Home() {
 
         <main>
           <section>
+            <Capabilities />
+          </section>
+
+          <section>
             <Features />
           </section>
 
-          <section className="roadmap-container">
+          {/* <section className="roadmap-container">
             <Roadmap siteConfig={siteConfig} />
-          </section>
+          </section> */}
         </main>
       </div>
     </Layout>
