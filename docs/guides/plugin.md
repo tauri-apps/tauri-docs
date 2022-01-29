@@ -4,11 +4,6 @@ title: Write Tauri Plugins
 
 import Alert from '@theme/Alert'
 
-<Alert title="Note" icon="info-alt">
-The Tauri CLI can bootstrap a Plugin project with the `$ tauri init plugin --name your-plugin-name` command.
-It setups the recommended folder structure, optionally adding a TypeScript API wrapper with the `--api` flag.
-</Alert>
-
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
 
 ## Writing a Plugin
