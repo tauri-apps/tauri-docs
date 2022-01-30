@@ -10,7 +10,7 @@ import './index.css'
 function Capabilities() {
   const capabilities = [
     {
-      imageUrl: 'img/undraw_brownfield.svg',
+      imageUrl: 'img/index/undraw_brownfield.svg',
       link: 'docs/about/security',
       linkText: translate({ message: 'Frontend Guides' }),
       label: translate({ message: 'Brownfield' }),
@@ -20,14 +20,14 @@ function Capabilities() {
       }),
     },
     {
-      imageUrl: 'img/undraw_open_source.svg',
+      imageUrl: 'img/index/undraw_open_source.svg',
       link: 'docs/about/security',
       linkText: translate({ message: 'Licensing Information' }),
       label: translate({ message: 'FLOSS' }),
       description: translate({ message: 'Relicensing is possible with Tauri' }),
     },
     {
-      imageUrl: 'img/undraw_takeout_boxes.svg',
+      imageUrl: 'img/index/undraw_takeout_boxes.svg',
       link: 'docs/about/security',
       linkText: translate({ message: 'Benchmarks' }),
       label: translate({ message: 'Bundle' }),
@@ -36,7 +36,7 @@ function Capabilities() {
       }),
     },
     {
-      imageUrl: 'img/undraw_security.svg',
+      imageUrl: 'img/index/undraw_security.svg',
       link: 'docs/about/security',
       linkText: translate({ message: 'Ethos' }),
       label: translate({ message: 'Security' }),
@@ -45,7 +45,7 @@ function Capabilities() {
       }),
     },
     {
-      imageUrl: 'img/undraw_patterns.svg',
+      imageUrl: 'img/index/undraw_patterns.svg',
       link: 'docs/guides/patterns/about-patterns',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Patterns' }),
@@ -55,7 +55,7 @@ function Capabilities() {
       }),
     },
     {
-      imageUrl: 'img/undraw_cross_platform.svg',
+      imageUrl: 'img/index/undraw_cross_platform.svg',
       link: 'docs/development/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
