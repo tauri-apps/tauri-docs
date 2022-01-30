@@ -33,10 +33,6 @@ const navbarItems = [
     position: 'left',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
-      },
-      {
         label: 'Showcase',
         to: 'showcase',
       },
@@ -123,10 +119,6 @@ const footerLinks = [
   {
     title: 'Community',
     items: [
-      {
-        label: 'Partners',
-        to: 'partners',
-      },
       {
         label: 'Showcase',
         to: 'showcase',

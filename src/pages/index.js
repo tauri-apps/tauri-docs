@@ -467,7 +467,7 @@ function Home() {
           <Roadmap />
         </section>
 
-        <section className="row">
+        <section className="row" id="sponsors">
           <h1>
             <Translate>Premium Sponsor</Translate>
           </h1>
