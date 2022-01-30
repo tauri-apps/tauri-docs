@@ -5,6 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import Translate, { translate } from '@docusaurus/Translate'
 import anime from 'animejs/lib/anime.es.js'
+import useThemeContext from '@theme/hooks/useThemeContext'
 import './index.css'
 
 function Capabilities() {
@@ -257,7 +258,7 @@ function Features() {
   ]
 
   return (
-    <div className="row">
+    <div>
       <h1>Features</h1>
       <div className="feature row">
         {items.map((item, index) => {
@@ -370,7 +371,7 @@ function Roadmap() {
   ]
 
   return (
-    <div className="row">
+    <div>
       <h1>Roadmap</h1>
       <div className="roadmap row">
         {items.map((item, index) => {
@@ -378,6 +379,163 @@ function Roadmap() {
         })}
       </div>
     </div>
+  )
+}
+
+function PremiumSponsors() {
+  const items = [
+    {
+      name: '1Password',
+      link: 'https://1password.com',
+      logoMonochrome: '1Password_monochrome.svg',
+      logoColorDark: '1Password_color_dark.svg',
+      logoColorLight: '1Password_color_light.svg',
+    },
+  ]
+
+  return (
+    <div>
+      <h1>Premium Sponsor</h1>
+      <div className="row">
+        {items.map((item, index) => {
+          return <Logo brand={item} key={index} />
+        })}
+      </div>
+    </div>
+  )
+}
+
+function Sponsors() {
+  const items = [
+    {
+      name: 'DigitalOcean',
+      link: 'https://www.digitalocean.com',
+      logoColorDark: 'DigitalOcean_color.svg',
+      logoColorLight: 'DigitalOcean_color.svg',
+      logoMonochrome: 'DigitalOcean_monochrome.svg',
+    },
+    {
+      name: 'Netlify',
+      link: 'https://www.netlify.com',
+      logoColorDark: 'Netlify_color_dark.svg',
+      logoColorLight: 'Netlify_color_light.svg',
+      logoMonochrome: 'Netlify_monochrome.svg',
+    },
+    {
+      name: 'MailScript()',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'ClickUp',
+      link: 'https://clickup.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
+    },
+    {
+      name: 'wallaby.js',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'keygen',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+  ]
+
+  return (
+    <div>
+      <h1>Sponsors</h1>
+      <div className="row">
+        {items.map((item, index) => {
+          return <Logo brand={item} key={index} />
+        })}
+      </div>
+    </div>
+  )
+}
+
+function Collaborators() {
+  const items = [
+    {
+      name: 'GUIJS',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'PureOS',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'IOTA',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'Amethyst',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'Meros',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+    {
+      name: 'Tensor',
+      link: '',
+      logoColorDark: '',
+      logoColorLight: '',
+      logoMonochrome: '',
+    },
+  ]
+
+  return (
+    <div>
+      <h1>Collaborators</h1>
+      <div className="row">
+        {items.map((item, index) => {
+          return <Logo brand={item} key={index} />
+        })}
+      </div>
+    </div>
+  )
+}
+
+function Logo(props) {
+  const { isDarkTheme } = useThemeContext()
+  const logoDir = 'img/index/partners/'
+
+  return (
+    <Link className="col col--3 logo" href={props.brand.link}>
+      <img
+        src={
+          isDarkTheme
+            ? useBaseUrl(logoDir + props.brand.logoColorDark)
+            : useBaseUrl(logoDir + props.brand.logoColorLight)
+        }
+        alt={props.brand.name}
+      />
+    </Link>
   )
 }
 
@@ -467,27 +625,18 @@ function Home() {
           <Roadmap />
         </section>
 
-        <section className="row" id="sponsors">
-          <h1>
-            <Translate>Premium Sponsor</Translate>
-          </h1>
-          Todo
+        <section id="sponsors">
+          <PremiumSponsors />
         </section>
 
-        <section className="row">
-          <h1>
-            <Translate>Sponsors</Translate>
-          </h1>
-          Todo
+        <section>
+          <Sponsors />
         </section>
 
-        <section className="row">
-          <h1>
-            <Translate>Collaborators</Translate>
-          </h1>
-          Todo
+        <section>
+          <Collaborators />
         </section>
-        <section className="row">
+        <section>
           <h1>
             <Translate>Patrons</Translate>
           </h1>
