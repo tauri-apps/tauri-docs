@@ -71,14 +71,14 @@ function Capabilities() {
       {capabilities.map((capability, index) => {
         return (
           <div className="row capability" key={index}>
-            <div className="col col--4">
+            <div className="col col--6">
               <h2 className="label">{capability.label}</h2>
               <h3>{capability.description}</h3>
               <h4 className="link">
                 <Link to={capability.link}>{capability.linkText}</Link>
               </h4>
             </div>
-            <div className="col col--4 imageCol">
+            <div className="col col--6 imageCol">
               <img
                 className={'image'}
                 src={useBaseUrl(capability.imageUrl)}
