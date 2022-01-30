@@ -18,6 +18,7 @@
   padding-top: 10vh;
   padding-bottom: 10vh;
   height: 55vh;
+  max-width: 90vw;
 }
 
 .hero__subtitle {

@@ -134,6 +134,11 @@ a:hover {
   position: fixed;
   content: '';
   top: -80%;
+  animation: buble 6s ease;
+  -webkit-animation: buble 6s ease;
+  -moz-animation: buble 6s ease;
+  -o-animation: buble 6s ease;
+  -ms-animation: buble 6s ease;
 }
 
 .container::before {
@@ -152,6 +157,100 @@ a:hover {
     rgba(0, 0, 0, 0) 100%
   );
   right: -70%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes buble {
+  0% {
+    top: -190%;
+    transform: scale(0.4);
+  }
+  100% {
+  }
+}
+
+@-moz-keyframes buble {
+  0% {
+    top: -190%;
+    transform: scale(0.4);
+  }
+  100% {
+  }
+}
+
+@-webkit-keyframes buble {
+  0% {
+    top: -190%;
+    transform: scale(0.4);
+  }
+  100% {
+  }
+}
+@-o-keyframes buble {
+  0% {
+    top: -190%;
+    transform: scale(0.4);
+  }
+  100% {
+  }
+}
+
+@-ms-keyframes buble {
+  0% {
+    top: -190%;
+    transform: scale(0.4);
+  }
+  100% {
+  }
 }
 
 .navbar {
