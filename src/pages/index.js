@@ -394,9 +394,9 @@ function PremiumSponsors() {
     {
       name: 'PACKT',
       link: 'https://www.packtpub.com',
-      logoMonochrome: '1Password_monochrome.svg',
-      logoColorDark: '1Password_color_dark.svg',
-      logoColorLight: '1Password_color_light.svg',
+      logoMonochrome: '_monochrome.svg',
+      logoColorDark: '_color_dark.svg',
+      logoColorLight: '_color_light.svg',
     },
     {
       name: 'Cloudflare',
@@ -408,9 +408,9 @@ function PremiumSponsors() {
     {
       name: 'nlnet',
       link: 'https://nlnet.nl',
-      logoMonochrome: '1Password_monochrome.svg',
-      logoColorDark: '1Password_color_dark.svg',
-      logoColorLight: '1Password_color_light.svg',
+      logoMonochrome: 'nlnet_monochrome.svg',
+      logoColorDark: 'nlnet_color_dark.svg',
+      logoColorLight: 'nlnet_color_light.svg',
     },
   ]
 
@@ -459,37 +459,37 @@ function Sponsors() {
     {
       name: 'CoParse',
       link: 'https://coparse.com',
-      logoColorDark: 'ClickUp_color_dark.svg',
-      logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
+      logoColorDark: '_color_dark.svg',
+      logoColorLight: '_color_light.svg',
+      logoMonochrome: '_monochrome.svg',
     },
     {
       name: 'Mintter',
       link: 'https://mintter.com',
-      logoColorDark: 'ClickUp_color_dark.svg',
-      logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
+      logoColorDark: '_color_dark.svg',
+      logoColorLight: '_color_light.svg',
+      logoMonochrome: '_monochrome.svg',
     },
     {
       name: 'Leniolabs_',
       link: 'https://www.leniolabs.com',
-      logoColorDark: 'ClickUp_color_dark.svg',
-      logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
+      logoColorDark: 'leniolabs_color_dark.svg',
+      logoColorLight: 'leniolabs_color_light.svg',
+      logoMonochrome: 'leniolabs_monochrome.svg',
     },
     {
       name: 'Meros',
       link: 'https://clickup.com',
-      logoColorDark: 'ClickUp_color_dark.svg',
-      logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
+      logoColorDark: 'meros_color_dark.svg',
+      logoColorLight: 'meros_color_light.svg',
+      logoMonochrome: 'meros_monochrome.svg',
     },
     {
       name: 'Tensor',
       link: 'https://clickup.com',
-      logoColorDark: 'ClickUp_color_dark.svg',
-      logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
+      logoColorDark: '_color_dark.svg',
+      logoColorLight: '_color_light.svg',
+      logoMonochrome: '_monochrome.svg',
     },
   ]
 
