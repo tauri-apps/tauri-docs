@@ -485,8 +485,8 @@ function Sponsors() {
       logoMonochrome: 'meros_monochrome.svg',
     },
     {
-      name: 'Tensor',
-      link: 'https://clickup.com',
+      name: 'Tensor Programming',
+      link: 'https://www.youtube.com/c/tensorprogramming',
       logoColorDark: '_color_dark.svg',
       logoColorLight: '_color_light.svg',
       logoMonochrome: '_monochrome.svg',
