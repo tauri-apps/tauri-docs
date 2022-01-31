@@ -391,6 +391,27 @@ function PremiumSponsors() {
       logoColorDark: '1Password_color_dark.svg',
       logoColorLight: '1Password_color_light.svg',
     },
+    {
+      name: 'PACKT',
+      link: 'https://www.packtpub.com',
+      logoMonochrome: '1Password_monochrome.svg',
+      logoColorDark: '1Password_color_dark.svg',
+      logoColorLight: '1Password_color_light.svg',
+    },
+    {
+      name: 'Cloudflare',
+      link: 'https://www.cloudflare.com',
+      logoMonochrome: 'Cloudflare_monochrome.svg',
+      logoColorDark: 'Cloudflare_color_dark.svg',
+      logoColorLight: 'Cloudflare_color_light.svg',
+    },
+    {
+      name: 'nlnet',
+      link: 'https://nlnet.nl',
+      logoMonochrome: '1Password_monochrome.svg',
+      logoColorDark: '1Password_color_dark.svg',
+      logoColorLight: '1Password_color_light.svg',
+    },
   ]
 
   return (
@@ -422,7 +443,7 @@ function Sponsors() {
       logoMonochrome: 'Netlify_monochrome.svg',
     },
     {
-      name: 'MailScript()',
+      name: 'keygen',
       link: '',
       logoColorDark: '',
       logoColorLight: '',
@@ -436,82 +457,45 @@ function Sponsors() {
       logoMonochrome: 'ClickUp_monochrome.svg',
     },
     {
-      name: 'wallaby.js',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
+      name: 'CoParse',
+      link: 'https://coparse.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
     },
     {
-      name: 'keygen',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
+      name: 'Mintter',
+      link: 'https://mintter.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
+    },
+    {
+      name: 'Leniolabs_',
+      link: 'https://www.leniolabs.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
+    },
+    {
+      name: 'Meros',
+      link: 'https://clickup.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
+    },
+    {
+      name: 'Tensor',
+      link: 'https://clickup.com',
+      logoColorDark: 'ClickUp_color_dark.svg',
+      logoColorLight: 'ClickUp_color_light.svg',
+      logoMonochrome: 'ClickUp_monochrome.svg',
     },
   ]
 
   return (
     <div>
       <h1>Sponsors</h1>
-      <div className="row">
-        {items.map((item, index) => {
-          return <Logo brand={item} key={index} />
-        })}
-      </div>
-    </div>
-  )
-}
-
-function Collaborators() {
-  const items = [
-    {
-      name: 'GUIJS',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-    {
-      name: 'PureOS',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-    {
-      name: 'IOTA',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-    {
-      name: 'Amethyst',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-    {
-      name: 'Meros',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-    {
-      name: 'Tensor',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
-    },
-  ]
-
-  return (
-    <div>
-      <h1>Collaborators</h1>
       <div className="row">
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
@@ -631,16 +615,6 @@ function Home() {
 
         <section>
           <Sponsors />
-        </section>
-
-        <section>
-          <Collaborators />
-        </section>
-        <section>
-          <h1>
-            <Translate>Patrons</Translate>
-          </h1>
-          Todo
         </section>
       </div>
     </Layout>
