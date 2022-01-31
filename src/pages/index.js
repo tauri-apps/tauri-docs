@@ -444,10 +444,10 @@ function Sponsors() {
     },
     {
       name: 'keygen',
-      link: '',
-      logoColorDark: '',
-      logoColorLight: '',
-      logoMonochrome: '',
+      link: 'https://keygen.sh',
+      logoColorDark: 'keygen_color_dark.svg',
+      logoColorLight: 'keygen_color_light.svg',
+      logoMonochrome: 'keygen_color_light.svg',
     },
     {
       name: 'ClickUp',
@@ -459,16 +459,16 @@ function Sponsors() {
     {
       name: 'CoParse',
       link: 'https://coparse.com',
-      logoColorDark: '_color_dark.svg',
-      logoColorLight: '_color_light.svg',
-      logoMonochrome: '_monochrome.svg',
+      logoColorDark: 'CoParse_color_dark.svg',
+      logoColorLight: 'CoParse_color_light.svg',
+      logoMonochrome: 'CoParse_color_light.svg',
     },
     {
       name: 'Mintter',
       link: 'https://mintter.com',
-      logoColorDark: '_color_dark.svg',
-      logoColorLight: '_color_light.svg',
-      logoMonochrome: '_monochrome.svg',
+      logoColorDark: 'Mintter_color_dark.svg',
+      logoColorLight: 'Mintter_color_light.svg',
+      logoMonochrome: 'Mintter_color_light.svg',
     },
     {
       name: 'Leniolabs_',
@@ -479,7 +479,7 @@ function Sponsors() {
     },
     {
       name: 'Meros',
-      link: 'https://clickup.com',
+      link: 'https://meroscrypto.io',
       logoColorDark: 'meros_color_dark.svg',
       logoColorLight: 'meros_color_light.svg',
       logoMonochrome: 'meros_monochrome.svg',
