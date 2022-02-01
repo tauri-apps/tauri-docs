@@ -99,8 +99,8 @@ function Capabilities() {
 function IconItem(props) {
   return (
     <div className={classNames('col col--4', styles.iconItem)}>
-      <div>
-        <span className={classNames(props.item.icon, styles.icon)}></span>
+      <div className={styles.icon}>
+        <span className={classNames(props.item.icon)}></span>
       </div>
       <div>
         <h3>{props.item.label}</h3>
@@ -261,9 +261,9 @@ function Features() {
   ]
 
   return (
-    <div className={styles.feature}>
+    <div>
       <h1 className={styles.heading}>Features</h1>
-      <div className={classNames('row')}>
+      <div className={classNames('row', styles.feature)}>
         {items.map((item, index) => {
           return <IconItem item={item} index={index} key={index} />
         })}
@@ -374,9 +374,9 @@ function Roadmap() {
   ]
 
   return (
-    <div className={styles.roadmap}>
+    <div>
       <h1 className={styles.heading}>Roadmap</h1>
-      <div className={'row'}>
+      <div className={classNames('row', styles.roadmap)}>
         {items.map((item, index) => {
           return <IconItem item={item} key={index} />
         })}
@@ -518,6 +518,7 @@ function Logo(props) {
       href={props.brand.link}
     >
       <img
+        className={styles.logo}
         src={
           isDarkTheme
             ? useBaseUrl(logoDir + props.brand.logoColorDark)
@@ -552,7 +553,7 @@ function Home() {
       })}
     >
       <div className={classNames('container', styles.container)}>
-        <div className={classNames('row', styles.row)}>
+        <div className={classNames('row', styles.heroContainer)}>
           <svg
             width="458"
             height="255"
@@ -560,7 +561,7 @@ function Home() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             ref={animationRef}
-            className={classNames('col', styles.headerImage)}
+            className={classNames(styles.headerImage)}
           >
             <path
               d="M91.9832 250C89.4165 250 87.3165 249.183 85.6832 247.55C84.2832 245.917 83.5832 243.933 83.5832 241.6V60.3L30.3832 101.25C28.2832 102.65 26.1832 103.233 24.0832 103C21.9832 102.533 20.1165 101.25 18.4832 99.15L3.78315 80.25C2.38315 78.15 1.79982 75.9333 2.03315 73.6C2.49982 71.2667 3.78315 69.4 5.88315 68L84.2832 7.45001C85.6832 6.28335 87.0832 5.58334 88.4832 5.34999C89.8832 5.11666 91.3998 5 93.0332 5H123.833C126.167 5 128.15 5.81667 129.783 7.45001C131.416 9.08334 132.233 11.0667 132.233 13.4V241.6C132.233 243.933 131.416 245.917 129.783 247.55C128.15 249.183 126.167 250 123.833 250H91.9832Z"
@@ -580,19 +581,14 @@ function Home() {
               strokeWidth="4"
             />
           </svg>
-          <p
-            className={classNames(
-              'col col--12 hero__subtitle',
-              styles.heroSubtitle
-            )}
-          >
+          <div className={styles.heroSubtitle}>
             <Translate>
               Build smaller, faster, and more secure desktop applications with a
               web frontend
             </Translate>
-          </p>
+          </div>
 
-          <div className="col col--4">
+          <div className={classNames(styles.heroButton, 'col', 'col--4')}>
             <Link
               className={classNames(
                 'button button--outline button--secondary button--lg',

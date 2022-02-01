@@ -10,16 +10,21 @@
   align-items: center;
 }
 
-/* .headerImage {
-  padding-top: 10vh;
-  padding-bottom: 10vh;
-  height: 55vh;
-  max-width: 90vw;
-} */
+.heroContainer {
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-height: 80vh;
+  row-gap: 5vh;
+}
+
+.headerImage {
+  margin-top: 10vh;
+}
 
 .heroSubtitle {
-  margin-top: 26px;
   text-align: center;
+  font-size: 1.5em;
 }
 
 /* Button */
@@ -58,7 +63,6 @@
 }
 
 /* Capabilities */
-
 .capabilityLabel {
   color: var(--tauri-orange);
 }
