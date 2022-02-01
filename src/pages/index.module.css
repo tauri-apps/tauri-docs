@@ -7,31 +7,22 @@
 .row {
   display: flex;
   justify-content: center;
-}
-
-.container .section .row {
-  margin: auto;
-}
-
-.header {
-  flex-direction: column;
   align-items: center;
 }
 
-.header-image {
+/* .headerImage {
   padding-top: 10vh;
   padding-bottom: 10vh;
   height: 55vh;
   max-width: 90vw;
-}
+} */
 
-.hero__subtitle {
+.heroSubtitle {
   margin-top: 26px;
   text-align: center;
 }
 
-/* Buttons */
-.about,
+/* Button */
 .getStarted {
   border: double 4px transparent;
   background-origin: border-box;
@@ -43,22 +34,8 @@
   justify-content: center;
 }
 
-.about:hover,
 .getStarted:hover {
   color: var(--ifm-hero-background-color) !important;
-}
-
-.about {
-  background-image: linear-gradient(
-      var(--ifm-hero-background-color),
-      var(--ifm-hero-background-color)
-    ),
-    radial-gradient(circle at top left, #0198f1, #48f9c7);
-}
-
-.about:hover {
-  background-image: linear-gradient(transparent, transparent),
-    radial-gradient(circle at top left, #0198f1, #48f9c7);
 }
 
 .getStarted {
@@ -74,7 +51,6 @@
     radial-gradient(circle at top left, #fff04d, #ff8e13);
 }
 
-.about span,
 .getStarted span {
   padding: 10px;
   display: inline-block;
@@ -82,23 +58,21 @@
 }
 
 /* Capabilities */
-.capability {
-  align-items: center;
-}
-.capability .label {
+
+.capabilityLabel {
   color: var(--tauri-orange);
 }
 
-.capability .imageCol {
+.capabilityImageCol {
   text-align: right;
 }
 
-.capability .image {
+.capabilityImage {
   height: 200px;
   width: 200px;
 }
 
-.capability a {
+.capabilityLink a {
   color: var(--ifm-color-content);
   text-decoration: underline;
   text-decoration-thickness: 0.15rem;
@@ -106,23 +80,23 @@
   text-underline-offset: 0.25rem;
 }
 
-.capability a:hover {
+.capabilityLink a:hover {
   color: var(--tauri-blue);
 }
 
-h1 {
+.heading {
   text-align: center;
   padding-bottom: 1rem;
 }
 
 /* Icon Item */
-.icon-item {
+.iconItem {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-.icon-item h3 {
+.iconItem h3 {
   margin-bottom: 0.5rem;
 }
 
@@ -137,17 +111,17 @@ h1 {
   flex-shrink: 0;
 }
 
-.feature,
-.roadmap {
-  row-gap: 2rem;
-}
-
 .feature .icon {
   background-color: var(--tauri-accent-orange);
 }
 
 .roadmap .icon {
   background-color: var(--tauri-accent-blue);
+}
+
+.feature,
+.roadmap {
+  row-gap: 2rem;
 }
 
 .logo img {

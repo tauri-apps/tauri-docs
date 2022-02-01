@@ -6,7 +6,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import Translate, { translate } from '@docusaurus/Translate'
 import anime from 'animejs/lib/anime.es.js'
 import useThemeContext from '@theme/hooks/useThemeContext'
-import './index.css'
+import styles from './index.module.css'
+import classNames from 'classnames'
 
 function Capabilities() {
   const capabilities = [
@@ -71,17 +72,19 @@ function Capabilities() {
     <div>
       {capabilities.map((capability, index) => {
         return (
-          <div className="row capability" key={index}>
+          <div className={classNames('row', styles.row)} key={index}>
             <div className="col col--6">
-              <h2 className="label">{capability.label}</h2>
+              <h2 className={styles.capabilityLabel}>{capability.label}</h2>
               <h3>{capability.description}</h3>
-              <h4 className="link">
+              <h4 className={styles.capabilityLink}>
                 <Link to={capability.link}>{capability.linkText}</Link>
               </h4>
             </div>
-            <div className="col col--6 imageCol">
+            <div
+              className={classNames('col col--6', styles.capabilityImageCol)}
+            >
               <img
-                className={'image'}
+                className={styles.capabilityImage}
                 src={useBaseUrl(capability.imageUrl)}
                 alt={capability.label}
               />
@@ -95,13 +98,13 @@ function Capabilities() {
 
 function IconItem(props) {
   return (
-    <div className="icon-item col col--4">
-      <div className="icon">
-        <span className={props.item.icon}></span>
+    <div className={classNames('col col--4', styles.iconItem)}>
+      <div>
+        <span className={classNames(props.item.icon, styles.icon)}></span>
       </div>
-      <div className="content">
-        <h3 className="title">{props.item.label}</h3>
-        <div className="description">{props.item.description}</div>
+      <div>
+        <h3>{props.item.label}</h3>
+        <div>{props.item.description}</div>
       </div>
     </div>
   )
@@ -258,9 +261,9 @@ function Features() {
   ]
 
   return (
-    <div>
-      <h1>Features</h1>
-      <div className="feature row">
+    <div className={styles.feature}>
+      <h1 className={styles.heading}>Features</h1>
+      <div className={classNames('row')}>
         {items.map((item, index) => {
           return <IconItem item={item} index={index} key={index} />
         })}
@@ -371,9 +374,9 @@ function Roadmap() {
   ]
 
   return (
-    <div>
-      <h1>Roadmap</h1>
-      <div className="roadmap row">
+    <div className={styles.roadmap}>
+      <h1 className={styles.heading}>Roadmap</h1>
+      <div className={'row'}>
         {items.map((item, index) => {
           return <IconItem item={item} key={index} />
         })}
@@ -394,9 +397,9 @@ function PremiumSponsors() {
     {
       name: 'PACKT',
       link: 'https://www.packtpub.com',
-      logoMonochrome: '_monochrome.svg',
-      logoColorDark: '_color_dark.svg',
-      logoColorLight: '_color_light.svg',
+      logoMonochrome: 'packt_color_dark.svg',
+      logoColorDark: 'packt_color_dark.svg',
+      logoColorLight: 'packt_color_light.svg',
     },
     {
       name: 'Cloudflare',
@@ -417,7 +420,7 @@ function PremiumSponsors() {
   return (
     <div>
       <h1>Premium Sponsor</h1>
-      <div className="row">
+      <div className={'row'}>
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
         })}
@@ -496,7 +499,7 @@ function Sponsors() {
   return (
     <div>
       <h1>Sponsors</h1>
-      <div className="row">
+      <div className={'row'}>
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
         })}
@@ -510,7 +513,10 @@ function Logo(props) {
   const logoDir = 'img/index/partners/'
 
   return (
-    <Link className="col col--3 logo" href={props.brand.link}>
+    <Link
+      className={classNames('col col--3', styles.logo)}
+      href={props.brand.link}
+    >
       <img
         src={
           isDarkTheme
@@ -530,7 +536,7 @@ function Home() {
 
   useEffect(() => {
     animationRef.current = anime({
-      targets: '.header-image path',
+      targets: '.headerImage path',
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInOutSine',
       duration: 3500,
@@ -545,16 +551,16 @@ function Home() {
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
       })}
     >
-      <div className="container">
-        <div className="row header">
+      <div className={classNames('container', styles.container)}>
+        <div className={classNames('row', styles.row)}>
           <svg
             width="458"
             height="255"
             viewBox="0 0 458 255"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="header-image"
             ref={animationRef}
+            className={classNames('col', styles.headerImage)}
           >
             <path
               d="M91.9832 250C89.4165 250 87.3165 249.183 85.6832 247.55C84.2832 245.917 83.5832 243.933 83.5832 241.6V60.3L30.3832 101.25C28.2832 102.65 26.1832 103.233 24.0832 103C21.9832 102.533 20.1165 101.25 18.4832 99.15L3.78315 80.25C2.38315 78.15 1.79982 75.9333 2.03315 73.6C2.49982 71.2667 3.78315 69.4 5.88315 68L84.2832 7.45001C85.6832 6.28335 87.0832 5.58334 88.4832 5.34999C89.8832 5.11666 91.3998 5 93.0332 5H123.833C126.167 5 128.15 5.81667 129.783 7.45001C131.416 9.08334 132.233 11.0667 132.233 13.4V241.6C132.233 243.933 131.416 245.917 129.783 247.55C128.15 249.183 126.167 250 123.833 250H91.9832Z"
@@ -570,25 +576,28 @@ function Home() {
             />
             <path
               d="M361.737 253.5C345.171 253.5 331.054 251.05 319.387 246.15C307.721 241.25 298.154 234.483 290.687 225.85C283.221 217.217 277.621 207.3 273.887 196.1C270.154 184.667 267.937 172.533 267.237 159.7C267.004 153.4 266.771 146.517 266.537 139.05C266.537 131.35 266.537 123.65 266.537 115.95C266.771 108.25 267.004 101.133 267.237 94.6C267.704 81.7667 269.921 69.75 273.887 58.55C277.854 47.1167 283.571 37.2 291.037 28.8C298.737 20.4 308.421 13.75 320.087 8.85001C331.754 3.95001 345.637 1.5 361.737 1.5C378.071 1.5 392.071 3.95001 403.737 8.85001C415.404 13.75 424.971 20.4 432.437 28.8C440.137 37.2 445.854 47.1167 449.587 58.55C453.554 69.75 455.771 81.7667 456.237 94.6C456.704 101.133 456.937 108.25 456.937 115.95C456.937 123.65 456.937 131.35 456.937 139.05C456.937 146.517 456.704 153.4 456.237 159.7C455.771 172.533 453.671 184.667 449.937 196.1C446.204 207.3 440.604 217.217 433.137 225.85C425.671 234.483 415.987 241.25 404.087 246.15C392.421 251.05 378.304 253.5 361.737 253.5ZM361.737 213.25C376.904 213.25 387.987 208.35 394.987 198.55C402.221 188.517 405.954 174.983 406.187 157.95C406.654 151.183 406.887 144.417 406.887 137.65C406.887 130.65 406.887 123.65 406.887 116.65C406.887 109.65 406.654 103 406.187 96.7C405.954 80.1334 402.221 66.8333 394.987 56.8C387.987 46.5333 376.904 41.4 361.737 41.4C346.804 41.4 335.721 46.5333 328.487 56.8C321.487 66.8333 317.754 80.1334 317.287 96.7C317.287 103 317.171 109.65 316.937 116.65C316.937 123.65 316.937 130.65 316.937 137.65C317.171 144.417 317.287 151.183 317.287 157.95C317.754 174.983 321.604 188.517 328.837 198.55C336.071 208.35 347.037 213.25 361.737 213.25Z"
-              // fill="#F7F7F7"
               stroke="var(--ifm-color-content)"
               strokeWidth="4"
             />
           </svg>
-          <div>
-            <p className="hero__subtitle">
-              <Translate>
-                Build smaller, faster, and more secure desktop applications with
-                a web frontend
-              </Translate>
-            </p>
-          </div>
+          <p
+            className={classNames(
+              'col col--12 hero__subtitle',
+              styles.heroSubtitle
+            )}
+          >
+            <Translate>
+              Build smaller, faster, and more secure desktop applications with a
+              web frontend
+            </Translate>
+          </p>
 
           <div className="col col--4">
             <Link
-              className={
-                'button button--outline button--secondary button--lg getStarted'
-              }
+              className={classNames(
+                'button button--outline button--secondary button--lg',
+                styles.getStarted
+              )}
               to={useBaseUrl('docs/get-started/intro')}
             >
               <span>
