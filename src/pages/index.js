@@ -73,7 +73,7 @@ function Capabilities() {
       {capabilities.map((capability, index) => {
         return (
           <div className={classNames('row', styles.row)} key={index}>
-            <div className="col col--4">
+            <div className="col col--5">
               <h2 className={styles.capabilityLabel}>{capability.label}</h2>
               <h3>{capability.description}</h3>
               <h4 className={styles.capabilityLink}>
@@ -81,7 +81,7 @@ function Capabilities() {
               </h4>
             </div>
             <div
-              className={classNames('col col--4', styles.capabilityImageCol)}
+              className={classNames('col col--5', styles.capabilityImageCol)}
             >
               <img
                 className={styles.capabilityImage}
