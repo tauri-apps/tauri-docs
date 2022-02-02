@@ -128,7 +128,12 @@
   row-gap: 2rem;
 }
 
-.logo img {
+.logoRow {
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
   width: 100%;
-  height: 100%;
+  padding: 0 5%;
 }

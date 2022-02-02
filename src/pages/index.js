@@ -73,7 +73,7 @@ function Capabilities() {
       {capabilities.map((capability, index) => {
         return (
           <div className={classNames('row', styles.row)} key={index}>
-            <div className="col col--6">
+            <div className="col col--4">
               <h2 className={styles.capabilityLabel}>{capability.label}</h2>
               <h3>{capability.description}</h3>
               <h4 className={styles.capabilityLink}>
@@ -81,7 +81,7 @@ function Capabilities() {
               </h4>
             </div>
             <div
-              className={classNames('col col--6', styles.capabilityImageCol)}
+              className={classNames('col col--4', styles.capabilityImageCol)}
             >
               <img
                 className={styles.capabilityImage}
@@ -419,8 +419,8 @@ function PremiumSponsors() {
 
   return (
     <div>
-      <h1>Premium Sponsor</h1>
-      <div className={'row'}>
+      <h1 className={styles.heading}>Premium Sponsor</h1>
+      <div className={classNames('row', styles.logoRow)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
         })}
@@ -498,8 +498,8 @@ function Sponsors() {
 
   return (
     <div>
-      <h1>Sponsors</h1>
-      <div className={'row'}>
+      <h1 className={styles.heading}>Sponsors</h1>
+      <div className={classNames('row', styles.logoRow)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
         })}
