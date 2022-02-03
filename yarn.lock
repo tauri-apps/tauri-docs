@@ -2349,7 +2349,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-autocomplete.js@^0.38.1:
+autocomplete.js@^0.38.0:
   version "0.38.1"
   resolved "https://registry.yarnpkg.com/autocomplete.js/-/autocomplete.js-0.38.1.tgz#9b006c985d996165ebbc62af33f5b4c32d209cc2"
   integrity sha512-6pSJzuRMY3pqpozt+SXThl2DmJfma8Bi3SVFbZHS0PW/N72bOUv+Db0jAh2cWOhTsA4X+GNmKvIl8wExJTnN9w==
@@ -3857,13 +3857,13 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-docs-searchbar.js@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.1.0.tgz#3ecf48f46926a425b0282546096489439573b2d4"
-  integrity sha512-lHDeJelI8NrtmTrX38rZN86BQ6pxL8QzlfMqR6dHhfAXdrpDX2nNRT51sNSg6nIuI0ubpCVyJMyncedglmK/FA==
+docs-searchbar.js@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.0.1.tgz#fa44481c7e747f8486e292b45623ea6d18abea0c"
+  integrity sha512-4TnsUNKDW4RCxpAcNcb7z5uACemGCusJ4RVBrq3M99nJWcvSxY7yzVKMHblWav95FUzFz3vu5439y9TtsKn5ag==
   dependencies:
-    autocomplete.js "^0.38.1"
-    meilisearch "0.24.0"
+    autocomplete.js "^0.38.0"
+    meilisearch "^0.23.0"
     to-factory "^1.0.0"
     zepto "^1.2.0"
 
@@ -5671,10 +5671,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-meilisearch@0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.24.0.tgz#a71454baac058f502b931af17069ab676fbaced6"
-  integrity sha512-qME1dsHZePBQi8qFdhbilcFzaL+oZJgUuls+FZ23hHpdhJI+iMFSmjjcfsxq5hdg2qczbCXv7yAo3Sh8xgfkgA==
+meilisearch@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.23.0.tgz#eed5098bd147c13658c3f92e658df9cbfb9e8953"
+  integrity sha512-bLNonPJK2pJz2akjwolcc/Eqnz/GKJ7y1I4Flg4zjL+v0yPFyIGFFdfe0dw93JWFJWj/RbLS2Q6dDTobZQ9Ehg==
   dependencies:
     cross-fetch "^3.1.4"
 
