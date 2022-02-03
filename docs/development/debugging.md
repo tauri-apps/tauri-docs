@@ -2,7 +2,6 @@
 title: Debugging
 ---
 
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 
 With all the moving pieces in Tauri, you may run into a problem that requires debugging. There are a handful of locations where error details are printed, and Tauri includes some tools to make the debugging process easier.

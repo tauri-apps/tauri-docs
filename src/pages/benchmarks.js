@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { reshape, formatMB, formatExecTime } from '../utils/benchmark'
 import Layout from '@theme/Layout'
-import Alert from '@theme/Alert'
 import useThemeContext from '@theme/hooks/useThemeContext'
 import ContentLoader from 'react-content-loader'
+import Admonition from '@theme/Admonition'
 
 function get_graph_color(label_name) {
   switch (label_name) {
@@ -288,11 +288,11 @@ function Benchmarks() {
           </li>
         </ul>
         <p className="margin-bottom--xl">
-          <Alert title="Note">
+          <Admonition type="note">
             The CPU intensive benchmark measures how much time it takes to
             calculate all the prime numbers under XXXX without blocking the UI
             and reporting how many have been found so far using web workers.
-          </Alert>
+          </Admonition>
         </p>
         <section>
           <h2 id="execution-time" className="anchorify">
@@ -316,7 +316,7 @@ function Benchmarks() {
               yTickFormat={formatExecTime}
             />
           </div>
-          <Alert title="Note">
+          <Admonition type="note">
             This shows how much time total it takes intialize the application
             and wait the <code>DOMContentLoaded</code> event. We use{' '}
             <a href="https://github.com/sharkdp/hyperfine" target="_blank">
@@ -324,7 +324,7 @@ function Benchmarks() {
             </a>{' '}
             under the hood and run 3 warm-up sequence then, we run 10 sequences
             to calculate the average execution time.
-          </Alert>
+          </Admonition>
         </section>
 
         <section className="margin-top--xl">
@@ -349,10 +349,10 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note">
+          <Admonition type="note">
             We track the size of various files here. All binaries are compiled
             in <u>release mode</u>.
-          </Alert>
+          </Admonition>
         </section>
 
         <section className="margin-top--xl">
@@ -377,13 +377,13 @@ function Benchmarks() {
               yTickFormat={formatMB}
             />
           </div>
-          <Alert title="Note">
+          <Admonition type="note">
             We use{' '}
             <a href="https://pypi.org/project/memory-profiler/" target="_blank">
               mprof
             </a>{' '}
             to get the max memory usage during execution. Smaller is better.
-          </Alert>
+          </Admonition>
         </section>
 
         <section className="margin-top--xl">
@@ -406,9 +406,9 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note">
+          <Admonition type="note">
             How many threads the application use. Smaller is better.
-          </Alert>
+          </Admonition>
         </section>
 
         <section className="margin-top--xl">
@@ -431,10 +431,10 @@ function Benchmarks() {
               }
             />
           </div>
-          <Alert title="Note">
+          <Admonition type="note">
             How many total syscalls are performed when executing a given
             application. Smaller is better.
-          </Alert>
+          </Admonition>
         </section>
 
         <section className="margin-top--xl">

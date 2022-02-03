@@ -3,7 +3,6 @@ title: Setup for Linux
 pagination_next: development/integration
 ---
 
-import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
 import { Intro } from '@theme/SetupDocs'
 import Tabs from '@theme/Tabs';
@@ -84,9 +83,9 @@ We recommend using nvm to manage your Node.js runtime. It allows you to easily s
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
-<Alert title="Note">
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh" target="_blank">download link</a>.
-</Alert>
+:::note
+We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere [download link](https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh).
+:::
 
 Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
 
@@ -112,9 +111,9 @@ The following command will install <a href="https://rustup.rs/" target="_blank">
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-<Alert title="Note">
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere <a href="https://sh.rustup.rs" target="_blank">download link</a>.
-</Alert>
+:::note
+We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere [download link](https://sh.rustup.rs).
+:::
 
 To make sure that Rust has been installed successfully, run the following command:
 
@@ -138,12 +137,11 @@ Open the X server and then run `export DISPLAY=:0` in the terminal. You should n
 
 You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
 
-<Alert type="info" title="Note">
-
+:::note
 Don't forget that you'll have to use the "export" command anytime you want to use a graphical application, for each newly opened terminal.
 
 You can download some examples to try with `sudo apt-get install x11-apps`. xeyes is always a good one. It can be handy when troubleshooting WSL issues.
-</Alert>
+:::
 
 ## Continue
 

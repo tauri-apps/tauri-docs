@@ -3,14 +3,12 @@ title: Setup for Windows
 pagination_next: development/integration
 ---
 
-import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
 import { Intro } from '@theme/SetupDocs'
 
-<Alert title="Note">
-
+:::note
 For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/get-started/setup-linux) instead.
-</Alert>
+:::
 
 <Intro />
 
@@ -18,13 +16,13 @@ For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux
 
 You'll need to install Microsoft Visual Studio C++ build tools. <a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/" target="_blank">Download the installer here</a>, and then run it. When it asks you what packages you would like to install, select C++ Build Tools and make sure the Windows SDK is selected.
 
-<Alert title="Note">
+:::note
 This is a big download (over 1GB) and takes the most time, so go grab a coffee.
-</Alert>
+:::
 
-<Alert type="warning">
+:::caution
 You may need to uninstall the 2017 version of the build tools if you have them. There are reports of Tauri not working with both the 2017 and 2019 versions installed.
-</Alert>
+:::
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon type="warning"/>
 
@@ -58,18 +56,17 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 
 Download and install the proper variant for your computer's architecture.
 
-
 ## 4. Install WebView2&nbsp;<Icon type="danger"/>
 
-<Alert title="Note">
+:::note
 WebView2 is pre-installed in Windows 11.
-</Alert>
+:::
 
 Finally, you will need to install WebView2. The best way to do this is to download and run the Evergreen Bootstrapper from [this page](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section).
 
-<Alert type="Note">
+:::note
 If you have problems of any kind after following these instructions, we recommend that you reboot your computer before developing a Tauri project to ensure that everything works as expected.
-</Alert>
+:::
 
 ## Continue
 

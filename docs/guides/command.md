@@ -2,8 +2,6 @@
 title: Create Rust Commands
 ---
 
-import Alert from '@theme/Alert'
-
 Tauri provides a simple yet powerful "command" system for calling Rust functions from your web app. Commands can accept arguments and return values. They can also return errors and be `async`.
 
 ## Basic Example
@@ -104,10 +102,10 @@ invoke('my_custom_command')
 
 ## Async Commands
 
-<Alert title="Note">
-Async commands are executed on a separate thread using the <a href="https://docs.rs/tauri/1.0.0-beta.8/tauri/async_runtime/fn.spawn.html">async runtime</a>.
-Commands without the <i>async</i> keyword are executed on the main thread, unless defined with <i>#[tauri::command(async)]</i>.
-</Alert>
+:::note
+Async commands are executed on a separate thread using the [async runtime](https://docs.rs/tauri/1.0.0-beta.8/tauri/async_runtime/fn.spawn.html)
+Commands without the `async` keyword are executed on the main thread, unless defined with `#[tauri::command(async)]`.
+:::
 
 If your command needs to run asynchronously, simply declare it as `async`:
 
