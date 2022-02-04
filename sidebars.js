@@ -24,7 +24,11 @@ const docs = [
       },
       'getting-started/beginning-tutorial',
     ],
-    Development: ['development/intro', 'development/development-cycle'],
+    Development: [
+      'development/intro',
+      'development/development-cycle',
+      'development/updating-dependencies',
+    ],
     Architecture: [
       'architecture/build-tools-node',
       'architecture/frontend-frameworks',
@@ -47,7 +51,6 @@ const docs = [
       'guides/events',
       'guides/plugin',
       'guides/icons',
-      'guides/updater',
       'guides/splashscreen',
       'guides/window-customization',
       'guides/menu',
@@ -70,15 +73,18 @@ const docs = [
       },
     ],
     Building: [
-      'building/cross-platform',
       'building/introduction',
+      'building/cross-platform',
       'building/anti-bloat',
       'building/sidecar',
       'building/debian',
-      'building/sign-macos',
-      'building/sign-windows',
     ],
-    Distribution: ['distribution/publishing', 'distribution/updating'],
+    Distribution: [
+      'distribution/publishing',
+      'distribution/updater',
+      'distribution/sign-macos',
+      'distribution/sign-windows',
+    ],
   },
   'faq',
 ]
