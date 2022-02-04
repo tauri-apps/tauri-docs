@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "DOCUSAURUS_NO_DUPLICATE_TITLE_WARNING=false docusaurus start",
-    "build": "DOCUSAURUS_NO_DUPLICATE_TITLE_WARNING=false docusaurus build",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "translate": "docusaurus write-translations",
     "deploy": "docusaurus deploy"

@@ -14,7 +14,7 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/architecture',
+    to: 'docs/getting-started/beginning-tutorial',
     label: 'Docs',
     position: 'left',
   },
@@ -32,6 +32,10 @@ const navbarItems = [
     label: 'Community',
     position: 'left',
     items: [
+      {
+        label: 'Get Involved',
+        to: 'docs/community/contributor-guide',
+      },
       {
         label: 'Partners',
         to: 'partners',
@@ -80,7 +84,7 @@ const footerLinks = [
     items: [
       {
         label: 'Get started',
-        to: 'docs/get-started/intro',
+        to: 'docs/getting-started/beginning-tutorial',
       },
       {
         label: 'API',

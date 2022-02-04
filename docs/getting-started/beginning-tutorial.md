@@ -1,5 +1,5 @@
 ---
-title: Integrate with Tauri
+title: Your First Tauri App
 ---
 
 import Alert from '@theme/Alert'
@@ -11,6 +11,7 @@ import Link from '@docusaurus/Link'
 </Alert>
 
 There are two ways to integrate with Tauri depends on your need:
+
 - [Start a new Tauri project](#1-start-a-new-tauri-project)
 - Or [add Tauri to existing project](#1-add-tauri-to-existing-project)
 

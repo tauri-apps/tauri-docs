@@ -1,6 +1,6 @@
 ---
 title: Setup for Linux
-pagination_next: development/integration
+pagination_next: development/intro
 ---
 
 import Alert from '@theme/Alert'

@@ -1,6 +1,6 @@
 ---
 title: Setup for macOS
-pagination_next: development/integration
+pagination_next: development/intro
 ---
 
 import Alert from '@theme/Alert'
@@ -10,7 +10,6 @@ import Icon from '@theme/Icon'
 <Intro />
 
 ## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
-
 
 You will need to have <a href="https://brew.sh/" target="_blank">Homebrew</a> installed to run the following command.
 

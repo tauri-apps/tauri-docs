@@ -1,16 +1,17 @@
 ---
 title: Setup for Windows
-pagination_next: development/integration
+pagination_next: development/intro
 ---
 
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
 import { Intro } from '@theme/SetupDocs'
 
-<Alert title="Note">
+:::note
 
 For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/get-started/setup-linux) instead.
-</Alert>
+
+:::
 
 <Intro />
 
@@ -57,7 +58,6 @@ Now you will need to install <a href="https://www.rust-lang.org/" target="_blank
 - <a href="https://win.rustup.rs/i686" target="_blank">32-bit download link</a>
 
 Download and install the proper variant for your computer's architecture.
-
 
 ## 4. Install WebView2
 
