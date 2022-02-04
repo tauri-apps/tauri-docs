@@ -17,4 +17,4 @@ For more information on platform-specific build tooling, see these guides to get
     windows: { title: 'Windows Setup', link: '/docs/getting-started/setup-windows'}
 }} />
 
-After that, you'll be ready to [add Tauri to your project!](/docs/development/integration)
+After that, you'll be ready to [add Tauri to your project!](/docs/getting-started/beginning-tutorial)
