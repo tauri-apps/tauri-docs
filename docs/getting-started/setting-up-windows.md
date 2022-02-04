@@ -1,6 +1,6 @@
 ---
-title: Setup for Windows
-pagination_next: development/intro
+title: Setting Up Windows
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import Alert from '@theme/Alert'
@@ -9,7 +9,7 @@ import { Intro } from '@theme/SetupDocs'
 
 :::note
 
-For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/getting-started/setup-linux) instead.
+For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/getting-started/setting-up-linux) instead.
 
 :::
 

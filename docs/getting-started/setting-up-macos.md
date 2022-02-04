@@ -1,6 +1,6 @@
 ---
-title: Setup for macOS
-pagination_next: development/intro
+title: Setting Up macOS
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import Alert from '@theme/Alert'

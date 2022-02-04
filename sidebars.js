@@ -17,9 +17,9 @@ const docs = [
       'getting-started/prerequisites',
       {
         Setup: [
-          'getting-started/setup-linux',
-          'getting-started/setup-macos',
-          'getting-started/setup-windows',
+          'getting-started/setting-up-linux',
+          'getting-started/setting-up-macos',
+          'getting-started/setting-up-windows',
         ],
       },
       'getting-started/beginning-tutorial',

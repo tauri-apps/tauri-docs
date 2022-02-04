@@ -1,6 +1,6 @@
 ---
-title: Setup for Linux
-pagination_next: development/intro
+title: Setting Up Linux
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import Alert from '@theme/Alert'
