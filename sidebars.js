@@ -25,7 +25,6 @@ const docs = [
       'getting-started/beginning-tutorial',
     ],
     Development: [
-      'development/intro',
       'development/development-cycle',
       'development/updating-dependencies',
     ],
