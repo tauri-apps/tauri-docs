@@ -14,13 +14,20 @@ const about = [
 const docs = [
   {
     'Getting Started': [
+      'getting-started/prerequisites',
+      {
+        Setup: [
+          'getting-started/setup-linux',
+          'getting-started/setup-macos',
+          'getting-started/setup-windows',
+        ],
+      },
       'getting-started/beginning-tutorial',
-      'getting-started/setup-linux',
-      'getting-started/setup-macos',
-      'getting-started/setup-windows',
     ],
     Development: ['development/intro', 'development/development-cycle'],
     Architecture: [
+      'architecture/build-tools-node',
+      'architecture/frontend-frameworks',
       {
         Patterns: [
           'architecture/patterns/about-patterns',
