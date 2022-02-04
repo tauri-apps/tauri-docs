@@ -43,38 +43,20 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
   </div>
 </div>
 
-
 ## Description
 
-The Lockdown recipe is a minimal usage of the [Bridge pattern](/docs/guides/patterns/bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+The Lockdown recipe is a minimal usage of the [Bridge pattern](/docs/architecture/patterns/bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
 
 ## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph TD
-      H==>F
-      G-.->B
-      B-->G
-      subgraph WEBVIEW
-      G-->F
-      end
-      subgraph RUST
-      A-->B
-      A==>H
-      end
-      A[Binary]
-      B[API:Event]
-      F[Window]
-      G((Promise Closure))
-      H{Bootstrap}
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
-
+<Mermaid chart={`graph TD H==>F G-.->B B-->G subgraph WEBVIEW G-->F end subgraph RUST A-->B A==>H end A[Binary] B[API:Event] F[Window] G((Promise Closure)) H{Bootstrap} style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
 ## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
+
 ```json
 "tauri": {
   "allowlist": {}                  // all API endpoints are default false

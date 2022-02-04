@@ -9,7 +9,7 @@ import { Intro } from '@theme/SetupDocs'
 
 :::note
 
-For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/get-started/setup-linux) instead.
+For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/getting-started/setup-linux) instead.
 
 :::
 
@@ -73,4 +73,4 @@ If you have problems of any kind after following these instructions, we recommen
 
 ## Continue
 
-Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/development/integration).
+Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/getting-started/beginning-tutorial).

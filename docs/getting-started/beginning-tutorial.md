@@ -7,7 +7,7 @@ import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
 <Alert title="Please note" type="warning" icon="alert">
-  You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="/docs/get-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
+  You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the setup page for your operating system.
 </Alert>
 
 There are two ways to integrate with Tauri depends on your need:
@@ -159,7 +159,7 @@ This information can be very helpful when triaging problems.
 ### Patterns
 
 We've also defined prebuilt configurations called "Patterns". They may help you to customize Tauri to fit your needs.
-[See more about patterns](/docs/guides/patterns/about-patterns).
+[See more about patterns](/docs/architecture/patterns/about-patterns).
 
 ## Vue CLI Plugin Tauri
 

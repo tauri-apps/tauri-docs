@@ -6,8 +6,7 @@ title: CLI
 import Command from '@theme/Command'
 import Alert from '@theme/Alert'
 
-
-The tauri.js cli is composed in TypeScript and published as JavaScript. 
+The tauri.js cli is composed in TypeScript and published as JavaScript.
 
 ## `info`
 
@@ -101,7 +100,6 @@ If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is 
     $ tauri deps [install|update]
 ```
 
-
 ## `build`
 
 <Command name="build" />
@@ -148,7 +146,7 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
     --log, -l            Logging [boolean]
     --target, -t         Target folder (default: 'src-tauri/icons')
     --compression, -c    Compression type [optipng|zopfli]
-    --ci                 Runs the script in CI mode     
+    --ci                 Runs the script in CI mode
 ```
 
 This command will generate a set of icons, based on the source icon you've entered. Note that the source icon must be 1240x1240 with transparency.
@@ -166,4 +164,4 @@ This command will show the current version of Tauri.
 
 ## CLI usage
 
-See more about the usage through this [complete guide](/docs/development/integration).
+See more about the usage through this [complete guide](/docs/development/development-cycle).
