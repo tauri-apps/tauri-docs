@@ -6,7 +6,7 @@ import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
 :::caution
-You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system](docs/get-started/intro#setting-up-your-environment).
+You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system](../get-started/intro#setting-up-your-environment).
 :::
 
 There are two ways to integrate with Tauri depends on your need:
