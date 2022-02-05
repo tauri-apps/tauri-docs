@@ -1,5 +1,5 @@
 ---
-title: Write Tauri Plugins
+title: Writing Tauri Plugins
 ---
 
 import Alert from '@theme/Alert'
