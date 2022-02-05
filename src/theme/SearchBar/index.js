@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import classNames from 'classnames'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
-import styles from './searchbar.module.css'
-import Icon from '@theme/Icon'
+import useThemeContext from '@theme/hooks/useThemeContext'
+import './styles.css'
 
-const SearchBar = ({className}) => {
+const SearchBar = () => {
   const context = useDocusaurusContext()
+  const { isDarkTheme } = useThemeContext()
   const { siteConfig = {} } = context
 
   useEffect(() => {
@@ -17,20 +16,17 @@ const SearchBar = ({className}) => {
         'ea0105f56bb5a2111ed28c7a0c637fc0bed07273f571dc7cb1f73900e44f8e7f',
       indexUid: siteConfig.themeConfig.version.trim().replace(/\W/g, '_'),
       inputSelector: '#search-bar-input',
-      debug: process.env.NODE_ENV === 'development',
-      transformData(hits) {
-        return hits.map((hit) => ({ ...hit, url: '/docs/' + hit.url }))
-      },
+      enableDarkMode: isDarkTheme
     })
-  }, [])
+  }, [isDarkTheme])
+
   return (
-    <div className={classNames(className, 'SearchBar', 'meilisearch-search-wrapper', styles.searchWrapper)}>
-      <Icon title="search" className={classNames(styles.searchIcon)}/>
+    <div className={'navbar__search'}>
       <input
-        placeholder="Search..."
-        type="text"
-        className={classNames(styles.search)}
+        placeholder="Search"
+        type="search"
         id="search-bar-input"
+        className="navbar__search-input"
       />
     </div>
   )

@@ -2,15 +2,15 @@
 title: Integrate with Tauri
 ---
 
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
-<Alert title="Please note" type="warning" icon="alert">
-  You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the <a href="/docs/get-started/intro#setting-up-your-environment"> setup page for your operating system</a>.
-</Alert>
+:::caution
+You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system](../get-started/intro#setting-up-your-environment).
+:::
 
 There are two ways to integrate with Tauri depends on your need:
+
 - [Start a new Tauri project](#1-start-a-new-tauri-project)
 - Or [add Tauri to existing project](#1-add-tauri-to-existing-project)
 

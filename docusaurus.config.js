@@ -33,10 +33,6 @@ const navbarItems = [
     position: 'left',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
-      },
-      {
         label: 'Showcase',
         to: 'showcase',
       },
@@ -47,16 +43,10 @@ const navbarItems = [
     ],
   },
   {
-    label: 'Beta',
-    to: '/#roadmap',
-    position: 'right',
-    className: 'badge badge--warning',
-  },
-  {
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
-    className: 'header-github-link',
+    className: 'bi bi-github',
   },
   {
     type: 'localeDropdown',
@@ -130,10 +120,6 @@ const footerLinks = [
     title: 'Community',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
-      },
-      {
         label: 'Showcase',
         to: 'showcase',
       },
@@ -162,28 +148,32 @@ const siteConfig = {
     version,
     colorMode: {
       defaultMode: 'dark',
+      respectPrefersColorScheme: true,
       disableSwitch: false,
-    },
-    announcementBar: {
-      id: 'beta',
-      content:
-        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
-      backgroundColor: 'var(--ifm-color-primary)',
+      switchConfig: {
+        darkIcon: '🌙',
+        lightIcon: '☀️',
+      },
     },
     navbar: {
       hideOnScroll: false,
       logo: {
         alt: 'Tauri Logo',
-        src: 'img/tauri_with_wordmark.svg',
+        src: 'img/tauri_with_wordmark_mono.svg',
+        srcDark: 'img/tauri_with_wordmark.svg',
       },
       items: navbarItems,
     },
-
     footer: {
-      style: 'dark',
       links: footerLinks,
       copyright: `Copyright © ${new Date().getFullYear()} Tauri Contributors. CC-BY / MIT`,
     },
+    metadata: [
+      {
+        name: 'theme-color',
+        content: '#ffc131',
+      },
+    ],
   },
 
   presets: [
@@ -204,10 +194,7 @@ const siteConfig = {
       },
     ],
   ],
-  plugins: [
-    path.resolve(__dirname, './plugins/dynamic-css.js'),
-    path.resolve('./plugins/external-assets'),
-  ],
+  plugins: [path.resolve('./plugins/external-assets')],
 }
 
 module.exports = siteConfig

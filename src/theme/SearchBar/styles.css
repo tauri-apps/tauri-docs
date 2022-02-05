@@ -1,0 +1,106 @@
+.meilisearch-autocomplete .dsb-dropdown-menu {
+  position: fixed !important;
+  left: 10vw;
+  top: 50px !important;
+  width: 80vw;
+  border-radius: 4px;
+  margin: 6px 0 0;
+  text-align: left;
+  height: auto;
+  border: none;
+  z-index: 999;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+.meilisearch-autocomplete .dsb-dropdown-menu [class^='dsb-dataset-'] {
+  position: relative;
+  border: solid 1px var(--ifm-background-surface-color);
+  border-radius: 4px;
+  overflow: auto;
+  padding: 0 8px 8px;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion {
+  display: block;
+  position: relative;
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--category-header {
+  position: relative;
+  border-bottom: 1px solid var(--ifm-background-surface-color);
+  display: none;
+  margin-top: 8px;
+  padding: 4px 0;
+  font-size: 1em;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0 0 0;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--subcategory-inline {
+  display: none;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--title {
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  font-weight: bold;
+  padding-left: 4px;
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--text {
+  display: block;
+  line-height: 1.2em;
+  font-size: 0.85em;
+  color: var(--ifm-font-color-base);
+}
+
+.meilisearch-autocomplete .docs-searchbar-suggestion--no-results {
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.meilisearch-autocomplete
+  .docs-searchbar-suggestion
+  .docs-searchbar-suggestion--subcategory-column {
+  display: inline-block;
+  width: auto;
+  text-align: left;
+  padding: 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  opacity: 0.75;
+  color: var(--ifm-font-color-base);
+}
+
+.meilisearch-autocomplete
+  .docs-searchbar-suggestion
+  .docs-searchbar-suggestion--subcategory-column:after {
+  content: '|';
+}
+
+.meilisearch-autocomplete .docs-searchbar-footer {
+  text-align: right;
+  z-index: 2000;
+  margin-top: 10.6666666667px;
+  color: var(--ifm-font-color-base);
+}
+
+.meilisearch-autocomplete .docs-searchbar-footer img {
+  vertical-align: text-bottom;
+}
+
+html[data-theme='dark'] .meilisearch-autocomplete img {
+  -webkit-filter: invert(100%);
+  filter: invert(100%)
+}

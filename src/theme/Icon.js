@@ -1,16 +1,28 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const colors = {
-  danger: 'var(--ifm-color-danger)',
-  warning: 'var(--ifm-color-warning)',
-  info: 'var(--ifm-color-info)',
-  default: 'var(--ifm-font-base-color)',
+const legend = {
+  danger: {
+    color: 'var(--ifm-color-danger)',
+    icon: 'exclamation-diamond-fill',
+  },
+  warning: {
+    color: 'var(--ifm-color-warning)',
+    icon: 'skip-end-fill',
+  },
+  info: {
+    color: 'var(--ifm-color-info)',
+    icon: 'info-circle-fill',
+  },
+  default: {
+    color: 'var(--ifm-font-base-color)',
+    icon: 'info-circle-fill',
+  }
 }
 
-export default ({ title, className, color = 'default' }) => (
+export default ({ type = 'default' }) => (
   <i
-    className={classnames('ti-' + title, className)}
-    style={{ color: colors[color] }}
+    className={classnames('bi', 'bi-' + legend[type].icon)}
+    style={{ color: legend[type].color }}
   ></i>
 )

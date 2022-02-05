@@ -3,7 +3,6 @@ title: Icons
 ---
 
 import Command from '@theme/Command'
-import Alert from '@theme/Alert'
 
 Tauri ships with a default iconset based on its logo. This is probably NOT what you want when you ship your application. To remedy this common situation, Tauri provides the `icon` command that will take an input file ("./app-icon.png" by default) and create all the icons needed for the various platforms:
 
@@ -38,10 +37,9 @@ If you need to source your icons from some other location, you can edit this par
 }
 ```
 
-<Alert type="info" icon="info-alt" title="Note on filetypes">
+:::note Note on filetypes
 
-  - icon.icns = macOS
-  - icon.ico = MS Windows
-  - \*.png = Linux
-
-</Alert>
+- icon.icns = macOS
+- icon.ico = MS Windows
+- \*.png = Linux
+  :::

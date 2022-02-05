@@ -49,3 +49,7 @@
 [[redirects]]
   from = "/en/*"
   to = "/:splat"
+
+[[redirects]]
+  from = "/partners"
+  to = "/#sponsors"

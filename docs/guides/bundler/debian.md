@@ -2,8 +2,6 @@
 title: Debian packages
 ---
 
-import Alert from '@theme/Alert'
-
 Tauri allows your app to be packaged as a `.deb` (Debian package) file.
 
 # Bootstrapper
@@ -29,6 +27,6 @@ To include custom files to the debian package, you can configure a mapping on `t
 }
 ```
 
-<Alert title="Note" icon="info-alt">
+:::note
 Each `files` object key is the path on the debian package, and the value is a path to a file or directory relative to the `tauri.conf.json` file.
-</Alert>
+:::
