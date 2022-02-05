@@ -141,6 +141,25 @@ a:hover {
   -ms-animation: buble 6s ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .container::after,
+  .container::before {
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0.04;
+    height: 200vh;
+    width: 200vh;
+    position: fixed;
+    content: '';
+    top: -80%;
+    animation: dissolve;
+    -webkit-animation: dissolve;
+    -moz-animation: dissolve;
+    -o-animation: dissolve;
+    -ms-animation: dissolve;
+  }
+}
+
 .container::before {
   background: radial-gradient(
     50% 50% at 50% 50%,

@@ -536,12 +536,18 @@ function Home() {
   const animationRef = useRef(null)
 
   useEffect(() => {
-    animationRef.current = anime({
-      targets: '.headerImage path',
-      strokeDashoffset: [anime.setDashoffset, 0],
-      easing: 'easeInOutSine',
-      duration: 3500,
-    })
+    const isReduced =
+      (window &&
+        window.matchMedia(`(prefers-reduced-motion: reduce)`) === true) ||
+      window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true
+    if (!isReduced) {
+      animationRef.current = anime({
+        targets: '.headerImage path',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: 'easeInOutSine',
+        duration: 3500,
+      })
+    }
   }, [])
 
   return (
