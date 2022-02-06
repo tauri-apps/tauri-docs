@@ -1,6 +1,6 @@
 ---
-title: Setup for macOS
-pagination_next: development/integration
+title: Setting Up macOS
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import { Intro } from '@theme/SetupDocs'
@@ -75,4 +75,4 @@ You may need to restart your terminal if the command does not work.
 
 ## Continue
 
-Now that you have set up the macOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/development/integration).
+Now that you have set up the macOS-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/getting-started/beginning-tutorial).

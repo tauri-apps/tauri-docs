@@ -48,7 +48,7 @@ function Capabilities() {
     },
     {
       imageUrl: 'img/index/undraw_patterns.svg',
-      link: 'docs/guides/patterns/about-patterns',
+      link: 'docs/architecture/patterns/about-patterns',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Patterns' }),
       description: translate({
@@ -58,7 +58,7 @@ function Capabilities() {
     },
     {
       imageUrl: 'img/index/undraw_cross_platform.svg',
-      link: 'docs/development/cross-platform',
+      link: 'docs/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -600,7 +600,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('docs/get-started/intro')}
+              to={useBaseUrl('docs/getting-started/prerequisites')}
             >
               <span>
                 <Translate>Get Started</Translate>

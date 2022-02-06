@@ -1,6 +1,6 @@
 ---
-title: Setup for Linux
-pagination_next: development/integration
+title: Setting Up Linux
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import Icon from '@theme/Icon'
@@ -145,4 +145,4 @@ You can download some examples to try with `sudo apt-get install x11-apps`. xeye
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/development/integration).
+Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/getting-started/beginning-tutorial).

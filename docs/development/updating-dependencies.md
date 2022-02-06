@@ -1,5 +1,5 @@
 ---
-title: Updating Packages
+title: Updating Dependencies
 ---
 
 :::caution

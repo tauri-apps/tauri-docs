@@ -1,5 +1,5 @@
 ---
-title: Write Tauri Plugins
+title: Writing Tauri Plugins
 ---
 
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
