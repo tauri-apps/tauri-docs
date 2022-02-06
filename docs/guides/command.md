@@ -1,5 +1,5 @@
 ---
-title: Create Rust Commands
+title: Creating Rust Commands
 ---
 
 import Alert from '@theme/Alert'

@@ -1,5 +1,5 @@
 ---
-title: Make your own CLI
+title: Making Your Own CLI
 ---
 
 import Alert from '@theme/Alert'

@@ -1,16 +1,17 @@
 ---
-title: Setup for Windows
-pagination_next: development/integration
+title: Setting Up Windows
+pagination_next: getting-started/beginning-tutorial
 ---
 
 import Alert from '@theme/Alert'
 import Icon from '@theme/Icon'
 import { Intro } from '@theme/SetupDocs'
 
-<Alert title="Note">
+:::note
 
-For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/get-started/setup-linux) instead.
-</Alert>
+For those using the Windows Subsystem for Linux (WSL) please refer to our [Linux specific instructions](/docs/getting-started/setting-up-linux) instead.
+
+:::
 
 <Intro />
 
@@ -73,4 +74,4 @@ If you have problems of any kind after following these instructions, we recommen
 
 ## Continue
 
-Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/development/integration).
+Now that you have set up the Windows-specific dependencies for Tauri, learn how to [add Tauri to your project](/docs/getting-started/beginning-tutorial).
