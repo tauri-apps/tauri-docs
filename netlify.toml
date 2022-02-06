@@ -49,3 +49,7 @@ to = "https://docs.rs/tauri/1.0.0-beta.8/tauri/"
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
+
+[[redirects]]
+from = "/partners"
+to = "/#sponsors"

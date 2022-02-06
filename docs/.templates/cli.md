@@ -4,7 +4,6 @@ title: CLI
 ---
 
 import Command from '@theme/Command'
-import Alert from '@theme/Alert'
 
 The `cli.js` command line interface is composed in TypeScript and published as a JavaScript NPM. It offers the `deps` and the `icon` commands, and propagates other commands to `cli.rs`.
 
@@ -16,9 +15,9 @@ The `cli.js` command line interface is composed in TypeScript and published as a
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
 
-<Alert title="Note" icon="info-alt">
+:::note
 This command is pretty helpful when you need to have a quick overview of your application. When requesting some help, it can be useful that you share this report with us.
-</Alert>
+:::
 
 ## `init`
 
@@ -38,10 +37,9 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 
 <a href="/docs/api/config#build">See more about the configuration.</a><br/><br/>
 
-<Alert title="Troubleshooting" type="warning" icon="alert">
-
+:::caution
 If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
-</Alert>
+:::
 
 ## `deps`
 
@@ -77,7 +75,7 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
     --log, -l            Logging [boolean]
     --target, -t         Target folder (default: 'src-tauri/icons')
     --compression, -c    Compression type [optipng|zopfli]
-    --ci                 Runs the script in CI mode     
+    --ci                 Runs the script in CI mode
 ```
 
 This command will generate a set of icons, based on the source icon you've entered. Note that the source icon must be 1240x1240 with transparency.

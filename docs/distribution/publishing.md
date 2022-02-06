@@ -2,16 +2,15 @@
 title: App Publishing
 ---
 
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 
 ### 1. Build Your Web App
 
 Now that you are ready to package your project, you will need to run your framework's or bundler's build command (assuming you're using one, of course).
 
-<Alert title="Note">
+:::note
 Every framework has its own publishing tooling. It is outside of the scope of this document to treat them all or keep them up to date.
-</Alert>
+:::
 
 ### 2. Bundle your application with Tauri
 

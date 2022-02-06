@@ -2,8 +2,6 @@
 title: Writing Tauri Plugins
 ---
 
-import Alert from '@theme/Alert'
-
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
 
 ## Writing a Plugin

@@ -2,13 +2,12 @@
 title: Your First Tauri App
 ---
 
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
-<Alert title="Please note" type="warning" icon="alert">
-  You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the setup page for your operating system.
-</Alert>
+:::caution
+You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system](docs/getting-started/intro#setting-up-your-environment).
+:::
 
 There are two ways to integrate with Tauri depends on your need:
 

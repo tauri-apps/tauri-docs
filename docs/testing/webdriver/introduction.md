@@ -1,13 +1,11 @@
 ---
 title: Introduction
 ---
-import Alert from '@theme/Alert'
 
-<Alert title="Currently in pre-alpha" type="info" icon="info-alt">
-
+:::info Currently in pre-alpha
 Webdriver support for Tauri is still in pre-alpha. Tooling that is dedicated to it such as [tauri-driver] is still in
 active development and may change as necessary over time. Additionally, only Windows and Linux are currently supported.
-</Alert>
+:::
 
 [WebDriver] is a standardized interface to interact with web documents that is primarily intended for automated testing.
 Tauri supports the [WebDriver] interface by leveraging the native platform's [WebDriver] server underneath a
@@ -50,7 +48,7 @@ If you prefer to just see the result of the guide and look over a finished minim
 can look at https://github.com/chippers/hello_tauri. That example also comes with a CI script to test with GitHub
 actions, but you may still be interested in the [WebDriver CI](ci) guide as it explains the concept a bit more.
 
-[WebDriver]: https://www.w3.org/TR/webdriver/
+[webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [tauri-driver]: https://crates.io/crates/tauri-driver
-[Microsoft Edge Driver]: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+[microsoft edge driver]: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/

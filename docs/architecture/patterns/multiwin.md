@@ -2,7 +2,6 @@
 title: Multiwin
 ---
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 import Rater from '@theme/Rater'
@@ -52,31 +51,12 @@ The Multiwin recipe will allow you to have multiple windows.
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph LR
-      A==>H
-      H==>F
-      H==>G
-      subgraph WEBVIEW
-      F
-      end
-      subgraph WINIT
-      G
-      end
-      subgraph RUST
-      A
-      end
-      A[Binary]
-      F[Window]
-      G[Window]
-      H{Bootstrap}
-      style WINIT stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
-
+<Mermaid chart={`graph LR A==>H H==>F H==>G subgraph WEBVIEW F end subgraph WINIT G end subgraph RUST A end A[Binary] F[Window] G[Window] H{Bootstrap} style WINIT stroke:${colors.blue.dark},stroke-width:4px style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
 ## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
+
 ```json
 "tauri": {
   "allowlist": {},                  // all API endpoints are default false

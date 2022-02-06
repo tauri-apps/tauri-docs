@@ -2,12 +2,11 @@
 title: GLUI
 ---
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
+:::note
 This pattern is not available for now.
-</Alert>
+:::
 
 import Rater from '@theme/Rater'
 
@@ -56,28 +55,12 @@ The GLUI is a research pattern that we will use internally to test approaches us
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
-<Mermaid chart={`graph TD
-      A==>H
-      H==>G
-      A-->D
-      D-->G
-      subgraph GLUTIN
-      G
-      end
-      subgraph RUST
-      A
-      end
-      A[Binary]
-      D(Framebuffer)
-      G[GL Window]
-      H{Bootstrap}
-      style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
-
+<Mermaid chart={`graph TD A==>H H==>G A-->D D-->G subgraph GLUTIN G end subgraph RUST A end A[Binary] D(Framebuffer) G[GL Window] H{Bootstrap} style GLUTIN stroke:${colors.blue.dark},stroke-width:4px style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
 
 ## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
+
 ```json
 "tauri": {
   "allowlist": {                  // all API endpoints are default false

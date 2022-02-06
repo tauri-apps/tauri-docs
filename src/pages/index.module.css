@@ -1,0 +1,139 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroContainer {
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-height: 80vh;
+  row-gap: 5vh;
+}
+
+.headerImage {
+  margin-top: 10vh;
+}
+
+.heroSubtitle {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* Button */
+.getStarted {
+  border: double 4px transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  padding: 0;
+  transition: 0.2s;
+  color: var(--ifm-hero-text-color) !important;
+  display: flex;
+  justify-content: center;
+}
+
+.getStarted:hover {
+  color: var(--ifm-hero-background-color) !important;
+}
+
+.getStarted {
+  background-image: linear-gradient(
+      var(--ifm-hero-background-color),
+      var(--ifm-hero-background-color)
+    ),
+    radial-gradient(circle at top left, #fff04d, #ff8e13);
+}
+
+.getStarted:hover {
+  background-image: linear-gradient(transparent, transparent),
+    radial-gradient(circle at top left, #fff04d, #ff8e13);
+}
+
+.getStarted span {
+  padding: 10px;
+  display: inline-block;
+  font-size: 1.6em;
+}
+
+/* Capabilities */
+.capabilityLabel {
+  color: var(--tauri-orange);
+}
+
+.capabilityImageCol {
+  text-align: right;
+}
+
+.capabilityImage {
+  height: 200px;
+  width: 200px;
+}
+
+.capabilityLink a {
+  color: var(--ifm-color-content);
+  text-decoration: underline;
+  text-decoration-thickness: 0.15rem;
+  text-decoration-color: var(--tauri-blue);
+  text-underline-offset: 0.25rem;
+}
+
+.capabilityLink a:hover {
+  color: var(--tauri-blue);
+}
+
+.heading {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+/* Icon Item */
+.iconItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.iconItem h3 {
+  margin-bottom: 0.5rem;
+}
+
+.icon {
+  height: 42px;
+  width: 42px;
+  border-radius: 50px;
+  padding: 2px;
+  color: var(--ifm-background-surface-color);
+  text-align: center;
+  font-size: 25px;
+  flex-shrink: 0;
+}
+
+.feature .icon {
+  background-color: var(--tauri-accent-orange);
+}
+
+.roadmap .icon {
+  background-color: var(--tauri-accent-blue);
+}
+
+.feature,
+.roadmap {
+  row-gap: 2rem;
+}
+
+.logoRow {
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 100%;
+  padding: 0 5%;
+}

@@ -3,8 +3,6 @@ title: Sidecar (Embedding External Binaries)
 sidebar_label: Sidecar
 ---
 
-import Alert from '@theme/Alert'
-
 You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. Node.js, Python, etc).
 
 To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`.
@@ -19,7 +17,11 @@ Here is a sample to illustrate the configuration, this is not a complete `tauri.
 {
   "tauri": {
     "bundle": {
-      "externalBin": ["/absolute/path/to/app", "relative/path/to/binary", "bin/python"]
+      "externalBin": [
+        "/absolute/path/to/app",
+        "relative/path/to/binary",
+        "bin/python"
+      ]
     }
   }
 }
@@ -57,7 +59,6 @@ async function main() {
 main().catch((e) => {
   throw e
 })
-
 ```
 
 ## Running the sidecar binary on JavaScript
