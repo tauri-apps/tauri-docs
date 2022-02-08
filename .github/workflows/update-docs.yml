@@ -122,6 +122,21 @@ jobs:
       #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
+      # generate cli.md and config.md
+      - name: Cache tauri-cli target
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: ./tauri/tooling/cli.rs
+      - name: build tauri-cli
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --manifest-path ./tauri/tooling/cli.rs/Cargo.toml
+      - name: Generate cli and config docs
+        run: |
+          node tauri-docs/.scripts/generate-cli-doc.js
+          node tauri-docs/.scripts/generate-config-doc.js
+
       # tauri-docs PR
       - name: git config
         run: |
