@@ -28,12 +28,12 @@ jobs:
       RUST_BACKTRACE: short
     steps:
       # Setup
-      - name: checkout tauri
+      - name: Checkout tauri
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri
           path: tauri
-      - name: checkout tauri-docs
+      - name: Checkout tauri-docs
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri-docs
@@ -127,11 +127,11 @@ jobs:
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
       # generate cli.md and config.md
-      - name: Cache tauri-cli target
+      - name: Cache tauri-cli
         uses: Swatinem/rust-cache@v1
         with:
           working-directory: ./tauri/tooling/cli.rs
-      - name: build tauri-cli
+      - name: Build tauri-cli
         uses: actions-rs/cargo@v1
         with:
           command: build
@@ -142,11 +142,11 @@ jobs:
           node tauri-docs/.scripts/generate-config-doc.js
 
       # tauri-docs PR
-      - name: git config
+      - name: Git config
         run: |
           git config --global user.name "${{ github.event.inputs.gitName }}"
           git config --global user.email "${{ github.event.inputs.gitEmail }}"
-      - name: create pull request for updated docs
+      - name: Create pull request for updated docs
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3.4.1
         if: ${{ github.event_name != 'pull_request' }}
