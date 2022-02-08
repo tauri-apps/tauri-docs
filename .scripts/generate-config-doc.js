@@ -1,8 +1,10 @@
 const fs = require('fs')
 const path = require('path')
-const schema = JSON.parse(
-  fs.readFileSync('../../tauri/tooling/cli.rs/schema.json').toString()
+const schemaPath = path.join(
+  __dirname,
+  '../../tauri/tooling/cli.rs/schema.json'
 )
+const schema = JSON.parse(fs.readFileSync(schemaPath).toString())
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
