@@ -1,6 +1,6 @@
 ---
 title: Windows - Code signing guide locally & with Github Actions
-sidebar_label: Windows - Code signing
+sidebar_label: Windows Code Signing
 ---
 
 # Intro
