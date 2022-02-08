@@ -6,6 +6,7 @@ const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
 const devToUrl = 'https://dev.to/tauri'
+const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
@@ -37,13 +38,13 @@ const navbarItems = [
         to: 'docs/community/contributor-guide',
       },
       {
-        label: 'Showcase',
-        to: 'showcase',
-      },
-      {
         label: 'Discord',
         href: discordUrl,
       },
+      {
+        label: 'Awesome Tauri',
+        href: awesomeTauriUrl
+      }
     ],
   },
   {
@@ -100,10 +101,6 @@ const footerLinks = [
         href: 'mailto:contact@tauri.studio',
       },
       {
-        label: 'Discord',
-        href: discordUrl,
-      },
-      {
         label: 'Twitter',
         href: 'https://twitter.com/TauriApps',
       },
@@ -130,13 +127,13 @@ const footerLinks = [
     title: 'Community',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
+        label: 'Discord',
+        href: discordUrl,
       },
       {
-        label: 'Showcase',
-        to: 'showcase',
-      },
+        label: 'Awesome Tauri',
+        href: awesomeTauriUrl
+      }
     ],
   },
 ]

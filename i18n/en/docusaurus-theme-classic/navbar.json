@@ -27,10 +27,6 @@
     "message": "Partners",
     "description": "Navbar item with label Partners"
   },
-  "item.label.Showcase": {
-    "message": "Showcase",
-    "description": "Navbar item with label Showcase"
-  },
   "item.label.Discord": {
     "message": "Discord",
     "description": "Navbar item with label Discord"
