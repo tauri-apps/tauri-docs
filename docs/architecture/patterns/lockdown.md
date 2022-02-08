@@ -27,7 +27,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Lockdown.png')} alt="Lockdown" />
+    <img src={useBaseUrl('img/patterns/Lockdown.svg')} alt="Lockdown" />
   </div>
   <div className="col col--4">
     Pros:

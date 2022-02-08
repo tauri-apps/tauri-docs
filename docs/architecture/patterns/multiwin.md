@@ -29,7 +29,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Multiwin.png')} alt="Multiwin" />
+    <img src={useBaseUrl('img/patterns/Multiwin.svg')} alt="Multiwin" />
   </div>
   <div className="col col--4">
     Pros:
