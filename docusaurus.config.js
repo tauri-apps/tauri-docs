@@ -37,10 +37,6 @@ const navbarItems = [
         to: 'docs/community/contributor-guide',
       },
       {
-        label: 'Showcase',
-        to: 'showcase',
-      },
-      {
         label: 'Discord',
         href: discordUrl,
       },
@@ -123,10 +119,6 @@ const footerLinks = [
   {
     title: 'Community',
     items: [
-      {
-        label: 'Showcase',
-        to: 'showcase',
-      },
     ],
   },
 ]

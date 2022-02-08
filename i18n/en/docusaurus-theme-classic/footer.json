@@ -55,10 +55,6 @@
     "message": "Partners",
     "description": "The label of footer link with label=Partners linking to partners"
   },
-  "link.item.label.Showcase": {
-    "message": "Showcase",
-    "description": "The label of footer link with label=Showcase linking to showcase"
-  },
   "copyright": {
     "message": "Copyright © 2022 Tauri Contributors. CC-BY / MIT",
     "description": "The footer copyright"
