@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import classnames from 'classnames'
+import classNames from 'classnames'
 import styles from './styles.module.css'
 
 export const Collapse = ({ children, isOpened = false, header }) => {
@@ -15,7 +15,7 @@ export const Collapse = ({ children, isOpened = false, header }) => {
 
   return (
     <div>
-      <div className={classnames(styles.header, isOpenedState ? styles.active : '')} onClick={() => toggle(!isOpenedState)}>
+      <div className={classNames(styles.header, isOpenedState ? styles.active : '')} onClick={() => toggle(!isOpenedState)}>
         {header}
       </div>
       <div className={styles.content} style={collapseStyle}>

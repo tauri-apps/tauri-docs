@@ -434,7 +434,7 @@ function Home() {
       title={`${siteConfig.tagline}`}
       description={translate({message: "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface."})}
     >
-            <header className={classnames('hero hero--dark', styles.heroBanner)}>
+            <header className={classNames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
           <lottie-player
             src="tauri-splash.json"
@@ -454,7 +454,7 @@ function Home() {
               <div className="row">
                 <div className="col col--4 col--offset-2">
                   <Link
-                    className={classnames(
+                    className={classNames(
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
@@ -467,11 +467,11 @@ function Home() {
                 </div>
                 <div className="col col--4">
                   <Link
-                    className={classnames(
+                    className={classNames(
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/get-started/intro')}
+                    to={useBaseUrl('docs/getting-started/prerequisites')}
                   >
                     <span>
                       <Translate>Get started</Translate>

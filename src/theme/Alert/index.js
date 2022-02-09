@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import classNames from 'classnames'
 
 import Icon from '../Icon'
 
@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 
 export default ({ type = 'info', title, icon, children }) => (
   <div
-    className={classnames('alert', 'alert--' + type, styles.alert)}
+    className={classNames('alert', 'alert--' + type, styles.alert)}
     style={{ marginBottom: '30px' }}
     role="alert"
   >

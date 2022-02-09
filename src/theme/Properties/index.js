@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Collapse } from '@theme/Collapse'
 
@@ -49,14 +49,14 @@ export default ({ rows, anchorRoot = '' }) => {
     <div className={styles.row}>
       <Opening />
 
-      <div className={classnames(styles.content)}>
+      <div className={classNames(styles.content)}>
         {rows.map((row) => {
           const target = (anchorRoot ? anchorRoot + '.' : '') + row.property
           
           return (
             <div
               id={target}
-              className={classnames('anchorify')}
+              className={classNames('anchorify')}
             >
               {row.child ? (
                 <Collapse header={Header(row, anchorRoot)} isOpened={hash.startsWith(target)}>
