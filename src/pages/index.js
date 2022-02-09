@@ -1,7 +1,6 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade'
-import classnames from 'classnames'
-
+import classNames from 'classnames'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -435,61 +434,60 @@ function Home() {
       title={`${siteConfig.tagline}`}
       description={translate({message: "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface."})}
     >
-      <div className={classNames('container', styles.container)}>
-        <div className={classNames('row', styles.heroContainer)}>
-          <svg
-            width="458"
-            height="255"
-            viewBox="0 0 458 255"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            ref={animationRef}
-            className={classNames('headerImage', styles.headerImage)}
-          >
-            <path
-              d="M91.9832 250C89.4165 250 87.3165 249.183 85.6832 247.55C84.2832 245.917 83.5832 243.933 83.5832 241.6V60.3L30.3832 101.25C28.2832 102.65 26.1832 103.233 24.0832 103C21.9832 102.533 20.1165 101.25 18.4832 99.15L3.78315 80.25C2.38315 78.15 1.79982 75.9333 2.03315 73.6C2.49982 71.2667 3.78315 69.4 5.88315 68L84.2832 7.45001C85.6832 6.28335 87.0832 5.58334 88.4832 5.34999C89.8832 5.11666 91.3998 5 93.0332 5H123.833C126.167 5 128.15 5.81667 129.783 7.45001C131.416 9.08334 132.233 11.0667 132.233 13.4V241.6C132.233 243.933 131.416 245.917 129.783 247.55C128.15 249.183 126.167 250 123.833 250H91.9832Z"
-              // fill="#F7F7F7"
-              stroke="var(--ifm-color-content)"
-              strokeWidth="4"
-            />
-            <path
-              d="M186.445 250C184.112 250 182.128 249.183 180.495 247.55C178.862 245.917 178.045 243.933 178.045 241.6V206.95C178.045 204.383 178.862 202.283 180.495 200.65C182.128 199.017 184.112 198.2 186.445 198.2H221.445C223.778 198.2 225.762 199.017 227.395 200.65C229.028 202.283 229.845 204.383 229.845 206.95V241.6C229.845 243.933 229.028 245.917 227.395 247.55C225.762 249.183 223.778 250 221.445 250H186.445Z"
-              // fill="#F7F7F7"
-              stroke="var(--ifm-color-content)"
-              strokeWidth="4"
-            />
-            <path
-              d="M361.737 253.5C345.171 253.5 331.054 251.05 319.387 246.15C307.721 241.25 298.154 234.483 290.687 225.85C283.221 217.217 277.621 207.3 273.887 196.1C270.154 184.667 267.937 172.533 267.237 159.7C267.004 153.4 266.771 146.517 266.537 139.05C266.537 131.35 266.537 123.65 266.537 115.95C266.771 108.25 267.004 101.133 267.237 94.6C267.704 81.7667 269.921 69.75 273.887 58.55C277.854 47.1167 283.571 37.2 291.037 28.8C298.737 20.4 308.421 13.75 320.087 8.85001C331.754 3.95001 345.637 1.5 361.737 1.5C378.071 1.5 392.071 3.95001 403.737 8.85001C415.404 13.75 424.971 20.4 432.437 28.8C440.137 37.2 445.854 47.1167 449.587 58.55C453.554 69.75 455.771 81.7667 456.237 94.6C456.704 101.133 456.937 108.25 456.937 115.95C456.937 123.65 456.937 131.35 456.937 139.05C456.937 146.517 456.704 153.4 456.237 159.7C455.771 172.533 453.671 184.667 449.937 196.1C446.204 207.3 440.604 217.217 433.137 225.85C425.671 234.483 415.987 241.25 404.087 246.15C392.421 251.05 378.304 253.5 361.737 253.5ZM361.737 213.25C376.904 213.25 387.987 208.35 394.987 198.55C402.221 188.517 405.954 174.983 406.187 157.95C406.654 151.183 406.887 144.417 406.887 137.65C406.887 130.65 406.887 123.65 406.887 116.65C406.887 109.65 406.654 103 406.187 96.7C405.954 80.1334 402.221 66.8333 394.987 56.8C387.987 46.5333 376.904 41.4 361.737 41.4C346.804 41.4 335.721 46.5333 328.487 56.8C321.487 66.8333 317.754 80.1334 317.287 96.7C317.287 103 317.171 109.65 316.937 116.65C316.937 123.65 316.937 130.65 316.937 137.65C317.171 144.417 317.287 151.183 317.287 157.95C317.754 174.983 321.604 188.517 328.837 198.55C336.071 208.35 347.037 213.25 361.737 213.25Z"
-              stroke="var(--ifm-color-content)"
-              strokeWidth="4"
-            />
-          </svg>
-          <div className={styles.heroSubtitle}>
-            <Translate>
-              Build smaller, faster, and more secure desktop applications with a
-              web frontend
-            </Translate>
-          </div>
-
-          <div className={classNames(styles.heroButton, 'col', 'col--4')}>
-            <Link
-              className={classNames(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted
-              )}
-              to={useBaseUrl('docs/getting-started/prerequisites')}
-            >
-              <span>
-                <Translate>Get Started</Translate>
-              </span>
-            </Link>
+            <header className={classnames('hero hero--dark', styles.heroBanner)}>
+        <div className="container">
+          <lottie-player
+            src="tauri-splash.json"
+            background="transparent"
+            speed="1"
+            style={{width: "75%", margin: "auto"}}
+            autoplay
+          ></lottie-player>
+          <p
+            className="hero__subtitle"
+            dangerouslySetInnerHTML={{
+              __html: translate({message: "Build smaller, faster, and more secure <br />desktop applications with a web frontend"}),
+            }}
+          ></p>
+          <div className={styles.buttons}>
+            <div className="container">
+              <div className="row">
+                <div className="col col--4 col--offset-2">
+                  <Link
+                    className={classnames(
+                      'button button--outline button--secondary button--lg',
+                      styles.about
+                    )}
+                    to={useBaseUrl('docs/about/intro')}
+                  >
+                    <span>
+                      <Translate>Learn More</Translate>
+                    </span>
+                  </Link>
+                </div>
+                <div className="col col--4">
+                  <Link
+                    className={classnames(
+                      'button button--outline button--secondary button--lg',
+                      styles.getStarted
+                    )}
+                    to={useBaseUrl('docs/get-started/intro')}
+                  >
+                    <span>
+                      <Translate>Get started</Translate>
+                    </span>
+                  </Link>
+                </div>
+                <div className="col col--2"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
       
       <main>
         {features && features.length && (
-          <section className={classnames('features', styles.features)}>
+          <section className={classNames('features', styles.features)}>
             <div className="container">
               {features.map((row, index) => {
                 return (
