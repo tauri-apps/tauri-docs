@@ -22,14 +22,18 @@ on:
 jobs:
   update-docs:
     runs-on: ubuntu-latest
+    env:
+      CARGO_INCREMENTAL: 0 # This is set to 0 by the rust cache action, but better safe than sorry.
+      CARGO_PROFILE_DEV_DEBUG: 0 # This would add unnecessary bloat to the target folder, decreasing cache efficiency.
+      RUST_BACKTRACE: short
     steps:
       # Setup
-      - name: checkout tauri
+      - name: Checkout tauri
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri
           path: tauri
-      - name: checkout tauri-docs
+      - name: Checkout tauri-docs
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri-docs
@@ -122,12 +126,27 @@ jobs:
       #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
+      # generate cli.md and config.md
+      - name: Cache tauri-cli
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: ./tauri/tooling/cli.rs
+      - name: Build tauri-cli
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --manifest-path ./tauri/tooling/cli.rs/Cargo.toml
+      - name: Generate cli and config docs
+        run: |
+          node tauri-docs/.scripts/generate-cli-doc.js
+          node tauri-docs/.scripts/generate-config-doc.js
+
       # tauri-docs PR
-      - name: git config
+      - name: Git config
         run: |
           git config --global user.name "${{ github.event.inputs.gitName }}"
           git config --global user.email "${{ github.event.inputs.gitEmail }}"
-      - name: create pull request for updated docs
+      - name: Create pull request for updated docs
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3.4.1
         if: ${{ github.event_name != 'pull_request' }}
