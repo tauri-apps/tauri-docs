@@ -140,14 +140,14 @@ jobs:
             ~/.cargo/registry/cache
             ~/.cargo/git
             ./tauri/target
-            ./tauri/tooling/cli.rs/target
+            ./tauri/tooling/cli/target
           # i don't think the cache makes much sense for nightly builds, at least not the target folders.
-          key: ${{ runner.os }}-nightly-${{ hashFiles('tauri/Cargo.lock', 'tauri/tooling/cli.rs/Cargo.lock') }}
+          key: ${{ runner.os }}-nightly-${{ hashFiles('tauri/Cargo.lock', 'tauri/tooling/cli/Cargo.lock') }}
       - name: Build tauri-cli
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --manifest-path ./tauri/tooling/cli.rs/Cargo.toml
+          args: --manifest-path ./tauri/tooling/cli/Cargo.toml
       - name: Generate cli and config docs
         run: |
           node tauri-docs/.scripts/generate-cli-doc.js

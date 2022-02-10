@@ -26,7 +26,7 @@ const packagesData = [
     label: 'CLI',
     value: 'cli.rs',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.rs/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
   },
   {
     label: 'Bundler',
