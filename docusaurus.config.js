@@ -165,7 +165,7 @@ const siteConfig = {
       id: 'rc',
       content:
         "<div id='announcement-rc'>🚀 Tauri Release Candidate has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
-      backgroundColor: 'var(--ifm-color-warning)',
+      backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {
       hideOnScroll: false,
