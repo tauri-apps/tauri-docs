@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / shell
 
-# Module: shell
+# Namespace: shell
 
 ## Classes
 
@@ -20,6 +20,9 @@
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
+
+The `openWith` value must be one of `firefox`, `google chrome`, `chromium` `safari`,
+`open`, `start`, `xdg-open`, `gio`, gnome-open`, `kde-open` or `wslview`.
 
 **`example`**
 ```typescript
@@ -44,4 +47,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:358](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L358)
+[shell.ts:362](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L362)

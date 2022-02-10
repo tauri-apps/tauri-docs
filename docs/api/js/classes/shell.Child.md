@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[shell.ts:135](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L135)
+[shell.ts:134](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L134)
 
 ## Properties
 
@@ -30,7 +30,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:133](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L133)
+[shell.ts:132](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L132)
 
 ## Methods
 
@@ -48,7 +48,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:169](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L169)
+[shell.ts:169](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L169)
 
 ___
 
@@ -70,7 +70,7 @@ await child.write([0, 1, 2, 3, 4, 5])
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `string` \| `number`[] | The message to write, either a string or a byte array. |
+| `data` | `string` \| `Uint8Array` | The message to write, either a string or a byte array. |
 
 #### Returns
 
@@ -80,4 +80,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:153](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/shell.ts#L153)
+[shell.ts:152](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L152)

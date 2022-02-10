@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / fs
 
-# Module: fs
+# Namespace: fs
 
 Access the file system.
 
@@ -13,10 +13,8 @@ The APIs must be allowlisted on `tauri.conf.json`:
     "allowlist": {
       "fs": {
         "all": true, // enable all FS APIs
-        "readTextFile": true,
-        "readBinaryFile": true,
+        "readFile": true,
         "writeFile": true,
-        "writeBinaryFile": true,
         "readDir": true,
         "copyFile": true,
         "createDir": true,
@@ -46,7 +44,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### Dir
 
-Renames and exports: [BaseDirectory](../enums/fs.BaseDirectory.md)
+Renames and re-exports [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ## Functions
 
@@ -72,7 +70,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:300](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L300)
+[fs.ts:270](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L270)
 
 ___
 
@@ -99,13 +97,13 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:256](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L256)
+[fs.ts:226](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L226)
 
 ___
 
 ### readBinaryFile
 
-▸ **readBinaryFile**(`filePath`, `options?`): `Promise`<`number`[]\>
+▸ **readBinaryFile**(`filePath`, `options?`): `Promise`<`Uint8Array`\>
 
 Reads a file as byte array.
 
@@ -118,13 +116,13 @@ Reads a file as byte array.
 
 #### Returns
 
-`Promise`<`number`[]\>
+`Promise`<`Uint8Array`\>
 
 A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:118](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L118)
+[fs.ts:122](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L122)
 
 ___
 
@@ -149,7 +147,7 @@ A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:233](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L233)
+[fs.ts:203](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L203)
 
 ___
 
@@ -157,7 +155,7 @@ ___
 
 ▸ **readTextFile**(`filePath`, `options?`): `Promise`<`string`\>
 
-Reads a file as UTF-8 encoded string.
+Reads a file as an UTF-8 encoded string.
 
 #### Parameters
 
@@ -174,7 +172,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:97](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L97)
+[fs.ts:101](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L101)
 
 ___
 
@@ -200,7 +198,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:278](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L278)
+[fs.ts:248](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L248)
 
 ___
 
@@ -225,7 +223,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:323](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L323)
+[fs.ts:293](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L293)
 
 ___
 
@@ -251,7 +249,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:345](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L345)
+[fs.ts:315](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L315)
 
 ___
 
@@ -259,7 +257,7 @@ ___
 
 ▸ **writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
 
-Writes a binary file.
+Writes a byte array content to a file.
 
 #### Parameters
 
@@ -276,7 +274,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:204](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L204)
+[fs.ts:174](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L174)
 
 ___
 
@@ -284,7 +282,7 @@ ___
 
 ▸ **writeFile**(`file`, `options?`): `Promise`<`void`\>
 
-Writes a text file.
+Writes a UTF-8 text file.
 
 #### Parameters
 
@@ -301,4 +299,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:139](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/fs.ts#L139)
+[fs.ts:145](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L145)
