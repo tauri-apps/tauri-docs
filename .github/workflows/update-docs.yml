@@ -46,11 +46,10 @@ jobs:
 
       # Any Rust documentation is currently disabled while we're falling back to docs.rs
 
-      # TODO do we need to run this?
-      # - name: install webkit2gtk
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+      - name: install webkit2gtk
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
 
       # # Rust
       # - name: generate rust docs
@@ -126,11 +125,24 @@ jobs:
       #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
-      # generate cli.md and config.md
-      - name: Cache tauri-cli
-        uses: Swatinem/rust-cache@v1
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain
         with:
-          working-directory: ./tauri/tooling/cli.rs
+          profile: minimal
+          toolchain: nightly
+          components: rust-docs
+          override: true
+      - name: Cache tauri & tauri-cli # replace with rust-cache once they implement multiple target dirs
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            ~/.cargo/git
+            ./tauri/target
+            ./tauri/tooling/cli.rs/target
+          # i don't think the cache makes much sense for nightly builds, at least not the target folders.
+          key: ${{ runner.os }}-nightly-${{ hashFiles('tauri/Cargo.lock', 'tauri/tooling/cli.rs/Cargo.lock') }}
       - name: Build tauri-cli
         uses: actions-rs/cargo@v1
         with:
@@ -140,6 +152,15 @@ jobs:
         run: |
           node tauri-docs/.scripts/generate-cli-doc.js
           node tauri-docs/.scripts/generate-config-doc.js
+      - name: Generate tauri AST
+        uses: actions-rs/cargo@v1
+        with:
+          command: doc
+          args: --no-deps --manifest-path ./tauri
+        env:
+          RUSTDOCFLAGS: '-Z unstable-options --output-format json'
+      - name: Copy tauri.json
+        run: cp tauri/target/doc/tauri.json tauri-docs/docs/api/rust/
 
       # tauri-docs PR
       - name: Git config
