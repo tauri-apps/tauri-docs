@@ -1,18 +1,18 @@
 [@tauri-apps/api](../index.md) / path
 
-# Module: path
+# Namespace: path
 
 ## References
 
 ### BaseDirectory
 
-Re-exports: [BaseDirectory](../enums/fs.BaseDirectory.md)
+Re-exports [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ## Variables
 
 ### delimiter
 
-• `Const` **delimiter**: ``";"`` \| ``":"``
+• **delimiter**: ``";"`` \| ``":"``
 
 Provides the platform-specific path segment delimiter:
 - `;` on Windows
@@ -20,13 +20,13 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:443](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L443)
+[path.ts:449](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L449)
 
 ___
 
 ### sep
 
-• `Const` **sep**: ``"\\"`` \| ``"/"``
+• **sep**: ``"\\"`` \| ``"/"``
 
 Provides the platform-specific path segment separator:
 - `\` on Windows
@@ -34,7 +34,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:436](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L436)
+[path.ts:442](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L442)
 
 ## Functions
 
@@ -51,7 +51,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 #### Defined in
 
-[path.ts:36](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L36)
+[path.ts:36](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L36)
 
 ___
 
@@ -61,9 +61,9 @@ ___
 
 Returns the path to the user's audio directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_MUSIC_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_MUSIC_DIR`.
 - **macOS:** Resolves to `$HOME/Music`.
 - **Windows:** Resolves to `{FOLDERID_Music}`.
 
@@ -73,7 +73,7 @@ Returns the path to the user's audio directory.
 
 #### Defined in
 
-[path.ts:58](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L58)
+[path.ts:58](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L58)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[path.ts:519](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L519)
+[path.ts:525](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L525)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 Returns the path to the user's cache directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_CACHE_HOME` or `$HOME/.cache`.
 - **macOS:** Resolves to `$HOME/Library/Caches`.
@@ -118,7 +118,7 @@ Returns the path to the user's cache directory.
 
 #### Defined in
 
-[path.ts:80](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L80)
+[path.ts:80](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L80)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 Returns the path to the user's config directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_CONFIG_HOME` or `$HOME/.config`.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
@@ -140,23 +140,7 @@ Returns the path to the user's config directory.
 
 #### Defined in
 
-[path.ts:102](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L102)
-
-___
-
-### currentDir
-
-▸ **currentDir**(): `Promise`<`string`\>
-
-Returns the path to the current working directory.
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Defined in
-
-[path.ts:420](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L420)
+[path.ts:102](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L102)
 
 ___
 
@@ -166,7 +150,7 @@ ___
 
 Returns the path to the user's data directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
@@ -178,7 +162,7 @@ Returns the path to the user's data directory.
 
 #### Defined in
 
-[path.ts:124](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L124)
+[path.ts:124](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L124)
 
 ___
 
@@ -188,9 +172,9 @@ ___
 
 Returns the path to the user's desktop directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_DESKTOP_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_DESKTOP_DIR`.
 - **macOS:** Resolves to `$HOME/Library/Desktop`.
 - **Windows:** Resolves to `{FOLDERID_Desktop}`.
 
@@ -200,7 +184,7 @@ Returns the path to the user's desktop directory.
 
 #### Defined in
 
-[path.ts:146](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L146)
+[path.ts:146](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L146)
 
 ___
 
@@ -222,7 +206,7 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 
 #### Defined in
 
-[path.ts:491](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L491)
+[path.ts:497](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L497)
 
 ___
 
@@ -232,9 +216,9 @@ ___
 
 Returns the path to the user's document directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_DOCUMENTS_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_DOCUMENTS_DIR`.
 - **macOS:** Resolves to `$HOME/Documents`.
 - **Windows:** Resolves to `{FOLDERID_Documents}`.
 
@@ -244,7 +228,7 @@ Returns the path to the user's document directory.
 
 #### Defined in
 
-[path.ts:168](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L168)
+[path.ts:168](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L168)
 
 ___
 
@@ -254,9 +238,9 @@ ___
 
 Returns the path to the user's download directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux**: Resolves to `$XDG_DOWNLOAD_DIR`.
+- **Linux**: Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_DOWNLOAD_DIR`.
 - **macOS**: Resolves to `$HOME/Downloads`.
 - **Windows**: Resolves to `{FOLDERID_Downloads}`.
 
@@ -266,7 +250,7 @@ Returns the path to the user's download directory.
 
 #### Defined in
 
-[path.ts:190](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L190)
+[path.ts:190](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L190)
 
 ___
 
@@ -276,7 +260,7 @@ ___
 
 Returns the path to the user's executable directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_BIN_HOME/../bin` or `$XDG_DATA_HOME/../bin` or `$HOME/.local/bin`.
 - **macOS:** Not supported.
@@ -288,7 +272,7 @@ Returns the path to the user's executable directory.
 
 #### Defined in
 
-[path.ts:212](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L212)
+[path.ts:212](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L212)
 
 ___
 
@@ -310,7 +294,7 @@ Returns the extension of the `path`.
 
 #### Defined in
 
-[path.ts:504](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L504)
+[path.ts:510](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L510)
 
 ___
 
@@ -320,7 +304,7 @@ ___
 
 Returns the path to the user's font directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_DATA_HOME/fonts` or `$HOME/.local/share/fonts`.
 - **macOS:** Resolves to `$HOME/Library/Fonts`.
@@ -332,7 +316,7 @@ Returns the path to the user's font directory.
 
 #### Defined in
 
-[path.ts:234](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L234)
+[path.ts:234](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L234)
 
 ___
 
@@ -342,7 +326,7 @@ ___
 
 Returns the path to the user's home directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$HOME`.
 - **macOS:** Resolves to `$HOME`.
@@ -354,7 +338,7 @@ Returns the path to the user's home directory.
 
 #### Defined in
 
-[path.ts:256](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L256)
+[path.ts:256](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L256)
 
 ___
 
@@ -374,7 +358,7 @@ ___
 
 #### Defined in
 
-[path.ts:530](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L530)
+[path.ts:536](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L536)
 
 ___
 
@@ -396,7 +380,7 @@ ___
 
 #### Defined in
 
-[path.ts:478](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L478)
+[path.ts:484](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L484)
 
 ___
 
@@ -406,7 +390,7 @@ ___
 
 Returns the path to the user's local data directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_DATA_HOME` or `$HOME/.local/share`.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
@@ -418,7 +402,29 @@ Returns the path to the user's local data directory.
 
 #### Defined in
 
-[path.ts:278](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L278)
+[path.ts:278](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L278)
+
+___
+
+### logDir
+
+▸ **logDir**(): `Promise`<`string`\>
+
+Returns the path to the suggested log directory.
+
+### Platform-specific
+
+- **Linux:** Resolves to `${configDir}/${bundleIdentifier}`.
+- **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
+- **Windows:** Resolves to `${configDir}/${bundleIdentifier}`.
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[path.ts:426](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L426)
 
 ___
 
@@ -440,7 +446,7 @@ Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve sym
 
 #### Defined in
 
-[path.ts:463](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L463)
+[path.ts:469](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L469)
 
 ___
 
@@ -450,9 +456,9 @@ ___
 
 Returns the path to the user's picture directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_PICTURES_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_PICTURES_DIR`.
 - **macOS:** Resolves to `$HOME/Pictures`.
 - **Windows:** Resolves to `{FOLDERID_Pictures}`.
 
@@ -462,7 +468,7 @@ Returns the path to the user's picture directory.
 
 #### Defined in
 
-[path.ts:300](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L300)
+[path.ts:300](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L300)
 
 ___
 
@@ -472,9 +478,9 @@ ___
 
 Returns the path to the user's public directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_PUBLICSHARE_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_PUBLICSHARE_DIR`.
 - **macOS:** Resolves to `$HOME/Public`.
 - **Windows:** Resolves to `{FOLDERID_Public}`.
 
@@ -484,7 +490,7 @@ Returns the path to the user's public directory.
 
 #### Defined in
 
-[path.ts:322](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L322)
+[path.ts:322](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L322)
 
 ___
 
@@ -506,7 +512,7 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 
 #### Defined in
 
-[path.ts:450](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L450)
+[path.ts:456](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L456)
 
 ___
 
@@ -522,7 +528,7 @@ Returns the path to the user's resource directory.
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L338)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -532,7 +538,7 @@ ___
 
 Returns the path to the user's runtime directory.
 
-## Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `$XDG_RUNTIME_DIR`.
 - **macOS:** Not supported.
@@ -544,7 +550,7 @@ Returns the path to the user's runtime directory.
 
 #### Defined in
 
-[path.ts:360](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L360)
+[path.ts:360](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L360)
 
 ___
 
@@ -554,9 +560,9 @@ ___
 
 Returns the path to the user's template directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_TEMPLATES_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_TEMPLATES_DIR`.
 - **macOS:** Not supported.
 - **Windows:** Resolves to `{FOLDERID_Templates}`.
 
@@ -566,7 +572,7 @@ Returns the path to the user's template directory.
 
 #### Defined in
 
-[path.ts:382](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L382)
+[path.ts:382](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L382)
 
 ___
 
@@ -576,9 +582,9 @@ ___
 
 Returns the path to the user's video directory.
 
-## Platform-specific
+#### Platform-specific
 
-- **Linux:** Resolves to `$XDG_VIDEOS_DIR`.
+- **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_VIDEOS_DIR`.
 - **macOS:** Resolves to `$HOME/Movies`.
 - **Windows:** Resolves to `{FOLDERID_Videos}`.
 
@@ -588,4 +594,4 @@ Returns the path to the user's video directory.
 
 #### Defined in
 
-[path.ts:404](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/path.ts#L404)
+[path.ts:404](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L404)

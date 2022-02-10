@@ -6,16 +6,30 @@ title: CLI
 import Command from '@theme/Command'
 import Alert from '@theme/Alert'
 
-
-The tauri.js cli is composed in TypeScript and published as JavaScript. 
+The `cli.js` command line interface is composed in TypeScript and published as a JavaScript NPM. It offers the `deps` and the `icon` commands, and propagates other commands to `cli.rs`.
 
 ## `info`
 
 <Command name="info" />
 
 ```
-  Description
-    Returns the known state of tauri dependencies and configuration
+Command line interface for building Tauri apps
+
+USAGE:
+    cargo-tauri <SUBCOMMAND>
+
+OPTIONS:
+    -h, --help       Print help information
+    -V, --version    Print version information
+
+SUBCOMMANDS:
+    build     Tauri build
+    dev       Tauri dev
+    help      Print this message or the help of the given subcommand(s)
+    info      Shows information about Tauri dependencies and project configuration
+    init      Initializes a Tauri project
+    plugin    Manage Tauri plugins
+    signer    Tauri updater signer
 ```
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
@@ -29,28 +43,23 @@ This command is pretty helpful when you need to have a quick overview of your ap
 <Command name="init" />
 
 ```
-Initializes a Tauri project
+Command line interface for building Tauri apps
 
 USAGE:
-    cargo tauri init [FLAGS] [OPTIONS] [SUBCOMMAND]
-
-FLAGS:
-        --ci         Skip prompting for values
-    -f, --force      Force init to overwrite the src-tauri folder
-    -h, --help       Print help information
-    -l, --log        Enables logging
-    -V, --version    Print version information
+    cargo-tauri <SUBCOMMAND>
 
 OPTIONS:
-    -A, --app-name <app-name>            Name of your Tauri application
-    -d, --directory <directory>          Set target directory for init
-    -D, --dist-dir <dist-dir>            Web assets location, relative to <project-dir>/src-tauri
-    -P, --dev-path <dev-path>            Url of your dev server
-    -t, --tauri-path <tauri-path>        Path of the Tauri project to use (relative to the cwd)
-    -W, --window-title <window-title>    Window title of your Tauri application
+    -h, --help       Print help information
+    -V, --version    Print version information
 
 SUBCOMMANDS:
+    build     Tauri build
+    dev       Tauri dev
     help      Print this message or the help of the given subcommand(s)
+    info      Shows information about Tauri dependencies and project configuration
+    init      Initializes a Tauri project
+    plugin    Manage Tauri plugins
+    signer    Tauri updater signer
 ```
 
 ## `dev`
@@ -58,25 +67,23 @@ SUBCOMMANDS:
 <Command name="dev" />
 
 ```
-Tauri dev.
+Command line interface for building Tauri apps
 
 USAGE:
-    cargo tauri dev [FLAGS] [OPTIONS] [--] [args]...
-
-ARGS:
-    <args>...    Args passed to the binary
-
-FLAGS:
-    -e, --exit-on-panic    Exit on panic
-    -h, --help             Print help information
-        --release          Run the code in release mode
-    -V, --version          Print version information
+    cargo-tauri <SUBCOMMAND>
 
 OPTIONS:
-    -c, --config <config>           config JSON to merge with tauri.conf.json
-    -f, --features <features>...    list of cargo features to activate
-    -r, --runner <runner>           binary to use to run the application
-    -t, --target <target>...        target triple to build against
+    -h, --help       Print help information
+    -V, --version    Print version information
+
+SUBCOMMANDS:
+    build     Tauri build
+    dev       Tauri dev
+    help      Print this message or the help of the given subcommand(s)
+    info      Shows information about Tauri dependencies and project configuration
+    init      Initializes a Tauri project
+    plugin    Manage Tauri plugins
+    signer    Tauri updater signer
 ```
 
 This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
@@ -92,38 +99,32 @@ If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is 
 
 ## `deps`
 
-<Command name="deps update" />
+<Command name="deps" />
 
-```sh
-  Description
-    Tauri dependency management script
-  Usage
-    $ tauri deps [install|update]
-```
-
+{deps}
 
 ## `build`
 
 <Command name="build" />
 
 ```
-Tauri build.
+Command line interface for building Tauri apps
 
 USAGE:
-    cargo tauri build [FLAGS] [OPTIONS]
-
-FLAGS:
-    -d, --debug      Builds with the debug flag
-    -h, --help       Print help information
-    -v, --verbose    Enables verbose logging
-    -V, --version    Print version information
+    cargo-tauri <SUBCOMMAND>
 
 OPTIONS:
-    -b, --bundle <bundle>...        list of bundles to package
-    -c, --config <config>           config JSON to merge with tauri.conf.json
-    -f, --features <features>...    list of cargo features to activate
-    -r, --runner <runner>           binary to use to build the application
-    -t, --target <target>...        target triple to build against
+    -h, --help       Print help information
+    -V, --version    Print version information
+
+SUBCOMMANDS:
+    build     Tauri build
+    dev       Tauri dev
+    help      Print this message or the help of the given subcommand(s)
+    info      Shows information about Tauri dependencies and project configuration
+    init      Initializes a Tauri project
+    plugin    Manage Tauri plugins
+    signer    Tauri updater signer
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.
@@ -166,4 +167,4 @@ This command will show the current version of Tauri.
 
 ## CLI usage
 
-See more about the usage through this [complete guide](/docs/development/development-cycle).
+See more about the usage through this [complete guide](/docs/development/integration).

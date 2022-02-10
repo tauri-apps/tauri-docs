@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / event
 
-# Module: event
+# Namespace: event
 
 The event system allows you to emit events to the backend and listen to events from it.
 
@@ -38,17 +38,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[event.ts:45](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L45)
+[helpers/event.ts:39](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/helpers/event.ts#L39)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://destroyed"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
+Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
 
 #### Defined in
 
-[event.ts:26](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L26)
+[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/helpers/event.ts#L21)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[event.ts:47](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L47)
+[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/helpers/event.ts#L41)
 
 ## Functions
 
@@ -80,8 +80,8 @@ Emits an event to the backend.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | `string` | Event name |
-| `payload?` | `string` | - |
+| `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `payload?` | `unknown` | - |
 
 #### Returns
 
@@ -89,7 +89,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:113](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L113)
+[event.ts:55](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/event.ts#L55)
 
 ___
 
@@ -109,8 +109,8 @@ Listen to an event from the backend.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | [`EventName`](event.md#eventname) | Event name |
-| `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback |
+| `event` | [`EventName`](event.md#eventname) | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
 #### Returns
 
@@ -120,7 +120,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:73](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L73)
+[event.ts:27](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/event.ts#L27)
 
 ___
 
@@ -140,8 +140,8 @@ Listen to an one-off event from the backend.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | [`EventName`](event.md#eventname) | Event name |
-| `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback |
+| `event` | [`EventName`](event.md#eventname) | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
 #### Returns
 
@@ -151,4 +151,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:96](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/event.ts#L96)
+[event.ts:41](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/event.ts#L41)

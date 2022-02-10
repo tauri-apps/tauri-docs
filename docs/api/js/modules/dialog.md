@@ -1,6 +1,6 @@
 [@tauri-apps/api](../index.md) / dialog
 
-# Module: dialog
+# Namespace: dialog
 
 Native system dialogs for opening and saving files.
 
@@ -30,6 +30,80 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Functions
 
+### ask
+
+▸ **ask**(`message`, `title?`): `Promise`<`boolean`\>
+
+Shows a question dialog with `Yes` and `No` buttons.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `message` | `string` | The message to show. |
+| `title?` | `string` | The dialog's title. Defaults to the application name. |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+A promise resolving to a boolean indicating whether `Yes` was clicked or not.
+
+#### Defined in
+
+[dialog.ts:137](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L137)
+
+___
+
+### confirm
+
+▸ **confirm**(`message`, `title?`): `Promise`<`boolean`\>
+
+Shows a question dialog with `Ok` and `Cancel` buttons.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `message` | `string` | The message to show. |
+| `title?` | `string` | The dialog's title. Defaults to the application name. |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+A promise resolving to a boolean indicating whether `Ok` was clicked or not.
+
+#### Defined in
+
+[dialog.ts:156](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L156)
+
+___
+
+### message
+
+▸ **message**(`message`): `Promise`<`void`\>
+
+Shows a message dialog with an `Ok` button.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `message` | `string` | The message to show. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+#### Defined in
+
+[dialog.ts:119](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L119)
+
+___
+
 ### open
 
 ▸ **open**(`options?`): `Promise`<`string` \| `string`[]\>
@@ -50,7 +124,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:73](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/dialog.ts#L73)
+[dialog.ts:77](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L77)
 
 ___
 
@@ -74,4 +148,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:94](https://github.com/tauri-apps/tauri/blob/52723ee8/tooling/api/src/dialog.ts#L94)
+[dialog.ts:98](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L98)
