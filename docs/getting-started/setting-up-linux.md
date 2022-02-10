@@ -31,7 +31,8 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     libgtk-3-dev \
     libappindicator3-dev \
     patchelf \
-    librsvg2-dev
+    librsvg2-dev \
+    squashfs-tools
 ```
 
 </TabItem>
@@ -72,7 +73,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 ### Optional dependencies:
 
 - `libappindicator`: needed to use the system tray feature.
-- `patchelf` and `librsvg`: needed to bundle `AppImage`.
+- `patchelf`, `librsvg`, `squashfs`: needed to bundle `AppImage`.
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
