@@ -1,7 +1,6 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade'
-import classnames from 'classnames'
-
+import classNames from 'classnames'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
@@ -36,18 +35,26 @@ const features = [
       description: translate({message: "is the Tauri-Team's biggest priority and drives our innovation"}),
     },
     {
-      imageUrl: 'img/undraw_patterns.svg',
-      link: 'docs/guides/patterns/about-patterns',
-      label: translate({message: 'Patterns'}),
-      description: translate({message: 'are here to help you choose important features with simple configuration'}),
+      imageUrl: 'img/index/undraw_patterns.svg',
+      link: 'docs/architecture/patterns/about-patterns',
+      linkText: translate({ message: 'Learn more' }),
+      label: translate({ message: 'Patterns' }),
+      description: translate({
+        message:
+          'Here to help you choose important features with simple configuration',
+      }),
     },
     {
-      imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/development/cross-platform',
-      label: translate({message: 'Cross-platform'}),
-      description: translate({message: 'compilation allows to bundle binaries for major desktop platforms (mobile & WASM coming soon)'}),
+      imageUrl: 'img/index/undraw_cross_platform.svg',
+      link: 'docs/building/cross-platform',
+      linkText: translate({ message: 'Compilation' }),
+      label: translate({ message: 'Cross-platform' }),
+      description: translate({
+        message:
+          'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
+      }),
     },
-  ],
+  ]
 ]
 
 function Feature({ imageUrl, link, label, description }) {
@@ -427,7 +434,7 @@ function Home() {
       title={`${siteConfig.tagline}`}
       description={translate({message: "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface."})}
     >
-      <header className={classnames('hero hero--dark', styles.heroBanner)}>
+            <header className={classNames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
           <lottie-player
             src="tauri-splash.json"
@@ -447,7 +454,7 @@ function Home() {
               <div className="row">
                 <div className="col col--4 col--offset-2">
                   <Link
-                    className={classnames(
+                    className={classNames(
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
@@ -460,11 +467,11 @@ function Home() {
                 </div>
                 <div className="col col--4">
                   <Link
-                    className={classnames(
+                    className={classNames(
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/get-started/intro')}
+                    to={useBaseUrl('docs/getting-started/prerequisites')}
                   >
                     <span>
                       <Translate>Get started</Translate>
@@ -477,10 +484,10 @@ function Home() {
           </div>
         </div>
       </header>
-
+      
       <main>
         {features && features.length && (
-          <section className={classnames('features', styles.features)}>
+          <section className={classNames('features', styles.features)}>
             <div className="container">
               {features.map((row, index) => {
                 return (

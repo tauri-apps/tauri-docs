@@ -6,6 +6,7 @@ const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
 const devToUrl = 'https://dev.to/tauri'
+const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
@@ -14,7 +15,7 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/architecture',
+    to: 'docs/getting-started/prerequisites',
     label: 'Docs',
     position: 'left',
   },
@@ -33,17 +34,17 @@ const navbarItems = [
     position: 'left',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
-      },
-      {
-        label: 'Showcase',
-        to: 'showcase',
+        label: 'Get Involved',
+        to: 'docs/community/contributor-guide',
       },
       {
         label: 'Discord',
         href: discordUrl,
       },
+      {
+        label: 'Awesome Tauri',
+        href: awesomeTauriUrl
+      }
     ],
   },
   {
@@ -80,7 +81,7 @@ const footerLinks = [
     items: [
       {
         label: 'Get started',
-        to: 'docs/get-started/intro',
+        to: 'docs/getting-started/beginning-tutorial',
       },
       {
         label: 'API',
@@ -98,10 +99,6 @@ const footerLinks = [
       {
         label: 'Mail',
         href: 'mailto:contact@tauri.studio',
-      },
-      {
-        label: 'Discord',
-        href: discordUrl,
       },
       {
         label: 'Twitter',
@@ -130,13 +127,13 @@ const footerLinks = [
     title: 'Community',
     items: [
       {
-        label: 'Partners',
-        to: 'partners',
+        label: 'Discord',
+        href: discordUrl,
       },
       {
-        label: 'Showcase',
-        to: 'showcase',
-      },
+        label: 'Awesome Tauri',
+        href: awesomeTauriUrl
+      }
     ],
   },
 ]

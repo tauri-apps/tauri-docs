@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import classNames from 'classnames'
 
 const colors = {
   danger: 'var(--ifm-color-danger)',
@@ -10,7 +10,7 @@ const colors = {
 
 export default ({ title, className, color = 'default' }) => (
   <i
-    className={classnames('ti-' + title, className)}
+    className={classNames('ti-' + title, className)}
     style={{ color: colors[color] }}
   ></i>
 )
