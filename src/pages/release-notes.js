@@ -10,12 +10,10 @@ import debounce from '../utils/debounce'
 import 'react-tabs/style/react-tabs.css'
 import styles from './styles.module.css'
 
-const packagesData = [
-  {
+const packagesData = [{
     label: 'Core',
     value: 'core',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
   },
   {
     label: 'API',
@@ -25,32 +23,27 @@ const packagesData = [
   {
     label: 'CLI',
     value: 'cli.rs',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli.rs/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
   },
   {
     label: 'Bundler',
     value: 'bundler',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
   },
   {
     label: 'TAO',
     value: 'tao',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md',
   },
   {
     label: 'WRY',
     value: 'wry',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md',
   },
   {
     label: 'create-tauri-app',
     value: 'create-tauri-app',
-    changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
+    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
   },
 ]
 
@@ -67,12 +60,19 @@ function fetchChangelog(url) {
             notes: contents.filter((line) => !!line).join('\n'),
           }
         })
-        .filter(({ version }) => !version.includes('Not Published'))
+        .filter(({
+          version
+        }) => !version.includes('Not Published'))
     })
 }
 
-function Changelog({ changelogs }) {
-  const values = changelogs.map(({ version, notes }) => {
+function Changelog({
+  changelogs
+}) {
+  const values = changelogs.map(({
+    version,
+    notes
+  }) => {
     let realVersion = version.split(/\.(?=[^\.]+$)/)
     return {
       notes,
@@ -84,7 +84,8 @@ function Changelog({ changelogs }) {
   })
 
   let allChangelogs = values.reduce((accumulator, currentValue) => {
-    ;(accumulator[currentValue['version']] =
+    ;
+    (accumulator[currentValue['version']] =
       accumulator[currentValue['version']] || []).push(currentValue)
     return accumulator
   }, {})
@@ -93,52 +94,88 @@ function Changelog({ changelogs }) {
     Object.keys(allChangelogs)[0]
   )
 
-  return (
-    <div className={styles.verticalTabsContainer}>
-      <div className={styles.verticalTabsVersionColumn}>
-        {Object.entries(allChangelogs).map(([changelogVersion]) => {
-          const dynamicStyles =
-            changelogVersion === activeValue
-              ? {
-                  color: 'var(--ifm-color-primary)',
-                  backgroundColor: 'var(--ifm-menu-color-background-active)',
-                }
-              : {
-                  color: '',
-                  backgroundColor: '',
-                }
-          return (
-            <div
-              key={'pane-' + changelogVersion}
-              className={styles.verticalTabsVersionText}
-              onClick={() => setActiveValue(changelogVersion)}
-              style={dynamicStyles}
-            >
-              {changelogVersion}
-            </div>
-          )
-        })}
-      </div>
-      {Object.entries(allChangelogs).map(([changelogVersion, allReleases]) => (
-        <div
-          key={'content-' + changelogVersion}
-          value={changelogVersion}
-          className={styles.verticalTabsReleaseNotesColumn}
-          style={{
+  return ( <
+    div className = {
+      styles.verticalTabsContainer
+    } >
+    <
+    div className = {
+      styles.verticalTabsVersionColumn
+    } > {
+      Object.entries(allChangelogs).map(([changelogVersion]) => {
+        const dynamicStyles =
+          changelogVersion === activeValue ?
+          {
+            color: 'var(--ifm-color-primary)',
+            backgroundColor: 'var(--ifm-menu-color-background-active)',
+          } :
+          {
+            color: '',
+            backgroundColor: '',
+          }
+        return ( <
+          div key = {
+            'pane-' + changelogVersion
+          }
+          className = {
+            styles.verticalTabsVersionText
+          }
+          onClick = {
+            () => setActiveValue(changelogVersion)
+          }
+          style = {
+            dynamicStyles
+          } >
+          {
+            changelogVersion
+          } <
+          /div>
+        )
+      })
+    } <
+    /div> {
+      Object.entries(allChangelogs).map(([changelogVersion, allReleases]) => ( <
+        div key = {
+          'content-' + changelogVersion
+        }
+        value = {
+          changelogVersion
+        }
+        className = {
+          styles.verticalTabsReleaseNotesColumn
+        }
+        style = {
+          {
             display: changelogVersion === activeValue ? 'block' : 'none',
-          }}
-        >
-          {allReleases.map(({ notes, value }) => {
-            return (
-              <div style={{ paddingLeft: 10 }}>
-                <h3>{value}</h3>
-                <ReactMarkdown children={notes} />
-              </div>
+          }
+        } >
+        {
+          allReleases.map(({
+            notes,
+            value
+          }) => {
+            return ( <
+              div style = {
+                {
+                  paddingLeft: 10
+                }
+              } >
+              <
+              h3 > {
+                value
+              } < /h3> <
+              ReactMarkdown children = {
+                notes
+              }
+              /> <
+              /div>
             )
-          })}
-        </div>
-      ))}
-    </div>
+          })
+        } <
+        /div>
+      ))
+    } <
+    /div>
   )
 }
 
@@ -173,7 +210,9 @@ function ReleaseNotes() {
     }
 
     fetchChangelog(data.changelogUrl).then((changelog) => {
-      mutatePackage(data, index, { changelog })
+      mutatePackage(data, index, {
+        changelog
+      })
     })
   }
 
@@ -188,15 +227,15 @@ function ReleaseNotes() {
           .map((data) => {
             return {
               ...data,
-              changelog: data.changelog
-                ? data.changelog.filter(
-                    (changelog) =>
-                      changelog.version.includes(value) ||
-                      changelog.notes
-                        .toLowerCase()
-                        .includes(value.toLowerCase())
-                  )
-                : [],
+              changelog: data.changelog ?
+                data.changelog.filter(
+                  (changelog) =>
+                  changelog.version.includes(value) ||
+                  changelog.notes
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
+                ) :
+                [],
             }
           })
           .filter((data) => data.changelog.length > 0)
@@ -214,41 +253,71 @@ function ReleaseNotes() {
     onSearch(value)
   }
 
-  return (
-    <Layout title="Release notes" id="release-notes">
-      <div className="container margin-vert--lg">
-        <h1 className="text--center margin-bottom--xl">Release Notes</h1>
-        <div className={styles.changelogSearchContainer}>
-          <input
-            className={styles.changelogSearchInput}
-            placeholder="Filter the results..."
-            value={searchTerm}
-            onChange={onSearchInput}
-          />
-        </div>
-        {searchedPackages.length ? (
-          <Tabs
-            values={searchedPackages}
-            block
-            defaultValue={searchedPackages[0].value}
-          >
-            {searchedPackages.map(({ value, changelog }) => (
-              <TabItem value={value} key={value}>
-                <div className={styles.changelog}>
-                  {changelog ? (
-                    <Changelog changelogs={changelog} />
-                  ) : (
-                    <div>Loading...</div>
-                  )}
-                </div>
-              </TabItem>
-            ))}
-          </Tabs>
-        ) : (
-          <div>Search term didn't match any release notes</div>
-        )}
-      </div>
-    </Layout>
+  return ( <
+    Layout title = "Release notes"
+    id = "release-notes" >
+    <
+    div className = "container margin-vert--lg" >
+    <
+    h1 className = "text--center margin-bottom--xl" > Release Notes < /h1> <
+    div className = {
+      styles.changelogSearchContainer
+    } >
+    <
+    input className = {
+      styles.changelogSearchInput
+    }
+    placeholder = "Filter the results..."
+    value = {
+      searchTerm
+    }
+    onChange = {
+      onSearchInput
+    }
+    /> <
+    /div> {
+      searchedPackages.length ? ( <
+        Tabs values = {
+          searchedPackages
+        }
+        block defaultValue = {
+          searchedPackages[0].value
+        } >
+        {
+          searchedPackages.map(({
+            value,
+            changelog
+          }) => ( <
+            TabItem value = {
+              value
+            }
+            key = {
+              value
+            } >
+            <
+            div className = {
+              styles.changelog
+            } > {
+              changelog ? ( <
+                Changelog changelogs = {
+                  changelog
+                }
+                />
+              ) : ( <
+                div > Loading... < /div>
+              )
+            } <
+            /div> <
+            /TabItem>
+          ))
+        } <
+        /Tabs>
+      ) : ( <
+        div > Search term didn 't match any release notes</div>
+      )
+    } <
+    /div> <
+    /Layout>
   )
 }
 

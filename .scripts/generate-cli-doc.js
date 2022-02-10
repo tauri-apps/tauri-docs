@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const rustCliPath = path.join(
   __dirname,
-  '../../tauri/tooling/cli.rs/target/debug/cargo-tauri'
+  '../../tauri/tooling/cli/target/debug/cargo-tauri'
 )
 const templatePath = path.join(__dirname, '../docs/.templates/cli.md')
 const targetPath = path.join(__dirname, '../docs/api/cli.md')
