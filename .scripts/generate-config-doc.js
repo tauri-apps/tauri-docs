@@ -10,14 +10,15 @@ const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 function formatDescription(description) {
-  return description
-    ? description
-        .replace(/`/g, '\\`')
-        .replace(/\n/g, ' ')
-        .replace(/  /g, ' ')
-        .replace(/{/g, '\\{')
-        .replace(/}/g, '\\}')
-    : ''
+  return description ?
+    description
+    .replace(/`/g, '\\`')
+    .replace(/\n/g, ' ')
+    .replace(/  /g, ' ')
+    .replace(/{/g, '\\{')
+    .replace(/}/g, '\\}')
+    .replace(/<http(\S+)>/g, '<a href="http$1">http$1</a>') :
+    ''
 }
 
 function generatePropertiesEl(schema, anchorRoot, definition, tab) {
@@ -78,8 +79,7 @@ function generatePropertiesEl(schema, anchorRoot, definition, tab) {
       )
       rows.push({
         property: propertyName,
-        optional:
-          property.anyOf.length > 1 && property.anyOf[1].type === 'null',
+        optional: property.anyOf.length > 1 && property.anyOf[1].type === 'null',
         type: subType,
         description: property.description,
         child: propertyEl,
@@ -87,14 +87,14 @@ function generatePropertiesEl(schema, anchorRoot, definition, tab) {
     } else if ('allOf' in property) {
       const subType = property.allOf[0].$ref.replace('#/definitions/', '')
       const propDefinition = schema.definitions[subType]
-      const propertyEl = propDefinition.properties
-        ? generatePropertiesEl(
-            schema,
-            `${anchorRoot}.${propertyName}`,
-            propDefinition,
-            `${tab}  `
-          )
-        : undefined
+      const propertyEl = propDefinition.properties ?
+        generatePropertiesEl(
+          schema,
+          `${anchorRoot}.${propertyName}`,
+          propDefinition,
+          `${tab}  `
+        ) :
+        undefined
       rows.push({
         property: propertyName,
         optional: 'default' in property,
