@@ -76,11 +76,11 @@ rust-version = "1.56"
 
 # Needed to set up some things for Tauri at build time
 [build-dependencies]
-tauri-build = "1.0.0-beta.4"
+tauri-build = "1.0.0-rc.0"
 
 # The actual Tauri dependency, along with `custom-protocol` to serve the pages.
 [dependencies]
-tauri = { version = "1.0.0-beta.6", features = ["custom-protocol"] }
+tauri = { version = "1.0.0-rc.0", features = ["custom-protocol"] }
 
 # Make --release build a binary that is small (opt-level = "s") and fast (lto = true).
 # This is completely optional, but shows that testing the application as close to the

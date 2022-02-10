@@ -296,7 +296,7 @@ html[data-theme='light'] .header-github-link::before {
   display: inline-block;
 }
 
-#announcement-beta {
+#announcement-rc {
   font-weight: bold;
   margin-top: 10px;
 }

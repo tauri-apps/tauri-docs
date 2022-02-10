@@ -19,9 +19,9 @@
     "message": "Community",
     "description": "Navbar item with label Community"
   },
-  "item.label.Beta": {
-    "message": "Beta",
-    "description": "Navbar item with label Beta"
+  "item.label.RC": {
+    "message": "RC",
+    "description": "Navbar item with label RC"
   },
   "item.label.Partners": {
     "message": "Partners",
