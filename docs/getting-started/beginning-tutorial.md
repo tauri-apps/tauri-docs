@@ -65,7 +65,7 @@ If you decide to use Tauri as a local package with npm (not yarn), you will have
 This will install `tauri-cli` as a Cargo subcommand on the cargo binary folder (by default on `$HOME/.cargo/bin`):
 
 ```bash
-cargo install tauri-cli --locked --version ^1.0.0-beta
+cargo install tauri-cli --locked --version ^1.0.0-rc
 ```
 
 For more installation options, see [`cargo install`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#description)
@@ -126,16 +126,19 @@ Operating System - Darwin(16.7.0) - darwin/x64
 
 Node.js environment
   Node.js - 12.16.3
-  @tauri-apps/cli - 1.0.0-beta.2
-  @tauri-apps/api - 1.0.0-beta.1
+  @tauri-apps/cli - 1.0.0-rc.0
+  @tauri-apps/api - 1.0.0-rc.0
 
 Global packages
-  npm - 6.14.4
-  yarn - 1.22.4
+  npm - 6.14.15
+  pnpm - Not installed
+  yarn - 1.22.17
 
 Rust environment
-  rustc - 1.52.1
-  cargo - 1.52.0
+  rustup - 1.24.3
+  rustc - 1.58.1
+  cargo - 1.58.0
+  toolchain - stable-x86_64-unknown-linux-gnu
 
 App directory structure
 /node_modules
@@ -144,9 +147,9 @@ App directory structure
 /public
 
 App
-  tauri.rs - 1.0.0-beta.1
+  tauri.rs - 1.0.0-rc.0
   build-type - bundle
-  CSP - default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'
+  CSP - default-src 'self'
   distDir - ../public
   devPath - ../public
   framework - Svelte

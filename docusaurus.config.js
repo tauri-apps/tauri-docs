@@ -48,7 +48,7 @@ const navbarItems = [
     ],
   },
   {
-    label: 'Beta',
+    label: 'RC',
     to: '/#roadmap',
     position: 'right',
     className: 'badge badge--warning',
@@ -162,9 +162,9 @@ const siteConfig = {
       disableSwitch: false,
     },
     announcementBar: {
-      id: 'beta',
+      id: 'rc',
       content:
-        "<div id='announcement-beta'>🚀 Tauri Beta has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/announcing-tauri-beta-more-efficient-crossplatform-apps-with-better-features-1nbd'>Click here for more details.</a></div>",
+        "<div id='announcement-rc'>🚀 Tauri Release Candidate has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/tauri-10-release-candidate-53jk'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
     },
     navbar: {

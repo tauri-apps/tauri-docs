@@ -61,6 +61,6 @@
   },
   "sidebar.api.link.Rust (via Docs.rs)": {
     "message": "Rust (via Docs.rs)",
-    "description": "The label for link Rust (via Docs.rs) in sidebar api, linking to https://docs.rs/tauri/1.0.0-beta.8/"
+    "description": "The label for link Rust (via Docs.rs) in sidebar api, linking to https://docs.rs/tauri/1.0.0-rc.0/"
   }
 }
