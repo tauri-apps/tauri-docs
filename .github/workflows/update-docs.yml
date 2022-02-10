@@ -156,7 +156,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: doc
-          args: --no-deps --manifest-path ./tauri/core/tauri/Cargo.toml --default-features false --features "compression wry isolation custom-protocol api-all cli updater system-tray devtools dox"
+          args: --no-deps --manifest-path ./tauri/core/tauri/Cargo.toml --no-default-features --features "compression wry isolation custom-protocol api-all cli updater system-tray devtools dox"
         env:
           RUSTDOCFLAGS: '-Z unstable-options --output-format json'
       - name: Copy tauri.json
