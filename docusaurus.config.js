@@ -187,7 +187,7 @@ const siteConfig = {
       {
         docs: {
           path: './docs/',
-          exclude: ['api/rust/**'],
+          exclude: ['api/rust/**', 'api/js/js-api.json'],
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
