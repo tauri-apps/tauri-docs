@@ -126,7 +126,7 @@ jobs:
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
       - name: Install nightly toolchain
-        uses: actions-rs/toolchain
+        uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: nightly
