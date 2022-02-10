@@ -49,7 +49,7 @@ jobs:
       - name: install webkit2gtk
         run: |
           sudo apt-get update
-          sudo apt-get install -y webkit2gtk-4.0
+          sudo apt-get install -y webkit2gtk-4.0 libappindicator3-dev
 
       # # Rust
       # - name: generate rust docs
