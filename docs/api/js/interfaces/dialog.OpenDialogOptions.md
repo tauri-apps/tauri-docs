@@ -16,7 +16,7 @@ Initial directory or file path.
 
 #### Defined in
 
-[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L51)
+[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/dialog.ts#L51)
 
 ___
 
@@ -28,7 +28,7 @@ Whether the dialog is a directory selection or not.
 
 #### Defined in
 
-[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L55)
+[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/dialog.ts#L55)
 
 ___
 
@@ -40,7 +40,7 @@ The filters of the dialog.
 
 #### Defined in
 
-[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L49)
+[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/dialog.ts#L49)
 
 ___
 
@@ -52,7 +52,7 @@ Whether the dialog allows multiple selection or not.
 
 #### Defined in
 
-[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L53)
+[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/dialog.ts#L53)
 
 ___
 
@@ -64,4 +64,4 @@ The title of the dialog window.
 
 #### Defined in
 
-[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/dialog.ts#L47)
+[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/dialog.ts#L47)

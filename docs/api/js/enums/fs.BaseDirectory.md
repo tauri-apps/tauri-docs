@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[fs.ts:54](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L54)
+[fs.ts:54](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L54)
 
 ___
 
@@ -22,7 +22,7 @@ ___
 
 #### Defined in
 
-[fs.ts:37](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L37)
+[fs.ts:37](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L37)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[fs.ts:38](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L38)
+[fs.ts:38](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L38)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[fs.ts:39](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L39)
+[fs.ts:39](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L39)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[fs.ts:40](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L40)
+[fs.ts:40](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L40)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[fs.ts:42](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L42)
+[fs.ts:42](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L42)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[fs.ts:43](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L43)
+[fs.ts:43](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L43)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[fs.ts:44](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L44)
+[fs.ts:44](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L44)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[fs.ts:45](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L45)
+[fs.ts:45](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L45)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[fs.ts:46](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L46)
+[fs.ts:46](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L46)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[fs.ts:47](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L47)
+[fs.ts:47](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L47)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[fs.ts:41](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L41)
+[fs.ts:41](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L41)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[fs.ts:55](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L55)
+[fs.ts:55](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L55)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[fs.ts:48](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L48)
+[fs.ts:48](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L48)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[fs.ts:49](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L49)
+[fs.ts:49](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L49)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[fs.ts:53](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L53)
+[fs.ts:53](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L53)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[fs.ts:50](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L50)
+[fs.ts:50](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L50)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[fs.ts:51](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L51)
+[fs.ts:51](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L51)
 
 ___
 
@@ -192,4 +192,4 @@ ___
 
 #### Defined in
 
-[fs.ts:52](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L52)
+[fs.ts:52](https://github.com/tauri-apps/tauri/blob/ffb9a19/tooling/api/src/fs.ts#L52)
