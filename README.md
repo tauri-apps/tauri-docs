@@ -4,13 +4,10 @@ This website is built using [Docusaurus 2](https://v2.docusaurus.io/) with [Meil
 
 [![Deploys By Netlify](https://www.netlify.com/img/global/badges/netlify-light.svg)](https://www.netlify.com)
 
-If you seek to change something from **our guides**, please refer to [the docs folder from the Core repository](https://github.com/tauri-apps/tauri/tree/dev/docs). \
+If you seek to change something from **our guides**, please refer to [the docs folder](https://github.com/tauri-apps/tauri-docs/tree/dev/docs). \
 When browsing the website, you will find edit links at the bottom of these docs.
 
 The **API docs** are generated from our [Rust](https://github.com/tauri-apps/tauri/tree/dev/core/tauri) and [TypeScript](https://github.com/tauri-apps/tauri/tree/dev/tooling/api) source code.
-
-In the end, as the guides and the API live in the Core repository, tauri-docs just holds the components and various pages that don't need to follow the Core repository version; this way, we don't pollute the Core repository with commits, PRs or issues related to the website only.
-
 
 ## Installation
 
@@ -71,7 +68,7 @@ The following items should be translated before enabling a language:
 
 - strings in i18n/[language] json files
 - docs/about/intro.md and docs/about/security.md;
-- all files in docs/get-started;
+- all files in docs/getting-started;
 - all files in docs/development;
 
 
