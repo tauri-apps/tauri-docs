@@ -33,6 +33,12 @@ const docs = [
       'architecture/build-tools-node',
       'architecture/frontend-frameworks',
       {
+        Patterns: [
+          'architecture/patterns/brownfield',
+          'architecture/patterns/isolation',
+        ]
+      },
+      {
         Recipes: [
           'architecture/recipes/about-recipes',
           'architecture/recipes/hermit',
