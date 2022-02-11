@@ -186,7 +186,7 @@ You can restrict the URLs and paths that can be accessed when using the `http` m
   "tauri": {
     "allowlist": {
       "http": {
-        "scope": ['https://api.github.com/repos/tauri-apps/*']
+        "scope": ["https://api.github.com/repos/tauri-apps/*"]
       }
     } 
   }
