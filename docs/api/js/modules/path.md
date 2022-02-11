@@ -20,7 +20,7 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:449](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L449)
+[path.ts:449](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L449)
 
 ___
 
@@ -34,7 +34,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:442](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L442)
+[path.ts:442](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L442)
 
 ## Functions
 
@@ -51,7 +51,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 #### Defined in
 
-[path.ts:36](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L36)
+[path.ts:36](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L36)
 
 ___
 
@@ -73,7 +73,7 @@ Returns the path to the user's audio directory.
 
 #### Defined in
 
-[path.ts:58](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L58)
+[path.ts:58](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L58)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[path.ts:525](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L525)
+[path.ts:525](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L525)
 
 ___
 
@@ -118,7 +118,7 @@ Returns the path to the user's cache directory.
 
 #### Defined in
 
-[path.ts:80](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L80)
+[path.ts:80](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L80)
 
 ___
 
@@ -140,7 +140,7 @@ Returns the path to the user's config directory.
 
 #### Defined in
 
-[path.ts:102](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L102)
+[path.ts:102](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L102)
 
 ___
 
@@ -162,7 +162,7 @@ Returns the path to the user's data directory.
 
 #### Defined in
 
-[path.ts:124](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L124)
+[path.ts:124](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L124)
 
 ___
 
@@ -184,7 +184,7 @@ Returns the path to the user's desktop directory.
 
 #### Defined in
 
-[path.ts:146](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L146)
+[path.ts:146](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L146)
 
 ___
 
@@ -206,7 +206,7 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 
 #### Defined in
 
-[path.ts:497](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L497)
+[path.ts:497](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L497)
 
 ___
 
@@ -228,7 +228,7 @@ Returns the path to the user's document directory.
 
 #### Defined in
 
-[path.ts:168](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L168)
+[path.ts:168](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L168)
 
 ___
 
@@ -250,7 +250,7 @@ Returns the path to the user's download directory.
 
 #### Defined in
 
-[path.ts:190](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L190)
+[path.ts:190](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L190)
 
 ___
 
@@ -272,7 +272,7 @@ Returns the path to the user's executable directory.
 
 #### Defined in
 
-[path.ts:212](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L212)
+[path.ts:212](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L212)
 
 ___
 
@@ -294,7 +294,7 @@ Returns the extension of the `path`.
 
 #### Defined in
 
-[path.ts:510](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L510)
+[path.ts:510](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L510)
 
 ___
 
@@ -316,7 +316,7 @@ Returns the path to the user's font directory.
 
 #### Defined in
 
-[path.ts:234](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L234)
+[path.ts:234](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L234)
 
 ___
 
@@ -338,7 +338,7 @@ Returns the path to the user's home directory.
 
 #### Defined in
 
-[path.ts:256](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L256)
+[path.ts:256](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L256)
 
 ___
 
@@ -358,7 +358,7 @@ ___
 
 #### Defined in
 
-[path.ts:536](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L536)
+[path.ts:536](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L536)
 
 ___
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[path.ts:484](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L484)
+[path.ts:484](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L484)
 
 ___
 
@@ -402,7 +402,7 @@ Returns the path to the user's local data directory.
 
 #### Defined in
 
-[path.ts:278](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L278)
+[path.ts:278](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L278)
 
 ___
 
@@ -424,7 +424,7 @@ Returns the path to the suggested log directory.
 
 #### Defined in
 
-[path.ts:426](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L426)
+[path.ts:426](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L426)
 
 ___
 
@@ -446,7 +446,7 @@ Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve sym
 
 #### Defined in
 
-[path.ts:469](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L469)
+[path.ts:469](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L469)
 
 ___
 
@@ -468,7 +468,7 @@ Returns the path to the user's picture directory.
 
 #### Defined in
 
-[path.ts:300](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L300)
+[path.ts:300](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L300)
 
 ___
 
@@ -490,7 +490,7 @@ Returns the path to the user's public directory.
 
 #### Defined in
 
-[path.ts:322](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L322)
+[path.ts:322](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L322)
 
 ___
 
@@ -512,7 +512,7 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 
 #### Defined in
 
-[path.ts:456](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L456)
+[path.ts:456](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L456)
 
 ___
 
@@ -528,7 +528,7 @@ Returns the path to the user's resource directory.
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L338)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -550,7 +550,7 @@ Returns the path to the user's runtime directory.
 
 #### Defined in
 
-[path.ts:360](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L360)
+[path.ts:360](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L360)
 
 ___
 
@@ -572,7 +572,7 @@ Returns the path to the user's template directory.
 
 #### Defined in
 
-[path.ts:382](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L382)
+[path.ts:382](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L382)
 
 ___
 
@@ -594,4 +594,4 @@ Returns the path to the user's video directory.
 
 #### Defined in
 
-[path.ts:404](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/path.ts#L404)
+[path.ts:404](https://github.com/tauri-apps/tauri/blob/5c0a8bf/tooling/api/src/path.ts#L404)
