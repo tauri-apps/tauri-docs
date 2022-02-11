@@ -51,7 +51,7 @@ Tauri restricts the [Content Security Policy (CSP)](https://developer.mozilla.or
 The CSP protection is only enabled if [`tauri.security.csp`](/docs/api/config/#tauri.security.csp) is set on the Tauri configuration file. You should make it as restricted as possible, only allowing the webview to load assets from hosts you trust and preferably own. At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically, so you only need to worry about what is unique to your application.
 
 <Alert title="Note">
-See <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">script-src</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src">script-src</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">CSP Sources</a> for more information about this protection.
+See <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">script-src</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src">style-src</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">CSP Sources</a> for more information about this protection.
 </Alert>
 
 <Alert title="Note">
