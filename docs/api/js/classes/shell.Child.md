@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[shell.ts:134](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L134)
+[shell.ts:183](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L183)
 
 ## Properties
 
@@ -30,7 +30,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:132](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L132)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
@@ -48,7 +48,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:169](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L169)
+[shell.ts:218](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L218)
 
 ___
 
@@ -80,4 +80,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:152](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L152)
+[shell.ts:201](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L201)

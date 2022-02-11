@@ -23,7 +23,7 @@ console.log('pid:', child.pid)
 
 ## Hierarchy
 
-- `EventEmitter`<``"close"`` \| ``"error"``\>
+- [`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
 
   ↳ **`Command`**
 
@@ -39,41 +39,41 @@ Creates a new `Command` instance.
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program to execute. |
+| `program` | `string` | `undefined` | The program name to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](../interfaces/shell.SpawnOptions.md) | `undefined` | Spawn options. |
 
 #### Overrides
 
-EventEmitter&lt;&#x27;close&#x27; \| &#x27;error&#x27;\&gt;.constructor
+[EventEmitter](shell.EventEmitter.md).[constructor](shell.EventEmitter.md#constructor)
 
 #### Defined in
 
-[shell.ts:216](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L216)
+[shell.ts:266](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L266)
 
 ## Properties
 
 ### stderr
 
-• `Readonly` **stderr**: `EventEmitter`<``"data"``\>
+• `Readonly` **stderr**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:207](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L207)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L256)
 
 ___
 
 ### stdout
 
-• `Readonly` **stdout**: `EventEmitter`<``"data"``\>
+• `Readonly` **stdout**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:205](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L205)
+[shell.ts:254](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L254)
 
 ## Methods
 
@@ -100,13 +100,13 @@ A promise resolving to the child process output.
 
 #### Defined in
 
-[shell.ts:292](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L292)
+[shell.ts:343](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L343)
 
 ___
 
 ### on
 
-▸ **on**(`event`, `handler`): `EventEmitter`<``"close"`` \| ``"error"``\>
+▸ **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
 
 Listen to an event from the child process.
 
@@ -119,17 +119,17 @@ Listen to an event from the child process.
 
 #### Returns
 
-`EventEmitter`<``"close"`` \| ``"error"``\>
+[`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
 
 The `this` instance for chained calls.
 
 #### Inherited from
 
-EventEmitter.on
+[EventEmitter](shell.EventEmitter.md).[on](shell.EventEmitter.md#on)
 
 #### Defined in
 
-[shell.ts:124](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L124)
+[shell.ts:173](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L173)
 
 ___
 
@@ -147,7 +147,7 @@ A promise resolving to the child process handle.
 
 #### Defined in
 
-[shell.ts:255](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L255)
+[shell.ts:306](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L306)
 
 ___
 
@@ -167,7 +167,7 @@ const output = await command.execute()
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program to execute. |
+| `program` | `string` | `undefined` | The program to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](../interfaces/shell.SpawnOptions.md) | `undefined` | Spawn options. |
 
@@ -177,4 +177,4 @@ const output = await command.execute()
 
 #### Defined in
 
-[shell.ts:240](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L240)
+[shell.ts:291](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L291)

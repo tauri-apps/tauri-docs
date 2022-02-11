@@ -28,6 +28,42 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
+## Security
+
+This module prevents path traversal, not allowing absolute paths or parent dir components
+(i.e. "/usr/path/to/file" or "../path/to/file" paths are not allowed).
+Paths accessed with this API must be relative to one of the [base directories](../enums/fs.BaseDirectory.md)
+so if you need access to arbitrary filesystem paths, you must write such logic on the core layer instead.
+
+The API has a scope configuration that forces you to restrict the paths that can be accessed using glob patterns.
+
+The scope configuration is an array of glob patterns describing folder paths that are allowed.
+For instance, this scope configuration only allows accessing files on the
+*databases* folder of the [$APP directory](path.md#appdir):
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "fs": {
+        "scope": ["$APP/databases/*"]
+      }
+    }
+  }
+}
+```
+
+Notice the use of the `$APP` variable. The value is injected at runtime, resolving to the [app directory](path.md#appdir).
+The available variables are:
+[`$AUDIO`](path.md#audiodir), [`$CACHE`](path.md#cachedir), [`$CONFIG`](path.md#configdir), [`$DATA`](path.md#datadir),
+[`$LOCALDATA`](path.md#localdatadir), [`$DESKTOP`](path.md#desktopdir), [`$DOCUMENT`](path.md#documentdir),
+[`$DOWNLOAD`](path.md#downloaddir), [`$EXE`](path.md#executabledir), [`$FONT`](path.md#fontdir), [`$HOME`](path.md#homedir),
+[`$PICTURE`](path.md#picturedir), [`$PUBLIC`](path.md#publicdir), [`$RUNTIME`](path.md#runtimedir),
+[`$TEMPLATE`](path.md#templatedir), [`$VIDEO`](path.md#videodir), [`$RESOURCE`](path.md#resourcedir), [`$APP`](path.md#appdir).
+
+Trying to execute any API with a URL not configured on the scope results in a promise rejection due to denied access.
+
+Note that this scope applies to **all** APIs on this module.
+
 ## Enumerations
 
 - [BaseDirectory](../enums/fs.BaseDirectory.md)
@@ -70,7 +106,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:270](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L270)
+[fs.ts:307](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L307)
 
 ___
 
@@ -97,7 +133,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:226](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L226)
+[fs.ts:263](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L263)
 
 ___
 
@@ -122,7 +158,7 @@ A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:122](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L122)
+[fs.ts:159](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L159)
 
 ___
 
@@ -147,7 +183,7 @@ A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:203](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L203)
+[fs.ts:240](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L240)
 
 ___
 
@@ -172,7 +208,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:101](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L101)
+[fs.ts:138](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L138)
 
 ___
 
@@ -198,7 +234,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:248](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L248)
+[fs.ts:285](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L285)
 
 ___
 
@@ -223,7 +259,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:293](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L293)
+[fs.ts:330](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L330)
 
 ___
 
@@ -249,7 +285,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:315](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L315)
+[fs.ts:352](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L352)
 
 ___
 
@@ -274,7 +310,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:174](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L174)
+[fs.ts:211](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L211)
 
 ___
 
@@ -299,4 +335,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:145](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/fs.ts#L145)
+[fs.ts:182](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/fs.ts#L182)

@@ -14,7 +14,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 #### Defined in
 
-[shell.ts:46](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L46)
+[shell.ts:95](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L95)
 
 ___
 
@@ -26,7 +26,7 @@ If the process was terminated by a signal, represents that signal.
 
 #### Defined in
 
-[shell.ts:48](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L48)
+[shell.ts:97](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L97)
 
 ___
 
@@ -38,7 +38,7 @@ The data that the process wrote to `stderr`.
 
 #### Defined in
 
-[shell.ts:52](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L52)
+[shell.ts:101](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L101)
 
 ___
 
@@ -50,4 +50,4 @@ The data that the process wrote to `stdout`.
 
 #### Defined in
 
-[shell.ts:50](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/shell.ts#L50)
+[shell.ts:99](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/shell.ts#L99)

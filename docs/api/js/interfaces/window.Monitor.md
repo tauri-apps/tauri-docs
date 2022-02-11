@@ -16,7 +16,7 @@ Human-readable name of the monitor
 
 #### Defined in
 
-[window.ts:92](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L92)
+[window.ts:115](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L115)
 
 ___
 
@@ -28,7 +28,7 @@ the Top-left corner position of the monitor relative to the larger full screen a
 
 #### Defined in
 
-[window.ts:96](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L96)
+[window.ts:119](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L119)
 
 ___
 
@@ -40,7 +40,7 @@ The scale factor that can be used to map physical pixels to logical pixels.
 
 #### Defined in
 
-[window.ts:98](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L98)
+[window.ts:121](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L121)
 
 ___
 
@@ -52,4 +52,4 @@ The monitor's resolution.
 
 #### Defined in
 
-[window.ts:94](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L94)
+[window.ts:117](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L117)
