@@ -27,7 +27,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Lockdown.svg')} alt="Lockdown" />
+    <img src={useBaseUrl('img/recipes/Lockdown.svg')} alt="Lockdown" />
   </div>
   <div className="col col--4">
     Pros:
@@ -45,7 +45,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## Description
 
-The Lockdown recipe is a minimal usage of the [Bridge pattern](/docs/architecture/patterns/bridge), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
+The Lockdown recipe is a minimal usage of the [Bridge pattern](./bridge.md), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
 
 ## Diagram
 

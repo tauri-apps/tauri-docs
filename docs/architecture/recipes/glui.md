@@ -33,7 +33,7 @@ import Rater from '@theme/Rater'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/GLUI.svg')} alt="GLUI" />
+    <img src={useBaseUrl('img/recipes/GLUI.svg')} alt="GLUI" />
   </div>
   <div className="col col--4">
     Pros:
