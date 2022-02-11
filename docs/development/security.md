@@ -64,7 +64,7 @@ Avoid loading remote content such as scripts served over a CDN as they introduce
 
 ### Isolation Pattern
 
-The [Isolation pattern](../architecture/patterns/isolation.md) is a way to inject a secondary (ideally minimal)
+The [Isolation pattern](../architecture/patterns/isolation.md) is a way to inject a secondary, ideally minimal,
 JavaScript application in between your frontend application and Tauri Core. This minimal Isolation application can then
 be used to securely verify and modify IPC messages before they reach Tauri Core. [The Isolation pattern guide](../architecture/patterns/isolation.md)
 has more information.
