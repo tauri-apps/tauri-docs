@@ -21,6 +21,24 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
+## Security
+
+This API has a scope configuration that forces you to restrict the URLs and paths that can be accessed using glob patterns.
+
+For instance, this scope configuration only allows making HTTP requests to the GitHub API for the `tauri-apps` organization:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "http": {
+        "scope": ["https://api.github.com/repos/tauri-apps/*"]
+      }
+    }
+  }
+}
+```
+Trying to execute any API with a URL not configured on the scope results in a promise rejection due to denied access.
+
 ## Enumerations
 
 - [ResponseType](../enums/http.ResponseType.md)
@@ -46,7 +64,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:132](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L132)
+[http.ts:151](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L151)
 
 ___
 
@@ -58,7 +76,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:107](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L107)
+[http.ts:126](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L126)
 
 ___
 
@@ -68,7 +86,7 @@ ___
 
 #### Defined in
 
-[http.ts:40](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L40)
+[http.ts:59](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L59)
 
 ___
 
@@ -80,7 +98,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:130](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L130)
+[http.ts:149](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L149)
 
 ## Functions
 
@@ -111,7 +129,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:350](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L350)
+[http.ts:369](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L369)
 
 ___
 
@@ -135,4 +153,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:330](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/http.ts#L330)
+[http.ts:349](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/http.ts#L349)

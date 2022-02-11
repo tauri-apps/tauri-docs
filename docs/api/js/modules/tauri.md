@@ -14,20 +14,37 @@ This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.j
 
 ### convertFileSrc
 
-▸ **convertFileSrc**(`filePath`): `string`
+▸ **convertFileSrc**(`filePath`, `protocol?`): `string`
 
 Convert a device file path to an URL that can be loaded by the webview.
 Note that `asset:` and `https://asset.localhost` must be allowed on the `csp` value configured on `tauri.conf.json > tauri > security`.
-Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"`.
+Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"` to use the asset protocol on image sources.
 
 Additionally, the `asset` must be allowlisted under `tauri.conf.json > tauri > allowlist > protocol`,
 and its access scope must be defined on the `assetScope` array on the same `protocol` object.
 
+**`example`**
+```typescript
+import { appDir, join } from '@tauri-apps/api/path'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
+const appDirPath = await appDir()
+const filePath = await join(appDir, 'assets/video.mp4')
+const assetUrl = convertFileSrc(filePath)
+
+const video = document.getElementById('my-video')
+const source = document.createElement('source')
+source.type = 'video/mp4'
+source.src = assetUrl
+video.appendChild(source)
+video.load()
+```
+
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `filePath` | `string` | the file path. |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `filePath` | `string` | `undefined` | The file path. |
+| `protocol` | `string` | `'asset'` | The protocol to use. Defaults to `asset`. You only need to set this when using a custom protocol. |
 
 #### Returns
 
@@ -37,7 +54,7 @@ the URL that can be used as source on the webview.
 
 #### Defined in
 
-[tauri.ts:100](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/tauri.ts#L100)
+[tauri.ts:116](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/tauri.ts#L116)
 
 ___
 
@@ -68,7 +85,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:68](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/tauri.ts#L68)
+[tauri.ts:68](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/tauri.ts#L68)
 
 ___
 
@@ -94,4 +111,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:34](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/tauri.ts#L34)
+[tauri.ts:34](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/tauri.ts#L34)

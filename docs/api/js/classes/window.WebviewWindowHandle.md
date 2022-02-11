@@ -26,7 +26,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Defined in
 
-[window.ts:231](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L231)
+[window.ts:254](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L254)
 
 ## Properties
 
@@ -34,11 +34,11 @@ A webview window handle allows emitting and listening to events from the backend
 
 • **label**: `string`
 
-Window label.
+The window label. It is a unique identifier for the window, can be used to reference it later.
 
 #### Defined in
 
-[window.ts:227](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L227)
+[window.ts:250](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L250)
 
 ___
 
@@ -54,7 +54,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:229](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L229)
+[window.ts:252](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L252)
 
 ## Methods
 
@@ -81,7 +81,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:293](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L293)
+[window.ts:316](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L316)
 
 ___
 
@@ -104,7 +104,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L282)
+[window.ts:305](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L305)
 
 ___
 
@@ -135,7 +135,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:244](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L244)
+[window.ts:267](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L267)
 
 ___
 
@@ -166,4 +166,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:265](https://github.com/tauri-apps/tauri/blob/7c0fb73/tooling/api/src/window.ts#L265)
+[window.ts:288](https://github.com/tauri-apps/tauri/blob/d29c5d5/tooling/api/src/window.ts#L288)
