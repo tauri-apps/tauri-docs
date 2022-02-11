@@ -27,6 +27,10 @@
     "message": "Patterns",
     "description": "The label for category Patterns in sidebar docs"
   },
+  "sidebar.docs.category.Recipe": {
+    "message": "Recipes",
+    "description": "The label for category Recipes in sidebar docs"
+  },
   "sidebar.docs.category.Bundler": {
     "message": "Bundler",
     "description": "The label for category Bundler in sidebar docs"
