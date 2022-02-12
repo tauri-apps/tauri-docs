@@ -35,10 +35,10 @@ const features = [
       description: translate({message: "is the Tauri-Team's biggest priority and drives our innovation"}),
     },
     {
-      imageUrl: 'img/index/undraw_patterns.svg',
-      link: 'docs/architecture/patterns/about-patterns',
+      imageUrl: 'img/index/undraw_recipes.svg',
+      link: 'docs/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
-      label: translate({ message: 'Patterns' }),
+      label: translate({ message: 'Recipes' }),
       description: translate({
         message:
           'Here to help you choose important features with simple configuration',

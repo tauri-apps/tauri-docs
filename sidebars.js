@@ -34,14 +34,20 @@ const docs = [
       'architecture/frontend-frameworks',
       {
         Patterns: [
-          'architecture/patterns/about-patterns',
-          'architecture/patterns/hermit',
-          'architecture/patterns/bridge',
-          'architecture/patterns/cloudish',
-          'architecture/patterns/cloudbridge',
-          'architecture/patterns/lockdown',
-          'architecture/patterns/multiwin',
-          'architecture/patterns/glui',
+          'architecture/patterns/brownfield',
+          'architecture/patterns/isolation',
+        ]
+      },
+      {
+        Recipes: [
+          'architecture/recipes/about-recipes',
+          'architecture/recipes/hermit',
+          'architecture/recipes/bridge',
+          'architecture/recipes/cloudish',
+          'architecture/recipes/cloudbridge',
+          'architecture/recipes/lockdown',
+          'architecture/recipes/multiwin',
+          'architecture/recipes/glui',
         ],
       },
     ],

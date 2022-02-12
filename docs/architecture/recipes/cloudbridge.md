@@ -1,5 +1,5 @@
 ---
-title: Cloudish
+title: Cloudbridge
 ---
 
 import Rater from '@theme/Rater'
@@ -10,11 +10,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     <table>
       <tr>
         <td>Ease of Use</td>
-        <td><Rater value="5"/></td>
+        <td><Rater value="1"/></td>
       </tr>
       <tr>
         <td>Extensibility</td>
-        <td><Rater value="3"/></td>
+        <td><Rater value="5"/></td>
       </tr>
       <tr>
         <td>Performance</td>
@@ -27,53 +27,67 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/patterns/Cloudish.svg')} alt="Cloudish" />
+    <img src={useBaseUrl('img/recipes/Cloudbridge.svg')} alt="Cloudbridge" />
   </div>
     <div className="col col--4">
     Pros:
     <ul>
-      <li>Similar to a SPA web-app</li>
+      <li>All available features</li>
       <li>No Rust skills required</li>
     </ul>
     Cons:
     <ul>
-      <li>No access to Rust API</li>
-      <li>Uses a localhost server</li>
+      <li>Largest bundle size</li>
+      <li>Hard to separate concerns</li>
     </ul>
   </div>
 </div>
 
 ## Description
 
-The Cloudish recipe is a pattern for maximum flexibility and app performance. It uses a localhost server, which means that your app will technically be available to other processes, like browsers and potentially other devices on the network. All of your assets are baked into the binary, but served as if they were distinct files.
+The Cloudbridge recipe combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
 
 ## Diagram
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph TD
-      H==>F
-      H==>D
-      D-->F
-      F-->D
-      subgraph RUST
-      A==>H
-      end
+      H==>F2
+      H==>D2
+      D2-->F2
+      F2-->D2
+      B-->D
+      D-->B
+      E2-->D
+      D-->E2
       subgraph WEBVIEW
-      F
+      F2
+      E2
       end
       subgraph SERVER
-      D
-      E-->D
+      D2
+      E-->D2
+      end
+      subgraph RUST
+      A==>H
+      A-->B
+      B-.-C
       end
       A[Binary]
-      D(( localhost ))
+      B{Rust Broker}
+      C[Subprocess]
+      D(( API BRIDGE ))
+      E{JS Broker}
+      D2(( localhost ))
       E[bundled resources]
-      F[Window]
+      E2{JS Broker}
+      F2[Window]
       H{Bootstrap}
+      style D fill:#ccc,stroke:#333,stroke-width:4px,color:white
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-      style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px`} />
+      style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
+      `} />
 
 
 ## Configuration
@@ -82,8 +96,7 @@ Here's what you need to add to your tauri.conf.json file:
 ```json
 "tauri": {
   "allowlist": {
-    "all": false                  // disable entire API
+    "all": true                   // enable entire API
   }
 }
-
 ```

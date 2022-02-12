@@ -158,10 +158,10 @@ App
 
 This information can be very helpful when triaging problems.
 
-### Patterns
+### Recipes
 
-We've also defined prebuilt configurations called "Patterns". They may help you to customize Tauri to fit your needs.
-[See more about patterns](/docs/architecture/patterns/about-patterns).
+We've also defined prebuilt configurations called "Recipes". They may help you to customize Tauri to fit your needs.
+[See more about recipes](../architecture/recipes/about-recipes.md).
 
 ## Vue CLI Plugin Tauri
 

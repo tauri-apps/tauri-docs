@@ -62,11 +62,12 @@ With the CSP protection enabled, using inline `style` attributes it not allowed.
 Avoid loading remote content such as scripts served over a CDN as they introduce an attack vector, but any untrusted file can introduce new and subtle attack vectors.
 </Alert>
 
-### Isolation pattern
+### Isolation Pattern
 
-To enable the isolation pattern, set [`tauri.pattern.use`](/docs/api/config/#tauri.pattern.use) to `isolation` and define the [`tauri.pattern.options.dir`](/docs/api/config/#tauri.pattern.options.dir) configuration to the path to the folder containing the `index.html` to be used on the isolation iframe.
-
-Documentation details about the isolation pattern will be updated soon.
+The [Isolation pattern](../architecture/patterns/isolation.md) is a way to inject a secondary, ideally minimal,
+JavaScript application in between your frontend application and Tauri Core. This minimal Isolation application can then
+be used to securely verify and modify IPC messages before they reach Tauri Core. [The Isolation pattern guide](../architecture/patterns/isolation.md)
+has more information.
 
 ### Tauri API
 
