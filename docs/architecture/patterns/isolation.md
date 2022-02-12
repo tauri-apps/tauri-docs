@@ -24,11 +24,14 @@ final output.
 
 ## When
 
-The best time to use the Isolation pattern is when you have any of the `allowlist` Tauri APIs enabled. As the developer,
-you can utilize the secure Isolation application to try and verify IPC inputs to make sure they are within
-some expected parameters. As an example, you may want to check that a call to read or write a file is not trying to get
-to a path outside your application's expected locations. Another example is making sure that a Tauri API HTTP fetch
-call is only setting the Origin header to what your application expects it to be.
+Tauri highly recommends using the isolation patten whenever it can be used. Because the Isolation application intercepts
+_**all**_ messages from the frontend, it can _always_ be used.
+
+Tauri also believes that locking down your application whenever you use external Tauri APIs is extremely suggested.
+As the developer, you can utilize the secure Isolation application to try and verify IPC inputs to make sure they are
+within some expected parameters. As an example, you may want to check that a call to read or write a file is not trying
+to get to a path outside your application's expected locations. Another example is making sure that a Tauri API HTTP
+fetch call is only setting the Origin header to what your application expects it to be.
 
 That said, it intercepts _**all**_ messages from the frontend, so it will even work with always-on APIs such as
 [Events](../../guides/events.md). Since some events may cause your own rust code to perform actions, the same sort of
