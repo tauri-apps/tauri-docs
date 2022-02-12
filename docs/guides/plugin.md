@@ -6,8 +6,7 @@ Plugins allow you to hook into the Tauri application lifecycle and introduce new
 
 ## Using a Plugin
 
-To use a plugin, just pass the plugin instance to the App
-'s `plugin` method:
+To use a plugin, just pass the plugin instance to the App's `plugin` method:
 
 ```rust
 fn main() {
