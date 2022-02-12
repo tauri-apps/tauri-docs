@@ -196,8 +196,7 @@ And example from a typical `tauri.conf.json`:
     "allowlist": {
       "all": false,
       "fs": {
-        "writeFile": true,
-        "writeBinaryFile": true
+        "writeFile": true
       },
       "shell": {
         "execute": true
