@@ -1,4 +1,4 @@
-# App Size
+# Reducing the App Size
 
 At Tauri, we are working on reducing the environmental footprint of applications by using system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing on performance or security. The point is, by saving resources, we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
 
@@ -31,7 +31,7 @@ These are just a couple tools that you might use, make sure to check your fronte
 
 ## Checklist
 
-- [App Size](#app-size)
+- [Reducing the App Size](#reducing-the-app-size)
     - [You can't improve what you can't measure](#you-cant-improve-what-you-cant-measure)
     - [Think twice before adding a dependency](#think-twice-before-adding-a-dependency)
   - [Checklist](#checklist)
@@ -319,6 +319,8 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 ```
 
 [cargo-bloat]: https://github.com/RazrFalcon/cargo-bloat
+[Macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
+[cargo-expand]: https://github.com/dtolnay/cargo-expand
 [rollup-plugin-visualizer]: https://github.com/btd/rollup-plugin-visualizer
 [rollup-plugin-graph]: https://github.com/ondras/rollup-plugin-graph
 [vite]: https://vitejs.dev
@@ -343,4 +345,10 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [responsive images]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
 [why is a rust executable large ?]: https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
 [minimizing rust binary size]: https://github.com/johnthagen/min-sized-rust
+[cargo unstable features]: https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features
 [cargo profiles]: https://doc.rust-lang.org/cargo/reference/profiles.html
+[cargo build-std]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
+[cargo build-std-features]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features
+[Bundlephobia]: https://bundlephobia.com
+[Frida]: https://frida.re/docs/home/
+[UPX]: https://github.com/upx/upx
