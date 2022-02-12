@@ -1,14 +1,112 @@
 ---
-title: Writing Tauri Plugins
+title: Tauri Plugins
 ---
-
-import Alert from '@theme/Alert'
 
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
 
+## Using a Plugin
+
+To use a plugin, just pass the plugin instance to the App
+'s `plugin` method:
+
+```rust
+fn main() {
+  tauri::Builder::default()
+    .plugin(my_awesome_plugin::init())
+    .run(tauri::generate_context!())
+    .expect("failed to run app");
+}
+```
+
 ## Writing a Plugin
 
-To write a plugin you just need to implement the `tauri::plugin::Plugin` trait:
+Plugins are reusable extensions to the Tauri API that solve common problems. They are also a very convenient way to structure your own code base!
+
+If you intend to share your plugin with others, we provide a ready-made template! With the tauri-cli installed just run:
+
+```sh
+tauri plugin init --name awesome
+```
+
+### API package
+
+By default consumers of your plugin can call provided commands like this:
+
+```ts
+import { invoke } from '@tauri-apps/api'
+invoke('plugin:awesome|do_something')
+```
+
+where `awesome` will be replaced by your plugin name.
+
+This isn't very convenient however, so it's common for plugins to provide a so called _API package_, a JavaScript package that provides convenient access to your commands.
+
+> An example of this is the [tauri-plugin-store](https://github.com/tauri-apps/tauri-plugin-store), that provides a convenient class structure to accessing a store.
+> You can scaffold a plugin with attached API package like this:
+
+```sh
+tauri plugin init --name awesome --api
+```
+
+## Writing a Plugin
+
+Using the `tauri::plugin::Builder` you can define plugins similar to how you define your app:
+
+```rust
+use tauri::plugin::{Builder, TauriPlugin};
+// the plugin custom command handlers if you choose to extend the API.
+#[tauri::command]
+// this will be accessible with `invoke('plugin:awesome|initialize')`.
+// where `awesome` is the plugin name.
+fn initialize() {}
+#[tauri::command]
+// this will be accessible with `invoke('plugin:awesome|do_something')`.
+fn do_something() {}
+pub fn init() -> TauriPlugin {
+  Builder::new("awesome")
+    .invoke_handler(tauri::generate_handler![initialize, do_something])
+    .build()
+}
+```
+
+Plugins can setup and maintain state, just like your app can:
+
+```rust
+  use tauri::{
+    AppHandle, Runtime, State
+    plugin::{Builder, TauriPlugin}
+  };
+  #[derive(Default)]
+  struct MyState {
+  }
+  #[tauri::command]
+  // this will be accessible with `invoke('plugin:awesome|do_something')`.
+  fn do_something<R: Runtime>(_app: AppHandle<R>, state: State<'_, MyState>) {
+    // you can access `MyState` here!
+  }
+  Builder::new("awesome")
+    .invoke_handler(tauri::generate_handler![initialize, do_something])
+    .setup(|app_handle| {
+      // setup plugin specific state here
+      app.manage(MyState::default())
+      Ok(())
+    })
+    .build()
+```
+
+### Conventions
+
+- The crate exports an `init` method to create the plugin.
+- Plugins should have a clear name with `tauri-plugin-` prefix.
+- Include `tauri-plugin` keyword in `Cargo.toml`/`package.json`.
+- Document your plugin in English.
+- Add an example app showcasing your plugin.
+
+### Advanced
+
+Instead of relying on the `tauri::plugin::TauriPlugin` struct returned by `tauri::plugin::Builder::build`, you can implement the `tauri::plugin::Plugin` yourself. This allows you to have full control over the associated data.
+
+Note that each function on the `Plugin` trait is optional, except the `name` function.
 
 ```rust
 use tauri::{plugin::{Plugin, Result as PluginResult}, Runtime, PageLoadPayload, Window, Invoke, AppHandle};
@@ -68,37 +166,4 @@ impl<R: Runtime> Plugin<R> for MyAwesomePlugin<R> {
     (self.invoke_handler)(message)
   }
 }
-```
-
-Note that each function on the `Plugin` trait is optional, except the `name` function.
-
-## Using a plugin
-
-To use a plugin, just pass an instance of the `MyAwesomePlugin` struct to the App's `plugin` method:
-
-```rust
-fn main() {
-  let awesome_plugin = MyAwesomePlugin::new();
-  tauri::Builder::default()
-    .plugin(awesome_plugin)
-    .run(tauri::generate_context!())
-    .expect("failed to run app");
-}
-```
-
-## Conventions
-
-- Plugins should have a clear name with `tauri-plugin-` prefix.
-- Include `tauri-plugin` keyword in `Cargo.toml`/`package.json`.
-- Document your plugin in English.
-- Add an example app showcasing your plugin.
-
-## Official Tauri Plugins
-
-- [Stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
-- [Authenticator](https://github.com/tauri-apps/tauri-plugin-authenticator)
-- [Logging](https://github.com/tauri-apps/tauri-plugin-log)
-- [SQL](https://github.com/tauri-apps/tauri-plugin-sql)
-- [WebSocket](https://github.com/tauri-apps/tauri-plugin-websocket)
-- [Restoring window state](https://github.com/tauri-apps/tauri-plugin-window-state)
-- [Store](https://github.com/tauri-apps/tauri-plugin-store)
+``` 
