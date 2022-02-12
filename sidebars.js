@@ -81,7 +81,7 @@ const docs = [
     Building: [
       'building/introduction',
       'building/cross-platform',
-      'building/anti-bloat',
+      'building/app-size',
       'building/sidecar',
       'building/debian',
     ],

@@ -31,6 +31,10 @@ from = "/en/docs/usage/development/*"
 to = "/docs/development/development-cycle"
 
 [[redirects]]
+from = "en/docs/building/anti-bloat"
+to = "en/docs/building/app-size"
+
+[[redirects]]
 from = "/en/docs/usage/guides/patterns/*"
 to = "/docs/architecture/patterns/:splat"
 
