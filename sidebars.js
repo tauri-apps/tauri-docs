@@ -81,6 +81,7 @@ const docs = [
     ],
     Distribution: [
       'distribution/publishing',
+      'distribution/linux',
       'distribution/macos',
       'distribution/sign-macos',
       'distribution/updater',
