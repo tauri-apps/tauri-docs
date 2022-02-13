@@ -44,7 +44,7 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-# Window events
+## Window events
 
 Events can be listened using `appWindow.listen`:
 ```typescript
