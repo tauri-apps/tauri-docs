@@ -1,19 +1,18 @@
 ---
-title: Sidecar (Embedding External Binaries)
 sidebar_label: Sidecar
 ---
 
-import Alert from '@theme/Alert'
+# Sidecar (Embedding External Binaries)
 
-You may need to embed depending binaries in order to make your application work or to prevent users having to install additional dependencies (e.g. Node.js, Python, etc).
+You may need to embed depending binaries to make your application work or prevent users from installing additional dependencies (e.g., Node.js or Python).
 
 To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`.
 
-See more about tauri.conf.json configuration <a href="/docs/api/config#tauri.bundle">here</a>.
+See more about tauri.conf.json configuration [here][tauri.bundle].
 
 `externalBin` expects a list of strings targeting binaries either with absolute or relative paths.
 
-Here is a sample to illustrate the configuration, this is not a complete `tauri.conf.json` file:
+Here is a sample to illustrate the configuration. This is not a complete `tauri.conf.json` file:
 
 ```json
 {
@@ -98,5 +97,9 @@ tauri::async_runtime::spawn(async move {
 
 ## Using Node.js on a sidecar
 
-The Tauri [sidecar example](https://github.com/tauri-apps/tauri/tree/dev/examples/sidecar) demonstrates how to use the sidecar API to run a Node.js application on Tauri.
-It compiles the Node.js code using [pkg](https://github.com/vercel/pkg) and uses the scripts above to run it.
+The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Node.js application on Tauri.
+It compiles the Node.js code using [pkg] and uses the scripts above to run it.
+
+[tauri.bundle]: /docs/api/config#tauri.bundle
+[sidecar example]: https://github.com/tauri-apps/tauri/tree/dev/examples/sidecar
+[pkg]: https://github.com/vercel/pkg

@@ -1,6 +1,4 @@
----
-title: System Tray
----
+# System Tray
 
 Native application system tray.
 
@@ -21,7 +19,7 @@ Configure the `systemTray` object on `tauri.conf.json`:
 
 The `iconPath` is pointed to a PNG file on macOS and Linux, and a `.ico` file must exist for Windows support.
 
-The `iconAsTemplate` is a boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS.
+The `iconAsTemplate` is a boolean value that determines whether the image represents a [Template Image] on macOS.
 
 
 ### Creating a system tray
@@ -182,3 +180,5 @@ Note that `tauri::Icon` must be a `Path` variant on Linux, and `Raw` variant on 
 ```rust
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico"))).unwrap();
 ```
+
+[Template Image]: (https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc)

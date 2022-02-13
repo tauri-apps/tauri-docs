@@ -1,11 +1,8 @@
----
-title: Updating Dependencies
----
-import Alert from '@theme/Alert'
+# Updating Dependencies
 
-<Alert title="Please note" type="warning" icon="alert">
-    Especially during the alpha and beta phases, you are expected to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
-</Alert>
+:::caution Please note
+Especially during the alpha and beta phases, you are expected to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
+:::
 
 ## Automatic updates
 

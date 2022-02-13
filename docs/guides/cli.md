@@ -1,10 +1,6 @@
----
-title: Making Your Own CLI
----
+# Making Your Own CLI
 
-import Alert from '@theme/Alert'
-
-Tauri enables your app to have a CLI through <a href="https://github.com/clap-rs/clap" target="_blank">clap</a>, a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
+Tauri enables your app to have a CLI through [clap], a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
 
 ## Base Configuration
 
@@ -31,13 +27,13 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 }
 ```
 
-<Alert title="Note">
-  All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
-</Alert>
+:::note
+All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
+:::
 
 ## Adding Arguments
 
-The `args` array represents the list of arguments accepted by its command or subcommand. You can find more details about the way to configure them <a href="/docs/api/config#tauri">here</a>.
+The `args` array represents the list of arguments accepted by its command or subcommand. You can find more details about the way to configure them [here][Tauri config].
 
 ### Positional Arguments
 
@@ -159,4 +155,7 @@ getMatches().then((matches) => {
 
 ## Complete documentation
 
-You can find more about the CLI configuration <a href="/docs/api/config#tauri">here</a>.
+You can find more about the CLI configuration [here][Tauri config].
+
+[clap]: https://github.com/clap-rs/clap
+[Tauri config]: /docs/api/config#tauri

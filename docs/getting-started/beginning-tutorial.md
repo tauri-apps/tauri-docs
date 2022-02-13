@@ -1,13 +1,10 @@
----
-title: Your First Tauri App
----
-
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
+# Your First Tauri App
+
 :::caution
-You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system](/docs/getting-started/prerequisites).
+You must have completed all the steps required for setting up the development environment on your machine. If you haven't done this yet, please see the [setup page for your operating system][Prerequisites].
 :::
 
 There are two ways to integrate with Tauri depends on your need:
@@ -68,7 +65,7 @@ This will install `tauri-cli` as a Cargo subcommand on the cargo binary folder (
 cargo install tauri-cli --locked --version ^1.0.0-rc
 ```
 
-For more installation options, see [`cargo install`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#description)
+For more installation options, see [`cargo install`].
 
 #### Install Tauri API Package as a Dependency (optional):
 
@@ -161,8 +158,13 @@ This information can be very helpful when triaging problems.
 ### Recipes
 
 We've also defined prebuilt configurations called "Recipes". They may help you to customize Tauri to fit your needs.
-[See more about recipes](../architecture/recipes/about-recipes.md).
+[See more about recipes][Recipes].
 
 ## Vue CLI Plugin Tauri
 
-If you are using Vue CLI, it is recommended to use the official [CLI plugin](https://github.com/tauri-apps/vue-cli-plugin-tauri).
+If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin].
+
+[Prerequisites]: ./prerequisites.md
+[`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
+[Recipes]: ../architecture/recipes/about-recipes.md
+[Vue CLI plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri

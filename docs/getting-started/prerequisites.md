@@ -1,9 +1,10 @@
 ---
-title: Prerequisites
 pagination_next: getting-started/beginning-tutorial
 ---
 
 import OSList from '@theme/OSList'
+
+# Prerequisites
 
 - Rust
 - Node (optional)
@@ -17,4 +18,6 @@ For more information on platform-specific build tooling, see these guides to get
     windows: { title: 'Windows Setup', link: '/docs/getting-started/setting-up-windows'}
 }} />
 
-After that, you'll be ready to [make your first Tauri app](/docs/getting-started/beginning-tutorial)!
+After that, you'll be ready to [make your first Tauri app][Beginning Tutorial]!
+
+[Beginning Tutorial]: ./beginning-tutorial.md

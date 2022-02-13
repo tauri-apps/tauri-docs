@@ -1,8 +1,6 @@
----
-title: Updater
----
+# Updater
 
-# Configuration
+## Configuration
 
 Once you have your Tauri project ready, you need to configure the updater.
 
@@ -172,9 +170,9 @@ listen("tauri://update-status", function (res) {
 
 Your server should determine whether an update is required based on the [Update Request](#update-requests) your client issues.
 
-If an update is required your server should respond with a status code of [200 OK](http://tools.ietf.org/html/rfc2616#section-10.2.1) and include the [update JSON](#update-server-json-format) in the body. To save redundantly downloading the same version multiple times your server must not inform the client to update.
+If an update is required your server should respond with a status code of [200 OK] and include the [update JSON](#update-server-json-format) in the body. To save redundantly downloading the same version multiple times your server must not inform the client to update.
 
-If no update is required your server must respond with a status code of [204 No Content](http://tools.ietf.org/html/rfc2616#section-10.2.5).
+If no update is required your server must respond with a status code of [204 No Content].
 
 ## Update Server JSON Format
 
@@ -230,7 +228,7 @@ If the bundler can locate your private and pubkey, your update artifacts will be
 
 The signature can be found in the `sig` file. The signature can be uploaded to GitHub safely or made public as long as your private key is secure.
 
-You can see how it's [bundled with the CI](https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44) and a [sample tauri.conf.json](https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/examples/updater/src-tauri/tauri.conf.json#L52)
+You can see how it's [bundled with the CI][Artifacts Updater Workflow] and a [sample tauri.conf.json].
 
 ## macOS
 
@@ -284,7 +282,7 @@ tauri sign -g -w ~/.tauri/myapp.key
 ```
 
 You have multiple options available
-```bash
+```
 Tauri updates signer.
 USAGE:
     tauri sign [FLAGS] [OPTIONS]
@@ -306,3 +304,8 @@ Environment variables used to sign with the Tauri `bundler`:
 If they are set, and `tauri.conf.json` expose the public key, the bundler will automatically generate and sign the updater artifacts.
 `TAURI_PRIVATE_KEY`  Path or String of your private key
 `TAURI_KEY_PASSWORD`  Your private key password (optional)
+
+[200 OK]: http://tools.ietf.org/html/rfc2616#section-10.2.1
+[204 No Content]: http://tools.ietf.org/html/rfc2616#section-10.2.5
+[Artifacts Updater Workflow]: (https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44)
+[sample tauri.conf.json]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/examples/updater/src-tauri/tauri.conf.json#L52

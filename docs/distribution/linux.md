@@ -1,15 +1,16 @@
 ---
-title: Linux Application Distribution
 sidebar_label: Linux
 ---
 
-Tauri applications for Linux are distributed either with a [Debian package](https://wiki.debian.org/Packaging) (a file with the `.deb` extension) or as an [AppImage](https://appimage.org/) when building using the Tauri CLI.
+# Linux Application Distribution
+
+Tauri applications for Linux are distributed either with a [Debian package] (a file with the `.deb` extension) or as an [AppImage] when building using the Tauri CLI.
 
 ## Limitations
 
 Core libraries such as glibc frequently break compability with older systems. For this reason, you must build your Tauri application using the oldest base system you intend to support. A relatively old system such as Ubuntu 18.04 is more suited than Ubuntu 21.04, as the binary compiled on Ubuntu 21.04 will have a higher requirement of the glibc version, so when running on an older system you will face a runtime error like `/usr/lib/libc.so.6: version 'GLIBC_2.33' not found`. We recommend using a Docker container or GitHub Actions to build your Tauri application for Linux.
 
-See the issues [#1355](https://github.com/tauri-apps/tauri/issues/1355) and [rust-lang/rust#57497](https://github.com/rust-lang/rust/issues/57497), in addition to the [AppImage guide](https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system) for more information.
+See the issues [rust-lang/rust#1355] and [rust-lang/rust#57497], in addition to the [AppImage guide] for more information.
 
 ## Debian
 
@@ -37,3 +38,9 @@ If you need extended control over the Debian package, you can provide a list of 
 AppImage is a distribution format that does not rely on the system installed packages and instead bundles all dependencies and files needed by the application. For this reason, the output file is larger but easier to distribute since it is supported on many Linux distributions and can be executed without installation, just making the file executable (`$ chmod a+x MyProject.AppImage`) and running it (`./MyProject.AppImage`).
 
 AppImages are convenient, simplifying the distribution process if you cannot make a package targeting the distribution's package manager, but you should carefully use it as the file size grows from the 2-6MBs range to 70+MBs.
+
+[Debian Package]: https://wiki.debian.org/Packaging
+[AppImage]: https://appimage.org/
+[rust-lang/rust#1355]: https://github.com/tauri-apps/tauri/issues/1355
+[rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497
+[AppImage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
