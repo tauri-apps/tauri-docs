@@ -36,7 +36,7 @@ const docs = [
         Patterns: [
           'architecture/patterns/brownfield',
           'architecture/patterns/isolation',
-        ]
+        ],
       },
       {
         Recipes: [
@@ -110,7 +110,7 @@ const api = [
     label: 'JavaScript / TypeScript',
     link: {
       type: 'doc',
-      id: 'api/js/index',
+      id: 'api/js/README',
     },
     items: [
       {
