@@ -35,7 +35,7 @@ const features = [
       description: translate({message: "is the Tauri-Team's biggest priority and drives our innovation"}),
     },
     {
-      imageUrl: 'img/index/undraw_recipes.svg',
+      imageUrl: 'img/undraw_recipes.svg',
       link: 'docs/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
@@ -45,7 +45,7 @@ const features = [
       }),
     },
     {
-      imageUrl: 'img/index/undraw_cross_platform.svg',
+      imageUrl: 'img/undraw_cross_platform.svg',
       link: 'docs/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
