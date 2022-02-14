@@ -41,11 +41,11 @@ Distributing a fixed Webview2 Runtime version increases the Windows Installer by
 
 The Windows Installer package is built using the [WiX Toolset v3](https://wixtoolset.org/documentation/manual/v3/). Currently you can change it by using a custom WiX source code (a XML file with a `.wxs` file extension) or through WiX fragments.
 
-### Using a custom WiX file
+### Replacing the installer code with a custom WiX file
 
 The Windows Installer XML defined by Tauri is optionated to work for the common use case of simple webview-based applications, You can find it [here](https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs). It uses [handlebars](https://docs.rs/handlebars/latest/handlebars/) so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition. If you need a completely different installer, a custom template file can be configured on [tauri.bundle.windows.wix.template](/docs/api/config/#tauri.bundle.windows.wix.template).
 
-### Defining WiX fragments
+### Extending the installer with WiX fragments
 
 A [WiX fragment](https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html) is a container where you can configure almost everything offered by WiX. In this example, we will define a fragment that writes two registry entries:
 
