@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / fs
+[@tauri-apps/api](../README.md) / fs
 
-# Namespace: fs
+# Module: fs
 
 Access the file system.
 
@@ -106,7 +106,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:307](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L307)
+[fs.ts:307](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L307)
 
 ___
 
@@ -133,7 +133,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:263](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L263)
+[fs.ts:263](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L263)
 
 ___
 
@@ -158,7 +158,7 @@ A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:159](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L159)
+[fs.ts:159](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L159)
 
 ___
 
@@ -183,7 +183,7 @@ A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:240](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L240)
+[fs.ts:240](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L240)
 
 ___
 
@@ -208,7 +208,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:138](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L138)
+[fs.ts:138](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L138)
 
 ___
 
@@ -234,7 +234,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:285](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L285)
+[fs.ts:285](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L285)
 
 ___
 
@@ -259,7 +259,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:330](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L330)
+[fs.ts:330](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L330)
 
 ___
 
@@ -285,7 +285,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:352](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L352)
+[fs.ts:352](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L352)
 
 ___
 
@@ -310,7 +310,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:211](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L211)
+[fs.ts:211](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L211)
 
 ___
 
@@ -335,4 +335,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:182](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L182)
+[fs.ts:182](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L182)

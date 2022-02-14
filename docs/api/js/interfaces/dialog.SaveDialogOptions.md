@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [dialog](../modules/dialog.md) / SaveDialogOptions
+[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / SaveDialogOptions
 
 # Interface: SaveDialogOptions
 
@@ -18,7 +18,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 #### Defined in
 
-[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/dialog.ts#L69)
+[dialog.ts:69](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/dialog.ts#L69)
 
 ___
 
@@ -30,7 +30,7 @@ The filters of the dialog.
 
 #### Defined in
 
-[dialog.ts:63](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/dialog.ts#L63)
+[dialog.ts:63](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/dialog.ts#L63)
 
 ___
 
@@ -42,4 +42,4 @@ The title of the dialog window.
 
 #### Defined in
 
-[dialog.ts:61](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/dialog.ts#L61)
+[dialog.ts:61](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/dialog.ts#L61)
