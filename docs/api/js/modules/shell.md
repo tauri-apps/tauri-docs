@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / shell
+[@tauri-apps/api](../README.md) / shell
 
-# Namespace: shell
+# Module: shell
 
 Access the system shell.
 Allows you to spawn child processes and manage files and URLs using their default application.
@@ -117,4 +117,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:416](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/shell.ts#L416)
+[shell.ts:416](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/shell.ts#L416)
