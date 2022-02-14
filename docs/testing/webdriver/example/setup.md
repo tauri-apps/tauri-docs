@@ -1,13 +1,11 @@
----
-title: Setup Example
----
-
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
 
-This example application is going to solely focus on adding WebDriver testing to an already existing project. To have a
-project to test on in the next two sections, we are going to set up an extremely minimal Tauri application for use in
+# Setup Example
+
+This example application solely focuses on adding WebDriver testing to an already existing project. To have a
+project to test in the following two sections, we will set up an extremely minimal Tauri application for use in
 our testing. We will not use the Tauri CLI, any frontend dependencies or build steps, and not be bundling the
-application afterwards. This is to showcase exactly a minimal suite to show off adding WebDriver testing to an existing
+application afterward. This is to showcase exactly a minimal suite to show off adding WebDriver testing to an existing
 application.
 
 If you just want to see the finished example project that utilizes what will be shown in this example guide, then you
@@ -16,13 +14,13 @@ can see https://github.com/chippers/hello_tauri.
 ## Initializing a Cargo Project
 
 We want to create a new binary Cargo project to house this example application. We can easily do this from the command
-line with `cargo new hello-tauri-webdriver --bin` which will scaffold a minimal binary Cargo project for us. This
+line with `cargo new hello-tauri-webdriver --bin`, which will scaffold a minimal binary Cargo project for us. This
 directory will serve as the working directory for the rest of this guide, so make sure commands you run are inside this
 new `hello-tauri-webdriver/` directory.
 
 ## Creating a Minimal Frontend
 
-We will create a minimal HTML file to act as the frontend to our example application. We will also be using a few things
+We will create a minimal HTML file to act as our example application's front end. We will also be using a few things
 from this frontend later during our WebDriver tests.
 
 First, let's create our Tauri `distDir` that we know we will need once building the Tauri portion of the application.
@@ -62,7 +60,7 @@ First, let's create our Tauri `distDir` that we know we will need once building 
 
 ## Adding Tauri to the Cargo Project
 
-Next, we will add some necessary items to make our Cargo project into a Tauri project. First, is adding the dependencies
+Next, we will add necessary items to turn our Cargo project into a Tauri project. First, is adding the dependencies
 to the Cargo Manifest (`Cargo.toml`) so that Cargo knows to pull in our dependencies while building.
 
 `Cargo.toml`:
@@ -93,7 +91,7 @@ opt-level = "s"
 lto = true
 ```
 
-As you may have noticed, we added a `[build-dependency]`. To use the build dependency, we must use it from a build
+We added a `[build-dependency]` as you may have noticed. To use the build dependency, we must use it from a build
 script. We will create one now at `build.rs`.
 
 `build.rs`:
@@ -109,7 +107,7 @@ fn main() {
 }
 ```
 
-With all that setup, our Cargo Project now knows how to pull in and build our Tauri dependencies. Let's finish making
+Our Cargo Project now knows how to pull in and build our Tauri dependencies with all that setup. Let's finish making
 this minimal example a Tauri application by setting up Tauri in the actual project code. We will be editing
 the `src/main.rs`
 file to add this Tauri functionality.
@@ -134,7 +132,7 @@ the Tauri CLI to create a project. To get the default Tauri icon, we can downloa
 example repository with the
 command `curl -L "https://github.com/chippers/hello_tauri/raw/main/icon.png" --output icon.png`.
 
-The second thing we will need is a `tauri.conf.json` to specify some important configuration values to Tauri. Again,
+We will need a `tauri.conf.json` to set some important configuration values for Tauri. Again,
 this would typically come from the `tauri init` scaffolding command, but we will be creating our own minimal config
 here.
 
@@ -168,16 +166,16 @@ here.
 ```
 
 I'll go over some of these. You can see the `dist/` directory we created earlier specified as the `distDir` property. We
-set a bundle identifier so that the built application has a unique id, along with setting the `icon.png` as the only
-icon. We aren't using any Tauri apis or features, so we just disable all them in `allowlist` by setting `"all": false`.
-The window values just sets a single window to be created with some reasonable default values.
+set a bundle identifier so that the built application has a unique id and set the `icon.png` as the only
+icon. We aren't using any Tauri APIs or features, so we disable them in `allowlist` by setting `"all": false`.
+The window values just set a single window to be created with some reasonable default values.
 
-At this point, we have a basic Hello World application that when ran, should display a simple greeting.
+At this point, we have a basic Hello World application that should display a simple greeting when run.
 
 ## Running the Example Application
 
 To make sure we did it right, let's build this application! We will run this as a `--release` application because we
-will also run our WebDriver tests with a release profile. Run `cargo run --release` and after some compiling we should
+will also run our WebDriver tests with a release profile. Run `cargo run --release`, and after some compiling, we should
 see the following application pop up.
 
 <div style={{textAlign: 'center'}}>
@@ -185,7 +183,7 @@ see the following application pop up.
 </div>
 
 _Note: If you are modifying the application and want to use the Devtools, then run it without `--release` and "Inspect
-Element" should be available in the right click menu._
+Element" should be available in the right-click menu._
 
 We should now be ready to start testing this application with some WebDriver frameworks. This guide will go over both
 [WebdriverIO](webdriverio) and [Selenium](selenium) in that order.

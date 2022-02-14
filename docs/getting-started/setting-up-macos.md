@@ -11,7 +11,7 @@ import Icon from '@theme/Icon'
 
 ## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
 
-Make sure `xcode` is installed.
+Make sure you have `xcode` installed.
 
 ```sh
 $ xcode-select --install
@@ -21,7 +21,7 @@ $ xcode-select --install
 
 ### Node.js (npm included)
 
-We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
+We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
@@ -70,7 +70,7 @@ You may need to restart your terminal if the command does not work.
 
 ## Continue
 
-Now that you have set up the macOS-specific dependencies for Tauri learn how to [add Tauri to your project][Beginning Tutorial].
+Now that you have set up the macOS-specific dependencies for Tauri, learn how to [add Tauri to your project][Beginning Tutorial].
 
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh

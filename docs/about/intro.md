@@ -1,9 +1,10 @@
 ---
 id: intro
-title: What is Tauri?
 ---
 
-Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
+# What is Tauri?
+
+Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
 
 If you want to know more about the technical details, then please visit the [Introduction](/docs/getting-started/beginning-tutorial). If you want to know more about this project's philosophy - then keep reading.
 
@@ -13,9 +14,9 @@ If you want to know more about the technical details, then please visit the [Int
 
 ## Security First
 
-In today's world, every honest threat model assumes that the user's device has already been compromised. This puts app developers in a complicated situation, because if the device is already at risk, how can the software be trusted?
+In today's world, every honest threat model assumes that the user's device has already been compromised. This puts app developers in a complicated situation because if the device is already at risk, how can the software be trusted?
 
-Defense in depth is the approach we've taken. We want you to be able to take every precaution possible to minimise the surface area you present to attackers. Tauri lets you choose which API endpoints to ship, whether or not you want a localhost server built into your app, and it even randomizes functional handles at runtime. These and other techniques form a secure baseline that empowers you and your users.
+Defense in depth is the approach we've taken. We want you to be able to take every precaution possible to minimize the surface area you present to attackers. Tauri lets you choose which API endpoints to ship, whether or not you want a localhost server built into your app, and it even randomizes functional handles at runtime. These and other techniques form a secure baseline that empowers you and your users.
 
 Slowing down attackers by making static attacks crushingly difficult and isolating systems from one another is the name of the game. And if you are coming from the Electron ecosystem - rest assured - by default Tauri only ships binaries, not ASAR files.
 
@@ -25,11 +26,11 @@ By choosing to build Tauri with security as a guiding force, we give you every o
 
 Most contemporary frameworks use a single language paradigm and are therefore trapped in a bubble of knowledge and idiom. This can work well for certain niche applications, but it also fosters a kind of tribalism.
 
-This can be seen in the way that the React, Angular and Vue development communities huddle on their stacks, ultimately breeding very little cross-pollination.
+This can be seen in the way that the React, Angular, and Vue development communities huddle on their stacks, ultimately breeding very little cross-pollination.
 
-This same situation can be seen in the Rust vs Node vs C++ battlefields, where hardliners take their stances and refuse to collaborate across communities.
+This same situation can be seen in the Rust vs. Node vs. C++ battlefields, where hardliners take their stances and refuse to collaborate across communities.
 
-Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview](https://github.com/webview) organisation and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
+Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp, etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview](https://github.com/webview) organization and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
 
 ## Honest Open Source
 

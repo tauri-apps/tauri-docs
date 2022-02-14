@@ -1,22 +1,19 @@
----
-title: Selenium
----
-import Alert from '@theme/Alert'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-<Alert title="Example Application" type="info" icon="info-alt">
+# Selenium
 
-This [Selenium] guide expects you to have already gone through the [example Application setup] in order to follow
-step-by-step. The general information may still be useful otherwise.
-</Alert>
+:::info Example Application
+This [Selenium] guide expects you to have already gone through the [example Application setup] to follow
+step-by-step. The general information may still be helpful otherwise.
+:::
 
-This WebDriver testing example will use [Selenium] and a popular Node.js testing suite. It is expected to already have
+This WebDriver testing example will use [Selenium] and a popular Node.js testing suite. You are expected to already have
 Node.js installed, along with `npm` or `yarn` although the [finished example project] uses `yarn`.
 
 ## Create a Directory for the Tests
 
-Let's start off by creating a space in our project to write these tests. We are going to be using a nested directory for
+Let's create a space to write these tests in our project. We will be using a nested directory for
 this example project as we will later also go over other frameworks, but typically you will only need to use one. Create
 the directory we will use with `mkdir -p webdriver/selenium`. The rest of this guide will assume you are inside the
 `webdriver/selenium` directory.
@@ -44,13 +41,13 @@ guide on how to set it up from scratch.
 }
 ```
 
-We have a script which runs [Mocha] as a test framework exposed as the `test` command. We also have various dependencies
+We have a script that runs [Mocha] as a test framework exposed as the `test` command. We also have various dependencies
 that we will be using to run the tests. [Mocha] as the testing framework, [Chai] as the assertion library, and
 [`selenium-webdriver`] which is the Node.js [Selenium] package.
 
 <details><summary>Click me if you want to see how to set a project up from scratch</summary>
 
-If you wanted to install the dependencies from scratch, just run the following command.
+If you want to install the dependencies from scratch, just run the following command.
 
 <Tabs groupId="package-manager"
 defaultValue="yarn"
@@ -74,7 +71,7 @@ yarn add mocha chai selenium-webdriver
 </TabItem>
 </Tabs>
 
-I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running mocha can be called
+I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running Mocha can be called
 simply with
 
 <Tabs groupId="package-manager"
@@ -104,8 +101,7 @@ yarn test
 ## Testing
 
 Unlike the [WebdriverIO Test Suite](webdriverio#config), Selenium does not come out of the box with a Test Suite and
-leaves it up to the developer to build those out. We chose [Mocha] which is pretty neutral, and not related to WebDrivers
-at all, so our script will need to do a bit of work to set up everything for us in the right order. [Mocha] expects a
+leaves it up to the developer to build those out. We chose [Mocha], which is pretty neutral and not related to WebDrivers, so our script will need to do a bit of work to set up everything for us in the correct order. [Mocha] expects a
 testing file at `test/test.js` by default, so let's create that file now.
 
 `test/test.js`:
@@ -192,13 +188,13 @@ describe("Hello Tauri", () => {
 
 If you are familiar with JS testing frameworks, `describe`, `it`, and `expect` should look familiar. We also have
 semi-complex `before()` and `after()` callbacks to setup and teardown mocha. Lines that are not the tests themselves
-have comments explaining what the setup and teardown code is doing. If you were familiar with the Spec file from the
-[WebdriverIO example](webdriverio#spec), you will notice a lot more code that isn't tests, as we have to set up a few
+have comments explaining the setup and teardown code. If you were familiar with the Spec file from the
+[WebdriverIO example](webdriverio#spec), you notice a lot more code that isn't tests, as we have to set up a few
 more WebDriver related items.
 
 ## Running the Test Suite
 
-Now that we are all set up with our dependencies and our test script, lets run it!
+Now that we are all set up with our dependencies and our test script, let's run it!
 
 <Tabs groupId="package-manager"
 defaultValue="yarn"
@@ -227,7 +223,7 @@ We should see output the following output:
 ```text
 ➜  selenium git:(main) ✗ yarn test
 yarn run v1.22.11
-$ mocha
+$ Mocha
 
 
   Hello Tauri

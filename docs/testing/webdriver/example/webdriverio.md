@@ -1,31 +1,28 @@
----
-title: WebdriverIO
----
-import Alert from '@theme/Alert'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-<Alert title="Example Application" type="info" icon="info-alt">
+# WebdriverIO
 
-This [WebdriverIO] guide expects you to have already gone through the [example Application setup] in order to follow
-step-by-step. The general information may still be useful otherwise.
-</Alert>
+:::info Example Application
+This [WebdriverIO] guide expects you to have already gone through the [example Application setup] to follow
+step-by-step. The general information may still be helpful otherwise.
+:::
 
-This WebDriver testing example will use [WebdriverIO] and its testing suite. It is expected to already have Node.js
+This WebDriver testing example will use [WebdriverIO], and its testing suite. It is expected to have Node.js already
 installed, along with `npm` or `yarn` although the [finished example project] uses `yarn`.
 
 ## Create a Directory for the Tests
 
-Let's start off by creating a space in our project to write these tests. We are going to be using a nested directory for
-this example project as we will later also go over other frameworks, but typically you will only need to use one. Create
-the directory we will use with `mkdir -p webdriver/webdriverio`. The rest of this guide will assume you are inside the
+Let's create a space to write these tests in our project. We will be using a nested directory for
+this example project as we will later also go over other frameworks, but typically you only need to use one. Create
+the directory we will use with `mkdir -p webdriver/webdriverio`. The rest of this guide assumes you are inside the
 `webdriver/webdriverio` directory.
 
 ## Initializing a WebdriverIO Project
 
 We will be using a pre-existing `package.json` to bootstrap this test suite because we have already chosen specific
 [WebdriverIO] config options and want to showcase a simple working solution. The bottom of this section has a collapsed
-guide on how to set it up from scratch.
+guide on setting it up from scratch.
 
 `package.json`:
 ```json
@@ -47,14 +44,14 @@ guide on how to set it up from scratch.
 }
 ```
 
-We have a script which runs a [WebdriverIO] config as a test suite exposed as the `test` command. We also have various
-dependencies that were added by the `@wdio/cli` command when we first set it up. In short, these dependencies are for
+We have a script that runs a [WebdriverIO] config as a test suite exposed as the `test` command. We also have various
+dependencies added by the `@wdio/cli` command when we first set it up. In short, these dependencies are for
 the most simple setup using a local WebDriver runner, [Mocha] as the test framework, and a simple Spec Reporter.
 
 <details><summary>Click me if you want to see how to set a project up from scratch</summary>
 
 The CLI is interactive, and you may choose the tools to work with yourself. Note that you will likely diverge from
-the rest of the guide, and need to set up the differences yourself.
+the rest of the guide, and you need to set up the differences yourself.
 
 Let's add the [WebdriverIO] CLI to this npm project.
 
@@ -154,7 +151,7 @@ exports.config = {
 };
 ```
 
-If you are interested in the properties on `exports.config` object, then I [suggest reading the documentation] for it.
+If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][WebDriver documentation].
 For non-WDIO specific items, there are comments explaining why we are running commands in `onPrepare`, `beforeSession`,
 and `afterSession`. We also have our specs set to `"./test/specs/**/*.js"`, so let's create a spec now.
 
@@ -201,12 +198,12 @@ describe("Hello Tauri", () => {
 
 The `luma` function on top is just a helper function for one of our tests and is not related to the actual testing of
 the application. If you are familiar with other testing frameworks, you may notice similar functions being exposed that
-are used such as `describe`, `it`, and `expect`. The other APIs, such as items like `$` and the methods it exposes is
-covered by the [WebdriverIO API docs](https://webdriver.io/docs/api).
+are used, such as `describe`, `it`, and `expect`. The other APIs, such as items like `$` and its exposed methods, are
+covered by the [WebdriverIO API docs].
 
 ## Running the Test Suite
 
-Now that we are all set up with a config and a spec, let's run it!
+Now that we are all set up with config and a spec let's run it!
 
 <Tabs groupId="package-manager"
 defaultValue="yarn"
@@ -272,4 +269,5 @@ of configuration and a single command to run it! Even better, we didn't have to 
 [finished example project]: https://github.com/chippers/hello_tauri
 [example Application setup]: setup
 [Mocha]: https://mochajs.org/
-[suggest reading the documentation]: https://webdriver.io/docs/configurationfile
+[WebDriver documentation]: https://webdriver.io/docs/configurationfile
+[WebdriverIO API docs]: https://webdriver.io/docs/api

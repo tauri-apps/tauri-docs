@@ -78,7 +78,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 
 ### Node.js (npm included)
 
-We recommend using nvm to manage your Node.js runtime. It allows you to easily switch versions and update Node.js.
+We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
@@ -106,7 +106,7 @@ You may want to use an alternative to npm:
 
 ## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-The following command will install [rustup], the official installer for [Rust].
+The following command installs [rustup], the official installer for [Rust].
 
 ```bash
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -127,8 +127,8 @@ You may need to restart your terminal if the command does not work.
 
 ## 4. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
 
-In order to run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
-Since vcXsrv has been used internally, it's the one we recommend to install.
+To run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
+Since vcXsrv has been used internally, it's the one we recommend installing.
 
 ### WSL Version 1
 
@@ -139,14 +139,14 @@ Open the X server and then run `export DISPLAY=:0` in the terminal. You should n
 You'll need to run a command that is slightly more complex than WSL 1: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` and you need to add `-ac` to the X server as an argument. Note: if for some reason this command doesn't work you can use an alternative command such as: `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0` or you can manually find the Address using `cat /etc/resolve.conf | grep nameserver`.
 
 :::note
-Don't forget that you'll have to use the "export" command anytime you want to use a graphical application, for each newly opened terminal.
+Don't forget that you'll have to use the "export" command anytime you want to use a graphical application for each newly opened terminal.
 
 You can download some examples to try with `sudo apt-get install x11-apps`. xeyes is always a good one. It can be handy when troubleshooting WSL issues.
 :::
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri learn how to [add Tauri to your project][Beginning Tutorial].
+Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project][Beginning Tutorial].
 
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh

@@ -1,21 +1,22 @@
 ---
 id: book
-title: Get the book
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
+
+# Get the book
 
 <div style={{textAlign:'center'}}>
     <img src={useBaseUrl('img/bookCover.png')} alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
 
-<div className="alert alert--info" role="alert">
-  Tauri: From Theory to Practice<br/>
+:::info 
+Tauri: From Theory to Practice<br/>
 Architecting Next-Gen Native-Apps for all Platforms [v1:Rust Edition]<br/>
 Authors: [Daniel Thompson-Yvetot, Lucas Fernandes Gonçalves Nogueira]<br/>
 Publisher: TBD<br/>
 Release: late 2020
-</div>
+:::
 
 ### tl;dr;
 

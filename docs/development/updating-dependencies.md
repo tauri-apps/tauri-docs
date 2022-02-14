@@ -1,7 +1,7 @@
 # Updating Dependencies
 
 :::caution Please note
-Especially during the alpha and beta phases, you are expected to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
+Especially during the alpha and beta phases, we expect you to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
 :::
 
 ## Automatic updates
