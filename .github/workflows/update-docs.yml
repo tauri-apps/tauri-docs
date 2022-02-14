@@ -74,7 +74,7 @@ jobs:
 
       - name: Copy JS docs
         run: |
-          rm -rf tauri-docs/api/js/*
+          rm -rf tauri-docs/docs/api/js/*
           cp -r tauri/tooling/api/docs/* tauri-docs/docs/api/js/
 
       # this doesn't really need to be run on the content generation and PR opening
