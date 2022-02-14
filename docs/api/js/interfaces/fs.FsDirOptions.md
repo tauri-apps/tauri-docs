@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [fs](../modules/fs.md) / FsDirOptions
+[@tauri-apps/api](../README.md) / [fs](../modules/fs.md) / FsDirOptions
 
 # Interface: FsDirOptions
 
@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[fs.ts:100](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L100)
+[fs.ts:100](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L100)
 
 ___
 
@@ -22,4 +22,4 @@ ___
 
 #### Defined in
 
-[fs.ts:101](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L101)
+[fs.ts:101](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L101)

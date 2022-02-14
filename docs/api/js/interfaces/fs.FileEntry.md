@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [fs](../modules/fs.md) / FileEntry
+[@tauri-apps/api](../README.md) / [fs](../modules/fs.md) / FileEntry
 
 # Interface: FileEntry
 
@@ -14,7 +14,7 @@ Children of this entry if it's a directory; null otherwise
 
 #### Defined in
 
-[fs.ts:128](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L128)
+[fs.ts:128](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L128)
 
 ___
 
@@ -27,7 +27,7 @@ can be null if the path terminates with `..`
 
 #### Defined in
 
-[fs.ts:126](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L126)
+[fs.ts:126](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L126)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[fs.ts:121](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L121)
+[fs.ts:121](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L121)

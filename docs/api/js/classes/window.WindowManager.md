@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [window](../modules/window.md) / WindowManager
+[@tauri-apps/api](../README.md) / [window](../modules/window.md) / WindowManager
 
 # Class: WindowManager
 
@@ -32,7 +32,7 @@ Manage the current window object.
 
 #### Defined in
 
-[window.ts:254](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L254)
+[window.ts:254](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L254)
 
 ## Properties
 
@@ -48,7 +48,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:250](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L250)
+[window.ts:250](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L250)
 
 ___
 
@@ -68,7 +68,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:252](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L252)
+[window.ts:252](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L252)
 
 ## Methods
 
@@ -99,7 +99,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:316](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L316)
+[window.ts:316](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L316)
 
 ___
 
@@ -117,7 +117,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:510](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L510)
+[window.ts:510](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L510)
 
 ___
 
@@ -135,7 +135,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:756](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L756)
+[window.ts:756](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L756)
 
 ___
 
@@ -162,7 +162,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:305](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L305)
+[window.ts:305](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L305)
 
 ___
 
@@ -180,7 +180,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:736](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L736)
+[window.ts:736](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L736)
 
 ___
 
@@ -196,7 +196,7 @@ The position of the top-left hand corner of the window's client area relative to
 
 #### Defined in
 
-[window.ts:353](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L353)
+[window.ts:353](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L353)
 
 ___
 
@@ -213,7 +213,7 @@ The client area is the content of the window, excluding the title bar and border
 
 #### Defined in
 
-[window.ts:388](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L388)
+[window.ts:388](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L388)
 
 ___
 
@@ -229,7 +229,7 @@ Gets the window's current decorated state.
 
 #### Defined in
 
-[window.ts:455](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L455)
+[window.ts:455](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L455)
 
 ___
 
@@ -245,7 +245,7 @@ Gets the window's current fullscreen state.
 
 #### Defined in
 
-[window.ts:423](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L423)
+[window.ts:423](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L423)
 
 ___
 
@@ -261,7 +261,7 @@ Gets the window's current maximized state.
 
 #### Defined in
 
-[window.ts:439](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L439)
+[window.ts:439](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L439)
 
 ___
 
@@ -277,7 +277,7 @@ Gets the window's current resizable state.
 
 #### Defined in
 
-[window.ts:471](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L471)
+[window.ts:471](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L471)
 
 ___
 
@@ -293,7 +293,7 @@ Gets the window's current visible state.
 
 #### Defined in
 
-[window.ts:487](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L487)
+[window.ts:487](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L487)
 
 ___
 
@@ -328,7 +328,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:267](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L267)
+[window.ts:267](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L267)
 
 ___
 
@@ -346,7 +346,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:616](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L616)
+[window.ts:616](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L616)
 
 ___
 
@@ -364,7 +364,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:676](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L676)
+[window.ts:676](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L676)
 
 ___
 
@@ -399,7 +399,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:288](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L288)
+[window.ts:288](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L288)
 
 ___
 
@@ -415,7 +415,7 @@ The position of the top-left hand corner of the window relative to the top-left 
 
 #### Defined in
 
-[window.ts:369](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L369)
+[window.ts:369](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L369)
 
 ___
 
@@ -432,7 +432,7 @@ These dimensions include the title bar and borders. If you don't want that (and 
 
 #### Defined in
 
-[window.ts:407](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L407)
+[window.ts:407](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L407)
 
 ___
 
@@ -466,7 +466,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:541](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L541)
+[window.ts:541](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L541)
 
 ___
 
@@ -482,7 +482,7 @@ The scale factor that can be used to map physical pixels to logical pixels.
 
 #### Defined in
 
-[window.ts:337](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L337)
+[window.ts:337](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L337)
 
 ___
 
@@ -506,7 +506,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:799](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L799)
+[window.ts:799](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L799)
 
 ___
 
@@ -530,7 +530,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:777](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L777)
+[window.ts:777](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L777)
 
 ___
 
@@ -548,7 +548,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1007](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1007)
+[window.ts:1007](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L1007)
 
 ___
 
@@ -572,7 +572,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:986](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L986)
+[window.ts:986](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L986)
 
 ___
 
@@ -596,7 +596,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1028](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1028)
+[window.ts:1028](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L1028)
 
 ___
 
@@ -626,7 +626,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:906](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L906)
+[window.ts:906](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L906)
 
 ___
 
@@ -656,7 +656,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:864](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L864)
+[window.ts:864](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L864)
 
 ___
 
@@ -686,7 +686,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:948](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L948)
+[window.ts:948](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L948)
 
 ___
 
@@ -710,7 +710,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:573](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L573)
+[window.ts:573](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L573)
 
 ___
 
@@ -740,7 +740,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:826](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L826)
+[window.ts:826](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L826)
 
 ___
 
@@ -764,7 +764,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1053](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1053)
+[window.ts:1053](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L1053)
 
 ___
 
@@ -788,7 +788,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:595](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L595)
+[window.ts:595](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L595)
 
 ___
 
@@ -806,7 +806,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:716](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L716)
+[window.ts:716](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L716)
 
 ___
 
@@ -824,7 +824,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1074](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1074)
+[window.ts:1074](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L1074)
 
 ___
 
@@ -842,7 +842,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:656](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L656)
+[window.ts:656](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L656)
 
 ___
 
@@ -860,7 +860,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:636](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L636)
+[window.ts:636](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L636)
 
 ___
 
@@ -878,4 +878,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:696](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L696)
+[window.ts:696](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/window.ts#L696)

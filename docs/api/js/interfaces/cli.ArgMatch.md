@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [cli](../modules/cli.md) / ArgMatch
+[@tauri-apps/api](../README.md) / [cli](../modules/cli.md) / ArgMatch
 
 # Interface: ArgMatch
 
@@ -14,7 +14,7 @@ Number of occurrences
 
 #### Defined in
 
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/cli.ts#L24)
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/cli.ts#L24)
 
 ___
 
@@ -28,4 +28,4 @@ string[] or null if takes multiple values
 
 #### Defined in
 
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/cli.ts#L20)
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/cli.ts#L20)
