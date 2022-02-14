@@ -1,4 +1,5 @@
-# Mocking
+# Mocking Tauri APIs
+
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called *mocking*.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
 
