@@ -18,6 +18,10 @@ on:
         description: 'git email for PR'
         required: false
         default: 'tauri-bot@tauri.studio'
+      tauriBranch:
+        description: 'tauri branch to check out'
+        required: false
+        default: 'dev'
 
 jobs:
   update-docs:
@@ -33,6 +37,7 @@ jobs:
         with:
           repository: tauri-apps/tauri
           path: tauri
+          ref: ${{ github.event.inputs.gitName }}
       - name: Checkout tauri-docs
         uses: actions/checkout@v2
         with:
