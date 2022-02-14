@@ -35,8 +35,10 @@
 }
 
 .featureImage {
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 220px;
+  object-fit: contain;
+  padding: 10px;
 }
 
 .about,
