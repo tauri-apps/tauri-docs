@@ -16,7 +16,7 @@ The byte array contents.
 
 #### Defined in
 
-[fs.ts:117](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L117)
+[fs.ts:117](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L117)
 
 ___
 
@@ -28,4 +28,4 @@ Path to the file to write.
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/e1b2d2b/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L115)
