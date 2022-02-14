@@ -309,5 +309,5 @@ If they are set, and `tauri.conf.json` exposes the public key, the bundler autom
 
 [200 OK]: http://tools.ietf.org/html/rfc2616#section-10.2.1
 [204 No Content]: http://tools.ietf.org/html/rfc2616#section-10.2.5
-[Artifacts Updater Workflow]: (https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44)
+[Artifacts Updater Workflow]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44
 [sample tauri.conf.json]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/examples/updater/src-tauri/tauri.conf.json#L52

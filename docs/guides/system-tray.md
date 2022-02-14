@@ -181,4 +181,4 @@ Note that `tauri::Icon` must be a `Path` variant on Linux, and `Raw` variant on 
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico"))).unwrap();
 ```
 
-[Template Image]: (https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc)
+[Template Image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc

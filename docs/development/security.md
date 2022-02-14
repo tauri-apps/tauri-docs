@@ -60,9 +60,9 @@ Avoid loading remote content such as scripts served over a CDN as they introduce
 
 ### Isolation Pattern
 
-The [Isolation pattern] is a way to inject a secondary, ideally minimal,
+The [Isolation Pattern] is a way to inject a secondary, ideally minimal,
 JavaScript application in between your frontend application and Tauri Core. This minimal Isolation application can then
-be used to securely verify and modify IPC messages before they reach Tauri Core. [The Isolation pattern guide]
+be used to securely verify and modify IPC messages before they reach Tauri Core. The [Isolation Pattern] guide
 has more information.
 
 ### Tauri API
@@ -253,7 +253,6 @@ open('https://docs.rs/tauri/latest/tauri')
 [CSP script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
 [CSP style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
 [CSP Sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-[Isolation pattern]: (../architecture/patterns/isolation.md)
-[The Isolation pattern guide]: ../architecture/patterns/isolation.md
+[Isolation Pattern]: docs/architecture/patterns/isolation
 [Tauri API]: https://www.npmjs.com/package/@tauri-apps/api
 [the allowlist configuration]: /docs/api/config/#tauri.allowlist
