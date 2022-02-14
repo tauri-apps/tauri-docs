@@ -64,6 +64,7 @@ const docs = [
     ],
     Debugging: ['debugging/debugging'],
     Testing: [
+      'testing/mocking',
       {
         'WebDriver Testing': [
           'testing/webdriver/introduction',
