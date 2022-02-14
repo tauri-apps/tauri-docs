@@ -26,7 +26,7 @@ The required keys are "active" and "endpoints"; others are optional.
 
 "pubkey" if present, must be a valid public-key generated with Tauri CLI. See [Signing updates](#signing-updates).
 
-## Update Requests
+### Update Requests
 
 Tauri is indifferent to the request the client application provides for update checking.
 
@@ -40,7 +40,7 @@ It may also include other identifying criteria, such as operating system version
 
 How you include the version identifier, or other criteria is specific to the server from which you request updates. A common approach is to use query parameters, [Configuration](#configuration) shows an example.
 
-## Built-in dialog
+### Built-in dialog
 
 By default, the updater uses a built-in dialog API from Tauri.
 
@@ -49,7 +49,7 @@ By default, the updater uses a built-in dialog API from Tauri.
 The dialog release notes are represented by the update `note` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterward, the user is prompted to restart the application.
 
-## Javascript API
+### Javascript API
 
 :::caution
 You need to _disable built-in dialog_ in your [tauri configuration](#configuration); Otherwise, the javascript API will NOT work.
@@ -72,7 +72,7 @@ try {
 }
 ```
 
-## Events
+### Events
 
 :::caution
 You need to *disable the built-in dialog* in your [tauri configuration](#configuration); Otherwise, events aren't emitted.
@@ -80,24 +80,24 @@ You need to *disable the built-in dialog* in your [tauri configuration](#configu
 
 To know when an update is ready to be installed, you can subscribe to these events:
 
-### Initialize updater and check if a new version is available
+#### Initialize updater and check if a new version is available
 
-#### If a new version is available, the event `tauri://update-available` is emitted.
+##### If a new version is available, the event `tauri://update-available` is emitted.
 
 Event: `tauri://update`
 
-### Rust
+#### Rust
 ```rust
 window.emit("tauri://update".to_string(), None);
 ```
 
-### Javascript
+#### Javascript
 ```js
 import { emit } from "@tauri-apps/api/event";
 emit("tauri://update");
 ```
 
-### Listen New Update Available
+#### Listen New Update Available
 
 Event: `tauri://update-available`
 
@@ -108,14 +108,14 @@ date       Date announced by the server
 body       Note announced by the server
 ```
 
-### Rust
+#### Rust
 ```rust
 window.listen("tauri://update-available".to_string(), move |msg| {
   println!("New version available: {:?}", msg);
 })
 ```
 
-### Javascript
+#### Javascript
 ```js
 import { listen } from "@tauri-apps/api/event";
 listen("tauri://update-available", function (res) {
@@ -123,24 +123,24 @@ listen("tauri://update-available", function (res) {
 });
 ```
 
-### Emit Install and Download
+#### Emit Install and Download
 
 You need to emit this event to initialize the download and listen to the [install progress](#listen-install-progress).
 
 Event: `tauri://update-install`
 
-### Rust
+#### Rust
 ```rust
 window.emit("tauri://update-install".to_string(), None);
 ```
 
-### Javascript
+#### Javascript
 ```js
 import { emit } from "@tauri-apps/api/event";
 emit("tauri://update-install");
 ```
 
-### Listen Install Progress
+#### Listen Install Progress
 
 Event: `tauri://update-status`
 
@@ -154,14 +154,14 @@ PENDING is emitted when the download is started and DONE when the install is com
 
 ERROR is emitted when there is an error with the updater. We suggest listening to this event even if the dialog is enabled.
 
-### Rust
+#### Rust
 ```rust
 window.listen("tauri://update-status".to_string(), move |msg| {
   println!("New status: {:?}", msg);
 })
 ```
 
-### Javascript
+#### Javascript
 ```js
 import { listen } from "@tauri-apps/api/event";
 listen("tauri://update-status", function (res) {
@@ -169,7 +169,7 @@ listen("tauri://update-status", function (res) {
 });
 ```
 
-# Server Support
+## Server Support
 
 Your server should determine whether an update is required based on the [Update Request](#update-requests) your client issues.
 
@@ -177,7 +177,7 @@ If an update is required, your server should respond with a status code of [200 
 
 If no update is required, your server must respond with [204 No Content] status code.
 
-## Update Server JSON Format
+### Update Server JSON Format
 
 When an update is available, Tauri expects the following schema in response to the update request provided:
 
@@ -197,7 +197,7 @@ The only required keys are "url" and "version"; the others are optional.
 
 "signature" if present, must be a valid signature generated with Tauri CLI. See [Signing updates](#signing-updates).
 
-## Update File JSON Format
+### Update File JSON Format
 
 The alternate update technique uses a plain JSON file, storing your update metadata on S3, gist, or another static file store. Tauri checks against the name/version field, and if the version is smaller than the current one and the platform is available, it triggers an update. The format of this file is detailed below:
 
@@ -223,7 +223,7 @@ The alternate update technique uses a plain JSON file, storing your update metad
 }
 ```
 
-# Bundler (Artifacts)
+## Bundler (Artifacts)
 
 The Tauri bundler automatically generates update artifacts if the updater is enabled in `tauri.conf.json`
 Your update artifacts are automatically signed if the bundler can locate your private and public key.
@@ -232,7 +232,7 @@ The signature can be found in the `sig` file. The signature can be uploaded to G
 
 You can see how it's [bundled with the CI][Artifacts Updater Workflow] and a [sample tauri.conf.json].
 
-## macOS
+### macOS
 
 On macOS, we create a .tar.gz from the whole application. (.app)
 
@@ -244,7 +244,7 @@ target/release/bundle
     └── app.app.tar.gz.sig (if signature enabled)
 ```
 
-## Windows
+### Windows
 
 On Windows, we create a .zip from the MSI; when downloaded and validated, we run the MSI install.
 
@@ -255,7 +255,7 @@ target/release
 └── app.x64.msi.zip.sig (if signature enabled)
 ```
 
-## Linux
+### Linux
 
 On Linux, we create a .tar.gz from the AppImage.
 
@@ -267,7 +267,7 @@ target/release/bundle
     └── app.AppImage.tar.gz.sig (if signature enabled)
 ```
 
-# Signing updates
+## Signing updates
 
 We offer a built-in signature to ensure your update is safe to be installed.
 
