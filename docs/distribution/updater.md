@@ -175,7 +175,7 @@ Your server should determine whether an update is required based on the [Update 
 
 If an update is required, your server should respond with a status code of [200 OK] and include the [update JSON](#update-server-json-format) in the body.
 
-If no update is required, your server must respond with [204 No Content] status code.
+If no update is required your server must respond with a status code of [204 No Content].
 
 ### Update Server JSON Format
 
