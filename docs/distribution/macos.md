@@ -8,7 +8,7 @@ Tauri applications for macOS are distributed either with an [Application Bundle]
 
 ## Binary targets
 
-You can compile your application targeting Apple Silicon, Intel-based Mac computers, or universal macOS binaries. By default, the CLI builds a binary targetting your machine's architecture. If you are using an Apple Silicon macO,S you can compile Intel and universal binaries using the `target` option:
+You can compile your application targeting Apple Silicon, Intel-based Mac computers, or universal macOS binaries. By default, the CLI builds a binary targetting your machine's architecture. If you are using an Apple Silicon macOS, you can compile Intel and universal binaries using the `target` option:
 
 - `tauri build --target aarch64-apple-darwin`: targets Apple Silicon for your application;
 - `tauri build --target x86_64-apple-darwin`: targets Intel-based Mac computers;
