@@ -14,7 +14,7 @@ By default, the Tauri installer downloads and installs the Webview2 Runtime if i
 You can remove the Webview2 Runtime download check from the installer by setting [tauri.bundle.windows.wix.skipWebviewInstall] to `true`. Your application WON'T work if the user does not have the runtime installed.
 :::
 
-Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. If you want to control the Webview2 distribution on each of your applications, either to manage the release patches yourself or distribute applications on environments where internet connection might not be available, Tauri can bundle the runtime files for you.
+Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. If you want to control the Webview2 distribution on each of your applications, either to manage the release patches yourself or distribute applications on environments where internet connection might not be available. In that case, Tauri can bundle the runtime files for you.
 
 - Download the Webview2 fixed version runtime on the [official website], a `.cab` file for the selected architecture. In this example, the downloaded filename is Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab
 - Extract the file to the core folder: `Expand .\Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab -F:* ./src-tauri`
@@ -40,11 +40,11 @@ Distributing a fixed Webview2 Runtime version increases the Windows Installer by
 
 ## Customizing the Windows Installer
 
-The Windows Installer package is built using the [WiX Toolset v3]. Currently you can change it by using a custom WiX source code (a XML file with a `.wxs` file extension) or through WiX fragments.
+The Windows Installer package is built using the [WiX Toolset v3]. Currently, you can change it by using a custom WiX source code (an XML file with a `.wxs` file extension) or through WiX fragments.
 
 ### Replacing the installer code with a custom WiX file
 
-The Windows Installer XML defined by Tauri is optionated to work for the common use case of simple webview-based applications, You can find it [here]. It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition. If you need a completely different installer, a custom template file can be configured on [tauri.bundle.windows.wix.template].
+The Windows Installer XML defined by Tauri is configured to work for the common use case of simple webview-based applications; you can find it [here]. It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition. If you need a completely different installer, a custom template file can be configured on [tauri.bundle.windows.wix.template].
 
 ### Extending the installer with WiX fragments
 
@@ -95,11 +95,11 @@ Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` e
 
 ## i18n
 
-By default the Windows Installer is built using the `en-US` language. i18n (shorthand for internationalization) can be configured using the [tauri.bundle.windows.wix.language] property, defining the languages Tauri should build a installer against. You can find the language names to use on the Language-Culture column [here][1].
+The Windows Installer is built using the `en-US` language by default. i18n (shorthand for internationalization) can be configured using the [tauri.bundle.windows.wix.language] property, defining the languages Tauri should build an installer against. You can find the language names to use on the Language-Culture column [here][1].
 
 - Compiling an installer for a single language
 
-To create a single installer targeting an specific language, set the `language` value to a string:
+To create a single installer targeting a specific language, set the `language` value to a string:
 
 ```json
 {
@@ -117,7 +117,7 @@ To create a single installer targeting an specific language, set the `language` 
 
 - Compiling an installer for each language in a list
 
-To compile an installer targeting a list of languages, use an array. An specific installer for each language will be created, with the language key as a suffix:
+To compile an installer targeting a list of languages, use an array. A specific installer for each language will be created, with the language key as a suffix:
 
 ```json
 {
