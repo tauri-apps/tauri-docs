@@ -16,6 +16,12 @@ A few style guidelines to help us keep a common style across documents:
     Make an exception for planned or obsolete features, using future or past tense as appropriate.
 4. Use active voice rather than passive voice. This makes the text more engaging and easier to comprehend.
 
+## Installation
+
+```
+$ yarn
+```
+
 ## Local Development
 
 ```
