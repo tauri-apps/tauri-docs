@@ -13,7 +13,7 @@ A few style guidelines to help us keep a common style across documents:
 1. Use [Reference-style Links]. This makes reading the raw markdown and updating links easier.
 2. Prefer plain markdown over HTML/MDX. This makes reading the markdown easier.
 3. Use present tense rather than future tense. This makes the text easier to comprehend.
-    Make an exception for planned or obsolete features. Use future or past tense, as appropriate.
+    Make an exception for planned or obsolete features, using future or past tense, as appropriate.
 4. Use active voice rather than passive voice. This makes the text more engaging and easier to comprehend.
 
 ## Local Development
