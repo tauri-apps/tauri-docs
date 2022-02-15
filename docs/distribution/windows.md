@@ -1,7 +1,8 @@
 ---
-title: Windows Application Distribution
 sidebar_label: Windows
 ---
+
+# Windows Application Distribution
 
 Tauri applications for Windows are distributed either with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application. This guide provides information on available customizations for the installer.
 
@@ -10,12 +11,12 @@ Tauri applications for Windows are distributed either with a Microsoft Installer
 By default, the Tauri installer downloads and installs the Webview2 Runtime if it is not already installed (on Windows 11, the runtime is distributed as part of the operating system).
 
 :::note
-You can remove the Webview2 Runtime download check from the installer by setting [tauri.bundle.windows.wix.skipWebviewInstall](/docs/api/config/#tauri.bundle.windows.wix.skipWebviewInstall) to `true`. Your application WON'T work if the user does not have the runtime installed.
+You can remove the Webview2 Runtime download check from the installer by setting [tauri.bundle.windows.wix.skipWebviewInstall] to `true`. Your application WON'T work if the user does not have the runtime installed.
 :::
 
 Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. If you want to control the Webview2 distribution on each of your applications, either to manage the release patches yourself or distribute applications on environments where internet connection might not be available, Tauri can bundle the runtime files for you.
 
-- Download the Webview2 fixed version runtime on the [official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section), a `.cab` file for the selected architecture. In this example, the downloaded filename is Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab
+- Download the Webview2 fixed version runtime on the [official website], a `.cab` file for the selected architecture. In this example, the downloaded filename is Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab
 - Extract the file to the core folder: `Expand .\Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab -F:* ./src-tauri`
 - Configure the Webview2 runtime path on `tauri.conf.json`:
 
@@ -39,15 +40,15 @@ Distributing a fixed Webview2 Runtime version increases the Windows Installer by
 
 ## Customizing the Windows Installer
 
-The Windows Installer package is built using the [WiX Toolset v3](https://wixtoolset.org/documentation/manual/v3/). Currently you can change it by using a custom WiX source code (a XML file with a `.wxs` file extension) or through WiX fragments.
+The Windows Installer package is built using the [WiX Toolset v3]. Currently you can change it by using a custom WiX source code (a XML file with a `.wxs` file extension) or through WiX fragments.
 
 ### Replacing the installer code with a custom WiX file
 
-The Windows Installer XML defined by Tauri is optionated to work for the common use case of simple webview-based applications, You can find it [here](https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs). It uses [handlebars](https://docs.rs/handlebars/latest/handlebars/) so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition. If you need a completely different installer, a custom template file can be configured on [tauri.bundle.windows.wix.template](/docs/api/config/#tauri.bundle.windows.wix.template).
+The Windows Installer XML defined by Tauri is optionated to work for the common use case of simple webview-based applications, You can find it [here]. It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition. If you need a completely different installer, a custom template file can be configured on [tauri.bundle.windows.wix.template].
 
 ### Extending the installer with WiX fragments
 
-A [WiX fragment](https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html) is a container where you can configure almost everything offered by WiX. In this example, we will define a fragment that writes two registry entries:
+A [WiX fragment] is a container where you can configure almost everything offered by WiX. In this example, we will define a fragment that writes two registry entries:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -94,7 +95,7 @@ Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` e
 
 ## i18n
 
-By default the Windows Installer is built using the `en-US` language. i18n (shorthand for internationalization) can be configured using the [tauri.bundle.windows.wix.language](/docs/api/config/#tauri.bundle.windows.wix.language) property, defining the languages Tauri should build a installer against. You can find the language names to use on the Language-Culture column [here](https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables).
+By default the Windows Installer is built using the `en-US` language. i18n (shorthand for internationalization) can be configured using the [tauri.bundle.windows.wix.language] property, defining the languages Tauri should build a installer against. You can find the language names to use on the Language-Culture column [here][1].
 
 - Compiling an installer for a single language
 
@@ -132,8 +133,8 @@ To compile an installer targeting a list of languages, use an array. An specific
 }
 ```
 
-- Configuring the installer for each language
- 
+-   Configuring the installer for each language
+
 A configuration object can be defined for each language to configure localization strings:
 
 ```json
@@ -170,8 +171,20 @@ The `localePath` property defines the path to a language file, a XML configuring
 The `WixLocalization` element's `Culture` field must match the configured language.
 :::
 
-Currently Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation](https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html) for more information.
+Currently Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation] for more information.
 
 ## Code signing
 
-See the [Code signing guide](./sign-windows.md).
+See the [Code signing guide].
+
+[tauri.bundle.windows.wix.skipWebviewInstall]: /docs/api/config/#tauri.bundle.windows.wix.skipWebviewInstall
+[official website]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
+[WiX Toolset v3]: https://wixtoolset.org/documentation/manual/v3/
+[here]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs
+[handlebars]: https://docs.rs/handlebars/latest/handlebars/
+[tauri.bundle.windows.wix.template]: /docs/api/config/#tauri.bundle.windows.wix.template
+[WiX fragment]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html
+[tauri.bundle.windows.wix.language]: /docs/api/config/#tauri.bundle.windows.wix.language
+[1]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
+[WiX localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
+[Code signing guide]: ./sign-windows.md
