@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / notification
+[@tauri-apps/api](../README.md) / notification
 
-# Namespace: notification
+# Module: notification
 
 Send toast notifications (brief auto-expiring OS window element) to your user.
 Can also be used with the Notification Web API.
@@ -35,7 +35,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -51,7 +51,7 @@ Checks if the permission to send notifications is granted.
 
 #### Defined in
 
-[notification.ts:49](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/notification.ts#L49)
+[notification.ts:49](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/notification.ts#L49)
 
 ___
 
@@ -69,7 +69,7 @@ A promise resolving to whether the user granted the permission or not.
 
 #### Defined in
 
-[notification.ts:66](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/notification.ts#L66)
+[notification.ts:66](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/notification.ts#L66)
 
 ___
 
@@ -91,4 +91,4 @@ Sends a notification to the user.
 
 #### Defined in
 
-[notification.ts:75](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/notification.ts#L75)
+[notification.ts:75](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/notification.ts#L75)

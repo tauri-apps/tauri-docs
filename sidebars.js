@@ -36,7 +36,7 @@ const docs = [
         Patterns: [
           'architecture/patterns/brownfield',
           'architecture/patterns/isolation',
-        ]
+        ],
       },
       {
         Recipes: [
@@ -64,6 +64,7 @@ const docs = [
     ],
     Debugging: ['debugging/debugging'],
     Testing: [
+      'testing/mocking',
       {
         'WebDriver Testing': [
           'testing/webdriver/introduction',
@@ -87,6 +88,7 @@ const docs = [
     ],
     Distribution: [
       'distribution/publishing',
+      'distribution/windows',
       'distribution/linux',
       'distribution/macos',
       'distribution/sign-macos',
@@ -110,7 +112,7 @@ const api = [
     label: 'JavaScript / TypeScript',
     link: {
       type: 'doc',
-      id: 'api/js/index',
+      id: 'api/js/README',
     },
     items: [
       {

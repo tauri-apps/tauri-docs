@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [fs](../modules/fs.md) / FsOptions
+[@tauri-apps/api](../README.md) / [fs](../modules/fs.md) / FsOptions
 
 # Interface: FsOptions
 
@@ -12,4 +12,4 @@
 
 #### Defined in
 
-[fs.ts:96](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/fs.ts#L96)
+[fs.ts:96](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L96)

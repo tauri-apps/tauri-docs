@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / http
+[@tauri-apps/api](../README.md) / http
 
-# Namespace: http
+# Module: http
 
 Access the HTTP client written in Rust.
 
@@ -64,7 +64,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:151](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L151)
+[http.ts:151](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L151)
 
 ___
 
@@ -76,7 +76,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:126](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L126)
+[http.ts:126](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L126)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[http.ts:59](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L59)
+[http.ts:59](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L59)
 
 ___
 
@@ -98,7 +98,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:149](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L149)
+[http.ts:149](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L149)
 
 ## Functions
 
@@ -129,7 +129,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:369](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L369)
+[http.ts:369](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L369)
 
 ___
 
@@ -153,4 +153,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:349](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L349)
+[http.ts:349](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L349)

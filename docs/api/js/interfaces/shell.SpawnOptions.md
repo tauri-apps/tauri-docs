@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [shell](../modules/shell.md) / SpawnOptions
+[@tauri-apps/api](../README.md) / [shell](../modules/shell.md) / SpawnOptions
 
 # Interface: SpawnOptions
 
@@ -14,7 +14,7 @@ Current working directory.
 
 #### Defined in
 
-[shell.ts:83](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/shell.ts#L83)
+[shell.ts:83](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/shell.ts#L83)
 
 ___
 
@@ -30,4 +30,4 @@ Environment variables. set to `null` to clear the process env.
 
 #### Defined in
 
-[shell.ts:85](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/shell.ts#L85)
+[shell.ts:85](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/shell.ts#L85)

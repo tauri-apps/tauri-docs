@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / window
+[@tauri-apps/api](../README.md) / window
 
-# Namespace: window
+# Module: window
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
 
@@ -44,7 +44,7 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-## Window events
+# Window events
 
 Events can be listened using `appWindow.listen`:
 ```typescript
@@ -130,7 +130,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1160](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1160)
+[window.ts:1160](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L1160)
 
 ## Functions
 
@@ -146,7 +146,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:1265](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1265)
+[window.ts:1265](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L1265)
 
 ___
 
@@ -163,7 +163,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:1232](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1232)
+[window.ts:1232](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L1232)
 
 ___
 
@@ -181,7 +181,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:230](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L230)
+[window.ts:230](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L230)
 
 ___
 
@@ -199,7 +199,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:218](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L218)
+[window.ts:218](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L218)
 
 ___
 
@@ -216,4 +216,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:1250](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L1250)
+[window.ts:1250](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L1250)

@@ -1,6 +1,6 @@
-[@tauri-apps/api](../index.md) / cli
+[@tauri-apps/api](../README.md) / cli
 
-# Namespace: cli
+# Module: cli
 
 Parse arguments from your Command Line Interface.
 
@@ -28,4 +28,4 @@ A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:42](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/cli.ts#L42)
+[cli.ts:42](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/cli.ts#L42)

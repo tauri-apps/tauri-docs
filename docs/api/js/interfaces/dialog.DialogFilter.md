@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [dialog](../modules/dialog.md) / DialogFilter
+[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / DialogFilter
 
 # Interface: DialogFilter
 
@@ -21,7 +21,7 @@ extensions: ['svg', 'png']
 
 #### Defined in
 
-[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/dialog.ts#L41)
+[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/dialog.ts#L41)
 
 ___
 
@@ -33,4 +33,4 @@ Filter name.
 
 #### Defined in
 
-[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/dialog.ts#L33)
+[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/dialog.ts#L33)

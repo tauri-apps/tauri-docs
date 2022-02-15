@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [window](../modules/window.md) / UserAttentionType
+[@tauri-apps/api](../README.md) / [window](../modules/window.md) / UserAttentionType
 
 # Enumeration: UserAttentionType
 
@@ -18,7 +18,7 @@ Attention type to request on a window.
 
 #### Defined in
 
-[window.ts:204](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L204)
+[window.ts:204](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L204)
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 #### Defined in
 
-[window.ts:210](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/window.ts#L210)
+[window.ts:210](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/window.ts#L210)

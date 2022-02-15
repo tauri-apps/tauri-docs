@@ -1,4 +1,4 @@
-[@tauri-apps/api](../index.md) / [http](../modules/http.md) / ClientOptions
+[@tauri-apps/api](../README.md) / [http](../modules/http.md) / ClientOptions
 
 # Interface: ClientOptions
 
@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:50](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L50)
+[http.ts:50](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L50)
 
 ___
 
@@ -22,4 +22,4 @@ ___
 
 #### Defined in
 
-[http.ts:49](https://github.com/tauri-apps/tauri/blob/d24045e/tooling/api/src/http.ts#L49)
+[http.ts:49](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L49)
