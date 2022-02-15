@@ -1,7 +1,8 @@
 ---
 id: governance
-title: Governance
 ---
+
+# Governance
 
 ## Sustainability
 

@@ -1,8 +1,4 @@
----
-title: Creating Rust Commands
----
-
-import Alert from '@theme/Alert'
+# Creating Rust Commands
 
 Tauri provides a simple yet powerful "command" system for calling Rust functions from your web app. Commands can accept arguments and return values. They can also return errors and be `async`.
 
@@ -59,7 +55,7 @@ Arguments should be passed as a JSON object with camelCase keys:
 invoke('my_custom_command', { invokeMessage: 'Hello!' })
 ```
 
-Arguments can be of any type, as long as they implement [serde::Deserialize](https://serde.rs/derive.html).
+Arguments can be of any type, as long as they implement [`serde::Deserialize`].
 
 ## Returning Data
 
@@ -78,7 +74,7 @@ The `invoke` function returns a promise that resolves with the returned value:
 invoke('my_custom_command').then((message) => console.log(message))
 ```
 
-Returned data can be of any type, as long as it implements [Serde::Serialize](https://serde.rs/derive.html).
+Returned data can be of any type, as long as it implements [`serde::Serialize`].
 
 ## Error Handling
 
@@ -104,10 +100,10 @@ invoke('my_custom_command')
 
 ## Async Commands
 
-<Alert title="Note">
-Async commands are executed on a separate thread using the <a href="https://docs.rs/tauri/1.0.0-rc.0/tauri/async_runtime/fn.spawn.html">async runtime</a>.
-Commands without the <i>async</i> keyword are executed on the main thread, unless defined with <i>#[tauri::command(async)]</i>.
-</Alert>
+:::note
+Async commands are executed on a separate thread using [`async_runtime::spawn`].
+Commands without the *async* keyword are executed on the main thread, unless defined with *#[tauri::command(async)]*.
+:::
 
 If your command needs to run asynchronously, simply declare it as `async`:
 
@@ -254,3 +250,7 @@ invoke('my_custom_command', {
   )
   .catch((e) => console.error(e))
 ```
+
+[`async_runtime::spawn`]: https://docs.rs/tauri/1.0.0-rc.0/tauri/async_runtime/fn.spawn.html
+[`serde::Serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::Deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html

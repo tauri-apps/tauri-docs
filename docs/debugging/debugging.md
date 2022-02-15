@@ -1,15 +1,12 @@
----
-title: Debugging
----
-
-import Alert from '@theme/Alert'
 import Command from '@theme/Command'
 
-With all the moving pieces in Tauri, you may run into a problem that requires debugging. There are a handful of locations where error details are printed, and Tauri includes some tools to make the debugging process easier.
+# Debugging
+
+With all the moving pieces in Tauri, you may run into a problem that requires debugging. There are many locations where error details are printed, and Tauri includes some tools to make the debugging process more straightforward.
 
 ## Rust Console
 
-When you run a Tauri app in development mode you will have a Rust console available. This is in the terminal where you ran e.g. `tauri dev`. You can use the following code to print something to that console from within a Rust file:
+The first place to look for errors is in the Rust Console. This is in the terminal where you ran, e.g., Tauri dev. You can use the following code to print something to that console from within a Rust file:
 
 ```rust
 println!("Message from Rust: {}", msg);
@@ -28,7 +25,7 @@ set RUST_DEBUG=1
 tauri dev
 ```
 
-This will give you a granular stack trace. Generally speaking, the Rust compiler will help you by
+This command gives you a granular stack trace. Generally speaking, the Rust compiler helps you by
 giving you detailed information about the issue, such as:
 
 ```
@@ -45,7 +42,7 @@ For more information about this error, try `rustc --explain E0425`.
 
 ## WebView JS Console
 
-Right click in the WebView, and choose `Inspect Element`. This will open up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
+Right-click in the WebView, and choose `Inspect Element`. This opens up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
 
 ## Create a Debug Build
 
@@ -53,8 +50,9 @@ There are cases where you might need to inspect the JS console in the final bund
 
 <Command name="build --debug" />
 
-Like the normal build and dev processes, the first time you run this it will take more time than subsequent runs. The final bundled app will be placed in `src-tauri/target/debug/bundle`. That app will ship with the development console enabled.
+Like the normal build and dev processes, building takes some time the first time you run this command but is significantly faster on subsequent runs.
+The final bundled app has the development console enabled and is placed in `src-tauri/target/debug/bundle`.
 
 ## Run Your App From the Terminal
 
-You can also run a built app from the terminal, which will also give you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release|debug)/[app name]` and either double click it (but be warned, the terminal will close on errors) or just run it in directly in your console.
+You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release|debug)/[app name]` and either double click it (but be warned, the terminal closes on errors) or just run it in directly in your console.

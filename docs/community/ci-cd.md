@@ -1,11 +1,12 @@
 ---
 id: ci-cd
-title: CI/CD
 ---
+
+# CI/CD
 
 ## Continuous Integration
 
-Github Actions has two triggers of which we make heavy use: `push` and `pull_request`. Every commit that made to the repo is a `push`. When you open a pull request from a branch (call it `great_feature`) to another branch (our working branch, `dev`), each commit to `great_feature` would possibly trigger both of these events. We can use a filter to focus on the events we care about though. In our workflows, we only PR (pull request) the `dev` and `master` branches. This means that if we filter to only the `dev` and `master` branches on commit, we will only run that workflow when we _merge_ a PR. A merged PR typically only occurs once a day or less so this will be a good fit for the longer running tests, e.g. the smoke tests in our case. Below is how that might look.
+Github Actions has two triggers we use heavily: `push` and `pull_request`. Every commit that is made to the repo is a `push`. When you open a pull request from a branch (call it `great_feature`) to another branch (our working branch, `dev`), each commit to `great_feature` would possibly trigger both of these events. We can use a filter to focus on the events we care about, however. In our workflows, we only PR (pull request) the `dev` and `master` branches. This means that if we filter to only the `dev` and `master` branches on commit, we will only run that workflow when we _merge_ a PR. A merged PR typically only occurs once a day or less, so this is a good fit for the longer running tests, e.g., the smoke tests in our case. Below is how that might look.
 
 Unit tests:
 

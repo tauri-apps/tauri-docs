@@ -1,9 +1,7 @@
----
-title: Continuous Integration
----
+# Continuous Integration
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
-[`tauri-driver`] on your CI. The following example will use the [WebdriverIO] example we [previously built together] and
+[`tauri-driver`] on your CI. The following example uses the [WebdriverIO] example we [previously built together] and
 GitHub Actions.
 
 This means the following assumptions:
