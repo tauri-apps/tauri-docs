@@ -150,9 +150,9 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 }
 ```
 
-[Security: Threat Models]: ../../development/Security.md#threat-models
+[Security: Threat Models]: ../../development/security.md#threat-models
 [Events]: ../../guides/events.md
 [SubtleCrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [Brownfield pattern]: ./brownfield.md
-[integration testing with WebDriver]: ../../testing/Webdriver/README.md
+[integration testing with WebDriver]: ../../testing/webdriver/README.md
 [configuration]: #configuration

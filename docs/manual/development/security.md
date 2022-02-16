@@ -249,14 +249,14 @@ await open('https://github.com/tauri-apps/tauri')
 open('https://docs.rs/tauri/latest/tauri')
 ```
 
-  [Electron]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
-  [read about XSS]: https://owasp.org/www-community/attacks/xss/
-  [Content Security Policy (CSP)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-  [`tauri.security.csp`]: /docs/api/config/#tauri.security.csp
-  [script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
-  [style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
-  [CSP Sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-  [Isolation Pattern]: /manual/03-Architecture/Patterns/isolation.md
-  [Tauri API]: https://www.npmjs.com/package/@tauri-apps/api
-  [1]: #Isolation-pattern
-  [the allowlist configuration]: /docs/api/config/#tauri.allowlist
+[Electron]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
+[read about XSS]: https://owasp.org/www-community/attacks/xss/
+[Content Security Policy (CSP)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+[`tauri.security.csp`]: /docs/api/config/#tauri.security.csp
+[script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+[style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+[CSP Sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
+[Isolation Pattern]: /manual/architecture/patterns/isolation.md
+[Tauri API]: https://www.npmjs.com/package/@tauri-apps/api
+[1]: #Isolation-pattern
+[the allowlist configuration]: /docs/api/config/#tauri.allowlist

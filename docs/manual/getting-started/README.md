@@ -166,5 +166,5 @@ If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin]
 
 [Prerequisites]: ./Prerequisites.md
 [`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
-[Recipes]: /manual/03-Architecture/Patterns/isolation.md
+[Recipes]: /manual/architecture/patterns/isolation.md
 [Vue CLI plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri
