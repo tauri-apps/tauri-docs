@@ -1,6 +1,4 @@
----
-title: Introduction
----
+# WebDriver
 
 :::caution Currently in pre-alpha
 Webdriver support for Tauri is still in pre-alpha. Tooling that is dedicated to it, such as [tauri-driver], is still in
