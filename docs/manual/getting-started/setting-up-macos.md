@@ -1,5 +1,5 @@
 ---
-pagination_next: manual/Getting Started/README
+pagination_next: manual/getting-started/README
 ---
 
 import { Intro } from '@theme/SetupDocs'

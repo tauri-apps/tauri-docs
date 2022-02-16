@@ -15,7 +15,7 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/manual/getting started',
+    to: 'docs/manual/getting-started',
     label: 'Docs',
     position: 'left',
   },
@@ -81,7 +81,7 @@ const footerLinks = [
     items: [
       {
         label: 'Get started',
-        to: 'docs/manual/getting started',
+        to: 'docs/manual/getting-started',
       },
       {
         label: 'API',
