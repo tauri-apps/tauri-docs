@@ -4,4 +4,4 @@ Tauri recipes are descriptions of use-cases that are entirely configurable withi
 
 If you haven't read about the general design of Tauri, then it would make the most sense for you to visit the ["Getting Started"] and become familiar with the basic architecture and terminology used in these recipes.
 
-  ["Getting Started"]: /docs/manual/01-Getting Started
+["Getting Started"]: /docs/manual/getting-started

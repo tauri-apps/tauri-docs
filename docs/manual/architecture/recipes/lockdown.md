@@ -1,9 +1,8 @@
----
-title: Lockdown
----
+# Lockdown
 
 import Rater from '@theme/Rater'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 <div className="row">
   <div className="col col--4">
@@ -48,8 +47,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 The Lockdown recipe is a minimal usage of the [Bridge pattern](./bridge.md), which only allows interaction between Rust and the Window via expiring JS Promise Closures that are injected into the Window by Rust and nulled as part of the callback.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph TD H==>F G-.->B B-->G subgraph WEBVIEW G-->F end subgraph RUST A-->B A==>H end A[Binary] B[API:Event] F[Window] G((Promise Closure)) H{Bootstrap} style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 

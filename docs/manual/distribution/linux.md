@@ -1,7 +1,3 @@
----
-sidebar_label: Linux
----
-
 # Linux Application Distribution
 
 Tauri applications for Linux are distributed either with a [Debian package] (a file with the `.deb` extension) or as an [AppImage] when building using the Tauri CLI.
@@ -39,7 +35,7 @@ AppImage is a distribution format that does not rely on the system installed pac
 
 AppImages are convenient, simplifying the distribution process if you cannot make a package targeting the distribution's package manager. Still, you should carefully use it as the file size grows from the 2-6MBs range to 70+MBs.
 
-[Debian Package]: https://wiki.debian.org/Packaging
+[Debian package]: https://wiki.debian.org/Packaging
 [AppImage]: https://appimage.org/
 [rust-lang/rust#1355]: https://github.com/tauri-apps/tauri/issues/1355
 [rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497

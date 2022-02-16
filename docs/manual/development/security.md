@@ -4,7 +4,8 @@ Whether you like it or not, today's applications live in operating systems that 
 
 This is why we have taken every opportunity to help you secure your application, prevent undesired access to system level interfaces, and manufacture bullet-proof applications. Your users assume you are following best practices. We make that easy, but you should still read up on it below.
 
-## Security Is A Community Responsibility (adapted from [Electron][security-is-everyones-responsibility]) 
+## Security Is A Community Responsibility (adapted from [Electron]) {#security-is-a-community-responsibility-adapted-from-electronsecurity-is-everyones-responsibility}
+
 It is important to remember that the security of your Tauri application is the result of the overall security of Tauri itself, all Rust and NPM dependencies, your code, and the devices that run the final application. The Tauri Team does its best to do its part, the security community does its part, and you too would do well to follow a few important best practices:
 
 - **Keep your application up-to-date with the latest Tauri release.** When releasing your app into the wild, you are also shipping a bundle that has Tauri in it. Vulnerabilities affecting Tauri may impact the security of your application. By updating Tauri to the latest version, you ensure that critical vulnerabilities are already patched and cannot be exploited in your application. Also be sure to keep your compiler (rustc) and transpilers (nodejs) up to date, because there are often security issues that are resolved.
@@ -16,6 +17,7 @@ It is important to remember that the security of your Tauri application is the r
 - **Educate your Users.** True security really means that unexpected behaviour cannot happen. So in a sense, being more secure means having the peace of mind in knowing that ONLY those things that you want to happen can happen. In the real world, though, this is a utopian "dream". However, by removing as many vectors as possible and building on a solid foundation, your choice for Tauri is a signal to your users that you really care about them, their safety, and their devices. 
 
 ## Threat Models
+
 Tauri applications are composed of many pieces at different points of the lifecycle. Here we describe classical threats and what you SHOULD do about them.
 
 - **Upstream Threats.** Tauri is a direct dependency of your project, and we maintain strict authorial control of commits, reviews, pull-requests, and releases. We do our best to maintain up-to-date dependencies and take action to either update or fork&fix. Other projects may not be so well maintained, and may not even have ever been audited. Please consider their health when integrating them, because otherwise you may have adopted architectural debt without even knowing it.
@@ -36,6 +38,7 @@ Tauri applications are composed of many pieces at different points of the lifecy
 - DON'T consume JS from a CDN without using an integrity checksum
 
 ## Security Researchers
+
 Nothing is perfect, attack vectors will be found, and if you have found one - we want to know about it. If you have a discovery, PLEASE DO NOT FILE A PUBLIC ISSUE OR MAKE A PULL REQUEST. Please discretely reach out to a member of the team via Discord or Email for verification, vulnerability acceptance, and remediation timeline. We believe in - and participate in - responsible disclosure. At this time we do not have a bug-bounty programme in place, but are actively considering it.
 
 ## Tauri Features to keep you Safer
@@ -47,7 +50,7 @@ Tauri restricts the [Content Security Policy (CSP)] of your HTML pages. Local sc
 The CSP protection is only enabled if [`tauri.security.csp`] is set on the Tauri configuration file. You should make it as restricted as possible, only allowing the webview to load assets from hosts you trust and preferably own. At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically, so you only need to worry about what is unique to your application.
 
 :::note
-See [script-src][CSP script-src], [style-src][CSP style-src] and [CSP Sources] for more information about this protection.
+See [script-src], [style-src] and [CSP Sources] for more information about this protection.
 :::
 
 :::note
@@ -85,7 +88,7 @@ await writeFile({
 })
 ```
 
-If you do not enable the [isolation pattern](#Isolation-pattern), an attacker with remote code execution can overwrite the contents of `report.txt` since that API is generic and enabled. If you use a dedicated command, this is not an issue:
+If you do not enable the [isolation pattern][1], an attacker with remote code execution can overwrite the contents of `report.txt` since that API is generic and enabled. If you use a dedicated command, this is not an issue:
 
 ```rust
 #[tauri::command]
@@ -246,13 +249,14 @@ await open('https://github.com/tauri-apps/tauri')
 open('https://docs.rs/tauri/latest/tauri')
 ```
 
-[security-is-everyones-responsibility]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
-[XSS]: https://owasp.org/www-community/attacks/xss/
-[Content Security Policy (CSP)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-[`tauri.security.csp`]: /docs/api/config/#tauri.security.csp
-[CSP script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
-[CSP style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
-[CSP Sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-[Isolation Pattern]: /manual/03-Architecture/Patterns/isolation.md
-[Tauri API]: https://www.npmjs.com/package/@tauri-apps/api
-[the allowlist configuration]: /docs/api/config/#tauri.allowlist
+  [Electron]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
+  [read about XSS]: https://owasp.org/www-community/attacks/xss/
+  [Content Security Policy (CSP)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+  [`tauri.security.csp`]: /docs/api/config/#tauri.security.csp
+  [script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+  [style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+  [CSP Sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
+  [Isolation Pattern]: /manual/03-Architecture/Patterns/isolation.md
+  [Tauri API]: https://www.npmjs.com/package/@tauri-apps/api
+  [1]: #Isolation-pattern
+  [the allowlist configuration]: /docs/api/config/#tauri.allowlist

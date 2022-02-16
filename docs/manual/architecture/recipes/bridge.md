@@ -1,9 +1,8 @@
----
-title: Bridge
----
+# Bridge
 
 import Rater from '@theme/Rater'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 <div className="row">
   <div className="col col--4">
@@ -48,8 +47,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 The Bridge recipe is a secure pattern where messages are passed between brokers via an implicit bridge using the API. It isolates functionality to scope and passes messages instead of functionality.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph TD
       H==>F

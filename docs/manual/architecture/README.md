@@ -8,63 +8,63 @@ Tauri apps can have custom menus and have tray-type interfaces. They can be upda
 
 ## What Tauri is NOT
 
-- Tauri is not a lightweight kernel wrapper...instead it directly uses [WRY](#wry) and [TAO](#tao) to do the heavy-lifting in making system calls to the OS.
+- Tauri is not a lightweight kernel wrapper...instead it directly uses [WRY] and [TAO] to do the heavy-lifting in making system calls to the OS.
 - Tauri is not a VM or virtualized environment...instead it is an application toolkit that allows making Webview OS applications.
 
 ## Major Components
 
 The following section briefly describes the roles of the various parts of Tauri.
 
-### Tauri Core [STABLE RUST]
+### Tauri Core \[STABLE RUST\]
 
-#### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
+#### [tauri]
 
 This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the `tauri.conf.json` file at compile time in order to bring in features and undertake actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages updating.
 
-#### [tauri-build](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build)
+#### [tauri-build]
 
 Apply the macros at build-time in order to rig some special features needed by `cargo`.
 
-#### [tauri-codegen](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen)
+#### [tauri-codegen]
 
 - Embed, hash, and compress assets, including icons for the app as well as the system-tray.
 - Parse `tauri.conf.json` at compile time and generate the Config struct.
 
-#### [tauri-macros](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-macros)
+#### [tauri-macros]
 
 Create macros for the context, handler, and commands by leveraging the `tauri-codegen` crate.
 
-#### [tauri-runtime](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime)
+#### [tauri-runtime]
 
 This is the glue layer between tauri itself and lower level webview libraries.
 
-#### [tauri-runtime-wry](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry)
+#### [tauri-runtime-wry]
 
 This crate opens up direct systems-level interactions specifically for WRY, such as printing, monitor detection, and other windowing related tasks. `tauri-runtime` implementation for WRY.
 
-#### [tauri-utils](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-utils)
+#### [tauri-utils]
 
 This is common code that is reused in many places and offers useful utilities like parsing configuration files, detecting platform triples, injecting the CSP, and managing assets.
 
 ### Tauri Tooling
 
-#### [api](https://github.com/tauri-apps/tauri/tree/dev/tooling/api) [TS -> JS]
+#### [api][] \[TS -\> JS\]
 
 A typescript library that creates `cjs` and `esm` Javascript endpoints for you to import into your Frontend framework so that the Webview can call and listen to backend activity. We also ship the pure typescript, because for some frameworks this is more optimal. It uses the message passing of webviews to their hosts.
 
-#### [bundler](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler) [RUST / SHELL]
+#### [bundler][] \[RUST / SHELL\]
 
 The bundler is a library that builds a Tauri App for the platform triple it detects / is told. At the moment it currently supports macOS, Windows and Linux - but in the near future will support mobile platforms as well. May be used outside of Tauri projects.
 
-#### [cli.js](https://github.com/tauri-apps/tauri/tree/dev/tooling/cli.js) [JS]
+#### [cli.js][] \[JS\]
 
-Written in Typescript and packaged such that it can be used with `npm`, `pnpm`, and `yarn`, this library provides a node.js runner for common tasks when using Tauri, like `yarn tauri dev`. For the most part it is a wrapper around [cli.rs](https://github.com/tauri-apps/tauri/blob/dev/tooling/cli).
+Written in Typescript and packaged such that it can be used with `npm`, `pnpm`, and `yarn`, this library provides a node.js runner for common tasks when using Tauri, like `yarn tauri dev`. For the most part it is a wrapper around [cli.rs].
 
-#### [cli.rs](https://github.com/tauri-apps/tauri/tree/dev/tooling/cli) [RUST]
+#### [cli.rs][1] \[RUST\]
 
 This rust executable provides the full interface to all of the required activities for which the CLI is required. It will run on macOS, Windows, and Linux.
 
-#### [create-tauri-app](https://github.com/tauri-apps/tauri/tree/dev/tooling/create-tauri-app) [JS]
+#### [create-tauri-app][] \[JS\]
 
 This is a toolkit that will enable engineering teams to rapidly scaffold out a new tauri-apps project using the frontend framework of their choice (as long as it has been configured).
 
@@ -72,42 +72,42 @@ This is a toolkit that will enable engineering teams to rapidly scaffold out a n
 
 The Tauri-Apps organisation maintains two "upstream" crates from Tauri, namely TAO for creating and managing application windows, and WRY for interfacing with the Webview that lives within the window.
 
-### [TAO](https://github.com/tauri-apps/tao)
+### [TAO][2]
 
-Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit](https://github.com/rust-windowing/winit) that we have extended for our own needs like menu bar and system tray.
+Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit] that we have extended for our own needs like menu bar and system tray.
 
-### [WRY](https://github.com/tauri-apps/wry)
+### [WRY][3]
 
 WRY is a cross-platform WebView rendering library in Rust that supports all major desktop platforms like Windows, macOS, and Linux.
 Tauri uses WRY as the abstract layer responsible to determine which webview is used (and how interactions are made).
 
-### [tauri-hotkey-rs](https://github.com/tauri-apps/tauri-hotkey-rs)
+### [tauri-hotkey-rs]
 
 We needed to fix hotkey to work on all platforms, because upstream was not being responsive.
 
 ## Additional tooling
 
-### [binary-releases](https://github.com/tauri-apps/binary-releases)
+### [binary-releases]
 
 This is the delivery mechanism for tauri prebuilt binaries: currently the cli.rs (used by cli.js) and rustup binaries (used by the deps install command of cli.js). These artifacts are automatically created on release.
 
-### [tauri-action](https://github.com/tauri-apps/tauri-action)
+### [tauri-action]
 
 This is a github workflow that builds tauri binaries for all platforms. It is not the fastest out there, but it gets the job done and is highly configurable. Even allowing you to create a (very basic) tauri app even if tauri is not setup.
 
-### [create-pull-request](https://github.com/tauri-apps/create-pull-request)
+### [create-pull-request]
 
 Because this is a very risky (potentially destructive) github action, we forked it in order to have strong guarantees that the code we think is running is actually the code that is running.
 
-### [vue-cli-plugin-tauri](https://github.com/tauri-apps/vue-cli-plugin-tauri)
+### [vue-cli-plugin-tauri]
 
 This plugin allows you to very quickly install tauri in a vue-cli project.
 
-### [tauri-vscode](https://github.com/tauri-apps/tauri-vscode)
+### [tauri-vscode]
 
 This project enhances the VS Code interface with several nice-to-have features.
 
-## Tauri Plugins [documentation](https://tauri.studio/en/docs/guides/plugin)
+## Tauri Plugins [documentation]
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 
@@ -168,7 +168,7 @@ yarn tauri info
 
 The release flow begins with proper configuration in the `tauri.conf.json` file. In this file, the developer can configure not only the basic behaviour of the application (like window size and decoration), they can also provide settings for signing and updating.
 
-Depending upon the operating system that the developer (or CI) is building the application on, there will be an app built for them for that system. (Cross compilation is not currently available, however there is an official [GitHub Action](https://github.com/tauri-apps/tauri-action) that can be used to build for all platforms.)
+Depending upon the operating system that the developer (or CI) is building the application on, there will be an app built for them for that system. (Cross compilation is not currently available, however there is an official [GitHub Action][tauri-action] that can be used to build for all platforms.)
 
 To kick off this process, just:
 
@@ -192,4 +192,31 @@ The application can poll this server to see if there is a new release. When ther
 
 Tauri itself is licensed under MIT or Apache-2.0. If you repackage it and modify any source code, it is your responsibility to verify that you are complying with all upstream licenses. Tauri is provided AS-IS with no explicit claim for suitability for any purpose.
 
-Here you may peruse our [Software Bill of Materials](https://app.fossa.com/projects/git%2Bgithub.com%2Ftauri-apps%2Ftauri).
+Here you may peruse our [Software Bill of Materials].
+
+[WRY]: #wry
+[TAO]: #tao
+[tauri]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri
+[tauri-build]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build
+[tauri-codegen]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen
+[tauri-macros]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-macros
+[tauri-runtime]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime
+[tauri-runtime-wry]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry
+[tauri-utils]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri-utils
+[api]: https://github.com/tauri-apps/tauri/tree/dev/tooling/api
+[bundler]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler
+[cli.js]: https://github.com/tauri-apps/tauri/tree/dev/tooling/cli.js
+[cli.rs]: https://github.com/tauri-apps/tauri/blob/dev/tooling/cli
+[1]: https://github.com/tauri-apps/tauri/tree/dev/tooling/cli
+[create-tauri-app]: https://github.com/tauri-apps/tauri/tree/dev/tooling/create-tauri-app
+[2]: https://github.com/tauri-apps/tao
+[winit]: https://github.com/rust-windowing/winit
+[3]: https://github.com/tauri-apps/wry
+[tauri-hotkey-rs]: https://github.com/tauri-apps/tauri-hotkey-rs
+[binary-releases]: https://github.com/tauri-apps/binary-releases
+[tauri-action]: https://github.com/tauri-apps/tauri-action
+[create-pull-request]: https://github.com/tauri-apps/create-pull-request
+[vue-cli-plugin-tauri]: https://github.com/tauri-apps/vue-cli-plugin-tauri
+[tauri-vscode]: https://github.com/tauri-apps/tauri-vscode
+[documentation]: https://tauri.studio/en/docs/guides/plugin
+[Software Bill of Materials]: https://app.fossa.com/projects/git%2Bgithub.com%2Ftauri-apps%2Ftauri

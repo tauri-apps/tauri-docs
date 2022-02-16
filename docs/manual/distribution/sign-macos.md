@@ -86,7 +86,7 @@ The following example uses GitHub Actions to sign an application using the [Taur
 We first define the environment variables we listed above as Secrets on GitHub.
 
 :::note
-You can view <a href="https://docs.github.com/en/actions/reference/encrypted-secrets">this guide</a> to learn about GitHub secrets. 
+You can view [this guide][Encrypted Secrets] to learn about GitHub secrets. 
 :::
 
 Once we have established the GitHub Secrets, we create a GitHub publish workflow in `.github/workflows/main.yml`: 
@@ -144,3 +144,4 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 [Certificates, IDs & Profiles page]: https://developer.apple.com/account/resources/certificates/list
 [Users and Access page]: https://appstoreconnect.apple.com/access/users
 [Tauri action]: https://github.com/tauri-apps/tauri-action
+[Encrypted Secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets

@@ -1,11 +1,8 @@
----
-title: Multiwin
----
+# Multiwin
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-
 import Rater from '@theme/Rater'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 <div className="row">
   <div className="col col--4">
@@ -49,8 +46,6 @@ import Rater from '@theme/Rater'
 The Multiwin recipe will allow you to have multiple windows.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph LR
       A==>H

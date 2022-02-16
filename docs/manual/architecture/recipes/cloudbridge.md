@@ -1,9 +1,8 @@
----
-title: Cloudbridge
----
+# Cloudbridge
 
 import Rater from '@theme/Rater'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 <div className="row">
   <div className="col col--4">
@@ -48,8 +47,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 The Cloudbridge recipe combines the flexibility of a localhost and the security of the bridge. With so many features, it can be easy to get lost.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph TD
       H==>F2

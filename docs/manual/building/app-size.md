@@ -13,19 +13,19 @@ Here are a couple of tools that can assist you with that:
 
 - **`cargo-bloat`**
 
-  [`cargo-bloat`][cargo-bloat] is a rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant rust functions.
+    [`cargo-bloat`] is a rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant rust functions.
 
 - **`cargo-expand`**
 
-  [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use [`cargo-expand`][cargo-expand] to see what those macros generate under the hood.
+    [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use [`cargo-expand`] to see what those macros generate under the hood.
 
 - **`rollup-plugin-visualizer`**
 
-  [`rollup-plugin-visualizer`][rollup-plugin-visualizer] generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
+    [`rollup-plugin-visualizer`] generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
 
 - **`rollup-plugin-graph`**
 
-  You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`][rollup-plugin-graph] generates graphviz compatible visualizations of your entire dependency graph.
+    You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`] generates graphviz compatible visualizations of your entire dependency graph.
 
 These are just a couple of tools that you might use. Make sure to check your frontend bundlers plugin list for more!
 
@@ -33,36 +33,36 @@ These are just a couple of tools that you might use. Make sure to check your fro
 
 ## Checklist
 
-- [Reducing the App Size](#reducing-the-app-size)
-    - [You can't improve what you can't measure](#you-cant-improve-what-you-cant-measure)
-    - [Think twice before adding a dependency](#think-twice-before-adding-a-dependency)
-  - [Checklist](#checklist)
-  - [1. Minify Javascript](#1-minify-javascript)
-    - [Why?](#why)
-    - [How?](#how)
-  - [2. Optimize Dependencies](#2-optimize-dependencies)
-    - [Why?](#why-1)
-    - [How?](#how-1)
-  - [3. Optimize Images](#3-optimize-images)
-    - [Why?](#why-2)
-    - [How?](#how-2)
-  - [4. Remove Unnecessary Custom Fonts](#4-remove-unnecessary-custom-fonts)
-    - [Why?](#why-3)
-    - [How?](#how-3)
-  - [5. Allowlist Config](#5-allowlist-config)
-    - [Why?](#why-4)
-    - [How?](#how-4)
-  - [6. Rust Build-time Optimizations](#6-rust-build-time-optimizations)
-    - [Why?](#why-5)
-    - [How?](#how-5)
-    - [Unstable Rust Compression Features](#unstable-rust-compression-features)
-  - [7. Stripping](#7-stripping)
-    - [Why?](#why-6)
-    - [How?](#how-6)
-  - [8. UPX](#8-upx)
-    - [Why?](#why-7)
-    - [How?](#how-7)
-      - [Usage on macOS](#usage-on-macos)
+-   [Reducing the App Size]
+    -   [You can't improve what you can't measure]
+    -   [Think twice before adding a dependency]
+    -   [Checklist]
+    -   [1. Minify Javascript]
+        -   [Why?]
+        -   [How?]
+    -   [2. Optimize Dependencies]
+        -   [Why?][1]
+        -   [How?][2]
+    -   [3. Optimize Images]
+        -   [Why?][3]
+        -   [How?][4]
+    -   [4. Remove Unnecessary Custom Fonts]
+        -   [Why?][5]
+        -   [How?][6]
+    -   [5. Allowlist Config]
+        -   [Why?][7]
+        -   [How?][8]
+    -   [6. Rust Build-time Optimizations]
+        -   [Why?][9]
+        -   [How?][10]
+        -   [Unstable Rust Compression Features]
+    -   [7. Stripping]
+        -   [Why?][11]
+        -   [How?][12]
+    -   [8. UPX]
+        -   [Why?][13]
+        -   [How?][14]
+            -   [Usage on macOS]
 
 ## 1. Minify Javascript
 
@@ -110,7 +110,7 @@ You can use [Bundlephobia] to find the cost of JavaScript dependencies.
 Inspecting the cost of rust dependencies is generally harder since the compiler does many optimizations.
 
 If you find a library that seems excessively large, google around, chances are someone else already had the same thought and created an alternative.
-A good example is [Moment.js] and it's [Many alternatives][you-dont-need-momentjs].
+A good example is [Moment.js] and it's [Many alternatives].
 
 But keep in mind: **The best dependency is no dependency**, meaning that you should always prefer language builtins over 3rd party packages.
 
@@ -118,7 +118,7 @@ But keep in mind: **The best dependency is no dependency**, meaning that you sho
 
 ### Why?
 
-According to the [Http Archive], images are the [biggest contributor to website weight][http archive report, image bytes]. So if your app includes have background images or icons, make sure to optimize them!
+According to the [Http Archive], images are the [biggest contributor to website weight]. So if your app includes have background images or icons, make sure to optimize them!
 
 ### How?
 
@@ -237,12 +237,12 @@ There is also `opt-level = "z"` available to reduce the resulting binary size. `
 We've seen smaller binary sizes from `"s"` for Tauri example applications, but real-world applications can always differ.
 :::
 
-For a detailed explanation of each option and a bunch more, refer to the [Cargo books Profiles section][cargo profiles].
+For a detailed explanation of each option and a bunch more, refer to the [Cargo books Profiles section].
 
 ### Unstable Rust Compression Features
 
 :::caution
-The following suggestions are all unstable features and require a nightly toolchain. See the [Unstable Features][cargo unstable features] documentation for more information on what this involves.
+The following suggestions are all unstable features and require a nightly toolchain. See the [Unstable Features] documentation for more information on what this involves.
 :::
 
 The following methods involve using unstable compiler features and require the rust nightly toolchain. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following:
@@ -264,7 +264,7 @@ If you are using `panic = "abort"` in your release profile optimizations, you ne
 $ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
 ```
 
-See the unstable documentation for more details about [`-Z build-std`][cargo build-std] and [`-Z build-std-features`][cargo build-std-features].
+See the unstable documentation for more details about [`-Z build-std`] and [`-Z build-std-features`].
 
 ## 7. Stripping
 
@@ -317,36 +317,66 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
     963140 ->    274448   28.50%   macho/amd64   app
 ```
 
-[cargo-bloat]: https://github.com/RazrFalcon/cargo-bloat
+[`cargo-bloat`]: https://github.com/RazrFalcon/cargo-bloat
 [Macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
-[cargo-expand]: https://github.com/dtolnay/cargo-expand
-[rollup-plugin-visualizer]: https://github.com/btd/rollup-plugin-visualizer
-[rollup-plugin-graph]: https://github.com/ondras/rollup-plugin-graph
-[vite]: https://vitejs.dev
+[`cargo-expand`]: https://github.com/dtolnay/cargo-expand
+[`rollup-plugin-visualizer`]: https://github.com/btd/rollup-plugin-visualizer
+[`rollup-plugin-graph`]: https://github.com/ondras/rollup-plugin-graph
+[Reducing the App Size]: #reducing-the-app-size
+[You can't improve what you can't measure]: #you-cant-improve-what-you-cant-measure
+[Think twice before adding a dependency]: #think-twice-before-adding-a-dependency
+[Checklist]: #checklist
+[1. Minify Javascript]: #1-minify-javascript
+[Why?]: #why
+[How?]: #how
+[2. Optimize Dependencies]: #2-optimize-dependencies
+[1]: #why-1
+[2]: #how-1
+[3. Optimize Images]: #3-optimize-images
+[3]: #why-2
+[4]: #how-2
+[4. Remove Unnecessary Custom Fonts]: #4-remove-unnecessary-custom-fonts
+[5]: #why-3
+[6]: #how-3
+[5. Allowlist Config]: #5-allowlist-config
+[7]: #why-4
+[8]: #how-4
+[6. Rust Build-time Optimizations]: #6-rust-build-time-optimizations
+[9]: #why-5
+[10]: #how-5
+[Unstable Rust Compression Features]: #unstable-rust-compression-features
+[7. Stripping]: #7-stripping
+[11]: #why-6
+[12]: #how-6
+[8. UPX]: #8-upx
+[13]: #why-7
+[14]: #how-7
+[Usage on macOS]: #usage-on-macos
+[Vite]: https://vitejs.dev
 [webpack]: https://webpack.js.org
 [rollup]: https://rollupjs.org/guide/en/
 [rollup-plugin-terser]: https://github.com/TrySound/rollup-plugin-terser
 [rollup-plugin-uglify]: https://github.com/TrySound/rollup-plugin-uglify
 [terser]: https://terser.org
 [esbuild]: https://esbuild.github.io
-[typescript]: https://www.typescriptlang.org
-[moment.js]: https://momentjs.com
-[you-dont-need-momentjs]: https://github.com/you-dont-need/You-Dont-Need-Momentjs
-[http archive]: https://httparchive.org
-[http archive report, image bytes]: https://httparchive.org/reports/page-weight#bytesImg
-[gimp]: https://www.gimp.org
-[photoshop]: https://www.adobe.com/de/products/photoshop.html
+[TypeScript]: https://www.typescriptlang.org
+[Bundlephobia]: https://bundlephobia.com
+[Moment.js]: https://momentjs.com
+[Many alternatives]: https://github.com/you-dont-need/You-Dont-Need-Momentjs
+[Http Archive]: https://httparchive.org
+[biggest contributor to website weight]: https://httparchive.org/reports/page-weight#bytesImg
+[GIMP]: https://www.gimp.org
+[Photoshop]: https://www.adobe.com/de/products/photoshop.html
+[Squoosh]: https://squoosh.app
 [vite-imagetools]: https://github.com/JonasKruckenberg/imagetools
 [vite-plugin-imagemin]: https://github.com/vbenjs/vite-plugin-imagemin
 [image-minimizer-webpack-plugin]: https://github.com/webpack-contrib/image-minimizer-webpack-plugin
-[squoosh]: https://squoosh.app
-[responsive images]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
-[why is a rust executable large ?]: https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
-[minimizing rust binary size]: https://github.com/johnthagen/min-sized-rust
-[cargo unstable features]: https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features
-[cargo profiles]: https://doc.rust-lang.org/cargo/reference/profiles.html
-[cargo build-std]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
-[cargo build-std-features]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features
-[Bundlephobia]: https://bundlephobia.com
-[Frida]: https://frida.re/docs/home/
+[Responsive Images]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+[Why is a rust executable large ?]: https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
+[Minimizing Rust Binary Size]: https://github.com/johnthagen/min-sized-rust
+[Cargo books Profiles section]: https://doc.rust-lang.org/cargo/reference/profiles.html
+[Unstable Features]: https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features
+[`-Z build-std`]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
+[`-Z build-std-features`]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features
 [UPX]: https://github.com/upx/upx
+[Frida]: https://frida.re/docs/home/

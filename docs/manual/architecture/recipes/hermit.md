@@ -1,9 +1,8 @@
----
-title: Hermit
----
+# Hermit
 
 import Rater from '@theme/Rater'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 <div className="row">
   <div className="col col--4">
@@ -48,8 +47,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 The Hermit recipe is a pattern for ultimate application isolation where all logic is self-contained in the Window and the binary exists merely to bootstrap the Window. There is no communication back to Rust from the Window, there is no localhost server, and the Window has no access to any remote resources. The Hermit is great for interactive Kiosk Mode and standalone HTML based games.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph LR
       A==>H

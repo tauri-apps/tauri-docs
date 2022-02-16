@@ -1,15 +1,12 @@
----
-title: GLUI
----
+# GLUI
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-
-<Alert type="warning" icon="info-alt" title="Please note">
-This pattern is not available for now.
-</Alert>
-
 import Rater from '@theme/Rater'
+import Mermaid, { colors } from '@theme/Mermaid'
+
+:::caution Please note
+This pattern is not available for now.
+:::
 
 <div className="row">
   <div className="col col--4">
@@ -53,8 +50,6 @@ import Rater from '@theme/Rater'
 The GLUI is a research pattern that we will use internally to test approaches using a GLUTIN window. We’re not sure yet if it will make the final cut as a bona fide alternative to WebView, although early tests with transparent and multiwindow are exciting.
 
 ## Diagram
-
-import Mermaid, { colors } from '@theme/Mermaid'
 
 <Mermaid chart={`graph TD
       A==>H
