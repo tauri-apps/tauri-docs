@@ -164,7 +164,7 @@ We've also defined prebuilt configurations called "Recipes". They may help you t
 
 If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin].
 
-[Prerequisites]: ./prerequisites.md
+[Prerequisites]: ./Prerequisites.md
 [`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
-[Recipes]: ../architecture/recipes/about-recipes.md
+[Recipes]: /manual/03-Architecture/Patterns/isolation.md
 [Vue CLI plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri

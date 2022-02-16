@@ -1,5 +1,5 @@
 ---
-pagination_next: getting-started/beginning-tutorial
+pagination_next: manual/Getting Started/README
 ---
 
 import Icon from '@theme/Icon'
@@ -75,7 +75,7 @@ If you have problems of any kind after following these instructions, we recommen
 Now that you have set up the Windows-specific dependencies for Tauri learn how to [add Tauri to your project][Beginning Tutorial].
 
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
-[Beginning Tutorial]: ./beginning-tutorial.md
+[Beginning Tutorial]: ./README.md
 [Yarn]: https://yarnpkg.com/getting-started"
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup x86_64]: https://win.rustup.rs/x86_64
@@ -83,4 +83,4 @@ Now that you have set up the Windows-specific dependencies for Tauri learn how t
 [Rust]: https://www.rust-lang.org/
 [rustup]: https://rustup.rs/
 [Microsoft Visual Studio C++ build tools]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-[Linux specific instructions]: /docs/getting-started/setting-up-linux
+[Linux specific instructions]: /docs/manual/01-Getting Started/setting-up-linux

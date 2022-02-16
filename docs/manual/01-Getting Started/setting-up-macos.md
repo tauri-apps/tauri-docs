@@ -1,5 +1,5 @@
 ---
-pagination_next: getting-started/beginning-tutorial
+pagination_next: manual/Getting Started/README
 ---
 
 import { Intro } from '@theme/SetupDocs'
@@ -74,7 +74,7 @@ Now that you have set up the macOS-specific dependencies for Tauri, learn how to
 
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh
-[Beginning Tutorial]: ./beginning-tutorial.md
+[Beginning Tutorial]: ./README.md
 [Yarn]: https://yarnpkg.com/getting-started"
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup]: https://rustup.rs/

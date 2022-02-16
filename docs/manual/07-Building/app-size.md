@@ -1,3 +1,5 @@
+import ImageminDeprecationNotice from '@site/docs/fragments/imagemin.md'
+
 # Reducing the App Size
 
 At Tauri, we are working on reducing the environmental footprint of applications by using system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing on performance or security. The point is, by saving resources, we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
@@ -122,9 +124,7 @@ According to the [Http Archive], images are the [biggest contributor to website 
 
 You can choose between a variety of manual options ([GIMP], [Photoshop], [Squoosh]) or plugins for your favorite frontend build tools ([vite-imagetools], [vite-plugin-imagemin], [image-minimizer-webpack-plugin]).
 
-:::caution
-The `imagemin` library most of the plugins use is [officially unmaintained][imagemin is unmaintained].
-:::
+<ImageminDeprecationNotice />
 
 - **Use modern image formats**
 
@@ -334,7 +334,6 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [you-dont-need-momentjs]: https://github.com/you-dont-need/You-Dont-Need-Momentjs
 [http archive]: https://httparchive.org
 [http archive report, image bytes]: https://httparchive.org/reports/page-weight#bytesImg
-[imagemin is unmaintained]: https://github.com/imagemin/imagemin/issues/385
 [gimp]: https://www.gimp.org
 [photoshop]: https://www.adobe.com/de/products/photoshop.html
 [vite-imagetools]: https://github.com/JonasKruckenberg/imagetools

@@ -36,7 +36,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: 'docs/architecture/recipes/about-recipes',
+      link: 'docs/manual/architecture/recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -46,7 +46,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/building/cross-platform',
+      link: 'docs/manual/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -471,7 +471,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/getting-started/prerequisites')}
+                    to={useBaseUrl('/docs/manual/getting started/prerequisites')}
                   >
                     <span>
                       <Translate>Get started</Translate>

@@ -6,7 +6,7 @@ id: intro
 
 Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
 
-If you want to know more about the technical details, then please visit the [Introduction](/docs/getting-started/beginning-tutorial). If you want to know more about this project's philosophy - then keep reading.
+If you want to know more about the technical details, then please visit the [Introduction]. If you want to know more about this project's philosophy - then keep reading.
 
 <div className="videowrapper">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UxTJeEbZX-0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -30,7 +30,7 @@ This can be seen in the way that the React, Angular, and Vue development communi
 
 This same situation can be seen in the Rust vs. Node vs. C++ battlefields, where hardliners take their stances and refuse to collaborate across communities.
 
-Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp, etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview](https://github.com/webview) organization and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
+Today, Tauri uses Rust for the backend - but in the not too distant future, other backends like Go, Nim, Python, Csharp, etc. will be possible. This is because we are maintaining the official Rust bindings to the [webview] organization and plan to let you switch out the backend for your needs. Since our API can be implemented in any language with C interop, full compliance is only a PR away.
 
 ## Honest Open Source
 
@@ -43,3 +43,6 @@ This is why we are proud that FLOSS advocates can build applications with Tauri 
 ## The Future
 
 Tauri's future depends on your involvement and contributions. Try it out, file issues, join a working group or make a donation - every contribution is important. Please, at any rate, do get in touch!!!
+
+[Introduction]: /docs/manual/01-Getting Started
+[webview]: https://github.com/webview

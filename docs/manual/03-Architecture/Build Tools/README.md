@@ -1,7 +1,8 @@
 ---
-id: build-tools-node
-title: 'Node Build Tools'
+sidebar_label: Build Tools
 ---
+
+# Build Tools
 
 This is a stub.
 
