@@ -6,6 +6,18 @@ sidebar_label: macOS
 
 Tauri applications for macOS are distributed either with an [Application Bundle] (`.app` files) or an Apple Disk Image (`.dmg` files). The Tauri CLI automatically bundles your application code in these formats, providing options to codesign and notarize your application.
 
+## Minimum system version
+
+The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. You can change that value on the [`tauri.bundle.macOS.minimumSystemVersion`] property.
+
+:::note
+macOS High Sierra (10.13) no longer receives security updates from Apple. You should target macOS Catalina (10.15) if possible.
+:::
+
+:::caution
+Using the `window.print` API requires macOS version `11.0+`.
+:::
+
 ## Binary targets
 
 You can compile your application targeting Apple Silicon, Intel-based Mac computers, or universal macOS binaries. By default, the CLI builds a binary targetting your machine's architecture. If you are using an Apple Silicon macOS, you can compile Intel and universal binaries using the `target` option:
@@ -58,3 +70,4 @@ See the [Code signing guide].
 [`tauri.bundle.macOS.useBootstrapper`]: /docs/api/config#tauri.bundle.deb.useBootstrapper
 [Info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
 [Code signing guide]: ./sign-macos.md
+[`tauri.bundle.macOS.minimumSystemVersion`]: /docs/api/config#tauri.bundle.macOS.minimumSystemVersion
