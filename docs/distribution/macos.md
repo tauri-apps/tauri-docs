@@ -8,7 +8,7 @@ Tauri applications for macOS are distributed either with an [Application Bundle]
 
 ## Minimum system version
 
-The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. You can change that value on the [`tauri.bundle.macOS.minimumSystemVersion`] property.
+The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. You can change that value on the [`tauri.bundle.macOS.minimumSystemVersion`] property. The value is set to the Info.plist key [LSMinimumSystemVersion] and the MACOSX_DEPLOYMENT_TARGET environment variable.
 
 :::note
 macOS High Sierra (10.13) no longer receives security updates from Apple. You should target macOS Catalina (10.15) if possible.
@@ -56,6 +56,8 @@ These options generate the application bundle [Info.plist file]. You can extend 
 See the [Code signing guide].
 
 [Application Bundle]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
+[`tauri.bundle.macOS.minimumSystemVersion`]: /docs/api/config#tauri.bundle.macOS.minimumSystemVersion
+[LSMinimumSystemVersion]: https://developer.apple.com/documentation/bundleresources/information_property_list/lsminimumsystemversion
 [universal macOS binaries]: https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary
 [`package.productName`]: /docs/api/config/#package.productName
 [`package.version`]: /docs/api/config/#package.version
@@ -70,4 +72,3 @@ See the [Code signing guide].
 [`tauri.bundle.macOS.useBootstrapper`]: /docs/api/config#tauri.bundle.deb.useBootstrapper
 [Info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
 [Code signing guide]: ./sign-macos.md
-[`tauri.bundle.macOS.minimumSystemVersion`]: /docs/api/config#tauri.bundle.macOS.minimumSystemVersion
