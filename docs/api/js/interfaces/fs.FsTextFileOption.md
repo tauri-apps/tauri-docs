@@ -16,7 +16,7 @@ The UTF-8 string to write to the file.
 
 #### Defined in
 
-[fs.ts:109](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L109)
+[fs.ts:109](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/fs.ts#L109)
 
 ___
 
@@ -28,4 +28,4 @@ Path to the file to write.
 
 #### Defined in
 
-[fs.ts:107](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L107)
+[fs.ts:107](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/fs.ts#L107)

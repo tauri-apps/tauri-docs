@@ -37,7 +37,7 @@ test("no mocked windows", () => {
 
 #### Defined in
 
-[mocks.ts:141](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/mocks.ts#L141)
+[mocks.ts:141](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/mocks.ts#L141)
 
 ___
 
@@ -86,7 +86,7 @@ test("mocked command", () => {
 
 #### Defined in
 
-[mocks.ts:40](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/mocks.ts#L40)
+[mocks.ts:40](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/mocks.ts#L40)
 
 ___
 
@@ -149,4 +149,4 @@ await win.close(); // this will cause the mocked IPC handler to log to the conso
 
 #### Defined in
 
-[mocks.ts:107](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/mocks.ts#L107)
+[mocks.ts:107](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/mocks.ts#L107)

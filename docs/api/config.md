@@ -152,7 +152,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
       { property: "exceptionDomain", optional: true, type: "string | null", description: `Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name.` },
       { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
       { property: "license", optional: true, type: "string | null", description: `The path to the license file to add to the DMG bundle.` },
-      { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports.` },
+      { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports. Defaults to \`10.13\`. Setting it to \`null\` completely removes the \`LSMinimumSystemVersion\` field on the bundle's \`Info.plist\` and the \`MACOSX_DEPLOYMENT_TARGET\` environment variable.` },
       { property: "providerShortName", optional: true, type: "string | null", description: `Provider short name for notarization.` },
       { property: "signingIdentity", optional: true, type: "string | null", description: `Identity to use for code signing.` },
       { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the boostrapper script.` },
