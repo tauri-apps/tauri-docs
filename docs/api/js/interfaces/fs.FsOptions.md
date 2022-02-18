@@ -12,4 +12,4 @@
 
 #### Defined in
 
-[fs.ts:96](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/fs.ts#L96)
+[fs.ts:96](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/fs.ts#L96)

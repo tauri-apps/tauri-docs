@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:189](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L189)
+[http.ts:189](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L189)
 
 ## Methods
 
@@ -43,7 +43,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:333](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L333)
+[http.ts:333](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L333)
 
 ___
 
@@ -59,7 +59,7 @@ Drops the client instance.
 
 #### Defined in
 
-[http.ts:200](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L200)
+[http.ts:200](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L200)
 
 ___
 
@@ -90,7 +90,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:261](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L261)
+[http.ts:261](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L261)
 
 ___
 
@@ -121,7 +121,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:318](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L318)
+[http.ts:318](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L318)
 
 ___
 
@@ -153,7 +153,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:277](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L277)
+[http.ts:277](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L277)
 
 ___
 
@@ -185,7 +185,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:298](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L298)
+[http.ts:298](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L298)
 
 ___
 
@@ -215,4 +215,4 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:216](https://github.com/tauri-apps/tauri/blob/bf05c3a/tooling/api/src/http.ts#L216)
+[http.ts:216](https://github.com/tauri-apps/tauri/blob/82b7f51/tooling/api/src/http.ts#L216)
