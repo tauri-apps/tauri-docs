@@ -36,8 +36,9 @@ If you are waiting for your web code, you'll want to create a `close_splashscree
 ```rust title=src-tauri/main.rs
 use tauri::Manager;
 // Create the command:
+// This command must be async so that it doesn't run on the main thread.
 #[tauri::command]
-fn close_splashscreen(window: tauri::Window) {
+async fn close_splashscreen(window: tauri::Window) {
   // Close splashscreen
   if let Some(splashscreen) = window.get_window("splashscreen") {
     splashscreen.close().unwrap();
