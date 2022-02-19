@@ -45,8 +45,8 @@ This installs the most recent version of Node.js with npm.
 
 You may want to use an alternative to npm:
 
-- [pnpm]
-- [Yarn]
+- [Yarn] - Used by the Tauri team for v1
+- [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
 
 ## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
