@@ -76,7 +76,7 @@ Now that you have set up the Windows-specific dependencies for Tauri learn how t
 
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
 [Beginning Tutorial]: ./beginning-tutorial.md
-[Yarn]: https://yarnpkg.com/getting-started"
+[Yarn]: https://yarnpkg.com/getting-started
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup x86_64]: https://win.rustup.rs/x86_64
 [rustup i686]: https://win.rustup.rs/i686
