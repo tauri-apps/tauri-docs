@@ -45,7 +45,7 @@ This installs the most recent version of Node.js with npm.
 
 You may want to use an alternative to npm:
 
-- [Yarn] - Used by the Tauri team for v1
+- [Yarn@v1] - Used by the Tauri team for v1
 - [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
 
 ## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
@@ -76,7 +76,7 @@ Now that you have set up the Windows-specific dependencies for Tauri learn how t
 
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
 [Beginning Tutorial]: ./beginning-tutorial.md
-[Yarn]: https://yarnpkg.com/getting-started"
+[Yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup x86_64]: https://win.rustup.rs/x86_64
 [rustup i686]: https://win.rustup.rs/i686

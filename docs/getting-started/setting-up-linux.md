@@ -101,7 +101,7 @@ If you have any problems with nvm, please consult their [project readme][nvm].
 
 You may want to use an alternative to npm:
 
-- [Yarn] - Used by the Tauri team for v1
+- [Yarn@v1] - Used by the Tauri team for v1
 - [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
 
 ## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
@@ -151,7 +151,7 @@ Now that you have set up the Linux-specific dependencies for Tauri, learn how to
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh
 [Beginning Tutorial]: ./beginning-tutorial.md
-[Yarn]: https://yarnpkg.com/getting-started"
+[Yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup]: https://rustup.rs/
 [Rust]: https://www.rust-lang.org/
