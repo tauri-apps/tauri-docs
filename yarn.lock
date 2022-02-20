@@ -1542,10 +1542,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.3.tgz#c729ac22c35ae1c224cde10042ce7ab356bc4dda"
   integrity sha512-NUvBTj332dFRdiVkLlavXbDGoD2zyyeGYmMyrXOnctg/3e4pq95+rJgNfUP+k4v8UBk2L1aomGw9dDjbRdAmTg==
 
-"@fontsource/tauri@4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.5.2.tgz#83ac2aac2adc982a8fe5bd205ddb67253a41724d"
-  integrity sha512-lsyeQRvOEns5VzI+nFwGXH/djtn3Wlca2Bh5uJ7lqOTi94pU6tlW3lkmsOCnkOLMsuNbxYLLTFDG/BgXyi5bkg==
+"@fontsource/tauri@4.5.3":
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.5.3.tgz#cf773111edd6a616bbfca11ad413276ab44ce623"
+  integrity sha512-TQSRSSzgFrnLpFzOnr3kx0NTvkZC2ln375YTOhYZ2iYGX9UgxUR/dAufZ2DPaX02CigI17PKB1ppls1+dntUwA==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.1"
