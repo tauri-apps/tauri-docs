@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies 🧰
 
 <Tabs
 defaultValue="debian"
@@ -74,37 +74,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 - `libappindicator`: needed to use the system tray feature.
 - `patchelf` and `librsvg`: needed to bundle `AppImage`.
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
-
-### Node.js (npm included)
-
-We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
-
-```sh
-$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-```
-
-:::note
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere [download link][[nvm install.sh]].
-:::
-
-Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
-
-```sh
-$ nvm install node --latest-npm
-$ nvm use node
-```
-
-If you have any problems with nvm, please consult their [project readme][nvm].
-
-### Optional Node.js Package Manager
-
-You may want to use an alternative to npm:
-
-- [Yarn@v1] - Used by the Tauri team for v1
-- [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
-
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Rustc and Cargo Package Manager 📦
 
 The following command installs [rustup], the official installer for [Rust].
 
@@ -120,12 +90,12 @@ To make sure that Rust has been installed successfully, run the following comman
 
 ```sh
 $ rustc --version
-latest update on 2019-12-19, rust version 1.40.0
+rustc 1.58.1 (db9d1b20b 2022-01-20)
 ```
 
 You may need to restart your terminal if the command does not work.
 
-## 4. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
+## 3. For Windows Subsystem for Linux (WSL) Users&nbsp;<Icon title="info-alt" color="info"/>
 
 To run a graphical application with WSL, you need to download **one** of these X servers: Xming, Cygwin X, and vcXsrv.
 Since vcXsrv has been used internally, it's the one we recommend installing.

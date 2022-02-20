@@ -13,7 +13,7 @@ For those using the Windows Subsystem for Linux (WSL), please refer to our [Linu
 
 <Intro />
 
-## 1. System Dependencies&nbsp;<Icon title="alert" color="danger"/>
+## 1. System Dependencies 🧰
 
 You'll need to install Microsoft Visual Studio C++ build tools. [Download the installer here][Microsoft Visual Studio C++ build tools], and then run it. When it asks you what packages you would like to install, select C++ Build Tools and make sure the Windows SDK is selected.
 
@@ -25,30 +25,7 @@ This is a big download (over 1GB) and takes the most time, so grab a snack or co
 You may need to uninstall the 2017 version of the build tools if you have them. There are reports of Tauri not working with both the 2017 and 2019 versions installed.
 :::
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
-
-### Node.js (npm included)
-
-We recommend using [nvm-windows] to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
-
-Then run the following from an Administrative PowerShell and press Y when prompted:
-
-```powershell
-# BE SURE YOU ARE IN AN ADMINISTRATIVE PowerShell!
-nvm install latest
-nvm use {{latest}} # Replace with your latest downloaded version
-```
-
-This installs the most recent version of Node.js with npm.
-
-### Optional Node.js Package Manager
-
-You may want to use an alternative to npm:
-
-- [Yarn@v1] - Used by the Tauri team for v1
-- [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
-
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Rustc and Cargo Package Manager 📦
 
 Now you need to install [Rust]. The easiest way to do this is to use [rustup], the official installer.
 
@@ -58,7 +35,7 @@ Now you need to install [Rust]. The easiest way to do this is to use [rustup], t
 Download and install the proper variant for your computer's architecture.
 
 
-## 4. Install WebView2
+## 3. Install WebView2&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
 :::tip
 WebView2 is pre-installed in Windows 11.

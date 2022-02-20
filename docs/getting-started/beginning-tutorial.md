@@ -1,10 +1,14 @@
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
 
-# Your First Tauri App
+# Your First Node.js-based Tauri App
 
 :::caution
 You must have completed all the steps required for setting up the development environment on your machine. Please see the [setup page for your operating system][Prerequisites] if you haven't done this yet.
+:::
+
+:::info
+In this guide, we are assuming you already have installed [Node.js](https://nodejs.org/) and a package manager of your choice.
 :::
 
 There are two ways to integrate with Tauri depending on your needs:
