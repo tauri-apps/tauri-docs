@@ -37,11 +37,11 @@ You can change that regex by changing the boolean value to a string, e.g. `open:
 ### Restricting access to the [[`Command`]] APIs
 
 The `shell` allowlist object has a `scope` field that defines an array of CLIs that can be used.
-Each CLI is a configuration object `{ name: string, command: string, sidecar?: bool, args?: boolean | Arg[] }`.
+Each CLI is a configuration object `{ name: string, cmd: string, sidecar?: bool, args?: boolean | Arg[] }`.
 
 - `name`: the unique identifier of the command, passed to the [Command constructor](../classes/shell.Command.md#constructor).
 If it's a sidecar, this must be the value defined on `tauri.conf.json > tauri > bundle > externalBin`.
-- `command`: the program that is executed on this configuration. If it's a sidecar, it must be the same as `name`.
+- `cmd`: the program that is executed on this configuration. If it's a sidecar, it must be the same as `name`.
 - `sidecar`: whether the object configures a sidecar or a system program.
 - `args`: the arguments that can be passed to the program. By default no arguments are allowed.
   - `true` means that any argument list is allowed.
@@ -58,7 +58,7 @@ Configuration:
 {
   "scope": {
     "name": "run-git-commit",
-    "command": "git",
+    "cmd": "git",
     "args": ["commit", "-m", { "validator": "\\S+" }]
   }
 }
