@@ -30,7 +30,6 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     libssl-dev \
     libgtk-3-dev \
     libappindicator3-dev \
-    patchelf \
     librsvg2-dev
 ```
 
@@ -47,7 +46,6 @@ $ sudo pacman -Syu && sudo pacman -S --needed \
     appmenu-gtk-module \
     gtk3 \
     libappindicator-gtk3 \
-    patchelf \
     librsvg \
     libvips
 ```
@@ -61,7 +59,6 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     curl \
     wget \
     libappindicator-gtk3 \
-    patchelf \
     librsvg2-devel \
     && sudo dnf group install "C Development Tools and Libraries"
 ```
@@ -72,7 +69,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 ### Optional dependencies:
 
 - `libappindicator`: needed to use the system tray feature.
-- `patchelf` and `librsvg`: needed to bundle `AppImage`.
+- `librsvg`: needed to bundle `AppImage`.
 
 ## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
@@ -85,7 +82,7 @@ $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bas
 ```
 
 :::note
-We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere [download link][[nvm install.sh]].
+We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a mere [download link][nvm install.sh]].
 :::
 
 Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
@@ -146,13 +143,13 @@ You can download some examples to try with `sudo apt-get install x11-apps`. xeye
 
 ## Continue
 
-Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project][Beginning Tutorial].
+Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project][beginning tutorial].
 
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh
-[Beginning Tutorial]: ./beginning-tutorial.md
-[Yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
+[beginning tutorial]: ./beginning-tutorial.md
+[yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup]: https://rustup.rs/
-[Rust]: https://www.rust-lang.org/
+[rust]: https://www.rust-lang.org/
 [rustup.sh]: https://sh.rustup.rs/
