@@ -288,7 +288,7 @@ You have multiple options available
 Generate keypair to sign files
 
 USAGE:
-    node tooling/cli/node/tauri.js signer generate [OPTIONS]
+    tauri signer generate [OPTIONS]
 
 OPTIONS:
     -f, --force                      Overwrite private key even if it exists on the specified path
