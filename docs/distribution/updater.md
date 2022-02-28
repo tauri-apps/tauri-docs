@@ -277,29 +277,25 @@ The *Public-key* (pubkey) should be added inside your `tauri.conf.json` to valid
 
 The *Private key* (privkey) is used to sign your update and should NEVER be shared with anyone. Also, if you lost this key, you'll NOT be able to publish a new update to the current user base (if pubkey is set in tauri.conf.json). It's crucial to save it in a safe place, and you can always access it.
 
-To generate your keys, you need to use the Tauri cli.
+To generate your keys, you need to use the Tauri CLI:
 
 ```bash
-tauri sign -g -w ~/.tauri/myapp.key
+tauri signer generate -w ~/.tauri/myapp.key
 ```
 
 You have multiple options available
 ```
-Tauri updates signer.
+Generate keypair to sign files
+
 USAGE:
-    tauri sign [FLAGS] [OPTIONS]
-FLAGS:
-        --force          Overwrite private key even if it exists on the specified path
-    -g, --generate       Generate keypair to sign files
-    -h, --help           Prints help information
-        --no-password    Set empty password for your private key
-    -V, --version        Prints version information
+    tauri signer generate [OPTIONS]
+
 OPTIONS:
-    -p, --password <password>                    Set private key password when signing
-    -k, --private-key <private-key>              Load the private key from a string
-    -f, --private-key-path <private-key-path>    Load the private key from a file
-        --sign-file <sign-file>                  Sign the specified file
-    -w, --write-keys <write-keys>                Write private key to a file
+    -f, --force                      Overwrite private key even if it exists on the specified path
+    -h, --help                       Print help information
+    -p, --password <PASSWORD>        Set private key password when signing
+    -V, --version                    Print version information
+    -w, --write-keys <WRITE_KEYS>    Write private key to a file
 ```
 ***
 Environment variables used to sign with the Tauri `bundler`:
