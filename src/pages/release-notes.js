@@ -50,7 +50,7 @@ const packagesData = [
     label: 'create-tauri-app',
     value: 'create-tauri-app',
     changelogUrl:
-      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/create-tauri-app/CHANGELOG.md',
+      'https://raw.githubusercontent.com/tauri-apps/create-tauri-app/dev/CHANGELOG.md',
   },
 ]
 
