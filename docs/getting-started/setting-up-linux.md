@@ -22,7 +22,7 @@ values={[
 ]}>
 <TabItem value="debian">
 
-```sh
+```bash
 sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
@@ -36,7 +36,7 @@ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
 </TabItem>
 <TabItem value="arch">
 
-```sh
+```bash
 sudo pacman -Syu && sudo pacman -S --needed \
     webkit2gtk \
     base-devel \
@@ -53,7 +53,7 @@ sudo pacman -Syu && sudo pacman -S --needed \
 </TabItem>
 <TabItem value="fedora">
 
-```sh
+```bash
 sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
     curl \
@@ -77,7 +77,7 @@ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 
 We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
-```sh
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
@@ -87,7 +87,7 @@ We have audited this bash script, and it does what it says it is supposed to do.
 
 Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
 
-```sh
+```bash
 nvm install node --latest-npm
 nvm use node
 ```
@@ -115,7 +115,7 @@ We have audited this bash script, and it does what it says it is supposed to do.
 
 To make sure that Rust has been installed successfully, run the following command:
 
-```sh
+```bash
 rustc --version
 
 latest update on 2019-12-19, rust version 1.40.0

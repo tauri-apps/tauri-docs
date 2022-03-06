@@ -56,7 +56,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```sh
+```bash
 npm install mocha chai selenium-webdriver
 ```
 
@@ -64,7 +64,7 @@ npm install mocha chai selenium-webdriver
 
 <TabItem value="yarn">
 
-```sh
+```bash
 yarn add mocha chai selenium-webdriver
 ```
 
@@ -81,7 +81,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```sh
+```bash
 npm test
 ```
 
@@ -89,7 +89,7 @@ npm test
 
 <TabItem value="yarn">
 
-```sh
+```bash
 yarn test
 ```
 
@@ -203,7 +203,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```sh
+```bash
 npm test
 ```
 
@@ -211,7 +211,7 @@ npm test
 
 <TabItem value="yarn">
 
-```sh
+```bash
 yarn test
 ```
 

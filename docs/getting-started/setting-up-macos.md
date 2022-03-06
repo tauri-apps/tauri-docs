@@ -13,7 +13,7 @@ import Icon from '@theme/Icon'
 
 Make sure you have `xcode` installed.
 
-```sh
+```bash
 xcode-select --install
 ```
 
@@ -23,7 +23,7 @@ xcode-select --install
 
 We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
-```sh
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
@@ -33,7 +33,7 @@ We have audited this bash script, and it does what it says it is supposed to do.
 
 Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
 
-```sh
+```bash
 nvm install node --latest-npm
 nvm use node
 ```
@@ -61,7 +61,7 @@ We have audited this bash script, and it does what it says it is supposed to do.
 
 To make sure that Rust has been installed successfully, run the following command:
 
-```sh
+```bash
 rustc --version
 
 latest update on 2019-12-19, rust version 1.40.0

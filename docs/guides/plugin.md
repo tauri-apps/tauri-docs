@@ -21,7 +21,7 @@ Plugins are reusable extensions to the Tauri API that solve common problems. The
 
 If you intend to share your plugin with others, we provide a ready-made template! With the tauri-cli installed just run:
 
-```sh
+```bash
 tauri plugin init --name awesome
 ```
 
@@ -41,7 +41,7 @@ This isn't very convenient however, so it's common for plugins to provide a so c
 > An example of this is the [tauri-plugin-store](https://github.com/tauri-apps/tauri-plugin-store), that provides a convenient class structure to accessing a store.
 > You can scaffold a plugin with attached API package like this:
 
-```sh
+```bash
 tauri plugin init --name awesome --api
 ```
 
@@ -163,4 +163,4 @@ impl<R: Runtime> Plugin<R> for MyAwesomePlugin<R> {
     (self.invoke_handler)(message)
   }
 }
-``` 
+```
