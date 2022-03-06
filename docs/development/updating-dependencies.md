@@ -7,6 +7,7 @@ Especially during the alpha and beta phases, we expect you to keep all Tauri dep
 ## Automatic updates
 
 The Tauri JS CLI has a command to install and update all needed dependencies, just run `tauri deps install` or `tauri deps update`.
+**Note**: This command is unavailable in CLI versions starting from `v1.0.0-rc.0`
 
 ## Manual updates
 
@@ -33,14 +34,30 @@ npm install vue-cli-plugin-tauri@latest
 
 ### Update Cargo Packages
 
-Go to `src-tauri/Cargo.toml` and change `tauri` to
-`tauri = { version = "%version%" }` where `%version%` is the version number shown above. (You can just use the `MAJOR.MINOR`) version, like `0.9`.
+You can check for outdated packages with [`cargo outdated`] or on the crates.io pages: [tauri] / [tauri-build].
+
+Go to `src-tauri/Cargo.toml` and change `tauri` and `tauri-build` to
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+where `%version%` is the corresponding version number from above. <!-- TODO: (You can just use the `MAJOR.MINOR`) version, like `0.9`. -->
 
 Then do the following:
 
 ```bash
 cd src-tauri
-cargo update -p tauri
+cargo update
 ```
 
-You can also run `cargo outdated -r tauri` to get direct information about the core library's latest version.
+Alternatively you can run the `cargo upgrade` command provided by [cargo-edit] which does all of this automatically.
+
+[`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit
