@@ -25,7 +25,7 @@ If you need extended control over the Debian package, you can provide a list of 
       "deb": {
         "files": {
           "usr/share/my-app": "../assets/", // copy the entire assets directory to /usr/share/my-app
-          "/usr/share/doc/my-app/README.md": "../README.md", // copy a single file
+          "/usr/share/doc/my-app/README.md": "../README.md" // copy a single file
         }
       }
     }
@@ -35,12 +35,12 @@ If you need extended control over the Debian package, you can provide a list of 
 
 ## AppImage
 
-AppImage is a distribution format that does not rely on the system installed packages and instead bundles all dependencies and files needed by the application. For this reason, the output file is larger but easier to distribute since it is supported on many Linux distributions and can be executed without installation, just making the file executable (`$ chmod a+x MyProject.AppImage`) and running it (`./MyProject.AppImage`).
+AppImage is a distribution format that does not rely on the system installed packages and instead bundles all dependencies and files needed by the application. For this reason, the output file is larger but easier to distribute since it is supported on many Linux distributions and can be executed without installation, just making the file executable (`chmod a+x MyProject.AppImage`) and running it (`./MyProject.AppImage`).
 
 AppImages are convenient, simplifying the distribution process if you cannot make a package targeting the distribution's package manager. Still, you should carefully use it as the file size grows from the 2-6MBs range to 70+MBs.
 
-[Debian Package]: https://wiki.debian.org/Packaging
-[AppImage]: https://appimage.org/
+[debian package]: https://wiki.debian.org/Packaging
+[appimage]: https://appimage.org/
 [rust-lang/rust#1355]: https://github.com/tauri-apps/tauri/issues/1355
 [rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497
-[AppImage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
+[appimage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system

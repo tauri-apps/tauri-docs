@@ -32,8 +32,8 @@ These are just a couple of tools that you might use. Make sure to check your fro
 ## Checklist
 
 - [Reducing the App Size](#reducing-the-app-size)
-    - [You can't improve what you can't measure](#you-cant-improve-what-you-cant-measure)
-    - [Think twice before adding a dependency](#think-twice-before-adding-a-dependency)
+  - [You can't improve what you can't measure](#you-cant-improve-what-you-cant-measure)
+  - [Think twice before adding a dependency](#think-twice-before-adding-a-dependency)
   - [Checklist](#checklist)
   - [1. Minify Javascript](#1-minify-javascript)
     - [Why?](#why)
@@ -248,20 +248,20 @@ The following suggestions are all unstable features and require a nightly toolch
 The following methods involve using unstable compiler features and require the rust nightly toolchain. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following:
 
 ```sh
-$ rustup toolchain install nightly
-$ rustup component add rust-src --toolchain nightly
+rustup toolchain install nightly
+rustup component add rust-src --toolchain nightly
 ```
 
 The Rust Standard Library comes precompiled. This means rust is faster to install, but also that the compiler can't optimize the Standard Library. You can apply the optimization options for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple you are targeting.
 
 ```sh
-$ cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
+cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
 ```
 
 If you are using `panic = "abort"` in your release profile optimizations, you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can further reduce the binary size. The following applies both:
 
 ```sh
-$ cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
+cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
 ```
 
 See the unstable documentation for more details about [`-Z build-std`][cargo build-std] and [`-Z build-std-features`][cargo build-std-features].
@@ -279,12 +279,12 @@ Your compiled app includes so-called "Debug Symbols" that include function and v
 The easiest way is to use the famous `strip` utility to remove this debugging information.
 
 ```sh
-$ strip target/release/my_application
+strip target/release/my_application
 ```
 
 See your local `strip` manpage for more information and flags that can be used to specify what information gets stripped out from the binary.
 
-<!-- TODO: add a note that strip if builtin with rust nightly -->
+<!-- TODO: add a note that strip if builtin with rust >= 1.59 -->
 
 ## 8. UPX
 
@@ -305,9 +305,10 @@ You should know that this technique might flag your binary as a virus on Windows
 #### Usage on macOS
 
 ```sh
-$ brew install upx
-$ yarn tauri build
-$ upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app
+brew install upx
+yarn tauri build
+upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app
+
                         Ultimate Packer for eXecutables
                             Copyright (C) 1996 - 2018
 UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
@@ -318,7 +319,7 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 ```
 
 [cargo-bloat]: https://github.com/RazrFalcon/cargo-bloat
-[Macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
+[macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
 [cargo-expand]: https://github.com/dtolnay/cargo-expand
 [rollup-plugin-visualizer]: https://github.com/btd/rollup-plugin-visualizer
 [rollup-plugin-graph]: https://github.com/ondras/rollup-plugin-graph
@@ -348,6 +349,6 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [cargo profiles]: https://doc.rust-lang.org/cargo/reference/profiles.html
 [cargo build-std]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
 [cargo build-std-features]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features
-[Bundlephobia]: https://bundlephobia.com
-[Frida]: https://frida.re/docs/home/
-[UPX]: https://github.com/upx/upx
+[bundlephobia]: https://bundlephobia.com
+[frida]: https://frida.re/docs/home/
+[upx]: https://github.com/upx/upx

@@ -23,7 +23,7 @@ values={[
 <TabItem value="debian">
 
 ```sh
-$ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
+sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     wget \
@@ -37,7 +37,7 @@ $ sudo apt update && sudo apt install libwebkit2gtk-4.0-dev \
 <TabItem value="arch">
 
 ```sh
-$ sudo pacman -Syu && sudo pacman -S --needed \
+sudo pacman -Syu && sudo pacman -S --needed \
     webkit2gtk \
     base-devel \
     curl \
@@ -54,7 +54,7 @@ $ sudo pacman -Syu && sudo pacman -S --needed \
 <TabItem value="fedora">
 
 ```sh
-$ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
+sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
     curl \
     wget \
@@ -78,7 +78,7 @@ $ sudo dnf check-update && sudo dnf install webkit2gtk3-devel.x86_64 \
 We recommend using nvm to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
 ```sh
-$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
 :::note
@@ -88,8 +88,8 @@ We have audited this bash script, and it does what it says it is supposed to do.
 Once nvm is installed, close and reopen your terminal, then install the latest version of Node.js and npm:
 
 ```sh
-$ nvm install node --latest-npm
-$ nvm use node
+nvm install node --latest-npm
+nvm use node
 ```
 
 If you have any problems with nvm, please consult their [project readme][nvm].
@@ -106,7 +106,7 @@ You may want to use an alternative to npm:
 The following command installs [rustup], the official installer for [Rust].
 
 ```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 :::note
@@ -116,7 +116,8 @@ We have audited this bash script, and it does what it says it is supposed to do.
 To make sure that Rust has been installed successfully, run the following command:
 
 ```sh
-$ rustc --version
+rustc --version
+
 latest update on 2019-12-19, rust version 1.40.0
 ```
 

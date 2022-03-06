@@ -18,7 +18,7 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
       "subcommands": {
         "subcommand-name": {
           // configures a subcommand that is accessible
-          // with `$ ./app subcommand-name --arg1 --arg2 --etc`
+          // with `./app subcommand-name --arg1 --arg2 --etc`
           // configuration as above, with "description", "args", etc.
         }
       }
@@ -33,7 +33,7 @@ All JSON configurations here are just samples, many other fields have been omitt
 
 ## Adding Arguments
 
-The `args` array represents the list of arguments accepted by its command or subcommand. You can find more details about the way to configure them [here][Tauri config].
+The `args` array represents the list of arguments accepted by its command or subcommand. You can find more details about the way to configure them [here][tauri config].
 
 ### Positional Arguments
 
@@ -56,7 +56,7 @@ A positional argument is identified by its position in the list of arguments. Wi
 }
 ```
 
-Users can run your app as `$ ./app tauri.txt dest.txt` and the arg matches map will define `source` as `"tauri.txt"` and `destination` as `"dest.txt"`.
+Users can run your app as `./app tauri.txt dest.txt` and the arg matches map will define `source` as `"tauri.txt"` and `destination` as `"dest.txt"`.
 
 ### Named Arguments
 
@@ -76,7 +76,7 @@ A named argument is a (key, value) pair where the key identifies the value. With
 }
 ```
 
-Users can run your app as `$ ./app --type foo bar`, `$ ./app -t foo -t bar` or `$ ./app --type=foo,bar` and the arg matches map will define `type` as `["foo", "bar"]`.
+Users can run your app as `./app --type foo bar`, `./app -t foo -t bar` or `./app --type=foo,bar` and the arg matches map will define `type` as `["foo", "bar"]`.
 
 ### Flag Arguments
 
@@ -92,7 +92,7 @@ A flag argument is a standalone key whose presence or absence provides informati
 }
 ```
 
-Users can run your app as `$ ./app -v -v -v`, `$ ./app --verbose --verbose --verbose` or `$ ./app -vvv` and the arg matches map will define `verbose` as `true`, with `occurrences = 3`.
+Users can run your app as `./app -v -v -v`, `./app --verbose --verbose --verbose` or `./app -vvv` and the arg matches map will define `verbose` as `true`, with `occurrences = 3`.
 
 ## Subcommands
 
@@ -126,7 +126,7 @@ use tauri::api::cli::get_matches;
 fn main() {
   let context = tauri::generate_context!();
   let cli_config = context.config().tauri.cli.clone().unwrap();
-  
+
   match get_matches(&cli_config) {
     // `matches` here is a Struct with { args, subcommand }.
     // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurances }.
@@ -136,7 +136,7 @@ fn main() {
     }
     Err(_) => {}
   };
-  
+
   tauri::Builder::default()
   .run(context)
   .expect("error while running tauri application");
@@ -155,7 +155,7 @@ getMatches().then((matches) => {
 
 ## Complete documentation
 
-You can find more about the CLI configuration [here][Tauri config].
+You can find more about the CLI configuration [here][tauri config].
 
 [clap]: https://github.com/clap-rs/clap
-[Tauri config]: /docs/api/config#tauri
+[tauri config]: /docs/api/config#tauri
