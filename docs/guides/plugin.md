@@ -51,15 +51,19 @@ Using the `tauri::plugin::Builder` you can define plugins similar to how you def
 
 ```rust
 use tauri::plugin::{Builder, TauriPlugin};
-// the plugin custom command handlers if you choose to extend the API.
+
+// the plugin custom command handlers if you choose to extend the API:
+
 #[tauri::command]
 // this will be accessible with `invoke('plugin:awesome|initialize')`.
 // where `awesome` is the plugin name.
 fn initialize() {}
+
 #[tauri::command]
 // this will be accessible with `invoke('plugin:awesome|do_something')`.
 fn do_something() {}
-pub fn init() -> TauriPlugin {
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("awesome")
     .invoke_handler(tauri::generate_handler![initialize, do_something])
     .build()
@@ -69,26 +73,31 @@ pub fn init() -> TauriPlugin {
 Plugins can setup and maintain state, just like your app can:
 
 ```rust
-  use tauri::{
-    AppHandle, Runtime, State
-    plugin::{Builder, TauriPlugin}
-  };
-  #[derive(Default)]
-  struct MyState {
-  }
-  #[tauri::command]
-  // this will be accessible with `invoke('plugin:awesome|do_something')`.
-  fn do_something<R: Runtime>(_app: AppHandle<R>, state: State<'_, MyState>) {
-    // you can access `MyState` here!
-  }
+use tauri::{
+  AppHandle, Runtime, State
+  plugin::{Builder, TauriPlugin}
+};
+
+#[derive(Default)]
+struct MyState {
+}
+
+#[tauri::command]
+// this will be accessible with `invoke('plugin:awesome|do_something')`.
+fn do_something<R: Runtime>(_app: AppHandle<R>, state: State<'_, MyState>) {
+  // you can access `MyState` here!
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("awesome")
-    .invoke_handler(tauri::generate_handler![initialize, do_something])
+    .invoke_handler(tauri::generate_handler![do_something])
     .setup(|app_handle| {
       // setup plugin specific state here
       app.manage(MyState::default())
       Ok(())
     })
     .build()
+}
 ```
 
 ### Conventions
