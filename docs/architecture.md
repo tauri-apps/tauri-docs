@@ -83,9 +83,6 @@ Tauri uses WRY as the abstract layer responsible to determine which webview is u
 
 ## Additional tooling
 
-### [binary-releases](https://github.com/tauri-apps/binary-releases)
-
-This is the delivery mechanism for tauri prebuilt binaries: currently the cli.rs (used by cli.js) and rustup binaries (used by the deps install command of cli.js). These artifacts are automatically created on release.
 
 ### [tauri-action](https://github.com/tauri-apps/tauri-action)
 
