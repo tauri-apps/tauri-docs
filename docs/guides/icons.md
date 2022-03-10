@@ -20,7 +20,7 @@ npm install -g github:tauri-apps/tauricon
 yarn add -g github:tauri-apps/tauricon
 ```
 
-If you decide to use Tauri as a local package with npm (not yarn), you need to add a custom script to your package.json:
+If you decide to use `tauricon` as a local package with npm (not yarn), you need to add a custom script to your package.json:
 
 ```js title=package.json
 {
