@@ -15,7 +15,7 @@ cross-platform wrapper [`tauri-driver`].
 
 Install the latest [`tauri-driver`] or update an existing installation by running:
 
-```sh
+```bash
 cargo install tauri-driver
 ```
 
@@ -47,7 +47,7 @@ If you prefer to see the result of the guide and look over a finished minimal co
 can look at https://github.com/chippers/hello_tauri. That example also comes with a CI script to test with GitHub
 actions, but you may still be interested in the [WebDriver CI](ci) guide as it explains the concept a bit more.
 
-[WebDriver]: https://www.w3.org/TR/webdriver/
+[webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [tauri-driver]: https://crates.io/crates/tauri-driver
-[Microsoft Edge Driver]: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+[microsoft edge driver]: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/

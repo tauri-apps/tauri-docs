@@ -32,7 +32,7 @@ When contributing to the Rust libraries `tauri`, `tauri-api`, and `tauri-updater
 
 Let's make a new example. That's a great way to learn. We assume you are on a nixy type of environment like Linux or macOS and have all of your development dependencies like rust and node already sorted out.
 
-```sh
+```bash
 git clone git@github.com:tauri-apps/tauri.git
 cd tauri/cli/tauri.js
 yarn

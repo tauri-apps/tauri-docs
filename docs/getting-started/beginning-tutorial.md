@@ -4,10 +4,11 @@ import Link from '@docusaurus/Link'
 # Your First Tauri App
 
 :::caution
-You must have completed all the steps required for setting up the development environment on your machine. Please see the [setup page for your operating system][Prerequisites] if you haven't done this yet.
+You must have completed all the steps required for setting up the development environment on your machine. Please see the [setup page for your operating system][prerequisites] if you haven't done this yet.
 :::
 
 There are two ways to integrate with Tauri depending on your needs:
+
 - [Start a new Tauri project](#1-start-a-new-tauri-project)
 - Or [add Tauri to existing project](#1-add-tauri-to-existing-project)
 
@@ -83,7 +84,7 @@ npm install @tauri-apps/api
 
 This command places a new folder in your current working directory, `src-tauri`.
 
-```sh
+```bash
 └── src-tauri
     ├── .gitignore
     ├── Cargo.toml
@@ -158,13 +159,13 @@ This information can be beneficial when triaging problems.
 ### Recipes
 
 We've also defined prebuilt configurations called "Recipes". They may help you to customize Tauri to fit your needs.
-[See more about recipes][Recipes].
+[See more about recipes][recipes].
 
 ## Vue CLI Plugin Tauri
 
 If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin].
 
-[Prerequisites]: ./prerequisites.md
+[prerequisites]: ./prerequisites.md
 [`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
-[Recipes]: ../architecture/recipes/about-recipes.md
-[Vue CLI plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri
+[recipes]: ../architecture/recipes/about-recipes.md
+[vue cli plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri
