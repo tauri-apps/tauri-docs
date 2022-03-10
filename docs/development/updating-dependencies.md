@@ -4,14 +4,7 @@
 Especially during the alpha and beta phases, we expect you to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
 :::
 
-## Automatic updates
-
-The Tauri JS CLI has a command to install and update all needed dependencies, just run `tauri deps install` or `tauri deps update`.
-**Note**: This command is unavailable in CLI versions starting from `v1.0.0-rc.0`
-
-## Manual updates
-
-### Update NPM Packages
+## Update NPM Packages
 
 If you are using the `tauri` package:
 
@@ -32,7 +25,7 @@ yarn upgrade vue-cli-plugin-tauri --latest
 npm install vue-cli-plugin-tauri@latest
 ```
 
-### Update Cargo Packages
+## Update Cargo Packages
 
 You can check for outdated packages with [`cargo outdated`] or on the crates.io pages: [tauri] / [tauri-build].
 
