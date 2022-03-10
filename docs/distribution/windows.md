@@ -6,6 +6,10 @@ sidebar_label: Windows
 
 Tauri applications for Windows are distributed either with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application. This guide provides information on available customizations for the installer.
 
+## Distributing a 32-bit executable
+
+The Tauri CLI compiles your executable using your machine's architecture by default. You can target a different one using the `target` argument. For instance, to generate an installer for the x86 architecture, you can execute `$ tauri build --target i686-pc-windows-msvc` after installing the *i686-pc-windows-msvc* target running `$ rustup target add i686-pc-windows-msvc`. You can see the list of available targets running `$ rustup target list`.
+
 ## Using a fixed version of the Webview2 Runtime
 
 By default, the Tauri installer downloads and installs the Webview2 Runtime if it is not already installed (on Windows 11, the runtime is distributed as part of the operating system).
