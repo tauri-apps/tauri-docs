@@ -113,7 +113,7 @@ fn main() {
       let window = app.get_window("main-window").unwrap();
       let window_ = window.clone();
       window.on_menu_event(move |event| {
-        match event.menu_item_id().as_str() {
+        match event.menu_item_id() {
           "quit" => {
             std::process::exit(0);
           }
