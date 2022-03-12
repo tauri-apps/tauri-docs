@@ -195,7 +195,7 @@ ___
 • `Optional` **transparent**: `boolean`
 
 Whether the window is transparent or not.
-Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macosPrivateApi`.
+Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`.
 WARNING: Using private APIs on `macOS` prevents your application from being accepted for the `App Store`.
 
 #### Defined in
