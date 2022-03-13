@@ -160,6 +160,7 @@ const siteConfig = {
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
     announcementBar: {
       id: 'rc',
