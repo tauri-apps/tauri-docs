@@ -51,7 +51,7 @@ See [script-src][CSP script-src], [style-src][CSP style-src] and [CSP Sources] f
 :::
 
 :::note
-With the CSP protection enabled, using inline `style` attributes it not allowed.
+With the CSP protection enabled, using inline `style` attributes is not allowed.
 :::
 
 :::caution
