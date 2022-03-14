@@ -2178,7 +2178,7 @@
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-5.0.3.tgz#e7b5aebbac150f8b5fdd4a46e7f0bd8e65e19109"
   integrity sha512-kUNnecmtkunAoQ3CnjmMkzNU/gtxG8guhi+Fk2U/kOpIKjIMKnXGp4IJCgQJrXSgMsWYimYG4TGjz/UzbGEBTw==
 
-"@types/prop-types@*":
+"@types/prop-types@*", "@types/prop-types@^15.0.0":
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
@@ -7694,12 +7694,13 @@ react-loadable-ssr-addon-v5-slorber@^1.0.1:
   dependencies:
     "@babel/runtime" "^7.10.3"
 
-react-markdown@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-8.0.0.tgz#3243296a59ddb0f451d262cc2e11123674b416c2"
-  integrity sha512-qbrWpLny6Ef2xHqnYqtot948LXP+4FtC+MWIuaN1kvSnowM+r1qEeEHpSaU0TDBOisQuj+Qe6eFY15cNL3gLAw==
+react-markdown@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-8.0.1.tgz#683b5225fccbdd7eca76aa89b621894a317dd4d6"
+  integrity sha512-g78B0KtUk8oDRt59fX9SWhMikn3/qYcQW+aVMxdIulcjCNeecAZNOmR8uXy5p4bhbuPIS8gZly81bF4pAQWYXw==
   dependencies:
     "@types/hast" "^2.0.0"
+    "@types/prop-types" "^15.0.0"
     "@types/unist" "^2.0.0"
     comma-separated-tokens "^2.0.0"
     hast-util-whitespace "^2.0.0"
