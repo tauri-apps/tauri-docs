@@ -298,9 +298,9 @@ OPTIONS:
     -w, --write-keys <WRITE_KEYS>    Write private key to a file
 ```
 ***
-Environment variables used to sign with the Tauri `bundler`:
-If they are set, the bundler automatically generates and signs the updater artifacts.
-`TAURI_PRIVATE_KEY`  Path or String of your private key
+Environment variables used to sign with the Tauri `bundler`:<br/>
+If they are set, the bundler automatically generates and signs the updater artifacts.<br/>
+`TAURI_PRIVATE_KEY`  Path or String of your private key<br/>
 `TAURI_KEY_PASSWORD`  Your private key password (optional)
 
 [200 OK]: http://tools.ietf.org/html/rfc2616#section-10.2.1
