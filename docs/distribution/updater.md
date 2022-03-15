@@ -12,11 +12,11 @@ Add this in tauri.conf.json
         "https://releases.myapp.com/{{target}}/{{current_version}}"
     ],
     "dialog": true,
-    "pubkey": ""
+    "pubkey": "YOUR_UPDATER_SIGNATURE_PUBKEY_HERE"
 }
 ```
 
-The required keys are "active" and "endpoints"; others are optional.
+The required keys are "active", "endpoints" and "pubkey"; others are optional.
 
 "active" must be a boolean. By default, it's set to false.
 
@@ -24,7 +24,7 @@ The required keys are "active" and "endpoints"; others are optional.
 
 "dialog" if present must be a boolean. By default, it's set to true. If enabled, [events](#events) are turned off as the updater handles everything. If you need the custom events, you MUST turn off the built-in dialog.
 
-"pubkey" if present, must be a valid public-key generated with Tauri CLI. See [Signing updates](#signing-updates).
+"pubkey" must be a valid public-key generated with Tauri CLI. See [Signing updates](#signing-updates).
 
 ### Update Requests
 
@@ -275,7 +275,7 @@ To sign your updates, you need two things.
 
 The *Public-key* (pubkey) should be added inside your `tauri.conf.json` to validate the update archive before installing.
 
-The *Private key* (privkey) is used to sign your update and should NEVER be shared with anyone. Also, if you lost this key, you'll NOT be able to publish a new update to the current user base (if pubkey is set in tauri.conf.json). It's crucial to save it in a safe place, and you can always access it.
+The *Private key* (privkey) is used to sign your update and should NEVER be shared with anyone. Also, if you lost this key, you'll NOT be able to publish a new update to the current user base. It's crucial to save it in a safe place, and you can always access it.
 
 To generate your keys, you need to use the Tauri CLI:
 
@@ -299,7 +299,7 @@ OPTIONS:
 ```
 ***
 Environment variables used to sign with the Tauri `bundler`:
-If they are set, and `tauri.conf.json` exposes the public key, the bundler automatically generates and signs the updater artifacts.
+If they are set, the bundler automatically generates and signs the updater artifacts.
 `TAURI_PRIVATE_KEY`  Path or String of your private key
 `TAURI_KEY_PASSWORD`  Your private key password (optional)
 
