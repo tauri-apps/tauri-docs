@@ -51,4 +51,4 @@ The `this` instance for chained calls.
 
 #### Defined in
 
-[shell.ts:173](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/shell.ts#L173)
+[shell.ts:173](https://github.com/tauri-apps/tauri/blob/d3f6981/tooling/api/src/shell.ts#L173)

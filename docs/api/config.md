@@ -136,7 +136,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
   ]}/> },
   { property: "bundle", optional: true, type: "BundleConfig", description: `The bundler configuration.`, child: <Properties anchorRoot="tauri.bundle" rows={[
     { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain \`cargo build\`` },
-    { property: "category", optional: true, type: "string | null", description: `The application kind.` },
+    { property: "category", optional: true, type: "string | null", description: `The application kind. Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather.` },
     { property: "copyright", optional: true, type: "string | null", description: `A copyright string associated with your application.` },
     { property: "deb", optional: true, type: "DebConfig", description: `Configuration for the Debian bundle.`, child: <Properties anchorRoot="tauri.bundle.deb" rows={[
       { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
@@ -152,7 +152,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
       { property: "exceptionDomain", optional: true, type: "string | null", description: `Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name.` },
       { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
       { property: "license", optional: true, type: "string | null", description: `The path to the license file to add to the DMG bundle.` },
-      { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports. Defaults to \`10.13\`. Setting it to \`null\` completely removes the \`LSMinimumSystemVersion\` field on the bundle's \`Info.plist\` and the \`MACOSX_DEPLOYMENT_TARGET\` environment variable.` },
+      { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports. Defaults to \`10.13\`. Setting it to \`null\` completely removes the \`LSMinimumSystemVersion\` field on the bundle's \`Info.plist\` and the \`MACOSX_DEPLOYMENT_TARGET\` environment variable. An empty string is considered an invalid value so the default value is used.` },
       { property: "providerShortName", optional: true, type: "string | null", description: `Provider short name for notarization.` },
       { property: "signingIdentity", optional: true, type: "string | null", description: `Identity to use for code signing.` },
       { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the boostrapper script.` },
@@ -254,7 +254,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
     { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not.` },
     { property: "skipTaskbar", optional: true, type: "boolean", description: `Whether or not the window icon should be added to the taskbar.` },
     { property: "title", optional: true, type: "string", description: `The window title.` },
-    { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macOSPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
+    { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macosPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
     { property: "url", optional: true, type: "WindowUrl", description: `The window webview URL.` },
     { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
     { property: "width", optional: true, type: "number", description: `The window width.` },
