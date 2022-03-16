@@ -24,6 +24,7 @@ The Tauri code signing and notarization process is configured through the follow
 - `APPLE_CERTIFICATE_PASSWORD`: the password for the `.p12` certificate.
 - `APPLE_ID` and `APPLE_PASSWORD`: your Apple account email and an [app-specific password]. Only required to notarize the app.
 - `APPLE_API_ISSUER` and `APPLE_API_KEY`: authentication with an App Store Connect API key instead of the Apple ID. Only required if you notarize the app.
+- `APPLE_PROVIDER_SHORT_NAME`: Team provider short name. If your Apple ID is connected to multiple teams, you have to specify the provider short name of the team you want to use to notarize your app.
 
 ## Signing Tauri apps
 
