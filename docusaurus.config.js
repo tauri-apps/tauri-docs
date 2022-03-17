@@ -38,13 +38,18 @@ const navbarItems = [
         to: 'docs/community/contributor-guide',
       },
       {
+        label: 'Sponsors',
+        to: '/#sponsors',
+        activeBasePath: 'never-active',
+      },
+      {
         label: 'Discord',
         href: discordUrl,
       },
       {
         label: 'Awesome Tauri',
-        href: awesomeTauriUrl
-      }
+        href: awesomeTauriUrl,
+      },
     ],
   },
   {
@@ -127,13 +132,17 @@ const footerLinks = [
     title: 'Community',
     items: [
       {
+        label: 'Sponsors',
+        to: '/#sponsors',
+      },
+      {
         label: 'Discord',
         href: discordUrl,
       },
       {
         label: 'Awesome Tauri',
-        href: awesomeTauriUrl
-      }
+        href: awesomeTauriUrl,
+      },
     ],
   },
 ]

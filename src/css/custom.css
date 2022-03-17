@@ -155,11 +155,6 @@ html[data-theme='dark'] #starfield {
   position: absolute;
 }
 
-.roadmap-container {
-  display: block;
-  position: relative;
-}
-
 .features .row .feature {
   margin-bottom: 20px;
 }
@@ -301,10 +296,13 @@ html[data-theme='light'] .header-github-link::before {
   margin-top: 10px;
 }
 
-html[data-theme="light"] a {}
+html[data-theme='light'] a {
+}
 
-html[data-theme="light"] .navbar__logo {display: none;}
-html[data-theme="light"] .navbar__brand {
+html[data-theme='light'] .navbar__logo {
+  display: none;
+}
+html[data-theme='light'] .navbar__brand {
   display: block;
   background: url(../../static/img/tauri_with_wordmark_dark.svg) no-repeat;
   background-size: cover;
