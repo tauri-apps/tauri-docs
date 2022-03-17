@@ -40,6 +40,7 @@ const navbarItems = [
       {
         label: 'Sponsors',
         to: '/#sponsors',
+        activeBasePath: 'never-active',
       },
       {
         label: 'Discord',
