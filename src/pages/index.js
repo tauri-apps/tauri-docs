@@ -722,11 +722,11 @@ function Home() {
             </div>
           </section>
         )}
-        <section className="roadmap-container">
-          <Roadmap siteConfig={siteConfig} />
-        </section>
-
         <div className={classNames('container', styles.container)}>
+          <section>
+            <Roadmap siteConfig={siteConfig} />
+          </section>
+
           <section id="sponsors">
             <PremiumSponsors />
           </section>
