@@ -4,7 +4,7 @@ sidebar_label: Windows
 
 # Windows Application Distribution
 
-Tauri applications for Windows are distributed either with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application. This guide provides information on available customizations for the installer.
+Tauri applications for Windows are distributed with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application. This guide provides information on available customizations for the installer.
 
 ## Distributing a 32-bit executable
 
