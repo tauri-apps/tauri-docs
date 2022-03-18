@@ -521,7 +521,7 @@ function PremiumSponsors() {
 
   return (
     <div>
-      <h1 className={styles.heading}>Premium Sponsor</h1>
+      <h1 className={styles.heading}>Premium Sponsors</h1>
       <div className={classNames('row', styles.logoRow)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={index} />
