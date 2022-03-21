@@ -64,7 +64,7 @@ Then, you can call it from your JS:
 // With the Tauri API npm package:
 import { invoke } from '@tauri-apps/api/tauri'
 // With the Tauri global script:
-const invoke = window.__TAURI__.invoke
+const invoke = window.__TAURI_INVOKE__
 
 document.addEventListener('DOMContentLoaded', () => {
   // This will wait for the window to load, but you could
