@@ -26,14 +26,14 @@ module.exports = (context, options) => ({
           tagName: 'meta',
           attributes: {
             property: 'og:url',
-            content: context.baseUrl
+            content: context.url
           },
         },
         {
           tagName: 'meta',
           attributes: {
             property: 'og:image',
-            content: context.baseUrl + '/img/social.jpg'
+            content: context.url + '/img/social.jpg'
           },
         },
         {
@@ -47,7 +47,7 @@ module.exports = (context, options) => ({
           tagName: 'meta',
           attributes: {
             property: 'twitter:image',
-            content: context.baseUrl + '/img/social.jpg'
+            content: context.url + '/img/social.jpg'
           },
         },
       ],
