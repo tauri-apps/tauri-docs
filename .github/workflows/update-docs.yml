@@ -5,6 +5,9 @@
 name: update-docs
 
 on:
+  push:
+    branches:
+      - dev
   pull_request:
   repository_dispatch:
     types: [update-docs, test-update-docs]
@@ -166,7 +169,7 @@ jobs:
       - name: Create pull request for updated docs
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3.4.1
-        if: ${{ github.event_name != 'pull_request' }}
+        if: github.event_name != 'pull_request' && github.event_name != 'push'
         with:
           token: ${{ secrets.TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
