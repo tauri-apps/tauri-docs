@@ -54,8 +54,7 @@ On the backend, the global event channel is exposed on the `App` struct, and win
 ```rust
 use tauri::Manager;
 
-// the payload type must implement `Serialize`.
-// for global events, it also must implement `Clone`.
+// the payload type must implement `Serialize` and `Clone`.
 #[derive(Clone, serde::Serialize)]
 struct Payload {
   message: String,
@@ -88,8 +87,8 @@ To use the window-specific event channel, a `Window` object can be obtained on a
 ```rust
 use tauri::{Manager, Window};
 
-// the payload type must implement `Serialize`.
-#[derive(serde::Serialize)]
+// the payload type must implement `Serialize` and `Clone`.
+#[derive(Clone, serde::Serialize)]
 struct Payload {
   message: String,
 }
