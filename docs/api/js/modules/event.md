@@ -38,17 +38,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[helpers/event.ts:39](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L39)
+[helpers/event.ts:40](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L40)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
+Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-download-progress"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"``, `string`\>
 
 #### Defined in
 
-[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L21)
+[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L21)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L41)
+[helpers/event.ts:42](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L42)
 
 ## Functions
 
@@ -89,7 +89,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:55](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/event.ts#L55)
+[event.ts:55](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/event.ts#L55)
 
 ___
 
@@ -120,7 +120,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:27](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/event.ts#L27)
+[event.ts:27](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/event.ts#L27)
 
 ___
 
@@ -151,4 +151,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:41](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/event.ts#L41)
+[event.ts:41](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/event.ts#L41)

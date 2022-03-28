@@ -117,4 +117,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:416](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/shell.ts#L416)
+[shell.ts:416](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/shell.ts#L416)
