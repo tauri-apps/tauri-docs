@@ -70,6 +70,26 @@ OPTIONS:
             Window title of your Tauri application
 ```
 
+## `plugin init`
+
+<Command name="plugin init" />
+
+```
+
+USAGE:
+    cargo-tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+
+OPTIONS:
+    -a, --author <AUTHOR>            Author name
+        --api                        Initializes a Tauri plugin with TypeScript API
+    -d, --directory <DIRECTORY>      Set target directory for init [default:
+                                     /home/runner/work/tauri-docs/tauri-docs]
+    -h, --help                       Print help information
+    -n, --name <PLUGIN_NAME>         Name of your Tauri plugin
+    -t, --tauri-path <TAURI_PATH>    Path of the Tauri project to use (relative to the cwd)
+    -V, --version                    Print version information
+```
+
 ## `dev`
 
 <Command name="dev" />

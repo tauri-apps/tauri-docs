@@ -20,7 +20,7 @@ Event name
 
 #### Defined in
 
-[helpers/event.ts:12](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L12)
+[helpers/event.ts:12](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L12)
 
 ___
 
@@ -32,7 +32,7 @@ Event identifier used to unlisten
 
 #### Defined in
 
-[helpers/event.ts:16](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L16)
+[helpers/event.ts:16](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L16)
 
 ___
 
@@ -44,7 +44,7 @@ Event payload
 
 #### Defined in
 
-[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L18)
+[helpers/event.ts:18](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L18)
 
 ___
 
@@ -56,4 +56,4 @@ The label of the window that emitted this event.
 
 #### Defined in
 
-[helpers/event.ts:14](https://github.com/tauri-apps/tauri/blob/fbb9017/tooling/api/src/helpers/event.ts#L14)
+[helpers/event.ts:14](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/helpers/event.ts#L14)
