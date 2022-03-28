@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:64](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L64)
+[http.ts:64](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L64)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:63](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L63)
+[http.ts:63](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L63)
 
 ## Methods
 
@@ -48,7 +48,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:119](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L119)
+[http.ts:119](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L119)
 
 ___
 
@@ -72,7 +72,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:79](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L79)
+[http.ts:79](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L79)
 
 ___
 
@@ -96,7 +96,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:97](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L97)
+[http.ts:97](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L97)
 
 ___
 
@@ -120,4 +120,4 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:108](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L108)
+[http.ts:108](https://github.com/tauri-apps/tauri/blob/a073f27/tooling/api/src/http.ts#L108)
