@@ -14,7 +14,7 @@ Options object sent to the backend.
 
 #### Defined in
 
-[http.ts:143](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L143)
+[http.ts:143](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L143)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:141](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L141)
+[http.ts:141](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L141)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[http.ts:139](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L139)
+[http.ts:139](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L139)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[http.ts:142](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L142)
+[http.ts:142](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L142)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[http.ts:145](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L145)
+[http.ts:145](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L145)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[http.ts:144](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L144)
+[http.ts:144](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L144)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[http.ts:140](https://github.com/tauri-apps/tauri/blob/f93f969/tooling/api/src/http.ts#L140)
+[http.ts:140](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/http.ts#L140)
