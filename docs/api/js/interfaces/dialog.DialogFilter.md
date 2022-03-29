@@ -21,7 +21,7 @@ extensions: ['svg', 'png']
 
 #### Defined in
 
-[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/dialog.ts#L41)
+[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/be07343/tooling/api/src/dialog.ts#L41)
 
 ___
 
@@ -33,4 +33,4 @@ Filter name.
 
 #### Defined in
 
-[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/dialog.ts#L33)
+[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/be07343/tooling/api/src/dialog.ts#L33)
