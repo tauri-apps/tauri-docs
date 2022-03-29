@@ -256,7 +256,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
     { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not.` },
     { property: "skipTaskbar", optional: true, type: "boolean", description: `Whether or not the window icon should be added to the taskbar.` },
     { property: "title", optional: true, type: "string", description: `The window title.` },
-    { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macOSPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
+    { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macosPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
     { property: "url", optional: true, type: "WindowUrl", description: `The window webview URL.` },
     { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
     { property: "width", optional: true, type: "number", description: `The window width.` },
