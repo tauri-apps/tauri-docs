@@ -18,7 +18,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 #### Defined in
 
-[dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/dialog.ts#L74)
+[dialog.ts:74](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/dialog.ts#L74)
 
 ___
 
@@ -30,7 +30,7 @@ The filters of the dialog.
 
 #### Defined in
 
-[dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/dialog.ts#L68)
+[dialog.ts:68](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/dialog.ts#L68)
 
 ___
 
@@ -42,4 +42,4 @@ The title of the dialog window.
 
 #### Defined in
 
-[dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a144e92/tooling/api/src/dialog.ts#L66)
+[dialog.ts:66](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/dialog.ts#L66)
