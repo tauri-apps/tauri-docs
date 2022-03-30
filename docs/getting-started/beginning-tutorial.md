@@ -120,38 +120,38 @@ This command places a new folder in your current working directory, `src-tauri`.
 Which should return something like:
 
 ```
-Operating System - Darwin(16.7.0) - darwin/x64
+Environment
+  › OS: Ubuntu 20.04 X64
+  › Node.js: 16.14.2
+  › npm: 8.5.0
+  › pnpm: Not installed!
+  › yarn: 1.22.18
+  › rustup: 1.22.18
+  › rustc: 1.59.0
+  › cargo: 1.59.0
+  › Rust toolchain: stable-x86_64-unknown-linux-gnu
 
-Node.js environment
-  Node.js - 12.16.3
-  @tauri-apps/cli - 1.0.0-rc.0
-  @tauri-apps/api - 1.0.0-rc.0
-
-Global packages
-  npm - 6.14.15
-  pnpm - Not installed
-  yarn - 1.22.17
-
-Rust environment
-  rustup - 1.24.3
-  rustc - 1.58.1
-  cargo - 1.58.0
-  toolchain - stable-x86_64-unknown-linux-gnu
-
-App directory structure
-/node_modules
-/src-tauri
-/src
-/public
+Packages
+  › @tauri-apps/cli [NPM]: 1.0.0-rc.7
+  › @tauri-apps/api [NPM]: 1.0.0-rc.3
+  › tauri [RUST]: 1.0.0-rc.5 (no lockfile),
+  › tauri-build [RUST]: no manifest (no lockfile),
+  › tao [RUST]: no manifest (no lockfile),
+  › wry [RUST]: no manifest (no lockfile),
 
 App
-  tauri.rs - 1.0.0-rc.0
-  build-type - bundle
-  CSP - default-src 'self'
-  distDir - ../public
-  devPath - ../public
-  framework - Svelte
-  bundler - Rollup
+  › build-type: bundle
+  › CSP: unset
+  › distDir: ../src
+  › devPath: http://localhost:3000/
+  › framework: React
+
+App directory structure
+  ├─ public
+  ├─ node_modules
+  ├─ src
+  ├─ .git
+  └─ src-tauri
 ```
 
 This information can be beneficial when triaging problems.
