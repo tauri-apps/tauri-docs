@@ -28,7 +28,7 @@
     "react-markdown": "8.0.1",
     "react-modal": "3.14.4",
     "react-reveal": "1.2.2",
-    "react-tabs": "4.0.1"
+    "react-tabs": "4.2.0"
   },
   "browserslist": {
     "production": [
