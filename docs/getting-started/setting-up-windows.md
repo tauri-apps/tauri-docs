@@ -29,6 +29,8 @@ You may need to uninstall the 2017 version of the build tools if you have them. 
 
 ### Node.js (npm included)
 
+(OPTIONAL - Node is optional depending on your project needs.  Tauri has no hard dependency for it as noted in the prerequisites)
+
 We recommend using [nvm-windows] to manage your Node.js runtime. It allows you to switch versions and update Node.js easily.
 
 Then run the following from an Administrative PowerShell and press Y when prompted:
