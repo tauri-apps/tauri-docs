@@ -25,7 +25,7 @@ When contributing to the Rust libraries `tauri`, `tauri-api`, and `tauri-updater
 ##### _Example Instructions_
 
 1. Navigate to the Tauri Root directory.
-2. Execute a script based on your Operating System from this folder: `.scripts/init_env.bat` for Windows Cmd, `.scripts/init_env.ps1` for Windows Powershell, `. .scripts/init_env.sh` for Linux/macOS bash (note the first `.` in this command).
+2. Execute a script based on your Operating System from this folder: `.scripts/setup.ps1` for Windows, `. .scripts/setup.sh` for Linux/macOS bash (note the first `.` in this command).
 3. Open your text editor/IDE from this shell/terminal.
 
 ## Hands-On Example
