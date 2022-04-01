@@ -162,13 +162,15 @@ const siteConfig = {
   },
   themeConfig: {
     prism: {
-      theme: require('./src/theme/CodeBlockTheme'),
+      theme: require('prism-react-renderer/themes/vsLight'),
+      darkTheme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: ['rust'],
     },
     version,
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
     announcementBar: {
       id: 'rc',

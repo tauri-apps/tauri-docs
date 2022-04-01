@@ -12,6 +12,14 @@
 /* You can override the default Infima variables here. */
 :root {
   font-family: 'Tauri';
+
+  --ifm-code-font-size: 95%;
+  --ifm-heading-line-height: 1.4;
+  --ifm-font-size-base: 95%;
+  --ifm-contents-border-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] {
   --ifm-color-primary: #67d6ed;
   --ifm-color-primary-dark: #49cee9;
   --ifm-color-primary-darker: #39cae8;
@@ -19,10 +27,6 @@
   --ifm-color-primary-light: #85def1;
   --ifm-color-primary-lighter: #95e2f2;
   --ifm-color-primary-lightest: #c2eff8;
-  --ifm-code-font-size: 95%;
-  --ifm-heading-line-height: 1.4;
-  --ifm-font-size-base: 95%;
-  --ifm-contents-border-color: var(--ifm-color-emphasis-300);
 }
 
 .markdown {
