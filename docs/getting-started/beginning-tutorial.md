@@ -132,17 +132,17 @@ Environment
   › Rust toolchain: stable-x86_64-unknown-linux-gnu
 
 Packages
-  › @tauri-apps/cli [NPM]: 1.0.0-rc.7
+  › @tauri-apps/cli [NPM]: 1.0.0-rc.8
   › @tauri-apps/api [NPM]: 1.0.0-rc.3
-  › tauri [RUST]: 1.0.0-rc.5 (no lockfile),
-  › tauri-build [RUST]: no manifest (no lockfile),
-  › tao [RUST]: no manifest (no lockfile),
-  › wry [RUST]: no manifest (no lockfile),
+  › tauri [RUST]: 1.0.0-rc.6,
+  › tauri-build [RUST]: 1.0.0-rc.5,
+  › tao [RUST]: 0.7.0,
+  › wry [RUST]: 0.14.0,
 
 App
   › build-type: bundle
   › CSP: unset
-  › distDir: ../src
+  › distDir: ../dist
   › devPath: http://localhost:3000/
   › framework: React
 
