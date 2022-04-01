@@ -19,35 +19,35 @@ module.exports = (context, options) => ({
           tagName: 'meta',
           attributes: {
             property: 'og:type',
-            content: 'website'
+            content: 'website',
           },
         },
         {
           tagName: 'meta',
           attributes: {
             property: 'og:url',
-            content: context.url
+            content: context.siteConfig.url,
           },
         },
         {
           tagName: 'meta',
           attributes: {
             property: 'og:image',
-            content: context.url + '/img/social.jpg'
+            content: context.siteConfig.url + '/img/social.jpg',
           },
         },
         {
           tagName: 'meta',
           attributes: {
             property: 'twitter:card',
-            content: 'summary_large_image'
+            content: 'summary_large_image',
           },
         },
         {
           tagName: 'meta',
           attributes: {
             property: 'twitter:image',
-            content: context.url + '/img/social.jpg'
+            content: context.siteConfig.url + '/img/social.jpg',
           },
         },
       ],
