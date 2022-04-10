@@ -59,6 +59,26 @@ main().catch((e) => {
 
 ```
 
+## Adding sidecar binary to allowList
+
+In order to allow the new binary to be exectued, you will need to add it to `allowList` in `tauri.conf.json`
+
+```json
+"allowlist": {
+  "shell": {
+    "sidecar": true,
+    "scope": [
+      {
+        "name": "my-sidecar",
+        "cmd": "my-sidecar",
+        "args": true,
+        "sidecar": true
+      }
+    ]
+  }
+},
+```
+
 ## Running the sidecar binary on JavaScript
 
 On the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method:
