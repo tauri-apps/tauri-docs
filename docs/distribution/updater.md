@@ -150,7 +150,7 @@ status    [ERROR/PENDING/DONE]
 error     String/null
 ```
 
-PENDING is emitted when the download is started and DONE when the install is complete. You can then ask to restart the application.
+PENDING is emitted when the download is started and DONE when the installation is complete. You can then ask to restart the application.
 
 ERROR is emitted when there is an error with the updater. We suggest listening to this event even if the dialog is enabled.
 
