@@ -18,7 +18,7 @@ By default, the Tauri installer downloads and installs the Webview2 Runtime if i
 You can remove the Webview2 Runtime download check from the installer by setting [tauri.bundle.windows.wix.skipWebviewInstall] to `true`. Your application WON'T work if the user does not have the runtime installed.
 :::
 
-Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. If you want to control the Webview2 distribution on each of your applications, either manage the release patches yourself or distribute applications in environments where internet connection might not be available. In that case, Tauri can bundle the runtime files for you.
+Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. You may want to control the Webview2 distribution on each of your applications by managing the release patches yourself, for example when distributing applications in environments where an internet connection might not be available. In that case, Tauri can bundle the runtime files for you.
 
 - Download the Webview2 fixed version runtime on the [official website], a `.cab` file for the selected architecture. In this example, the downloaded filename is Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab
 - Extract the file to the core folder: `Expand .\Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab -F:* ./src-tauri`
