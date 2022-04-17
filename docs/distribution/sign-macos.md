@@ -17,7 +17,7 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 
 ## tl;dr
 
-The Tauri code signing and notarization process is configured through the following environment variables:
+The Tauri code signing and notarization process are configured through the following environment variables:
 
 - `APPLE_SIGNING_IDENTITY`: the name of the keychain entry that contains the signing certificate.
 - `APPLE_CERTIFICATE`: base64 string of the `.p12` certificate, exported from the keychain. Useful if you don't have the certificate on the keychain (e.g., CI machines).
