@@ -441,7 +441,7 @@ const Roadmap = ({ siteConfig }) => {
     },
   ].map((item) => {
     return (
-      <li key={item.title}>
+      <li key={item.label}>
         <Fade bottom>
           <div className="icon" style={{ backgroundColor: item.color }}>
             <span className={item.icon}></span>
@@ -612,7 +612,7 @@ function Sponsors() {
 }
 
 function Logo(props) {
-  const { isDarkTheme } = useColorMode()
+  const { colorMode } = useColorMode()
   const logoDir = 'img/index/partners/'
 
   return (
@@ -626,7 +626,7 @@ function Logo(props) {
       <img
         className={styles.logo}
         src={
-          isDarkTheme
+          colorMode === 'dark'
             ? useBaseUrl(logoDir + props.brand.logoColorDark)
             : useBaseUrl(logoDir + props.brand.logoColorLight)
         }

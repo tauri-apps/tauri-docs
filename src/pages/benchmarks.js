@@ -77,7 +77,7 @@ function BenchmarkLoading(props) {
 
 // todo maybe split wry/tauri charts?
 function BenchmarkChart(props) {
-  const { isDarkTheme } = useColorMode()
+  const { colorMode } = useColorMode()
   const ApexChart = require('react-apexcharts').default
   const [id] = useState(Math.random().toString())
 
@@ -130,7 +130,7 @@ function BenchmarkChart(props) {
         },
       },
       theme: {
-        mode: isDarkTheme ? 'dark' : 'light',
+        mode: colorMode,
       },
     }
   }, [isDarkTheme])
