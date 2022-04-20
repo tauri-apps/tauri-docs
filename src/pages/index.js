@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import classNames from 'classnames'
 import Layout from '@theme/Layout'
@@ -524,7 +524,7 @@ function PremiumSponsors() {
       <h1 className={styles.heading}>Premium Sponsors</h1>
       <div className={classNames('row', styles.logoRow)}>
         {items.map((item, index) => {
-          return <Logo brand={item} key={index} />
+          return <Logo brand={item} key={item.name + item.link} />
         })}
       </div>
     </div>
@@ -604,7 +604,7 @@ function Sponsors() {
       <h1 className={styles.heading}>Sponsors</h1>
       <div className={classNames('row', styles.logoRow)}>
         {items.map((item, index) => {
-          return <Logo brand={item} key={index} />
+          return <Logo brand={item} key={item.name + item.link} />
         })}
       </div>
     </div>
@@ -613,7 +613,13 @@ function Sponsors() {
 
 function Logo(props) {
   const { colorMode } = useColorMode()
-  const logoDir = 'img/index/partners/'
+  const logoDir = '/img/index/partners/'
+  const [mode, setMode] = useState('light')
+  // Do not remove this!
+  // This is a workaround for incorrect color modes being applied after reloading the page.
+  useEffect(() => {
+    setMode(colorMode)
+  }, [colorMode])
 
   return (
     <Link
@@ -626,7 +632,7 @@ function Logo(props) {
       <img
         className={styles.logo}
         src={
-          colorMode === 'dark'
+          mode === 'dark'
             ? useBaseUrl(logoDir + props.brand.logoColorDark)
             : useBaseUrl(logoDir + props.brand.logoColorLight)
         }
