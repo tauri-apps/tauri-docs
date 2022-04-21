@@ -8,8 +8,7 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "translate": "docusaurus write-translations",
-    "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve"
+    "deploy": "docusaurus deploy"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.18",
