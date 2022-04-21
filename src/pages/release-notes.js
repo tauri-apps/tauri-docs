@@ -7,7 +7,6 @@ import TabItem from '@theme/TabItem'
 import ReactMarkdown from 'react-markdown'
 import debounce from '../utils/debounce'
 
-import 'react-tabs/style/react-tabs.css'
 import styles from './styles.module.css'
 
 const packagesData = [
@@ -20,7 +19,8 @@ const packagesData = [
   {
     label: 'API',
     value: 'api',
-    changelogUrl: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
+    changelogUrl:
+      'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
   },
   {
     label: 'CLI',
