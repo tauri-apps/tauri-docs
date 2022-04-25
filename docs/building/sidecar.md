@@ -19,6 +19,16 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
   "tauri": {
     "bundle": {
       "externalBin": ["/absolute/path/to/app", "relative/path/to/binary", "bin/python"]
+    },
+    "allowlist": {
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          { "name": "/absolute/path/to/app", "sidecar": true },
+          { "name": "relative/path/to/binary", "sidecar": true },
+          { "name": "bin/python", "sidecar": true }
+        ]
+      }
     }
   }
 }
@@ -61,7 +71,9 @@ main().catch((e) => {
 
 ## Running the sidecar binary on JavaScript
 
-On the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method:
+On the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method. 
+
+Note that you must configure the allowlist to enable `shell > sidecar` and configure all binaries in the shell scope.
 
 ```javascript
 import { Command } from '@tauri-apps/api/shell'
@@ -93,6 +105,14 @@ tauri::async_runtime::spawn(async move {
     }
   }
 });
+```
+
+Note that you must enable the **process-command-api** Cargo feature:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri = { version = "1.0.0-rc.6", features = ["process-command-api", ...] }
 ```
 
 ## Using Node.js on a sidecar
