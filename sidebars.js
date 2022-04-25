@@ -52,7 +52,6 @@ const docs = [
       },
     ],
     Guides: [
-      'guides/cli',
       'guides/command',
       'guides/events',
       'guides/plugin',
@@ -61,6 +60,7 @@ const docs = [
       'guides/window-customization',
       'guides/menu',
       'guides/system-tray',
+      'guides/cli',
     ],
     Debugging: ['debugging/debugging'],
     Testing: [

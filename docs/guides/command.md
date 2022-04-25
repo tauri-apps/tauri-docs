@@ -1,6 +1,7 @@
-# Creating Rust Commands
+# Calling Rust from the frontend
 
-Tauri provides a simple yet powerful "command" system for calling Rust functions from your web app. Commands can accept arguments and return values. They can also return errors and be `async`.
+Tauri provides a simple yet powerful `command` system for calling Rust functions from your web app.
+Commands can accept arguments and return values. They can also return errors and be `async`.
 
 ## Basic Example
 
