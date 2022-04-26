@@ -21,6 +21,23 @@ The `iconPath` is pointed to a PNG file on macOS and Linux, and a `.ico` file mu
 
 The `iconAsTemplate` is a boolean value that determines whether the image represents a [Template Image] on macOS.
 
+#### Linux Setup
+
+On Linux, you also need to enable one of the `ayatana-tray` and `gtk-tray` Cargo features:
+
+```toml
+# Cargo.toml file
+[dependencies]
+tauri = { version = "1.0.0-rc.8", features = [ "ayatana-tray" ] }
+```
+
+With the `gtk-tray` feature, your application will use the `libappindicator3` package to render the system tray.
+
+With the `ayatana-tray` feature, your application will depend on [libayatana-appindicator].
+
+:::info
+The `libappindicator3` is unmaintained and does not exist on some distros like `debian11` or `fedora`, but `libayatana-appindicator` does not exist on older releases.
+:::
 
 ### Creating a system tray
 
@@ -182,3 +199,4 @@ app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ic
 ```
 
 [Template Image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
+[libayatana-appindicator]: https://github.com/AyatanaIndicators/libayatana-appindicator
