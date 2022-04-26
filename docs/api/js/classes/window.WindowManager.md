@@ -32,7 +32,7 @@ Manage the current window object.
 
 #### Defined in
 
-[window.ts:254](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L254)
+[window.ts:301](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L301)
 
 ## Properties
 
@@ -48,7 +48,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:250](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L250)
+[window.ts:297](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L297)
 
 ___
 
@@ -68,7 +68,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:252](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L252)
+[window.ts:299](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L299)
 
 ## Methods
 
@@ -99,7 +99,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:316](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L316)
+[window.ts:363](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L363)
 
 ___
 
@@ -117,7 +117,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:510](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L510)
+[window.ts:573](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L573)
 
 ___
 
@@ -135,7 +135,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:756](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L756)
+[window.ts:819](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L819)
 
 ___
 
@@ -162,7 +162,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:305](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L305)
+[window.ts:352](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L352)
 
 ___
 
@@ -180,7 +180,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:736](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L736)
+[window.ts:799](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L799)
 
 ___
 
@@ -196,7 +196,7 @@ The position of the top-left hand corner of the window's client area relative to
 
 #### Defined in
 
-[window.ts:353](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L353)
+[window.ts:400](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L400)
 
 ___
 
@@ -213,7 +213,7 @@ The client area is the content of the window, excluding the title bar and border
 
 #### Defined in
 
-[window.ts:388](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L388)
+[window.ts:435](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L435)
 
 ___
 
@@ -229,7 +229,7 @@ Gets the window's current decorated state.
 
 #### Defined in
 
-[window.ts:455](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L455)
+[window.ts:502](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L502)
 
 ___
 
@@ -245,7 +245,7 @@ Gets the window's current fullscreen state.
 
 #### Defined in
 
-[window.ts:423](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L423)
+[window.ts:470](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L470)
 
 ___
 
@@ -261,7 +261,7 @@ Gets the window's current maximized state.
 
 #### Defined in
 
-[window.ts:439](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L439)
+[window.ts:486](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L486)
 
 ___
 
@@ -277,7 +277,7 @@ Gets the window's current resizable state.
 
 #### Defined in
 
-[window.ts:471](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L471)
+[window.ts:518](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L518)
 
 ___
 
@@ -293,7 +293,7 @@ Gets the window's current visible state.
 
 #### Defined in
 
-[window.ts:487](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L487)
+[window.ts:534](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L534)
 
 ___
 
@@ -328,7 +328,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:267](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L267)
+[window.ts:314](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L314)
 
 ___
 
@@ -346,7 +346,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:616](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L616)
+[window.ts:679](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L679)
 
 ___
 
@@ -364,7 +364,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:676](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L676)
+[window.ts:739](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L739)
 
 ___
 
@@ -399,7 +399,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:288](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L288)
+[window.ts:335](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L335)
 
 ___
 
@@ -415,7 +415,7 @@ The position of the top-left hand corner of the window relative to the top-left 
 
 #### Defined in
 
-[window.ts:369](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L369)
+[window.ts:416](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L416)
 
 ___
 
@@ -432,7 +432,7 @@ These dimensions include the title bar and borders. If you don't want that (and 
 
 #### Defined in
 
-[window.ts:407](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L407)
+[window.ts:454](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L454)
 
 ___
 
@@ -466,7 +466,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:541](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L541)
+[window.ts:604](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L604)
 
 ___
 
@@ -482,7 +482,7 @@ The scale factor that can be used to map physical pixels to logical pixels.
 
 #### Defined in
 
-[window.ts:337](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L337)
+[window.ts:384](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L384)
 
 ___
 
@@ -506,7 +506,117 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:799](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L799)
+[window.ts:862](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L862)
+
+___
+
+### setCursorGrab
+
+▸ **setCursorGrab**(`grab`): `Promise`<`void`\>
+
+Grabs the cursor, preventing it from leaving the window.
+
+There's no guarantee that the cursor will be hidden. You should
+hide it by yourself if you want so.
+
+#### Platform-specific
+
+- **Linux:** Unsupported.
+- **macOS:** This locks the cursor in a fixed location, which looks visually awkward.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `grab` | `boolean` | `true` to grab the cursor icon, `false` to release it. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+#### Defined in
+
+[window.ts:1153](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1153)
+
+___
+
+### setCursorIcon
+
+▸ **setCursorIcon**(`icon`): `Promise`<`void`\>
+
+Modifies the cursor icon of the window.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `icon` | [`CursorIcon`](../modules/window.md#cursoricon) | The new cursor icon. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+#### Defined in
+
+[window.ts:1203](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1203)
+
+___
+
+### setCursorPosition
+
+▸ **setCursorPosition**(`position`): `Promise`<`void`\>
+
+Changes the position of the cursor in window coordinates.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `position` | [`PhysicalPosition`](window.PhysicalPosition.md) \| [`LogicalPosition`](window.LogicalPosition.md) | The new cursor position. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+#### Defined in
+
+[window.ts:1225](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1225)
+
+___
+
+### setCursorVisible
+
+▸ **setCursorVisible**(`visible`): `Promise`<`void`\>
+
+Modifies the cursor's visibility.
+
+#### Platform-specific
+
+- **Windows:** The cursor is only hidden within the confines of the window.
+- **macOS:** The cursor is hidden as long as the window has input focus, even if the cursor is
+  outside of the window.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `visible` | `boolean` | If `false`, this will hide the cursor. If `true`, this will show the cursor. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+#### Defined in
+
+[window.ts:1181](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1181)
 
 ___
 
@@ -530,7 +640,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:777](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L777)
+[window.ts:840](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L840)
 
 ___
 
@@ -548,7 +658,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1007](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1007)
+[window.ts:1070](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1070)
 
 ___
 
@@ -572,7 +682,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:986](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L986)
+[window.ts:1049](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1049)
 
 ___
 
@@ -603,7 +713,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1035](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1035)
+[window.ts:1098](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1098)
 
 ___
 
@@ -633,7 +743,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:906](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L906)
+[window.ts:969](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L969)
 
 ___
 
@@ -663,7 +773,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:864](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L864)
+[window.ts:927](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L927)
 
 ___
 
@@ -693,7 +803,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:948](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L948)
+[window.ts:1011](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1011)
 
 ___
 
@@ -717,7 +827,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:573](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L573)
+[window.ts:636](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L636)
 
 ___
 
@@ -747,7 +857,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:826](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L826)
+[window.ts:889](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L889)
 
 ___
 
@@ -771,7 +881,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1060](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1060)
+[window.ts:1123](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1123)
 
 ___
 
@@ -795,7 +905,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:595](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L595)
+[window.ts:658](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L658)
 
 ___
 
@@ -813,7 +923,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:716](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L716)
+[window.ts:779](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L779)
 
 ___
 
@@ -831,7 +941,23 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:1081](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1081)
+[window.ts:1262](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1262)
+
+___
+
+### theme
+
+▸ **theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
+
+Gets the window's current visible state.
+
+#### Returns
+
+`Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
+
+#### Defined in
+
+[window.ts:550](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L550)
 
 ___
 
@@ -849,7 +975,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:656](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L656)
+[window.ts:719](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L719)
 
 ___
 
@@ -867,7 +993,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:636](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L636)
+[window.ts:699](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L699)
 
 ___
 
@@ -885,4 +1011,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[window.ts:696](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L696)
+[window.ts:759](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L759)
