@@ -35,6 +35,10 @@ The APIs must be allowlisted on `tauri.conf.json`:
         "setFocus": true,
         "setIcon": true,
         "setSkipTaskbar": true,
+        "setCursorGrab": true,
+        "setCursorVisible": true,
+        "setCursorIcon": true,
+        "setCursorPosition": true,
         "startDragging": true,
         "print": true
       }
@@ -120,6 +124,26 @@ type MenuClicked = string
 - [Monitor](../interfaces/window.Monitor.md)
 - [WindowOptions](../interfaces/window.WindowOptions.md)
 
+## Type aliases
+
+### CursorIcon
+
+Ƭ **CursorIcon**: ``"default"`` \| ``"crosshair"`` \| ``"hand"`` \| ``"arrow"`` \| ``"move"`` \| ``"text"`` \| ``"wait"`` \| ``"help"`` \| ``"progress"`` \| ``"notAllowed"`` \| ``"contextMenu"`` \| ``"cell"`` \| ``"verticalText"`` \| ``"alias"`` \| ``"copy"`` \| ``"noDrop"`` \| ``"grab"`` \| ``"grabbing"`` \| ``"allScroll"`` \| ``"zoomIn"`` \| ``"zoomOut"`` \| ``"eResize"`` \| ``"nResize"`` \| ``"neResize"`` \| ``"nwResize"`` \| ``"sResize"`` \| ``"seResize"`` \| ``"swResize"`` \| ``"wResize"`` \| ``"ewResize"`` \| ``"nsResize"`` \| ``"neswResize"`` \| ``"nwseResize"`` \| ``"colResize"`` \| ``"rowResize"``
+
+#### Defined in
+
+[window.ts:219](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L219)
+
+___
+
+### Theme
+
+Ƭ **Theme**: ``"light"`` \| ``"dark"``
+
+#### Defined in
+
+[window.ts:116](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L116)
+
 ## Variables
 
 ### appWindow
@@ -130,7 +154,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1171](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1171)
+[window.ts:1352](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1352)
 
 ## Functions
 
@@ -146,7 +170,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:1287](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1287)
+[window.ts:1474](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1474)
 
 ___
 
@@ -163,7 +187,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:1254](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1254)
+[window.ts:1441](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1441)
 
 ___
 
@@ -181,7 +205,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:230](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L230)
+[window.ts:277](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L277)
 
 ___
 
@@ -199,7 +223,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:218](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L218)
+[window.ts:265](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L265)
 
 ___
 
@@ -216,4 +240,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:1272](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/window.ts#L1272)
+[window.ts:1459](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1459)

@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:64](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L64)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:63](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L63)
+[http.ts:69](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L69)
 
 ## Methods
 
@@ -48,7 +48,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:119](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L119)
+[http.ts:155](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L155)
 
 ___
 
@@ -56,7 +56,27 @@ ___
 
 ▸ `Static` **form**(`data`): [`Body`](http.Body.md)
 
-Creates a new form data body.
+Creates a new form data body. The form data is an object where each key is the entry name,
+and the value is either a string or a file object.
+
+By default it sets the `application/x-www-form-urlencoded` Content-Type header,
+but you can set it to `multipart/form-data` if the Cargo feature `http-multipart` is enabled.
+
+Note that a file path must be allowed in the `fs` allowlist scope.
+
+# Examples
+
+```js
+import { Body } from "@tauri-apps/api/http"
+Body.form({
+  key: 'value',
+  image: {
+    file: '/path/to/file', // either a path of an array buffer of the file contents
+    mime: 'image/jpeg', // optional
+    fileName: 'image.jpg' // optional
+  }
+})
+```
 
 #### Parameters
 
@@ -72,7 +92,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:79](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L79)
+[http.ts:105](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L105)
 
 ___
 
@@ -96,7 +116,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:97](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L97)
+[http.ts:133](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L133)
 
 ___
 
@@ -120,4 +140,4 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:108](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L108)
+[http.ts:144](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/http.ts#L144)

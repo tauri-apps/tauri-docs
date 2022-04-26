@@ -14,7 +14,7 @@ Number of occurrences
 
 #### Defined in
 
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/cli.ts#L24)
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/cli.ts#L24)
 
 ___
 
@@ -28,4 +28,4 @@ string[] or null if takes multiple values
 
 #### Defined in
 
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/cli.ts#L20)
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/cli.ts#L20)

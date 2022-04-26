@@ -141,7 +141,6 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
     { property: "deb", optional: true, type: "DebConfig", description: `Configuration for the Debian bundle.`, child: <Properties anchorRoot="tauri.bundle.deb" rows={[
       { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
       { property: "files", optional: true, type: "object", description: `The files to include on the package.` },
-      { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the boostrapper script.` },
     ]}/> },
     { property: "externalBin", optional: true, type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application. Note that Tauri will look for system-specific binaries following the pattern "binary-name\{-target-triple\}\{.system-extension\}". E.g. for the external binary "my-binary", Tauri looks for: - "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux so don't forget to provide binaries for all targeted platforms.` },
     { property: "icon", optional: true, type: "string[]", description: `The app's icons` },
@@ -155,7 +154,6 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
       { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports. Defaults to \`10.13\`. Setting it to \`null\` completely removes the \`LSMinimumSystemVersion\` field on the bundle's \`Info.plist\` and the \`MACOSX_DEPLOYMENT_TARGET\` environment variable. An empty string is considered an invalid value so the default value is used.` },
       { property: "providerShortName", optional: true, type: "string | null", description: `Provider short name for notarization.` },
       { property: "signingIdentity", optional: true, type: "string | null", description: `Identity to use for code signing.` },
-      { property: "useBootstrapper", optional: true, type: "boolean", description: `Enable the boostrapper script.` },
     ]}/> },
     { property: "resources", optional: true, type: "string[]", description: `App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported.` },
     { property: "shortDescription", optional: true, type: "string | null", description: `A short description of your application.` },
@@ -255,6 +253,7 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
     { property: "minWidth", optional: true, type: "number | null", description: `The min window width.` },
     { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not.` },
     { property: "skipTaskbar", optional: true, type: "boolean", description: `Whether or not the window icon should be added to the taskbar.` },
+    { property: "theme", optional: true, type: "Theme", description: `The initial window theme. Defaults to the system theme. Only implemented on Windows.`, child: <Properties anchorRoot="tauri.windows.theme" rows={[]}/> },
     { property: "title", optional: true, type: "string", description: `The window title.` },
     { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macOSPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
     { property: "url", optional: true, type: "WindowUrl", description: `The window webview URL.` },

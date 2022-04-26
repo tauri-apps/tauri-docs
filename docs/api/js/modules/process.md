@@ -28,7 +28,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[process.ts:20](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/process.ts#L20)
+[process.ts:20](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/process.ts#L20)
 
 ___
 
@@ -46,4 +46,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[process.ts:35](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/process.ts#L35)
+[process.ts:35](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/process.ts#L35)
