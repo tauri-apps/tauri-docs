@@ -64,7 +64,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:151](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L151)
+[http.ts:187](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L187)
 
 ___
 
@@ -76,17 +76,17 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:126](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L126)
+[http.ts:162](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L162)
 
 ___
 
 ### Part
 
-Ƭ **Part**: `string` \| `Uint8Array`
+Ƭ **Part**: `string` \| `Uint8Array` \| `FilePart`<`Uint8Array`\>
 
 #### Defined in
 
-[http.ts:59](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L59)
+[http.ts:65](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L65)
 
 ___
 
@@ -98,7 +98,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:149](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L149)
+[http.ts:185](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L185)
 
 ## Functions
 
@@ -129,7 +129,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:369](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L369)
+[http.ts:405](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L405)
 
 ___
 
@@ -153,4 +153,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:349](https://github.com/tauri-apps/tauri/blob/4541eaf/tooling/api/src/http.ts#L349)
+[http.ts:385](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L385)
