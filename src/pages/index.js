@@ -319,17 +319,17 @@ const Roadmap = ({ siteConfig }) => {
         message: '3rd party security audit of core libraries.',
       }),
       icon: 'ti-magnet',
-      color: COLORS.blue,
+      color: COLORS.green,
       targetQuarter: 'Q1 2022',
     },
     {
-      label: 'Iframe with native API',
+      label: 'Isolation pattern',
       description: translate({
         message:
-          'Opt-in feature enabling for iframe dialog with Tauri and the native API.',
+          'Mechanism to secure the IPC from malicious third-party code.',
       }),
       icon: 'ti-exchange-vertical',
-      color: COLORS.blue,
+      color: COLORS.green,
       targetQuarter: 'Q1 2022',
     },
     {
@@ -338,7 +338,7 @@ const Roadmap = ({ siteConfig }) => {
         message: 'For improved security of files interaction.',
       }),
       icon: 'ti-package',
-      color: COLORS.blue,
+      color: COLORS.green,
       targetQuarter: 'Q1 2022',
     },
     {
@@ -346,7 +346,7 @@ const Roadmap = ({ siteConfig }) => {
       description: translate({ message: 'Stable on On all Platforms.' }),
       icon: 'ti-flag-alt',
       color: COLORS.red,
-      targetQuarter: 'Q1 2022',
+      targetQuarter: 'April 2022',
     },
     {
       label: 'Channel API',
