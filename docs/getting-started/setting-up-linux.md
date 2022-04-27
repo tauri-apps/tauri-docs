@@ -95,7 +95,7 @@ You may need to restart your terminal if the command does not work.
 
 ## 3. Optional Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-The Node.js runtime and package manager are optional dependencies. You only need to install it if your frontend project depends on it or you want to start a new project using [create-tauri-app](/docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project).
+The Node.js runtime and package manager are optional dependencies. You only need to install it if your frontend project depends on it or you want to start a new project using [create-tauri-app].
 
 ### Node.js (npm included)
 
@@ -148,6 +148,7 @@ You can download some examples to try with `sudo apt-get install x11-apps`. xeye
 
 Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project][beginning tutorial].
 
+[create-tauri-app]: /docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh
 [beginning tutorial]: ./beginning-tutorial.md

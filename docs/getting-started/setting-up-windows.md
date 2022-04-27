@@ -36,7 +36,7 @@ Download and install the proper variant for your computer's architecture.
 
 ## 3. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
 
-The Node.js runtime and package manager are optional dependencies. You only need to install it if your frontend project depends on it or you want to start a new project using [create-tauri-app](/docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project).
+The Node.js runtime and package manager are optional dependencies. You only need to install it if your frontend project depends on it or you want to start a new project using [create-tauri-app].
 
 ### Node.js (npm included)
 
@@ -75,6 +75,7 @@ If you have problems of any kind after following these instructions, we recommen
 
 Now that you have set up the Windows-specific dependencies for Tauri learn how to [add Tauri to your project][Beginning Tutorial].
 
+[create-tauri-app]: /docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
 [Beginning Tutorial]: ./beginning-tutorial.md
 [Yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
