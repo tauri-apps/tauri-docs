@@ -25,7 +25,18 @@ This is a big download (over 1GB) and takes the most time, so grab a snack or co
 You may need to uninstall the 2017 version of the build tools if you have them. There are reports of Tauri not working with both the 2017 and 2019 versions installed.
 :::
 
-## 2. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+## 2. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+
+Now you need to install [Rust]. The easiest way to do this is to use [rustup], the official installer.
+
+- [64-bit download link][rustup x86_64]
+- [32-bit download link][rustup i686]
+
+Download and install the proper variant for your computer's architecture.
+
+## 3. Node.js Runtime and Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
+
+The Node.js runtime and package manager are optional dependencies. You only need to install it if your frontend project depends on it or you want to start a new project using [create-tauri-app].
 
 ### Node.js (npm included)
 
@@ -48,16 +59,6 @@ You may want to use an alternative to npm:
 - [Yarn@v1] - Used by the Tauri team for v1
 - [pnpm] - Alternative package manager focusing on decreasing disk space and installation time
 
-## 3. Rustc and Cargo Package Manager&nbsp;<Icon title="control-skip-forward" color="warning"/>
-
-Now you need to install [Rust]. The easiest way to do this is to use [rustup], the official installer.
-
-- [64-bit download link][rustup x86_64]
-- [32-bit download link][rustup i686]
-
-Download and install the proper variant for your computer's architecture.
-
-
 ## 4. Install WebView2
 
 :::tip
@@ -74,6 +75,7 @@ If you have problems of any kind after following these instructions, we recommen
 
 Now that you have set up the Windows-specific dependencies for Tauri learn how to [add Tauri to your project][Beginning Tutorial].
 
+[create-tauri-app]: /docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
 [Beginning Tutorial]: ./beginning-tutorial.md
 [Yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
