@@ -132,7 +132,7 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:219](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L219)
+[window.ts:219](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L219)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[window.ts:116](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L116)
+[window.ts:116](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L116)
 
 ## Variables
 
@@ -154,7 +154,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1352](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1352)
+[window.ts:1352](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L1352)
 
 ## Functions
 
@@ -170,7 +170,7 @@ Returns the list of all the monitors available on the system.
 
 #### Defined in
 
-[window.ts:1474](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1474)
+[window.ts:1474](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L1474)
 
 ___
 
@@ -187,7 +187,7 @@ Returns `null` if current monitor can't be detected.
 
 #### Defined in
 
-[window.ts:1441](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1441)
+[window.ts:1441](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L1441)
 
 ___
 
@@ -205,7 +205,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:277](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L277)
+[window.ts:277](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L277)
 
 ___
 
@@ -223,7 +223,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:265](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L265)
+[window.ts:265](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L265)
 
 ___
 
@@ -240,4 +240,4 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 #### Defined in
 
-[window.ts:1459](https://github.com/tauri-apps/tauri/blob/feac1d1/tooling/api/src/window.ts#L1459)
+[window.ts:1459](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/window.ts#L1459)
