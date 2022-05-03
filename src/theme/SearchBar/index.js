@@ -4,8 +4,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import styles from './searchbar.module.css'
 import Icon from '@theme/Icon'
+import './searchbar.module.css'
 
-const SearchBar = ({className}) => {
+const SearchBar = ({ className }) => {
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
 
@@ -24,8 +25,15 @@ const SearchBar = ({className}) => {
     })
   }, [])
   return (
-    <div className={classNames(className, 'SearchBar', 'meilisearch-search-wrapper', styles.searchWrapper)}>
-      <Icon title="search" className={classNames(styles.searchIcon)}/>
+    <div
+      className={classNames(
+        className,
+        'SearchBar',
+        'meilisearch-search-wrapper',
+        styles.searchWrapper
+      )}
+    >
+      <Icon title="search" className={classNames(styles.searchIcon)} />
       <input
         placeholder="Search..."
         type="text"
