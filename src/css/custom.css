@@ -300,20 +300,6 @@ html[data-theme='light'] .header-github-link::before {
   margin-top: 10px;
 }
 
-html[data-theme='light'] a {
-}
-
-html[data-theme='light'] .navbar__logo {
-  display: none;
-}
-html[data-theme='light'] .navbar__brand {
-  display: block;
-  background: url(../../static/img/tauri_with_wordmark_dark.svg) no-repeat;
-  background-size: cover;
-  width: 97px;
-  height: 30px;
-}
-
 .badge--warning,
 .badge--warning:hover {
   color: var(--ifm-button-color) !important;
