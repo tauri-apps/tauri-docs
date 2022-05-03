@@ -1,6 +1,3 @@
-// How much to multiply time values in order to process log graphs properly.
-const TimeScaleFactor = 10000
-
 export function reshape(data) {
   return {
     sha1List: data.map((d) => d.sha1),
@@ -94,16 +91,4 @@ function createSyscallCountColumns(data) {
       return syscallCountData[name] || null
     }),
   }))
-}
-
-// For columns that have just a single variety
-function createColumns1(data, benchmarkName) {
-  return [
-    {
-      name: benchmarkName,
-      data: data.map((d) =>
-        d[benchmarkName] ? Number(d[benchmarkName]) : null
-      ),
-    },
-  ]
 }

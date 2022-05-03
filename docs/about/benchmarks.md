@@ -1,5 +1,9 @@
 # Benchmarks
 
+import Chart, { fetchData } from '@theme/Chart'
+
+export var data = fetchData()
+
 All benchmarks run on Github Actions on `ubuntu-latest` matrix. We measure various metrics of the following applications:
 
 - [tauri_cpu_intensive](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/cpu_intensive)
@@ -20,20 +24,32 @@ The CPU intensive benchmark measures how much time it takes to calculate all the
 
 How much time total it takes intialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
 
+<Chart data={data} column="exec_time" />
+
 ## Binary Size
 
 All binaries are compiled in release mode.
+
+<!-- <Chart data={data} column="binarySize" /> -->
 
 ## Memory Usage
 
 Uses [mprof](https://pypi.org/project/memory-profiler/) to get the max memory usage during execution. Smaller is better.
 
-## Threat Count
+<!-- <Chart data={data} column="maxMemory" /> -->
+
+## Thread Count
 
 How many threads the application uses. Smaller is better.
+
+<!-- <Chart data={data} column="threadCount" /> -->
 
 ## Syscall Count
 
 How many total syscalls are performed when executing a given application. Smaller is better.
 
+<!-- <Chart data={data} column="syscallCount" /> -->
+
 ## Dependancies
+
+<!-- <Chart data={data} column="cargoDeps" /> -->
