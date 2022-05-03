@@ -55,7 +55,7 @@ function BenchmarkLoading(props) {
         speed={1}
         width="100%"
         height="200"
-        viewBox="0 0 100% 200"
+        viewBox="0 0 100 200"
         backgroundColor="#DDD"
         foregroundColor="#AAA"
         {...props}
@@ -77,7 +77,7 @@ function BenchmarkLoading(props) {
 
 // todo maybe split wry/tauri charts?
 function BenchmarkChart(props) {
-  const { isDarkTheme } = useColorMode()
+  const { colorMode } = useColorMode()
   const ApexChart = require('react-apexcharts').default
   const [id] = useState(Math.random().toString())
 
@@ -130,10 +130,10 @@ function BenchmarkChart(props) {
         },
       },
       theme: {
-        mode: isDarkTheme ? 'dark' : 'light',
+        mode: colorMode,
       },
     }
-  }, [isDarkTheme])
+  }, [colorMode])
 
   let series = sort_cols(props.columns)
   if (props.extraDatas && props.extraDatas.length > 0) {
@@ -151,7 +151,6 @@ function BenchmarkChart(props) {
         }
       }),
     ]
-    console.log({ series })
   }
 
   return (
@@ -203,8 +202,6 @@ function Benchmarks() {
       }
     })
   }, [])
-
-  console.log(tauriData?.cargoDeps)
 
   return (
     <Layout title="Benchmarks">
@@ -288,13 +285,13 @@ function Benchmarks() {
             </a>
           </li>
         </ul>
-        <p className="margin-bottom--xl">
+        <div className="margin-bottom--xl">
           <Alert title="Note" icon="light-bulb">
             The CPU intensive benchmark measures how much time it takes to
             calculate all the prime numbers under XXXX without blocking the UI
             and reporting how many have been found so far using web workers.
           </Alert>
-        </p>
+        </div>
         <section>
           <h2 id="execution-time" className="anchorify">
             <a href="#execution-time">
