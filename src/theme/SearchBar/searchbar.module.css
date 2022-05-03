@@ -10,14 +10,14 @@
   align-items: center;
 }
 
-.search:focus{
+.search:focus {
   outline: none;
 }
 
 .search {
   background: transparent;
   border: none;
-  color: var(--ifm-font-color-base);  
+  color: var(--ifm-font-color-base);
   display: inline-block;
   max-width: 100%;
 }
