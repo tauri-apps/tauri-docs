@@ -13,5 +13,27 @@ All benchmarks run on Github Actions on `ubuntu-latest` matrix. We measure vario
 - [electron_3mb_transfer](https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/file_transfer)
 
 :::note
-The CPU intensive benchmark measures how much time it takes to calculate all the prime numbers under XXXX without blocking the UI and reporting how many have been found so far using web workers.
+The CPU intensive benchmark measures how much time it takes to calculate all the prime numbers under a certain value without blocking the UI and reporting how many have been found so far using web workers.
 :::
+
+## Execution Time
+
+How much time total it takes intialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
+
+## Binary Size
+
+All binaries are compiled in release mode.
+
+## Memory Usage
+
+Uses [mprof](https://pypi.org/project/memory-profiler/) to get the max memory usage during execution. Smaller is better.
+
+## Threat Count
+
+How many threads the application uses. Smaller is better.
+
+## Syscall Count
+
+How many total syscalls are performed when executing a given application. Smaller is better.
+
+## Dependancies
