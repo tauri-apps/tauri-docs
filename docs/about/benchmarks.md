@@ -30,26 +30,26 @@ How much time total it takes intialize the application and wait for the `DOMCont
 
 All binaries are compiled in release mode.
 
-<!-- <Chart data={data} column="binarySize" /> -->
+<Chart data={data} column="binary_size" />
 
 ## Memory Usage
 
 Uses [mprof](https://pypi.org/project/memory-profiler/) to get the max memory usage during execution. Smaller is better.
 
-<!-- <Chart data={data} column="maxMemory" /> -->
+<Chart data={data} column="max_memory" />
 
 ## Thread Count
 
 How many threads the application uses. Smaller is better.
 
-<!-- <Chart data={data} column="threadCount" /> -->
+<Chart data={data} column="thread_count" />
 
 ## Syscall Count
 
 How many total syscalls are performed when executing a given application. Smaller is better.
 
-<!-- <Chart data={data} column="syscallCount" /> -->
+<Chart data={data} column="syscall_count" />
 
 ## Dependancies
 
-<!-- <Chart data={data} column="cargoDeps" /> -->
+<Chart data={data} column="cargo_deps" />

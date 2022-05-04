@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import Chart from 'react-apexcharts'
 
+/* TODO
+  [x] Labels with commit IDs (sort as well)
+  [x] Axis labels and number formatting
+  [ ] Number of dependancies
+  [ ] Uniform colours
+*/
+
 export async function fetchData() {
   const wryData = fetchAndParseData(
     'https://tauri-apps.github.io/benchmark_results/wry-recent.json?'
@@ -12,26 +19,28 @@ export async function fetchData() {
     'https://tauri-apps.github.io/benchmark_results/electron-recent.json?'
   )
 
-  // Returns a flattened array combining all data sources
+  // Returns a flattened and transformed array ready to be displayed
   return await Promise.all([
     await wryData,
     await tauriData,
     await electronData,
   ]).then((results) => transformData(results.flat()))
+}
 
-  async function fetchAndParseData(url) {
-    return fetch(url).then(async (response) => {
-      const rawData = await response.json()
-      if (rawData && rawData.length > 0) {
-        return rawData
-      }
-    })
-  }
+async function fetchAndParseData(url) {
+  return fetch(url).then(async (response) => {
+    const rawData = await response.json()
+    if (rawData && rawData.length > 0) {
+      return rawData
+    }
+  })
 }
 
 // Transforms data into an easier to graph format
 function transformData(data) {
   const array = []
+
+  // Iterate through the passed data array to transform it into the appropriate format
 
   data.forEach((item) => {
     // Execution time
@@ -39,21 +48,68 @@ function transformData(data) {
       array.push({
         type: 'exec_time',
         series: key,
-        order: Math.random, // This needs to be updated based on whatever logic
-        value: value.mean,
+        order: item.sha1,
+        value: value.mean, // Mean needs to be extracted from the value object
       })
     })
 
     // Binary size
+    array.push(...createSeries(item, 'binary_size'))
 
     // Memory usage
+    array.push(...createSeries(item, 'max_memory'))
 
     // Thread count
+    array.push(...createSeries(item, 'thread_count'))
 
     // Syscall Count
+    array.push(...createSeries(item, 'syscall_count'))
 
     // Dependancies
+    Object.entries(item).forEach(([key, value]) => {
+      // Check if the cargo_deps key exists
+      if (key == 'cargo_deps') {
+        // If it does, then extract the values
+        Object.entries(value).forEach(([key, value]) => {
+          array.push({
+            type: 'cargo_deps',
+            series: key,
+            order: item.sha1,
+            value: value,
+          })
+        })
+      }
+    })
   })
+
+  function createSeries(data, categoryName) {
+    const array = []
+    Object.entries(data[categoryName]).forEach(([key, value]) => {
+      array.push({
+        type: categoryName,
+        series: key,
+        order: data.sha1,
+        value: value,
+      })
+    })
+    return array
+  }
+
+  // Format the data to be displayed
+  array.forEach(function (part, index) {
+    // Round the exec_time values to 3 decimal places
+    if (part.type == 'exec_time') {
+      this[index].value = +part.value.toFixed(3)
+    }
+    // Convert to megabytes
+    if (part.type == 'binary_size') {
+      this[index].value = (part.value / 1024 / 1024).toFixed(2)
+    }
+    // Convert to megabytes
+    if (part.type == 'max_memory') {
+      this[index].value = (part.value / 1024 / 1024).toFixed(2)
+    }
+  }, array)
 
   return array
 }
@@ -86,18 +142,9 @@ function create_series_data(data, columnName) {
     })
   })
 
-  console.log(seriesData)
-
   // Return a series for each label
   return seriesData
 }
-
-/*
-series: [{
-    name: 'sales',
-    data: [30,40,35,50,49,60,70,91,125]
-  }],
-*/
 
 class App extends Component {
   constructor(props) {
@@ -112,9 +159,6 @@ class App extends Component {
         isLoaded: true,
         options: {
           chart: {
-            toolbar: {
-              show: true,
-            },
             animations: {
               enabled: false,
             },
@@ -127,28 +171,13 @@ class App extends Component {
             width: 2,
             curve: 'smooth',
           },
-          legend: {
-            show: true,
-            showForSingleSeries: true,
-            position: 'bottom',
-          },
-          yaxis: {
-            labels: {
-              formatter: props.yTickFormat,
-            },
-            title: {
-              text: props.yLabel,
-            },
-          },
           xaxis: {
             labels: {
               show: false,
             },
-            // categories: shortSha1List,
             tooltip: {
               enabled: false,
             },
-            type: 'category',
           },
           theme: {
             // mode: colorMode,
