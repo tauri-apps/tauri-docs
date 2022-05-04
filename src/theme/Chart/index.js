@@ -99,6 +99,8 @@ function transformData(data) {
 
   // Format the data to be displayed
   array.forEach(function (part, index) {
+    this[index].order = part.order.substring(0, 6)
+
     // Round the exec_time values to 3 decimal places
     if (part.type == 'exec_time') {
       this[index].value = +part.value.toFixed(3)
