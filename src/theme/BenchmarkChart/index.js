@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import Chart from 'react-apexcharts'
-import { useColorMode } from '@docusaurus/theme-common'
 
 /* TODO
-  [x] Labels with commit IDs (sort as well)
-  [x] Axis labels and number formatting
-  [x] Number of dependancies
-  [x] Uniform colours
-  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
-  [x] Commit order
-  [x] Binary size chart
+  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode React hook
+  [ ] Binary size chart
 */
 
 /*
@@ -70,7 +64,19 @@ function transformData(data) {
     })
 
     // Binary size
-    array.push(...createSeriesData(item, 'binary_size'))
+    // array.push(...createSeriesData(item, 'binary_size'))
+    Object.entries(item.binary_size).forEach(([key, value]) => {
+      // TODO Currently returning early because the data here seems a bit messed up
+      if (key == 'wry_rlib') {
+        return
+      }
+      array.push({
+        type: 'binary_size',
+        series: key,
+        order: item.sha1,
+        value: value,
+      })
+    })
 
     // Memory usage
     array.push(...createSeriesData(item, 'max_memory'))
@@ -119,7 +125,7 @@ function transformData(data) {
 
 function createSeriesData(data, categoryName) {
   const array = []
-  Object.entries(data[categoryName]).forEach(([key, value], index) => {
+  Object.entries(data[categoryName]).forEach(([key, value]) => {
     array.push({
       type: categoryName,
       series: key,
@@ -191,10 +197,6 @@ function createOptions(columnName) {
       title: {
         text: yAxisTitle,
       },
-    },
-    theme: {
-      // TODO: Update to dynamically change
-      mode: false ? 'dark' : 'light',
     },
   }
 
