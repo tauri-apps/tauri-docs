@@ -1,6 +1,8 @@
 # Benchmarks
 
-import Chart, { fetchData } from '@theme/Chart'
+import Chart, { fetchData } from '@theme/BenchmarkChart'
+
+<!-- Data is fetched here so that it is only fetched and processed once, then reused in each of the charts -->
 
 export var data = fetchData()
 

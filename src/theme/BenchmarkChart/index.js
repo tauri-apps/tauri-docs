@@ -5,21 +5,31 @@ import { useColorMode } from '@docusaurus/theme-common'
 /* TODO
   [x] Labels with commit IDs (sort as well)
   [x] Axis labels and number formatting
-  [ ] Number of dependancies
+  [x] Number of dependancies
   [x] Uniform colours
   [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
-  [ ] Commit order
+  [x] Commit order
+  [x] Binary size chart
 */
 
+/*
+  - A series is the data that is going to be rendered in the chart
+
+*/
+
+// Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
-  const wryData = fetchAndParseData(
-    'https://tauri-apps.github.io/benchmark_results/wry-recent.json?'
-  )
   const tauriData = fetchAndParseData(
-    'https://tauri-apps.github.io/benchmark_results/tauri-recent.json?'
+    'https://tauri-apps.github.io/benchmark_results/tauri-recent.json?',
+    'Tauri'
+  )
+  const wryData = fetchAndParseData(
+    'https://tauri-apps.github.io/benchmark_results/wry-recent.json?',
+    'Wry'
   )
   const electronData = fetchAndParseData(
-    'https://tauri-apps.github.io/benchmark_results/electron-recent.json?'
+    'https://tauri-apps.github.io/benchmark_results/electron-recent.json?',
+    'Electron'
   )
 
   // Returns a flattened and transformed array ready to be displayed
@@ -28,15 +38,19 @@ export async function fetchData() {
     await tauriData,
     await electronData,
   ]).then((results) => transformData(results.flat()))
-}
 
-async function fetchAndParseData(url) {
-  return fetch(url).then(async (response) => {
-    const rawData = await response.json()
-    if (rawData && rawData.length > 0) {
-      return rawData
-    }
-  })
+  async function fetchAndParseData(url, type) {
+    return fetch(url).then(async (response) => {
+      const rawData = await response.json()
+      if (rawData && rawData.length > 0) {
+        // Adds in what source the data is from
+        rawData.forEach(function (_, index) {
+          this[index].type = type
+        }, rawData)
+        return rawData
+      }
+    })
+  }
 }
 
 // Transforms data into an easier to graph format
@@ -44,29 +58,28 @@ function transformData(data) {
   const array = []
 
   // Iterate through the passed data array to transform it into the appropriate format
-
-  data.forEach((item) => {
+  data.forEach((item, index) => {
     // Execution time
     Object.entries(item.exec_time).forEach(([key, value]) => {
       array.push({
         type: 'exec_time',
         series: key,
-        order: item.sha1,
-        value: value.mean, // Mean needs to be extracted from the value object
+        order: index,
+        value: value.mean, // Mean must be extracted from the value object
       })
     })
 
     // Binary size
-    array.push(...createSeries(item, 'binary_size'))
+    array.push(...createSeriesData(item, 'binary_size'))
 
     // Memory usage
-    array.push(...createSeries(item, 'max_memory'))
+    array.push(...createSeriesData(item, 'max_memory'))
 
     // Thread count
-    array.push(...createSeries(item, 'thread_count'))
+    array.push(...createSeriesData(item, 'thread_count'))
 
     // Syscall Count
-    array.push(...createSeries(item, 'syscall_count'))
+    array.push(...createSeriesData(item, 'syscall_count'))
 
     // Dependancies
     Object.entries(item).forEach(([key, value]) => {
@@ -76,7 +89,7 @@ function transformData(data) {
         Object.entries(value).forEach(([key, value]) => {
           array.push({
             type: 'cargo_deps',
-            series: key,
+            series: item.type + ' ' + key,
             order: item.sha1,
             value: value,
           })
@@ -85,23 +98,8 @@ function transformData(data) {
     })
   })
 
-  function createSeries(data, categoryName) {
-    const array = []
-    Object.entries(data[categoryName]).forEach(([key, value]) => {
-      array.push({
-        type: categoryName,
-        series: key,
-        order: data.sha1,
-        value: value,
-      })
-    })
-    return array
-  }
-
   // Format the data to be displayed
   array.forEach(function (part, index) {
-    this[index].order = part.order.substring(0, 6)
-
     // Round the exec_time values to 3 decimal places
     if (part.type == 'exec_time') {
       this[index].value = +part.value.toFixed(3)
@@ -119,23 +117,108 @@ function transformData(data) {
   return array
 }
 
-function create_series_data(data, columnName) {
-  const filteredData = data.filter((item) => item.type == columnName)
+function createSeriesData(data, categoryName) {
+  const array = []
+  Object.entries(data[categoryName]).forEach(([key, value], index) => {
+    array.push({
+      type: categoryName,
+      series: key,
+      order: data.sha1,
+      value: value,
+    })
+  })
+  return array
+}
 
-  // Get unique series values
-  const series = [...new Set(filteredData.map((item) => item.series))]
+function createOptions(columnName) {
+  var yAxisTitle
+  var yAxisFormatter = function (value) {
+    return value
+  }
+
+  switch (columnName) {
+    case 'exec_time':
+      yAxisTitle = 'seconds'
+      break
+    case 'binary_size':
+    case 'max_memory':
+      yAxisTitle = 'megabytes'
+      yAxisFormatter = function (value) {
+        return value + ' MBs'
+      }
+      break
+    case 'thread_count':
+      yAxisTitle = 'threads'
+      break
+    case 'syscall_count':
+      yAxisTitle = 'syscalls'
+      break
+    case 'cargo_deps':
+      yAxisTitle = 'dependencies'
+      break
+    default:
+      yAxisTitle = ''
+  }
+
+  const options = {
+    chart: {
+      toolbar: false,
+      animations: {
+        enabled: false,
+      },
+      background: 'transparent',
+    },
+    stroke: {
+      width: 2,
+      curve: 'smooth',
+    },
+    xaxis: {
+      labels: {
+        show: false,
+        // Removes the SHA1 label from the tooltip
+        formatter: function () {
+          return ''
+        },
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        formatter: yAxisFormatter,
+      },
+      title: {
+        text: yAxisTitle,
+      },
+    },
+    theme: {
+      // TODO: Update to dynamically change
+      mode: false ? 'dark' : 'light',
+    },
+  }
+
+  return options
+}
+
+function createSeries(data, columnName) {
+  // Filter on the specific passed column name
+  data = data.filter((item) => item.type == columnName)
 
   // Prepare blank array
   const seriesData = []
 
-  // Loop through each series and set the values for it
-  series.forEach((series) => {
-    const transformedData = []
+  // Create an array of unique categories
+  const dataCategories = [...new Set(data.map((item) => item.series))]
 
-    filteredData
+  // Loop through each category and set the values for it
+  dataCategories.forEach((series) => {
+    const categoryData = []
+
+    data
       .filter((item) => item.series == series)
       .map((dataPoint) => {
-        transformedData.push({
+        categoryData.push({
           x: dataPoint.order,
           y: dataPoint.value,
         })
@@ -143,8 +226,8 @@ function create_series_data(data, columnName) {
 
     seriesData.push({
       name: series,
-      data: transformedData,
-      color: get_graph_color(series),
+      data: categoryData,
+      color: getGraphColor(series),
     })
   })
 
@@ -152,7 +235,7 @@ function create_series_data(data, columnName) {
   return seriesData
 }
 
-function get_graph_color(label_name) {
+function getGraphColor(label_name) {
   switch (label_name) {
     case 'Tauri Linux':
       return '#184e77'
@@ -160,11 +243,11 @@ function get_graph_color(label_name) {
       return '#38a3a5'
     case 'Tauri macOS':
       return '#1a759f'
-    case 'WRY Linux':
+    case 'Wry Linux':
       return '#f25c54'
-    case 'WRY Windows':
+    case 'Wry Windows':
       return '#f87a63'
-    case 'WRY macOS':
+    case 'Wry macOS':
       return '#d81159'
     case 'electron_cpu_intensive':
       return '#0EB9DB'
@@ -194,6 +277,7 @@ function get_graph_color(label_name) {
   }
 }
 
+// Chart component
 class App extends Component {
   constructor(props) {
     super(props)
@@ -205,34 +289,8 @@ class App extends Component {
     props.data.then((result) => {
       this.setState({
         isLoaded: true,
-        options: {
-          chart: {
-            toolbar: false,
-            animations: {
-              enabled: false,
-            },
-            events: {
-              // markerClick: viewCommitOnClick,
-            },
-            background: 'transparent',
-          },
-          stroke: {
-            width: 2,
-            curve: 'smooth',
-          },
-          xaxis: {
-            labels: {
-              show: false,
-            },
-            tooltip: {
-              enabled: false,
-            },
-          },
-          theme: {
-            mode: false ? 'dark' : 'light',
-          },
-        },
-        series: create_series_data(result, props.column),
+        options: createOptions(props.column),
+        series: createSeries(result, props.column),
       })
     })
   }
