@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts'
   [x] Labels with commit IDs (sort as well)
   [x] Axis labels and number formatting
   [ ] Number of dependancies
-  [ ] Uniform colours
+  [x] Uniform colours
 */
 
 export async function fetchData() {
@@ -139,11 +139,54 @@ function create_series_data(data, columnName) {
     seriesData.push({
       name: series,
       data: transformedData,
+      color: get_graph_color(series),
     })
   })
 
   // Return a series for each label
   return seriesData
+}
+
+function get_graph_color(label_name) {
+  switch (label_name) {
+    case 'Tauri Linux':
+      return '#184e77'
+    case 'Tauri Windows':
+      return '#38a3a5'
+    case 'Tauri macOS':
+      return '#1a759f'
+    case 'WRY Linux':
+      return '#f25c54'
+    case 'WRY Windows':
+      return '#f87a63'
+    case 'WRY macOS':
+      return '#d81159'
+    case 'electron_cpu_intensive':
+      return '#0EB9DB'
+    case 'electron_hello_world':
+      return '#9FEAF9'
+    case 'electron_3mb_transfer':
+      return '#032E37'
+    case 'wry_custom_protocol':
+      return '#B4FF36'
+    case 'wry_hello_world':
+      return '#FB898D'
+    case 'wry_cpu_intensive':
+      return '#ff8e13'
+    case 'tauri_hello_world':
+      return '#EA7D8C'
+    case 'tauri_cpu_intensive':
+      return '#DE354C'
+    case 'tauri_3mb_transfer':
+      return '#8A3595'
+    case 'tao_rlib':
+      return '#FF1438'
+    case 'wry_rlib':
+      return '#D4FF14'
+
+    default:
+      return '#303846'
+  }
 }
 
 class App extends Component {
