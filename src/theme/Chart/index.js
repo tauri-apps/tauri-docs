@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Chart from 'react-apexcharts'
+import { useColorMode } from '@docusaurus/theme-common'
 
 /* TODO
   [x] Labels with commit IDs (sort as well)
   [x] Axis labels and number formatting
   [ ] Number of dependancies
   [x] Uniform colours
+  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
 */
 
 export async function fetchData() {
@@ -202,6 +204,7 @@ class App extends Component {
         isLoaded: true,
         options: {
           chart: {
+            toolbar: false,
             animations: {
               enabled: false,
             },
@@ -223,7 +226,7 @@ class App extends Component {
             },
           },
           theme: {
-            // mode: colorMode,
+            mode: false ? 'dark' : 'light',
           },
         },
         series: create_series_data(result, props.column),
