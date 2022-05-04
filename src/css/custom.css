@@ -8,6 +8,7 @@
 @import 'themify-icons.css';
 @import 'tabs.css';
 @import '~@fontsource/tauri';
+@import '../theme/SearchBar/styles.css';
 
 /* You can override the default Infima variables here. */
 :root {
