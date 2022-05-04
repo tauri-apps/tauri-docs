@@ -4,7 +4,7 @@ import Chart, { fetchData } from '@theme/Chart'
 
 export var data = fetchData()
 
-All benchmarks run on Github Actions on `ubuntu-latest` matrix. We measure various metrics of the following applications:
+All benchmarks run on Github Actions on `ubuntu-latest` matrix. Various metrics are measuresd of the following applications:
 
 - [tauri_cpu_intensive](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/cpu_intensive)
 - [tauri_hello_world](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/helloworld)
