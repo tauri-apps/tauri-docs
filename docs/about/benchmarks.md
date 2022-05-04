@@ -6,15 +6,21 @@ export var data = fetchData()
 
 All benchmarks run on Github Actions on `ubuntu-latest` matrix. Various metrics are measuresd of the following applications:
 
-- [tauri_cpu_intensive](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/cpu_intensive)
-- [tauri_hello_world](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/helloworld)
-- [tauri_3mb_transfer](https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/files_transfer)
-- [wry_cpu_intensive](https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/cpu_intensive.rs)
-- [wry_hello_world](https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/hello_world.rs)
-- [wry_custom_protocol](https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/custom_protocol.rs)
-- [electron_cpu_intensive](https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/cpu_intensive)
-- [electron_hello_world](https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/hello_world)
-- [electron_3mb_transfer](https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/file_transfer)
+| Tauri                 | Wry                   | Electron                 |
+| :-------------------- | :-------------------- | :----------------------- |
+| [tauri_cpu_intensive] | [wry_cpu_intensive]   | [electron_cpu_intensive] |
+| [tauri_hello_world]   | [wry_hello_world]     | [electron_hello_world]   |
+| [tauri_3mb_transfer]  | [wry_custom_protocol] | [electron_3mb_transfer]  |
+
+[tauri_cpu_intensive]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/cpu_intensive
+[tauri_hello_world]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/helloworld
+[tauri_3mb_transfer]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bench/tests/files_transfer
+[wry_cpu_intensive]: https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/cpu_intensive.rs
+[wry_hello_world]: https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/hello_world.rs
+[wry_custom_protocol]: https://github.com/tauri-apps/wry/tree/dev/bench/tests/src/custom_protocol.rs
+[electron_cpu_intensive]: https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/cpu_intensive
+[electron_hello_world]: https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/hello_world
+[electron_3mb_transfer]: https://github.com/tauri-apps/benchmark_electron/tree/dev/apps/file_transfer
 
 :::note
 The CPU intensive benchmark measures how much time it takes to calculate all the prime numbers under a certain value without blocking the UI and reporting how many have been found so far using web workers.
