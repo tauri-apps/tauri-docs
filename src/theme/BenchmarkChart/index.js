@@ -2,13 +2,8 @@ import React, { Component } from 'react'
 import Chart from 'react-apexcharts'
 
 /* TODO
-  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode React hook
+  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
   [ ] Binary size chart
-*/
-
-/*
-  - A series is the data that is going to be rendered in the chart
-
 */
 
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
@@ -45,97 +40,95 @@ export async function fetchData() {
       }
     })
   }
-}
 
-// Transforms data into an easier to graph format
-function transformData(data) {
-  const array = []
+  function transformData(data) {
+    const array = []
 
-  // Iterate through the passed data array to transform it into the appropriate format
-  data.forEach((item, index) => {
-    // Execution time
-    Object.entries(item.exec_time).forEach(([key, value]) => {
-      array.push({
-        type: 'exec_time',
-        series: key,
-        order: index,
-        value: value.mean, // Mean must be extracted from the value object
-      })
-    })
-
-    // Binary size
-    // array.push(...createSeriesData(item, 'binary_size'))
-    Object.entries(item.binary_size).forEach(([key, value]) => {
-      // TODO Currently returning early because the data here seems a bit messed up
-      if (key == 'wry_rlib') {
-        return
-      }
-      array.push({
-        type: 'binary_size',
-        series: key,
-        order: item.sha1,
-        value: value,
-      })
-    })
-
-    // Memory usage
-    array.push(...createSeriesData(item, 'max_memory'))
-
-    // Thread count
-    array.push(...createSeriesData(item, 'thread_count'))
-
-    // Syscall Count
-    array.push(...createSeriesData(item, 'syscall_count'))
-
-    // Dependancies
-    Object.entries(item).forEach(([key, value]) => {
-      // Check if the cargo_deps key exists
-      if (key == 'cargo_deps') {
-        // If it does, then extract the values
-        Object.entries(value).forEach(([key, value]) => {
-          array.push({
-            type: 'cargo_deps',
-            series: item.type + ' ' + key,
-            order: item.sha1,
-            value: value,
-          })
+    // Iterate through the passed data array to transform it into the appropriate format
+    data.forEach((item, index) => {
+      // Execution time
+      Object.entries(item.exec_time).forEach(([key, value]) => {
+        array.push({
+          type: 'exec_time',
+          series: key,
+          order: index,
+          value: value.mean, // Mean must be extracted from the value object
         })
+      })
+
+      // Binary size
+      // array.push(...createSeriesData(item, 'binary_size'))
+      Object.entries(item.binary_size).forEach(([key, value]) => {
+        // TODO Currently returning early because the data here seems a bit messed up
+        if (key == 'wry_rlib') {
+          return
+        }
+        array.push({
+          type: 'binary_size',
+          series: key,
+          order: item.sha1,
+          value: value,
+        })
+      })
+
+      // Memory usage
+      array.push(...createSeriesData(item, 'max_memory'))
+
+      // Thread count
+      array.push(...createSeriesData(item, 'thread_count'))
+
+      // Syscall Count
+      array.push(...createSeriesData(item, 'syscall_count'))
+
+      // Dependancies
+      Object.entries(item).forEach(([key, value]) => {
+        // Check if the cargo_deps key exists
+        if (key == 'cargo_deps') {
+          // If it does, then extract the values
+          Object.entries(value).forEach(([key, value]) => {
+            array.push({
+              type: 'cargo_deps',
+              series: item.type + ' ' + key,
+              order: item.sha1,
+              value: value,
+            })
+          })
+        }
+      })
+    })
+
+    // Format the data to be displayed
+    array.forEach(function (part, index) {
+      // Round the exec_time values to 3 decimal places
+      if (part.type == 'exec_time') {
+        this[index].value = +part.value.toFixed(3)
       }
-    })
-  })
 
-  // Format the data to be displayed
-  array.forEach(function (part, index) {
-    // Round the exec_time values to 3 decimal places
-    if (part.type == 'exec_time') {
-      this[index].value = +part.value.toFixed(3)
-    }
-    // Convert to megabytes
-    if (part.type == 'binary_size') {
-      this[index].value = (part.value / 1024 / 1024).toFixed(2)
-    }
-    // Convert to megabytes
-    if (part.type == 'max_memory') {
-      this[index].value = (part.value / 1024 / 1024).toFixed(2)
-    }
-  }, array)
+      // Convert to megabytes
+      if (part.type === 'binary_size' || part.type === 'max_memory') {
+        this[index].value = (part.value / 1024 / 1024).toFixed(2)
+      }
+    }, array)
 
-  return array
+    return array
+
+    // Transforms data into an easier to graph format
+    function createSeriesData(data, categoryName) {
+      const array = []
+      Object.entries(data[categoryName]).forEach(([key, value]) => {
+        array.push({
+          type: categoryName,
+          series: key,
+          order: data.sha1,
+          value: value,
+        })
+      })
+      return array
+    }
+  }
 }
 
-function createSeriesData(data, categoryName) {
-  const array = []
-  Object.entries(data[categoryName]).forEach(([key, value]) => {
-    array.push({
-      type: categoryName,
-      series: key,
-      order: data.sha1,
-      value: value,
-    })
-  })
-  return array
-}
-
+// Dynamically configures options passed to the Chart component
 function createOptions(columnName) {
   var yAxisTitle
   var yAxisFormatter = function (value) {
@@ -203,6 +196,7 @@ function createOptions(columnName) {
   return options
 }
 
+// Creates data ready to be graphed by filtering out based on columnName
 function createSeries(data, columnName) {
   // Filter on the specific passed column name
   data = data.filter((item) => item.type == columnName)
@@ -235,47 +229,47 @@ function createSeries(data, columnName) {
 
   // Return a series for each label
   return seriesData
-}
 
-function getGraphColor(label_name) {
-  switch (label_name) {
-    case 'Tauri Linux':
-      return '#184e77'
-    case 'Tauri Windows':
-      return '#38a3a5'
-    case 'Tauri macOS':
-      return '#1a759f'
-    case 'Wry Linux':
-      return '#f25c54'
-    case 'Wry Windows':
-      return '#f87a63'
-    case 'Wry macOS':
-      return '#d81159'
-    case 'electron_cpu_intensive':
-      return '#0EB9DB'
-    case 'electron_hello_world':
-      return '#9FEAF9'
-    case 'electron_3mb_transfer':
-      return '#032E37'
-    case 'wry_custom_protocol':
-      return '#B4FF36'
-    case 'wry_hello_world':
-      return '#FB898D'
-    case 'wry_cpu_intensive':
-      return '#ff8e13'
-    case 'tauri_hello_world':
-      return '#EA7D8C'
-    case 'tauri_cpu_intensive':
-      return '#DE354C'
-    case 'tauri_3mb_transfer':
-      return '#8A3595'
-    case 'tao_rlib':
-      return '#FF1438'
-    case 'wry_rlib':
-      return '#D4FF14'
+  function getGraphColor(label_name) {
+    switch (label_name) {
+      case 'Tauri Linux':
+        return '#184e77'
+      case 'Tauri Windows':
+        return '#38a3a5'
+      case 'Tauri macOS':
+        return '#1a759f'
+      case 'Wry Linux':
+        return '#f25c54'
+      case 'Wry Windows':
+        return '#f87a63'
+      case 'Wry macOS':
+        return '#d81159'
+      case 'electron_cpu_intensive':
+        return '#0EB9DB'
+      case 'electron_hello_world':
+        return '#9FEAF9'
+      case 'electron_3mb_transfer':
+        return '#032E37'
+      case 'wry_custom_protocol':
+        return '#B4FF36'
+      case 'wry_hello_world':
+        return '#FB898D'
+      case 'wry_cpu_intensive':
+        return '#ff8e13'
+      case 'tauri_hello_world':
+        return '#EA7D8C'
+      case 'tauri_cpu_intensive':
+        return '#DE354C'
+      case 'tauri_3mb_transfer':
+        return '#8A3595'
+      case 'tao_rlib':
+        return '#FF1438'
+      case 'wry_rlib':
+        return '#D4FF14'
 
-    default:
-      return '#303846'
+      default:
+        return '#303846'
+    }
   }
 }
 
