@@ -8,6 +8,7 @@ import { useColorMode } from '@docusaurus/theme-common'
   [ ] Number of dependancies
   [x] Uniform colours
   [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
+  [ ] Commit order
 */
 
 export async function fetchData() {
