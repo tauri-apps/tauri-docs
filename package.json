@@ -12,9 +12,9 @@
     "serve": "docusaurus serve"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.18",
-    "@docusaurus/preset-classic": "2.0.0-beta.18",
-    "@docusaurus/theme-common": "2.0.0-beta.18",
+    "@docusaurus/core": "2.0.0-beta.20",
+    "@docusaurus/preset-classic": "2.0.0-beta.20",
+    "@docusaurus/theme-common": "2.0.0-beta.20",
     "@fontsource/roboto": "4.5.5",
     "@fontsource/tauri": "4.5.9",
     "@mdx-js/react": "1.6.22",
