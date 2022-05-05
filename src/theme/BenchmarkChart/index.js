@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
-import Chart from 'react-apexcharts'
 import { useColorMode } from '@docusaurus/theme-common'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 
 /* TODO
   [ ] Binary size chart
@@ -8,6 +9,9 @@ import { useColorMode } from '@docusaurus/theme-common'
 
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
+  if (!ExecutionEnvironment.canUseDOM) {
+    return []
+  }
   const tauriData = fetchAndParseData(
     'https://tauri-apps.github.io/benchmark_results/tauri-recent.json?',
     'Tauri'
@@ -279,12 +283,19 @@ export default function App(props) {
         const colorMode = useColorMode()
 
         return (
-          <Chart
-            options={createOptions(props.column, colorMode.colorMode)}
-            series={createSeries(data, props.column)}
-            type="line"
-            height="320"
-          />
+          <BrowserOnly fallback={<div>Loading...</div>}>
+            {() => {
+              const Chart = lazy(() => import('react-apexcharts'))
+              return (
+                <Chart
+                  options={createOptions(props.column, colorMode.colorMode)}
+                  series={createSeries(data, props.column)}
+                  type="line"
+                  height="320"
+                />
+              )
+            }}
+          </BrowserOnly>
         )
       },
     }
