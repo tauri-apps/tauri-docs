@@ -13,7 +13,7 @@ Append this to your `Cargo.toml` file:
 ```toml
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
-tauri-build = { git = "https://github.com/tauri-apps/tauri" branch = "dev" }
+tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 ```
 
 This will force all your dependencies to use `tauri` and `tauri-build` from Git instead of crates.io.
