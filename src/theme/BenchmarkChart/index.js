@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Chart from 'react-apexcharts'
+import { useColorMode } from '@docusaurus/theme-common'
 
 /* TODO
   [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
@@ -178,6 +179,9 @@ function createOptions(columnName) {
       title: {
         text: yAxisTitle,
       },
+    },
+    theme: {
+      mode: 'dark', // This is where the hook `useColorMode.isDarkMode` or something similar should be used
     },
   }
 
