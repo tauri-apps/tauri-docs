@@ -1,24 +1,21 @@
 const fs = require('fs')
 const path = require('path')
-const schemaPath = path.join(
-  __dirname,
-  '../../tauri/tooling/cli/schema.json'
-)
+const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schema = JSON.parse(fs.readFileSync(schemaPath).toString())
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 function formatDescription(description) {
-  return description ?
-    description
-    .replace(/`/g, '\\`')
-    .replace(/\n/g, ' ')
-    .replace(/  /g, ' ')
-    .replace(/{/g, '\\{')
-    .replace(/}/g, '\\}')
-    .replace(/<http(\S+)>/g, '<a href="http$1">http$1</a>') :
-    ''
+  return description
+    ? description
+        .replace(/`/g, '\\`')
+        .replace(/\n/g, ' ')
+        .replace(/  /g, ' ')
+        .replace(/{/g, '\\{')
+        .replace(/}/g, '\\}')
+        .replace(/<http(\S+)>/g, '<a href="http$1">http$1</a>')
+    : ''
 }
 
 function generatePropertiesEl(schema, anchorRoot, definition, tab) {
@@ -87,14 +84,14 @@ function generatePropertiesEl(schema, anchorRoot, definition, tab) {
     } else if ('allOf' in property) {
       const subType = property.allOf[0].$ref.replace('#/definitions/', '')
       const propDefinition = schema.definitions[subType]
-      const propertyEl = propDefinition.properties ?
-        generatePropertiesEl(
-          schema,
-          `${anchorRoot}.${propertyName}`,
-          propDefinition,
-          `${tab}  `
-        ) :
-        undefined
+      const propertyEl = propDefinition.properties
+        ? generatePropertiesEl(
+            schema,
+            `${anchorRoot}.${propertyName}`,
+            propDefinition,
+            `${tab}  `
+          )
+        : undefined
       rows.push({
         property: propertyName,
         optional: 'default' in property,
@@ -131,6 +128,9 @@ function generatePropertiesEl(schema, anchorRoot, definition, tab) {
 const output = []
 
 for (const propertyName in schema.properties) {
+  if (propertyName === '$schema') {
+    continue
+  }
   const property = schema.properties[propertyName]
   const definitionName = property.allOf[0].$ref.replace('#/definitions/', '')
   const definition = schema.definitions[definitionName]
