@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Suspense, lazy } from 'react'
 import Chart from 'react-apexcharts'
 import { useColorMode } from '@docusaurus/theme-common'
 
@@ -118,7 +118,7 @@ export async function fetchData() {
 }
 
 // Dynamically configures options passed to the Chart component
-function createOptions(columnName) {
+function createOptions(columnName, colorMode) {
   var yAxisTitle
   var yAxisFormatter = function (value) {
     return value
@@ -181,7 +181,7 @@ function createOptions(columnName) {
       },
     },
     theme: {
-      mode: 'dark', // This is where the hook `useColorMode.isDarkMode` or something similar should be used
+      mode: colorMode,
     },
   }
 
@@ -266,39 +266,29 @@ function createSeries(data, columnName) {
 }
 
 // Chart component
-class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoaded: false,
-    }
-
-    props.data.then((result) => {
-      this.setState({
-        isLoaded: true,
-        options: createOptions(props.column),
-        series: createSeries(result, props.column),
-      })
-    })
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.isLoaded ? (
+export default function App(props) {
+  const AsyncChart = lazy(async () => {
+    const data = await props.data
+  
+    return {
+      default: () => {
+        const colorMode = useColorMode()
+  
+        return (
           <Chart
-            options={this.state.options}
-            series={this.state.series}
+            options={createOptions(props.column, colorMode.colorMode)}
+            series={createSeries(data, props.column)}
             type="line"
             height="320"
           />
-        ) : (
-          <p>Loading data...</p>
-        )}
-      </div>
-    )
-  }
-}
+        )
+      },
+    }
+  })
 
-export default App
+  return (
+    <Suspense fallback={<p>Loading data...</p>}>
+      <AsyncChart/>
+    </Suspense>
+  )
+}
