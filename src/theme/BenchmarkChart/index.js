@@ -45,31 +45,19 @@ export async function fetchData() {
     const array = []
 
     // Iterate through the passed data array to transform it into the appropriate format
-    data.forEach((item, index) => {
+    data.forEach((item) => {
       // Execution time
       Object.entries(item.exec_time).forEach(([key, value]) => {
         array.push({
           type: 'exec_time',
           series: key,
-          order: index,
+          order: item.created_at,
           value: value.mean, // Mean must be extracted from the value object
         })
       })
 
       // Binary size
-      // array.push(...createSeriesData(item, 'binary_size'))
-      Object.entries(item.binary_size).forEach(([key, value]) => {
-        // TODO Currently returning early because the data here seems a bit messed up
-        if (key == 'wry_rlib') {
-          return
-        }
-        array.push({
-          type: 'binary_size',
-          series: key,
-          order: item.sha1,
-          value: value,
-        })
-      })
+      array.push(...createSeriesData(item, 'binary_size'))
 
       // Memory usage
       array.push(...createSeriesData(item, 'max_memory'))
@@ -89,7 +77,7 @@ export async function fetchData() {
             array.push({
               type: 'cargo_deps',
               series: item.type + ' ' + key,
-              order: item.sha1,
+              order: item.created_at,
               value: value,
             })
           })
@@ -119,7 +107,7 @@ export async function fetchData() {
         array.push({
           type: categoryName,
           series: key,
-          order: data.sha1,
+          order: data.created_at,
           value: value,
         })
       })
@@ -174,7 +162,7 @@ function createOptions(columnName) {
     xaxis: {
       labels: {
         show: false,
-        // Removes the SHA1 label from the tooltip
+        // Removes the header label from the tooltip
         formatter: function () {
           return ''
         },
