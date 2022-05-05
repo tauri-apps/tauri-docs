@@ -3,7 +3,6 @@ import Chart from 'react-apexcharts'
 import { useColorMode } from '@docusaurus/theme-common'
 
 /* TODO
-  [ ] Dynamically update options.theme.mode based on docusaurus useColorMode.isDarkMode property
   [ ] Binary size chart
 */
 
@@ -97,6 +96,9 @@ export async function fetchData() {
       if (part.type === 'binary_size' || part.type === 'max_memory') {
         this[index].value = (part.value / 1024 / 1024).toFixed(2)
       }
+
+      // Convert order date string to date type
+      this[index].order = new Date(this[index].order)
     }, array)
 
     return array
@@ -161,12 +163,14 @@ function createOptions(columnName, colorMode) {
       curve: 'smooth',
     },
     xaxis: {
+      type: 'datetime',
       labels: {
-        show: false,
+        // format: 'dd',
+        // show: false,
         // Removes the header label from the tooltip
-        formatter: function () {
-          return ''
-        },
+        // formatter: function () {
+        //   return ''
+        // },
       },
       tooltip: {
         enabled: false,
@@ -269,11 +273,11 @@ function createSeries(data, columnName) {
 export default function App(props) {
   const AsyncChart = lazy(async () => {
     const data = await props.data
-  
+
     return {
       default: () => {
         const colorMode = useColorMode()
-  
+
         return (
           <Chart
             options={createOptions(props.column, colorMode.colorMode)}
@@ -288,7 +292,7 @@ export default function App(props) {
 
   return (
     <Suspense fallback={<p>Loading data...</p>}>
-      <AsyncChart/>
+      <AsyncChart />
     </Suspense>
   )
 }
