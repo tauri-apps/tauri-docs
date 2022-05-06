@@ -7440,7 +7440,7 @@ react-loadable-ssr-addon-v5-slorber@^1.0.1:
   dependencies:
     "@babel/runtime" "^7.10.3"
 
-react-markdown@8.0.3:
+react-markdown@^8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-8.0.3.tgz#e8aba0d2f5a1b2124d476ee1fff9448a2f57e4b3"
   integrity sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==
