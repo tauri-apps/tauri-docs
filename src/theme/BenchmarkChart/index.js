@@ -3,12 +3,9 @@ import { useColorMode } from '@docusaurus/theme-common'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 
-/* TODO
-  [ ] Binary size chart
-*/
-
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
+  // Only fetches data if running in the browser
   if (!ExecutionEnvironment.canUseDOM) {
     return
   }
@@ -48,7 +45,7 @@ export async function fetchData() {
   function transformData(data) {
     const array = []
 
-    // Iterate through the passed data array to transform it into the appropriate format
+    // Iterate through the passed data array to transform it into the format ready to be passed to the BenchmarkChart component
     data.forEach((item) => {
       // Execution time
       Object.entries(item.exec_time).forEach(([key, value]) => {
@@ -60,16 +57,9 @@ export async function fetchData() {
         })
       })
 
-      // Binary size
       array.push(...createSeriesData(item, 'binary_size'))
-
-      // Memory usage
       array.push(...createSeriesData(item, 'max_memory'))
-
-      // Thread count
       array.push(...createSeriesData(item, 'thread_count'))
-
-      // Syscall Count
       array.push(...createSeriesData(item, 'syscall_count'))
 
       // Dependancies
@@ -188,21 +178,21 @@ function createOptions(columnName, colorMode) {
   return options
 }
 
-// Creates data ready to be graphed by filtering out based on columnName
+// Filters data based on the column name and outputs in the format required by ApexCharts
 function createSeries(data, columnName) {
+  const seriesData = []
+
   // Filter on the specific passed column name
   data = data.filter((item) => item.type == columnName)
-
-  // Prepare blank array
-  const seriesData = []
 
   // Create an array of unique categories
   const dataCategories = Array.from(new Set(data.map((item) => item.series)))
 
-  // Loop through each category and set the values for it
+  // Loop through each category
   dataCategories.forEach((series) => {
     const categoryData = []
 
+    // Create the datapoints for this category
     data
       .filter((item) => item.series == series)
       .map((dataPoint) => {
@@ -212,6 +202,7 @@ function createSeries(data, columnName) {
         })
       })
 
+    // Append category to the series data
     seriesData.push({
       name: series,
       data: categoryData,
@@ -281,8 +272,8 @@ export default function App(props) {
     }
   }, [data])
 
-  // This seems to be getting refreshed 3 times. The first is empty data
   return (
+    // Only renders in the browser
     <BrowserOnly fallback={<div>Chart not supported</div>}>
       {() => {
         const Chart = require('react-apexcharts').default
@@ -296,6 +287,7 @@ export default function App(props) {
             />
           )
         }
+        // Fallback if the data isn't yet loaded
         return <div>Loading data...</div>
       }}
     </BrowserOnly>
