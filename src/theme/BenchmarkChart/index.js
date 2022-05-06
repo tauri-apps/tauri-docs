@@ -27,7 +27,7 @@ export async function fetchData() {
 
   // Returns a flattened and transformed array ready to be displayed
   return await Promise.all([
-    // await wryData,
+    await wryData,
     await tauriData,
     await electronData,
   ]).then((results) => transformData(results.flat()))
