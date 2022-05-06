@@ -168,14 +168,6 @@ function createOptions(columnName, colorMode) {
     },
     xaxis: {
       type: 'datetime',
-      labels: {
-        // format: 'dd',
-        // show: false,
-        // Removes the header label from the tooltip
-        // formatter: function () {
-        //   return ''
-        // },
-      },
       tooltip: {
         enabled: false,
       },
