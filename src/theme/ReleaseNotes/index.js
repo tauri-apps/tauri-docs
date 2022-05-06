@@ -5,23 +5,27 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
 export default function App(props) {
   const [releaseNotes, setReleaseNotes] = useState()
 
-  fetch(props.url)
-    .then((response) => response.text())
-    .then((result) => {
-      result = result
-        .split('## ')
-        .filter((item) => !item.includes('# Changelog'))
-        .map((version) => {
-          const [number, ...contents] = version.split('\n')
-          return {
-            number: number.replace('\\[', '').replace(']', ''),
-            notes: contents,
-          }
-        })
-        .filter(({ number }) => !number.includes('Not Published'))
+  useEffect(() => {
+    fetch(props.url)
+      .then((response) => response.text())
+      .then((result) => {
+        result = result
+          .split('## ')
+          .filter((item) => !item.includes('# Changelog'))
+          .map((version) => {
+            var [number, ...contents] = version.split('\n')
+            contents = contents.join('\n')
+            return {
+              number: number.replace('\\[', '').replace(']', ''),
+              notes: contents,
+            }
+          })
+          .filter(({ number }) => !number.includes('Not Published'))
 
-      setReleaseNotes(result)
-    })
+        // console.log(result)
+        setReleaseNotes(result)
+      })
+  }, [])
 
   return (
     <BrowserOnly fallback={<div>Release notes not supported</div>}>
@@ -31,11 +35,11 @@ export default function App(props) {
         }
         return (
           <div>
-            {releaseNotes.map((version) => (
-              <details>
+            {releaseNotes.map((version, index) => (
+              <details open={index == 0} key={index}>
                 <summary>{version.number}</summary>
                 <p>{version.notes}</p>
-                {/* <ReactMarkdown>{note}</ReactMarkdown> */}
+                {/* <ReactMarkdown>{version.notes}</ReactMarkdown> */}
               </details>
             ))}
           </div>
