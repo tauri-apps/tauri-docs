@@ -1721,11 +1721,6 @@
     url-loader "^4.1.1"
     webpack "^5.72.0"
 
-"@fontsource/roboto@4.5.5":
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.5.tgz#4ecc38e690469378e2ec2a97f9c12282c654cc93"
-  integrity sha512-Pe1p+gAO6K0aLxBXlLoJRHVx352tVc/v/7DOnvM3t+FYXb+KUga9aCD1NpnDfd0kKnWXqrZyAXguyyFWDDuphw==
-
 "@fontsource/tauri@4.5.9":
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/@fontsource/tauri/-/tauri-4.5.9.tgz#877c21eeed4ff29451d43dcba5ac7e239a3267ab"
