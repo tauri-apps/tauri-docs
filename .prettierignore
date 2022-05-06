@@ -1,0 +1,3 @@
+# Ignore built api config
+docs/api/cli.md
+docs/api/config.md
