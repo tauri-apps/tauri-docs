@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { useState } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
@@ -267,35 +267,30 @@ function createSeries(data, columnName) {
 
 // Chart component
 export default function App(props) {
-  const AsyncChart = lazy(async () => {
-    const data = await props.data
-
-    return {
-      default: () => {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => {
+        const Chart = require('react-apexcharts').default
+        const [data, setData] = useState([])
         const colorMode = useColorMode()
 
-        return (
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => {
-              const Chart = lazy(() => import('react-apexcharts'))
-              return (
-                <Chart
-                  options={createOptions(props.column, colorMode.colorMode)}
-                  series={createSeries(data, props.column)}
-                  type="line"
-                  height="320"
-                />
-              )
-            }}
-          </BrowserOnly>
-        )
-      },
-    }
-  })
+        props.data.then((result) => {
+          setData(result)
+        })
 
-  return (
-    <Suspense fallback={<p>Loading data...</p>}>
-      <AsyncChart />
-    </Suspense>
+        if (data) {
+          return (
+            <Chart
+              options={createOptions(props.column, colorMode.colorMode)}
+              series={createSeries(data, props.column)}
+              type="line"
+              height="320"
+            />
+          )
+        } else {
+          return <div>Loading...</div>
+        }
+      }}
+    </BrowserOnly>
   )
 }
