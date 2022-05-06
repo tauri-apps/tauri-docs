@@ -10,7 +10,6 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
   if (!ExecutionEnvironment.canUseDOM) {
-    console.log('Exiting from fetchData')
     return []
   }
   const tauriData = fetchAndParseData(
@@ -26,11 +25,9 @@ export async function fetchData() {
     'Electron'
   )
 
-  console.log('Data is ready to be loaded')
-
   // Returns a flattened and transformed array ready to be displayed
   return await Promise.all([
-    await wryData,
+    // await wryData,
     await tauriData,
     await electronData,
   ]).then((results) => transformData(results.flat()))
@@ -274,11 +271,11 @@ export default function App(props) {
     <BrowserOnly fallback={<div>Loading...</div>}>
       {() => {
         const Chart = require('react-apexcharts').default
-        const [data, setData] = useState([])
+        const [data, setData] = useState()
         const colorMode = useColorMode()
 
         props.data.then((result) => {
-          console.log('Data received and being set')
+          console.log('Data received and being set', props.column, result)
           setData(result)
         })
 
@@ -291,9 +288,8 @@ export default function App(props) {
               height="320"
             />
           )
-        } else {
-          return <div>Loading...</div>
         }
+        return <div>Loading...</div>
       }}
     </BrowserOnly>
   )
