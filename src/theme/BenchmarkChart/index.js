@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
@@ -10,7 +10,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
   if (!ExecutionEnvironment.canUseDOM) {
-    return []
+    return
   }
   const tauriData = fetchAndParseData(
     'https://tauri-apps.github.io/benchmark_results/tauri-recent.json?',
@@ -197,7 +197,7 @@ function createSeries(data, columnName) {
   const seriesData = []
 
   // Create an array of unique categories
-  const dataCategories = [...new Set(data.map((item) => item.series))]
+  const dataCategories = Array.from(new Set(data.map((item) => item.series)))
 
   // Loop through each category and set the values for it
   dataCategories.forEach((series) => {
@@ -267,29 +267,36 @@ function createSeries(data, columnName) {
 
 // Chart component
 export default function App(props) {
+  const colorMode = useColorMode()
+  const [data, setData] = useState()
+  const [series, setSeries] = useState()
+
+  props.data.then((result) => {
+    setData(result)
+  })
+
+  useEffect(() => {
+    if (data) {
+      setSeries(createSeries(data, props.column))
+    }
+  }, [data])
+
+  // This seems to be getting refreshed 3 times. The first is empty data
   return (
-    <BrowserOnly fallback={<div>Loading...</div>}>
+    <BrowserOnly fallback={<div>Chart not supported</div>}>
       {() => {
         const Chart = require('react-apexcharts').default
-        const [data, setData] = useState()
-        const colorMode = useColorMode()
-
-        props.data.then((result) => {
-          console.log('Data received and being set', props.column, result)
-          setData(result)
-        })
-
-        if (data) {
+        if (series) {
           return (
             <Chart
               options={createOptions(props.column, colorMode.colorMode)}
-              series={createSeries(data, props.column)}
+              series={series}
               type="line"
               height="320"
             />
           )
         }
-        return <div>Loading...</div>
+        return <div>Loading data...</div>
       }}
     </BrowserOnly>
   )
