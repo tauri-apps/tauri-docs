@@ -2,9 +2,7 @@
 title: Multiwin
 ---
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-
 import Rater from '@theme/Rater'
 
 <div className="row">

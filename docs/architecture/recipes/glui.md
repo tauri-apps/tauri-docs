@@ -2,12 +2,11 @@
 title: GLUI
 ---
 
-import Alert from '@theme/Alert'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<Alert type="warning" icon="info-alt" title="Please note">
+:::warning
 This pattern is not available for now.
-</Alert>
+:::
 
 import Rater from '@theme/Rater'
 
