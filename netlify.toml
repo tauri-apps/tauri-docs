@@ -57,3 +57,7 @@ to = "/:splat"
 [[redirects]]
 from = "/partners"
 to = "/#sponsors"
+
+[[redirects]]
+from = "/release-notes"
+to = "/docs/release-notes"
