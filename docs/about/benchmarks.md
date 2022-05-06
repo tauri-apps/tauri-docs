@@ -58,6 +58,6 @@ How many total syscalls are performed when executing a given application. Smalle
 
 <Chart data={data} column="syscall_count" />
 
-## Dependancies
+## Dependencies
 
 <Chart data={data} column="cargo_deps" />
