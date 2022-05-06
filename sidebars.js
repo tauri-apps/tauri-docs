@@ -4,11 +4,7 @@ const about = [
   'about/security',
   'about/governance',
   'about/book',
-  {
-    type: 'link',
-    label: 'Benchmarks',
-    href: '/benchmarks',
-  },
+  'about/benchmarks',
 ]
 
 const docs = [
