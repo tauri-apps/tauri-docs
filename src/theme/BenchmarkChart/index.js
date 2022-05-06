@@ -10,6 +10,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 // Fetches the raw benchmark data and returns a processed dataset ready to be passed on to the exported component
 export async function fetchData() {
   if (!ExecutionEnvironment.canUseDOM) {
+    console.log('Exiting from fetchData')
     return []
   }
   const tauriData = fetchAndParseData(
@@ -24,6 +25,8 @@ export async function fetchData() {
     'https://tauri-apps.github.io/benchmark_results/electron-recent.json?',
     'Electron'
   )
+
+  console.log('Data is ready to be loaded')
 
   // Returns a flattened and transformed array ready to be displayed
   return await Promise.all([
@@ -275,6 +278,7 @@ export default function App(props) {
         const colorMode = useColorMode()
 
         props.data.then((result) => {
+          console.log('Data received and being set')
           setData(result)
         })
 
