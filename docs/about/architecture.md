@@ -101,9 +101,9 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 
-1. It enables Rust code to do "something".
-2. It provides interface glue to make it easy to integrate into an app.
-3. It provides a JavaScript API for interfacing with the Rust code.
+1. Enables Rust code to do "something".
+2. Provides interface glue to make it easy to integrate into an app.
+3. Provides a JavaScript API for interfacing with the Rust code.
 
 Here are some examples of Tauri Plugins:
 
