@@ -23,22 +23,27 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 <!-- prettier-ignore-start -->
 
 <Mermaid chart={`
-    graph TB
+graph TB
     subgraph Core
+    direction LR
     subgraph tauri[<a href='#tauri'>tauri</a>]
+    %% Direction in subgraphs doesn't seem to work
+    direction TB
     tauri-runtime[<a href='#tauri-runtime'>tauri-runtime</a>]
     tauri-macros[<a href='#tauri-macros'>tauri-macros</a>]
     tauri-utils[<a href='#tauri-utils'>tauri-utils</a>]
     end
+    %% This section should be organised top to bottom
     tauri-build[<a href='#tauri-build'>tauri-build</a>]
     tauri-codegen[<a href='#tauri-codegen'>tauri-codegen</a>]
     tauri-runtime-wry[<a href='#tauri-runtime-wry'>tauri-runtime-wry</a>]
     end
     tauri-runtime-wry -.-> WRY
-    WRY -.-> TAO
     subgraph Upstream Crates
+    direction LR
     WRY[<a href='#wry'>WRY</a>]
     TAO[<a href='#tao'>TAO</a>]
+    WRY -.-> TAO
     end
     `}
 />
