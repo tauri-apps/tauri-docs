@@ -2,7 +2,7 @@
 toc_max_heading_level: 2
 ---
 
-import Mermaid from '@theme/Mermaid'
+import Mermaid, { colors } from '@theme/Mermaid'
 
 # The Tauri Architecture
 
@@ -26,25 +26,28 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 graph TB
     subgraph Core
     direction LR
-    subgraph tauri[<a href='#tauri'>tauri</a>]
+    subgraph tauri
     %% Direction in subgraphs doesn't seem to work
     direction TB
-    tauri-runtime[<a href='#tauri-runtime'>tauri-runtime</a>]
-    tauri-macros[<a href='#tauri-macros'>tauri-macros</a>]
-    tauri-utils[<a href='#tauri-utils'>tauri-utils</a>]
+    tauri-runtime
+    tauri-macros
+    tauri-utils
     end
     %% This section should be organised top to bottom
-    tauri-build[<a href='#tauri-build'>tauri-build</a>]
-    tauri-codegen[<a href='#tauri-codegen'>tauri-codegen</a>]
-    tauri-runtime-wry[<a href='#tauri-runtime-wry'>tauri-runtime-wry</a>]
+    tauri-build
+    tauri-codegen
+    tauri-runtime-wry
     end
     tauri-runtime-wry -.-> WRY
-    subgraph Upstream Crates
+    subgraph Upstream
     direction LR
-    WRY[<a href='#wry'>WRY</a>]
-    TAO[<a href='#tao'>TAO</a>]
+    WRY
+    TAO
     WRY -.-> TAO
     end
+    style Core fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+    style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+    style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
     `}
 />
 
