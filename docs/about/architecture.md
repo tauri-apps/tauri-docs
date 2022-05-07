@@ -2,6 +2,8 @@
 toc_max_heading_level: 2
 ---
 
+import Mermaid from '@theme/Mermaid'
+
 # The Tauri Architecture
 
 ## Introduction
@@ -17,6 +19,31 @@ Tauri is not a lightweight kernel wrapper. Instead it directly uses [WRY](#wry) 
 Tauri is not a VM or virtualized environment. Instead it is an application toolkit that allows making Webview OS applications.
 
 ## Core Ecosystem
+
+<!-- prettier-ignore-start -->
+
+<Mermaid chart={`
+    graph TB
+    subgraph Core
+    subgraph tauri[<a href='#tauri'>tauri</a>]
+    tauri-runtime[<a href='#tauri-runtime'>tauri-runtime</a>]
+    tauri-macros[<a href='#tauri-macros'>tauri-macros</a>]
+    tauri-utils[<a href='#tauri-utils'>tauri-utils</a>]
+    end
+    tauri-build[<a href='#tauri-build'>tauri-build</a>]
+    tauri-codegen[<a href='#tauri-codegen'>tauri-codegen</a>]
+    tauri-runtime-wry[<a href='#tauri-runtime-wry'>tauri-runtime-wry</a>]
+    end
+    tauri-runtime-wry -.-> WRY
+    WRY -.-> TAO
+    subgraph Upstream Crates
+    WRY[<a href='#wry'>WRY</a>]
+    TAO[<a href='#tao'>TAO</a>]
+    end
+    `}
+/>
+
+<!-- prettier-ignore-end -->
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
