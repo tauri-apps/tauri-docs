@@ -175,8 +175,9 @@ const siteConfig = {
     announcementBar: {
       id: 'rc',
       content:
-        "<div id='announcement-rc'>🚀 Tauri Release Candidate has landed! <a target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/tauri-10-release-candidate-53jk'>Click here for more details.</a></div>",
+        "<div id='announcement-rc'>🚀 Tauri Release Candidate has landed! <a id='announcement-link' target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/tauri-10-release-candidate-53jk'>Click here for more details.</a></div>",
       backgroundColor: 'var(--ifm-color-primary)',
+      textColor: 'var(--ifm-button-color)',
     },
     navbar: {
       hideOnScroll: false,
