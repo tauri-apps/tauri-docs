@@ -51,6 +51,8 @@ The Hermit recipe is a pattern for ultimate application isolation where all logi
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
+<!-- prettier-ignore-start -->
+
 <Mermaid chart={`graph LR
       A==>H
       H==>F
@@ -65,6 +67,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       H{Bootstrap}
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
+
+<!-- prettier-ignore-end -->
 
 ## Configuration
 

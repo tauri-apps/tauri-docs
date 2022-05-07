@@ -50,6 +50,8 @@ The Multiwin recipe will allow you to have multiple windows.
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
+<!-- prettier-ignore-start -->
+
 <Mermaid chart={`graph LR
       A==>H
       H==>F
@@ -71,10 +73,12 @@ import Mermaid, { colors } from '@theme/Mermaid'
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
       style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
 
+<!-- prettier-ignore-end -->
 
 ## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
+
 ```json
 "tauri": {
   "allowlist": {},                  // all API endpoints are default false
