@@ -61,3 +61,7 @@ to = "/#sponsors"
 [[redirects]]
 from = "/benchmarks"
 to = "/docs/about/benchmarks"
+
+[[redirects]]
+from = "/docs/architecture"
+to = "/docs/about/architecture"
