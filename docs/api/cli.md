@@ -12,10 +12,11 @@ import Command from '@theme/Command'
 ```
 
 USAGE:
-    cargo-tauri info
+    cargo-tauri info [OPTIONS]
 
 OPTIONS:
     -h, --help       Print help information
+    -v, --verbose    Enables verbose logging
     -V, --version    Print version information
 ```
 
@@ -62,6 +63,9 @@ OPTIONS:
     -t, --tauri-path <TAURI_PATH>
             Path of the Tauri project to use (relative to the cwd)
 
+    -v, --verbose
+            Enables verbose logging
+
     -V, --version
             Print version information
 
@@ -86,6 +90,7 @@ OPTIONS:
     -h, --help                       Print help information
     -n, --name <PLUGIN_NAME>         Name of your Tauri plugin
     -t, --tauri-path <TAURI_PATH>    Path of the Tauri project to use (relative to the cwd)
+    -v, --verbose                    Enables verbose logging
     -V, --version                    Print version information
 ```
 
@@ -109,6 +114,7 @@ OPTIONS:
     -r, --runner <RUNNER>        Binary to use to run the application
         --release                Run the code in release mode
     -t, --target <TARGET>        Target triple to build against
+    -v, --verbose                Enables verbose logging
     -V, --version                Print version information
 ```
 
