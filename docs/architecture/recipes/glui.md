@@ -55,6 +55,7 @@ The GLUI is a research pattern that we will use internally to test approaches us
 
 import Mermaid, { colors } from '@theme/Mermaid'
 
+<!-- prettier-ignore-start -->
 <Mermaid chart={`graph TD
       A==>H
       H==>G
@@ -72,11 +73,12 @@ import Mermaid, { colors } from '@theme/Mermaid'
       H{Bootstrap}
       style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
-
+<!-- prettier-ignore-end -->
 
 ## Configuration
 
 Here's what you need to add to your tauri.conf.json file:
+
 ```json
 "tauri": {
   "allowlist": {                  // all API endpoints are default false
