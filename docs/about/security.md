@@ -70,7 +70,7 @@ The process of releasing our source-code artifacts is highly automated yet manda
 
 ### Resilient PR and Approval Processes
 
-Our WG-TECH reviews code changes, tags PRs with scope, and makes sure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on main, which:
+Our WG-TECH reviews code changes, tags PRs with scope, and makes sure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on dev, which:
 
 - Validates core
 - Runs smoke tests
