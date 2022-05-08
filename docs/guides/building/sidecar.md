@@ -124,6 +124,6 @@ tauri = { version = "1.0.0-rc.6", features = ["process-command-api", ...] }
 The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Node.js application on Tauri.
 It compiles the Node.js code using [pkg] and uses the scripts above to run it.
 
-[tauri.bundle]: /docs/api/config#tauri.bundle
+[tauri.bundle]: /api/config#tauri.bundle
 [sidecar example]: https://github.com/tauri-apps/tauri/tree/dev/examples/sidecar
 [pkg]: https://github.com/vercel/pkg

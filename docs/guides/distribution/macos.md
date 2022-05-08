@@ -58,19 +58,19 @@ These options generate the application bundle [Info.plist file]. You can extend 
 See the [Code signing guide].
 
 [application bundle]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
-[`tauri.bundle.macos.minimumsystemversion`]: /docs/api/config#tauri.bundle.macOS.minimumSystemVersion
+[`tauri.bundle.macos.minimumsystemversion`]: /api/config#tauri.bundle.macOS.minimumSystemVersion
 [lsminimumsystemversion]: https://developer.apple.com/documentation/bundleresources/information_property_list/lsminimumsystemversion
 [universal macos binaries]: https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary
-[`package.productname`]: /docs/api/config/#package.productName
-[`package.version`]: /docs/api/config/#package.version
-[`tauri.bundle.category`]: /docs/api/config/#tauri.bundle.category
-[`tauri.bundle.copyright`]: /docs/api/config/#tauri.bundle.copyright
-[`tauri.bundle.icon`]: /docs/api/config/#tauri.bundle.icon
-[`tauri.bundle.macos.minimumsystemversion`]: /docs/api/config/#tauri.bundle.macOS.minimumSystemVersion
-[`tauri.bundle.macos.license`]: /docs/api/config/#tauri.bundle.macOS.license
+[`package.productname`]: /api/config/#package.productName
+[`package.version`]: /api/config/#package.version
+[`tauri.bundle.category`]: /api/config/#tauri.bundle.category
+[`tauri.bundle.copyright`]: /api/config/#tauri.bundle.copyright
+[`tauri.bundle.icon`]: /api/config/#tauri.bundle.icon
+[`tauri.bundle.macos.minimumsystemversion`]: /api/config/#tauri.bundle.macOS.minimumSystemVersion
+[`tauri.bundle.macos.license`]: /api/config/#tauri.bundle.macOS.license
 [entitlements.plist file]: https://developer.apple.com/documentation/bundleresources/entitlements
-[`tauri.bundle.macos.entitlements`]: /docs/api/config/#tauri.bundle.macOS.entitlements
-[`tauri.bundle.macos.exceptiondomain`]: /docs/api/config/#tauri.bundle.macOS.exceptionDomain
-[`tauri.bundle.macos.usebootstrapper`]: /docs/api/config#tauri.bundle.deb.useBootstrapper
+[`tauri.bundle.macos.entitlements`]: /api/config/#tauri.bundle.macOS.entitlements
+[`tauri.bundle.macos.exceptiondomain`]: /api/config/#tauri.bundle.macOS.exceptionDomain
+[`tauri.bundle.macos.usebootstrapper`]: /api/config#tauri.bundle.deb.useBootstrapper
 [info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
 [code signing guide]: ./sign-macos.md

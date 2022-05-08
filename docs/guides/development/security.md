@@ -262,10 +262,10 @@ open('https://docs.rs/tauri/latest/tauri')
 [security-is-everyones-responsibility]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
 [xss]: https://owasp.org/www-community/attacks/xss/
 [content security policy (csp)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-[`tauri.security.csp`]: /docs/api/config/#tauri.security.csp
+[`tauri.security.csp`]: /api/config/#tauri.security.csp
 [csp script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
 [csp style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
 [csp sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-[isolation pattern]: /docs/guides/architecture/patterns/isolation
+[isolation pattern]: /guides/architecture/patterns/isolation
 [tauri api]: https://www.npmjs.com/package/@tauri-apps/api
-[the allowlist configuration]: /docs/api/config/#tauri.allowlist
+[the allowlist configuration]: /api/config/#tauri.allowlist
