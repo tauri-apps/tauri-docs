@@ -8,7 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
-import '@lottiefiles/lottie-player'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 // See translations for label and description
 const features = [
@@ -655,13 +655,20 @@ function Home() {
     >
       <header className={classNames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <Lottie-Player
-            src="tauri-splash.json"
-            background="transparent"
-            speed="1"
-            style={{ height: '40vh', margin: 'auto' }}
-            autoplay
-          />
+          <BrowserOnly>
+            {() => {
+              require('@lottiefiles/lottie-player')
+              return (
+                <Lottie-Player
+                  src="tauri-splash.json"
+                  background="transparent"
+                  speed="1"
+                  style={{ height: '40vh', margin: 'auto' }}
+                  autoplay
+                />
+              )
+            }}
+          </BrowserOnly>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
