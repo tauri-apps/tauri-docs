@@ -8,6 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
+import '@lottiefiles/lottie-player'
 
 // See translations for label and description
 const features = [
@@ -325,8 +326,7 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'Isolation pattern',
       description: translate({
-        message:
-          'Mechanism to secure the IPC from malicious third-party code.',
+        message: 'Mechanism to secure the IPC from malicious third-party code.',
       }),
       icon: 'ti-exchange-vertical',
       color: COLORS.green,
@@ -655,13 +655,13 @@ function Home() {
     >
       <header className={classNames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <lottie-player
+          <Lottie-Player
             src="tauri-splash.json"
             background="transparent"
             speed="1"
-            style={{ width: '75%', margin: 'auto' }}
+            style={{ height: '40vh', margin: 'auto' }}
             autoplay
-          ></lottie-player>
+          />
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
