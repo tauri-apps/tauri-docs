@@ -8,18 +8,18 @@
 
 ### connectTimeout
 
-• **connectTimeout**: `number`
+• `Optional` **connectTimeout**: `number` \| [`Duration`](http.Duration.md)
 
 #### Defined in
 
-[http.ts:50](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L50)
+[http.ts:55](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L55)
 
 ___
 
 ### maxRedirections
 
-• **maxRedirections**: `number`
+• `Optional` **maxRedirections**: `number`
 
 #### Defined in
 
-[http.ts:49](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L49)
+[http.ts:54](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L54)

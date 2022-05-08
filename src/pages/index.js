@@ -8,6 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 // See translations for label and description
 const features = [
@@ -36,7 +37,7 @@ const features = [
   [
     {
       imageUrl: 'img/undraw_security.svg',
-      link: 'docs/about/security',
+      link: 'about/security',
       label: translate({ message: 'Security' }),
       description: translate({
         message:
@@ -45,7 +46,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: 'docs/architecture/recipes/about-recipes',
+      link: 'guides/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -55,7 +56,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/building/cross-platform',
+      link: 'guides/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -325,8 +326,7 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'Isolation pattern',
       description: translate({
-        message:
-          'Mechanism to secure the IPC from malicious third-party code.',
+        message: 'Mechanism to secure the IPC from malicious third-party code.',
       }),
       icon: 'ti-exchange-vertical',
       color: COLORS.green,
@@ -655,13 +655,20 @@ function Home() {
     >
       <header className={classNames('hero hero--dark', styles.heroBanner)}>
         <div className="container">
-          <lottie-player
-            src="tauri-splash.json"
-            background="transparent"
-            speed="1"
-            style={{ width: '75%', margin: 'auto' }}
-            autoplay
-          ></lottie-player>
+          <BrowserOnly>
+            {() => {
+              require('@lottiefiles/lottie-player')
+              return (
+                <Lottie-Player
+                  src="tauri-splash.json"
+                  background="transparent"
+                  speed="1"
+                  style={{ height: '40vh', margin: 'auto' }}
+                  autoplay
+                />
+              )
+            }}
+          </BrowserOnly>
           <p
             className="hero__subtitle"
             dangerouslySetInnerHTML={{
@@ -680,7 +687,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={useBaseUrl('docs/about/intro')}
+                    to={useBaseUrl('about/intro')}
                   >
                     <span>
                       <Translate>Learn More</Translate>
@@ -693,7 +700,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/getting-started/prerequisites')}
+                    to={useBaseUrl('guides/getting-started/prerequisites')}
                   >
                     <span>
                       <Translate>Get started</Translate>

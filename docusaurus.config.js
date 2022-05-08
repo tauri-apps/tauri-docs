@@ -10,17 +10,17 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    to: 'docs/about/intro',
+    to: 'about/intro',
     label: 'About',
     position: 'left',
   },
   {
-    to: 'docs/getting-started/prerequisites',
-    label: 'Docs',
+    to: 'guides/getting-started/prerequisites',
+    label: 'Guides',
     position: 'left',
   },
   {
-    to: 'docs/api/config',
+    to: 'api/config',
     label: 'API',
     position: 'left',
   },
@@ -35,7 +35,7 @@ const navbarItems = [
     items: [
       {
         label: 'Get Involved',
-        to: 'docs/community/contributor-guide',
+        to: 'community/contributor-guide',
       },
       {
         label: 'Sponsors',
@@ -86,11 +86,11 @@ const footerLinks = [
     items: [
       {
         label: 'Get started',
-        to: 'docs/getting-started/beginning-tutorial',
+        to: 'guides/getting-started/beginning-tutorial',
       },
       {
         label: 'API',
-        to: 'docs/api/config/',
+        to: 'api/config/',
       },
       {
         label: 'Release notes',
@@ -201,6 +201,7 @@ const siteConfig = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          routeBasePath: '/',
           path: './docs/',
           exclude: ['api/rust/**', 'api/js/js-api.json'],
           sidebarPath: require.resolve('./sidebars.js'),
