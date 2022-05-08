@@ -266,6 +266,6 @@ open('https://docs.rs/tauri/latest/tauri')
 [csp script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
 [csp style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
 [csp sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-[isolation pattern]: /docs/architecture/patterns/isolation
+[isolation pattern]: /docs/guides/architecture/patterns/isolation
 [tauri api]: https://www.npmjs.com/package/@tauri-apps/api
 [the allowlist configuration]: /docs/api/config/#tauri.allowlist

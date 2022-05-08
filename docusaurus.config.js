@@ -86,7 +86,7 @@ const footerLinks = [
     items: [
       {
         label: 'Get started',
-        to: 'docs/getting-started/beginning-tutorial',
+        to: 'docs/guides/getting-started/beginning-tutorial',
       },
       {
         label: 'API',

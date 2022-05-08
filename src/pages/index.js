@@ -45,7 +45,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: 'docs/architecture/recipes/about-recipes',
+      link: 'docs/guides/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -55,7 +55,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'docs/building/cross-platform',
+      link: 'docs/guides/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -325,8 +325,7 @@ const Roadmap = ({ siteConfig }) => {
     {
       label: 'Isolation pattern',
       description: translate({
-        message:
-          'Mechanism to secure the IPC from malicious third-party code.',
+        message: 'Mechanism to secure the IPC from malicious third-party code.',
       }),
       icon: 'ti-exchange-vertical',
       color: COLORS.green,
@@ -693,7 +692,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('docs/getting-started/prerequisites')}
+                    to={useBaseUrl('docs/guides/getting-started/prerequisites')}
                   >
                     <span>
                       <Translate>Get started</Translate>

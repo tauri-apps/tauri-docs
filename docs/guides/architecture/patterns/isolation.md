@@ -34,7 +34,7 @@ to get to a path outside your application's expected locations. Another example 
 fetch call is only setting the Origin header to what your application expects it to be.
 
 That said, it intercepts _**all**_ messages from the frontend, so it will even work with always-on APIs such as
-[Events](../../guides/events.md). Since some events may cause your own rust code to perform actions, the same sort of
+[Events](../../examples/events.md). Since some events may cause your own rust code to perform actions, the same sort of
 validation techniques can be used with them.
 
 ## How
@@ -88,7 +88,7 @@ There are a few limitations in the Isolation pattern that rose out of platform i
 is due to external files not loading correctly inside sandboxed `<iframes>` on Windows. Because of this, we have
 implemented a simple script inlining step during build time that takes the content of scripts relative to the
 Isolation application and injects them inline. This means that typical bundling or simple including of files like
-`<script src="index.js"></script>` still works properly, but newer mechanisms such as ES Modules will *not* successfully
+`<script src="index.js"></script>` still works properly, but newer mechanisms such as ES Modules will _not_ successfully
 load.
 
 ## Recommendations

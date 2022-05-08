@@ -76,9 +76,9 @@ If you have problems of any kind after following these instructions, we recommen
 
 Now that you have set up the Windows-specific dependencies for Tauri learn how to [add Tauri to your project][beginning tutorial].
 
-[create-tauri-app]: /docs/getting-started/beginning-tutorial#1-start-a-new-tauri-project
+[create-tauri-app]: /docs/guides/getting-started/beginning-tutorial#1-start-a-new-tauri-project
 [nvm-windows]: https://github.com/coreybutler/nvm-windows#installation--upgrades
-[beginning tutorial]: ./beginning-tutorial.md
+[beginning tutorial]: ../beginning-tutorial.md
 [yarn@v1]: https://classic.yarnpkg.com/en/docs/getting-started
 [pnpm]: https://pnpm.js.org/en/installation
 [rustup x86_64]: https://win.rustup.rs/x86_64
@@ -86,4 +86,4 @@ Now that you have set up the Windows-specific dependencies for Tauri learn how t
 [rust]: https://www.rust-lang.org/
 [rustup]: https://rustup.rs/
 [microsoft visual studio c++ build tools]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-[linux specific instructions]: /docs/getting-started/setting-up-linux
+[linux specific instructions]: /docs/guides/getting-started/setup/linux
