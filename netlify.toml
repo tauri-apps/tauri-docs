@@ -3,56 +3,44 @@ command = "yarn build"
 publish = "build"
 
 [[redirects]]
-from = "/en/docs/usage/intro"
-to = "/docs/getting-started/beginning-tutorial"
+from = "/en/*"
+to = "/:splat"
 
 [[redirects]]
-from = "/en/docs/usage/ci-cd/cross-platform"
-to = "/docs/building/cross-platform"
+from = "/docs/getting-started/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/usage/ci-cd/workflow"
-to = "/docs/community/ci-cd"
+from = "/docs/development/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/usage/guides/contributor-guide"
-to = "/docs/community/contributor-guide"
+from = "/docs/architecture/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/getting-started/*"
-to = "/docs/getting-started/prerequisites"
+from = "/docs/guides/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/usage/guides/*"
-to = "/docs/guides/:splat"
+from = "/docs/debugging/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/usage/development/*"
-to = "/docs/development/development-cycle"
+from = "/docs/testing/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "en/docs/building/anti-bloat"
-to = "en/docs/building/app-size"
+from = "/docs/building/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
-from = "/en/docs/usage/guides/patterns/*"
-to = "/docs/architecture/patterns/:splat"
-
-[[redirects]]
-from = "/en/docs/usage/guides/visual/*"
-to = "/docs/guides/:splat"
-
-[[redirects]]
-from = "/en/docs/api/rust/*"
-to = "https://docs.rs/tauri/1.0.0-rc.0/tauri/"
+from = "/docs/distribution/*"
+to = "/docs/guides/getting-started/prerequisites"
 
 [[redirects]]
 from = "/docs/api/rust/*"
 to = "https://docs.rs/tauri/1.0.0-rc.0/tauri/"
-
-[[redirects]]
-from = "/en/*"
-to = "/:splat"
 
 [[redirects]]
 from = "/partners"
