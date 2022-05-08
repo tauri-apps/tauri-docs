@@ -111,13 +111,13 @@ application has it's `distDir` set to `../dist`.
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Isolation Secure Script</title>
-</head>
-<body>
-<script src="index.js"></script>
-</body>
+  </head>
+  <body>
+    <script src="index.js"></script>
+  </body>
 </html>
 ```
 
@@ -125,9 +125,9 @@ application has it's `distDir` set to `../dist`.
 
 ```js
 window.__TAURI_ISOLATION_HOOK__ = (payload) => {
-    // let's not verify or modify anything, just print the content from the hook
-    console.log('hook', payload)
-    return payload
+  // let's not verify or modify anything, just print the content from the hook
+  console.log('hook', payload)
+  return payload
 }
 ```
 

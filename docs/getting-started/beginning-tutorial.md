@@ -16,7 +16,7 @@ There are two ways to integrate with Tauri depending on your needs:
 
 ```bash
 yarn create tauri-app
-#OR
+# OR
 npx create-tauri-app
 ```
 
@@ -126,9 +126,9 @@ Environment
   › npm: 8.5.0
   › pnpm: Not installed!
   › yarn: 1.22.18
-  › rustup: 1.22.18
-  › rustc: 1.59.0
-  › cargo: 1.59.0
+  › rustup: 1.24.3
+  › rustc: 1.60.0
+  › cargo: 1.60.0
   › Rust toolchain: stable-x86_64-unknown-linux-gnu
 
 Packages
