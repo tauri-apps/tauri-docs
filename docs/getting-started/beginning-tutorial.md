@@ -63,7 +63,7 @@ If you decide to use Tauri as a local package with npm (not yarn), you need to a
 The following command installs `tauri-cli` as a Cargo subcommand on the cargo binary folder (by default on `$HOME/.cargo/bin`):
 
 ```bash
-cargo install tauri-cli --locked --version ^1.0.0-rc
+cargo install tauri-cli --locked --version "^1.0.0-rc"
 ```
 
 For more installation options, see [`cargo install`].
