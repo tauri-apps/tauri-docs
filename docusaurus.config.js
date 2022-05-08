@@ -15,8 +15,8 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'docs/getting-started/prerequisites',
-    label: 'Docs',
+    to: 'docs/guides/getting-started/prerequisites',
+    label: 'Guides',
     position: 'left',
   },
   {
