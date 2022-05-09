@@ -30,7 +30,7 @@ The CPU intensive benchmark measures how much time it takes to calculate all the
 
 ## Execution Time
 
-How much time total it takes intialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
+How much time in total it takes to intialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
 
 <Chart data={data} column="exec_time" />
 
