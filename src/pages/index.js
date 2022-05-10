@@ -9,6 +9,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import { getCurrentVersion } from '../utils/scripts'
 
 // See translations for label and description
 const features = [
@@ -68,14 +69,6 @@ const features = [
 ]
 
 function Feature({ imageUrl, link, label, description }) {
-  // Logic for `currentVersion` is required because docusaurus is not able to
-  // resolve the latest version for a docs links if not using the standard
-  // `tauri.studio/docs/*` naming convention
-  const context = useDocusaurusContext()
-  const currentVersion = context.globalData[
-    'docusaurus-plugin-content-docs'
-  ].default.versions.filter((item) => item.name == 'current')[0].path
-
   const imgUrl = useBaseUrl(imageUrl)
   return (
     <div className="col col--4 feature">
@@ -91,7 +84,7 @@ function Feature({ imageUrl, link, label, description }) {
         </div>
         {link && (
           <div className="card__footer">
-            <Link to={currentVersion + link}>
+            <Link to={getCurrentVersion() + link}>
               <button className="button button--secondary button--block">
                 <Translate>See more</Translate>
               </button>
@@ -651,18 +644,11 @@ function Logo(props) {
 }
 
 function Home() {
-  // Logic for `currentVersion` is required because docusaurus is not able to
-  // resolve the latest version for a docs links if not using the standard
-  // `tauri.studio/docs/*` naming convention
   const context = useDocusaurusContext()
-  const currentVersion = context.globalData[
-    'docusaurus-plugin-content-docs'
-  ].default.versions.filter((item) => item.name == 'current')[0].path
 
-  const { siteConfig = {} } = context
   return (
     <Layout
-      title={`${siteConfig.tagline}`}
+      title={`${context.siteConfig.tagline}`}
       description={translate({
         message:
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
@@ -702,7 +688,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={currentVersion + '/about/intro'}
+                    to={getCurrentVersion() + '/about/intro'}
                   >
                     <span>
                       <Translate>Learn More</Translate>
@@ -716,7 +702,8 @@ function Home() {
                       styles.getStarted
                     )}
                     to={
-                      currentVersion + '/guides/getting-started/prerequisites'
+                      getCurrentVersion() +
+                      '/guides/getting-started/prerequisites'
                     }
                   >
                     <span>
@@ -742,7 +729,7 @@ function Home() {
                       <Feature
                         key={idx}
                         {...props}
-                        siteConfig={siteConfig}
+                        siteConfig={context.siteConfig}
                         index={idx + row.length * index}
                       />
                     ))}
@@ -754,7 +741,7 @@ function Home() {
         )}
         <div className={classNames('container', styles.container)}>
           <section>
-            <Roadmap siteConfig={siteConfig} />
+            <Roadmap siteConfig={context.siteConfig} />
           </section>
 
           <section id="sponsors">
