@@ -37,7 +37,7 @@ const features = [
   [
     {
       imageUrl: 'img/undraw_security.svg',
-      link: 'about/security',
+      link: '/about/security',
       label: translate({ message: 'Security' }),
       description: translate({
         message:
@@ -46,7 +46,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: 'guides/architecture/recipes/about-recipes',
+      link: '/guides/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -56,7 +56,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'guides/building/cross-platform',
+      link: '/guides/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -68,6 +68,14 @@ const features = [
 ]
 
 function Feature({ imageUrl, link, label, description }) {
+  // Logic for `currentVersion` is required because docusaurus is not able to
+  // resolve the latest version for a docs links if not using the standard
+  // `tauri.studio/docs/*` naming convention
+  const context = useDocusaurusContext()
+  const currentVersion = context.globalData[
+    'docusaurus-plugin-content-docs'
+  ].default.versions.filter((item) => item.name == 'current')[0].path
+
   const imgUrl = useBaseUrl(imageUrl)
   return (
     <div className="col col--4 feature">
@@ -83,7 +91,7 @@ function Feature({ imageUrl, link, label, description }) {
         </div>
         {link && (
           <div className="card__footer">
-            <Link to={useBaseUrl(link)}>
+            <Link to={currentVersion + link}>
               <button className="button button--secondary button--block">
                 <Translate>See more</Translate>
               </button>
@@ -95,7 +103,7 @@ function Feature({ imageUrl, link, label, description }) {
   )
 }
 
-const Roadmap = ({ siteConfig }) => {
+const Roadmap = () => {
   const COLORS = {
     green: '#48f9c7',
     blue: '#2945ff',
@@ -643,7 +651,14 @@ function Logo(props) {
 }
 
 function Home() {
+  // Logic for `currentVersion` is required because docusaurus is not able to
+  // resolve the latest version for a docs links if not using the standard
+  // `tauri.studio/docs/*` naming convention
   const context = useDocusaurusContext()
+  const currentVersion = context.globalData[
+    'docusaurus-plugin-content-docs'
+  ].default.versions.filter((item) => item.name == 'current')[0].path
+
   const { siteConfig = {} } = context
   return (
     <Layout
@@ -687,7 +702,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={useBaseUrl('about/intro')}
+                    to={currentVersion + '/about/intro'}
                   >
                     <span>
                       <Translate>Learn More</Translate>
@@ -700,7 +715,9 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('guides/getting-started/prerequisites')}
+                    to={
+                      currentVersion + '/guides/getting-started/prerequisites'
+                    }
                   >
                     <span>
                       <Translate>Get started</Translate>
