@@ -13,7 +13,3 @@ to = "https://docs.rs/tauri/1.0.0-rc.0/tauri/"
 [[redirects]]
 from = "/partners"
 to = "/#sponsors"
-
-[[redirects]]
-from = "/release-notes"
-to = "/docs/release-notes"
