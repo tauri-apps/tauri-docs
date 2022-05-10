@@ -38,11 +38,8 @@ const api = [
   },
 ]
 
-const community = ['community/contributor-guide', 'community/ci-cd']
-
 module.exports = {
   about,
   guides,
   api,
-  community,
 }
