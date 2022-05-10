@@ -1,7 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 
-const version = fs.readFileSync('./version.txt', 'utf-8').trim()
+// Use the below to pull in the generated docs version
+// const version = JSON.parse(fs.readFileSync('versions.json', 'utf-8'))[0]
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -10,17 +11,20 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    to: 'about/intro',
+    type: 'doc',
+    docId: 'about/intro',
     label: 'About',
     position: 'left',
   },
   {
-    to: 'guides/getting-started/prerequisites',
+    type: 'doc',
+    docId: 'guides/getting-started/prerequisites',
     label: 'Guides',
     position: 'left',
   },
   {
-    to: 'api/config',
+    type: 'doc',
+    docId: 'api/config',
     label: 'API',
     position: 'left',
   },
@@ -35,7 +39,7 @@ const navbarItems = [
     items: [
       {
         label: 'Get Involved',
-        to: 'community/contributor-guide',
+        href: 'https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md',
       },
       {
         label: 'Sponsors',
@@ -81,23 +85,6 @@ const navbarItems = [
 ]
 
 const footerLinks = [
-  {
-    title: 'Docs',
-    items: [
-      {
-        label: 'Get started',
-        to: 'guides/getting-started/beginning-tutorial',
-      },
-      {
-        label: 'API',
-        to: 'api/config/',
-      },
-      {
-        label: 'Release notes',
-        to: 'release-notes',
-      },
-    ],
-  },
   {
     title: 'Contact',
     items: [
@@ -145,6 +132,19 @@ const footerLinks = [
       },
     ],
   },
+  {
+    title: 'Upstream Crates',
+    items: [
+      {
+        label: 'Tao',
+        href: 'https://github.com/tauri-apps/tao',
+      },
+      {
+        label: 'Wry',
+        href: 'https://github.com/tauri-apps/wry',
+      },
+    ],
+  },
 ]
 
 const siteConfig = {
@@ -166,7 +166,6 @@ const siteConfig = {
       darkTheme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: ['rust'],
     },
-    version,
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
@@ -208,7 +207,22 @@ const siteConfig = {
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
           sidebarCollapsible: true,
+
+          // When version 1 has been "versioned" and created, with the below commented code
+          versions: {
+            current: {
+              label: 'v1',
+              path: 'v1',
+            },
+          },
+          // versions: {
+          //   [version]: {
+          //     label: version,
+          //     path: version,
+          //   },
+          // },
         },
+
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
