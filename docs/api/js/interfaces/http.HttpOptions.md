@@ -14,7 +14,7 @@ Options object sent to the backend.
 
 #### Defined in
 
-[http.ts:179](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L179)
+[http.ts:184](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L184)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:177](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L177)
+[http.ts:182](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L182)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[http.ts:175](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L175)
+[http.ts:180](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L180)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[http.ts:178](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L178)
+[http.ts:183](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L183)
 
 ___
 
@@ -54,17 +54,17 @@ ___
 
 #### Defined in
 
-[http.ts:181](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L181)
+[http.ts:186](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L186)
 
 ___
 
 ### timeout
 
-• `Optional` **timeout**: `number`
+• `Optional` **timeout**: `number` \| [`Duration`](http.Duration.md)
 
 #### Defined in
 
-[http.ts:180](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L180)
+[http.ts:185](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L185)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[http.ts:176](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L176)
+[http.ts:181](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L181)

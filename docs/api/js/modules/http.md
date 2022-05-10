@@ -52,6 +52,7 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 ## Interfaces
 
 - [ClientOptions](../interfaces/http.ClientOptions.md)
+- [Duration](../interfaces/http.Duration.md)
 - [HttpOptions](../interfaces/http.HttpOptions.md)
 
 ## Type aliases
@@ -64,7 +65,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:187](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L187)
+[http.ts:192](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L192)
 
 ___
 
@@ -76,7 +77,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:162](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L162)
+[http.ts:167](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L167)
 
 ___
 
@@ -86,7 +87,7 @@ ___
 
 #### Defined in
 
-[http.ts:65](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L65)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -98,7 +99,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:185](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L185)
+[http.ts:190](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L190)
 
 ## Functions
 
@@ -129,7 +130,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:405](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L405)
+[http.ts:410](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L410)
 
 ___
 
@@ -153,4 +154,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:385](https://github.com/tauri-apps/tauri/blob/cf22f4c/tooling/api/src/http.ts#L385)
+[http.ts:390](https://github.com/tauri-apps/tauri/blob/86d82af/tooling/api/src/http.ts#L390)

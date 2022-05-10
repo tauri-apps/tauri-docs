@@ -1,20 +1,20 @@
 # Security
 
-This guide seeks to explain the high-level concepts and Security Features at the core of Tauri's design that makes you, your apps, and your users safer by default.
+This guide seeks to explain the high-level concepts and Security Features at the core of Tauri's design that make you, your apps, and your users safer by default.
 
-:::note
-Please note:<br/>
-While we take every opportunity to help you harden your application - there are always underlying threats like BIOS attacks, memory rowhammering and other operating system vulnerabilities that are constantly being discovered and (in the best cases) responsibly disclosed.<br/>
-Furthermore, there are many ways that development teams can cut corners and either leak sensitive information or leave doors wide open to any of a range of attacks. Security is a never-ending quest, and your users count on you to keep them safe.<br/>
-Therefore, we highly recommend that you take some time to consider the security ramifications of everything that your application does, especially in the context of running on the semi-hostile platform of end-user devices.<br/>
+:::info Note
+While we take every opportunity to help you harden your application - there are always underlying threats like BIOS attacks, memory rowhammering and other operating system vulnerabilities that are constantly being discovered and (in the best cases) responsibly disclosed.
+
+Furthermore, there are many ways that development teams can cut corners and either leak sensitive information or leave doors wide open to any of a range of attacks. Security is a never-ending quest, and your users count on you to keep them safe.
+
+Therefore, we highly recommend that you take some time to consider the security ramifications of everything that your application does, especially in the context of running on the semi-hostile platform of end-user devices.
+
 If you need help or want a review, you are welcome to contact the Tauri team for security consultation.
 :::
 
-### Security Researchers
+## Security Researchers
 
-If you feel that there is a security concern or issue with anything in Tauri, please do not publicly comment on your findings. Instead, reach out directly to our security team:
-
-> <center>security@tauri.studio</center>
+If you feel that there is a security concern or issue with anything in Tauri, please do not publicly comment on your findings. Instead, reach out directly to our security team: security@tauri.studio
 
 Although we do not currently have a budget for Security Bounties, in some cases, we will consider rewarding responsible disclosure with our limited resources.
 
@@ -24,7 +24,7 @@ Tauri enables you to construct an application that uses web technology for the u
 
 ## Language Features of Rust
 
-By turning to the programming language renowned for its memory safety and speed, Tauri simply erases whole classes of conventional attacks. `Use after free` just isn't something that can happen with Tauri.
+By turning to the programming language renowned for its memory safety and speed, Tauri simply erases whole classes of conventional attacks. "Use after free" just isn't something that can happen with Tauri.
 
 ## Dynamic Ahead of Time Compilation (AOT)
 
@@ -56,7 +56,7 @@ You have the ability to pick and choose which API functions are available to the
 
 ### Content Security Policy Management
 
-Preventing unauthorized code execution for websites has long since been "resolved" by using CSPs. Tauri can inject CSPs into the index.html of the user interface, and when using a localhost server, it will also send these headers to the UI or any other clients that connect with it.
+Preventing unauthorized code execution for websites has long since been "resolved" by using CSPs. Tauri can inject CSPs into the `index.html` of the user interface, and when using a localhost server, it will also send these headers to the UI or any other clients that connect with it.
 
 ### Decompilation is Difficult
 
@@ -70,17 +70,17 @@ The process of releasing our source-code artifacts is highly automated yet manda
 
 ### Resilient PR and Approval Processes
 
-Our WG-TECH reviews code changes, tags PRs with scope, and makes sure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on master, which:
+Our WG-TECH reviews code changes, tags PRs with scope, and makes sure that everything stays up to date. And when its time to publish a new version, one of the maintainers tags a new release on dev, which:
 
-- validates core
-- runs smoke tests
-- audits security for crates and npm
-- generates changelogs
-- creates artifacts
-- publishes checksums to IOTA
-- creates a draft release
+- Validates core
+- Runs smoke tests
+- Audits security for crates and npm
+- Generates changelogs
+- Creates artifacts
+- Publishes checksums to IOTA
+- Creates a draft release
 
-Then the maintainer reviews the release notes, edits if necessary - and a new release is forged.
+Then the maintainer reviews the release notes, edits if necessary, and a new release is forged.
 
 ## Future Work
 
