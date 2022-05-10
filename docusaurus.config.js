@@ -86,6 +86,23 @@ const navbarItems = [
 
 const footerLinks = [
   {
+    title: 'Repositories',
+    items: [
+      {
+        label: 'Tauri',
+        href: repoUrl,
+      },
+      {
+        label: 'Tao',
+        href: 'https://github.com/tauri-apps/tao',
+      },
+      {
+        label: 'Wry',
+        href: 'https://github.com/tauri-apps/wry',
+      },
+    ],
+  },
+  {
     title: 'Contact',
     items: [
       {
@@ -111,7 +128,7 @@ const footerLinks = [
       },
       {
         label: 'GitHub',
-        href: repoUrl,
+        href: 'https://github.com/tauri-apps',
       },
     ],
   },
@@ -129,19 +146,6 @@ const footerLinks = [
       {
         label: 'Awesome Tauri',
         href: awesomeTauriUrl,
-      },
-    ],
-  },
-  {
-    title: 'Upstream Crates',
-    items: [
-      {
-        label: 'Tao',
-        href: 'https://github.com/tauri-apps/tao',
-      },
-      {
-        label: 'Wry',
-        href: 'https://github.com/tauri-apps/wry',
       },
     ],
   },
