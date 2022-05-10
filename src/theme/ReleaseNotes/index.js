@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import classNames from 'classnames'
+import styles from './styles.module.css'
 
 export default function App(props) {
   const [releaseNotes, setReleaseNotes] = useState()
@@ -36,7 +38,9 @@ export default function App(props) {
           <div>
             {releaseNotes.map((version, index) => (
               <details open={index == 0} key={index}>
-                <summary>{version.number}</summary>
+                <summary className={classNames(styles.summary)}>
+                  <h3>{version.number}</h3>
+                </summary>
                 <ReactMarkdown>{version.notes}</ReactMarkdown>
               </details>
             ))}
