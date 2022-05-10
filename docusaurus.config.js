@@ -1,7 +1,4 @@
 const path = require('path')
-const fs = require('fs')
-
-const version = fs.readFileSync('./version.txt', 'utf-8').trim()
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -166,7 +163,6 @@ const siteConfig = {
       darkTheme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: ['rust'],
     },
-    version,
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,

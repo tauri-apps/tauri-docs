@@ -94,9 +94,6 @@ jobs:
       #     docs: "Getting started,Usage,API"
 
       # Applying Version for Release Notes
-      # - name: set docs' Tauri version
-      #   working-directory: ./tauri-docs
-      #   run: echo ${{ github.event.inputs.version || github.event.release.tag_name }} > version.txt
       # - name: set bot's Tauri version
       #   working-directory: ./tauri-search-bot
       #   run: echo ${{ github.event.inputs.version || github.event.release.tag_name }} > version.txt
