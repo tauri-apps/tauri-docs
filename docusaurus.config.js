@@ -1,8 +1,17 @@
 const path = require('path')
 const fs = require('fs')
 
-// Use the below to pull in the generated docs version
-// const version = JSON.parse(fs.readFileSync('versions.json', 'utf-8'))[0]
+var version
+var docVersion
+
+// Checks if Docusaurus has been versioned before and sets versions accordingly
+try {
+  version = JSON.parse(fs.readFileSync('versions.json', 'utf-8'))[0]
+  docVersion = version
+} catch {
+  version = 'v1'
+  docVersion = 'current'
+}
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -211,20 +220,13 @@ const siteConfig = {
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
           sidebarCollapsible: true,
-
           // When version 1 has been "versioned" and created, with the below commented code
           versions: {
-            current: {
-              label: 'v1',
-              path: 'v1',
+            [docVersion]: {
+              label: version,
+              path: version,
             },
           },
-          // versions: {
-          //   [version]: {
-          //     label: version,
-          //     path: version,
-          //   },
-          // },
         },
 
         theme: {
