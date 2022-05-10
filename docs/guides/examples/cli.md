@@ -158,4 +158,4 @@ getMatches().then((matches) => {
 You can find more about the CLI configuration [here][tauri config].
 
 [clap]: https://github.com/clap-rs/clap
-[tauri config]: /api/config#tauri
+[tauri config]: ../../api/config#tauri

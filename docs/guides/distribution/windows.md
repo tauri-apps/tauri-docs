@@ -182,14 +182,14 @@ Currently Tauri references the following locale strings: `LaunchApp`, `Downgrade
 
 See the [Code signing guide].
 
-[tauri.bundle.windows.wix.skipwebviewinstall]: /api/config/#tauri.bundle.windows.wix.skipWebviewInstall
+[tauri.bundle.windows.wix.skipwebviewinstall]: ../../api/config/#tauri.bundle.windows.wix.skipWebviewInstall
 [official website]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [here]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs
 [handlebars]: https://docs.rs/handlebars/latest/handlebars/
-[tauri.bundle.windows.wix.template]: /api/config/#tauri.bundle.windows.wix.template
+[tauri.bundle.windows.wix.template]: ../../api/config/#tauri.bundle.windows.wix.template
 [wix fragment]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html
-[tauri.bundle.windows.wix.language]: /api/config/#tauri.bundle.windows.wix.language
+[tauri.bundle.windows.wix.language]: ../../api/config/#tauri.bundle.windows.wix.language
 [1]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [code signing guide]: ./sign-windows.md

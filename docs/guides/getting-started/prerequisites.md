@@ -14,9 +14,9 @@ import OSList from '@theme/OSList'
 For more information on platform-specific build tooling, see these guides to get started.
 
 <OSList content={{
-    linux: { title: 'Linux Setup', link: '/guides/getting-started/setup/linux'},
-    macos: { title: 'macOS Setup', link: '/guides/getting-started/setup/macos'},
-    windows: { title: 'Windows Setup', link: '/guides/getting-started/setup/windows'}
+    linux: { title: 'Linux Setup', link: './setup/linux'},
+    macos: { title: 'macOS Setup', link: './setup/macos'},
+    windows: { title: 'Windows Setup', link: './setup/windows'}
 }} />
 
 After that, you'll be ready to [make your first Tauri app][beginning tutorial]!
