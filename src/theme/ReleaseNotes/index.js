@@ -22,7 +22,6 @@ export default function App(props) {
           })
           .filter(({ number }) => !number.includes('Not Published'))
 
-        // console.log(result)
         setReleaseNotes(result)
       })
   }, [])
@@ -38,8 +37,7 @@ export default function App(props) {
             {releaseNotes.map((version, index) => (
               <details open={index == 0} key={index}>
                 <summary>{version.number}</summary>
-                <p>{version.notes}</p>
-                {/* <ReactMarkdown>{version.notes}</ReactMarkdown> */}
+                <ReactMarkdown>{version.notes}</ReactMarkdown>
               </details>
             ))}
           </div>
