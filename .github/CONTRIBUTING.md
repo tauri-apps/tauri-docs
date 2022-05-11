@@ -63,5 +63,34 @@ The following items should be translated before enabling a language:
 - all files in docs/getting-started;
 - all files in docs/development;
 
+## Versioning
+
+Additional versioning resources: [Docusaurus](https://docusaurus.io/docs/versioning)
+
+Only files in `/docs/` will be "versioned".
+
+There are 2 scenarios noted below. More information can be found on [Docusaurus](https://docusaurus.io/docs/versioning#configuring-versioning-behavior) for both of these cases
+
+### Continue Working on Released Version's Docs
+
+You are "releasing" a version but aren't planning to start working on a new version's docs yet. This could be if you've just released v1 and would like to continue working on the guides or updating API documentation for v1. You'd like this current version to be the default served to site visitors.
+
+Nothing needs to be done! As long as you've set `unreleasedTauriVersion` in `docusaurus.config.js`, it will re-write the url to that value
+
+### Start Working on Unreleased Version's docs
+
+You want to begin working on unreleased or beta docs. You would like to begin updating guides and APIs against the beta version. You would still like the non-beta version to be the default version served to site visitors.
+
+For example, if you've launched v1 and would like to work on v2 docs but not serve them as the default, you would do the following:
+
+1. Update `unreleasedTauriVersion` in `docusaurus.config.js` to 'v2'
+2. Run the following command to version the current docs:
+
+```shell
+yarn docusaurus docs:version 'v1'
+```
+
+This value above should match what was previously in the `unreleasedTauriVersion` variable
+
 [reference-style links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
 [docusaurus admonitions]: https://docusaurus.io/docs/markdown-features/admonitions
