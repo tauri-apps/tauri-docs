@@ -149,7 +149,7 @@ You can download some examples to try with `sudo apt-get install x11-apps`. xeye
 
 Now that you have set up the Linux-specific dependencies for Tauri, learn how to [add Tauri to your project][beginning tutorial].
 
-[create-tauri-app]: /guides/getting-started/beginning-tutorial#1-start-a-new-tauri-project
+[create-tauri-app]: ../beginning-tutorial#1-start-a-new-tauri-project
 [nvm]: https://github.com/nvm-sh/nvm
 [nvm install.sh]: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh
 [beginning tutorial]: ../beginning-tutorial.md

@@ -122,7 +122,7 @@ This command will open the WebView in development mode. It makes use of the `bui
 
 If you have entered a command to the `build.beforeDevCommand` property, this one will be executed before the `dev` command.
 
-<a href="/api/config#build">See more about the configuration.</a><br/><br/>
+<a href="../api/config#build">See more about the configuration.</a><br/><br/>
 
 :::caution Troubleshooting
 If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
@@ -160,7 +160,7 @@ This command will bundle your application, either in production mode or debug mo
 
 If you have entered a command to the `build.beforeBuildCommand` property, this one will be executed before the `build` command.
 
-<a href="/api/config#build">See more about the configuration.</a>
+<a href="../api/config#build">See more about the configuration.</a>
 
 ## `version`
 
@@ -175,4 +175,4 @@ This command will show the current version of Tauri.
 
 ## CLI usage
 
-See more about the usage through this [complete guide](/guides/development/development-cycle).
+See more about the usage through this [complete guide](../guides/development/development-cycle).

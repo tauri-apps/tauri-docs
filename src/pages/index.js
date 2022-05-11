@@ -9,6 +9,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import { getCurrentVersion } from '../utils/scripts'
 
 // See translations for label and description
 const features = [
@@ -37,7 +38,7 @@ const features = [
   [
     {
       imageUrl: 'img/undraw_security.svg',
-      link: 'about/security',
+      link: '/about/security',
       label: translate({ message: 'Security' }),
       description: translate({
         message:
@@ -46,7 +47,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: 'guides/architecture/recipes/about-recipes',
+      link: '/guides/architecture/recipes/about-recipes',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -56,7 +57,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_cross_platform.svg',
-      link: 'guides/building/cross-platform',
+      link: '/guides/building/cross-platform',
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -83,7 +84,7 @@ function Feature({ imageUrl, link, label, description }) {
         </div>
         {link && (
           <div className="card__footer">
-            <Link to={useBaseUrl(link)}>
+            <Link to={getCurrentVersion() + link}>
               <button className="button button--secondary button--block">
                 <Translate>See more</Translate>
               </button>
@@ -95,7 +96,7 @@ function Feature({ imageUrl, link, label, description }) {
   )
 }
 
-const Roadmap = ({ siteConfig }) => {
+const Roadmap = () => {
   const COLORS = {
     green: '#48f9c7',
     blue: '#2945ff',
@@ -644,10 +645,10 @@ function Logo(props) {
 
 function Home() {
   const context = useDocusaurusContext()
-  const { siteConfig = {} } = context
+
   return (
     <Layout
-      title={`${siteConfig.tagline}`}
+      title={`${context.siteConfig.tagline}`}
       description={translate({
         message:
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
@@ -687,7 +688,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={useBaseUrl('about/intro')}
+                    to={getCurrentVersion() + '/about/intro'}
                   >
                     <span>
                       <Translate>Learn More</Translate>
@@ -700,7 +701,10 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={useBaseUrl('guides/getting-started/prerequisites')}
+                    to={
+                      getCurrentVersion() +
+                      '/guides/getting-started/prerequisites'
+                    }
                   >
                     <span>
                       <Translate>Get started</Translate>
@@ -725,7 +729,7 @@ function Home() {
                       <Feature
                         key={idx}
                         {...props}
-                        siteConfig={siteConfig}
+                        siteConfig={context.siteConfig}
                         index={idx + row.length * index}
                       />
                     ))}
@@ -737,7 +741,7 @@ function Home() {
         )}
         <div className={classNames('container', styles.container)}>
           <section>
-            <Roadmap siteConfig={siteConfig} />
+            <Roadmap siteConfig={context.siteConfig} />
           </section>
 
           <section id="sponsors">

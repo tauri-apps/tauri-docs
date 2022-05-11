@@ -1,7 +1,16 @@
 const path = require('path')
 const fs = require('fs')
 
-const version = fs.readFileSync('./version.txt', 'utf-8').trim()
+// Change this value to update what the un-versioned docs url should be
+const unreleasedTauriVersion = 'v1'
+var lastestReleasedVersion
+
+// Checks if Docusaurus has been versioned before and sets versions accordingly
+try {
+  lastestReleasedVersion = JSON.parse(
+    fs.readFileSync('versions.json', 'utf-8')
+  )[0]
+} catch {}
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -10,17 +19,20 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    to: 'about/intro',
+    type: 'doc',
+    docId: 'about/intro',
     label: 'About',
     position: 'left',
   },
   {
-    to: 'guides/getting-started/prerequisites',
+    type: 'doc',
+    docId: 'guides/getting-started/prerequisites',
     label: 'Guides',
     position: 'left',
   },
   {
-    to: 'api/config',
+    type: 'doc',
+    docId: 'api/config',
     label: 'API',
     position: 'left',
   },
@@ -35,7 +47,7 @@ const navbarItems = [
     items: [
       {
         label: 'Get Involved',
-        to: 'community/contributor-guide',
+        href: 'https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md',
       },
       {
         label: 'Sponsors',
@@ -82,19 +94,19 @@ const navbarItems = [
 
 const footerLinks = [
   {
-    title: 'Docs',
+    title: 'Repositories',
     items: [
       {
-        label: 'Get started',
-        to: 'guides/getting-started/beginning-tutorial',
+        label: 'Tauri',
+        href: repoUrl,
       },
       {
-        label: 'API',
-        to: 'api/config/',
+        label: 'Tao',
+        href: 'https://github.com/tauri-apps/tao',
       },
       {
-        label: 'Release notes',
-        to: 'release-notes',
+        label: 'Wry',
+        href: 'https://github.com/tauri-apps/wry',
       },
     ],
   },
@@ -124,7 +136,7 @@ const footerLinks = [
       },
       {
         label: 'GitHub',
-        href: repoUrl,
+        href: 'https://github.com/tauri-apps',
       },
     ],
   },
@@ -166,7 +178,6 @@ const siteConfig = {
       darkTheme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: ['rust'],
     },
-    version,
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
@@ -208,7 +219,22 @@ const siteConfig = {
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
           sidebarCollapsible: true,
+          versions: {
+            // Maps the working "current" version to a custom url instead of `next`
+            current: {
+              label: unreleasedTauriVersion,
+              path: unreleasedTauriVersion,
+            },
+            // If there is a "latest" version, map url to version number
+            ...(lastestReleasedVersion && {
+              [lastestReleasedVersion]: {
+                label: lastestReleasedVersion,
+                path: lastestReleasedVersion,
+              },
+            }),
+          },
         },
+
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },

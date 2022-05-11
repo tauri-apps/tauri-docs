@@ -10,7 +10,7 @@ import Mermaid, { colors } from '@theme/Mermaid'
 
 Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
 
-Tauri apps can have [custom menus](/guides/examples/menu) and [tray-type interfaces](/guides/examples/system-tray). They can be [updated](/guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](/about/benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](/about/security).
+Tauri apps can have [custom menus](../guides/examples/menu) and [tray-type interfaces](../guides/examples/system-tray). They can be [updated](../guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../about/benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](../about/security).
 
 ### What Tauri is Not
 
@@ -55,7 +55,7 @@ graph TB
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
-This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/api/config) file at compile time in order to bring in features and undertake actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages updating.
+This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](../api/config) file at compile time in order to bring in features and undertake actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages updating.
 
 ### [tauri-runtime](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime)
 
@@ -75,7 +75,7 @@ Applies the macros at build-time in order to rig some special features needed by
 
 ### [tauri-codegen](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen)
 
-Embeds, hashes, and compresses assets, including icons for the app as well as the system-tray. Parses [`tauri.conf.json`](/api/config) at compile time and generate the Config struct.
+Embeds, hashes, and compresses assets, including icons for the app as well as the system-tray. Parses [`tauri.conf.json`](../api/config) at compile time and generate the Config struct.
 
 ### [tauri-runtime-wry](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry)
 
@@ -132,7 +132,7 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 ## Plugins
 
-[Tauri Plugin Guide](/guides/examples/plugin)
+[Tauri Plugin Guide](../guides/examples/plugin)
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 
@@ -154,10 +154,10 @@ Here you may peruse our [Software Bill of Materials](https://app.fossa.com/proje
 
 ## Next Steps
 
-[Your First Tauri App](/guides/getting-started/beginning-tutorial)
+[Your First Tauri App](../guides/getting-started/beginning-tutorial)
 
-[Development Cycle](/guides/development/development-cycle)
+[Development Cycle](../guides/development/development-cycle)
 
-[Publishing](/guides/distribution/publishing)
+[Publishing](../guides/distribution/publishing)
 
-[Updating](/guides/distribution/updater)
+[Updating](../guides/distribution/updater)
