@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 // Change this value to update what the un-versioned docs url should be
-const unreleasedTauriVersion = 'v2'
+const unreleasedTauriVersion = 'v1'
 var lastestReleasedVersion
 
 // Checks if Docusaurus has been versioned before and sets versions accordingly
