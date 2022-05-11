@@ -1,17 +1,16 @@
 const path = require('path')
 const fs = require('fs')
 
-var version
-var docVersion
+// Change this value to update what the un-versioned docs url should be
+const unreleasedTauriVersion = 'v2'
+var lastestReleasedVersion
 
 // Checks if Docusaurus has been versioned before and sets versions accordingly
 try {
-  version = JSON.parse(fs.readFileSync('versions.json', 'utf-8'))[0]
-  docVersion = version
-} catch {
-  version = 'v1'
-  docVersion = 'current'
-}
+  lastestReleasedVersion = JSON.parse(
+    fs.readFileSync('versions.json', 'utf-8')
+  )[0]
+} catch {}
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -220,12 +219,19 @@ const siteConfig = {
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
           sidebarCollapsible: true,
-          // When version 1 has been "versioned" and created, with the below commented code
           versions: {
-            [docVersion]: {
-              label: version,
-              path: version,
+            // Maps the working "current" version to a custom url instead of `next`
+            current: {
+              label: unreleasedTauriVersion,
+              path: unreleasedTauriVersion,
             },
+            // If there is a "latest" version, map url to version number
+            ...(lastestReleasedVersion && {
+              [lastestReleasedVersion]: {
+                label: lastestReleasedVersion,
+                path: lastestReleasedVersion,
+              },
+            }),
           },
         },
 
