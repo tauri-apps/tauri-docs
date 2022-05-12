@@ -178,8 +178,6 @@ rustup update
 rustup self uninstall
 ```
 
-<!-- TODO: Unistall Webview2 -->
-
 ## Troubleshooting
 
 To check whether you have Rust installed correctly, open a shell and enter this command:
