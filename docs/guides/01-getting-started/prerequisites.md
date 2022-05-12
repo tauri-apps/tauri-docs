@@ -16,7 +16,7 @@ The first step is to install [Rust] and system dependencies. Keep in mind that t
 For those using the Windows Subsystem for Linux (WSL), please refer to our [Linux specific instructions](#setting-up-linux) instead.
 :::
 
-On Windows, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). You also need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2019]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
+On Windows, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). You also need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
 
 <figure>
 
