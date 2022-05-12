@@ -1,30 +1,20 @@
+---
+sidebar_position: 2
+---
+
 # Inter-Process Communication
 
-Inter-Process Communication (IPC) allows isolated processes to
-communicate securely and is key to building more complex applications.
+Inter-Process Communication (IPC) allows isolated processes to communicate securely and is key to building more complex applications.
 
-Tauri uses a particular style of Inter-Process Communication called
-[Asynchronous Message Passing], where processes exchange _requests_
-and _responses_ serialized using some simple data representation.
-Message Passing should sound familiar to anyone with web development
-experience, as this paradigm is used for client-server communication
-on the internet.
+Tauri uses a particular style of Inter-Process Communication called [Asynchronous Message Passing], where processes exchange _requests_ and _responses_ serialized using some simple data representation. Message Passing should sound familiar to anyone with web development experience, as this paradigm is used for client-server communication on the internet.
 
-Message passing is a safer technique than shared memory or direct
-function access because the recipient is free to reject or discard
-requests as it sees fit. For example, if the Tauri Core process
-determines a request to be malicious, it simply discards the requests
-and never executes the corresponding function.
+Message passing is a safer technique than shared memory or direct function access because the recipient is free to reject or discard requests as it sees fit. For example, if the Tauri Core process determines a request to be malicious, it simply discards the requests and never executes the corresponding function.
 
-In the following, we explain Tauri's two IPC primitives - `Events` and
-`Commands` - in more detail.
+In the following, we explain Tauri's two IPC primitives - `Events` and `Commands` - in more detail.
 
 ## Events
 
-Events are fire-and-forget, one-way IPC messages that are best suited
-to communicate lifecycle events and state changes. Contrary to
-[Commands](#commands) Events can be emitted by both the Frontend _and_
-the Tauri Core.
+Events are fire-and-forget, one-way IPC messages that are best suited to communicate lifecycle events and state changes. Contrary to [Commands](#commands) Events can be emitted by both the Frontend _and_ the Tauri Core.
 
 <figure>
 
@@ -41,14 +31,9 @@ sequenceDiagram
 
 ## Commands
 
-Tauri also provides a [foreign function interface]-like abstraction on
-top IPC messages[^1]. The primary API, `invoke`, is similar to the
-browsers `fetch` API and allows the Frontend to invoke rust functions,
-pass arguments, and receive data.
+Tauri also provides a [foreign function interface]-like abstraction on top IPC messages[^1]. The primary API, `invoke`, is similar to the browsers `fetch` API and allows the Frontend to invoke rust functions, pass arguments, and receive data.
 
-Because this mechanism uses the [JSON-RPC] protocol under the hood to
-serialize requests and responses, all arguments and return data must
-be serializable to JSON.
+Because this mechanism uses the [JSON-RPC] protocol under the hood to serialize requests and responses, all arguments and return data must be serializable to JSON.
 
 <figure>
 
@@ -66,8 +51,7 @@ sequenceDiagram
 </figure>
 
 <!-- prettier-ignore -->
-[^1]: Commands still use message passing under the hood, so don't share the same
-    security pitfalls as real FFI interfaces.
+[^1]: Commands still use message passing under the hood, so don't share the same security pitfalls as real FFI interfaces.
 
 [asynchronous message passing]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
 [json-rpc]: https://www.jsonrpc.org
