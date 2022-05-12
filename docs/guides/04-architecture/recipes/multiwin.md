@@ -48,11 +48,11 @@ The Multiwin recipe will allow you to have multiple windows.
 
 ## Diagram
 
-import Mermaid, { colors } from '@theme/Mermaid'
+import { colors } from '@theme/Mermaid'
 
 <!-- prettier-ignore-start -->
 
-<Mermaid chart={`graph LR
+```graph LR
       A==>H
       H==>F
       H==>G
@@ -71,7 +71,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       H{Bootstrap}
       style WINIT stroke:${colors.blue.dark},stroke-width:4px
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
+      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+```
 
 <!-- prettier-ignore-end -->
 

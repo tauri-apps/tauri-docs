@@ -53,11 +53,12 @@ The GLUI is a research pattern that we will use internally to test approaches us
 
 ## Diagram
 
-import Mermaid, { colors } from '@theme/Mermaid'
+import { colors } from '@theme/Mermaid'
 
 <!-- prettier-ignore-start -->
 
-<Mermaid chart={`graph TD
+```mermaid
+graph TD
       A==>H
       H==>G
       A-->D
@@ -73,7 +74,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       G[GL Window]
       H{Bootstrap}
       style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px`} />
+      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+```
 
 <!-- prettier-ignore-end -->
 

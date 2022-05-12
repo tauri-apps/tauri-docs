@@ -49,11 +49,12 @@ The Bridge recipe is a secure pattern where messages are passed between brokers 
 
 ## Diagram
 
-import Mermaid, { colors } from '@theme/Mermaid'
+import { colors } from '@theme/Mermaid'
 
 <!-- prettier-ignore-start -->
 
-<Mermaid chart={`graph TD
+```mermaid
+graph TD
       H==>F
       subgraph WEBVIEW
       F-.-E
@@ -78,7 +79,8 @@ import Mermaid, { colors } from '@theme/Mermaid'
       H{Bootstrap}
       style D fill:#ccc,stroke:#333,stroke-width:4px,color:white
       style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px`} />
+      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+```
 
 <!-- prettier-ignore-end -->
 

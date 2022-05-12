@@ -2,7 +2,7 @@
 toc_max_heading_level: 2
 ---
 
-import Mermaid, { colors } from '@theme/Mermaid'
+import { colors } from '@theme/Mermaid'
 
 # The Tauri Architecture
 
@@ -22,7 +22,7 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 
 <!-- prettier-ignore-start -->
 
-<Mermaid chart={`
+```mermaid
 graph TB
     subgraph Core
     direction LR
@@ -48,8 +48,7 @@ graph TB
     style Core fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
     style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
     style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-    `}
-/>
+```
 
 <!-- prettier-ignore-end -->
 
