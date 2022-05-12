@@ -51,35 +51,31 @@ The Cloudish recipe is a pattern for maximum flexibility and app performance. It
 
 import { colors } from '@theme/Mermaid'
 
-<!-- prettier-ignore-start -->
-
 ```mermaid
 graph TD
-      H==>F
-      H==>D
-      D-->F
-      F-->D
-      subgraph RUST
-      A==>H
-      end
-      subgraph WEBVIEW
-      F
-      end
-      subgraph SERVER
-      D
-      E-->D
-      end
-      A[Binary]
-      D(( localhost ))
-      E[bundled resources]
-      F[Window]
-      H{Bootstrap}
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-      style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
+  H==>F
+  H==>D
+  D-->F
+  F-->D
+  subgraph RUST
+  A==>H
+  end
+  subgraph WEBVIEW
+  F
+  end
+  subgraph SERVER
+  D
+  E-->D
+  end
+  A[Binary]
+  D(( localhost ))
+  E[bundled resources]
+  F[Window]
+  H{Bootstrap}
+  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
 ```
-
-<!-- prettier-ignore-end -->
 
 ## Configuration
 

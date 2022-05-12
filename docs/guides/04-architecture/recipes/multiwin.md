@@ -50,31 +50,27 @@ The Multiwin recipe will allow you to have multiple windows.
 
 import { colors } from '@theme/Mermaid'
 
-<!-- prettier-ignore-start -->
-
 ```graph LR
-      A==>H
-      H==>F
-      H==>G
-      subgraph WEBVIEW
-      F
-      end
-      subgraph WINIT
-      G
-      end
-      subgraph RUST
-      A
-      end
-      A[Binary]
-      F[Window]
-      G[Window]
-      H{Bootstrap}
-      style WINIT stroke:${colors.blue.dark},stroke-width:4px
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  A==>H
+  H==>F
+  H==>G
+  subgraph WEBVIEW
+  F
+  end
+  subgraph WINIT
+  G
+  end
+  subgraph RUST
+  A
+  end
+  A[Binary]
+  F[Window]
+  G[Window]
+  H{Bootstrap}
+  style WINIT stroke:${colors.blue.dark},stroke-width:4px
+  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
 ```
-
-<!-- prettier-ignore-end -->
 
 ## Configuration
 

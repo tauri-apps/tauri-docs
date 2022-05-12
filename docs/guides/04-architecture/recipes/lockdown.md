@@ -51,30 +51,26 @@ The Lockdown recipe is a minimal usage of the [Bridge pattern](./bridge.md), whi
 
 import { colors } from '@theme/Mermaid'
 
-<!-- prettier-ignore-start -->
-
 ```mermaid
 graph TD
-      H==>F
-      G-.->B
-      B-->G
-      subgraph WEBVIEW
-      G-->F
-      end
-      subgraph RUST
-      A-->B
-      A==>H
-      end
-      A[Binary]
-      B[API:Event]
-      F[Window]
-      G((Promise Closure))
-      H{Bootstrap}
-      style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-      style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  H==>F
+  G-.->B
+  B-->G
+  subgraph WEBVIEW
+  G-->F
+  end
+  subgraph RUST
+  A-->B
+  A==>H
+  end
+  A[Binary]
+  B[API:Event]
+  F[Window]
+  G((Promise Closure))
+  H{Bootstrap}
+  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
 ```
-
-<!-- prettier-ignore-end -->
 
 ## Configuration
 

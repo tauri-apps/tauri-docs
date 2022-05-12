@@ -20,8 +20,6 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 
 ## Core Ecosystem
 
-<!-- prettier-ignore-start -->
-
 ```mermaid
 graph TB
     subgraph Core
@@ -49,8 +47,6 @@ graph TB
     style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
     style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
 ```
-
-<!-- prettier-ignore-end -->
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
