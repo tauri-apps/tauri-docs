@@ -18,6 +18,14 @@ For those using the Windows Subsystem for Linux (WSL), please refer to our [Linu
 
 On Windows, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). You also need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2019]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
 
+<figure>
+
+![Microsoft Visual Studio Installer](/img/guides/vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](/img/guides/vs-installer-dark.png#gh-dark-mode-only)
+
+<figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
+</figure>
+
 ### Install WebView2
 
 :::note
