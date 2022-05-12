@@ -34,7 +34,7 @@ WebView2 is pre-installed in Windows 11
 
 Tauri heavily depends on WebView2 to render web content on Windows, therefore you must have WebView2 installed. The easiest way is to download and run the Evergreen Bootstrapper from the [official website][download webview2].
 
-The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues - especially with Windows on ARM - you can select the correct standalone installer or even a fixed version.
+The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues - especially with Windows on ARM - you can select the correct standalone installer.
 
 ## Setting Up macOS
 
