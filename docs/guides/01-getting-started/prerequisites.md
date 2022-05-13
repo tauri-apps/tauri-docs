@@ -66,6 +66,11 @@ To install Rust on macOS, open a terminal and enter the following command:
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
+> We have audited this bash script, and it does what it says it is
+> supposed to do. Nevertheless, before blindly curl-bashing a script,
+> it is always wise to look at it first. Here is the file as a plain
+> [download link][rustup.sh].
+
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was
 successful, the following line will appear:
 
@@ -77,7 +82,26 @@ Rust is installed now. Great!
 
 #### 1. System Dependencies
 
-You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions.
+## Setting Up Linux
+
+To install Rust on Linux, open a terminal and enter the following command:
+
+```console
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+> We have audited this bash script, and it does what it says it is
+> supposed to do. Nevertheless, before blindly curl-bashing a script,
+> it is always wise to look at it first. Here is the file as a plain
+> [download link][rustup.sh].
+
+The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was successful, the following line will appear:
+
+```text
+Rust is installed now. Great!
+```
+
+You also need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions.
 
 <Tabs>
   <TabItem value="debian" label="Debian" default>
@@ -187,3 +211,4 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [tauri discord]: https://discord.com/invite/tauri-apps
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
+[rustup.sh]: https://sh.rustup.rs
