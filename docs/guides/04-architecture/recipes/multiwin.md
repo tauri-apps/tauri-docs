@@ -50,7 +50,8 @@ The Multiwin recipe will allow you to have multiple windows.
 
 import { colors } from '@theme/Mermaid'
 
-```graph LR
+```mermaid
+graph LR
   A==>H
   H==>F
   H==>G
