@@ -33,7 +33,7 @@ to get to a path outside your application's expected locations. Another example 
 fetch call is only setting the Origin header to what your application expects it to be.
 
 That said, it intercepts _**all**_ messages from the frontend, so it will even work with always-on APIs such as
-[Events](../../05-examples/events.md). Since some events may cause your own rust code to perform actions, the same sort of
+[Events](../../07-examples/events.md). Since some events may cause your own rust code to perform actions, the same sort of
 validation techniques can be used with them.
 
 ## How
@@ -77,7 +77,7 @@ and that you probably already use it every day under the hood with TLS.
 There is also a cryptographically secure key generated once each time the Tauri application is started. It is not
 generally noticeable if the system already has enough entropy to immediately return enough random numbers, which is
 extremely common for desktop environments. If running in a headless environment to perform
-some [integration testing with WebDriver](../../07-testing/webdriver/introduction.md)
+some [integration testing with WebDriver](../../04-testing/webdriver/introduction.md)
 then you may want to install some sort of entropy generating service such as `haveged` if your operating system does not
 have one included. <sup>Linux 5.6 (March 2020) now includes entropy generation using speculative execution.</sup>
 
