@@ -2,6 +2,7 @@
 id: about-recipes
 title: 'A word on recipes'
 sidebar_label: A word on recipes
+draft: true
 ---
 
 Tauri recipes are descriptions of use-cases that are entirely configurable within the `src-tauri/tauri.conf.json` file. These are not the limits of what Tauri can do, and there are probably more out there. If you discover one, why not get in touch and help us update this collection!

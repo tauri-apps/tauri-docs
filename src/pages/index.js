@@ -47,7 +47,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: '/guides/architecture/recipes/about-recipes',
+      link: '/guides/architecture/inter-process-communication',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({

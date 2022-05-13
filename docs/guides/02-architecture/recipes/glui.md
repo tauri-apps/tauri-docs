@@ -1,5 +1,6 @@
 ---
 title: GLUI
+draft: true
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'

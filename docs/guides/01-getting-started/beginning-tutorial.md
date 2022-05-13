@@ -160,11 +160,6 @@ App directory structure
 
 This information can be beneficial when triaging problems.
 
-### Recipes
-
-We've also defined prebuilt configurations called "Recipes". They may help you to customize Tauri to fit your needs.
-[See more about recipes][recipes].
-
 ## Vue CLI Plugin Tauri
 
 If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin].

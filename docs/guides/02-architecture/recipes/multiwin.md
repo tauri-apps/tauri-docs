@@ -1,5 +1,6 @@
 ---
 title: Multiwin
+draft: true
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl'

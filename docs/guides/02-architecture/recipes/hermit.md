@@ -1,5 +1,6 @@
 ---
-title: Cloudish
+title: Hermit
+draft: true
 ---
 
 import Rater from '@theme/Rater'
@@ -14,67 +15,58 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
       </tr>
       <tr>
         <td>Extensibility</td>
-        <td><Rater value="3"/></td>
+        <td><Rater value="0"/></td>
       </tr>
       <tr>
         <td>Performance</td>
-        <td><Rater value="3"/></td>
+        <td><Rater value="5"/></td>
       </tr>
       <tr>
         <td>Security</td>
-        <td><Rater value="2"/></td>
+        <td><Rater value="5"/></td>
       </tr>
     </table>
   </div>
   <div className="col col--4 pattern-logo">
-    <img src={useBaseUrl('img/recipes/Cloudish.svg')} alt="Cloudish" />
+    <img src={useBaseUrl('img/recipes/Hermit.svg')} alt="Hermit" />
   </div>
     <div className="col col--4">
     Pros:
     <ul>
-      <li>Similar to a SPA web-app</li>
-      <li>No Rust skills required</li>
+      <li>Quick to make</li>
+      <li>Smallest size</li>
     </ul>
     Cons:
     <ul>
-      <li>No access to Rust API</li>
-      <li>Uses a localhost server</li>
+      <li>No remote resources</li>
+      <li>No access to API</li>
     </ul>
   </div>
 </div>
 
 ## Description
 
-The Cloudish recipe is a pattern for maximum flexibility and app performance. It uses a localhost server, which means that your app will technically be available to other processes, like browsers and potentially other devices on the network. All of your assets are baked into the binary, but served as if they were distinct files.
+The Hermit recipe is a pattern for ultimate application isolation where all logic is self-contained in the Window and the binary exists merely to bootstrap the Window. There is no communication back to Rust from the Window, there is no localhost server, and the Window has no access to any remote resources. The Hermit is great for interactive Kiosk Mode and standalone HTML based games.
 
 ## Diagram
 
 import { colors } from '@theme/Mermaid'
 
 ```mermaid
-graph TD
-  H==>F
-  H==>D
-  D-->F
-  F-->D
-  subgraph RUST
+graph LR
   A==>H
-  end
+  H==>F
   subgraph WEBVIEW
   F
   end
-  subgraph SERVER
-  D
-  E-->D
+  subgraph RUST
+  A
   end
-  A[Binary]
-  D(( localhost ))
-  E[bundled resources]
-  F[Window]
+  A[fa:fa-cog Binary ]
+  F[fa:fa-window-maximize Window]
   H{Bootstrap}
   style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
   style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-  style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
 ```
 
 ## Configuration
@@ -84,8 +76,7 @@ Here's what you need to add to your tauri.conf.json file:
 ```json
 "tauri": {
   "allowlist": {
-    "all": false                  // disable entire API
+    "all": false,       // disable and tree-shake all api functions
   }
 }
-
 ```

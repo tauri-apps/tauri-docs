@@ -1,5 +1,6 @@
 ---
 title: Bridge
+draft: true
 ---
 
 import Rater from '@theme/Rater'
