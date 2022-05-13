@@ -12,9 +12,9 @@ The first step is to install [Rust] and system dependencies. Keep in mind that t
 
 ## Setting Up Windows
 
-On Windows, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
+### 1. Microsoft Visual Studio C++ Build Tools
 
-You also need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
+You will need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
 
 <figure>
 
@@ -24,7 +24,7 @@ You also need to install Microsoft Visual Studio C++ build tools. The easiest wa
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
 
-### Install WebView2
+### 2. WebView2
 
 :::note
 WebView2 is pre-installed in Windows 11
@@ -34,10 +34,23 @@ Tauri heavily depends on WebView2 to render web content on Windows, therefore yo
 
 The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues (especially with Windows on ARM) you can select the correct standalone installer.
 
+### 3. Rust
+
+Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
+
 ## Setting Up macOS
 
-To install Rust on macOS, open a terminal and enter the following
-command:
+### 1. CLang and macOS Development Dependencies
+
+You will need to install CLang and macOS development dependencies. To do this, run the following command in your terminal:
+
+```console
+xcode-select --install
+```
+
+### 2. Rust
+
+To install Rust on macOS, open a terminal and enter the following command:
 
 ```console
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -50,27 +63,11 @@ successful, the following line will appear:
 Rust is installed now. Great!
 ```
 
-You also need to install CLang and macOS development dependencies. To do this, run the following command in your terminal:
-
-```console
-xcode-select --install
-```
-
 ## Setting Up Linux
 
-To install Rust on Linux, open a terminal and enter the following command:
+### 1. System Dependencies
 
-```console
-curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-```
-
-The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was successful, the following line will appear:
-
-```text
-Rust is installed now. Great!
-```
-
-You also need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions.
+You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions.
 
 <Tabs>
   <TabItem value="debian" label="Debian" default>
@@ -121,6 +118,20 @@ sudo dnf group install "C Development Tools and Libraries"
 
   </TabItem>
 </Tabs>
+
+### 2. Rust
+
+To install Rust on Linux, open a terminal and enter the following command:
+
+```console
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was successful, the following line will appear:
+
+```text
+Rust is installed now. Great!
+```
 
 ## Updating and Uninstalling
 
