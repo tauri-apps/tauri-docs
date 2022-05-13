@@ -166,5 +166,4 @@ If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin]
 
 [prerequisites]: ./prerequisites.md
 [`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
-[recipes]: ../04-architecture/recipes/about-recipes.md
 [vue cli plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri
