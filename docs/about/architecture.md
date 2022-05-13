@@ -10,7 +10,7 @@ import { colors } from '@theme/Mermaid'
 
 Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
 
-Tauri apps can have [custom menus](../guides/examples/menu) and [tray-type interfaces](../guides/examples/system-tray). They can be [updated](../guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../about/benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](../about/security).
+Tauri apps can have [custom menus](../guides/features/menu) and [tray-type interfaces](../guides/features/system-tray). They can be [updated](../guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../about/benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](../about/security).
 
 ### What Tauri is Not
 
@@ -127,7 +127,7 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 ## Plugins
 
-[Tauri Plugin Guide](../guides/examples/plugin)
+[Tauri Plugin Guide](../guides/features/plugin)
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 

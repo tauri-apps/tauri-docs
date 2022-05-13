@@ -33,7 +33,7 @@ to get to a path outside your application's expected locations. Another example 
 fetch call is only setting the Origin header to what your application expects it to be.
 
 That said, it intercepts _**all**_ messages from the frontend, so it will even work with always-on APIs such as
-[Events](../../07-examples/events.md). Since some events may cause your own rust code to perform actions, the same sort of
+[Events](../../07-features/events.md). Since some events may cause your own rust code to perform actions, the same sort of
 validation techniques can be used with them.
 
 ## How
