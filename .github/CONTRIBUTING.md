@@ -60,8 +60,8 @@ The following items should be translated before enabling a language:
 
 - strings in i18n/[language] json files
 - docs/about/intro.md and docs/about/security.md;
-- all files in docs/getting-started;
-- all files in docs/development;
+- all files in docs/guides/getting-started;
+- all files in docs/guides/development;
 
 ## Versioning
 
