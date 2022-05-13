@@ -1,6 +1,5 @@
 ---
-id: isolation
-sidebar_label: Isolation
+slug: /guides/architecture/isolation
 ---
 
 # Isolation Pattern

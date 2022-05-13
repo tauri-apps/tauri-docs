@@ -57,7 +57,7 @@ Contrary to other similar solutions, the WebView libraries are **not** included 
     macOS and [webkitgtk] on Linux.
 
 [principle of least privilege]: https://en.wikipedia.org/wiki/Principle_of_least_privilege
-[inter-process communication]: inter-process-communication.md
+[inter-process communication]: inter-process-communication
 [ownership]: https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
 [microsoft edge webview2]: https://docs.microsoft.com/en-us/microsoft-edge/webview2/
 [wkwebview]: https://developer.apple.com/documentation/webkit/wkwebview
