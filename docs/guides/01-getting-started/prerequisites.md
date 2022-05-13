@@ -66,10 +66,9 @@ To install Rust on macOS, open a terminal and enter the following command:
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-> We have audited this bash script, and it does what it says it is
-> supposed to do. Nevertheless, before blindly curl-bashing a script,
-> it is always wise to look at it first. Here is the file as a plain
-> [download link][rustup.sh].
+:::note
+We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a plain script: [rustup.sh]
+:::
 
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was
 successful, the following line will appear:
