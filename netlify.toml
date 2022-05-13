@@ -15,6 +15,10 @@ from = "/partners"
 to = "/#sponsors"
 
 [[redirects]]
+from = "/docs/guides/*"
+to = "/v1/guides/examples/:splat"
+
+[[redirects]]
 from = "/docs/*"
 to = "/v1/:splat"
 
