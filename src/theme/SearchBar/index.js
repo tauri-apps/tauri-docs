@@ -1,44 +1,27 @@
 import React, { useEffect } from 'react'
-import classNames from 'classnames'
+import { useColorMode } from '@docusaurus/theme-common'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
-import styles from './searchbar.module.css'
-import Icon from '@theme/Icon'
-import './searchbar.module.css'
 
-const SearchBar = ({ className }) => {
+export default function Component() {
+  const { isDarkTheme } = useColorMode()
   useEffect(() => {
-    const docsSearchBar = require('docs-searchbar.js').default
-    docsSearchBar({
+    const DocsSearchBar = require('docs-searchbar.js').default
+
+    DocsSearchBar({
       hostUrl: 'https://search2.tauri.studio',
       apiKey:
         'XZEH8BS90ee09c45215a8421c06857bcbde5c1a6797bdf4859a57a3ac1228a2b81df0994',
       indexUid: 'consolidated',
-      inputSelector: '#search-bar-input',
+      inputSelector: '.search-bar-input',
       debug: process.env.NODE_ENV === 'development',
-      /* transformData(hits) {
-        return hits.map((hit) => ({ ...hit, url: '/docs/' + hit.url }))
-      }, */
+      enableDarkMode: isDarkTheme,
+      enhancedSearchInput: true,
     })
   }, [])
 
   return (
-    <div
-      className={classNames(
-        className,
-        'SearchBar',
-        'meilisearch-search-wrapper',
-        styles.searchWrapper
-      )}
-    >
-      <Icon title="search" className={classNames(styles.searchIcon)} />
-      <input
-        placeholder="Search..."
-        type="text"
-        className={classNames(styles.search)}
-        id="search-bar-input"
-      />
+    <div>
+      <input className="search-bar-input" />
     </div>
   )
 }
-
-export default SearchBar
