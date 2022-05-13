@@ -8,11 +8,21 @@ import TabItem from '@theme/TabItem';
 
 # Prerequisites
 
+:::tip Quick Overview
+Check out [Tauri in 100 Seconds](https://www.youtube.com/watch?v=-X8evddpu7M) by [Fireship](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) on YouTube for a quick introduction to Tauri
+
+<div className="videowrapper">
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-X8evddpu7M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+:::
+
+## Installing
+
 The first step is to install [Rust] and system dependencies. Keep in mind that this setup is only needed for _developing Tauri apps_. Your end-users are not required to do any of this.
 
-## Setting Up Windows
+### Setting Up Windows
 
-### 1. Microsoft Visual Studio C++ Build Tools
+#### 1. Microsoft Visual Studio C++ Build Tools
 
 You will need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
 
@@ -24,7 +34,7 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
 
-### 2. WebView2
+#### 2. WebView2
 
 :::note
 WebView2 is pre-installed in Windows 11
@@ -34,13 +44,13 @@ Tauri heavily depends on WebView2 to render web content on Windows, therefore yo
 
 The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues (especially with Windows on ARM) you can select the correct standalone installer.
 
-### 3. Rust
+#### 3. Rust
 
 Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
 
-## Setting Up macOS
+### Setting Up macOS
 
-### 1. CLang and macOS Development Dependencies
+#### 1. CLang and macOS Development Dependencies
 
 You will need to install CLang and macOS development dependencies. To do this, run the following command in your terminal:
 
@@ -48,7 +58,7 @@ You will need to install CLang and macOS development dependencies. To do this, r
 xcode-select --install
 ```
 
-### 2. Rust
+#### 2. Rust
 
 To install Rust on macOS, open a terminal and enter the following command:
 
@@ -63,9 +73,9 @@ successful, the following line will appear:
 Rust is installed now. Great!
 ```
 
-## Setting Up Linux
+### Setting Up Linux
 
-### 1. System Dependencies
+#### 1. System Dependencies
 
 You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions.
 
@@ -119,7 +129,7 @@ sudo dnf group install "C Development Tools and Libraries"
   </TabItem>
 </Tabs>
 
-### 2. Rust
+#### 2. Rust
 
 To install Rust on Linux, open a terminal and enter the following command:
 
