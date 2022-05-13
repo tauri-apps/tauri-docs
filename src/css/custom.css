@@ -254,3 +254,8 @@ html[data-theme='light'] .header-github-link::before {
 [data-theme='dark'] img[src$='#gh-light-mode-only'] {
   display: none;
 }
+
+/* Fix scrollbar in searchbar appearing due to logo margin */
+.docs-searchbar-footer-logo {
+  margin: 0 !important;
+}
