@@ -12,10 +12,6 @@ The first step is to install [Rust] and system dependencies. Keep in mind that t
 
 ## Setting Up Windows
 
-:::info
-For those using the Windows Subsystem for Linux (WSL), please refer to our [Linux specific instructions](#setting-up-linux) instead.
-:::
-
 On Windows, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
 
 You also need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
@@ -125,48 +121,6 @@ sudo dnf group install "C Development Tools and Libraries"
 
   </TabItem>
 </Tabs>
-
-### Windows Subsystem for Linux (WSL)
-
-To run a graphical application with WSL, you need to download one of these X servers: Xming, Cygwin X, and vcXsrv. Since vcXsrv has been used internally, it's the one we recommend installing.
-
-#### WSL Version 1​
-
-Open the X server and then run the following in the terminal:
-
-```console
-export DISPLAY=:0
-```
-
-You should now be able to run any graphical application via the terminal.
-
-#### WSL Version 2
-
-You'll need to run a command that is slightly more complex than WSL 1:
-
-```console
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-```
-
-You will also need to add `-ac` to the X server as an argument. If for some reason this command doesn't work you can use an alternative command such as:
-
-```console
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | sed 's/.* //g'):0
-```
-
-or you can manually find the Address using:
-
-```console
-cat /etc/resolve.conf | grep nameserver
-```
-
-:::tip
-
-Don't forget that you'll have to use the `export` command anytime you want to use a graphical application for each newly opened terminal.
-
-You can download some examples to try with `sudo apt-get install x11-apps` (xeyes is a good choice). It can be handy when troubleshooting WSL issues.
-
-:::
 
 ## Updating and Uninstalling
 
