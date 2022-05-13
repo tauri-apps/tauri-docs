@@ -249,6 +249,8 @@ html[data-theme='light'] .header-github-link::before {
   background-color: var(--ifm-color-warning) !important;
 }
 
+/* Allows dynamic images based on light/dark mode */
+/* https://docusaurus.io/docs/markdown-features/assets#github-style-themed-images */
 [data-theme='light'] img[src$='#gh-dark-mode-only'],
 [data-theme='dark'] img[src$='#gh-light-mode-only'] {
   display: none;
