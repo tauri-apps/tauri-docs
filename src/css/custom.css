@@ -8,7 +8,6 @@
 @import 'themify-icons.css';
 @import 'tabs.css';
 @import '~@fontsource/tauri';
-@import '../theme/SearchBar/styles.css';
 
 /* You can override the default Infima variables here. */
 :root {
@@ -247,4 +246,16 @@ html[data-theme='light'] .header-github-link::before {
   color: var(--ifm-button-color) !important;
   /* Fixes the background color on mobile */
   background-color: var(--ifm-color-warning) !important;
+}
+
+/* Allows dynamic images based on light/dark mode */
+/* https://docusaurus.io/docs/markdown-features/assets#github-style-themed-images */
+[data-theme='light'] img[src$='#gh-dark-mode-only'],
+[data-theme='dark'] img[src$='#gh-light-mode-only'] {
+  display: none;
+}
+
+/* Fix scrollbar in searchbar appearing due to logo margin */
+.docs-searchbar-footer-logo {
+  margin: 0 !important;
 }

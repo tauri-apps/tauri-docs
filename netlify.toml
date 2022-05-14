@@ -15,6 +15,10 @@ from = "/partners"
 to = "/#sponsors"
 
 [[redirects]]
+from = "/docs/guides/*"
+to = "/v1/guides/features/:splat"
+
+[[redirects]]
 from = "/docs/*"
 to = "/v1/:splat"
 
@@ -29,3 +33,7 @@ to = "/v1/api/:splat"
 [[redirects]]
 from = "/guides/*"
 to = "/v1/guides/:splat"
+
+[[redirects]]
+from = "/v1/guides/getting-started/setup*"
+to = "/v1/guides/getting-started/prerequisites/"

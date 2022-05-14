@@ -233,6 +233,7 @@ const siteConfig = {
               },
             }),
           },
+          remarkPlugins: [require('mdx-mermaid')],
         },
 
         theme: {

@@ -59,9 +59,10 @@ To add a language to the site, add it to `docusaurus.config.js`'s `siteconfig.i1
 The following items should be translated before enabling a language:
 
 - strings in i18n/[language] json files
-- docs/about/intro.md and docs/about/security.md;
-- all files in docs/getting-started;
-- all files in docs/development;
+- all files in `docs/guides`
+- all files in `docs/about`
+- all files in `docs/.templates` (these are used to generate `docs/api/cli` and `docs/api/config`)
+- all markdown files in `src/pages`
 
 ## Versioning
 

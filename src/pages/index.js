@@ -9,7 +9,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
-import { getCurrentVersion } from '../utils/scripts'
+import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 
 // See translations for label and description
 const features = [
@@ -47,7 +47,7 @@ const features = [
     },
     {
       imageUrl: 'img/undraw_recipes.svg',
-      link: '/guides/architecture/recipes/about-recipes',
+      link: '/guides/architecture/inter-process-communication',
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -70,6 +70,8 @@ const features = [
 
 function Feature({ imageUrl, link, label, description }) {
   const imgUrl = useBaseUrl(imageUrl)
+  const latestVersion = useLatestVersion()
+
   return (
     <div className="col col--4 feature">
       <div className="card">
@@ -84,7 +86,7 @@ function Feature({ imageUrl, link, label, description }) {
         </div>
         {link && (
           <div className="card__footer">
-            <Link to={getCurrentVersion() + link}>
+            <Link to={latestVersion.path + link}>
               <button className="button button--secondary button--block">
                 <Translate>See more</Translate>
               </button>
@@ -645,6 +647,7 @@ function Logo(props) {
 
 function Home() {
   const context = useDocusaurusContext()
+  const latestVersion = useLatestVersion()
 
   return (
     <Layout
@@ -688,7 +691,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={getCurrentVersion() + '/about/intro'}
+                    to={latestVersion.path + '/about/intro'}
                   >
                     <span>
                       <Translate>Learn More</Translate>
@@ -702,7 +705,7 @@ function Home() {
                       styles.getStarted
                     )}
                     to={
-                      getCurrentVersion() +
+                      latestVersion.path +
                       '/guides/getting-started/prerequisites'
                     }
                   >
