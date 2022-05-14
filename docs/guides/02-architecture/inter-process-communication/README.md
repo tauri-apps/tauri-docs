@@ -33,7 +33,7 @@ sequenceDiagram
 
 Tauri also provides a [foreign function interface]-like abstraction on top IPC messages[^1]. The primary API, `invoke`, is similar to the browsers `fetch` API and allows the Frontend to invoke rust functions, pass arguments, and receive data.
 
-Because this mechanism uses uses a [JSON-RPC] like protocol under the hood to serialize requests and responses, all arguments and return data must be serializable to JSON.
+Because this mechanism uses a [JSON-RPC] like protocol under the hood to serialize requests and responses, all arguments and return data must be serializable to JSON.
 
 <figure>
 
