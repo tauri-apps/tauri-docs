@@ -1,0 +1,37 @@
+.searchbox {
+  width: 350px;
+}
+
+@media only screen and (max-width: 1185px) {
+  .searchbox {
+    width: 200px !important;
+  }
+
+  .badge {
+    display: none !important;
+  }
+
+  .svg-icons {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 995px) {
+  .searchbox {
+    width: 400px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .searchbox {
+    width: calc(100vw - 200px) !important;
+  }
+}
+
+.docs-searchbar-footer-logo {
+  height: 15px;
+}
+
+.navbar-sidebar--show .navbar-sidebar {
+  z-index: 999;
+}
