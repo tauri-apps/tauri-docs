@@ -3,8 +3,9 @@ import { useColorMode } from '@docusaurus/theme-common'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import './searchbar.css'
 
-export default function Component() {
-  const { isDarkTheme } = useColorMode()
+export default function Component () {
+  const isDarkTheme = useColorMode().colorMode === 'dark'
+
   useEffect(() => {
     const DocsSearchBar = require('docs-searchbar.js').default
 
