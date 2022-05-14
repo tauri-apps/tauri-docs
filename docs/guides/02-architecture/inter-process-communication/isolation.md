@@ -69,7 +69,7 @@ Because encryption of the message does occur, this does mean that there are addi
 [Brownfield pattern](./brownfield.md) even if the secure Isolation application doesn't do anything. Outside
 performance-sensitive applications (who likely have a carefully kept small set of dependencies to keep the performance
 adequate), most applications should not notice the runtime costs of encrypting/decrypting the IPC messages as they are
-both relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relative in this
+both relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relevant in this
 context is that it's the only authenticated mode algorithm included
 in [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
 and that you probably already use it every day under the hood with TLS.
