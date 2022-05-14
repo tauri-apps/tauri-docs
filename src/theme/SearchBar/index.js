@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
-import './searchbar.css'
+import './style.css'
 
 export default function Component() {
   const isDarkTheme = useColorMode().colorMode === 'dark'

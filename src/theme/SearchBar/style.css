@@ -1,3 +1,9 @@
+/*
+  The default meilisearch search bar style is docs-searchbar.js/dist/cdn/docs-searchbar.min.css.
+  But there are few configurations needed to make the site look better.
+*/
+
+/* Default searchbox and dropdown style */
 .searchbox {
   width: 350px;
 }
@@ -7,17 +13,20 @@ div[data-ds-theme='dark'] .meilisearch-autocomplete .dsb-dropdown-menu {
   width: 300% !important;
 }
 
+/* The subcategory text is centered vertically */
 div[data-ds-theme='dark']
   .meilisearch-autocomplete
   .docs-searchbar-suggestion--wrapper {
   align-items: center !important;
 }
 
+/* Media Queries for specific width screen */
 @media only screen and (max-width: 1185px) {
   .searchbox {
     width: 200px !important;
   }
 
+  /* These badges and svg-icons are not needed on smaller screens */
   .badge,
   .svg-icons {
     display: none !important;
@@ -36,6 +45,7 @@ div[data-ds-theme='dark']
 }
 
 @media only screen and (max-width: 630px) {
+  /* From smaller ipad screens, the text's font size needs to be smaller */
   .docs-searchbar-suggestion--subcategory-column-text {
     font-size: 18px !important;
   }
@@ -62,6 +72,7 @@ div[data-ds-theme='dark']
     min-width: 300px;
   }
 
+  /* The texts are now in different lines (title, subcategory, text) */
   .docs-searchbar-suggestion--wrapper {
     display: block !important;
   }
@@ -78,10 +89,12 @@ div[data-ds-theme='dark']
   }
 }
 
+/* Footer's height should be smaller to be the same as the 'powered by' text */
 .docs-searchbar-footer-logo {
   height: 15px;
 }
 
+/* navigation sidebar and backdrop's z-index should be higher than the searchbar */
 .navbar-sidebar--show .navbar-sidebar {
   z-index: 999;
 }
