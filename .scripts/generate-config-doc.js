@@ -1,149 +1,86 @@
 const fs = require('fs')
 const path = require('path')
 const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
-const schema = JSON.parse(fs.readFileSync(schemaPath).toString())
+const schemaString = fs.readFileSync(schemaPath).toString() //.replace('\\n/g', '')
+const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
-function formatDescription(description) {
-  return description
-    ? description
-        .replace(/`/g, '\\`')
-        .replace(/\n/g, ' ')
-        .replace(/  /g, ' ')
-        .replace(/{/g, '\\{')
-        .replace(/}/g, '\\}')
-        .replace(/<http(\S+)>/g, '<a href="http$1">http$1</a>')
-    : ''
-}
+const output = []
 
-function generatePropertiesEl(schema, anchorRoot, definition, tab) {
-  const previousTabLevel = tab.replace('  ', '')
-  const fields = [`anchorRoot="${anchorRoot}"`]
-
-  if (definition.additionalProperties) {
-    fields.push(`type="${definition.type}"`)
-    fields.push(`description="${formatDescription(definition.description)}"`)
+Object.entries(schema.properties).forEach(([key, value]) => {
+  if (key !== '$schema') {
+    buildProperty(key, value, 1)
   }
+})
 
-  const rows = []
-  for (const propertyName in definition.properties) {
-    const property = definition.properties[propertyName]
-    if ('type' in property) {
-      let type
-      if ('items' in property) {
-        if (property.items.type) {
-          type = `${property.items.type}[]`
-        } else {
-          const typeName = property.items.$ref.replace('#/definitions/', '')
-          const propDefinition = schema.definitions[typeName]
-          const propertyEl = generatePropertiesEl(
-            schema,
-            `${anchorRoot}.${propertyName}`,
-            propDefinition,
-            `${tab}  `
-          )
-          rows.push({
-            property: propertyName,
-            optional: 'default' in property || property.type.includes('null'),
-            type: `${typeName}[]`,
-            description: property.description,
-            child: `<Array type="${typeName}">\n${tab}${propertyEl}\n${previousTabLevel}</Array>`,
-          })
-          continue
-        }
-      } else if (Array.isArray(property.type)) {
-        type = property.type.join(' | ')
-      } else {
-        type = property.type
-      }
-      rows.push({
-        property: propertyName,
-        optional: true,
-        type,
-        description: property.description,
-        default: property.default,
-      })
-    } else if ('anyOf' in property) {
-      const subType = property.anyOf[0].$ref.replace('#/definitions/', '')
-      const propDefinition = schema.definitions[subType]
-      const propertyEl = generatePropertiesEl(
-        schema,
-        `${anchorRoot}.${propertyName}`,
-        propDefinition,
-        `${tab}  `
-      )
-      rows.push({
-        property: propertyName,
-        optional: property.anyOf.length > 1 && property.anyOf[1].type === 'null',
-        type: subType,
-        description: property.description,
-        child: propertyEl,
-      })
-    } else if ('allOf' in property) {
-      const subType = property.allOf[0].$ref.replace('#/definitions/', '')
-      const propDefinition = schema.definitions[subType]
-      const propertyEl = propDefinition.properties
-        ? generatePropertiesEl(
-            schema,
-            `${anchorRoot}.${propertyName}`,
-            propDefinition,
-            `${tab}  `
-          )
-        : undefined
-      rows.push({
-        property: propertyName,
-        optional: 'default' in property,
-        type: property.type || subType,
-        description: property.description,
-        child: propertyEl,
-      })
+function buildProperty(key, value, headingLevel) {
+  output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
+  output.push(value.description)
+
+  if (value.type) {
+    // Simple type
+    output.push('\n')
+    output.push(`Type: ${typeConstructor(value)}`)
+    output.push('\n')
+    output.push(`Default: ${value.default}`)
+  } else {
+    // Nested object
+    if ('allOf' in value) {
+      const propertyKey = value.allOf[0].$ref.replace('#/definitions/', '')
+      const propertyValue = schema.definitions[propertyKey]
+      buildProperty(propertyKey, propertyValue, headingLevel + 1)
     }
   }
 
-  if (rows.length > 0) {
-    const serializedRows = rows
-      .map((row) => {
-        const fields = [
-          `property: "${row.property}"`,
-          `optional: ${row.optional}`,
-          `type: "${row.type}"`,
-          `description: \`${formatDescription(row.description)}\``,
-        ]
-        if (row.child) {
-          fields.push(`child: ${row.child}`)
-        }
-        return `{ ${fields.join(', ')} },`
-      })
-      .join(`\n${tab}`)
-    fields.push(`rows={[\n${tab}${serializedRows}\n${previousTabLevel}]}`)
-  } else {
-    fields.push('rows={[]}')
+  // If there is a reference to another property
+  if (value.properties) {
+    buildTable(value.properties)
+    Object.entries(value.properties).forEach(([propertyKey, propertyValue]) => {
+      // Check to see if it's a complex type and needs to be built further
+      if ('allOf' in propertyValue) {
+        buildProperty(propertyKey, propertyValue, headingLevel + 1)
+      }
+    })
   }
-
-  return `<Properties ${fields.join(' ')}/>`
 }
 
-const output = []
+function buildTable(values) {
+  output.push('\n')
+  output.push('| Name | Type | Default | Description |')
+  output.push('| ---- | ---- | ------- | ----------- |')
 
-for (const propertyName in schema.properties) {
-  if (propertyName === '$schema') {
-    continue
+  Object.entries(values).forEach(([key, value]) => {
+    var type = typeConstructor(value)
+
+    output.push(
+      `| \`${key}\` | ${type} | ${value.default} | ${value.description} |`
+    )
+  })
+}
+
+function typeConstructor(value) {
+  if (Array.isArray(value.type)) {
+    // Array type
+    value.type.forEach(function (value, index) {
+      this[index] = `\`${value}\``
+    }, value.type)
+    return value.type.join(' \\| ')
+  } else if ('allOf' in value) {
+    // Reference to another type
+    const name = value.allOf[0].$ref.replace('#/definitions/', '')
+    // TODO: Add link to heading
+    return `\`${name}\``
+  } else if (value.type) {
+    return `\`${value.type}\``
+  } else {
+    console.log(`Unknown type: ${JSON.stringify(value)}`)
+    return `COMPLEX TYPE ${JSON.stringify(value.allOf)}`
   }
-  const property = schema.properties[propertyName]
-  const definitionName = property.allOf[0].$ref.replace('#/definitions/', '')
-  const definition = schema.definitions[definitionName]
-  let contents = `## \`${propertyName}\`\n\n${generatePropertiesEl(
-    schema,
-    propertyName,
-    definition,
-    '  '
-  )}`
-  output.push(contents)
 }
 
 fs.writeFileSync(
   targetPath,
-  template.replace('{properties}', output.join('\n\n'))
+  template.replace('{properties}', output.join('\n'))
 )

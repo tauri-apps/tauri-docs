@@ -17,252 +17,503 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri reads a pla
 
 `tauri.conf.json` is composed of the following properties:
 
-## `build`
+# `build`
+The build configuration.
+## `BuildConfig`
+The Build configuration object.
 
-<Properties anchorRoot="build" rows={[
-  { property: "beforeBuildCommand", optional: true, type: "string | null", description: `A shell command to run before \`tauri build\` kicks in. The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation.` },
-  { property: "beforeDevCommand", optional: true, type: "string | null", description: `A shell command to run before \`tauri dev\` kicks in. The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation.` },
-  { property: "devPath", optional: true, type: "AppUrl", description: `The path or URL to use on development.` },
-  { property: "distDir", optional: true, type: "AppUrl", description: `The path to the app's dist dir. This path must contain your index.html file.` },
-  { property: "features", optional: true, type: "string[]", description: `Features passed to \`cargo\` commands.` },
-  { property: "runner", optional: true, type: "string | null", description: `The binary used to build and run the application.` },
-  { property: "withGlobalTauri", optional: true, type: "boolean", description: `Whether we should inject the Tauri API on \`window.__TAURI__\` or not.` },
-]}/>
 
-## `package`
+Type: `object`
 
-<Properties anchorRoot="package" rows={[
-  { property: "productName", optional: true, type: "string | null", description: `App name.` },
-  { property: "version", optional: true, type: "string | null", description: `App version. It is a semver version number or a path to a \`package.json\` file contaning the \`version\` field.` },
-]}/>
 
-## `plugins`
+Default: undefined
 
-<Properties anchorRoot="plugins" type="object" description="The plugin configs holds a HashMap mapping a plugin name to its configuration object." rows={[]}/>
 
-## `tauri`
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `beforeBuildCommand` | `string` \| `null` | undefined | A shell command to run before `tauri build` kicks in. <br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| `beforeDevCommand` | `string` \| `null` | undefined | A shell command to run before `tauri dev` kicks in. <br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| `devPath` | `AppUrl` | http://localhost:8080/ | The path or URL to use on development. |
+| `distDir` | `AppUrl` | ../dist | The path to the app's dist dir. This path must contain your index.html file. |
+| `features` | `array` \| `null` | undefined | Features passed to `cargo` commands. |
+| `runner` | `string` \| `null` | undefined | The binary used to build and run the application. |
+| `withGlobalTauri` | `boolean` | false | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
+### `devPath`
+The path or URL to use on development.
+#### `AppUrl`
+The `dev_path` and `dist_dir` options.
+### `distDir`
+The path to the app's dist dir. This path must contain your index.html file.
+#### `AppUrl`
+The `dev_path` and `dist_dir` options.
+# `package`
+Package settings.
+## `PackageConfig`
+The package configuration.
 
-<Properties anchorRoot="tauri" rows={[
-  { property: "allowlist", optional: true, type: "AllowlistConfig", description: `The allowlist configuration.`, child: <Properties anchorRoot="tauri.allowlist" rows={[
-    { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all API features.` },
-    { property: "clipboard", optional: true, type: "ClipboardAllowlistConfig", description: `Clipboard APIs allowlist.`, child: <Properties anchorRoot="tauri.allowlist.clipboard" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all clipboard APIs.` },
-      { property: "readText", optional: true, type: "boolean", description: `Enables the clipboard's \`readText\` API.` },
-      { property: "writeText", optional: true, type: "boolean", description: `Enables the clipboard's \`writeText\` API.` },
-    ]}/> },
-    { property: "dialog", optional: true, type: "DialogAllowlistConfig", description: `Dialog API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.dialog" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all dialog API features.` },
-      { property: "ask", optional: true, type: "boolean", description: `Allows the API to show a dialog window with Yes/No buttons.` },
-      { property: "confirm", optional: true, type: "boolean", description: `Allows the API to show a dialog window with Ok/Cancel buttons.` },
-      { property: "message", optional: true, type: "boolean", description: `Allows the API to show a message dialog window.` },
-      { property: "open", optional: true, type: "boolean", description: `Allows the API to open a dialog window to pick files.` },
-      { property: "save", optional: true, type: "boolean", description: `Allows the API to open a dialog window to pick where to save files.` },
-    ]}/> },
-    { property: "fs", optional: true, type: "FsAllowlistConfig", description: `File system API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.fs" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all file system API features.` },
-      { property: "copyFile", optional: true, type: "boolean", description: `Copy file from local filesystem.` },
-      { property: "createDir", optional: true, type: "boolean", description: `Create directory from local filesystem.` },
-      { property: "readDir", optional: true, type: "boolean", description: `Read directory from local filesystem.` },
-      { property: "readFile", optional: true, type: "boolean", description: `Read file from local filesystem.` },
-      { property: "removeDir", optional: true, type: "boolean", description: `Remove directory from local filesystem.` },
-      { property: "removeFile", optional: true, type: "boolean", description: `Remove file from local filesystem.` },
-      { property: "renameFile", optional: true, type: "boolean", description: `Rename file from local filesystem.` },
-      { property: "scope", optional: true, type: "FsAllowlistScope", description: `The access scope for the filesystem APIs.` },
-      { property: "writeFile", optional: true, type: "boolean", description: `Write file to local filesystem.` },
-    ]}/> },
-    { property: "globalShortcut", optional: true, type: "GlobalShortcutAllowlistConfig", description: `Global shortcut API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.globalShortcut" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all global shortcut API features.` },
-    ]}/> },
-    { property: "http", optional: true, type: "HttpAllowlistConfig", description: `HTTP API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.http" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all HTTP API features.` },
-      { property: "request", optional: true, type: "boolean", description: `Allows making HTTP requests.` },
-      { property: "scope", optional: true, type: "HttpAllowlistScope", description: `The access scope for the HTTP APIs.` },
-    ]}/> },
-    { property: "notification", optional: true, type: "NotificationAllowlistConfig", description: `Notification API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.notification" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all notification API features.` },
-    ]}/> },
-    { property: "os", optional: true, type: "OsAllowlistConfig", description: `OS allowlist.`, child: <Properties anchorRoot="tauri.allowlist.os" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all OS API features.` },
-    ]}/> },
-    { property: "path", optional: true, type: "PathAllowlistConfig", description: `Path API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.path" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all path API features.` },
-    ]}/> },
-    { property: "process", optional: true, type: "ProcessAllowlistConfig", description: `Process API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.process" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all process APIs.` },
-      { property: "exit", optional: true, type: "boolean", description: `Enables the exit API.` },
-      { property: "relaunch", optional: true, type: "boolean", description: `Enables the relaunch API.` },
-      { property: "relaunchDangerousAllowSymlinkMacos", optional: true, type: "boolean", description: `Dangerous option that allows macOS to relaunch even if the binary contains a symlink. This is due to macOS having less symlink protection. Highly recommended to not set this flag unless you have a very specific reason too, and understand the implications of it.` },
-    ]}/> },
-    { property: "protocol", optional: true, type: "ProtocolAllowlistConfig", description: `Custom protocol allowlist.`, child: <Properties anchorRoot="tauri.allowlist.protocol" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all custom protocols.` },
-      { property: "asset", optional: true, type: "boolean", description: `Enables the asset protocol.` },
-      { property: "assetScope", optional: true, type: "FsAllowlistScope", description: `The access scope for the asset protocol.` },
-    ]}/> },
-    { property: "shell", optional: true, type: "ShellAllowlistConfig", description: `Shell API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.shell" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all shell API features.` },
-      { property: "execute", optional: true, type: "boolean", description: `Enable binary execution.` },
-      { property: "open", optional: true, type: "ShellAllowlistOpen", description: `Open URL with the user's default application.` },
-      { property: "scope", optional: true, type: "ShellAllowlistScope", description: `Access scope for the binary execution APIs. Sidecars are automatically enabled.` },
-      { property: "sidecar", optional: true, type: "boolean", description: `Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <a href="https://tauri.studio/docs/guides/bundler/sidecar/">https://tauri.studio/docs/guides/bundler/sidecar/</a>.` },
-    ]}/> },
-    { property: "window", optional: true, type: "WindowAllowlistConfig", description: `Window API allowlist.`, child: <Properties anchorRoot="tauri.allowlist.window" rows={[
-      { property: "all", optional: true, type: "boolean", description: `Use this flag to enable all window API features.` },
-      { property: "center", optional: true, type: "boolean", description: `Allows centering the window.` },
-      { property: "close", optional: true, type: "boolean", description: `Allows closing the window.` },
-      { property: "create", optional: true, type: "boolean", description: `Allows dynamic window creation.` },
-      { property: "hide", optional: true, type: "boolean", description: `Allows hiding the window.` },
-      { property: "maximize", optional: true, type: "boolean", description: `Allows maximizing the window.` },
-      { property: "minimize", optional: true, type: "boolean", description: `Allows minimizing the window.` },
-      { property: "print", optional: true, type: "boolean", description: `Allows opening the system dialog to print the window content.` },
-      { property: "requestUserAttention", optional: true, type: "boolean", description: `Allows requesting user attention on the window.` },
-      { property: "setAlwaysOnTop", optional: true, type: "boolean", description: `Allows setting the always_on_top flag of the window.` },
-      { property: "setDecorations", optional: true, type: "boolean", description: `Allows setting the decorations flag of the window.` },
-      { property: "setFocus", optional: true, type: "boolean", description: `Allows focusing the window.` },
-      { property: "setFullscreen", optional: true, type: "boolean", description: `Allows setting the fullscreen flag of the window.` },
-      { property: "setIcon", optional: true, type: "boolean", description: `Allows changing the window icon.` },
-      { property: "setMaxSize", optional: true, type: "boolean", description: `Allows setting the window maximum size.` },
-      { property: "setMinSize", optional: true, type: "boolean", description: `Allows setting the window minimum size.` },
-      { property: "setPosition", optional: true, type: "boolean", description: `Allows changing the position of the window.` },
-      { property: "setResizable", optional: true, type: "boolean", description: `Allows setting the resizable flag of the window.` },
-      { property: "setSize", optional: true, type: "boolean", description: `Allows setting the window size.` },
-      { property: "setSkipTaskbar", optional: true, type: "boolean", description: `Allows setting the skip_taskbar flag of the window.` },
-      { property: "setTitle", optional: true, type: "boolean", description: `Allows changing the window title.` },
-      { property: "show", optional: true, type: "boolean", description: `Allows showing the window.` },
-      { property: "startDragging", optional: true, type: "boolean", description: `Allows start dragging on the window.` },
-      { property: "unmaximize", optional: true, type: "boolean", description: `Allows unmaximizing the window.` },
-      { property: "unminimize", optional: true, type: "boolean", description: `Allows unminimizing the window.` },
-    ]}/> },
-  ]}/> },
-  { property: "bundle", optional: true, type: "BundleConfig", description: `The bundler configuration.`, child: <Properties anchorRoot="tauri.bundle" rows={[
-    { property: "active", optional: true, type: "boolean", description: `Whether we should build your app with tauri-bundler or plain \`cargo build\`` },
-    { property: "category", optional: true, type: "string | null", description: `The application kind. Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather.` },
-    { property: "copyright", optional: true, type: "string | null", description: `A copyright string associated with your application.` },
-    { property: "deb", optional: true, type: "DebConfig", description: `Configuration for the Debian bundle.`, child: <Properties anchorRoot="tauri.bundle.deb" rows={[
-      { property: "depends", optional: true, type: "string[]", description: `The list of deb dependencies your application relies on.` },
-      { property: "files", optional: true, type: "object", description: `The files to include on the package.` },
-    ]}/> },
-    { property: "externalBin", optional: true, type: "string[]", description: `A list of—either absolute or relative—paths to binaries to embed with your application. Note that Tauri will look for system-specific binaries following the pattern "binary-name\{-target-triple\}\{.system-extension\}". E.g. for the external binary "my-binary", Tauri looks for: - "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux so don't forget to provide binaries for all targeted platforms.` },
-    { property: "icon", optional: true, type: "string[]", description: `The app's icons` },
-    { property: "identifier", optional: true, type: "string", description: `The app's identifier` },
-    { property: "longDescription", optional: true, type: "string | null", description: `A longer, multi-line description of the application.` },
-    { property: "macOS", optional: true, type: "MacConfig", description: `Configuration for the macOS bundles.`, child: <Properties anchorRoot="tauri.bundle.macOS" rows={[
-      { property: "entitlements", optional: true, type: "string | null", description: `Path to the entitlements file.` },
-      { property: "exceptionDomain", optional: true, type: "string | null", description: `Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name.` },
-      { property: "frameworks", optional: true, type: "string[]", description: `A list of strings indicating any macOS X frameworks that need to be bundled with the application. If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework.` },
-      { property: "license", optional: true, type: "string | null", description: `The path to the license file to add to the DMG bundle.` },
-      { property: "minimumSystemVersion", optional: true, type: "string | null", description: `A version string indicating the minimum macOS X version that the bundled application supports. Defaults to \`10.13\`. Setting it to \`null\` completely removes the \`LSMinimumSystemVersion\` field on the bundle's \`Info.plist\` and the \`MACOSX_DEPLOYMENT_TARGET\` environment variable. An empty string is considered an invalid value so the default value is used.` },
-      { property: "providerShortName", optional: true, type: "string | null", description: `Provider short name for notarization.` },
-      { property: "signingIdentity", optional: true, type: "string | null", description: `Identity to use for code signing.` },
-    ]}/> },
-    { property: "resources", optional: true, type: "string[]", description: `App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported.` },
-    { property: "shortDescription", optional: true, type: "string | null", description: `A short description of your application.` },
-    { property: "targets", optional: true, type: "BundleTarget", description: `The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all"`, child: <Properties anchorRoot="tauri.bundle.targets" rows={[]}/> },
-    { property: "windows", optional: true, type: "WindowsConfig", description: `Configuration for the Windows bundle.`, child: <Properties anchorRoot="tauri.bundle.windows" rows={[
-      { property: "allowDowngrades", optional: true, type: "boolean", description: `Validates a second app installation, blocking the user from installing an older version if set to \`false\`. For instance, if \`1.2.1\` is installed, the user won't be able to install app version \`1.2.0\` or \`1.1.5\`. The default value of this flag is \`true\`.` },
-      { property: "certificateThumbprint", optional: true, type: "string | null", description: `Specifies the SHA1 hash of the signing certificate.` },
-      { property: "digestAlgorithm", optional: true, type: "string | null", description: `Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended.` },
-      { property: "timestampUrl", optional: true, type: "string | null", description: `Server to use during timestamping.` },
-      { property: "tsp", optional: true, type: "boolean | null", description: `Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true.` },
-      { property: "webviewFixedRuntimePath", optional: true, type: "string | null", description: `Path to the webview fixed runtime to use. The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The \`.cab\` file must be extracted to a folder and this folder path must be defined on this field.` },
-      { property: "wix", optional: true, type: "WixConfig", description: `Configuration for the MSI generated with WiX.`, child: <Properties anchorRoot="tauri.bundle.windows.wix" rows={[
-        { property: "bannerPath", optional: true, type: "string | null", description: `Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer. The required dimensions are 493px × 58px.` },
-        { property: "componentGroupRefs", optional: true, type: "string[]", description: `The ComponentGroup element ids you want to reference from the fragments.` },
-        { property: "componentRefs", optional: true, type: "string[]", description: `The Component element ids you want to reference from the fragments.` },
-        { property: "dialogImagePath", optional: true, type: "string | null", description: `Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px.` },
-        { property: "enableElevatedUpdateTask", optional: true, type: "boolean", description: `Create an elevated update task within Windows Task Scheduler.` },
-        { property: "featureGroupRefs", optional: true, type: "string[]", description: `The FeatureGroup element ids you want to reference from the fragments.` },
-        { property: "featureRefs", optional: true, type: "string[]", description: `The Feature element ids you want to reference from the fragments.` },
-        { property: "fragmentPaths", optional: true, type: "string[]", description: `A list of paths to .wxs files with WiX fragments to use.` },
-        { property: "language", optional: true, type: "WixLanguage", description: `The installer languages to build. See <a href="https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables">https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables</a>.` },
-        { property: "license", optional: true, type: "string | null", description: `The path to the license file to render on the installer. Must be an RTF file, so if a different extension is provided, we convert it to the RTF format.` },
-        { property: "mergeRefs", optional: true, type: "string[]", description: `The Merge element ids you want to reference from the fragments.` },
-        { property: "skipWebviewInstall", optional: true, type: "boolean", description: `Disables the Webview2 runtime installation after app install.` },
-        { property: "template", optional: true, type: "string | null", description: `A custom .wxs template to use.` },
-      ]}/> },
-    ]}/> },
-  ]}/> },
-  { property: "cli", optional: true, type: "CliConfig", description: `The CLI configuration.`, child: <Properties anchorRoot="tauri.cli" rows={[
-    { property: "afterHelp", optional: true, type: "string | null", description: `Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted.` },
-    { property: "args", optional: true, type: "CliArg[]", description: `List of arguments for the command`, child: <Array type="CliArg">
-    <Properties anchorRoot="tauri.cli.args" rows={[
-      { property: "conflictsWith", optional: true, type: "string | null", description: `Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa.` },
-      { property: "conflictsWithAll", optional: true, type: "string[]", description: `The same as conflictsWith but allows specifying multiple two-way conflicts per argument.` },
-      { property: "description", optional: true, type: "string | null", description: `The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg.` },
-      { property: "index", optional: true, type: "integer | null", description: `The positional argument index, starting at 1. The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index).` },
-      { property: "longDescription", optional: true, type: "string | null", description: `The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument.` },
-      { property: "maxValues", optional: true, type: "integer | null", description: `Specifies the maximum number of values are for this argument. For example, if you had a -f <file> argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values.` },
-      { property: "minValues", optional: true, type: "integer | null", description: `Specifies the minimum number of values for this argument. For example, if you had a -f <file> argument where you wanted at least 2 'files', you would set \`minValues: 2\`, and this argument would be satisfied if the user provided, 2 or more values.` },
-      { property: "multiple", optional: true, type: "boolean | null", description: `Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once. For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not. NOTE: Setting this requires \`takes_value\` to be set to true.` },
-      { property: "multipleOccurrences", optional: true, type: "boolean | null", description: `Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed) For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not.` },
-      { property: "name", optional: true, type: "string", description: `The unique argument name` },
-      { property: "numberOfValues", optional: true, type: "integer | null", description: `Specifies how many values are required to satisfy this argument. For example, if you had a \`-f <file>\` argument where you wanted exactly 3 'files' you would set \`number_of_values = 3\`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values. **NOTE:** Does *not* require \`multiple_occurrences = true\` to be set. Setting \`multiple_occurrences = true\` would allow \`-f <file> <file> <file> -f <file> <file> <file>\` where as *not* setting it would only allow one occurrence of this argument. **NOTE:** implicitly sets \`takes_value = true\` and \`multiple_values = true\`.` },
-      { property: "possibleValues", optional: true, type: "string[]", description: `Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message.` },
-      { property: "requireEquals", optional: true, type: "boolean | null", description: `Requires that options use the --option=val syntax i.e. an equals between the option and associated value.` },
-      { property: "required", optional: true, type: "boolean | null", description: `Sets whether or not the argument is required by default. - Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required.` },
-      { property: "requiredIfEq", optional: true, type: "string[]", description: `Allows specifying that an argument is required conditionally with the signature [arg, value] the requirement will only become valid if the \`arg\`'s value equals \`$\{value\}\`.` },
-      { property: "requiredUnlessPresent", optional: true, type: "string | null", description: `Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present.` },
-      { property: "requiredUnlessPresentAll", optional: true, type: "string[]", description: `Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present.` },
-      { property: "requiredUnlessPresentAny", optional: true, type: "string[]", description: `Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present.` },
-      { property: "requires", optional: true, type: "string | null", description: `Tets an argument by name that is required when this one is present i.e. when using this argument, the following argument must be present.` },
-      { property: "requiresAll", optional: true, type: "string[]", description: `Sts multiple arguments by names that are required when this one is present i.e. when using this argument, the following arguments must be present.` },
-      { property: "requiresIf", optional: true, type: "string[]", description: `Allows a conditional requirement with the signature [arg, value] the requirement will only become valid if \`arg\`'s value equals \`$\{value\}\`.` },
-      { property: "short", optional: true, type: "string | null", description: `The short version of the argument, without the preceding -. NOTE: Any leading - characters will be stripped, and only the first non - character will be used as the short version.` },
-      { property: "takesValue", optional: true, type: "boolean | null", description: `Specifies that the argument takes a value at run time. NOTE: values for arguments may be specified in any of the following methods - Using a space such as -o value or --option value - Using an equals and no space such as -o=value or --option=value - Use a short and no space such as -ovalue` },
-    ]}/>
-  </Array> },
-    { property: "beforeHelp", optional: true, type: "string | null", description: `Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information.` },
-    { property: "description", optional: true, type: "string | null", description: `Command description which will be shown on the help information.` },
-    { property: "longDescription", optional: true, type: "string | null", description: `Command long description which will be shown on the help information.` },
-    { property: "subcommands", optional: true, type: "object | null", description: `List of subcommands of this command` },
-  ]}/> },
-  { property: "macOSPrivateApi", optional: true, type: "boolean", description: `MacOS private API configuration. Enables the transparent background API and sets the \`fullScreenEnabled\` preference to \`true\`.` },
-  { property: "pattern", optional: true, type: "PatternKind", description: `The pattern to use.` },
-  { property: "security", optional: true, type: "SecurityConfig", description: `Security configuration.`, child: <Properties anchorRoot="tauri.security" rows={[
-    { property: "csp", optional: true, type: "Csp", description: `The Content Security Policy that will be injected on all HTML files on the built application. If [\`dev_csp\`](SecurityConfig.dev_csp) is not specified, this value is also injected on dev. This is a really important part of the configuration since it helps you ensure your WebView is secured. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a>.`, child: <Properties anchorRoot="tauri.security.csp" rows={[]}/> },
-    { property: "dangerousDisableAssetCspModification", optional: true, type: "DisabledCspModificationKind", description: `Disables the Tauri-injected CSP sources. At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources. This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject. **WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection.` },
-    { property: "devCsp", optional: true, type: "Csp", description: `The Content Security Policy that will be injected on all HTML files on development. This is a really important part of the configuration since it helps you ensure your WebView is secured. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a>.`, child: <Properties anchorRoot="tauri.security.devCsp" rows={[]}/> },
-    { property: "freezePrototype", optional: true, type: "boolean", description: `Freeze the \`Object.prototype\` when using the custom protocol.` },
-  ]}/> },
-  { property: "systemTray", optional: true, type: "SystemTrayConfig", description: `Configuration for app system tray.`, child: <Properties anchorRoot="tauri.systemTray" rows={[
-    { property: "iconAsTemplate", optional: true, type: "boolean", description: `A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS.` },
-    { property: "iconPath", optional: true, type: "string", description: `Path to the icon to use on the system tray. It is forced to be a \`.png\` file on Linux and macOS, and a \`.ico\` file on Windows.` },
-  ]}/> },
-  { property: "updater", optional: true, type: "UpdaterConfig", description: `The updater configuration.`, child: <Properties anchorRoot="tauri.updater" rows={[
-    { property: "active", optional: true, type: "boolean", description: `Whether the updater is active or not.` },
-    { property: "dialog", optional: true, type: "boolean", description: `Display built-in dialog or use event system if disabled.` },
-    { property: "endpoints", optional: true, type: "UpdaterEndpoint[]", description: `The updater endpoints. TLS is enforced on production. The updater URL can contain the following variables: - \{\{current_version\}\}: The version of the app that is requesting the update - \{\{target\}\}: The operating system name (one of \`linux\`, \`windows\` or \`darwin\`). - \{\{arch\}\}: The architecture of the machine (one of \`x86_64\`, \`i686\`, \`aarch64\` or \`armv7\`). # Examples - "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/\{\{target\}\}?version=\{\{current_version\}\}&arch=\{\{arch\}\}": a dedicated API with positional and query string arguments.`, child: <Array type="UpdaterEndpoint">
-    <Properties anchorRoot="tauri.updater.endpoints" rows={[]}/>
-  </Array> },
-    { property: "pubkey", optional: true, type: "string", description: `Signature public key.` },
-  ]}/> },
-  { property: "windows", optional: true, type: "WindowConfig[]", description: `The windows configuration.`, child: <Array type="WindowConfig">
-  <Properties anchorRoot="tauri.windows" rows={[
-    { property: "alwaysOnTop", optional: true, type: "boolean", description: `Whether the window should always be on top of other windows.` },
-    { property: "center", optional: true, type: "boolean", description: `Whether or not the window starts centered or not.` },
-    { property: "decorations", optional: true, type: "boolean", description: `Whether the window should have borders and bars.` },
-    { property: "fileDropEnabled", optional: true, type: "boolean", description: `Whether the file drop is enabled or not on the webview. By default it is enabled. Disabling it is required to use drag and drop on the frontend on Windows.` },
-    { property: "focus", optional: true, type: "boolean", description: `Whether the window will be initially hidden or focused.` },
-    { property: "fullscreen", optional: true, type: "boolean", description: `Whether the window starts as fullscreen or not.` },
-    { property: "height", optional: true, type: "number", description: `The window height.` },
-    { property: "label", optional: true, type: "string", description: `The window identifier. It must be alphanumeric.` },
-    { property: "maxHeight", optional: true, type: "number | null", description: `The max window height.` },
-    { property: "maxWidth", optional: true, type: "number | null", description: `The max window width.` },
-    { property: "maximized", optional: true, type: "boolean", description: `Whether the window is maximized or not.` },
-    { property: "minHeight", optional: true, type: "number | null", description: `The min window height.` },
-    { property: "minWidth", optional: true, type: "number | null", description: `The min window width.` },
-    { property: "resizable", optional: true, type: "boolean", description: `Whether the window is resizable or not.` },
-    { property: "skipTaskbar", optional: true, type: "boolean", description: `Whether or not the window icon should be added to the taskbar.` },
-    { property: "theme", optional: true, type: "Theme", description: `The initial window theme. Defaults to the system theme. Only implemented on Windows.`, child: <Properties anchorRoot="tauri.windows.theme" rows={[]}/> },
-    { property: "title", optional: true, type: "string", description: `The window title.` },
-    { property: "transparent", optional: true, type: "boolean", description: `Whether the window is transparent or not. Note that on \`macOS\` this requires the \`macos-private-api\` feature flag, enabled under \`tauri.conf.json > tauri > macOSPrivateApi\`. WARNING: Using private APIs on \`macOS\` prevents your application from being accepted for the \`App Store\`.` },
-    { property: "url", optional: true, type: "WindowUrl", description: `The window webview URL.` },
-    { property: "visible", optional: true, type: "boolean", description: `Whether the window is visible or not.` },
-    { property: "width", optional: true, type: "number", description: `The window width.` },
-    { property: "x", optional: true, type: "number | null", description: `The horizontal position of the window's top left corner` },
-    { property: "y", optional: true, type: "number | null", description: `The vertical position of the window's top left corner` },
-  ]}/>
-</Array> },
-]}/>
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `productName` | `string` \| `null` | undefined | App name. |
+| `version` | `string` \| `null` | null | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
+# `plugins`
+The plugins config.
+## `PluginConfig`
+The plugin configs holds a HashMap mapping a plugin name to its configuration object.
+
+
+Type: `object`
+
+
+Default: undefined
+# `tauri`
+The Tauri configuration.
+## `TauriConfig`
+The Tauri configuration object.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `allowlist` | `AllowlistConfig` | [object Object] | The allowlist configuration. |
+| `bundle` | `BundleConfig` | [object Object] | The bundler configuration. |
+| `cli` | COMPLEX TYPE undefined | undefined | The CLI configuration. |
+| `macOSPrivateApi` | `boolean` | false | MacOS private API configuration. Enables the transparent background API and sets the `fullScreenEnabled` preference to `true`. |
+| `pattern` | `PatternKind` | [object Object] | The pattern to use. |
+| `security` | `SecurityConfig` | [object Object] | Security configuration. |
+| `systemTray` | COMPLEX TYPE undefined | undefined | Configuration for app system tray. |
+| `updater` | `UpdaterConfig` | [object Object] | The updater configuration. |
+| `windows` | `array` |  | The windows configuration. |
+### `allowlist`
+The allowlist configuration.
+#### `AllowlistConfig`
+Allowlist configuration.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all API features. |
+| `clipboard` | `ClipboardAllowlistConfig` | [object Object] | Clipboard APIs allowlist. |
+| `dialog` | `DialogAllowlistConfig` | [object Object] | Dialog API allowlist. |
+| `fs` | `FsAllowlistConfig` | [object Object] | File system API allowlist. |
+| `globalShortcut` | `GlobalShortcutAllowlistConfig` | [object Object] | Global shortcut API allowlist. |
+| `http` | `HttpAllowlistConfig` | [object Object] | HTTP API allowlist. |
+| `notification` | `NotificationAllowlistConfig` | [object Object] | Notification API allowlist. |
+| `os` | `OsAllowlistConfig` | [object Object] | OS allowlist. |
+| `path` | `PathAllowlistConfig` | [object Object] | Path API allowlist. |
+| `process` | `ProcessAllowlistConfig` | [object Object] | Process API allowlist. |
+| `protocol` | `ProtocolAllowlistConfig` | [object Object] | Custom protocol allowlist. |
+| `shell` | `ShellAllowlistConfig` | [object Object] | Shell API allowlist. |
+| `window` | `WindowAllowlistConfig` | [object Object] | Window API allowlist. |
+##### `clipboard`
+Clipboard APIs allowlist.
+###### `ClipboardAllowlistConfig`
+Allowlist for the clipboard APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all clipboard APIs. |
+| `readText` | `boolean` | false | Enables the clipboard's `readText` API. |
+| `writeText` | `boolean` | false | Enables the clipboard's `writeText` API. |
+##### `dialog`
+Dialog API allowlist.
+###### `DialogAllowlistConfig`
+Allowlist for the dialog APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all dialog API features. |
+| `ask` | `boolean` | false | Allows the API to show a dialog window with Yes/No buttons. |
+| `confirm` | `boolean` | false | Allows the API to show a dialog window with Ok/Cancel buttons. |
+| `message` | `boolean` | false | Allows the API to show a message dialog window. |
+| `open` | `boolean` | false | Allows the API to open a dialog window to pick files. |
+| `save` | `boolean` | false | Allows the API to open a dialog window to pick where to save files. |
+##### `fs`
+File system API allowlist.
+###### `FsAllowlistConfig`
+Allowlist for the file system APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all file system API features. |
+| `copyFile` | `boolean` | false | Copy file from local filesystem. |
+| `createDir` | `boolean` | false | Create directory from local filesystem. |
+| `readDir` | `boolean` | false | Read directory from local filesystem. |
+| `readFile` | `boolean` | false | Read file from local filesystem. |
+| `removeDir` | `boolean` | false | Remove directory from local filesystem. |
+| `removeFile` | `boolean` | false | Remove file from local filesystem. |
+| `renameFile` | `boolean` | false | Rename file from local filesystem. |
+| `scope` | `FsAllowlistScope` |  | The access scope for the filesystem APIs. |
+| `writeFile` | `boolean` | false | Write file to local filesystem. |
+####### `scope`
+The access scope for the filesystem APIs.
+######## `FsAllowlistScope`
+Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview. <br />Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
+##### `globalShortcut`
+Global shortcut API allowlist.
+###### `GlobalShortcutAllowlistConfig`
+Allowlist for the global shortcut APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all global shortcut API features. |
+##### `http`
+HTTP API allowlist.
+###### `HttpAllowlistConfig`
+Allowlist for the HTTP APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all HTTP API features. |
+| `request` | `boolean` | false | Allows making HTTP requests. |
+| `scope` | `HttpAllowlistScope` |  | The access scope for the HTTP APIs. |
+####### `scope`
+The access scope for the HTTP APIs.
+######## `HttpAllowlistScope`
+HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern. <br /># Examples <br />- "https://**": allows all HTTPS urls - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
+
+
+Type: `array`
+
+
+Default: undefined
+##### `notification`
+Notification API allowlist.
+###### `NotificationAllowlistConfig`
+Allowlist for the notification APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all notification API features. |
+##### `os`
+OS allowlist.
+###### `OsAllowlistConfig`
+Allowlist for the OS APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all OS API features. |
+##### `path`
+Path API allowlist.
+###### `PathAllowlistConfig`
+Allowlist for the path APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all path API features. |
+##### `process`
+Process API allowlist.
+###### `ProcessAllowlistConfig`
+Allowlist for the process APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all process APIs. |
+| `exit` | `boolean` | false | Enables the exit API. |
+| `relaunch` | `boolean` | false | Enables the relaunch API. |
+| `relaunchDangerousAllowSymlinkMacos` | `boolean` | false | Dangerous option that allows macOS to relaunch even if the binary contains a symlink. <br />This is due to macOS having less symlink protection. Highly recommended to not set this flag unless you have a very specific reason too, and understand the implications of it. |
+##### `protocol`
+Custom protocol allowlist.
+###### `ProtocolAllowlistConfig`
+Allowlist for the custom protocols.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all custom protocols. |
+| `asset` | `boolean` | false | Enables the asset protocol. |
+| `assetScope` | `FsAllowlistScope` |  | The access scope for the asset protocol. |
+####### `assetScope`
+The access scope for the asset protocol.
+######## `FsAllowlistScope`
+Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview. <br />Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
+##### `shell`
+Shell API allowlist.
+###### `ShellAllowlistConfig`
+Allowlist for the shell APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all shell API features. |
+| `execute` | `boolean` | false | Enable binary execution. |
+| `open` | `ShellAllowlistOpen` | false | Open URL with the user's default application. |
+| `scope` | `ShellAllowlistScope` |  | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
+| `sidecar` | `boolean` | false | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/docs/guides/bundler/sidecar/>. |
+####### `open`
+Open URL with the user's default application.
+######## `ShellAllowlistOpen`
+Defines the `shell > open` api scope.
+####### `scope`
+Access scope for the binary execution APIs. Sidecars are automatically enabled.
+######## `ShellAllowlistScope`
+Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
+
+
+Type: `array`
+
+
+Default: undefined
+##### `window`
+Window API allowlist.
+###### `WindowAllowlistConfig`
+Allowlist for the window APIs.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `all` | `boolean` | false | Use this flag to enable all window API features. |
+| `center` | `boolean` | false | Allows centering the window. |
+| `close` | `boolean` | false | Allows closing the window. |
+| `create` | `boolean` | false | Allows dynamic window creation. |
+| `hide` | `boolean` | false | Allows hiding the window. |
+| `maximize` | `boolean` | false | Allows maximizing the window. |
+| `minimize` | `boolean` | false | Allows minimizing the window. |
+| `print` | `boolean` | false | Allows opening the system dialog to print the window content. |
+| `requestUserAttention` | `boolean` | false | Allows requesting user attention on the window. |
+| `setAlwaysOnTop` | `boolean` | false | Allows setting the always_on_top flag of the window. |
+| `setDecorations` | `boolean` | false | Allows setting the decorations flag of the window. |
+| `setFocus` | `boolean` | false | Allows focusing the window. |
+| `setFullscreen` | `boolean` | false | Allows setting the fullscreen flag of the window. |
+| `setIcon` | `boolean` | false | Allows changing the window icon. |
+| `setMaxSize` | `boolean` | false | Allows setting the window maximum size. |
+| `setMinSize` | `boolean` | false | Allows setting the window minimum size. |
+| `setPosition` | `boolean` | false | Allows changing the position of the window. |
+| `setResizable` | `boolean` | false | Allows setting the resizable flag of the window. |
+| `setSize` | `boolean` | false | Allows setting the window size. |
+| `setSkipTaskbar` | `boolean` | false | Allows setting the skip_taskbar flag of the window. |
+| `setTitle` | `boolean` | false | Allows changing the window title. |
+| `show` | `boolean` | false | Allows showing the window. |
+| `startDragging` | `boolean` | false | Allows start dragging on the window. |
+| `unmaximize` | `boolean` | false | Allows unmaximizing the window. |
+| `unminimize` | `boolean` | false | Allows unminimizing the window. |
+### `bundle`
+The bundler configuration.
+#### `BundleConfig`
+Configuration for tauri-bundler.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `active` | `boolean` | false | Whether we should build your app with tauri-bundler or plain `cargo build` |
+| `category` | `string` \| `null` | undefined | The application kind. <br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
+| `copyright` | `string` \| `null` | undefined | A copyright string associated with your application. |
+| `deb` | `DebConfig` | [object Object] | Configuration for the Debian bundle. |
+| `externalBin` | `array` \| `null` | undefined | A list of—either absolute or relative—paths to binaries to embed with your application. <br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}". <br />E.g. for the external binary "my-binary", Tauri looks for: <br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux <br />so don't forget to provide binaries for all targeted platforms. |
+| `icon` | `array` |  | The app's icons |
+| `identifier` | `string` | undefined | The app's identifier |
+| `longDescription` | `string` \| `null` | undefined | A longer, multi-line description of the application. |
+| `macOS` | `MacConfig` | [object Object] | Configuration for the macOS bundles. |
+| `resources` | `array` \| `null` | undefined | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
+| `shortDescription` | `string` \| `null` | undefined | A short description of your application. |
+| `targets` | COMPLEX TYPE undefined | undefined | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
+| `windows` | `WindowsConfig` | [object Object] | Configuration for the Windows bundle. |
+##### `deb`
+Configuration for the Debian bundle.
+###### `DebConfig`
+Configuration for Debian (.deb) bundles.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `depends` | `array` \| `null` | undefined | The list of deb dependencies your application relies on. |
+| `files` | `object` | [object Object] | The files to include on the package. |
+##### `macOS`
+Configuration for the macOS bundles.
+###### `MacConfig`
+Configuration for the macOS bundles.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `entitlements` | `string` \| `null` | undefined | Path to the entitlements file. |
+| `exceptionDomain` | `string` \| `null` | undefined | Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name. |
+| `frameworks` | `array` \| `null` | undefined | A list of strings indicating any macOS X frameworks that need to be bundled with the application. <br />If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework. |
+| `license` | `string` \| `null` | undefined | The path to the license file to add to the DMG bundle. |
+| `minimumSystemVersion` | `string` \| `null` | 10.13 | A version string indicating the minimum macOS X version that the bundled application supports. Defaults to `10.13`. <br />Setting it to `null` completely removes the `LSMinimumSystemVersion` field on the bundle's `Info.plist` and the `MACOSX_DEPLOYMENT_TARGET` environment variable. <br />An empty string is considered an invalid value so the default value is used. |
+| `providerShortName` | `string` \| `null` | undefined | Provider short name for notarization. |
+| `signingIdentity` | `string` \| `null` | undefined | Identity to use for code signing. |
+##### `windows`
+Configuration for the Windows bundle.
+###### `WindowsConfig`
+Windows bundler configuration.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `allowDowngrades` | `boolean` | true | Validates a second app installation, blocking the user from installing an older version if set to `false`. <br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`. <br />The default value of this flag is `true`. |
+| `certificateThumbprint` | `string` \| `null` | undefined | Specifies the SHA1 hash of the signing certificate. |
+| `digestAlgorithm` | `string` \| `null` | undefined | Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended. |
+| `timestampUrl` | `string` \| `null` | undefined | Server to use during timestamping. |
+| `tsp` | `boolean` \| `null` | undefined | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
+| `webviewFixedRuntimePath` | `string` \| `null` | undefined | Path to the webview fixed runtime to use. <br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+| `wix` | COMPLEX TYPE undefined | undefined | Configuration for the MSI generated with WiX. |
+### `pattern`
+The pattern to use.
+#### `PatternKind`
+The application pattern.
+### `security`
+Security configuration.
+#### `SecurityConfig`
+Security configuration.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `csp` | COMPLEX TYPE undefined | undefined | The Content Security Policy that will be injected on all HTML files on the built application. If [`dev_csp`](SecurityConfig.dev_csp) is not specified, this value is also injected on dev. <br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
+| `dangerousDisableAssetCspModification` | `DisabledCspModificationKind` | false | Disables the Tauri-injected CSP sources. <br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources. <br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject. <br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
+| `devCsp` | COMPLEX TYPE undefined | undefined | The Content Security Policy that will be injected on all HTML files on development. <br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
+| `freezePrototype` | `boolean` | false | Freeze the `Object.prototype` when using the custom protocol. |
+##### `dangerousDisableAssetCspModification`
+Disables the Tauri-injected CSP sources. <br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources. <br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject. <br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection.
+###### `DisabledCspModificationKind`
+The possible values for the `dangerous_disable_asset_csp_modification` config option.
+### `updater`
+The updater configuration.
+#### `UpdaterConfig`
+The Updater configuration object.
+
+
+Type: `object`
+
+
+Default: undefined
+
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `active` | `boolean` | false | Whether the updater is active or not. |
+| `dialog` | `boolean` | true | Display built-in dialog or use event system if disabled. |
+| `endpoints` | `array` \| `null` | undefined | The updater endpoints. TLS is enforced on production. <br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`). <br /># Examples <br />- "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
+| `pubkey` | `string` |  | Signature public key. |
 
 <!-- Dirty trick to have an anchor without make it appear in the table of contents -->
 <div id="bootstrapper"></div>
