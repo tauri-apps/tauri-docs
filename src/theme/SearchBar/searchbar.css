@@ -61,3 +61,7 @@ div[data-ds-theme='dark'] .meilisearch-autocomplete .dsb-dropdown-menu {
 .navbar-sidebar--show .navbar-sidebar {
   z-index: 999;
 }
+
+.navbar-sidebar__backdrop {
+  z-index: 999;
+}
