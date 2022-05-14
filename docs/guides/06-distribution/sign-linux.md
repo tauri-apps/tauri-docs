@@ -14,7 +14,7 @@ This guide provides information on code signing for Linux packages.
 A key for signing must be prepared. A new one can be generated using:
 
 ```sh
-$ gpg2 --full-gen-key
+gpg2 --full-gen-key
 ```
 
 Please refer to the gpg or gpg2 documentation for additional information.
@@ -31,7 +31,7 @@ You can embed a signature in the AppImage by setting the following environment v
 You can display the signature embedded in the AppImage by running the following command:
 
 ```sh
-$ ./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
+./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
 ```
 
 Note that you need to change the $APPNAME and $VERSION values with the correct ones based on your configuration.
