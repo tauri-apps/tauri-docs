@@ -39,35 +39,39 @@ function buildProperty(key, value, headingLevel) {
     }
   }
 
-  // Create description
-
-  // Build table if properties
-  if (value.properties) {
-    buildTable(value.properties, headingLevel)
-  }
-
+  buildTable(value, headingLevel)
   buildAllOf(value, headingLevel)
   buildAnyOf(value, headingLevel)
   buildReferencedTypes(value, headingLevel)
 }
 
 function buildTable(values, headingLevel) {
+  if (!values.properties) {
+    return
+  }
+
+  var required = []
+
+  if (values.required) {
+    required = required.concat(values.required)
+  }
+
   output.push('\n')
   output.push('| Name | Type | Default | Description |')
   output.push('| ---- | ---- | ------- | ----------- |')
 
   // Build initial table
-  Object.entries(values).forEach(([key, value]) => {
+  Object.entries(values.properties).forEach(([key, value]) => {
     output.push(
       `| \`${key}\`\
-      | ${typeConstructor(value)}\
+      | ${typeConstructor(value)}${required.includes(key) ? '' : '?'}\
       | ${defaultConstructor(value)}\
       | ${value.description} |`
     )
   })
 
   // Build any custom objects found
-  Object.entries(values).forEach(([_, value]) => {
+  Object.entries(values.properties).forEach(([_, value]) => {
     buildAllOf(value, headingLevel)
     buildAnyOf(value, headingLevel)
     buildReferencedTypes(value, headingLevel)
@@ -196,7 +200,7 @@ function defaultConstructor(value) {
     case 'string':
     case 'boolean':
     case 'number':
-      return value.default
+      return `\`${value.default}\``
     case 'undefined':
       return `\_null\_`
     case 'object':
@@ -207,7 +211,7 @@ function defaultConstructor(value) {
       }
       if ('allOf' in value) {
         const name = value.allOf[0].$ref.replace('#/definitions/', '')
-        return `See [\`${name}\`](#${name.toLowerCase()})`
+        return ''
       }
       if ('default' in value) {
         return `_${value.default}_`
