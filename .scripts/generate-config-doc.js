@@ -204,8 +204,6 @@ function typeConstructor(value) {
       case 'string':
         if (value.type == 'array') {
           return arrayTypeConstructor(value)
-        } else if (value.type == 'object' && value.properties) {
-          console.log('A new object was found', value.properties)
         }
         return `\`${value.type}\``
       case 'object':
