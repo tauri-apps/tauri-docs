@@ -29,14 +29,17 @@ function buildProperty(key, value, headingLevel) {
     return
   }
 
-  // Create description
-  builtHeaders.push(key)
-  output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
-  output.push(`${value.description}\n`)
+  if (headingLevel != 1) {
+    builtHeaders.push(key)
+    output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
+    output.push(`${value.description}\n`)
 
-  if (typeConstructor(value.type)) {
-    output.push(`Type: ${typeConstructor(value.type)}\n`)
+    if (typeConstructor(value.type)) {
+      output.push(`Type: ${typeConstructor(value.type)}\n`)
+    }
   }
+
+  // Create description
 
   // Build table if properties
   if (value.properties) {
