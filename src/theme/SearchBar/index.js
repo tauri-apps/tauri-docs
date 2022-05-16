@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
+import './style.css'
 
 export default function Component() {
-  const { isDarkTheme } = useColorMode()
+  const isDarkTheme = useColorMode().colorMode === 'dark'
+
   useEffect(() => {
     const DocsSearchBar = require('docs-searchbar.js').default
 
@@ -18,6 +20,10 @@ export default function Component() {
       enhancedSearchInput: true,
     })
   }, [])
+
+  useEffect(() => {
+    document.querySelector('.docs-searchbar-js').setAttribute('data-ds-theme', isDarkTheme ? 'dark' : 'light')
+  }, [isDarkTheme])
 
   return (
     <div>

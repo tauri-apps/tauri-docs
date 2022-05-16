@@ -1,6 +1,6 @@
 ---
 sidebar_label: macOS
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # macOS Application Distribution
