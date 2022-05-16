@@ -18,6 +18,8 @@ jobs:
       - name: Checkout tauri-docs
         uses: actions/checkout@v2
       - name: Run translation
+        env:
+          TOKEN: 'INVALID'
         run: |
           yarn
           yarn crowdin:sync
