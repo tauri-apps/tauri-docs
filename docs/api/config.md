@@ -79,12 +79,12 @@ The `dev_path` and `dist_dir` options.
 
 **Type:** [`WindowUrl`](#windowurl) \| [`string`]
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`WindowUrl`](#windowurl) | _null_ | The app's external URL, or the path to the directory containing the app assets.|
-| [`string`] | _null_ | An array of files to embed on the app.|
+- [`WindowUrl`](#windowurl) (Defaults to _null_)
+  - The app's external URL, or the path to the directory containing the app assets.
+- [`string`] (Defaults to _null_)
+  - An array of files to embed on the app.
 
 
 #### `WindowUrl`
@@ -92,12 +92,12 @@ An URL to open on a Tauri webview window.
 
 **Type:** `string` (uri) \| `string`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `string` (uri) | _null_ | An external URL.|
-| `string` | _null_ | An app URL.|
+- `string` (uri) (Defaults to _null_)
+  - An external URL.
+- `string` (Defaults to _null_)
+  - An app URL.
 
 
 ## `PackageConfig`
@@ -209,12 +209,12 @@ Each pattern can start with a variable that resolves to a system base directory.
 
 **Type:** [`string`] \| `object`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`string`] | _null_ | A list of paths that are allowed by this scope.|
-| `object` | _null_ | A complete scope configuration.|
+- [`string`] (Defaults to _null_)
+  - A list of paths that are allowed by this scope.
+- `object` (Defaults to _null_)
+  - A complete scope configuration.
 
 
 | Name | Type | Default | Description |
@@ -320,7 +320,7 @@ Allowlist for the shell APIs.
 | <div id="shellallowlistconfig.execute">`execute` <a className="hash-link" href="#shellallowlistconfig.execute"></a></div> | `boolean`? | `false` | Enable binary execution. |
 | <div id="shellallowlistconfig.open">`open` <a className="hash-link" href="#shellallowlistconfig.open"></a></div> | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
 | <div id="shellallowlistconfig.scope">`scope` <a className="hash-link" href="#shellallowlistconfig.scope"></a></div> | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
-| <div id="shellallowlistconfig.sidecar">`sidecar` <a className="hash-link" href="#shellallowlistconfig.sidecar"></a></div> | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/v1/guides/building/sidecar>. |
+| <div id="shellallowlistconfig.sidecar">`sidecar` <a className="hash-link" href="#shellallowlistconfig.sidecar"></a></div> | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/docs/guides/bundler/sidecar/>. |
 
 
 ##### `ShellAllowlistOpen`
@@ -328,12 +328,12 @@ Defines the `shell > open` api scope.
 
 **Type:** `boolean` \| `string`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `boolean` | _null_ | If the shell open API should be enabled.<br /><br />If enabled, the default validation regex (`^https?://`) is used.|
-| `string` | _null_ | Enable the shell open API, with a custom regex that the opened path must match against.<br /><br />If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.|
+- `boolean` (Defaults to _null_)
+  - If the shell open API should be enabled.<br /><br />If enabled, the default validation regex (`^https?://`) is used.
+- `string` (Defaults to _null_)
+  - Enable the shell open API, with a custom regex that the opened path must match against.<br /><br />If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
 
 
 ##### `ShellAllowlistScope`
@@ -361,12 +361,12 @@ A value of `true` will allow any arguments to be passed to the command. `false` 
 
 **Type:** `boolean` \| [[`ShellAllowedArg`](#shellallowedarg)]
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `boolean` | _null_ | Use a simple boolean to allow all or disable all arguments to this command configuration.|
-| [[`ShellAllowedArg`](#shellallowedarg)] | _null_ | A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.|
+- `boolean` (Defaults to _null_)
+  - Use a simple boolean to allow all or disable all arguments to this command configuration.
+- [[`ShellAllowedArg`](#shellallowedarg)] (Defaults to _null_)
+  - A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
 
 ##### `ShellAllowedArg`
@@ -374,12 +374,12 @@ A command argument allowed to be executed by the webview API.
 
 **Type:** `string` \| [`validator`]
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `string` | _null_ | A non-configurable argument that is passed to the command in the order it was specified.|
-| [`validator`] | _null_ | A variable that is set while calling the command from the webview API.|
+- `string` (Defaults to _null_)
+  - A non-configurable argument that is passed to the command in the order it was specified.
+- [`validator`] (Defaults to _null_)
+  - A variable that is set while calling the command from the webview API.
 
 
 | Name | Type | Default | Description |
@@ -470,11 +470,9 @@ Configuration for the macOS bundles.
 | <div id="macconfig.signingidentity">`signingIdentity` <a className="hash-link" href="#macconfig.signingidentity"></a></div> | `string`? | _null_ | Identity to use for code signing. |
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`BundleTarget`](#bundletarget) | _null_ | undefined|
+- [`BundleTarget`](#bundletarget) (Defaults to _null_)
 
 
 #### `BundleTarget`
@@ -482,12 +480,12 @@ Targets to bundle.
 
 **Type:** [`string`] \| `string`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`string`] | _null_ | A list of bundle targets.|
-| `string` | _null_ | A single bundle target.|
+- [`string`] (Defaults to _null_)
+  - A list of bundle targets.
+- `string` (Defaults to _null_)
+  - A single bundle target.
 
 
 #### `WindowsConfig`
@@ -506,11 +504,9 @@ Windows bundler configuration.
 | <div id="windowsconfig.wix">`wix` <a className="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | _null_ | Configuration for the MSI generated with WiX. |
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`WixConfig`](#wixconfig) | _null_ | undefined|
+- [`WixConfig`](#wixconfig) (Defaults to _null_)
 
 
 ##### `WixConfig`
@@ -540,13 +536,14 @@ The languages to build using WiX.
 
 **Type:** `string` \| [`string`] \| `object`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `string` | _null_ | A single language to build, without configuration.|
-| [`string`] | _null_ | A list of languages to build, without configuration.|
-| `object` | _null_ | A map of languages and its configuration.|
+- `string` (Defaults to _null_)
+  - A single language to build, without configuration.
+- [`string`] (Defaults to _null_)
+  - A list of languages to build, without configuration.
+- `object` (Defaults to _null_)
+  - A map of languages and its configuration.
 
 
 ##### `WixLanguageConfig`
@@ -559,11 +556,9 @@ Configuration for a target language for the WiX build.
 | <div id="wixlanguageconfig.localepath">`localePath` <a className="hash-link" href="#wixlanguageconfig.localepath"></a></div> | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`CliConfig`](#cliconfig) | _null_ | undefined|
+- [`CliConfig`](#cliconfig) (Defaults to _null_)
 
 
 ### `CliConfig`
@@ -593,12 +588,12 @@ A CLI argument definition.
 | <div id="cliarg.description">`description` <a className="hash-link" href="#cliarg.description"></a></div> | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
 | <div id="cliarg.index">`index` <a className="hash-link" href="#cliarg.index"></a></div> | `integer` (uint)? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
 | <div id="cliarg.longdescription">`longDescription` <a className="hash-link" href="#cliarg.longdescription"></a></div> | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
-| <div id="cliarg.maxvalues">`maxValues` <a className="hash-link" href="#cliarg.maxvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f `<file>` argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
-| <div id="cliarg.minvalues">`minValues` <a className="hash-link" href="#cliarg.minvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f `<file>` argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
+| <div id="cliarg.maxvalues">`maxValues` <a className="hash-link" href="#cliarg.maxvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f  argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
+| <div id="cliarg.minvalues">`minValues` <a className="hash-link" href="#cliarg.minvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f  argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
 | <div id="cliarg.multiple">`multiple` <a className="hash-link" href="#cliarg.multiple"></a></div> | `boolean`? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
 | <div id="cliarg.multipleoccurrences">`multipleOccurrences` <a className="hash-link" href="#cliarg.multipleoccurrences"></a></div> | `boolean`? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
 | <div id="cliarg.name">`name` <a className="hash-link" href="#cliarg.name"></a></div> | `string` | _null_ | The unique argument name |
-| <div id="cliarg.numberofvalues">`numberOfValues` <a className="hash-link" href="#cliarg.numberofvalues"></a></div> | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f <file>` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f <file> <file> <file> -f <file> <file> <file>` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
+| <div id="cliarg.numberofvalues">`numberOfValues` <a className="hash-link" href="#cliarg.numberofvalues"></a></div> | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f ` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f    -f   ` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
 | <div id="cliarg.possiblevalues">`possibleValues` <a className="hash-link" href="#cliarg.possiblevalues"></a></div> | [`string`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
 | <div id="cliarg.requireequals">`requireEquals` <a className="hash-link" href="#cliarg.requireequals"></a></div> | `boolean`? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
 | <div id="cliarg.required">`required` <a className="hash-link" href="#cliarg.required"></a></div> | `boolean`? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
@@ -648,11 +643,9 @@ Security configuration.
 | <div id="securityconfig.freezeprototype">`freezePrototype` <a className="hash-link" href="#securityconfig.freezeprototype"></a></div> | `boolean`? | `false` | Freeze the `Object.prototype` when using the custom protocol. |
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`Csp`](#csp) | _null_ | undefined|
+- [`Csp`](#csp) (Defaults to _null_)
 
 
 #### `Csp`
@@ -660,12 +653,12 @@ A Content-Security-Policy definition. See <https://developer.mozilla.org/en-US/d
 
 **Type:** `string` \| `object`
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `string` | _null_ | The entire CSP policy in a single text string.|
-| `object` | _null_ | An object mapping a directive with its sources values as a list of strings.|
+- `string` (Defaults to _null_)
+  - The entire CSP policy in a single text string.
+- `object` (Defaults to _null_)
+  - An object mapping a directive with its sources values as a list of strings.
 
 
 ##### `CspDirectiveSources`
@@ -673,12 +666,12 @@ A Content-Security-Policy directive source list. See <https://developer.mozilla.
 
 **Type:** `string` \| [`string`]
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `string` | _null_ | An inline list of CSP sources. Same as [`Self::List`], but concatenated with a space separator.|
-| [`string`] | _null_ | A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.|
+- `string` (Defaults to _null_)
+  - An inline list of CSP sources. Same as [`Self::List`], but concatenated with a space separator.
+- [`string`] (Defaults to _null_)
+  - A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
 
 
 #### `DisabledCspModificationKind`
@@ -686,26 +679,22 @@ The possible values for the `dangerous_disable_asset_csp_modification` config op
 
 **Type:** `boolean` \| [`string`]
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| `boolean` | _null_ | If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.|
-| [`string`] | _null_ | Disables the given list of CSP directives modifications.|
-
-
-**Any of the following types can be used:**
-
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`Csp`](#csp) | _null_ | undefined|
+- `boolean` (Defaults to _null_)
+  - If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
+- [`string`] (Defaults to _null_)
+  - Disables the given list of CSP directives modifications.
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`SystemTrayConfig`](#systemtrayconfig) | _null_ | undefined|
+- [`Csp`](#csp) (Defaults to _null_)
+
+
+The value can be any of the following:
+
+- [`SystemTrayConfig`](#systemtrayconfig) (Defaults to _null_)
 
 
 ### `SystemTrayConfig`
@@ -728,7 +717,7 @@ The Updater configuration object.
 | ---- | ---- | ------- | ----------- |
 | <div id="updaterconfig.active">`active` <a className="hash-link" href="#updaterconfig.active"></a></div> | `boolean`? | `false` | Whether the updater is active or not. |
 | <div id="updaterconfig.dialog">`dialog` <a className="hash-link" href="#updaterconfig.dialog"></a></div> | `boolean`? | `true` | Display built-in dialog or use event system if disabled. |
-| <div id="updaterconfig.endpoints">`endpoints` <a className="hash-link" href="#updaterconfig.endpoints"></a></div> | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /><h4>Examples</h4> - "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
+| <div id="updaterconfig.endpoints">`endpoints` <a className="hash-link" href="#updaterconfig.endpoints"></a></div> | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /><h4>Examples</h4><br /><br />- "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
 | <div id="updaterconfig.pubkey">`pubkey` <a className="hash-link" href="#updaterconfig.pubkey"></a></div> | `string`? | _null_ | Signature public key. |
 | <div id="updaterconfig.windows">`windows` <a className="hash-link" href="#updaterconfig.windows"></a></div> | [`UpdaterWindowsConfig`](#updaterwindowsconfig)? | [_view_](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
@@ -787,11 +776,9 @@ The window configuration object.
 | <div id="windowconfig.y">`y` <a className="hash-link" href="#windowconfig.y"></a></div> | `number` (double)? | _null_ | The vertical position of the window's top left corner |
 
 
-**Any of the following types can be used:**
+The value can be any of the following:
 
-| Type | Default | Description |
-| ---- | ------- | ----------- |
-| [`Theme`](#theme) | _null_ | undefined|
+- [`Theme`](#theme) (Defaults to _null_)
 
 
 #### `Theme`

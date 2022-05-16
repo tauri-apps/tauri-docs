@@ -5,12 +5,30 @@ const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
+  .replaceAll('<file>', '')
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
+
+/*
+
+ https://json-schema.org/understanding-json-schema/reference/combining.html
+
+ If `allOf`...
+  if only one and it is $ref, then treat as referencing an object and build there
+
+ if `anyOf`...
+  If one ref and the other is null, then optional..
+  else list them out as OR
+
+ If `oneOf`...
+  Is an enum
+
+ Only create table if properties
+*/
 
 const output = []
 
@@ -22,28 +40,6 @@ Object.entries(schema.properties).forEach(([key, value]) => {
     buildObject(key, value, 1)
   }
 })
-
-function descriptionConstructor(description, fixNewlines = false, headingLevel = 3) {
-  if (!description) {
-    return description
-  }
-
-  const exampleHeadingTag = `h${headingLevel + 1}`
-  description = description.replace('# Examples', `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`)
-
-  if (fixNewlines) {
-    description = description.replaceAll('\n', '<br />')
-  }
-
-  const markdownLinkMatches = markdownLinkRegex.exec(description)
-  if (markdownLinkMatches) {
-    const url = markdownLinkMatches[2]
-    if (!url.startsWith('http')) {
-      description = description.replace(url, `#${url.toLowerCase().replaceAll('_', '')}`)
-    }
-  }
-  return description
-}
 
 function buildObject(key, value, headingLevel) {
   // Skips building if an object with this value already exists
@@ -62,7 +58,9 @@ function buildObject(key, value, headingLevel) {
     output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
 
     if (value.description) {
-      output.push(`${descriptionConstructor(value.description, false, headingLevel)}\n`)
+      output.push(
+        `${descriptionConstructor(value.description, false, headingLevel)}\n`
+      )
     }
 
     if (typeConstructor(value)) {
@@ -94,6 +92,7 @@ function buildProperties(parentKey, values, headingLevel) {
   // Populate table
   Object.entries(values.properties).forEach(([key, value]) => {
     const requiredProperty = required.includes(key)
+
     if (Array.isArray(value.type) && !requiredProperty) {
       value.type = value.type.filter((t) => t !== 'null')
       if (value.type.length === 1) {
@@ -103,20 +102,20 @@ function buildProperties(parentKey, values, headingLevel) {
     const propertyType = typeConstructor(value, requiredProperty).concat(
       requiredProperty ? '' : '?'
     )
-
     const propertyDefault = defaultConstructor(value)
+    const propertyDescription = descriptionConstructor(value.description, true)
 
     const url = `${parentKey.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div id="${url}">\`${key}\` <a className="hash-link" href="#${url}"></a></div>`
 
     output.push(
-      `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)}\ |`
+      `| ${name} | ${propertyType} | ${propertyDefault} | ${propertyDescription} |`
     )
   })
 
   output.push('\n')
 
-  // Build any `object` types
+  // Build any referenced types
   Object.entries(values.properties).forEach(([key, value]) => {
     buildXOf(key, value, headingLevel)
   })
@@ -142,13 +141,31 @@ function buildXOf(key, value, headingLevel) {
   // Builds any objects found in the `anyOf` item of an object
   function buildAnyOf(key, value, headingLevel) {
     if (value.anyOf) {
-      if (value.anyOf.filter((item) => item.type != 'null').count > 1) {
-        console.log(value.anyOf)
+      // Check if a null is contained and the object should just be optional
+      if (
+        value.anyOf.some((e) => e.type == 'null') &&
+        value.anyOf.length == 2
+      ) {
+        console.log('Contains a null', value.anyOf)
+        // Remove the null values
+        value.anyOf = value.anyOf.filter((item) => item.type != 'null')
+        // Render it normally
+      } else {
+        // Build normally without being an optional
+      }
+
+      // Remove any null values
+      const valuesWithoutNull = value.anyOf.filter(
+        (item) => item.type != 'null'
+      )
+
+      // Check if a null value was removed
+      if (value.anyOf.count == valuesWithoutNull.count + 1) {
+        console.log('Only a single value was referenced', value.anyOf)
+      } else {
       }
       // Create a table for this type
-      output.push('**Any of the following types can be used:**\n')
-      output.push(`| Type | Default | Description |`)
-      output.push(`| ---- | ------- | ----------- |`)
+      output.push('The value can be any of the following:\n')
 
       // Populate this table
       value.anyOf.forEach((individualValue) => {
@@ -158,10 +175,15 @@ function buildXOf(key, value, headingLevel) {
 
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
-
-        output.push(
-          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description, true)}|`
+        const propertyDescription = descriptionConstructor(
+          individualValue.description,
+          true
         )
+
+        output.push(`- ${propertyType} (Defaults to ${propertyDefault})`)
+        if (propertyDescription) {
+          output.push(`  - ${propertyDescription}`)
+        }
       })
 
       output.push('\n')
@@ -187,7 +209,10 @@ function buildXOf(key, value, headingLevel) {
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
         output.push(
-          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description, true)} |`
+          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(
+            individualValue.description,
+            true
+          )} |`
         )
       })
 
@@ -197,7 +222,7 @@ function buildXOf(key, value, headingLevel) {
       Object.entries(value.oneOf).forEach(([_, individualValue]) => {
         buildProperties(key, individualValue)
         buildXOf(key, individualValue, headingLevel)
-        buildReferencedTypes( individualValue, headingLevel)
+        buildReferencedTypes(individualValue, headingLevel)
       })
     }
   }
@@ -235,6 +260,38 @@ function buildReferencedTypes(value, headingLevel) {
     const propertyValue = schema.definitions[propertyKey]
     buildObject(propertyKey, propertyValue, headingLevel + 1)
   }
+}
+
+function descriptionConstructor(
+  description,
+  fixNewlines = false,
+  headingLevel = 3
+) {
+  if (!description) {
+    return description
+  }
+
+  const exampleHeadingTag = `h${headingLevel + 1}`
+  description = description.replace(
+    '# Examples',
+    `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
+  )
+
+  if (fixNewlines) {
+    description = description.replaceAll('\n', '<br />')
+  }
+
+  const markdownLinkMatches = markdownLinkRegex.exec(description)
+  if (markdownLinkMatches) {
+    const url = markdownLinkMatches[2]
+    if (!url.startsWith('http')) {
+      description = description.replace(
+        url,
+        `#${url.toLowerCase().replaceAll('_', '')}`
+      )
+    }
+  }
+  return description
 }
 
 // Determins how the type of an object should be rendered
