@@ -27,7 +27,7 @@ const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
  If `oneOf`...
   Is an enum
 
- Only create table if properties
+ Only create table if properties exist
 */
 
 const output = []
@@ -106,7 +106,7 @@ function buildProperties(parentKey, values, headingLevel) {
     const propertyDescription = descriptionConstructor(value.description, true)
 
     const url = `${parentKey.toLowerCase()}.${key.toLowerCase()}`
-    const name = `<div id="${url}">\`${key}\` <a className="hash-link" href="#${url}"></a></div>`
+    const name = `<div id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
 
     output.push(
       `| ${name} | ${propertyType} | ${propertyDefault} | ${propertyDescription} |`
@@ -146,33 +146,15 @@ function buildXOf(key, value, headingLevel) {
         value.anyOf.some((e) => e.type == 'null') &&
         value.anyOf.length == 2
       ) {
-        console.log('Contains a null', value.anyOf)
         // Remove the null values
         value.anyOf = value.anyOf.filter((item) => item.type != 'null')
-        // Render it normally
-      } else {
-        // Build normally without being an optional
       }
 
-      // Remove any null values
-      const valuesWithoutNull = value.anyOf.filter(
-        (item) => item.type != 'null'
-      )
-
-      // Check if a null value was removed
-      if (value.anyOf.count == valuesWithoutNull.count + 1) {
-        console.log('Only a single value was referenced', value.anyOf)
-      } else {
-      }
       // Create a table for this type
-      output.push('The value can be any of the following:\n')
+      output.push('The value can be any of the following types:\n')
 
       // Populate this table
       value.anyOf.forEach((individualValue) => {
-        if (typeConstructor(individualValue).includes('null')) {
-          return
-        }
-
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
         const propertyDescription = descriptionConstructor(
@@ -201,19 +183,19 @@ function buildXOf(key, value, headingLevel) {
     if (value.oneOf) {
       // Create a table for this type
       output.push('**One of the following types can be used:**\n')
-      output.push(`| Type | Default | Description |`)
-      output.push(`| ---- | ------- | ----------- |`)
 
       // Populate this table
       value.oneOf.forEach((individualValue) => {
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
-        output.push(
-          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(
-            individualValue.description,
-            true
-          )} |`
+        const propertyDescription = descriptionConstructor(
+          individualValue.description,
+          true
         )
+        output.push(`- ${propertyType} (Defaults to ${propertyDefault})`)
+        if (propertyDescription) {
+          output.push(`  - ${propertyDescription}`)
+        }
       })
 
       output.push('\n')
