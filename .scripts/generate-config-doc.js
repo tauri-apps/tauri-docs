@@ -6,11 +6,12 @@ const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
   .replaceAll('\\n', '<br />') // Fixes new lines
-  .replaceAll('SecurityConfig.dev_csp', '#dev_csp') // Fixes issue with hard-link in schema
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
+
+const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
 
 const output = []
 
@@ -22,6 +23,19 @@ Object.entries(schema.properties).forEach(([key, value]) => {
     buildObject(key, value, 1)
   }
 })
+
+function descriptionConstructor(description) {
+  const markdownLinkMatches = markdownLinkRegex.exec(description)
+  if (markdownLinkMatches) {
+    const url = markdownLinkMatches[2]
+    if (!url.startsWith('http')) {
+      // we use only the first element since we do not have support to anchors inside the tables yet
+      const docUrl = url.split('.')[0].toLowerCase()
+      description = description.replace(url, `#${docUrl}`)
+    }
+  }
+  return description
+}
 
 function buildObject(key, value, headingLevel) {
   // Skips building if an object with this value already exists
@@ -40,7 +54,7 @@ function buildObject(key, value, headingLevel) {
     output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
 
     if (value.description) {
-      output.push(`${value.description}\n`)
+      output.push(`${descriptionConstructor(value.description)}\n`)
     }
 
     if (typeConstructor(value)) {
@@ -85,7 +99,7 @@ function buildProperties(values, headingLevel) {
     const propertyDefault = defaultConstructor(value)
 
     output.push(
-      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${value.description}\ |`
+      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description)}\ |`
     )
   })
 
@@ -135,7 +149,7 @@ function buildXOf(value, headingLevel) {
         const propertyDefault = defaultConstructor(individualValue)
 
         output.push(
-          `| ${propertyType} | ${propertyDefault} | ${individualValue.description}|`
+          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description)}|`
         )
       })
 
@@ -162,7 +176,7 @@ function buildXOf(value, headingLevel) {
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
         output.push(
-          `| ${propertyType} | ${propertyDefault} | ${individualValue.description} |`
+          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description)} |`
         )
       })
 
