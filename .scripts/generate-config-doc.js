@@ -17,7 +17,7 @@ const template = fs.readFileSync(templatePath, 'utf8')
 const output = []
 
 // Used to keep track of built sections so there aren't duplicates
-const builtHeaders = []
+const builtObjects = []
 
 Object.entries(schema.properties).forEach(([key, value]) => {
   if (key !== '$schema') {
@@ -27,7 +27,7 @@ Object.entries(schema.properties).forEach(([key, value]) => {
 
 function buildObject(key, value, headingLevel) {
   // Skips building if an object with this value already exists
-  if (builtHeaders.includes(key)) {
+  if (builtObjects.includes(key)) {
     return
   }
 
@@ -38,23 +38,20 @@ function buildObject(key, value, headingLevel) {
 
   // Don't generate headings for the top-most level
   if (headingLevel != 1) {
-    builtHeaders.push(key)
+    builtObjects.push(key)
     output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
-    output.push(`${value.description}\n`)
+
+    if (value.description) {
+      output.push(`${value.description}\n`)
+    }
 
     if (typeConstructor(value)) {
       output.push(`**Type:** ${typeConstructor(value)}\n`)
     }
-
-    if (value.enum) {
-      output.push(`Options: ${value.enum.join(', ')}\n`)
-    }
   }
 
   buildProperties(value, headingLevel)
-
   buildXOf(value, headingLevel)
-
   buildReferencedTypes(value, headingLevel)
 }
 
@@ -76,14 +73,18 @@ function buildProperties(values, headingLevel) {
 
   // Populate table
   Object.entries(values.properties).forEach(([key, value]) => {
-    const lineType = typeConstructor(value).concat(
+    const propertyType = typeConstructor(value).concat(
       required.includes(key) ? '' : '?'
     )
-    const lineDefault = defaultConstructor(value)
+
+    const propertyDefault = defaultConstructor(value)
+
     output.push(
-      `| \`${key}\` | ${lineType} | ${lineDefault} | ${value.description}\ |`
+      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${value.description}\ |`
     )
   })
+
+  output.push('\n')
 
   // Build any `object` types
   Object.entries(values.properties).forEach(([_, value]) => {
@@ -111,6 +112,9 @@ function buildXOf(value, headingLevel) {
   // Builds any objects found in the `anyOf` item of an object
   function buildAnyOf(value, headingLevel) {
     if (value.anyOf) {
+      if (value.anyOf.filter((item) => item.type != 'null').count > 1) {
+        console.log(value.anyOf)
+      }
       // Create a table for this type
       output.push('**Any of the following types can be used:**\n')
       output.push(`| Type | Default | Description |`)
@@ -118,12 +122,19 @@ function buildXOf(value, headingLevel) {
 
       // Populate this table
       value.anyOf.forEach((individualValue) => {
+        if (typeConstructor(individualValue).includes('null')) {
+          return
+        }
+
+        const propertyType = typeConstructor(individualValue)
+        const propertyDefault = defaultConstructor(individualValue)
+
         output.push(
-          `| ${typeConstructor(individualValue)}\
-        | ${defaultConstructor(individualValue)}\
-        | ${individualValue.description} |`
+          `| ${propertyType} | ${propertyDefault} | ${individualValue.description}|`
         )
       })
+
+      output.push('\n')
 
       // See if any referenced objects need built
       Object.entries(value.anyOf).forEach(([key, individualValue]) => {
@@ -143,15 +154,17 @@ function buildXOf(value, headingLevel) {
 
       // Populate this table
       value.oneOf.forEach((individualValue) => {
+        const propertyType = typeConstructor(individualValue)
+        const propertyDefault = defaultConstructor(individualValue)
         output.push(
-          `| ${typeConstructor(individualValue)}\
-        | ${defaultConstructor(individualValue)}\
-        | ${individualValue.description} |`
+          `| ${propertyType} | ${propertyDefault} | ${individualValue.description} |`
         )
       })
 
+      output.push('\n')
+
       // See if any referenced objects need built
-      Object.entries(value.oneOf).forEach(([key, individualValue]) => {
+      Object.entries(value.oneOf).forEach(([_, individualValue]) => {
         buildProperties(individualValue)
         buildXOf(individualValue, headingLevel)
         buildReferencedTypes(individualValue, headingLevel)
@@ -196,6 +209,10 @@ function buildReferencedTypes(value, headingLevel) {
 
 // Determins how the type of an object should be rendered
 function typeConstructor(value) {
+  if (value.enum) {
+    return `Enum: ${value.enum}`
+  }
+
   // Skip if no type
   if (value.type) {
     // Logic for any remaining scenarios
@@ -204,6 +221,15 @@ function typeConstructor(value) {
       case 'string':
         if (value.type == 'array') {
           return arrayTypeConstructor(value)
+        }
+        // Fix for ShellAllowedArg.anyOf.object
+        if (value.type == 'object') {
+          if (value.required) {
+            return `[\`${value.required}\`]`
+          }
+        }
+        if (value.format) {
+          return `\`${value.type}\` (${value.format})`
         }
         return `\`${value.type}\``
       case 'object':
@@ -245,11 +271,8 @@ function arrayTypeConstructor(value) {
     value.type.forEach(function (part, index) {
       this[index] = `\`${part}\``
     }, value.type)
-    if (value.type.count > 1) {
-      return `[${value.type.join(` \\| `)}]`
-    } else {
-      return `${value.type.join(` \\| `)}`
-    }
+
+    return `[${value.type.join(` \\| `)}]`
   }
 
   // If it's just faking the type...
@@ -257,7 +280,7 @@ function arrayTypeConstructor(value) {
     // Check to see if it's referencing another object type
     if (value.items.$ref) {
       const name = value.items.$ref.replace('#/definitions/', '')
-      return `[\`${name}\`](#${name.toLowerCase()})`
+      return `\[[\`${name}\`](#${name.toLowerCase()})]`
     }
     // Or it could just be referencing a specific primitive type
     if ('items' in value) {
