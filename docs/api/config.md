@@ -65,12 +65,12 @@ The Build configuration object.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `beforeBuildCommand` | [`string`]? | _null_ | A shell command to run before `tauri build` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
-| `beforeDevCommand` | [`string`]? | _null_ | A shell command to run before `tauri dev` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| `beforeBuildCommand` | `string`? | _null_ | A shell command to run before `tauri build` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| `beforeDevCommand` | `string`? | _null_ | A shell command to run before `tauri dev` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
 | `devPath` | [`AppUrl`](#appurl)? | `http://localhost:8080/` | The path or URL to use on development. |
 | `distDir` | [`AppUrl`](#appurl)? | `../dist` | The path to the app's dist dir. This path must contain your index.html file. |
-| `features` | [`array`]? | _null_ | Features passed to `cargo` commands. |
-| `runner` | [`string`]? | _null_ | The binary used to build and run the application. |
+| `features` | [`string`]? | _null_ | Features passed to `cargo` commands. |
+| `runner` | `string`? | _null_ | The binary used to build and run the application. |
 | `withGlobalTauri` | `boolean`? | `false` | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
 
 
@@ -107,8 +107,8 @@ The package configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `productName` | [`string`]? | _null_ | App name. |
-| `version` | [`string`]? | _null_ | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
+| `productName` | `string`? | _null_ | App name. |
+| `version` | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
 
 
 ## `PluginConfig`
@@ -314,7 +314,7 @@ Allowlist for the shell APIs.
 | `execute` | `boolean`? | `false` | Enable binary execution. |
 | `open` | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
 | `scope` | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
-| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see &lt;https://tauri.studio/docs/guides/bundler/sidecar/&gt;. |
+| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see &lt;https://tauri.studio/guides/building/sidecar&gt;. |
 
 
 ##### `ShellAllowlistOpen`
@@ -421,16 +421,16 @@ Configuration for tauri-bundler.
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `active` | `boolean`? | `false` | Whether we should build your app with tauri-bundler or plain `cargo build` |
-| `category` | [`string`]? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
-| `copyright` | [`string`]? | _null_ | A copyright string associated with your application. |
+| `category` | `string`? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
+| `copyright` | `string`? | _null_ | A copyright string associated with your application. |
 | `deb` | [`DebConfig`](#debconfig)? | [_view_](#debconfig) | Configuration for the Debian bundle. |
-| `externalBin` | [`array`]? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
+| `externalBin` | [`string`]? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
 | `icon` | [`string`]? | _null_ | The app's icons |
 | `identifier` | `string` | _null_ | The app's identifier |
-| `longDescription` | [`string`]? | _null_ | A longer, multi-line description of the application. |
+| `longDescription` | `string`? | _null_ | A longer, multi-line description of the application. |
 | `macOS` | [`MacConfig`](#macconfig)? | [_view_](#macconfig) | Configuration for the macOS bundles. |
-| `resources` | [`array`]? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
-| `shortDescription` | [`string`]? | _null_ | A short description of your application. |
+| `resources` | [`string`]? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
+| `shortDescription` | `string`? | _null_ | A short description of your application. |
 | `targets` | [`BundleTarget`](#bundletarget)? | _null_ | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
 | `windows` | [`WindowsConfig`](#windowsconfig)? | [_view_](#windowsconfig) | Configuration for the Windows bundle. |
 
@@ -442,7 +442,7 @@ Configuration for Debian (.deb) bundles.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `depends` | [`array`]? | _null_ | The list of deb dependencies your application relies on. |
+| `depends` | [`string`]? | _null_ | The list of deb dependencies your application relies on. |
 | `files` | `object`? | `string` | The files to include on the package. |
 
 
@@ -453,13 +453,13 @@ Configuration for the macOS bundles.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `entitlements` | [`string`]? | _null_ | Path to the entitlements file. |
-| `exceptionDomain` | [`string`]? | _null_ | Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name. |
-| `frameworks` | [`array`]? | _null_ | A list of strings indicating any macOS X frameworks that need to be bundled with the application.<br /><br />If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework. |
-| `license` | [`string`]? | _null_ | The path to the license file to add to the DMG bundle. |
-| `minimumSystemVersion` | [`string`]? | `10.13` | A version string indicating the minimum macOS X version that the bundled application supports. Defaults to `10.13`.<br /><br />Setting it to `null` completely removes the `LSMinimumSystemVersion` field on the bundle's `Info.plist` and the `MACOSX_DEPLOYMENT_TARGET` environment variable.<br /><br />An empty string is considered an invalid value so the default value is used. |
-| `providerShortName` | [`string`]? | _null_ | Provider short name for notarization. |
-| `signingIdentity` | [`string`]? | _null_ | Identity to use for code signing. |
+| `entitlements` | `string`? | _null_ | Path to the entitlements file. |
+| `exceptionDomain` | `string`? | _null_ | Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name. |
+| `frameworks` | [`string`]? | _null_ | A list of strings indicating any macOS X frameworks that need to be bundled with the application.<br /><br />If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework. |
+| `license` | `string`? | _null_ | The path to the license file to add to the DMG bundle. |
+| `minimumSystemVersion` | `string`? | `10.13` | A version string indicating the minimum macOS X version that the bundled application supports. Defaults to `10.13`.<br /><br />Setting it to `null` completely removes the `LSMinimumSystemVersion` field on the bundle's `Info.plist` and the `MACOSX_DEPLOYMENT_TARGET` environment variable.<br /><br />An empty string is considered an invalid value so the default value is used. |
+| `providerShortName` | `string`? | _null_ | Provider short name for notarization. |
+| `signingIdentity` | `string`? | _null_ | Identity to use for code signing. |
 
 
 **Any of the following types can be used:**
@@ -490,11 +490,11 @@ Windows bundler configuration.
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `allowDowngrades` | `boolean`? | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
-| `certificateThumbprint` | [`string`]? | _null_ | Specifies the SHA1 hash of the signing certificate. |
-| `digestAlgorithm` | [`string`]? | _null_ | Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended. |
-| `timestampUrl` | [`string`]? | _null_ | Server to use during timestamping. |
-| `tsp` | [`boolean`]? | _null_ | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
-| `webviewFixedRuntimePath` | [`string`]? | _null_ | Path to the webview fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+| `certificateThumbprint` | `string`? | _null_ | Specifies the SHA1 hash of the signing certificate. |
+| `digestAlgorithm` | `string`? | _null_ | Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended. |
+| `timestampUrl` | `string`? | _null_ | Server to use during timestamping. |
+| `tsp` | `boolean`? | _null_ | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
+| `webviewFixedRuntimePath` | `string`? | _null_ | Path to the webview fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
 | `wix` | [`WixConfig`](#wixconfig)? | _null_ | Configuration for the MSI generated with WiX. |
 
 
@@ -512,19 +512,19 @@ Configuration for the MSI bundle using WiX.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `bannerPath` | [`string`]? | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |
+| `bannerPath` | `string`? | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |
 | `componentGroupRefs` | [`string`]? | _null_ | The ComponentGroup element ids you want to reference from the fragments. |
 | `componentRefs` | [`string`]? | _null_ | The Component element ids you want to reference from the fragments. |
-| `dialogImagePath` | [`string`]? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
+| `dialogImagePath` | `string`? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
 | `enableElevatedUpdateTask` | `boolean`? | `false` | Create an elevated update task within Windows Task Scheduler. |
 | `featureGroupRefs` | [`string`]? | _null_ | The FeatureGroup element ids you want to reference from the fragments. |
 | `featureRefs` | [`string`]? | _null_ | The Feature element ids you want to reference from the fragments. |
 | `fragmentPaths` | [`string`]? | _null_ | A list of paths to .wxs files with WiX fragments to use. |
 | `language` | [`WixLanguage`](#wixlanguage)? | `en-US` | The installer languages to build. See &lt;https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables&gt;. |
-| `license` | [`string`]? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
+| `license` | `string`? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
 | `mergeRefs` | [`string`]? | _null_ | The Merge element ids you want to reference from the fragments. |
 | `skipWebviewInstall` | `boolean`? | `false` | Disables the Webview2 runtime installation after app install. |
-| `template` | [`string`]? | _null_ | A custom .wxs template to use. |
+| `template` | `string`? | _null_ | A custom .wxs template to use. |
 
 
 ###### `WixLanguage`
@@ -548,7 +548,7 @@ Configuration for a target language for the WiX build.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `localePath` | [`string`]? | _null_ | The path to a locale (`.wxl`) file. See &lt;https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html&gt;. |
+| `localePath` | `string`? | _null_ | The path to a locale (`.wxl`) file. See &lt;https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html&gt;. |
 
 
 **Any of the following types can be used:**
@@ -565,12 +565,12 @@ describes a CLI configuration
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `afterHelp` | [`string`]? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted. |
-| `args` | [`array`]? | _null_ | List of arguments for the command |
-| `beforeHelp` | [`string`]? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information. |
-| `description` | [`string`]? | _null_ | Command description which will be shown on the help information. |
-| `longDescription` | [`string`]? | _null_ | Command long description which will be shown on the help information. |
-| `subcommands` | [`object`]? | _null_ | List of subcommands of this command |
+| `afterHelp` | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted. |
+| `args` | [[`CliArg`](#cliarg)]? | _null_ | List of arguments for the command |
+| `beforeHelp` | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information. |
+| `description` | `string`? | _null_ | Command description which will be shown on the help information. |
+| `longDescription` | `string`? | _null_ | Command long description which will be shown on the help information. |
+| `subcommands` | `object`? | _null_ | List of subcommands of this command |
 
 
 #### `CliArg`
@@ -580,29 +580,29 @@ A CLI argument definition.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `conflictsWith` | [`string`]? | _null_ | Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa. |
-| `conflictsWithAll` | [`array`]? | _null_ | The same as conflictsWith but allows specifying multiple two-way conflicts per argument. |
-| `description` | [`string`]? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
-| `index` | [`integer`]? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
-| `longDescription` | [`string`]? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
-| `maxValues` | [`integer`]? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
-| `minValues` | [`integer`]? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
-| `multiple` | [`boolean`]? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
-| `multipleOccurrences` | [`boolean`]? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
+| `conflictsWith` | `string`? | _null_ | Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa. |
+| `conflictsWithAll` | [`string`]? | _null_ | The same as conflictsWith but allows specifying multiple two-way conflicts per argument. |
+| `description` | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
+| `index` | `integer` (uint)? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
+| `longDescription` | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
+| `maxValues` | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
+| `minValues` | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
+| `multiple` | `boolean`? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
+| `multipleOccurrences` | `boolean`? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
 | `name` | `string` | _null_ | The unique argument name |
-| `numberOfValues` | [`integer`]? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f &lt;file&gt;` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f &lt;file&gt; &lt;file&gt; &lt;file&gt; -f &lt;file&gt; &lt;file&gt; &lt;file&gt;` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
-| `possibleValues` | [`array`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
-| `requireEquals` | [`boolean`]? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
-| `required` | [`boolean`]? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
-| `requiredIfEq` | [`array`]? | _null_ | Allows specifying that an argument is required conditionally with the signature [arg, value] the requirement will only become valid if the `arg`'s value equals `${value}`. |
-| `requiredUnlessPresent` | [`string`]? | _null_ | Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present. |
-| `requiredUnlessPresentAll` | [`array`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present. |
-| `requiredUnlessPresentAny` | [`array`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present. |
-| `requires` | [`string`]? | _null_ | Tets an argument by name that is required when this one is present i.e. when using this argument, the following argument must be present. |
-| `requiresAll` | [`array`]? | _null_ | Sts multiple arguments by names that are required when this one is present i.e. when using this argument, the following arguments must be present. |
-| `requiresIf` | [`array`]? | _null_ | Allows a conditional requirement with the signature [arg, value] the requirement will only become valid if `arg`'s value equals `${value}`. |
-| `short` | [`string`]? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading - characters will be stripped, and only the first non - character will be used as the short version. |
-| `takesValue` | [`boolean`]? | _null_ | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods - Using a space such as -o value or --option value - Using an equals and no space such as -o=value or --option=value - Use a short and no space such as -ovalue |
+| `numberOfValues` | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f &lt;file&gt;` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f &lt;file&gt; &lt;file&gt; &lt;file&gt; -f &lt;file&gt; &lt;file&gt; &lt;file&gt;` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
+| `possibleValues` | [`string`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
+| `requireEquals` | `boolean`? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
+| `required` | `boolean`? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
+| `requiredIfEq` | [`string`]? | _null_ | Allows specifying that an argument is required conditionally with the signature [arg, value] the requirement will only become valid if the `arg`'s value equals `${value}`. |
+| `requiredUnlessPresent` | `string`? | _null_ | Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present. |
+| `requiredUnlessPresentAll` | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present. |
+| `requiredUnlessPresentAny` | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present. |
+| `requires` | `string`? | _null_ | Tets an argument by name that is required when this one is present i.e. when using this argument, the following argument must be present. |
+| `requiresAll` | [`string`]? | _null_ | Sts multiple arguments by names that are required when this one is present i.e. when using this argument, the following arguments must be present. |
+| `requiresIf` | [`string`]? | _null_ | Allows a conditional requirement with the signature [arg, value] the requirement will only become valid if `arg`'s value equals `${value}`. |
+| `short` | `string`? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading - characters will be stripped, and only the first non - character will be used as the short version. |
+| `takesValue` | `boolean`? | _null_ | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods - Using a space such as -o value or --option value - Using an equals and no space such as -o=value or --option=value - Use a short and no space such as -ovalue |
 
 
 ### `PatternKind`
@@ -720,9 +720,25 @@ The Updater configuration object.
 | ---- | ---- | ------- | ----------- |
 | `active` | `boolean`? | `false` | Whether the updater is active or not. |
 | `dialog` | `boolean`? | `true` | Display built-in dialog or use event system if disabled. |
-| `endpoints` | [`array`]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /># Examples<br /><br />- "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
+| `endpoints` | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /># Examples<br /><br />- "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
 | `pubkey` | `string`? | _null_ | Signature public key. |
+| `windows` | [`UpdaterWindowsConfig`](#updaterwindowsconfig)? | [_view_](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
+
+#### `UpdaterWindowsConfig`
+The updater configuration for Windows.
+
+**Type:** `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `installMode` | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode)? | `passive` | The installation mode for the update on Windows. Defaults to `passive`. |
+
+
+##### `WindowsUpdateInstallMode`
+Install modes for the Windows update.
+
+**Type:** Enum: basicUi,quiet,passive
 
 #### `UpdaterEndpoint`
 A URL to an updater server.<br /><br />The URL must use the `https` scheme on production.
@@ -744,11 +760,11 @@ The window configuration object.
 | `fullscreen` | `boolean`? | `false` | Whether the window starts as fullscreen or not. |
 | `height` | `number` (double)? | `600` | The window height. |
 | `label` | `string`? | `main` | The window identifier. It must be alphanumeric. |
-| `maxHeight` | [`number`]? | _null_ | The max window height. |
-| `maxWidth` | [`number`]? | _null_ | The max window width. |
+| `maxHeight` | `number` (double)? | _null_ | The max window height. |
+| `maxWidth` | `number` (double)? | _null_ | The max window width. |
 | `maximized` | `boolean`? | `false` | Whether the window is maximized or not. |
-| `minHeight` | [`number`]? | _null_ | The min window height. |
-| `minWidth` | [`number`]? | _null_ | The min window width. |
+| `minHeight` | `number` (double)? | _null_ | The min window height. |
+| `minWidth` | `number` (double)? | _null_ | The min window width. |
 | `resizable` | `boolean`? | `true` | Whether the window is resizable or not. |
 | `skipTaskbar` | `boolean`? | `false` | Whether or not the window icon should be added to the taskbar. |
 | `theme` | [`Theme`](#theme)? | _null_ | The initial window theme. Defaults to the system theme. Only implemented on Windows. |
@@ -757,8 +773,8 @@ The window configuration object.
 | `url` | [`WindowUrl`](#windowurl)? | `index.html` | The window webview URL. |
 | `visible` | `boolean`? | `true` | Whether the window is visible or not. |
 | `width` | `number` (double)? | `800` | The window width. |
-| `x` | [`number`]? | _null_ | The horizontal position of the window's top left corner |
-| `y` | [`number`]? | _null_ | The vertical position of the window's top left corner |
+| `x` | `number` (double)? | _null_ | The horizontal position of the window's top left corner |
+| `y` | `number` (double)? | _null_ | The vertical position of the window's top left corner |
 
 
 **Any of the following types can be used:**

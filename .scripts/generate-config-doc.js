@@ -73,8 +73,15 @@ function buildProperties(values, headingLevel) {
 
   // Populate table
   Object.entries(values.properties).forEach(([key, value]) => {
-    const propertyType = typeConstructor(value).concat(
-      required.includes(key) ? '' : '?'
+    const requiredProperty = required.includes(key)
+    if (Array.isArray(value.type) && !requiredProperty) {
+      value.type = value.type.filter(t => t !== 'null')
+      if (value.type.length === 1) {
+        value.type = value.type[0]
+      }
+    }
+    const propertyType = typeConstructor(value, requiredProperty).concat(
+      requiredProperty ? '' : '?'
     )
 
     const propertyDefault = defaultConstructor(value)
