@@ -314,11 +314,11 @@ Allowlist for the shell APIs.
 | `execute` | `boolean`? | `false` | Enable binary execution. |
 | `open` | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
 | `scope` | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
-| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see &lt;https://tauri.studio/guides/building/sidecar&gt;. |
+| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/guides/building/sidecar>. |
 
 
 ##### `ShellAllowlistOpen`
-Defines the `shell &gt; open` api scope.
+Defines the `shell > open` api scope.
 
 **Type:** `boolean` \| `string`
 
@@ -335,7 +335,7 @@ Shell scope definition. It is a list of command names and associated CLI argumen
 
 **Type:** [[`ShellAllowedCommand`](#shellallowedcommand)]
 
-###### `ShellAllowedCommand`
+##### `ShellAllowedCommand`
 A command allowed to be executed by the webview API.
 
 **Type:** [`name`]
@@ -348,7 +348,7 @@ A command allowed to be executed by the webview API.
 | `sidecar` | `boolean`? | `false` | If this command is a sidecar command. |
 
 
-###### `ShellAllowedArgs`
+##### `ShellAllowedArgs`
 A set of command arguments allowed to be executed by the webview API.<br /><br />A value of `true` will allow any arguments to be passed to the command. `false` will disable all arguments. A list of [`ShellAllowedArg`] will set those arguments as the only valid arguments to be passed to the attached command configuration.
 
 **Type:** `boolean` \| [[`ShellAllowedArg`](#shellallowedarg)]
@@ -361,7 +361,7 @@ A set of command arguments allowed to be executed by the webview API.<br /><br /
 | [[`ShellAllowedArg`](#shellallowedarg)] | _null_ | A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.|
 
 
-###### `ShellAllowedArg`
+##### `ShellAllowedArg`
 A command argument allowed to be executed by the webview API.
 
 **Type:** `string` \| [`validator`]
@@ -520,14 +520,14 @@ Configuration for the MSI bundle using WiX.
 | `featureGroupRefs` | [`string`]? | _null_ | The FeatureGroup element ids you want to reference from the fragments. |
 | `featureRefs` | [`string`]? | _null_ | The Feature element ids you want to reference from the fragments. |
 | `fragmentPaths` | [`string`]? | _null_ | A list of paths to .wxs files with WiX fragments to use. |
-| `language` | [`WixLanguage`](#wixlanguage)? | `en-US` | The installer languages to build. See &lt;https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables&gt;. |
+| `language` | [`WixLanguage`](#wixlanguage)? | `en-US` | The installer languages to build. See <https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables>. |
 | `license` | `string`? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
 | `mergeRefs` | [`string`]? | _null_ | The Merge element ids you want to reference from the fragments. |
 | `skipWebviewInstall` | `boolean`? | `false` | Disables the Webview2 runtime installation after app install. |
 | `template` | `string`? | _null_ | A custom .wxs template to use. |
 
 
-###### `WixLanguage`
+##### `WixLanguage`
 The languages to build using WiX.
 
 **Type:** `string` \| [`string`] \| `object`
@@ -541,14 +541,14 @@ The languages to build using WiX.
 | `object` | _null_ | A map of languages and its configuration.|
 
 
-###### `WixLanguageConfig`
+##### `WixLanguageConfig`
 Configuration for a target language for the WiX build.
 
 **Type:** `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `localePath` | `string`? | _null_ | The path to a locale (`.wxl`) file. See &lt;https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html&gt;. |
+| `localePath` | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
 
 
 **Any of the following types can be used:**
@@ -585,12 +585,12 @@ A CLI argument definition.
 | `description` | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
 | `index` | `integer` (uint)? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
 | `longDescription` | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
-| `maxValues` | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
-| `minValues` | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f &lt;file&gt; argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
+| `maxValues` | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f `<file>` argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
+| `minValues` | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f `<file>` argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
 | `multiple` | `boolean`? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
 | `multipleOccurrences` | `boolean`? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
 | `name` | `string` | _null_ | The unique argument name |
-| `numberOfValues` | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f &lt;file&gt;` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f &lt;file&gt; &lt;file&gt; &lt;file&gt; -f &lt;file&gt; &lt;file&gt; &lt;file&gt;` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
+| `numberOfValues` | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f <file>` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f <file> <file> <file> -f <file> <file> <file>` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
 | `possibleValues` | [`string`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
 | `requireEquals` | `boolean`? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
 | `required` | `boolean`? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
@@ -634,9 +634,9 @@ Security configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `csp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on the built application. If [`dev_csp`](#dev_csp) is not specified, this value is also injected on dev.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See &lt;https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP&gt;. |
+| `csp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on the built application. If [`dev_csp`](#dev_csp) is not specified, this value is also injected on dev.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
 | `dangerousDisableAssetCspModification` | [`DisabledCspModificationKind`](#disabledcspmodificationkind)? | `false` | Disables the Tauri-injected CSP sources.<br /><br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources.<br /><br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject.<br /><br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
-| `devCsp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on development.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See &lt;https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP&gt;. |
+| `devCsp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on development.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
 | `freezePrototype` | `boolean`? | `false` | Freeze the `Object.prototype` when using the custom protocol. |
 
 
@@ -648,7 +648,7 @@ Security configuration.
 
 
 #### `Csp`
-A Content-Security-Policy definition. See &lt;https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP&gt;.
+A Content-Security-Policy definition. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
 **Type:** `string` \| `object`
 
@@ -661,7 +661,7 @@ A Content-Security-Policy definition. See &lt;https://developer.mozilla.org/en-U
 
 
 ##### `CspDirectiveSources`
-A Content-Security-Policy directive source list. See &lt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources&gt;.
+A Content-Security-Policy directive source list. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources>.
 
 **Type:** `string` \| [`string`]
 
@@ -769,7 +769,7 @@ The window configuration object.
 | `skipTaskbar` | `boolean`? | `false` | Whether or not the window icon should be added to the taskbar. |
 | `theme` | [`Theme`](#theme)? | _null_ | The initial window theme. Defaults to the system theme. Only implemented on Windows. |
 | `title` | `string`? | `Tauri App` | The window title. |
-| `transparent` | `boolean`? | `false` | Whether the window is transparent or not.<br /><br />Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json &gt; tauri &gt; macOSPrivateApi`. WARNING: Using private APIs on `macOS` prevents your application from being accepted for the `App Store`. |
+| `transparent` | `boolean`? | `false` | Whether the window is transparent or not.<br /><br />Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`. WARNING: Using private APIs on `macOS` prevents your application from being accepted for the `App Store`. |
 | `url` | [`WindowUrl`](#windowurl)? | `index.html` | The window webview URL. |
 | `visible` | `boolean`? | `true` | Whether the window is visible or not. |
 | `width` | `number` (double)? | `800` | The window width. |

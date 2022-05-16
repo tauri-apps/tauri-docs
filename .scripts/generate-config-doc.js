@@ -5,8 +5,6 @@ const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
-  .replaceAll('<', '&lt;') // Fixes opening HTML brackets
-  .replaceAll('>', '&gt;') // Fixes closing HTML brackets
   .replaceAll('\\n', '<br />') // Fixes new lines
   .replaceAll('SecurityConfig.dev_csp', '#dev_csp') // Fixes issue with hard-link in schema
 const schema = JSON.parse(schemaString)
