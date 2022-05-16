@@ -39,9 +39,7 @@ function descriptionConstructor(description, fixNewlines = false, headingLevel =
   if (markdownLinkMatches) {
     const url = markdownLinkMatches[2]
     if (!url.startsWith('http')) {
-      // we use only the first element since we do not have support to anchors inside the tables yet
-      const docUrl = url.split('.')[0].toLowerCase()
-      description = description.replace(url, `#${docUrl}`)
+      description = description.replace(url, `#${url.toLowerCase().replaceAll('_', '')}`)
     }
   }
   return description
@@ -72,12 +70,12 @@ function buildObject(key, value, headingLevel) {
     }
   }
 
-  buildProperties(value, headingLevel)
-  buildXOf(value, headingLevel)
+  buildProperties(key, value, headingLevel)
+  buildXOf(key, value, headingLevel)
   buildReferencedTypes(value, headingLevel)
 }
 
-function buildProperties(values, headingLevel) {
+function buildProperties(parentKey, values, headingLevel) {
   if (!values.properties) {
     return
   }
@@ -108,26 +106,29 @@ function buildProperties(values, headingLevel) {
 
     const propertyDefault = defaultConstructor(value)
 
+    const url = `${parentKey.toLowerCase()}.${key.toLowerCase()}`
+    const name = `<div id="${url}">\`${key}\` <a className="hash-link" href="#${url}"></a></div>`
+
     output.push(
-      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)}\ |`
+      `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)}\ |`
     )
   })
 
   output.push('\n')
 
   // Build any `object` types
-  Object.entries(values.properties).forEach(([_, value]) => {
-    buildXOf(value, headingLevel)
+  Object.entries(values.properties).forEach(([key, value]) => {
+    buildXOf(key, value, headingLevel)
   })
 }
 
-function buildXOf(value, headingLevel) {
-  buildAllOf(value, headingLevel)
-  buildAnyOf(value, headingLevel)
-  buildOneOf(value, headingLevel)
+function buildXOf(key, value, headingLevel) {
+  buildAllOf(key, value, headingLevel)
+  buildAnyOf(key, value, headingLevel)
+  buildOneOf(key, value, headingLevel)
 
   // Builds any objects found in the `allOf` item of an object
-  function buildAllOf(value, headingLevel) {
+  function buildAllOf(key, value, headingLevel) {
     if (value.allOf) {
       // Loop through those objects
       value.allOf.forEach((individualValue) => {
@@ -139,7 +140,7 @@ function buildXOf(value, headingLevel) {
   }
 
   // Builds any objects found in the `anyOf` item of an object
-  function buildAnyOf(value, headingLevel) {
+  function buildAnyOf(key, value, headingLevel) {
     if (value.anyOf) {
       if (value.anyOf.filter((item) => item.type != 'null').count > 1) {
         console.log(value.anyOf)
@@ -167,14 +168,14 @@ function buildXOf(value, headingLevel) {
 
       // See if any referenced objects need built
       Object.entries(value.anyOf).forEach(([key, individualValue]) => {
-        buildProperties(individualValue)
-        buildXOf(individualValue, headingLevel)
+        buildProperties(key, individualValue)
+        buildXOf(key, individualValue, headingLevel)
         buildReferencedTypes(individualValue, headingLevel)
       })
     }
   }
 
-  function buildOneOf(value, headingLevel) {
+  function buildOneOf(key, value, headingLevel) {
     if (value.oneOf) {
       // Create a table for this type
       output.push('**One of the following types can be used:**\n')
@@ -194,9 +195,9 @@ function buildXOf(value, headingLevel) {
 
       // See if any referenced objects need built
       Object.entries(value.oneOf).forEach(([_, individualValue]) => {
-        buildProperties(individualValue)
-        buildXOf(individualValue, headingLevel)
-        buildReferencedTypes(individualValue, headingLevel)
+        buildProperties(key, individualValue)
+        buildXOf(key, individualValue, headingLevel)
+        buildReferencedTypes( individualValue, headingLevel)
       })
     }
   }

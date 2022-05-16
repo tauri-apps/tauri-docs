@@ -65,13 +65,13 @@ The Build configuration object.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `beforeBuildCommand` | `string`? | _null_ | A shell command to run before `tauri build` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
-| `beforeDevCommand` | `string`? | _null_ | A shell command to run before `tauri dev` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
-| `devPath` | [`AppUrl`](#appurl)? | `http://localhost:8080/` | The path or URL to use on development. |
-| `distDir` | [`AppUrl`](#appurl)? | `../dist` | The path to the app's dist dir. This path must contain your index.html file. |
-| `features` | [`string`]? | _null_ | Features passed to `cargo` commands. |
-| `runner` | `string`? | _null_ | The binary used to build and run the application. |
-| `withGlobalTauri` | `boolean`? | `false` | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
+| <div id="buildconfig.beforebuildcommand">`beforeBuildCommand` <a className="hash-link" href="#buildconfig.beforebuildcommand"></a></div> | `string`? | _null_ | A shell command to run before `tauri build` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| <div id="buildconfig.beforedevcommand">`beforeDevCommand` <a className="hash-link" href="#buildconfig.beforedevcommand"></a></div> | `string`? | _null_ | A shell command to run before `tauri dev` kicks in.<br /><br />The TAURI_PLATFORM, TAURI_ARCH, TAURI_FAMILY, TAURI_PLATFORM_VERSION, TAURI_PLATFORM_TYPE and TAURI_DEBUG environment variables are set if you perform conditional compilation. |
+| <div id="buildconfig.devpath">`devPath` <a className="hash-link" href="#buildconfig.devpath"></a></div> | [`AppUrl`](#appurl)? | `http://localhost:8080/` | The path or URL to use on development. |
+| <div id="buildconfig.distdir">`distDir` <a className="hash-link" href="#buildconfig.distdir"></a></div> | [`AppUrl`](#appurl)? | `../dist` | The path to the app's dist dir. This path must contain your index.html file. |
+| <div id="buildconfig.features">`features` <a className="hash-link" href="#buildconfig.features"></a></div> | [`string`]? | _null_ | Features passed to `cargo` commands. |
+| <div id="buildconfig.runner">`runner` <a className="hash-link" href="#buildconfig.runner"></a></div> | `string`? | _null_ | The binary used to build and run the application. |
+| <div id="buildconfig.withglobaltauri">`withGlobalTauri` <a className="hash-link" href="#buildconfig.withglobaltauri"></a></div> | `boolean`? | `false` | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
 
 
 ### `AppUrl`
@@ -107,8 +107,8 @@ The package configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `productName` | `string`? | _null_ | App name. |
-| `version` | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
+| <div id="packageconfig.productname">`productName` <a className="hash-link" href="#packageconfig.productname"></a></div> | `string`? | _null_ | App name. |
+| <div id="packageconfig.version">`version` <a className="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
 
 
 ## `PluginConfig`
@@ -123,15 +123,15 @@ The Tauri configuration object.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `allowlist` | [`AllowlistConfig`](#allowlistconfig)? | [_view_](#allowlistconfig) | The allowlist configuration. |
-| `bundle` | [`BundleConfig`](#bundleconfig)? | [_view_](#bundleconfig) | The bundler configuration. |
-| `cli` | [`CliConfig`](#cliconfig)? | _null_ | The CLI configuration. |
-| `macOSPrivateApi` | `boolean`? | `false` | MacOS private API configuration. Enables the transparent background API and sets the `fullScreenEnabled` preference to `true`. |
-| `pattern` | [`PatternKind`](#patternkind)? | [_view_](#patternkind) | The pattern to use. |
-| `security` | [`SecurityConfig`](#securityconfig)? | [_view_](#securityconfig) | Security configuration. |
-| `systemTray` | [`SystemTrayConfig`](#systemtrayconfig)? | _null_ | Configuration for app system tray. |
-| `updater` | [`UpdaterConfig`](#updaterconfig)? | [_view_](#updaterconfig) | The updater configuration. |
-| `windows` | [[`WindowConfig`](#windowconfig)]? | _null_ | The windows configuration. |
+| <div id="tauriconfig.allowlist">`allowlist` <a className="hash-link" href="#tauriconfig.allowlist"></a></div> | [`AllowlistConfig`](#allowlistconfig)? | [_view_](#allowlistconfig) | The allowlist configuration. |
+| <div id="tauriconfig.bundle">`bundle` <a className="hash-link" href="#tauriconfig.bundle"></a></div> | [`BundleConfig`](#bundleconfig)? | [_view_](#bundleconfig) | The bundler configuration. |
+| <div id="tauriconfig.cli">`cli` <a className="hash-link" href="#tauriconfig.cli"></a></div> | [`CliConfig`](#cliconfig)? | _null_ | The CLI configuration. |
+| <div id="tauriconfig.macosprivateapi">`macOSPrivateApi` <a className="hash-link" href="#tauriconfig.macosprivateapi"></a></div> | `boolean`? | `false` | MacOS private API configuration. Enables the transparent background API and sets the `fullScreenEnabled` preference to `true`. |
+| <div id="tauriconfig.pattern">`pattern` <a className="hash-link" href="#tauriconfig.pattern"></a></div> | [`PatternKind`](#patternkind)? | [_view_](#patternkind) | The pattern to use. |
+| <div id="tauriconfig.security">`security` <a className="hash-link" href="#tauriconfig.security"></a></div> | [`SecurityConfig`](#securityconfig)? | [_view_](#securityconfig) | Security configuration. |
+| <div id="tauriconfig.systemtray">`systemTray` <a className="hash-link" href="#tauriconfig.systemtray"></a></div> | [`SystemTrayConfig`](#systemtrayconfig)? | _null_ | Configuration for app system tray. |
+| <div id="tauriconfig.updater">`updater` <a className="hash-link" href="#tauriconfig.updater"></a></div> | [`UpdaterConfig`](#updaterconfig)? | [_view_](#updaterconfig) | The updater configuration. |
+| <div id="tauriconfig.windows">`windows` <a className="hash-link" href="#tauriconfig.windows"></a></div> | [[`WindowConfig`](#windowconfig)]? | _null_ | The windows configuration. |
 
 
 ### `AllowlistConfig`
@@ -141,19 +141,19 @@ Allowlist configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all API features. |
-| `clipboard` | [`ClipboardAllowlistConfig`](#clipboardallowlistconfig)? | [_view_](#clipboardallowlistconfig) | Clipboard APIs allowlist. |
-| `dialog` | [`DialogAllowlistConfig`](#dialogallowlistconfig)? | [_view_](#dialogallowlistconfig) | Dialog API allowlist. |
-| `fs` | [`FsAllowlistConfig`](#fsallowlistconfig)? | [_view_](#fsallowlistconfig) | File system API allowlist. |
-| `globalShortcut` | [`GlobalShortcutAllowlistConfig`](#globalshortcutallowlistconfig)? | [_view_](#globalshortcutallowlistconfig) | Global shortcut API allowlist. |
-| `http` | [`HttpAllowlistConfig`](#httpallowlistconfig)? | [_view_](#httpallowlistconfig) | HTTP API allowlist. |
-| `notification` | [`NotificationAllowlistConfig`](#notificationallowlistconfig)? | [_view_](#notificationallowlistconfig) | Notification API allowlist. |
-| `os` | [`OsAllowlistConfig`](#osallowlistconfig)? | [_view_](#osallowlistconfig) | OS allowlist. |
-| `path` | [`PathAllowlistConfig`](#pathallowlistconfig)? | [_view_](#pathallowlistconfig) | Path API allowlist. |
-| `process` | [`ProcessAllowlistConfig`](#processallowlistconfig)? | [_view_](#processallowlistconfig) | Process API allowlist. |
-| `protocol` | [`ProtocolAllowlistConfig`](#protocolallowlistconfig)? | [_view_](#protocolallowlistconfig) | Custom protocol allowlist. |
-| `shell` | [`ShellAllowlistConfig`](#shellallowlistconfig)? | [_view_](#shellallowlistconfig) | Shell API allowlist. |
-| `window` | [`WindowAllowlistConfig`](#windowallowlistconfig)? | [_view_](#windowallowlistconfig) | Window API allowlist. |
+| <div id="allowlistconfig.all">`all` <a className="hash-link" href="#allowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all API features. |
+| <div id="allowlistconfig.clipboard">`clipboard` <a className="hash-link" href="#allowlistconfig.clipboard"></a></div> | [`ClipboardAllowlistConfig`](#clipboardallowlistconfig)? | [_view_](#clipboardallowlistconfig) | Clipboard APIs allowlist. |
+| <div id="allowlistconfig.dialog">`dialog` <a className="hash-link" href="#allowlistconfig.dialog"></a></div> | [`DialogAllowlistConfig`](#dialogallowlistconfig)? | [_view_](#dialogallowlistconfig) | Dialog API allowlist. |
+| <div id="allowlistconfig.fs">`fs` <a className="hash-link" href="#allowlistconfig.fs"></a></div> | [`FsAllowlistConfig`](#fsallowlistconfig)? | [_view_](#fsallowlistconfig) | File system API allowlist. |
+| <div id="allowlistconfig.globalshortcut">`globalShortcut` <a className="hash-link" href="#allowlistconfig.globalshortcut"></a></div> | [`GlobalShortcutAllowlistConfig`](#globalshortcutallowlistconfig)? | [_view_](#globalshortcutallowlistconfig) | Global shortcut API allowlist. |
+| <div id="allowlistconfig.http">`http` <a className="hash-link" href="#allowlistconfig.http"></a></div> | [`HttpAllowlistConfig`](#httpallowlistconfig)? | [_view_](#httpallowlistconfig) | HTTP API allowlist. |
+| <div id="allowlistconfig.notification">`notification` <a className="hash-link" href="#allowlistconfig.notification"></a></div> | [`NotificationAllowlistConfig`](#notificationallowlistconfig)? | [_view_](#notificationallowlistconfig) | Notification API allowlist. |
+| <div id="allowlistconfig.os">`os` <a className="hash-link" href="#allowlistconfig.os"></a></div> | [`OsAllowlistConfig`](#osallowlistconfig)? | [_view_](#osallowlistconfig) | OS allowlist. |
+| <div id="allowlistconfig.path">`path` <a className="hash-link" href="#allowlistconfig.path"></a></div> | [`PathAllowlistConfig`](#pathallowlistconfig)? | [_view_](#pathallowlistconfig) | Path API allowlist. |
+| <div id="allowlistconfig.process">`process` <a className="hash-link" href="#allowlistconfig.process"></a></div> | [`ProcessAllowlistConfig`](#processallowlistconfig)? | [_view_](#processallowlistconfig) | Process API allowlist. |
+| <div id="allowlistconfig.protocol">`protocol` <a className="hash-link" href="#allowlistconfig.protocol"></a></div> | [`ProtocolAllowlistConfig`](#protocolallowlistconfig)? | [_view_](#protocolallowlistconfig) | Custom protocol allowlist. |
+| <div id="allowlistconfig.shell">`shell` <a className="hash-link" href="#allowlistconfig.shell"></a></div> | [`ShellAllowlistConfig`](#shellallowlistconfig)? | [_view_](#shellallowlistconfig) | Shell API allowlist. |
+| <div id="allowlistconfig.window">`window` <a className="hash-link" href="#allowlistconfig.window"></a></div> | [`WindowAllowlistConfig`](#windowallowlistconfig)? | [_view_](#windowallowlistconfig) | Window API allowlist. |
 
 
 #### `ClipboardAllowlistConfig`
@@ -163,9 +163,9 @@ Allowlist for the clipboard APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all clipboard APIs. |
-| `readText` | `boolean`? | `false` | Enables the clipboard's `readText` API. |
-| `writeText` | `boolean`? | `false` | Enables the clipboard's `writeText` API. |
+| <div id="clipboardallowlistconfig.all">`all` <a className="hash-link" href="#clipboardallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all clipboard APIs. |
+| <div id="clipboardallowlistconfig.readtext">`readText` <a className="hash-link" href="#clipboardallowlistconfig.readtext"></a></div> | `boolean`? | `false` | Enables the clipboard's `readText` API. |
+| <div id="clipboardallowlistconfig.writetext">`writeText` <a className="hash-link" href="#clipboardallowlistconfig.writetext"></a></div> | `boolean`? | `false` | Enables the clipboard's `writeText` API. |
 
 
 #### `DialogAllowlistConfig`
@@ -175,12 +175,12 @@ Allowlist for the dialog APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all dialog API features. |
-| `ask` | `boolean`? | `false` | Allows the API to show a dialog window with Yes/No buttons. |
-| `confirm` | `boolean`? | `false` | Allows the API to show a dialog window with Ok/Cancel buttons. |
-| `message` | `boolean`? | `false` | Allows the API to show a message dialog window. |
-| `open` | `boolean`? | `false` | Allows the API to open a dialog window to pick files. |
-| `save` | `boolean`? | `false` | Allows the API to open a dialog window to pick where to save files. |
+| <div id="dialogallowlistconfig.all">`all` <a className="hash-link" href="#dialogallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all dialog API features. |
+| <div id="dialogallowlistconfig.ask">`ask` <a className="hash-link" href="#dialogallowlistconfig.ask"></a></div> | `boolean`? | `false` | Allows the API to show a dialog window with Yes/No buttons. |
+| <div id="dialogallowlistconfig.confirm">`confirm` <a className="hash-link" href="#dialogallowlistconfig.confirm"></a></div> | `boolean`? | `false` | Allows the API to show a dialog window with Ok/Cancel buttons. |
+| <div id="dialogallowlistconfig.message">`message` <a className="hash-link" href="#dialogallowlistconfig.message"></a></div> | `boolean`? | `false` | Allows the API to show a message dialog window. |
+| <div id="dialogallowlistconfig.open">`open` <a className="hash-link" href="#dialogallowlistconfig.open"></a></div> | `boolean`? | `false` | Allows the API to open a dialog window to pick files. |
+| <div id="dialogallowlistconfig.save">`save` <a className="hash-link" href="#dialogallowlistconfig.save"></a></div> | `boolean`? | `false` | Allows the API to open a dialog window to pick where to save files. |
 
 
 #### `FsAllowlistConfig`
@@ -190,16 +190,16 @@ Allowlist for the file system APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all file system API features. |
-| `copyFile` | `boolean`? | `false` | Copy file from local filesystem. |
-| `createDir` | `boolean`? | `false` | Create directory from local filesystem. |
-| `readDir` | `boolean`? | `false` | Read directory from local filesystem. |
-| `readFile` | `boolean`? | `false` | Read file from local filesystem. |
-| `removeDir` | `boolean`? | `false` | Remove directory from local filesystem. |
-| `removeFile` | `boolean`? | `false` | Remove file from local filesystem. |
-| `renameFile` | `boolean`? | `false` | Rename file from local filesystem. |
-| `scope` | [`FsAllowlistScope`](#fsallowlistscope)? | _null_ | The access scope for the filesystem APIs. |
-| `writeFile` | `boolean`? | `false` | Write file to local filesystem. |
+| <div id="fsallowlistconfig.all">`all` <a className="hash-link" href="#fsallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all file system API features. |
+| <div id="fsallowlistconfig.copyfile">`copyFile` <a className="hash-link" href="#fsallowlistconfig.copyfile"></a></div> | `boolean`? | `false` | Copy file from local filesystem. |
+| <div id="fsallowlistconfig.createdir">`createDir` <a className="hash-link" href="#fsallowlistconfig.createdir"></a></div> | `boolean`? | `false` | Create directory from local filesystem. |
+| <div id="fsallowlistconfig.readdir">`readDir` <a className="hash-link" href="#fsallowlistconfig.readdir"></a></div> | `boolean`? | `false` | Read directory from local filesystem. |
+| <div id="fsallowlistconfig.readfile">`readFile` <a className="hash-link" href="#fsallowlistconfig.readfile"></a></div> | `boolean`? | `false` | Read file from local filesystem. |
+| <div id="fsallowlistconfig.removedir">`removeDir` <a className="hash-link" href="#fsallowlistconfig.removedir"></a></div> | `boolean`? | `false` | Remove directory from local filesystem. |
+| <div id="fsallowlistconfig.removefile">`removeFile` <a className="hash-link" href="#fsallowlistconfig.removefile"></a></div> | `boolean`? | `false` | Remove file from local filesystem. |
+| <div id="fsallowlistconfig.renamefile">`renameFile` <a className="hash-link" href="#fsallowlistconfig.renamefile"></a></div> | `boolean`? | `false` | Rename file from local filesystem. |
+| <div id="fsallowlistconfig.scope">`scope` <a className="hash-link" href="#fsallowlistconfig.scope"></a></div> | [`FsAllowlistScope`](#fsallowlistscope)? | _null_ | The access scope for the filesystem APIs. |
+| <div id="fsallowlistconfig.writefile">`writeFile` <a className="hash-link" href="#fsallowlistconfig.writefile"></a></div> | `boolean`? | `false` | Write file to local filesystem. |
 
 
 ##### `FsAllowlistScope`
@@ -219,8 +219,8 @@ Each pattern can start with a variable that resolves to a system base directory.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `allow` | [`string`]? | _null_ | A list of paths that are allowed by this scope. |
-| `deny` | [`string`]? | _null_ | A list of paths that are not allowed by this scope. This gets precedence over the [`Self::Scope::allow`] list. |
+| <div id="1.allow">`allow` <a className="hash-link" href="#1.allow"></a></div> | [`string`]? | _null_ | A list of paths that are allowed by this scope. |
+| <div id="1.deny">`deny` <a className="hash-link" href="#1.deny"></a></div> | [`string`]? | _null_ | A list of paths that are not allowed by this scope. This gets precedence over the [`Self::Scope::allow`] list. |
 
 
 #### `GlobalShortcutAllowlistConfig`
@@ -230,7 +230,7 @@ Allowlist for the global shortcut APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all global shortcut API features. |
+| <div id="globalshortcutallowlistconfig.all">`all` <a className="hash-link" href="#globalshortcutallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all global shortcut API features. |
 
 
 #### `HttpAllowlistConfig`
@@ -240,9 +240,9 @@ Allowlist for the HTTP APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all HTTP API features. |
-| `request` | `boolean`? | `false` | Allows making HTTP requests. |
-| `scope` | [`HttpAllowlistScope`](#httpallowlistscope)? | _null_ | The access scope for the HTTP APIs. |
+| <div id="httpallowlistconfig.all">`all` <a className="hash-link" href="#httpallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all HTTP API features. |
+| <div id="httpallowlistconfig.request">`request` <a className="hash-link" href="#httpallowlistconfig.request"></a></div> | `boolean`? | `false` | Allows making HTTP requests. |
+| <div id="httpallowlistconfig.scope">`scope` <a className="hash-link" href="#httpallowlistconfig.scope"></a></div> | [`HttpAllowlistScope`](#httpallowlistscope)? | _null_ | The access scope for the HTTP APIs. |
 
 
 ##### `HttpAllowlistScope`
@@ -261,7 +261,7 @@ Allowlist for the notification APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all notification API features. |
+| <div id="notificationallowlistconfig.all">`all` <a className="hash-link" href="#notificationallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all notification API features. |
 
 
 #### `OsAllowlistConfig`
@@ -271,7 +271,7 @@ Allowlist for the OS APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all OS API features. |
+| <div id="osallowlistconfig.all">`all` <a className="hash-link" href="#osallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all OS API features. |
 
 
 #### `PathAllowlistConfig`
@@ -281,7 +281,7 @@ Allowlist for the path APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all path API features. |
+| <div id="pathallowlistconfig.all">`all` <a className="hash-link" href="#pathallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all path API features. |
 
 
 #### `ProcessAllowlistConfig`
@@ -291,10 +291,10 @@ Allowlist for the process APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all process APIs. |
-| `exit` | `boolean`? | `false` | Enables the exit API. |
-| `relaunch` | `boolean`? | `false` | Enables the relaunch API. |
-| `relaunchDangerousAllowSymlinkMacos` | `boolean`? | `false` | Dangerous option that allows macOS to relaunch even if the binary contains a symlink.<br /><br />This is due to macOS having less symlink protection. Highly recommended to not set this flag unless you have a very specific reason too, and understand the implications of it. |
+| <div id="processallowlistconfig.all">`all` <a className="hash-link" href="#processallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all process APIs. |
+| <div id="processallowlistconfig.exit">`exit` <a className="hash-link" href="#processallowlistconfig.exit"></a></div> | `boolean`? | `false` | Enables the exit API. |
+| <div id="processallowlistconfig.relaunch">`relaunch` <a className="hash-link" href="#processallowlistconfig.relaunch"></a></div> | `boolean`? | `false` | Enables the relaunch API. |
+| <div id="processallowlistconfig.relaunchdangerousallowsymlinkmacos">`relaunchDangerousAllowSymlinkMacos` <a className="hash-link" href="#processallowlistconfig.relaunchdangerousallowsymlinkmacos"></a></div> | `boolean`? | `false` | Dangerous option that allows macOS to relaunch even if the binary contains a symlink.<br /><br />This is due to macOS having less symlink protection. Highly recommended to not set this flag unless you have a very specific reason too, and understand the implications of it. |
 
 
 #### `ProtocolAllowlistConfig`
@@ -304,9 +304,9 @@ Allowlist for the custom protocols.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all custom protocols. |
-| `asset` | `boolean`? | `false` | Enables the asset protocol. |
-| `assetScope` | [`FsAllowlistScope`](#fsallowlistscope)? | _null_ | The access scope for the asset protocol. |
+| <div id="protocolallowlistconfig.all">`all` <a className="hash-link" href="#protocolallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all custom protocols. |
+| <div id="protocolallowlistconfig.asset">`asset` <a className="hash-link" href="#protocolallowlistconfig.asset"></a></div> | `boolean`? | `false` | Enables the asset protocol. |
+| <div id="protocolallowlistconfig.assetscope">`assetScope` <a className="hash-link" href="#protocolallowlistconfig.assetscope"></a></div> | [`FsAllowlistScope`](#fsallowlistscope)? | _null_ | The access scope for the asset protocol. |
 
 
 #### `ShellAllowlistConfig`
@@ -316,11 +316,11 @@ Allowlist for the shell APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all shell API features. |
-| `execute` | `boolean`? | `false` | Enable binary execution. |
-| `open` | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
-| `scope` | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
-| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/v1/guides/building/sidecar>. |
+| <div id="shellallowlistconfig.all">`all` <a className="hash-link" href="#shellallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all shell API features. |
+| <div id="shellallowlistconfig.execute">`execute` <a className="hash-link" href="#shellallowlistconfig.execute"></a></div> | `boolean`? | `false` | Enable binary execution. |
+| <div id="shellallowlistconfig.open">`open` <a className="hash-link" href="#shellallowlistconfig.open"></a></div> | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
+| <div id="shellallowlistconfig.scope">`scope` <a className="hash-link" href="#shellallowlistconfig.scope"></a></div> | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
+| <div id="shellallowlistconfig.sidecar">`sidecar` <a className="hash-link" href="#shellallowlistconfig.sidecar"></a></div> | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/v1/guides/building/sidecar>. |
 
 
 ##### `ShellAllowlistOpen`
@@ -348,10 +348,10 @@ A command allowed to be executed by the webview API.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `args` | [`ShellAllowedArgs`](#shellallowedargs)? | `false` | The allowed arguments for the command execution. |
-| `cmd` | `string`? | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`. |
-| `name` | `string` | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
-| `sidecar` | `boolean`? | `false` | If this command is a sidecar command. |
+| <div id="shellallowedcommand.args">`args` <a className="hash-link" href="#shellallowedcommand.args"></a></div> | [`ShellAllowedArgs`](#shellallowedargs)? | `false` | The allowed arguments for the command execution. |
+| <div id="shellallowedcommand.cmd">`cmd` <a className="hash-link" href="#shellallowedcommand.cmd"></a></div> | `string`? | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`. |
+| <div id="shellallowedcommand.name">`name` <a className="hash-link" href="#shellallowedcommand.name"></a></div> | `string` | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
+| <div id="shellallowedcommand.sidecar">`sidecar` <a className="hash-link" href="#shellallowedcommand.sidecar"></a></div> | `boolean`? | `false` | If this command is a sidecar command. |
 
 
 ##### `ShellAllowedArgs`
@@ -384,7 +384,7 @@ A command argument allowed to be executed by the webview API.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `validator` | `string` | _null_ | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
+| <div id="1.validator">`validator` <a className="hash-link" href="#1.validator"></a></div> | `string` | _null_ | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
 
 
 #### `WindowAllowlistConfig`
@@ -394,31 +394,31 @@ Allowlist for the window APIs.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `all` | `boolean`? | `false` | Use this flag to enable all window API features. |
-| `center` | `boolean`? | `false` | Allows centering the window. |
-| `close` | `boolean`? | `false` | Allows closing the window. |
-| `create` | `boolean`? | `false` | Allows dynamic window creation. |
-| `hide` | `boolean`? | `false` | Allows hiding the window. |
-| `maximize` | `boolean`? | `false` | Allows maximizing the window. |
-| `minimize` | `boolean`? | `false` | Allows minimizing the window. |
-| `print` | `boolean`? | `false` | Allows opening the system dialog to print the window content. |
-| `requestUserAttention` | `boolean`? | `false` | Allows requesting user attention on the window. |
-| `setAlwaysOnTop` | `boolean`? | `false` | Allows setting the always_on_top flag of the window. |
-| `setDecorations` | `boolean`? | `false` | Allows setting the decorations flag of the window. |
-| `setFocus` | `boolean`? | `false` | Allows focusing the window. |
-| `setFullscreen` | `boolean`? | `false` | Allows setting the fullscreen flag of the window. |
-| `setIcon` | `boolean`? | `false` | Allows changing the window icon. |
-| `setMaxSize` | `boolean`? | `false` | Allows setting the window maximum size. |
-| `setMinSize` | `boolean`? | `false` | Allows setting the window minimum size. |
-| `setPosition` | `boolean`? | `false` | Allows changing the position of the window. |
-| `setResizable` | `boolean`? | `false` | Allows setting the resizable flag of the window. |
-| `setSize` | `boolean`? | `false` | Allows setting the window size. |
-| `setSkipTaskbar` | `boolean`? | `false` | Allows setting the skip_taskbar flag of the window. |
-| `setTitle` | `boolean`? | `false` | Allows changing the window title. |
-| `show` | `boolean`? | `false` | Allows showing the window. |
-| `startDragging` | `boolean`? | `false` | Allows start dragging on the window. |
-| `unmaximize` | `boolean`? | `false` | Allows unmaximizing the window. |
-| `unminimize` | `boolean`? | `false` | Allows unminimizing the window. |
+| <div id="windowallowlistconfig.all">`all` <a className="hash-link" href="#windowallowlistconfig.all"></a></div> | `boolean`? | `false` | Use this flag to enable all window API features. |
+| <div id="windowallowlistconfig.center">`center` <a className="hash-link" href="#windowallowlistconfig.center"></a></div> | `boolean`? | `false` | Allows centering the window. |
+| <div id="windowallowlistconfig.close">`close` <a className="hash-link" href="#windowallowlistconfig.close"></a></div> | `boolean`? | `false` | Allows closing the window. |
+| <div id="windowallowlistconfig.create">`create` <a className="hash-link" href="#windowallowlistconfig.create"></a></div> | `boolean`? | `false` | Allows dynamic window creation. |
+| <div id="windowallowlistconfig.hide">`hide` <a className="hash-link" href="#windowallowlistconfig.hide"></a></div> | `boolean`? | `false` | Allows hiding the window. |
+| <div id="windowallowlistconfig.maximize">`maximize` <a className="hash-link" href="#windowallowlistconfig.maximize"></a></div> | `boolean`? | `false` | Allows maximizing the window. |
+| <div id="windowallowlistconfig.minimize">`minimize` <a className="hash-link" href="#windowallowlistconfig.minimize"></a></div> | `boolean`? | `false` | Allows minimizing the window. |
+| <div id="windowallowlistconfig.print">`print` <a className="hash-link" href="#windowallowlistconfig.print"></a></div> | `boolean`? | `false` | Allows opening the system dialog to print the window content. |
+| <div id="windowallowlistconfig.requestuserattention">`requestUserAttention` <a className="hash-link" href="#windowallowlistconfig.requestuserattention"></a></div> | `boolean`? | `false` | Allows requesting user attention on the window. |
+| <div id="windowallowlistconfig.setalwaysontop">`setAlwaysOnTop` <a className="hash-link" href="#windowallowlistconfig.setalwaysontop"></a></div> | `boolean`? | `false` | Allows setting the always_on_top flag of the window. |
+| <div id="windowallowlistconfig.setdecorations">`setDecorations` <a className="hash-link" href="#windowallowlistconfig.setdecorations"></a></div> | `boolean`? | `false` | Allows setting the decorations flag of the window. |
+| <div id="windowallowlistconfig.setfocus">`setFocus` <a className="hash-link" href="#windowallowlistconfig.setfocus"></a></div> | `boolean`? | `false` | Allows focusing the window. |
+| <div id="windowallowlistconfig.setfullscreen">`setFullscreen` <a className="hash-link" href="#windowallowlistconfig.setfullscreen"></a></div> | `boolean`? | `false` | Allows setting the fullscreen flag of the window. |
+| <div id="windowallowlistconfig.seticon">`setIcon` <a className="hash-link" href="#windowallowlistconfig.seticon"></a></div> | `boolean`? | `false` | Allows changing the window icon. |
+| <div id="windowallowlistconfig.setmaxsize">`setMaxSize` <a className="hash-link" href="#windowallowlistconfig.setmaxsize"></a></div> | `boolean`? | `false` | Allows setting the window maximum size. |
+| <div id="windowallowlistconfig.setminsize">`setMinSize` <a className="hash-link" href="#windowallowlistconfig.setminsize"></a></div> | `boolean`? | `false` | Allows setting the window minimum size. |
+| <div id="windowallowlistconfig.setposition">`setPosition` <a className="hash-link" href="#windowallowlistconfig.setposition"></a></div> | `boolean`? | `false` | Allows changing the position of the window. |
+| <div id="windowallowlistconfig.setresizable">`setResizable` <a className="hash-link" href="#windowallowlistconfig.setresizable"></a></div> | `boolean`? | `false` | Allows setting the resizable flag of the window. |
+| <div id="windowallowlistconfig.setsize">`setSize` <a className="hash-link" href="#windowallowlistconfig.setsize"></a></div> | `boolean`? | `false` | Allows setting the window size. |
+| <div id="windowallowlistconfig.setskiptaskbar">`setSkipTaskbar` <a className="hash-link" href="#windowallowlistconfig.setskiptaskbar"></a></div> | `boolean`? | `false` | Allows setting the skip_taskbar flag of the window. |
+| <div id="windowallowlistconfig.settitle">`setTitle` <a className="hash-link" href="#windowallowlistconfig.settitle"></a></div> | `boolean`? | `false` | Allows changing the window title. |
+| <div id="windowallowlistconfig.show">`show` <a className="hash-link" href="#windowallowlistconfig.show"></a></div> | `boolean`? | `false` | Allows showing the window. |
+| <div id="windowallowlistconfig.startdragging">`startDragging` <a className="hash-link" href="#windowallowlistconfig.startdragging"></a></div> | `boolean`? | `false` | Allows start dragging on the window. |
+| <div id="windowallowlistconfig.unmaximize">`unmaximize` <a className="hash-link" href="#windowallowlistconfig.unmaximize"></a></div> | `boolean`? | `false` | Allows unmaximizing the window. |
+| <div id="windowallowlistconfig.unminimize">`unminimize` <a className="hash-link" href="#windowallowlistconfig.unminimize"></a></div> | `boolean`? | `false` | Allows unminimizing the window. |
 
 
 ### `BundleConfig`
@@ -428,19 +428,19 @@ Configuration for tauri-bundler.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `active` | `boolean`? | `false` | Whether we should build your app with tauri-bundler or plain `cargo build` |
-| `category` | `string`? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
-| `copyright` | `string`? | _null_ | A copyright string associated with your application. |
-| `deb` | [`DebConfig`](#debconfig)? | [_view_](#debconfig) | Configuration for the Debian bundle. |
-| `externalBin` | [`string`]? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
-| `icon` | [`string`]? | _null_ | The app's icons |
-| `identifier` | `string` | _null_ | The app's identifier |
-| `longDescription` | `string`? | _null_ | A longer, multi-line description of the application. |
-| `macOS` | [`MacConfig`](#macconfig)? | [_view_](#macconfig) | Configuration for the macOS bundles. |
-| `resources` | [`string`]? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
-| `shortDescription` | `string`? | _null_ | A short description of your application. |
-| `targets` | [`BundleTarget`](#bundletarget)? | _null_ | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
-| `windows` | [`WindowsConfig`](#windowsconfig)? | [_view_](#windowsconfig) | Configuration for the Windows bundle. |
+| <div id="bundleconfig.active">`active` <a className="hash-link" href="#bundleconfig.active"></a></div> | `boolean`? | `false` | Whether we should build your app with tauri-bundler or plain `cargo build` |
+| <div id="bundleconfig.category">`category` <a className="hash-link" href="#bundleconfig.category"></a></div> | `string`? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
+| <div id="bundleconfig.copyright">`copyright` <a className="hash-link" href="#bundleconfig.copyright"></a></div> | `string`? | _null_ | A copyright string associated with your application. |
+| <div id="bundleconfig.deb">`deb` <a className="hash-link" href="#bundleconfig.deb"></a></div> | [`DebConfig`](#debconfig)? | [_view_](#debconfig) | Configuration for the Debian bundle. |
+| <div id="bundleconfig.externalbin">`externalBin` <a className="hash-link" href="#bundleconfig.externalbin"></a></div> | [`string`]? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows - "my-binary-x86_64-apple-darwin" for macOS - "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
+| <div id="bundleconfig.icon">`icon` <a className="hash-link" href="#bundleconfig.icon"></a></div> | [`string`]? | _null_ | The app's icons |
+| <div id="bundleconfig.identifier">`identifier` <a className="hash-link" href="#bundleconfig.identifier"></a></div> | `string` | _null_ | The app's identifier |
+| <div id="bundleconfig.longdescription">`longDescription` <a className="hash-link" href="#bundleconfig.longdescription"></a></div> | `string`? | _null_ | A longer, multi-line description of the application. |
+| <div id="bundleconfig.macos">`macOS` <a className="hash-link" href="#bundleconfig.macos"></a></div> | [`MacConfig`](#macconfig)? | [_view_](#macconfig) | Configuration for the macOS bundles. |
+| <div id="bundleconfig.resources">`resources` <a className="hash-link" href="#bundleconfig.resources"></a></div> | [`string`]? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
+| <div id="bundleconfig.shortdescription">`shortDescription` <a className="hash-link" href="#bundleconfig.shortdescription"></a></div> | `string`? | _null_ | A short description of your application. |
+| <div id="bundleconfig.targets">`targets` <a className="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget)? | _null_ | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
+| <div id="bundleconfig.windows">`windows` <a className="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig)? | [_view_](#windowsconfig) | Configuration for the Windows bundle. |
 
 
 #### `DebConfig`
@@ -450,8 +450,8 @@ Configuration for Debian (.deb) bundles.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `depends` | [`string`]? | _null_ | The list of deb dependencies your application relies on. |
-| `files` | `object`? | `string` | The files to include on the package. |
+| <div id="debconfig.depends">`depends` <a className="hash-link" href="#debconfig.depends"></a></div> | [`string`]? | _null_ | The list of deb dependencies your application relies on. |
+| <div id="debconfig.files">`files` <a className="hash-link" href="#debconfig.files"></a></div> | `object`? | `string` | The files to include on the package. |
 
 
 #### `MacConfig`
@@ -461,13 +461,13 @@ Configuration for the macOS bundles.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `entitlements` | `string`? | _null_ | Path to the entitlements file. |
-| `exceptionDomain` | `string`? | _null_ | Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name. |
-| `frameworks` | [`string`]? | _null_ | A list of strings indicating any macOS X frameworks that need to be bundled with the application.<br /><br />If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework. |
-| `license` | `string`? | _null_ | The path to the license file to add to the DMG bundle. |
-| `minimumSystemVersion` | `string`? | `10.13` | A version string indicating the minimum macOS X version that the bundled application supports. Defaults to `10.13`.<br /><br />Setting it to `null` completely removes the `LSMinimumSystemVersion` field on the bundle's `Info.plist` and the `MACOSX_DEPLOYMENT_TARGET` environment variable.<br /><br />An empty string is considered an invalid value so the default value is used. |
-| `providerShortName` | `string`? | _null_ | Provider short name for notarization. |
-| `signingIdentity` | `string`? | _null_ | Identity to use for code signing. |
+| <div id="macconfig.entitlements">`entitlements` <a className="hash-link" href="#macconfig.entitlements"></a></div> | `string`? | _null_ | Path to the entitlements file. |
+| <div id="macconfig.exceptiondomain">`exceptionDomain` <a className="hash-link" href="#macconfig.exceptiondomain"></a></div> | `string`? | _null_ | Allows your application to communicate with the outside world. It should be a lowercase, without port and protocol domain name. |
+| <div id="macconfig.frameworks">`frameworks` <a className="hash-link" href="#macconfig.frameworks"></a></div> | [`string`]? | _null_ | A list of strings indicating any macOS X frameworks that need to be bundled with the application.<br /><br />If a name is used, ".framework" must be omitted and it will look for standard install locations. You may also use a path to a specific framework. |
+| <div id="macconfig.license">`license` <a className="hash-link" href="#macconfig.license"></a></div> | `string`? | _null_ | The path to the license file to add to the DMG bundle. |
+| <div id="macconfig.minimumsystemversion">`minimumSystemVersion` <a className="hash-link" href="#macconfig.minimumsystemversion"></a></div> | `string`? | `10.13` | A version string indicating the minimum macOS X version that the bundled application supports. Defaults to `10.13`.<br /><br />Setting it to `null` completely removes the `LSMinimumSystemVersion` field on the bundle's `Info.plist` and the `MACOSX_DEPLOYMENT_TARGET` environment variable.<br /><br />An empty string is considered an invalid value so the default value is used. |
+| <div id="macconfig.providershortname">`providerShortName` <a className="hash-link" href="#macconfig.providershortname"></a></div> | `string`? | _null_ | Provider short name for notarization. |
+| <div id="macconfig.signingidentity">`signingIdentity` <a className="hash-link" href="#macconfig.signingidentity"></a></div> | `string`? | _null_ | Identity to use for code signing. |
 
 
 **Any of the following types can be used:**
@@ -497,13 +497,13 @@ Windows bundler configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `allowDowngrades` | `boolean`? | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
-| `certificateThumbprint` | `string`? | _null_ | Specifies the SHA1 hash of the signing certificate. |
-| `digestAlgorithm` | `string`? | _null_ | Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended. |
-| `timestampUrl` | `string`? | _null_ | Server to use during timestamping. |
-| `tsp` | `boolean`? | _null_ | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
-| `webviewFixedRuntimePath` | `string`? | _null_ | Path to the webview fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
-| `wix` | [`WixConfig`](#wixconfig)? | _null_ | Configuration for the MSI generated with WiX. |
+| <div id="windowsconfig.allowdowngrades">`allowDowngrades` <a className="hash-link" href="#windowsconfig.allowdowngrades"></a></div> | `boolean`? | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
+| <div id="windowsconfig.certificatethumbprint">`certificateThumbprint` <a className="hash-link" href="#windowsconfig.certificatethumbprint"></a></div> | `string`? | _null_ | Specifies the SHA1 hash of the signing certificate. |
+| <div id="windowsconfig.digestalgorithm">`digestAlgorithm` <a className="hash-link" href="#windowsconfig.digestalgorithm"></a></div> | `string`? | _null_ | Specifies the file digest algorithm to use for creating file signatures. Required for code signing. SHA-256 is recommended. |
+| <div id="windowsconfig.timestampurl">`timestampUrl` <a className="hash-link" href="#windowsconfig.timestampurl"></a></div> | `string`? | _null_ | Server to use during timestamping. |
+| <div id="windowsconfig.tsp">`tsp` <a className="hash-link" href="#windowsconfig.tsp"></a></div> | `boolean`? | _null_ | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
+| <div id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath` <a className="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`? | _null_ | Path to the webview fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+| <div id="windowsconfig.wix">`wix` <a className="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | _null_ | Configuration for the MSI generated with WiX. |
 
 
 **Any of the following types can be used:**
@@ -520,19 +520,19 @@ Configuration for the MSI bundle using WiX.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `bannerPath` | `string`? | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |
-| `componentGroupRefs` | [`string`]? | _null_ | The ComponentGroup element ids you want to reference from the fragments. |
-| `componentRefs` | [`string`]? | _null_ | The Component element ids you want to reference from the fragments. |
-| `dialogImagePath` | `string`? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
-| `enableElevatedUpdateTask` | `boolean`? | `false` | Create an elevated update task within Windows Task Scheduler. |
-| `featureGroupRefs` | [`string`]? | _null_ | The FeatureGroup element ids you want to reference from the fragments. |
-| `featureRefs` | [`string`]? | _null_ | The Feature element ids you want to reference from the fragments. |
-| `fragmentPaths` | [`string`]? | _null_ | A list of paths to .wxs files with WiX fragments to use. |
-| `language` | [`WixLanguage`](#wixlanguage)? | `en-US` | The installer languages to build. See <https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables>. |
-| `license` | `string`? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
-| `mergeRefs` | [`string`]? | _null_ | The Merge element ids you want to reference from the fragments. |
-| `skipWebviewInstall` | `boolean`? | `false` | Disables the Webview2 runtime installation after app install. |
-| `template` | `string`? | _null_ | A custom .wxs template to use. |
+| <div id="wixconfig.bannerpath">`bannerPath` <a className="hash-link" href="#wixconfig.bannerpath"></a></div> | `string`? | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |
+| <div id="wixconfig.componentgrouprefs">`componentGroupRefs` <a className="hash-link" href="#wixconfig.componentgrouprefs"></a></div> | [`string`]? | _null_ | The ComponentGroup element ids you want to reference from the fragments. |
+| <div id="wixconfig.componentrefs">`componentRefs` <a className="hash-link" href="#wixconfig.componentrefs"></a></div> | [`string`]? | _null_ | The Component element ids you want to reference from the fragments. |
+| <div id="wixconfig.dialogimagepath">`dialogImagePath` <a className="hash-link" href="#wixconfig.dialogimagepath"></a></div> | `string`? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
+| <div id="wixconfig.enableelevatedupdatetask">`enableElevatedUpdateTask` <a className="hash-link" href="#wixconfig.enableelevatedupdatetask"></a></div> | `boolean`? | `false` | Create an elevated update task within Windows Task Scheduler. |
+| <div id="wixconfig.featuregrouprefs">`featureGroupRefs` <a className="hash-link" href="#wixconfig.featuregrouprefs"></a></div> | [`string`]? | _null_ | The FeatureGroup element ids you want to reference from the fragments. |
+| <div id="wixconfig.featurerefs">`featureRefs` <a className="hash-link" href="#wixconfig.featurerefs"></a></div> | [`string`]? | _null_ | The Feature element ids you want to reference from the fragments. |
+| <div id="wixconfig.fragmentpaths">`fragmentPaths` <a className="hash-link" href="#wixconfig.fragmentpaths"></a></div> | [`string`]? | _null_ | A list of paths to .wxs files with WiX fragments to use. |
+| <div id="wixconfig.language">`language` <a className="hash-link" href="#wixconfig.language"></a></div> | [`WixLanguage`](#wixlanguage)? | `en-US` | The installer languages to build. See <https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables>. |
+| <div id="wixconfig.license">`license` <a className="hash-link" href="#wixconfig.license"></a></div> | `string`? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
+| <div id="wixconfig.mergerefs">`mergeRefs` <a className="hash-link" href="#wixconfig.mergerefs"></a></div> | [`string`]? | _null_ | The Merge element ids you want to reference from the fragments. |
+| <div id="wixconfig.skipwebviewinstall">`skipWebviewInstall` <a className="hash-link" href="#wixconfig.skipwebviewinstall"></a></div> | `boolean`? | `false` | Disables the Webview2 runtime installation after app install. |
+| <div id="wixconfig.template">`template` <a className="hash-link" href="#wixconfig.template"></a></div> | `string`? | _null_ | A custom .wxs template to use. |
 
 
 ##### `WixLanguage`
@@ -556,7 +556,7 @@ Configuration for a target language for the WiX build.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `localePath` | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
+| <div id="wixlanguageconfig.localepath">`localePath` <a className="hash-link" href="#wixlanguageconfig.localepath"></a></div> | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
 
 
 **Any of the following types can be used:**
@@ -573,12 +573,12 @@ describes a CLI configuration
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `afterHelp` | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted. |
-| `args` | [[`CliArg`](#cliarg)]? | _null_ | List of arguments for the command |
-| `beforeHelp` | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information. |
-| `description` | `string`? | _null_ | Command description which will be shown on the help information. |
-| `longDescription` | `string`? | _null_ | Command long description which will be shown on the help information. |
-| `subcommands` | `object`? | _null_ | List of subcommands of this command |
+| <div id="cliconfig.afterhelp">`afterHelp` <a className="hash-link" href="#cliconfig.afterhelp"></a></div> | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed after the auto-generated help information. This is often used to describe how to use the arguments, or caveats to be noted. |
+| <div id="cliconfig.args">`args` <a className="hash-link" href="#cliconfig.args"></a></div> | [[`CliArg`](#cliarg)]? | _null_ | List of arguments for the command |
+| <div id="cliconfig.beforehelp">`beforeHelp` <a className="hash-link" href="#cliconfig.beforehelp"></a></div> | `string`? | _null_ | Adds additional help information to be displayed in addition to auto-generated help. This information is displayed before the auto-generated help information. This is often used for header information. |
+| <div id="cliconfig.description">`description` <a className="hash-link" href="#cliconfig.description"></a></div> | `string`? | _null_ | Command description which will be shown on the help information. |
+| <div id="cliconfig.longdescription">`longDescription` <a className="hash-link" href="#cliconfig.longdescription"></a></div> | `string`? | _null_ | Command long description which will be shown on the help information. |
+| <div id="cliconfig.subcommands">`subcommands` <a className="hash-link" href="#cliconfig.subcommands"></a></div> | `object`? | _null_ | List of subcommands of this command |
 
 
 #### `CliArg`
@@ -588,29 +588,29 @@ A CLI argument definition.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `conflictsWith` | `string`? | _null_ | Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa. |
-| `conflictsWithAll` | [`string`]? | _null_ | The same as conflictsWith but allows specifying multiple two-way conflicts per argument. |
-| `description` | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
-| `index` | `integer` (uint)? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
-| `longDescription` | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
-| `maxValues` | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f `<file>` argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
-| `minValues` | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f `<file>` argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
-| `multiple` | `boolean`? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
-| `multipleOccurrences` | `boolean`? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
-| `name` | `string` | _null_ | The unique argument name |
-| `numberOfValues` | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f <file>` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f <file> <file> <file> -f <file> <file> <file>` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
-| `possibleValues` | [`string`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
-| `requireEquals` | `boolean`? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
-| `required` | `boolean`? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
-| `requiredIfEq` | [`string`]? | _null_ | Allows specifying that an argument is required conditionally with the signature [arg, value] the requirement will only become valid if the `arg`'s value equals `${value}`. |
-| `requiredUnlessPresent` | `string`? | _null_ | Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present. |
-| `requiredUnlessPresentAll` | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present. |
-| `requiredUnlessPresentAny` | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present. |
-| `requires` | `string`? | _null_ | Tets an argument by name that is required when this one is present i.e. when using this argument, the following argument must be present. |
-| `requiresAll` | [`string`]? | _null_ | Sts multiple arguments by names that are required when this one is present i.e. when using this argument, the following arguments must be present. |
-| `requiresIf` | [`string`]? | _null_ | Allows a conditional requirement with the signature [arg, value] the requirement will only become valid if `arg`'s value equals `${value}`. |
-| `short` | `string`? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading - characters will be stripped, and only the first non - character will be used as the short version. |
-| `takesValue` | `boolean`? | _null_ | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods - Using a space such as -o value or --option value - Using an equals and no space such as -o=value or --option=value - Use a short and no space such as -ovalue |
+| <div id="cliarg.conflictswith">`conflictsWith` <a className="hash-link" href="#cliarg.conflictswith"></a></div> | `string`? | _null_ | Sets a conflicting argument by name i.e. when using this argument, the following argument can't be present and vice versa. |
+| <div id="cliarg.conflictswithall">`conflictsWithAll` <a className="hash-link" href="#cliarg.conflictswithall"></a></div> | [`string`]? | _null_ | The same as conflictsWith but allows specifying multiple two-way conflicts per argument. |
+| <div id="cliarg.description">`description` <a className="hash-link" href="#cliarg.description"></a></div> | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
+| <div id="cliarg.index">`index` <a className="hash-link" href="#cliarg.index"></a></div> | `integer` (uint)? | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
+| <div id="cliarg.longdescription">`longDescription` <a className="hash-link" href="#cliarg.longdescription"></a></div> | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
+| <div id="cliarg.maxvalues">`maxValues` <a className="hash-link" href="#cliarg.maxvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the maximum number of values are for this argument. For example, if you had a -f `<file>` argument where you wanted up to 3 'files', you would set .max_values(3), and this argument would be satisfied if the user provided, 1, 2, or 3 values. |
+| <div id="cliarg.minvalues">`minValues` <a className="hash-link" href="#cliarg.minvalues"></a></div> | `integer` (uint)? | _null_ | Specifies the minimum number of values for this argument. For example, if you had a -f `<file>` argument where you wanted at least 2 'files', you would set `minValues: 2`, and this argument would be satisfied if the user provided, 2 or more values. |
+| <div id="cliarg.multiple">`multiple` <a className="hash-link" href="#cliarg.multiple"></a></div> | `boolean`? | _null_ | Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once.<br /><br />For example, --opt val1 val2 is allowed, but --opt val1 val2 --opt val3 is not.<br /><br />NOTE: Setting this requires `takes_value` to be set to true. |
+| <div id="cliarg.multipleoccurrences">`multipleOccurrences` <a className="hash-link" href="#cliarg.multipleoccurrences"></a></div> | `boolean`? | _null_ | Specifies that the argument may appear more than once. For flags, this results in the number of occurrences of the flag being recorded. For example -ddd or -d -d -d would count as three occurrences. For options or arguments that take a value, this does not affect how many values they can accept. (i.e. only one at a time is allowed)<br /><br />For example, --opt val1 --opt val2 is allowed, but --opt val1 val2 is not. |
+| <div id="cliarg.name">`name` <a className="hash-link" href="#cliarg.name"></a></div> | `string` | _null_ | The unique argument name |
+| <div id="cliarg.numberofvalues">`numberOfValues` <a className="hash-link" href="#cliarg.numberofvalues"></a></div> | `integer` (uint)? | _null_ | Specifies how many values are required to satisfy this argument. For example, if you had a `-f <file>` argument where you wanted exactly 3 'files' you would set `number_of_values = 3`, and this argument wouldn't be satisfied unless the user provided 3 and only 3 values.<br /><br />**NOTE:** Does *not* require `multiple_occurrences = true` to be set. Setting `multiple_occurrences = true` would allow `-f <file> <file> <file> -f <file> <file> <file>` where as *not* setting it would only allow one occurrence of this argument.<br /><br />**NOTE:** implicitly sets `takes_value = true` and `multiple_values = true`. |
+| <div id="cliarg.possiblevalues">`possibleValues` <a className="hash-link" href="#cliarg.possiblevalues"></a></div> | [`string`]? | _null_ | Specifies a list of possible values for this argument. At runtime, the CLI verifies that only one of the specified values was used, or fails with an error message. |
+| <div id="cliarg.requireequals">`requireEquals` <a className="hash-link" href="#cliarg.requireequals"></a></div> | `boolean`? | _null_ | Requires that options use the --option=val syntax i.e. an equals between the option and associated value. |
+| <div id="cliarg.required">`required` <a className="hash-link" href="#cliarg.required"></a></div> | `boolean`? | _null_ | Sets whether or not the argument is required by default.<br /><br />- Required by default means it is required, when no other conflicting rules have been evaluated - Conflicting rules take precedence over being required. |
+| <div id="cliarg.requiredifeq">`requiredIfEq` <a className="hash-link" href="#cliarg.requiredifeq"></a></div> | [`string`]? | _null_ | Allows specifying that an argument is required conditionally with the signature [arg, value] the requirement will only become valid if the `arg`'s value equals `${value}`. |
+| <div id="cliarg.requiredunlesspresent">`requiredUnlessPresent` <a className="hash-link" href="#cliarg.requiredunlesspresent"></a></div> | `string`? | _null_ | Sets an arg that override this arg's required setting i.e. this arg will be required unless this other argument is present. |
+| <div id="cliarg.requiredunlesspresentall">`requiredUnlessPresentAll` <a className="hash-link" href="#cliarg.requiredunlesspresentall"></a></div> | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless all these other arguments are present. |
+| <div id="cliarg.requiredunlesspresentany">`requiredUnlessPresentAny` <a className="hash-link" href="#cliarg.requiredunlesspresentany"></a></div> | [`string`]? | _null_ | Sets args that override this arg's required setting i.e. this arg will be required unless at least one of these other arguments are present. |
+| <div id="cliarg.requires">`requires` <a className="hash-link" href="#cliarg.requires"></a></div> | `string`? | _null_ | Tets an argument by name that is required when this one is present i.e. when using this argument, the following argument must be present. |
+| <div id="cliarg.requiresall">`requiresAll` <a className="hash-link" href="#cliarg.requiresall"></a></div> | [`string`]? | _null_ | Sts multiple arguments by names that are required when this one is present i.e. when using this argument, the following arguments must be present. |
+| <div id="cliarg.requiresif">`requiresIf` <a className="hash-link" href="#cliarg.requiresif"></a></div> | [`string`]? | _null_ | Allows a conditional requirement with the signature [arg, value] the requirement will only become valid if `arg`'s value equals `${value}`. |
+| <div id="cliarg.short">`short` <a className="hash-link" href="#cliarg.short"></a></div> | `string`? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading - characters will be stripped, and only the first non - character will be used as the short version. |
+| <div id="cliarg.takesvalue">`takesValue` <a className="hash-link" href="#cliarg.takesvalue"></a></div> | `boolean`? | _null_ | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods - Using a space such as -o value or --option value - Using an equals and no space such as -o=value or --option=value - Use a short and no space such as -ovalue |
 
 
 ### `PatternKind`
@@ -626,13 +626,13 @@ The application pattern.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `use` | Enum: brownfield | _null_ | undefined |
+| <div id="patternkind.use">`use` <a className="hash-link" href="#patternkind.use"></a></div> | Enum: brownfield | _null_ | undefined |
 
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `options` | [`dir`] | _null_ | undefined |
-| `use` | Enum: isolation | _null_ | undefined |
+| <div id="patternkind.options">`options` <a className="hash-link" href="#patternkind.options"></a></div> | [`dir`] | _null_ | undefined |
+| <div id="patternkind.use">`use` <a className="hash-link" href="#patternkind.use"></a></div> | Enum: isolation | _null_ | undefined |
 
 
 ### `SecurityConfig`
@@ -642,10 +642,10 @@ Security configuration.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `csp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on the built application. If [`dev_csp`](#securityconfig) is not specified, this value is also injected on dev.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
-| `dangerousDisableAssetCspModification` | [`DisabledCspModificationKind`](#disabledcspmodificationkind)? | `false` | Disables the Tauri-injected CSP sources.<br /><br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources.<br /><br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject.<br /><br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
-| `devCsp` | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on development.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
-| `freezePrototype` | `boolean`? | `false` | Freeze the `Object.prototype` when using the custom protocol. |
+| <div id="securityconfig.csp">`csp` <a className="hash-link" href="#securityconfig.csp"></a></div> | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on the built application. If [`dev_csp`](#securityconfig.devcsp) is not specified, this value is also injected on dev.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
+| <div id="securityconfig.dangerousdisableassetcspmodification">`dangerousDisableAssetCspModification` <a className="hash-link" href="#securityconfig.dangerousdisableassetcspmodification"></a></div> | [`DisabledCspModificationKind`](#disabledcspmodificationkind)? | `false` | Disables the Tauri-injected CSP sources.<br /><br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources.<br /><br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject.<br /><br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
+| <div id="securityconfig.devcsp">`devCsp` <a className="hash-link" href="#securityconfig.devcsp"></a></div> | [`Csp`](#csp)? | _null_ | The Content Security Policy that will be injected on all HTML files on development.<br /><br />This is a really important part of the configuration since it helps you ensure your WebView is secured. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>. |
+| <div id="securityconfig.freezeprototype">`freezePrototype` <a className="hash-link" href="#securityconfig.freezeprototype"></a></div> | `boolean`? | `false` | Freeze the `Object.prototype` when using the custom protocol. |
 
 
 **Any of the following types can be used:**
@@ -715,8 +715,8 @@ Configuration for application system tray icon.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `iconAsTemplate` | `boolean`? | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
-| `iconPath` | `string` | _null_ | Path to the icon to use on the system tray.<br /><br />It is forced to be a `.png` file on Linux and macOS, and a `.ico` file on Windows. |
+| <div id="systemtrayconfig.iconastemplate">`iconAsTemplate` <a className="hash-link" href="#systemtrayconfig.iconastemplate"></a></div> | `boolean`? | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
+| <div id="systemtrayconfig.iconpath">`iconPath` <a className="hash-link" href="#systemtrayconfig.iconpath"></a></div> | `string` | _null_ | Path to the icon to use on the system tray.<br /><br />It is forced to be a `.png` file on Linux and macOS, and a `.ico` file on Windows. |
 
 
 ### `UpdaterConfig`
@@ -726,11 +726,11 @@ The Updater configuration object.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `active` | `boolean`? | `false` | Whether the updater is active or not. |
-| `dialog` | `boolean`? | `true` | Display built-in dialog or use event system if disabled. |
-| `endpoints` | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /><h4>Examples</h4> - "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
-| `pubkey` | `string`? | _null_ | Signature public key. |
-| `windows` | [`UpdaterWindowsConfig`](#updaterwindowsconfig)? | [_view_](#updaterwindowsconfig) | The Windows configuration for the updater. |
+| <div id="updaterconfig.active">`active` <a className="hash-link" href="#updaterconfig.active"></a></div> | `boolean`? | `false` | Whether the updater is active or not. |
+| <div id="updaterconfig.dialog">`dialog` <a className="hash-link" href="#updaterconfig.dialog"></a></div> | `boolean`? | `true` | Display built-in dialog or use event system if disabled. |
+| <div id="updaterconfig.endpoints">`endpoints` <a className="hash-link" href="#updaterconfig.endpoints"></a></div> | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /><h4>Examples</h4> - "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
+| <div id="updaterconfig.pubkey">`pubkey` <a className="hash-link" href="#updaterconfig.pubkey"></a></div> | `string`? | _null_ | Signature public key. |
+| <div id="updaterconfig.windows">`windows` <a className="hash-link" href="#updaterconfig.windows"></a></div> | [`UpdaterWindowsConfig`](#updaterwindowsconfig)? | [_view_](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
 
 #### `UpdaterWindowsConfig`
@@ -740,7 +740,7 @@ The updater configuration for Windows.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `installMode` | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode)? | `passive` | The installation mode for the update on Windows. Defaults to `passive`. |
+| <div id="updaterwindowsconfig.installmode">`installMode` <a className="hash-link" href="#updaterwindowsconfig.installmode"></a></div> | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode)? | `passive` | The installation mode for the update on Windows. Defaults to `passive`. |
 
 
 ##### `WindowsUpdateInstallMode`
@@ -762,29 +762,29 @@ The window configuration object.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `alwaysOnTop` | `boolean`? | `false` | Whether the window should always be on top of other windows. |
-| `center` | `boolean`? | `false` | Whether or not the window starts centered or not. |
-| `decorations` | `boolean`? | `true` | Whether the window should have borders and bars. |
-| `fileDropEnabled` | `boolean`? | `true` | Whether the file drop is enabled or not on the webview. By default it is enabled.<br /><br />Disabling it is required to use drag and drop on the frontend on Windows. |
-| `focus` | `boolean`? | `true` | Whether the window will be initially hidden or focused. |
-| `fullscreen` | `boolean`? | `false` | Whether the window starts as fullscreen or not. |
-| `height` | `number` (double)? | `600` | The window height. |
-| `label` | `string`? | `main` | The window identifier. It must be alphanumeric. |
-| `maxHeight` | `number` (double)? | _null_ | The max window height. |
-| `maxWidth` | `number` (double)? | _null_ | The max window width. |
-| `maximized` | `boolean`? | `false` | Whether the window is maximized or not. |
-| `minHeight` | `number` (double)? | _null_ | The min window height. |
-| `minWidth` | `number` (double)? | _null_ | The min window width. |
-| `resizable` | `boolean`? | `true` | Whether the window is resizable or not. |
-| `skipTaskbar` | `boolean`? | `false` | Whether or not the window icon should be added to the taskbar. |
-| `theme` | [`Theme`](#theme)? | _null_ | The initial window theme. Defaults to the system theme. Only implemented on Windows. |
-| `title` | `string`? | `Tauri App` | The window title. |
-| `transparent` | `boolean`? | `false` | Whether the window is transparent or not.<br /><br />Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`. WARNING: Using private APIs on `macOS` prevents your application from being accepted for the `App Store`. |
-| `url` | [`WindowUrl`](#windowurl)? | `index.html` | The window webview URL. |
-| `visible` | `boolean`? | `true` | Whether the window is visible or not. |
-| `width` | `number` (double)? | `800` | The window width. |
-| `x` | `number` (double)? | _null_ | The horizontal position of the window's top left corner |
-| `y` | `number` (double)? | _null_ | The vertical position of the window's top left corner |
+| <div id="windowconfig.alwaysontop">`alwaysOnTop` <a className="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean`? | `false` | Whether the window should always be on top of other windows. |
+| <div id="windowconfig.center">`center` <a className="hash-link" href="#windowconfig.center"></a></div> | `boolean`? | `false` | Whether or not the window starts centered or not. |
+| <div id="windowconfig.decorations">`decorations` <a className="hash-link" href="#windowconfig.decorations"></a></div> | `boolean`? | `true` | Whether the window should have borders and bars. |
+| <div id="windowconfig.filedropenabled">`fileDropEnabled` <a className="hash-link" href="#windowconfig.filedropenabled"></a></div> | `boolean`? | `true` | Whether the file drop is enabled or not on the webview. By default it is enabled.<br /><br />Disabling it is required to use drag and drop on the frontend on Windows. |
+| <div id="windowconfig.focus">`focus` <a className="hash-link" href="#windowconfig.focus"></a></div> | `boolean`? | `true` | Whether the window will be initially hidden or focused. |
+| <div id="windowconfig.fullscreen">`fullscreen` <a className="hash-link" href="#windowconfig.fullscreen"></a></div> | `boolean`? | `false` | Whether the window starts as fullscreen or not. |
+| <div id="windowconfig.height">`height` <a className="hash-link" href="#windowconfig.height"></a></div> | `number` (double)? | `600` | The window height. |
+| <div id="windowconfig.label">`label` <a className="hash-link" href="#windowconfig.label"></a></div> | `string`? | `main` | The window identifier. It must be alphanumeric. |
+| <div id="windowconfig.maxheight">`maxHeight` <a className="hash-link" href="#windowconfig.maxheight"></a></div> | `number` (double)? | _null_ | The max window height. |
+| <div id="windowconfig.maxwidth">`maxWidth` <a className="hash-link" href="#windowconfig.maxwidth"></a></div> | `number` (double)? | _null_ | The max window width. |
+| <div id="windowconfig.maximized">`maximized` <a className="hash-link" href="#windowconfig.maximized"></a></div> | `boolean`? | `false` | Whether the window is maximized or not. |
+| <div id="windowconfig.minheight">`minHeight` <a className="hash-link" href="#windowconfig.minheight"></a></div> | `number` (double)? | _null_ | The min window height. |
+| <div id="windowconfig.minwidth">`minWidth` <a className="hash-link" href="#windowconfig.minwidth"></a></div> | `number` (double)? | _null_ | The min window width. |
+| <div id="windowconfig.resizable">`resizable` <a className="hash-link" href="#windowconfig.resizable"></a></div> | `boolean`? | `true` | Whether the window is resizable or not. |
+| <div id="windowconfig.skiptaskbar">`skipTaskbar` <a className="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean`? | `false` | Whether or not the window icon should be added to the taskbar. |
+| <div id="windowconfig.theme">`theme` <a className="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | _null_ | The initial window theme. Defaults to the system theme. Only implemented on Windows. |
+| <div id="windowconfig.title">`title` <a className="hash-link" href="#windowconfig.title"></a></div> | `string`? | `Tauri App` | The window title. |
+| <div id="windowconfig.transparent">`transparent` <a className="hash-link" href="#windowconfig.transparent"></a></div> | `boolean`? | `false` | Whether the window is transparent or not.<br /><br />Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`. WARNING: Using private APIs on `macOS` prevents your application from being accepted for the `App Store`. |
+| <div id="windowconfig.url">`url` <a className="hash-link" href="#windowconfig.url"></a></div> | [`WindowUrl`](#windowurl)? | `index.html` | The window webview URL. |
+| <div id="windowconfig.visible">`visible` <a className="hash-link" href="#windowconfig.visible"></a></div> | `boolean`? | `true` | Whether the window is visible or not. |
+| <div id="windowconfig.width">`width` <a className="hash-link" href="#windowconfig.width"></a></div> | `number` (double)? | `800` | The window width. |
+| <div id="windowconfig.x">`x` <a className="hash-link" href="#windowconfig.x"></a></div> | `number` (double)? | _null_ | The horizontal position of the window's top left corner |
+| <div id="windowconfig.y">`y` <a className="hash-link" href="#windowconfig.y"></a></div> | `number` (double)? | _null_ | The vertical position of the window's top left corner |
 
 
 **Any of the following types can be used:**
