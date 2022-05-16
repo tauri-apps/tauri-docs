@@ -5,6 +5,9 @@
 name: update-translation
 
 on:
+  push:
+    branches:
+      - feat/i18n
   workflow_dispatch:
 
 jobs:
