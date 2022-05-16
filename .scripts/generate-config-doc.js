@@ -1,88 +1,49 @@
 const fs = require('fs')
-const { type } = require('os')
 const path = require('path')
 const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
+  .replaceAll('\\n', '<br />')
   .replaceAll('<file>', '')
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
-const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
-
-/*
-
- https://json-schema.org/understanding-json-schema/reference/combining.html
-
- If `allOf`...
-  if only one and it is $ref, then treat as referencing an object and build there
-
- if `anyOf`...
-  If one ref and the other is null, then optional..
-  else list them out as OR
-
- If `oneOf`...
-  Is an enum
-
- Only create table if properties exist
-*/
+// Check bundle targets
+// Add value formats
+// Required values in properties
+// Link anchor in table
 
 const output = []
 
-// Used to keep track of built sections so there aren't duplicates
-const builtObjects = []
+buildObject(null, schema, 2)
 
-Object.entries(schema.properties).forEach(([key, value]) => {
-  if (key !== '$schema') {
-    buildObject(key, value, 1)
-  }
-})
-
-function buildObject(key, value, headingLevel) {
-  // Skips building if an object with this value already exists
-  if (builtObjects.includes(key)) {
-    return
+function buildObject(key, value, headerLevel) {
+  var headerTitle
+  if (value.title) {
+    headerTitle = value.title
+  } else {
+    headerTitle = key
   }
 
-  // Forces correctly rendering headers of very deeply nested objects
-  if (headingLevel > 5) {
-    headingLevel = 5
+  output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
+  output.push(`${value.description}\n`)
+  output.push(longFormTypeConstructor(value))
+
+  buildProperties(headerTitle, value)
+
+  if (value.definitions) {
+    Object.entries(value.definitions).forEach(([innerKey, innerValue]) => {
+      buildObject(innerKey, innerValue, headerLevel + 1)
+    })
   }
-
-  // Don't generate headings for the top-most level
-  if (headingLevel != 1) {
-    builtObjects.push(key)
-    output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
-
-    if (value.description) {
-      output.push(
-        `${descriptionConstructor(value.description, false, headingLevel)}\n`
-      )
-    }
-
-    if (typeConstructor(value)) {
-      output.push(`**Type:** ${typeConstructor(value)}\n`)
-    }
-  }
-
-  buildProperties(key, value, headingLevel)
-  buildXOf(key, value, headingLevel)
-  buildReferencedTypes(value, headingLevel)
 }
 
-function buildProperties(parentKey, values, headingLevel) {
-  if (!values.properties) {
+function buildProperties(parentName, object) {
+  if (!object.properties) {
     return
-  }
-
-  // Keeps track of which items in the schema are required
-  var required = []
-
-  if (values.required) {
-    required = required.concat(values.required)
   }
 
   // Build table header
@@ -90,330 +51,178 @@ function buildProperties(parentKey, values, headingLevel) {
   output.push('| ---- | ---- | ------- | ----------- |')
 
   // Populate table
-  Object.entries(values.properties).forEach(([key, value]) => {
-    const requiredProperty = required.includes(key)
-
-    if (Array.isArray(value.type) && !requiredProperty) {
-      value.type = value.type.filter((t) => t !== 'null')
-      if (value.type.length === 1) {
-        value.type = value.type[0]
-      }
+  Object.entries(object.properties).forEach(([key, value]) => {
+    if (key == '$schema') {
+      return
     }
-    const propertyType = typeConstructor(value, requiredProperty).concat(
-      requiredProperty ? '' : '?'
-    )
+
+    const propertyType = typeConstructor(value)
     const propertyDefault = defaultConstructor(value)
-    const propertyDescription = descriptionConstructor(value.description, true)
 
-    const url = `${parentKey.toLowerCase()}.${key.toLowerCase()}`
+    const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
-
     output.push(
-      `| ${name} | ${propertyType} | ${propertyDefault} | ${propertyDescription} |`
+      `| ${name} | ${propertyType} | ${propertyDefault} | ${value.description} |`
     )
   })
 
   output.push('\n')
-
-  // Build any referenced types
-  Object.entries(values.properties).forEach(([key, value]) => {
-    buildXOf(key, value, headingLevel)
-  })
 }
 
-function buildXOf(key, value, headingLevel) {
-  buildAllOf(key, value, headingLevel)
-  buildAnyOf(key, value, headingLevel)
-  buildOneOf(key, value, headingLevel)
-
-  // Builds any objects found in the `allOf` item of an object
-  function buildAllOf(key, value, headingLevel) {
-    if (value.allOf) {
-      // Loop through those objects
-      value.allOf.forEach((individualValue) => {
-        const propertyKey = individualValue.$ref.replace('#/definitions/', '')
-        const propertyValue = schema.definitions[propertyKey]
-        buildObject(propertyKey, propertyValue, headingLevel + 1)
-      })
-    }
-  }
-
-  // Builds any objects found in the `anyOf` item of an object
-  function buildAnyOf(key, value, headingLevel) {
-    if (value.anyOf) {
-      // Check if a null is contained and the object should just be optional
-      if (
-        value.anyOf.some((e) => e.type == 'null') &&
-        value.anyOf.length == 2
-      ) {
-        // Remove the null values
-        value.anyOf = value.anyOf.filter((item) => item.type != 'null')
-      }
-
-      // Create a table for this type
-      output.push('The value can be any of the following types:\n')
-
-      // Populate this table
-      value.anyOf.forEach((individualValue) => {
-        const propertyType = typeConstructor(individualValue)
-        const propertyDefault = defaultConstructor(individualValue)
-        const propertyDescription = descriptionConstructor(
-          individualValue.description,
-          true
-        )
-
-        output.push(`- ${propertyType} (Defaults to ${propertyDefault})`)
-        if (propertyDescription) {
-          output.push(`  - ${propertyDescription}`)
-        }
-      })
-
-      output.push('\n')
-
-      // See if any referenced objects need built
-      Object.entries(value.anyOf).forEach(([key, individualValue]) => {
-        buildProperties(key, individualValue)
-        buildXOf(key, individualValue, headingLevel)
-        buildReferencedTypes(individualValue, headingLevel)
-      })
-    }
-  }
-
-  function buildOneOf(key, value, headingLevel) {
-    if (value.oneOf) {
-      // Create a table for this type
-      output.push('**One of the following types can be used:**\n')
-
-      // Populate this table
-      value.oneOf.forEach((individualValue) => {
-        const propertyType = typeConstructor(individualValue)
-        const propertyDefault = defaultConstructor(individualValue)
-        const propertyDescription = descriptionConstructor(
-          individualValue.description,
-          true
-        )
-        output.push(`- ${propertyType} (Defaults to ${propertyDefault})`)
-        if (propertyDescription) {
-          output.push(`  - ${propertyDescription}`)
-        }
-      })
-
-      output.push('\n')
-
-      // See if any referenced objects need built
-      Object.entries(value.oneOf).forEach(([_, individualValue]) => {
-        buildProperties(key, individualValue)
-        buildXOf(key, individualValue, headingLevel)
-        buildReferencedTypes(individualValue, headingLevel)
-      })
-    }
-  }
-}
-
-// Checks the `$ref` object to build any of those objects
-function buildReferencedTypes(value, headingLevel) {
-  // If a parent object with properties was passed...
-  if (value.properties) {
-    Object.entries(value.properties).forEach(([key, value]) => {
-      buildReferencedTypes(value, headingLevel)
-    })
-  }
-
-  // See if an item's property is included and any references in that
-  if (value.items && '$ref' in value.items) {
-    const propertyKey = value.items.$ref.replace('#/definitions/', '')
-    const propertyValue = schema.definitions[propertyKey]
-    buildObject(propertyKey, propertyValue, headingLevel + 1)
-  }
-
-  // Lastly check if there are any sibling `$ref` objects
-  if (value.$ref) {
-    const propertyKey = value.$ref.replace('#/definitions/', '')
-    const propertyValue = schema.definitions[propertyKey]
-    buildObject(propertyKey, propertyValue, headingLevel + 1)
-  }
-
-  // Checks if there's an `additionalProperties` node
-  if (value.additionalProperties && value.additionalProperties.$ref) {
-    const propertyKey = value.additionalProperties.$ref.replace(
-      '#/definitions/',
-      ''
-    )
-    const propertyValue = schema.definitions[propertyKey]
-    buildObject(propertyKey, propertyValue, headingLevel + 1)
-  }
-}
-
-function descriptionConstructor(
-  description,
-  fixNewlines = false,
-  headingLevel = 3
-) {
-  if (!description) {
-    return description
-  }
-
-  const exampleHeadingTag = `h${headingLevel + 1}`
-  description = description.replace(
-    '# Examples',
-    `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
-  )
-
-  if (fixNewlines) {
-    description = description.replaceAll('\n', '<br />')
-  }
-
-  const markdownLinkMatches = markdownLinkRegex.exec(description)
-  if (markdownLinkMatches) {
-    const url = markdownLinkMatches[2]
-    if (!url.startsWith('http')) {
-      description = description.replace(
-        url,
-        `#${url.toLowerCase().replaceAll('_', '')}`
-      )
-    }
-  }
-  return description
-}
-
-// Determins how the type of an object should be rendered
-function typeConstructor(value) {
-  if (value.enum) {
-    return `Enum: ${value.enum}`
-  }
-
-  // Skip if no type
-  if (value.type) {
-    // Logic for any remaining scenarios
-    switch (typeof value.type) {
-      case 'boolean':
+function typeConstructor(object) {
+  if (object.type) {
+    // See what the actual types are
+    switch (typeof object.type) {
       case 'string':
-        if (value.type == 'array') {
-          return arrayTypeConstructor(value)
+        // Verify that it is a string type
+        switch (object.type) {
+          case 'string':
+          case 'number':
+          case 'boolean':
+            return `\`${object.type}\``
+          case 'object':
+            return `\`${object.type}\``
+          case 'array':
+            if (object.items.type) {
+              var format = ''
+              if (object.items.format) {
+                format = ` (${object.items.format})`
+              }
+              return `[\`${object.items.type}\`${format}]`
+            }
+            if (object.items.$ref) {
+              return `[${refLinkConstructor(object.items.$ref)}]`
+            }
+          default:
         }
-        // Fix for ShellAllowedArg.anyOf.object
-        if (value.type == 'object') {
-          if (value.required) {
-            return `[\`${value.required}\`]`
+      case 'undefined':
+        return '_null_'
+      case 'object':
+        if (Array.isArray(object.type)) {
+          // Check if it should just be an optional value
+          if (object.type.length == 2 && object.type.includes('null')) {
+            return `\`${object.type.filter((item) => item != 'null')}\`?`
           }
         }
-        if (value.format) {
-          return `\`${value.type}\` (${value.format})`
-        }
-        return `\`${value.type}\``
-      case 'object':
-        if (Array.isArray(value.type)) {
-          return arrayTypeConstructor(value)
-        }
-        console.log('Unknown value type:', value.type)
-        return ''
-      case 'undefined':
-        return ''
       default:
-        console.log('Unknown value type:', value.type)
-        return ''
     }
   }
 
-  if (value.$ref) {
-    const name = value.$ref.replace('#/definitions/', '')
-    return `[\`${name}\`](#${name.toLowerCase()})`
+  if (object.$ref) {
+    return refLinkConstructor(object.$ref)
   }
 
-  if (value.allOf) {
-    const name = value.allOf[0].$ref.replace('#/definitions/', '')
-    return `[\`${name}\`](#${name.toLowerCase()})`
-  }
-
-  if (value.anyOf) {
-    return arrayTypeConstructor(value)
-  }
-  return ''
-}
-
-function arrayTypeConstructor(value) {
-  // If the actual type object is an array
-  if (Array.isArray(value.type)) {
-    // Remove null values
-    value.type = value.type.filter((item) => item != 'null')
-
-    value.type.forEach(function (part, index) {
-      this[index] = `\`${part}\``
-    }, value.type)
-
-    return `[${value.type.join(` \\| `)}]`
-  }
-
-  // If it's just faking the type...
-  if (value.type == 'array') {
-    // Check to see if it's referencing another object type
-    if (value.items.$ref) {
-      const name = value.items.$ref.replace('#/definitions/', '')
-      return `\[[\`${name}\`](#${name.toLowerCase()})]`
-    }
-    // Or it could just be referencing a specific primitive type
-    if ('items' in value) {
-      return `[\`${value.items.type}\`]`
-    }
-  }
-
-  if (value.anyOf) {
-    var objects = []
-
-    value.anyOf.forEach((value) => {
-      const tempType = typeConstructor(value)
-
-      // Ignore these types, this should be indicated by a '?'
-      if (!tempType.includes('null')) {
-        objects.push(tempType)
+  if (object.anyOf) {
+    // Removes any null values
+    var canBeNull = false
+    const items = object.anyOf.filter((item) => {
+      if (item.type && item.type == 'null') {
+        canBeNull = true
+        return false
+      } else {
+        return true
       }
     })
 
-    return objects.join(' \\| ')
+    if (canBeNull && items.length == 1) {
+      return `${items.map(typeConstructor)}?`
+    }
+
+    return items.map(typeConstructor).join(' \\| ')
   }
 
-  console.log(`error: ${JSON.stringify(value)}`)
-  return `ERROR: ${JSON.stringify(value)}`
+  if (object.allOf) {
+    return refLinkConstructor(object.allOf[0].$ref)
+  }
+
+  if (object.oneOf) {
+    return object.oneOf.map(typeConstructor).join(' | ')
+  }
+
+  console.log('A type was not able to be parsed:', object)
 }
 
-function defaultConstructor(value) {
-  switch (typeof value.default) {
-    case 'string':
-      if (!value.default) {
-        return '_null_'
+function longFormTypeConstructor(object) {
+  if (object.enum) {
+    var buffer = []
+    buffer.push(`Can be any of the following \`${object.type}\` values:`)
+    object.enum.forEach((item) => {
+      buffer.push(`- ${item}`)
+    })
+    return buffer.join('\n')
+  }
+  if (object.anyOf) {
+    var buffer = []
+    buffer.push('Can be any of the following types:\n')
+    object.anyOf.forEach((item) => {
+      var description = ':'
+      if (item.description) {
+        description = `: ${item.description}`
       }
+      buffer.push(`- ${typeConstructor(item)}${description}`)
+    })
+
+    return buffer.join(`\n`)
+  }
+
+  if (object.oneOf) {
+    var buffer = []
+    buffer.push('Can be any **ONE** of the following types:\n')
+    object.oneOf.forEach((item) => {
+      var description = ':'
+      if (item.description) {
+        description = `: ${item.description}`
+      }
+      buffer.push(`- ${typeConstructor(item)}${description}`)
+    })
+
+    return buffer.join(`\n`)
+  }
+
+  return `Type: ${typeConstructor(object)}\n`
+}
+
+function defaultConstructor(object) {
+  switch (typeof object.default) {
     case 'boolean':
     case 'number':
-      return `\`${value.default}\``
-    case 'undefined':
-      return '_null_'
+      return `\`${object.default}\``
     case 'object':
-      if (Array.isArray(value.default)) {
-        if (value.default.length == 0) {
-          return '_null_'
-        }
+      // Check if empty array
+      if (Array.isArray(object.default) && object.default.length == 0) {
+        return '[]'
       }
-
-      if ('allOf' in value) {
-        const name = value.allOf[0].$ref
-          .replace('#/definitions/', '')
-          .toLowerCase()
-        return `[\_view\_](#${name})`
-      }
-
-      if ('additionalProperties' in value) {
-        return `\`${value.additionalProperties.type}\``
-      }
-
-      if ('default' in value) {
-        return `_${value.default}_`
-      }
-      console.log('Uncaught object type:', value.default)
-      return `OBJECT: ${JSON.stringify(value.default)}`
     default:
-      console.log('Unknown default type:', value.default)
-      return ''
   }
+
+  if (object.$ref) {
+    console.error('Found $ref default:', object.$ref)
+  }
+
+  if (object.anyOf) {
+    const link = object.anyOf[0].$ref
+      .replace('#/definitions/', '')
+      .toLowerCase()
+    return `[view](#${link})`
+  }
+
+  if (object.allOf) {
+    const link = object.allOf[0].$ref
+      .replace('#/definitions/', '')
+      .toLowerCase()
+    return `[view](#${link})`
+  }
+
+  if (object.oneOf) {
+    console.error('Found oneOf default:', object.oneOf)
+  }
+
+  return '_null_'
+}
+
+function refLinkConstructor(string) {
+  const name = string.replace('#/definitions/', '')
+  return `[\`${name}\`](#${name.toLowerCase()})`
 }
 
 fs.writeFileSync(
