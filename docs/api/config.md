@@ -320,7 +320,7 @@ Allowlist for the shell APIs.
 | `execute` | `boolean`? | `false` | Enable binary execution. |
 | `open` | [`ShellAllowlistOpen`](#shellallowlistopen)? | `false` | Open URL with the user's default application. |
 | `scope` | [`ShellAllowlistScope`](#shellallowlistscope)? | _null_ | Access scope for the binary execution APIs. Sidecars are automatically enabled. |
-| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/guides/building/sidecar>. |
+| `sidecar` | `boolean`? | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/v1/guides/building/sidecar>. |
 
 
 ##### `ShellAllowlistOpen`
