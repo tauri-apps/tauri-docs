@@ -32,8 +32,8 @@ function buildObject(key, value, headingLevel) {
   }
 
   // Forces correctly rendering headers of very deeply nested objects
-  if (headingLevel > 6) {
-    headingLevel = 6
+  if (headingLevel > 5) {
+    headingLevel = 5
   }
 
   // Don't generate headings for the top-most level
@@ -75,7 +75,7 @@ function buildProperties(values, headingLevel) {
   Object.entries(values.properties).forEach(([key, value]) => {
     const requiredProperty = required.includes(key)
     if (Array.isArray(value.type) && !requiredProperty) {
-      value.type = value.type.filter(t => t !== 'null')
+      value.type = value.type.filter((t) => t !== 'null')
       if (value.type.length === 1) {
         value.type = value.type[0]
       }
