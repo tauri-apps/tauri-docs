@@ -81,7 +81,7 @@ const navbarItems = [
     position: 'right',
     dropdownItemsAfter: [
       {
-        to: 'https://github.com/tauri-apps/tauri-docs#contributing',
+        to: 'https://github.com/tauri-apps/tauri-docs/blob/dev/.github/CONTRIBUTING.md#internationalization-i18n',
         label: 'Help us translate',
       },
     ],
