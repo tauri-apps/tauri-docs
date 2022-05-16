@@ -6,6 +6,7 @@ const schemaString = fs
   .toString()
   .replaceAll('\\n', '<br />')
   .replaceAll('<file>', '')
+  .replaceAll('SecurityConfig.dev_csp', 'config#SecurityConfig.devCsp')
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
