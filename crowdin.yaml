@@ -1,51 +1,15 @@
 # project_identifier_env: CROWDIN_DOCUSAURUS_PROJECT_ID
 # api_key_env: CROWDIN_DOCUSAURUS_API_KEY
 project_id: 1
-api_token: TOKEN
-base_path: "./"
+api_token_env: TOKEN
 preserve_hierarchy: true
-
 files:
-  -
-    source: '/docs/*.md'
-    translation: '/website/translated_docs/%locale%/%original_file_name%'
-    languages_mapping: &anchor
-      locale:
-        'af': 'af'
-        'ar': 'ar'
-        'bs-BA': 'bs-BA'
-        'ca': 'ca'
-        'cs': 'cs'
-        'da': 'da'
-        'de': 'de'
-        'el': 'el'
-        'es-ES': 'es-ES'
-        'fa': 'fa-IR'
-        'fi': 'fi'
-        'fr': 'fr'
-        'he': 'he'
-        'hu': 'hu'
-        'id': 'id-ID'
-        'it': 'it'
-        'ja': 'ja'
-        'ko': 'ko'
-        'mr': 'mr-IN'
-        'nl': 'nl'
-        'no': 'no-NO'
-        'pl': 'pl'
-        'pt-BR': 'pt-BR'
-        'pt-PT': 'pt-PT'
-        'ro': 'ro'
-        'ru': 'ru'
-        'sk': 'sk-SK'
-        'sr': 'sr'
-        'sv-SE': 'sv-SE'
-        'tr': 'tr'
-        'uk': 'uk'
-        'vi': 'vi'
-        'zh-CN': 'zh-CN'
-        'zh-TW': 'zh-TW'
-  -
-    source: '/website/i18n/en.json'
-    translation: '/website/i18n/%locale%.json'
-    languages_mapping: *anchor
+  # JSON translation files
+  - source: /i18n/en/**/*
+    translation: /i18n/%two_letters_code%/**/%original_file_name%
+  # Docs Markdown files
+  - source: /docs/**/*
+    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
+  # Blog Markdown files
+  - source: /blog/**/*
+    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-blog/**/%original_file_name%
