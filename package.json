@@ -7,8 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "translate": "docusaurus write-translations",
-    "crowdin": "crowdin --version",
+    "crowdin:sync": "docusaurus write-translations && crowdin upload --dryrun",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve"
   },
