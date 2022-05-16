@@ -29,7 +29,7 @@ To include custom files to the debian package, you can configure a mapping on `t
 }
 ```
 
-::note
+:::note
 Each `files` object key is the path on the Debian package, and the value is a path to a file or directory relative to the `tauri.conf.json` file.
 :::
 
