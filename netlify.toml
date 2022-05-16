@@ -37,3 +37,7 @@ to = "/v1/guides/:splat"
 [[redirects]]
 from = "/v1/guides/getting-started/setup*"
 to = "/v1/guides/getting-started/prerequisites/"
+
+[[redirects]]
+from = "/v1/guides/examples/*"
+to = "/v1/guides/features/:splat"
