@@ -5,7 +5,6 @@ const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
-  .replaceAll('\\n', '<br />') // Fixes new lines
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
@@ -24,7 +23,18 @@ Object.entries(schema.properties).forEach(([key, value]) => {
   }
 })
 
-function descriptionConstructor(description) {
+function descriptionConstructor(description, fixNewlines = false, headingLevel = 3) {
+  if (!description) {
+    return description
+  }
+
+  const exampleHeadingTag = `h${headingLevel + 1}`
+  description = description.replace('# Examples', `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`)
+
+  if (fixNewlines) {
+    description = description.replaceAll('\n', '<br />')
+  }
+
   const markdownLinkMatches = markdownLinkRegex.exec(description)
   if (markdownLinkMatches) {
     const url = markdownLinkMatches[2]
@@ -54,7 +64,7 @@ function buildObject(key, value, headingLevel) {
     output.push(`${'#'.repeat(headingLevel)} \`${key}\``)
 
     if (value.description) {
-      output.push(`${descriptionConstructor(value.description)}\n`)
+      output.push(`${descriptionConstructor(value.description, false, headingLevel)}\n`)
     }
 
     if (typeConstructor(value)) {
@@ -99,7 +109,7 @@ function buildProperties(values, headingLevel) {
     const propertyDefault = defaultConstructor(value)
 
     output.push(
-      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description)}\ |`
+      `| \`${key}\` | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)}\ |`
     )
   })
 
@@ -149,7 +159,7 @@ function buildXOf(value, headingLevel) {
         const propertyDefault = defaultConstructor(individualValue)
 
         output.push(
-          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description)}|`
+          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description, true)}|`
         )
       })
 
@@ -176,7 +186,7 @@ function buildXOf(value, headingLevel) {
         const propertyType = typeConstructor(individualValue)
         const propertyDefault = defaultConstructor(individualValue)
         output.push(
-          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description)} |`
+          `| ${propertyType} | ${propertyDefault} | ${descriptionConstructor(individualValue.description, true)} |`
         )
       })
 

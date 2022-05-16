@@ -203,7 +203,9 @@ Allowlist for the file system APIs.
 
 
 ##### `FsAllowlistScope`
-Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview.<br /><br />Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
+Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview.
+
+Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
 
 **Type:** [`string`] \| `object`
 
@@ -244,7 +246,11 @@ Allowlist for the HTTP APIs.
 
 
 ##### `HttpAllowlistScope`
-HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern.<br /><br /># Examples<br /><br />- "https://**": allows all HTTPS urls - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
+HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern.
+
+<h6>Examples</h6>
+
+- "https://**": allows all HTTPS urls - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
 **Type:** [`string`]
 
@@ -349,7 +355,9 @@ A command allowed to be executed by the webview API.
 
 
 ##### `ShellAllowedArgs`
-A set of command arguments allowed to be executed by the webview API.<br /><br />A value of `true` will allow any arguments to be passed to the command. `false` will disable all arguments. A list of [`ShellAllowedArg`] will set those arguments as the only valid arguments to be passed to the attached command configuration.
+A set of command arguments allowed to be executed by the webview API.
+
+A value of `true` will allow any arguments to be passed to the command. `false` will disable all arguments. A list of [`ShellAllowedArg`] will set those arguments as the only valid arguments to be passed to the attached command configuration.
 
 **Type:** `boolean` \| [[`ShellAllowedArg`](#shellallowedarg)]
 
@@ -720,7 +728,7 @@ The Updater configuration object.
 | ---- | ---- | ------- | ----------- |
 | `active` | `boolean`? | `false` | Whether the updater is active or not. |
 | `dialog` | `boolean`? | `true` | Display built-in dialog or use event system if disabled. |
-| `endpoints` | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /># Examples<br /><br />- "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
+| `endpoints` | [[`UpdaterEndpoint`](#updaterendpoint)]? | _null_ | The updater endpoints. TLS is enforced on production.<br /><br />The updater URL can contain the following variables: - {{current_version}}: The version of the app that is requesting the update - {{target}}: The operating system name (one of `linux`, `windows` or `darwin`). - {{arch}}: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).<br /><br /><h4>Examples</h4> - "https://my.cdn.com/latest.json": a raw JSON endpoint that returns the latest version and download links for each platform. - "https://updates.app.dev/{{target}}?version={{current_version}}&arch={{arch}}": a dedicated API with positional and query string arguments. |
 | `pubkey` | `string`? | _null_ | Signature public key. |
 | `windows` | [`UpdaterWindowsConfig`](#updaterwindowsconfig)? | [_view_](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
@@ -741,7 +749,9 @@ Install modes for the Windows update.
 **Type:** Enum: basicUi,quiet,passive
 
 #### `UpdaterEndpoint`
-A URL to an updater server.<br /><br />The URL must use the `https` scheme on production.
+A URL to an updater server.
+
+The URL must use the `https` scheme on production.
 
 **Type:** `string` (uri)
 
