@@ -4140,13 +4140,13 @@ dns-packet@^5.2.2:
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
-docs-searchbar.js@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.1.1.tgz#ed9519c0f39a99ad9d231963245e4fc81edd994b"
-  integrity sha512-K9QkhpLUi8KRoEoI8Gz7dOAYHSPUZ0uB3qb0QkWsq9cU+FAMCZPQoePfN9TObTKcX95AYQUXHV2cgd1StHYWrg==
+docs-searchbar.js@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.1.2.tgz#8f9f47fefee2a7d9576315d14ddc9ce7f13a7f46"
+  integrity sha512-2lsNYk1f2rtINCi5PrR2aSgoxQkBFAJm+b2aCztWhTOZCdxizcFwQ9pcygGeSx7CTa6bBdTm68PtW2G7r3pTfg==
   dependencies:
     autocomplete.js "^0.38.1"
-    meilisearch "^0.25.0"
+    meilisearch "^0.25.1"
     to-factory "^1.0.0"
     zepto "^1.2.0"
 
@@ -5969,10 +5969,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-meilisearch@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.25.0.tgz#8e980fbdd36b9fe6ed606205e262418f21e64d84"
-  integrity sha512-TSIJTh5lva7WHBaoG3arNYQXuIAQkcD3BY09h2nHhjHS/wzxWKJM45x5bEC67Grw8zXihVqqmWty4a4ps4S+tg==
+meilisearch@^0.25.1:
+  version "0.25.1"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.25.1.tgz#0dc25ffad64e6e50eb3da6c0691b0ff54f8578bf"
+  integrity sha512-20jO0pK9BhghxHSkOLbdoYn58h/Z0PNL3JQcRq7ipNIeqrxkAetCZZ6ttJC3uxcz0jVglmiFoSXu3Z/lEOLOLQ==
   dependencies:
     cross-fetch "^3.1.5"
 
