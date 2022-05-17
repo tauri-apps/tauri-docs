@@ -14,6 +14,8 @@ const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
+const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
+
 // Check bundle targets
 // Add value formats
 // Required values in properties
@@ -32,7 +34,7 @@ function buildObject(key, value, headerLevel) {
   }
 
   output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
-  output.push(`${value.description}\n`)
+  output.push(`${descriptionConstructor(value.description, false, headerLevel)}\n`)
   output.push(longFormTypeConstructor(value))
 
   buildProperties(headerTitle, value)
@@ -65,11 +67,43 @@ function buildProperties(parentName, object) {
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
     output.push(
-      `| ${name} | ${propertyType} | ${propertyDefault} | ${value.description} |`
+      `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)} |`
     )
   })
 
   output.push('\n')
+}
+
+function descriptionConstructor(
+  description,
+  fixNewlines = false,
+  headingLevel = 3
+) {
+  if (!description) {
+    return description
+  }
+
+  const exampleHeadingTag = `h${headingLevel + 1}`
+  description = description.replace(
+    '# Examples',
+    `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
+  ).replaceAll(' - ', '\n- ')
+
+  if (fixNewlines) {
+    description = description.replaceAll('\n', '<br />')
+  }
+
+  const markdownLinkMatches = markdownLinkRegex.exec(description)
+  if (markdownLinkMatches) {
+    const url = markdownLinkMatches[2]
+    if (!url.startsWith('http')) {
+      description = description.replace(
+        url,
+        `#${url.toLowerCase().replaceAll('_', '')}`
+      )
+    }
+  }
+  return description
 }
 
 function typeConstructor(object) {
@@ -160,7 +194,7 @@ function longFormTypeConstructor(object) {
     object.anyOf.forEach((item) => {
       var description = ':'
       if (item.description) {
-        description = `: ${item.description}`
+        description = `: ${descriptionConstructor(item.description, false)}`
       }
       buffer.push(`- ${typeConstructor(item)}${description}`)
     })
@@ -174,7 +208,7 @@ function longFormTypeConstructor(object) {
     object.oneOf.forEach((item) => {
       var description = ':'
       if (item.description) {
-        description = `: ${item.description}`
+        description = `: ${descriptionConstructor(item.description, false)}`
       }
       buffer.push(`- ${typeConstructor(item)}${description}`)
     })
