@@ -19,7 +19,7 @@ Usage
 Options
   --help, -h          Displays this message
   --log, l            Logging [boolean]
-  --target, t         Target folder (default: 'src-tauri/icons')
+  --target, t         Target folder (default: './icons')
 ```
 
 These will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
@@ -47,5 +47,13 @@ If you need to source your icons from some other location, you can edit this par
 - icon.icns = macOS
 - icon.ico = MS Windows
 - \*.png = Linux
+
+:::
+
+:::warning Building on Windows
+
+The compiler will use `icons/icon.ico` as the default icon path when your project don't provide a custom `.ico` file.
+
+If neither provide the custom icon file path nor put an icon file into the default path, the compiler will throw an exception and quit. See [#4097](https://github.com/tauri-apps/tauri/issues/4097).
 
 :::
