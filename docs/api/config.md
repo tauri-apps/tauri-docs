@@ -63,7 +63,7 @@ Type: `object`
 | <div id="configuration.tauri">`tauri`<a class="hash-link" href="#configuration.tauri"></a></div> | [`TauriConfig`](#tauriconfig) | [view](#tauriconfig) | The Tauri configuration. |
 
 
-## AllowlistConfig
+### AllowlistConfig
 
 Allowlist configuration.
 
@@ -86,7 +86,7 @@ Type: `object`
 | <div id="allowlistconfig.window">`window`<a class="hash-link" href="#allowlistconfig.window"></a></div> | [`WindowAllowlistConfig`](#windowallowlistconfig) | [view](#windowallowlistconfig) | Window API allowlist. |
 
 
-## AppUrl
+### AppUrl
 
 Defines the URL or assets to embed in the application.
 
@@ -94,7 +94,7 @@ Can be any of the following types:
 
 - [`WindowUrl`](#windowurl): The app's external URL, or the path to the directory containing the app assets.
 - [`string`]: An array of files to embed on the app.
-## BuildConfig
+### BuildConfig
 
 The Build configuration object.
 
@@ -111,7 +111,7 @@ Type: `object`
 | <div id="buildconfig.withglobaltauri">`withGlobalTauri`<a class="hash-link" href="#buildconfig.withglobaltauri"></a></div> | `boolean` | `false` | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
 
 
-## BundleConfig
+### BundleConfig
 
 Configuration for tauri-bundler.
 
@@ -134,7 +134,7 @@ Type: `object`
 | <div id="bundleconfig.windows">`windows`<a class="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig) | [view](#windowsconfig) | Configuration for the Windows bundle. |
 
 
-## BundleTarget
+### BundleTarget
 
 Targets to bundle.
 
@@ -142,7 +142,7 @@ Can be any of the following types:
 
 - [`string`]: A list of bundle targets.
 - `string`: A single bundle target.
-## CliArg
+### CliArg
 
 A CLI argument definition.
 
@@ -175,7 +175,7 @@ Type: `object`
 | <div id="cliarg.takesvalue">`takesValue`<a class="hash-link" href="#cliarg.takesvalue"></a></div> | `boolean` | `false` | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods<br />- Using a space such as -o value or --option value<br />- Using an equals and no space such as -o=value or --option=value<br />- Use a short and no space such as -ovalue |
 
 
-## CliConfig
+### CliConfig
 
 describes a CLI configuration
 
@@ -191,7 +191,7 @@ Type: `object`
 | <div id="cliconfig.subcommands">`subcommands`<a class="hash-link" href="#cliconfig.subcommands"></a></div> | `object`? | _null_ | List of subcommands of this command |
 
 
-## ClipboardAllowlistConfig
+### ClipboardAllowlistConfig
 
 Allowlist for the clipboard APIs.
 
@@ -204,7 +204,7 @@ Type: `object`
 | <div id="clipboardallowlistconfig.writetext">`writeText`<a class="hash-link" href="#clipboardallowlistconfig.writetext"></a></div> | `boolean` | `false` | Enables the clipboard's `writeText` API. |
 
 
-## Csp
+### Csp
 
 A Content-Security-Policy definition. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
@@ -212,7 +212,7 @@ Can be any of the following types:
 
 - `string`: The entire CSP policy in a single text string.
 - `object`: An object mapping a directive with its sources values as a list of strings.
-## CspDirectiveSources
+### CspDirectiveSources
 
 A Content-Security-Policy directive source list. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources>.
 
@@ -220,7 +220,7 @@ Can be any of the following types:
 
 - `string`: An inline list of CSP sources. Same as [`Self::List`], but concatenated with a space separator.
 - [`string`]: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
-## DebConfig
+### DebConfig
 
 Configuration for Debian (.deb) bundles.
 
@@ -232,7 +232,7 @@ Type: `object`
 | <div id="debconfig.files">`files`<a class="hash-link" href="#debconfig.files"></a></div> | `object` | _null_ | The files to include on the package. |
 
 
-## DialogAllowlistConfig
+### DialogAllowlistConfig
 
 Allowlist for the dialog APIs.
 
@@ -248,7 +248,7 @@ Type: `object`
 | <div id="dialogallowlistconfig.save">`save`<a class="hash-link" href="#dialogallowlistconfig.save"></a></div> | `boolean` | `false` | Allows the API to open a dialog window to pick where to save files. |
 
 
-## DisabledCspModificationKind
+### DisabledCspModificationKind
 
 The possible values for the `dangerous_disable_asset_csp_modification` config option.
 
@@ -256,7 +256,7 @@ Can be any of the following types:
 
 - `boolean`: If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
 - [`string`]: Disables the given list of CSP directives modifications.
-## FsAllowlistConfig
+### FsAllowlistConfig
 
 Allowlist for the file system APIs.
 
@@ -276,7 +276,7 @@ Type: `object`
 | <div id="fsallowlistconfig.writefile">`writeFile`<a class="hash-link" href="#fsallowlistconfig.writefile"></a></div> | `boolean` | `false` | Write file to local filesystem. |
 
 
-## FsAllowlistScope
+### FsAllowlistScope
 
 Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview.
 
@@ -286,7 +286,7 @@ Can be any of the following types:
 
 - [`string`]: A list of paths that are allowed by this scope.
 - `object`: A complete scope configuration.
-## GlobalShortcutAllowlistConfig
+### GlobalShortcutAllowlistConfig
 
 Allowlist for the global shortcut APIs.
 
@@ -297,7 +297,7 @@ Type: `object`
 | <div id="globalshortcutallowlistconfig.all">`all`<a class="hash-link" href="#globalshortcutallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all global shortcut API features. |
 
 
-## HttpAllowlistConfig
+### HttpAllowlistConfig
 
 Allowlist for the HTTP APIs.
 
@@ -310,18 +310,18 @@ Type: `object`
 | <div id="httpallowlistconfig.scope">`scope`<a class="hash-link" href="#httpallowlistconfig.scope"></a></div> | [`HttpAllowlistScope`](#httpallowlistscope) | [] | The access scope for the HTTP APIs. |
 
 
-## HttpAllowlistScope
+### HttpAllowlistScope
 
 HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern.
 
-<h3>Examples</h3>
+<h4>Examples</h4>
 - "https://**": allows all HTTPS urls
 - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
 Type: [`string` (uri)]
 
-## MacConfig
+### MacConfig
 
 Configuration for the macOS bundles.
 
@@ -338,7 +338,7 @@ Type: `object`
 | <div id="macconfig.signingidentity">`signingIdentity`<a class="hash-link" href="#macconfig.signingidentity"></a></div> | `string`? | _null_ | Identity to use for code signing. |
 
 
-## NotificationAllowlistConfig
+### NotificationAllowlistConfig
 
 Allowlist for the notification APIs.
 
@@ -349,7 +349,7 @@ Type: `object`
 | <div id="notificationallowlistconfig.all">`all`<a class="hash-link" href="#notificationallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all notification API features. |
 
 
-## OsAllowlistConfig
+### OsAllowlistConfig
 
 Allowlist for the OS APIs.
 
@@ -360,7 +360,7 @@ Type: `object`
 | <div id="osallowlistconfig.all">`all`<a class="hash-link" href="#osallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all OS API features. |
 
 
-## PackageConfig
+### PackageConfig
 
 The package configuration.
 
@@ -372,7 +372,7 @@ Type: `object`
 | <div id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file contaning the `version` field. |
 
 
-## PathAllowlistConfig
+### PathAllowlistConfig
 
 Allowlist for the path APIs.
 
@@ -383,7 +383,7 @@ Type: `object`
 | <div id="pathallowlistconfig.all">`all`<a class="hash-link" href="#pathallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all path API features. |
 
 
-## PatternKind
+### PatternKind
 
 The application pattern.
 
@@ -391,13 +391,13 @@ Can be any **ONE** of the following types:
 
 - `object`: Brownfield pattern.
 - `object`: Isolation pattern. Recommended for security purposes.
-## PluginConfig
+### PluginConfig
 
 The plugin configs holds a HashMap mapping a plugin name to its configuration object.
 
 Type: `object`
 
-## ProcessAllowlistConfig
+### ProcessAllowlistConfig
 
 Allowlist for the process APIs.
 
@@ -411,7 +411,7 @@ Type: `object`
 | <div id="processallowlistconfig.relaunchdangerousallowsymlinkmacos">`relaunchDangerousAllowSymlinkMacos`<a class="hash-link" href="#processallowlistconfig.relaunchdangerousallowsymlinkmacos"></a></div> | `boolean` | `false` | Dangerous option that allows macOS to relaunch even if the binary contains a symlink.<br /><br />This is due to macOS having less symlink protection. Highly recommended to not set this flag unless you have a very specific reason too, and understand the implications of it. |
 
 
-## ProtocolAllowlistConfig
+### ProtocolAllowlistConfig
 
 Allowlist for the custom protocols.
 
@@ -424,7 +424,7 @@ Type: `object`
 | <div id="protocolallowlistconfig.assetscope">`assetScope`<a class="hash-link" href="#protocolallowlistconfig.assetscope"></a></div> | [`FsAllowlistScope`](#fsallowlistscope) | [] | The access scope for the asset protocol. |
 
 
-## SecurityConfig
+### SecurityConfig
 
 Security configuration.
 
@@ -438,7 +438,7 @@ Type: `object`
 | <div id="securityconfig.freezeprototype">`freezePrototype`<a class="hash-link" href="#securityconfig.freezeprototype"></a></div> | `boolean` | `false` | Freeze the `Object.prototype` when using the custom protocol. |
 
 
-## ShellAllowedArg
+### ShellAllowedArg
 
 A command argument allowed to be executed by the webview API.
 
@@ -446,7 +446,7 @@ Can be any of the following types:
 
 - `string`: A non-configurable argument that is passed to the command in the order it was specified.
 - `object`: A variable that is set while calling the command from the webview API.
-## ShellAllowedArgs
+### ShellAllowedArgs
 
 A set of command arguments allowed to be executed by the webview API.
 
@@ -456,7 +456,7 @@ Can be any of the following types:
 
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
 - [[`ShellAllowedArg`](#shellallowedarg)]: A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
-## ShellAllowedCommand
+### ShellAllowedCommand
 
 A command allowed to be executed by the webview API.
 
@@ -470,7 +470,7 @@ Type: `object`
 | <div id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | `boolean` | `false` | If this command is a sidecar command. |
 
 
-## ShellAllowlistConfig
+### ShellAllowlistConfig
 
 Allowlist for the shell APIs.
 
@@ -485,7 +485,7 @@ Type: `object`
 | <div id="shellallowlistconfig.sidecar">`sidecar`<a class="hash-link" href="#shellallowlistconfig.sidecar"></a></div> | `boolean` | `false` | Enable sidecar execution, allowing the JavaScript layer to spawn a sidecar command, an executable that is shipped with the application. For more information see <https://tauri.studio/v1/guides/building/sidecar>. |
 
 
-## ShellAllowlistOpen
+### ShellAllowlistOpen
 
 Defines the `shell > open` api scope.
 
@@ -497,13 +497,13 @@ If enabled, the default validation regex (`^https?://`) is used.
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
 If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
-## ShellAllowlistScope
+### ShellAllowlistScope
 
 Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
 
 Type: [[`ShellAllowedCommand`](#shellallowedcommand)]
 
-## SystemTrayConfig
+### SystemTrayConfig
 
 Configuration for application system tray icon.
 
@@ -515,7 +515,7 @@ Type: `object`
 | <div id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | `string` | _null_ | Path to the icon to use on the system tray.<br /><br />It is forced to be a `.png` file on Linux and macOS, and a `.ico` file on Windows. |
 
 
-## TauriConfig
+### TauriConfig
 
 The Tauri configuration object.
 
@@ -534,14 +534,14 @@ Type: `object`
 | <div id="tauriconfig.windows">`windows`<a class="hash-link" href="#tauriconfig.windows"></a></div> | [[`WindowConfig`](#windowconfig)] | [] | The windows configuration. |
 
 
-## Theme
+### Theme
 
 System theme.
 
 Can be any of the following `string` values:
 - Light
 - Dark
-## UpdaterConfig
+### UpdaterConfig
 
 The Updater configuration object.
 
@@ -556,7 +556,7 @@ Type: `object`
 | <div id="updaterconfig.windows">`windows`<a class="hash-link" href="#updaterconfig.windows"></a></div> | [`UpdaterWindowsConfig`](#updaterwindowsconfig) | [view](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
 
-## UpdaterEndpoint
+### UpdaterEndpoint
 
 A URL to an updater server.
 
@@ -564,7 +564,7 @@ The URL must use the `https` scheme on production.
 
 Type: `string`
 
-## UpdaterWindowsConfig
+### UpdaterWindowsConfig
 
 The updater configuration for Windows.
 
@@ -575,7 +575,7 @@ Type: `object`
 | <div id="updaterwindowsconfig.installmode">`installMode`<a class="hash-link" href="#updaterwindowsconfig.installmode"></a></div> | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode) | [view](#windowsupdateinstallmode) | The installation mode for the update on Windows. Defaults to `passive`. |
 
 
-## WindowAllowlistConfig
+### WindowAllowlistConfig
 
 Allowlist for the window APIs.
 
@@ -610,7 +610,7 @@ Type: `object`
 | <div id="windowallowlistconfig.unminimize">`unminimize`<a class="hash-link" href="#windowallowlistconfig.unminimize"></a></div> | `boolean` | `false` | Allows unminimizing the window. |
 
 
-## WindowConfig
+### WindowConfig
 
 The window configuration object.
 
@@ -643,7 +643,7 @@ Type: `object`
 | <div id="windowconfig.y">`y`<a class="hash-link" href="#windowconfig.y"></a></div> | `number`? | _null_ | The vertical position of the window's top left corner |
 
 
-## WindowUrl
+### WindowUrl
 
 An URL to open on a Tauri webview window.
 
@@ -651,7 +651,7 @@ Can be any of the following types:
 
 - `string`: An external URL.
 - `string`: The path portion of an app URL. For instance, to load `tauri://localhost/users/john`, you can simply provide `users/john` in this configuration.
-## WindowsConfig
+### WindowsConfig
 
 Windows bundler configuration.
 
@@ -668,7 +668,7 @@ Type: `object`
 | <div id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
 
 
-## WindowsUpdateInstallMode
+### WindowsUpdateInstallMode
 
 Install modes for the Windows update.
 
@@ -676,7 +676,7 @@ Can be any of the following `string` values:
 - basicUi
 - quiet
 - passive
-## WixConfig
+### WixConfig
 
 Configuration for the MSI bundle using WiX.
 
@@ -699,7 +699,7 @@ Type: `object`
 | <div id="wixconfig.template">`template`<a class="hash-link" href="#wixconfig.template"></a></div> | `string`? | _null_ | A custom .wxs template to use. |
 
 
-## WixLanguage
+### WixLanguage
 
 The languages to build using WiX.
 
@@ -708,7 +708,7 @@ Can be any of the following types:
 - `string`: A single language to build, without configuration.
 - [`string`]: A list of languages to build, without configuration.
 - `object`: A map of languages and its configuration.
-## WixLanguageConfig
+### WixLanguageConfig
 
 Configuration for a target language for the WiX build.
 

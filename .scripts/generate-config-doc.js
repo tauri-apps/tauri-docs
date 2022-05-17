@@ -34,14 +34,16 @@ function buildObject(key, value, headerLevel) {
     headerTitle = 'Configuration'
   }
   output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
-  output.push(`${descriptionConstructor(value.description, false, headerLevel)}\n`)
+  output.push(
+    `${descriptionConstructor(value.description, false, headerLevel)}\n`
+  )
   output.push(longFormTypeConstructor(value))
 
   buildProperties(headerTitle, value)
 
   if (value.definitions) {
     Object.entries(value.definitions).forEach(([innerKey, innerValue]) => {
-      buildObject(innerKey, innerValue, headerLevel + 1)
+      buildObject(innerKey, innerValue, headerLevel + 2)
     })
   }
 }
@@ -67,7 +69,10 @@ function buildProperties(parentName, object) {
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
     output.push(
-      `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(value.description, true)} |`
+      `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(
+        value.description,
+        true
+      )} |`
     )
   })
 
@@ -84,10 +89,12 @@ function descriptionConstructor(
   }
 
   const exampleHeadingTag = `h${headingLevel + 1}`
-  description = description.replace(
-    '# Examples',
-    `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
-  ).replaceAll(' - ', '\n- ')
+  description = description
+    .replace(
+      '# Examples',
+      `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
+    )
+    .replaceAll(' - ', '\n- ')
 
   if (description.includes('```json')) {
     let newDescription = ''
@@ -96,7 +103,10 @@ function descriptionConstructor(
       if (text.startsWith('json ')) {
         const description = text.match(/([^{]+)/)[0]
         const json = JSON5.parse(text.replace(description, ''))
-        newDescription += `${description}\n${JSON5.stringify(json, { space: 2, quote: '"' }).replace(/(\w+): /g, '"$1": ')}\n`
+        newDescription += `${description}\n${JSON5.stringify(json, {
+          space: 2,
+          quote: '"',
+        }).replace(/(\w+): /g, '"$1": ')}\n`
       } else {
         newDescription += text + '```'
       }
