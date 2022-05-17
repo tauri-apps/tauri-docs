@@ -14,7 +14,7 @@ Tauri Action has three main usages: test the build pipeline of your Tauri app, u
 
 ### How to set up
 
-Go to [Tauri Action GitHub page](https://github.com/tauri-apps/tauri-action) and grab the [test build workflow example](https://github.com/tauri-apps/tauri-action#testing-the-build). Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the test example. You can do the same steps for the [production build workflow example](https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles).
+Go to [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the test example. You can do the same steps for the [production build workflow example][2].
 
 ### Notes
 
@@ -64,10 +64,16 @@ on:
 
 ### Caveats
 
-- Make sure to check the [documentation for GitHub Actions](https://docs.github.com/en/actions) to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration](https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration) documentation for GitHub Actions.
-- Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template](https://github.com/probablykasper/tauri-svelte-template)
+- Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions.
+- Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template][5]
 - You can use this Action on a repo that doesn't have Tauri configured. We automatically initialize Tauri before building, and configure it to use your Web artifacts.
   - You can configure Tauri with the `configPath`, `distPath` and `iconPath` options.
 - You can run custom Tauri CLI scripts with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, we'll execute `${tauriScript}`.
   - Useful when you need custom build functionality when creating Tauri apps e.g. a `desktop:build` script.
 - When your app isn't on the root of the repo, use the `projectPath` input.
+
+[1]: https://github.com/tauri-apps/tauri-action
+[2]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
+[3]: https://docs.github.com/en/actions
+[4]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
+[5]: https://github.com/probablykasper/tauri-svelte-template
