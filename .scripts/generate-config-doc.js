@@ -1,18 +1,15 @@
 const fs = require('fs')
 const path = require('path')
+const JSON5 = require('json5')
 const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
-  // Fixes new lines if they exist for tables
-  .replaceAll('\\n', '<br />')
   // Fixes any angle brackets that aren't escaped propertly
   .replaceAll('(?<!\\)<', '<')
   .replaceAll('(?!\\)>', '>')
 const schema = JSON.parse(schemaString)
-const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
-const template = fs.readFileSync(templatePath, 'utf8')
 
 const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
 
@@ -23,7 +20,7 @@ const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
 
 const output = []
 
-buildObject(null, schema, 2)
+buildObject(null, schema, 1)
 
 function buildObject(key, value, headerLevel) {
   var headerTitle
@@ -33,6 +30,9 @@ function buildObject(key, value, headerLevel) {
     headerTitle = key
   }
 
+  if (headerTitle === 'Config') {
+    headerTitle = 'Configuration'
+  }
   output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
   output.push(`${descriptionConstructor(value.description, false, headerLevel)}\n`)
   output.push(longFormTypeConstructor(value))
@@ -88,6 +88,21 @@ function descriptionConstructor(
     '# Examples',
     `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
   ).replaceAll(' - ', '\n- ')
+
+  if (description.includes('```json')) {
+    let newDescription = ''
+    const s = description.split('```')
+    for (const text of s) {
+      if (text.startsWith('json ')) {
+        const description = text.match(/([^{]+)/)[0]
+        const json = JSON5.parse(text.replace(description, ''))
+        newDescription += `${description}\n${JSON5.stringify(json, { space: 2, quote: '"' }).replace(/(\w+): /g, '"$1": ')}\n`
+      } else {
+        newDescription += text + '```'
+      }
+    }
+    description = newDescription
+  }
 
   if (fixNewlines) {
     description = description.replaceAll('\n', '<br />')
@@ -262,7 +277,4 @@ function refLinkConstructor(string) {
   return `[\`${name}\`](#${name.toLowerCase()})`
 }
 
-fs.writeFileSync(
-  targetPath,
-  template.replace('{properties}', output.join('\n'))
-)
+fs.writeFileSync(targetPath, output.join('\n'))
