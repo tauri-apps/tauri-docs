@@ -4,9 +4,11 @@ const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
   .toString()
+  // Fixes new lines if they exist for tables
   .replaceAll('\\n', '<br />')
-  .replaceAll('<file>', '')
-  .replaceAll('SecurityConfig.dev_csp', 'config#SecurityConfig.devCsp')
+  // Fixes any angle brackets that aren't escaped propertly
+  .replaceAll('(?<!\\)<', '<')
+  .replaceAll('(?!\\)>', '>')
 const schema = JSON.parse(schemaString)
 const templatePath = path.join(__dirname, '../docs/.templates/config.md')
 const targetPath = path.join(__dirname, '../docs/api/config.md')
