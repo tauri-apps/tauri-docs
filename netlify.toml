@@ -3,7 +3,7 @@ command = "yarn build"
 publish = "build"
 
 [context."feat/i18n"]
-command = "echo 'testing i18n'"
+command = "yarn crowdin:sync && yarn build"
 publish = "build"
 
 [[redirects]]
