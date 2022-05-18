@@ -19,7 +19,7 @@ See [Contributing Guide].
 
 MIT License
 
-Copyright (c) 2020-2021 Tauri Programme within The Commons Conservancy
+Copyright (c) 2020-2022 Tauri Programme within The Commons Conservancy
 
 [docusaurus 2]: https://v2.docusaurus.io/
 [meilisearch]: https://github.com/meilisearch/
