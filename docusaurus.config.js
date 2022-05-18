@@ -252,7 +252,6 @@ const siteConfig = {
         offlineModeActivationStrategies: [
           'appInstalled',
           'standalone',
-          'queryString',
           'saveData',
         ],
         pwaHead: [
@@ -269,7 +268,7 @@ const siteConfig = {
           {
             tagName: 'meta',
             name: 'theme-color',
-            content: '1A1A1D',
+            content: '#1A1A1D',
           },
           {
             tagName: 'meta',
