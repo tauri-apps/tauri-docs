@@ -20,7 +20,7 @@ const api = [
   {
     type: 'link',
     label: 'Rust (via Docs.rs)',
-    href: 'https://docs.rs/tauri/1.0.0-rc.0/',
+    href: 'https://docs.rs/tauri/1.0.0-rc/',
   },
   {
     type: 'category',
