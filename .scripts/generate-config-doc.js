@@ -10,10 +10,6 @@ const schemaString = fs
 const schema = JSON.parse(schemaString)
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 
-const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
-
-// Link anchor in table
-
 const output = []
 
 buildObject(null, schema, 1)
@@ -71,7 +67,7 @@ function buildProperties(parentName, object) {
     const propertyDefault = defaultConstructor(value)
 
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
-    const name = `<div id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
+    const name = `<div className="anchor-with-padding" id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
     output.push(
       `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(
         value.description,
@@ -120,7 +116,9 @@ function descriptionConstructor(description, fixNewlines = false) {
     description = description.replaceAll('\n', '<br />')
   }
 
+  const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
   const markdownLinkMatches = markdownLinkRegex.exec(description)
+
   if (markdownLinkMatches) {
     const url = markdownLinkMatches[2]
     if (!url.startsWith('http')) {

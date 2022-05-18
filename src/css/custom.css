@@ -259,3 +259,7 @@ html[data-theme='light'] .header-github-link::before {
 .docs-searchbar-footer-logo {
   margin: 0 !important;
 }
+
+.anchor-with-padding {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
+}
