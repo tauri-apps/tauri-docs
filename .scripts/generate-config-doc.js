@@ -25,7 +25,14 @@ function buildObject(key, value, headerLevel) {
   if (headerTitle === 'Config') {
     headerTitle = 'Configuration'
   }
-  output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
+
+  var header = `${'#'.repeat(headerLevel)} ${headerTitle}\n`
+
+  if (headerLevel == 3) {
+    header = '\n<br />\n\n' + header
+  }
+
+  output.push(header)
   output.push(`${descriptionConstructor(value.description, false)}\n`)
   output.push(longFormTypeConstructor(value))
 
