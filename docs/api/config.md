@@ -12,10 +12,10 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri can read a 
 
 `tauri.conf.json` is composed of the following objects:
 
-- [`build`](#BuildConfig): The build configuration
-- [`package`](#PackageConfig): Package settings
-- [`plugins`](#PluginConfig): The plugins config
-- [`tauri`](#TauriConfig): The Tauri config
+- [`build`](#buildconfig): The build configuration
+- [`package`](#packageconfig): Package settings
+- [`plugins`](#pluginconfig): The plugins config
+- [`tauri`](#tauriconfig): The Tauri config
 
 ```json title="Example tauri.config.json file" 
 {
