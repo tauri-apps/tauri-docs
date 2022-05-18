@@ -1,3 +1,7 @@
+---
+sidebar_position: 8
+---
+
 import Command from '@theme/Command'
 
 # Debugging

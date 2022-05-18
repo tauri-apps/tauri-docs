@@ -1,5 +1,6 @@
 ---
 title: Frequently Asked Questions
+sidebar_position: 9
 ---
 
 ## How can I use unpublished Tauri changes?
