@@ -30,9 +30,7 @@ function buildObject(key, value, headerLevel) {
     headerTitle = 'Configuration'
   }
   output.push(`${'#'.repeat(headerLevel)} ${headerTitle}\n`)
-  output.push(
-    `${descriptionConstructor(value.description, false, headerLevel)}\n`
-  )
+  output.push(`${descriptionConstructor(value.description, false)}\n`)
   output.push(longFormTypeConstructor(value))
 
   buildProperties(headerTitle, value)
@@ -90,8 +88,10 @@ function descriptionConstructor(description, fixNewlines = false) {
     return description
   }
 
+  // Fix bullet points not being on a newline
   description = description.replaceAll(' - ', '\n- ')
 
+  // Parse any json code blocks
   if (description.includes('```json ')) {
     let newDescription = ''
     const s = description.split('```')
@@ -115,6 +115,7 @@ function descriptionConstructor(description, fixNewlines = false) {
     description = newDescription
   }
 
+  // Fix any embedded new lines
   if (fixNewlines) {
     description = description.replaceAll('\n', '<br />')
   }
