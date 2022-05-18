@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const JSON5 = require('json5')
 const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
   .readFileSync(schemaPath)
@@ -96,17 +95,21 @@ function descriptionConstructor(
     )
     .replaceAll(' - ', '\n- ')
 
-  if (description.includes('```json')) {
+  if (description.includes('```json ')) {
     let newDescription = ''
     const s = description.split('```')
     for (const text of s) {
-      if (text.startsWith('json ')) {
+      if (text.startsWith('json')) {
         const description = text.match(/([^{]+)/)[0]
-        const json = JSON5.parse(text.replace(description, ''))
-        newDescription += `${description}\n${JSON5.stringify(json, {
-          space: 2,
-          quote: '"',
-        }).replace(/(\w+): /g, '"$1": ')}\n`
+        const json = JSON.stringify(
+          JSON.parse(text.replace(description, '')),
+          null,
+          2
+        )
+        newDescription += `${description}\n${json.replace(
+          /(\w+): /g,
+          '"$1": '
+        )}\n`
       } else {
         newDescription += text + '```'
       }

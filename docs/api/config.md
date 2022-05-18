@@ -12,10 +12,10 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri can read a 
 
 `tauri.conf.json` is composed of the following objects:
 
-- [`build`](BuildConfig): The build configuration
-- [`package`](PackageConfig): Package settings
-- [`plugins`](PluginConfig): The plugins config
-- [`tauri`](TauriConfig): The Tauri config
+- [`build`](#BuildConfig): The build configuration
+- [`package`](#PackageConfig): Package settings
+- [`plugins`](#PluginConfig): The plugins config
+- [`tauri`](#TauriConfig): The Tauri config
 
 ```json title="Example tauri.config.json file" 
 {
@@ -23,22 +23,22 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri can read a 
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "../dist",
-    "distDir": "../dist",
+    "distDir": "../dist"
   },
   "package": {
     "productName": "tauri-app",
-    "version": "0.1.0",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": true,
+      "all": true
     },
     "bundle": {},
     "security": {
-      "csp": null,
+      "csp": null
     },
     "updater": {
-      "active": false,
+      "active": false
     },
     "windows": [
       {
@@ -46,10 +46,10 @@ In addition to the JSON defined on the `tauri.conf.json` file, Tauri can read a 
         "height": 600,
         "resizable": true,
         "title": "Tauri App",
-        "width": 800,
-      },
-    ],
-  },
+        "width": 800
+      }
+    ]
+  }
 }
 ```
 
