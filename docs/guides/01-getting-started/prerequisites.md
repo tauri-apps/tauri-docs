@@ -112,6 +112,7 @@ sudo pacman -S --needed \
     appmenu-gtk-module \
     gtk3 \
     libappindicator-gtk3 \
+    libcroco \
     librsvg \
     libvips
 ```
