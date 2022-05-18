@@ -12,7 +12,6 @@ const targetPath = path.join(__dirname, '../docs/api/config.md')
 
 const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
 
-// Required values in properties
 // Link anchor in table
 
 const output = []
@@ -50,6 +49,12 @@ function buildProperties(parentName, object) {
     return
   }
 
+  var required = []
+
+  if (object.required) {
+    required = object.required
+  }
+
   // Build table header
   output.push('| Name | Type | Default | Description |')
   output.push('| ---- | ---- | ------- | ----------- |')
@@ -60,7 +65,11 @@ function buildProperties(parentName, object) {
       return
     }
 
-    const propertyType = typeConstructor(value)
+    var propertyType = typeConstructor(value)
+
+    if (required.includes(key)) {
+      propertyType += '(required)'
+    }
     const propertyDefault = defaultConstructor(value)
 
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
