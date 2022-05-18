@@ -85,26 +85,17 @@ function buildProperties(parentName, object) {
   output.push('\n')
 }
 
-function descriptionConstructor(
-  description,
-  fixNewlines = false,
-  headingLevel = 3
-) {
+function descriptionConstructor(description, fixNewlines = false) {
   if (!description) {
     return description
   }
 
-  // const exampleHeadingTag = `h${headingLevel + 1}`
-  // description = description
-  //   .replace(
-  //     '# Examples',
-  //     `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
-  //   )
-  //   .replaceAll(' - ', '\n- ')
+  description = description.replaceAll(' - ', '\n- ')
 
   if (description.includes('```json ')) {
     let newDescription = ''
     const s = description.split('```')
+
     for (const text of s) {
       if (text.startsWith('json')) {
         const description = text.match(/([^{]+)/)[0]
