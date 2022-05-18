@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { type } = require('os')
 const path = require('path')
 const schemaPath = path.join(__dirname, '../../tauri/tooling/cli/schema.json')
 const schemaString = fs
