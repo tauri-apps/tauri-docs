@@ -94,13 +94,13 @@ function descriptionConstructor(
     return description
   }
 
-  const exampleHeadingTag = `h${headingLevel + 1}`
-  description = description
-    .replace(
-      '# Examples',
-      `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
-    )
-    .replaceAll(' - ', '\n- ')
+  // const exampleHeadingTag = `h${headingLevel + 1}`
+  // description = description
+  //   .replace(
+  //     '# Examples',
+  //     `<${exampleHeadingTag}>Examples</${exampleHeadingTag}>`
+  //   )
+  //   .replaceAll(' - ', '\n- ')
 
   if (description.includes('```json ')) {
     let newDescription = ''
