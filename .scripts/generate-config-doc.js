@@ -100,10 +100,7 @@ function descriptionConstructor(description, fixNewlines = false) {
           null,
           2
         )
-        newDescription += `${description}\n${json.replace(
-          /(\w+): /g,
-          '"$1": '
-        )}\n`
+        newDescription += `${description}\n${json}\n`
       } else {
         newDescription += text + '```'
       }
