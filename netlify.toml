@@ -2,6 +2,10 @@
 command = "yarn build"
 publish = "build"
 
+[context."feat/i18n"]
+command = "echo 'testing i18n'"
+publish = "build"
+
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
