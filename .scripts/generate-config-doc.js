@@ -12,8 +12,6 @@ const targetPath = path.join(__dirname, '../docs/api/config.md')
 
 const markdownLinkRegex = /\[([^\[]+)\]\((.*)\)/gm
 
-// Check bundle targets
-// Add value formats
 // Required values in properties
 // Link anchor in table
 
@@ -135,44 +133,6 @@ function descriptionConstructor(
 }
 
 function typeConstructor(object) {
-  if (object.type) {
-    // See what the actual types are
-    switch (typeof object.type) {
-      case 'string':
-        // Verify that it is a string type
-        switch (object.type) {
-          case 'string':
-          case 'number':
-          case 'boolean':
-            return `\`${object.type}\``
-          case 'object':
-            return `\`${object.type}\``
-          case 'array':
-            if (object.items.type) {
-              var format = ''
-              if (object.items.format) {
-                format = ` (${object.items.format})`
-              }
-              return `[\`${object.items.type}\`${format}]`
-            }
-            if (object.items.$ref) {
-              return `[${refLinkConstructor(object.items.$ref)}]`
-            }
-          default:
-        }
-      case 'undefined':
-        return '_null_'
-      case 'object':
-        if (Array.isArray(object.type)) {
-          // Check if it should just be an optional value
-          if (object.type.length == 2 && object.type.includes('null')) {
-            return `\`${object.type.filter((item) => item != 'null')}\`?`
-          }
-        }
-      default:
-    }
-  }
-
   if (object.$ref) {
     return refLinkConstructor(object.$ref)
   }
@@ -204,7 +164,87 @@ function typeConstructor(object) {
     return object.oneOf.map(typeConstructor).join(' | ')
   }
 
+  if (object.type) {
+    var typeString = ''
+
+    // See what the type is
+    switch (typeof object.type) {
+      case 'string':
+        // See if referencing a different type
+        switch (object.type) {
+          case 'string':
+          case 'number':
+          case 'boolean':
+            typeString = `\`${object.type}\``
+            break
+          case 'object':
+            typeString = `\`${object.type}\``
+            break
+          case 'array':
+            if (object.items) {
+              typeString = `[${typeConstructor(object.items)}]`
+              break
+            }
+          default:
+            break
+        }
+        break
+      case 'undefined':
+        typeString = '_null_'
+        break
+      case 'object':
+        if (Array.isArray(object.type)) {
+          // Check if it should just be an optional value
+          if (object.type.length == 2 && object.type.includes('null')) {
+            typeString = `\`${object.type.filter((item) => item != 'null')}\`?`
+            break
+          }
+        }
+      default:
+        break
+    }
+
+    var additionalProperties = []
+
+    if (object.format) {
+      additionalProperties.push(`format: \`${object.format}\``)
+    }
+
+    if (object.multipleOf) {
+      additionalProperties.push(`multiple of: \`${object.multipleOf}\``)
+    }
+
+    if (object.minimum) {
+      additionalProperties.push(`minimum: \`${object.minimum}\``)
+    }
+
+    if (object.exclusiveMinimum) {
+      additionalProperties.push(
+        `exclusive minimum: \`${object.exclusiveMinimum}\``
+      )
+    }
+
+    if (object.maximum) {
+      additionalProperties.push(`maximum: \`${object.maximum}\``)
+    }
+
+    if (object.exclusiveMaximum) {
+      additionalProperties.push(
+        `exclusive maximum: \`${object.exclusiveMaximum}\``
+      )
+    }
+
+    if (additionalProperties != '') {
+      additionalProperties = `_(${additionalProperties.join(', ')})_`
+    }
+
+    if (typeString != '') {
+      return `${typeString} ${additionalProperties}`
+    }
+  }
+
   console.log('A type was not able to be parsed:', object)
+  return JSON.stringify(object)
 }
 
 function longFormTypeConstructor(object) {
