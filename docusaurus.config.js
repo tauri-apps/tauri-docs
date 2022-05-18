@@ -261,6 +261,21 @@ const siteConfig = {
             href: '/img/favicon-96x96.png',
           },
           {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: '/img/favicon-apple-touch-icon.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileImage',
+            content: '/img/favicon-144x144.png',
+          },
+          {
             tagName: 'link',
             rel: 'manifest',
             href: '/manifest.json',
@@ -268,38 +283,23 @@ const siteConfig = {
           {
             tagName: 'meta',
             name: 'theme-color',
-            content: '#1A1A1D',
-          },
-          {
-            tagName: 'meta',
-            name: 'apple-mobile-web-app-capable',
-            content: 'yes',
+            content: '#1B1B1D',
           },
           {
             tagName: 'meta',
             name: 'apple-mobile-web-app-status-bar-style',
-            content: '#000',
-          },
-          {
-            tagName: 'link',
-            rel: 'apple-touch-icon',
-            href: '/img/favicon-96x96.png',
+            content: '#2196f3',
           },
           {
             tagName: 'link',
             rel: 'mask-icon',
             href: '/img/tauri.svg',
-            color: '#1A1A1D',
-          },
-          {
-            tagName: 'meta',
-            name: 'msapplication-TileImage',
-            content: '/img/favicon-96x96.png',
+            color: '#1B1B1D',
           },
           {
             tagName: 'meta',
             name: 'msapplication-TileColor',
-            content: '#000',
+            content: '#1B1B1D',
           },
         ],
       },

@@ -26,19 +26,25 @@
       "src": "/img/favicon-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/img/favicon-512x512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": ".",
-  "background_color": "#1A1A1D",
+  "background_color": "#1B1B1D",
   "display": "standalone",
   "display_override": ["fullscreen", "minimal-ui"],
   "scope": "/",
-  "theme_color": "#1A1A1D",
+  "theme_color": "#2196f3",
   "description": "Build smaller, faster, and more secure desktop applications with a web frontend",
   "screenshots": [
     {
-      "src": "/img/social.png",
+      "src": "/img/social.jpg",
       "type": "image/png",
       "sizes": "1280x640"
     }
@@ -46,5 +52,11 @@
   "categories": ["documentation", "hacktoberfest", "tauri"],
   "orientation": "portrait",
   "dir": "ltr",
-  "lang": "en-US"
+  "lang": "en-US",
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://tauri.studio/manifest.json"
+    }
+  ]
 }
