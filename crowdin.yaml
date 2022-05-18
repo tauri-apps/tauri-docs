@@ -11,7 +11,7 @@ files:
   # Docs Markdown files
   - source: /docs/**/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
-    ignore: [/docs/api/*]
+    ignore: [/docs/.templates, /docs/api, /docs/guides]
   # Blog Markdown files
   - source: /blog/**/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-blog/**/%original_file_name%
