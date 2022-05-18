@@ -1,0 +1,24 @@
+{
+  "short_name": "Tauri",
+  "name": "Tauri Studio",
+  "icons": [
+    {
+      "src": "/img/favicon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#1A1A1D",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#1A1A1D",
+  "description": "Build smaller, faster, and more secure desktop applications with a web frontend",
+  "screenshots": [
+    {
+      "src": "/img/social.png",
+      "type": "image/png",
+      "sizes": "1280x640"
+    }
+  ]
+}
