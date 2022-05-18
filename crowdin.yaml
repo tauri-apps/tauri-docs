@@ -1,5 +1,3 @@
-# project_identifier_env: CROWDIN_DOCUSAURUS_PROJECT_ID
-# api_key_env: CROWDIN_DOCUSAURUS_API_KEY
 project_id: 1
 base_url: 'https://tauri.crowdin.com'
 api_token_env: TOKEN
