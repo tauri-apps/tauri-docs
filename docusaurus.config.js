@@ -166,7 +166,7 @@ const siteConfig = {
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/`,
-  favicon: 'img/favicon-32x32.png',
+  favicon: 'meta/favicon-32x32.png',
   url: 'https://tauri.studio',
   i18n: {
     defaultLocale: 'en',
