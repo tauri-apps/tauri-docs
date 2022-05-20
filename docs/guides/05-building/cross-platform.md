@@ -71,6 +71,70 @@ on:
   workflow_dispatch:
 ```
 
+### Example workflow
+
+Below is an example workflow that has been set up to run every time a new version is created on Git.
+
+This workflow sets up the environment on Windows, Ubuntu, and MacOS latest versions. Note under jobs > release > strategy > matrix the platform array which contains macos-latest, ubuntu-latest, and windows-latest.
+
+The steps this workflow takes are:
+
+- Checkout the repository using actions/checkout@v2
+- Set up NodeJS 16 using actions/setup-node@v1
+- Set up Rust using actions-sr/toolchain@v1
+- Installs all the dependencies and runs the build script (for the web app)
+- Finally, it uses tauri-apps/tauri-action@v0 to run the Tauri build for the, generate the artifacts, and create the GitHub release
+
+```yaml
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Node.js setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Rust setup
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+      - name: Install app dependencies and build web
+        run: yarn && yarn build
+
+      - name: Build the app
+        uses: tauri-apps/tauri-action@v0
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__ # tauri-action replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+```
+
 ### Caveats
 
 - Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions.
