@@ -166,7 +166,7 @@ const siteConfig = {
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/`,
-  favicon: 'img/favicon-32x32.png',
+  favicon: 'meta/favicon-32x32.png',
   url: 'https://tauri.studio',
   i18n: {
     defaultLocale: 'en',
@@ -245,6 +245,65 @@ const siteConfig = {
   plugins: [
     path.resolve(__dirname, './plugins/dynamic-css.js'),
     path.resolve('./plugins/external-assets'),
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: process.env.NODE_ENV === 'development',
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'saveData',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/meta/favicon-96x96.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: '/meta/favicon-apple-touch-icon.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileImage',
+            content: '/meta/favicon-144x144.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/meta/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: '#0F0F0F',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-status-bar-style',
+            content: '#0F0F0F',
+          },
+          {
+            tagName: 'link',
+            rel: 'mask-icon',
+            href: '/img/tauri.svg',
+            color: '#0F0F0F',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileColor',
+            content: '#0F0F0F',
+          },
+        ],
+      },
+    ],
   ],
 }
 
