@@ -635,7 +635,6 @@ function Logo(props) {
     const images = []
     images.push((new Image().src = props.brand.logoColorDark))
     images.push((new Image().src = props.brand.logoColorLight))
-    images.push((new Image().src = props.brand.logoMonochrome))
   }, [])
 
   return (
