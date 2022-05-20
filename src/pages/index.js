@@ -616,15 +616,12 @@ function Sponsors() {
 
 function Logo(props) {
   const isDarkTheme = useColorMode().colorMode === 'dark'
-  const logoDir = '/img/index/partners/'
-  const [colorLogo, setColorLogo] = isDarkTheme
-    ? useState(props.brand.logoColorDark)
-    : useState(props.brand.logoColorLight)
+  const [colorLogo, setColorLogo] = useState(
+    isDarkTheme ? props.brand.logoColorDark : props.brand.logoColorLight
+  )
   const [isHovering, setisHovering] = useState(false)
+  const logoDir = '/img/index/partners/'
 
-  // const [mode, setMode] = useState('light')
-
-  // This is a workaround for incorrect color modes being applied after reloading the page.
   useEffect(() => {
     setColorLogo(
       isDarkTheme ? props.brand.logoColorDark : props.brand.logoColorLight
