@@ -630,6 +630,14 @@ function Logo(props) {
     setIsDarkMode(colorMode === 'dark')
   }, [colorMode])
 
+  // Pre-fetches images
+  useEffect(() => {
+    const images = []
+    images.push((new Image().src = props.brand.logoColorDark))
+    images.push((new Image().src = props.brand.logoColorLight))
+    images.push((new Image().src = props.brand.logoMonochrome))
+  }, [])
+
   return (
     <Link
       className={classNames('col col--3', styles.logo)}
