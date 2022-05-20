@@ -258,7 +258,7 @@ const siteConfig = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/favicon-96x96.png',
+            href: '/meta/favicon-96x96.png',
           },
           {
             tagName: 'meta',
@@ -268,17 +268,17 @@ const siteConfig = {
           {
             tagName: 'link',
             rel: 'apple-touch-icon',
-            href: '/img/favicon-apple-touch-icon.png',
+            href: '/meta/favicon-apple-touch-icon.png',
           },
           {
             tagName: 'meta',
             name: 'msapplication-TileImage',
-            content: '/img/favicon-144x144.png',
+            content: '/meta/favicon-144x144.png',
           },
           {
             tagName: 'link',
             rel: 'manifest',
-            href: '/manifest.json',
+            href: '/meta/manifest.json',
           },
           {
             tagName: 'meta',

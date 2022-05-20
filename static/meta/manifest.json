@@ -3,36 +3,30 @@
   "name": "Tauri Studio",
   "icons": [
     {
-      "src": "/img/favicon-16x16.png",
+      "src": "/meta/favicon-16x16.png",
       "type": "image/png",
       "sizes": "16x16"
     },
     {
-      "src": "/img/favicon-32x32.png",
+      "src": "/meta/favicon-32x32.png",
       "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "/img/favicon-96x96.png",
+      "src": "/meta/favicon-96x96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/img/favicon-144x144.png",
+      "src": "/meta/favicon-144x144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "/img/favicon-512x512.png",
+      "src": "/meta/favicon-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any"
-    },
-    {
-      "src": "/img/favicon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
@@ -56,7 +50,7 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://tauri.studio/manifest.json"
+      "url": "https://tauri.studio/meta/manifest.json"
     }
   ]
 }
