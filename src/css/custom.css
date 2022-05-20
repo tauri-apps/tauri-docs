@@ -17,6 +17,7 @@
   --ifm-heading-line-height: 1.4;
   --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
+  --ifm-card-background-color: #f6f6f6;
 }
 
 [data-theme='dark'] {
@@ -27,6 +28,8 @@
   --ifm-color-primary-light: #85def1;
   --ifm-color-primary-lighter: #95e2f2;
   --ifm-color-primary-lightest: #c2eff8;
+
+  --ifm-card-background-color: #2f2f2f;
 }
 
 .markdown {
