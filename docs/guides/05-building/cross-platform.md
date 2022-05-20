@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Cross-Platform Compilation
 
-Unfortunately because of how Tauri works cross-platform compilation is not a possibility. The next best option is to compile utilizing a CI/CD pipeline hosted on something like GitHub Actions, Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier. For an easy setup, Tauri currently provides Tauri Action, a GitHub Action that runs on all the supported platforms, compiles your software, generates the necessary artifacts, and releases them to a new GitHub release.
+Unfortunately because of how Tauri works cross-platform compilation is not a possibility. The next best option is to compile utilizing a CI/CD pipeline hosted on something like [GitHub Actions][3], Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier. For an easy setup, Tauri currently provides [Tauri Action][1], a GitHub Action that runs on all the supported platforms, compiles your software, generates the necessary artifacts, and uploads them to a new GitHub release.
 
 ## How to use GH Action for Building: a glance at Tauri Action
 
