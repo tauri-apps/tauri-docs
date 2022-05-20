@@ -633,8 +633,13 @@ function Logo(props) {
   // Pre-fetches images
   useEffect(() => {
     const images = []
-    images.push((new Image().src = props.brand.logoColorDark))
-    images.push((new Image().src = props.brand.logoColorLight))
+    const darkImage = (new Image().src = props.brand.logoColorDark)
+    images.push(darkImage)
+    window['darkImage'] = darkImage
+
+    const lightImage = (new Image().src = props.brand.logoColorLight)
+    images.push(lightImage)
+    window['lightImage'] = lightImage
   }, [])
 
   return (
