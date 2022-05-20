@@ -12,68 +12,63 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 
 // See translations for label and description
-const features = [
-  [
-    {
-      imageUrl: 'img/undraw_brownfield.svg',
-      label: translate({ message: 'Brownfield' }),
-      description: translate({
-        message:
-          "compatibility with any front-end framework means you don't have to change your stack",
-      }),
-    },
-    {
-      imageUrl: 'img/undraw_open_source.svg',
-      label: translate({ message: 'FLOSS' }),
-      description: translate({ message: 'relicensing is possible with Tauri' }),
-    },
-    {
-      imageUrl: 'img/undraw_takeout_boxes.svg',
-      label: translate({ message: 'Bundle' }),
-      description: translate({
-        message: 'size of a Tauri App can be less than 600KB',
-      }),
-    },
-  ],
-  [
-    {
-      imageUrl: 'img/undraw_security.svg',
-      link: '/about/security',
-      label: translate({ message: 'Security' }),
-      description: translate({
-        message:
-          "is the Tauri-Team's biggest priority and drives our innovation",
-      }),
-    },
-    {
-      imageUrl: 'img/undraw_recipes.svg',
-      link: '/guides/architecture/inter-process-communication',
-      linkText: translate({ message: 'Learn more' }),
-      label: translate({ message: 'Recipes' }),
-      description: translate({
-        message:
-          'Here to help you choose important features with simple configuration',
-      }),
-    },
-    {
-      imageUrl: 'img/undraw_cross_platform.svg',
-      link: '/guides/building/cross-platform',
-      linkText: translate({ message: 'Compilation' }),
-      label: translate({ message: 'Cross-platform' }),
-      description: translate({
-        message:
-          'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
-      }),
-    },
-  ],
+const cards = [
+  {
+    imageUrl: 'img/undraw_brownfield.svg',
+    label: translate({ message: 'Brownfield' }),
+    description: translate({
+      message:
+        "compatibility with any front-end framework means you don't have to change your stack",
+    }),
+  },
+  {
+    imageUrl: 'img/undraw_open_source.svg',
+    label: translate({ message: 'FLOSS' }),
+    description: translate({ message: 'relicensing is possible with Tauri' }),
+  },
+  {
+    imageUrl: 'img/undraw_takeout_boxes.svg',
+    label: translate({ message: 'Bundle' }),
+    description: translate({
+      message: 'size of a Tauri App can be less than 600KB',
+    }),
+  },
+  {
+    imageUrl: 'img/undraw_security.svg',
+    link: '/about/security',
+    label: translate({ message: 'Security' }),
+    description: translate({
+      message: "is the Tauri-Team's biggest priority and drives our innovation",
+    }),
+  },
+  {
+    imageUrl: 'img/undraw_recipes.svg',
+    link: '/guides/architecture/inter-process-communication',
+    linkText: translate({ message: 'Learn more' }),
+    label: translate({ message: 'Recipes' }),
+    description: translate({
+      message:
+        'Here to help you choose important features with simple configuration',
+    }),
+  },
+  {
+    imageUrl: 'img/undraw_cross_platform.svg',
+    link: '/guides/building/cross-platform',
+    linkText: translate({ message: 'Compilation' }),
+    label: translate({ message: 'Cross-platform' }),
+    description: translate({
+      message:
+        'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
+    }),
+  },
 ]
 
-function Feature({ imageUrl, link, label, description }) {
+function Card({ imageUrl, link, label, description }) {
   const imgUrl = useBaseUrl(imageUrl)
   const latestVersion = useLatestVersion()
 
   return (
-    <div className="col col--4 feature">
+    <div className="col col--6 feature">
       <div className="card">
         <div className="card__body">
           {imgUrl && (
@@ -722,26 +717,21 @@ function Home() {
       </header>
 
       <main>
-        {features && features.length && (
-          <section className={classNames('features', styles.features)}>
-            <div className="container">
-              {features.map((row, index) => {
-                return (
-                  <div className="row" key={index}>
-                    {row.map((props, idx) => (
-                      <Feature
-                        key={idx}
-                        {...props}
-                        siteConfig={context.siteConfig}
-                        index={idx + row.length * index}
-                      />
-                    ))}
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-        )}
+        <section className="container">
+          <div className="row">
+            {cards.map((card, index) => (
+              <div className="card col col--6" key={index}>
+                <div>
+                  <h2>{card.label}</h2>
+                  <p>{card.description}</p>
+                </div>
+                <div>
+                  <img src={card.imageUrl} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
         <div className={classNames('container', styles.container)}>
           <section>
             <Roadmap siteConfig={context.siteConfig} />
