@@ -491,6 +491,8 @@ const Roadmap = () => {
 }
 
 function PremiumSponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: '1Password',
@@ -535,6 +537,8 @@ function PremiumSponsors() {
 }
 
 function Sponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: 'DigitalOcean',
