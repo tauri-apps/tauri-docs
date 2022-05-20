@@ -7,11 +7,11 @@
 
 @import 'themify-icons.css';
 @import 'tabs.css';
-@import '~@fontsource/tauri';
+@import '~@fontsource/rubik';
 
 /* You can override the default Infima variables here. */
 :root {
-  font-family: 'Tauri';
+  font-family: 'Rubik', sans-serif;
 
   --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
@@ -47,10 +47,6 @@
 .features h3 {
   text-align: center;
   font-size: 1.6em;
-}
-
-body {
-  font-family: 'Tauri';
 }
 
 ul.roadmap-legend {
