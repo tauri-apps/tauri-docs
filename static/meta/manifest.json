@@ -29,7 +29,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "background_color": "#0F0F0F",
   "display": "standalone",
   "display_override": ["fullscreen", "minimal-ui"],
