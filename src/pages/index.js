@@ -6,7 +6,7 @@ import Link from '@docusaurus/Link'
 import { useColorMode } from '@docusaurus/theme-common'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import styles from './index.module.css'
+import styles from './index/styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
@@ -486,6 +486,8 @@ const Roadmap = () => {
 }
 
 function PremiumSponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: '1Password',
@@ -497,7 +499,7 @@ function PremiumSponsors() {
     {
       name: 'PACKT',
       link: 'https://www.packtpub.com',
-      logoMonochrome: 'packt_color_dark.svg',
+      logoMonochrome: 'packt_monochrome.svg',
       logoColorDark: 'packt_color_dark.svg',
       logoColorLight: 'packt_color_light.svg',
     },
@@ -520,7 +522,7 @@ function PremiumSponsors() {
   return (
     <div>
       <h1 className={styles.heading}>Premium Sponsors</h1>
-      <div className={classNames('row', styles.logoRow)}>
+      <div className={classNames('row', styles.row)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={item.name + item.link} />
         })}
@@ -530,12 +532,14 @@ function PremiumSponsors() {
 }
 
 function Sponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: 'DigitalOcean',
       link: 'https://www.digitalocean.com',
-      logoColorDark: 'DigitalOcean_color.svg',
-      logoColorLight: 'DigitalOcean_color.svg',
+      logoColorDark: 'DigitalOcean_color_dark.svg',
+      logoColorLight: 'DigitalOcean_color_light.svg',
       logoMonochrome: 'DigitalOcean_monochrome.svg',
     },
     {
@@ -550,7 +554,7 @@ function Sponsors() {
       link: 'https://keygen.sh',
       logoColorDark: 'keygen_color_dark.svg',
       logoColorLight: 'keygen_color_light.svg',
-      logoMonochrome: 'keygen_color_light.svg',
+      logoMonochrome: 'keygen_monochrome.svg',
     },
     {
       name: 'ClickUp',
@@ -564,14 +568,14 @@ function Sponsors() {
       link: 'https://coparse.com',
       logoColorDark: 'CoParse_color_dark.svg',
       logoColorLight: 'CoParse_color_light.svg',
-      logoMonochrome: 'CoParse_color_light.svg',
+      logoMonochrome: 'CoParse_monochrome.svg',
     },
     {
       name: 'Mintter',
       link: 'https://mintter.com',
       logoColorDark: 'Mintter_color_dark.svg',
       logoColorLight: 'Mintter_color_light.svg',
-      logoMonochrome: 'Mintter_color_light.svg',
+      logoMonochrome: 'Mintter_monochrome.svg',
     },
     {
       name: 'Leniolabs_',
@@ -591,16 +595,16 @@ function Sponsors() {
       name: 'Tensor Programming',
       link: 'https://www.youtube.com/c/tensorprogramming',
       // TODO:
-      logoColorDark: 'tensor.png',
-      logoColorLight: 'tensor.png',
-      logoMonochrome: 'tensor.png',
+      logoColorDark: 'tensor_color_dark.svg',
+      logoColorLight: 'tensor_color_light.svg',
+      logoMonochrome: 'tensor_monochrome.svg',
     },
   ]
 
   return (
     <div>
       <h1 className={styles.heading}>Sponsors</h1>
-      <div className={classNames('row', styles.logoRow)}>
+      <div className={classNames('row', styles.row)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={item.name + item.link} />
         })}
@@ -611,30 +615,51 @@ function Sponsors() {
 
 function Logo(props) {
   const { colorMode } = useColorMode()
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isHovering, setisHovering] = useState(false)
   const logoDir = '/img/index/partners/'
-  const [mode, setMode] = useState('light')
+
   // Do not remove this!
   // This is a workaround for incorrect color modes being applied after reloading the page.
   useEffect(() => {
-    setMode(colorMode)
+    setIsDarkMode(colorMode === 'dark')
   }, [colorMode])
+
+  // Pre-fetches images
+  useEffect(() => {
+    const images = []
+
+    const darkImage = (new Image().src = logoDir + props.brand.logoColorDark)
+    images.push(darkImage)
+
+    const lightImage = (new Image().src = logoDir + props.brand.logoColorLight)
+    images.push(lightImage)
+  }, [])
 
   return (
     <Link
       className={classNames('col col--3', styles.logo)}
       href={props.brand.link}
-      style={
-        props.brand.name === 'Tensor Programming' ? { maxWidth: '150px' } : {}
-      }
+      onMouseEnter={() => {
+        setisHovering(true)
+      }}
+      onMouseLeave={() => {
+        setisHovering(false)
+      }}
     >
       <img
-        className={styles.logo}
-        src={
-          mode === 'dark'
-            ? useBaseUrl(logoDir + props.brand.logoColorDark)
-            : useBaseUrl(logoDir + props.brand.logoColorLight)
-        }
+        src={useBaseUrl(
+          logoDir +
+            (isHovering
+              ? isDarkMode
+                ? props.brand.logoColorDark
+                : props.brand.logoColorLight
+              : props.brand.logoMonochrome)
+        )}
         alt={props.brand.name}
+        className={classNames(
+          isDarkMode && !isHovering ? styles.darkFilter : ''
+        )}
       />
     </Link>
   )
