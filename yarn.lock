@@ -2213,10 +2213,10 @@
     url-loader "^4.1.1"
     webpack "^5.72.0"
 
-"@fontsource/tauri@4.5.9":
+"@fontsource/rubik@4.5.9":
   version "4.5.9"
-  resolved "https://registry.npmjs.org/@fontsource/tauri/-/tauri-4.5.9.tgz"
-  integrity sha512-t2rmUNnML354akzKnrFFyIX4Rx7aCpMAPVrXyNdCRbOkpNcJIjjRtyDelSofmgqLP+HViDS0rZOkvhqVgoWN0g==
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.9.tgz#46e81911b601183699a117edfdd32c05cad1fd49"
+  integrity sha512-atF0Mvh6woVFPX2p2MdVO0JIqw6DSjrb82EQJ9UaHnJeJ79SfaTUFxRoQMF3yF6ehaY5el3SgynSX5w02O3lqQ==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.1"

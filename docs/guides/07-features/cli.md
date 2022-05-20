@@ -121,25 +121,22 @@ Its configuration is the same as the root application configuration, with the `d
 ### Rust
 
 ```rust
-use tauri::api::cli::get_matches;
-
 fn main() {
-  let context = tauri::generate_context!();
-  let cli_config = context.config().tauri.cli.clone().unwrap();
-
-  match get_matches(&cli_config) {
-    // `matches` here is a Struct with { args, subcommand }.
-    // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurances }.
-    // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
-    Ok(matches) => {
-      println!("{:?}", matches)
-    }
-    Err(_) => {}
-  };
-
   tauri::Builder::default()
-  .run(context)
-  .expect("error while running tauri application");
+    .setup(|app| {
+      match app.get_cli_matches() {
+        // `matches` here is a Struct with { args, subcommand }.
+        // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurances }.
+        // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
+        Ok(matches) => {
+          println!("{:?}", matches)
+        }
+        Err(_) => {}
+      }
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
