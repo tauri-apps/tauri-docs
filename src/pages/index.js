@@ -619,18 +619,16 @@ function Sponsors() {
 }
 
 function Logo(props) {
-  const isDarkTheme = useColorMode().colorMode === 'dark'
-  const [colorLogo, setColorLogo] = useState(
-    isDarkTheme ? props.brand.logoColorDark : props.brand.logoColorLight
-  )
+  const { colorMode } = useColorMode()
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const [isHovering, setisHovering] = useState(false)
   const logoDir = '/img/index/partners/'
 
+  // Do not remove this!
+  // This is a workaround for incorrect color modes being applied after reloading the page.
   useEffect(() => {
-    setColorLogo(
-      isDarkTheme ? props.brand.logoColorDark : props.brand.logoColorLight
-    )
-  }, [isDarkTheme])
+    setIsDarkMode(colorMode === 'dark')
+  }, [colorMode])
 
   return (
     <Link
@@ -645,11 +643,16 @@ function Logo(props) {
     >
       <img
         src={useBaseUrl(
-          logoDir + (isHovering ? colorLogo : props.brand.logoMonochrome)
+          logoDir +
+            (isHovering
+              ? isDarkMode
+                ? props.brand.logoColorDark
+                : props.brand.logoColorLight
+              : props.brand.logoMonochrome)
         )}
         alt={props.brand.name}
         className={classNames(
-          isDarkTheme && !isHovering ? styles.darkFilter : ''
+          isDarkMode && !isHovering ? styles.darkFilter : ''
         )}
       />
     </Link>
