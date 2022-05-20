@@ -27,7 +27,7 @@ const cards = [
     label: translate({ message: 'Security' }),
     description: translate({
       message:
-        'Front-of-mind for the Tauri Team and drives our biggest priorities and innovations',
+        'Front-of-mind for the Tauri Team and drives our highest priorities and biggest innovations',
     }),
     link: 'about/security',
     linkText: translate({ message: 'Read More' }),
@@ -35,7 +35,9 @@ const cards = [
   },
   {
     label: translate({ message: 'FLOSS' }),
-    description: translate({ message: 'relicensing is possible with Tauri' }),
+    description: translate({
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    }),
     link: 'guides/building/cross-platform',
     linkText: translate({ message: 'Read More' }),
     imageUrl: 'img/index/illustrations/floss.svg',
@@ -47,7 +49,7 @@ const cards = [
         "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
     }),
     link: 'guides/building/cross-platform',
-    linkText: translate({ message: 'Read More' }),
+    linkText: translate({ message: 'See Benchmarks' }),
     imageUrl: 'img/index/illustrations/box.svg',
   },
   {
@@ -63,8 +65,7 @@ const cards = [
   {
     label: translate({ message: 'Built on Rust' }),
     description: translate({
-      message:
-        'Here to help you choose important features with simple configuration',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     }),
     link: 'guides/architecture/inter-process-communication',
     linkText: translate({ message: 'Read More' }),
