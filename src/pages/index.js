@@ -633,17 +633,12 @@ function Logo(props) {
   // Pre-fetches images
   useEffect(() => {
     const images = []
-    const darkImage = (new Image().src = useBaseUrl(
-      logoDir + props.brand.logoColorDark
-    ))
-    images.push(darkImage)
-    // window['darkImage'] = darkImage
 
-    const lightImage = (new Image().src = useBaseUrl(
-      logoDir + props.brand.logoColorLight
-    ))
+    const darkImage = (new Image().src = logoDir + props.brand.logoColorDark)
+    images.push(darkImage)
+
+    const lightImage = (new Image().src = logoDir + props.brand.logoColorLight)
     images.push(lightImage)
-    // window['lightImage'] = lightImage
   }, [])
 
   return (
