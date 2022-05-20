@@ -1,97 +1,76 @@
 import React, { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import classNames from 'classnames'
+import styles from './index/styles.module.css'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import { useColorMode } from '@docusaurus/theme-common'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import styles from './index/styles.module.css'
+import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
-import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 
 // See translations for label and description
 const cards = [
   {
-    imageUrl: 'img/undraw_brownfield.svg',
     label: translate({ message: 'Brownfield' }),
     description: translate({
       message:
-        "compatibility with any front-end framework means you don't have to change your stack",
+        "Compatibility with any front-end framework means you don't have to change your stack",
     }),
+    link: 'about/security',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/brownfield.svg',
   },
   {
-    imageUrl: 'img/undraw_open_source.svg',
-    label: translate({ message: 'FLOSS' }),
-    description: translate({ message: 'relicensing is possible with Tauri' }),
-  },
-  {
-    imageUrl: 'img/undraw_takeout_boxes.svg',
-    label: translate({ message: 'Bundle' }),
-    description: translate({
-      message: 'size of a Tauri App can be less than 600KB',
-    }),
-  },
-  {
-    imageUrl: 'img/undraw_security.svg',
-    link: '/about/security',
     label: translate({ message: 'Security' }),
     description: translate({
-      message: "is the Tauri-Team's biggest priority and drives our innovation",
+      message:
+        'Front-of-mind for the Tauri Team and drives our biggest priorities and innovations',
     }),
+    link: 'about/security',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/security.svg',
   },
   {
-    imageUrl: 'img/undraw_recipes.svg',
-    link: '/guides/architecture/inter-process-communication',
-    linkText: translate({ message: 'Learn more' }),
-    label: translate({ message: 'Recipes' }),
+    label: translate({ message: 'FLOSS' }),
+    description: translate({ message: 'relicensing is possible with Tauri' }),
+    link: 'guides/building/cross-platform',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/floss.svg',
+  },
+  {
+    label: translate({ message: 'Bundle Size' }),
     description: translate({
       message:
-        'Here to help you choose important features with simple configuration',
+        "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
     }),
+    link: 'guides/building/cross-platform',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/box.svg',
   },
   {
-    imageUrl: 'img/undraw_cross_platform.svg',
-    link: '/guides/building/cross-platform',
-    linkText: translate({ message: 'Compilation' }),
-    label: translate({ message: 'Cross-platform' }),
+    label: translate({ message: 'Cross Platform' }),
     description: translate({
       message:
         'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
     }),
+    link: 'guides/building/cross-platform',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/cross_platform.svg',
+  },
+  {
+    label: translate({ message: 'Built on Rust' }),
+    description: translate({
+      message:
+        'Here to help you choose important features with simple configuration',
+    }),
+    link: 'guides/architecture/inter-process-communication',
+    linkText: translate({ message: 'Read More' }),
+    imageUrl: 'img/index/illustrations/code.svg',
   },
 ]
-
-function Card({ imageUrl, link, label, description }) {
-  const imgUrl = useBaseUrl(imageUrl)
-  const latestVersion = useLatestVersion()
-
-  return (
-    <div className="col col--6 feature">
-      <div className="card">
-        <div className="card__body">
-          {imgUrl && (
-            <div className="text--center">
-              <img className={styles.featureImage} src={imgUrl} alt={label} />
-            </div>
-          )}
-          <h3>{label}</h3>
-          <p>{description}</p>
-        </div>
-        {link && (
-          <div className="card__footer">
-            <Link to={latestVersion.path + link}>
-              <button className="button button--secondary button--block">
-                <Translate>See more</Translate>
-              </button>
-            </Link>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
 
 const Roadmap = () => {
   const COLORS = {
@@ -665,7 +644,7 @@ function Logo(props) {
   )
 }
 
-function Home() {
+export default function App() {
   const context = useDocusaurusContext()
   const latestVersion = useLatestVersion()
 
@@ -741,21 +720,27 @@ function Home() {
         </div>
       </header>
 
-      <main>
-        <section className="container">
-          <div className="row">
-            {cards.map((card, index) => (
-              <div className="card col col--6" key={index}>
-                <div>
-                  <h2>{card.label}</h2>
-                  <p>{card.description}</p>
-                </div>
-                <div>
-                  <img src={card.imageUrl} />
-                </div>
+      <main className={classNames('container')}>
+        {/* Cards */}
+        <section className={classNames(styles.cardContainer)}>
+          {cards.map((card, index) => (
+            <div className={classNames(styles.card, 'card')} key={index}>
+              <div className={classNames(styles.cardSide, styles.cardLeading)}>
+                <h2>{card.label}</h2>
+                <p>{card.description}</p>
+                <div className={classNames(styles.cardSpacer)}></div>
+                <Link className={'button button--primary'}>
+                  {card.linkText}
+                </Link>
               </div>
-            ))}
-          </div>
+              <div className={classNames(styles.cardSide)}>
+                <img
+                  src={card.imageUrl}
+                  className={classNames(styles.cardImage)}
+                />
+              </div>
+            </div>
+          ))}
         </section>
         <div className={classNames('container', styles.container)}>
           <section>
@@ -774,5 +759,3 @@ function Home() {
     </Layout>
   )
 }
-
-export default Home
