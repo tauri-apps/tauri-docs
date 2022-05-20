@@ -30,11 +30,11 @@
     }
   ],
   "start_url": ".",
-  "background_color": "#1B1B1D",
+  "background_color": "#0F0F0F",
   "display": "standalone",
   "display_override": ["fullscreen", "minimal-ui"],
   "scope": "/",
-  "theme_color": "#2196f3",
+  "theme_color": "#0F0F0F",
   "description": "Build smaller, faster, and more secure desktop applications with a web frontend",
   "screenshots": [
     {

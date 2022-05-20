@@ -283,23 +283,23 @@ const siteConfig = {
           {
             tagName: 'meta',
             name: 'theme-color',
-            content: '#1B1B1D',
+            content: '#0F0F0F',
           },
           {
             tagName: 'meta',
             name: 'apple-mobile-web-app-status-bar-style',
-            content: '#2196f3',
+            content: '#0F0F0F',
           },
           {
             tagName: 'link',
             rel: 'mask-icon',
             href: '/img/tauri.svg',
-            color: '#1B1B1D',
+            color: '#0F0F0F',
           },
           {
             tagName: 'meta',
             name: 'msapplication-TileColor',
-            content: '#1B1B1D',
+            content: '#0F0F0F',
           },
         ],
       },
