@@ -10,11 +10,13 @@ Unfortunately because of how Tauri works cross-platform compilation is not a pos
 
 ### Introduction
 
-For cross-platform compilation Tauri provides Tauri Action, a GitHub Action that builds your Web application as a Tauri native binary for macOS, Linux, and Windows, it can also release the application on GitHub releases. To set up Tauri Action you must first set up a GitHub repository, you can use this action on a repo that doesn't have Tauri configured since we automatically initialize Tauri before building, and configure it to use your Web artifacts.
+Tauri Action leverages GitHub Actions to simultaneously build your web application as a Tauri native binary for macOS, Linux, and Windows, and automates putting it up on GitHub releases.
 
-Tauri Action has three main usages: test the build pipeline of your Tauri app, upload Tauri artifacts to an existing release, and create a new release with the Tauri artifacts.
+This GitHub Action may also be used as a testing pipeline for your Tauri app, guaranteeing compilation runs fine on all platforms for each pull request sent, even if you don't wish to create a new release.
 
 ### How to set up
+
+To set up Tauri Action you must first set up a GitHub repository, you can use this action on a repo that doesn't have Tauri configured since we automatically initialize Tauri before building, and configure it to use your Web artifacts.
 
 Go to [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the test example. You can do the same steps for the [production build workflow example][2].
 
