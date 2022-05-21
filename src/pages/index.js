@@ -145,7 +145,7 @@ function Features() {
     {
       title: translate({ message: 'GitHub Action' }),
       description: translate({
-        message: 'Build your Tauri binary for MacOS, Linux, and Windows',
+        message: 'Build your Tauri binary for macOS, Linux, and Windows',
       }),
       icon: 'github',
     },
