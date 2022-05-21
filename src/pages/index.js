@@ -21,8 +21,9 @@ function Cards() {
         message:
           "Compatibility with any front-end framework means you don't have to change your stack",
       }),
-      link: 'about/security',
-      linkText: translate({ message: 'Read More' }),
+      link: '/guides/getting-started/beginning-tutorial',
+      isDoc: true,
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/brownfield.svg',
     },
     {
@@ -32,7 +33,7 @@ function Cards() {
           'Front-of-mind for the Tauri Team that drives our highest priorities and biggest innovations',
       }),
       link: 'about/security',
-      linkText: translate({ message: 'Read More' }),
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/security.svg',
     },
     {
@@ -40,8 +41,8 @@ function Cards() {
       description: translate({
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
       }),
-      link: 'guides/building/cross-platform',
-      linkText: translate({ message: 'Read More' }),
+      link: 'about/intro#honest-open-source',
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/floss.svg',
     },
     {
@@ -50,8 +51,8 @@ function Cards() {
         message:
           "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
       }),
-      link: 'guides/building/cross-platform',
-      linkText: translate({ message: 'See Benchmarks' }),
+      link: 'about/benchmarks',
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/box.svg',
     },
     {
@@ -60,8 +61,9 @@ function Cards() {
         message:
           'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
       }),
-      link: 'guides/building/cross-platform',
-      linkText: translate({ message: 'Read More' }),
+      link: '/guides/building/cross-platform',
+      isDoc: true,
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/cross_platform.svg',
     },
     {
@@ -69,11 +71,14 @@ function Cards() {
       description: translate({
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
       }),
-      link: 'guides/architecture/inter-process-communication',
-      linkText: translate({ message: 'Read More' }),
+      link: '/guides/architecture/inter-process-communication',
+      isDoc: true,
+      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/code.svg',
     },
   ]
+
+  const latestVersion = useLatestVersion()
 
   return (
     <section className={classNames(styles.cardContainer)}>
@@ -83,7 +88,12 @@ function Cards() {
             <h2>{card.label}</h2>
             <p>{card.description}</p>
             <div className={classNames(styles.cardSpacer)}></div>
-            <Link className={'button button--primary'}>{card.linkText}</Link>
+            <Link
+              className={'button button--primary'}
+              href={(card.isDoc ? latestVersion.path : '') + card.link}
+            >
+              {card.linkText}
+            </Link>
           </div>
           <div className={classNames(styles.cardSide)}>
             <img src={card.imageUrl} className={classNames(styles.cardImage)} />
@@ -97,67 +107,67 @@ function Cards() {
 function Features() {
   const items = [
     {
-      title: translate({ message: 'CLI' }),
+      title: translate({ message: 'Desktop Bundler' }),
       description: translate({
-        message: 'Generate, develop and build Tauri apps from the command line',
+        message: 'Bundle for all major desktops from native systems',
       }),
-      icon: '',
+      icon: 'box-seam',
+    },
+    {
+      title: translate({ message: 'Self Updater' }),
+      description: translate({
+        message: 'Update Tauri Apps from within themselves',
+      }),
+      icon: 'cloud-arrow-down',
+    },
+    {
+      title: translate({ message: 'Core Plugin System' }),
+      description: translate({
+        message: 'Build reusable plugins to extend Tauri core',
+      }),
+      icon: 'puzzle',
+    },
+    {
+      title: translate({ message: 'Scoped Filesystem' }),
+      description: translate({
+        message: 'Improved security of file interactions',
+      }),
+      icon: 'file-earmark-lock',
+    },
+    {
+      title: translate({ message: 'App Tray' }),
+      description: translate({
+        message: 'Cross-platform desktop icon tray',
+      }),
+      icon: 'menu-app',
+    },
+    {
+      title: translate({ message: 'GitHub Action' }),
+      description: translate({
+        message: 'Build your Tauri binary for MacOS, Linux, and Windows',
+      }),
+      icon: 'github',
     },
     {
       title: translate({ message: 'Sidecar' }),
       description: translate({
         message: 'Integrate and instrument other binaries',
       }),
-      icon: '',
-    },
-    {
-      title: translate({ message: 'Splashscreen' }),
-      description: translate({
-        message: 'Use a splashscreen while the main content is loading',
-      }),
-      icon: '',
+      icon: 'code-square',
     },
     {
       title: translate({ message: 'Native Notifications' }),
       description: translate({
-        message: 'Cross-platform notifications using polyfilled WEB API',
+        message: 'Cross-platform notifications using polyfilled web API',
       }),
-      icon: '',
+      icon: 'app-indicator',
     },
     {
-      title: translate({ message: 'VS Code Extension' }),
+      title: translate({ message: 'App Storage' }),
       description: translate({
-        message: 'Commands and validate tauri.conf.json',
+        message: 'Use a canonical location to store user data',
       }),
-      icon: '',
-    },
-    {
-      title: translate({ message: 'Keyboard Shortcuts' }),
-      description: translate({
-        message: 'Hook and react to keypresses.',
-      }),
-      icon: '',
-    },
-    {
-      title: translate({ message: 'Native Notifications' }),
-      description: translate({
-        message: 'Cross-platform notifications using polyfilled WEB API',
-      }),
-      icon: '',
-    },
-    {
-      title: translate({ message: 'VS Code Extension' }),
-      description: translate({
-        message: 'Commands and validate tauri.conf.json',
-      }),
-      icon: '',
-    },
-    {
-      title: translate({ message: 'Keyboard Shortcuts' }),
-      description: translate({
-        message: 'Hook and react to keypresses.',
-      }),
-      icon: '',
+      icon: 'folder2-open',
     },
   ]
 
@@ -177,7 +187,7 @@ function Roadmap() {
       description: translate({
         message: 'Bundle to all major mobile device operating systems',
       }),
-      icon: '',
+      icon: 'terminal',
     },
     {
       title: translate({ message: 'Cross Compiler' }),
@@ -185,7 +195,7 @@ function Roadmap() {
         message:
           'Generate bundled binaries from select operating system environments',
       }),
-      icon: '',
+      icon: 'terminal',
     },
     {
       title: translate({ message: 'Other Bindings' }),
@@ -193,28 +203,28 @@ function Roadmap() {
         message:
           'Go, Nim, Python, C++ and other bindings are possible with the stable API',
       }),
-      icon: '',
+      icon: 'terminal',
     },
     {
       title: translate({ message: 'One-Time Commands' }),
       description: translate({
         message: 'Run a command that is no longer available after first run',
       }),
-      icon: '',
+      icon: 'terminal',
     },
     {
       title: translate({ message: 'DENO Bindings' }),
       description: translate({
         message: "Use Deno to build your App's backend",
       }),
-      icon: '',
+      icon: 'terminal',
     },
     {
       title: translate({ message: 'Channel API' }),
       description: translate({
         message: 'Send messages through a channel',
       }),
-      icon: '',
+      icon: 'terminal',
     },
   ]
 
@@ -230,7 +240,15 @@ function Roadmap() {
 function FeatureRoadmapEntry(props) {
   return (
     <div className={styles.featureRoadmapEntry}>
-      <div className={styles.featureRoadmapIcon}></div>
+      <div className={styles.featureRoadmapIconContainer}>
+        <i
+          className={classNames(
+            styles.featureRoadmapIcon,
+            'bi',
+            `bi-${props.icon}`
+          )}
+        />
+      </div>
       <div>
         <h3>{props.title}</h3>
         <p>{props.description}</p>

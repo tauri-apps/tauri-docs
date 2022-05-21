@@ -139,12 +139,19 @@
   column-gap: 1rem;
 }
 
-.featureRoadmapIcon {
+.featureRoadmapIconContainer {
   flex-shrink: 0;
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
   background: var(--ifm-card-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featureRoadmapIcon {
+  font-size: 2.5rem;
 }
 
 /* Sponsors */
