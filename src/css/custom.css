@@ -12,6 +12,7 @@
 /* You can override the default Infima variables here. */
 :root {
   font-family: 'Rubik', sans-serif;
+  --tauri-orange: #d58100;
 
   --ifm-code-font-size: 95%;
   --ifm-heading-line-height: 1.4;
@@ -30,6 +31,8 @@
   --ifm-color-primary-lightest: #c2eff8;
 
   --ifm-card-background-color: #2f2f2f;
+
+  --tauri-orange: #ffc131;
 }
 
 .markdown {

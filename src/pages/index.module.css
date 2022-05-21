@@ -9,12 +9,15 @@
   justify-content: space-around;
   flex-wrap: wrap;
   row-gap: 2rem;
-  padding-bottom: 3rem;
 }
 
 .h1 {
   text-align: center;
   padding-bottom: 1rem;
+}
+
+.spacer {
+  padding-top: 4rem;
 }
 
 .heroBanner {
@@ -152,7 +155,14 @@
 
 .featureRoadmapIcon {
   font-size: 2.5rem;
+}
+
+.featureIcon {
   color: var(--ifm-color-primary);
+}
+
+.roadmapIcon {
+  color: var(--tauri-orange);
 }
 
 /* Sponsors */

@@ -174,7 +174,13 @@ function Features() {
   return (
     <div className={styles.row}>
       {items.map((item, index) => {
-        return <FeatureRoadmapEntry {...item} key={index} />
+        return (
+          <FeatureRoadmapEntry
+            {...item}
+            key={index}
+            cname={styles.featureIcon}
+          />
+        )
       })}
     </div>
   )
@@ -231,7 +237,13 @@ function Roadmap() {
   return (
     <div className={styles.row}>
       {items.map((item, index) => {
-        return <FeatureRoadmapEntry {...item} key={index} />
+        return (
+          <FeatureRoadmapEntry
+            {...item}
+            key={index}
+            cname={styles.roadmapIcon}
+          />
+        )
       })}
     </div>
   )
@@ -245,7 +257,8 @@ function FeatureRoadmapEntry(props) {
           className={classNames(
             styles.featureRoadmapIcon,
             'bi',
-            `bi-${props.icon}`
+            `bi-${props.icon}`,
+            props.cname
           )}
         />
       </div>
@@ -478,36 +491,42 @@ export default function App() {
         </div>
       </header>
 
-      <main className="container">
-        <section>
+      <main>
+        <section className="container">
           <div className={classNames(styles.row)}>
             <Cards />
           </div>
         </section>
 
-        <section>
-          <h1 className={styles.h1}>Features</h1>
-          <div className={classNames(styles.row, styles.featuresRow)}>
-            <Features />
+        <section className="hero hero--dark">
+          <div className="container">
+            <h1 className={styles.h1}>Features</h1>
+            <div className={styles.row}>
+              <Features />
+            </div>
+
+            <div className={styles.spacer} />
+            <h1 className={styles.h1}>Roadmap</h1>
+            <div className={styles.row}>
+              <Roadmap />
+            </div>
           </div>
         </section>
 
-        <section>
-          <h1 className={styles.h1}>Roadmap</h1>
-          <div className={classNames(styles.row, styles.featuresRow)}>
-            <Roadmap />
-          </div>
-        </section>
+        <div className={styles.spacer} />
+        <div className="container">
+          <section id="sponsors">
+            <h1 className={styles.h1}>Premium Sponsors</h1>
+            <PremiumSponsors />
+          </section>
 
-        <section id="sponsors">
-          <h1 className={styles.h1}>Premium Sponsors</h1>
-          <PremiumSponsors />
-        </section>
-
-        <section>
-          <h1 className={styles.h1}>Sponsors</h1>
-          <Sponsors />
-        </section>
+          <div className={styles.spacer} />
+          <section>
+            <h1 className={styles.h1}>Sponsors</h1>
+            <Sponsors />
+          </section>
+          <div className={styles.spacer} />
+        </div>
       </main>
     </Layout>
   )
