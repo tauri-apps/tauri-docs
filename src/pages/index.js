@@ -6,7 +6,7 @@ import Link from '@docusaurus/Link'
 import { useColorMode } from '@docusaurus/theme-common'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import styles from './index.module.css'
+import styles from './index/styles.module.css'
 import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
@@ -491,32 +491,30 @@ const Roadmap = () => {
 }
 
 function PremiumSponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: '1Password',
       link: 'https://1password.com',
-      logoMonochrome: '1Password_monochrome.svg',
       logoColorDark: '1Password_color_dark.svg',
       logoColorLight: '1Password_color_light.svg',
     },
     {
       name: 'PACKT',
       link: 'https://www.packtpub.com',
-      logoMonochrome: 'packt_color_dark.svg',
       logoColorDark: 'packt_color_dark.svg',
       logoColorLight: 'packt_color_light.svg',
     },
     {
       name: 'Cloudflare',
       link: 'https://www.cloudflare.com',
-      logoMonochrome: 'Cloudflare_monochrome.svg',
       logoColorDark: 'Cloudflare_color_dark.svg',
       logoColorLight: 'Cloudflare_color_light.svg',
     },
     {
       name: 'nlnet',
       link: 'https://nlnet.nl',
-      logoMonochrome: 'nlnet_monochrome.svg',
       logoColorDark: 'nlnet_color_dark.svg',
       logoColorLight: 'nlnet_color_light.svg',
     },
@@ -525,7 +523,7 @@ function PremiumSponsors() {
   return (
     <div>
       <h1 className={styles.heading}>Premium Sponsors</h1>
-      <div className={classNames('row', styles.logoRow)}>
+      <div className={classNames('row', styles.row)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={item.name + item.link} />
         })}
@@ -535,77 +533,69 @@ function PremiumSponsors() {
 }
 
 function Sponsors() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
   const items = [
     {
       name: 'DigitalOcean',
       link: 'https://www.digitalocean.com',
-      logoColorDark: 'DigitalOcean_color.svg',
-      logoColorLight: 'DigitalOcean_color.svg',
-      logoMonochrome: 'DigitalOcean_monochrome.svg',
+      logoColorDark: 'DigitalOcean_color_dark.svg',
+      logoColorLight: 'DigitalOcean_color_light.svg',
     },
     {
       name: 'Netlify',
       link: 'https://www.netlify.com',
       logoColorDark: 'Netlify_color_dark.svg',
       logoColorLight: 'Netlify_color_light.svg',
-      logoMonochrome: 'Netlify_monochrome.svg',
     },
     {
       name: 'keygen',
       link: 'https://keygen.sh',
       logoColorDark: 'keygen_color_dark.svg',
       logoColorLight: 'keygen_color_light.svg',
-      logoMonochrome: 'keygen_color_light.svg',
     },
     {
       name: 'ClickUp',
       link: 'https://clickup.com',
       logoColorDark: 'ClickUp_color_dark.svg',
       logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
     },
     {
       name: 'CoParse',
       link: 'https://coparse.com',
       logoColorDark: 'CoParse_color_dark.svg',
       logoColorLight: 'CoParse_color_light.svg',
-      logoMonochrome: 'CoParse_color_light.svg',
     },
     {
       name: 'Mintter',
       link: 'https://mintter.com',
       logoColorDark: 'Mintter_color_dark.svg',
       logoColorLight: 'Mintter_color_light.svg',
-      logoMonochrome: 'Mintter_color_light.svg',
     },
     {
       name: 'Leniolabs_',
       link: 'https://www.leniolabs.com',
       logoColorDark: 'leniolabs_color_dark.svg',
       logoColorLight: 'leniolabs_color_light.svg',
-      logoMonochrome: 'leniolabs_monochrome.svg',
     },
     {
       name: 'Meros',
       link: 'https://meroscrypto.io',
       logoColorDark: 'meros_color_dark.svg',
       logoColorLight: 'meros_color_light.svg',
-      logoMonochrome: 'meros_monochrome.svg',
     },
     {
       name: 'Tensor Programming',
       link: 'https://www.youtube.com/c/tensorprogramming',
-      // TODO:
-      logoColorDark: 'tensor.png',
-      logoColorLight: 'tensor.png',
-      logoMonochrome: 'tensor.png',
+      logoColorDark: 'tensor_color_dark.svg',
+      logoColorLight: 'tensor_color_light.svg',
     },
   ]
 
   return (
     <div>
       <h1 className={styles.heading}>Sponsors</h1>
-      <div className={classNames('row', styles.logoRow)}>
+      <div className={classNames('row', styles.row)}>
         {items.map((item, index) => {
           return <Logo brand={item} key={item.name + item.link} />
         })}
@@ -616,29 +606,38 @@ function Sponsors() {
 
 function Logo(props) {
   const { colorMode } = useColorMode()
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const logoDir = '/img/index/partners/'
-  const [mode, setMode] = useState('light')
+
   // Do not remove this!
   // This is a workaround for incorrect color modes being applied after reloading the page.
   useEffect(() => {
-    setMode(colorMode)
+    setIsDarkMode(colorMode === 'dark')
   }, [colorMode])
+
+  // Pre-fetches images
+  useEffect(() => {
+    const images = []
+
+    const darkImage = (new Image().src = logoDir + props.brand.logoColorDark)
+    images.push(darkImage)
+
+    const lightImage = (new Image().src = logoDir + props.brand.logoColorLight)
+    images.push(lightImage)
+  }, [])
 
   return (
     <Link
       className={classNames('col col--3', styles.logo)}
       href={props.brand.link}
-      style={
-        props.brand.name === 'Tensor Programming' ? { maxWidth: '150px' } : {}
-      }
     >
       <img
-        className={styles.logo}
-        src={
-          mode === 'dark'
-            ? useBaseUrl(logoDir + props.brand.logoColorDark)
-            : useBaseUrl(logoDir + props.brand.logoColorLight)
-        }
+        src={useBaseUrl(
+          logoDir +
+            (isDarkMode
+              ? props.brand.logoColorDark
+              : props.brand.logoColorLight)
+        )}
         alt={props.brand.name}
       />
     </Link>
