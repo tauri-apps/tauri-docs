@@ -30,7 +30,7 @@ function Cards() {
       label: translate({ message: 'Security' }),
       description: translate({
         message:
-          'Front-of-mind for the Tauri Team that drives our highest priorities and biggest innovations',
+          'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations',
       }),
       link: 'about/security',
       linkText: translate({ message: 'Learn More' }),
@@ -39,7 +39,7 @@ function Cards() {
     {
       label: translate({ message: 'FLOSS' }),
       description: translate({
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        message: 'Relicensing and redistribution is possible thanks to Tauri',
       }),
       link: 'about/intro#honest-open-source',
       linkText: translate({ message: 'Learn More' }),
@@ -59,7 +59,7 @@ function Cards() {
       label: translate({ message: 'Cross Platform' }),
       description: translate({
         message:
-          'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
+          'Bundle binaries for all major desktop platforms (mobile & WASM coming soon)',
       }),
       link: '/guides/building/cross-platform',
       isDoc: true,
@@ -69,7 +69,8 @@ function Cards() {
     {
       label: translate({ message: 'Built on Rust' }),
       description: translate({
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        message:
+          'With performance and security at the center, Rust is the language for the next generation of apps',
       }),
       link: '/guides/architecture/inter-process-communication',
       isDoc: true,

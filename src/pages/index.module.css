@@ -152,6 +152,7 @@
 
 .featureRoadmapIcon {
   font-size: 2.5rem;
+  color: var(--ifm-color-primary);
 }
 
 /* Sponsors */
