@@ -497,28 +497,24 @@ function PremiumSponsors() {
     {
       name: '1Password',
       link: 'https://1password.com',
-      logoMonochrome: '1Password_monochrome.svg',
       logoColorDark: '1Password_color_dark.svg',
       logoColorLight: '1Password_color_light.svg',
     },
     {
       name: 'PACKT',
       link: 'https://www.packtpub.com',
-      logoMonochrome: 'packt_monochrome.svg',
       logoColorDark: 'packt_color_dark.svg',
       logoColorLight: 'packt_color_light.svg',
     },
     {
       name: 'Cloudflare',
       link: 'https://www.cloudflare.com',
-      logoMonochrome: 'Cloudflare_monochrome.svg',
       logoColorDark: 'Cloudflare_color_dark.svg',
       logoColorLight: 'Cloudflare_color_light.svg',
     },
     {
       name: 'nlnet',
       link: 'https://nlnet.nl',
-      logoMonochrome: 'nlnet_monochrome.svg',
       logoColorDark: 'nlnet_color_dark.svg',
       logoColorLight: 'nlnet_color_light.svg',
     },
@@ -545,64 +541,54 @@ function Sponsors() {
       link: 'https://www.digitalocean.com',
       logoColorDark: 'DigitalOcean_color_dark.svg',
       logoColorLight: 'DigitalOcean_color_light.svg',
-      logoMonochrome: 'DigitalOcean_monochrome.svg',
     },
     {
       name: 'Netlify',
       link: 'https://www.netlify.com',
       logoColorDark: 'Netlify_color_dark.svg',
       logoColorLight: 'Netlify_color_light.svg',
-      logoMonochrome: 'Netlify_monochrome.svg',
     },
     {
       name: 'keygen',
       link: 'https://keygen.sh',
       logoColorDark: 'keygen_color_dark.svg',
       logoColorLight: 'keygen_color_light.svg',
-      logoMonochrome: 'keygen_monochrome.svg',
     },
     {
       name: 'ClickUp',
       link: 'https://clickup.com',
       logoColorDark: 'ClickUp_color_dark.svg',
       logoColorLight: 'ClickUp_color_light.svg',
-      logoMonochrome: 'ClickUp_monochrome.svg',
     },
     {
       name: 'CoParse',
       link: 'https://coparse.com',
       logoColorDark: 'CoParse_color_dark.svg',
       logoColorLight: 'CoParse_color_light.svg',
-      logoMonochrome: 'CoParse_monochrome.svg',
     },
     {
       name: 'Mintter',
       link: 'https://mintter.com',
       logoColorDark: 'Mintter_color_dark.svg',
       logoColorLight: 'Mintter_color_light.svg',
-      logoMonochrome: 'Mintter_monochrome.svg',
     },
     {
       name: 'Leniolabs_',
       link: 'https://www.leniolabs.com',
       logoColorDark: 'leniolabs_color_dark.svg',
       logoColorLight: 'leniolabs_color_light.svg',
-      logoMonochrome: 'leniolabs_monochrome.svg',
     },
     {
       name: 'Meros',
       link: 'https://meroscrypto.io',
       logoColorDark: 'meros_color_dark.svg',
       logoColorLight: 'meros_color_light.svg',
-      logoMonochrome: 'meros_monochrome.svg',
     },
     {
       name: 'Tensor Programming',
       link: 'https://www.youtube.com/c/tensorprogramming',
-      // TODO:
       logoColorDark: 'tensor_color_dark.svg',
       logoColorLight: 'tensor_color_light.svg',
-      logoMonochrome: 'tensor_monochrome.svg',
     },
   ]
 
@@ -621,7 +607,6 @@ function Sponsors() {
 function Logo(props) {
   const { colorMode } = useColorMode()
   const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isHovering, setisHovering] = useState(false)
   const logoDir = '/img/index/partners/'
 
   // Do not remove this!
@@ -645,26 +630,15 @@ function Logo(props) {
     <Link
       className={classNames('col col--3', styles.logo)}
       href={props.brand.link}
-      onMouseEnter={() => {
-        setisHovering(true)
-      }}
-      onMouseLeave={() => {
-        setisHovering(false)
-      }}
     >
       <img
         src={useBaseUrl(
           logoDir +
-            (isHovering
-              ? isDarkMode
-                ? props.brand.logoColorDark
-                : props.brand.logoColorLight
-              : props.brand.logoMonochrome)
+            (isDarkMode
+              ? props.brand.logoColorDark
+              : props.brand.logoColorLight)
         )}
         alt={props.brand.name}
-        className={classNames(
-          isDarkMode && !isHovering ? styles.darkFilter : ''
-        )}
       />
     </Link>
   )
