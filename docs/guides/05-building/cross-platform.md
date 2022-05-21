@@ -18,7 +18,7 @@ This GitHub Action may also be used as a testing pipeline for your Tauri app, gu
 
 To set up Tauri Action you must first set up a GitHub repository, you can use this action on a repo that doesn't have Tauri configured since we automatically initialize Tauri before building, and configure it to use your Web artifacts.
 
-Go to [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the test example. You can do the same steps for the [production build workflow example][2].
+Go to the [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the [production build workflow example][2] provided on the Tauri Action GitHub page. Alternatively, you may set up the workflow based on the example below on this page: [example workflow][6]
 
 ### Configuration
 
@@ -47,18 +47,6 @@ env:
 This GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow, if this happens to fix it you may add write permissions to this token. To do this head over to your Project Settings, and then select Actions, scroll down until "Workflow permissions" and check "Read and write permissions".
 
 ### How to trigger
-
-By default, the testing workflow is triggered on each pull request, but you could also trigger it for every push to the repository on all branches or select branches by changing the start like this:
-
-```yaml
-name: test-on-pr
-on:
-  push:
-    branches:
-      - '*'
-  pull_request:
-  workflow_dispatch:
-```
 
 The release workflow by default is triggered by pushes on the "release" branch. The action automatically creates a tag and title for the GitHub release using the application version specified on your tauri.config.json.
 
@@ -148,3 +136,4 @@ jobs:
 [3]: https://docs.github.com/en/actions
 [4]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
 [5]: https://github.com/probablykasper/tauri-svelte-template
+[6]: #example-workflow
