@@ -3,6 +3,7 @@ toc_max_heading_level: 2
 ---
 
 import { colors } from '@theme/Mermaid'
+import { Mermaid } from 'mdx-mermaid/Mermaid';
 
 # The Tauri Architecture
 
@@ -20,12 +21,12 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 
 ## Core Ecosystem
 
-```mermaid
-graph TB
+<!-- prettier-ignore-start -->
+
+<Mermaid chart={`graph TB;
     subgraph Core
     direction LR
     subgraph tauri
-    %% Direction in subgraphs doesn't seem to work
     direction TB
     tauri-runtime
     tauri-macros
@@ -46,7 +47,9 @@ graph TB
     style Core fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
     style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
     style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-```
+`} />
+
+<!-- prettier-ignore-end -->
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
