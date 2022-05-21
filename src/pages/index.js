@@ -465,24 +465,35 @@ const Roadmap = () => {
         <Translate>Roadmap</Translate>
       </h2>
       <p style={{ textAlign: 'center', position: 'relative' }}>
-        <Translate>Notice: This roadmap is subject to change.</Translate>
+        <span class="roadmap-notice">
+          <Translate>Notice: </Translate>
+        </span>
+        <Translate>This roadmap is subject to change</Translate>
       </p>
       <ul className="roadmap-legend">
         <li>
-          <span style={{ backgroundColor: COLORS.green }}></span>{' '}
-          <Translate>Released</Translate>
+          <span style={{ backgroundColor: COLORS.green }}></span>
+          <div>
+            <Translate>Released</Translate>
+          </div>
         </li>
         <li>
-          <span style={{ backgroundColor: COLORS.sky }}></span>{' '}
-          <Translate>Ready</Translate>
+          <span style={{ backgroundColor: COLORS.sky }}></span>
+          <div>
+            <Translate>Ready</Translate>
+          </div>
         </li>
         <li>
-          <span style={{ backgroundColor: COLORS.blue }}></span>{' '}
-          <Translate>To Do</Translate>
+          <span style={{ backgroundColor: COLORS.blue }}></span>
+          <div>
+            <Translate>To Do</Translate>
+          </div>
         </li>
         <li>
-          <span style={{ backgroundColor: COLORS.red }}></span>{' '}
-          <Translate>Milestone</Translate>
+          <span style={{ backgroundColor: COLORS.red }}></span>
+          <div>
+            <Translate>Milestone</Translate>
+          </div>
         </li>
       </ul>
       <ul className="roadmap">{items}</ul>

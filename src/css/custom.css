@@ -235,6 +235,10 @@ html[data-theme='light'] .header-github-link::before {
   #announcement-link {
     display: block;
   }
+
+  .roadmap-notice {
+    display: none !important;
+  }
 }
 
 .badge--warning,
