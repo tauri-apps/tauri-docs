@@ -20,14 +20,14 @@ To set up Tauri Action you must first set up a GitHub repository, you can use th
 
 Go to [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the test example. You can do the same steps for the [production build workflow example][2].
 
-### Please note
+### Configuration
 
 - You can configure Tauri with the `configPath`, `distPath` and `iconPath` options.
 - You can run custom Tauri CLI scripts with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, we'll execute `${tauriScript}`.
   - Useful when you need custom build functionality when creating Tauri apps e.g. a `desktop:build` script.
 - When your app isn't on the root of the repo, use the `projectPath` input.
 
-- You may modify the workflow name, change the triggers, add more steps such as npm run lint or npm run test. The important part is that you keep the:
+- You may modify the workflow name, change the triggers, and add more steps such as npm run lint or npm run test. The important part is that you keep the:
 
 ```yaml
 - uses: tauri-apps/tauri-action@v0
@@ -35,14 +35,16 @@ Go to [Tauri Action GitHub page][1]. Then head to GitHub Action on your GitHub p
 
 line at the end of the workflow, since this runs the build script and releases the artifacts.
 
-- Also note this line next to the end of the workflow:
+### Please note
+
+- This line next to the end of the workflow:
 
 ```yaml
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-This GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow, if this happens to fix it you may add read permissions to this token. To do this head over to your Project Settings, and then select Actions, scroll down until "Workflow permissions" and check "Read and write permissions".
+This GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow, if this happens to fix it you may add write permissions to this token. To do this head over to your Project Settings, and then select Actions, scroll down until "Workflow permissions" and check "Read and write permissions".
 
 ### How to trigger
 
@@ -83,7 +85,7 @@ The steps this workflow takes are:
 - Set up NodeJS 16 using actions/setup-node@v1
 - Set up Rust using actions-sr/toolchain@v1
 - Installs all the dependencies and runs the build script (for the web app)
-- Finally, it uses tauri-apps/tauri-action@v0 to run the Tauri build for the, generate the artifacts, and create the GitHub release
+- Finally, it uses tauri-apps/tauri-action@v0 to run the Tauri build, generate the artifacts, and create the GitHub release
 
 ```yaml
 name: Release
