@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import classNames from 'classnames'
-import styles from './index/styles.module.css'
+import styles from './index.module.css'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import { useColorMode } from '@docusaurus/theme-common'
@@ -12,76 +12,231 @@ import Translate, { translate } from '@docusaurus/Translate'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 
 // See translations for label and description
-const cards = [
-  {
-    label: translate({ message: 'Brownfield' }),
-    description: translate({
-      message:
-        "Compatibility with any front-end framework means you don't have to change your stack",
-    }),
-    link: 'about/security',
-    linkText: translate({ message: 'Read More' }),
-    imageUrl: 'img/index/illustrations/brownfield.svg',
-  },
-  {
-    label: translate({ message: 'Security' }),
-    description: translate({
-      message:
-        'Front-of-mind for the Tauri Team that drives our highest priorities and biggest innovations',
-    }),
-    link: 'about/security',
-    linkText: translate({ message: 'Read More' }),
-    imageUrl: 'img/index/illustrations/security.svg',
-  },
-  {
-    label: translate({ message: 'FLOSS' }),
-    description: translate({
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    }),
-    link: 'guides/building/cross-platform',
-    linkText: translate({ message: 'Read More' }),
-    imageUrl: 'img/index/illustrations/floss.svg',
-  },
-  {
-    label: translate({ message: 'Bundle Size' }),
-    description: translate({
-      message:
-        "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
-    }),
-    link: 'guides/building/cross-platform',
-    linkText: translate({ message: 'See Benchmarks' }),
-    imageUrl: 'img/index/illustrations/box.svg',
-  },
-  {
-    label: translate({ message: 'Cross Platform' }),
-    description: translate({
-      message:
-        'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
-    }),
-    link: 'guides/building/cross-platform',
-    linkText: translate({ message: 'Read More' }),
-    imageUrl: 'img/index/illustrations/cross_platform.svg',
-  },
-  {
-    label: translate({ message: 'Built on Rust' }),
-    description: translate({
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    }),
-    link: 'guides/architecture/inter-process-communication',
-    linkText: translate({ message: 'Read More' }),
-    imageUrl: 'img/index/illustrations/code.svg',
-  },
-]
 
-const features = [
-  {
-    title: translate({ message: '' }),
-    description: translate({ message: '' }),
-    icon: '',
-  },
-]
+function Cards() {
+  const cards = [
+    {
+      label: translate({ message: 'Brownfield' }),
+      description: translate({
+        message:
+          "Compatibility with any front-end framework means you don't have to change your stack",
+      }),
+      link: 'about/security',
+      linkText: translate({ message: 'Read More' }),
+      imageUrl: 'img/index/illustrations/brownfield.svg',
+    },
+    {
+      label: translate({ message: 'Security' }),
+      description: translate({
+        message:
+          'Front-of-mind for the Tauri Team that drives our highest priorities and biggest innovations',
+      }),
+      link: 'about/security',
+      linkText: translate({ message: 'Read More' }),
+      imageUrl: 'img/index/illustrations/security.svg',
+    },
+    {
+      label: translate({ message: 'FLOSS' }),
+      description: translate({
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      }),
+      link: 'guides/building/cross-platform',
+      linkText: translate({ message: 'Read More' }),
+      imageUrl: 'img/index/illustrations/floss.svg',
+    },
+    {
+      label: translate({ message: 'Bundle Size' }),
+      description: translate({
+        message:
+          "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
+      }),
+      link: 'guides/building/cross-platform',
+      linkText: translate({ message: 'See Benchmarks' }),
+      imageUrl: 'img/index/illustrations/box.svg',
+    },
+    {
+      label: translate({ message: 'Cross Platform' }),
+      description: translate({
+        message:
+          'Bundle binaries for major desktop platforms (mobile & WASM coming soon)',
+      }),
+      link: 'guides/building/cross-platform',
+      linkText: translate({ message: 'Read More' }),
+      imageUrl: 'img/index/illustrations/cross_platform.svg',
+    },
+    {
+      label: translate({ message: 'Built on Rust' }),
+      description: translate({
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      }),
+      link: 'guides/architecture/inter-process-communication',
+      linkText: translate({ message: 'Read More' }),
+      imageUrl: 'img/index/illustrations/code.svg',
+    },
+  ]
+  return (
+    <section className={classNames(styles.cardContainer)}>
+      {cards.map((card, index) => (
+        <div className={classNames(styles.card, 'card')} key={index}>
+          <div className={classNames(styles.cardSide, styles.cardLeading)}>
+            <h2>{card.label}</h2>
+            <p>{card.description}</p>
+            <div className={classNames(styles.cardSpacer)}></div>
+            <Link className={'button button--primary'}>{card.linkText}</Link>
+          </div>
+          <div className={classNames(styles.cardSide)}>
+            <img src={card.imageUrl} className={classNames(styles.cardImage)} />
+          </div>
+        </div>
+      ))}
+    </section>
+  )
+}
 
-const roadmap = []
+function Features() {
+  const items = [
+    {
+      title: translate({ message: 'CLI' }),
+      description: translate({
+        message: 'Generate, develop and build Tauri apps from the command line',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Sidecar' }),
+      description: translate({
+        message: 'Integrate and instrument other binaries',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Splashscreen' }),
+      description: translate({
+        message: 'Use a splashscreen while the main content is loading',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Native Notifications' }),
+      description: translate({
+        message: 'Cross-platform notifications using polyfilled WEB API',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'VS Code Extension' }),
+      description: translate({
+        message: 'Commands and validate tauri.conf.json',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Keyboard Shortcuts' }),
+      description: translate({
+        message: 'Hook and react to keypresses.',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Native Notifications' }),
+      description: translate({
+        message: 'Cross-platform notifications using polyfilled WEB API',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'VS Code Extension' }),
+      description: translate({
+        message: 'Commands and validate tauri.conf.json',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Keyboard Shortcuts' }),
+      description: translate({
+        message: 'Hook and react to keypresses.',
+      }),
+      icon: '',
+    },
+  ]
+
+  return (
+    <div className={styles.row}>
+      {items.map((item, index) => {
+        return <FeatureRoadmapEntry {...item} key={index} />
+      })}
+    </div>
+  )
+}
+
+function Roadmap() {
+  const items = [
+    {
+      title: translate({ message: 'Mobile Bundler' }),
+      description: translate({
+        message: 'Bundle to all major mobile device operating systems',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Cross Compiler' }),
+      description: translate({
+        message:
+          'Generate bundled binaries from select operating system environments',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Other Bindings' }),
+      description: translate({
+        message:
+          'Go, Nim, Python, C++ and other bindings are possible with the stable API',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'One-Time Commands' }),
+      description: translate({
+        message: 'Run a command that is no longer available after first run',
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'DENO Bindings' }),
+      description: translate({
+        message: "Use Deno to build your App's backend",
+      }),
+      icon: '',
+    },
+    {
+      title: translate({ message: 'Channel API' }),
+      description: translate({
+        message: 'Send messages through a channel',
+      }),
+      icon: '',
+    },
+  ]
+
+  return (
+    <div className={styles.row}>
+      {items.map((item, index) => {
+        return <FeatureRoadmapEntry {...item} key={index} />
+      })}
+    </div>
+  )
+}
+
+function FeatureRoadmapEntry(props) {
+  return (
+    <div className={styles.featureRoadmapEntry}>
+      <div className={styles.featureRoadmapIcon}></div>
+      <div>
+        <h3>{props.title}</h3>
+        <p>{props.description}</p>
+      </div>
+    </div>
+  )
+}
 
 function PremiumSponsors() {
   // All logos should be a svg with a 500x100 frame (content resized inside
@@ -114,13 +269,10 @@ function PremiumSponsors() {
   ]
 
   return (
-    <div>
-      <h1 className={styles.heading}>Premium Sponsors</h1>
-      <div className={classNames('row', styles.row)}>
-        {items.map((item, index) => {
-          return <Logo brand={item} key={item.name + item.link} />
-        })}
-      </div>
+    <div className={styles.row}>
+      {items.map((item, index) => {
+        return <Logo classNames={styles.sponsor} brand={item} key={index} />
+      })}
     </div>
   )
 }
@@ -186,13 +338,10 @@ function Sponsors() {
   ]
 
   return (
-    <div>
-      <h1 className={styles.heading}>Sponsors</h1>
-      <div className={classNames('row', styles.row)}>
-        {items.map((item, index) => {
-          return <Logo brand={item} key={item.name + item.link} />
-        })}
-      </div>
+    <div className={styles.row}>
+      {items.map((item, index) => {
+        return <Logo classNames={styles.sponsor} brand={item} key={index} />
+      })}
     </div>
   )
 }
@@ -220,10 +369,7 @@ function Logo(props) {
   }, [])
 
   return (
-    <Link
-      className={classNames('col col--3', styles.logo)}
-      href={props.brand.link}
-    >
+    <Link href={props.brand.link} className={styles.sponsor}>
       <img
         src={useBaseUrl(
           logoDir +
@@ -313,37 +459,36 @@ export default function App() {
         </div>
       </header>
 
-      <main className={classNames('container')}>
-        {/* Cards */}
-        <section className={classNames(styles.cardContainer)}>
-          {cards.map((card, index) => (
-            <div className={classNames(styles.card, 'card')} key={index}>
-              <div className={classNames(styles.cardSide, styles.cardLeading)}>
-                <h2>{card.label}</h2>
-                <p>{card.description}</p>
-                <div className={classNames(styles.cardSpacer)}></div>
-                <Link className={'button button--primary'}>
-                  {card.linkText}
-                </Link>
-              </div>
-              <div className={classNames(styles.cardSide)}>
-                <img
-                  src={card.imageUrl}
-                  className={classNames(styles.cardImage)}
-                />
-              </div>
-            </div>
-          ))}
+      <main className="container">
+        <section>
+          <div className={classNames(styles.row)}>
+            <Cards />
+          </div>
         </section>
-        <div className={classNames('container', styles.container)}>
-          <section id="sponsors">
-            <PremiumSponsors />
-          </section>
 
-          <section>
-            <Sponsors />
-          </section>
-        </div>
+        <section>
+          <h1 className={styles.h1}>Features</h1>
+          <div className={classNames(styles.row, styles.featuresRow)}>
+            <Features />
+          </div>
+        </section>
+
+        <section>
+          <h1 className={styles.h1}>Roadmap</h1>
+          <div className={classNames(styles.row, styles.featuresRow)}>
+            <Roadmap />
+          </div>
+        </section>
+
+        <section id="sponsors">
+          <h1 className={styles.h1}>Premium Sponsors</h1>
+          <PremiumSponsors />
+        </section>
+
+        <section>
+          <h1 className={styles.h1}>Sponsors</h1>
+          <Sponsors />
+        </section>
       </main>
     </Layout>
   )

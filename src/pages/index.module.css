@@ -1,3 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.h1 {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
@@ -113,24 +132,22 @@
   flex: 1;
 }
 
+/* Features and Roadmap */
+.featureRoadmapEntry {
+  flex: 0 1 max(calc(30%), 200px);
+  display: flex;
+  column-gap: 1rem;
+}
+
+.featureRoadmapIcon {
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  background: var(--ifm-card-background-color);
+}
+
 /* Sponsors */
-.heading {
-  text-align: center;
-  padding-bottom: 1rem;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  row-gap: 5rem;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo {
-  margin: 1rem 0;
+.sponsor {
+  flex: 0 1 max(calc(25%), 200px);
 }
