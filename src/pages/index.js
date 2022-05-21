@@ -74,6 +74,7 @@ function Cards() {
       imageUrl: 'img/index/illustrations/code.svg',
     },
   ]
+
   return (
     <section className={classNames(styles.cardContainer)}>
       {cards.map((card, index) => (
@@ -429,7 +430,7 @@ export default function App() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={latestVersion.path + '/about/intro'}
+                    to="/about/intro"
                   >
                     <span>
                       <Translate>Learn More</Translate>
