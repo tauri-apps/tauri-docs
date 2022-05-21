@@ -38,7 +38,8 @@ const features = [
   [
     {
       imageUrl: 'img/undraw_security.svg',
-      link: '/about/security',
+      link: './about/security',
+      isDoc: false,
       label: translate({ message: 'Security' }),
       description: translate({
         message:
@@ -48,6 +49,7 @@ const features = [
     {
       imageUrl: 'img/undraw_recipes.svg',
       link: '/guides/architecture/inter-process-communication',
+      isDoc: true,
       linkText: translate({ message: 'Learn more' }),
       label: translate({ message: 'Recipes' }),
       description: translate({
@@ -58,6 +60,7 @@ const features = [
     {
       imageUrl: 'img/undraw_cross_platform.svg',
       link: '/guides/building/cross-platform',
+      isDoc: true,
       linkText: translate({ message: 'Compilation' }),
       label: translate({ message: 'Cross-platform' }),
       description: translate({
@@ -68,7 +71,7 @@ const features = [
   ],
 ]
 
-function Feature({ imageUrl, link, label, description }) {
+function Feature({ imageUrl, link, isDoc, label, description }) {
   const imgUrl = useBaseUrl(imageUrl)
   const latestVersion = useLatestVersion()
 
@@ -86,7 +89,7 @@ function Feature({ imageUrl, link, label, description }) {
         </div>
         {link && (
           <div className="card__footer">
-            <Link to={latestVersion.path + link}>
+            <Link to={(isDoc ? latestVersion.path : '') + link}>
               <button className="button button--secondary button--block">
                 <Translate>See more</Translate>
               </button>
@@ -690,7 +693,7 @@ function Home() {
                       'button button--outline button--secondary button--lg',
                       styles.about
                     )}
-                    to={latestVersion.path + '/about/intro'}
+                    to="/about/intro"
                   >
                     <span>
                       <Translate>Learn More</Translate>

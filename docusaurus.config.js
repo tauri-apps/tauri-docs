@@ -19,10 +19,35 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    type: 'doc',
-    docId: 'about/intro',
+    to: 'about/intro',
     label: 'About',
     position: 'left',
+    items: [
+      {
+        label: 'What is Tauri?',
+        to: 'about/intro',
+      },
+      {
+        label: 'Architecture',
+        to: 'about/architecture',
+      },
+      {
+        label: 'Security',
+        to: 'about/security',
+      },
+      {
+        label: 'Governance',
+        to: 'about/governance',
+      },
+      {
+        label: 'Get the Book',
+        to: 'about/book',
+      },
+      {
+        label: 'Benchmarks',
+        to: 'about/benchmarks',
+      },
+    ],
   },
   {
     type: 'doc',
