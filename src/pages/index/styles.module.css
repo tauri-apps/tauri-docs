@@ -134,7 +134,3 @@
 .logo {
   margin: 1rem 0;
 }
-
-.darkFilter {
-  filter: invert(100%);
-}
