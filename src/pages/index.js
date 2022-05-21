@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Fade from 'react-reveal/Fade'
 import classNames from 'classnames'
 import styles from './index.module.css'
 import Layout from '@theme/Layout'
@@ -468,7 +467,7 @@ export default function App() {
                     }
                   >
                     <span>
-                      <Translate>Get started</Translate>
+                      <Translate>Get Started</Translate>
                     </span>
                   </Link>
                 </div>
