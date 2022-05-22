@@ -72,8 +72,7 @@ function Cards() {
         message:
           'With performance and security at the center, Rust is the language for the next generation of apps',
       }),
-      link: '/guides/architecture/inter-process-communication',
-      isDoc: true,
+      link: 'https://docs.rs/tauri/1.0.0-rc/',
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/code.svg',
     },
