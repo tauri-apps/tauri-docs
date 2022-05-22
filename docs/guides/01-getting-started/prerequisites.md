@@ -192,7 +192,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [build tools for visual studio 2022]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 [`cargo-edit`]: https://github.com/killercup/cargo-edit
 [rust's troubleshooting section]: https://doc.rust-lang.org/book/ch01-01-installation.html#troubleshooting
-[tauri discord]: https://discord.com/invite/tauri-apps
+[tauri discord]: https://discord.com/invite/tauri
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
