@@ -132,7 +132,7 @@ function Features() {
       description: translate({
         message: 'Improved security of file interactions',
       }),
-      icon: 'file-earmark-lock',
+      icon: 'safe',
     },
     {
       title: translate({ message: 'App Tray' }),
@@ -149,18 +149,18 @@ function Features() {
       icon: 'github',
     },
     {
-      title: translate({ message: 'Sidecar' }),
-      description: translate({
-        message: 'Integrate and instrument other binaries',
-      }),
-      icon: 'code-square',
-    },
-    {
       title: translate({ message: 'Native Notifications' }),
       description: translate({
         message: 'Cross-platform notifications using polyfilled web API',
       }),
       icon: 'app-indicator',
+    },
+    {
+      title: translate({ message: 'Sidecar' }),
+      description: translate({
+        message: 'Integrate and instrument other binaries',
+      }),
+      icon: 'code-square',
     },
     {
       title: translate({ message: 'App Storage' }),
@@ -193,7 +193,7 @@ function Roadmap() {
       description: translate({
         message: 'Bundle to all major mobile device operating systems',
       }),
-      icon: 'terminal',
+      icon: 'phone',
     },
     {
       title: translate({ message: 'Cross Compiler' }),
@@ -201,7 +201,7 @@ function Roadmap() {
         message:
           'Generate bundled binaries from select operating system environments',
       }),
-      icon: 'terminal',
+      icon: 'gear-wide-connected',
     },
     {
       title: translate({ message: 'Other Bindings' }),
@@ -209,28 +209,29 @@ function Roadmap() {
         message:
           'Go, Nim, Python, C++ and other bindings are possible with the stable API',
       }),
-      icon: 'terminal',
+      icon: 'arrow-repeat',
     },
     {
       title: translate({ message: 'One-Time Commands' }),
       description: translate({
         message: 'Run a command that is no longer available after first run',
       }),
-      icon: 'terminal',
+      icon: 'stars',
     },
     {
-      title: translate({ message: 'DENO Bindings' }),
+      title: translate({ message: 'Alternative Renderers' }),
       description: translate({
-        message: "Use Deno to build your App's backend",
+        message:
+          'Candidate presentation for Webview alternatives, including GL windowing',
       }),
-      icon: 'terminal',
+      icon: 'brush',
     },
     {
       title: translate({ message: 'Channel API' }),
       description: translate({
         message: 'Send messages through a channel',
       }),
-      icon: 'terminal',
+      icon: 'signpost-2',
     },
   ]
 

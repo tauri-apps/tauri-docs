@@ -5,7 +5,7 @@
 
 .row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
   flex-wrap: wrap;
   row-gap: 2rem;
