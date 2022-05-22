@@ -38,7 +38,8 @@ function Cards() {
     {
       label: translate({ message: 'FLOSS' }),
       description: translate({
-        message: 'Relicensing and redistribution is possible thanks to Tauri',
+        message:
+          'Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable',
       }),
       link: 'about/intro#honest-open-source',
       linkText: translate({ message: 'Learn More' }),
