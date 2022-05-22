@@ -20,6 +20,7 @@
   padding-top: 4rem;
 }
 
+/* Hero */
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
@@ -115,12 +116,7 @@
   height: 80%;
   display: flex;
   flex-direction: column;
-}
-
-@media only screen and (max-width: 1000px) {
-  .card {
-    flex: 1 0 100%;
-  }
+  justify-content: center;
 }
 
 .cardLeading {
@@ -128,11 +124,29 @@
 }
 
 .cardImage {
-  height: 100%;
+  padding: 1rem;
 }
 
 .cardSpacer {
   flex: 1;
+}
+
+@media (max-width: 800px) {
+  .card {
+    flex: 1 0 100%;
+    flex-direction: column;
+    height: auto;
+    align-items: stretch;
+  }
+
+  .cardSide {
+    flex: 0 1 auto;
+    height: auto;
+  }
+
+  .cardImage {
+    display: none;
+  }
 }
 
 /* Features and Roadmap */
@@ -165,7 +179,19 @@
   color: var(--tauri-orange);
 }
 
+@media (max-width: 800px) {
+  .featureRoadmapEntry {
+    flex: 0 1 100%;
+  }
+}
+
 /* Sponsors */
 .sponsor {
   flex: 0 1 max(calc(25%), 200px);
+}
+
+@media (max-width: 800px) {
+  .sponsor {
+    flex: 0 1 100%;
+  }
 }
