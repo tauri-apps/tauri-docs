@@ -291,12 +291,6 @@ const siteConfig = {
             content: '#0F0F0F',
           },
           {
-            tagName: 'link',
-            rel: 'mask-icon',
-            href: '/img/tauri.svg',
-            color: '#0F0F0F',
-          },
-          {
             tagName: 'meta',
             name: 'msapplication-TileColor',
             content: '#0F0F0F',
