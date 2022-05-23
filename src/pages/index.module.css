@@ -193,5 +193,6 @@
 @media (max-width: 800px) {
   .sponsor {
     flex: 0 1 100%;
+    text-align: center;
   }
 }
