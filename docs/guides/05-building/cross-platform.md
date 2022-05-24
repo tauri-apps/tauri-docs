@@ -125,6 +125,13 @@ jobs:
           prerelease: false
 ```
 
+### Code signing
+
+You may set up code signing for both Windows and MacOS on your workflow, this is described in the specific guides for each platform:
+
+- [Windows Code Signing with GitHub Actions][7]
+- [MacOS Code Signing with GitHub Actions][9]
+
 ### Caveats
 
 - Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions.
@@ -137,3 +144,5 @@ jobs:
 [4]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
 [5]: https://github.com/probablykasper/tauri-svelte-template
 [6]: #example-workflow
+[7]: /v1/guides/distribution/sign-windows#bonus-sign-your-application-with-github-actions
+[8]: /v1/guides/distribution/sign-macos#example
