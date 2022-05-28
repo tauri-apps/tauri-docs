@@ -148,10 +148,11 @@ OPTIONS:
     -h, --help                   Print help information
     -r, --runner <RUNNER>        Binary to use to build the application, defaults to `cargo`
     -t, --target <TARGET>        Target triple to build against. It must be one of the values
-                                 outputted by `$rustc --print target-list` or `universal-apple-
-                                 darwin` for an universal macOS application. Note that compiling an
-                                 universal macOS application requires both `aarch64-apple-darwin`
-                                 and `x86_64-apple-darwin` targets to be installed
+                                 outputted by `$rustc --print target-list` or
+                                 `universal-apple-darwin` for an universal macOS application. Note
+                                 that compiling an universal macOS application requires both
+                                 `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be
+                                 installed
     -v, --verbose                Enables verbose logging
     -V, --version                Print version information
 ```

@@ -10,13 +10,13 @@ Options object used to write a binary data to a file.
 
 ### contents
 
-• **contents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\>
+• **contents**: `ArrayLike`<`number`\> \| `Iterable`<`number`\>
 
 The byte array contents.
 
 #### Defined in
 
-[fs.ts:119](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/fs.ts#L119)
+[fs.ts:119](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L119)
 
 ___
 
@@ -28,4 +28,4 @@ Path to the file to write.
 
 #### Defined in
 
-[fs.ts:117](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/fs.ts#L117)
+[fs.ts:117](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L117)

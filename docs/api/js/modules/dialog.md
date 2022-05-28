@@ -32,7 +32,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### ask
 
-▸ **ask**(`message`, `title?`): `Promise`<`boolean`\>
+▸ **ask**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -41,7 +41,7 @@ Shows a question dialog with `Yes` and `No` buttons.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `message` | `string` | The message to show. |
-| `title?` | `string` | The dialog's title. Defaults to the application name. |
+| `options?` | `string` \| `MessageDialogOptions` | The dialog's options. If a string, it represents the dialog title. |
 
 #### Returns
 
@@ -51,13 +51,13 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:156](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/dialog.ts#L156)
+[dialog.ts:170](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/dialog.ts#L170)
 
 ___
 
 ### confirm
 
-▸ **confirm**(`message`, `title?`): `Promise`<`boolean`\>
+▸ **confirm**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -66,7 +66,7 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `message` | `string` | The message to show. |
-| `title?` | `string` | The dialog's title. Defaults to the application name. |
+| `options?` | `string` \| `MessageDialogOptions` | The dialog's options. If a string, it represents the dialog title. |
 
 #### Returns
 
@@ -76,13 +76,13 @@ A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:175](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/dialog.ts#L175)
+[dialog.ts:194](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/dialog.ts#L194)
 
 ___
 
 ### message
 
-▸ **message**(`message`): `Promise`<`void`\>
+▸ **message**(`message`, `options?`): `Promise`<`void`\>
 
 Shows a message dialog with an `Ok` button.
 
@@ -91,6 +91,7 @@ Shows a message dialog with an `Ok` button.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `message` | `string` | The message to show. |
+| `options?` | `string` \| `MessageDialogOptions` | The dialog's options. If a string, it represents the dialog title. |
 
 #### Returns
 
@@ -100,7 +101,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[dialog.ts:138](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/dialog.ts#L138)
+[dialog.ts:146](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/dialog.ts#L146)
 
 ___
 
@@ -131,7 +132,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:89](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/dialog.ts#L89)
+[dialog.ts:96](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/dialog.ts#L96)
 
 ___
 
@@ -162,4 +163,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:117](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/dialog.ts#L117)
+[dialog.ts:124](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/dialog.ts#L124)

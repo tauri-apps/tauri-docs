@@ -23,7 +23,7 @@ This will force all your dependencies to use `tauri` and `tauri-build` from Git 
 - If you are using the Cargo CLI, you can install it directly from Git:
 
 ```sh
-cargo install --git https://github.com/tauri-apps/tauri tauri-cli
+cargo install --git https://github.com/tauri-apps/tauri --branch dev tauri-cli
 ```
 
 And keep using it as normal with `cargo tauri dev` and `cargo tauri build`.
@@ -32,6 +32,7 @@ And keep using it as normal with `cargo tauri dev` and `cargo tauri build`.
 
 ```sh
 git clone https://github.com/tauri-apps/tauri
+git checkout dev
 cd tauri/tooling/cli/node
 yarn
 yarn build
@@ -60,6 +61,7 @@ To build it from source, run the following script:
 
 ```sh
 git clone https://github.com/tauri-apps/tauri
+git checkout dev
 cd tauri/tooling/api
 yarn
 yarn build
