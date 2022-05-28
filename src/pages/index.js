@@ -18,7 +18,7 @@ function Cards() {
       label: translate({ message: 'Brownfield' }),
       description: translate({
         message:
-          "Compatibility with any front-end framework means you don't have to change your stack",
+          "Compatibility with any front-end framework means you don't have to change your stack.",
       }),
       link: '/guides/getting-started/beginning-tutorial',
       isDoc: true,
@@ -29,7 +29,7 @@ function Cards() {
       label: translate({ message: 'Security' }),
       description: translate({
         message:
-          'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations',
+          'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.',
       }),
       link: 'about/security',
       linkText: translate({ message: 'Learn More' }),
@@ -39,7 +39,7 @@ function Cards() {
       label: translate({ message: 'FLOSS' }),
       description: translate({
         message:
-          'Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable',
+          'Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable.',
       }),
       link: 'about/intro#honest-open-source',
       linkText: translate({ message: 'Learn More' }),
@@ -49,7 +49,7 @@ function Cards() {
       label: translate({ message: 'Bundle Size' }),
       description: translate({
         message:
-          "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB",
+          "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.",
       }),
       link: 'about/benchmarks',
       linkText: translate({ message: 'Learn More' }),
@@ -59,7 +59,7 @@ function Cards() {
       label: translate({ message: 'Cross Platform' }),
       description: translate({
         message:
-          'Bundle binaries for all major desktop platforms (mobile & WASM coming soon)',
+          'Bundle binaries for all major desktop platforms (mobile & WASM coming soon).',
       }),
       link: '/guides/building/cross-platform',
       isDoc: true,
@@ -70,7 +70,7 @@ function Cards() {
       label: translate({ message: 'Built on Rust' }),
       description: translate({
         message:
-          'With performance and security at the center, Rust is the language for the next generation of apps',
+          'With performance and security at the center, Rust is the language for the next generation of apps.',
       }),
       link: 'https://docs.rs/tauri/1.0.0-rc/',
       linkText: translate({ message: 'Learn More' }),
@@ -95,8 +95,8 @@ function Cards() {
               {card.linkText}
             </Link>
           </div>
-          <div className={classNames(styles.cardSide)}>
-            <img src={card.imageUrl} className={classNames(styles.cardImage)} />
+          <div className={classNames(styles.cardSide, styles.cardImage)}>
+            <img src={card.imageUrl} />
           </div>
         </div>
       ))}
