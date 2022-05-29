@@ -135,7 +135,7 @@
   flex: 1;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .cardContainer {
     display: grid;
     grid-template-columns: 1fr;
@@ -151,12 +151,13 @@
     flex: 0 1 auto;
     height: auto;
     align-items: stretch;
+    text-align: center;
   }
 
   .cardImage {
     position: unset;
+    align-items: center;
     order: -1;
-    align-items: flex-start;
   }
 
   .cardImage img {
@@ -175,8 +176,8 @@
 .featureRoadmapIconContainer {
   flex-shrink: 0;
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   background: var(--ifm-card-background-color);
   display: flex;
   justify-content: center;
@@ -184,7 +185,7 @@
 }
 
 .featureRoadmapIcon {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .featureIcon {
@@ -195,19 +196,28 @@
   color: var(--tauri-orange);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .featureRoadmapEntry {
     flex: 0 1 100%;
     align-items: center;
+  }
+
+  .featureRoadmapEntry h3 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .featureRoadmapEntry p {
+    margin: 0;
   }
 }
 
 /* Sponsors */
 .sponsor {
-  flex: 0 1 max(calc(25%), 200px);
+  flex: 0 1 25%;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .sponsor {
     flex: 0 1 100%;
     text-align: center;
