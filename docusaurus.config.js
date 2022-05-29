@@ -199,8 +199,8 @@ const siteConfig = {
   },
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsLight'),
-      darkTheme: require('prism-react-renderer/themes/vsDark'),
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/oceanicNext'),
       additionalLanguages: ['rust'],
     },
     colorMode: {
