@@ -24,14 +24,14 @@ These are just a couple of tools that you might use. Make sure to check your fro
 
 ## Checklist
 
-1. [Minify Javascript](minify-javascript)
-2. [Optimize Dependencies](optimize-dependencies)
-3. [Optimize Images](optimize-images)
-4. [Remove Unnecessary Custom Fonts](remove-unnecessary-custom-fonts)
-5. [Allowlist Config](allowlist-config)
-6. [Rust Build-time Optimizations](rust-build-time-optimizations)
-7. [Stripping](stripping)
-8. [UPX](upx)
+1. [Minify Javascript](#minify-javascript)
+2. [Optimize Dependencies](#optimize-dependencies)
+3. [Optimize Images](#optimize-images)
+4. [Remove Unnecessary Custom Fonts](#remove-unnecessary-custom-fonts)
+5. [Allowlist Config](#allowlist-config)
+6. [Rust Build-time Optimizations](#rust-build-time-optimizations)
+7. [Stripping](#stripping)
+8. [UPX](#upx)
 
 ### Minify JavaScript
 
