@@ -2,7 +2,8 @@
 draft: true
 ---
 
-<!-- NOTE: the above is marked as a draft so that it doesn't get generated in build; it will still be embedded -->
+<!-- NOTE: the above is marked as a draft so that it doesn't
+get generated in build; it will still be embedded -->
 
 import Command from '@theme/Command'
 
