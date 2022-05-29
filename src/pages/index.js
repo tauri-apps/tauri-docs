@@ -475,10 +475,7 @@ export default function App() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={
-                      latestVersion.path +
-                      '/guides/getting-started/prerequisites'
-                    }
+                    to={latestVersion.path + '/guides/'}
                   >
                     <span>
                       <Translate>Get Started</Translate>

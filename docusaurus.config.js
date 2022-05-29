@@ -50,14 +50,14 @@ const navbarItems = [
     ],
   },
   {
-    type: 'doc',
-    docId: 'guides/getting-started/prerequisites',
+    type: 'docSidebar',
+    sidebarId: 'guides',
     label: 'Guides',
     position: 'left',
   },
   {
-    type: 'doc',
-    docId: 'api/config',
+    type: 'docSidebar',
+    sidebarId: 'api',
     label: 'API',
     position: 'left',
   },
