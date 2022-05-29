@@ -18,7 +18,7 @@ Sometimes you may have an error in your Rust code, and the Rust compiler can giv
 RUST_BACKTRACE=1 tauri dev
 ```
 
-or like this on MS Windows:
+or like this on Windows:
 
 ```bash
 set RUST_BACKTRACE=1
@@ -43,9 +43,9 @@ For more information about this error, try `rustc --explain E0425`.
 ## WebView Console
 
 Right-click in the WebView, and choose `Inspect Element`. This opens up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
-You can also use the `Ctrl+Shift+i` shortcut on Linux and Windows, and `Command+Option+i` on macOS to open the inspector.
+You can also use the `Ctrl + Shift + i` shortcut on Linux and Windows, and `Command + Option + i` on macOS to open the inspector.
 
-### Opening the devtools programatically
+### Opening Devtools Programatically
 
 You can control the inspector window visibility by using the `Window::open_devtools` and `Window::close_devtools` functions:
 
@@ -63,9 +63,9 @@ tauri::Builder::default()
   });
 ```
 
-### Using the inspector in production
+### Using the Inspector in Production
 
-By default the inspector is only enabled in development and debug builds, unless you enable it with a Cargo feature.
+By default the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
 
 - Create a **debug** build
 
@@ -76,7 +76,7 @@ To create a debug build, run the `tauri build --debug` command.
 Like the normal build and dev processes, building takes some time the first time you run this command but is significantly faster on subsequent runs.
 The final bundled app has the development console enabled and is placed in `src-tauri/target/debug/bundle`.
 
-You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Just find the file `src-tauri/target/(release|debug)/[app name]` and either double click it (but be warned, the terminal closes on errors) or just run it in directly in your console.
+You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Browse to the file `src-tauri/target/(release|debug)/[app name]` and either double-click it (note: the terminal closes on errors) or just run it in directly in your console.
 
 - Enable the devtools feature
 
@@ -88,11 +88,11 @@ tauri = { version = "...", features = ["...", "devtools"] }
 ```
 
 :::warning
-The devtools API is private on macOS. Using private APIs on `macOS` prevents your application from being accepted for the `App Store`.
+The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted for the App Store.
 :::
 
 ## Debugging the Core Process
 
-The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VSCode] to learn how to use the LLDB VSCode Extension to debug the Core Process of Tauri applications.
+The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
-[Debugging in VSCode]: ./vscode
+[Debugging in VS Code]: vs-code
