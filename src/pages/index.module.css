@@ -156,6 +156,7 @@
 
   .cardImage {
     position: unset;
+    align-items: center;
     order: -1;
   }
 
