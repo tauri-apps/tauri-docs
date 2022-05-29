@@ -1,6 +1,6 @@
 # Debugging in VS Code
 
-This guide describes how to setup debugging in VS Code for the [Core Process in Tauri applications](../architecture/process-model#the-core-process).
+This guide describes how to setup debugging in VS Code for the [Core Process in Tauri applications].
 
 ## Setup
 
@@ -84,3 +84,5 @@ Note that it does not use the Tauri CLI, so exclusive CLI features are not execu
 ```
 
 Now you can set breakpoints in `src-tauri/src/main.rs` or any other Rust file and start debugging by pressing `F5`.
+
+[Core Process in Tauri applications]: ../architecture/process-model#the-core-process
