@@ -1,4 +1,8 @@
-import TauriBuild from './\_tauri-build.md'
+---
+sidebar_position: 2
+---
+
+import TauriBuild from './_tauri-build.md'
 
 # Windows Installer
 

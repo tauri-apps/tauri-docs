@@ -1,5 +1,6 @@
 ---
-sidebar_position: 2
+draft: false
+sidebar_position: 5
 ---
 
 # Cross-Platform Compilation
