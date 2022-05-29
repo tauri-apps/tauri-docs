@@ -2,9 +2,13 @@
 sidebar_position: 5
 ---
 
+import TauriBuild from './_tauri-build.md'
+
 # Debian packages
 
-Tauri allows your app to be packaged as a `.deb` (Debian package) file.
+Tauri allows your app to be packaged as a `.deb` (Debian package) file. The Tauri CLI bundles your application binary and additional resources in this format if you build on Linux.
+
+<TauriBuild />
 
 ## Bootstrapper
 

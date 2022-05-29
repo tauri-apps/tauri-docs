@@ -1,6 +1,10 @@
+import TauriBuild from './_tauri-build.md'
+
 # macOS Bundle
 
 Tauri applications for macOS are distributed either with an [Application Bundle] (`.app` file) or an Apple Disk Image (`.dmg` file). The Tauri CLI automatically bundles your application code in these formats, providing options to codesign and notarize your application.
+
+<TauriBuild />
 
 ## Setting a Minimum System Version
 

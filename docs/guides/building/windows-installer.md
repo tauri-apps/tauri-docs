@@ -1,6 +1,10 @@
+import TauriBuild from './_tauri-build.md'
+
 # Windows Installer
 
 Tauri applications for Windows are distributed as Microsoft Installers (`.msi` files). The Tauri CLI bundles your application binary and additional resources in this format if you build on Windows. This guide provides information about available customization options for the installer.
+
+<TauriBuild />
 
 :::info 32-bit Windows
 The Tauri CLI compiles your executable using your machine's architecture by default. Assuming that you're developing on a 64-bit machine, the CLI will produce 64-bit applications. If you need to support 32-bit machines, you can compile your application with a **different** [Rust target][platform support] using the `--target` flag:
