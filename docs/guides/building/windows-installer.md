@@ -11,7 +11,7 @@ The Tauri CLI compiles your executable using your machine's architecture by defa
 tauri build --target i686-pc-windows-msvc
 ```
 
-By default Rust only installs toolschains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`. You can get a full list of Rust targets by running `rustup target list`.
+By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`. You can get a full list of Rust targets by running `rustup target list`.
 :::
 
 ## Using a Fixed Version of the Webview2 Runtime
