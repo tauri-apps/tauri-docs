@@ -40,7 +40,6 @@ The Tauri configuration file provides the following options to customize your ap
 - **DMG license file:** A license that is added to the `.dmg` file. Configure by the [`tauri.bundle.macOS.license`] property.
 - **[Entitlements.plist file]:** Entitlements control what APIs your app will have access to. Configured by the [`tauri.bundle.macOS.entitlements`] property.
 - **Exception domain:** an insecure domain that your application can access such as a `localhost` or a remote `http` domain. It is a convenience configuration around `NSAppTransportSecurity > NSExceptionDomains` setting `NSExceptionAllowsInsecureHTTPLoads` and `NSIncludesSubdomains` to true. See [`tauri.bundle.macOS.exceptionDomain`] for more information.
-- **Bootstrapper** Instead of launching the app directly, you can configure the bundled app to run a script that tries to expose the environment variables to the app; without that, you'll have trouble using system programs because the `PATH` environment variable isn't correctly. Enable it with [`tauri.bundle.macOS.useBootstrapper`].
 
 :::info
 These options generate the application bundle [Info.plist file]. You can extend the generated file with your own `Info.plist` file stored on the Tauri folder (`src-tauri` by default). The CLI merges both `.plist` files on production, and the core layer embeds it on the binary on development.
@@ -62,5 +61,4 @@ These options generate the application bundle [Info.plist file]. You can extend 
 [entitlements.plist file]: https://developer.apple.com/documentation/bundleresources/entitlements
 [`tauri.bundle.macos.entitlements`]: ../../api/config#macconfig.entitlements
 [`tauri.bundle.macos.exceptiondomain`]: ../../api/config#macconfig.exceptiondomain
-[`tauri.bundle.macos.usebootstrapper`]: ../../api/config#deb.usebootstrapper
 [info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
