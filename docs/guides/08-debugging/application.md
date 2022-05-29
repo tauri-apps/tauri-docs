@@ -47,7 +47,7 @@ You can also use the `Ctrl + Shift + i` shortcut on Linux and Windows, and `Comm
 
 ### Opening Devtools Programatically
 
-You can control the inspector window visibility by using the `Window::open_devtools` and `Window::close_devtools` functions:
+You can control the inspector window visibility by using the [`Window::open_devtools`] and [`Window::close_devtools`] functions:
 
 ```rust
 use tauri::Manager;
@@ -96,3 +96,5 @@ The devtools API is private on macOS. Using private APIs on macOS prevents your 
 The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] guide to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
 [Debugging in VS Code]: vs-code
+[`Window::open_devtools`]: https://docs.rs/tauri/1.0.0-rc/tauri/window/struct.Window.html#method.open_devtools
+[`Window::close_devtools`]: https://docs.rs/tauri/1.0.0-rc/tauri/window/struct.Window.html#method.close_devtools
