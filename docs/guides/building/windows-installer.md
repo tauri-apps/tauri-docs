@@ -1,8 +1,8 @@
-import TauriBuild from './_tauri-build.md'
+import TauriBuild from './\_tauri-build.md'
 
 # Windows Installer
 
-Tauri applications for Windows are distributed as Microsoft Installers (`.msi` files). The Tauri CLI bundles your application binary and additional resources in this format if you build on Windows. This guide provides information about available customization options for the installer.
+Tauri applications for Windows are distributed as Microsoft Installers (`.msi` files). The Tauri CLI bundles your application binary and additional resources. Please not that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work yet. This guide provides information about available customization options for the installer.
 
 <TauriBuild />
 
