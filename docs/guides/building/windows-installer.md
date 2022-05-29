@@ -30,7 +30,7 @@ Using a global installation of WebView2 is great for security as Window keeps it
 2. Extract the file to the core folder:
    <!-- Is this powershell? -->
 
-   ```
+   ```console
    expand .\Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab -F:* ./src-tauri
    ```
 
