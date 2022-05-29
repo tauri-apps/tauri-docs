@@ -67,7 +67,7 @@ tauri::Builder::default()
 
 By default the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
 
-- Create a **debug** build
+#### Create a **debug** build
 
 To create a debug build, run the `tauri build --debug` command.
 
@@ -78,7 +78,7 @@ The final bundled app has the development console enabled and is placed in `src-
 
 You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Browse to the file `src-tauri/target/(release|debug)/[app name]` and either double-click it (note: the terminal closes on errors) or just run it in directly in your console.
 
-- Enable the devtools feature
+#### Enable the devtools feature
 
 To enable the devtools in production builds, you must enable the `devtools` Cargo feature in the `src-tauri/Cargo.toml` file:
 
