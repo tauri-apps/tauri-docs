@@ -24,7 +24,7 @@ You can remove the Webview2 Runtime download check from the installer by setting
 **Your application WILL NOT work if the user does not have the runtime installed with this option selected.**
 :::
 
-Using a global installation of WebView2 is great for security as Window keeps it updated, but if your end-users have no internet connection or you need a particular version of WebView2, Tauri can bundle the runtime files for you. Keep in mind, this increases the size of Windows installers by **150MB** since your app will include its own copy of Chromium.
+Using a global installation of WebView2 is great for security as Windows keeps it updated, but if your end-users have no internet connection or you need a particular version of WebView2, Tauri can bundle the runtime files for you. Keep in mind that this increases the size of Windows installers by **150MB** since your app will include its own copy of Chromium.
 
 1. Download the Webview2 fixed version runtime from the [official website][download the webview2 runtime], a `.cab` file for the selected architecture. In this example, the downloaded filename is `Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab`
 2. Extract the file to the core folder:
