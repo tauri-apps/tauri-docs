@@ -93,6 +93,6 @@ The devtools API is private on macOS. Using private APIs on macOS prevents your 
 
 ## Debugging the Core Process
 
-The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
+The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] guide to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
 [Debugging in VS Code]: vs-code
