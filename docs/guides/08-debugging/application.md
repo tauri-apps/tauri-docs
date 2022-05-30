@@ -69,7 +69,7 @@ tauri::Builder::default()
 
 By default the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
 
-#### Create a **debug** build
+#### Create a Debug Build
 
 To create a debug build, run the `tauri build --debug` command.
 
@@ -78,20 +78,20 @@ To create a debug build, run the `tauri build --debug` command.
 Like the normal build and dev processes, building takes some time the first time you run this command but is significantly faster on subsequent runs.
 The final bundled app has the development console enabled and is placed in `src-tauri/target/debug/bundle`.
 
-You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Browse to the file `src-tauri/target/(release|debug)/[app name]` and either double-click it (note: the terminal closes on errors) or just run it in directly in your console.
+You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Browse to the file `src-tauri/target/(release|debug)/[app name]` and run it in directly in your console or double-click the executable itself in the filesystem (note: the console closes on errors with this method).
 
-#### Enable the devtools feature
+#### Enable Devtools Feature
+
+
+:::warning
+The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted for the App Store.
+:::
 
 To enable the devtools in production builds, you must enable the `devtools` Cargo feature in the `src-tauri/Cargo.toml` file:
 
 ```toml
 [dependencies]
 tauri = { version = "...", features = ["...", "devtools"] }
-```
-
-:::warning
-The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted for the App Store.
-:::
 
 ## Debugging the Core Process
 
