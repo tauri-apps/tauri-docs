@@ -45,6 +45,8 @@ For more information about this error, try `rustc --explain E0425`.
 Right-click in the WebView, and choose `Inspect Element`. This opens up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
 You can also use the `Ctrl + Shift + i` shortcut on Linux and Windows, and `Command + Option + i` on macOS to open the inspector.
 
+The inspector is platform-specific, rendering the webkit2gtk WebInspector on Linux, Safari's inspector on macOS and the Microsoft Edge DevTools on Windows.
+
 ### Opening Devtools Programatically
 
 You can control the inspector window visibility by using the [`Window::open_devtools`] and [`Window::close_devtools`] functions:
