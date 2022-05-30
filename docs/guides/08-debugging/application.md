@@ -84,7 +84,7 @@ You can also run a built app from the terminal, giving you the Rust compiler not
 
 
 :::warning
-The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted for the App Store.
+The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted to the App Store.
 :::
 
 To enable the devtools in production builds, you must enable the `devtools` Cargo feature in the `src-tauri/Cargo.toml` file:
@@ -92,6 +92,7 @@ To enable the devtools in production builds, you must enable the `devtools` Carg
 ```toml
 [dependencies]
 tauri = { version = "...", features = ["...", "devtools"] }
+```
 
 ## Debugging the Core Process
 
