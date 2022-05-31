@@ -60,7 +60,7 @@ on:
   workflow_dispatch:
 ```
 
-### Example workflow
+### Example Workflow
 
 Below is an example workflow that has been setup to run every time a new version is created on git.
 
