@@ -136,9 +136,7 @@ jobs:
 
 ### Usage Notes
 
-- Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions.
-- Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template][5]
-- You can use this Action on a repo that doesn't have Tauri configured. We automatically initialize Tauri before building, and configure it to use your web artifacts.
+Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template][5]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
 
 [1]: https://github.com/tauri-apps/tauri-action
 [2]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
