@@ -15,6 +15,15 @@ Tauri Action leverages GitHub Actions to simultaneously build your application a
 
 This GitHub Action may also be used as a testing pipeline for your Tauri app, guaranteeing compilation runs fine on all platforms for each pull request sent, even if you don't wish to create a new release.
 
+:::info Code Signing
+
+To setup code signing for both Windows and macOS on your workflow, follow the specific guide for each platform:
+
+- [Windows Code Signing with GitHub Actions][7]
+- [macOS Code Signing with GitHub Actions][8]
+
+:::
+
 ### Getting Started
 
 To set up Tauri Action you must first set up a GitHub repository. You can use this action on a repo that doesn't have Tauri configured since it automatically initialize Tauri before building and configure it to use your artifacts.
