@@ -23,7 +23,7 @@ This will force all your dependencies to use `tauri` and `tauri-build` from Git 
 
 - If you are using the Cargo CLI, you can install it directly from Git:
 
-```sh
+```shell
 cargo install --git https://github.com/tauri-apps/tauri --branch dev tauri-cli
 ```
 

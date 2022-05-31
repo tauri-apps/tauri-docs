@@ -23,7 +23,7 @@ macOS High Sierra (10.13) no longer receives security updates from Apple. You sh
 
 macOS applications can target Apple Silicon, Intel-based Mac computers, or Universal macOS binaries that work on both architectures. By default, the Tauri CLI uses your machine's architecture, but you can configure a different target using the `--target` flag:
 
-```console
+```shell
 tauri build --target aarch64-apple-darwin
 ```
 

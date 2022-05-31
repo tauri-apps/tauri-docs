@@ -46,7 +46,7 @@ Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install
 
 You will need to install CLang and macOS development dependencies. To do this, run the following command in your terminal:
 
-```console
+```shell
 xcode-select --install
 ```
 
@@ -54,7 +54,7 @@ xcode-select --install
 
 To install Rust on macOS, open a terminal and enter the following command:
 
-```console
+```shell
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
@@ -78,7 +78,7 @@ You will need to install a couple of system dependencies, such as a C compiler a
 <Tabs>
   <TabItem value="debian" label="Debian" default>
 
-```console
+```sh
 sudo apt update
 sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
@@ -93,7 +93,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
   </TabItem>
   <TabItem value="arch" label="Arch">
 
-```console
+```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
     webkit2gtk \
@@ -111,7 +111,7 @@ sudo pacman -S --needed \
   </TabItem>
   <TabItem value="fedora" label="Fedora">
 
-```console
+```sh
 sudo dnf check-update
 sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
@@ -129,7 +129,7 @@ sudo dnf group install "C Development Tools and Libraries"
 
 To install Rust on Linux, open a terminal and enter the following command:
 
-```console
+```shell
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
@@ -147,19 +147,19 @@ Rust is installed now. Great!
 
 Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo upgrade` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
 
-```console
+```shell
 cargo upgrade
 ```
 
 Updating Rust itself is easy via `rustup`. Open a terminal and run the following command:
 
-```console
+```shell
 rustup update
 ```
 
 `rustup` can also be used to uninstall Rust from your machine fully:
 
-```console
+```shell
 rustup self uninstall
 ```
 
@@ -167,7 +167,7 @@ rustup self uninstall
 
 To check whether you have Rust installed correctly, open a shell and enter this command:
 
-```console
+```shell
 rustc --version
 ```
 

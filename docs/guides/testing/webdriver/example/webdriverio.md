@@ -62,7 +62,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```bash
+```shell
 npm install @wdio/cli
 ```
 
@@ -70,7 +70,7 @@ npm install @wdio/cli
 
 <TabItem value="yarn">
 
-```bash
+```shell
 yarn add @wdio/cli
 ```
 
@@ -86,7 +86,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```bash
+```shell
 npx wdio config
 ```
 
@@ -94,7 +94,7 @@ npx wdio config
 
 <TabItem value="yarn">
 
-```bash
+```shell
 yarn wdio config
 ```
 
@@ -212,7 +212,7 @@ values={[
 ]}>
 <TabItem value="npm">
 
-```bash
+```shell
 npm test
 ```
 
@@ -220,7 +220,7 @@ npm test
 
 <TabItem value="yarn">
 
-```bash
+```shell
 yarn test
 ```
 

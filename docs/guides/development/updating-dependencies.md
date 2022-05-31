@@ -12,7 +12,7 @@ Especially during the alpha and beta phases, we expect you to keep all Tauri dep
 
 If you are using the `tauri` package:
 
-```bash
+```sh
 yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 ```
@@ -24,7 +24,7 @@ You can also detect what the latest version of Tauri is on the command line, usi
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
 
-```bash
+```sh
 yarn upgrade vue-cli-plugin-tauri --latest
 npm install vue-cli-plugin-tauri@latest
 ```
@@ -47,7 +47,7 @@ where `%version%` is the corresponding version number from above. <!-- TODO: (Yo
 
 Then do the following:
 
-```bash
+```sh
 cd src-tauri
 cargo update
 ```

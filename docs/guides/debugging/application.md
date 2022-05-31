@@ -14,13 +14,13 @@ println!("Message from Rust: {}", msg);
 
 Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and macOS:
 
-```bash
+```shell
 RUST_BACKTRACE=1 tauri dev
 ```
 
 or like this on Windows:
 
-```bash
+```shell
 set RUST_BACKTRACE=1
 tauri dev
 ```

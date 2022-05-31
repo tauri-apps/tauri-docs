@@ -185,20 +185,20 @@ The following suggestions are all unstable features and require a nightly toolch
 
 The following methods involve using unstable compiler features and require the rust nightly toolchain. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following:
 
-```console
+```sh
 rustup toolchain install nightly
 rustup component add rust-src --toolchain nightly
 ```
 
 The Rust Standard Library comes precompiled. This means Rust is faster to install, but also that the compiler can't optimize the Standard Library. You can apply the optimization options for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple you are targeting.
 
-```console
+```shell
 cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
 ```
 
 If you are using `panic = "abort"` in your release profile optimizations, you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can further reduce the binary size. The following applies both:
 
-```console
+```shell
 cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
 ```
 
@@ -212,7 +212,7 @@ Your compiled app includes so-called "Debug Symbols" that include function and v
 
 The easiest way is to use the famous `strip` utility to remove this debugging information.
 
-```bash
+```shell
 strip target/release/my_application
 ```
 
@@ -246,7 +246,7 @@ You should know that this technique might flag your binary as a virus on Windows
 
 <!-- Add additional platforms -->
 
-```console
+```sh
 brew install upx
 yarn tauri build
 upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app

@@ -4,6 +4,8 @@ sidebar_position: 3
 
 import Command from '@theme/Command'
 import Link from '@docusaurus/Link'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Your First Tauri App
 
@@ -18,11 +20,22 @@ There are two ways to integrate with Tauri depending on your needs:
 
 ### 1. Start a New Tauri Project
 
-```bash
+<Tabs>
+<TabItem value="yarn" label="yarn" default>
+
+```shell
 yarn create tauri-app
-# OR
+```
+
+</TabItem>
+<TabItem value="npm" label="npx">
+
+```shell
 npx create-tauri-app
 ```
+
+</TabItem>
+</Tabs>
 
 Follow the instructions and choose the web front-end framework you prefer. `create-tauri-app` creates a template project depending on your inputs. You can go straight to [check `tauri info`](#3-check-tauri-info-to-make-sure-everything-is-set-up-properly) after this.
 
@@ -34,7 +47,7 @@ You can install Tauri CLI [using `Node.js`](#install-tauri-cli-package-as-a-dev-
 
 #### Install Tauri CLI package as a dev dependency:
 
-```bash
+```sh
 cd project-folder
 
 # Not required if you already have a package.json:
@@ -66,7 +79,7 @@ If you decide to use Tauri as a local package with npm (not yarn), you need to a
 
 The following command installs `tauri-cli` as a Cargo subcommand on the cargo binary folder (by default on `$HOME/.cargo/bin`):
 
-```bash
+```shell
 cargo install tauri-cli --locked --version "^1.0.0-rc"
 ```
 
@@ -76,11 +89,22 @@ For more installation options, see [`cargo install`].
 
 The `@tauri-apps/api` package is recommended for projects using ES modules or modern build tools such as Webpack or Vite. It is the most secure way to access the Tauri APIs.
 
-```bash
+<Tabs>
+<TabItem value="yarn" label="yarn" default>
+
+```shell
 yarn add @tauri-apps/api
-# OR
+```
+
+</TabItem>
+<TabItem value="npm" label="npm">
+
+```shell
 npm install @tauri-apps/api
 ```
+
+</TabItem>
+</Tabs>
 
 ### 2. Initialize Tauri in Your App
 
@@ -88,7 +112,7 @@ npm install @tauri-apps/api
 
 This command places a new folder in your current working directory, `src-tauri`.
 
-```bash
+```shell
 └── src-tauri
     ├── .gitignore
     ├── Cargo.toml
