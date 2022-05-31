@@ -24,7 +24,7 @@ You can also detect what the latest version of Tauri is on the command line, usi
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
 
-```sh
+```shell
 yarn upgrade vue-cli-plugin-tauri --latest
 npm install vue-cli-plugin-tauri@latest
 ```
