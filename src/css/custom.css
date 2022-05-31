@@ -164,3 +164,11 @@ html[data-theme='light'] .header-github-link::before {
 .anchor-with-padding {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
 }
+
+pre.language-shell > code::before {
+  content: '$ ';
+}
+
+pre.language-powershell > code::before {
+  content: 'PS C:\\> ';
+}
