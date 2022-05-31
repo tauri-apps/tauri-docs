@@ -50,7 +50,7 @@ The Tauri configuration file provides the following options to customize your ap
 - **Exception domain:** an insecure domain that your application can access such as a `localhost` or a remote `http` domain. It is a convenience configuration around `NSAppTransportSecurity > NSExceptionDomains` setting `NSExceptionAllowsInsecureHTTPLoads` and `NSIncludesSubdomains` to true. See [`tauri.bundle.macOS.exceptionDomain`] for more information.
 
 :::info
-These options generate the application bundle [Info.plist file]. You can extend the generated file with your own `Info.plist` file stored on the Tauri folder (`src-tauri` by default). The CLI merges both `.plist` files on production, and the core layer embeds it on the binary on development.
+These options generate the application bundle [Info.plist file]. You can extend the generated file with your own `Info.plist` file stored in the Tauri folder (`src-tauri` by default). The CLI merges both `.plist` files in production, and the core layer embeds it in the binary during development.
 :::
 
 [application bundle]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
