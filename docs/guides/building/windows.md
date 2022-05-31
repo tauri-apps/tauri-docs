@@ -6,14 +6,13 @@ import Command from '@theme/Command'
 
 # Windows Installer
 
-Tauri applications for Windows are distributed as Microsoft Installers (`.msi` files). The Tauri CLI bundles your application binary and additional resources. Please not that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work yet. This guide provides information about available customization options for the installer.
+Tauri applications for Windows are distributed as Microsoft Installers (`.msi` files). The Tauri CLI bundles your application binary and additional resources. Please note that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work yet. This guide provides information about available customization options for the installer.
 
 To build and bundle your Tauri application into a single executable simply run the following command:
 
 <Command name="build" shell="powershell"/>
 
 It will build your Frontend, compile the Rust binary, collect all external binaries and resources and finally produce neat platform-specific bundles and installers.
-
 
 :::info 32-bit Windows
 The Tauri CLI compiles your executable using your machine's architecture by default. Assuming that you're developing on a 64-bit machine, the CLI will produce 64-bit applications. If you need to support 32-bit machines, you can compile your application with a **different** [Rust target][platform support] using the `--target` flag:
@@ -133,7 +132,7 @@ Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` e
 
 The Windows Installer is built using the `en-US` language by default. Internationalization (i18n) can be configured using the [`tauri.bundle.windows.wix.language`] property, defining the languages Tauri should build an installer against. You can find the language names to use in the Language-Culture column on [Microsoft's website][localizing the error and actiontext tables].
 
-### Compiling an Installer for a single Language
+### Compiling an Installer for a Single Language
 
 To create a single installer targeting a specific language, set the `language` value to a string:
 
@@ -151,7 +150,7 @@ To create a single installer targeting a specific language, set the `language` v
 }
 ```
 
-### Compiling an Installer for each Language in a List
+### Compiling an Installer for Each Language in a List
 
 To compile an installer targeting a list of languages, use an array. A specific installer for each language will be created, with the language key as a suffix:
 
@@ -169,7 +168,7 @@ To compile an installer targeting a list of languages, use an array. A specific 
 }
 ```
 
-### Configuring the Installer for each Language
+### Configuring the Installer for Each Language
 
 A configuration object can be defined for each language to configure localization strings:
 

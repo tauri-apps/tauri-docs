@@ -73,18 +73,18 @@ You can choose between a variety of manual options ([GIMP], [Photoshop], [Squoos
 
 Do note that the `imagemin` library most of the plugins use is [officially unmaintained][imagemin is unmaintained].
 
-#### Use modern image formats
+#### Use Modern Image Formats
 
 Formats such as `webp` or `avif` offer size reductions of **up to
 95%** compared to jpeg while maintaining excellent visual accuracy.
 You can use tools such as [Squoosh] to try different formats on your
 images.
 
-#### Size images accordingly
+#### Size Images Accordingly
 
 No one appreciates you shipping the 6K raw image with your app, so make sure to size your image accordingly. Images that appear large on-screen should be sized larger than images that take up less screen space.
 
-#### Don't use Responsive Images
+#### Don't Use Responsive Images
 
 In a Web Environment, you are supposed to use [Responsive Images] to load the correct image size for each user dynamically. Since you are not dynamically distributting images over the web, using Responsive Images only bloat your app withredundant copies being distributed.
 
