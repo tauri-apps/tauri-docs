@@ -8,6 +8,6 @@ The Tauri Bundler is a Rust harness to compile your binary, package assets, and 
 
 It will detect your operating system and build a bundle accordingly. It currently supports:
 
-- Linux: .deb, .appimage
-- macOS: .app, .dmg
-- Windows: .exe, .msi
+- [Windows](./windows.md): .exe, .msi
+- [macOS](./macos.md): .app, .dmg
+- [Linux](./windows.md): .deb, .appimage
