@@ -45,7 +45,7 @@ env:
 
 This GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow, if this happens to fix it you may add write permissions to this token. To do this head over to your Project Settings, and then select Actions, scroll down until "Workflow permissions" and check "Read and write permissions".
 
-### How to trigger
+### How to Trigger
 
 The release workflow by default is triggered by pushes on the "release" branch. The action automatically creates a tag and title for the GitHub release using the application version specified in `tauri.config.json`.
 
