@@ -42,17 +42,6 @@ You may modify the workflow name, change the triggers, and add more steps such a
 - uses: tauri-apps/tauri-action@v0
 ```
 
-### GitHub Environment Token
-
-The GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow. If this happens, you may need to add write permissions to this token. To do this go to your GitHub Project Settings, and then select Actions, scroll down to "Workflow permissions" and check "Read and write permissions".
-
-You can see the GitHub Token being passed to the workflow below:
-
-```yaml
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
 ### How to Trigger
 
 The release workflow by default is triggered by pushes on the "release" branch. The action automatically creates a tag and title for the GitHub release using the application version specified in `tauri.config.json`.
