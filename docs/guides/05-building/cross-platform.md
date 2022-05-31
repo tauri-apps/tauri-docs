@@ -32,6 +32,7 @@ You may modify the workflow name, change the triggers, and add more steps such a
 
 ```yaml
 - uses: tauri-apps/tauri-action@v0
+```
 
 ### GitHub Environment Token
 
