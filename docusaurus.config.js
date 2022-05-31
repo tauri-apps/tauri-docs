@@ -50,14 +50,14 @@ const navbarItems = [
     ],
   },
   {
-    type: 'doc',
-    docId: 'guides/getting-started/prerequisites',
+    type: 'docSidebar',
+    sidebarId: 'guides',
     label: 'Guides',
     position: 'left',
   },
   {
-    type: 'doc',
-    docId: 'api/config',
+    type: 'docSidebar',
+    sidebarId: 'api',
     label: 'API',
     position: 'left',
   },
@@ -201,7 +201,7 @@ const siteConfig = {
     prism: {
       theme: require('prism-react-renderer/themes/github'),
       darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-      additionalLanguages: ['rust'],
+      additionalLanguages: ['rust', 'powershell', 'bash'],
     },
     colorMode: {
       defaultMode: 'dark',
@@ -239,7 +239,7 @@ const siteConfig = {
         docs: {
           routeBasePath: '/',
           path: './docs/',
-          exclude: ['api/rust/**', 'api/js/js-api.json'],
+          exclude: ['api/rust/**', 'api/js/js-api.json', '**/_*.{md,mdx}'],
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
