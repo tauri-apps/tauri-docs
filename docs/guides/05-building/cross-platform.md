@@ -122,6 +122,17 @@ jobs:
 ```
 
 
+### GitHub Environment Token
+
+The GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow. If this happens, you may need to add write permissions to this token. To do this go to your GitHub Project Settings, and then select Actions, scroll down to "Workflow permissions" and check "Read and write permissions".
+
+You can see the GitHub Token being passed to the workflow below:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
 ### Usage Notes
 
 Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template][5]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
