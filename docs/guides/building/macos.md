@@ -8,6 +8,10 @@ import TauriBuild from './\_tauri-build.md'
 
 Tauri applications for macOS are distributed either with an [Application Bundle] (`.app` file) or an Apple Disk Image (`.dmg` file). The Tauri CLI automatically bundles your application code in these formats, providing options to codesign and notarize your application. Please note that `.app` and `.dmg` bundles can **only be created on macOS** as cross-compilation doesn't work yet.
 
+:::note
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+:::
+
 <TauriBuild />
 
 ## Setting a Minimum System Version

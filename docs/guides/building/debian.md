@@ -8,6 +8,10 @@ import TauriBuild from './\_tauri-build.md'
 
 Tauri allows your app to be packaged as a `.deb` (Debian package) file. The Tauri CLI bundles your application binary and additional resources in this format if you build on Linux. Please note that `.deb` packages can **only be created on Linux** as cross-compilation doesn't work yet.
 
+:::note
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+:::
+
 <TauriBuild />
 
 ## Custom Files
