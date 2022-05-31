@@ -185,7 +185,7 @@ The following suggestions are all unstable features and require a nightly toolch
 
 The following methods involve using unstable compiler features and require the rust nightly toolchain. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following:
 
-```sh
+```shell
 rustup toolchain install nightly
 rustup component add rust-src --toolchain nightly
 ```
@@ -246,7 +246,7 @@ You should know that this technique might flag your binary as a virus on Windows
 
 <!-- Add additional platforms -->
 
-```sh
+```
 brew install upx
 yarn tauri build
 upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app

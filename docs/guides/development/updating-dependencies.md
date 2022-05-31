@@ -12,7 +12,7 @@ Especially during the alpha and beta phases, we expect you to keep all Tauri dep
 
 If you are using the `tauri` package:
 
-```sh
+```shell
 yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 ```
@@ -47,7 +47,7 @@ where `%version%` is the corresponding version number from above. <!-- TODO: (Yo
 
 Then do the following:
 
-```sh
+```shell
 cd src-tauri
 cargo update
 ```
