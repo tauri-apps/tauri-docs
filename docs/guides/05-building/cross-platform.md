@@ -36,14 +36,14 @@ You may modify the workflow name, change the triggers, and add more steps such a
 
 ### GitHub Environment Token
 
-- This line next to the end of the workflow:
+The GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow. If this happens, you may need to add write permissions to this token. To do this go to your GitHub Project Settings, and then select Actions, scroll down to "Workflow permissions" and check "Read and write permissions".
+
+You can see the GitHub Token being passed to the workflow below:
 
 ```yaml
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-
-This GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow, if this happens to fix it you may add write permissions to this token. To do this head over to your Project Settings, and then select Actions, scroll down until "Workflow permissions" and check "Read and write permissions".
 
 ### How to Trigger
 
