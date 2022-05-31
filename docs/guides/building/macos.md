@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-import TauriBuild from './_tauri-build.md'
+import TauriBuild from './\_tauri-build.md'
 
 # macOS Bundle
 
