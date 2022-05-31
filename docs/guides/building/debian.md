@@ -10,10 +10,6 @@ Tauri allows your app to be packaged as a `.deb` (Debian package) file. The Taur
 
 <TauriBuild />
 
-## Bootstrapper
-
-Instead of launching the app directly, you can configure the bundled app to run a script that tries to expose the environment variables to the app; without that, you'll have trouble using system programs because the `PATH` environment variable isn't correct. Enable it with the [`useBootstrapper`] config.
-
 ## Custom Files
 
 To include custom files to the debian package, you can configure a mapping on `tauri.conf.json > tauri > bundle > deb > files` as follows:
