@@ -10,7 +10,6 @@ For an easy setup, we currently provide [Tauri Action][1], a GitHub Action that 
 
 ## Tauri GitHub Action
 
-
 Tauri Action leverages GitHub Actions to simultaneously build your application as a Tauri native binary for macOS, Linux, and Windows, and automates creating a GitHub release.
 
 This GitHub Action may also be used as a testing pipeline for your Tauri app, guaranteeing compilation runs fine on all platforms for each pull request sent, even if you don't wish to create a new release.
