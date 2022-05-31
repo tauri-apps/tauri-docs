@@ -144,4 +144,4 @@ To setup code signing for both Windows and macOS on your workflow, follow the sp
 [5]: https://github.com/probablykasper/tauri-svelte-template
 [6]: #example-workflow
 [7]: ../distribution/sign-windows#bonus-sign-your-application-with-github-actions
-[8]: /v1/guides/distribution/sign-macos#example
+[8]: ../distribution/sign-macos#example
