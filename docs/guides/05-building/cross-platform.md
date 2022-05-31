@@ -23,7 +23,7 @@ Go to the Actions tab on your GitHub project and choose "New workflow", then cho
 
 ### Configuration
 
-You can configure Tauri with the `configPath`, `distPath` and `iconPath` options.
+You can configure Tauri with the `configPath`, `distPath` and `iconPath` options. See the actions Readme for details.
 
 Custom Tauri CLI scripts can be run with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, `${tauriScript}` will be executed. This can be useful when you need custom build functionality such as when creating Tauri apps e.g. a `desktop:build` script.
 
