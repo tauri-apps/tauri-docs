@@ -143,5 +143,5 @@ To setup code signing for both Windows and macOS on your workflow, follow the sp
 [4]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
 [5]: https://github.com/probablykasper/tauri-svelte-template
 [6]: #example-workflow
-[7]: /v1/guides/distribution/sign-windows#bonus-sign-your-application-with-github-actions
+[7]: ../distribution/sign-windows#bonus-sign-your-application-with-github-actions
 [8]: /v1/guides/distribution/sign-macos#example
