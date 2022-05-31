@@ -38,7 +38,6 @@ Using a global installation of WebView2 is great for security as Windows keeps i
 
 1. Download the Webview2 fixed version runtime from the [official website][download the webview2 runtime], a `.cab` file for the selected architecture. In this example, the downloaded filename is `Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab`
 2. Extract the file to the core folder:
-   <!-- Is this powershell? -->
 
    ```powershell
    expand .\Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab -F:* ./src-tauri
