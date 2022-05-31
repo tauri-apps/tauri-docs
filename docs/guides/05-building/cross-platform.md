@@ -129,7 +129,7 @@ jobs:
 To setup code signing for both Windows and macOS on your workflow, follow the specific guides for each platform:
 
 - [Windows Code Signing with GitHub Actions][7]
-- [macOS Code Signing with GitHub Actions][9]
+- [macOS Code Signing with GitHub Actions][8]
 
 ### Usage Notes
 
