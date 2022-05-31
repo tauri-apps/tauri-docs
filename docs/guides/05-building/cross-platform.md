@@ -23,12 +23,12 @@ Go to the Actions tab on your GitHub project and choose "New workflow", then cho
 
 ### Configuration
 
-- You can configure Tauri with the `configPath`, `distPath` and `iconPath` options.
-- You can run custom Tauri CLI scripts with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, we'll execute `${tauriScript}`.
-  - Useful when you need custom build functionality when creating Tauri apps e.g. a `desktop:build` script.
-- When your app isn't on the root of the repo, use the `projectPath` input.
+You can configure Tauri with the `configPath`, `distPath` and `iconPath` options.
 
-- You may modify the workflow name, change the triggers, and add more steps such as npm run lint or npm run test. The important part is that you keep the below line at the end of the workflow, since this runs the build script and releases the artifacts:
+Custom Tauri CLI scripts can be run with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, `${tauriScript}` will be executed. This can be useful when you need custom build functionality such as when creating Tauri apps e.g. a `desktop:build` script.
+
+When your app isn't on the root of the repo, use the `projectPath` input.
+You may modify the workflow name, change the triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow, since this runs the build script and releases the artifacts:
 
 ```yaml
 - uses: tauri-apps/tauri-action@v0
