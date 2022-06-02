@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # Cross-Platform Compilation
@@ -120,7 +120,6 @@ jobs:
           releaseDraft: true
           prerelease: false
 ```
-
 
 ### GitHub Environment Token
 
