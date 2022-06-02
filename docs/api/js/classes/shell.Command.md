@@ -49,7 +49,7 @@ Creates a new `Command` instance.
 
 #### Defined in
 
-[shell.ts:266](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L266)
+[shell.ts:266](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L266)
 
 ## Properties
 
@@ -61,7 +61,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L256)
 
 ___
 
@@ -73,7 +73,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:254](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L254)
+[shell.ts:254](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L254)
 
 ## Methods
 
@@ -100,13 +100,13 @@ A promise resolving to the child process output.
 
 #### Defined in
 
-[shell.ts:343](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L343)
+[shell.ts:343](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L343)
 
 ___
 
 ### on
 
-▸ **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
+▸ **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
 
 Listen to an event from the child process.
 
@@ -114,12 +114,12 @@ Listen to an event from the child process.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | ``"close"`` \| ``"error"`` | The event name. |
+| `event` | ``"error"`` \| ``"close"`` | The event name. |
 | `handler` | (`arg`: `any`) => `void` | The event handler. |
 
 #### Returns
 
-[`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
+[`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
 
 The `this` instance for chained calls.
 
@@ -129,7 +129,7 @@ The `this` instance for chained calls.
 
 #### Defined in
 
-[shell.ts:173](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L173)
+[shell.ts:173](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L173)
 
 ___
 
@@ -147,7 +147,7 @@ A promise resolving to the child process handle.
 
 #### Defined in
 
-[shell.ts:306](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L306)
+[shell.ts:306](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L306)
 
 ___
 
@@ -177,4 +177,4 @@ const output = await command.execute()
 
 #### Defined in
 
-[shell.ts:291](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/shell.ts#L291)
+[shell.ts:291](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L291)

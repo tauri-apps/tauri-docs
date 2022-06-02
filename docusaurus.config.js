@@ -19,20 +19,45 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    type: 'doc',
-    docId: 'about/intro',
+    to: 'about/intro',
     label: 'About',
     position: 'left',
+    items: [
+      {
+        label: 'What is Tauri?',
+        to: 'about/intro',
+      },
+      {
+        label: 'Architecture',
+        to: 'about/architecture',
+      },
+      {
+        label: 'Security',
+        to: 'about/security',
+      },
+      {
+        label: 'Governance',
+        to: 'about/governance',
+      },
+      {
+        label: 'Get the Book',
+        to: 'about/book',
+      },
+      {
+        label: 'Benchmarks',
+        to: 'about/benchmarks',
+      },
+    ],
   },
   {
-    type: 'doc',
-    docId: 'guides/getting-started/prerequisites',
+    type: 'docSidebar',
+    sidebarId: 'guides',
     label: 'Guides',
     position: 'left',
   },
   {
-    type: 'doc',
-    docId: 'api/config',
+    type: 'docSidebar',
+    sidebarId: 'api',
     label: 'API',
     position: 'left',
   },
@@ -166,7 +191,7 @@ const siteConfig = {
   organizationName: 'Tauri Studio',
   projectName: 'tauri',
   baseUrl: `/`,
-  favicon: 'img/favicon-32x32.png',
+  favicon: 'meta/favicon-32x32.png',
   url: 'https://tauri.studio',
   i18n: {
     defaultLocale: 'en',
@@ -174,9 +199,9 @@ const siteConfig = {
   },
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsLight'),
-      darkTheme: require('prism-react-renderer/themes/vsDark'),
-      additionalLanguages: ['rust'],
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/oceanicNext'),
+      additionalLanguages: ['rust', 'powershell', 'bash'],
     },
     colorMode: {
       defaultMode: 'dark',
@@ -194,8 +219,8 @@ const siteConfig = {
       hideOnScroll: false,
       logo: {
         alt: 'Tauri Logo',
-        src: 'img/tauri_with_wordmark_dark.svg',
-        srcDark: 'img/tauri_with_wordmark.svg',
+        src: 'meta/tauri_logo_pride_light.svg',
+        srcDark: 'meta/tauri_logo_pride_dark.svg',
       },
       items: navbarItems,
     },
@@ -214,7 +239,7 @@ const siteConfig = {
         docs: {
           routeBasePath: '/',
           path: './docs/',
-          exclude: ['api/rust/**', 'api/js/js-api.json'],
+          exclude: ['api/rust/**', 'api/js/js-api.json', '**/_*.{md,mdx}'],
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
@@ -245,6 +270,59 @@ const siteConfig = {
   plugins: [
     path.resolve(__dirname, './plugins/dynamic-css.js'),
     path.resolve('./plugins/external-assets'),
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: process.env.NODE_ENV === 'development',
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'saveData',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/meta/favicon-96x96.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: '/meta/favicon-apple-touch-icon.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileImage',
+            content: '/meta/favicon-144x144.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/meta/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: '#0F0F0F',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-status-bar-style',
+            content: '#0F0F0F',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileColor',
+            content: '#0F0F0F',
+          },
+        ],
+      },
+    ],
   ],
 }
 

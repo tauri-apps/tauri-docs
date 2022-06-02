@@ -145,6 +145,9 @@ jobs:
         with:
           command: build
           args: --manifest-path ./tauri/tooling/cli/Cargo.toml
+      - name: Install dependencies
+        working-directory: ./tauri-docs
+        run: yarn
       - name: Generate cli and config docs
         run: |
           node tauri-docs/.scripts/generate-cli-doc.js
