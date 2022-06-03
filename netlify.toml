@@ -2,7 +2,7 @@
 command = "yarn build"
 publish = "build"
 
-[context."feat/i18n"]
+[context.production]
 command = "yarn crowdin:sync && yarn build"
 publish = "build"
 
