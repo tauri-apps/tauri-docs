@@ -1,16 +1,20 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
-# Debian packages
+import TauriBuild from './\_tauri-build.md'
 
-Tauri allows your app to be packaged as a `.deb` (Debian package) file.
+# Debian Package
 
-## Bootstrapper
+Tauri allows your app to be packaged as a `.deb` (Debian package) file. The Tauri CLI bundles your application binary and additional resources in this format if you build on Linux. Please note that `.deb` packages can **only be created on Linux** as cross-compilation doesn't work yet.
 
-Instead of launching the app directly, you can configure the bundled app to run a script that tries to expose the environment variables to the app; without that, you'll have trouble using system programs because the `PATH` environment variable isn't correct. Enable it with the [`useBootstrapper`] config.
+:::note
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+:::
 
-## Custom files
+<TauriBuild />
+
+## Custom Files
 
 To include custom files to the debian package, you can configure a mapping on `tauri.conf.json > tauri > bundle > deb > files` as follows:
 

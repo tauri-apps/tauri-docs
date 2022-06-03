@@ -27,10 +27,6 @@ from = "/docs/*"
 to = "/v1/:splat"
 
 [[redirects]]
-from = "/about/*"
-to = "/v1/about/:splat"
-
-[[redirects]]
 from = "/api/*"
 to = "/v1/api/:splat"
 
@@ -45,3 +41,7 @@ to = "/v1/guides/getting-started/prerequisites/"
 [[redirects]]
 from = "/v1/guides/examples/*"
 to = "/v1/guides/features/:splat"
+
+[[redirects]]
+from = "/v1/about/*"
+to = "/about/:splat"

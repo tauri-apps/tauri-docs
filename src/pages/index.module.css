@@ -1,9 +1,26 @@
-/* stylelint-disable docusaurus/copyright-header */
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+}
+
+.h1 {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.spacer {
+  padding-top: 4rem;
+}
+
+/* Hero */
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
@@ -25,20 +42,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-.featureImage {
-  height: 180px;
-  width: 220px;
-  object-fit: contain;
-  padding: 10px;
 }
 
 .about,
@@ -90,30 +93,133 @@
   font-size: 1.6em;
 }
 
-/* Sponsors */
-.heading {
-  text-align: center;
-  padding-bottom: 1rem;
+/* Cards */
+.cardContainer {
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 2rem;
 }
 
-.container {
+.card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.cardSide {
+  flex: 1 0 50%;
   display: flex;
   flex-direction: column;
-  row-gap: 5rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.row {
+.cardLeading {
+  align-items: flex-start;
+}
+
+.cardImage {
+  position: relative;
+}
+
+.cardImage img {
+  position: absolute;
+  height: 100%;
+  padding: 1rem;
+}
+
+.cardSpacer {
+  flex: 1;
+}
+
+@media (max-width: 700px) {
+  .cardContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: unset;
+  }
+
+  .card {
+    flex: 1 0 100%;
+    flex-direction: column;
+  }
+
+  .cardSide {
+    flex: 0 1 auto;
+    height: auto;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .cardImage {
+    position: unset;
+    align-items: center;
+    order: -1;
+  }
+
+  .cardImage img {
+    position: unset;
+    max-height: 20vh;
+  }
+}
+
+/* Features and Roadmap */
+.featureRoadmapEntry {
+  flex: 0 1 max(calc(30%), 200px);
+  display: flex;
+  column-gap: 1rem;
+}
+
+.featureRoadmapIconContainer {
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background: var(--ifm-card-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.logoRow {
-  align-items: center;
-  justify-content: center;
+.featureRoadmapIcon {
+  font-size: 2rem;
 }
 
-.logo {
-  width: 100%;
-  padding: 0 5%;
+.featureIcon {
+  color: var(--ifm-color-primary);
+}
+
+.roadmapIcon {
+  color: var(--tauri-orange);
+}
+
+@media (max-width: 700px) {
+  .featureRoadmapEntry {
+    flex: 0 1 100%;
+    align-items: center;
+  }
+
+  .featureRoadmapEntry h3 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .featureRoadmapEntry p {
+    margin: 0;
+  }
+}
+
+/* Sponsors */
+.sponsor {
+  flex: 0 1 25%;
+}
+
+@media (max-width: 700px) {
+  .sponsor {
+    flex: 0 1 100%;
+    text-align: center;
+  }
 }

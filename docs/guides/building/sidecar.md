@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 7
 ---
 
 # Embedding External Binaries
@@ -41,7 +41,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 
 A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["bin/python"]` requires a `src-tauri/bin/python-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple running the following command:
 
-```bash
+```shell
 rustc -Vv | grep host | cut -f2 -d' '
 ```
 
@@ -73,7 +73,7 @@ main().catch((e) => {
 })
 ```
 
-## Running the sidecar binary on JavaScript
+## Running on JavaScript
 
 On the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method.
 
@@ -87,7 +87,7 @@ const command = Command.sidecar('my-sidecar')
 const output = await command.execute()
 ```
 
-## Running the sidecar binary on Rust
+## Running on Rust
 
 On the Rust code, import the `Command` struct from the `tauri::api::process` module:
 
@@ -119,7 +119,7 @@ Note that you must enable the **process-command-api** Cargo feature:
 tauri = { version = "1.0.0-rc.6", features = ["process-command-api", ...] }
 ```
 
-## Using Node.js on a sidecar
+## Using Node.js on a Sidecar
 
 The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Node.js application on Tauri.
 It compiles the Node.js code using [pkg] and uses the scripts above to run it.

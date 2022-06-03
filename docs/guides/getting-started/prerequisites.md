@@ -8,14 +8,6 @@ import TabItem from '@theme/TabItem';
 
 # Prerequisites
 
-:::tip Quick Overview
-Check out [Tauri in 100 Seconds](https://www.youtube.com/watch?v=-X8evddpu7M) by [Fireship](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) on YouTube for a quick introduction to Tauri
-
-<div className="videowrapper">
-  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-X8evddpu7M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-:::
-
 ## Installing
 
 The first step is to install [Rust] and system dependencies. Keep in mind that this setup is only needed for _developing Tauri apps_. Your end-users are not required to do any of this.
@@ -54,7 +46,7 @@ Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install
 
 You will need to install CLang and macOS development dependencies. To do this, run the following command in your terminal:
 
-```console
+```shell
 xcode-select --install
 ```
 
@@ -62,7 +54,7 @@ xcode-select --install
 
 To install Rust on macOS, open a terminal and enter the following command:
 
-```console
+```shell
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
@@ -86,7 +78,7 @@ You will need to install a couple of system dependencies, such as a C compiler a
 <Tabs>
   <TabItem value="debian" label="Debian" default>
 
-```console
+```sh
 sudo apt update
 sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
@@ -94,14 +86,14 @@ sudo apt install libwebkit2gtk-4.0-dev \
     wget \
     libssl-dev \
     libgtk-3-dev \
-    libappindicator3-dev \
+    libayatana-appindicator3-dev \
     librsvg2-dev
 ```
 
   </TabItem>
   <TabItem value="arch" label="Arch">
 
-```console
+```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
     webkit2gtk \
@@ -119,7 +111,7 @@ sudo pacman -S --needed \
   </TabItem>
   <TabItem value="fedora" label="Fedora">
 
-```console
+```sh
 sudo dnf check-update
 sudo dnf install webkit2gtk3-devel.x86_64 \
     openssl-devel \
@@ -137,7 +129,7 @@ sudo dnf group install "C Development Tools and Libraries"
 
 To install Rust on Linux, open a terminal and enter the following command:
 
-```console
+```shell
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
@@ -155,19 +147,19 @@ Rust is installed now. Great!
 
 Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo upgrade` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
 
-```console
+```shell
 cargo upgrade
 ```
 
 Updating Rust itself is easy via `rustup`. Open a terminal and run the following command:
 
-```console
+```shell
 rustup update
 ```
 
 `rustup` can also be used to uninstall Rust from your machine fully:
 
-```console
+```shell
 rustup self uninstall
 ```
 
@@ -175,7 +167,7 @@ rustup self uninstall
 
 To check whether you have Rust installed correctly, open a shell and enter this command:
 
-```console
+```shell
 rustc --version
 ```
 
@@ -192,7 +184,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [build tools for visual studio 2022]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 [`cargo-edit`]: https://github.com/killercup/cargo-edit
 [rust's troubleshooting section]: https://doc.rust-lang.org/book/ch01-01-installation.html#troubleshooting
-[tauri discord]: https://discord.com/invite/tauri-apps
+[tauri discord]: https://discord.com/invite/tauri
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs

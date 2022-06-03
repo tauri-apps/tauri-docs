@@ -1,6 +1,6 @@
 ---
 title: Frequently Asked Questions
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 ## How can I use unpublished Tauri changes?
@@ -23,16 +23,17 @@ This will force all your dependencies to use `tauri` and `tauri-build` from Git 
 
 - If you are using the Cargo CLI, you can install it directly from Git:
 
-```sh
-cargo install --git https://github.com/tauri-apps/tauri tauri-cli
+```shell
+cargo install --git https://github.com/tauri-apps/tauri --branch dev tauri-cli
 ```
 
 And keep using it as normal with `cargo tauri dev` and `cargo tauri build`.
 
 - If you are using the `@tauri-apps/cli` package, you will need to clone the repo and build it:
 
-```sh
+```shell
 git clone https://github.com/tauri-apps/tauri
+git checkout dev
 cd tauri/tooling/cli/node
 yarn
 yarn build
@@ -40,14 +41,14 @@ yarn build
 
 To use it, run directly with node:
 
-```sh
+```shell
 node /path/to/tauri/tooling/cli/node/tauri.js dev
 node /path/to/tauri/tooling/cli/node/tauri.js build
 ```
 
 - Alternatively, you can run your app with Cargo directly:
 
-```sh
+```shell
 cd src-tauri
 
 cargo run --no-default-features # instead of tauri dev
@@ -59,8 +60,9 @@ cargo build # instead of tauri build - won't bundle your app though
 It is recommended to also use the Tauri API package from source when using the Tauri crate from Git (though it might not be needed).
 To build it from source, run the following script:
 
-```sh
+```shell
 git clone https://github.com/tauri-apps/tauri
+git checkout dev
 cd tauri/tooling/api
 yarn
 yarn build
@@ -68,7 +70,7 @@ yarn build
 
 Now you can link it using yarn:
 
-```sh
+```shell
 cd dist
 yarn link
 cd /path/to/your/project

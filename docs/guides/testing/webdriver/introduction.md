@@ -16,7 +16,7 @@ cross-platform wrapper [`tauri-driver`].
 
 Install the latest [`tauri-driver`] or update an existing installation by running:
 
-```bash
+```shell
 cargo install tauri-driver
 ```
 

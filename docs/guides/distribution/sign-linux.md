@@ -13,7 +13,7 @@ This guide provides information on code signing for Linux packages.
 
 A key for signing must be prepared. A new one can be generated using:
 
-```sh
+```shell
 gpg2 --full-gen-key
 ```
 
@@ -30,7 +30,7 @@ You can embed a signature in the AppImage by setting the following environment v
 
 You can display the signature embedded in the AppImage by running the following command:
 
-```sh
+```shell
 ./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
 ```
 

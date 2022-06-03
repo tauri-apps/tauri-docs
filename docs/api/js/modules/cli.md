@@ -28,4 +28,4 @@ A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:42](https://github.com/tauri-apps/tauri/blob/c8667f9/tooling/api/src/cli.ts#L42)
+[cli.ts:42](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/cli.ts#L42)
