@@ -104,7 +104,7 @@ Also, Tauri emits tray icon click events.
 Use the `on_system_tray_event` API to handle them:
 
 ```rust
-use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
 use tauri::Manager;
 
 fn main() {
@@ -159,7 +159,7 @@ The `AppHandle` struct has a `tray_handle` method, which returns a handle to the
 #### Updating context menu items
 
 ```rust
-use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
 use tauri::Manager;
 
 fn main() {
