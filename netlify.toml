@@ -2,6 +2,10 @@
 command = "yarn build"
 publish = "build"
 
+[context.production]
+command = "yarn crowdin:sync && yarn build"
+publish = "build"
+
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
