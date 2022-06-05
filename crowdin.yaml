@@ -9,7 +9,17 @@ files:
   # Docs Markdown files
   - source: /docs/**/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
-    ignore: [/docs/.templates, /docs/api, /docs/guides]
-  # Blog Markdown files
-  - source: /blog/**/*
-    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-blog/**/%original_file_name%
+    ignore:
+      [
+        /docs/.templates,
+        /docs/api,
+        /docs/guides/faq.md,
+        /docs/guides/architecture,
+        /docs/guides/building,
+        /docs/guides/debugging,
+        /docs/guides/development,
+        /docs/guides/distribution,
+        /docs/guides/features,
+        /docs/guides/getting-started,
+        /docs/guides/testing,
+      ]
