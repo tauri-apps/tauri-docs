@@ -187,7 +187,9 @@ This information can be beneficial when triaging problems.
 ## Vue CLI Plugin Tauri
 
 If you are using Vue CLI, it is recommended to use the official [Vue CLI plugin].
+Also you might try this [Vite CLI plugin].
 
 [prerequisites]: ./prerequisites.md
 [`cargo install`]: https://doc.rust-lang.org/cargo/commands/cargo-install.html#description
 [vue cli plugin]: https://github.com/tauri-apps/vue-cli-plugin-tauri
+[Vite CLI plugin]: https://www.npmjs.com/package/vite-plugin-tauri
