@@ -32,6 +32,7 @@ jobs:
       CARGO_INCREMENTAL: 0 # This is set to 0 by the rust cache action, but better safe than sorry.
       CARGO_PROFILE_DEV_DEBUG: 0 # This would add unnecessary bloat to the target folder, decreasing cache efficiency.
       RUST_BACKTRACE: short
+
     steps:
       # Setup
       - name: Checkout tauri
@@ -40,6 +41,7 @@ jobs:
           repository: tauri-apps/tauri
           ref: ${{ github.event.inputs.tauriBranch }}
           path: tauri
+
       - name: Checkout tauri-docs
         uses: actions/checkout@v2
         with:
@@ -137,21 +139,32 @@ jobs:
           profile: minimal
           toolchain: stable
           components: rust-docs
+
       - uses: Swatinem/rust-cache@v1
         with:
           working-directory: tauri/tooling/cli
+
+      # Required to build cli
+      - name: install libgtk-3-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev
+
       - name: Build tauri-cli
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --manifest-path ./tauri/tooling/cli/Cargo.toml
+
       - name: Install dependencies
         working-directory: ./tauri-docs
         run: yarn
+
       - name: Generate cli and config docs
         run: |
           node tauri-docs/.scripts/generate-cli-doc.js
           node tauri-docs/.scripts/generate-config-doc.js
+
       #- name: Generate tauri AST
       #  uses: actions-rs/cargo@v1
       #  with:
@@ -167,6 +180,7 @@ jobs:
         run: |
           git config --global user.name "${{ github.event.inputs.gitName }}"
           git config --global user.email "${{ github.event.inputs.gitEmail }}"
+
       - name: Create pull request for updated docs
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3.4.1
