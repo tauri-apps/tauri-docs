@@ -505,7 +505,7 @@ export default function App() {
 
             <div className={styles.spacer} />
 
-            <h1 className={styles.h1} id="roadmap">
+            <h1 className={styles.h1, "anchor-with-padding"} id="roadmap">
               Roadmap
             </h1>
             <div className={styles.row}>
