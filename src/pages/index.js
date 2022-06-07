@@ -504,7 +504,10 @@ export default function App() {
             </div>
 
             <div className={styles.spacer} />
-            <h1 className={styles.h1}>Roadmap</h1>
+
+            <h1 className={styles.h1} id="roadmap">
+              Roadmap
+            </h1>
             <div className={styles.row}>
               <Roadmap />
             </div>
