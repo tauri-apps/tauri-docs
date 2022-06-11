@@ -20,7 +20,7 @@ function Cards() {
         message:
           "Compatibility with any front-end framework means you don't have to change your stack.",
       }),
-      link: '/guides/getting-started/beginning-tutorial',
+      link: '/guides/getting-started/quick-start',
       isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/brownfield.svg',
@@ -505,7 +505,7 @@ export default function App() {
 
             <div className={styles.spacer} />
 
-            <h1 className={styles.h1, "anchor-with-padding"} id="roadmap">
+            <h1 className={(styles.h1, 'anchor-with-padding')} id="roadmap">
               Roadmap
             </h1>
             <div className={styles.row}>
