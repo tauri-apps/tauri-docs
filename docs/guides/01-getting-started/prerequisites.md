@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-pagination_next: guides/getting-started/beginning-tutorial
+pagination_next: guides/getting-started/quick-start/README
 ---
 
 import Tabs from '@theme/Tabs';
