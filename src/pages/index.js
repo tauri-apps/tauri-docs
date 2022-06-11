@@ -475,10 +475,7 @@ export default function App() {
                       'button button--outline button--secondary button--lg',
                       styles.getStarted
                     )}
-                    to={
-                      latestVersion.path +
-                      '/guides/getting-started/prerequisites'
-                    }
+                    to={latestVersion.path + '/guides/'}
                   >
                     <span>
                       <Translate>Get Started</Translate>
@@ -507,7 +504,10 @@ export default function App() {
             </div>
 
             <div className={styles.spacer} />
-            <h1 className={styles.h1}>Roadmap</h1>
+
+            <h1 className={styles.h1, "anchor-with-padding"} id="roadmap">
+              Roadmap
+            </h1>
             <div className={styles.row}>
               <Roadmap />
             </div>

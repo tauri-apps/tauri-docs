@@ -50,14 +50,14 @@ const navbarItems = [
     ],
   },
   {
-    type: 'doc',
-    docId: 'guides/getting-started/prerequisites',
+    type: 'docSidebar',
+    sidebarId: 'guides',
     label: 'Guides',
     position: 'left',
   },
   {
-    type: 'doc',
-    docId: 'api/config',
+    type: 'docSidebar',
+    sidebarId: 'api',
     label: 'API',
     position: 'left',
   },
@@ -106,7 +106,7 @@ const navbarItems = [
     position: 'right',
     dropdownItemsAfter: [
       {
-        to: 'https://github.com/tauri-apps/tauri-docs#contributing',
+        to: 'https://tauri.crowdin.com/documentation',
         label: 'Help us translate',
       },
     ],
@@ -201,7 +201,7 @@ const siteConfig = {
     prism: {
       theme: require('prism-react-renderer/themes/github'),
       darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-      additionalLanguages: ['rust'],
+      additionalLanguages: ['rust', 'powershell', 'bash'],
     },
     colorMode: {
       defaultMode: 'dark',

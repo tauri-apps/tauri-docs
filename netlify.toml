@@ -1,5 +1,9 @@
 [build]
-command = "yarn build"
+command = "yarn crowdin:sync:dryrun && yarn build"
+publish = "build"
+
+[context.production]
+command = "yarn crowdin:sync && yarn build"
 publish = "build"
 
 [[redirects]]
