@@ -5,15 +5,15 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Install the Tauri CLI
+# Tauri CLI
 
-The Tauri CLI is the heart of the developent process, it runs Cargo to compile the Rust Core, starts your Frontend development server, bundles all your assets, sidecars and resources when building for production and even takes care of code-signing!
+The Tauri CLI is the heart of the developent process. It runs Cargo to compile the Rust core, starts your frontend development server, bundles all your assets, sidecars and resources when building for production, and even takes care of code-signing!
 
-The CLI is available from a number of sources, depending on your preference:
+The CLI is available from a number of sources, depending on your preference.
 
 ## Cargo
 
-As the CLI is written in Rust, it is naturally available through _crates.io_ and installable with Cargo using the following command:
+As the CLI is written in Rust, it is naturally available through [crates.io](https://crates.io/crates/tauri-cli) and installable with Cargo using the following command:
 
 ```shell
 cargo install tauri-cli --version "1.0.0-rc.13"
@@ -31,14 +31,15 @@ Even though installing the CLI through Cargo is the preferred option, it has to 
 
 ## NPM
 
-We also compile the CLI as a native Node.js addon and distribute it via NPM. This has a number of advantages compared to the *Cargo* installation method:
-1. The CLI is pre-compiled, leading to much faster install times.
-2. You can pin a specific version in your `package.json` file.
-3. If you develop custom tooling around Tauri, you can import the CLI as a regular JavaScript module.
+We also compile the CLI as a native Node.js addon and distribute it [via NPM](https://www.npmjs.com/package/@tauri-apps/cli). This has a number of advantages compared to the Cargo installation method:
+
+1. The CLI is pre-compiled, leading to much faster install times
+2. You can pin a specific version in your `package.json` file
+3. If you develop custom tooling around Tauri, you can import the CLI as a regular JavaScript module
 
 You can install the CLI using a JavaScript manager:
 
-<Tabs>
+<Tabs groupId="package-manager">
 <TabItem value="npm" label="npm" default>
 
 ```shell
@@ -64,7 +65,7 @@ pnpm add -D @tauri-apps/cli
 
 After the installation has finished you can invoke the CLI using your package manager:
 
-<Tabs>
+<Tabs groupId="package-manager">
 <TabItem value="npm" label="npm" default>
 
 When using npm, you first need to add `tauri` as a script to your `package.json`:

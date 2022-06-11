@@ -1,5 +1,5 @@
 import CTANote from './\_cta-note.md'
-import RustPart from './\_rust-part.md';
+import TauriInit from './\_tauri-init.md';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -44,7 +44,7 @@ It will ask you a bunch of questions:
 If you're familiar with Rust, you will notice that `tauri init` looks and works a lot like `cargo init`. You can in fact just use `cargo init` and add the necessary tauri dependencies if you prefer a fully manual setup.
 :::
 
-<RustPart />
+<TauriInit />
 
 ## Create the Frontend
 
@@ -79,7 +79,7 @@ You can choose from various templates; we will select the `vanilla-ts` one for t
 Before we move on, let's quickly customize our `vite.config.ts` file, so you get the best compatibility with Tauri!
 
 ```typescript
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   // prevent vite from obscuring rust errors
@@ -161,7 +161,7 @@ If you want to know more, please read the [Development: Inter-Process Communicat
 
 ## Recap
 
-[Vite]: https://vitejs.dev
+[vite]: https://vitejs.dev
 [prerequisites]: ../prerequisites.md
 [tauri cli]: ../tauri-cli.md
 [cargo]: https://doc.rust-lang.org/cargo/

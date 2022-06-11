@@ -1,10 +1,10 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-:::note `create-tauri-app`
-The easiest way to scaffold a new project is the `create-tauri-app` utility. It will ask you a bunch of questions and create template based on those questions. It has support for vanilla HTML/CSS/JS but also many frontend frameworks, like React, Vue or Svelte.
+:::tip `create-tauri-app`
+The easiest way to scaffold a new project is the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility. It will ask you a series of questions and quickly boostrap a Tauri project for you to begin developing with. It has support for vanilla HTML/CSS/JavaScript but also many frontend frameworks like React, Vue, or Svelte.
 
-<Tabs>
+<Tabs groupId="package-manager">
 <TabItem value="npx" label="npx" default>
 
 ```shell
@@ -27,6 +27,4 @@ pnpm create tauri-app
 
 </TabItem>
 </Tabs>
-
-Follow the instructions and choose the web front-end framework you prefer.
 :::
