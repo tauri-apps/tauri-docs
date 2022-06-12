@@ -23,7 +23,15 @@ fn main() {
 }
 ```
 
-Now we're ready to call your Command from the JavaScript frontend! We would normally be recommending the `@tauri-apps/api` package here, but since we're not using a bundler for this guide, please enable [`withGlobalTauri`][withglobaltauri] in your `tauri.conf.json` file.
+Now we're ready to call your Command from the JavaScript frontend!
+
+<span>{props.showGlobal &&
+
+<span>
+We would normally be recommending the <code>@tauri-apps/api</code> package here, but since we're not using a bundler for this guide, please enable <a href="../../../api/config#buildconfig.withglobaltauri"><code>withGlobalTauri</code></a> in your <code>tauri.conf.json</code> file:
+
+<br />
+<br />
 
 ```json
 {
@@ -37,8 +45,14 @@ Now we're ready to call your Command from the JavaScript frontend! We would norm
   },
 ```
 
-This will inject a pre-bundled version of the API functions into your Frontend.
+This will inject a pre-bundled version of the API functions into your frontend.
+
+  </span>
+}
+</span>
 
 :::tip
 If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
 :::
+
+[inter-process-communication]: ../../architecture/inter-process-communication

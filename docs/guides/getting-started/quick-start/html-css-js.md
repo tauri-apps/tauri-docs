@@ -49,7 +49,7 @@ tauri dev
 
 ## Invoke Commands
 
-<Commands />
+<Commands showGlobal="true" />
 
 You can now modify your `index.html` file to call your Command:
 
