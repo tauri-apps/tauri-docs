@@ -29,7 +29,9 @@ The line beginning with [`cfg! macro`][cfg macro] serves just purpose: it disabl
 
 The `main` function is the entrypoint and first function that gets invoked when your program runs.
 
-`icons`: Chances are you want a snazzy icon for your app! To get you going quickly, we included a set of default icons. You should switch these out before publishing your application. Learn more about the various icon formats in Tauri's [icons feature guide][icons].
+**`icons`**
+
+Chances are you want a snazzy icon for your app! To get you going quickly, we included a set of default icons. You should switch these out before publishing your application. Learn more about the various icon formats in Tauri's [icons feature guide][icons].
 
 [manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html
