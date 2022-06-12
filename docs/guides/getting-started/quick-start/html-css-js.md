@@ -1,7 +1,7 @@
 import TauriInit from './\_tauri-init.mdx';
 import Commands from './\_commands.mdx';
 
-# HTML/CSS/JS
+# HTML/CSS/JavaScript
 
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
