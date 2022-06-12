@@ -1,3 +1,7 @@
+---
+description: Build a Tauri app from scratch using just HTML, CSS, and JavaScript
+---
+
 import TauriInit from './\_tauri-init.mdx';
 import Commands from './\_commands.mdx';
 

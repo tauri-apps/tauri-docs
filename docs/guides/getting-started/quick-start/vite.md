@@ -1,3 +1,7 @@
+---
+description: Build a Tauri app using Vite as the frontend build tool
+---
+
 import TauriInit from './\_tauri-init.mdx';
 import Commands from './\_commands.mdx';
 import Tabs from '@theme/Tabs';
