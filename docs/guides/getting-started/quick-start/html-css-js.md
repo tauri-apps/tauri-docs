@@ -53,7 +53,7 @@ If you're familiar with Rust, you will notice that `tauri init` looks and works 
 
 Now we will create a very minimal UI using HTML.
 
-To get started, create the folder relative to the tauri-src folder you specified when prompted by `tauri init` (we assume for this tutorial you answered with `ui`).
+To get started, create the folder relative to the tauri-src folder you specified when prompted by `tauri init` (we assume for this tutorial you answered with `../ui`).
 
 Next, create an `index.html` file inside of that folder with the following contents:
 
