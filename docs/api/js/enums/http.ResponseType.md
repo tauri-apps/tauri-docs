@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:61](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L61)
+[http.ts:61](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/http.ts#L61)
 
 ___
 
@@ -22,7 +22,7 @@ ___
 
 #### Defined in
 
-[http.ts:59](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L59)
+[http.ts:59](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/http.ts#L59)
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 #### Defined in
 
-[http.ts:60](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L60)
+[http.ts:60](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/http.ts#L60)

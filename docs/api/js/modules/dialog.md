@@ -59,7 +59,7 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:229](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/dialog.ts#L229)
+[dialog.ts:229](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/dialog.ts#L229)
 
 ___
 
@@ -91,7 +91,7 @@ A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:259](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/dialog.ts#L259)
+[dialog.ts:259](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/dialog.ts#L259)
 
 ___
 
@@ -123,7 +123,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[dialog.ts:199](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/dialog.ts#L199)
+[dialog.ts:199](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/dialog.ts#L199)
 
 ___
 
@@ -191,7 +191,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:132](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/dialog.ts#L132)
+[dialog.ts:132](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/dialog.ts#L132)
 
 ___
 
@@ -234,4 +234,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:171](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/dialog.ts#L171)
+[dialog.ts:171](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/dialog.ts#L171)
