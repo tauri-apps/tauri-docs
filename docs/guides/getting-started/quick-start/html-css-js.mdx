@@ -1,0 +1,134 @@
+---
+description:
+  Build a Tauri app from scratch using just HTML, CSS, and JavaScript
+---
+
+import TauriInit from './_tauri-init.mdx'
+import Commands from './_commands.mdx'
+import Intro from './_intro.mdx'
+import Command from '@theme/Command'
+
+# HTML/CSS/JavaScript
+
+This guide will walk you through creating your first Tauri app using
+just HTML, CSS, and JavaScript. This is probably the best place to
+start if you are new to web development.
+
+<Intro />
+
+## Create the Frontend
+
+We will create a very minimal UI using an HTML file. To keep things
+tidy though, let's create a separate folder for it:
+
+```shell
+mkdir ui
+```
+
+Next, create an `index.html` file inside of that folder with the
+following contents:
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome from Tauri!</h1>
+  </body>
+</html>
+```
+
+We will leave the UI at this for this Guide, but feel
+free to play around with more content or add styling through CSS.
+
+<TauriInit
+  webAssets="For the sake of this tutorial we will answer this with '../ui'."
+  devServer="Because we don't use a frontend bundler with Hot Module Reloading (HMR) for this tutorial we will answer with the same path as the previous question: '../ui'."
+/>
+
+And that's it! Now you can run the following command in your terminal
+to start a development build of your app:
+
+<Command name="dev" />
+
+<!-- TODO: SCREENSHOT -->
+
+## Invoke Commands
+
+<Commands />
+
+We would normally be recommending the [`@tauri-apps/api`] package
+here, but since we're not using a bundler for this guide, please
+enable [`withGlobalTauri`] in your `tauri.conf.json` file:
+
+```json
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "..",
+    "distDir": "..",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+This will inject a pre-bundled version of the API functions into your
+frontend.
+
+You can now modify your `index.html` file to call your Command:
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome from Tauri!</h1>
+    // highlight-start
+    <script>
+      // access the pre-bundled global API functions
+      const invoke = window.__TAURI__.invoke
+
+      // now we can call our Command!
+      // Right-click the application background and open the developer tools.
+      // You will see "Hello, World!" printed in the console!
+      invoke('greet', { name: 'World' })
+        // `invoke` returns a Promise
+        .then((response) => console.log(response))
+    </script>
+    // highlight-end
+  </body>
+</html>
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and
+JavaScript, please read the Tauri [Inter-Process
+Communication][inter-process-communication] guide.
+
+:::
+
+[inter-process-communication]:
+  ../../architecture/inter-process-communication
+[cargo]: https://doc.rust-lang.org/cargo/
+[prerequisites]: ../prerequisites.md
+[tauri-cli]: ../tauri-cli.md
+[`withglobaltauri`]: ../../../api/config#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/
