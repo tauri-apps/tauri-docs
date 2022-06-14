@@ -46,10 +46,10 @@ The `tauri init` command generates a folder called `src-tauri`. It's a conventio
   This is the entrypoint to your Rust program and the place where we bootstrap into Tauri. You will find two sections in it:
 
   ```rust title=src/main.rs
-  #![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
-  )]
+   #![cfg_attr(
+      all(not(debug_assertions), target_os = "windows"),
+      windows_subsystem = "windows"
+   )]
 
   fn main() {
   tauri::Builder::default()
