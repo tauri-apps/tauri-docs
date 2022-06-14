@@ -31,7 +31,7 @@ By default, the Debian package (`.deb` file) will add a dependency on `libayatan
 The AppImage bundle automatically embeds the installed tray library, and you can also use the `TAURI_TRAY` environment variable to manually select it.
 
 :::info
-The `libappindicator3` is unmaintained and does not exist on some distros like `debian11` or `fedora`, but `libayatana-appindicator` does not exist on older releases.
+`libappindicator3` is unmaintained and does not exist on some distros like `debian11`, but `libayatana-appindicator` does not exist on older releases.
 :::
 
 ### Creating a system tray
