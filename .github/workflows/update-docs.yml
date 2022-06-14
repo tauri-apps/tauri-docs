@@ -144,12 +144,6 @@ jobs:
         with:
           working-directory: tauri/tooling/cli
 
-      # Required to build cli
-      - name: Install libgtk-3-dev
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev
-
       - name: Build tauri-cli
         uses: actions-rs/cargo@v1
         with:

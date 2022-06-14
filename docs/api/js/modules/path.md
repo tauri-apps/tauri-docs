@@ -38,7 +38,7 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:449](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L449)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L568)
 
 ___
 
@@ -52,7 +52,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:442](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L442)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L561)
 
 ## Functions
 
@@ -63,13 +63,19 @@ Provides the platform-specific path segment separator:
 Returns the path to the suggested directory for your app config files.
 Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value configured on `tauri.conf.json > tauri > bundle > identifier`.
 
+**`example`**
+```typescript
+import { appDir } from '@tauri-apps/api/path';
+const appDirPath = await appDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:36](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L36)
+[path.ts:41](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L41)
 
 ___
 
@@ -85,13 +91,19 @@ Returns the path to the user's audio directory.
 - **macOS:** Resolves to `$HOME/Music`.
 - **Windows:** Resolves to `{FOLDERID_Music}`.
 
+**`example`**
+```typescript
+import { audioDir } from '@tauri-apps/api/path';
+const audioDirPath = await audioDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:58](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L58)
+[path.ts:68](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L68)
 
 ___
 
@@ -99,7 +111,15 @@ ___
 
 ▸ **basename**(`path`, `ext?`): `Promise`<`string`\>
 
- Returns the last portion of a `path`. Trailing directory separators are ignored.
+Returns the last portion of a `path`. Trailing directory separators are ignored.
+
+**`example`**
+```typescript
+import { basename, resolveResource } from '@tauri-apps/api/path';
+const resourcePath = await resolveResource('app.conf');
+const base = await basename(resourcePath);
+assert(base === 'app');
+```
 
 #### Parameters
 
@@ -114,7 +134,7 @@ ___
 
 #### Defined in
 
-[path.ts:525](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L525)
+[path.ts:682](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L682)
 
 ___
 
@@ -130,13 +150,19 @@ Returns the path to the user's cache directory.
 - **macOS:** Resolves to `$HOME/Library/Caches`.
 - **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
+**`example`**
+```typescript
+import { cacheDir } from '@tauri-apps/api/path';
+const cacheDirPath = await cacheDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:80](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L80)
+[path.ts:95](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L95)
 
 ___
 
@@ -152,13 +178,19 @@ Returns the path to the user's config directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
+**`example`**
+```typescript
+import { configDir } from '@tauri-apps/api/path';
+const configDirPath = await configDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:102](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L102)
+[path.ts:122](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L122)
 
 ___
 
@@ -174,13 +206,19 @@ Returns the path to the user's data directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_RoamingAppData}`.
 
+**`example`**
+```typescript
+import { dataDir } from '@tauri-apps/api/path';
+const dataDirPath = await dataDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:124](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L124)
+[path.ts:149](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L149)
 
 ___
 
@@ -196,13 +234,19 @@ Returns the path to the user's desktop directory.
 - **macOS:** Resolves to `$HOME/Library/Desktop`.
 - **Windows:** Resolves to `{FOLDERID_Desktop}`.
 
+**`example`**
+```typescript
+import { desktopDir } from '@tauri-apps/api/path';
+const desktopPath = await desktopDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:146](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L146)
+[path.ts:176](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L176)
 
 ___
 
@@ -211,6 +255,13 @@ ___
 ▸ **dirname**(`path`): `Promise`<`string`\>
 
 Returns the directory name of a `path`. Trailing directory separators are ignored.
+
+**`example`**
+```typescript
+import { dirname, appDir } from '@tauri-apps/api/path';
+const appDirPath = await appDir();
+const dir = await dirname(appDirPath);
+```
 
 #### Parameters
 
@@ -224,7 +275,7 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 
 #### Defined in
 
-[path.ts:497](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L497)
+[path.ts:640](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L640)
 
 ___
 
@@ -233,6 +284,12 @@ ___
 ▸ **documentDir**(): `Promise`<`string`\>
 
 Returns the path to the user's document directory.
+
+**`example`**
+```typescript
+import { documentDir } from '@tauri-apps/api/path';
+const documentDirPath = await documentDir();
+```
 
 #### Platform-specific
 
@@ -246,7 +303,7 @@ Returns the path to the user's document directory.
 
 #### Defined in
 
-[path.ts:168](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L168)
+[path.ts:203](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L203)
 
 ___
 
@@ -262,13 +319,19 @@ Returns the path to the user's download directory.
 - **macOS**: Resolves to `$HOME/Downloads`.
 - **Windows**: Resolves to `{FOLDERID_Downloads}`.
 
+**`example`**
+```typescript
+import { downloadDir } from '@tauri-apps/api/path';
+const downloadDirPath = await downloadDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:190](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L190)
+[path.ts:230](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L230)
 
 ___
 
@@ -284,13 +347,19 @@ Returns the path to the user's executable directory.
 - **macOS:** Not supported.
 - **Windows:** Not supported.
 
+**`example`**
+```typescript
+import { executableDir } from '@tauri-apps/api/path';
+const executableDirPath = await executableDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:212](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L212)
+[path.ts:257](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L257)
 
 ___
 
@@ -299,6 +368,14 @@ ___
 ▸ **extname**(`path`): `Promise`<`string`\>
 
 Returns the extension of the `path`.
+
+**`example`**
+```typescript
+import { extname, resolveResource } from '@tauri-apps/api/path';
+const resourcePath = await resolveResource('app.conf');
+const ext = await extname(resourcePath);
+assert(ext === 'conf');
+```
 
 #### Parameters
 
@@ -312,7 +389,7 @@ Returns the extension of the `path`.
 
 #### Defined in
 
-[path.ts:510](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L510)
+[path.ts:660](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L660)
 
 ___
 
@@ -328,13 +405,19 @@ Returns the path to the user's font directory.
 - **macOS:** Resolves to `$HOME/Library/Fonts`.
 - **Windows:** Not supported.
 
+**`example`**
+```typescript
+import { fontDir } from '@tauri-apps/api/path';
+const fontDirPath = await fontDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:234](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L234)
+[path.ts:284](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L284)
 
 ___
 
@@ -350,19 +433,33 @@ Returns the path to the user's home directory.
 - **macOS:** Resolves to `$HOME`.
 - **Windows:** Resolves to `{FOLDERID_Profile}`.
 
+**`example`**
+```typescript
+import { homeDir } from '@tauri-apps/api/path';
+const homeDirPath = await homeDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:256](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L256)
+[path.ts:311](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L311)
 
 ___
 
 ### isAbsolute
 
 ▸ **isAbsolute**(`path`): `Promise`<`boolean`\>
+
+Returns whether the path is absolute or not.
+
+**`example`**
+```typescript
+import { isAbsolute } from '@tauri-apps/api/path';
+assert(await ibsolute('/home/tauri'));
+```
 
 #### Parameters
 
@@ -376,7 +473,7 @@ ___
 
 #### Defined in
 
-[path.ts:536](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L536)
+[path.ts:701](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L701)
 
 ___
 
@@ -385,6 +482,13 @@ ___
 ▸ **join**(...`paths`): `Promise`<`string`\>
 
  Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
+
+**`example`**
+```typescript
+import { join, appDir } from '@tauri-apps/api/path';
+const appDirPath = await appDir();
+const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
+```
 
 #### Parameters
 
@@ -398,7 +502,7 @@ ___
 
 #### Defined in
 
-[path.ts:484](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L484)
+[path.ts:621](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L621)
 
 ___
 
@@ -414,13 +518,19 @@ Returns the path to the user's local data directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
+**`example`**
+```typescript
+import { localDataDir } from '@tauri-apps/api/path';
+const localDataDirPath = await localDataDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:278](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L278)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -436,13 +546,19 @@ Returns the path to the suggested log directory.
 - **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
 - **Windows:** Resolves to `${configDir}/${bundleIdentifier}`.
 
+**`example`**
+```typescript
+import { logDir } from '@tauri-apps/api/path';
+const logDirPath = await logDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:426](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L426)
+[path.ts:545](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L545)
 
 ___
 
@@ -451,6 +567,13 @@ ___
 ▸ **normalize**(`path`): `Promise`<`string`\>
 
 Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
+
+**`example`**
+```typescript
+import { normalize, appDir } from '@tauri-apps/api/path';
+const appDirPath = await appDir();
+const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
+```
 
 #### Parameters
 
@@ -464,7 +587,7 @@ Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve sym
 
 #### Defined in
 
-[path.ts:469](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L469)
+[path.ts:600](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L600)
 
 ___
 
@@ -480,13 +603,19 @@ Returns the path to the user's picture directory.
 - **macOS:** Resolves to `$HOME/Pictures`.
 - **Windows:** Resolves to `{FOLDERID_Pictures}`.
 
+**`example`**
+```typescript
+import { pictureDir } from '@tauri-apps/api/path';
+const pictureDirPath = await pictureDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:300](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L300)
+[path.ts:365](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L365)
 
 ___
 
@@ -502,13 +631,19 @@ Returns the path to the user's public directory.
 - **macOS:** Resolves to `$HOME/Public`.
 - **Windows:** Resolves to `{FOLDERID_Public}`.
 
+**`example`**
+```typescript
+import { publicDir } from '@tauri-apps/api/path';
+const publicDirPath = await publicDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:322](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L322)
+[path.ts:392](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L392)
 
 ___
 
@@ -517,6 +652,13 @@ ___
 ▸ **resolve**(...`paths`): `Promise`<`string`\>
 
 Resolves a sequence of `paths` or `path` segments into an absolute path.
+
+**`example`**
+```typescript
+import { resolve, appDir } from '@tauri-apps/api/path';
+const appDirPath = await appDir();
+const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
+```
 
 #### Parameters
 
@@ -530,7 +672,37 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 
 #### Defined in
 
-[path.ts:456](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L456)
+[path.ts:581](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L581)
+
+___
+
+### resolveResource
+
+▸ **resolveResource**(`resourcePath`): `Promise`<`string`\>
+
+Resolve the path to a resource file.
+
+**`example`**
+```typescript
+import { resolveResource } from '@tauri-apps/api/path';
+const resourcePath = await resolveResource('script.sh');
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `resourcePath` | `string` | The path to the resource. Must follow the same syntax as defined in `tauri.conf.json > tauri > bundle > resources`, i.e. keeping subfolders and parent dir components (`../`). |
+
+#### Returns
+
+`Promise`<`string`\>
+
+The full path to the resource.
+
+#### Defined in
+
+[path.ts:437](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L437)
 
 ___
 
@@ -538,7 +710,14 @@ ___
 
 ▸ **resourceDir**(): `Promise`<`string`\>
 
-Returns the path to the user's resource directory.
+Returns the path to the application's resource directory.
+To resolve a resource path, see the [`resolveResource API`](path.md#resolveresource).
+
+**`example`**
+```typescript
+import { resourceDir } from '@tauri-apps/api/path';
+const resourceDirPath = await resourceDir();
+```
 
 #### Returns
 
@@ -546,7 +725,7 @@ Returns the path to the user's resource directory.
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L338)
+[path.ts:414](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L414)
 
 ___
 
@@ -562,13 +741,19 @@ Returns the path to the user's runtime directory.
 - **macOS:** Not supported.
 - **Windows:** Not supported.
 
+**`example`**
+```typescript
+import { runtimeDir } from '@tauri-apps/api/path';
+const runtimeDirPath = await runtimeDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:360](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L360)
+[path.ts:464](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L464)
 
 ___
 
@@ -584,13 +769,19 @@ Returns the path to the user's template directory.
 - **macOS:** Not supported.
 - **Windows:** Resolves to `{FOLDERID_Templates}`.
 
+**`example`**
+```typescript
+import { templateDir } from '@tauri-apps/api/path';
+const templateDirPath = await templateDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:382](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L382)
+[path.ts:491](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L491)
 
 ___
 
@@ -606,10 +797,16 @@ Returns the path to the user's video directory.
 - **macOS:** Resolves to `$HOME/Movies`.
 - **Windows:** Resolves to `{FOLDERID_Videos}`.
 
+**`example`**
+```typescript
+import { videoDir } from '@tauri-apps/api/path';
+const videoDirPath = await videoDir();
+```
+
 #### Returns
 
 `Promise`<`string`\>
 
 #### Defined in
 
-[path.ts:404](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/path.ts#L404)
+[path.ts:518](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/path.ts#L518)

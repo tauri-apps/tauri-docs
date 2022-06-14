@@ -10,7 +10,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 - [Event](../interfaces/event.Event.md)
 
-## Type aliases
+## Type Aliases
 
 ### EventCallback
 
@@ -38,7 +38,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/helpers/event.ts#L41)
+[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/helpers/event.ts#L41)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/helpers/event.ts#L21)
+[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/helpers/event.ts#L21)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:43](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/helpers/event.ts#L43)
+[helpers/event.ts:43](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/helpers/event.ts#L43)
 
 ## Functions
 
@@ -75,6 +75,12 @@ ___
 ▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend.
+
+**`example`** Emits the `frontend-loaded` event with the given payload
+```typescript
+import { emit } from '@tauri-apps/api/event';
+await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
+```
 
 #### Parameters
 
@@ -89,7 +95,7 @@ Emits an event to the backend.
 
 #### Defined in
 
-[event.ts:55](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/event.ts#L55)
+[event.ts:81](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/event.ts#L81)
 
 ___
 
@@ -99,6 +105,17 @@ ___
 
 Listen to an event from the backend.
 
+**`example`** Listen to the `error` event expecting a string payload
+```typescript
+import { listen } from '@tauri-apps/api/event';
+const unlisten = await listen<string>('error', (event) => {
+  console.log(`Got error in window ${event.windowLabel}, payload: ${payload}`);
+});
+
+// removes the listener later
+await unlisten();
+```
+
 #### Type parameters
 
 | Name |
@@ -120,7 +137,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:27](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/event.ts#L27)
+[event.ts:37](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/event.ts#L37)
 
 ___
 
@@ -130,6 +147,18 @@ ___
 
 Listen to an one-off event from the backend.
 
+**`example`** Listen to the `loaded` event that is only triggered once
+```typescript
+import { once } from '@tauri-apps/api/event';
+interface LoadedPayload {
+  loggedIn: boolean,
+  token: string
+}
+const unlisten = await once<LoadedPayload>('loaded', (event) => {
+  console.log(`App is loaded, logggedIn: ${event.payload.loggedIn}, token: ${event.payload.token}`);
+});
+```
+
 #### Type parameters
 
 | Name |
@@ -151,4 +180,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:41](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/event.ts#L41)
+[event.ts:62](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/event.ts#L62)

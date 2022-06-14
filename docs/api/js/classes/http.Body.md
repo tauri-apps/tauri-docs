@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L75)
+[http.ts:75](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L75)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L74)
+[http.ts:74](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L74)
 
 ## Methods
 
@@ -34,11 +34,17 @@ ___
 
 Creates a new byte array body.
 
+**`example`**
+```typescript
+import { Body } from "@tauri-apps/api/http"
+Body.bytes(new Uint8Array([1, 2, 3]));
+```
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `bytes` | `Uint8Array` |
+| `bytes` | `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
 
 #### Returns
 
@@ -48,7 +54,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:160](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L160)
+[http.ts:176](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L176)
 
 ___
 
@@ -64,18 +70,17 @@ but you can set it to `multipart/form-data` if the Cargo feature `http-multipart
 
 Note that a file path must be allowed in the `fs` allowlist scope.
 
-# Examples
-
-```js
+**`example`**
+```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.form({
   key: 'value',
   image: {
-    file: '/path/to/file', // either a path of an array buffer of the file contents
+    file: '/path/to/file', // either a path or an array buffer of the file contents
     mime: 'image/jpeg', // optional
     fileName: 'image.jpg' // optional
   }
-})
+});
 ```
 
 #### Parameters
@@ -92,7 +97,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:110](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L110)
+[http.ts:108](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L108)
 
 ___
 
@@ -101,6 +106,15 @@ ___
 ▸ `Static` **json**(`data`): [`Body`](http.Body.md)
 
 Creates a new JSON body.
+
+**`example`**
+```typescript
+import { Body } from "@tauri-apps/api/http"
+Body.json({
+  registered: true,
+  name: 'tauri'
+});
+```
 
 #### Parameters
 
@@ -116,7 +130,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:138](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L138)
+[http.ts:144](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L144)
 
 ___
 
@@ -125,6 +139,12 @@ ___
 ▸ `Static` **text**(`value`): [`Body`](http.Body.md)
 
 Creates a new UTF-8 string body.
+
+**`example`**
+```typescript
+import { Body } from "@tauri-apps/api/http"
+Body.text('The body content as a string');
+```
 
 #### Parameters
 
@@ -140,4 +160,4 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Defined in
 
-[http.ts:149](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L149)
+[http.ts:160](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L160)
