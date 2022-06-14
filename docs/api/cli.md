@@ -101,21 +101,21 @@ OPTIONS:
 ```
 
 USAGE:
-    cargo-tauri dev [OPTIONS] [ARGS]...
+    cargo-tauri dev [OPTIONS] [--] [ARGS]...
 
 ARGS:
     <ARGS>...    Command line arguments passed to the runner
 
 OPTIONS:
-    -c, --config <CONFIG>        JSON string or path to JSON file to merge with tauri.conf.json
-    -e, --exit-on-panic          Exit on panic
-    -f, --features <FEATURES>    List of cargo features to activate
-    -h, --help                   Print help information
-    -r, --runner <RUNNER>        Binary to use to run the application
-        --release                Run the code in release mode
-    -t, --target <TARGET>        Target triple to build against
-    -v, --verbose                Enables verbose logging
-    -V, --version                Print version information
+    -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
+    -e, --exit-on-panic             Exit on panic
+    -f, --features <FEATURES>...    List of cargo features to activate
+    -h, --help                      Print help information
+    -r, --runner <RUNNER>           Binary to use to run the application
+        --release                   Run the code in release mode
+    -t, --target <TARGET>           Target triple to build against
+    -v, --verbose                   Enables verbose logging
+    -V, --version                   Print version information
 ```
 
 This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
@@ -135,26 +135,26 @@ If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is 
 ```
 
 USAGE:
-    cargo-tauri build [OPTIONS] [ARGS]...
+    cargo-tauri build [OPTIONS] [--] [ARGS]...
 
 ARGS:
     <ARGS>...    Command line arguments passed to the runner
 
 OPTIONS:
-    -b, --bundles <BUNDLES>      List of bundles to package
-    -c, --config <CONFIG>        JSON string or path to JSON file to merge with tauri.conf.json
-    -d, --debug                  Builds with the debug flag
-    -f, --features <FEATURES>    List of cargo features to activate
-    -h, --help                   Print help information
-    -r, --runner <RUNNER>        Binary to use to build the application, defaults to `cargo`
-    -t, --target <TARGET>        Target triple to build against. It must be one of the values
-                                 outputted by `$rustc --print target-list` or
-                                 `universal-apple-darwin` for an universal macOS application. Note
-                                 that compiling an universal macOS application requires both
-                                 `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be
-                                 installed
-    -v, --verbose                Enables verbose logging
-    -V, --version                Print version information
+    -b, --bundles <BUNDLES>...      Space or comma separated list of bundles to package
+    -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
+    -d, --debug                     Builds with the debug flag
+    -f, --features <FEATURES>...    Space or comma separated list of features to activate
+    -h, --help                      Print help information
+    -r, --runner <RUNNER>           Binary to use to build the application, defaults to `cargo`
+    -t, --target <TARGET>           Target triple to build against. It must be one of the values
+                                    outputted by `$rustc --print target-list` or
+                                    `universal-apple-darwin` for an universal macOS application.
+                                    Note that compiling an universal macOS application requires both
+                                    `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be
+                                    installed
+    -v, --verbose                   Enables verbose logging
+    -V, --version                   Print version information
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.

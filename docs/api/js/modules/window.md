@@ -124,7 +124,7 @@ type MenuClicked = string
 - [Monitor](../interfaces/window.Monitor.md)
 - [WindowOptions](../interfaces/window.WindowOptions.md)
 
-## Type aliases
+## Type Aliases
 
 ### CursorIcon
 
@@ -132,7 +132,7 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:219](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L219)
+[window.ts:237](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L237)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[window.ts:116](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L116)
+[window.ts:116](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L116)
 
 ## Variables
 
@@ -154,7 +154,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1352](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L1352)
+[window.ts:1599](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L1599)
 
 ## Functions
 
@@ -164,13 +164,19 @@ The WebviewWindow for the current window.
 
 Returns the list of all the monitors available on the system.
 
+**`example`**
+```typescript
+import { availableMonitors } from '@tauri-apps/api/window';
+const monitors = availableMonitors();
+```
+
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 #### Defined in
 
-[window.ts:1474](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L1474)
+[window.ts:1738](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L1738)
 
 ___
 
@@ -181,13 +187,19 @@ ___
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
 
+**`example`**
+```typescript
+import { currentMonitor } from '@tauri-apps/api/window';
+const monitor = currentMonitor();
+```
+
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:1441](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L1441)
+[window.ts:1693](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L1693)
 
 ___
 
@@ -205,7 +217,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:277](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L277)
+[window.ts:295](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L295)
 
 ___
 
@@ -223,7 +235,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:265](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L265)
+[window.ts:283](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L283)
 
 ___
 
@@ -234,10 +246,16 @@ ___
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
 
+**`example`**
+```typescript
+import { primaryMonitor } from '@tauri-apps/api/window';
+const monitor = primaryMonitor();
+```
+
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 #### Defined in
 
-[window.ts:1459](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/window.ts#L1459)
+[window.ts:1716](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/window.ts#L1716)

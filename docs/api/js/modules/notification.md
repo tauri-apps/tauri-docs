@@ -25,7 +25,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 - [Options](../interfaces/notification.Options.md)
 
-## Type aliases
+## Type Aliases
 
 ### Permission
 
@@ -35,23 +35,29 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
 ### isPermissionGranted
 
-▸ **isPermissionGranted**(): `Promise`<`boolean` \| ``null``\>
+▸ **isPermissionGranted**(): `Promise`<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
+**`example`**
+```typescript
+import { isPermissionGranted } from '@tauri-apps/api/notification';
+const permissionGranted = await isPermissionGranted();
+```
+
 #### Returns
 
-`Promise`<`boolean` \| ``null``\>
+`Promise`<`boolean`\>
 
 #### Defined in
 
-[notification.ts:49](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/notification.ts#L49)
+[notification.ts:54](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/notification.ts#L54)
 
 ___
 
@@ -61,6 +67,16 @@ ___
 
 Requests the permission to send notifications.
 
+**`example`**
+```typescript
+import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification';
+let permissionGranted = await isPermissionGranted();
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+```
+
 #### Returns
 
 `Promise`<[`Permission`](notification.md#permission)\>
@@ -69,7 +85,7 @@ A promise resolving to whether the user granted the permission or not.
 
 #### Defined in
 
-[notification.ts:66](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/notification.ts#L66)
+[notification.ts:80](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/notification.ts#L80)
 
 ___
 
@@ -78,6 +94,20 @@ ___
 ▸ **sendNotification**(`options`): `void`
 
 Sends a notification to the user.
+
+**`example`**
+```typescript
+import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
+let permissionGranted = await isPermissionGranted();
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+if (permissionGranted) {
+  sendNotification('Tauri is awesome!');
+  sendNotification({ title: 'TAURI', body: 'Tauri is awesome!' });
+}
+```
 
 #### Parameters
 
@@ -91,4 +121,4 @@ Sends a notification to the user.
 
 #### Defined in
 
-[notification.ts:75](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/notification.ts#L75)
+[notification.ts:102](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/notification.ts#L102)

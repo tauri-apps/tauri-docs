@@ -236,13 +236,14 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean`  | `false` | Whether we should build your app with tauri-bundler or plain `cargo build` |
 | <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget)? | [view](#bundletarget) | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
-| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string` (required) | _null_ | The app's identifier |
+| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string` (required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | [`string` ]  | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | `array`?  | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
 | <div className="anchor-with-padding" id="bundleconfig.copyright">`copyright`<a class="hash-link" href="#bundleconfig.copyright"></a></div> | `string`?  | _null_ | A copyright string associated with your application. |
 | <div className="anchor-with-padding" id="bundleconfig.category">`category`<a class="hash-link" href="#bundleconfig.category"></a></div> | `string`?  | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
 | <div className="anchor-with-padding" id="bundleconfig.shortdescription">`shortDescription`<a class="hash-link" href="#bundleconfig.shortdescription"></a></div> | `string`?  | _null_ | A short description of your application. |
 | <div className="anchor-with-padding" id="bundleconfig.longdescription">`longDescription`<a class="hash-link" href="#bundleconfig.longdescription"></a></div> | `string`?  | _null_ | A longer, multi-line description of the application. |
+| <div className="anchor-with-padding" id="bundleconfig.appimage">`appimage`<a class="hash-link" href="#bundleconfig.appimage"></a></div> | [`AppImageConfig`](#appimageconfig) | [view](#appimageconfig) | Configuration for the AppImage bundle. |
 | <div className="anchor-with-padding" id="bundleconfig.deb">`deb`<a class="hash-link" href="#bundleconfig.deb"></a></div> | [`DebConfig`](#debconfig) | [view](#debconfig) | Configuration for the Debian bundle. |
 | <div className="anchor-with-padding" id="bundleconfig.macos">`macOS`<a class="hash-link" href="#bundleconfig.macos"></a></div> | [`MacConfig`](#macconfig) | [view](#macconfig) | Configuration for the macOS bundles. |
 | <div className="anchor-with-padding" id="bundleconfig.externalbin">`externalBin`<a class="hash-link" href="#bundleconfig.externalbin"></a></div> | `array`?  | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows<br />- "my-binary-x86_64-apple-darwin" for macOS<br />- "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
@@ -260,6 +261,20 @@ Can be any of the following types:
 
 - [`string` ] : A list of bundle targets.
 - `string` : A single bundle target.
+
+<br />
+
+### AppImageConfig
+
+Configuration for AppImage bundles.
+
+Type: `object` 
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="appimageconfig.bundlemediaframework">`bundleMediaFramework`<a class="hash-link" href="#appimageconfig.bundlemediaframework"></a></div> | `boolean`  | `false` | Include additional gstreamer dependencies needed for audio and video playback. This increases the bundle size by ~15-35MB depending on your build system. |
+
+
 
 <br />
 

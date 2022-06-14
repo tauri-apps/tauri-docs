@@ -53,9 +53,10 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 - [ClientOptions](../interfaces/http.ClientOptions.md)
 - [Duration](../interfaces/http.Duration.md)
+- [FilePart](../interfaces/http.FilePart.md)
 - [HttpOptions](../interfaces/http.HttpOptions.md)
 
-## Type aliases
+## Type Aliases
 
 ### FetchOptions
 
@@ -65,7 +66,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:192](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L192)
+[http.ts:208](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L208)
 
 ___
 
@@ -77,17 +78,17 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:167](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L167)
+[http.ts:183](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L183)
 
 ___
 
 ### Part
 
-Ƭ **Part**: `string` \| `Uint8Array` \| `FilePart`<`Uint8Array`\>
+Ƭ **Part**: `string` \| `Uint8Array` \| [`FilePart`](../interfaces/http.FilePart.md)<`Uint8Array`\>
 
 #### Defined in
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -99,7 +100,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:190](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L190)
+[http.ts:206](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L206)
 
 ## Functions
 
@@ -108,6 +109,15 @@ Request options.
 ▸ **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 Perform an HTTP request using the default client.
+
+**`example`**
+```typescript
+import { fetch } from '@tauri-apps/api/http';
+const response = await fetch('http://localhost:3003/users/2', {
+  method: 'GET',
+  timeout: 30,
+});
+```
 
 #### Type parameters
 
@@ -130,7 +140,7 @@ The response object.
 
 #### Defined in
 
-[http.ts:410](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L410)
+[http.ts:505](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L505)
 
 ___
 
@@ -139,6 +149,12 @@ ___
 ▸ **getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
 
 Creates a new client using the specified options.
+
+**`example`**
+```typescript
+import { getClient } from '@tauri-apps/api/http';
+const client = await getClient();
+```
 
 #### Parameters
 
@@ -154,4 +170,4 @@ A promise resolving to the client instance.
 
 #### Defined in
 
-[http.ts:390](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L390)
+[http.ts:477](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/http.ts#L477)
