@@ -23,20 +23,15 @@ The `iconAsTemplate` is a boolean value that determines whether the image repres
 
 #### Linux Setup
 
-On Linux, you also need to enable one of the `ayatana-tray` and `gtk-tray` Cargo features:
+On Linux, you need to install one of `libayatana-appindicator` or `libappindicator3` packages.
+Tauri determines which package to use at runtime, with `libayatana` being the preferred one if both are installed.
 
-```toml
-# Cargo.toml file
-[dependencies]
-tauri = { version = "1.0.0-rc.8", features = [ "ayatana-tray" ] }
-```
+By default, the Debian package (`.deb` file) will add a dependency on `libayatana-appindicator3-1`. To create a Debian package targetting `libappindicator3`, set the `TAURI_TRAY` environment variable to `libappindicator3`.
 
-With the `gtk-tray` feature, your application will use the `libappindicator3` package to render the system tray.
-
-With the `ayatana-tray` feature, your application will depend on [libayatana-appindicator].
+The AppImage bundle automatically embeds the installed tray library, and you can also use the `TAURI_TRAY` environment variable to manually select it.
 
 :::info
-The `libappindicator3` is unmaintained and does not exist on some distros like `debian11` or `fedora`, but `libayatana-appindicator` does not exist on older releases.
+`libappindicator3` is unmaintained and does not exist on some distros like `debian11`, but `libayatana-appindicator` does not exist on older releases.
 :::
 
 ### Creating a system tray
