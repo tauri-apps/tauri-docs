@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[updater.ts:28](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/updater.ts#L28)
+[updater.ts:28](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/updater.ts#L28)
 
 ___
 
@@ -22,4 +22,4 @@ ___
 
 #### Defined in
 
-[updater.ts:29](https://github.com/tauri-apps/tauri/blob/07bc998/tooling/api/src/updater.ts#L29)
+[updater.ts:29](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/updater.ts#L29)
