@@ -1,6 +1,5 @@
 ---
-description:
-  Build a Tauri app from scratch using just HTML, CSS, and JavaScript
+description: Build a Tauri app from scratch using just HTML, CSS, and JavaScript
 ---
 
 import TauriInit from './_tauri-init.mdx'
@@ -10,23 +9,19 @@ import Command from '@theme/Command'
 
 # HTML/CSS/JavaScript
 
-This guide will walk you through creating your first Tauri app using
-just HTML, CSS, and JavaScript. This is probably the best place to
-start if you are new to web development.
+This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
 <Intro />
 
 ## Create the Frontend
 
-We will create a very minimal UI using an HTML file. To keep things
-tidy though, let's create a separate folder for it:
+We will create a very minimal UI using an HTML file. To keep things tidy though, let's create a separate folder for it:
 
 ```shell
 mkdir ui
 ```
 
-Next, create an `index.html` file inside of that folder with the
-following contents:
+Next, create an `index.html` file inside of that folder with the following contents:
 
 ```html title=index.html
 <!DOCTYPE html>
@@ -46,16 +41,14 @@ following contents:
 </html>
 ```
 
-We will leave the UI at this for this Guide, but feel
-free to play around with more content or add styling through CSS.
+We will leave the UI at this for this Guide, but feel free to play around with more content or add styling through CSS.
 
 <TauriInit
   webAssets="For the sake of this tutorial we will answer this with '../ui'."
   devServer="Because we don't use a frontend bundler with Hot Module Reloading (HMR) for this tutorial we will answer with the same path as the previous question: '../ui'."
 />
 
-And that's it! Now you can run the following command in your terminal
-to start a development build of your app:
+And that's it! Now you can run the following command in your terminal to start a development build of your app:
 
 <Command name="dev" />
 
@@ -65,9 +58,7 @@ to start a development build of your app:
 
 <Commands />
 
-We would normally be recommending the [`@tauri-apps/api`] package
-here, but since we're not using a bundler for this guide, please
-enable [`withGlobalTauri`] in your `tauri.conf.json` file:
+We would normally be recommending the [`@tauri-apps/api`] package here, but since we're not using a bundler for this guide, please enable [`withGlobalTauri`] in your `tauri.conf.json` file:
 
 ```json
 {
@@ -81,8 +72,7 @@ enable [`withGlobalTauri`] in your `tauri.conf.json` file:
   },
 ```
 
-This will inject a pre-bundled version of the API functions into your
-frontend.
+This will inject a pre-bundled version of the API functions into your frontend.
 
 You can now modify your `index.html` file to call your Command:
 
@@ -119,14 +109,11 @@ You can now modify your `index.html` file to call your Command:
 
 :::tip
 
-If you want to know more about the communication between Rust and
-JavaScript, please read the Tauri [Inter-Process
-Communication][inter-process-communication] guide.
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
 
 :::
 
-[inter-process-communication]:
-  ../../architecture/inter-process-communication
+[inter-process-communication]: ../../architecture/inter-process-communication
 [cargo]: https://doc.rust-lang.org/cargo/
 [prerequisites]: ../prerequisites.md
 [tauri-cli]: ../tauri-cli.md
