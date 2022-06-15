@@ -4,7 +4,7 @@ Tauri ships with a default iconset based on its logo. This is probably NOT what 
 
 ## Usage
 
-```shell
+```console
 npx @tauri-apps/tauricon --help
 
 Description

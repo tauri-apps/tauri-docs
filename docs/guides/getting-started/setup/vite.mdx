@@ -1,0 +1,187 @@
+---
+description: Build a Tauri app using Vite as the frontend build tool
+pagination_next: guides/architecture/README
+---
+
+import TauriInit from './_tauri-init.mdx'
+import Commands from './_commands.mdx'
+import Intro from './_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command from '@theme/Command'
+import Image from '@theme/IdealImage'
+
+# Vite
+
+This guide will walk you through creating your first Tauri app using the frontend build tool [Vite].
+
+<Intro />
+
+Here's a preview of what we will be building:
+
+<Image img={'/img/guides/vite-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/vite-dark.png#gh-dark-mode-only'} />
+
+:::info
+
+Before we continue, make sure you have completed the [prerequisites] and installed the [Tauri CLI][tauri-cli] to have a working development environment.
+
+:::
+
+## Create the Frontend
+
+[Vite] is a frontend bundler and build tool meaning it provides various quality-of-life features such as _Hot Module Reloading_ (HMR) during development, but it also converts your source code into optimized HTML, CSS and JavaScript when building for production. We recommend Vite for it's speed, easy configurability and [large ecosystem of plugins][awesome-vite].
+
+Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of pre-defined templates. You can choose from many frontend frameworks like React, Svelte or Vue. For this guide we will select the `vanilla-ts` template to create a simple project _without_ any frontend framework.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+```shell
+npm create vite@latest
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+
+```shell
+yarn create vite
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+
+```shell
+pnpm create vite
+```
+
+  </TabItem>
+</Tabs>
+
+1. **Project name:**  
+   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
+
+2. **Select a framework:**  
+   If you plan on using a frontend framework later, this is where you can select it. For this guide, we assume you choose `vanilla`.
+
+3. **Select a variant:**  
+   Vite offers [TypeScript] and vanilla JavaScript variants for all templates, and you can select the variant here. We **strongly** recommend TypeScript as it helps you write more secure, maintainable code faster and more efficiently. For this guide, we assume you choose `vanilla-ts`.
+
+Before we move on, let's quickly customize our `vite.config.ts` file, so you get the best compatibility with Tauri!
+
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  // prevent vite from obscuring rust errors
+  clearScreen: false,
+  // Tauri expects a fixed port, fail if that port is not available
+  server: {
+    port: 3000,
+    strictPort: true,
+  },
+  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
+  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
+  // env variables
+  envPrefix: ['VITE_', 'TAURI_'],
+  build: {
+    // Tauri supports es2021
+    target: ['es2021', 'chrome97', 'safari13'],
+    // don't minify for debug builds
+    minify: !process.env.TAURI_DEBUG && 'esbuild',
+    // produce sourcemaps for debug builds
+    sourcemap: !!process.env.TAURI_DEBUG,
+  },
+})
+```
+
+<TauriInit
+  webAssets="To be compatible with Vite's default config we will answer this with '../dist'."
+  devServer="Because Vite's development server will listen on port 3000 by default we will answer this question with 'http://localhost:3000'."
+/>
+
+Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
+But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // highlight-start
+    // The Tauri CLI will execute this command when you run `tauri build`.
+    // This is the place to bundle your frontend and place html,css, and js files into the `distDir`.
+    "beforeBuildCommand": "npm run build",
+    // The Tauri CLI will execute this command when you run `tauri dev`.
+    // This should start your development server.
+    "beforeDevCommand": "npm run dev",
+    // highlight-end
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  },
+```
+
+And that's it! Now you can run the following command in your terminal to start a development build of your app:
+
+<Command name="dev" />
+
+<Image img={'/img/guides/vite-dev-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/vite-dev-dark.png#gh-dark-mode-only'} />
+
+## Invoke Commands
+
+<Commands />
+
+To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+```shell
+npm install @tauri-apps/api
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+
+```shell
+yarn add @tauri-apps/api
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+
+```shell
+pnpm add @tauri-apps/api
+```
+
+  </TabItem>
+</Tabs>
+
+With the library installed, you can modify your `index.html` file to call the Command:
+
+```typescript title=src/main.ts
+import { invoke } from '@tauri-apps/api'
+
+// now we can call our Command!
+// Right-click the application background and open the developer tools.
+// You will see "Hello, World!" printed in the console!
+invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then((response) => console.log(response))
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+<!-- TODO: Show how you can add this and screenshots of what it looks like -->
+
+[vite]: https://vitejs.dev
+[cargo]: https://doc.rust-lang.org/cargo/
+[typescript]: https://www.typescriptlang.org
+[prerequisites]: ../prerequisites.md
+[tauri-cli]: ../tauri-cli.md
+[awesome-vite]: https://github.com/vitejs/awesome-vite#plugins
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../architecture/inter-process-communication
