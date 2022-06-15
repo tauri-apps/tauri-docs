@@ -14,6 +14,12 @@ This package is also accessible with `window.__TAURI__.clipboard` when `tauri.co
 
 Gets the clipboard content as plain text.
 
+**`example`**
+```typescript
+import { readText } from '@tauri-apps/api/clipboard';
+const clipboardText = await readText();
+```
+
 #### Returns
 
 `Promise`<`string` \| ``null``\>
@@ -22,7 +28,7 @@ A promise resolving to the clipboard content as plain text.
 
 #### Defined in
 
-[clipboard.ts:34](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/clipboard.ts#L34)
+[clipboard.ts:45](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/clipboard.ts#L45)
 
 ___
 
@@ -31,6 +37,13 @@ ___
 ▸ **writeText**(`text`): `Promise`<`void`\>
 
 Writes a plain text to the clipboard.
+
+**`example`**
+```typescript
+import { writeText, readText } from '@tauri-apps/api/clipboard';
+await writeText('Tauri is awesome!');
+assert(await readText(), 'Tauri is awesome!');
+```
 
 #### Parameters
 
@@ -46,4 +59,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[clipboard.ts:19](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/clipboard.ts#L19)
+[clipboard.ts:25](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/clipboard.ts#L25)

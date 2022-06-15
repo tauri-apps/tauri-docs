@@ -4,202 +4,202 @@
 
 [fs](../modules/fs.md).BaseDirectory
 
-## Enumeration members
+## Enumeration Members
 
 ### App
 
-• **App** = `18`
+• **App**
 
 #### Defined in
 
-[fs.ts:92](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L92)
+[fs.ts:92](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L92)
 
 ___
 
 ### Audio
 
-• **Audio** = `1`
+• **Audio**
 
 #### Defined in
 
-[fs.ts:75](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L75)
+[fs.ts:75](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L75)
 
 ___
 
 ### Cache
 
-• **Cache** = `2`
+• **Cache**
 
 #### Defined in
 
-[fs.ts:76](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L76)
+[fs.ts:76](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L76)
 
 ___
 
 ### Config
 
-• **Config** = `3`
+• **Config**
 
 #### Defined in
 
-[fs.ts:77](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L77)
+[fs.ts:77](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L77)
 
 ___
 
 ### Data
 
-• **Data** = `4`
+• **Data**
 
 #### Defined in
 
-[fs.ts:78](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L78)
+[fs.ts:78](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L78)
 
 ___
 
 ### Desktop
 
-• **Desktop** = `6`
+• **Desktop**
 
 #### Defined in
 
-[fs.ts:80](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L80)
+[fs.ts:80](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L80)
 
 ___
 
 ### Document
 
-• **Document** = `7`
+• **Document**
 
 #### Defined in
 
-[fs.ts:81](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L81)
+[fs.ts:81](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L81)
 
 ___
 
 ### Download
 
-• **Download** = `8`
+• **Download**
 
 #### Defined in
 
-[fs.ts:82](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L82)
+[fs.ts:82](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L82)
 
 ___
 
 ### Executable
 
-• **Executable** = `9`
+• **Executable**
 
 #### Defined in
 
-[fs.ts:83](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L83)
+[fs.ts:83](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L83)
 
 ___
 
 ### Font
 
-• **Font** = `10`
+• **Font**
 
 #### Defined in
 
-[fs.ts:84](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L84)
+[fs.ts:84](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L84)
 
 ___
 
 ### Home
 
-• **Home** = `11`
+• **Home**
 
 #### Defined in
 
-[fs.ts:85](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L85)
+[fs.ts:85](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L85)
 
 ___
 
 ### LocalData
 
-• **LocalData** = `5`
+• **LocalData**
 
 #### Defined in
 
-[fs.ts:79](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L79)
+[fs.ts:79](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L79)
 
 ___
 
 ### Log
 
-• **Log** = `19`
+• **Log**
 
 #### Defined in
 
-[fs.ts:93](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L93)
+[fs.ts:93](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L93)
 
 ___
 
 ### Picture
 
-• **Picture** = `12`
+• **Picture**
 
 #### Defined in
 
-[fs.ts:86](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L86)
+[fs.ts:86](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L86)
 
 ___
 
 ### Public
 
-• **Public** = `13`
+• **Public**
 
 #### Defined in
 
-[fs.ts:87](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L87)
+[fs.ts:87](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L87)
 
 ___
 
 ### Resource
 
-• **Resource** = `17`
+• **Resource**
 
 #### Defined in
 
-[fs.ts:91](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L91)
+[fs.ts:91](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L91)
 
 ___
 
 ### Runtime
 
-• **Runtime** = `14`
+• **Runtime**
 
 #### Defined in
 
-[fs.ts:88](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L88)
+[fs.ts:88](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L88)
 
 ___
 
 ### Temp
 
-• **Temp** = `20`
+• **Temp**
 
 #### Defined in
 
-[fs.ts:94](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L94)
+[fs.ts:94](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L94)
 
 ___
 
 ### Template
 
-• **Template** = `15`
+• **Template**
 
 #### Defined in
 
-[fs.ts:89](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L89)
+[fs.ts:89](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L89)
 
 ___
 
 ### Video
 
-• **Video** = `16`
+• **Video**
 
 #### Defined in
 
-[fs.ts:90](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/fs.ts#L90)
+[fs.ts:90](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L90)

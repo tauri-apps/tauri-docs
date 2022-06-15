@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:230](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L230)
+[http.ts:246](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L246)
 
 ## Methods
 
@@ -22,6 +22,13 @@
 
 Makes a DELETE request.
 
+**`example`**
+```typescript
+import { getClient } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.delete('http://localhost:3003/users/1');
+```
+
 #### Type parameters
 
 | Name |
@@ -43,7 +50,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:374](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L374)
+[http.ts:456](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L456)
 
 ___
 
@@ -53,13 +60,20 @@ ___
 
 Drops the client instance.
 
+**`example`**
+```typescript
+import { getClient } from '@tauri-apps/api/http';
+const client = await getClient();
+await client.drop();
+```
+
 #### Returns
 
 `Promise`<`void`\>
 
 #### Defined in
 
-[http.ts:241](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L241)
+[http.ts:263](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L263)
 
 ___
 
@@ -69,6 +83,17 @@ ___
 
 Makes a GET request.
 
+**`example`**
+```typescript
+import { getClient, ResponseType } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.get('http://localhost:3003/users', {
+  timeout: 30,
+  // the expected response type
+  responseType: ResponseType.JSON
+});
+```
+
 #### Type parameters
 
 | Name |
@@ -90,7 +115,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:302](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L302)
+[http.ts:343](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L343)
 
 ___
 
@@ -100,6 +125,15 @@ ___
 
 Makes a PATCH request.
 
+**`example`**
+```typescript
+import { getClient, Body } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.patch('http://localhost:3003/users/1', {
+  body: Body.json({ email: 'contact@tauri.studio' })
+});
+```
+
 #### Type parameters
 
 | Name |
@@ -121,7 +155,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:359](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L359)
+[http.ts:435](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L435)
 
 ___
 
@@ -130,6 +164,20 @@ ___
 ▸ **post**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a POST request.
+
+**`example`**
+```typescript
+import { getClient, Body, ResponseType } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.post('http://localhost:3003/users', {
+  body: Body.json({
+    name: 'tauri',
+    password: 'awesome'
+  }),
+  // in this case the server returns a simple string
+  responseType: ResponseType.Text,
+});
+```
 
 #### Type parameters
 
@@ -153,7 +201,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:318](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L318)
+[http.ts:372](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L372)
 
 ___
 
@@ -162,6 +210,21 @@ ___
 ▸ **put**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a PUT request.
+
+**`example`**
+```typescript
+import { getClient, Body } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.put('http://localhost:3003/users/1', {
+  body: Body.form({
+    file: {
+      file: '/home/tauri/avatar.png',
+      mime: 'image/png',
+      fileName: 'avatar.png'
+    }
+  })
+});
+```
 
 #### Type parameters
 
@@ -185,7 +248,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:339](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L339)
+[http.ts:407](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L407)
 
 ___
 
@@ -194,6 +257,16 @@ ___
 ▸ **request**<`T`\>(`options`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes an HTTP request.
+
+**`example`**
+```typescript
+import { getClient } from '@tauri-apps/api/http';
+const client = await getClient();
+const response = await client.request({
+  method: 'GET',
+  url: 'http://localhost:3003/users',
+});
+```
 
 #### Type parameters
 
@@ -215,4 +288,4 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:257](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/http.ts#L257)
+[http.ts:288](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/http.ts#L288)

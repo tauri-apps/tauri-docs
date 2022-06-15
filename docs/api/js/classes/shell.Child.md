@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[shell.ts:183](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L183)
+[shell.ts:183](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L183)
 
 ## Properties
 
@@ -30,7 +30,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L181)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
@@ -48,7 +48,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:218](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L218)
+[shell.ts:219](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L219)
 
 ___
 
@@ -60,10 +60,11 @@ Writes `data` to the `stdin`.
 
 **`example`**
 ```typescript
-const command = new Command('node')
-const child = await command.spawn()
-await child.write('message')
-await child.write([0, 1, 2, 3, 4, 5])
+import { Command } from '@tauri-apps/api/shell';
+const command = new Command('node');
+const child = await command.spawn();
+await child.write('message');
+await child.write([0, 1, 2, 3, 4, 5]);
 ```
 
 #### Parameters
@@ -80,4 +81,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[shell.ts:201](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L201)
+[shell.ts:202](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L202)

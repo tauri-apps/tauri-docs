@@ -96,12 +96,13 @@ The `openWith` value must be one of `firefox`, `google chrome`, `chromium` `safa
 
 **`example`**
 ```typescript
+import { open } from '@tauri-apps/api/shell';
 // opens the given URL on the default browser:
-await open('https://github.com/tauri-apps/tauri')
+await open('https://github.com/tauri-apps/tauri');
 // opens the given URL using `firefox`:
-await open('https://github.com/tauri-apps/tauri', 'firefox')
+await open('https://github.com/tauri-apps/tauri', 'firefox');
 // opens a file using the default program:
-await open('/path/to/file')
+await open('/path/to/file');
 ```
 
 #### Parameters
@@ -117,4 +118,4 @@ await open('/path/to/file')
 
 #### Defined in
 
-[shell.ts:416](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/shell.ts#L416)
+[shell.ts:421](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L421)

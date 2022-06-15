@@ -14,6 +14,12 @@ This package is also accessible with `window.__TAURI__.app` when `tauri.conf.jso
 
 Gets the application name.
 
+**`example`**
+```typescript
+import { getName } from '@tauri-apps/api/app';
+const appName = await getName();
+```
+
 #### Returns
 
 `Promise`<`string`\>
@@ -22,7 +28,7 @@ A promise resolving to application name.
 
 #### Defined in
 
-[app.ts:33](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/app.ts#L33)
+[app.ts:43](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L43)
 
 ___
 
@@ -32,6 +38,12 @@ ___
 
 Gets the tauri version.
 
+**`example`**
+```typescript
+import { getTauriVersion } from '@tauri-apps/api/app';
+const tauriVersion = await getTauriVersion();
+```
+
 #### Returns
 
 `Promise`<`string`\>
@@ -40,7 +52,7 @@ A promise resolving to tauri version.
 
 #### Defined in
 
-[app.ts:47](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/app.ts#L47)
+[app.ts:63](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L63)
 
 ___
 
@@ -50,6 +62,12 @@ ___
 
 Gets the application version.
 
+**`example`**
+```typescript
+import { getVersion } from '@tauri-apps/api/app';
+const appVersion = await getVersion();
+```
+
 #### Returns
 
 `Promise`<`string`\>
@@ -58,4 +76,4 @@ A promise resolving to the application version.
 
 #### Defined in
 
-[app.ts:19](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/app.ts#L19)
+[app.ts:24](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L24)

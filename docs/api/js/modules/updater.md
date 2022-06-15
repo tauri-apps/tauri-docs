@@ -12,7 +12,7 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 - [UpdateResult](../interfaces/updater.UpdateResult.md)
 - [UpdateStatusResult](../interfaces/updater.UpdateStatusResult.md)
 
-## Type aliases
+## Type Aliases
 
 ### UpdateStatus
 
@@ -20,7 +20,7 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -30,6 +30,13 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 Checks if an update is available.
 
+**`example`**
+```typescript
+import { checkUpdate } from '@tauri-apps/api/updater';
+const update = await checkUpdate();
+// now run installUpdate() if needed
+```
+
 #### Returns
 
 `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
@@ -38,7 +45,7 @@ Promise resolving to the update status.
 
 #### Defined in
 
-[updater.ts:89](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/updater.ts#L89)
+[updater.ts:104](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/updater.ts#L104)
 
 ___
 
@@ -48,6 +55,16 @@ ___
 
 Install the update if there's one available.
 
+**`example`**
+```typescript
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
+const update = await checkUpdate();
+if (update.shouldUpdate) {
+  console.log(`Installing update ${update.manifest?.version}, ${update.manifest?.date}, ${update.manifest.body}`);
+  await installUpdate();
+}
+```
+
 #### Returns
 
 `Promise`<`void`\>
@@ -56,4 +73,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[updater.ts:37](https://github.com/tauri-apps/tauri/blob/2c040ea/tooling/api/src/updater.ts#L37)
+[updater.ts:46](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/updater.ts#L46)
