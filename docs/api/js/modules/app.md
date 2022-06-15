@@ -28,7 +28,7 @@ A promise resolving to application name.
 
 #### Defined in
 
-[app.ts:43](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/app.ts#L43)
+[app.ts:43](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L43)
 
 ___
 
@@ -52,7 +52,7 @@ A promise resolving to tauri version.
 
 #### Defined in
 
-[app.ts:63](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/app.ts#L63)
+[app.ts:63](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L63)
 
 ___
 
@@ -76,4 +76,4 @@ A promise resolving to the application version.
 
 #### Defined in
 
-[app.ts:24](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/app.ts#L24)
+[app.ts:24](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/app.ts#L24)
