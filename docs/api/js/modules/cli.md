@@ -44,4 +44,4 @@ A promise resolving to the parsed arguments.
 
 #### Defined in
 
-[cli.ts:57](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/cli.ts#L57)
+[cli.ts:57](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/cli.ts#L57)

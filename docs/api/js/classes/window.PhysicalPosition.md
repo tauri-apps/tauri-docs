@@ -21,7 +21,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:186](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/window.ts#L186)
+[window.ts:186](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/window.ts#L186)
 
 ## Properties
 
@@ -31,7 +31,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:182](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/window.ts#L182)
+[window.ts:182](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/window.ts#L182)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[window.ts:183](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/window.ts#L183)
+[window.ts:183](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/window.ts#L183)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[window.ts:184](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/window.ts#L184)
+[window.ts:184](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/window.ts#L184)
 
 ## Methods
 
@@ -81,4 +81,4 @@ const logical = position.toLogical(factor);
 
 #### Defined in
 
-[window.ts:201](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/window.ts#L201)
+[window.ts:201](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/window.ts#L201)

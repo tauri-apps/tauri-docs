@@ -16,7 +16,7 @@
 
 #### Defined in
 
-[cli.ts:33](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/cli.ts#L33)
+[cli.ts:33](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/cli.ts#L33)
 
 ___
 
@@ -26,4 +26,4 @@ ___
 
 #### Defined in
 
-[cli.ts:34](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/cli.ts#L34)
+[cli.ts:34](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/cli.ts#L34)

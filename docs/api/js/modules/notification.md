@@ -35,7 +35,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -57,7 +57,7 @@ const permissionGranted = await isPermissionGranted();
 
 #### Defined in
 
-[notification.ts:54](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/notification.ts#L54)
+[notification.ts:54](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/notification.ts#L54)
 
 ___
 
@@ -85,7 +85,7 @@ A promise resolving to whether the user granted the permission or not.
 
 #### Defined in
 
-[notification.ts:80](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/notification.ts#L80)
+[notification.ts:80](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/notification.ts#L80)
 
 ___
 
@@ -121,4 +121,4 @@ if (permissionGranted) {
 
 #### Defined in
 
-[notification.ts:102](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/notification.ts#L102)
+[notification.ts:102](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/notification.ts#L102)

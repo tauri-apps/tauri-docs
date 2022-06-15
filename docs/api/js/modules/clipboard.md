@@ -28,7 +28,7 @@ A promise resolving to the clipboard content as plain text.
 
 #### Defined in
 
-[clipboard.ts:45](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/clipboard.ts#L45)
+[clipboard.ts:45](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/clipboard.ts#L45)
 
 ___
 
@@ -59,4 +59,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[clipboard.ts:25](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/clipboard.ts#L25)
+[clipboard.ts:25](https://github.com/tauri-apps/tauri/blob/f5f9f10/tooling/api/src/clipboard.ts#L25)
