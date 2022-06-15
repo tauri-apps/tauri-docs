@@ -99,6 +99,25 @@ export default defineConfig({
   devServer="Because Vite's development server will listen on port 3000 by default we will answer this question with 'http://localhost:3000'."
 />
 
+Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App. 
+But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // highlight-start
+    // The Tauri CLI will execute this command when you run `tauri build`. 
+    // This is the place to bundle your frontend and place html,css, and js files into the `distDir`.
+    "beforeBuildCommand": "npm run build",
+    // The Tauri CLI will execute this command when you run `tauri dev`. 
+    // This should start your development server.
+    "beforeDevCommand": "npm run dev",
+    // highlight-end
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  },
+```
+
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
 
 <Command name="dev" />
