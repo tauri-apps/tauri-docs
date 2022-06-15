@@ -5,10 +5,10 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 const types = [
-  { label: 'Yarn', value: 'yarn tauri ' },
   { label: 'npm', value: 'npm run tauri ' },
+  { label: 'yarn', value: 'yarn tauri ' },
+  { label: 'pnpm', value: 'pnpm tauri ' },
   { label: 'cargo', value: 'cargo tauri ' },
-  { label: 'Global', value: 'tauri ' },
 ]
 
 function insertDashDashBeforeOption (value, name) {

@@ -1,6 +1,5 @@
 ---
 sidebar_position: 1
-pagination_next: guides/getting-started/beginning-tutorial
 ---
 
 import Tabs from '@theme/Tabs';

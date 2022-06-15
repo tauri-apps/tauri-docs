@@ -316,6 +316,7 @@ const siteConfig = {
         ],
       },
     ],
+    ['@docusaurus/plugin-ideal-image', {}],
   ],
 }
 

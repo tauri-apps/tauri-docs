@@ -19,6 +19,8 @@
   --ifm-font-size-base: 95%;
   --ifm-contents-border-color: var(--ifm-color-emphasis-300);
   --ifm-card-background-color: #f6f6f6;
+
+  --docusaurus-highlighted-code-line-bg: white;
 }
 
 [data-theme='dark'] {
@@ -31,6 +33,8 @@
   --ifm-color-primary-lightest: #c2eff8;
 
   --ifm-card-background-color: #2f2f2f;
+
+  --docusaurus-highlighted-code-line-bg: rgb(100, 100, 100);
 
   --tauri-orange: #ffc131;
 }
