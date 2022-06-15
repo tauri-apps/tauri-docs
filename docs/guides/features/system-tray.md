@@ -17,8 +17,6 @@ Configure the `systemTray` object on `tauri.conf.json`:
 }
 ```
 
-The `iconPath` is pointed to a PNG file on macOS and Linux, and a `.ico` file must exist for Windows support.
-
 The `iconAsTemplate` is a boolean value that determines whether the image represents a [Template Image] on macOS.
 
 #### Linux Setup
