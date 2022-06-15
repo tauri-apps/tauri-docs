@@ -233,7 +233,7 @@ The alternate update technique uses a plain JSON file, storing your update metad
       "signature": "",
       "url": "https://github.com/lemarier/tauri-test/releases/download/v1.0.0/app.AppImage.tar.gz"
     },
-    "win64": {
+    "windows-x86_64": {
       "signature": "",
       "url": "https://github.com/lemarier/tauri-test/releases/download/v1.0.0/app.x64.msi.zip"
     }
