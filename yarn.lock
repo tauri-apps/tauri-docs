@@ -1627,7 +1627,7 @@
     "@docusaurus/utils-validation" "2.0.0-beta.21"
     tslib "^2.4.0"
 
-"@docusaurus/plugin-ideal-image@^2.0.0-beta.21":
+"@docusaurus/plugin-ideal-image@2.0.0-beta.21":
   version "2.0.0-beta.21"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-ideal-image/-/plugin-ideal-image-2.0.0-beta.21.tgz#6c73bc8a9594c5c095b90d3a580bedfb1973457f"
   integrity sha512-Q0hDiHmc5UzoXIRnwRt7+Cd4qaev3j6h/I33g8PzFClsqEkfIeaxpddk6kapusHTW+Ds46BtRV3gUnJ/c9DqTg==
@@ -8046,7 +8046,6 @@ react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
-
   dependencies:
     loose-envify "^1.1.0"
 
