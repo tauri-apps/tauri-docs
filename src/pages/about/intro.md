@@ -6,7 +6,7 @@ id: intro
 
 Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
 
-If you want to know more about the technical details, then please visit the [Introduction](/v1/guides/getting-started/quick-start). If you want to know more about this project's philosophy - then keep reading.
+If you want to know more about the technical details, then please visit the [Introduction](/v1/guides/getting-started/setup). If you want to know more about this project's philosophy - then keep reading.
 
 <div className="videowrapper">
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UxTJeEbZX-0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

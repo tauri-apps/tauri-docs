@@ -152,7 +152,7 @@ Here you may peruse our [Software Bill of Materials](https://app.fossa.com/proje
 
 ## Next Steps
 
-[Your First Tauri App](/v1/guides/getting-started/quick-start)
+[Your First Tauri App](/v1/guides/getting-started/setup)
 
 [Development Cycle](/v1/guides/development/development-cycle)
 

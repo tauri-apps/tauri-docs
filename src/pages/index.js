@@ -20,7 +20,7 @@ function Cards() {
         message:
           "Compatibility with any front-end framework means you don't have to change your stack.",
       }),
-      link: '/guides/getting-started/quick-start',
+      link: '/guides/getting-started/setup',
       isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/brownfield.svg',
