@@ -118,4 +118,4 @@ await open('/path/to/file');
 
 #### Defined in
 
-[shell.ts:421](https://github.com/tauri-apps/tauri/blob/6e16679/tooling/api/src/shell.ts#L421)
+[shell.ts:421](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/shell.ts#L421)
