@@ -64,14 +64,14 @@
   position: absolute;
   rotate: 15deg;
   top: 40%;
-  right: 10px;
+  right: 3rem;
 }
 
 .heroAfter .heroPackage {
   position: absolute;
   rotate: -15deg;
   top: 15%;
-  left: 10px;
+  left: 3rem;
 }
 
 .heroImage {
