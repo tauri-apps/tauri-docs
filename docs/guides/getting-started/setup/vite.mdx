@@ -9,6 +9,7 @@ import Intro from './_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command from '@theme/Command'
+import Image from '@theme/IdealImage'
 
 # Vite
 
@@ -18,8 +19,8 @@ This guide will walk you through creating your first Tauri app using the fronten
 
 Here's a preview of what we will be building:
 
-![html-css-js-light](/img/guides/vite-light.png#gh-light-mode-only)
-![html-css-js-dark](/img/guides/vite-dark.png#gh-dark-mode-only)
+<Image img={'/img/guides/vite-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/vite-dark.png#gh-dark-mode-only'} />
 
 :::info
 
@@ -99,17 +100,17 @@ export default defineConfig({
   devServer="Because Vite's development server will listen on port 3000 by default we will answer this question with 'http://localhost:3000'."
 />
 
-Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App. 
+Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
 But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
 
 ```json title=src-tauri/tauri.conf.json
 {
   "build": {
     // highlight-start
-    // The Tauri CLI will execute this command when you run `tauri build`. 
+    // The Tauri CLI will execute this command when you run `tauri build`.
     // This is the place to bundle your frontend and place html,css, and js files into the `distDir`.
     "beforeBuildCommand": "npm run build",
-    // The Tauri CLI will execute this command when you run `tauri dev`. 
+    // The Tauri CLI will execute this command when you run `tauri dev`.
     // This should start your development server.
     "beforeDevCommand": "npm run dev",
     // highlight-end
@@ -122,8 +123,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![html-css-js-light](/img/guides/vite-dev-light.png#gh-light-mode-only)
-![html-css-js-dark](/img/guides/vite-dev-dark.png#gh-dark-mode-only)
+<Image img={'/img/guides/vite-dev-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/vite-dev-dark.png#gh-dark-mode-only'} />
 
 ## Invoke Commands
 

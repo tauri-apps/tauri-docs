@@ -7,6 +7,7 @@ import TauriInit from './_tauri-init.mdx'
 import Commands from './_commands.mdx'
 import Intro from './_intro.mdx'
 import Command from '@theme/Command'
+import Image from '@theme/IdealImage'
 
 # HTML/CSS/JavaScript
 
@@ -16,15 +17,15 @@ This guide will walk you through creating your first Tauri app using just HTML, 
 
 Here's a preview of what we will be building:
 
-![html-css-js-light](/img/guides/html-css-js-light.png#gh-light-mode-only)
-![html-css-js-dark](/img/guides/html-css-js-dark.png#gh-dark-mode-only)
+<Image img={'/img/guides/html-css-js-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/html-css-js-dark.png#gh-dark-mode-only'} />
 
 :::info
 
 Before we continue, make sure you have completed the [prerequisites] and installed the [Tauri CLI][tauri-cli] to have a working development environment.
 
 :::
- 
+
 ## Create the Frontend
 
 We will create a very minimal UI using an HTML file. To keep things tidy though, let's create a separate folder for it:
@@ -41,10 +42,7 @@ Next, create an `index.html` file inside of that folder with the following conte
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
@@ -64,8 +62,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![html-css-js-light](/img/guides/html-css-js-dev-light.png#gh-light-mode-only)
-![html-css-js-dark](/img/guides/html-css-js-dev-dark.png#gh-dark-mode-only)
+<Image img={'/img/guides/html-css-js-dev-light.png#gh-light-mode-only'} />
+<Image img={'/img/guides/html-css-js-dev-dark.png#gh-dark-mode-only'} />
 
 ## Invoke Commands
 
@@ -95,10 +93,7 @@ You can now modify your `index.html` file to call your Command:
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
