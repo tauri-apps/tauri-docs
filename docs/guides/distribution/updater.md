@@ -207,25 +207,29 @@ When an update is available, Tauri expects the following schema in response to t
 
 The only required keys are "url" and "version"; the others are optional.
 
-"pub_date" if present must be formatted according to ISO 8601.
+"pub_date" if present must be formatted according to RFC 3339.
 
-"signature" if present, must be a valid signature generated with Tauri CLI. See [Signing updates](#signing-updates).
+"signature" must be a valid signature generated with Tauri CLI. See [Signing updates](#signing-updates).
 
 ### Update File JSON Format
 
-The alternate update technique uses a plain JSON file, storing your update metadata on S3, gist, or another static file store. Tauri checks against the name/version field, and if the version is smaller than the current one and the platform is available, it triggers an update. The format of this file is detailed below:
+The alternate update technique uses a plain JSON file, storing your update metadata on S3, gist, or another static file store. Tauri checks against the version field, and if the version is smaller than the current one and the platform is available, it triggers an update. The format of this file is detailed below:
 
 ```json
 {
-  "name": "v1.0.0",
+  "version": "v1.0.0",
   "notes": "Test version",
   "pub_date": "2020-06-22T19:25:57Z",
   "platforms": {
-    "darwin": {
+    "darwin-x86_64": {
       "signature": "",
       "url": "https://github.com/lemarier/tauri-test/releases/download/v1.0.0/app.app.tar.gz"
     },
-    "linux": {
+    "darwin-aarch64": {
+      "signature": "",
+      "url": "https://github.com/lemarier/tauri-test/releases/download/v1.0.0/silicon/app.app.tar.gz"
+    },
+    "linux-x86_64": {
       "signature": "",
       "url": "https://github.com/lemarier/tauri-test/releases/download/v1.0.0/app.AppImage.tar.gz"
     },
@@ -236,6 +240,8 @@ The alternate update technique uses a plain JSON file, storing your update metad
   }
 }
 ```
+
+Note that each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686` or `armv7`.
 
 ## Bundler (Artifacts)
 
@@ -255,7 +261,7 @@ target/release/bundle
 └── osx
     └── app.app
     └── app.app.tar.gz (update bundle)
-    └── app.app.tar.gz.sig (if signature enabled)
+    └── app.app.tar.gz.sig
 ```
 
 ### Windows
@@ -266,7 +272,7 @@ On Windows, we create a .zip from the MSI; when downloaded and validated, we run
 target/release
 └── app.x64.msi
 └── app.x64.msi.zip (update bundle)
-└── app.x64.msi.zip.sig (if signature enabled)
+└── app.x64.msi.zip.sig
 ```
 
 ### Linux
@@ -278,7 +284,7 @@ target/release/bundle
 └── appimage
     └── app.AppImage
     └── app.AppImage.tar.gz (update bundle)
-    └── app.AppImage.tar.gz.sig (if signature enabled)
+    └── app.AppImage.tar.gz.sig
 ```
 
 ## Signing updates
