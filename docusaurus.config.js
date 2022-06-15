@@ -90,12 +90,6 @@ const navbarItems = [
     ],
   },
   {
-    label: 'RC',
-    to: '/#roadmap',
-    position: 'right',
-    className: 'badge badge--warning',
-  },
-  {
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
@@ -209,9 +203,8 @@ const siteConfig = {
       respectPrefersColorScheme: true,
     },
     announcementBar: {
-      id: 'rc',
       content:
-        "<div id='announcement-rc'>🚀 Tauri Release Candidate has landed! <a id='announcement-link' target='_blank' rel='noopener noreferrer' href='https://dev.to/tauri/tauri-10-release-candidate-53jk'>Click here for more details.</a></div>",
+        "<b>🚀 Tauri 1.0 has landed! <a href='https://tauri.studio'>Click here for more details</a></div></b>",
       backgroundColor: 'var(--ifm-color-primary)',
       textColor: 'var(--ifm-button-color)',
     },

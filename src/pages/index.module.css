@@ -21,76 +21,74 @@
 }
 
 /* Hero */
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-
-  .about {
-    margin-bottom: 20px;
-  }
-}
-
-.buttons {
+.hero {
+  height: 70vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: stretch;
+  padding: 4rem 0;
 }
 
-.about,
-.getStarted {
-  border: double 4px transparent;
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-  padding: 0;
-  width: 100%;
-  transition: 0.2s;
-  color: var(--ifm-hero-text-color) !important;
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
 }
 
-.about:hover,
-.getStarted:hover {
-  color: var(--ifm-hero-background-color) !important;
+.heroBefore,
+.heroAfter {
+  position: relative;
+  height: 100%;
 }
 
-.about {
-  background-image: linear-gradient(
-      var(--ifm-hero-background-color),
-      var(--ifm-hero-background-color)
-    ),
-    radial-gradient(circle at top left, #0198f1, #48f9c7);
+.heroLoops {
+  height: 100%;
+  object-fit: cover;
 }
 
-.about:hover {
-  background-image: linear-gradient(transparent, transparent),
-    radial-gradient(circle at top left, #0198f1, #48f9c7);
+.heroBefore .heroLoops {
+  object-position: right;
 }
 
-.getStarted {
-  background-image: linear-gradient(
-      var(--ifm-hero-background-color),
-      var(--ifm-hero-background-color)
-    ),
-    radial-gradient(circle at top left, #fff04d, #ff8e13);
+.heroAfter .heroLoops {
+  object-position: left;
 }
 
-.getStarted:hover {
-  background-image: linear-gradient(transparent, transparent),
-    radial-gradient(circle at top left, #fff04d, #ff8e13);
+.heroPackage {
+  height: 30%;
 }
 
-.about span,
-.getStarted span {
-  padding: 10px;
-  display: inline-block;
-  font-size: 1.6em;
+.heroBefore .heroPackage {
+  position: absolute;
+  rotate: 15deg;
+  top: 40%;
+  right: 10px;
+}
+
+.heroAfter .heroPackage {
+  position: absolute;
+  rotate: -15deg;
+  top: 15%;
+  left: 10px;
+}
+
+.heroImage {
+  height: 10vh;
+  object-fit: contain;
+}
+
+.heroHeadline {
+  font-size: 20vh;
+  line-height: 0.8;
+  font-weight: bolder;
+}
+
+.heroSubtitle {
+  max-width: 100vw;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 /* Cards */

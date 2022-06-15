@@ -132,21 +132,10 @@ html[data-theme='light'] .header-github-link::before {
   display: inline-block;
 }
 
-#announcement-rc {
-  font-weight: bold;
-}
-
 @media only screen and (max-width: 500px) {
   #announcement-link {
     display: block;
   }
-}
-
-.badge--warning,
-.badge--warning:hover {
-  color: var(--ifm-button-color) !important;
-  /* Fixes the background color on mobile */
-  background-color: var(--ifm-color-warning) !important;
 }
 
 /* Allows dynamic images based on light/dark mode */

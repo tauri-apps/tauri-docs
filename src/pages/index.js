@@ -428,64 +428,52 @@ export default function App() {
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
       })}
     >
-      <header className={classNames('hero hero--dark', styles.heroBanner)}>
-        <div className="container">
-          <BrowserOnly>
-            {() => {
-              require('@lottiefiles/lottie-player')
-              return (
-                <Lottie-Player
-                  src="tauri-splash.json"
-                  background="transparent"
-                  speed="1"
-                  style={{ height: '40vh', margin: 'auto' }}
-                  autoplay
-                />
-              )
-            }}
-          </BrowserOnly>
-          <p
-            className="hero__subtitle"
-            dangerouslySetInnerHTML={{
-              __html: translate({
-                message:
-                  'Build smaller, faster, and more secure <br />desktop applications with a web frontend',
-              }),
-            }}
-          ></p>
+      <header className={classNames('hero hero--dark', styles.hero)}>
+        <div className={classNames(styles.heroBefore)}>
+          <img
+            className={classNames(styles.heroLoops)}
+            src="/img/index/blue_loops.svg"
+          />
+          <img
+            className={classNames(styles.heroPackage)}
+            src="/img/index/orange_package.svg"
+          />
+        </div>
+        <div className={classNames(styles.heroContainer)}>
+          <img
+            className={classNames(styles.heroImage)}
+            src="/meta/tauri_logo_dark.svg"
+          />
+          <p className={classNames(styles.heroHeadline, 'hero__subtitle')}>
+            <Translate>1.0</Translate>
+          </p>
+          <p className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
+            <Translate>Announcing the release of Tauri 1.0</Translate>
+          </p>
           <div className={styles.buttons}>
             <div className="container">
-              <div className="row">
-                <div className="col col--4 col--offset-2">
-                  <Link
-                    className={classNames(
-                      'button button--outline button--secondary button--lg',
-                      styles.about
-                    )}
-                    to="/about/intro"
-                  >
-                    <span>
-                      <Translate>Learn More</Translate>
-                    </span>
-                  </Link>
-                </div>
-                <div className="col col--4">
-                  <Link
-                    className={classNames(
-                      'button button--outline button--secondary button--lg',
-                      styles.getStarted
-                    )}
-                    to={latestVersion.path + '/guides/'}
-                  >
-                    <span>
-                      <Translate>Get Started</Translate>
-                    </span>
-                  </Link>
-                </div>
-                <div className="col col--2"></div>
+              <div className="col col--4">
+                <Link
+                  className={classNames('button button--secondary button--lg')}
+                  to={latestVersion.path + '/guides/'}
+                >
+                  <span>
+                    <Translate>Get Started</Translate>
+                  </span>
+                </Link>
               </div>
             </div>
           </div>
+        </div>
+        <div className={classNames(styles.heroAfter)}>
+          <img
+            className={classNames(styles.heroPackage)}
+            src="/img/index/blue_package.svg"
+          />
+          <img
+            className={classNames(styles.heroLoops)}
+            src="/img/index/orange_loops.svg"
+          />
         </div>
       </header>
 
@@ -505,7 +493,7 @@ export default function App() {
 
             <div className={styles.spacer} />
 
-            <h1 className={styles.h1, "anchor-with-padding"} id="roadmap">
+            <h1 className={(styles.h1, 'anchor-with-padding')} id="roadmap">
               Roadmap
             </h1>
             <div className={styles.row}>
