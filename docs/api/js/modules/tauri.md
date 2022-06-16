@@ -54,7 +54,7 @@ the URL that can be used as source on the webview.
 
 #### Defined in
 
-[tauri.ts:121](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L121)
+[tauri.ts:121](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/tauri.ts#L121)
 
 ___
 
@@ -91,7 +91,7 @@ A promise resolving or rejecting to the backend response.
 
 #### Defined in
 
-[tauri.ts:73](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L73)
+[tauri.ts:73](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/tauri.ts#L73)
 
 ___
 
@@ -117,4 +117,4 @@ A unique identifier associated with the callback function.
 
 #### Defined in
 
-[tauri.ts:34](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L34)
+[tauri.ts:34](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/tauri.ts#L34)

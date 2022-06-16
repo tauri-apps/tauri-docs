@@ -132,7 +132,7 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:237](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L237)
+[window.ts:237](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L237)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[window.ts:116](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L116)
+[window.ts:116](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L116)
 
 ## Variables
 
@@ -154,7 +154,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1599](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1599)
+[window.ts:1599](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L1599)
 
 ## Functions
 
@@ -176,7 +176,7 @@ const monitors = availableMonitors();
 
 #### Defined in
 
-[window.ts:1738](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1738)
+[window.ts:1738](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L1738)
 
 ___
 
@@ -199,7 +199,7 @@ const monitor = currentMonitor();
 
 #### Defined in
 
-[window.ts:1693](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1693)
+[window.ts:1693](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L1693)
 
 ___
 
@@ -217,7 +217,7 @@ The list of WebviewWindow.
 
 #### Defined in
 
-[window.ts:295](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L295)
+[window.ts:295](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L295)
 
 ___
 
@@ -235,7 +235,7 @@ The current WebviewWindow.
 
 #### Defined in
 
-[window.ts:283](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L283)
+[window.ts:283](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L283)
 
 ___
 
@@ -258,4 +258,4 @@ const monitor = primaryMonitor();
 
 #### Defined in
 
-[window.ts:1716](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1716)
+[window.ts:1716](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/window.ts#L1716)

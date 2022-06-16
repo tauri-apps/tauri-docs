@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:246](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L246)
+[http.ts:246](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L246)
 
 ## Methods
 
@@ -50,7 +50,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:456](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L456)
+[http.ts:456](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L456)
 
 ___
 
@@ -73,7 +73,7 @@ await client.drop();
 
 #### Defined in
 
-[http.ts:263](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L263)
+[http.ts:263](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L263)
 
 ___
 
@@ -115,7 +115,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:343](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L343)
+[http.ts:343](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L343)
 
 ___
 
@@ -155,7 +155,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:435](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L435)
+[http.ts:435](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L435)
 
 ___
 
@@ -201,7 +201,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:372](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L372)
+[http.ts:372](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L372)
 
 ___
 
@@ -248,7 +248,7 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:407](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L407)
+[http.ts:407](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L407)
 
 ___
 
@@ -288,4 +288,4 @@ A promise resolving to the response.
 
 #### Defined in
 
-[http.ts:288](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L288)
+[http.ts:288](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/http.ts#L288)

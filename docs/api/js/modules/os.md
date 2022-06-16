@@ -32,7 +32,7 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:35](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L35)
+[os.ts:35](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L35)
 
 ## Functions
 
@@ -55,7 +55,7 @@ const archName = await arch();
 
 #### Defined in
 
-[os.ts:114](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L114)
+[os.ts:114](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L114)
 
 ___
 
@@ -78,7 +78,7 @@ const platformName = await platform();
 
 #### Defined in
 
-[os.ts:46](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L46)
+[os.ts:46](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L46)
 
 ___
 
@@ -100,7 +100,7 @@ const tempdirPath = await tempdir();
 
 #### Defined in
 
-[os.ts:146](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L146)
+[os.ts:146](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L146)
 
 ___
 
@@ -122,7 +122,7 @@ const osType = await type();
 
 #### Defined in
 
-[os.ts:94](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L94)
+[os.ts:94](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L94)
 
 ___
 
@@ -144,4 +144,4 @@ const osVersion = await version();
 
 #### Defined in
 
-[os.ts:77](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L77)
+[os.ts:77](https://github.com/tauri-apps/tauri/blob/8457ccc/tooling/api/src/os.ts#L77)
