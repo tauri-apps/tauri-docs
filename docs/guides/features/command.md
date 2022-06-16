@@ -252,6 +252,6 @@ invoke('my_custom_command', {
   .catch((e) => console.error(e))
 ```
 
-[`async_runtime::spawn`]: https://docs.rs/tauri/1.0.0-rc.0/tauri/async_runtime/fn.spawn.html
+[`async_runtime::spawn`]: https://docs.rs/tauri/1/tauri/async_runtime/fn.spawn.html
 [`serde::Serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
 [`serde::Deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html

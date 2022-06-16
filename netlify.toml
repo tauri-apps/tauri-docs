@@ -12,7 +12,7 @@ to = "/:splat"
 
 [[redirects]]
 from = "/docs/api/rust/*"
-to = "https://docs.rs/tauri/1.0.0-rc.0/tauri/"
+to = "https://docs.rs/tauri/1/tauri/"
 
 [[redirects]]
 from = "/partners"
