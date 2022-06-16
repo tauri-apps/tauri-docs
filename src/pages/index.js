@@ -72,7 +72,7 @@ function Cards() {
         message:
           'With performance and security at the center, Rust is the language for the next generation of apps.',
       }),
-      link: 'https://docs.rs/tauri/1.0.0-rc/',
+      link: 'https://docs.rs/tauri/1/',
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/code.svg',
     },

@@ -116,7 +116,7 @@ Note that you must enable the **process-command-api** Cargo feature:
 ```toml
 # Cargo.toml
 [dependencies]
-tauri = { version = "1.0.0-rc.6", features = ["process-command-api", ...] }
+tauri = { version = "1", features = ["process-command-api", ...] }
 ```
 
 ## Using Node.js on a Sidecar

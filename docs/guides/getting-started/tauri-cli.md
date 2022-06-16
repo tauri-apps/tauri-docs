@@ -16,7 +16,7 @@ The CLI is available from a number of sources, depending on your preference.
 As the CLI is written in Rust, it is naturally available through [crates.io](https://crates.io/crates/tauri-cli) and installable with Cargo using the following command:
 
 ```shell
-cargo install tauri-cli --version "^1.0.0-rc"
+cargo install tauri-cli --version "^1.0.0"
 ```
 
 After the installation has finished you can invoke it as a cargo subcommand:
