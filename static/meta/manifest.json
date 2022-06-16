@@ -38,7 +38,7 @@
   "description": "Build smaller, faster, and more secure desktop applications with a web frontend",
   "screenshots": [
     {
-      "src": "/img/social.jpg",
+      "src": "/img/social.png",
       "type": "image/png",
       "sizes": "1280x640"
     }
