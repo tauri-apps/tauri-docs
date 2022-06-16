@@ -38,7 +38,7 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L568)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L568)
 
 ___
 
@@ -52,7 +52,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L561)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L561)
 
 ## Functions
 
@@ -75,7 +75,7 @@ const appDirPath = await appDir();
 
 #### Defined in
 
-[path.ts:41](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L41)
+[path.ts:41](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L41)
 
 ___
 
@@ -103,7 +103,7 @@ const audioDirPath = await audioDir();
 
 #### Defined in
 
-[path.ts:68](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L68)
+[path.ts:68](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L68)
 
 ___
 
@@ -134,7 +134,7 @@ assert(base === 'app');
 
 #### Defined in
 
-[path.ts:682](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L682)
+[path.ts:682](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L682)
 
 ___
 
@@ -162,7 +162,7 @@ const cacheDirPath = await cacheDir();
 
 #### Defined in
 
-[path.ts:95](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L95)
+[path.ts:95](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L95)
 
 ___
 
@@ -190,7 +190,7 @@ const configDirPath = await configDir();
 
 #### Defined in
 
-[path.ts:122](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L122)
+[path.ts:122](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L122)
 
 ___
 
@@ -218,7 +218,7 @@ const dataDirPath = await dataDir();
 
 #### Defined in
 
-[path.ts:149](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L149)
+[path.ts:149](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L149)
 
 ___
 
@@ -246,7 +246,7 @@ const desktopPath = await desktopDir();
 
 #### Defined in
 
-[path.ts:176](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L176)
+[path.ts:176](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L176)
 
 ___
 
@@ -275,7 +275,7 @@ const dir = await dirname(appDirPath);
 
 #### Defined in
 
-[path.ts:640](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L640)
+[path.ts:640](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L640)
 
 ___
 
@@ -303,7 +303,7 @@ const documentDirPath = await documentDir();
 
 #### Defined in
 
-[path.ts:203](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L203)
+[path.ts:203](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L203)
 
 ___
 
@@ -331,7 +331,7 @@ const downloadDirPath = await downloadDir();
 
 #### Defined in
 
-[path.ts:230](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L230)
+[path.ts:230](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L230)
 
 ___
 
@@ -359,7 +359,7 @@ const executableDirPath = await executableDir();
 
 #### Defined in
 
-[path.ts:257](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L257)
+[path.ts:257](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L257)
 
 ___
 
@@ -389,7 +389,7 @@ assert(ext === 'conf');
 
 #### Defined in
 
-[path.ts:660](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L660)
+[path.ts:660](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L660)
 
 ___
 
@@ -417,7 +417,7 @@ const fontDirPath = await fontDir();
 
 #### Defined in
 
-[path.ts:284](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L284)
+[path.ts:284](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L284)
 
 ___
 
@@ -445,7 +445,7 @@ const homeDirPath = await homeDir();
 
 #### Defined in
 
-[path.ts:311](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L311)
+[path.ts:311](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L311)
 
 ___
 
@@ -473,7 +473,7 @@ assert(await ibsolute('/home/tauri'));
 
 #### Defined in
 
-[path.ts:701](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L701)
+[path.ts:701](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L701)
 
 ___
 
@@ -502,7 +502,7 @@ const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 
 #### Defined in
 
-[path.ts:621](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L621)
+[path.ts:621](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L621)
 
 ___
 
@@ -530,7 +530,7 @@ const localDataDirPath = await localDataDir();
 
 #### Defined in
 
-[path.ts:338](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L338)
+[path.ts:338](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L338)
 
 ___
 
@@ -558,7 +558,7 @@ const logDirPath = await logDir();
 
 #### Defined in
 
-[path.ts:545](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L545)
+[path.ts:545](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L545)
 
 ___
 
@@ -587,7 +587,7 @@ const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 
 #### Defined in
 
-[path.ts:600](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L600)
+[path.ts:600](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L600)
 
 ___
 
@@ -615,7 +615,7 @@ const pictureDirPath = await pictureDir();
 
 #### Defined in
 
-[path.ts:365](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L365)
+[path.ts:365](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L365)
 
 ___
 
@@ -643,7 +643,7 @@ const publicDirPath = await publicDir();
 
 #### Defined in
 
-[path.ts:392](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L392)
+[path.ts:392](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L392)
 
 ___
 
@@ -672,7 +672,7 @@ const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 
 #### Defined in
 
-[path.ts:581](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L581)
+[path.ts:581](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L581)
 
 ___
 
@@ -702,7 +702,7 @@ The full path to the resource.
 
 #### Defined in
 
-[path.ts:437](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L437)
+[path.ts:437](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L437)
 
 ___
 
@@ -725,7 +725,7 @@ const resourceDirPath = await resourceDir();
 
 #### Defined in
 
-[path.ts:414](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L414)
+[path.ts:414](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L414)
 
 ___
 
@@ -753,7 +753,7 @@ const runtimeDirPath = await runtimeDir();
 
 #### Defined in
 
-[path.ts:464](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L464)
+[path.ts:464](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L464)
 
 ___
 
@@ -781,7 +781,7 @@ const templateDirPath = await templateDir();
 
 #### Defined in
 
-[path.ts:491](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L491)
+[path.ts:491](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L491)
 
 ___
 
@@ -809,4 +809,4 @@ const videoDirPath = await videoDir();
 
 #### Defined in
 
-[path.ts:518](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/path.ts#L518)
+[path.ts:518](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/path.ts#L518)

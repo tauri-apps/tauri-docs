@@ -97,7 +97,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
@@ -129,7 +129,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:458](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L458)
+[fs.ts:458](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L458)
 
 ___
 
@@ -162,7 +162,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:404](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L404)
+[fs.ts:404](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L404)
 
 ___
 
@@ -193,7 +193,7 @@ A promise resolving to the file bytes array.
 
 #### Defined in
 
-[fs.ts:174](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L174)
+[fs.ts:174](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L174)
 
 ___
 
@@ -233,7 +233,7 @@ A promise resolving to the directory entries.
 
 #### Defined in
 
-[fs.ts:376](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L376)
+[fs.ts:376](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L376)
 
 ___
 
@@ -264,7 +264,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 #### Defined in
 
-[fs.ts:148](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L148)
+[fs.ts:148](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L148)
 
 ___
 
@@ -296,7 +296,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:431](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L431)
+[fs.ts:431](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L431)
 
 ___
 
@@ -327,7 +327,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:486](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L486)
+[fs.ts:486](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L486)
 
 ___
 
@@ -359,7 +359,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:513](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L513)
+[fs.ts:513](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L513)
 
 ___
 
@@ -391,7 +391,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:285](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L285)
+[fs.ts:285](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L285)
 
 ▸ **writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
 
@@ -418,7 +418,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:303](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L303)
+[fs.ts:303](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L303)
 
 ___
 
@@ -450,7 +450,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:203](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L203)
+[fs.ts:203](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L203)
 
 ▸ **writeTextFile**(`file`, `options?`): `Promise`<`void`\>
 
@@ -477,4 +477,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[fs.ts:221](https://github.com/tauri-apps/tauri/blob/dc432ef/tooling/api/src/fs.ts#L221)
+[fs.ts:221](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L221)
