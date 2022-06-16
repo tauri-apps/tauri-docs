@@ -4,12 +4,4 @@ sidebar_position: 1
 
 # Introduction
 
-## Quick Overview
-
-Check out [Tauri in 100 Seconds](https://www.youtube.com/watch?v=-X8evddpu7M) by [Fireship](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) on YouTube for a quick introduction to Tauri
-
-<div className="videowrapper">
-  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-X8evddpu7M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-<br />
+Tauri is a security-first and performance conscience framework for building apps. [Rust](https://www.rust-lang.org/) is at the heart of the framework and handles the backend. The system-based browser drives the frontend enabling OS-level browser patching. This browser, known as the webview, handles the HTML/CSS/JS or other compatible web content. Use the web ecosystem tools to create the web content, and Tauri will bundle it up into a tiny app.
