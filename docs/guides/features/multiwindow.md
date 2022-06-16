@@ -166,14 +166,14 @@ Window communication can be done using the event system. See the [Event Guide] f
 
 [tauri.windows]: ../../api/config/#tauriconfig.windows
 [WindowConfig]: ../../api/config/#windowconfig
-[WindowBuilder]: https://docs.rs/tauri/1.0.0-rc/tauri/window/struct.WindowBuilder.html
-[App]: https://docs.rs/tauri/1.0.0-rc/tauri/struct.App.html
-[AppHandle]: https://docs.rs/tauri/1.0.0-rc/tauri/struct.AppHandle.html
-[Builder::build]: https://docs.rs/tauri/1.0.0-rc/tauri/struct.Builder.html#method.build
-[App::handle]: https://docs.rs/tauri/1.0.0-rc/tauri/struct.App.html#method.handle
-[get_window]: https://docs.rs/tauri/1.0.0-rc/tauri/trait.Manager.html#method.get_window
+[WindowBuilder]: https://docs.rs/tauri/1.0.0/tauri/window/struct.WindowBuilder.html
+[App]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html
+[AppHandle]: https://docs.rs/tauri/1.0.0/tauri/struct.AppHandle.html
+[Builder::build]: https://docs.rs/tauri/1.0.0/tauri/struct.Builder.html#method.build
+[App::handle]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html#method.handle
+[get_window]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html#method.get_window
 [wry#583]: https://github.com/tauri-apps/wry/issues/583
 [WebviewWindow]: ../../api/js/classes/window.WebviewWindow
 [WebviewWindow.getByLabel]: ../../api/js/classes/window.WebviewWindow#getbylabel
-[tauri::Manager]: https://docs.rs/tauri/1.0.0-rc/tauri/trait.Manager.html
+[tauri::Manager]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html
 [Event Guide]: ./events
