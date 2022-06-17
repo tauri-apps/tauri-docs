@@ -11,12 +11,37 @@ const types = [
   { label: 'cargo', value: 'cargo tauri ' },
 ]
 
-function insertDashDashBeforeOption (value, name) {
+function insertDashDashBeforeOption(value, name) {
   const idx = name.indexOf('--')
   if (idx === -1) {
     return value + name
   }
   return value + name.slice(0, idx) + '-- ' + name.slice(idx)
+}
+
+export const CreateTauriApp = () => {
+  return (
+    <Tabs>
+      <TabItem value="npm">
+        <CodeBlock className={`language-shell`}>
+          npm x create-tauri-app
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="yarn">
+        <CodeBlock className={`language-shell`}>
+          yarn create tauri-app
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="npx">
+        <CodeBlock className={`language-shell`}>npx create-tauri-app</CodeBlock>
+      </TabItem>
+      <TabItem value="pnpm">
+        <CodeBlock className={`language-shell`}>
+          pnpm create tauri-app
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  )
 }
 
 export default ({ name, shell = 'shell' }) => {
@@ -25,7 +50,9 @@ export default ({ name, shell = 'shell' }) => {
       {types.map((type) => (
         <TabItem value={type.value}>
           <CodeBlock className={`language-${shell}`}>
-            {type.label !== 'npm' ? type.value + name : insertDashDashBeforeOption(type.value, name)}
+            {type.label !== 'npm'
+              ? type.value + name
+              : insertDashDashBeforeOption(type.value, name)}
           </CodeBlock>
         </TabItem>
       ))}
