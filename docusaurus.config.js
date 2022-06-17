@@ -67,6 +67,11 @@ const navbarItems = [
     position: 'left',
   },
   {
+    to: 'blog',
+    label: 'Blog',
+    position: 'left',
+  },
+  {
     label: 'Community',
     position: 'left',
     items: [
@@ -204,7 +209,7 @@ const siteConfig = {
     },
     announcementBar: {
       content:
-        "<b>🚀 Tauri 1.0 has landed! <a href='https://tauri.app'>Click here for more details</a></b>",
+        "<b>🚀 Tauri 1.0 has launched! <a href='/blog/tauri_1_0'>Read the blog post</a>.</b>",
       backgroundColor: 'var(--ifm-color-primary)',
       textColor: 'var(--ifm-button-color)',
     },
@@ -256,6 +261,10 @@ const siteConfig = {
 
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+
+        blog: {
+          blogSidebarCount: 0,
         },
       },
     ],
