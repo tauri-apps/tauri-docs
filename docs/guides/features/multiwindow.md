@@ -18,7 +18,7 @@ The following JSON snippet demonstrates how to statically create several windows
       {
         "label": "external",
         "title": "Tauri Docs",
-        "url": "https://tauri.studio"
+        "url": "https://tauri.app"
       },
       {
         "label": "local",
@@ -53,7 +53,7 @@ tauri::Builder::default()
     let docs_window = tauri::WindowBuilder::new(
       app,
       "external", /* the unique window label */
-      tauri::WindowUrl::External("https://tauri.studio/".parse().unwrap())
+      tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
     ).build()?;
     let local_window = tauri::WindowBuilder::new(
       app,
@@ -75,7 +75,7 @@ let app = tauri::Builder::default()
 let docs_window = tauri::WindowBuilder::new(
   &app,
   "external", /* the unique window label */
-  tauri::WindowUrl::External("https://tauri.studio/".parse().unwrap())
+  tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
 ).build().expect("failed to build window");
 
 let local_window = tauri::WindowBuilder::new(
@@ -112,7 +112,7 @@ async fn open_docs(handle: tauri::AppHandle) {
   let docs_window = tauri::WindowBuilder::new(
     &handle,
     "external", /* the unique window label */
-    tauri::WindowUrl::External("https://tauri.studio/".parse().unwrap())
+    tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
   ).build().unwrap();
 }
 ```
@@ -126,18 +126,18 @@ When creating windows in a Tauri command, ensure the command function is `async`
 Using the Tauri API you can easily create a window at runtime by importing the [WebviewWindow] class.
 
 ```javascript title="Create a window using the WebviewWindow class"
-import { WebviewWindow } from "@tauri-apps/api/window";
+import { WebviewWindow } from '@tauri-apps/api/window'
 const webview = new WebviewWindow('theUniqueLabel', {
-  url: 'path/to/page.html'
-});
+  url: 'path/to/page.html',
+})
 // since the webview window is created asynchronously,
 // Tauri emits the `tauri://created` and `tauri://error` to notify you of the creation response
 webview.once('tauri://created', function () {
   // webview window successfully created
-});
+})
 webview.once('tauri://error', function (e) {
   // an error happened creating the webview window
-});
+})
 ```
 
 ## Accessing a window at runtime
@@ -156,8 +156,8 @@ tauri::Builder::default()
 Note that you must import [tauri::Manager] to use the [get_window] method on [App] or [AppHandle] instances.
 
 ```javascript title="Using WebviewWindow.getByLabel"
-import { WebviewWindow } from "@tauri-apps/api/window";
-const mainWindow = WebviewWindow.getByLabel("main");
+import { WebviewWindow } from '@tauri-apps/api/window'
+const mainWindow = WebviewWindow.getByLabel('main')
 ```
 
 ## Communicating with other windows
@@ -165,15 +165,15 @@ const mainWindow = WebviewWindow.getByLabel("main");
 Window communication can be done using the event system. See the [Event Guide] for more information.
 
 [tauri.windows]: ../../api/config/#tauriconfig.windows
-[WindowConfig]: ../../api/config/#windowconfig
-[WindowBuilder]: https://docs.rs/tauri/1.0.0/tauri/window/struct.WindowBuilder.html
-[App]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html
-[AppHandle]: https://docs.rs/tauri/1.0.0/tauri/struct.AppHandle.html
-[Builder::build]: https://docs.rs/tauri/1.0.0/tauri/struct.Builder.html#method.build
-[App::handle]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html#method.handle
+[windowconfig]: ../../api/config/#windowconfig
+[windowbuilder]: https://docs.rs/tauri/1.0.0/tauri/window/struct.WindowBuilder.html
+[app]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html
+[apphandle]: https://docs.rs/tauri/1.0.0/tauri/struct.AppHandle.html
+[builder::build]: https://docs.rs/tauri/1.0.0/tauri/struct.Builder.html#method.build
+[app::handle]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html#method.handle
 [get_window]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html#method.get_window
 [wry#583]: https://github.com/tauri-apps/wry/issues/583
-[WebviewWindow]: ../../api/js/classes/window.WebviewWindow
-[WebviewWindow.getByLabel]: ../../api/js/classes/window.WebviewWindow#getbylabel
-[tauri::Manager]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html
-[Event Guide]: ./events
+[webviewwindow]: ../../api/js/classes/window.WebviewWindow
+[webviewwindow.getbylabel]: ../../api/js/classes/window.WebviewWindow#getbylabel
+[tauri::manager]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html
+[event guide]: ./events
