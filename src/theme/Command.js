@@ -32,12 +32,12 @@ export const CreateTauriApp = () => {
           yarn create tauri-app
         </CodeBlock>
       </TabItem>
-      <TabItem value="npmx">
+      <TabItem value="npx">
         <CodeBlock className={`language-shell`}>npx create-tauri-app</CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className={`language-shell`}>
-          pnpm create-tauri-app
+          pnpm create tauri-app
         </CodeBlock>
       </TabItem>
     </Tabs>
