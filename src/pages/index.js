@@ -8,7 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 import Translate, { translate } from '@docusaurus/Translate'
-import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CreateTauriApp } from '@theme/Command'
 
 // See translations for label and description
 
@@ -419,6 +419,24 @@ function Logo(props) {
 export default function App() {
   const context = useDocusaurusContext()
   const latestVersion = useLatestVersion()
+  // const { colorMode } = useColorMode()
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  // // Set dark mode correctly
+  // useEffect(() => {
+  //   setIsDarkMode(colorMode === 'dark')
+  // }, [colorMode])
+
+  // Pre-fetch images
+  useEffect(() => {
+    const images = []
+
+    const darkTauriLogo = (new Image().src = 'img/tauri_1_0_dark.svg')
+    images.push(darkTauriLogo)
+
+    const lightTauriLogo = (new Image().src = 'img/tauri_1_0_light.svg')
+    images.push(lightTauriLogo)
+  }, [])
 
   return (
     <Layout
@@ -428,7 +446,7 @@ export default function App() {
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
       })}
     >
-      <header className={classNames('hero hero--dark', styles.hero)}>
+      <header className={classNames('hero', styles.hero)}>
         <div className={classNames(styles.heroBefore)}>
           <img
             className={classNames(styles.heroLoops)}
@@ -440,25 +458,38 @@ export default function App() {
           />
         </div>
         <div className={classNames(styles.heroContainer)}>
-          <img
-            className={classNames(styles.heroImage)}
-            src="/meta/tauri_logo_dark.svg"
-          />
-          <p className={classNames(styles.heroHeadline, 'hero__subtitle')}>
-            <Translate>1.0</Translate>
-          </p>
           <p className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
-            <Translate>Announcing the release of Tauri 1.0</Translate>
+            <Translate>Announcing the release of</Translate>
           </p>
+          <span className={classNames(styles.heroImage)}>
+            <img
+              src={
+                isDarkMode
+                  ? '/img/index/tauri_1_0_dark.svg'
+                  : '/img/index/tauri_1_0_light.svg'
+              }
+            />
+          </span>
+          <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
+            <Translate>
+              Build a security-conscious, frontend-independent, and
+              resource-optimized application for multi-platform deployment.
+            </Translate>
+          </div>
+
+          <div className={classNames(styles.commandContainer)}>
+            <CreateTauriApp />
+          </div>
+
           <div className={styles.buttons}>
             <div className="container">
               <div className="col col--4">
                 <Link
                   className={classNames('button button--secondary button--lg')}
-                  to={latestVersion.path + '/guides/'}
+                  to={latestVersion.path + '/guides'}
                 >
                   <span>
-                    <Translate>Get Started</Translate>
+                    <Translate>Tauri Guides</Translate>
                   </span>
                 </Link>
               </div>

@@ -22,9 +22,8 @@
 
 /* Hero */
 .hero {
-  height: 70vh;
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   align-items: stretch;
   padding: 4rem 0;
 }
@@ -33,14 +32,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   flex-shrink: 0;
+  max-width: min(50rem, 100%);
 }
 
 .heroBefore,
 .heroAfter {
   position: relative;
-  height: 100%;
 }
 
 .heroLoops {
@@ -75,20 +73,19 @@
 }
 
 .heroImage {
-  height: 10vh;
-  object-fit: contain;
-}
-
-.heroHeadline {
-  font-size: 20vh;
-  line-height: 0.8;
-  font-weight: bolder;
+  max-width: 90%;
 }
 
 .heroSubtitle {
   max-width: 100vw;
   padding: 0 1rem;
   text-align: center;
+}
+
+.commandContainer {
+  padding: 1rem;
+  width: 100%;
+  max-width: 30rem;
 }
 
 /* Cards */
@@ -127,6 +124,7 @@
   position: absolute;
   height: 100%;
   padding: 1rem;
+  object-fit: contain;
 }
 
 .cardSpacer {
