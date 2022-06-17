@@ -60,14 +60,14 @@
 
 .heroBefore .heroPackage {
   position: absolute;
-  rotate: 15deg;
+  transform: rotate(15deg);
   top: 40%;
   right: 3rem;
 }
 
 .heroAfter .heroPackage {
   position: absolute;
-  rotate: -15deg;
+  transform: rotate(-15deg);
   top: 15%;
   left: 3rem;
 }
