@@ -4,6 +4,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Image from '@theme/IdealImage'
 
 # Prerequisites
 
@@ -19,8 +20,8 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 <figure>
 
-![Microsoft Visual Studio Installer](/img/guides/vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](/img/guides/vs-installer-dark.png#gh-dark-mode-only)
+<Image className='gh-light-mode-only' img={require('./vs-installer-light.png')} />
+<Image className='gh-dark-mode-only' img={require('./vs-installer-dark.png')} />
 
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
