@@ -448,10 +448,12 @@ export default function App() {
     >
       <header className={classNames('hero', styles.hero)}>
         <div className={classNames(styles.heroBefore)}>
-          <img
-            className={classNames(styles.heroLoops)}
-            src="/img/index/blue_loops.svg"
-          />
+          <div className={classNames(styles.loopsContainer)}>
+            <img
+              className={classNames(styles.heroLoops)}
+              src="/img/index/blue_loops.svg"
+            />
+          </div>
           <img
             className={classNames(styles.heroPackage)}
             src="/img/index/orange_package.svg"
@@ -495,10 +497,12 @@ export default function App() {
             className={classNames(styles.heroPackage)}
             src="/img/index/blue_package.svg"
           />
-          <img
-            className={classNames(styles.heroLoops)}
-            src="/img/index/orange_loops.svg"
-          />
+          <div className={classNames(styles.loopsContainer)}>
+            <img
+              className={classNames(styles.heroLoops)}
+              src="/img/index/orange_loops.svg"
+            />
+          </div>
         </div>
       </header>
 
