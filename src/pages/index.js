@@ -481,8 +481,8 @@ export default function App() {
           </span>
           <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
             <Translate>
-              Build a security-conscious, frontend-independent, and
-              resource-optimized application for multi-platform deployment.
+              Build an optimized, secure, and frontend-independent application
+              for multi-platform deployment.
             </Translate>
           </div>
 
