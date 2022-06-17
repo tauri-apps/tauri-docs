@@ -1,5 +1,5 @@
 ---
-slug: /guides/architecture/isolation
+sidebar_label: Isolation
 ---
 
 # Isolation Pattern
@@ -66,7 +66,7 @@ _Note: Arrows (->) indicate message passing._
 ### Performance Implications
 
 Because encryption of the message does occur, this does mean that there are additional overhead costs compared to the
-[Brownfield pattern](./brownfield.md) even if the secure Isolation application doesn't do anything. Outside
+[Independent Pattern](./independent.md) even if the secure Isolation application doesn't do anything. Outside
 performance-sensitive applications (who likely have a carefully kept small set of dependencies to keep the performance
 adequate), most applications should not notice the runtime costs of encrypting/decrypting the IPC messages as they are
 both relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relevant in this
@@ -131,7 +131,7 @@ window.__TAURI_ISOLATION_HOOK__ = (payload) => {
 ```
 
 Now, all we need to do is set up our `tauri.conf.json` [configuration](#configuration) to use the Isolation pattern, and
-have just bootstrapped to the Isolation pattern from the [Brownfield pattern](./brownfield.md).
+have just bootstrapped to the Isolation pattern from the [Independent Pattern](./independent.md).
 
 ## Configuration
 

@@ -1,8 +1,8 @@
 ---
-slug: /guides/architecture/brownfield
+sidebar_label: Independent
 ---
 
-# Brownfield Pattern
+# Independent Pattern
 
 _**This is the default pattern.**_
 

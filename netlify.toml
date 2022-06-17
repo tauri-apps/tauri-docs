@@ -45,3 +45,11 @@ to = "/v1/guides/features/:splat"
 [[redirects]]
 from = "/v1/about/*"
 to = "/about/:splat"
+
+[[redirects]]
+from = "/v1/guides/architecture/brownfield"
+to = "/v1/guides/architecture/inter-process-communication/independent"
+
+[[redirects]]
+from = "/v1/guides/architecture/isolation"
+to = "/v1/guides/architecture/inter-process-communication/isolation"

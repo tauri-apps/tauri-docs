@@ -15,15 +15,15 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
 function Cards() {
   const cards = [
     {
-      label: translate({ message: 'Brownfield' }),
+      label: translate({ message: 'Frontend Independent' }),
       description: translate({
         message:
-          "Compatibility with any front-end framework means you don't have to change your stack.",
+          "Compatibility with any frontend framework means you don't have to change your stack.",
       }),
       link: '/guides/getting-started/setup',
       isDoc: true,
       linkText: translate({ message: 'Learn More' }),
-      imageUrl: 'img/index/illustrations/brownfield.svg',
+      imageUrl: 'img/index/illustrations/independent.svg',
     },
     {
       label: translate({ message: 'Security' }),
