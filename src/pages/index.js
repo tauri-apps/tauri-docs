@@ -416,16 +416,9 @@ function Logo(props) {
   )
 }
 
-export default function App() {
-  const context = useDocusaurusContext()
-  const latestVersion = useLatestVersion()
-  // const { colorMode } = useColorMode()
+function DynamicHeaderImage() {
+  const { colorMode } = useColorMode()
   const [isDarkMode, setIsDarkMode] = useState(false)
-
-  // // Set dark mode correctly
-  // useEffect(() => {
-  //   setIsDarkMode(colorMode === 'dark')
-  // }, [colorMode])
 
   // Pre-fetch images
   useEffect(() => {
@@ -437,6 +430,26 @@ export default function App() {
     const lightTauriLogo = (new Image().src = 'img/tauri_1_0_light.svg')
     images.push(lightTauriLogo)
   }, [])
+
+  // // Set dark mode correctly
+  useEffect(() => {
+    setIsDarkMode(colorMode === 'dark')
+  }, [colorMode])
+
+  return (
+    <img
+      src={
+        isDarkMode
+          ? '/img/index/tauri_1_0_dark.svg'
+          : '/img/index/tauri_1_0_light.svg'
+      }
+    />
+  )
+}
+
+export default function App() {
+  const context = useDocusaurusContext()
+  const latestVersion = useLatestVersion()
 
   return (
     <Layout
@@ -464,13 +477,7 @@ export default function App() {
             <Translate>Announcing the release of</Translate>
           </p>
           <span className={classNames(styles.heroImage)}>
-            <img
-              src={
-                isDarkMode
-                  ? '/img/index/tauri_1_0_dark.svg'
-                  : '/img/index/tauri_1_0_light.svg'
-              }
-            />
+            <DynamicHeaderImage />
           </span>
           <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
             <Translate>
