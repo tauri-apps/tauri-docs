@@ -482,18 +482,12 @@ export default function App() {
           </div>
 
           <div className={styles.buttons}>
-            <div className="container">
-              <div className="col col--4">
-                <Link
-                  className={classNames('button button--secondary button--lg')}
-                  to={latestVersion.path + '/guides'}
-                >
-                  <span>
-                    <Translate>Tauri Guides</Translate>
-                  </span>
-                </Link>
-              </div>
-            </div>
+            <Link
+              className={classNames('button button--secondary button--lg')}
+              to={latestVersion.path + '/guides/getting-started/setup'}
+            >
+              <Translate>Quick Start</Translate>
+            </Link>
           </div>
         </div>
         <div className={classNames(styles.heroAfter)}>
