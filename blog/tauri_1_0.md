@@ -37,6 +37,29 @@ Tauri allows you to build “[local first](https://twitter.com/schickling/status
 
 The apps you make are [lean and performant](https://tauri.app/about/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
 
+<figure>
+
+| App Size | Unit Time (100Mb/s) | Downloads  | Transit | Total Time (100Mb/s) | Electricity Use (kWh) | CO2 Produced (Ton) | Trees Needed |
+| -------- | ------------------- | ---------- | ------- | -------------------- | --------------------- | ------------------ | ------------ |
+| 3 MB     | 240 milliseconds    | 1,000      | 3 GB    | 24 minutes           | 0.3                   | 0.18               | 1            |
+| 3 MB     | 240 milliseconds    | 100,000    | 300 GB  | 1.7 days             | 30                    | 18                 | 108          |
+| 3 MB     | 240 milliseconds    | 10,000,000 | 30 TB   | 167 days             | 3,000                 | 1,800              | 10,800       |
+| 200 MB   | 16 seconds          | 1,000      | 200 GB  | 4.45 hours           | 20                    | 12                 | 72           |
+| 200 MB   | 16 seconds          | 100,000    | 20 TB   | 18.5 days            | 2,000                 | 1,200              | 7,200        |
+| 200 MB   | 16 seconds          | 10,000,000 | 2 PB    | 5 years              | 200,000               | 120,000            | 720,000      |
+| 600 MB   | 48 seconds          | 1,000      | 60 TB   | 13 hours             | 60                    | 36                 | 216          |
+| 600 MB   | 48 seconds          | 100,000    | 6 PB    | 54.2 days            | 6,000                 | 3,600              | 21,600       |
+| 600 MB   | 48 seconds          | 10,000,000 | 0.6 EB  | 14.8 years           | 600,000               | 360,000            | 2,160,000    |
+
+<figcaption>
+
+The transmission of 1 GB of information takes an estimated 0.1kWh, which is equal to 0.06 kilograms of CO2. (https://www.emergeinteractive.com/insights/detail/does-irresponsible-web-development-contribute-to-global-warming/)
+
+Although the carbon absorption capacity can vary, it is generally considered that a tree can store about 167 kg of CO2 per year, or 1 ton of CO2 per year for 6 mature trees (https://climate.selectra.com/en/news/co2-tree)
+
+</figcaption>
+</figure>
+
 ### Community
 
 We know that open source software is a means of fostering equality and collaboration, which is why we placed the [ownership of the code at the Commons Conservancy](https://dracc.commonsconservancy.org/0035/). You can rest assured knowing that the code base will never be rug-pulled or locked behind open-core pay-to-play feature gates. We believe in open collaboration and safe spaces for all. We have an open working group, accessible to any competent contributors. And we love you all. ❤️
@@ -78,14 +101,17 @@ Joseph Jacks, Founder / GP at OSS Capital
 ## What’s Next?
 
 Fresh off the heels of the 1.0 release, the team is already setting our sights on the next steps for Tauri. While we continuously work on improving our documentation, we’re also working on:
-mobile support for both iOS and Android
-alternative renderers
-IPC enhancements to enable improved debugging
-runtime plugins
-support for additional bindings in other languages.
+
+- Mobile support for both iOS and Android
+- Alternative renderers
+- IPC enhancements to enable improved debugging
+- Runtime plugins
+- Support for additional bindings in other languages.
 
 We’re also inspired by the community to see which features are being used and what new features will enable them to develop even more amazing applications. Your feedback is the most important thing to Tauri’s future innovation.
-Thank You
+
+## Thank You
+
 A special thanks to all our contributors who volunteered their precious time to make Tauri awesome and all our sponsors whose generous donations made Tauri possible (and financed a large portion of our audit!)!
 
 The support of industry giants has been really helpful keeping the lights on. Here’s an alphabetical list:
@@ -115,6 +141,7 @@ Here are a few notable contributors we’d like to thank explicitly:
 | @fabianlars       | Community support, AppImage fixes, code review                                                   | all repos, mainly tauri, tauri-docs |
 | @amrbashir        | TAO and WRY features and fixes, overall OS guru                                                  | tao, wry                            |
 | @wusyong          | TAO and WRY founder and researcher                                                               | tao, wry                            |
+| @nklayman         | custom protocol                                                                                  | tauri                               |
 
 We’d like to wrap up by highlighting comments from just a small handful of Tauri contributors:
 
