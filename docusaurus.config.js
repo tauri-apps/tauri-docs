@@ -204,7 +204,7 @@ const siteConfig = {
     },
     announcementBar: {
       content:
-        "<b>🚀 Tauri 1.0 has landed! <a href='https://tauri.app'>Click here for more details</a></b>",
+        "<b>🚀 Tauri 1.0 has landed! <a class='link-announcementBar' target='_blank' href='https://github.com/tauri-apps/tauri/releases'>Click here for more details</a></b>",
       backgroundColor: 'var(--ifm-color-primary)',
       textColor: 'var(--ifm-button-color)',
     },

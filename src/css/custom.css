@@ -110,6 +110,12 @@ h2 > [class^='ti-'] {
   min-height: 52px;
 }
 
+@media (max-width: 341px) {
+  .link-announcementBar {
+    display: block;
+  }
+}
+
 [class*='property_'] .hash-link {
   display: inline-block;
   position: relative;
