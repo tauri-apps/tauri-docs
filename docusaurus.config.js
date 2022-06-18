@@ -62,13 +62,13 @@ const navbarItems = [
     position: 'left',
   },
   {
-    to: 'release-notes',
-    label: 'Release Notes',
+    to: 'blog',
+    label: 'Blog',
     position: 'left',
   },
   {
-    to: 'blog',
-    label: 'Blog',
+    to: 'release-notes',
+    label: 'Release Notes',
     position: 'left',
   },
   {
