@@ -50,7 +50,7 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://tauri.studio/meta/manifest.json"
+      "url": "https://tauri.app/meta/manifest.json"
     }
   ]
 }

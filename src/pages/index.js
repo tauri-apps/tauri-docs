@@ -8,7 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { useLatestVersion } from '@docusaurus/plugin-content-docs/client'
 import Translate, { translate } from '@docusaurus/Translate'
-import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CreateTauriApp } from '@theme/Command'
 
 // See translations for label and description
 
@@ -416,6 +416,37 @@ function Logo(props) {
   )
 }
 
+function DynamicHeaderImage() {
+  const { colorMode } = useColorMode()
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  // Pre-fetch images
+  useEffect(() => {
+    const images = []
+
+    const darkTauriLogo = (new Image().src = 'img/tauri_1_0_dark.svg')
+    images.push(darkTauriLogo)
+
+    const lightTauriLogo = (new Image().src = 'img/tauri_1_0_light.svg')
+    images.push(lightTauriLogo)
+  }, [])
+
+  // // Set dark mode correctly
+  useEffect(() => {
+    setIsDarkMode(colorMode === 'dark')
+  }, [colorMode])
+
+  return (
+    <img
+      src={
+        isDarkMode
+          ? '/img/index/tauri_1_0_dark.svg'
+          : '/img/index/tauri_1_0_light.svg'
+      }
+    />
+  )
+}
+
 export default function App() {
   const context = useDocusaurusContext()
   const latestVersion = useLatestVersion()
@@ -428,41 +459,44 @@ export default function App() {
           'Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.',
       })}
     >
-      <header className={classNames('hero hero--dark', styles.hero)}>
+      <header className={classNames('hero', styles.hero)}>
         <div className={classNames(styles.heroBefore)}>
-          <img
-            className={classNames(styles.heroLoops)}
-            src="/img/index/blue_loops.svg"
-          />
+          <div className={classNames(styles.loopsContainer)}>
+            <img
+              className={classNames(styles.heroLoops)}
+              src="/img/index/blue_loops.svg"
+            />
+          </div>
           <img
             className={classNames(styles.heroPackage)}
             src="/img/index/orange_package.svg"
           />
         </div>
         <div className={classNames(styles.heroContainer)}>
-          <img
-            className={classNames(styles.heroImage)}
-            src="/meta/tauri_logo_dark.svg"
-          />
-          <p className={classNames(styles.heroHeadline, 'hero__subtitle')}>
-            <Translate>1.0</Translate>
-          </p>
           <p className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
-            <Translate>Announcing the release of Tauri 1.0</Translate>
+            <Translate>Announcing the release of</Translate>
           </p>
+          <span className={classNames(styles.heroImage)}>
+            <DynamicHeaderImage />
+          </span>
+          <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
+            <Translate>
+              Build an optimized, secure, and frontend-independent application
+              for multi-platform deployment.
+            </Translate>
+          </div>
+
+          <div className={classNames(styles.commandContainer)}>
+            <CreateTauriApp />
+          </div>
+
           <div className={styles.buttons}>
-            <div className="container">
-              <div className="col col--4">
-                <Link
-                  className={classNames('button button--secondary button--lg')}
-                  to={latestVersion.path + '/guides/'}
-                >
-                  <span>
-                    <Translate>Get Started</Translate>
-                  </span>
-                </Link>
-              </div>
-            </div>
+            <Link
+              className={classNames('button button--secondary button--lg')}
+              to={latestVersion.path + '/guides/getting-started/setup'}
+            >
+              <Translate>Quick Start</Translate>
+            </Link>
           </div>
         </div>
         <div className={classNames(styles.heroAfter)}>
@@ -470,10 +504,12 @@ export default function App() {
             className={classNames(styles.heroPackage)}
             src="/img/index/blue_package.svg"
           />
-          <img
-            className={classNames(styles.heroLoops)}
-            src="/img/index/orange_loops.svg"
-          />
+          <div className={classNames(styles.loopsContainer)}>
+            <img
+              className={classNames(styles.heroLoops)}
+              src="/img/index/orange_loops.svg"
+            />
+          </div>
         </div>
       </header>
 
@@ -493,9 +529,7 @@ export default function App() {
 
             <div className={styles.spacer} />
 
-            <h1 className={(styles.h1, 'anchor-with-padding')} id="roadmap">
-              Roadmap
-            </h1>
+            <h1 className={styles.h1}>Roadmap</h1>
             <div className={styles.row}>
               <Roadmap />
             </div>

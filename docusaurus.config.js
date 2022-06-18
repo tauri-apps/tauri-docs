@@ -134,7 +134,7 @@ const footerLinks = [
     items: [
       {
         label: 'Mail',
-        href: 'mailto:contact@tauri.studio',
+        href: 'mailto:contact@tauri.app',
       },
       {
         label: 'Twitter',
@@ -186,7 +186,7 @@ const siteConfig = {
   projectName: 'tauri',
   baseUrl: `/`,
   favicon: '/meta/favicon-32x32.png',
-  url: 'https://tauri.studio',
+  url: 'https://tauri.app',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -204,7 +204,7 @@ const siteConfig = {
     },
     announcementBar: {
       content:
-        "<b>🚀 Tauri 1.0 has landed! <a href='https://tauri.studio'>Click here for more details</a></b>",
+        "<b>🚀 Tauri 1.0 has landed! <a href='https://tauri.app'>Click here for more details</a></b>",
       backgroundColor: 'var(--ifm-color-primary)',
       textColor: 'var(--ifm-button-color)',
     },

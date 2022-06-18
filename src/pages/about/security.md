@@ -14,7 +14,7 @@ If you need help or want a review, you are welcome to contact the Tauri team for
 
 ## Security Researchers
 
-If you feel that there is a security concern or issue with anything in Tauri, please do not publicly comment on your findings. Instead, reach out directly to our security team: security@tauri.studio
+If you feel that there is a security concern or issue with anything in Tauri, please do not publicly comment on your findings. Instead, reach out directly to our security team: security@tauri.app
 
 Although we do not currently have a budget for Security Bounties, in some cases, we will consider rewarding responsible disclosure with our limited resources.
 
