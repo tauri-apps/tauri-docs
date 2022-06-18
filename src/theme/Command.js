@@ -24,16 +24,13 @@ export const CreateTauriApp = () => {
     <Tabs>
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>
-          npm x create-tauri-app
+          npm create tauri-app
         </CodeBlock>
       </TabItem>
       <TabItem value="yarn">
         <CodeBlock className={`language-shell`}>
           yarn create tauri-app
         </CodeBlock>
-      </TabItem>
-      <TabItem value="npx">
-        <CodeBlock className={`language-shell`}>npx create-tauri-app</CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className={`language-shell`}>
