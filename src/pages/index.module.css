@@ -72,6 +72,18 @@
   height: 30%;
 }
 
+@media (max-width: 1177px) {
+  .heroPackage {
+    height: 20%;
+  }
+}
+
+@media (max-width: 1070px) {
+  .heroPackage {
+    display: none;
+  }
+}
+
 .heroBefore .heroPackage {
   position: absolute;
   transform: rotate(15deg);
