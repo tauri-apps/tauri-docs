@@ -21,6 +21,14 @@ We built Tauri for the security focussed, privacy respecting, and environmentall
 
 The entire project has been [horizontally and vertically audited by an independent third party](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v1-report.pdf), and we maintain a very strict approach to updating the core. We want you to be confident that major versions are as safe to use as they are ergonomic.
 
+<figure>
+
+![Printed sweatshirt](./tauri_1_0_images/sweatshirt.jpg)
+
+<figcaption>Hoody by jprovost</figcaption>
+
+</figure>
+
 ### Privacy
 
 Tauri allows you to build "[local first](https://twitter.com/schickling/status/1537134435702714368?cxt=HHwWgMClwYHo_9QqAAAA)" applications without a webserver, so your users don't have to share their data with big tech. Using local databases and rust based cryptography have never been easier.
@@ -69,34 +77,67 @@ We know that open source software is a means of fostering equality and collabora
 You can visit our code base, file a bug-report, request a feature, or join the discussion on [GitHub](https://github.com/tauri-apps/tauri). There's lots of things that people make, and visiting the [awesome-tauri repo on GitHub](https://github.com/tauri-apps/awesome-tauri) is a great place to discover and share. If you need support or just want to hang out, you can [join our Discord server](https://discord.gg/tauri).
 
 Tauri is one of the top 200 projects on GitHub in all programming languages.
+<figure>
+
+![github](./tauri_1_0_images/github.jpg)
+
+<figcaption>
+</figcaption>
+</figure>
+
 
 People love to discuss what is great and terrible about Tauri on orange websites:
+
+<figure>
+
+![hackernews](./tauri_1_0_images/hackernews.jpg)
+
+<figcaption>
+</figcaption>
+</figure>
 
 Tauri entered at the top of the charts for the [2021 edition of State of JS](https://2021.stateofjs.com/en-US/libraries/mobile-desktop):
 
 <a href="https://2021.stateofjs.com/en-US/libraries/mobile-desktop">
 
+</a>
+<figure>
+
 ![State of JS 2021](./tauri_1_0_images/state_of_js.png)
 
-</a>
+<figcaption>
+</figcaption>
+</figure>
 
 Engineers at big companies seem to be eying up Tauri for future projects.
 
-https://api.ossinsight.io/share/e0a8c3f4-a28f-48ac-b541-7b19fe08975b
+<figure>
+
+![hackernews](./tauri_1_0_images/ossinsight.jpg)
+
+<figcaption>
+
+[OSS Insight](https://api.ossinsight.io/share/e0a8c3f4-a28f-48ac-b541-7b19fe08975b)
+</figcaption>
+</figure>
+
+
+
+
 
 ## Accolades
 
 > "Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."
 
-Jamie Pine, Spacedrive Founder
+***- Jamie Pine**, Spacedrive Founder*
 
 > "Tauri has the potential to unlock a new generation of desktop software that feels native to users but is as easy to build as web apps."
 
-Johannes Schickling, Founder of Prisma
+***- Johannes Schickling**, Founder of Prisma*
 
 > "Tauri stands to reduce the disastrously negative environmental costs of bloated and memory-hogging applications on the internet by orders of magnitude. Any rough approximation of monetary value that could result in, would easily reach hundreds of billions in cost savings for our modern era of grossly underutilized local compute and storage resources."
 
-Joseph Jacks, Founder / GP at OSS Capital
+***- Joseph Jacks**, Founder / GP at OSS Capital*
 
 ## What's Next?
 
