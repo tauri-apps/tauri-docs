@@ -45,7 +45,7 @@ Tauri allows you to build "[local first](https://twitter.com/schickling/status/1
 
 The apps you make are [lean and performant](https://tauri.app/about/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
 
-To illustrate this, we compiled some numbers on the ecological impact of your apps size. As you can see, even small increases in size have a hefty impact on the environment
+To illustrate this, we compiled some numbers on the ecological impact of your apps size. As you can see, even small increases in size have a hefty impact on the environment!
 
 <figure>
 
