@@ -64,7 +64,7 @@ We have done our best to make shipping hot-updates to the app as straightforward
 
 ## Secure Content Loading
 
-Tauri restricts the [Content Security Policy] (CSP) of your HTM pages. Local scripts are hashed, styles and external scripts are referenced using a cryptographic nonce, which prevents unallowed content from being loaded.
+Tauri restricts the [Content Security Policy] (CSP) of your HTML pages. Local scripts are hashed, styles and external scripts are referenced using a cryptographic nonce, which prevents unallowed content from being loaded.
 
 :::warning
 Avoid loading remote content such as scripts served over a CDN as they introduce an attack vector, but any untrusted file can introduce new and subtle attack vectors.
