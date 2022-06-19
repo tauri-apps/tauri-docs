@@ -4,9 +4,9 @@ This guide describes how to setup debugging in VS Code for the [Core Process in 
 
 ## Setup
 
-Install the [`lldb-vscode`] extension.
+Install the [`vscode-lldb`] extension.
 
-[`lldb-vscode`]: https://marketplace.visualstudio.com/items?itemName=lanza.lldb-vscode
+[`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 
 ## Configure launch.json
 
