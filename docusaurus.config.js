@@ -209,7 +209,7 @@ const siteConfig = {
     },
     announcementBar: {
       content:
-        "<b>🚀 Tauri 1.0 has launched! <a href='/blog/tauri_1_0'>Read the blog post</a>.</b>",
+        "<b>🚀 Tauri 1.0 has launched! <a href='/blog/tauri_1_0'>Read the blog post</a></b>",
       backgroundColor: 'var(--ifm-color-primary)',
       textColor: 'var(--ifm-button-color)',
     },

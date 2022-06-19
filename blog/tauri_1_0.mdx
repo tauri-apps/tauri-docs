@@ -13,9 +13,13 @@ After 9 months of betas and 4 months of release candidates, [Tauri version 1.0 i
 
 Tauri is an app construction toolkit that lets you build software for all major desktop operating systems using web technologies. The core libraries have been written for you in Rust and the user interface can be written using virtually any frontend framework. It includes an optional and tree-shakeable JavaScript API for comfortable low-level system access, a desktop binary bundler with code signing and artifact verification, a secure updater to keep your users on the latest version, an extensive plugin system, and support for OS-level integrations such as notifications and app trays.
 
-Tauri is as simple to use as it is easy to extend. For those new to the Rust programming language, Tauri provides a comfortable learning environment that will grow with you. Once you have installed rust, creating your first app is a mere running of [`create tauri-app`](https://github.com/tauri-apps/create-tauri-app). But you don't have to use Node.js at all, if you would prefer to remain in the safety and comfort of 100% Rust.
+Tauri is as simple to use as it is easy to extend. For those new to the Rust programming language, Tauri provides a comfortable learning environment that will grow with you. Once you have installed Rust, creating your first app is a mere running of [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app). But you don't have to use Node.js at all, if you would prefer to remain in the safety and comfort of 100% Rust.
 
-We built Tauri for the security focussed, privacy respecting, and environmentally conscious software engineering community.
+See our [Quick Start guides](/v1/guides/getting-started/setup/) to start building with Tauri.
+
+## Tauri Philosophy
+
+We built Tauri for the security-focused, privacy-respecting, and environmentally-conscious software engineering community.
 
 ### Security
 
@@ -25,7 +29,9 @@ The entire project has been [horizontally and vertically audited by an independe
 
 ![Printed sweatshirt](./tauri_1_0_images/hoodie.jpg)
 
-<figcaption><i>Hoodie by jprovost</i></figcaption>
+<figcaption>
+  <i>Hoodie by jprovost</i>
+</figcaption>
 
 </figure>
 
@@ -37,13 +43,18 @@ Tauri allows you to build "[local first](https://twitter.com/schickling/status/1
 
 ![Johannes Schickling at Worker Conf 2022 (photo by @TejasKumar)](./tauri_1_0_images/worker_conf_2022.png)
 
-<figcaption><i>Johannes Schickling at Worker Conf 2022 (photo by <a href="https://twitter.com/TejasKumar_">@TejasKumar via Twitter</a>)</i></figcaption>
+<figcaption>
+  <i>
+    Johannes Schickling at Worker Conf 2022 (photo by{' '}
+    <a href="https://twitter.com/TejasKumar_">@TejasKumar via Twitter</a>)
+  </i>
+</figcaption>
 
 </figure>
 
 ### Environment
 
-The apps you make are [lean and performant](https://tauri.app/about/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
+The apps you make are [lean and performant](/about/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
 
 To illustrate this, we compiled some numbers on the ecological impact of your apps size. As you can see, even small increases in size have a hefty impact on the environment!
 
@@ -127,17 +138,71 @@ Engineers at big companies seem to be eying up Tauri for future projects.
 
 ## Accolades
 
-_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_
+<div class="container">
+<div class="row">
+<div class="col col--2">
 
-**- Jamie Pine**, Spacedrive Founder
+![Spacedrive Logo](./tauri_1_0_images/spacedrive_logo_light.png#gh-light-mode-only)
+![Spacedrive Logo](./tauri_1_0_images/spacedrive_logo_dark.png#gh-dark-mode-only)
+
+</div>
+<div class="col col--10">
+
+_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_  
+**- Jamie Pine**, [Spacedrive](https://www.spacedrive.com) Founder
+
+</div>
+</div>
+<br />
+<div class="row">
+<div class="col col--2">
+
+![Prism Logo](./tauri_1_0_images/prisma_logo_light.svg#gh-light-mode-only)
+![Prism Logo](./tauri_1_0_images/prisma_logo_dark.svg#gh-dark-mode-only)
+
+</div>
+<div class="col col--10">
 
 _"Tauri has the potential to unlock a new generation of desktop software that feels native to users but is as easy to build as web apps."_
 
-**- Johannes Schickling**, Prisma Founder
+**- Johannes Schickling**, [Prisma](https://www.prisma.io) Founder
+
+</div>
+</div>
+<br />
+<div class="row">
+<div class="col col--2">
+
+![OSSC Logo](./tauri_1_0_images/ossc_logo_light.png#gh-light-mode-only)
+![OSSC Logo](./tauri_1_0_images/ossc_logo_dark.png#gh-dark-mode-only)
+
+</div>
+<div class="col col--10">
 
 _"Tauri stands to reduce the disastrously negative environmental costs of bloated and memory-hogging applications on the internet by orders of magnitude. Any rough approximation of monetary value that could result in, would easily reach hundreds of billions in cost savings for our modern era of grossly underutilized local compute and storage resources."_
 
-**- Joseph Jacks**, OSS Capital Founder / GP
+**- Joseph Jacks**, [OSS Capital](https://oss.capital) Founder / GP
+
+</div>
+</div>
+<br />
+<div class="row">
+<div class="col col--2">
+
+![Padloc Logo](./tauri_1_0_images/padloc_logo_light.svg#gh-light-mode-only)
+![Padloc Logo](./tauri_1_0_images/padloc_logo_dark.svg#gh-dark-mode-only)
+
+</div>
+<div class="col col--10">
+
+_"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_  
+_P.S.: Can't wait for mobile support!"_
+
+**- Martin Kleinschrodt**, [Padloc](https://padloc.app/) Founder
+
+</div>
+</div>
+</div>
 
 ## What's Next?
 
