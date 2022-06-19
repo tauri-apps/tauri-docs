@@ -213,7 +213,7 @@ The only required keys are "url" and "version"; the others are optional.
 
 ### Update File JSON Format
 
-The alternate update technique uses a plain JSON file, storing your update metadata on S3, gist, or another static file store. Tauri checks against the version field, and if the version of the running process is smaller than the reported one of the server and the platform is available, it triggers an update. The format of this file is detailed below:
+The alternate update technique uses a plain JSON file, storing your update metadata on S3, gist, or another static file store. Tauri checks against the version field, and if the version of the running process is smaller than the reported one of the JSON and the platform is available, it triggers an update. The format of this file is detailed below:
 
 ```json
 {
