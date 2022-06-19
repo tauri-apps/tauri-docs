@@ -19,8 +19,8 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 <figure>
 
-![Microsoft Visual Studio Installer](/img/guides/vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](/img/guides/vs-installer-dark.png#gh-dark-mode-only)
+![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
 
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
