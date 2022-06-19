@@ -1,12 +1,48 @@
-import Command from '@theme/Command'
+import Command, { CreateTauriApp } from '@theme/Command'
+import CodeBlock from '@theme/CodeBlock'
+import Admonition from '@theme/Admonition'
 
 ## Create the Rust Project
 
 At the heart of every Tauri app is a Rust binary that manages windows, the webview and calls to the operating system through a Rust crate called `tauri`. This project is managed by [Cargo], the official package manager and general-purpose build tool for Rust. Our Tauri CLI uses Cargo under the hood so you rarely need to interact with it directly. Cargo has many more useful features that are not exposed through our CLI, such as testing, linting, and formatting, so please refer to their [official docs][cargo commands] for more.
 
+<span>
+  {props.useCargo && (
+    <span>
+      <p>
+        As the CLI is written in Rust, it is naturally available through{' '}
+        <a href="https://crates.io/crates/tauri-cli">crates.io</a> and
+        installable with Cargo using the following command:
+      </p>
+      <CodeBlock language="shell">cargo install tauri-cli</CodeBlock>
+      <Admonition type="note">
+        Even though installing the CLI through Cargo is the preferred option, it
+        has to compile the whole binary from scratch when you install it. If
+        you're in a CI environment or on a very slow machine you're better off
+        choosing another installation method!
+      </Admonition>
+    </span>
+)}
+
+</span>
+
 To scaffold a minimal Rust project that is pre-configured to use Tauri, open a terminal and run the following command:
 
-<Command name="init" />
+<span>
+  {!props.useCargo && (
+    <span>
+      <Command name="init" />
+    </span>
+  )}
+</span>
+
+<span>
+  {props.useCargo && (
+    <span>
+      <CodeBlock language="shell">cargo tauri init</CodeBlock>
+    </span>
+  )}
+</span>
 
 It will walk you through a series of questions:
 
@@ -25,11 +61,18 @@ It will walk you through a series of questions:
    This can be either a URL or a file path that Tauri will load during **development**.
    <span>{props.devServer}</span>
 
-:::info
-
-If you're familiar with Rust, you will notice that `tauri init` looks and works a lot like `cargo init`. You can just use `cargo init` and add the necessary Tauri dependencies if you prefer a fully manual setup.
-
-:::
+<span>
+  {!props.useCargo && (
+    <span>
+      <Admonition type="info">
+        If you're familiar with Rust, you will notice that{' '}
+        <code>tauri init</code> looks and works a lot like{' '}
+        <code>cargo init</code>. You can just use <code>cargo init</code> and
+        add the necessary Tauri dependencies if you prefer a fully manual setup.
+      </Admonition>
+    </span>
+  )}
+</span>
 
 The `tauri init` command generates a folder called `src-tauri`. It's a convention for Tauri apps to place all core-related files into this folder. Let's quickly run through the contents of this folder:
 

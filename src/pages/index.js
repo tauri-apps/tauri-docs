@@ -485,9 +485,8 @@ export default function App() {
               for multi-platform deployment.
             </Translate>
           </div>
-
           <div className={classNames(styles.commandContainer)}>
-            <CreateTauriApp />
+            <CreateTauriApp showCargo={true} />
           </div>
 
           <div className={styles.buttons}>

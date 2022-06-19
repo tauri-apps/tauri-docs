@@ -19,13 +19,11 @@ function insertDashDashBeforeOption(value, name) {
   return value + name.slice(0, idx) + '-- ' + name.slice(idx)
 }
 
-export const CreateTauriApp = () => {
+export const CreateTauriApp = (showCargo) => {
   return (
     <Tabs>
       <TabItem value="npm">
-        <CodeBlock className={`language-shell`}>
-          npm create tauri-app
-        </CodeBlock>
+        <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
       </TabItem>
       <TabItem value="yarn">
         <CodeBlock className={`language-shell`}>
@@ -37,6 +35,13 @@ export const CreateTauriApp = () => {
           pnpm create tauri-app
         </CodeBlock>
       </TabItem>
+      {showCargo && (
+        <TabItem value="cargo">
+          <CodeBlock className={`language-shell`}>
+            cargo install tauri-cli
+          </CodeBlock>
+        </TabItem>
+      )}
     </Tabs>
   )
 }
