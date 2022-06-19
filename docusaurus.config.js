@@ -184,10 +184,10 @@ const footerLinks = [
 ]
 
 const siteConfig = {
-  title: 'Tauri Studio',
+  title: 'Tauri Apps',
   tagline:
     'Build smaller, faster, and more secure desktop applications with a web frontend',
-  organizationName: 'Tauri Studio',
+  organizationName: 'Tauri Apps',
   projectName: 'tauri',
   baseUrl: `/`,
   favicon: '/meta/favicon-32x32.png',
