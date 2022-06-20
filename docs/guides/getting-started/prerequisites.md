@@ -68,6 +68,10 @@ successful, the following line will appear:
 Rust is installed now. Great!
 ```
 
+:::note
+You now need to open a new shell for rust to work properly.
+:::
+
 ### Setting Up Linux
 
 #### 1. System Dependencies
