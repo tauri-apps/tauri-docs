@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Whether you like it or not, today's applications live in operating systems that can be (and regularly are) compromised by any number of attacks. When your insecure application is a gateway for such lateral movement into the operating system, you are contributing to the tools that professional hackers have at their disposal. Don't be a tool.
 
-This is why we have taken every opportunity to help you secure your application, prevent undesired access to system level interfaces, and manufacture bullet-proof applications. Your users assume you are following best practices. We make that easy, but you should still be aware of the below information.
+This is why we have taken every opportunity to help you secure your application, prevent undesired access to system level interfaces, and manufacture bullet-proof applications. Your users assume you are following best practices. We make that easy, but you should still be aware of the information below.
 
 ## Security Is A Community Responsibility
 
@@ -18,7 +18,7 @@ When releasing your app into the wild, you are also shipping a bundle that has T
 
 ### Evaluate Your Dependencies
 
-While NPM and Crates.io provide many convenient packages, it is your responsibility to choose trustworthy 3rd-party libraries - or rewrite them in Rust. If you do use outdated libraries affected by known vulnerabilities or are unmaintained, your application security and good-night's sleep could be in jeopardy. Use tooling like npm audit and cargo audit to automate this process and lean on the security community's important work.
+While NPM and Crates.io provide many convenient packages, it is your responsibility to choose trustworthy third-party libraries - or rewrite them in Rust. If you do use outdated libraries which are affected by known vulnerabilities or are unmaintained, your application security and good night's sleep could be in jeopardy. Use tooling like npm audit and cargo audit to automate this process, and lean on the security community's important work.
 
 ### Adopt More Secure Coding Practices
 
@@ -26,7 +26,7 @@ The first line of defense for your application is your own code. Although Tauri 
 
 ### Educate Your Users
 
-True security really means that unexpected behaviour cannot happen. So in a sense, being more secure means having the peace of mind in knowing that ONLY those things that you want to happen can happen. In the real world, though, this is a utopian "dream". However, by removing as many vectors as possible and building on a solid foundation, your choice for Tauri is a signal to your users that you really care about them, their safety, and their devices.
+True security really means that unexpected behaviour cannot happen. So in a sense, being more secure means having the peace of mind in knowing that ONLY those things that you want to happen can happen. In the real world, though, this is a utopian "dream". However, by removing as many vectors as possible and building on a solid foundation, your choice of Tauri is a signal to your users that you really care about them, their safety, and their devices.
 
 ## Threat Models
 
@@ -48,7 +48,7 @@ One practice that we highly recommend, is to only ever consume critical dependen
 
 Modern organisations use CI/CD to manufacture binary artifacts. At Tauri, we even provide a Github Workflow for building on multiple platforms. If you create your own CI/CD and depend on third-party tooling, be wary of actions whose versions you have not explicitly pinned.
 
-You should sign your binaries for the platform you are shipping to, and while this can be complicated and somewhat costly to setup, end-users expect that your app is verifiably from you.
+You should sign your binaries for the platform you are shipping to, and while this can be complicated and somewhat costly to setup, end users expect that your app is verifiably from you.
 
 ### Runtime Threats
 
@@ -67,10 +67,10 @@ We have done our best to make shipping hot-updates to the app as straightforward
 Tauri restricts the [Content Security Policy] (CSP) of your HTML pages. Local scripts are hashed, styles and external scripts are referenced using a cryptographic nonce, which prevents unallowed content from being loaded.
 
 :::warning
-Avoid loading remote content such as scripts served over a CDN as they introduce an attack vector, but any untrusted file can introduce new and subtle attack vectors.
+Avoid loading remote content such as scripts served over a CDN as they introduce an attack vector. But any untrusted file can introduce new and subtle attack vectors.
 :::
 
-The CSP protection is only enabled if `[tauri > security > csp]` is set on the Tauri configuration file. You should make it as restricted as possible, only allowing the webview to load assets from hosts you trust and preferably own. At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically, so you only need to worry about what is unique to your application.
+The CSP protection is only enabled if `[tauri > security > csp]` is set on the Tauri configuration file. You should make it as restricted as possible, only allowing the webview to load assets from hosts you trust, and preferably own. At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically, so you only need to worry about what is unique to your application.
 
 See [`script-src`], [`style-src`] and [CSP Sources] for more
 information about this protection.
