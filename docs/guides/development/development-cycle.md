@@ -11,7 +11,7 @@ import Command from '@theme/Command'
 Now that you have everything set up, you should start your application development server provided by your UI framework or bundler (assuming you're using one, of course).
 
 :::note
-Every framework has its development tooling. It is outside of the scope of this document to treat them all or keep them up to date.
+Every framework has its own development tooling. It is outside of the scope of this document to cover them all or stay up to date.
 :::
 
 ### 2. Start Tauri Development Window
