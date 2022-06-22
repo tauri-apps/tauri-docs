@@ -67,7 +67,7 @@ tauri::Builder::default()
 
 ### Using the Inspector in Production
 
-By default the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
+By default the inspector is only enabled for development and debug builds unless you enable it with a Cargo feature.
 
 #### Create a Debug Build
 
