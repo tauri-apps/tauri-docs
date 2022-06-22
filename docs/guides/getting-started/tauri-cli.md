@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 # Install Tauri CLI
 
-The Tauri CLI is the heart of the developent process. It runs Cargo to compile the Rust core, starts your frontend development server, bundles all your assets, sidecars and resources when building for production, and even takes care of code-signing!
+The Tauri CLI is the heart of the development process. It runs Cargo to compile the Rust core, starts your frontend development server, bundles all your assets, sidecars and resources when building for production, and even takes care of code-signing!
 
 The CLI is available from a number of sources, depending on your preference.
 
