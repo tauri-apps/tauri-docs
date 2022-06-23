@@ -73,4 +73,4 @@ See the [Code signing guide].
 [`tauri.bundle.macos.exceptiondomain`]: ../../api/config/#tauri.bundle.macOS.exceptionDomain
 [`tauri.bundle.macos.usebootstrapper`]: ../../api/config#tauri.bundle.deb.useBootstrapper
 [info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
-[code signing guide]: ./sign-macos.md
+[code signing guide]: ./sign-macos
