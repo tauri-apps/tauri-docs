@@ -192,4 +192,4 @@ See the [Code signing guide].
 [tauri.bundle.windows.wix.language]: ../../api/config/#tauri.bundle.windows.wix.language
 [1]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
-[code signing guide]: ./sign-windows.md
+[code signing guide]: ./sign-windows
