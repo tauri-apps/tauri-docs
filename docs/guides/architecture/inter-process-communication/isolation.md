@@ -1,7 +1,3 @@
----
-slug: /guides/architecture/isolation
----
-
 # Isolation Pattern
 
 The Isolation pattern is a way to intercept and modify Tauri API messages sent by the frontend before they get to Tauri
