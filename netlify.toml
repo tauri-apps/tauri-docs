@@ -9,6 +9,9 @@ publish = "build"
 [context."feat/i18n-evergreen"]
 command = "yarn i18n:full-build"
 
+[[plugins]]
+package = "netlify-plugin-cache-folder"
+
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
@@ -56,5 +59,3 @@ to = "/v1/guides/architecture/inter-process-communication/brownfield"
 [[redirects]]
 from = "/v1/guides/architecture/isolation"
 to = "/v1/guides/architecture/inter-process-communication/isolation"
-
-# Comment

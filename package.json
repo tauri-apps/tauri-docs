@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "esbuild-loader": "^2.19.0"
+    "esbuild-loader": "^2.19.0",
+    "netlify-plugin-cache-folder": "^0.0.8"
   }
 }
