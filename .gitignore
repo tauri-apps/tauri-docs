@@ -8,6 +8,7 @@
 .docusaurus
 .cache-loader
 /i18n
+docusaurus.config.i18n.js
 
 # Misc
 .DS_Store

@@ -6,11 +6,11 @@
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
+    "build:generate-i18n-config": "node .scripts/generate-i18n-config.js",
+    "build:with-i18n-config": "docusaurus build --config docusaurus.config.i18n.js",
+    "build:validate-i18n": "yarn crowdin:sync:dryrun",
     "crowdin:sync": "docusaurus write-translations && crowdin upload && crowdin download",
-    "crowdin:sync:dryrun": "docusaurus write-translations && crowdin upload --dryrun && crowdin download",
-    "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve"
+    "crowdin:sync:dryrun": "docusaurus write-translations && crowdin upload --dryrun && crowdin download"
   },
   "dependencies": {
     "@crowdin/cli": "3.7.8",
