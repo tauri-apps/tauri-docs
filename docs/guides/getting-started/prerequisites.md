@@ -69,7 +69,7 @@ Rust is installed now. Great!
 ```
 
 :::note
-You now need to open a new shell for rust to work properly.
+You may need to open a new shell for Rust to work properly after being installed.
 :::
 
 ### Setting Up Linux
