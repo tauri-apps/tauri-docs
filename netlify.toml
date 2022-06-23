@@ -1,10 +1,13 @@
 [build]
-command = "yarn crowdin:sync:dryrun && yarn build"
+command = "yarn i18n:sync:dryrun && yarn build"
 publish = "build"
 
 [context.production]
-command = "yarn crowdin:sync && yarn build"
+command = "yarn i18n:sync && yarn build"
 publish = "build"
+
+[context."feat/i18n-evergreen"]
+command = "yarn i18n:full-build"
 
 [[redirects]]
 from = "/en/*"
