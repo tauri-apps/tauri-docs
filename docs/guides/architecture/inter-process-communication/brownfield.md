@@ -1,7 +1,3 @@
----
-slug: /guides/architecture/brownfield
----
-
 # Brownfield Pattern
 
 _**This is the default pattern.**_
