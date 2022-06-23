@@ -48,9 +48,9 @@ The Core process doesn't render the actual user interface (UI) itself; it spins 
 
 This means that most of your techniques and tools used in traditional web development can be used to create Tauri applications. For example, many Tauri examples are written using the [Svelte] frontend framework and the [Vite] bundler.
 
-Security best practices apply as well; for example, you must always sanitize user input, never handle secrets in the Frontend and ideally defer as much business logic to the Core process as possible to keep your attack surface small.
+Security best practices apply as well; for example, you must always sanitize user input, never handle secrets in the Frontend, and ideally defer as much business logic as possible to the Core process to keep your attack surface small.
 
-Contrary to other similar solutions, the WebView libraries are **not** included in your final executable but dynamically linked at runtime[^1]. This makes your application _significantly_ smaller, but it also means that you need to keep platform differences in mind, just like traditional web development.
+Unlike other similar solutions, the WebView libraries are **not** included in your final executable, but dynamically linked at runtime[^1]. This makes your application _significantly_ smaller, but it also means that you need to keep platform differences in mind, just like traditional web development.
 
 <!-- prettier-ignore -->
 [^1]: Currently, Tauri uses [Microsoft Edge WebView2] on Windows, [WKWebView] on

@@ -14,7 +14,7 @@ In the following, we explain Tauri's two IPC primitives - `Events` and `Commands
 
 ## Events
 
-Events are fire-and-forget, one-way IPC messages that are best suited to communicate lifecycle events and state changes. Contrary to [Commands](#commands) Events can be emitted by both the Frontend _and_ the Tauri Core.
+Events are fire-and-forget, one-way IPC messages that are best suited to communicate lifecycle events and state changes. Unlike [Commands](#commands), Events can be emitted by both the Frontend _and_ the Tauri Core.
 
 <figure>
 
@@ -31,7 +31,7 @@ sequenceDiagram
 
 ## Commands
 
-Tauri also provides a [foreign function interface]-like abstraction on top IPC messages[^1]. The primary API, `invoke`, is similar to the browsers `fetch` API and allows the Frontend to invoke rust functions, pass arguments, and receive data.
+Tauri also provides a [foreign function interface]-like abstraction on top of IPC messages[^1]. The primary API, `invoke`, is similar to the browser's `fetch` API and allows the Frontend to invoke Rust functions, pass arguments, and receive data.
 
 Because this mechanism uses a [JSON-RPC] like protocol under the hood to serialize requests and responses, all arguments and return data must be serializable to JSON.
 
