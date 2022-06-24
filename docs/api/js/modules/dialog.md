@@ -145,10 +145,10 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 import { open } from '@tauri-apps/api/dialog';
 const selected = await open({
   multiple: true,
-  filters: {
+  filters: [{
     name: 'Image',
     extensions: ['png', 'jpeg']
-  }
+  }]
 });
 if (Array.isArray(selected)) {
   // user selected multiple files
@@ -213,10 +213,10 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 import { save } from '@tauri-apps/api/dialog';
 const filePath = await save({
   multiple: true,
-  filters: {
+  filters: [{
     name: 'Image',
     extensions: ['stronghold']
-  }
+  }]
 });
 ```
 
