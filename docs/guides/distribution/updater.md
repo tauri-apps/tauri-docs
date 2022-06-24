@@ -269,10 +269,11 @@ target/release/bundle
 On Windows, we create a .zip from the MSI; when downloaded and validated, we run the MSI install.
 
 ```none
-target/release
-└── app.x64.msi
-└── app.x64.msi.zip (update bundle)
-└── app.x64.msi.zip.sig
+target/release/bundle
+└── msi
+    └── app.x64.msi
+    └── app.x64.msi.zip (update bundle)
+    └── app.x64.msi.zip.sig
 ```
 
 ### Linux
