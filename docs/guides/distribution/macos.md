@@ -28,11 +28,10 @@ You can compile your application targeting Apple Silicon, Intel-based Mac comput
 - `tauri build --target universal-apple-darwin`: targets [universal macOS binaries].
 
 :::caution
-
 - Apple Silicon binaries only run on Mac computers with Apple Silicon.
 - Intel-based binaries only run on Intel-based Mac computers and Apple Silicon computers under the Rosetta translation.
 - Universal macOS binaries run on both architectures.
-  :::
+:::
 
 ## Application bundle customization
 
