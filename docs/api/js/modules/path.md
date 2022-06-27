@@ -458,7 +458,7 @@ Returns whether the path is absolute or not.
 **`example`**
 ```typescript
 import { isAbsolute } from '@tauri-apps/api/path';
-assert(await ibsolute('/home/tauri'));
+assert(await isAbsolute('/home/tauri'));
 ```
 
 #### Parameters
