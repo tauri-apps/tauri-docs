@@ -258,7 +258,7 @@ On macOS, we create a .tar.gz from the whole application. (.app)
 
 ```none
 target/release/bundle
-└── osx
+└── macos
     └── app.app
     └── app.app.tar.gz (update bundle)
     └── app.app.tar.gz.sig
