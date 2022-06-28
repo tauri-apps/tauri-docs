@@ -67,7 +67,7 @@ performance-sensitive applications (who likely have a carefully-maintained and s
 adequate), most applications should not notice the runtime costs of encrypting/decrypting the IPC messages, as they are
 relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relevant in this
 context is that it's the only authenticated mode algorithm included
-in [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
+in [SubtleCrypto][subtle-crypto]
 and that you probably already use it every day under the hood with [TLS][Transport_Layer_Security].
 
 There is also a cryptographically secure key generated once each time the Tauri application is started. It is not
