@@ -54,10 +54,6 @@ The Windows Installer by default downloads the Webview2 bootstapper and executes
 On Windows 10 (since June 27, 2022) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 :::
 
-:::note
-You can remove the Webview2 Runtime download check from the installer by setting [webviewInstallMode] to `skip`. Your application WILL NOT work if the user does not have the runtime installed.
-:::
-
 ### Embedding the Webview2 Bootstrapper
 
 To embed the Webview2 Bootstrapper, set the [webviewInstallMode] to `embedBootstrapper`. This increases the installer size by around 1.8MB, but increases compatibility with Windows 7 systems.
@@ -122,6 +118,24 @@ Using the runtime provided by the system is great for security as the webview vu
 :::caution
 Distributing a fixed Webview2 Runtime version increases the Windows Installer by around 180MB.
 :::
+
+### Skipping Installation of the Webview2 Runtime
+
+You can remove the Webview2 Runtime download check from the installer by setting [webviewInstallMode] to `skip`. Your application WILL NOT work if the user does not have the runtime installed.
+
+```json
+{
+  "tauri": {
+    "bundle": {
+      "windows": {
+        "webviewInstallMode": {
+          "type": "skip"
+        }
+      }
+    }
+  }
+}
+```
 
 ## Customizing the Installer
 
