@@ -7,7 +7,7 @@ sidebar_position: 2
 
 Tauri applications for Windows are distributed with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application.
 
-## Code signing
+## Code Signing
 
 See the [Code signing guide].
 
