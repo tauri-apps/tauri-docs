@@ -117,7 +117,7 @@ Using the runtime provided by the system is great for security as the webview vu
 Distributing a fixed Webview2 Runtime version increases the Windows Installer by around 180MB.
 :::
 
-1. Download the Webview2 fixed version runtime from [Microsoft's website](download-webview2-runtime). In this example, the downloaded filename is `Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab`
+1. Download the Webview2 fixed version runtime from [Microsoft's website][download-webview2-runtime]. In this example, the downloaded filename is `Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64.cab`
 2. Extract the file to the core folder:
 
 ```powershell
