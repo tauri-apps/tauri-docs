@@ -7,17 +7,77 @@ sidebar_position: 2
 
 Tauri applications for Windows are distributed with a Microsoft Installer (`.msi` files). The Tauri CLI automatically bundles your application code in this format, providing options to code sign your application. This guide provides information on available customizations for the installer.
 
+## Supporting Windows 7
+
+By default the Microsoft Installer does not work on Windows 7 because it needs to download the Webview2 bootstrapper if the runtime is not installed, which might fail if TLS 1.2 is not enabled in the operating system. Tauri includes an option to embed the Webview2 bootstrapper, see the [section below](#embedding-the-webview2-bootstrapper).
+
+Additionally, to use the Notification API in Windows 7, you need to enable the `windows7-compat` Cargo feature:
+
+```toml title="Cargo.toml"
+[dependencies]
+tauri = { version = "1", features = [ "windows7-compat" ] }
+```
+
 ## Distributing a 32-bit executable
 
 The Tauri CLI compiles your executable using your machine's architecture by default. You can target a different one using the `target` argument. For instance, to generate an installer for the x86 architecture, you can execute `tauri build --target i686-pc-windows-msvc` after installing the _i686-pc-windows-msvc_ target running `rustup target add i686-pc-windows-msvc`. You can see the list of available targets running `rustup target list`.
 
-## Using a fixed version of the Webview2 Runtime
+## Using alternative Webview2 installation options
 
-By default, the Tauri installer downloads and installs the Webview2 Runtime if it is not already installed (on Windows 11, the runtime is distributed as part of the operating system).
+The Windows Installer by default downloads the Webview2 bootstapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer or use a fixed Webview2 runtime version. See the following table for a comparison between these methods:
+
+| Install method        | Requires internet connection | Added installer size |
+| :-------------------- | :--------------------------- | :------------------- |
+| Download bootstrapper | :heavy_check_mark:           | 0MB                  |
+| Embed bootstrapper    | :heavy_check_mark:           | ~1.8MB               |
+| Embed installer       |                              | ~127MB               |
+| Fixed version         |                              | ~180MB               |
 
 :::note
-You can remove the Webview2 Runtime download check from the installer by setting [tauri.bundle.windows.wix.skipWebviewInstall] to `true`. Your application WON'T work if the user does not have the runtime installed.
+On Windows 10 (since June 27, 2022) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 :::
+
+:::note
+You can remove the Webview2 Runtime download check from the installer by setting [webviewInstallMode] to `skip`. Your application WON'T work if the user does not have the runtime installed.
+:::
+
+### Embedding the Webview2 Bootstrapper
+
+To embed the Webview2 Bootstrapper, set the [webviewInstallMode] to `embedBootstrapper`. This increases the installer size by around 1.8MB, but increases compatibility with Windows 7 systems.
+
+```json
+{
+  "tauri": {
+    "bundle": {
+      "windows": {
+        "webviewInstallMode": {
+          "type": "embedBootstrapper"
+        }
+      }
+    }
+  }
+}
+```
+
+### Embedding the Webview2 offline installer
+
+To embed the Webview2 Bootstrapper, set the [webviewInstallMode] to `offlineInstaller`. This increases the installer size by around 127MB, but allows your application to be installed even if internet connection is not available.
+
+```json
+{
+  "tauri": {
+    "bundle": {
+      "windows": {
+        "webviewInstallMode": {
+          "type": "offlineInstaller"
+        }
+      }
+    }
+  }
+}
+```
+
+### Using a fixed version of the Webview2 Runtime
 
 Using the runtime provided by the system is great for security as the webview vulnerability patches are managed by Windows. If you want to control the Webview2 distribution on each of your applications, either to manage the release patches yourself or distribute applications on environments where internet connection might not be available. In that case, Tauri can bundle the runtime files for you.
 
@@ -30,7 +90,10 @@ Using the runtime provided by the system is great for security as the webview vu
   "tauri": {
     "bundle": {
       "windows": {
-        "webviewFixedRuntimePath": "./Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64/"
+        "webviewInstallMode": {
+          "type": "fixedRuntime",
+          "path": "./Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64/"
+        }
       }
     }
   }
@@ -40,7 +103,7 @@ Using the runtime provided by the system is great for security as the webview vu
 - Run `tauri build` to produce the Windows Installer with the fixed Webview2 runtime.
 
 :::caution
-Distributing a fixed Webview2 Runtime version increases the Windows Installer by around 150MB.
+Distributing a fixed Webview2 Runtime version increases the Windows Installer by around 180MB.
 :::
 
 ## Customizing the Windows Installer
@@ -182,7 +245,7 @@ Currently Tauri references the following locale strings: `LaunchApp`, `Downgrade
 
 See the [Code signing guide].
 
-[tauri.bundle.windows.wix.skipwebviewinstall]: ../../api/config/#tauri.bundle.windows.wix.skipWebviewInstall
+[webviewInstallMode]: ../../api/config/#tauri.bundle.windows.webviewInstallMode
 [official website]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [here]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs
