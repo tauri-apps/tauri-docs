@@ -150,4 +150,5 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 }
 ```
 
-[Transport_Layer_Security]: https://en.wikipedia.org/wiki/Transport_Layer_Security "Transport Layer Security"
+[subtle-crypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
+[Transport_Layer_Security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
