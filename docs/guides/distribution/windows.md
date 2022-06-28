@@ -9,6 +9,6 @@ Tauri applications for Windows are distributed with a Microsoft Installer (`.msi
 
 ## Code Signing
 
-See the [Code signing guide].
+See the [Code Signing guide].
 
 [code signing guide]: ./sign-windows
