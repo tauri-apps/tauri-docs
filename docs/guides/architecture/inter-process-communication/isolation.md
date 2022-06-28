@@ -68,7 +68,7 @@ adequate), most applications should not notice the runtime costs of encrypting/d
 relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relevant in this
 context is that it's the only authenticated mode algorithm included
 in [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
-and that you probably already use it every day under the hood with [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
+and that you probably already use it every day under the hood with [TLS][Transport_Layer_Security].
 
 There is also a cryptographically secure key generated once each time the Tauri application is started. It is not
 generally noticeable if the system already has enough entropy to immediately return enough random numbers, which is
@@ -149,3 +149,5 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
   }
 }
 ```
+
+[Transport_Layer_Security]: https://en.wikipedia.org/wiki/Transport_Layer_Security "Transport Layer Security"
