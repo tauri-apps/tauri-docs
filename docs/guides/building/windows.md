@@ -51,7 +51,7 @@ The Windows Installer by default downloads the Webview2 bootstapper and executes
 | Fixed version         |                              | ~180MB               |
 
 :::note
-On Windows 10 (since June 27, 2022) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
+On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 :::
 
 ### Embedding the Webview2 Bootstrapper
