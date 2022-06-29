@@ -59,7 +59,7 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:229](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/dialog.ts#L229)
+[dialog.ts:229](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L229)
 
 ___
 
@@ -72,8 +72,8 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 **`example`**
 ```typescript
 import { confirm } from '@tauri-apps/api/dialog';
-const confirm = await confirm('Are you sure?', 'Tauri');
-const confirm2 = await confirm('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
+const confirmed = await confirm('Are you sure?', 'Tauri');
+const confirmed2 = await confirm('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
 ```
 
 #### Parameters
@@ -91,7 +91,7 @@ A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 #### Defined in
 
-[dialog.ts:259](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/dialog.ts#L259)
+[dialog.ts:259](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L259)
 
 ___
 
@@ -123,7 +123,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[dialog.ts:199](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/dialog.ts#L199)
+[dialog.ts:199](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L199)
 
 ___
 
@@ -145,10 +145,10 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 import { open } from '@tauri-apps/api/dialog';
 const selected = await open({
   multiple: true,
-  filters: {
+  filters: [{
     name: 'Image',
     extensions: ['png', 'jpeg']
-  }
+  }]
 });
 if (Array.isArray(selected)) {
   // user selected multiple files
@@ -191,7 +191,7 @@ A promise resolving to the selected path(s)
 
 #### Defined in
 
-[dialog.ts:132](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/dialog.ts#L132)
+[dialog.ts:132](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L132)
 
 ___
 
@@ -213,10 +213,10 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 import { save } from '@tauri-apps/api/dialog';
 const filePath = await save({
   multiple: true,
-  filters: {
+  filters: [{
     name: 'Image',
     extensions: ['stronghold']
-  }
+  }]
 });
 ```
 
@@ -234,4 +234,4 @@ A promise resolving to the selected path.
 
 #### Defined in
 
-[dialog.ts:171](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/dialog.ts#L171)
+[dialog.ts:171](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L171)

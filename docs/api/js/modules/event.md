@@ -38,7 +38,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/helpers/event.ts#L41)
+[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/helpers/event.ts#L41)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/helpers/event.ts#L21)
+[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/helpers/event.ts#L21)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:43](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/helpers/event.ts#L43)
+[helpers/event.ts:43](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/helpers/event.ts#L43)
 
 ## Functions
 
@@ -95,7 +95,7 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 
 #### Defined in
 
-[event.ts:81](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/event.ts#L81)
+[event.ts:81](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/event.ts#L81)
 
 ___
 
@@ -137,7 +137,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:37](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/event.ts#L37)
+[event.ts:37](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/event.ts#L37)
 
 ___
 
@@ -180,4 +180,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[event.ts:62](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/event.ts#L62)
+[event.ts:62](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/event.ts#L62)

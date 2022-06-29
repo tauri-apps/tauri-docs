@@ -144,7 +144,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.decorations">`decorations`<a class="hash-link" href="#windowconfig.decorations"></a></div> | `boolean`  | `true` | Whether the window should have borders and bars. |
 | <div className="anchor-with-padding" id="windowconfig.alwaysontop">`alwaysOnTop`<a class="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean`  | `false` | Whether the window should always be on top of other windows. |
 | <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean`  | `false` | Whether or not the window icon should be added to the taskbar. |
-| <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows. |
+| <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
 
 
 
@@ -234,9 +234,9 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean`  | `false` | Whether we should build your app with tauri-bundler or plain `cargo build` |
-| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget)? | [view](#bundletarget) | The bundle targets, currently supports ["deb", "app", "msi", "appimage", "dmg"] or "all" |
-| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string` (required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.).|
+| <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean`  | `false` | Whether Tauri should bundle your application or just output the executable. |
+| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "msi", "app", "dmg", "updater"] or "all". |
+| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string` (required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | [`string` ]  | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | `array`?  | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
 | <div className="anchor-with-padding" id="bundleconfig.copyright">`copyright`<a class="hash-link" href="#bundleconfig.copyright"></a></div> | `string`?  | _null_ | A copyright string associated with your application. |
@@ -255,12 +255,27 @@ Type: `object`
 
 ### BundleTarget
 
-Targets to bundle.
+Targets to bundle. Each value is case insensitive.
 
 Can be any of the following types:
 
-- [`string` ] : A list of bundle targets.
-- `string` : A single bundle target.
+- {"description":"Bundle all targets.","enum":["all"]}: Bundle all targets.
+- [[`BundleType`](#bundletype)] : A list of bundle targets.
+- [`BundleType`](#bundletype): A single bundle target.
+
+<br />
+
+### BundleType
+
+A bundle referenced by tauri-bundler.
+
+Can be any of the following `string` values:
+- deb
+- appimage
+- msi
+- app
+- dmg
+- updater
 
 <br />
 
@@ -325,11 +340,28 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowsconfig.certificatethumbprint">`certificateThumbprint`<a class="hash-link" href="#windowsconfig.certificatethumbprint"></a></div> | `string`?  | _null_ | Specifies the SHA1 hash of the signing certificate. |
 | <div className="anchor-with-padding" id="windowsconfig.timestampurl">`timestampUrl`<a class="hash-link" href="#windowsconfig.timestampurl"></a></div> | `string`?  | _null_ | Server to use during timestamping. |
 | <div className="anchor-with-padding" id="windowsconfig.tsp">`tsp`<a class="hash-link" href="#windowsconfig.tsp"></a></div> | `boolean`  | `false` | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
-| <div className="anchor-with-padding" id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath`<a class="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`?  | _null_ | Path to the webview fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+| <div className="anchor-with-padding" id="windowsconfig.webviewinstallmode">`webviewInstallMode`<a class="hash-link" href="#windowsconfig.webviewinstallmode"></a></div> | [`WebviewInstallMode`](#webviewinstallmode) | [view](#webviewinstallmode) | The installation mode for the Webview2 runtime. |
+| <div className="anchor-with-padding" id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath`<a class="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`?  | _null_ | Path to the webview fixed runtime to use. Overwrites [`Self::webview_install_mode`] if set.<br /><br />Will be removed in v2, prefer the [`Self::webview_install_mode`] option.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
 | <div className="anchor-with-padding" id="windowsconfig.allowdowngrades">`allowDowngrades`<a class="hash-link" href="#windowsconfig.allowdowngrades"></a></div> | `boolean`  | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
 | <div className="anchor-with-padding" id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
 
 
+
+<br />
+
+### WebviewInstallMode
+
+Install modes for the Webview2 runtime. Note that for the updater bundle [`Self::DownloadBootstrapper`] is used.
+
+For more information see <https://tauri.app/v1/guides/building/windows>.
+
+Can be any **ONE** of the following types:
+
+- `object` : Do not install the Webview2 as part of the Windows Installer.
+- `object` : Download the bootstrapper and run it. Requires internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
+- `object` : Embed the bootstrapper and run it. Requires internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
+- `object` : Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
+- `object` : Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
 
 <br />
 
@@ -349,7 +381,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="wixconfig.featuregrouprefs">`featureGroupRefs`<a class="hash-link" href="#wixconfig.featuregrouprefs"></a></div> | [`string` ]  | [] | The FeatureGroup element ids you want to reference from the fragments. |
 | <div className="anchor-with-padding" id="wixconfig.featurerefs">`featureRefs`<a class="hash-link" href="#wixconfig.featurerefs"></a></div> | [`string` ]  | [] | The Feature element ids you want to reference from the fragments. |
 | <div className="anchor-with-padding" id="wixconfig.mergerefs">`mergeRefs`<a class="hash-link" href="#wixconfig.mergerefs"></a></div> | [`string` ]  | [] | The Merge element ids you want to reference from the fragments. |
-| <div className="anchor-with-padding" id="wixconfig.skipwebviewinstall">`skipWebviewInstall`<a class="hash-link" href="#wixconfig.skipwebviewinstall"></a></div> | `boolean`  | `false` | Disables the Webview2 runtime installation after app install. |
+| <div className="anchor-with-padding" id="wixconfig.skipwebviewinstall">`skipWebviewInstall`<a class="hash-link" href="#wixconfig.skipwebviewinstall"></a></div> | `boolean`  | `false` | Disables the Webview2 runtime installation after app install.<br /><br />Will be removed in v2, prefer the [`WindowsConfig::webview_install_mode`] option. |
 | <div className="anchor-with-padding" id="wixconfig.license">`license`<a class="hash-link" href="#wixconfig.license"></a></div> | `string`?  | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
 | <div className="anchor-with-padding" id="wixconfig.enableelevatedupdatetask">`enableElevatedUpdateTask`<a class="hash-link" href="#wixconfig.enableelevatedupdatetask"></a></div> | `boolean`  | `false` | Create an elevated update task within Windows Task Scheduler. |
 | <div className="anchor-with-padding" id="wixconfig.bannerpath">`bannerPath`<a class="hash-link" href="#wixconfig.bannerpath"></a></div> | `string`?  | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |

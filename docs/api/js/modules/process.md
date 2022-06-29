@@ -34,7 +34,7 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[process.ts:25](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/process.ts#L25)
+[process.ts:25](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/process.ts#L25)
 
 ___
 
@@ -58,4 +58,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[process.ts:45](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/process.ts#L45)
+[process.ts:45](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/process.ts#L45)

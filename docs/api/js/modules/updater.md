@@ -20,7 +20,7 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -45,7 +45,7 @@ Promise resolving to the update status.
 
 #### Defined in
 
-[updater.ts:104](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/updater.ts#L104)
+[updater.ts:104](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L104)
 
 ___
 
@@ -73,4 +73,4 @@ A promise indicating the success or failure of the operation.
 
 #### Defined in
 
-[updater.ts:46](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/updater.ts#L46)
+[updater.ts:46](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L46)

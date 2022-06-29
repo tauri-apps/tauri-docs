@@ -26,7 +26,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Defined in
 
-[window.ts:319](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L319)
+[window.ts:329](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L329)
 
 ## Properties
 
@@ -38,7 +38,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:315](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L315)
+[window.ts:325](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L325)
 
 ___
 
@@ -54,7 +54,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:317](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L317)
+[window.ts:327](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L327)
 
 ## Methods
 
@@ -81,7 +81,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:381](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L381)
+[window.ts:391](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L391)
 
 ___
 
@@ -104,7 +104,7 @@ Emits an event to the backend, tied to the webview window.
 
 #### Defined in
 
-[window.ts:370](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L370)
+[window.ts:380](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L380)
 
 ___
 
@@ -135,7 +135,7 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:332](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L332)
+[window.ts:342](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L342)
 
 ___
 
@@ -166,4 +166,4 @@ A promise resolving to a function to unlisten to the event.
 
 #### Defined in
 
-[window.ts:353](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L353)
+[window.ts:363](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L363)
