@@ -42,7 +42,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L29)
+[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
@@ -72,7 +72,7 @@ A promise resolving to the state.
 
 #### Defined in
 
-[globalShortcut.ts:98](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L98)
+[globalShortcut.ts:98](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L98)
 
 ___
 
@@ -103,7 +103,7 @@ await register('CommandOrControl+Shift+C', () => {
 
 #### Defined in
 
-[globalShortcut.ts:45](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L45)
+[globalShortcut.ts:45](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L45)
 
 ___
 
@@ -134,7 +134,7 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 
 #### Defined in
 
-[globalShortcut.ts:73](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L73)
+[globalShortcut.ts:73](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L73)
 
 ___
 
@@ -162,7 +162,7 @@ await unregister('CmdOrControl+Space');
 
 #### Defined in
 
-[globalShortcut.ts:119](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L119)
+[globalShortcut.ts:119](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L119)
 
 ___
 
@@ -184,4 +184,4 @@ await unregisterAll();
 
 #### Defined in
 
-[globalShortcut.ts:139](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/globalShortcut.ts#L139)
+[globalShortcut.ts:139](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/globalShortcut.ts#L139)

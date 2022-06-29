@@ -50,7 +50,7 @@ Creates a new `Command` instance.
 
 #### Defined in
 
-[shell.ts:268](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L268)
+[shell.ts:268](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L268)
 
 ## Properties
 
@@ -62,7 +62,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L258)
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L258)
 
 ___
 
@@ -74,7 +74,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
@@ -102,7 +102,7 @@ A promise resolving to the child process output.
 
 #### Defined in
 
-[shell.ts:347](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L347)
+[shell.ts:347](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L347)
 
 ___
 
@@ -131,7 +131,7 @@ The `this` instance for chained calls.
 
 #### Defined in
 
-[shell.ts:173](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L173)
+[shell.ts:173](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L173)
 
 ___
 
@@ -149,7 +149,7 @@ A promise resolving to the child process handle.
 
 #### Defined in
 
-[shell.ts:309](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L309)
+[shell.ts:309](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L309)
 
 ___
 
@@ -180,4 +180,4 @@ const output = await command.execute();
 
 #### Defined in
 
-[shell.ts:294](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L294)
+[shell.ts:294](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L294)
