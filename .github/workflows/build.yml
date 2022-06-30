@@ -27,10 +27,9 @@ jobs:
           path: i18n
           key: i18n
 
-  build-locale:
+  build-locales:
     needs: build-locale-list
     runs-on: ubuntu-latest
-    timeout-minutes: 360 # 6 hour timeout
     strategy:
       matrix:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
@@ -46,3 +45,14 @@ jobs:
         run: exit 1
       - run: |
           yarn && yarn build --locale ${{ matrix.locale }}
+      - uses: actions/cache@v3
+        with:
+          path: build
+          key: ${{ matrix.locale }}-build
+  merge-locales:
+    needs: build-locales
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        echo "I made it to the merge-builds phase!"
+
