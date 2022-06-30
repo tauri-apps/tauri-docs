@@ -6,24 +6,26 @@ on:
       - feat/i18n-evergreen
 
 jobs:
-  build-language-list:
+  build-locale-list:
     runs-on: ubuntu-latest
+    environment: dev
     outputs:
-      language-list: ${{ steps.generate.outputs.language-list }}
+      locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: yarn && node ./.scripts/generate-locales.js
-        id: generate
+      - id: generate
+        run: |
+          yarn
+          yarn crowdin download
+          node ./.scripts/generate-locales.js
 
-  build-language:
-    needs: build-language-list
+  build-locale:
+    needs: build-locale-list
     runs-on: ubuntu-latest
     timeout-minutes: 360 # 6 hour timeout
     strategy:
       matrix:
-        language: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
-    #         max-parallel: 1 # Run jobs serially
-    # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
+        locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
-      - run: echo "This is language ${{ matrix.language }}"
+      - run: echo "This is locale ${{ matrix.locale }}"
