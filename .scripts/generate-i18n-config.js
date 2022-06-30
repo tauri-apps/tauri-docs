@@ -1,16 +1,10 @@
 const fs = require('fs')
-var locales = fs.readdirSync('i18n')
+const core = require('@actions/core')
 
-var config = fs.readFileSync(process.cwd() + '/docusaurus.config.js').toString()
-
-config = config.replace(/(?<=locales: )(.*)(?=,)/, JSON.stringify(locales))
-
-const outputFile = process.cwd() + '/docusaurus.config.i18n.js'
-
-fs.writeFileSync(outputFile, config)
-
-// locales: ['en'],
-
-// fs.writeFileSync(outputFile, 'module.exports = ')
-
-// fs.appendFileSync(outputFile, util.inspect(config, false, null))
+try {
+  var locales = fs.readdirSync('i18n')
+  console.log(`Found the locales ${locals}`)
+  core.setOutput(JSON.stringify(locales))
+} catch {
+  core.setFailed
+}

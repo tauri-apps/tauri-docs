@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - feat/i18n-evergreen
-      
+
 jobs:
   build-language-list:
     runs-on: ubuntu-latest
@@ -13,17 +13,18 @@ jobs:
     steps:
       - id: generate
         run: |
-          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es']; console.log(JSON.stringify(r));")
+          # yarn && yarn i18n:sync:dryrun
+          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es'];")
           echo "::set-output name=language-list::$LANGUAGE_LIST"
           echo "$LANGUAGE_LIST"
   build-language:
-      needs: build-language-list
-      runs-on: ubuntu-latest
-      timeout-minutes: 360 # 6 hour timeout
-      strategy:
-        matrix:
-          language: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
-#         max-parallel: 1 # Run jobs serially
-        # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
-      steps:
-        - run: echo "This is language ${{ matrix.language }}"
+    needs: build-language-list
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # 6 hour timeout
+    strategy:
+      matrix:
+        language: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
+    #         max-parallel: 1 # Run jobs serially
+    # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
+    steps:
+      - run: echo "This is language ${{ matrix.language }}"

@@ -6,12 +6,6 @@ publish = "build"
 command = "yarn i18n:sync && yarn build"
 publish = "build"
 
-[context."feat/i18n-evergreen"]
-command = "yarn i18n:full-build"
-
-[[plugins]]
-package = "./plugins/docusaurus-cache"
-
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
