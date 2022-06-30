@@ -55,6 +55,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: |
+      - env:
+          LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
+        run: |
           yarn
           node ./.scripts/ci-postbuild.js
