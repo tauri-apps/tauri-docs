@@ -10,7 +10,7 @@ publish = "build"
 command = "yarn i18n:full-build"
 
 [[plugins]]
-package = "./plugins/webmention-cache"
+package = "./plugins/docusaurus-cache"
 
 [[redirects]]
 from = "/en/*"
