@@ -8,5 +8,6 @@ on:
 jobs:
   build-language-list:
     runs-on: ubuntu-latest
-    steps: |
-      echo "Hello, world"
+    steps:
+      - run: |
+          echo "Hello, world"
