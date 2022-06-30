@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: generate
         run: |
-          LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= 3; i++) { r.push(i) }; console.log(JSON.stringify(r));")
+          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es']; console.log(JSON.stringify(r));")
           echo "::set-output name=language-list::$LANGUAGE_LIST"
           echo "$LANGUAGE_LIST"
   build-language:
