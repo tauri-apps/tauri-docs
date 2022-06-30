@@ -10,7 +10,9 @@ try {
   lastestReleasedVersion = JSON.parse(
     fs.readFileSync('versions.json', 'utf-8')
   )[0]
-} catch {}
+} catch {
+  console.error()
+}
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
