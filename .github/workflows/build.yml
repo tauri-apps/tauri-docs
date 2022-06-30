@@ -16,7 +16,7 @@ jobs:
           LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= 3; i++) { r.push(i) };")
           echo "::set-output name=language-list::$LANGUAGE_LIST"
           echo "$LANGUAGE_LIST"
-  build-language:
+  job:
       needs: build-language-list
       runs-on: ubuntu-latest
       timeout-minutes: 360 # 6 hour timeout
