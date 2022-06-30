@@ -9,7 +9,7 @@ try {
   // Load in each via a loop
   // Merge them together into the build folder
   // Tell netlify to pick it up (outside of this file and with another action probably)
-  console.log('I ran!', locales)
+  console.log(`I ran! Locales: ${locales}`)
 } catch (error) {
   core.setFailed(`An issue ocurred while combining locales: ${error}`)
 }
