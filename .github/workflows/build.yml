@@ -45,4 +45,4 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'false'
         run: exit 1
       - run: |
-          yarn && yarn build --locale {{ matrix.locale }}
+          yarn && yarn build --locale ${{ matrix.locale }}
