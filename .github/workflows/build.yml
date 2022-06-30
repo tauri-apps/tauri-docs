@@ -27,32 +27,31 @@ jobs:
           path: i18n
           key: i18n
 
-#   build-locales:
-#     needs: build-locale-list
-#     runs-on: ubuntu-latest
-#     strategy:
-#       matrix:
-#         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
-#     steps:
-#       - uses: actions/checkout@v3
-#       - id: cache
-#         uses: actions/cache@v3
-#         with:
-#           path: i18n
-#           key: i18n
-#       - name: Check for i18n folder
-#         if: steps.cache.outputs.cache-hit == 'false'
-#         run: exit 1
-#       - run: |
-#           yarn && yarn build --locale ${{ matrix.locale }}
-#       - uses: actions/cache@v3
-#         with:
-#           path: build
-#           key: ${{ matrix.locale }}-build
-          
-  merge-locales:
+  build-locales:
     needs: build-locale-list
-#     needs: build-locales
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: cache
+        uses: actions/cache@v3
+        with:
+          path: i18n
+          key: i18n
+      - name: Check for i18n folder
+        if: steps.cache.outputs.cache-hit == 'false'
+        run: exit 1
+      - run: |
+          yarn && yarn build --locale ${{ matrix.locale }}
+      - uses: actions/cache@v3
+        with:
+          path: build
+          key: ${{ matrix.locale }}-build
+
+  merge-locales:
+    needs: build-locales
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
