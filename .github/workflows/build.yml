@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       language-list: ${{ steps.generate.outputs.language-list }}
-    runs:
-      using: 'node'
-      main: '.scripts/generate-locales.js'
+    - id: generate
+      runs:
+        using: 'node'
+        main: '.scripts/generate-locales.js'
 
   build-language:
     needs: build-language-list
