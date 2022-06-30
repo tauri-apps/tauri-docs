@@ -14,7 +14,7 @@ jobs:
       - id: generate
         run: |
           # yarn && yarn i18n:sync:dryrun
-          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es'];")
+          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es']; console.log(JSON.stringify(r));")
           echo "::set-output name=language-list::$LANGUAGE_LIST"
           echo "$LANGUAGE_LIST"
   build-language:
