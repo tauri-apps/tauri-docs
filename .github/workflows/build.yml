@@ -1,1 +1,12 @@
+name: build
 
+on:
+  push:
+    branches:
+      - feat/i18n-evergreen
+      
+jobs:
+  build-language-list:
+    runs-on: ubuntu-latest
+    steps: |
+      echo "Hello, world"
