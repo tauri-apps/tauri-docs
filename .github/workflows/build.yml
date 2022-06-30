@@ -56,7 +56,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - env:
-          LOCALES: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
+          LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
         run: |
+          echo $LOCALES
           yarn
           node ./.scripts/ci-postbuild.js
