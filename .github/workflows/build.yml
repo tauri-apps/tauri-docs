@@ -11,12 +11,10 @@ jobs:
     outputs:
       language-list: ${{ steps.generate.outputs.language-list }}
     steps:
-      - id: generate
-        run: |
-          # yarn && yarn i18n:sync:dryrun
-          LANGUAGE_LIST=$(node -e "let r=['en', 'fr', 'es']; console.log(JSON.stringify(r));")
-          echo "::set-output name=language-list::$LANGUAGE_LIST"
-          echo "$LANGUAGE_LIST"
+      runs:
+        using: 'node'
+        main: '.scripts/generate-locales.js'
+
   build-language:
     needs: build-language-list
     runs-on: ubuntu-latest
