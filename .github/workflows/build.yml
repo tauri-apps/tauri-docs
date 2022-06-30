@@ -8,6 +8,10 @@ on:
 jobs:
   build-language-list:
     runs-on: ubuntu-latest
+    outputs:
+      language-list: LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= process.env.NUMBER_OF_JOBS; i++) { r.push(i) }; console.log(JSON.stringify(r));")
+
     steps:
       - run: |
-          echo "Hello, world"
+          LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= process.env.NUMBER_OF_JOBS; i++) { r.push(i) }; console.log(JSON.stringify(r));")
+          echo "::set-output name=job-strategy-matrix::$JOB_STRATEGY_MATRIX"
