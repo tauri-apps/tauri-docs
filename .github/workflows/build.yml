@@ -52,10 +52,13 @@ jobs:
   merge-locales:
     needs: build-locales
     runs-on: ubuntu-latest
+    inputs:
+      locale-list:
+        required: true
+        default: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - run: |
           yarn
           node ./.scripts/ci-postbuild.js
-
