@@ -53,6 +53,9 @@ jobs:
     needs: build-locales
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - run: |
-        echo "I made it to the merge-builds phase!"
+          yarn
+          node ./.scripts/ci-postbuild.js
 
