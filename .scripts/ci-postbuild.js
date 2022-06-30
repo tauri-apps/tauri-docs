@@ -8,9 +8,12 @@ try {
   for (locale in locales) {
     const path = 'build/' + locale
     const key = `${locale}-build`
-    const cacheKey = await cache.restoreCache(path, key)
-
-    console.log(path, key, cacheKey)
+    const cacheKey = cache
+      .restoreCache(path, key)
+      .then(() => {
+        console.log(path, key, cacheKey)
+      })
+      .catch(console.error)
 
     if (!cacheKey) {
       throw `Cache couldn't be restored for locale ${locale}`
