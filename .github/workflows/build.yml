@@ -9,9 +9,10 @@ jobs:
   build-language-list:
     runs-on: ubuntu-latest
     outputs:
-      language-list: LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= process.env.NUMBER_OF_JOBS; i++) { r.push(i) }; console.log(JSON.stringify(r));")
+      language-list: ${{ steps.generate.outputs.language-list }}
 
     steps:
-      - run: |
+      - id: generate
+        run: |
           LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= process.env.NUMBER_OF_JOBS; i++) { r.push(i) }; console.log(JSON.stringify(r));")
           echo "::set-output name=build-language-list::$LANGUAGE_LIST"
