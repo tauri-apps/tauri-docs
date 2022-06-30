@@ -10,7 +10,7 @@ publish = "build"
 command = "yarn i18n:full-build"
 
 [[plugins]]
-package = "netlify-plugin-cache-folder"
+package = "./plugins/webmention-cache"
 
 [[redirects]]
 from = "/en/*"
