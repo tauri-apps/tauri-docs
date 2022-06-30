@@ -40,7 +40,7 @@ jobs:
         with:
           path: i18n
           key: i18n
-      - if: steps.cache.outputs.cache-hit == 'false'
-        run: echo "Couldn't find the cache"
+      - if: steps.cache.outputs.cache-hit != 'false'
+        run: echo "::error::Cached i18n folder couldn't be retrieved"
       - if: steps.cache.outputs.cache-hit == 'true'
         run: echo "We have a cache!"
