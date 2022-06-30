@@ -4,6 +4,11 @@ const cache = require('@actions/cache')
 
 try {
   const locales = process.env.LOCALES
+
+  if (locales.length == 0) {
+    throw 'No locales were given to be built'
+  }
+
   console.log(`Retrieved the following locales: ${locales}`)
 
   for (locale in locales) {
