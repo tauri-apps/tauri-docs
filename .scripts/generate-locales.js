@@ -5,6 +5,6 @@ try {
   var locales = fs.readdirSync('i18n')
   console.log(`Found the locales ${locals}`)
   core.setOutput('language-list', JSON.stringify(locales))
-} catch {
-  core.setFailed
+} catch (error) {
+  core.setFailed(`An issue ocurred while retrieving the languages: ${error}`)
 }
