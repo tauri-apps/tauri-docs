@@ -37,8 +37,9 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Shows a question dialog with `Yes` and `No` buttons.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { ask } from '@tauri-apps/api/dialog';
 const yes = await ask('Are you sure?', 'Tauri');
 const yes2 = await ask('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
@@ -57,10 +58,6 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
-#### Defined in
-
-[dialog.ts:229](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L229)
-
 ___
 
 ### confirm
@@ -69,8 +66,9 @@ ___
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { confirm } from '@tauri-apps/api/dialog';
 const confirmed = await confirm('Are you sure?', 'Tauri');
 const confirmed2 = await confirm('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
@@ -89,10 +87,6 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
-#### Defined in
-
-[dialog.ts:259](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L259)
-
 ___
 
 ### message
@@ -101,8 +95,9 @@ ___
 
 Shows a message dialog with an `Ok` button.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { message } from '@tauri-apps/api/dialog';
 await message('Tauri is awesome', 'Tauri');
 await message('File not found', { title: 'Tauri', type: 'error' });
@@ -121,10 +116,6 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[dialog.ts:199](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L199)
-
 ___
 
 ### open
@@ -140,9 +131,11 @@ prefer writing a dedicated command instead.
 Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
 You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/tauri-plugin-persisted-scope).
 
-**`example`** Open a selection dialog for image files
-```typescript
+**`Example`**
+
+ ```typescript
 import { open } from '@tauri-apps/api/dialog';
+// Open a selection dialog for image files
 const selected = await open({
   multiple: true,
   filters: [{
@@ -159,10 +152,12 @@ if (Array.isArray(selected)) {
 }
 ```
 
-**`example`** Open a selection dialog for directories
-```typescript
+**`Example`**
+
+ ```typescript
 import { open } from '@tauri-apps/api/dialog';
 import { appDir } from '@tauri-apps/api/path';
+// Open a selection dialog for directories
 const selected = await open({
   directory: true,
   multiple: true,
@@ -189,10 +184,6 @@ if (Array.isArray(selected)) {
 
 A promise resolving to the selected path(s)
 
-#### Defined in
-
-[dialog.ts:132](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L132)
-
 ___
 
 ### save
@@ -208,8 +199,9 @@ prefer writing a dedicated command instead.
 Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
 You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/tauri-plugin-persisted-scope).
 
-**`example`** Open a save dialog with a defined file extension
-```typescript
+**`Example`**
+
+ ```typescript
 import { save } from '@tauri-apps/api/dialog';
 const filePath = await save({
   multiple: true,
@@ -231,7 +223,3 @@ const filePath = await save({
 `Promise`<`string`\>
 
 A promise resolving to the selected path.
-
-#### Defined in
-
-[dialog.ts:171](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/dialog.ts#L171)

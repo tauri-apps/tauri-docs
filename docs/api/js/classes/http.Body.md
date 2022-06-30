@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L75)
+[http.ts:75](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L75)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L74)
+[http.ts:74](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L74)
 
 ## Methods
 
@@ -34,8 +34,9 @@ ___
 
 Creates a new byte array body.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.bytes(new Uint8Array([1, 2, 3]));
 ```
@@ -52,10 +53,6 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 
 The body object ready to be used on the POST and PUT requests.
 
-#### Defined in
-
-[http.ts:176](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L176)
-
 ___
 
 ### form
@@ -70,8 +67,9 @@ but you can set it to `multipart/form-data` if the Cargo feature `http-multipart
 
 Note that a file path must be allowed in the `fs` allowlist scope.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.form({
   key: 'value',
@@ -95,10 +93,6 @@ Body.form({
 
 The body object ready to be used on the POST and PUT requests.
 
-#### Defined in
-
-[http.ts:108](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L108)
-
 ___
 
 ### json
@@ -107,8 +101,9 @@ ___
 
 Creates a new JSON body.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.json({
   registered: true,
@@ -128,10 +123,6 @@ Body.json({
 
 The body object ready to be used on the POST and PUT requests.
 
-#### Defined in
-
-[http.ts:144](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L144)
-
 ___
 
 ### text
@@ -140,8 +131,9 @@ ___
 
 Creates a new UTF-8 string body.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.text('The body content as a string');
 ```
@@ -157,7 +149,3 @@ Body.text('The body content as a string');
 [`Body`](http.Body.md)
 
 The body object ready to be used on the POST and PUT requests.
-
-#### Defined in
-
-[http.ts:160](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L160)

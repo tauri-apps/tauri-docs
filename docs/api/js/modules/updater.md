@@ -20,7 +20,7 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -30,8 +30,9 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 Checks if an update is available.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { checkUpdate } from '@tauri-apps/api/updater';
 const update = await checkUpdate();
 // now run installUpdate() if needed
@@ -43,10 +44,6 @@ const update = await checkUpdate();
 
 Promise resolving to the update status.
 
-#### Defined in
-
-[updater.ts:104](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L104)
-
 ___
 
 ### installUpdate
@@ -55,8 +52,9 @@ ___
 
 Install the update if there's one available.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 const update = await checkUpdate();
 if (update.shouldUpdate) {
@@ -70,7 +68,3 @@ if (update.shouldUpdate) {
 `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
-
-#### Defined in
-
-[updater.ts:46](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/updater.ts#L46)

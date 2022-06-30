@@ -48,7 +48,3 @@ Listen to an event from the child process.
 [`EventEmitter`](shell.EventEmitter.md)<`E`\>
 
 The `this` instance for chained calls.
-
-#### Defined in
-
-[shell.ts:173](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L173)

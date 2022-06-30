@@ -19,10 +19,6 @@ A size represented in logical pixels.
 | `width` | `number` |
 | `height` | `number` |
 
-#### Defined in
-
-[window.ts:146](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L146)
-
 ## Properties
 
 ### height
@@ -31,7 +27,7 @@ A size represented in logical pixels.
 
 #### Defined in
 
-[window.ts:144](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L144)
+[window.ts:144](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L144)
 
 ___
 
@@ -41,7 +37,7 @@ ___
 
 #### Defined in
 
-[window.ts:142](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L142)
+[window.ts:142](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L142)
 
 ___
 
@@ -51,4 +47,4 @@ ___
 
 #### Defined in
 
-[window.ts:143](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L143)
+[window.ts:143](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L143)

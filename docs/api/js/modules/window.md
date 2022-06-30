@@ -142,7 +142,7 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:247](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L247)
+[window.ts:247](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L247)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[window.ts:126](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L126)
+[window.ts:126](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L126)
 
 ## Variables
 
@@ -164,7 +164,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1615](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L1615)
+[window.ts:1615](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L1615)
 
 ## Functions
 
@@ -174,8 +174,9 @@ The WebviewWindow for the current window.
 
 Returns the list of all the monitors available on the system.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { availableMonitors } from '@tauri-apps/api/window';
 const monitors = availableMonitors();
 ```
@@ -183,10 +184,6 @@ const monitors = availableMonitors();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
-
-#### Defined in
-
-[window.ts:1754](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L1754)
 
 ___
 
@@ -197,8 +194,9 @@ ___
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { currentMonitor } from '@tauri-apps/api/window';
 const monitor = currentMonitor();
 ```
@@ -206,10 +204,6 @@ const monitor = currentMonitor();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
-
-#### Defined in
-
-[window.ts:1709](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L1709)
 
 ___
 
@@ -225,10 +219,6 @@ Gets an instance of `WebviewWindow` for all available webview windows.
 
 The list of WebviewWindow.
 
-#### Defined in
-
-[window.ts:305](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L305)
-
 ___
 
 ### getCurrent
@@ -243,10 +233,6 @@ Get an instance of `WebviewWindow` for the current webview window.
 
 The current WebviewWindow.
 
-#### Defined in
-
-[window.ts:293](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L293)
-
 ___
 
 ### primaryMonitor
@@ -256,8 +242,9 @@ ___
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { primaryMonitor } from '@tauri-apps/api/window';
 const monitor = primaryMonitor();
 ```
@@ -265,7 +252,3 @@ const monitor = primaryMonitor();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
-
-#### Defined in
-
-[window.ts:1732](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L1732)
