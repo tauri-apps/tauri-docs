@@ -58,6 +58,6 @@ jobs:
       - env:
           LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
         run: |
-          echo $LOCALES
+          echo "$LOCALES"
           yarn
           node ./.scripts/ci-postbuild.js
