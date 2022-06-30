@@ -22,8 +22,8 @@ jobs:
       timeout-minutes: 360 # 6 hour timeout
       strategy:
         matrix:
-          language: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
+          job: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
 #         max-parallel: 1 # Run jobs serially
         # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
       steps:
-        - run: echo "This is language ${{ matrix.language }}"
+        - run: echo "This is language ${{ matrix.job }}"
