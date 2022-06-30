@@ -19,7 +19,7 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: |
           yarn
-          yarn crowdin download
+          yarn i18n:sync:dryrun
           node ./.scripts/generate-locales.js
 
   build-locale:
