@@ -21,6 +21,11 @@ jobs:
           yarn
           yarn i18n:sync:dryrun
           node ./.scripts/generate-locales.js
+      - id: cache
+        uses: actions/cache@v3
+        with:
+          path: i18n
+          key: i18n
 
   build-locale:
     needs: build-locale-list
@@ -30,4 +35,5 @@ jobs:
       matrix:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
-      - run: echo "This is locale ${{ matrix.locale }}"
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: echo "Found the cache"
