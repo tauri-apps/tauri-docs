@@ -26,4 +26,4 @@ jobs:
 #         max-parallel: 1 # Run jobs serially
         # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
       steps:
-        - run: echo "This is job number ${{ matrix.job }}"
+        - run: echo "This is language ${{ matrix.language }}"
