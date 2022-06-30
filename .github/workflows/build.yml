@@ -40,7 +40,8 @@ jobs:
         with:
           path: i18n
           key: i18n
-      - if: steps.cache.outputs.cache-hit != 'false'
+      - name: Check for i18n folder
+        if: steps.cache.outputs.cache-hit == 'false'
         run: exit 1
-      - if: steps.cache.outputs.cache-hit == 'true'
-        run: echo "We have a cache!"
+      - run: |
+          yarn && yarn build --locale {{ matrix.locale }}
