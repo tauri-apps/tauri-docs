@@ -13,16 +13,16 @@ jobs:
     steps:
       - id: generate
         run: |
-          LANGUAGE_LIST=$(node -e "let r=[]; for(let i = 1; i <= 5; i++) { r.push(i) }; console.log(JSON.stringify(r));")
+          LANGUAGE_LIST=$(node -e "let r=['en', 'fr'];")
           echo "::set-output name=language-list::$LANGUAGE_LIST"
           echo "$LANGUAGE_LIST"
-  job:
+  build-language:
       needs: build-language-list
       runs-on: ubuntu-latest
       timeout-minutes: 360 # 6 hour timeout
       strategy:
         matrix:
-          job: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
+          language: ${{ fromJson(needs.build-language-list.outputs.language-list) }}
 #         max-parallel: 1 # Run jobs serially
         # max-parallel: ${{ github.event.inputs.number_of_jobs }} # Run jobs in parallel
       steps:
