@@ -21,15 +21,14 @@ jobs:
           yarn
           yarn i18n:sync:dryrun
           node ./.scripts/ci-prebuild.js
-          cat ./docusaurus.config.i18n.js
-      - uses: actions/cache@v3
+      - uses: actions/upload-artifact@v3
         with:
+          name: i18n
           path: i18n
-          key: i18n
-      - uses: actions/cache@v3
+      - uses: actions/upload-artifact@v3
         with:
-          path: ./docusaurus.config.i18n.js
-          key: config
+          name: config
+          path: docusaurus.config.i18n.js
 
   build-locales:
     needs: build-locale-list
@@ -40,21 +39,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: i18n
-        uses: actions/cache@v3
+        uses: actions/download-artifact@v3
         with:
+          name: i18n
           path: i18n
-          key: i18n
       - id: config
-        uses: actions/cache@v3
+        uses: actions/download-artifact@v3
         with:
-          path: ./docusaurus.config.i18n.js
-          key: config
-      - name: Check for i18n folder
-        if: steps.i18n.outputs.cache-hit == 'false'
-        run: exit 1
-      - name: Check for i18n config
-        if: steps.config.outputs.cache-hit == 'false'
-        run: exit 1
+          name: config
+          path: docusaurus.config.i18n.js
       - run: |
           cat ./docusaurus.config.i18n.js
           cat ./docusaurus.config.js
