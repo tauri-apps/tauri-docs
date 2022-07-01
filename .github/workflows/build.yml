@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve build folder
-        uses: actions/download-artifacts@v3
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build
