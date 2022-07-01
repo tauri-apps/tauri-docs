@@ -21,6 +21,7 @@ jobs:
           yarn
           yarn i18n:sync:dryrun
           node ./.scripts/ci-prebuild.js
+          cat ./docusaurus.config.i18n.js
       - uses: actions/cache@v3
         with:
           path: i18n
