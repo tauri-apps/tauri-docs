@@ -14,7 +14,7 @@ try {
   for (locale of locales) {
     console.log(`Started processing ${locale}`)
 
-    const path = 'build/' + locale
+    const path = ['build']
     const key = `${locale}-build`
 
     console.log(locale, key, path)
