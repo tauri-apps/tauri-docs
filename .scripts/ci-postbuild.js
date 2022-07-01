@@ -12,25 +12,26 @@ try {
 
   console.log(`Retrieved the following locales: ${locales}`)
 
-  for (locale in locales) {
-    console.log(locale)
-    // const path = 'build/' + locale
-    // const key = `${locale}-build`
-    // cache
-    //   .restoreCache(path, key)
-    //   .then((cacheKey) => {
-    //     console.log(`Started processing ${locale}`)
-    //     console.log(path, key, cacheKey)
+  for (locale of locales) {
+    console.log(`Started processing ${locale}`)
 
-    //     if (!cacheKey) {
-    //       throw `Cache couldn't be restored for locale ${locale}`
-    //     }
+    const path = 'build/' + locale
+    const key = `${locale}-build`
 
-    //     console.log(`Finished processing ${locale}`)
-    //   })
-    //   .catch((error) => {
-    //     throw `Error ocurred while retrieving the cache: ${error}`
-    //   })
+    cache
+      .restoreCache(path, key)
+      .then((cacheKey) => {
+        console.log(path, key, cacheKey)
+
+        if (!cacheKey) {
+          throw `Cache couldn't be restored for locale ${locale}`
+        }
+
+        console.log(`Finished processing ${locale}`)
+      })
+      .catch((error) => {
+        throw `Error ocurred while retrieving the cache: ${error}`
+      })
   }
 } catch (error) {
   core.setFailed(`An issue ocurred while combining locale builds: ${error}`)
