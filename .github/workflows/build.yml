@@ -54,13 +54,21 @@ jobs:
       - name: Check for i18n config
         if: steps.config.outputs.cache-hit == 'false'
         run: exit 1
-      - env:
+      - if: matrix.locale == 'en'
+        env:
           LOCALE: ${{ matrix.locale }}
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
-          --config ./docusaurus.config.i18n.js \
-#         --out-dir ./build/${{ matrix.locale == 'en' ? '' : matrix.locale }}
+          --config ./docusaurus.config.i18n.js
+      - if: matrix.locale != 'en'
+        env:
+          LOCALE: ${{ matrix.locale }}
+        run: |
+          yarn
+          yarn build --locale ${{ matrix.locale }} \
+          --config ./docusaurus.config.i18n.js 
+          --out-dir ./build/${{ matrix.locale }}
       - uses: actions/upload-artifact@v3
         with:
           name: build
