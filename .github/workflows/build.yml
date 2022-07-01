@@ -48,6 +48,7 @@ jobs:
         with:
           path: docusaurus.config.i18n.js
           key: config
+      - run: tree .
       - name: Check for i18n folder
         if: steps.i18n.outputs.cache-hit == 'false'
         run: exit 1
@@ -58,13 +59,13 @@ jobs:
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
-          --config docusaurus.config.i18n.js
+          --config ./docusaurus.config.i18n.js
       - if: ${{ matrix.locale }} != 'en'
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --out-dir build/${{ matrix.locale }} \
-          --config docusaurus.config.i18n.js
+          --config ./docusaurus.config.i18n.js
       - uses: actions/upload-artifact@v3
         with:
           name: build
