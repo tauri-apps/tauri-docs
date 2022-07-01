@@ -17,6 +17,8 @@ try {
     const path = 'build/' + locale
     const key = `${locale}-build`
 
+    console.log(locale, key, path)
+
     cache
       .restoreCache(path, key)
       .then((cacheKey) => {
