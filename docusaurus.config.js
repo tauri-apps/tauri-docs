@@ -14,6 +14,11 @@ try {
   console.error()
 }
 
+const baseUrl =
+  (process.env.LOCALE === 'en') | undefined ? '/' : `/${process.env.LOCALE}/`
+
+console.log('Base URL:', baseUrl)
+
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
 const devToUrl = 'https://dev.to/tauri'
@@ -191,7 +196,7 @@ const siteConfig = {
     'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Apps',
   projectName: 'tauri',
-  baseUrl: `/`,
+  baseUrl: baseUrl,
   favicon: '/meta/favicon-32x32.png',
   url: 'https://tauri.app',
   i18n: {
