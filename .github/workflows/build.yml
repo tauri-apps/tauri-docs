@@ -45,19 +45,18 @@ jobs:
         run: exit 1
       - run: |
           yarn && yarn build --locale ${{ matrix.locale }}
-      - uses: actions/cache@v3
+      - uses: actions/upload-artifact@v3
         with:
           path: build
-          key: ${{ matrix.locale }}-build
 
-  merge-locales:
-    needs: [build-locale-list, build-locales]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - env:
-          LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
-        run: |
-          yarn
-          node ./.scripts/ci-postbuild.js
+#   merge-locales:
+#     needs: [build-locale-list, build-locales]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#       - env:
+#           LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
+#         run: |
+#           yarn
+#           node ./.scripts/ci-postbuild.js
