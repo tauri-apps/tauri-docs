@@ -44,6 +44,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: i18n
+          path: i18n
       - id: config
         uses: actions/download-artifact@v3
         with:
