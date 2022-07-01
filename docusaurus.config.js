@@ -14,7 +14,7 @@ try {
   console.error()
 }
 
-const baseUrl =
+var baseUrl =
   (process.env.LOCALE === 'en') | undefined ? '/' : `/${process.env.LOCALE}/`
 
 console.log('Base URL:', baseUrl)
