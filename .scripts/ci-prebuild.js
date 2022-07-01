@@ -10,7 +10,8 @@ try {
     .toString()
 
   config = config.replace(/(?<=locales: )(.*)(?=,)/, JSON.stringify(locales))
-  config = config.replace(/(?<=baseUrl: `)(.*)(?=`,)/, 'process.env.BASE_URL')
+
+  config = config.replace(/(?<=baseUrl: )(.*)(?=,)/, 'process.env.LOCALE')
 
   const outputFile = process.cwd() + '/docusaurus.config.i18n.js'
 
