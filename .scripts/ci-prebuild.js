@@ -11,7 +11,10 @@ try {
 
   config = config.replace(/(?<=locales: )(.*)(?=,)/, JSON.stringify(locales))
 
-  config = config.replace(/(?<=baseUrl: )(.*)(?=,)/, 'process.env.LOCALE')
+  config = config.replace(
+    /(?<=baseUrl: )(.*)(?=,)/,
+    "process.env.LOCALE == 'en' ? '' : process.env.LOCALE"
+  )
 
   const outputFile = process.cwd() + '/docusaurus.config.i18n.js'
 

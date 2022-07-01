@@ -60,7 +60,7 @@ jobs:
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js \
-          --out-dir ./build/${{ matrix.locale }}/test
+          --out-dir ./build/${{ matrix.locale }}
       - uses: actions/upload-artifact@v3
         with:
           name: build
