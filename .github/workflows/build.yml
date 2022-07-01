@@ -27,8 +27,9 @@ jobs:
           key: i18n
       - uses: actions/cache@v3
         with:
-          path: docusaurus.config.i18n.js
+          path: ./docusaurus.config.i18n.js
           key: config
+      - run: tree .
 
   build-locales:
     needs: build-locale-list
@@ -46,7 +47,7 @@ jobs:
       - id: config
         uses: actions/cache@v3
         with:
-          path: docusaurus.config.i18n.js
+          path: ./docusaurus.config.i18n.js
           key: config
       - run: tree .
       - name: Check for i18n folder
