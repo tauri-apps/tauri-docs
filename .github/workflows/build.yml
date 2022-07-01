@@ -44,10 +44,11 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'false'
         run: exit 1
       - run: |
-          yarn && yarn build --locale ${{ matrix.locale }}
+          yarn
+          yarn build --locale ${{ matrix.locale }} --out-dir build/${{ matrix.locale }}
       - uses: actions/upload-artifact@v3
         with:
-          name: build-${{ matrix.locale }}
+          name: build
           path: build
 
 #   merge-locales:
