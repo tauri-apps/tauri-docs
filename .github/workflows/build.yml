@@ -21,11 +21,14 @@ jobs:
           yarn
           yarn i18n:sync:dryrun
           node ./.scripts/ci-prebuild.js
-      - id: cache
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         with:
           path: i18n
           key: i18n
+      - uses: actions/cache@v3
+        with:
+          path: docusaurus.config.i18n.js
+          key: config
 
   build-locales:
     needs: build-locale-list
@@ -35,17 +38,33 @@ jobs:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
       - uses: actions/checkout@v3
-      - id: cache
+      - id: i18n
         uses: actions/cache@v3
         with:
           path: i18n
           key: i18n
+      - id: config
+        uses: actions/cache@v3
+        with:
+          path: docusaurus.config.i18n.js
+          key: config
       - name: Check for i18n folder
-        if: steps.cache.outputs.cache-hit == 'false'
+        if: steps.i18n.outputs.cache-hit == 'false'
         run: exit 1
+      - name: Check for i18n config
+        if: steps.config.outputs.cache-hit == 'false'
+        run: exit 1
+      - if: ${{ matrix.locale }} == 'en'
+        run: |
+          yarn
+          yarn build --locale ${{ matrix.locale }} \
+          --config docusaurus.config.i18n.js
+      - if: ${{ matrix.locale }} != 'en'
       - run: |
           yarn
-          yarn build --locale ${{ matrix.locale }} --out-dir build/${{ matrix.locale }}
+          yarn build --locale ${{ matrix.locale }} \
+          --out-dir build/${{ matrix.locale }} \
+          --config docusaurus.config.i18n.js
       - uses: actions/upload-artifact@v3
         with:
           name: build
