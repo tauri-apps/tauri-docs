@@ -5,6 +5,10 @@ const cache = require('@actions/cache')
 try {
   const locales = JSON.parse(process.env.LOCALES)
 
+  console.log('ACTIONS_RUNTIME_URL', process.env.ACTIONS_RUNTIME_URL)
+  console.log('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN)
+  console.log('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL)
+
   if (locales.length == 0) {
     throw 'No locales were given to be built'
   }
