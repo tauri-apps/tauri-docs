@@ -10,11 +10,11 @@ try {
     .toString()
 
   config = config.replace(/(?<=locales: )(.*)(?=,)/, JSON.stringify(locales))
+  config = config.replace(/(?<=baseUrl: `)(.*)(?=`,)/, 'process.env.BASE_URL')
+
   const outputFile = process.cwd() + '/docusaurus.config.i18n.js'
 
   fs.writeFileSync(outputFile, config)
-
-  console.log(`Output file: ${outputFile}`)
 
   core.setOutput('locale-list', locales)
 } catch (error) {
