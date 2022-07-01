@@ -60,7 +60,7 @@ jobs:
           yarn build --locale ${{ matrix.locale }} \
           --config docusaurus.config.i18n.js
       - if: ${{ matrix.locale }} != 'en'
-      - run: |
+        run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --out-dir build/${{ matrix.locale }} \
