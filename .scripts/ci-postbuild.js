@@ -5,6 +5,7 @@ const cache = require('@actions/cache')
 try {
   const locales = JSON.parse(process.env.LOCALES)
   console.log('locales type is', typeof locales)
+  console.log('Is it an array?', Array.isArray(locales))
 
   if (locales.length == 0) {
     throw 'No locales were given to be built'
