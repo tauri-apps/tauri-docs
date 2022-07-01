@@ -29,7 +29,6 @@ jobs:
         with:
           path: ./docusaurus.config.i18n.js
           key: config
-      - run: tree -L 2 .
 
   build-locales:
     needs: build-locale-list
@@ -49,19 +48,18 @@ jobs:
         with:
           path: ./docusaurus.config.i18n.js
           key: config
-      - run: tree -L 2 .
       - name: Check for i18n folder
         if: steps.i18n.outputs.cache-hit == 'false'
         run: exit 1
       - name: Check for i18n config
         if: steps.config.outputs.cache-hit == 'false'
         run: exit 1
-      - if: ${{ matrix.locale }} == 'en'
+      - if: ${{ matrix.locale == 'en' }}
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js
-      - if: ${{ matrix.locale }} != 'en'
+      - if: ${{ matrix.locale != 'en' }}
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
@@ -71,15 +69,3 @@ jobs:
         with:
           name: build
           path: build
-
-#   merge-locales:
-#     needs: [build-locale-list, build-locales]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#       - env:
-#           LOCALES: ${{ needs.build-locale-list.outputs.locale-list }}
-#         run: |
-#           yarn
-#           node ./.scripts/ci-postbuild.js
