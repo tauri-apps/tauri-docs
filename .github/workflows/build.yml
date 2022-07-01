@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: config
-          path: docusaurus.config.i18n.js
+          path: ./docusaurus.config.i18n.js
 
   build-locales:
     needs: build-locale-list
@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: config
-          path: docusaurus.config.i18n.js
+          path: ./docusaurus.config.i18n.js
       - run: |
           cat ./docusaurus.config.i18n.js
           cat ./docusaurus.config.js
