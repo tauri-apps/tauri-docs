@@ -25,10 +25,12 @@ jobs:
         with:
           name: i18n
           path: i18n
+          if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
           name: config
           path: ./docusaurus.config.i18n.js
+          if-no-files-found: error
 
   build-locales:
     needs: build-locale-list
@@ -42,13 +44,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: i18n
-          path: i18n
       - id: config
         uses: actions/download-artifact@v3
         with:
           name: config
-          path: ./docusaurus.config.i18n.js
       - run: |
+          tree -L 2 .
           cat ./docusaurus.config.i18n.js
           cat ./docusaurus.config.js
       - if: matrix.locale == 'en'
