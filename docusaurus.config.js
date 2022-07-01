@@ -15,7 +15,9 @@ try {
 }
 
 var baseUrl =
-  process.env.LOCALE === 'en' || undefined ? '/' : `/${process.env.LOCALE}/`
+  process.env.LOCALE === 'en' || process.env.LOCALE == undefined
+    ? '/'
+    : `/${process.env.LOCALE}/`
 
 console.log('Base URL:', baseUrl)
 

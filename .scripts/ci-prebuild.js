@@ -13,6 +13,8 @@ try {
 
   const outputFile = process.cwd() + '/docusaurus.config.i18n.js'
 
+  console.log('i18n:', config)
+
   fs.writeFileSync(outputFile, config)
 
   core.setOutput('locale-list', locales)
