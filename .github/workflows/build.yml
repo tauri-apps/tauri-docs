@@ -55,12 +55,13 @@ jobs:
       - name: Check for i18n config
         if: steps.config.outputs.cache-hit == 'false'
         run: exit 1
+      - run: |
+          cat ./docusaurus.config.i18n.js
+          cat ./docusaurus.config.js
       - if: matrix.locale == 'en'
         env:
           LOCALE: ${{ matrix.locale }}
         run: |
-          cat ./docusaurus.config.i18n.js
-          cat ./docusaurus.config.js
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js
@@ -68,8 +69,6 @@ jobs:
         env:
           LOCALE: ${{ matrix.locale }}
         run: |
-          cat ./docusaurus.config.i18n.js
-          cat ./docusaurus.config.js
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js \
