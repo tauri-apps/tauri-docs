@@ -24,6 +24,4 @@ for (locale of locales) {
     .catch((error) => {
       console.error(error)
     })
-
-  console.log(cacheKey)
 }
