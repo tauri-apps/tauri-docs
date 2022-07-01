@@ -65,6 +65,7 @@ jobs:
         env:
           LOCALE: ${{ matrix.locale }}
         run: |
+          cat ./docusaurus.config.i18n.js
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js \
