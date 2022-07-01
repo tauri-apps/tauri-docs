@@ -47,6 +47,7 @@ jobs:
           yarn && yarn build --locale ${{ matrix.locale }}
       - uses: actions/upload-artifact@v3
         with:
+          name: build-${{ matrix.locale }}
           path: build
 
 #   merge-locales:
