@@ -4,7 +4,6 @@ const cache = require('@actions/cache')
 
 try {
   const locales = JSON.parse(process.env.LOCALES)
-  console.log('locales type is', typeof locales)
   console.log('Is it an array?', Array.isArray(locales))
 
   if (locales.length == 0) {
@@ -13,8 +12,8 @@ try {
 
   console.log(`Retrieved the following locales: ${locales}`)
 
-  for ([key, value] in locales) {
-    console.log(key, value)
+  for (locale in locales) {
+    console.log(locale)
     // const path = 'build/' + locale
     // const key = `${locale}-build`
     // cache
