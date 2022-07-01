@@ -55,11 +55,15 @@ jobs:
         if: steps.config.outputs.cache-hit == 'false'
         run: exit 1
       - if: ${{ matrix.locale == 'en' }}
+        env:
+          BASE_URL: '/'
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
           --config ./docusaurus.config.i18n.js
       - if: ${{ matrix.locale != 'en' }}
+        env:
+          BASE_URL: '/${{ matrix.local}}/'
         run: |
           yarn
           yarn build --locale ${{ matrix.locale }} \
