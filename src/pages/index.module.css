@@ -23,7 +23,7 @@
 /* Hero */
 .hero {
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
   align-items: stretch;
   padding: 4rem 0;
 }
