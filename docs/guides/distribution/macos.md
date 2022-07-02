@@ -11,10 +11,6 @@ Tauri applications for macOS are distributed either with an [Application Bundle]
 
 The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. You can change that value on the [`tauri.bundle.macOS.minimumSystemVersion`] property. The value is set to the Info.plist key [LSMinimumSystemVersion] and the MACOSX_DEPLOYMENT_TARGET environment variable.
 
-:::note
-macOS High Sierra (10.13) no longer receives security updates from Apple. You should target macOS Catalina (10.15) if possible.
-:::
-
 :::caution
 Using the `window.print` API requires macOS version `11.0+`.
 :::
