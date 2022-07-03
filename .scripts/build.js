@@ -22,7 +22,7 @@ async function run() {
       console.log('i18n config saved.')
     } else {
       console.log('Running a production deploy build...')
-      locales = config.match(/(?<=locales: )(.*)(?=,)/)
+      locales = JSON.parse(config.match(/(?<=locales: )(.*)(?=,)/))
     }
     console.log(`Found the locales ${locales}`)
     core.setOutput('locale-list', locales)
