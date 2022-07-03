@@ -109,8 +109,8 @@ The application pattern.
 
 Can be any **ONE** of the following types:
 
-- `object` : Brownfield pattern.
-- `object` : Isolation pattern. Recommended for security purposes.
+- { "use": "brownfield" } : Brownfield pattern.
+- { "use": "isolation" ,  "options": { "dir": string } } : Isolation pattern. Recommended for security purposes.
 
 <br />
 
@@ -259,7 +259,7 @@ Targets to bundle. Each value is case insensitive.
 
 Can be any of the following types:
 
-- {"description":"Bundle all targets.","enum":["all"]}: Bundle all targets.
+- `"all"`: Bundle all targets.
 - [[`BundleType`](#bundletype)] : A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
@@ -357,11 +357,11 @@ For more information see <https://tauri.app/v1/guides/building/windows>.
 
 Can be any **ONE** of the following types:
 
-- `object` : Do not install the Webview2 as part of the Windows Installer.
-- `object` : Download the bootstrapper and run it. Requires internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
-- `object` : Embed the bootstrapper and run it. Requires internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
-- `object` : Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
-- `object` : Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
+- { "type": "skip" } : Do not install the Webview2 as part of the Windows Installer.
+- { "type": "downloadBootstrapper" ,  "silent": boolean } : Download the bootstrapper and run it. Requires internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
+- { "type": "embedBootstrapper" ,  "silent": boolean } : Embed the bootstrapper and run it. Requires internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
+- { "type": "offlineInstaller" ,  "silent": boolean } : Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
+- { "type": "fixedRuntime" ,  "path": string } : Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
 
 <br />
 
