@@ -90,7 +90,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="tauriconfig.pattern">`pattern`<a class="hash-link" href="#tauriconfig.pattern"></a></div> | [`PatternKind`](#patternkind) | [view](#patternkind) | The pattern to use. |
-| <div className="anchor-with-padding" id="tauriconfig.windows">`windows`<a class="hash-link" href="#tauriconfig.windows"></a></div> | [[`WindowConfig`](#windowconfig)] | [] | The windows configuration. |
+| <div className="anchor-with-padding" id="tauriconfig.windows">`windows`<a class="hash-link" href="#tauriconfig.windows"></a></div> | [`WindowConfig`](#windowconfig)[] | [] | The windows configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.cli">`cli`<a class="hash-link" href="#tauriconfig.cli"></a></div> | [`CliConfig`](#cliconfig)? | [view](#cliconfig) | The CLI configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.bundle">`bundle`<a class="hash-link" href="#tauriconfig.bundle"></a></div> | [`BundleConfig`](#bundleconfig) | [view](#bundleconfig) | The bundler configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.allowlist">`allowlist`<a class="hash-link" href="#tauriconfig.allowlist"></a></div> | [`AllowlistConfig`](#allowlistconfig) | [view](#allowlistconfig) | The allowlist configuration. |
@@ -237,7 +237,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean` | `false` | Whether Tauri should bundle your application or just output the executable. |
 | <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "msi", "app", "dmg", "updater"] or "all". |
 | <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string`(required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
-| <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | [`string`] | [] | The app's icons |
+| <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | `string[]` | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | `array`? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
 | <div className="anchor-with-padding" id="bundleconfig.copyright">`copyright`<a class="hash-link" href="#bundleconfig.copyright"></a></div> | `string`? | _null_ | A copyright string associated with your application. |
 | <div className="anchor-with-padding" id="bundleconfig.category">`category`<a class="hash-link" href="#bundleconfig.category"></a></div> | `string`? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
@@ -260,7 +260,7 @@ Targets to bundle. Each value is case insensitive.
 Can be any of the following types:
 
 - `"all"`: Bundle all targets.
-- [[`BundleType`](#bundletype)]: A list of bundle targets.
+- [`BundleType`](#bundletype)[]: A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
 <br />
@@ -375,12 +375,12 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="wixconfig.language">`language`<a class="hash-link" href="#wixconfig.language"></a></div> | [`WixLanguage`](#wixlanguage) | [view](#wixlanguage) | The installer languages to build. See <https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables>. |
 | <div className="anchor-with-padding" id="wixconfig.template">`template`<a class="hash-link" href="#wixconfig.template"></a></div> | `string`? | _null_ | A custom .wxs template to use. |
-| <div className="anchor-with-padding" id="wixconfig.fragmentpaths">`fragmentPaths`<a class="hash-link" href="#wixconfig.fragmentpaths"></a></div> | [`string`] | [] | A list of paths to .wxs files with WiX fragments to use. |
-| <div className="anchor-with-padding" id="wixconfig.componentgrouprefs">`componentGroupRefs`<a class="hash-link" href="#wixconfig.componentgrouprefs"></a></div> | [`string`] | [] | The ComponentGroup element ids you want to reference from the fragments. |
-| <div className="anchor-with-padding" id="wixconfig.componentrefs">`componentRefs`<a class="hash-link" href="#wixconfig.componentrefs"></a></div> | [`string`] | [] | The Component element ids you want to reference from the fragments. |
-| <div className="anchor-with-padding" id="wixconfig.featuregrouprefs">`featureGroupRefs`<a class="hash-link" href="#wixconfig.featuregrouprefs"></a></div> | [`string`] | [] | The FeatureGroup element ids you want to reference from the fragments. |
-| <div className="anchor-with-padding" id="wixconfig.featurerefs">`featureRefs`<a class="hash-link" href="#wixconfig.featurerefs"></a></div> | [`string`] | [] | The Feature element ids you want to reference from the fragments. |
-| <div className="anchor-with-padding" id="wixconfig.mergerefs">`mergeRefs`<a class="hash-link" href="#wixconfig.mergerefs"></a></div> | [`string`] | [] | The Merge element ids you want to reference from the fragments. |
+| <div className="anchor-with-padding" id="wixconfig.fragmentpaths">`fragmentPaths`<a class="hash-link" href="#wixconfig.fragmentpaths"></a></div> | `string[]` | [] | A list of paths to .wxs files with WiX fragments to use. |
+| <div className="anchor-with-padding" id="wixconfig.componentgrouprefs">`componentGroupRefs`<a class="hash-link" href="#wixconfig.componentgrouprefs"></a></div> | `string[]` | [] | The ComponentGroup element ids you want to reference from the fragments. |
+| <div className="anchor-with-padding" id="wixconfig.componentrefs">`componentRefs`<a class="hash-link" href="#wixconfig.componentrefs"></a></div> | `string[]` | [] | The Component element ids you want to reference from the fragments. |
+| <div className="anchor-with-padding" id="wixconfig.featuregrouprefs">`featureGroupRefs`<a class="hash-link" href="#wixconfig.featuregrouprefs"></a></div> | `string[]` | [] | The FeatureGroup element ids you want to reference from the fragments. |
+| <div className="anchor-with-padding" id="wixconfig.featurerefs">`featureRefs`<a class="hash-link" href="#wixconfig.featurerefs"></a></div> | `string[]` | [] | The Feature element ids you want to reference from the fragments. |
+| <div className="anchor-with-padding" id="wixconfig.mergerefs">`mergeRefs`<a class="hash-link" href="#wixconfig.mergerefs"></a></div> | `string[]` | [] | The Merge element ids you want to reference from the fragments. |
 | <div className="anchor-with-padding" id="wixconfig.skipwebviewinstall">`skipWebviewInstall`<a class="hash-link" href="#wixconfig.skipwebviewinstall"></a></div> | `boolean` | `false` | Disables the Webview2 runtime installation after app install.<br /><br />Will be removed in v2, prefer the [`WindowsConfig::webview_install_mode`] option. |
 | <div className="anchor-with-padding" id="wixconfig.license">`license`<a class="hash-link" href="#wixconfig.license"></a></div> | `string`? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
 | <div className="anchor-with-padding" id="wixconfig.enableelevatedupdatetask">`enableElevatedUpdateTask`<a class="hash-link" href="#wixconfig.enableelevatedupdatetask"></a></div> | `boolean` | `false` | Create an elevated update task within Windows Task Scheduler. |
@@ -398,7 +398,7 @@ The languages to build using WiX.
 Can be any of the following types:
 
 - `string`: A single language to build, without configuration.
-- [`string`]: A list of languages to build, without configuration.
+- `string[]`: A list of languages to build, without configuration.
 - `object`: A map of languages and its configuration.
 
 <br />
@@ -474,7 +474,7 @@ Each pattern can start with a variable that resolves to a system base directory.
 
 Can be any of the following types:
 
-- [`string`]: A list of paths that are allowed by this scope.
+- `string[]`: A list of paths that are allowed by this scope.
 - `object`: A complete scope configuration.
 
 <br />
@@ -539,7 +539,7 @@ Type: `object`
 
 Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
 
-Type: [[`ShellAllowedCommand`](#shellallowedcommand)]
+Type: [`ShellAllowedCommand`](#shellallowedcommand)[]
 
 
 <br />
@@ -570,7 +570,7 @@ A value of `true` will allow any arguments to be passed to the command. `false` 
 Can be any of the following types:
 
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
-- [[`ShellAllowedArg`](#shellallowedarg)]: A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
+- [`ShellAllowedArg`](#shellallowedarg)[]: A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
 <br />
 
@@ -644,7 +644,7 @@ Examples:
 - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
-Type: [`string` _(format: `uri`)_]
+Type: `string _(format: `uri`)_[]`
 
 
 <br />
@@ -789,7 +789,7 @@ A Content-Security-Policy directive source list. See <https://developer.mozilla.
 Can be any of the following types:
 
 - `string`: An inline list of CSP sources. Same as [`Self::List`], but concatenated with a space separator.
-- [`string`]: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
+- `string[]`: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
 
 <br />
 
@@ -800,7 +800,7 @@ The possible values for the `dangerous_disable_asset_csp_modification` config op
 Can be any of the following types:
 
 - `boolean`: If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
-- [`string`]: Disables the given list of CSP directives modifications.
+- `string[]`: Disables the given list of CSP directives modifications.
 
 <br />
 
@@ -900,7 +900,7 @@ Defines the URL or assets to embed in the application.
 Can be any of the following types:
 
 - [`WindowUrl`](#windowurl): The app's external URL, or the path to the directory containing the app assets.
-- [`string`]: An array of files to embed on the app.
+- `string[]`: An array of files to embed on the app.
 
 <br />
 

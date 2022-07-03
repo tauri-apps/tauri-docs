@@ -207,7 +207,17 @@ function typeConstructor(object, describeObject = false) {
             break
           case 'array':
             if (object.items) {
-              typeString = `[${typeConstructor(object.items, describeObject)}]`
+              if (describeObject) {
+                typeString = `[${typeConstructor(object.items, describeObject)}]`
+              } else {
+                const type = typeConstructor(object.items, true)
+                const hasLink = type.includes('(#')
+                if (hasLink) {
+                  typeString = `${type}[]`
+                } else {
+                  typeString = `${m}${type}[]${m}`
+                }
+              }
               break
             }
           default:
