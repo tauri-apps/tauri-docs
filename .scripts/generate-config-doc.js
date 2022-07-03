@@ -91,6 +91,9 @@ function descriptionConstructor(description, fixNewlines = false) {
     return description
   }
 
+  // fix Rust doc style links
+  description = description.replaceAll(/\[`Self::(\S+)`\]/g, '`$1`')
+
   // Fix bullet points not being on a newline
   description = description.replaceAll(' - ', '\n- ')
 

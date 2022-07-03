@@ -341,7 +341,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowsconfig.timestampurl">`timestampUrl`<a class="hash-link" href="#windowsconfig.timestampurl"></a></div> | `string`? | _null_ | Server to use during timestamping. |
 | <div className="anchor-with-padding" id="windowsconfig.tsp">`tsp`<a class="hash-link" href="#windowsconfig.tsp"></a></div> | `boolean` | `false` | Whether to use Time-Stamp Protocol (TSP, a.k.a. RFC 3161) for the timestamp server. Your code signing provider may use a TSP timestamp server, like e.g. SSL.com does. If so, enable TSP by setting to true. |
 | <div className="anchor-with-padding" id="windowsconfig.webviewinstallmode">`webviewInstallMode`<a class="hash-link" href="#windowsconfig.webviewinstallmode"></a></div> | [`WebviewInstallMode`](#webviewinstallmode) | [view](#webviewinstallmode) | The installation mode for the Webview2 runtime. |
-| <div className="anchor-with-padding" id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath`<a class="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`? | _null_ | Path to the webview fixed runtime to use. Overwrites [`Self::webview_install_mode`] if set.<br /><br />Will be removed in v2, prefer the [`Self::webview_install_mode`] option.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+| <div className="anchor-with-padding" id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath`<a class="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`? | _null_ | Path to the webview fixed runtime to use. Overwrites `webview_install_mode` if set.<br /><br />Will be removed in v2, prefer the `webview_install_mode` option.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
 | <div className="anchor-with-padding" id="windowsconfig.allowdowngrades">`allowDowngrades`<a class="hash-link" href="#windowsconfig.allowdowngrades"></a></div> | `boolean` | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
 | <div className="anchor-with-padding" id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
 
@@ -351,7 +351,7 @@ Type: `object`
 
 ### WebviewInstallMode
 
-Install modes for the Webview2 runtime. Note that for the updater bundle [`Self::DownloadBootstrapper`] is used.
+Install modes for the Webview2 runtime. Note that for the updater bundle `DownloadBootstrapper` is used.
 
 For more information see <https://tauri.app/v1/guides/building/windows>.
 
@@ -788,7 +788,7 @@ A Content-Security-Policy directive source list. See <https://developer.mozilla.
 
 Can be any of the following types:
 
-- `string`: An inline list of CSP sources. Same as [`Self::List`], but concatenated with a space separator.
+- `string`: An inline list of CSP sources. Same as `List`, but concatenated with a space separator.
 - `string[]`: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
 
 <br />
