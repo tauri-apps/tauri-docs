@@ -593,10 +593,10 @@ Can be any of the following types:
 
 - `boolean`: If the shell open API should be enabled.
 
-If enabled, the default validation regex (`^https?://`) is used.
+	If enabled, the default validation regex (`^https?://`) is used.
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
-If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
+	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
 
 <br />
 

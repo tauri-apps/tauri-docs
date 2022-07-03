@@ -279,6 +279,11 @@ function typeConstructor(object, describeObject = false) {
   return JSON.stringify(object)
 }
 
+// prepares a description to be added to a markdown bullet point list
+function listDescription(description) {
+  return description.replace('\n\n', '\n\n\t')
+}
+
 function longFormTypeConstructor(object) {
   if (object.enum) {
     var buffer = []
@@ -296,7 +301,7 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description, false)}`
       }
-      buffer.push(`- ${typeConstructor(item)}${description}`)
+      buffer.push(`- ${typeConstructor(item)}${listDescription(description)}`)
     })
 
     return buffer.join(`\n`)
@@ -310,7 +315,7 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description, false)}`
       }
-      buffer.push(`- ${typeConstructor(item, true)}${description}`)
+      buffer.push(`- ${typeConstructor(item, true)}${listDescription(description)}`)
     })
 
     return buffer.join(`\n`)
