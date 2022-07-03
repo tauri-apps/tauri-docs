@@ -199,9 +199,7 @@ function typeConstructor(object, describeObject = false) {
               for (const prop in object.properties) {
                 typeString += ` "${prop}": ${typeConstructor(object.properties[prop], describeObject)}`
                 i++
-                if (i < len) {
-                  typeString += ','
-                }
+                if (i < len) typeString += ','
               }
               typeString += ` }${m}`
             } else {
@@ -215,11 +213,7 @@ function typeConstructor(object, describeObject = false) {
               } else {
                 const type = typeConstructor(object.items, true)
                 const hasLink = type.includes('(#')
-                if (hasLink) {
-                  typeString = `${type}[]`
-                } else {
-                  typeString = `${m}${type}[]${m}`
-                }
+                typeString = hasLink ? `${type}[]` : typeString = `${m}${type}[]${m}`
               }
               break
             }
@@ -292,7 +286,7 @@ function typeConstructor(object, describeObject = false) {
   return JSON.stringify(object)
 }
 
-// prepares a description to be added to a markdown bullet point list
+/** prepares a description to be added to a markdown bullet point list */
 function listDescription(description) {
   return description.replace('\n\n', '\n\n\t')
 }
