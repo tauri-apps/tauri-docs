@@ -29,7 +29,7 @@ jobs:
         run: yarn i18n:sync:dryrun
       - name: Get locales
         id: generate
-#       Below is not currently used
+        #       Below is not currently used but will be used for evergreen
         env:
           I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
@@ -99,6 +99,7 @@ jobs:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
           production-branch: feat/i18n-evergreen
+          alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
         env:
