@@ -7,7 +7,8 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "serve": "docusaurus serve",
-    "i18n:sync": "docusaurus write-translations && crowdin upload --dryrun && crowdin download"
+    "i18n:sync": "docusaurus write-translations && crowdin upload && crowdin download",
+    "i18n:sync:dryrun": "docusaurus write-translations && crowdin upload --dryrun && crowdin download"
   },
   "dependencies": {
     "@crowdin/cli": "3.7.8",
