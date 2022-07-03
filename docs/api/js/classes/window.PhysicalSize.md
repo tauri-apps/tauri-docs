@@ -19,10 +19,6 @@ A size represented in physical pixels.
 | `width` | `number` |
 | `height` | `number` |
 
-#### Defined in
-
-[window.ts:158](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L158)
-
 ## Properties
 
 ### height
@@ -31,7 +27,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:156](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L156)
+[window.ts:156](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L156)
 
 ___
 
@@ -41,7 +37,7 @@ ___
 
 #### Defined in
 
-[window.ts:154](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L154)
+[window.ts:154](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L154)
 
 ___
 
@@ -51,7 +47,7 @@ ___
 
 #### Defined in
 
-[window.ts:155](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L155)
+[window.ts:155](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L155)
 
 ## Methods
 
@@ -61,8 +57,9 @@ ___
 
 Converts the physical size to a logical one.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 const size = await appWindow.innerSize();
@@ -78,7 +75,3 @@ const logical = size.toLogical(factor);
 #### Returns
 
 [`LogicalSize`](window.LogicalSize.md)
-
-#### Defined in
-
-[window.ts:173](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/window.ts#L173)

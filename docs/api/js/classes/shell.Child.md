@@ -16,10 +16,6 @@
 | :------ | :------ |
 | `pid` | `number` |
 
-#### Defined in
-
-[shell.ts:183](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L183)
-
 ## Properties
 
 ### pid
@@ -30,7 +26,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L181)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
@@ -46,10 +42,6 @@ Kills the child process.
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[shell.ts:219](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L219)
-
 ___
 
 ### write
@@ -58,8 +50,9 @@ ___
 
 Writes `data` to the `stdin`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = new Command('node');
 const child = await command.spawn();
@@ -78,7 +71,3 @@ await child.write([0, 1, 2, 3, 4, 5]);
 `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
-
-#### Defined in
-
-[shell.ts:202](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/shell.ts#L202)

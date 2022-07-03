@@ -66,7 +66,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:208](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L208)
+[http.ts:208](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L208)
 
 ___
 
@@ -78,7 +78,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:183](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L183)
+[http.ts:183](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L183)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -100,7 +100,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:206](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L206)
+[http.ts:206](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L206)
 
 ## Functions
 
@@ -110,8 +110,9 @@ Request options.
 
 Perform an HTTP request using the default client.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { fetch } from '@tauri-apps/api/http';
 const response = await fetch('http://localhost:3003/users/2', {
   method: 'GET',
@@ -138,10 +139,6 @@ const response = await fetch('http://localhost:3003/users/2', {
 
 The response object.
 
-#### Defined in
-
-[http.ts:505](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L505)
-
 ___
 
 ### getClient
@@ -150,8 +147,9 @@ ___
 
 Creates a new client using the specified options.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 ```
@@ -167,7 +165,3 @@ const client = await getClient();
 `Promise`<[`Client`](../classes/http.Client.md)\>
 
 A promise resolving to the client instance.
-
-#### Defined in
-
-[http.ts:477](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/http.ts#L477)

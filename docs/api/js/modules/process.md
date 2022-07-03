@@ -14,8 +14,9 @@ This package is also accessible with `window.__TAURI__.process` when `tauri.conf
 
 Exits immediately with the given `exitCode`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { exit } from '@tauri-apps/api/process';
 await exit(1);
 ```
@@ -32,10 +33,6 @@ await exit(1);
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[process.ts:25](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/process.ts#L25)
-
 ___
 
 ### relaunch
@@ -44,8 +41,9 @@ ___
 
 Exits the current instance of the app then relaunches it.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { relaunch } from '@tauri-apps/api/process';
 await relaunch();
 ```
@@ -55,7 +53,3 @@ await relaunch();
 `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
-
-#### Defined in
-
-[process.ts:45](https://github.com/tauri-apps/tauri/blob/1b58174/tooling/api/src/process.ts#L45)
