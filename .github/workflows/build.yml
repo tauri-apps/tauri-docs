@@ -85,9 +85,10 @@ jobs:
   deploy-to-netlify:
     needs: build-locales
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - name: Retrieve build folder
-        uses: actions/download-artifacts@v3
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build
