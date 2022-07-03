@@ -197,10 +197,10 @@ function typeConstructor(object, describeObject = false) {
                 typeString += ` "${prop}": ${typeConstructor(object.properties[prop], describeObject)}`
                 i++
                 if (i < len) {
-                  typeString += ', '
+                  typeString += ','
                 }
               }
-              typeString += `}${m}`
+              typeString += ` }${m}`
             } else {
               typeString = `${m}${object.type}${m}`
             }
@@ -264,7 +264,10 @@ function typeConstructor(object, describeObject = false) {
     }
 
     if (typeString != '') {
-      return `${typeString} ${additionalProperties}`
+      if (additionalProperties.length > 0) {
+        return `${typeString} ${additionalProperties}`
+      }
+      return typeString
     }
   }
 
