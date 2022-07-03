@@ -181,11 +181,9 @@ function typeConstructor(object, describeObject = false) {
         // See if referencing a different type
         switch (object.type) {
           case 'string':
-              if (object.enum) {
-                typeString = object.enum.map(e => `"${e}"`).join(', ')
-              } else {
-                typeString = `${m}${object.type}${m}`
-              }
+              typeString = object.enum
+                ? object.enum.map(e => `"${e}"`).join(', ')
+                : `${m}${object.type}${m}`
               break
           case 'number':
           case 'boolean':
