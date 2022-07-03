@@ -37,7 +37,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: config
-          path: ./docusaurus.config.i18n.js
+          path: ./docusaurus.config.js
+          if-no-files-found: error
 
   build-locales:
     needs: build-locale-list
@@ -58,23 +59,19 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: config
-      - name: Build English
+      - run: cat ./docusaurus.config.js
+      - name: Setup yarn
+        run: yarn
+      - name: Build English locale
         if: matrix.locale == 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: |
-          yarn
-          yarn build --locale ${{ matrix.locale }} \
-          --config ./docusaurus.config.i18n.js
-      - name: Build non-English
+        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js
+      - name: Build non-English locale
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: |
-          yarn
-          yarn build --locale ${{ matrix.locale }} \
-          --config ./docusaurus.config.i18n.js \
-          --out-dir ./build/${{ matrix.locale }}
+        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
