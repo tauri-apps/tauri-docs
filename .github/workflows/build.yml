@@ -26,6 +26,8 @@ jobs:
         run: yarn i18n:sync:dryrun
       - name: Get locales
         id: generate
+        env:
+          I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
       - name: Save translations
         uses: actions/upload-artifact@v3
@@ -64,13 +66,9 @@ jobs:
         run: yarn
       - name: Build English locale
         if: matrix.locale == 'en'
-        env:
-          I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js
       - name: Build non-English locale
         if: matrix.locale != 'en'
-        env:
-          I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
