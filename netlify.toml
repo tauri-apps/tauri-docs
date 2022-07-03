@@ -1,11 +1,3 @@
-[build]
-command = "yarn i18n:sync:dryrun && yarn build"
-publish = "build"
-
-[context.production]
-command = "yarn i18n:sync && yarn build"
-publish = "build"
-
 [[redirects]]
 from = "/en/*"
 to = "/:splat"
