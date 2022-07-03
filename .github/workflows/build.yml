@@ -23,15 +23,23 @@ jobs:
       - uses: actions/setup-node@v3
       - name: Setup yarn
         run: yarn
+      - name: Generate i18n files
+        run: yarn docusaurus write-translations
+      - name: Upload i18n files
+        # Eventually make --dryrun conditional based on which branch you're in
+        # if: github.ref == 'refs/heads/dev'
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
+        run: yarn crowdin upload --dryrun
       - name: Download i18n files
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
-        run: yarn i18n:sync:dryrun
+        run: yarn crowdin download
       - name: Get locales
         id: generate
-        #       Below is not currently used but will be used for evergreen
-        env:
-          I18N_BUILD: ${{ github.ref == 'i18n' }}
+        # Below is not currently used but will be used for evergreen
+        # env:
+        #   I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
       - name: Save translations
         uses: actions/upload-artifact@v3
