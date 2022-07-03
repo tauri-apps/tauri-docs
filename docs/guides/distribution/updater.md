@@ -207,7 +207,7 @@ When an update is available, Tauri expects the following schema in response to t
 
 The only required keys are "url" and "version"; the others are optional.
 
-"pub_date" if present must be formatted according to RFC 3339.
+"pub_date" if present must be formatted according to [RFC 3339][Date and Time on the Internet: Timestamps].
 
 "signature" must be a valid signature generated with Tauri CLI. See [Signing updates](#signing-updates).
 
@@ -258,7 +258,7 @@ On macOS, we create a .tar.gz from the whole application. (.app)
 
 ```none
 target/release/bundle
-└── osx
+└── macos
     └── app.app
     └── app.app.tar.gz (update bundle)
     └── app.app.tar.gz.sig
@@ -269,10 +269,11 @@ target/release/bundle
 On Windows, we create a .zip from the MSI; when downloaded and validated, we run the MSI install.
 
 ```none
-target/release
-└── app.x64.msi
-└── app.x64.msi.zip (update bundle)
-└── app.x64.msi.zip.sig
+target/release/bundle
+└── msi
+    └── app.x64.msi
+    └── app.x64.msi.zip (update bundle)
+    └── app.x64.msi.zip.sig
 ```
 
 ### Linux
@@ -328,5 +329,6 @@ If they are set, the bundler automatically generates and signs the updater artif
 
 [200 ok]: http://tools.ietf.org/html/rfc2616#section-10.2.1
 [204 no content]: http://tools.ietf.org/html/rfc2616#section-10.2.5
+[Date and Time on the Internet: Timestamps]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.8
 [artifacts updater workflow]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44
 [sample tauri.conf.json]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/examples/updater/src-tauri/tauri.conf.json#L52

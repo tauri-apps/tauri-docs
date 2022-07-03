@@ -91,6 +91,9 @@ function descriptionConstructor(description, fixNewlines = false) {
     return description
   }
 
+  // fix Rust doc style links
+  description = description.replaceAll(/\[`Self::(\S+)`\]/g, '`$1`')
+
   // Fix bullet points not being on a newline
   description = description.replaceAll(' - ', '\n- ')
 
@@ -135,7 +138,7 @@ function descriptionConstructor(description, fixNewlines = false) {
   return description
 }
 
-function typeConstructor(object) {
+function typeConstructor(object, describeObject = false) {
   if (object.$ref) {
     return refLinkConstructor(object.$ref)
   }
@@ -153,10 +156,10 @@ function typeConstructor(object) {
     })
 
     if (canBeNull && items.length == 1) {
-      return `${items.map(typeConstructor)}?`
+      return `${items.map(t => typeConstructor(t, describeObject))}?`
     }
 
-    return items.map(typeConstructor).join(' \\| ')
+    return items.map(t => typeConstructor(t, describeObject)).join(' \\| ')
   }
 
   if (object.allOf) {
@@ -164,8 +167,10 @@ function typeConstructor(object) {
   }
 
   if (object.oneOf) {
-    return object.oneOf.map(typeConstructor).join(' | ')
+    return object.oneOf.map(t => typeConstructor(t, describeObject)).join(' | ')
   }
+
+  const m = describeObject ? '' : '`'
 
   if (object.type) {
     var typeString = ''
@@ -176,16 +181,38 @@ function typeConstructor(object) {
         // See if referencing a different type
         switch (object.type) {
           case 'string':
+              typeString = object.enum
+                ? object.enum.map(e => `"${e}"`).join(', ')
+                : `${m}${object.type}${m}`
+              break
           case 'number':
           case 'boolean':
-            typeString = `\`${object.type}\``
+            typeString = `${m}${object.type}${m}`
             break
           case 'object':
-            typeString = `\`${object.type}\``
+            if (describeObject && object.properties) {
+              typeString = `${m}{`
+              const len = Object.keys(object.properties).length
+              let i = 0
+              for (const prop in object.properties) {
+                typeString += ` "${prop}": ${typeConstructor(object.properties[prop], describeObject)}`
+                i++
+                if (i < len) typeString += ','
+              }
+              typeString += ` }${m}`
+            } else {
+              typeString = `${m}${object.type}${m}`
+            }
             break
           case 'array':
             if (object.items) {
-              typeString = `[${typeConstructor(object.items)}]`
+              if (describeObject) {
+                typeString = `[${typeConstructor(object.items, describeObject)}]`
+              } else {
+                const type = typeConstructor(object.items, true)
+                const hasLink = type.includes('(#')
+                typeString = hasLink ? `${type}[]` : typeString = `${m}${type}[]${m}`
+              }
               break
             }
           default:
@@ -199,7 +226,7 @@ function typeConstructor(object) {
         if (Array.isArray(object.type)) {
           // Check if it should just be an optional value
           if (object.type.length == 2 && object.type.includes('null')) {
-            typeString = `\`${object.type.filter((item) => item != 'null')}\`?`
+            typeString = `${m}${object.type.filter((item) => item != 'null')}${m}?`
             break
           }
         }
@@ -242,12 +269,24 @@ function typeConstructor(object) {
     }
 
     if (typeString != '') {
-      return `${typeString} ${additionalProperties}`
+      if (additionalProperties.length > 0) {
+        return `${typeString} ${additionalProperties}`
+      }
+      return typeString
     }
+  }
+
+  if (object.enum) {
+    return `${m}${object.enum.map(e => `"${e}"`).join(', ')}${m}`
   }
 
   console.log('A type was not able to be parsed:', object)
   return JSON.stringify(object)
+}
+
+/** prepares a description to be added to a markdown bullet point list */
+function listDescription(description) {
+  return description.replace('\n\n', '\n\n\t')
 }
 
 function longFormTypeConstructor(object) {
@@ -267,7 +306,7 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description, false)}`
       }
-      buffer.push(`- ${typeConstructor(item)}${description}`)
+      buffer.push(`- ${typeConstructor(item)}${listDescription(description)}`)
     })
 
     return buffer.join(`\n`)
@@ -281,7 +320,7 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description, false)}`
       }
-      buffer.push(`- ${typeConstructor(item)}${description}`)
+      buffer.push(`- ${typeConstructor(item, true)}${listDescription(description)}`)
     })
 
     return buffer.join(`\n`)

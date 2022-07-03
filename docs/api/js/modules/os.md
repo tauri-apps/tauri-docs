@@ -32,7 +32,7 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:35](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L35)
+[os.ts:35](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/os.ts#L35)
 
 ## Functions
 
@@ -43,8 +43,9 @@ The operating system-specific end-of-line marker.
 Returns the operating system CPU architecture for which the tauri app was compiled.
 Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { arch } from '@tauri-apps/api/os';
 const archName = await arch();
 ```
@@ -52,10 +53,6 @@ const archName = await arch();
 #### Returns
 
 `Promise`<`LiteralUnion`<``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``, `string`\>\>
-
-#### Defined in
-
-[os.ts:114](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L114)
 
 ___
 
@@ -66,8 +63,9 @@ ___
 Returns a string identifying the operating system platform.
 The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { platform } from '@tauri-apps/api/os';
 const platformName = await platform();
 ```
@@ -75,10 +73,6 @@ const platformName = await platform();
 #### Returns
 
 `Promise`<`LiteralUnion`<``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``, `string`\>\>
-
-#### Defined in
-
-[os.ts:46](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L46)
 
 ___
 
@@ -88,8 +82,9 @@ ___
 
 Returns the operating system's default directory for temporary files as a string.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { tempdir } from '@tauri-apps/api/os';
 const tempdirPath = await tempdir();
 ```
@@ -97,10 +92,6 @@ const tempdirPath = await tempdir();
 #### Returns
 
 `Promise`<`string`\>
-
-#### Defined in
-
-[os.ts:146](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L146)
 
 ___
 
@@ -110,8 +101,9 @@ ___
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { type } from '@tauri-apps/api/os';
 const osType = await type();
 ```
@@ -119,10 +111,6 @@ const osType = await type();
 #### Returns
 
 `Promise`<`LiteralUnion`<``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``, `string`\>\>
-
-#### Defined in
-
-[os.ts:94](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L94)
 
 ___
 
@@ -132,8 +120,9 @@ ___
 
 Returns a string identifying the kernel version.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { version } from '@tauri-apps/api/os';
 const osVersion = await version();
 ```
@@ -141,7 +130,3 @@ const osVersion = await version();
 #### Returns
 
 `Promise`<`string`\>
-
-#### Defined in
-
-[os.ts:77](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/os.ts#L77)

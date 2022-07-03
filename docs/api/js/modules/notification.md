@@ -35,7 +35,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -45,8 +45,9 @@ Possible permission values.
 
 Checks if the permission to send notifications is granted.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
@@ -54,10 +55,6 @@ const permissionGranted = await isPermissionGranted();
 #### Returns
 
 `Promise`<`boolean`\>
-
-#### Defined in
-
-[notification.ts:54](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/notification.ts#L54)
 
 ___
 
@@ -67,8 +64,9 @@ ___
 
 Requests the permission to send notifications.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification';
 let permissionGranted = await isPermissionGranted();
 if (!permissionGranted) {
@@ -83,10 +81,6 @@ if (!permissionGranted) {
 
 A promise resolving to whether the user granted the permission or not.
 
-#### Defined in
-
-[notification.ts:80](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/notification.ts#L80)
-
 ___
 
 ### sendNotification
@@ -95,8 +89,9 @@ ___
 
 Sends a notification to the user.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 let permissionGranted = await isPermissionGranted();
 if (!permissionGranted) {
@@ -118,7 +113,3 @@ if (permissionGranted) {
 #### Returns
 
 `void`
-
-#### Defined in
-
-[notification.ts:102](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/notification.ts#L102)

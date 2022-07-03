@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:246](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L246)
+[http.ts:246](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L246)
 
 ## Methods
 
@@ -22,8 +22,9 @@
 
 Makes a DELETE request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.delete('http://localhost:3003/users/1');
@@ -48,10 +49,6 @@ const response = await client.delete('http://localhost:3003/users/1');
 
 A promise resolving to the response.
 
-#### Defined in
-
-[http.ts:456](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L456)
-
 ___
 
 ### drop
@@ -60,8 +57,9 @@ ___
 
 Drops the client instance.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 await client.drop();
@@ -71,10 +69,6 @@ await client.drop();
 
 `Promise`<`void`\>
 
-#### Defined in
-
-[http.ts:263](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L263)
-
 ___
 
 ### get
@@ -83,8 +77,9 @@ ___
 
 Makes a GET request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient, ResponseType } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.get('http://localhost:3003/users', {
@@ -113,10 +108,6 @@ const response = await client.get('http://localhost:3003/users', {
 
 A promise resolving to the response.
 
-#### Defined in
-
-[http.ts:343](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L343)
-
 ___
 
 ### patch
@@ -125,8 +116,9 @@ ___
 
 Makes a PATCH request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.patch('http://localhost:3003/users/1', {
@@ -153,10 +145,6 @@ const response = await client.patch('http://localhost:3003/users/1', {
 
 A promise resolving to the response.
 
-#### Defined in
-
-[http.ts:435](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L435)
-
 ___
 
 ### post
@@ -165,8 +153,9 @@ ___
 
 Makes a POST request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient, Body, ResponseType } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.post('http://localhost:3003/users', {
@@ -199,10 +188,6 @@ const response = await client.post('http://localhost:3003/users', {
 
 A promise resolving to the response.
 
-#### Defined in
-
-[http.ts:372](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L372)
-
 ___
 
 ### put
@@ -211,8 +196,9 @@ ___
 
 Makes a PUT request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.put('http://localhost:3003/users/1', {
@@ -246,10 +232,6 @@ const response = await client.put('http://localhost:3003/users/1', {
 
 A promise resolving to the response.
 
-#### Defined in
-
-[http.ts:407](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L407)
-
 ___
 
 ### request
@@ -258,8 +240,9 @@ ___
 
 Makes an HTTP request.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.request({
@@ -285,7 +268,3 @@ const response = await client.request({
 `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
-
-#### Defined in
-
-[http.ts:288](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/http.ts#L288)

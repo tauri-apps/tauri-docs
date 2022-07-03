@@ -52,13 +52,16 @@ use tauri::WindowBuilder;
 fn main() {
   let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
-    .create_window(
-      "main-window".to_string(),
-      tauri::WindowUrl::App("index.html".into()),
-      move |window_builder, webview_attributes| {
-        (window_builder.menu(menu), webview_attributes)
-      },
-    )
+    .setup(|app| {
+      WindowBuilder::new(
+        app,
+        "main-window".to_string(),
+        tauri::WindowUrl::App("index.html".into()),
+      )
+      .menu(menu)
+      .build()?;
+      Ok(())
+    })
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
@@ -74,7 +77,7 @@ Each `CustomMenuItem` triggers an event when clicked. Use the `on_menu_event` AP
 use tauri::{CustomMenuItem, Menu, MenuItem};
 
 fn main() {
-  let menu = vec![]; // insert the menu array here
+  let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
     .menu(menu)
     .on_menu_event(|event| {
@@ -100,17 +103,16 @@ use tauri::{CustomMenuItem, Menu, MenuItem};
 use tauri::{Manager, WindowBuilder};
 
 fn main() {
-  let menu = vec![]; // insert the menu array here
+  let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
-    .create_window(
-      "main-window".to_string(),
-      tauri::WindowUrl::App("index.html".into()),
-      move |window_builder, webview_attributes| {
-        (window_builder.menu(menu), webview_attributes)
-      },
-    )
     .setup(|app| {
-      let window = app.get_window("main-window").unwrap();
+      let window = WindowBuilder::new(
+        app,
+        "main-window".to_string(),
+        tauri::WindowUrl::App("index.html".into()),
+      )
+      .menu(menu)
+      .build()?;
       let window_ = window.clone();
       window.on_menu_event(move |event| {
         match event.menu_item_id() {
@@ -136,7 +138,9 @@ The `Window` struct has a `menu_handle` method, which allows updating menu items
 
 ```rust
 fn main() {
+  let menu = Menu::new(); // configure the menu
   tauri::Builder::default()
+    .menu(menu)
     .setup(|app| {
       let main_window = app.get_window("main").unwrap();
       let menu_handle = main_window.menu_handle();

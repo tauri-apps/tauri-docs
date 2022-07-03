@@ -7,8 +7,9 @@
 The entry point for spawning child processes.
 It emits the `close` and `error` events.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = new Command('node');
 command.on('close', data => {
@@ -48,10 +49,6 @@ Creates a new `Command` instance.
 
 [EventEmitter](shell.EventEmitter.md).[constructor](shell.EventEmitter.md#constructor)
 
-#### Defined in
-
-[shell.ts:268](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L268)
-
 ## Properties
 
 ### stderr
@@ -62,7 +59,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L258)
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L258)
 
 ___
 
@@ -74,7 +71,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
@@ -84,8 +81,9 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Command } from '@tauri-apps/api/shell';
 const output = await new Command('echo', 'message').execute();
 assert(output.code === 0);
@@ -99,10 +97,6 @@ assert(output.stderr === '');
 `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
 
 A promise resolving to the child process output.
-
-#### Defined in
-
-[shell.ts:347](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L347)
 
 ___
 
@@ -129,10 +123,6 @@ The `this` instance for chained calls.
 
 [EventEmitter](shell.EventEmitter.md).[on](shell.EventEmitter.md#on)
 
-#### Defined in
-
-[shell.ts:173](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L173)
-
 ___
 
 ### spawn
@@ -147,10 +137,6 @@ Executes the command as a child process, returning a handle to it.
 
 A promise resolving to the child process handle.
 
-#### Defined in
-
-[shell.ts:309](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L309)
-
 ___
 
 ### sidecar
@@ -159,8 +145,9 @@ ___
 
 Creates a command to execute the given sidecar program.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = Command.sidecar('my-sidecar');
 const output = await command.execute();
@@ -177,7 +164,3 @@ const output = await command.execute();
 #### Returns
 
 [`Command`](shell.Command.md)
-
-#### Defined in
-
-[shell.ts:294](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L294)

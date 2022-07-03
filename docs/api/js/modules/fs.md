@@ -97,7 +97,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
@@ -107,9 +107,11 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 Copys a file to a destination.
 
-**`example`** Copy the `$APPDIR/app.conf` file to `$APPDIR/app.conf.bk`
-```typescript
+**`Example`**
+
+ ```typescript
 import { copyFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Copy the `$APPDIR/app.conf` file to `$APPDIR/app.conf.bk`
 await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 ```
 
@@ -127,10 +129,6 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:458](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L458)
-
 ___
 
 ### createDir
@@ -141,9 +139,11 @@ Creates a directory.
 If one of the path's parent components doesn't exist
 and the `recursive` option isn't set to true, the promise will be rejected.
 
-**`example`** Create the `$APPDIR/users` directory
-```typescript
+**`Example`**
+
+ ```typescript
 import { createDir, BaseDirectory } from '@tauri-apps/api/fs';
+// Create the `$APPDIR/users` directory
 await createDir('users', { dir: BaseDirectory.App, recursive: true });
 ```
 
@@ -160,10 +160,6 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:404](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L404)
-
 ___
 
 ### readBinaryFile
@@ -172,9 +168,11 @@ ___
 
 Reads a file as byte array.
 
-**`example`** Read the image file in the `$RESOURCEDIR/avatar.png` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Read the image file in the `$RESOURCEDIR/avatar.png` path
 const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resource });
 ```
 
@@ -191,10 +189,6 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 
 A promise resolving to the file bytes array.
 
-#### Defined in
-
-[fs.ts:174](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L174)
-
 ___
 
 ### readDir
@@ -203,15 +197,17 @@ ___
 
 List directory files.
 
-**`example`** Reads the `$APPDIR/users` directory recursively
-```typescript
+**`Example`**
+
+ ```typescript
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
-const entries = await readDir('users', new Uint8Array([]), { dir: BaseDirectory.App, recursive: true });
+// Reads the `$APPDIR/users` directory recursively
+const entries = await readDir('users', { dir: BaseDirectory.App, recursive: true });
 
 function processEntries(entries) {
   for (const entry of entries) {
     console.log(`Entry: ${entry.path}`);
-    if (entry.children !== null) {
+    if (entry.children) {
       processEntries(entry.children)
     }
   }
@@ -231,10 +227,6 @@ function processEntries(entries) {
 
 A promise resolving to the directory entries.
 
-#### Defined in
-
-[fs.ts:376](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L376)
-
 ___
 
 ### readTextFile
@@ -243,9 +235,11 @@ ___
 
 Reads a file as an UTF-8 encoded string.
 
-**`example`** Read the text file in the `$APPDIR/app.conf` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { readTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Read the text file in the `$APPDIR/app.conf` path
 const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 ```
 
@@ -262,10 +256,6 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
-#### Defined in
-
-[fs.ts:148](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L148)
-
 ___
 
 ### removeDir
@@ -275,9 +265,11 @@ ___
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
 
-**`example`** Remove the directory `$APPDIR/users`
-```typescript
+**`Example`**
+
+ ```typescript
 import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
+// Remove the directory `$APPDIR/users`
 await removeDir('users', { dir: BaseDirectory.App });
 ```
 
@@ -294,10 +286,6 @@ await removeDir('users', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:431](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L431)
-
 ___
 
 ### removeFile
@@ -306,9 +294,11 @@ ___
 
 Removes a file.
 
-**`example`** Remove the `$APPDIR/app.conf` file
-```typescript
+**`Example`**
+
+ ```typescript
 import { removeFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Remove the `$APPDIR/app.conf` file
 await removeFile('app.conf', { dir: BaseDirectory.App });
 ```
 
@@ -325,10 +315,6 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:486](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L486)
-
 ___
 
 ### renameFile
@@ -337,9 +323,11 @@ ___
 
 Renames a file.
 
-**`example`** Rename the `$APPDIR/avatar.png` file
-```typescript
+**`Example`**
+
+ ```typescript
 import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Rename the `$APPDIR/avatar.png` file
 await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 ```
 
@@ -357,10 +345,6 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:513](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L513)
-
 ___
 
 ### writeBinaryFile
@@ -369,9 +353,11 @@ ___
 
 Writes a byte array content to a file.
 
-**`example`** Write a binary file to the `$APPDIR/avatar.png` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Write a binary file to the `$APPDIR/avatar.png` path
 await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App });
 ```
 
@@ -389,17 +375,15 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:285](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L285)
-
 ▸ **writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a byte array content to a file.
 
-**`example`** Write a binary file to the `$APPEDIR/avatar.png` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Write a binary file to the `$APPDIR/avatar.png` path
 await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { dir: BaseDirectory.App });
 ```
 
@@ -416,10 +400,6 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:303](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L303)
-
 ___
 
 ### writeTextFile
@@ -428,9 +408,11 @@ ___
 
 Writes a UTF-8 text file.
 
-**`example`** Write a text file to the `$APPDIR/app.conf` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Write a text file to the `$APPDIR/app.conf` path
 await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 ```
 
@@ -448,17 +430,15 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-#### Defined in
-
-[fs.ts:203](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L203)
-
 ▸ **writeTextFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a UTF-8 text file.
 
-**`example`** Write a text file to the `$APPDIR/app.conf` path
-```typescript
+**`Example`**
+
+ ```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+// Write a text file to the `$APPDIR/app.conf` path
 await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: BaseDirectory.App });
 ```
 
@@ -474,7 +454,3 @@ await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: Base
 `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
-
-#### Defined in
-
-[fs.ts:221](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/fs.ts#L221)

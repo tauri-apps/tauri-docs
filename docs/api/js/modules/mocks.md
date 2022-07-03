@@ -35,10 +35,6 @@ test("no mocked windows", () => {
 
 `void`
 
-#### Defined in
-
-[mocks.ts:142](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/mocks.ts#L142)
-
 ___
 
 ### mockIPC
@@ -83,10 +79,6 @@ test("mocked command", () => {
 #### Returns
 
 `void`
-
-#### Defined in
-
-[mocks.ts:40](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/mocks.ts#L40)
 
 ___
 
@@ -146,7 +138,3 @@ await win.close(); // this will cause the mocked IPC handler to log to the conso
 #### Returns
 
 `void`
-
-#### Defined in
-
-[mocks.ts:108](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/mocks.ts#L108)

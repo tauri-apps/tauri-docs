@@ -94,8 +94,9 @@ or the one specified with `openWith`.
 The `openWith` value must be one of `firefox`, `google chrome`, `chromium` `safari`,
 `open`, `start`, `xdg-open`, `gio`, `gnome-open`, `kde-open` or `wslview`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { open } from '@tauri-apps/api/shell';
 // opens the given URL on the default browser:
 await open('https://github.com/tauri-apps/tauri');
@@ -115,7 +116,3 @@ await open('/path/to/file');
 #### Returns
 
 `Promise`<`void`\>
-
-#### Defined in
-
-[shell.ts:421](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/shell.ts#L421)

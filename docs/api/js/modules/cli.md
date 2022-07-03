@@ -20,8 +20,9 @@ This package is also accessible with `window.__TAURI__.cli` when `tauri.conf.jso
 
 Parse the arguments provided to the current process and get the matches using the configuration defined `tauri.conf.json > tauri > cli`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { getMatches } from '@tauri-apps/api/cli';
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
@@ -41,7 +42,3 @@ if (matches.subcommand?.name === 'run') {
 `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
 A promise resolving to the parsed arguments.
-
-#### Defined in
-
-[cli.ts:57](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/cli.ts#L57)

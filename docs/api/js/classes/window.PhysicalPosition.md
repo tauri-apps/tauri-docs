@@ -19,10 +19,6 @@ A position represented in physical pixels.
 | `x` | `number` |
 | `y` | `number` |
 
-#### Defined in
-
-[window.ts:186](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L186)
-
 ## Properties
 
 ### type
@@ -31,7 +27,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:182](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L182)
+[window.ts:192](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L192)
 
 ___
 
@@ -41,7 +37,7 @@ ___
 
 #### Defined in
 
-[window.ts:183](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L183)
+[window.ts:193](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L193)
 
 ___
 
@@ -51,7 +47,7 @@ ___
 
 #### Defined in
 
-[window.ts:184](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L184)
+[window.ts:194](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L194)
 
 ## Methods
 
@@ -61,8 +57,9 @@ ___
 
 Converts the physical position to a logical one.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 const position = await appWindow.innerPosition();
@@ -78,7 +75,3 @@ const logical = position.toLogical(factor);
 #### Returns
 
 [`LogicalPosition`](window.LogicalPosition.md)
-
-#### Defined in
-
-[window.ts:201](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L201)

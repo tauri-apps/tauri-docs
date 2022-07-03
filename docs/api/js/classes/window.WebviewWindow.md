@@ -9,8 +9,9 @@ Create new webview windows and get a handle to existing ones.
 Windows are identified by a *label*  a unique identifier that can be used to reference it later.
 It may only contain alphanumeric characters `a-zA-Z` plus the following special characters `-`, `/`, `:` and `_`.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 // loading embedded asset:
 const webview = new WebviewWindow('theUniqueLabel', {
   url: 'path/to/page.html'
@@ -48,8 +49,9 @@ unlisten();
 
 Creates a new WebviewWindow.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { WebviewWindow } from '@tauri-apps/api/window';
 const webview = new WebviewWindow('my-label', {
   url: 'https://github.com/tauri-apps/tauri'
@@ -62,22 +64,18 @@ webview.once('tauri://error', function (e) {
 });
 ```
 
-* @param label The unique webview window label. Must be alphanumeric: `a-zA-Z-/:_`.
+*
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `label` | `string` |
-| `options` | [`WindowOptions`](../interfaces/window.WindowOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `label` | `string` | The unique webview window label. Must be alphanumeric: `a-zA-Z-/:_`. |
+| `options` | [`WindowOptions`](../interfaces/window.WindowOptions.md) | - |
 
 #### Overrides
 
 [WindowManager](window.WindowManager.md).[constructor](window.WindowManager.md#constructor)
-
-#### Defined in
-
-[window.ts:1557](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1557)
 
 ## Properties
 
@@ -93,7 +91,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:315](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L315)
+[window.ts:325](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L325)
 
 ___
 
@@ -113,7 +111,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:317](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L317)
+[window.ts:327](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L327)
 
 ## Methods
 
@@ -142,10 +140,6 @@ Local event listeners.
 
 [WindowManager](window.WindowManager.md).[_handleTauriEvent](window.WindowManager.md#_handletaurievent)
 
-#### Defined in
-
-[window.ts:381](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L381)
-
 ___
 
 ### center
@@ -154,8 +148,9 @@ ___
 
 Centers the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.center();
 ```
@@ -170,10 +165,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[center](window.WindowManager.md#center)
 
-#### Defined in
-
-[window.ts:691](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L691)
-
 ___
 
 ### close
@@ -182,8 +173,9 @@ ___
 
 Closes the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.close();
 ```
@@ -197,10 +189,6 @@ A promise indicating the success or failure of the operation.
 #### Inherited from
 
 [WindowManager](window.WindowManager.md).[close](window.WindowManager.md#close)
-
-#### Defined in
-
-[window.ts:992](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L992)
 
 ___
 
@@ -225,10 +213,6 @@ Emits an event to the backend, tied to the webview window.
 
 [WindowManager](window.WindowManager.md).[emit](window.WindowManager.md#emit)
 
-#### Defined in
-
-[window.ts:370](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L370)
-
 ___
 
 ### hide
@@ -237,8 +221,9 @@ ___
 
 Sets the window visibility to false.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.hide();
 ```
@@ -253,10 +238,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[hide](window.WindowManager.md#hide)
 
-#### Defined in
-
-[window.ts:967](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L967)
-
 ___
 
 ### innerPosition
@@ -265,8 +246,9 @@ ___
 
 The position of the top-left hand corner of the window's client area relative to the top-left hand corner of the desktop.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const position = await appWindow.innerPosition();
 ```
@@ -281,10 +263,6 @@ The window's inner position.
 
 [WindowManager](window.WindowManager.md).[innerPosition](window.WindowManager.md#innerposition)
 
-#### Defined in
-
-[window.ts:436](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L436)
-
 ___
 
 ### innerSize
@@ -294,8 +272,9 @@ ___
 The physical size of the window's client area.
 The client area is the content of the window, excluding the title bar and borders.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const size = await appWindow.innerSize();
 ```
@@ -310,10 +289,6 @@ The window's inner size.
 
 [WindowManager](window.WindowManager.md).[innerSize](window.WindowManager.md#innersize)
 
-#### Defined in
-
-[window.ts:487](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L487)
-
 ___
 
 ### isDecorated
@@ -322,8 +297,9 @@ ___
 
 Gets the window's current decorated state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const decorated = await appWindow.isDecorated();
 ```
@@ -338,10 +314,6 @@ Whether the window is decorated or not.
 
 [WindowManager](window.WindowManager.md).[isDecorated](window.WindowManager.md#isdecorated)
 
-#### Defined in
-
-[window.ts:588](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L588)
-
 ___
 
 ### isFullscreen
@@ -350,8 +322,9 @@ ___
 
 Gets the window's current fullscreen state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const fullscreen = await appWindow.isFullscreen();
 ```
@@ -366,10 +339,6 @@ Whether the window is in fullscreen mode or not.
 
 [WindowManager](window.WindowManager.md).[isFullscreen](window.WindowManager.md#isfullscreen)
 
-#### Defined in
-
-[window.ts:538](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L538)
-
 ___
 
 ### isMaximized
@@ -378,8 +347,9 @@ ___
 
 Gets the window's current maximized state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const maximized = await appWindow.isMaximized();
 ```
@@ -394,10 +364,6 @@ Whether the window is maximized or not.
 
 [WindowManager](window.WindowManager.md).[isMaximized](window.WindowManager.md#ismaximized)
 
-#### Defined in
-
-[window.ts:563](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L563)
-
 ___
 
 ### isResizable
@@ -406,8 +372,9 @@ ___
 
 Gets the window's current resizable state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const resizable = await appWindow.isResizable();
 ```
@@ -422,10 +389,6 @@ Whether the window is resizable or not.
 
 [WindowManager](window.WindowManager.md).[isResizable](window.WindowManager.md#isresizable)
 
-#### Defined in
-
-[window.ts:613](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L613)
-
 ___
 
 ### isVisible
@@ -434,8 +397,9 @@ ___
 
 Gets the window's current visible state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const visible = await appWindow.isVisible();
 ```
@@ -449,10 +413,6 @@ Whether the window is visible or not.
 #### Inherited from
 
 [WindowManager](window.WindowManager.md).[isVisible](window.WindowManager.md#isvisible)
-
-#### Defined in
-
-[window.ts:638](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L638)
 
 ___
 
@@ -485,10 +445,6 @@ A promise resolving to a function to unlisten to the event.
 
 [WindowManager](window.WindowManager.md).[listen](window.WindowManager.md#listen)
 
-#### Defined in
-
-[window.ts:332](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L332)
-
 ___
 
 ### maximize
@@ -497,8 +453,9 @@ ___
 
 Maximizes the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.maximize();
 ```
@@ -513,10 +470,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[maximize](window.WindowManager.md#maximize)
 
-#### Defined in
-
-[window.ts:817](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L817)
-
 ___
 
 ### minimize
@@ -525,8 +478,9 @@ ___
 
 Minimizes the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.minimize();
 ```
@@ -540,10 +494,6 @@ A promise indicating the success or failure of the operation.
 #### Inherited from
 
 [WindowManager](window.WindowManager.md).[minimize](window.WindowManager.md#minimize)
-
-#### Defined in
-
-[window.ts:892](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L892)
 
 ___
 
@@ -576,10 +526,6 @@ A promise resolving to a function to unlisten to the event.
 
 [WindowManager](window.WindowManager.md).[once](window.WindowManager.md#once)
 
-#### Defined in
-
-[window.ts:353](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L353)
-
 ___
 
 ### outerPosition
@@ -588,8 +534,9 @@ ___
 
 The position of the top-left hand corner of the window relative to the top-left hand corner of the desktop.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const position = await appWindow.outerPosition();
 ```
@@ -604,10 +551,6 @@ The window's outer position.
 
 [WindowManager](window.WindowManager.md).[outerPosition](window.WindowManager.md#outerposition)
 
-#### Defined in
-
-[window.ts:461](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L461)
-
 ___
 
 ### outerSize
@@ -617,8 +560,9 @@ ___
 The physical size of the entire window.
 These dimensions include the title bar and borders. If you don't want that (and you usually don't), use inner_size instead.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const size = await appWindow.outerSize();
 ```
@@ -633,17 +577,13 @@ The window's outer size.
 
 [WindowManager](window.WindowManager.md).[outerSize](window.WindowManager.md#outersize)
 
-#### Defined in
-
-[window.ts:513](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L513)
-
 ___
 
 ### requestUserAttention
 
 ▸ **requestUserAttention**(`requestType`): `Promise`<`void`\>
 
- Requests user attention to the window, this has no effect if the application
+Requests user attention to the window, this has no effect if the application
 is already focused. How requesting for user attention manifests is platform dependent,
 see `UserAttentionType` for details.
 
@@ -655,8 +595,9 @@ user attention might not be done automatically by the WM when the window receive
 - **macOS:** `null` has no effect.
 - **Linux:** Urgency levels have the same effect.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.requestUserAttention();
 ```
@@ -677,10 +618,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[requestUserAttention](window.WindowManager.md#requestuserattention)
 
-#### Defined in
-
-[window.ts:727](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L727)
-
 ___
 
 ### scaleFactor
@@ -689,8 +626,9 @@ ___
 
 The scale factor that can be used to map physical pixels to logical pixels.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 ```
@@ -705,10 +643,6 @@ The window's monitor scale factor.
 
 [WindowManager](window.WindowManager.md).[scaleFactor](window.WindowManager.md#scalefactor)
 
-#### Defined in
-
-[window.ts:411](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L411)
-
 ___
 
 ### setAlwaysOnTop
@@ -717,8 +651,9 @@ ___
 
 Whether the window should always be on top of other windows.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setAlwaysOnTop(true);
 ```
@@ -739,10 +674,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setAlwaysOnTop](window.WindowManager.md#setalwaysontop)
 
-#### Defined in
-
-[window.ts:1045](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1045)
-
 ___
 
 ### setCursorGrab
@@ -759,8 +690,9 @@ hide it by yourself if you want so.
 - **Linux:** Unsupported.
 - **macOS:** This locks the cursor in a fixed location, which looks visually awkward.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setCursorGrab(true);
 ```
@@ -781,10 +713,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setCursorGrab](window.WindowManager.md#setcursorgrab)
 
-#### Defined in
-
-[window.ts:1361](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1361)
-
 ___
 
 ### setCursorIcon
@@ -793,8 +721,9 @@ ___
 
 Modifies the cursor icon of the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setCursorIcon('help');
 ```
@@ -815,10 +744,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setCursorIcon](window.WindowManager.md#setcursoricon)
 
-#### Defined in
-
-[window.ts:1421](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1421)
-
 ___
 
 ### setCursorPosition
@@ -827,8 +752,9 @@ ___
 
 Changes the position of the cursor in window coordinates.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow, LogicalPosition } from '@tauri-apps/api/window';
 await appWindow.setCursorPosition(new LogicalPosition(600, 300));
 ```
@@ -849,10 +775,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setCursorPosition](window.WindowManager.md#setcursorposition)
 
-#### Defined in
-
-[window.ts:1448](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1448)
-
 ___
 
 ### setCursorVisible
@@ -867,8 +789,9 @@ Modifies the cursor's visibility.
 - **macOS:** The cursor is hidden as long as the window has input focus, even if the cursor is
   outside of the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setCursorVisible(false);
 ```
@@ -889,10 +812,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setCursorVisible](window.WindowManager.md#setcursorvisible)
 
-#### Defined in
-
-[window.ts:1394](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1394)
-
 ___
 
 ### setDecorations
@@ -901,8 +820,9 @@ ___
 
 Whether the window should have borders and bars.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setDecorations(false);
 ```
@@ -923,10 +843,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setDecorations](window.WindowManager.md#setdecorations)
 
-#### Defined in
-
-[window.ts:1018](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1018)
-
 ___
 
 ### setFocus
@@ -935,8 +851,9 @@ ___
 
 Bring the window to front and focus.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setFocus();
 ```
@@ -951,10 +868,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setFocus](window.WindowManager.md#setfocus)
 
-#### Defined in
-
-[window.ts:1263](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1263)
-
 ___
 
 ### setFullscreen
@@ -963,8 +876,9 @@ ___
 
 Sets the window fullscreen state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setFullscreen(true);
 ```
@@ -985,10 +899,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setFullscreen](window.WindowManager.md#setfullscreen)
 
-#### Defined in
-
-[window.ts:1237](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1237)
-
 ___
 
 ### setIcon
@@ -997,8 +907,9 @@ ___
 
 Sets the window icon.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setIcon('/tauri/awesome.png');
 ```
@@ -1026,10 +937,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setIcon](window.WindowManager.md#seticon)
 
-#### Defined in
-
-[window.ts:1296](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1296)
-
 ___
 
 ### setMaxSize
@@ -1038,8 +945,9 @@ ___
 
 Sets the window maximum inner size. If the `size` argument is undefined, the constraint is unset.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow, LogicalSize } from '@tauri-apps/api/window';
 await appWindow.setMaxSize(new LogicalSize(600, 500));
 ```
@@ -1060,10 +968,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setMaxSize](window.WindowManager.md#setmaxsize)
 
-#### Defined in
-
-[window.ts:1152](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1152)
-
 ___
 
 ### setMinSize
@@ -1072,8 +976,9 @@ ___
 
 Sets the window minimum inner size. If the `size` argument is not provided, the constraint is unset.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow, PhysicalSize } from '@tauri-apps/api/window';
 await appWindow.setMinSize(new PhysicalSize(600, 500));
 ```
@@ -1094,10 +999,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setMinSize](window.WindowManager.md#setminsize)
 
-#### Defined in
-
-[window.ts:1110](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1110)
-
 ___
 
 ### setPosition
@@ -1106,8 +1007,9 @@ ___
 
 Sets the window outer position.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow, LogicalPosition } from '@tauri-apps/api/window';
 await appWindow.setPosition(new LogicalPosition(600, 500));
 ```
@@ -1128,10 +1030,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setPosition](window.WindowManager.md#setposition)
 
-#### Defined in
-
-[window.ts:1194](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1194)
-
 ___
 
 ### setResizable
@@ -1140,8 +1038,9 @@ ___
 
 Updates the window resizable flag.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setResizable(false);
 ```
@@ -1162,10 +1061,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setResizable](window.WindowManager.md#setresizable)
 
-#### Defined in
-
-[window.ts:764](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L764)
-
 ___
 
 ### setSize
@@ -1174,8 +1069,9 @@ ___
 
 Resizes the window with a new inner size.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow, LogicalSize } from '@tauri-apps/api/window';
 await appWindow.setSize(new LogicalSize(600, 500));
 ```
@@ -1196,10 +1092,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setSize](window.WindowManager.md#setsize)
 
-#### Defined in
-
-[window.ts:1072](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1072)
-
 ___
 
 ### setSkipTaskbar
@@ -1208,8 +1100,9 @@ ___
 
 Whether to show the window icon in the task bar or not.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setSkipTaskbar(true);
 ```
@@ -1230,10 +1123,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setSkipTaskbar](window.WindowManager.md#setskiptaskbar)
 
-#### Defined in
-
-[window.ts:1326](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1326)
-
 ___
 
 ### setTitle
@@ -1242,8 +1131,9 @@ ___
 
 Sets the window title.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setTitle('Tauri');
 ```
@@ -1264,10 +1154,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[setTitle](window.WindowManager.md#settitle)
 
-#### Defined in
-
-[window.ts:791](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L791)
-
 ___
 
 ### show
@@ -1276,8 +1162,9 @@ ___
 
 Sets the window visibility to true.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.show();
 ```
@@ -1292,10 +1179,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[show](window.WindowManager.md#show)
 
-#### Defined in
-
-[window.ts:942](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L942)
-
 ___
 
 ### startDragging
@@ -1304,8 +1187,9 @@ ___
 
 Starts dragging the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.startDragging();
 ```
@@ -1320,20 +1204,22 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[startDragging](window.WindowManager.md#startdragging)
 
-#### Defined in
-
-[window.ts:1490](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1490)
-
 ___
 
 ### theme
 
 ▸ **theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
 
-Gets the window's current visible state.
+Gets the window's current theme.
 
-**`example`**
-```typescript
+#### Platform-specific
+
+- **Linux:** Not implemented, always returns `light`.
+- **macOS:** Theme was introduced on macOS 10.14. Returns `light` on macOS 10.13 and below.
+
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const theme = await appWindow.theme();
 ```
@@ -1342,15 +1228,11 @@ const theme = await appWindow.theme();
 
 `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
 
-The system theme.
+The window theme.
 
 #### Inherited from
 
 [WindowManager](window.WindowManager.md).[theme](window.WindowManager.md#theme)
-
-#### Defined in
-
-[window.ts:663](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L663)
 
 ___
 
@@ -1360,8 +1242,9 @@ ___
 
 Toggles the window maximized state.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.toggleMaximize();
 ```
@@ -1376,10 +1259,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[toggleMaximize](window.WindowManager.md#togglemaximize)
 
-#### Defined in
-
-[window.ts:867](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L867)
-
 ___
 
 ### unmaximize
@@ -1388,8 +1267,9 @@ ___
 
 Unmaximizes the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.unmaximize();
 ```
@@ -1404,10 +1284,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[unmaximize](window.WindowManager.md#unmaximize)
 
-#### Defined in
-
-[window.ts:842](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L842)
-
 ___
 
 ### unminimize
@@ -1416,8 +1292,9 @@ ___
 
 Unminimizes the window.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appWindow } from '@tauri-apps/api/window';
 await appWindow.unminimize();
 ```
@@ -1432,10 +1309,6 @@ A promise indicating the success or failure of the operation.
 
 [WindowManager](window.WindowManager.md).[unminimize](window.WindowManager.md#unminimize)
 
-#### Defined in
-
-[window.ts:917](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L917)
-
 ___
 
 ### getByLabel
@@ -1444,8 +1317,9 @@ ___
 
 Gets the WebviewWindow for the webview associated with the given label.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { WebviewWindow } from '@tauri-apps/api/window';
 const mainWindow = WebviewWindow.getByLabel('main');
 ```
@@ -1461,7 +1335,3 @@ const mainWindow = WebviewWindow.getByLabel('main');
 ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
 
 The WebviewWindow instance to communicate with the webview or null if the webview doesn't exist.
-
-#### Defined in
-
-[window.ts:1589](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1589)

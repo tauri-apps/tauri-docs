@@ -52,10 +52,10 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Events can be listened using `appWindow.listen`:
 ```typescript
-import { appWindow } from '@tauri-apps/api/window'
-appWindow.listen('tauri://move', ({ event, payload }) => {
-  const { x, y } = payload // payload here is a `PhysicalPosition`
-})
+import { appWindow } from "@tauri-apps/api/window"
+appWindow.listen("tauri://move", ({ event, payload }) => {
+  const { x, y } = payload; // payload here is a `PhysicalPosition`
+});
 ```
 
 Window-specific events emitted by the backend:
@@ -77,6 +77,16 @@ type MovePayload = PhysicalPosition
 #### 'tauri://close-requested'
 Emitted when the user requests the window to be closed.
 If a listener is registered for this event, Tauri won't close the window so you must call `appWindow.close()` manually.
+```typescript
+import { appWindow } from "@tauri-apps/api/window";
+import { confirm } from '@tauri-apps/api/dialog';
+appWindow.listen("tauri://close-requested", async ({ event, payload }) => {
+  const confirmed = await confirm('Are you sure?');
+  if (confirmed) {
+    await appWindow.close();
+  }
+});
+```
 
 #### 'tauri://focus'
 Emitted when the window gains focus.
@@ -132,7 +142,7 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:237](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L237)
+[window.ts:247](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L247)
 
 ___
 
@@ -142,7 +152,7 @@ ___
 
 #### Defined in
 
-[window.ts:116](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L116)
+[window.ts:126](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L126)
 
 ## Variables
 
@@ -154,7 +164,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1599](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1599)
+[window.ts:1615](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L1615)
 
 ## Functions
 
@@ -164,8 +174,9 @@ The WebviewWindow for the current window.
 
 Returns the list of all the monitors available on the system.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { availableMonitors } from '@tauri-apps/api/window';
 const monitors = availableMonitors();
 ```
@@ -173,10 +184,6 @@ const monitors = availableMonitors();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
-
-#### Defined in
-
-[window.ts:1738](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1738)
 
 ___
 
@@ -187,8 +194,9 @@ ___
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { currentMonitor } from '@tauri-apps/api/window';
 const monitor = currentMonitor();
 ```
@@ -196,10 +204,6 @@ const monitor = currentMonitor();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
-
-#### Defined in
-
-[window.ts:1693](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1693)
 
 ___
 
@@ -215,10 +219,6 @@ Gets an instance of `WebviewWindow` for all available webview windows.
 
 The list of WebviewWindow.
 
-#### Defined in
-
-[window.ts:295](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L295)
-
 ___
 
 ### getCurrent
@@ -233,10 +233,6 @@ Get an instance of `WebviewWindow` for the current webview window.
 
 The current WebviewWindow.
 
-#### Defined in
-
-[window.ts:283](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L283)
-
 ___
 
 ### primaryMonitor
@@ -246,8 +242,9 @@ ___
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { primaryMonitor } from '@tauri-apps/api/window';
 const monitor = primaryMonitor();
 ```
@@ -255,7 +252,3 @@ const monitor = primaryMonitor();
 #### Returns
 
 `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
-
-#### Defined in
-
-[window.ts:1716](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/window.ts#L1716)

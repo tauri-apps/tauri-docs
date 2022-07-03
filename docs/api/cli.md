@@ -138,23 +138,48 @@ USAGE:
     cargo-tauri build [OPTIONS] [--] [ARGS]...
 
 ARGS:
-    <ARGS>...    Command line arguments passed to the runner
+    <ARGS>...
+            Command line arguments passed to the runner
 
 OPTIONS:
-    -b, --bundles <BUNDLES>...      Space or comma separated list of bundles to package
-    -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
-    -d, --debug                     Builds with the debug flag
-    -f, --features <FEATURES>...    Space or comma separated list of features to activate
-    -h, --help                      Print help information
-    -r, --runner <RUNNER>           Binary to use to build the application, defaults to `cargo`
-    -t, --target <TARGET>           Target triple to build against. It must be one of the values
-                                    outputted by `$rustc --print target-list` or
-                                    `universal-apple-darwin` for an universal macOS application.
-                                    Note that compiling an universal macOS application requires both
-                                    `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be
-                                    installed
-    -v, --verbose                   Enables verbose logging
-    -V, --version                   Print version information
+    -b, --bundles <BUNDLES>...
+            Space or comma separated list of bundles to package.
+            
+            Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and
+            `updater` on all platforms. If `none` is specified, the bundler will be skipped.
+            
+            Note that the `updater` bundle is not automatically added so you must specify it if the
+            updater is enabled.
+
+    -c, --config <CONFIG>
+            JSON string or path to JSON file to merge with tauri.conf.json
+
+    -d, --debug
+            Builds with the debug flag
+
+    -f, --features <FEATURES>...
+            Space or comma separated list of features to activate
+
+    -h, --help
+            Print help information
+
+    -r, --runner <RUNNER>
+            Binary to use to build the application, defaults to `cargo`
+
+    -t, --target <TARGET>
+            Target triple to build against.
+            
+            It must be one of the values outputted by `$rustc --print target-list` or
+            `universal-apple-darwin` for an universal macOS application.
+            
+            Note that compiling an universal macOS application requires both `aarch64-apple-darwin`
+            and `x86_64-apple-darwin` targets to be installed.
+
+    -v, --verbose
+            Enables verbose logging
+
+    -V, --version
+            Print version information
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.

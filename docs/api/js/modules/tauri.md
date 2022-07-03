@@ -23,8 +23,9 @@ Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://as
 Additionally, the `asset` must be allowlisted under `tauri.conf.json > tauri > allowlist > protocol`,
 and its access scope must be defined on the `assetScope` array on the same `protocol` object.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { appDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 const appDirPath = await appDir();
@@ -52,10 +53,6 @@ video.load();
 
 the URL that can be used as source on the webview.
 
-#### Defined in
-
-[tauri.ts:121](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L121)
-
 ___
 
 ### invoke
@@ -64,8 +61,9 @@ ___
 
 Sends a message to the backend.
 
-**`example`**
-```typescript
+**`Example`**
+
+ ```typescript
 import { invoke } from '@tauri-apps/api/tauri';
 await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 ```
@@ -89,10 +87,6 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 
 A promise resolving or rejecting to the backend response.
 
-#### Defined in
-
-[tauri.ts:73](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L73)
-
 ___
 
 ### transformCallback
@@ -114,7 +108,3 @@ The backend uses the identifier to `eval()` the callback.
 `number`
 
 A unique identifier associated with the callback function.
-
-#### Defined in
-
-[tauri.ts:34](https://github.com/tauri-apps/tauri/blob/13c2fc1/tooling/api/src/tauri.ts#L34)
