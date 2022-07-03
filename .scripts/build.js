@@ -5,10 +5,12 @@ async function run() {
   try {
     console.log('Env:', process.env.I18N_BUILD)
     var locales
+    // Load in the config file
     var configFile = process.cwd() + '/docusaurus.config.js'
     var config = fs.readFileSync(configFile).toString()
 
     if (process.env.I18N_BUILD == true) {
+      // This is used to build for ALL translated languages, even those not published
       console.log('Running an i18n build...')
       locales = fs.readdirSync('i18n')
 
@@ -21,6 +23,7 @@ async function run() {
       fs.writeFileSync(configFile, config)
       console.log('i18n config saved.')
     } else {
+      // This is just a normal production build
       console.log('Running a production deploy build...')
       locales = config.match(/(?<=locales: )(.*)(?=,)/g)
       locales = locales[0].replaceAll("'", '"')
