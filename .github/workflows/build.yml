@@ -29,6 +29,7 @@ jobs:
         run: yarn i18n:sync:dryrun
       - name: Get locales
         id: generate
+#       Below is not currently used
         env:
           I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
@@ -64,7 +65,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: config
-      - run: cat ./docusaurus.config.js
       - name: Setup yarn
         run: yarn
       - name: Build English locale
@@ -98,6 +98,7 @@ jobs:
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
+          production-branch: feat/i18n-evergreen
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
         env:
