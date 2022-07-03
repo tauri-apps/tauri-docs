@@ -22,8 +22,8 @@ async function run() {
       console.log('i18n config saved.')
     } else {
       console.log('Running a production deploy build...')
-      locales = config.match(/(?<=locales: )(.*)(?=,)/)
-      console.log(`Found the locale string ${locales}`)
+      locales = config.match(/(?<=locales: )(.*)(?=,)/g)
+      locales = locales[0].replaceAll("'", '"')
       locales = JSON.parse(locales)
     }
     console.log(`Found the locales ${locales}`)
