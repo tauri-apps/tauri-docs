@@ -18,14 +18,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - name: Setup yarn
+        run: yarn
       - name: Download i18n files
-        id: generate
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
-        run: |
-          yarn
-          yarn i18n:sync:dryrun
-          node ./.scripts/ci-prebuild.js
+        run: yarn i18n:sync:dryrun
+      - name: Get locales
+        id: generate
+        run: node ./.scripts/build.js
       - name: Save translations
         uses: actions/upload-artifact@v3
         with:
@@ -37,7 +38,6 @@ jobs:
         with:
           name: config
           path: ./docusaurus.config.i18n.js
-          if-no-files-found: error
 
   build-locales:
     needs: build-locale-list
