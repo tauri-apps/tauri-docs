@@ -8,7 +8,7 @@ async function run() {
     var configFile = process.cwd() + '/docusaurus.config.js'
     var config = fs.readFileSync(configFile).toString()
 
-    if (process.env.I18N_BUILD) {
+    if (process.env.I18N_BUILD == true) {
       console.log('Running an i18n build...')
       locales = fs.readdirSync('i18n')
 
