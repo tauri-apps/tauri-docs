@@ -5,6 +5,9 @@
 name: build
 
 on:
+  pull_request:
+    branches:
+      - feat/i18n-evergreen
   push:
     branches:
       - feat/i18n-evergreen
@@ -82,6 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
+      - uses: actions/checkout@v3
       - name: Retrieve build folder
         uses: actions/download-artifact@v3
         with:
@@ -91,6 +95,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: './build'
+          netlify-config-path: ./netlify.toml
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
         env:
