@@ -46,7 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@actions/core": "^1.9.0",
-    "esbuild-loader": "^2.19.0"
+    "@actions/core": "1.9.0",
+    "esbuild-loader": "2.19.0"
   }
 }
