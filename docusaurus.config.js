@@ -10,7 +10,16 @@ try {
   lastestReleasedVersion = JSON.parse(
     fs.readFileSync('versions.json', 'utf-8')
   )[0]
-} catch {}
+} catch {
+  console.error()
+}
+
+var baseUrl =
+  process.env.LOCALE === 'en' || process.env.LOCALE == undefined
+    ? '/'
+    : `/${process.env.LOCALE}/`
+
+console.log('Base URL:', baseUrl)
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
@@ -189,7 +198,7 @@ const siteConfig = {
     'Build smaller, faster, and more secure desktop applications with a web frontend',
   organizationName: 'Tauri Apps',
   projectName: 'tauri',
-  baseUrl: `/`,
+  baseUrl: baseUrl,
   favicon: '/meta/favicon-32x32.png',
   url: 'https://tauri.app',
   i18n: {
@@ -326,6 +335,17 @@ const siteConfig = {
       },
     ],
   ],
+
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve('esbuild-loader'),
+      options: {
+        loader: 'tsx',
+        format: isServer ? 'cjs' : undefined,
+        target: isServer ? 'node12' : 'es2017',
+      },
+    }),
+  },
 }
 
 module.exports = siteConfig

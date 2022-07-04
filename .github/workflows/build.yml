@@ -1,0 +1,116 @@
+# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
+
+name: build
+
+on:
+  pull_request:
+    branches:
+      - dev
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-locale-list:
+    runs-on: ubuntu-latest
+    environment: dev
+    outputs:
+      locale-list: ${{ steps.generate.outputs.locale-list }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Setup yarn
+        run: yarn
+      - name: Generate i18n files
+        run: yarn docusaurus write-translations
+      - name: Upload i18n files
+        # Eventually make --dryrun conditional based on which branch you're in
+        # if: github.ref == 'refs/heads/dev'
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
+        run: yarn crowdin upload --dryrun
+      - name: Download i18n files
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
+        run: yarn crowdin download
+      - name: Get locales
+        id: generate
+        # Below is not currently used but will be used for evergreen
+        # env:
+        #   I18N_BUILD: ${{ github.ref == 'i18n' }}
+        run: node ./.scripts/build.js
+      - name: Save translations
+        uses: actions/upload-artifact@v3
+        with:
+          name: i18n
+          path: i18n
+          if-no-files-found: error
+      - name: Save config
+        uses: actions/upload-artifact@v3
+        with:
+          name: config
+          path: ./docusaurus.config.js
+          if-no-files-found: error
+
+  build-locales:
+    needs: build-locale-list
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Retrieve translations
+        id: i18n
+        uses: actions/download-artifact@v3
+        with:
+          name: i18n
+          path: i18n
+      - name: Retrieve config
+        id: config
+        uses: actions/download-artifact@v3
+        with:
+          name: config
+      - name: Setup yarn
+        run: yarn
+      - name: Build English locale
+        if: matrix.locale == 'en'
+        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js
+      - name: Build non-English locale
+        if: matrix.locale != 'en'
+        env:
+          LOCALE: ${{ matrix.locale }}
+        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js --out-dir ./build/${{ matrix.locale }}
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+          if-no-files-found: error
+
+  deploy-to-netlify:
+    needs: build-locales
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v3
+      - name: Retrieve build folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './build'
+          netlify-config-path: ./netlify.toml
+          production-branch: dev
+          alias: deploy-preview-${{ github.event.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+          fails-without-credentials: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
