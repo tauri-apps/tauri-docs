@@ -19,10 +19,6 @@ GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles 
 The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. If you need support for newer macOS APIs like `window.print` that is only supported from macOS version `11.0`
 onwards, you can change the [`tauri.bundle.macOS.minimumSystemVersion`]. This will in turn set the `Info.plist` [LSMinimumSystemVersion] property and the `MACOSX_DEPLOYMENT_TARGET` environment variable.
 
-:::caution
-macOS High Sierra (10.13) no longer receives security updates from Apple. You should target macOS Catalina (10.15) if possible.
-:::
-
 ## Binary Targets
 
 macOS applications can target Apple Silicon, Intel-based Mac computers, or Universal macOS binaries that work on both architectures. By default, the Tauri CLI uses your machine's architecture, but you can configure a different target using the `--target` flag:
