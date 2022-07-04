@@ -18,6 +18,8 @@ jobs:
     environment: dev
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
+    env:
+      PRODUCTION_RUN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/dev' }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -25,12 +27,16 @@ jobs:
         run: yarn
       - name: Generate i18n files
         run: yarn docusaurus write-translations
-      - name: Upload i18n files
-        # Eventually make --dryrun conditional based on which branch you're in
-        # if: github.ref == 'refs/heads/dev'
+      - name: Dryrun upload i18n files
+        if: ${{ !env.PRODUCTION_RUN }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload --dryrun
+      - name: Upload i18n files
+        if: ${{ env.PRODUCTION_RUN }}
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
+        run: yarn crowdin upload
       - name: Download i18n files
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
