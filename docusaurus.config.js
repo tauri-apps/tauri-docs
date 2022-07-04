@@ -19,8 +19,6 @@ var baseUrl =
     ? '/'
     : `/${process.env.LOCALE}/`
 
-console.log('Base URL:', baseUrl)
-
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
 const devToUrl = 'https://dev.to/tauri'
@@ -226,8 +224,8 @@ const siteConfig = {
       hideOnScroll: false,
       logo: {
         alt: 'Tauri Logo',
-        src: 'meta/tauri_logo_pride_light.svg',
-        srcDark: 'meta/tauri_logo_pride_dark.svg',
+        src: 'meta/tauri_logo_light.svg',
+        srcDark: 'meta/tauri_logo_dark.svg',
       },
       items: navbarItems,
     },
