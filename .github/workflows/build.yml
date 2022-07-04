@@ -7,10 +7,10 @@ name: build
 on:
   pull_request:
     branches:
-      - feat/i18n-evergreen
+      - dev
   push:
     branches:
-      - feat/i18n-evergreen
+      - dev
 
 jobs:
   build-locale-list:
@@ -106,7 +106,7 @@ jobs:
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
-          production-branch: feat/i18n-evergreen
+          production-branch: dev
           alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
