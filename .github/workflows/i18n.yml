@@ -28,5 +28,7 @@ jobs:
         run: |
           git checkout $I18N_BRANCH
           git merge $MAIN_BRANCH
-      - name: Call workflow
-        uses: ./.github/workflows/build.yml
+
+  call-workflow:
+    needs: build
+    uses: ./.github/workflows/build.yml
