@@ -13,10 +13,13 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 
 ## Requirements
 
-- Xcode 11 or above.
-- An Apple Developer account enrolled in the [Apple Developer Program].
+- macOS 10.13.6 or later
+- Xcode 10 or later
+- An Apple Developer account enrolled in the [Apple Developer Program]
 
-## tl;dr
+The prerequisites above are also the minimum conditions for notarization. For more details please read the developer article on [notarizing macOS software before distribution][notarizing macOS software before distribution].
+
+## Setting up Environment Variables
 
 The Tauri code signing and notarization process is configured through the following environment variables:
 
@@ -141,6 +144,7 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 
 [tauri-apps/tauri#592]: https://github.com/tauri-apps/tauri/issues/592
 [apple developer program]: https://developer.apple.com/programs/
+[notarizing macOS software before distribution]: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
 [app-specific password]: https://support.apple.com/en-ca/HT204397
 [create a certificate signing request]: https://help.apple.com/developer-account/#/devbfa00fef7
 [certificates, ids & profiles page]: https://developer.apple.com/account/resources/certificates/list
