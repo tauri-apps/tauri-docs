@@ -33,12 +33,12 @@ jobs:
       - name: Generate i18n files
         run: yarn docusaurus write-translations
       - name: Dryrun upload i18n files
-        if: ${{ github.event_name != 'push' }}
+        if: ${{ github.ref != 'refs/heads/dev' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload --dryrun
       - name: Upload i18n files
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
