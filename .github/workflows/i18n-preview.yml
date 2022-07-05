@@ -19,37 +19,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Check if branch exists
-        id: branch-exists
-        run: echo "::set-output name=BRANCHES::$(git branch --list $I18N_BRANCH)"
-      - name: Fetch origin branches
-        run: git fetch
-      - name: Create new branch
-        if: ${{ steps.branch-exists.outputs.BRANCHES == ''}}
-        run: |
-          git branch $I18N_BRANCH $MAIN_BRANCH
-          git checkout $I18N_BRANCH
-      - name: Update branch
-        if: ${{ steps.branch-exists.outputs.BRANCHES != ''}}
-        run: |
-          git checkout $I18N_BRANCH
-          git merge $MAIN_BRANCH
       - name: Update config
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: |
           yarn
           node ./.scripts/i18n-preview.js
-      - name: Push branch
+      - name: Prep git
         run: |
           git config --global user.name 'Tauri Bot'
           git config --global user.email 'tauri-bot@tauri.studio'
-          git commit -a -m "Add locales to docusaurus.config.js"
-          git push --set-upstream origin i18n-preview
-
-  call-workflow:
-    needs: build
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-    with:
-      ref: i18n-preview
+      - name: Create pull request
+        # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
+        uses: tauri-apps/create-pull-request@v3
+#         if: github.event_name != 'pull_request' && github.event_name != 'push'
+#         with:
+#           token: ${{ secrets.TAURI_BOT_PAT }}
+#           commit-message: 'chore(docs): Update Rust & TS docs'
+#           branch: docs/release
+#           path: tauri-docs
+#           title: Update Docs
+#           labels: 'new release'
+#           body: |
+#             These are the updated docs from the most recent release.
