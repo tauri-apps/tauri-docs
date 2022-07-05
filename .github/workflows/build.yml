@@ -11,8 +11,16 @@ on:
   push:
     branches:
       - dev
+  workflow_call:
 
 jobs:
+  check-if-workflow-call:
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ github.event_name == 'workflow_call' }}
+        run: |
+          echo 'From a workflowcall'
+          exit 1
   build-locale-list:
     runs-on: ubuntu-latest
     environment: dev
