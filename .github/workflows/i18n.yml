@@ -6,6 +6,10 @@ on:
   workflow_dispatch:
   push:
     branches: [i18n]
+    
+# Check if a branch exists
+# If so, update it
+# If not, create it from 'dev'
   
 
 jobs:
@@ -14,11 +18,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Check if branch exists
+        run: git branch --list i18n
