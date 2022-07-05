@@ -40,6 +40,8 @@ jobs:
           body: |
             **DO NOT MERGE**
             
-            This is used to create an ever-green deploy preview for Crowdin translations.
+            This is used to create an constantly-refreshed deploy preview for Crowdin translations.
+            
+            A new deploy is scheduled for 12am UTC every day.
 
 
