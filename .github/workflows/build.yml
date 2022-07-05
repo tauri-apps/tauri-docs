@@ -33,7 +33,6 @@ jobs:
       - name: Set branch from ref
         if: ${{ !inputs.ref }}
         run: echo "BRANCH=$(echo ${{ github.ref }})" >> $GITHUB_ENV
-      - run: echo $BRANCH
       - uses: actions/checkout@v3
         with:
           ref: ${{ env.BRANCH }}
