@@ -23,6 +23,9 @@ jobs:
         run: |
           yarn
           node ./.scripts/i18n-preview.js
+      - name: Create timestamp file
+        # This is done so that there is always a change in the PR so a re-deploy is triggered
+        run: date > timestamp.txt
       - name: Configure git
         run: |
           git config --global user.name 'Tauri Bot'
