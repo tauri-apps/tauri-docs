@@ -17,12 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+      - name: Setup yarn
+        run: yarn install --frozen-lockfile
       - name: Update config
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
-        run: |
-          yarn
-          node ./.scripts/i18n-preview.js
+        run: node ./.scripts/i18n-preview.js
       - name: Create timestamp file
         # This is done so that there is always a change in the PR so a re-deploy is triggered
         run: date > timestamp.txt

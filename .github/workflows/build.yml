@@ -21,8 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
       - name: Setup yarn
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Generate i18n files
         run: yarn docusaurus write-translations
       - name: Dryrun upload i18n files
@@ -74,8 +76,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: config
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
       - name: Setup yarn
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Build English locale
         if: matrix.locale == 'en'
         run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js
