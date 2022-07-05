@@ -34,4 +34,4 @@ jobs:
     needs: build
     uses: ./.github/workflows/build.yml
     with:
-      ref: ${{ env.I18N_BRANCH }}
+      ref: i18n
