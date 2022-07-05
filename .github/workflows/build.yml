@@ -32,7 +32,7 @@ jobs:
         run: echo "BRANCH=$(echo ${{ inputs.ref }})" >> $GITHUB_ENV
       - name: Set branch from ref
         if: ${{ !inputs.ref }}
-        run: echo "BRANCH=$(echo Run from a non workflow call)" >> $GITHUB_ENV
+        run: echo "BRANCH=$(echo ${{ github.ref }})" >> $GITHUB_ENV
       - run: echo $BRANCH
       - uses: actions/checkout@v3
         with:
