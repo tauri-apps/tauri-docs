@@ -16,6 +16,9 @@ on:
       ref:
         required: true
         type: string
+    secrets:
+      CROWDIN_TOKEN:
+        required: true
 
 env:
   BRANCH: invalid
