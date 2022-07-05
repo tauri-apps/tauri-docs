@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v3
       - name: Check if branch exists
         id: branch-exists
         run: echo "::set-output name=BRANCHES::$(git branch --list $I18N_BRANCH)"
+      - name: Fetch origin branches
+        run: git fetch
       - name: Create new branch
         if: ${{ steps.branch-exists.outputs.BRANCHES == ''}}
         run: |
