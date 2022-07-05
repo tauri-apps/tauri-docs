@@ -11,17 +11,6 @@ on:
   push:
     branches:
       - dev
-  workflow_call:
-    inputs:
-      ref:
-        required: true
-        type: string
-    secrets:
-      CROWDIN_TOKEN:
-        required: true
-
-env:
-  BRANCH: invalid
 
 jobs:
   build-locale-list:
@@ -30,27 +19,19 @@ jobs:
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
-      - name: Set branch from workflow_call
-        if: inputs.ref
-        run: echo "BRANCH=$(echo ${{ inputs.ref }})" >> $GITHUB_ENV
-      - name: Set branch from ref
-        if: ${{ !inputs.ref }}
-        run: echo "BRANCH=$(echo ${{ github.ref }})" >> $GITHUB_ENV
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.BRANCH }}
       - uses: actions/setup-node@v3
       - name: Setup yarn
         run: yarn
       - name: Generate i18n files
         run: yarn docusaurus write-translations
       - name: Dryrun upload i18n files
-        if: ${{ github.ref != 'refs/heads/dev' }}
+        if: ${{ github.event_name != 'push' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload --dryrun
       - name: Upload i18n files
-        if: ${{ github.ref == 'refs/heads/dev' }}
+        if: ${{ github.event_name == 'push' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
@@ -82,8 +63,6 @@ jobs:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.BRANCH }}
       - name: Retrieve translations
         id: i18n
         uses: actions/download-artifact@v3
@@ -118,8 +97,6 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.BRANCH }}
       - name: Retrieve build folder
         uses: actions/download-artifact@v3
         with:
@@ -130,7 +107,7 @@ jobs:
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
-          production-branch: ${{ env.BRANCH }}
+          production-branch: dev
           alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
