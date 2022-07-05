@@ -32,13 +32,11 @@ jobs:
       - name: Create pull request
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3
-#         if: github.event_name != 'pull_request' && github.event_name != 'push'
-#         with:
+        with:
+          title: I18n Preview
+          branch: i18n-preview
+          body: |
+            **DO NOT MERGE**
+            This is used to create an ever-green deploy preview for Crowdin translations
 #           token: ${{ secrets.TAURI_BOT_PAT }}
-#           commit-message: 'chore(docs): Update Rust & TS docs'
-#           branch: docs/release
-#           path: tauri-docs
-#           title: Update Docs
-#           labels: 'new release'
-#           body: |
-#             These are the updated docs from the most recent release.
+
