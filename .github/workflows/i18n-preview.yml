@@ -25,7 +25,7 @@ jobs:
         run: |
           yarn
           node ./.scripts/i18n-preview.js
-      - name: Prep git
+      - name: Configure git
         run: |
           git config --global user.name 'Tauri Bot'
           git config --global user.email 'tauri-bot@tauri.studio'
@@ -33,10 +33,12 @@ jobs:
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3
         with:
-          title: I18n Preview
+          title: I18N Preview
           branch: i18n-preview
+          draft: true
+          token: ${{ secrets.TAURI_BOT_PAT }}
           body: |
             **DO NOT MERGE**
             This is used to create an ever-green deploy preview for Crowdin translations
-#           token: ${{ secrets.TAURI_BOT_PAT }}
+
 
