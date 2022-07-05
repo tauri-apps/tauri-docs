@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - name: Check if branch exists
         id: branch-exists
         run: echo "::set-output name=BRANCHES::$(git branch --list $I18N_BRANCH)"
@@ -29,6 +30,9 @@ jobs:
         run: |
           git checkout $I18N_BRANCH
           git merge $MAIN_BRANCH
+      - name: Update config
+        run: node ./.scripts/i18n-preview.js
+      - run: cat ./docusaurus.config.js
 
   call-workflow:
     needs: build
