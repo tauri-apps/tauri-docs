@@ -1,15 +1,13 @@
+# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
+
 name: i18n-preview
 
 on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
-  push:
-    branches: [i18n-development]
-
-env:
-  MAIN_BRANCH: origin/i18n-development
-  I18N_BRANCH: i18n-preview
 
 jobs:
   build:
@@ -39,9 +37,7 @@ jobs:
           token: ${{ secrets.TAURI_BOT_PAT }}
           body: |
             **DO NOT MERGE**
-            
+
             This is used to create an constantly-refreshed deploy preview for Crowdin translations.
-            
+
             A new deploy is scheduled for 12am UTC every day.
-
-
