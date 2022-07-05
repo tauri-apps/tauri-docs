@@ -32,5 +32,4 @@ jobs:
 
   call-workflow:
     needs: build
-    environment: dev
     uses: ./.github/workflows/build.yml
