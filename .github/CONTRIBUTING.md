@@ -1,6 +1,6 @@
 # Contributing
 
-## Writing/fixing docs
+## Writing/Fixing Docs
 
 Feel free to open an issue/a PR if you find something wrong in the docs.
 
@@ -58,7 +58,13 @@ On a push to the main branch, a build is triggered and then the resulting files 
 
 ## Internationalization (i18n)
 
-We're working with Crowdin to manage translations; if you feel like you want to lend a hand for translations, take a look at the documentation project: https://tauri.crowdin.com/documentation
+We're working with Crowdin to manage translations; if you feel like you want to lend a hand for translations, take a look at the documentation project: https://tauri.crowdin.com/documentation.
+
+Translations are fetched and built built nightly at 12am UTC and then deployed as a preview on Netlify through a matrix of GitHub CI runners.
+
+You can see the latest deploy preview here:
+
+[![i18n-preview](https://github.com/tauri-apps/tauri-docs/actions/workflows/i18n-preview.yml/badge.svg?branch=i18n-preview)](https://github.com/tauri-apps/tauri-docs/actions/workflows/i18n-preview.yml)
 
 To add a language to the site, add it to `docusaurus.config.js`'s `siteconfig.i18n.locales` object.
 

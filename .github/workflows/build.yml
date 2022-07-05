@@ -41,9 +41,6 @@ jobs:
         run: yarn crowdin download
       - name: Get locales
         id: generate
-        # Below is not currently used but will be used for evergreen
-        # env:
-        #   I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
       - name: Save translations
         uses: actions/upload-artifact@v3
