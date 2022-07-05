@@ -14,19 +14,13 @@ on:
   workflow_call:
 
 jobs:
-  check-if-workflow-call:
-    runs-on: ubuntu-latest
-    steps:
-      - if: ${{ github.event_name == 'workflow_call' }}
-        run: |
-          echo 'From a workflowcall'
-          exit 1
   build-locale-list:
     runs-on: ubuntu-latest
     environment: dev
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
+      - run: echo ${{ github.ref }}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - name: Setup yarn
@@ -49,9 +43,6 @@ jobs:
         run: yarn crowdin download
       - name: Get locales
         id: generate
-        # Below is not currently used but will be used for evergreen
-        # env:
-        #   I18N_BUILD: ${{ github.ref == 'i18n' }}
         run: node ./.scripts/build.js
       - name: Save translations
         uses: actions/upload-artifact@v3
