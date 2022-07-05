@@ -31,6 +31,8 @@ jobs:
           git checkout $I18N_BRANCH
           git merge $MAIN_BRANCH
       - name: Update config
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: |
           yarn
           node ./.scripts/i18n-preview.js
