@@ -12,6 +12,10 @@ on:
     branches:
       - dev
   workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
 
 env:
   BRANCH: dev
@@ -23,7 +27,7 @@ jobs:
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
-      - run: echo ${{ env.BRANCH }}
+      - run: echo ${{ inputs.ref }} >> $BRANCH
       - uses: actions/checkout@v3
         with:
           ref: ${{ env.BRANCH }}
