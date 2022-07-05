@@ -19,4 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check if branch exists
-        run: git branch --list i18n
+        id: branch-exists
+        run: echo '::set-output name=BRANCH_EXISTS::git branch --list i18n'
+      - name: Check result
+        run: echo "Does the branch exist? ${{ steps.branch-exists.outputs.BRANCH_EXISTS }}"
