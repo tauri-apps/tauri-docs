@@ -9,7 +9,7 @@ on:
 
 env:
   MAIN_BRANCH: dev
-  I18N_BRANCH: i18n
+  I18N_BRANCH: i18ntest
 
 jobs:
   build:
