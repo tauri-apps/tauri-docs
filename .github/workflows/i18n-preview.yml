@@ -33,12 +33,13 @@ jobs:
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3
         with:
-          title: I18N Preview
+          title: i18n Preview
           branch: i18n-preview
           draft: true
           token: ${{ secrets.TAURI_BOT_PAT }}
           body: |
             **DO NOT MERGE**
-            This is used to create an ever-green deploy preview for Crowdin translations
+            
+            This is used to create an ever-green deploy preview for Crowdin translations.
 
 
