@@ -1402,7 +1402,7 @@
     njre "^0.2.0"
     shelljs "^0.8.4"
 
-"@crowdin/crowdin-api-client@^1.18.2":
+"@crowdin/crowdin-api-client@1.18.2":
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.18.2.tgz#dedb44a8da33242765bce911680e849ee60eb709"
   integrity sha512-YmK21yz9xUAi4Nsd4H8HEjtq3Jg7M6Uc1KMRIVFedvetP1/XEoGTzmeAW9i2khp8COxU82DiRKe84JoPQFYYQQ==
