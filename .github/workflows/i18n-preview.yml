@@ -31,8 +31,10 @@ jobs:
           git checkout $I18N_BRANCH
           git merge $MAIN_BRANCH
       - name: Update config
-        run: node ./.scripts/i18n-preview.js
-      - run: cat ./docusaurus.config.js
+        run: |
+          yarn
+          node ./.scripts/i18n-preview.js
+          cat ./docusaurus.config.js
 
   call-workflow:
     needs: build
