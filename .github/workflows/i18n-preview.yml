@@ -8,7 +8,7 @@ on:
     branches: [i18n-development]
 
 env:
-  MAIN_BRANCH: origin/dev
+  MAIN_BRANCH: origin/i18n-development
   I18N_BRANCH: i18n-preview
 
 jobs:
