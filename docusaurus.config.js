@@ -203,7 +203,7 @@ const siteConfig = {
   url: 'https://tauri.app',
   i18n: {
     defaultLocale: 'en',
-    locales: ["fr","es","ar","de","it","ja","ko","ru","sv","tr","zh","pt","en"],
+    locales: ['en'],
   },
   themeConfig: {
     prism: {
