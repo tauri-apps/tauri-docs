@@ -24,7 +24,9 @@ jobs:
         run: echo "::set-output name=BRANCHES::$(git branch --list $I18N_BRANCH)"
       - name: Create new branch
         if: ${{ steps.branch-exists.outputs.BRANCHES == ''}}
-        run: git branch $I18N_BRANCH
+        run: |
+          git branch $I18N_BRANCH
+          git checkout $I18N_BRANCH
       - name: Update branch
         if: ${{ steps.branch-exists.outputs.BRANCHES != ''}}
         run: |
