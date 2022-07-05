@@ -33,3 +33,5 @@ jobs:
   call-workflow:
     needs: build
     uses: ./.github/workflows/build.yml
+    with:
+      ref: FROMI18N
