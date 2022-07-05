@@ -37,7 +37,9 @@ jobs:
           yarn
           node ./.scripts/i18n-preview.js
       - name: Push branch
-        run: git push      
+        run: |
+          git commit -a -m "Add locales to docusaurus.config.js"
+          git push      
 
   call-workflow:
     needs: build
