@@ -27,10 +27,10 @@ jobs:
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
-      - name: Set branch name from ref
+      - name: Set branch from workflow_call
         if: ${{ github.event_name == 'workflow_call' }}
         run: echo "BRANCH=$(echo ${{ inputs.ref }})" >> $GITHUB_ENV
-      - name: Set branch name from ref
+      - name: Set branch from ref
         if: ${{ github.event_name != 'workflow_call' }}
         run: echo "BRANCH=$(echo Run from a non workflow call)" >> $GITHUB_ENV
       - run: echo $BRANCH
