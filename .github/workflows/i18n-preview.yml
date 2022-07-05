@@ -38,6 +38,8 @@ jobs:
           node ./.scripts/i18n-preview.js
       - name: Push branch
         run: |
+          git config --global user.name 'Tauri Bot'
+          git config --global user.email 'tauri-bot@tauri.studio'
           git commit -a -m "Add locales to docusaurus.config.js"
           git push      
 
