@@ -36,7 +36,8 @@ jobs:
         run: |
           yarn
           node ./.scripts/i18n-preview.js
-          cat ./docusaurus.config.js
+      - name: Push branch
+        run: git push      
 
   call-workflow:
     needs: build
