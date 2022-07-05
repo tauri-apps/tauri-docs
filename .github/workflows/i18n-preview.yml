@@ -9,7 +9,7 @@ on:
 
 env:
   MAIN_BRANCH: dev
-  I18N_BRANCH: i18n
+  I18N_BRANCH: i18n-preview
 
 jobs:
   build:
@@ -34,4 +34,4 @@ jobs:
     needs: build
     uses: ./.github/workflows/build.yml
     with:
-      ref: i18n
+      ref: i18n-preview
