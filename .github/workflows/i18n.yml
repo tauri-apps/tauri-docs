@@ -14,6 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: dev
 
     steps:
       - uses: actions/checkout@v3
@@ -31,4 +32,5 @@ jobs:
 
   call-workflow:
     needs: build
+    environment: dev
     uses: ./.github/workflows/build.yml

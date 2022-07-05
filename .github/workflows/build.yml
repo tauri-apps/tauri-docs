@@ -13,6 +13,9 @@ on:
       - dev
   workflow_call:
 
+env:
+  BRANCH: dev
+
 jobs:
   build-locale-list:
     runs-on: ubuntu-latest
@@ -20,8 +23,10 @@ jobs:
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
-      - run: echo ${{ github.ref }}
+      - run: echo ${{ env.BRANCH }}
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH }}
       - uses: actions/setup-node@v3
       - name: Setup yarn
         run: yarn
@@ -65,6 +70,8 @@ jobs:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH }}
       - name: Retrieve translations
         id: i18n
         uses: actions/download-artifact@v3
@@ -99,6 +106,8 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH }}
       - name: Retrieve build folder
         uses: actions/download-artifact@v3
         with:
@@ -109,7 +118,7 @@ jobs:
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
-          production-branch: dev
+          production-branch: ${{ env.BRANCH }}
           alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
