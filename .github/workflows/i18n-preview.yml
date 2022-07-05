@@ -43,7 +43,7 @@ jobs:
           git config --global user.name 'Tauri Bot'
           git config --global user.email 'tauri-bot@tauri.studio'
           git commit -a -m "Add locales to docusaurus.config.js"
-          git push      
+          git push --set-upstream origin i18n-preview
 
   call-workflow:
     needs: build
