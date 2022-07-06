@@ -38,17 +38,17 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[helpers/event.ts:41](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/helpers/event.ts#L41)
+[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L22)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: `LiteralUnion`<``"tauri://update"`` \| ``"tauri://update-available"`` \| ``"tauri://update-download-progress"`` \| ``"tauri://update-install"`` \| ``"tauri://update-status"`` \| ``"tauri://resize"`` \| ``"tauri://move"`` \| ``"tauri://close-requested"`` \| ``"tauri://focus"`` \| ``"tauri://blur"`` \| ``"tauri://scale-change"`` \| ``"tauri://menu"`` \| ``"tauri://file-drop"`` \| ``"tauri://file-drop-hover"`` \| ``"tauri://file-drop-cancelled"`` \| ``"tauri://theme-changed"``, `string`\>
+Ƭ **EventName**: `string`
 
 #### Defined in
 
-[helpers/event.ts:21](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/helpers/event.ts#L21)
+[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L20)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:43](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/helpers/event.ts#L43)
+[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L24)
 
 ## Functions
 
@@ -78,7 +78,7 @@ Emits an event to the backend.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { emit } from '@tauri-apps/api/event';
 await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 ```
@@ -104,14 +104,14 @@ Listen to an event from the backend.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { listen } from '@tauri-apps/api/event';
 const unlisten = await listen<string>('error', (event) => {
   console.log(`Got error in window ${event.windowLabel}, payload: ${payload}`);
 });
 
-// removes the listener later
-await unlisten();
+// you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
+unlisten();
 ```
 
 #### Type parameters
@@ -124,7 +124,7 @@ await unlisten();
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | [`EventName`](event.md#eventname) | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
 #### Returns
@@ -132,6 +132,7 @@ await unlisten();
 `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
+Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
 ___
 
@@ -143,7 +144,7 @@ Listen to an one-off event from the backend.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { once } from '@tauri-apps/api/event';
 interface LoadedPayload {
   loggedIn: boolean,
@@ -152,6 +153,9 @@ interface LoadedPayload {
 const unlisten = await once<LoadedPayload>('loaded', (event) => {
   console.log(`App is loaded, logggedIn: ${event.payload.loggedIn}, token: ${event.payload.token}`);
 });
+
+// you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
+unlisten();
 ```
 
 #### Type parameters
@@ -164,7 +168,7 @@ const unlisten = await once<LoadedPayload>('loaded', (event) => {
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `event` | [`EventName`](event.md#eventname) | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
 #### Returns
@@ -172,3 +176,4 @@ const unlisten = await once<LoadedPayload>('loaded', (event) => {
 `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
+Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

@@ -22,7 +22,7 @@ Parse the arguments provided to the current process and get the matches using th
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getMatches } from '@tauri-apps/api/cli';
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {

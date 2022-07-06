@@ -16,7 +16,7 @@ Exits immediately with the given `exitCode`.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { exit } from '@tauri-apps/api/process';
 await exit(1);
 ```
@@ -43,7 +43,7 @@ Exits the current instance of the app then relaunches it.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { relaunch } from '@tauri-apps/api/process';
 await relaunch();
 ```

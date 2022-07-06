@@ -16,7 +16,7 @@ Gets the clipboard content as plain text.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { readText } from '@tauri-apps/api/clipboard';
 const clipboardText = await readText();
 ```
@@ -37,7 +37,7 @@ Writes a plain text to the clipboard.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { writeText, readText } from '@tauri-apps/api/clipboard';
 await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');

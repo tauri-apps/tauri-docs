@@ -52,67 +52,8 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Events can be listened using `appWindow.listen`:
 ```typescript
-import { appWindow } from "@tauri-apps/api/window"
-appWindow.listen("tauri://move", ({ event, payload }) => {
-  const { x, y } = payload; // payload here is a `PhysicalPosition`
-});
-```
-
-Window-specific events emitted by the backend:
-
-#### 'tauri://resize'
-Emitted when the size of the window has changed.
-*EventPayload*:
-```typescript
-type ResizePayload = PhysicalSize
-```
-
-#### 'tauri://move'
-Emitted when the position of the window has changed.
-*EventPayload*:
-```typescript
-type MovePayload = PhysicalPosition
-```
-
-#### 'tauri://close-requested'
-Emitted when the user requests the window to be closed.
-If a listener is registered for this event, Tauri won't close the window so you must call `appWindow.close()` manually.
-```typescript
 import { appWindow } from "@tauri-apps/api/window";
-import { confirm } from '@tauri-apps/api/dialog';
-appWindow.listen("tauri://close-requested", async ({ event, payload }) => {
-  const confirmed = await confirm('Are you sure?');
-  if (confirmed) {
-    await appWindow.close();
-  }
-});
-```
-
-#### 'tauri://focus'
-Emitted when the window gains focus.
-
-#### 'tauri://blur'
-Emitted when the window loses focus.
-
-#### 'tauri://scale-change'
-Emitted when the window's scale factor has changed.
-The following user actions can cause DPI changes:
-- Changing the display's resolution.
-- Changing the display's scale factor (e.g. in Control Panel on Windows).
-- Moving the window to a display with a different scale factor.
-*Event payload*:
-```typescript
-interface ScaleFactorChanged {
-  scaleFactor: number
-  size: PhysicalSize
-}
-```
-
-#### 'tauri://menu'
-Emitted when a menu item is clicked.
-*EventPayload*:
-```typescript
-type MenuClicked = string
+appWindow.listen("my-window-event", ({ event, payload }) => { });
 ```
 
 ## Enumerations
@@ -121,6 +62,7 @@ type MenuClicked = string
 
 ## Classes
 
+- [CloseRequestedEvent](../classes/window.CloseRequestedEvent.md)
 - [LogicalPosition](../classes/window.LogicalPosition.md)
 - [LogicalSize](../classes/window.LogicalSize.md)
 - [PhysicalPosition](../classes/window.PhysicalPosition.md)
@@ -132,6 +74,7 @@ type MenuClicked = string
 ## Interfaces
 
 - [Monitor](../interfaces/window.Monitor.md)
+- [ScaleFactorChanged](../interfaces/window.ScaleFactorChanged.md)
 - [WindowOptions](../interfaces/window.WindowOptions.md)
 
 ## Type Aliases
@@ -142,7 +85,19 @@ type MenuClicked = string
 
 #### Defined in
 
-[window.ts:247](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L247)
+[window.ts:202](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L202)
+
+___
+
+### FileDropEvent
+
+Ƭ **FileDropEvent**: { `paths`: `string`[] ; `type`: ``"hover"``  } \| { `paths`: `string`[] ; `type`: ``"drop"``  } \| { `type`: ``"cancel"``  }
+
+The file drop event types.
+
+#### Defined in
+
+[window.ts:90](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L90)
 
 ___
 
@@ -152,7 +107,7 @@ ___
 
 #### Defined in
 
-[window.ts:126](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L126)
+[window.ts:67](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L67)
 
 ## Variables
 
@@ -164,7 +119,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1615](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L1615)
+[window.ts:1871](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1871)
 
 ## Functions
 
@@ -176,7 +131,7 @@ Returns the list of all the monitors available on the system.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { availableMonitors } from '@tauri-apps/api/window';
 const monitors = availableMonitors();
 ```
@@ -196,7 +151,7 @@ Returns `null` if current monitor can't be detected.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { currentMonitor } from '@tauri-apps/api/window';
 const monitor = currentMonitor();
 ```
@@ -244,7 +199,7 @@ Returns `null` if it can't identify any monitor as a primary one.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { primaryMonitor } from '@tauri-apps/api/window';
 const monitor = primaryMonitor();
 ```

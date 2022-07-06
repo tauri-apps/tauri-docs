@@ -16,7 +16,7 @@ Gets the application name.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getName } from '@tauri-apps/api/app';
 const appName = await getName();
 ```
@@ -37,7 +37,7 @@ Gets the tauri version.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getTauriVersion } from '@tauri-apps/api/app';
 const tauriVersion = await getTauriVersion();
 ```
@@ -58,7 +58,7 @@ Gets the application version.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getVersion } from '@tauri-apps/api/app';
 const appVersion = await getVersion();
 ```

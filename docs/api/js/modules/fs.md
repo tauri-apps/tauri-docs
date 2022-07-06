@@ -93,11 +93,11 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ### BinaryFileContents
 
-Ƭ **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\>
+Ƭ **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| `ArrayBuffer`
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
@@ -109,7 +109,7 @@ Copys a file to a destination.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { copyFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Copy the `$APPDIR/app.conf` file to `$APPDIR/app.conf.bk`
 await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
@@ -141,7 +141,7 @@ and the `recursive` option isn't set to true, the promise will be rejected.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { createDir, BaseDirectory } from '@tauri-apps/api/fs';
 // Create the `$APPDIR/users` directory
 await createDir('users', { dir: BaseDirectory.App, recursive: true });
@@ -170,7 +170,7 @@ Reads a file as byte array.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Read the image file in the `$RESOURCEDIR/avatar.png` path
 const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resource });
@@ -199,7 +199,7 @@ List directory files.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
 // Reads the `$APPDIR/users` directory recursively
 const entries = await readDir('users', { dir: BaseDirectory.App, recursive: true });
@@ -237,7 +237,7 @@ Reads a file as an UTF-8 encoded string.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { readTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Read the text file in the `$APPDIR/app.conf` path
 const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
@@ -267,7 +267,7 @@ If the directory is not empty and the `recursive` option isn't set to true, the 
 
 **`Example`**
 
- ```typescript
+```typescript
 import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
 // Remove the directory `$APPDIR/users`
 await removeDir('users', { dir: BaseDirectory.App });
@@ -296,7 +296,7 @@ Removes a file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { removeFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Remove the `$APPDIR/app.conf` file
 await removeFile('app.conf', { dir: BaseDirectory.App });
@@ -325,7 +325,7 @@ Renames a file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Rename the `$APPDIR/avatar.png` file
 await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
@@ -355,7 +355,7 @@ Writes a byte array content to a file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Write a binary file to the `$APPDIR/avatar.png` path
 await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App });
@@ -381,7 +381,7 @@ Writes a byte array content to a file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Write a binary file to the `$APPDIR/avatar.png` path
 await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { dir: BaseDirectory.App });
@@ -410,7 +410,7 @@ Writes a UTF-8 text file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Write a text file to the `$APPDIR/app.conf` path
 await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
@@ -436,7 +436,7 @@ Writes a UTF-8 text file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Write a text file to the `$APPDIR/app.conf` path
 await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: BaseDirectory.App });

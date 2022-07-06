@@ -96,7 +96,7 @@ The `openWith` value must be one of `firefox`, `google chrome`, `chromium` `safa
 
 **`Example`**
 
- ```typescript
+```typescript
 import { open } from '@tauri-apps/api/shell';
 // opens the given URL on the default browser:
 await open('https://github.com/tauri-apps/tauri');

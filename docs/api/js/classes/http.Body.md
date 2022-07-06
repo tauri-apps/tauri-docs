@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L75)
+[http.ts:75](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L75)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L74)
+[http.ts:74](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L74)
 
 ## Methods
 
@@ -36,7 +36,7 @@ Creates a new byte array body.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.bytes(new Uint8Array([1, 2, 3]));
 ```
@@ -45,7 +45,7 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 
 | Name | Type |
 | :------ | :------ |
-| `bytes` | `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
+| `bytes` | `ArrayBuffer` \| `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
 
 #### Returns
 
@@ -69,7 +69,7 @@ Note that a file path must be allowed in the `fs` allowlist scope.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.form({
   key: 'value',
@@ -103,7 +103,7 @@ Creates a new JSON body.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.json({
   registered: true,
@@ -133,7 +133,7 @@ Creates a new UTF-8 string body.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Body } from "@tauri-apps/api/http"
 Body.text('The body content as a string');
 ```

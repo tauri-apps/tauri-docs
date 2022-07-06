@@ -38,7 +38,7 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/path.ts#L568)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/path.ts#L568)
 
 ___
 
@@ -52,7 +52,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/path.ts#L561)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/path.ts#L561)
 
 ## Functions
 
@@ -65,7 +65,7 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 
 **`Example`**
 
- ```typescript
+```typescript
 import { appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 ```
@@ -90,7 +90,7 @@ Returns the path to the user's audio directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { audioDir } from '@tauri-apps/api/path';
 const audioDirPath = await audioDir();
 ```
@@ -109,7 +109,7 @@ Returns the last portion of a `path`. Trailing directory separators are ignored.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { basename, resolveResource } from '@tauri-apps/api/path';
 const resourcePath = await resolveResource('app.conf');
 const base = await basename(resourcePath);
@@ -143,7 +143,7 @@ Returns the path to the user's cache directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { cacheDir } from '@tauri-apps/api/path';
 const cacheDirPath = await cacheDir();
 ```
@@ -168,7 +168,7 @@ Returns the path to the user's config directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { configDir } from '@tauri-apps/api/path';
 const configDirPath = await configDir();
 ```
@@ -193,7 +193,7 @@ Returns the path to the user's data directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { dataDir } from '@tauri-apps/api/path';
 const dataDirPath = await dataDir();
 ```
@@ -218,7 +218,7 @@ Returns the path to the user's desktop directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { desktopDir } from '@tauri-apps/api/path';
 const desktopPath = await desktopDir();
 ```
@@ -237,7 +237,7 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 
 **`Example`**
 
- ```typescript
+```typescript
 import { dirname, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const dir = await dirname(appDirPath);
@@ -263,7 +263,7 @@ Returns the path to the user's document directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { documentDir } from '@tauri-apps/api/path';
 const documentDirPath = await documentDir();
 ```
@@ -294,7 +294,7 @@ Returns the path to the user's download directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { downloadDir } from '@tauri-apps/api/path';
 const downloadDirPath = await downloadDir();
 ```
@@ -319,7 +319,7 @@ Returns the path to the user's executable directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { executableDir } from '@tauri-apps/api/path';
 const executableDirPath = await executableDir();
 ```
@@ -338,7 +338,7 @@ Returns the extension of the `path`.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { extname, resolveResource } from '@tauri-apps/api/path';
 const resourcePath = await resolveResource('app.conf');
 const ext = await extname(resourcePath);
@@ -371,7 +371,7 @@ Returns the path to the user's font directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { fontDir } from '@tauri-apps/api/path';
 const fontDirPath = await fontDir();
 ```
@@ -396,7 +396,7 @@ Returns the path to the user's home directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { homeDir } from '@tauri-apps/api/path';
 const homeDirPath = await homeDir();
 ```
@@ -415,7 +415,7 @@ Returns whether the path is absolute or not.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { isAbsolute } from '@tauri-apps/api/path';
 assert(await isAbsolute('/home/tauri'));
 ```
@@ -440,7 +440,7 @@ Joins all given `path` segments together using the platform-specific separator a
 
 **`Example`**
 
- ```typescript
+```typescript
 import { join, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
@@ -472,7 +472,7 @@ Returns the path to the user's local data directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { localDataDir } from '@tauri-apps/api/path';
 const localDataDirPath = await localDataDir();
 ```
@@ -497,7 +497,7 @@ Returns the path to the suggested log directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { logDir } from '@tauri-apps/api/path';
 const logDirPath = await logDir();
 ```
@@ -516,7 +516,7 @@ Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve sym
 
 **`Example`**
 
- ```typescript
+```typescript
 import { normalize, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
@@ -548,7 +548,7 @@ Returns the path to the user's picture directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { pictureDir } from '@tauri-apps/api/path';
 const pictureDirPath = await pictureDir();
 ```
@@ -573,7 +573,7 @@ Returns the path to the user's public directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { publicDir } from '@tauri-apps/api/path';
 const publicDirPath = await publicDir();
 ```
@@ -592,7 +592,7 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { resolve, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
@@ -618,7 +618,7 @@ Resolve the path to a resource file.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { resolveResource } from '@tauri-apps/api/path';
 const resourcePath = await resolveResource('script.sh');
 ```
@@ -646,7 +646,7 @@ To resolve a resource path, see the [[resolveResource | `resolveResource API`]].
 
 **`Example`**
 
- ```typescript
+```typescript
 import { resourceDir } from '@tauri-apps/api/path';
 const resourceDirPath = await resourceDir();
 ```
@@ -671,7 +671,7 @@ Returns the path to the user's runtime directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { runtimeDir } from '@tauri-apps/api/path';
 const runtimeDirPath = await runtimeDir();
 ```
@@ -696,7 +696,7 @@ Returns the path to the user's template directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { templateDir } from '@tauri-apps/api/path';
 const templateDirPath = await templateDir();
 ```
@@ -721,7 +721,7 @@ Returns the path to the user's video directory.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { videoDir } from '@tauri-apps/api/path';
 const videoDirPath = await videoDir();
 ```

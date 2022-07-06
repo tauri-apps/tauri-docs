@@ -20,7 +20,7 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -32,7 +32,7 @@ Checks if an update is available.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { checkUpdate } from '@tauri-apps/api/updater';
 const update = await checkUpdate();
 // now run installUpdate() if needed
@@ -54,7 +54,7 @@ Install the update if there's one available.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 const update = await checkUpdate();
 if (update.shouldUpdate) {
@@ -68,3 +68,36 @@ if (update.shouldUpdate) {
 `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
+
+___
+
+### onUpdaterEvent
+
+▸ **onUpdaterEvent**(`handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+
+Listen to an updater event.
+
+**`Example`**
+
+```typescript
+import { onUpdaterEvent } from "@tauri-apps/api/updater";
+const unlisten = await onUpdaterEvent(({ error, status }) => {
+ console.log('Updater event', error, status);
+});
+
+// you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
+unlisten();
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `handler` | (`status`: [`UpdateStatusResult`](../interfaces/updater.UpdateStatusResult.md)) => `void` |
+
+#### Returns
+
+`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+
+A promise resolving to a function to unlisten to the event.
+Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

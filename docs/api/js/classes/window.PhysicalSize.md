@@ -27,7 +27,7 @@ A size represented in physical pixels.
 
 #### Defined in
 
-[window.ts:156](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L156)
+[window.ts:111](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L111)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[window.ts:154](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L154)
+[window.ts:109](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L109)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[window.ts:155](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L155)
+[window.ts:110](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L110)
 
 ## Methods
 
@@ -59,7 +59,7 @@ Converts the physical size to a logical one.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 const size = await appWindow.innerSize();

@@ -9,7 +9,7 @@ It emits the `close` and `error` events.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = new Command('node');
 command.on('close', data => {
@@ -59,7 +59,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L258)
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L258)
 
 ___
 
@@ -71,7 +71,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
@@ -83,7 +83,7 @@ Executes the command as a child process, waiting for it to finish and collecting
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Command } from '@tauri-apps/api/shell';
 const output = await new Command('echo', 'message').execute();
 assert(output.code === 0);
@@ -147,7 +147,7 @@ Creates a command to execute the given sidecar program.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = Command.sidecar('my-sidecar');
 const output = await command.execute();
