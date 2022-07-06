@@ -19,7 +19,7 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 
 The prerequisites above are also the minimum conditions for notarization. For more details please read the developer article on [notarizing macOS software before distribution].
 
-## Setting up Environment Variables
+## tl;dr
 
 The Tauri code signing and notarization process is configured through the following environment variables:
 
