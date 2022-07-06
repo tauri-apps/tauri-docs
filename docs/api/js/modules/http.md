@@ -66,7 +66,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:208](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L208)
+[http.ts:213](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L213)
 
 ___
 
@@ -78,7 +78,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:183](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L183)
+[http.ts:188](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L188)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -100,7 +100,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:206](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L206)
+[http.ts:211](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L211)
 
 ## Functions
 
@@ -112,7 +112,7 @@ Perform an HTTP request using the default client.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { fetch } from '@tauri-apps/api/http';
 const response = await fetch('http://localhost:3003/users/2', {
   method: 'GET',
@@ -149,7 +149,7 @@ Creates a new client using the specified options.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 ```

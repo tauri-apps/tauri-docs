@@ -27,7 +27,7 @@ A position represented in physical pixels.
 
 #### Defined in
 
-[window.ts:192](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L192)
+[window.ts:147](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L147)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[window.ts:193](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L193)
+[window.ts:148](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L148)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[window.ts:194](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L194)
+[window.ts:149](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L149)
 
 ## Methods
 
@@ -59,7 +59,7 @@ Converts the physical position to a logical one.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 const position = await appWindow.innerPosition();

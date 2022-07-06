@@ -39,7 +39,7 @@ Shows a question dialog with `Yes` and `No` buttons.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { ask } from '@tauri-apps/api/dialog';
 const yes = await ask('Are you sure?', 'Tauri');
 const yes2 = await ask('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
@@ -68,7 +68,7 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { confirm } from '@tauri-apps/api/dialog';
 const confirmed = await confirm('Are you sure?', 'Tauri');
 const confirmed2 = await confirm('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
@@ -97,7 +97,7 @@ Shows a message dialog with an `Ok` button.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { message } from '@tauri-apps/api/dialog';
 await message('Tauri is awesome', 'Tauri');
 await message('File not found', { title: 'Tauri', type: 'error' });
@@ -133,7 +133,7 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 
 **`Example`**
 
- ```typescript
+```typescript
 import { open } from '@tauri-apps/api/dialog';
 // Open a selection dialog for image files
 const selected = await open({
@@ -154,7 +154,7 @@ if (Array.isArray(selected)) {
 
 **`Example`**
 
- ```typescript
+```typescript
 import { open } from '@tauri-apps/api/dialog';
 import { appDir } from '@tauri-apps/api/path';
 // Open a selection dialog for directories
@@ -201,7 +201,7 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 
 **`Example`**
 
- ```typescript
+```typescript
 import { save } from '@tauri-apps/api/dialog';
 const filePath = await save({
   multiple: true,

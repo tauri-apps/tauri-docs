@@ -20,6 +20,36 @@ The APIs must be allowlisted on `tauri.conf.json`:
 ```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
+## Type Aliases
+
+### Arch
+
+Ƭ **Arch**: ``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``
+
+#### Defined in
+
+[os.ts:43](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L43)
+
+___
+
+### OsType
+
+Ƭ **OsType**: ``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``
+
+#### Defined in
+
+[os.ts:41](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L41)
+
+___
+
+### Platform
+
+Ƭ **Platform**: ``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``
+
+#### Defined in
+
+[os.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L29)
+
 ## Variables
 
 ### EOL
@@ -32,47 +62,47 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:35](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/os.ts#L35)
+[os.ts:61](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L61)
 
 ## Functions
 
 ### arch
 
-▸ **arch**(): `Promise`<`LiteralUnion`<``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``, `string`\>\>
+▸ **arch**(): `Promise`<[`Arch`](os.md#arch)\>
 
 Returns the operating system CPU architecture for which the tauri app was compiled.
 Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { arch } from '@tauri-apps/api/os';
 const archName = await arch();
 ```
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``, `string`\>\>
+`Promise`<[`Arch`](os.md#arch)\>
 
 ___
 
 ### platform
 
-▸ **platform**(): `Promise`<`LiteralUnion`<``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``, `string`\>\>
+▸ **platform**(): `Promise`<[`Platform`](os.md#platform)\>
 
 Returns a string identifying the operating system platform.
 The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
 
 **`Example`**
 
- ```typescript
+```typescript
 import { platform } from '@tauri-apps/api/os';
 const platformName = await platform();
 ```
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``, `string`\>\>
+`Promise`<[`Platform`](os.md#platform)\>
 
 ___
 
@@ -84,7 +114,7 @@ Returns the operating system's default directory for temporary files as a string
 
 **`Example`**
 
- ```typescript
+```typescript
 import { tempdir } from '@tauri-apps/api/os';
 const tempdirPath = await tempdir();
 ```
@@ -97,20 +127,20 @@ ___
 
 ### type
 
-▸ **type**(): `Promise`<`LiteralUnion`<``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``, `string`\>\>
+▸ **type**(): `Promise`<[`OsType`](os.md#ostype)\>
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { type } from '@tauri-apps/api/os';
 const osType = await type();
 ```
 
 #### Returns
 
-`Promise`<`LiteralUnion`<``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``, `string`\>\>
+`Promise`<[`OsType`](os.md#ostype)\>
 
 ___
 
@@ -122,7 +152,7 @@ Returns a string identifying the kernel version.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { version } from '@tauri-apps/api/os';
 const osVersion = await version();
 ```

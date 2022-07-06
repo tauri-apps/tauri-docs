@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:246](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/http.ts#L246)
+[http.ts:251](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L251)
 
 ## Methods
 
@@ -24,7 +24,7 @@ Makes a DELETE request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.delete('http://localhost:3003/users/1');
@@ -59,7 +59,7 @@ Drops the client instance.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 await client.drop();
@@ -79,7 +79,7 @@ Makes a GET request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient, ResponseType } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.get('http://localhost:3003/users', {
@@ -118,7 +118,7 @@ Makes a PATCH request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.patch('http://localhost:3003/users/1', {
@@ -155,7 +155,7 @@ Makes a POST request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient, Body, ResponseType } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.post('http://localhost:3003/users', {
@@ -198,7 +198,7 @@ Makes a PUT request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.put('http://localhost:3003/users/1', {
@@ -242,7 +242,7 @@ Makes an HTTP request.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { getClient } from '@tauri-apps/api/http';
 const client = await getClient();
 const response = await client.request({

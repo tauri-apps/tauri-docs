@@ -35,7 +35,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -47,7 +47,7 @@ Checks if the permission to send notifications is granted.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
@@ -66,7 +66,7 @@ Requests the permission to send notifications.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification';
 let permissionGranted = await isPermissionGranted();
 if (!permissionGranted) {
@@ -91,7 +91,7 @@ Sends a notification to the user.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 let permissionGranted = await isPermissionGranted();
 if (!permissionGranted) {

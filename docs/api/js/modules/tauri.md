@@ -25,7 +25,7 @@ and its access scope must be defined on the `assetScope` array on the same `prot
 
 **`Example`**
 
- ```typescript
+```typescript
 import { appDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 const appDirPath = await appDir();
@@ -63,7 +63,7 @@ Sends a message to the backend.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { invoke } from '@tauri-apps/api/tauri';
 await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 ```

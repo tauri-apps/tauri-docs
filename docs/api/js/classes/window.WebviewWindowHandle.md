@@ -34,7 +34,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:325](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L325)
+[window.ts:280](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L280)
 
 ___
 
@@ -50,7 +50,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:327](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/window.ts#L327)
+[window.ts:282](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L282)
 
 ## Methods
 
@@ -83,6 +83,13 @@ ___
 
 Emits an event to the backend, tied to the webview window.
 
+**`Example`**
+
+```typescript
+import { appWindow } from '@tauri-apps/api/window';
+await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
+```
+
 #### Parameters
 
 | Name | Type | Description |
@@ -102,32 +109,17 @@ ___
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
-#### Type parameters
+**`Example`**
 
-| Name |
-| :------ |
-| `T` |
+```typescript
+import { appWindow } from '@tauri-apps/api/window';
+const unlisten = await appWindow.listen<string>('state-changed', (event) => {
+  console.log(`Got error: ${payload}`);
+});
 
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `event` | [`EventName`](../modules/event.md#eventname) | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
-| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
-
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
-
-A promise resolving to a function to unlisten to the event.
-
-___
-
-### once
-
-▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
-
-Listen to an one-off event emitted by the backend that is tied to the webview window.
+// you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
+unlisten();
+```
 
 #### Type parameters
 
@@ -147,3 +139,44 @@ Listen to an one-off event emitted by the backend that is tied to the webview wi
 `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
+Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
+
+___
+
+### once
+
+▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+
+Listen to an one-off event emitted by the backend that is tied to the webview window.
+
+**`Example`**
+
+```typescript
+import { appWindow } from '@tauri-apps/api/window';
+const unlisten = await appWindow.once<null>('initialized', (event) => {
+  console.log(`Window initialized!`);
+});
+
+// you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
+unlisten();
+```
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
+| `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
+
+#### Returns
+
+`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+
+A promise resolving to a function to unlisten to the event.
+Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

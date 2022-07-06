@@ -26,7 +26,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/shell.ts#L181)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
@@ -52,7 +52,7 @@ Writes `data` to the `stdin`.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { Command } from '@tauri-apps/api/shell';
 const command = new Command('node');
 const child = await command.spawn();

@@ -42,7 +42,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/35b5378/tooling/api/src/globalShortcut.ts#L29)
+[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
@@ -54,7 +54,7 @@ Determines whether the given shortcut is registered by this application or not.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { isRegistered } from '@tauri-apps/api/globalShortcut';
 const isRegistered = await isRegistered('CommandOrControl+P');
 ```
@@ -81,7 +81,7 @@ Register a global shortcut.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { register } from '@tauri-apps/api/globalShortcut';
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
@@ -109,7 +109,7 @@ Register a collection of global shortcuts.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { registerAll } from '@tauri-apps/api/globalShortcut';
 await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
   console.log(`Shortcut ${shortcut} triggered`);
@@ -137,7 +137,7 @@ Unregister a global shortcut.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { unregister } from '@tauri-apps/api/globalShortcut';
 await unregister('CmdOrControl+Space');
 ```
@@ -162,7 +162,7 @@ Unregisters all shortcuts registered by the application.
 
 **`Example`**
 
- ```typescript
+```typescript
 import { unregisterAll } from '@tauri-apps/api/globalShortcut';
 await unregisterAll();
 ```
