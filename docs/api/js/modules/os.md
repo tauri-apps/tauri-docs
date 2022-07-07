@@ -28,7 +28,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[os.ts:43](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L43)
+[os.ts:43](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/os.ts#L43)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[os.ts:41](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L41)
+[os.ts:41](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/os.ts#L41)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[os.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L29)
+[os.ts:29](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -62,7 +62,7 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:61](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L61)
+[os.ts:61](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/os.ts#L61)
 
 ## Functions
 

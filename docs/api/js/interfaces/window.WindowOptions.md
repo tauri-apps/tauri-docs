@@ -16,7 +16,7 @@ Whether the window should always be on top of other windows or not.
 
 #### Defined in
 
-[window.ts:1939](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1939)
+[window.ts:1939](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1939)
 
 ___
 
@@ -28,7 +28,7 @@ Show window in the center of the screen..
 
 #### Defined in
 
-[window.ts:1901](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1901)
+[window.ts:1901](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1901)
 
 ___
 
@@ -40,7 +40,7 @@ Whether the window should have borders and bars or not.
 
 #### Defined in
 
-[window.ts:1937](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1937)
+[window.ts:1937](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1937)
 
 ___
 
@@ -54,7 +54,7 @@ Disabling it is required to use drag and drop on the frontend on Windows.
 
 #### Defined in
 
-[window.ts:1947](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1947)
+[window.ts:1947](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1947)
 
 ___
 
@@ -66,7 +66,7 @@ Whether the window will be initially hidden or focused.
 
 #### Defined in
 
-[window.ts:1925](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1925)
+[window.ts:1925](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1925)
 
 ___
 
@@ -78,7 +78,7 @@ Whether the window is in fullscreen mode or not.
 
 #### Defined in
 
-[window.ts:1923](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1923)
+[window.ts:1923](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1923)
 
 ___
 
@@ -90,7 +90,7 @@ The initial height.
 
 #### Defined in
 
-[window.ts:1909](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1909)
+[window.ts:1909](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1909)
 
 ___
 
@@ -102,7 +102,7 @@ The maximum height. Only applies if `maxWidth` is also set.
 
 #### Defined in
 
-[window.ts:1917](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1917)
+[window.ts:1917](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1917)
 
 ___
 
@@ -114,7 +114,7 @@ The maximum width. Only applies if `maxHeight` is also set.
 
 #### Defined in
 
-[window.ts:1915](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1915)
+[window.ts:1915](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1915)
 
 ___
 
@@ -126,7 +126,7 @@ Whether the window should be maximized upon creation or not.
 
 #### Defined in
 
-[window.ts:1933](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1933)
+[window.ts:1933](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1933)
 
 ___
 
@@ -138,7 +138,7 @@ The minimum height. Only applies if `minWidth` is also set.
 
 #### Defined in
 
-[window.ts:1913](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1913)
+[window.ts:1913](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1913)
 
 ___
 
@@ -150,7 +150,7 @@ The minimum width. Only applies if `minHeight` is also set.
 
 #### Defined in
 
-[window.ts:1911](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1911)
+[window.ts:1911](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1911)
 
 ___
 
@@ -162,7 +162,7 @@ Whether the window is resizable or not.
 
 #### Defined in
 
-[window.ts:1919](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1919)
+[window.ts:1919](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1919)
 
 ___
 
@@ -174,7 +174,7 @@ Whether or not the window icon should be added to the taskbar.
 
 #### Defined in
 
-[window.ts:1941](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1941)
+[window.ts:1941](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1941)
 
 ___
 
@@ -188,7 +188,7 @@ Only implemented on Windows and macOS 10.14+.
 
 #### Defined in
 
-[window.ts:1953](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1953)
+[window.ts:1953](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1953)
 
 ___
 
@@ -200,7 +200,7 @@ Window title.
 
 #### Defined in
 
-[window.ts:1921](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1921)
+[window.ts:1921](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1921)
 
 ___
 
@@ -214,7 +214,7 @@ WARNING: Using private APIs on `macOS` prevents your application from being acce
 
 #### Defined in
 
-[window.ts:1931](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1931)
+[window.ts:1931](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1931)
 
 ___
 
@@ -230,7 +230,7 @@ Remote URL or local file path to open.
 
 #### Defined in
 
-[window.ts:1899](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1899)
+[window.ts:1899](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1899)
 
 ___
 
@@ -242,7 +242,7 @@ Whether the window should be immediately visible upon creation or not.
 
 #### Defined in
 
-[window.ts:1935](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1935)
+[window.ts:1935](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1935)
 
 ___
 
@@ -254,7 +254,7 @@ The initial width.
 
 #### Defined in
 
-[window.ts:1907](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1907)
+[window.ts:1907](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1907)
 
 ___
 
@@ -266,7 +266,7 @@ The initial vertical position. Only applies if `y` is also set.
 
 #### Defined in
 
-[window.ts:1903](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1903)
+[window.ts:1903](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1903)
 
 ___
 
@@ -278,4 +278,4 @@ The initial horizontal position. Only applies if `x` is also set.
 
 #### Defined in
 
-[window.ts:1905](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1905)
+[window.ts:1905](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L1905)

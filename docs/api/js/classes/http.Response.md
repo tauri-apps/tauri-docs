@@ -22,7 +22,7 @@ The response data.
 
 #### Defined in
 
-[http.ts:237](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L237)
+[http.ts:237](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L237)
 
 ___
 
@@ -34,7 +34,7 @@ The response headers.
 
 #### Defined in
 
-[http.ts:233](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L233)
+[http.ts:233](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L233)
 
 ___
 
@@ -46,7 +46,7 @@ A boolean indicating whether the response was successful (status in the range 20
 
 #### Defined in
 
-[http.ts:231](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L231)
+[http.ts:231](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L231)
 
 ___
 
@@ -58,7 +58,7 @@ The response raw headers.
 
 #### Defined in
 
-[http.ts:235](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L235)
+[http.ts:235](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L235)
 
 ___
 
@@ -70,7 +70,7 @@ The response status code.
 
 #### Defined in
 
-[http.ts:229](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L229)
+[http.ts:229](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L229)
 
 ___
 
@@ -82,4 +82,4 @@ The request URL.
 
 #### Defined in
 
-[http.ts:227](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L227)
+[http.ts:227](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/http.ts#L227)

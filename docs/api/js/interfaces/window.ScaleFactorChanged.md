@@ -16,7 +16,7 @@ The new window scale factor.
 
 #### Defined in
 
-[window.ts:84](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L84)
+[window.ts:84](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L84)
 
 ___
 
@@ -28,4 +28,4 @@ The new window size
 
 #### Defined in
 
-[window.ts:86](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L86)
+[window.ts:86](https://github.com/tauri-apps/tauri/blob/95abf48/tooling/api/src/window.ts#L86)
