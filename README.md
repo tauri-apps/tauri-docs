@@ -29,3 +29,4 @@ Copyright (c) 2020-2022 Tauri Programme within The Commons Conservancy
 [typescript]: https://github.com/tauri-apps/tauri/tree/dev/tooling/api
 [rust]: https://github.com/tauri-apps/tauri/tree/dev/core/tauri
 [contributing guide]: ./.github/CONTRIBUTING.md
+
