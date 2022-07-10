@@ -28,7 +28,9 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 #### 2. WebView2
 
 :::note
+
 WebView2 is pre-installed in Windows 11
+
 :::
 
 Tauri heavily depends on WebView2 to render web content on Windows, therefore you must have WebView2 installed. The easiest way is to download and run the Evergreen Bootstrapper from [Microsoft's website][download webview2].
@@ -58,7 +60,9 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
 :::note
+
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a plain script: [rustup.sh]
+
 :::
 
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was
@@ -133,7 +137,9 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
 :::note
+
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a plain script: [rustup.sh]
+
 :::
 
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was successful, the following line will appear:
