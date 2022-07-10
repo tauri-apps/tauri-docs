@@ -1,5 +1,5 @@
 ---
-sidebar_label: macOS
+sidebar_label: macOS 
 sidebar_position: 6
 ---
 
@@ -68,4 +68,4 @@ See the [Code signing guide].
 [`tauri.bundle.macos.exceptiondomain`]: ../../api/config/#tauri.bundle.macOS.exceptionDomain
 [`tauri.bundle.macos.usebootstrapper`]: ../../api/config#tauri.bundle.deb.useBootstrapper
 [info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
-[code signing guide]: ./sign-macos
+[code signing guide]: ../sign-macos
