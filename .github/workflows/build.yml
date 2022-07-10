@@ -15,7 +15,6 @@ on:
 jobs:
   build-locale-list:
     runs-on: ubuntu-latest
-    environment: dev
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
@@ -99,7 +98,6 @@ jobs:
   deploy-to-netlify:
     needs: build-locales
     runs-on: ubuntu-latest
-    environment: dev
     steps:
       - uses: actions/checkout@v3
       - name: Retrieve build folder
