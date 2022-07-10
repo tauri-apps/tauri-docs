@@ -63,10 +63,29 @@ const navbarItems = [
     position: 'left',
   },
   {
-    type: 'docSidebar',
-    sidebarId: 'api',
     label: 'API',
     position: 'left',
+    items: [
+      {
+        type: 'doc',
+        docId: 'api/config',
+        label: 'Configuration',
+      },
+      {
+        type: 'doc',
+        docId: 'api/cli',
+        label: 'CLI',
+      },
+      {
+        type: 'doc',
+        docId: 'api/js/modules/app',
+        label: 'JavaScript / TypeScript',
+      },
+      {
+        label: 'Rust (via Docs.rs)',
+        href: 'https://docs.rs/tauri/1/',
+      },
+    ],
   },
   {
     to: 'blog',
