@@ -474,7 +474,7 @@ export default function App() {
         </div>
         <div className={classNames(styles.heroContainer)}>
           <p className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
-            <Translate>Announcing the release of</Translate>
+            <Translate>I SHOULD BE AN UPDATED HEADLINE</Translate>
           </p>
           <span className={classNames(styles.heroImage)}>
             <DynamicHeaderImage />
