@@ -18,8 +18,7 @@ async function run() {
       core.setOutput('locale-list', locales)
     } else {
       console.log('Running a deploy preview...')
-      const locales = JSON.parse(['en'])
-      core.setOutput('locale-list', locales)
+      core.setOutput('locale-list', ['en'])
     }
   } catch (error) {
     core.setFailed(`An issue ocurred while retrieving the languages: ${error}`)
