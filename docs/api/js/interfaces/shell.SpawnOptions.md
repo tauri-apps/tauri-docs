@@ -8,19 +8,19 @@
 
 ### cwd
 
-• `Optional` **cwd**: `string`
+ `Optional` **cwd**: `string`
 
 Current working directory.
 
 #### Defined in
 
-[shell.ts:83](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L83)
+[shell.ts:83](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L83)
 
 ___
 
 ### env
 
-• `Optional` **env**: `Object`
+ `Optional` **env**: `Object`
 
 Environment variables. set to `null` to clear the process env.
 
@@ -30,4 +30,4 @@ Environment variables. set to `null` to clear the process env.
 
 #### Defined in
 
-[shell.ts:85](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L85)
+[shell.ts:85](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L85)

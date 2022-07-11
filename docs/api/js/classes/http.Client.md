@@ -8,17 +8,17 @@
 
 ### id
 
-• **id**: `number`
+ **id**: `number`
 
 #### Defined in
 
-[http.ts:251](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L251)
+[http.ts:251](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L251)
 
 ## Methods
 
 ### delete
 
-▸ **delete**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**delete**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a DELETE request.
 
@@ -53,7 +53,7 @@ ___
 
 ### drop
 
-▸ **drop**(): `Promise`<`void`\>
+**drop**(): `Promise`<`void`\>
 
 Drops the client instance.
 
@@ -73,7 +73,7 @@ ___
 
 ### get
 
-▸ **get**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**get**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a GET request.
 
@@ -112,7 +112,7 @@ ___
 
 ### patch
 
-▸ **patch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**patch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a PATCH request.
 
@@ -149,7 +149,7 @@ ___
 
 ### post
 
-▸ **post**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**post**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a POST request.
 
@@ -192,7 +192,7 @@ ___
 
 ### put
 
-▸ **put**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**put**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a PUT request.
 
@@ -236,7 +236,7 @@ ___
 
 ### request
 
-▸ **request**<`T`\>(`options`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+**request**<`T`\>(`options`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes an HTTP request.
 

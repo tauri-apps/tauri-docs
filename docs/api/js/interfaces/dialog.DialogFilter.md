@@ -10,7 +10,7 @@ Extension filters for the file dialog.
 
 ### extensions
 
-• **extensions**: `string`[]
+ **extensions**: `string`[]
 
 Extensions to filter, without a `.` prefix.
 
@@ -22,16 +22,16 @@ extensions: ['svg', 'png']
 
 #### Defined in
 
-[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/dialog.ts#L41)
+[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/dialog.ts#L41)
 
 ___
 
 ### name
 
-• **name**: `string`
+ **name**: `string`
 
 Filter name.
 
 #### Defined in
 
-[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/dialog.ts#L33)
+[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/dialog.ts#L33)

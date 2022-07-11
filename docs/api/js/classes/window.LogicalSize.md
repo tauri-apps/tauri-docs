@@ -10,7 +10,7 @@ A size represented in logical pixels.
 
 ### constructor
 
-• **new LogicalSize**(`width`, `height`)
+**new LogicalSize**(`width`, `height`)
 
 #### Parameters
 
@@ -23,28 +23,28 @@ A size represented in logical pixels.
 
 ### height
 
-• **height**: `number`
+ **height**: `number`
 
 #### Defined in
 
-[window.ts:99](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L99)
+[window.ts:99](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L99)
 
 ___
 
 ### type
 
-• **type**: `string` = `'Logical'`
+ **type**: `string` = `'Logical'`
 
 #### Defined in
 
-[window.ts:97](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L97)
+[window.ts:97](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L97)
 
 ___
 
 ### width
 
-• **width**: `number`
+ **width**: `number`
 
 #### Defined in
 
-[window.ts:98](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L98)
+[window.ts:98](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L98)

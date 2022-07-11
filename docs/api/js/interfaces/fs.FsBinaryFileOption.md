@@ -10,22 +10,22 @@ Options object used to write a binary data to a file.
 
 ### contents
 
-• **contents**: [`BinaryFileContents`](../modules/fs.md#binaryfilecontents)
+ **contents**: [`BinaryFileContents`](../modules/fs.md#binaryfilecontents)
 
 The byte array contents.
 
 #### Defined in
 
-[fs.ts:122](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/fs.ts#L122)
+[fs.ts:122](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/fs.ts#L122)
 
 ___
 
 ### path
 
-• **path**: `string`
+ **path**: `string`
 
 Path to the file to write.
 
 #### Defined in
 
-[fs.ts:120](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/fs.ts#L120)
+[fs.ts:120](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/fs.ts#L120)

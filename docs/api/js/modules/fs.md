@@ -4,9 +4,9 @@
 
 Access the file system.
 
-This package is also accessible with `window.__TAURI__.fs` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.fs` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.fs`](https://tauri.app/v1/api/config/#allowlistconfig.fs) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -93,17 +93,17 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ### BinaryFileContents
 
-Ƭ **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| `ArrayBuffer`
+ **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| `ArrayBuffer`
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
 ### copyFile
 
-▸ **copyFile**(`source`, `destination`, `options?`): `Promise`<`void`\>
+**copyFile**(`source`, `destination`, `options?`): `Promise`<`void`\>
 
 Copys a file to a destination.
 
@@ -133,7 +133,7 @@ ___
 
 ### createDir
 
-▸ **createDir**(`dir`, `options?`): `Promise`<`void`\>
+**createDir**(`dir`, `options?`): `Promise`<`void`\>
 
 Creates a directory.
 If one of the path's parent components doesn't exist
@@ -164,7 +164,7 @@ ___
 
 ### readBinaryFile
 
-▸ **readBinaryFile**(`filePath`, `options?`): `Promise`<`Uint8Array`\>
+**readBinaryFile**(`filePath`, `options?`): `Promise`<`Uint8Array`\>
 
 Reads a file as byte array.
 
@@ -193,7 +193,7 @@ ___
 
 ### readDir
 
-▸ **readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
+**readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
 
 List directory files.
 
@@ -231,7 +231,7 @@ ___
 
 ### readTextFile
 
-▸ **readTextFile**(`filePath`, `options?`): `Promise`<`string`\>
+**readTextFile**(`filePath`, `options?`): `Promise`<`string`\>
 
 Reads a file as an UTF-8 encoded string.
 
@@ -260,7 +260,7 @@ ___
 
 ### removeDir
 
-▸ **removeDir**(`dir`, `options?`): `Promise`<`void`\>
+**removeDir**(`dir`, `options?`): `Promise`<`void`\>
 
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
@@ -290,7 +290,7 @@ ___
 
 ### removeFile
 
-▸ **removeFile**(`file`, `options?`): `Promise`<`void`\>
+**removeFile**(`file`, `options?`): `Promise`<`void`\>
 
 Removes a file.
 
@@ -319,7 +319,7 @@ ___
 
 ### renameFile
 
-▸ **renameFile**(`oldPath`, `newPath`, `options?`): `Promise`<`void`\>
+**renameFile**(`oldPath`, `newPath`, `options?`): `Promise`<`void`\>
 
 Renames a file.
 
@@ -349,7 +349,7 @@ ___
 
 ### writeBinaryFile
 
-▸ **writeBinaryFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
+**writeBinaryFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
 
 Writes a byte array content to a file.
 
@@ -375,7 +375,7 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 
 A promise indicating the success or failure of the operation.
 
-▸ **writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
+**writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a byte array content to a file.
 
@@ -404,7 +404,7 @@ ___
 
 ### writeTextFile
 
-▸ **writeTextFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
+**writeTextFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -430,7 +430,7 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-▸ **writeTextFile**(`file`, `options?`): `Promise`<`void`\>
+**writeTextFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a UTF-8 text file.
 

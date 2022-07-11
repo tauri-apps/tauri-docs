@@ -4,7 +4,7 @@
 
 Customize the auto updater flow.
 
-This package is also accessible with `window.__TAURI__.updater` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.updater` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Interfaces
 
@@ -16,17 +16,17 @@ This package is also accessible with `window.__TAURI__.updater` when `tauri.conf
 
 ### UpdateStatus
 
-Ƭ **UpdateStatus**: ``"PENDING"`` \| ``"ERROR"`` \| ``"DONE"`` \| ``"UPTODATE"``
+ **UpdateStatus**: ``"PENDING"`` \| ``"ERROR"`` \| ``"DONE"`` \| ``"UPTODATE"``
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
 ### checkUpdate
 
-▸ **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
+**checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Checks if an update is available.
 
@@ -48,7 +48,7 @@ ___
 
 ### installUpdate
 
-▸ **installUpdate**(): `Promise`<`void`\>
+**installUpdate**(): `Promise`<`void`\>
 
 Install the update if there's one available.
 
@@ -73,7 +73,7 @@ ___
 
 ### onUpdaterEvent
 
-▸ **onUpdaterEvent**(`handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**onUpdaterEvent**(`handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an updater event.
 

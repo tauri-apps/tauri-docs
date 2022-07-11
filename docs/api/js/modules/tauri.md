@@ -4,7 +4,7 @@
 
 Invoke your custom commands.
 
-This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.tauri` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Interfaces
 
@@ -14,14 +14,14 @@ This package is also accessible with `window.__TAURI__.tauri` when `tauri.conf.j
 
 ### convertFileSrc
 
-▸ **convertFileSrc**(`filePath`, `protocol?`): `string`
+**convertFileSrc**(`filePath`, `protocol?`): `string`
 
 Convert a device file path to an URL that can be loaded by the webview.
-Note that `asset:` and `https://asset.localhost` must be allowed on the `csp` value configured on `tauri.conf.json > tauri > security`.
+Note that `asset:` and `https://asset.localhost` must be added to [`tauri.security.csp`](https://tauri.app/v1/api/config/#securityconfig.csp) in `tauri.conf.json`.
 Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"` to use the asset protocol on image sources.
 
-Additionally, the `asset` must be allowlisted under `tauri.conf.json > tauri > allowlist > protocol`,
-and its access scope must be defined on the `assetScope` array on the same `protocol` object.
+Additionally, `asset` must be added to [`tauri.allowlist.protocol`](https://tauri.app/v1/api/config/#allowlistconfig.protocol)
+in `tauri.conf.json` and its access scope must be defined on the `assetScope` array on the same `protocol` object.
 
 **`Example`**
 
@@ -57,7 +57,7 @@ ___
 
 ### invoke
 
-▸ **invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
+**invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
 
 Sends a message to the backend.
 
@@ -91,7 +91,7 @@ ___
 
 ### transformCallback
 
-▸ **transformCallback**(`callback?`, `once?`): `number`
+**transformCallback**(`callback?`, `once?`): `number`
 
 Transforms a callback function to a string identifier that can be passed to the backend.
 The backend uses the identifier to `eval()` the callback.

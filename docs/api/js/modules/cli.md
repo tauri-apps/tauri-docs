@@ -4,7 +4,7 @@
 
 Parse arguments from your Command Line Interface.
 
-This package is also accessible with `window.__TAURI__.cli` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.cli` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Interfaces
 
@@ -16,9 +16,9 @@ This package is also accessible with `window.__TAURI__.cli` when `tauri.conf.jso
 
 ### getMatches
 
-▸ **getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
+**getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
-Parse the arguments provided to the current process and get the matches using the configuration defined `tauri.conf.json > tauri > cli`.
+Parse the arguments provided to the current process and get the matches using the configuration defined [`tauri.cli`](https://tauri.app/v1/api/config/#tauriconfig.cli) in `tauri.conf.json`
 
 **`Example`**
 

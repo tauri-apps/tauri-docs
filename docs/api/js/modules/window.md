@@ -4,9 +4,9 @@
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
 
-This package is also accessible with `window.__TAURI__.window` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.window` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.window`](https://tauri.app/v1/api/config/#allowlistconfig.window) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -81,51 +81,51 @@ appWindow.listen("my-window-event", ({ event, payload }) => { });
 
 ### CursorIcon
 
-Ƭ **CursorIcon**: ``"default"`` \| ``"crosshair"`` \| ``"hand"`` \| ``"arrow"`` \| ``"move"`` \| ``"text"`` \| ``"wait"`` \| ``"help"`` \| ``"progress"`` \| ``"notAllowed"`` \| ``"contextMenu"`` \| ``"cell"`` \| ``"verticalText"`` \| ``"alias"`` \| ``"copy"`` \| ``"noDrop"`` \| ``"grab"`` \| ``"grabbing"`` \| ``"allScroll"`` \| ``"zoomIn"`` \| ``"zoomOut"`` \| ``"eResize"`` \| ``"nResize"`` \| ``"neResize"`` \| ``"nwResize"`` \| ``"sResize"`` \| ``"seResize"`` \| ``"swResize"`` \| ``"wResize"`` \| ``"ewResize"`` \| ``"nsResize"`` \| ``"neswResize"`` \| ``"nwseResize"`` \| ``"colResize"`` \| ``"rowResize"``
+ **CursorIcon**: ``"default"`` \| ``"crosshair"`` \| ``"hand"`` \| ``"arrow"`` \| ``"move"`` \| ``"text"`` \| ``"wait"`` \| ``"help"`` \| ``"progress"`` \| ``"notAllowed"`` \| ``"contextMenu"`` \| ``"cell"`` \| ``"verticalText"`` \| ``"alias"`` \| ``"copy"`` \| ``"noDrop"`` \| ``"grab"`` \| ``"grabbing"`` \| ``"allScroll"`` \| ``"zoomIn"`` \| ``"zoomOut"`` \| ``"eResize"`` \| ``"nResize"`` \| ``"neResize"`` \| ``"nwResize"`` \| ``"sResize"`` \| ``"seResize"`` \| ``"swResize"`` \| ``"wResize"`` \| ``"ewResize"`` \| ``"nsResize"`` \| ``"neswResize"`` \| ``"nwseResize"`` \| ``"colResize"`` \| ``"rowResize"``
 
 #### Defined in
 
-[window.ts:202](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L202)
+[window.ts:202](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L202)
 
 ___
 
 ### FileDropEvent
 
-Ƭ **FileDropEvent**: { `paths`: `string`[] ; `type`: ``"hover"``  } \| { `paths`: `string`[] ; `type`: ``"drop"``  } \| { `type`: ``"cancel"``  }
+ **FileDropEvent**: { `paths`: `string`[] ; `type`: ``"hover"``  } \| { `paths`: `string`[] ; `type`: ``"drop"``  } \| { `type`: ``"cancel"``  }
 
 The file drop event types.
 
 #### Defined in
 
-[window.ts:90](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L90)
+[window.ts:90](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L90)
 
 ___
 
 ### Theme
 
-Ƭ **Theme**: ``"light"`` \| ``"dark"``
+ **Theme**: ``"light"`` \| ``"dark"``
 
 #### Defined in
 
-[window.ts:67](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L67)
+[window.ts:67](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L67)
 
 ## Variables
 
 ### appWindow
 
-• **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
+ **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1871](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L1871)
+[window.ts:1871](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L1871)
 
 ## Functions
 
 ### availableMonitors
 
-▸ **availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
+**availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 Returns the list of all the monitors available on the system.
 
@@ -144,7 +144,7 @@ ___
 
 ### currentMonitor
 
-▸ **currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+**currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
@@ -164,7 +164,7 @@ ___
 
 ### getAll
 
-▸ **getAll**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
+**getAll**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
 
 Gets an instance of `WebviewWindow` for all available webview windows.
 
@@ -178,7 +178,7 @@ ___
 
 ### getCurrent
 
-▸ **getCurrent**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)
+**getCurrent**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 Get an instance of `WebviewWindow` for the current webview window.
 
@@ -192,7 +192,7 @@ ___
 
 ### primaryMonitor
 
-▸ **primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+**primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.

@@ -8,7 +8,7 @@
 
 ### constructor
 
-• **new Child**(`pid`)
+**new Child**(`pid`)
 
 #### Parameters
 
@@ -20,19 +20,19 @@
 
 ### pid
 
-• **pid**: `number`
+ **pid**: `number`
 
 The child process `pid`.
 
 #### Defined in
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L181)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
 ### kill
 
-▸ **kill**(): `Promise`<`void`\>
+**kill**(): `Promise`<`void`\>
 
 Kills the child process.
 
@@ -46,7 +46,7 @@ ___
 
 ### write
 
-▸ **write**(`data`): `Promise`<`void`\>
+**write**(`data`): `Promise`<`void`\>
 
 Writes `data` to the `stdin`.
 

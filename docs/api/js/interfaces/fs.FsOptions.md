@@ -8,8 +8,8 @@
 
 ### dir
 
-• `Optional` **dir**: [`BaseDirectory`](../enums/fs.BaseDirectory.md)
+ `Optional` **dir**: [`BaseDirectory`](../enums/fs.BaseDirectory.md)
 
 #### Defined in
 
-[fs.ts:98](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/fs.ts#L98)
+[fs.ts:98](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/fs.ts#L98)

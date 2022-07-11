@@ -4,9 +4,9 @@
 
 Native system dialogs for opening and saving files.
 
-This package is also accessible with `window.__TAURI__.dialog` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.dialog` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.dialog`](https://tauri.app/v1/api/config/#allowlistconfig.dialog) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -33,7 +33,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### ask
 
-▸ **ask**(`message`, `options?`): `Promise`<`boolean`\>
+**ask**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -62,7 +62,7 @@ ___
 
 ### confirm
 
-▸ **confirm**(`message`, `options?`): `Promise`<`boolean`\>
+**confirm**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -91,7 +91,7 @@ ___
 
 ### message
 
-▸ **message**(`message`, `options?`): `Promise`<`void`\>
+**message**(`message`, `options?`): `Promise`<`void`\>
 
 Shows a message dialog with an `Ok` button.
 
@@ -120,7 +120,7 @@ ___
 
 ### open
 
-▸ **open**(`options?`): `Promise`<``null`` \| `string` \| `string`[]\>
+**open**(`options?`): `Promise`<``null`` \| `string` \| `string`[]\>
 
 Open a file/directory selection dialog.
 
@@ -188,7 +188,7 @@ ___
 
 ### save
 
-▸ **save**(`options?`): `Promise`<`string`\>
+**save**(`options?`): `Promise`<`string`\>
 
 Open a file/directory save dialog.
 

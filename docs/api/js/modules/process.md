@@ -4,13 +4,13 @@
 
 Perform operations on the current process.
 
-This package is also accessible with `window.__TAURI__.process` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.process` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Functions
 
 ### exit
 
-▸ **exit**(`exitCode?`): `Promise`<`void`\>
+**exit**(`exitCode?`): `Promise`<`void`\>
 
 Exits immediately with the given `exitCode`.
 
@@ -37,7 +37,7 @@ ___
 
 ### relaunch
 
-▸ **relaunch**(): `Promise`<`void`\>
+**relaunch**(): `Promise`<`void`\>
 
 Exits the current instance of the app then relaunches it.
 

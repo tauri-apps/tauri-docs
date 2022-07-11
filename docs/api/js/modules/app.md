@@ -4,13 +4,13 @@
 
 Get application metadata.
 
-This package is also accessible with `window.__TAURI__.app` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.app` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Functions
 
 ### getName
 
-▸ **getName**(): `Promise`<`string`\>
+**getName**(): `Promise`<`string`\>
 
 Gets the application name.
 
@@ -31,9 +31,9 @@ ___
 
 ### getTauriVersion
 
-▸ **getTauriVersion**(): `Promise`<`string`\>
+**getTauriVersion**(): `Promise`<`string`\>
 
-Gets the tauri version.
+Gets the Tauri version.
 
 **`Example`**
 
@@ -46,13 +46,13 @@ const tauriVersion = await getTauriVersion();
 
 `Promise`<`string`\>
 
-A promise resolving to tauri version.
+A promise resolving to Tauri version.
 
 ___
 
 ### getVersion
 
-▸ **getVersion**(): `Promise`<`string`\>
+**getVersion**(): `Promise`<`string`\>
 
 Gets the application version.
 

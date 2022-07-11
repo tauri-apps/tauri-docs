@@ -14,28 +14,28 @@
 
 ### file
 
-• **file**: `string` \| `T`
+ **file**: `string` \| `T`
 
 #### Defined in
 
-[http.ts:65](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L65)
+[http.ts:65](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L65)
 
 ___
 
 ### fileName
 
-• `Optional` **fileName**: `string`
+ `Optional` **fileName**: `string`
 
 #### Defined in
 
-[http.ts:67](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L67)
+[http.ts:67](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L67)
 
 ___
 
 ### mime
 
-• `Optional` **mime**: `string`
+ `Optional` **mime**: `string`
 
 #### Defined in
 
-[http.ts:66](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L66)
+[http.ts:66](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L66)

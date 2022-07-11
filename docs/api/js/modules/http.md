@@ -4,7 +4,7 @@
 
 Access the HTTP client written in Rust.
 
-This package is also accessible with `window.__TAURI__.http` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.http` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 The APIs must be allowlisted on `tauri.conf.json`:
 ```json
@@ -60,53 +60,53 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 ### FetchOptions
 
-Ƭ **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"url"``\>
+ **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"url"``\>
 
 Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:213](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L213)
+[http.ts:213](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L213)
 
 ___
 
 ### HttpVerb
 
-Ƭ **HttpVerb**: ``"GET"`` \| ``"POST"`` \| ``"PUT"`` \| ``"DELETE"`` \| ``"PATCH"`` \| ``"HEAD"`` \| ``"OPTIONS"`` \| ``"CONNECT"`` \| ``"TRACE"``
+ **HttpVerb**: ``"GET"`` \| ``"POST"`` \| ``"PUT"`` \| ``"DELETE"`` \| ``"PATCH"`` \| ``"HEAD"`` \| ``"OPTIONS"`` \| ``"CONNECT"`` \| ``"TRACE"``
 
 The request HTTP verb.
 
 #### Defined in
 
-[http.ts:188](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L188)
+[http.ts:188](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L188)
 
 ___
 
 ### Part
 
-Ƭ **Part**: `string` \| `Uint8Array` \| [`FilePart`](../interfaces/http.FilePart.md)<`Uint8Array`\>
+ **Part**: `string` \| `Uint8Array` \| [`FilePart`](../interfaces/http.FilePart.md)<`Uint8Array`\>
 
 #### Defined in
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L70)
 
 ___
 
 ### RequestOptions
 
-Ƭ **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"method"`` \| ``"url"``\>
+ **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"method"`` \| ``"url"``\>
 
 Request options.
 
 #### Defined in
 
-[http.ts:211](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L211)
+[http.ts:211](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L211)
 
 ## Functions
 
 ### fetch
 
-▸ **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
+**fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
@@ -143,7 +143,7 @@ ___
 
 ### getClient
 
-▸ **getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
+**getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
 
 Creates a new client using the specified options.
 
