@@ -482,7 +482,7 @@ export default function App() {
           <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
             <Translate>
               Build an optimized, secure, and frontend-independent application
-              for multi-platform deployment.
+              for multi-platform deployment
             </Translate>
           </div>
 
