@@ -45,7 +45,7 @@ unlisten();
 
 ### constructor
 
-• **new WebviewWindow**(`label`, `options?`)
+**new WebviewWindow**(`label`, `options?`)
 
 Creates a new WebviewWindow.
 
@@ -81,7 +81,7 @@ webview.once('tauri://error', function (e) {
 
 ### label
 
-• **label**: `string`
+ **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
@@ -91,13 +91,13 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L280)
+[window.ts:280](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L280)
 
 ___
 
 ### listeners
 
-• **listeners**: `Object`
+ **listeners**: `Object`
 
 Local event listeners.
 
@@ -111,13 +111,13 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L282)
+[window.ts:282](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L282)
 
 ## Methods
 
 ### \_handleTauriEvent
 
-▸ **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
+**_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
 #### Type parameters
 
@@ -144,7 +144,7 @@ ___
 
 ### center
 
-▸ **center**(): `Promise`<`void`\>
+**center**(): `Promise`<`void`\>
 
 Centers the window.
 
@@ -169,7 +169,7 @@ ___
 
 ### close
 
-▸ **close**(): `Promise`<`void`\>
+**close**(): `Promise`<`void`\>
 
 Closes the window.
 
@@ -194,7 +194,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
+**emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
@@ -224,7 +224,7 @@ ___
 
 ### hide
 
-▸ **hide**(): `Promise`<`void`\>
+**hide**(): `Promise`<`void`\>
 
 Sets the window visibility to false.
 
@@ -249,7 +249,7 @@ ___
 
 ### innerPosition
 
-▸ **innerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+**innerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The position of the top-left hand corner of the window's client area relative to the top-left hand corner of the desktop.
 
@@ -274,7 +274,7 @@ ___
 
 ### innerSize
 
-▸ **innerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+**innerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The physical size of the window's client area.
 The client area is the content of the window, excluding the title bar and borders.
@@ -300,7 +300,7 @@ ___
 
 ### isDecorated
 
-▸ **isDecorated**(): `Promise`<`boolean`\>
+**isDecorated**(): `Promise`<`boolean`\>
 
 Gets the window's current decorated state.
 
@@ -325,7 +325,7 @@ ___
 
 ### isFullscreen
 
-▸ **isFullscreen**(): `Promise`<`boolean`\>
+**isFullscreen**(): `Promise`<`boolean`\>
 
 Gets the window's current fullscreen state.
 
@@ -350,7 +350,7 @@ ___
 
 ### isMaximized
 
-▸ **isMaximized**(): `Promise`<`boolean`\>
+**isMaximized**(): `Promise`<`boolean`\>
 
 Gets the window's current maximized state.
 
@@ -375,7 +375,7 @@ ___
 
 ### isResizable
 
-▸ **isResizable**(): `Promise`<`boolean`\>
+**isResizable**(): `Promise`<`boolean`\>
 
 Gets the window's current resizable state.
 
@@ -400,7 +400,7 @@ ___
 
 ### isVisible
 
-▸ **isVisible**(): `Promise`<`boolean`\>
+**isVisible**(): `Promise`<`boolean`\>
 
 Gets the window's current visible state.
 
@@ -425,7 +425,7 @@ ___
 
 ### listen
 
-▸ **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
@@ -469,7 +469,7 @@ ___
 
 ### maximize
 
-▸ **maximize**(): `Promise`<`void`\>
+**maximize**(): `Promise`<`void`\>
 
 Maximizes the window.
 
@@ -494,7 +494,7 @@ ___
 
 ### minimize
 
-▸ **minimize**(): `Promise`<`void`\>
+**minimize**(): `Promise`<`void`\>
 
 Minimizes the window.
 
@@ -519,7 +519,7 @@ ___
 
 ### onCloseRequested
 
-▸ **onCloseRequested**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onCloseRequested**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window close requested. Emitted when the user requests to closes the window.
 
@@ -561,7 +561,7 @@ ___
 
 ### onFileDropEvent
 
-▸ **onFileDropEvent**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onFileDropEvent**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to a file drop event.
 The listener is triggered when the user hovers the selected files on the window,
@@ -606,7 +606,7 @@ ___
 
 ### onFocusChanged
 
-▸ **onFocusChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onFocusChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window focus change.
 
@@ -643,7 +643,7 @@ ___
 
 ### onMenuClicked
 
-▸ **onMenuClicked**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onMenuClicked**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to the window menu item click. The payload is the item id.
 
@@ -680,7 +680,7 @@ ___
 
 ### onMoved
 
-▸ **onMoved**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onMoved**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window move.
 
@@ -717,7 +717,7 @@ ___
 
 ### onResized
 
-▸ **onResized**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onResized**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window resize.
 
@@ -754,7 +754,7 @@ ___
 
 ### onScaleChanged
 
-▸ **onScaleChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onScaleChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window scale change. Emitted when the window's scale factor has changed.
 The following user actions can cause DPI changes:
@@ -795,7 +795,7 @@ ___
 
 ### onThemeChanged
 
-▸ **onThemeChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**onThemeChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to the system theme change.
 
@@ -832,7 +832,7 @@ ___
 
 ### once
 
-▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
@@ -876,7 +876,7 @@ ___
 
 ### outerPosition
 
-▸ **outerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+**outerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The position of the top-left hand corner of the window relative to the top-left hand corner of the desktop.
 
@@ -901,7 +901,7 @@ ___
 
 ### outerSize
 
-▸ **outerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+**outerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The physical size of the entire window.
 These dimensions include the title bar and borders. If you don't want that (and you usually don't), use inner_size instead.
@@ -927,7 +927,7 @@ ___
 
 ### requestUserAttention
 
-▸ **requestUserAttention**(`requestType`): `Promise`<`void`\>
+**requestUserAttention**(`requestType`): `Promise`<`void`\>
 
 Requests user attention to the window, this has no effect if the application
 is already focused. How requesting for user attention manifests is platform dependent,
@@ -968,7 +968,7 @@ ___
 
 ### scaleFactor
 
-▸ **scaleFactor**(): `Promise`<`number`\>
+**scaleFactor**(): `Promise`<`number`\>
 
 The scale factor that can be used to map physical pixels to logical pixels.
 
@@ -993,7 +993,7 @@ ___
 
 ### setAlwaysOnTop
 
-▸ **setAlwaysOnTop**(`alwaysOnTop`): `Promise`<`void`\>
+**setAlwaysOnTop**(`alwaysOnTop`): `Promise`<`void`\>
 
 Whether the window should always be on top of other windows.
 
@@ -1024,7 +1024,7 @@ ___
 
 ### setCursorGrab
 
-▸ **setCursorGrab**(`grab`): `Promise`<`void`\>
+**setCursorGrab**(`grab`): `Promise`<`void`\>
 
 Grabs the cursor, preventing it from leaving the window.
 
@@ -1063,7 +1063,7 @@ ___
 
 ### setCursorIcon
 
-▸ **setCursorIcon**(`icon`): `Promise`<`void`\>
+**setCursorIcon**(`icon`): `Promise`<`void`\>
 
 Modifies the cursor icon of the window.
 
@@ -1094,7 +1094,7 @@ ___
 
 ### setCursorPosition
 
-▸ **setCursorPosition**(`position`): `Promise`<`void`\>
+**setCursorPosition**(`position`): `Promise`<`void`\>
 
 Changes the position of the cursor in window coordinates.
 
@@ -1125,7 +1125,7 @@ ___
 
 ### setCursorVisible
 
-▸ **setCursorVisible**(`visible`): `Promise`<`void`\>
+**setCursorVisible**(`visible`): `Promise`<`void`\>
 
 Modifies the cursor's visibility.
 
@@ -1162,7 +1162,7 @@ ___
 
 ### setDecorations
 
-▸ **setDecorations**(`decorations`): `Promise`<`void`\>
+**setDecorations**(`decorations`): `Promise`<`void`\>
 
 Whether the window should have borders and bars.
 
@@ -1193,7 +1193,7 @@ ___
 
 ### setFocus
 
-▸ **setFocus**(): `Promise`<`void`\>
+**setFocus**(): `Promise`<`void`\>
 
 Bring the window to front and focus.
 
@@ -1218,7 +1218,7 @@ ___
 
 ### setFullscreen
 
-▸ **setFullscreen**(`fullscreen`): `Promise`<`void`\>
+**setFullscreen**(`fullscreen`): `Promise`<`void`\>
 
 Sets the window fullscreen state.
 
@@ -1249,7 +1249,7 @@ ___
 
 ### setIcon
 
-▸ **setIcon**(`icon`): `Promise`<`void`\>
+**setIcon**(`icon`): `Promise`<`void`\>
 
 Sets the window icon.
 
@@ -1287,7 +1287,7 @@ ___
 
 ### setMaxSize
 
-▸ **setMaxSize**(`size`): `Promise`<`void`\>
+**setMaxSize**(`size`): `Promise`<`void`\>
 
 Sets the window maximum inner size. If the `size` argument is undefined, the constraint is unset.
 
@@ -1318,7 +1318,7 @@ ___
 
 ### setMinSize
 
-▸ **setMinSize**(`size`): `Promise`<`void`\>
+**setMinSize**(`size`): `Promise`<`void`\>
 
 Sets the window minimum inner size. If the `size` argument is not provided, the constraint is unset.
 
@@ -1349,7 +1349,7 @@ ___
 
 ### setPosition
 
-▸ **setPosition**(`position`): `Promise`<`void`\>
+**setPosition**(`position`): `Promise`<`void`\>
 
 Sets the window outer position.
 
@@ -1380,7 +1380,7 @@ ___
 
 ### setResizable
 
-▸ **setResizable**(`resizable`): `Promise`<`void`\>
+**setResizable**(`resizable`): `Promise`<`void`\>
 
 Updates the window resizable flag.
 
@@ -1411,7 +1411,7 @@ ___
 
 ### setSize
 
-▸ **setSize**(`size`): `Promise`<`void`\>
+**setSize**(`size`): `Promise`<`void`\>
 
 Resizes the window with a new inner size.
 
@@ -1442,7 +1442,7 @@ ___
 
 ### setSkipTaskbar
 
-▸ **setSkipTaskbar**(`skip`): `Promise`<`void`\>
+**setSkipTaskbar**(`skip`): `Promise`<`void`\>
 
 Whether to show the window icon in the task bar or not.
 
@@ -1473,7 +1473,7 @@ ___
 
 ### setTitle
 
-▸ **setTitle**(`title`): `Promise`<`void`\>
+**setTitle**(`title`): `Promise`<`void`\>
 
 Sets the window title.
 
@@ -1504,7 +1504,7 @@ ___
 
 ### show
 
-▸ **show**(): `Promise`<`void`\>
+**show**(): `Promise`<`void`\>
 
 Sets the window visibility to true.
 
@@ -1529,7 +1529,7 @@ ___
 
 ### startDragging
 
-▸ **startDragging**(): `Promise`<`void`\>
+**startDragging**(): `Promise`<`void`\>
 
 Starts dragging the window.
 
@@ -1554,7 +1554,7 @@ ___
 
 ### theme
 
-▸ **theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
+**theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
 
 Gets the window's current theme.
 
@@ -1584,7 +1584,7 @@ ___
 
 ### toggleMaximize
 
-▸ **toggleMaximize**(): `Promise`<`void`\>
+**toggleMaximize**(): `Promise`<`void`\>
 
 Toggles the window maximized state.
 
@@ -1609,7 +1609,7 @@ ___
 
 ### unmaximize
 
-▸ **unmaximize**(): `Promise`<`void`\>
+**unmaximize**(): `Promise`<`void`\>
 
 Unmaximizes the window.
 
@@ -1634,7 +1634,7 @@ ___
 
 ### unminimize
 
-▸ **unminimize**(): `Promise`<`void`\>
+**unminimize**(): `Promise`<`void`\>
 
 Unminimizes the window.
 
@@ -1659,7 +1659,7 @@ ___
 
 ### getByLabel
 
-▸ `Static` **getByLabel**(`label`): ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
+`Static` **getByLabel**(`label`): ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
 
 Gets the WebviewWindow for the webview associated with the given label.
 

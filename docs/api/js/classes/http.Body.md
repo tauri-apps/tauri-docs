@@ -10,27 +10,27 @@ The body object to be used on POST and PUT requests.
 
 ### payload
 
-• **payload**: `unknown`
+ **payload**: `unknown`
 
 #### Defined in
 
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L75)
+[http.ts:75](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L75)
 
 ___
 
 ### type
 
-• **type**: `string`
+ **type**: `string`
 
 #### Defined in
 
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L74)
+[http.ts:74](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L74)
 
 ## Methods
 
 ### bytes
 
-▸ `Static` **bytes**(`bytes`): [`Body`](http.Body.md)
+`Static` **bytes**(`bytes`): [`Body`](http.Body.md)
 
 Creates a new byte array body.
 
@@ -57,7 +57,7 @@ ___
 
 ### form
 
-▸ `Static` **form**(`data`): [`Body`](http.Body.md)
+`Static` **form**(`data`): [`Body`](http.Body.md)
 
 Creates a new form data body. The form data is an object where each key is the entry name,
 and the value is either a string or a file object.
@@ -97,7 +97,7 @@ ___
 
 ### json
 
-▸ `Static` **json**(`data`): [`Body`](http.Body.md)
+`Static` **json**(`data`): [`Body`](http.Body.md)
 
 Creates a new JSON body.
 
@@ -127,7 +127,7 @@ ___
 
 ### text
 
-▸ `Static` **text**(`value`): [`Body`](http.Body.md)
+`Static` **text**(`value`): [`Body`](http.Body.md)
 
 Creates a new UTF-8 string body.
 

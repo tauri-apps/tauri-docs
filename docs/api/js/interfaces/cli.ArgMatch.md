@@ -8,19 +8,19 @@
 
 ### occurrences
 
-• **occurrences**: `number`
+ **occurrences**: `number`
 
 Number of occurrences
 
 #### Defined in
 
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/cli.ts#L24)
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/cli.ts#L24)
 
 ___
 
 ### value
 
-• **value**: ``null`` \| `string` \| `boolean` \| `string`[]
+ **value**: ``null`` \| `string` \| `boolean` \| `string`[]
 
 string if takes value
 boolean if flag
@@ -28,4 +28,4 @@ string[] or null if takes multiple values
 
 #### Defined in
 
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/cli.ts#L20)
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/cli.ts#L20)

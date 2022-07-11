@@ -8,22 +8,22 @@
 
 ### title
 
-• `Optional` **title**: `string`
+ `Optional` **title**: `string`
 
 The title of the dialog. Defaults to the app name.
 
 #### Defined in
 
-[dialog.ts:79](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/dialog.ts#L79)
+[dialog.ts:79](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/dialog.ts#L79)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"error"`` \| ``"info"`` \| ``"warning"``
+ `Optional` **type**: ``"error"`` \| ``"info"`` \| ``"warning"``
 
 The type of the dialog. Defaults to `info`.
 
 #### Defined in
 
-[dialog.ts:81](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/dialog.ts#L81)
+[dialog.ts:81](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/dialog.ts#L81)

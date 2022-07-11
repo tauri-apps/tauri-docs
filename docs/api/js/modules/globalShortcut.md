@@ -4,9 +4,9 @@
 
 Register global shortcuts.
 
-This package is also accessible with `window.__TAURI__.globalShortcut` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.globalShortcut` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.globalShortcut`](https://tauri.app/v1/api/config/#allowlistconfig.globalshortcut) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -24,11 +24,11 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### ShortcutHandler
 
-Ƭ **ShortcutHandler**: (`shortcut`: `string`) => `void`
+ **ShortcutHandler**: (`shortcut`: `string`) => `void`
 
 #### Type declaration
 
-▸ (`shortcut`): `void`
+(`shortcut`): `void`
 
 ##### Parameters
 
@@ -42,13 +42,13 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 #### Defined in
 
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/globalShortcut.ts#L29)
+[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
 ### isRegistered
 
-▸ **isRegistered**(`shortcut`): `Promise`<`boolean`\>
+**isRegistered**(`shortcut`): `Promise`<`boolean`\>
 
 Determines whether the given shortcut is registered by this application or not.
 
@@ -75,7 +75,7 @@ ___
 
 ### register
 
-▸ **register**(`shortcut`, `handler`): `Promise`<`void`\>
+**register**(`shortcut`, `handler`): `Promise`<`void`\>
 
 Register a global shortcut.
 
@@ -103,7 +103,7 @@ ___
 
 ### registerAll
 
-▸ **registerAll**(`shortcuts`, `handler`): `Promise`<`void`\>
+**registerAll**(`shortcuts`, `handler`): `Promise`<`void`\>
 
 Register a collection of global shortcuts.
 
@@ -131,7 +131,7 @@ ___
 
 ### unregister
 
-▸ **unregister**(`shortcut`): `Promise`<`void`\>
+**unregister**(`shortcut`): `Promise`<`void`\>
 
 Unregister a global shortcut.
 
@@ -156,7 +156,7 @@ ___
 
 ### unregisterAll
 
-▸ **unregisterAll**(): `Promise`<`void`\>
+**unregisterAll**(): `Promise`<`void`\>
 
 Unregisters all shortcuts registered by the application.
 

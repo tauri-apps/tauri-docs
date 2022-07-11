@@ -10,68 +10,68 @@ Options object sent to the backend.
 
 ### body
 
-• `Optional` **body**: [`Body`](../classes/http.Body.md)
+ `Optional` **body**: [`Body`](../classes/http.Body.md)
 
 #### Defined in
 
-[http.ts:205](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L205)
+[http.ts:205](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L205)
 
 ___
 
 ### headers
 
-• `Optional` **headers**: `Record`<`string`, `any`\>
+ `Optional` **headers**: `Record`<`string`, `any`\>
 
 #### Defined in
 
-[http.ts:203](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L203)
+[http.ts:203](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L203)
 
 ___
 
 ### method
 
-• **method**: [`HttpVerb`](../modules/http.md#httpverb)
+ **method**: [`HttpVerb`](../modules/http.md#httpverb)
 
 #### Defined in
 
-[http.ts:201](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L201)
+[http.ts:201](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L201)
 
 ___
 
 ### query
 
-• `Optional` **query**: `Record`<`string`, `any`\>
+ `Optional` **query**: `Record`<`string`, `any`\>
 
 #### Defined in
 
-[http.ts:204](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L204)
+[http.ts:204](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L204)
 
 ___
 
 ### responseType
 
-• `Optional` **responseType**: [`ResponseType`](../enums/http.ResponseType.md)
+ `Optional` **responseType**: [`ResponseType`](../enums/http.ResponseType.md)
 
 #### Defined in
 
-[http.ts:207](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L207)
+[http.ts:207](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L207)
 
 ___
 
 ### timeout
 
-• `Optional` **timeout**: `number` \| [`Duration`](http.Duration.md)
+ `Optional` **timeout**: `number` \| [`Duration`](http.Duration.md)
 
 #### Defined in
 
-[http.ts:206](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L206)
+[http.ts:206](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L206)
 
 ___
 
 ### url
 
-• **url**: `string`
+ **url**: `string`
 
 #### Defined in
 
-[http.ts:202](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L202)
+[http.ts:202](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L202)

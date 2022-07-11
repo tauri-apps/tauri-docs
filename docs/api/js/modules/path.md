@@ -4,9 +4,9 @@
 
 The path module provides utilities for working with file and directory paths.
 
-This package is also accessible with `window.__TAURI__.path` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.path` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.path`](https://tauri.app/v1/api/config/#allowlistconfig.path) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -30,7 +30,7 @@ Re-exports [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ### delimiter
 
-• `Const` **delimiter**: ``";"`` \| ``":"``
+ `Const` **delimiter**: ``";"`` \| ``":"``
 
 Provides the platform-specific path segment delimiter:
 - `;` on Windows
@@ -38,13 +38,13 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/path.ts#L568)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/path.ts#L568)
 
 ___
 
 ### sep
 
-• `Const` **sep**: ``"\\"`` \| ``"/"``
+ `Const` **sep**: ``"\\"`` \| ``"/"``
 
 Provides the platform-specific path segment separator:
 - `\` on Windows
@@ -52,16 +52,16 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/path.ts#L561)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/path.ts#L561)
 
 ## Functions
 
 ### appDir
 
-▸ **appDir**(): `Promise`<`string`\>
+**appDir**(): `Promise`<`string`\>
 
 Returns the path to the suggested directory for your app config files.
-Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value configured on `tauri.conf.json > tauri > bundle > identifier`.
+Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
 
 **`Example`**
 
@@ -78,7 +78,7 @@ ___
 
 ### audioDir
 
-▸ **audioDir**(): `Promise`<`string`\>
+**audioDir**(): `Promise`<`string`\>
 
 Returns the path to the user's audio directory.
 
@@ -103,7 +103,7 @@ ___
 
 ### basename
 
-▸ **basename**(`path`, `ext?`): `Promise`<`string`\>
+**basename**(`path`, `ext?`): `Promise`<`string`\>
 
 Returns the last portion of a `path`. Trailing directory separators are ignored.
 
@@ -131,7 +131,7 @@ ___
 
 ### cacheDir
 
-▸ **cacheDir**(): `Promise`<`string`\>
+**cacheDir**(): `Promise`<`string`\>
 
 Returns the path to the user's cache directory.
 
@@ -156,7 +156,7 @@ ___
 
 ### configDir
 
-▸ **configDir**(): `Promise`<`string`\>
+**configDir**(): `Promise`<`string`\>
 
 Returns the path to the user's config directory.
 
@@ -181,7 +181,7 @@ ___
 
 ### dataDir
 
-▸ **dataDir**(): `Promise`<`string`\>
+**dataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's data directory.
 
@@ -206,7 +206,7 @@ ___
 
 ### desktopDir
 
-▸ **desktopDir**(): `Promise`<`string`\>
+**desktopDir**(): `Promise`<`string`\>
 
 Returns the path to the user's desktop directory.
 
@@ -231,7 +231,7 @@ ___
 
 ### dirname
 
-▸ **dirname**(`path`): `Promise`<`string`\>
+**dirname**(`path`): `Promise`<`string`\>
 
 Returns the directory name of a `path`. Trailing directory separators are ignored.
 
@@ -257,7 +257,7 @@ ___
 
 ### documentDir
 
-▸ **documentDir**(): `Promise`<`string`\>
+**documentDir**(): `Promise`<`string`\>
 
 Returns the path to the user's document directory.
 
@@ -282,7 +282,7 @@ ___
 
 ### downloadDir
 
-▸ **downloadDir**(): `Promise`<`string`\>
+**downloadDir**(): `Promise`<`string`\>
 
 Returns the path to the user's download directory.
 
@@ -307,7 +307,7 @@ ___
 
 ### executableDir
 
-▸ **executableDir**(): `Promise`<`string`\>
+**executableDir**(): `Promise`<`string`\>
 
 Returns the path to the user's executable directory.
 
@@ -332,7 +332,7 @@ ___
 
 ### extname
 
-▸ **extname**(`path`): `Promise`<`string`\>
+**extname**(`path`): `Promise`<`string`\>
 
 Returns the extension of the `path`.
 
@@ -359,7 +359,7 @@ ___
 
 ### fontDir
 
-▸ **fontDir**(): `Promise`<`string`\>
+**fontDir**(): `Promise`<`string`\>
 
 Returns the path to the user's font directory.
 
@@ -384,7 +384,7 @@ ___
 
 ### homeDir
 
-▸ **homeDir**(): `Promise`<`string`\>
+**homeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's home directory.
 
@@ -409,7 +409,7 @@ ___
 
 ### isAbsolute
 
-▸ **isAbsolute**(`path`): `Promise`<`boolean`\>
+**isAbsolute**(`path`): `Promise`<`boolean`\>
 
 Returns whether the path is absolute or not.
 
@@ -434,7 +434,7 @@ ___
 
 ### join
 
-▸ **join**(...`paths`): `Promise`<`string`\>
+**join**(...`paths`): `Promise`<`string`\>
 
 Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
 
@@ -460,7 +460,7 @@ ___
 
 ### localDataDir
 
-▸ **localDataDir**(): `Promise`<`string`\>
+**localDataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's local data directory.
 
@@ -485,7 +485,7 @@ ___
 
 ### logDir
 
-▸ **logDir**(): `Promise`<`string`\>
+**logDir**(): `Promise`<`string`\>
 
 Returns the path to the suggested log directory.
 
@@ -510,7 +510,7 @@ ___
 
 ### normalize
 
-▸ **normalize**(`path`): `Promise`<`string`\>
+**normalize**(`path`): `Promise`<`string`\>
 
 Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
 
@@ -536,7 +536,7 @@ ___
 
 ### pictureDir
 
-▸ **pictureDir**(): `Promise`<`string`\>
+**pictureDir**(): `Promise`<`string`\>
 
 Returns the path to the user's picture directory.
 
@@ -561,7 +561,7 @@ ___
 
 ### publicDir
 
-▸ **publicDir**(): `Promise`<`string`\>
+**publicDir**(): `Promise`<`string`\>
 
 Returns the path to the user's public directory.
 
@@ -586,7 +586,7 @@ ___
 
 ### resolve
 
-▸ **resolve**(...`paths`): `Promise`<`string`\>
+**resolve**(...`paths`): `Promise`<`string`\>
 
 Resolves a sequence of `paths` or `path` segments into an absolute path.
 
@@ -612,7 +612,7 @@ ___
 
 ### resolveResource
 
-▸ **resolveResource**(`resourcePath`): `Promise`<`string`\>
+**resolveResource**(`resourcePath`): `Promise`<`string`\>
 
 Resolve the path to a resource file.
 
@@ -639,7 +639,7 @@ ___
 
 ### resourceDir
 
-▸ **resourceDir**(): `Promise`<`string`\>
+**resourceDir**(): `Promise`<`string`\>
 
 Returns the path to the application's resource directory.
 To resolve a resource path, see the [[resolveResource | `resolveResource API`]].
@@ -659,7 +659,7 @@ ___
 
 ### runtimeDir
 
-▸ **runtimeDir**(): `Promise`<`string`\>
+**runtimeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's runtime directory.
 
@@ -684,7 +684,7 @@ ___
 
 ### templateDir
 
-▸ **templateDir**(): `Promise`<`string`\>
+**templateDir**(): `Promise`<`string`\>
 
 Returns the path to the user's template directory.
 
@@ -709,7 +709,7 @@ ___
 
 ### videoDir
 
-▸ **videoDir**(): `Promise`<`string`\>
+**videoDir**(): `Promise`<`string`\>
 
 Returns the path to the user's video directory.
 

@@ -6,7 +6,7 @@
 
 ### clearMocks
 
-▸ **clearMocks**(): `void`
+**clearMocks**(): `void`
 
 Clears mocked functions/data injected by the other functions in this module.
 When using a test runner that doesn't provide a fresh window object for each test, calling this function will reset tauri specific properties.
@@ -39,7 +39,7 @@ ___
 
 ### mockIPC
 
-▸ **mockIPC**(`cb`): `void`
+**mockIPC**(`cb`): `void`
 
 Intercepts all IPC requests with the given mock handler.
 
@@ -84,7 +84,7 @@ ___
 
 ### mockWindows
 
-▸ **mockWindows**(`current`, ...`additionalWindows`): `void`
+**mockWindows**(`current`, ...`additionalWindows`): `void`
 
 Mocks one or many window labels.
 In non-tauri context it is required to call this function *before* using the `@tauri-apps/api/window` module.

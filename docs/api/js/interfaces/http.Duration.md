@@ -8,18 +8,18 @@
 
 ### nanos
 
-• **nanos**: `number`
+ **nanos**: `number`
 
 #### Defined in
 
-[http.ts:50](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L50)
+[http.ts:50](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L50)
 
 ___
 
 ### secs
 
-• **secs**: `number`
+ **secs**: `number`
 
 #### Defined in
 
-[http.ts:49](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/http.ts#L49)
+[http.ts:49](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L49)

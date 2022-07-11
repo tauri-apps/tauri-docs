@@ -5,9 +5,9 @@
 Access the system shell.
 Allows you to spawn child processes and manage files and URLs using their default application.
 
-This package is also accessible with `window.__TAURI__.shell` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.shell` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.shell`](https://tauri.app/v1/api/config/#allowlistconfig.shell) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -86,7 +86,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ### open
 
-▸ **open**(`path`, `openWith?`): `Promise`<`void`\>
+**open**(`path`, `openWith?`): `Promise`<`void`\>
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.

@@ -8,18 +8,18 @@
 
 ### matches
 
-• **matches**: [`CliMatches`](cli.CliMatches.md)
+ **matches**: [`CliMatches`](cli.CliMatches.md)
 
 #### Defined in
 
-[cli.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/cli.ts#L29)
+[cli.ts:29](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/cli.ts#L29)
 
 ___
 
 ### name
 
-• **name**: `string`
+ **name**: `string`
 
 #### Defined in
 
-[cli.ts:28](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/cli.ts#L28)
+[cli.ts:28](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/cli.ts#L28)

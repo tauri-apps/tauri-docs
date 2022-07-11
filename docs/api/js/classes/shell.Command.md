@@ -33,7 +33,7 @@ console.log('pid:', child.pid);
 
 ### constructor
 
-• **new Command**(`program`, `args?`, `options?`)
+**new Command**(`program`, `args?`, `options?`)
 
 Creates a new `Command` instance.
 
@@ -53,31 +53,31 @@ Creates a new `Command` instance.
 
 ### stderr
 
-• `Readonly` **stderr**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
+ `Readonly` **stderr**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L258)
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L258)
 
 ___
 
 ### stdout
 
-• `Readonly` **stdout**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
+ `Readonly` **stdout**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
+**execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
@@ -102,7 +102,7 @@ ___
 
 ### on
 
-▸ **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
+**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
 
 Listen to an event from the child process.
 
@@ -127,7 +127,7 @@ ___
 
 ### spawn
 
-▸ **spawn**(): `Promise`<[`Child`](shell.Child.md)\>
+**spawn**(): `Promise`<[`Child`](shell.Child.md)\>
 
 Executes the command as a child process, returning a handle to it.
 
@@ -141,7 +141,7 @@ ___
 
 ### sidecar
 
-▸ `Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.Command.md)
+`Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.Command.md)
 
 Creates a command to execute the given sidecar program.
 

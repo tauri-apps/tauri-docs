@@ -16,7 +16,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 ### constructor
 
-• **new WebviewWindowHandle**(`label`)
+**new WebviewWindowHandle**(`label`)
 
 #### Parameters
 
@@ -28,19 +28,19 @@ A webview window handle allows emitting and listening to events from the backend
 
 ### label
 
-• **label**: `string`
+ **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
 #### Defined in
 
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L280)
+[window.ts:280](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L280)
 
 ___
 
 ### listeners
 
-• **listeners**: `Object`
+ **listeners**: `Object`
 
 Local event listeners.
 
@@ -50,13 +50,13 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L282)
+[window.ts:282](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L282)
 
 ## Methods
 
 ### \_handleTauriEvent
 
-▸ **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
+**_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
 #### Type parameters
 
@@ -79,7 +79,7 @@ ___
 
 ### emit
 
-▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
+**emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
@@ -105,7 +105,7 @@ ___
 
 ### listen
 
-▸ **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
@@ -145,7 +145,7 @@ ___
 
 ### once
 
-▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 

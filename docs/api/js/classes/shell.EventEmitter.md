@@ -20,7 +20,7 @@
 
 ### constructor
 
-• **new EventEmitter**<`E`\>()
+**new EventEmitter**<`E`\>()
 
 #### Type parameters
 
@@ -32,7 +32,7 @@
 
 ### on
 
-▸ **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<`E`\>
+**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<`E`\>
 
 Listen to an event from the child process.
 

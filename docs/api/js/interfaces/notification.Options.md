@@ -10,34 +10,34 @@ Options to send a notification.
 
 ### body
 
-• `Optional` **body**: `string`
+ `Optional` **body**: `string`
 
 Optional notification body.
 
 #### Defined in
 
-[notification.ts:36](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/notification.ts#L36)
+[notification.ts:36](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/notification.ts#L36)
 
 ___
 
 ### icon
 
-• `Optional` **icon**: `string`
+ `Optional` **icon**: `string`
 
 Optional notification icon.
 
 #### Defined in
 
-[notification.ts:38](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/notification.ts#L38)
+[notification.ts:38](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/notification.ts#L38)
 
 ___
 
 ### title
 
-• **title**: `string`
+ **title**: `string`
 
 Notification title.
 
 #### Defined in
 
-[notification.ts:34](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/notification.ts#L34)
+[notification.ts:34](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/notification.ts#L34)

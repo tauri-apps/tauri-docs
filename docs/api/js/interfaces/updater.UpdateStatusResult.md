@@ -8,18 +8,18 @@
 
 ### error
 
-• `Optional` **error**: `string`
+ `Optional` **error**: `string`
 
 #### Defined in
 
-[updater.ts:17](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/updater.ts#L17)
+[updater.ts:17](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/updater.ts#L17)
 
 ___
 
 ### status
 
-• **status**: [`UpdateStatus`](../modules/updater.md#updatestatus)
+ **status**: [`UpdateStatus`](../modules/updater.md#updatestatus)
 
 #### Defined in
 
-[updater.ts:18](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/updater.ts#L18)
+[updater.ts:18](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/updater.ts#L18)

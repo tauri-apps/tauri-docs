@@ -4,7 +4,7 @@
 
 The event system allows you to emit events to the backend and listen to events from it.
 
-This package is also accessible with `window.__TAURI__.event` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.event` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
 ## Interfaces
 
@@ -14,7 +14,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 ### EventCallback
 
-Ƭ **EventCallback**<`T`\>: (`event`: [`Event`](../interfaces/event.Event.md)<`T`\>) => `void`
+ **EventCallback**<`T`\>: (`event`: [`Event`](../interfaces/event.Event.md)<`T`\>) => `void`
 
 #### Type parameters
 
@@ -24,7 +24,7 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Type declaration
 
-▸ (`event`): `void`
+(`event`): `void`
 
 ##### Parameters
 
@@ -38,27 +38,27 @@ This package is also accessible with `window.__TAURI__.event` when `tauri.conf.j
 
 #### Defined in
 
-[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L22)
+[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/helpers/event.ts#L22)
 
 ___
 
 ### EventName
 
-Ƭ **EventName**: `string`
+ **EventName**: `string`
 
 #### Defined in
 
-[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L20)
+[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/helpers/event.ts#L20)
 
 ___
 
 ### UnlistenFn
 
-Ƭ **UnlistenFn**: () => `void`
+ **UnlistenFn**: () => `void`
 
 #### Type declaration
 
-▸ (): `void`
+(): `void`
 
 ##### Returns
 
@@ -66,13 +66,13 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/helpers/event.ts#L24)
+[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/helpers/event.ts#L24)
 
 ## Functions
 
 ### emit
 
-▸ **emit**(`event`, `payload?`): `Promise`<`void`\>
+**emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend.
 
@@ -98,7 +98,7 @@ ___
 
 ### listen
 
-▸ **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an event from the backend.
 
@@ -138,7 +138,7 @@ ___
 
 ### once
 
-▸ **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an one-off event from the backend.
 

@@ -4,9 +4,9 @@
 
 Provides operating system-related utility methods and properties.
 
-This package is also accessible with `window.__TAURI__.os` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.os` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.os`](https://tauri.app/v1/api/config/#allowlistconfig.os) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -24,37 +24,37 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### Arch
 
-Ƭ **Arch**: ``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``
+ **Arch**: ``"x86"`` \| ``"x86_64"`` \| ``"arm"`` \| ``"aarch64"`` \| ``"mips"`` \| ``"mips64"`` \| ``"powerpc"`` \| ``"powerpc64"`` \| ``"riscv64"`` \| ``"s390x"`` \| ``"sparc64"``
 
 #### Defined in
 
-[os.ts:43](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L43)
+[os.ts:43](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/os.ts#L43)
 
 ___
 
 ### OsType
 
-Ƭ **OsType**: ``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``
+ **OsType**: ``"Linux"`` \| ``"Darwin"`` \| ``"Windows_NT"``
 
 #### Defined in
 
-[os.ts:41](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L41)
+[os.ts:41](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/os.ts#L41)
 
 ___
 
 ### Platform
 
-Ƭ **Platform**: ``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``
+ **Platform**: ``"linux"`` \| ``"darwin"`` \| ``"ios"`` \| ``"freebsd"`` \| ``"dragonfly"`` \| ``"netbsd"`` \| ``"openbsd"`` \| ``"solaris"`` \| ``"android"`` \| ``"win32"``
 
 #### Defined in
 
-[os.ts:29](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L29)
+[os.ts:29](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/os.ts#L29)
 
 ## Variables
 
 ### EOL
 
-• `Const` **EOL**: ``"\n"`` \| ``"\r\n"``
+ `Const` **EOL**: ``"\n"`` \| ``"\r\n"``
 
 The operating system-specific end-of-line marker.
 - `\n` on POSIX
@@ -62,13 +62,13 @@ The operating system-specific end-of-line marker.
 
 #### Defined in
 
-[os.ts:61](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/os.ts#L61)
+[os.ts:61](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/os.ts#L61)
 
 ## Functions
 
 ### arch
 
-▸ **arch**(): `Promise`<[`Arch`](os.md#arch)\>
+**arch**(): `Promise`<[`Arch`](os.md#arch)\>
 
 Returns the operating system CPU architecture for which the tauri app was compiled.
 Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`.
@@ -88,7 +88,7 @@ ___
 
 ### platform
 
-▸ **platform**(): `Promise`<[`Platform`](os.md#platform)\>
+**platform**(): `Promise`<[`Platform`](os.md#platform)\>
 
 Returns a string identifying the operating system platform.
 The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
@@ -108,7 +108,7 @@ ___
 
 ### tempdir
 
-▸ **tempdir**(): `Promise`<`string`\>
+**tempdir**(): `Promise`<`string`\>
 
 Returns the operating system's default directory for temporary files as a string.
 
@@ -127,7 +127,7 @@ ___
 
 ### type
 
-▸ **type**(): `Promise`<[`OsType`](os.md#ostype)\>
+**type**(): `Promise`<[`OsType`](os.md#ostype)\>
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
@@ -146,7 +146,7 @@ ___
 
 ### version
 
-▸ **version**(): `Promise`<`string`\>
+**version**(): `Promise`<`string`\>
 
 Returns a string identifying the kernel version.
 

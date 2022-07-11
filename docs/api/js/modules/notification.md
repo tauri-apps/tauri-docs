@@ -5,9 +5,9 @@
 Send toast notifications (brief auto-expiring OS window element) to your user.
 Can also be used with the Notification Web API.
 
-This package is also accessible with `window.__TAURI__.notification` when `tauri.conf.json > build > withGlobalTauri` is set to true.
+This package is also accessible with `window.__TAURI__.notification` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be allowlisted on `tauri.conf.json`:
+The APIs must be added to [`tauri.allowlist.notification`](https://tauri.app/v1/api/config/#allowlistconfig.notification) in `tauri.conf.json`:
 ```json
 {
   "tauri": {
@@ -29,19 +29,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### Permission
 
-Ƭ **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
+ **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
 
 Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
 ### isPermissionGranted
 
-▸ **isPermissionGranted**(): `Promise`<`boolean`\>
+**isPermissionGranted**(): `Promise`<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
@@ -60,7 +60,7 @@ ___
 
 ### requestPermission
 
-▸ **requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
+**requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
@@ -85,7 +85,7 @@ ___
 
 ### sendNotification
 
-▸ **sendNotification**(`options`): `void`
+**sendNotification**(`options`): `void`
 
 Sends a notification to the user.
 

@@ -10,7 +10,7 @@ A position represented in logical pixels.
 
 ### constructor
 
-• **new LogicalPosition**(`x`, `y`)
+**new LogicalPosition**(`x`, `y`)
 
 #### Parameters
 
@@ -23,28 +23,28 @@ A position represented in logical pixels.
 
 ### type
 
-• **type**: `string` = `'Logical'`
+ **type**: `string` = `'Logical'`
 
 #### Defined in
 
-[window.ts:135](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L135)
+[window.ts:135](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L135)
 
 ___
 
 ### x
 
-• **x**: `number`
+ **x**: `number`
 
 #### Defined in
 
-[window.ts:136](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L136)
+[window.ts:136](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L136)
 
 ___
 
 ### y
 
-• **y**: `number`
+ **y**: `number`
 
 #### Defined in
 
-[window.ts:137](https://github.com/tauri-apps/tauri/blob/7bbf167/tooling/api/src/window.ts#L137)
+[window.ts:137](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L137)
