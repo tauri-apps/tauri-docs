@@ -5,12 +5,10 @@
 name: build
 
 on:
-  pull_request:
-    branches:
-      - dev
+  pull_request_target:
+    branches: [dev]
   push:
-    branches:
-      - dev
+    branches: [dev]
 
 jobs:
   build-locale-list:
@@ -18,7 +16,11 @@ jobs:
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout site
+        uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
@@ -26,17 +28,13 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Generate i18n files
         run: yarn docusaurus write-translations
-      - name: Dryrun upload i18n files
-        if: ${{ github.event_name != 'push' }}
-        env:
-          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
-        run: yarn crowdin upload --dryrun
       - name: Upload i18n files
         if: ${{ github.event_name == 'push' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
+        if: ${{ github.event_name == 'push' }}
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -53,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: config
-          path: ./docusaurus.config.js
+          path: docusaurus.config.js
           if-no-files-found: error
 
   build-locales:
@@ -64,6 +62,9 @@ jobs:
         locale: ${{ fromJson(needs.build-locale-list.outputs.locale-list) }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       - name: Retrieve translations
         id: i18n
         uses: actions/download-artifact@v3
@@ -82,12 +83,12 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build English locale
         if: matrix.locale == 'en'
-        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js
+        run: yarn build --locale ${{ matrix.locale }}
       - name: Build non-English locale
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: yarn build --locale ${{ matrix.locale }} --config ./docusaurus.config.js --out-dir ./build/${{ matrix.locale }}
+        run: yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
@@ -110,13 +111,12 @@ jobs:
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
-          production-branch: dev
+          production-deploy: ${{ github.event_name == 'push' }}
           alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
           fails-without-credentials: true
           enable-commit-comment: false
-          
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
