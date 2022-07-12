@@ -9,3 +9,9 @@ jonaskruckenberg:
   title: Tauri Working Group
   url: https://github.com/JonasKruckenberg
   image_url: ./author_images/jonaskruckenberg.jpg
+
+beanow:
+  name: Robin van Boven
+  title: Tauri Board Director
+  url: https://github.com/Beanow
+  image_url: ./author_images/beanow.jpg
