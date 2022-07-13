@@ -110,6 +110,10 @@ h2 > [class^='ti-'] {
   min-height: 52px;
 }
 
+[class*='announcementBar_'] a:hover {
+  color: var(--ifm-button-color) !important;
+}
+
 [class*='property_'] .hash-link {
   display: inline-block;
   position: relative;
