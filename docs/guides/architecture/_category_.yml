@@ -1,1 +1,3 @@
 position: 3
+customProps:
+  description: Learn how Tauri works behind the scenes

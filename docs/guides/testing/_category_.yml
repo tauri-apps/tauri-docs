@@ -1,2 +1,4 @@
 label: 'Testing'
 position: 6
+customProps:
+  description: Techniques for testing inside and outside the Tauri runtime
