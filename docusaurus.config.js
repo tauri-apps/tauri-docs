@@ -296,7 +296,6 @@ const siteConfig = {
     ],
   ],
   plugins: [
-    path.resolve(__dirname, './plugins/dynamic-css.js'),
     path.resolve('./plugins/external-assets'),
     [
       '@docusaurus/plugin-pwa',
