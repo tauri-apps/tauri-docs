@@ -81,18 +81,7 @@
 }
 
 [class*='announcementBar_'] {
-  min-height: 52px;
-}
-
-/* Keeps colour so it doesn't clash with background, add underline */
-[class*='announcementBarContent_'] a:hover {
-  color: unset;
-}
-
-/* Keep colour so it doesn't clash with background */
-a.button:hover {
-  color: var(--ifm-button-color);
-  text-decoration: none;
+  min-height: 3rem;
 }
 
 [class*='property_'] .hash-link {
