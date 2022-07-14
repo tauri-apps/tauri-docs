@@ -18,17 +18,17 @@ function CardContainer({ href, children }) {
     </Link>
   )
 }
-function CardLayout({ href, icon, title, description, item }) {
-  // console.log(item)
+function CardLayout({ href, icon, title, description }) {
   return (
     <CardContainer href={href}>
-      {/* {image && <p>Image goes here{image}</p>} */}
-
       <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
         {icon} {title}
       </h2>
       {description && (
-        <p className={clsx(styles.cardDescription)} title={description}>
+        <p
+          className={clsx('text--truncate', styles.cardDescription)}
+          title={description}
+        >
           {description}
         </p>
       )}
@@ -41,6 +41,8 @@ function CardCategory({ item }) {
   if (!href) {
     return null
   }
+
+  console.log(item)
 
   return (
     <CardLayout
@@ -60,7 +62,6 @@ function CardLink({ item }) {
       icon={icon}
       title={item.label}
       description={doc?.description}
-      item={item.customProps}
     />
   )
 }
