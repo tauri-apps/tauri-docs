@@ -8,6 +8,7 @@ import {
 import isInternalUrl from '@docusaurus/isInternalUrl'
 import { translate } from '@docusaurus/Translate'
 import styles from './styles.module.css'
+
 function CardContainer({ href, children }) {
   return (
     <Link
@@ -18,9 +19,11 @@ function CardContainer({ href, children }) {
     </Link>
   )
 }
-function CardLayout({ href, icon, title, description }) {
+
+function CardLayout({ href, icon, title, description, image }) {
   return (
     <CardContainer href={href}>
+      <img className={clsx(styles.cardImage)} src={image} />
       <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
         {icon} {title}
       </h2>
@@ -62,6 +65,7 @@ function CardLink({ item }) {
       icon={icon}
       title={item.label}
       description={doc?.description}
+      image={item.customProps?.doc_card_image}
     />
   )
 }

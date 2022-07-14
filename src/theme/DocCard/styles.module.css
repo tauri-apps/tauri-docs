@@ -25,3 +25,9 @@
 .cardDescription {
   font-size: 0.8rem;
 }
+
+.cardImage {
+  background-color: pink;
+  width: 2em;
+  height: 2em;
+}
