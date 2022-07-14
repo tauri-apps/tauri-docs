@@ -84,14 +84,8 @@
   min-height: 52px;
 }
 
-/* Removes underline for announcement link */
-[class*='announcementBarContent_'] a:link {
-  text-decoration: none;
-}
-
 /* Keeps colour so it doesn't clash with background, add underline */
 [class*='announcementBarContent_'] a:hover {
-  text-decoration: underline;
   color: unset;
 }
 
