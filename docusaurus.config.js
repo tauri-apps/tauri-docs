@@ -283,6 +283,13 @@ const siteConfig = {
             }),
           },
           remarkPlugins: [require('mdx-mermaid')],
+          async sidebarItemsGenerator({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args)
+            return sidebarItems.filter((item) => item.id !== 'guides/readme')
+          },
         },
 
         theme: {
