@@ -2066,10 +2066,10 @@
     njre "^0.2.0"
     shelljs "^0.8.4"
 
-"@crowdin/crowdin-api-client@1.18.2":
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.18.2.tgz#dedb44a8da33242765bce911680e849ee60eb709"
-  integrity sha512-YmK21yz9xUAi4Nsd4H8HEjtq3Jg7M6Uc1KMRIVFedvetP1/XEoGTzmeAW9i2khp8COxU82DiRKe84JoPQFYYQQ==
+"@crowdin/crowdin-api-client@1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.19.0.tgz#bde8aafc67601655d9e9e45cc04b7f85e33609cd"
+  integrity sha512-RE7dCirwHGTObHn6fYLLqd9bloeVBjcNpP+1AfPYVuLD9aHOMLJuz4S7Af/Sk8EhbQZRiFNux5glpfZDOHvq+g==
   dependencies:
     axios "0.21.3"
 
@@ -3698,10 +3698,10 @@ boolbase@^1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootstrap-icons@1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.8.3.tgz#14c15e26deaddd42af9f88c4d81f7c45bf26aa98"
-  integrity sha512-s5kmttnbq4BXbx3Bwnj39y+t7Vc3blTtyD77W3aYQ1LlNoS3lNbbGvSYhIbg26Im8KmjScyFpHEevlPOBcIDdA==
+bootstrap-icons@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.9.0.tgz#e0ac54e931f674b3268e3921e53c34aeae7ac224"
+  integrity sha512-4S077UbfqHtNOIKc43SDR+EL43zfo7ou8jI5+JRQqGZuq5UOK6iX6FtFNOQ/WjeWJ09CZ0/kSceh+WWPzfMfVQ==
 
 boxen@^5.0.0:
   version "5.1.2"
@@ -5119,13 +5119,13 @@ dns-packet@^5.2.2:
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
-docs-searchbar.js@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.1.2.tgz#8f9f47fefee2a7d9576315d14ddc9ce7f13a7f46"
-  integrity sha512-2lsNYk1f2rtINCi5PrR2aSgoxQkBFAJm+b2aCztWhTOZCdxizcFwQ9pcygGeSx7CTa6bBdTm68PtW2G7r3pTfg==
+docs-searchbar.js@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/docs-searchbar.js/-/docs-searchbar.js-2.2.0.tgz#e60eb0ee4f67853c41fdf7d3a4ef6ac7ac2c8027"
+  integrity sha512-rleKMiTkxG14M+6yt3+H8H0w/GKxWsNMinf4+zTVz9aVi04oJ8u37kktTiW3qkpPl9VQ7/i7Yv9wykukMqVxfw==
   dependencies:
     autocomplete.js "^0.38.1"
-    meilisearch "^0.25.1"
+    meilisearch "^0.27.0"
     to-factory "^1.0.0"
     zepto "^1.2.0"
 
@@ -7201,10 +7201,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-meilisearch@^0.25.1:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.25.1.tgz#0dc25ffad64e6e50eb3da6c0691b0ff54f8578bf"
-  integrity sha512-20jO0pK9BhghxHSkOLbdoYn58h/Z0PNL3JQcRq7ipNIeqrxkAetCZZ6ttJC3uxcz0jVglmiFoSXu3Z/lEOLOLQ==
+meilisearch@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.27.0.tgz#8bd57ddb77b975f93e054cb977b951c488ece297"
+  integrity sha512-kZOZFIuSO7c6xRf+Y2/9/h6A9pl0sCl/G44X4KuaSwxGbruOZPhmxbeVEgLHBv4pUFvQ56rNVTA/2d/5GCU1YA==
   dependencies:
     cross-fetch "^3.1.5"
 
