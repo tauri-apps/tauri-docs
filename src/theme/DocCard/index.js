@@ -35,14 +35,13 @@ function CardLayout({ href, icon, title, description }) {
     </CardContainer>
   )
 }
+
 function CardCategory({ item }) {
   const href = findFirstCategoryLink(item)
   // Unexpected: categories that don't have a link have been filtered upfront
   if (!href) {
     return null
   }
-
-  console.log(item)
 
   return (
     <CardLayout
@@ -53,6 +52,7 @@ function CardCategory({ item }) {
     />
   )
 }
+
 function CardLink({ item }) {
   const icon = isInternalUrl(item.href) ? '📄️' : '🔗'
   const doc = useDocById(item.docId ?? undefined)
@@ -65,6 +65,7 @@ function CardLink({ item }) {
     />
   )
 }
+
 export default function DocCard({ item }) {
   switch (item.type) {
     case 'link':
