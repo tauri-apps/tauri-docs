@@ -14,7 +14,7 @@ The body object to be used on POST and PUT requests.
 
 #### Defined in
 
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L75)
+[http.ts:75](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L75)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L74)
+[http.ts:74](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L74)
 
 ## Methods
 

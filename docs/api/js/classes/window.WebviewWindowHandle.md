@@ -34,7 +34,7 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 #### Defined in
 
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L280)
+[window.ts:280](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L280)
 
 ___
 
@@ -50,7 +50,7 @@ Local event listeners.
 
 #### Defined in
 
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/window.ts#L282)
+[window.ts:282](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L282)
 
 ## Methods
 

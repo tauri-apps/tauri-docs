@@ -35,7 +35,7 @@ Possible permission values.
 
 #### Defined in
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/notification.ts#L42)
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/notification.ts#L42)
 
 ## Functions
 

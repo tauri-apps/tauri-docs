@@ -38,7 +38,7 @@ Provides the platform-specific path segment delimiter:
 
 #### Defined in
 
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/path.ts#L568)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/path.ts#L568)
 
 ___
 
@@ -52,7 +52,7 @@ Provides the platform-specific path segment separator:
 
 #### Defined in
 
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/path.ts#L561)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/path.ts#L561)
 
 ## Functions
 

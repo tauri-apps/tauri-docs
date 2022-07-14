@@ -59,7 +59,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L258)
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/shell.ts#L258)
 
 ___
 
@@ -71,7 +71,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 #### Defined in
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/shell.ts#L256)
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
