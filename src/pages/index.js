@@ -490,14 +490,12 @@ export default function App() {
             <CreateTauriApp />
           </div>
 
-          <div className={styles.buttons}>
-            <Link
-              className={classNames('button button--secondary button--lg')}
-              to={latestVersion.path + '/guides/getting-started/setup'}
-            >
-              <Translate>Quick Start</Translate>
-            </Link>
-          </div>
+          <Link
+            className={classNames('button button--secondary button--lg')}
+            to={latestVersion.path + '/guides/getting-started/setup'}
+          >
+            <Translate>Quick Start</Translate>
+          </Link>
         </div>
         <div className={classNames(styles.heroAfter)}>
           <img

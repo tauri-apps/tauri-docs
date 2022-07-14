@@ -5,7 +5,6 @@
  * work well for content-centric websites.
  */
 
-@import 'themify-icons.css';
 @import '~@fontsource/rubik';
 @import 'bootstrap-icons';
 
@@ -50,10 +49,6 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-.hero__subtitle {
-  margin-top: 26px;
-}
-
 .mermaid svg {
   display: block;
   margin: auto;
@@ -65,14 +60,6 @@
 
 .pattern-logo img {
   max-height: 191px;
-}
-
-html[data-theme='dark'] #starfield {
-  display: block !important;
-  width: 100%;
-  height: 100%;
-  background: #111;
-  position: absolute;
 }
 
 .videowrapper {
@@ -93,21 +80,8 @@ html[data-theme='dark'] #starfield {
   height: 100%;
 }
 
-h2 > [class^='ti-'] {
-  vertical-align: middle;
-}
-
-.anchorify::before {
-  display: block;
-  content: ' ';
-  margin-top: -60px;
-  height: 60px;
-  visibility: hidden;
-  pointer-events: none;
-}
-
 [class*='announcementBar_'] {
-  min-height: 52px;
+  min-height: 3rem;
 }
 
 [class*='property_'] .hash-link {
