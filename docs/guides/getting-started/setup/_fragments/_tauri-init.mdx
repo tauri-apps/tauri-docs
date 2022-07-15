@@ -1,12 +1,79 @@
-import Command from '@theme/Command'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 At the heart of every Tauri app is a Rust binary that manages windows, the webview and calls to the operating system through a Rust crate called `tauri`. This project is managed by [Cargo], the official package manager and general-purpose build tool for Rust.
 
 Our Tauri CLI uses Cargo under the hood so you rarely need to interact with it directly. Cargo has many more useful features that are not exposed through our CLI, such as testing, linting, and formatting, so please refer to their [official docs][cargo commands] for more.
 
+:::info Install Tauri CLI
+
+If you haven't installed the Tauri CLI yet you can do so with with one of the below commands. Aren't sure which to use? Check out the [FAQ entry].
+
+<Tabs groupId="package-manager">
+<TabItem value="npm" label="npm" default>
+
+```shell
+npm install --save-dev @tauri-apps/cli
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```shell
+yarn add -D @tauri-apps/cli
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```shell
+pnpm add -D @tauri-apps/cli
+```
+
+</TabItem>
+<TabItem value="cargo" label="cargo">
+
+```shell
+cargo install tauri-cli
+```
+
+</TabItem>
+</Tabs>
+
+:::
+
 To scaffold a minimal Rust project that is pre-configured to use Tauri, open a terminal and run the following command:
 
-<Command name="init" />
+<Tabs groupId="package-manager">
+<TabItem value="npm" label="npm" default>
+
+```shell
+npm tauri init
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```shell
+yarn tauri init
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```shell
+pnpm tauri init
+```
+
+</TabItem>
+<TabItem value="cargo" label="cargo">
+
+```shell
+cargo tauri init
+```
+
+</TabItem>
+</Tabs>
 
 It will walk you through a series of questions:
 
@@ -71,3 +138,4 @@ The `tauri init` command generates a folder called `src-tauri`. It's a conventio
 [tauri-cli]: ../tauri-cli
 [cargo]: https://doc.rust-lang.org/cargo/
 [cargo commands]: https://doc.rust-lang.org/cargo/commands/index.html
+[faq entry]: ../../../faq.md#node-or-cargo
