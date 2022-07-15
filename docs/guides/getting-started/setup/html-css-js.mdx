@@ -1,5 +1,5 @@
 ---
-description: Build a Tauri app from scratch using HTML, CSS, JavaScript, and Node.js
+description: Build a Tauri app using HTML, CSS, JavaScript using either Node or Cargo
 pagination_next: guides/architecture/README
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/html5-light.svg
@@ -47,13 +47,13 @@ Next, create an `index.html` file inside of that folder with the following conte
 </html>
 ```
 
-We will leave the UI at this for this Guide, but feel free to play around with more content or add styling through CSS.
+We will keep the UI minimal for this guide, but feel free to play around with more content or add styling through CSS.
 
 ## Create the Rust Project
 
 :::tip
 
-Because we don't use a frontend bundler with Hot Module Reloading (HMR) for this tutorial we will use `../ui` as the values for steps 3 and 4 below.
+Because we don't use a frontend bundler with Hot Module Reloading (HMR) for this tutorial we will use `../ui` for steps 3 and 4 below.
 
 :::
 
@@ -79,8 +79,8 @@ We would normally be recommending the [`@tauri-apps/api`] package here, but sinc
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "..",
-    "distDir": "..",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist",
     // highlight-next-line
     "withGlobalTauri": true
   },

@@ -107,11 +107,9 @@ But before you do, let's quickly configure Tauri so it **automatically** start's
 {
   "build": {
     // highlight-start
-    // The Tauri CLI will execute this command when you run `tauri build`.
-    // This is the place to bundle your frontend and place html,css, and js files into the `distDir`.
+    // this command will execute when you run `tauri build`
     "beforeBuildCommand": "npm run build",
-    // The Tauri CLI will execute this command when you run `tauri dev`.
-    // This should start your development server.
+    // this command with execute when you run `tauri dev`
     "beforeDevCommand": "npm run dev",
     // highlight-end
     "devPath": "http://localhost:3000",
