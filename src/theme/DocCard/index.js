@@ -20,21 +20,37 @@ function CardContainer({ href, children }) {
   )
 }
 
-function CardLayout({ href, icon, title, description, image }) {
+function CardLayout({ href, icon, title, description, image, imageDark }) {
+  console.log(image)
   return (
     <CardContainer href={href}>
-      <img className={clsx(styles.cardImage)} src={image} />
-      <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
-        {icon} {title}
-      </h2>
-      {description && (
-        <p
-          className={clsx('text--truncate', styles.cardDescription)}
-          title={description}
-        >
-          {description}
-        </p>
+      {image && (
+        <div>
+          <img
+            className={styles.cardImage}
+            src={image + (imageDark ? '#gh-light-mode-only' : '')}
+          />
+          {imageDark && (
+            <img
+              className={styles.cardImage}
+              src={imageDark + '#gh-dark-mode-only'}
+            />
+          )}
+        </div>
       )}
+      <div className={styles.cardColumn}>
+        <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
+          {!image ? icon : ''} {title}
+        </h2>
+        {description && (
+          <p
+            className={clsx('text--truncate', styles.cardDescription)}
+            title={description}
+          >
+            {description}
+          </p>
+        )}
+      </div>
     </CardContainer>
   )
 }
@@ -66,6 +82,7 @@ function CardLink({ item }) {
       title={item.label}
       description={doc?.description}
       image={item.customProps?.doc_card_image}
+      imageDark={item.customProps?.doc_card_image_dark}
     />
   )
 }

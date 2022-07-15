@@ -7,6 +7,9 @@
   border: 1px solid var(--ifm-color-emphasis-200);
   transition: all var(--ifm-transition-fast) ease;
   transition-property: border, box-shadow;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .cardContainer:hover {
@@ -27,7 +30,10 @@
 }
 
 .cardImage {
-  background-color: pink;
-  width: 2em;
-  height: 2em;
+  width: 4em;
+  height: 4em;
+}
+
+.cardColumn * {
+  white-space: normal;
 }
