@@ -8,6 +8,7 @@ import {
 import isInternalUrl from '@docusaurus/isInternalUrl'
 import { translate } from '@docusaurus/Translate'
 import styles from './styles.module.css'
+
 function CardContainer({ href, children }) {
   return (
     <Link
@@ -18,20 +19,30 @@ function CardContainer({ href, children }) {
     </Link>
   )
 }
-function CardLayout({ href, icon, title, description }) {
+
+function CardLayout({ href, icon, title, description, image, imageDark }) {
+  console.log(image)
   return (
     <CardContainer href={href}>
-      <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
-        {icon} {title}
-      </h2>
-      {description && (
-        <p
-          className={clsx('text--truncate', styles.cardDescription)}
-          title={description}
-        >
-          {description}
-        </p>
+      {image && (
+        <div className={styles.cardImage}>
+          <img src={image + (imageDark ? '#gh-light-mode-only' : '')} />
+          {imageDark && <img src={imageDark + '#gh-dark-mode-only'} />}
+        </div>
       )}
+      <div className={styles.cardColumn}>
+        <h2 className={clsx('text--truncate', styles.cardTitle)} title={title}>
+          {!image ? icon : ''} {title}
+        </h2>
+        {description && (
+          <p
+            className={clsx('text--truncate', styles.cardDescription)}
+            title={description}
+          >
+            {description}
+          </p>
+        )}
+      </div>
     </CardContainer>
   )
 }
@@ -62,6 +73,8 @@ function CardLink({ item }) {
       icon={icon}
       title={item.label}
       description={doc?.description}
+      image={item.customProps?.doc_card_image}
+      imageDark={item.customProps?.doc_card_image_dark}
     />
   )
 }
