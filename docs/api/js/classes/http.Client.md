@@ -12,7 +12,7 @@
 
 #### Defined in
 
-[http.ts:251](https://github.com/tauri-apps/tauri/blob/47666c4/tooling/api/src/http.ts#L251)
+[http.ts:251](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L251)
 
 ## Methods
 
