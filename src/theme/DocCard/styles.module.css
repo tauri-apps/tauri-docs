@@ -30,8 +30,9 @@
 }
 
 .cardImage {
-  width: 4em;
-  height: 4em;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
 }
 
 .cardColumn * {

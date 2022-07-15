@@ -25,17 +25,9 @@ function CardLayout({ href, icon, title, description, image, imageDark }) {
   return (
     <CardContainer href={href}>
       {image && (
-        <div>
-          <img
-            className={styles.cardImage}
-            src={image + (imageDark ? '#gh-light-mode-only' : '')}
-          />
-          {imageDark && (
-            <img
-              className={styles.cardImage}
-              src={imageDark + '#gh-dark-mode-only'}
-            />
-          )}
+        <div className={styles.cardImage}>
+          <img src={image + (imageDark ? '#gh-light-mode-only' : '')} />
+          {imageDark && <img src={imageDark + '#gh-dark-mode-only'} />}
         </div>
       )}
       <div className={styles.cardColumn}>
