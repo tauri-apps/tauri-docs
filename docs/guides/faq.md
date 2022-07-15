@@ -109,3 +109,7 @@ We also compile the CLI as a native Node.js addon and distribute it [via NPM]. T
 
 [crates.io]: https://crates.io/crates/tauri-cli
 [via npm]: https://www.npmjs.com/package/@tauri-apps/cli
+
+## Recommended Browserlist
+
+We recommend using `target: ['es2021', 'chrome97', 'safari13']` for your browserlist build target. Tauri leverages the OS's native rendering engine (WebKit on macOS, WebView2 on Windows and WebKitGTK on Linux)
