@@ -5,9 +5,9 @@ sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/vite.svg
 ---
 
-import TauriInit from './_tauri-init.mdx'
-import Commands from './_commands.mdx'
-import Intro from './_intro.mdx'
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command from '@theme/Command'
@@ -22,12 +22,6 @@ Here's a preview of what we will be building:
 
 ![Application Preview](./vite-light.png#gh-light-mode-only)
 ![Application Preview](./vite-dark.png#gh-dark-mode-only)
-
-:::info
-
-Before we continue, make sure you have completed the [prerequisites] and installed the [Tauri CLI][tauri-cli] to have a working development environment.
-
-:::
 
 ## Create the Frontend
 
@@ -59,16 +53,16 @@ pnpm create vite
   </TabItem>
 </Tabs>
 
-1. **Project name:**  
+1. **Project name**  
    This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
-2. **Select a framework:**  
+2. **Select a framework**  
    If you plan on using a frontend framework later, this is where you can select it. For this guide, we assume you choose `vanilla`.
 
-3. **Select a variant:**  
+3. **Select a variant**  
    Vite offers [TypeScript] and vanilla JavaScript variants for all templates, and you can select the variant here. We **strongly** recommend TypeScript as it helps you write more secure, maintainable code faster and more efficiently. For this guide, we assume you choose `vanilla-ts`.
 
-Before we move on, let's quickly customize our `vite.config.ts` file, so you get the best compatibility with Tauri!
+Before we move on, let's quickly customize our `vite.config.ts` file, so you get the best compatibility with Tauri.
 
 ```typescript title=vite.config.ts
 import { defineConfig } from 'vite'
@@ -96,10 +90,15 @@ export default defineConfig({
 })
 ```
 
-<TauriInit
-  webAssets="To be compatible with Vite's default config we will answer this with '../dist'."
-  devServer="Because Vite's development server will listen on port 3000 by default we will answer this question with 'http://localhost:3000'."
-/>
+## Create the Rust Project
+
+:::tip
+
+You'll use `../dist` for step 3 (this is Vite's default output directory) and `http://localhost:3000` (or whichever port you've set in your Vite config) for step 4.
+
+:::
+
+<TauriInit />
 
 Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
 But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:

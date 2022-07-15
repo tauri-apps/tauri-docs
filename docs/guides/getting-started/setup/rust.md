@@ -1,11 +1,15 @@
 ---
-sidebar_position: 2
+description: Build a Tauri app with only Cargo (without a Node.js runtime)
+pagination_next: guides/architecture/README
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/rust-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/rust-dark.svg
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Install Tauri CLI
+# Rust
 
 The Tauri CLI is the heart of the development process. It runs Cargo to compile the Rust core, starts your frontend development server, bundles all your assets, sidecars and resources when building for production, and even takes care of code-signing!
 
