@@ -45,7 +45,7 @@ default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
 ```
 
-The most important parts to take note of here are the `tauri-build` and `tauri` dependencies. Their versions must be the same as the version of your CLI in order to ensure that there won't be any issues running your app. If any of those three are not using the same version number you are highly likely to encounter issues.
+The most important parts to take note of here are the `tauri-build` and `tauri` dependencies. Their versions must be the same as the version of your CLI in order to ensure that there won't be any issues running your app. If any of these are not the same version number you are highly likely to encounter issues.
 
 Cargo version numbers uses Semver versioning, and running `cargo update` will pull the latest available Semver compatible versions of all dependencies. What this means is that even if you specify `1.0.0` as the version for `tauri-build`, Cargo can actually decide to download version `1.0.4`, because it is the latest Semver compatible version available. According to Semver projects are required to update their major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
 
