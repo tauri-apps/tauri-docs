@@ -14,7 +14,7 @@ async function run() {
     if (github.context.eventName === 'pull_request_target') {
       const head = github.context.payload.pull_request.head.repo.full_name
       console.log(head)
-      const repo = github.context.repository.full_name
+      const repo = github.context.repository
       console.log(repo)
 
       if (head === repo) {
