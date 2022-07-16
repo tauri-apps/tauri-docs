@@ -98,6 +98,7 @@ For example, if you've launched v1 and would like to work on v2 docs but not ser
 
 1. Update `unreleasedTauriVersion` in `docusaurus.config.js` to 'v2'
 2. Run the following command to version the current docs:
+3. Update .github/workflows/build.yml environment LATEST_VERSION to 'v2'
 
 ```shell
 yarn docusaurus docs:version 'v1'
