@@ -8,10 +8,20 @@ async function run() {
     var configFile = process.cwd() + '/docusaurus.config.js'
     var config = fs.readFileSync(configFile).toString()
 
+    console.log(github.context)
+
+    if (github.context.eventName === 'pull_request') {
+      if (
+        github.context.payload.head.repo.full_name === github.context.repo.repo
+      ) {
+      }
+    }
+
     if (
-      github.context.eventName === 'push' ||
-      github.context.event.pull_request.head.repo.full_name ==
-        github.context.repository
+      github.context.eventName === 'push'
+      // (github.context.eventName === 'pull_request' && github.)
+      // github.context.event.pull_request.head.repo.full_name ==
+      //   github.context.repository
     ) {
       console.log('Running from a trusted location...')
       var locales = config.match(/(?<=locales: )(.*)(?=,)/g)
