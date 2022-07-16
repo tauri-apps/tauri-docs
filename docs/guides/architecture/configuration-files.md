@@ -51,7 +51,7 @@ Cargo version numbers use [Semantic Versioning], and running `cargo update` will
 
 If you want to use specific versions of crates you can use exact versions instead by prepending `=` to the version number of the dependency, e.g. `=1.0.4`.
 
-Another thing to take not of as well is the `features=[]` part of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the `"allowlist"` properties you set in `tauri.conf.json`.
+Another thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the `"allowlist"` properties you set in `tauri.conf.json`.
 
 When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used later on as were used during development. Since you are developing a Tauri app, this file should be committed into your source repository. Only Rust libraries should omit comitting this file.
 
