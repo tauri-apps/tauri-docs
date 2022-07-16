@@ -16,7 +16,7 @@ Cargo's manifest file. You can declare Rust crates your app depends on, metadata
 
 An example of a barebones `Cargo.toml` file for a Tauri project might look a little something like this:
 
-```toml
+```toml Cargo.toml
 [package]
 name = "app"
 version = "0.1.0"
