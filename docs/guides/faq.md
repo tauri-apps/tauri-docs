@@ -107,9 +107,19 @@ We also compile the CLI as a native Node.js addon and distribute it [via NPM]. T
 3. If you develop custom tooling around Tauri, you can import the CLI as a regular JavaScript module
 4. You can install the CLI using a JavaScript manager:
 
-[crates.io]: https://crates.io/crates/tauri-cli
-[via npm]: https://www.npmjs.com/package/@tauri-apps/cli
-
 ## Recommended Browserlist
 
 We recommend using `es2021`, `last 3 Chrome versions`, and `safari13` for your browserlist and build targets. Tauri leverages the OS's native rendering engine (WebKit on macOS, WebView2 on Windows and WebKitGTK on Linux).
+
+## Build Conflict with Homebrew on Linux
+
+Homebrew on Linux includes it's own `pkg-config` (a utility to find libraries on the system). This can cause conflicts when installing the same `pkg-config` package for Tauri (usually installed through the package manager like `apt`). When you try to build a Tauri app it will try to invoke `pkg-config` and will end up invoking the one from Homebrew. If Homebrew wasn't used to install Tauri's dependencies this can cause errors.
+
+There are two solutions to this issue:
+
+1. [Uninstall Homebrew]
+2. Set the `PKG_CONFIG_PATH` environment variable to point to the correct `pkg-config` before building a Tauri app
+
+[crates.io]: https://crates.io/crates/tauri-cli
+[via npm]: https://www.npmjs.com/package/@tauri-apps/cli
+[uninstall homebrew]: https://docs.brew.sh/FAQ#how-do-i-uninstall-homebrew
