@@ -24,10 +24,11 @@ You can compile your application targeting Apple Silicon, Intel-based Mac comput
 - `tauri build --target universal-apple-darwin`: targets [universal macOS binaries].
 
 :::caution
+
 - Apple Silicon binaries only run on Mac computers with Apple Silicon.
 - Intel-based binaries only run on Intel-based Mac computers and Apple Silicon computers under the Rosetta translation.
 - Universal macOS binaries run on both architectures.
-:::
+  :::
 
 ## Application bundle customization
 
@@ -45,7 +46,9 @@ The Tauri configuration file provides the following options to customize your ap
 - **Bootstrapper**: Instead of launching the app directly, you can configure the bundled app to run a script that tries to expose the environment variables to the app; without that, you'll have trouble using system programs because the `PATH` environment variable isn't correct. Enable it with [`tauri.bundle.macOS.useBootstrapper`].
 
 :::note
+
 These options generate the application bundle [Info.plist file]. You can extend the generated file with your own `Info.plist` file stored on the Tauri folder (`src-tauri` by default). The CLI merges both `.plist` files on production, and the core layer embeds it on the binary on development.
+
 :::
 
 ## Code signing and notarization
@@ -53,19 +56,19 @@ These options generate the application bundle [Info.plist file]. You can extend 
 See the [Code signing guide].
 
 [application bundle]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
-[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config#tauri.bundle.macOS.minimumSystemVersion
+[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config.md#tauri.bundle.macOS.minimumSystemVersion
 [lsminimumsystemversion]: https://developer.apple.com/documentation/bundleresources/information_property_list/lsminimumsystemversion
 [universal macos binaries]: https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary
-[`package.productname`]: ../../api/config/#package.productName
-[`package.version`]: ../../api/config/#package.version
-[`tauri.bundle.category`]: ../../api/config/#tauri.bundle.category
-[`tauri.bundle.copyright`]: ../../api/config/#tauri.bundle.copyright
-[`tauri.bundle.icon`]: ../../api/config/#tauri.bundle.icon
-[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config/#tauri.bundle.macOS.minimumSystemVersion
-[`tauri.bundle.macos.license`]: ../../api/config/#tauri.bundle.macOS.license
+[`package.productname`]: ../../api/config.md#package.productName
+[`package.version`]: ../../api/config.md#package.version
+[`tauri.bundle.category`]: ../../api/config.md#tauri.bundle.category
+[`tauri.bundle.copyright`]: ../../api/config.md#tauri.bundle.copyright
+[`tauri.bundle.icon`]: ../../api/config.md#tauri.bundle.icon
+[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config.md#tauri.bundle.macOS.minimumSystemVersion
+[`tauri.bundle.macos.license`]: ../../api/config.md#tauri.bundle.macOS.license
 [entitlements.plist file]: https://developer.apple.com/documentation/bundleresources/entitlements
-[`tauri.bundle.macos.entitlements`]: ../../api/config/#tauri.bundle.macOS.entitlements
-[`tauri.bundle.macos.exceptiondomain`]: ../../api/config/#tauri.bundle.macOS.exceptionDomain
-[`tauri.bundle.macos.usebootstrapper`]: ../../api/config#tauri.bundle.deb.useBootstrapper
+[`tauri.bundle.macos.entitlements`]: ../../api/config.md#tauri.bundle.macOS.entitlements
+[`tauri.bundle.macos.exceptiondomain`]: ../../api/config.md#tauri.bundle.macOS.exceptionDomain
+[`tauri.bundle.macos.usebootstrapper`]: ../../api/config.md#tauri.bundle.deb.useBootstrapper
 [info.plist file]: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html
-[code signing guide]: ./sign-macos
+[code signing guide]: ./sign-macos.md

@@ -8,7 +8,9 @@ sidebar_position: 7
 This guide provides information on code signing and notarization for macOS applications.
 
 :::note
+
 If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will need to ensure the environment variable <i>CI=true</i> exists. For more information refer to [tauri-apps/tauri#592].
+
 :::
 
 ## Requirements
@@ -38,7 +40,9 @@ To create a new signing certificate, you must generate a Certificate Signing Req
 On your Apple Developer account, navigate to the [Certificates, IDs & Profiles page] and click on the `Add` button to open the interface to create a new certificate. Choose the appropriate certificate type (`Apple Distribution` to submit apps to the App Store, and `Developer ID Application` to ship apps outside the App Store). Upload your CSR, and the certificate will be created.
 
 :::note
+
 Only the Apple Developer `Account Holder` can create _Developer ID Application_ certificates. But it can be associated with a different Apple ID by creating a CSR with a different user email address.
+
 :::
 
 ### Downloading a certificate
@@ -46,7 +50,9 @@ Only the Apple Developer `Account Holder` can create _Developer ID Application_ 
 On [Certificates, IDs & Profiles page], click on the certificate you want to use and click on the `Download` button. It saves a `.cer` file that installs the certificate on the keychain once opened. The name of the keychain entry represents the `signing identity`, which can also be found by executing `security find-identity -v -p codesigning`.
 
 :::note
+
 A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output.
+
 :::
 
 ### Signing the Tauri application
@@ -71,7 +77,9 @@ Additionally, to simplify the code signing process on CI, Tauri can install the 
 These variables are only required to notarize the application.
 
 :::note
+
 Notarization is required when using a <i>Developer ID Application</i> certificate.
+
 :::
 
 - `APPLE_ID` and `APPLE_PASSWORD`: to authenticate with your Apple ID, set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password] for the Apple account.
@@ -88,7 +96,9 @@ The following example uses GitHub Actions to sign an application using the [Taur
 We first define the environment variables we listed above as Secrets on GitHub.
 
 :::note
+
 You can view <a href="https://docs.github.com/en/actions/reference/encrypted-secrets">this guide</a> to learn about GitHub secrets.
+
 :::
 
 Once we have established the GitHub Secrets, we create a GitHub publish workflow in `.github/workflows/main.yml`:

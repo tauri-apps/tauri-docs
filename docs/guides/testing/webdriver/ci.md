@@ -14,7 +14,7 @@ The following is a commented GitHub Actions workflow file at `.github/workflows/
 
 ```yaml
 # run this action when the repository is pushed to
-on: [ push ]
+on: [push]
 
 # the name of our workflow
 name: WebDriver
@@ -92,7 +92,7 @@ jobs:
         working-directory: webdriver/webdriverio
 ```
 
-[WebDriver]: https://www.w3.org/TR/webdriver/
+[webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
-[WebdriverIO]: https://webdriver.io/
-[previously built together]: example/webdriverio
+[webdriverio]: https://webdriver.io/
+[previously built together]: ./example/webdriverio.md
