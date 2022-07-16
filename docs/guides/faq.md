@@ -13,7 +13,7 @@ To use Tauri from GitHub (bleeding edge version) you need to change your `Cargo.
 
 Append this to your `Cargo.toml` file:
 
-```toml title=cargo.toml
+```toml title=Cargo.toml
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
