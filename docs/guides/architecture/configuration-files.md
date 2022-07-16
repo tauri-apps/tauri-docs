@@ -83,6 +83,9 @@ To learn more about `package.json` you can read more in the [official documentat
 
 [`tauri.conf.json` api reference]: ../../api/config.md
 [before-build-command]: ../../api/config.md#buildconfig.beforebuildcommand
+[semantic versioning]: https://semver.org
+[cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 [before-dev-command]: ../../api/config.md#buildconfig.beforedevcommand
 [package-config]: ../../api/config#packageconfig
 [tauri-config]: ../../api/config#tauriconfig
