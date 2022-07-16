@@ -37,8 +37,10 @@ You can display the signature embedded in the AppImage by running the following 
 Note that you need to change the $APPNAME and $VERSION values with the correct ones based on your configuration.
 
 :::caution The signature is not verified
+
 AppImage does not validate the signature, so you can't rely on it to check whether the file has been tampered or not.
 To validate the signature, you must provide an external tool for your users. See [the official AppImage documentation] for additional information.
+
 :::
 
-[the official AppImage documentation]: https://docs.appimage.org/packaging-guide/optional/signatures.html
+[the official appimage documentation]: https://docs.appimage.org/packaging-guide/optional/signatures.html

@@ -29,7 +29,7 @@ tauri plugin init --name awesome
 
 By default consumers of your plugin can call provided commands like this:
 
-```ts
+```js
 import { invoke } from '@tauri-apps/api'
 invoke('plugin:awesome|do_something')
 ```

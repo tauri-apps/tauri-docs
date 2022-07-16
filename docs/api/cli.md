@@ -201,4 +201,4 @@ This command will show the current version of Tauri.
 
 ## CLI usage
 
-See more about the usage through this [complete guide](../guides/development/development-cycle).
+See more about the usage through this [complete guide](../guides/development/development-cycle.md).

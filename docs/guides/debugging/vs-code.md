@@ -38,11 +38,7 @@ Create a `.vscode/launch.json` file and paste the below JSON contents into it:
       "request": "launch",
       "name": "Tauri Production Debug",
       "cargo": {
-        "args": [
-          "build",
-          "--release",
-          "--manifest-path=./src-tauri/Cargo.toml"
-        ]
+        "args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
       },
       // task for the `beforeBuildCommand` if used, must be configured in `.vscode/tasks.json`
       "preLaunchTask": "ui:build"
@@ -85,4 +81,4 @@ Note that it does not use the Tauri CLI, so exclusive CLI features are not execu
 
 Now you can set breakpoints in `src-tauri/src/main.rs` or any other Rust file and start debugging by pressing `F5`.
 
-[Core Process in Tauri applications]: ../architecture/process-model#the-core-process
+[core process in tauri applications]: ../architecture/process-model.md#the-core-process
