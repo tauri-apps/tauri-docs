@@ -59,7 +59,7 @@ To learn more about `Cargo.toml` you can read more in the [official documentatio
 
 ## `package.json`
 
-This is the Node.js package file. In the event the frontend of a Tauri app is developed using Node.js based technologies this file is used to configure primarily which dependencies the frontend has. It's also common to use the `"scripts"` section to store the command used to launch the frontend used by your Tauri application.
+This is the Node.js package file. If the frontend of a Tauri app is developed using Node.js-based technologies this file is used to configure the frontend such as which dependencies are used. It's also common to use the `"scripts"` section to store the command used to launch the frontend used by your Tauri application.
 
 An example of a barebones `package.json` file for a Tauri project might look a little something like this:
 
