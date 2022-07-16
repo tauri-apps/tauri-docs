@@ -10,6 +10,11 @@ on:
   push:
     branches: [dev]
 
+concurrency: crowdin_sync
+
+env:
+  LATEST_VERSION: v1
+
 jobs:
   build-locale-list:
     runs-on: ubuntu-latest
@@ -34,7 +39,10 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: ${{ github.event_name == 'push' }}
+        if: |
+          github.event_name == 'push' ||
+          (github.event_name == 'pull_request_target' &&
+          github.event.pull_request.head.repo.full_name == github.repository)
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -88,7 +96,9 @@ jobs:
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
+        run: |
+          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION
+          yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:

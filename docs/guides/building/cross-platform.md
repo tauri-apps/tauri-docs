@@ -4,9 +4,9 @@ sidebar_position: 5
 
 # Cross-Platform Compilation
 
-Tauri relies heavily on native libraries and toolchains, so meaningful cross-compilation is not possible at the current moment. The next best option is to compile utilizing a CI/CD pipeline hosted on something like [GitHub Actions][3], Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier.
+Tauri relies heavily on native libraries and toolchains, so meaningful cross-compilation is not possible at the current moment. The next best option is to compile utilizing a CI/CD pipeline hosted on something like [GitHub Actions], Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier.
 
-For an easy setup, we currently provide [Tauri Action][1], a GitHub Action that runs on all the supported platforms, compiles your software, generates the necessary artifacts, and uploads them to a new GitHub release.
+For an easy setup, we currently provide [Tauri Action], a GitHub Action that runs on all the supported platforms, compiles your software, generates the necessary artifacts, and uploads them to a new GitHub release.
 
 ## Tauri GitHub Action
 
@@ -18,8 +18,8 @@ This GitHub Action may also be used as a testing pipeline for your Tauri app, gu
 
 To setup code signing for both Windows and macOS on your workflow, follow the specific guide for each platform:
 
-- [Windows Code Signing with GitHub Actions][7]
-- [macOS Code Signing with GitHub Actions][8]
+- [Windows Code Signing with GitHub Actions]
+- [macOS Code Signing with GitHub Actions]
 
 :::
 
@@ -27,7 +27,7 @@ To setup code signing for both Windows and macOS on your workflow, follow the sp
 
 To set up Tauri Action you must first set up a GitHub repository. You can use this action on a repo that doesn't have Tauri configured since it automatically initialize Tauri before building and configure it to use your artifacts.
 
-Go to the Actions tab on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the [Tauri Action production build workflow example][2]. Alternatively, you may set up the workflow based on the [example lower on this page][6]
+Go to the Actions tab on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the [Tauri Action production build workflow example]. Alternatively, you may set up the workflow based on the [example lower on this page](#example-workflow)
 
 ### Configuration
 
@@ -134,13 +134,12 @@ env:
 
 ### Usage Notes
 
-Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][4] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template][5]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
+Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][usage limits billing and administration] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
 
-[1]: https://github.com/tauri-apps/tauri-action
-[2]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
-[3]: https://docs.github.com/en/actions
-[4]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
-[5]: https://github.com/probablykasper/tauri-svelte-template
-[6]: #example-workflow
-[7]: ../distribution/sign-windows#bonus-sign-your-application-with-github-actions
-[8]: ../distribution/sign-macos#example
+[tauri action]: https://github.com/tauri-apps/tauri-action
+[tauri action production build workflow example]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
+[github actions]: https://docs.github.com/en/actions
+[usage limits billing and administration]: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
+[tauri-svelte-template]: https://github.com/probablykasper/tauri-svelte-template
+[windows code signing with github actions]: ../distribution/sign-windows.md#bonus-sign-your-application-with-github-actions
+[macos code signing with github actions]: ../distribution/sign-macos.md#example

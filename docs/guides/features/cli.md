@@ -6,7 +6,7 @@ Tauri enables your app to have a CLI through [clap], a robust command line argum
 
 Under `tauri.conf.json`, you have the following structure to configure the interface:
 
-```js title=src-tauri/tauri.conf.json
+```json title=src-tauri/tauri.conf.json
 {
   "tauri": {
     "cli": {
@@ -28,7 +28,9 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 ```
 
 :::note
+
 All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
+
 :::
 
 ## Adding Arguments
@@ -39,7 +41,7 @@ The `args` array represents the list of arguments accepted by its command or sub
 
 A positional argument is identified by its position in the list of arguments. With the following configuration:
 
-```json title=src-tauri/tauri.conf.json:tauri.cli
+```json tauri.conf.json
 {
   "args": [
     {
@@ -62,7 +64,7 @@ Users can run your app as `./app tauri.txt dest.txt` and the arg matches map wil
 
 A named argument is a (key, value) pair where the key identifies the value. With the following configuration:
 
-```json title=src-tauri/tauri.conf.json:tauri.cli
+```json tauri.conf.json
 {
   "args": [
     {
@@ -82,7 +84,7 @@ Users can run your app as `./app --type foo bar`, `./app -t foo -t bar` or `./ap
 
 A flag argument is a standalone key whose presence or absence provides information to your application. With the following configuration:
 
-```js title=src-tauri/tauri.conf.json:tauri.cli
+```json tauri.conf.json
 {
   "args": [
     "name": "verbose",
@@ -98,7 +100,7 @@ Users can run your app as `./app -v -v -v`, `./app --verbose --verbose --verbose
 
 Some CLI applications has additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
 
-```js title=src-tauri/tauri.conf.json:tauri
+```json tauri.conf.json
 {
   "cli": {
     ...
@@ -155,4 +157,4 @@ getMatches().then((matches) => {
 You can find more about the CLI configuration [here][tauri config].
 
 [clap]: https://github.com/clap-rs/clap
-[tauri config]: ../../api/config#tauri
+[tauri config]: ../../api/config.md#tauri

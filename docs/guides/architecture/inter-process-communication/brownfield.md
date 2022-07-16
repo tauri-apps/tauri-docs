@@ -6,7 +6,7 @@ This is the simplest and most straightforward pattern to use Tauri with, because
 existing frontend projects. In short, it tries to require nothing additional to what an existing web
 frontend might use inside a browser. Not _**everything**_ that works in existing browser applications will work out-of-the-box; see the [Incompatibility section](#incompatibilities) for more details.
 
-If you are unfamiliar with Brownfield software development in general, the [Brownfield Wikipedia article](<https://en.wikipedia.org/wiki/Brownfield_(software_development)>)
+If you are unfamiliar with Brownfield software development in general, the [Brownfield Wikipedia article]
 provides a nice summary. For Tauri, the existing software is current browser support and behavior, instead of
 legacy systems.
 
@@ -40,3 +40,5 @@ it, you can use the `tauri > pattern` object in the `tauri.conf.json` configurat
 ```
 
 _**There are no additional configuration options for the brownfield pattern.**_
+
+[brownfield wikipedia article]: https://en.wikipedia.org/wiki/Brownfield_(software_development)

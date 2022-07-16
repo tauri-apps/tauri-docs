@@ -25,6 +25,7 @@ We will be using a pre-existing `package.json` to bootstrap this test suite beca
 guide on setting it up from scratch.
 
 `package.json`:
+
 ```json
 {
   "name": "webdriverio",
@@ -109,49 +110,50 @@ You may have noticed that the `test` script in our `package.json` mentions a fil
 config file which controls most aspects of our testing suite.
 
 `wdio.conf.js`:
+
 ```js
-const os = require("os");
-const path = require("path");
-const { spawn, spawnSync } = require("child_process");
+const os = require('os')
+const path = require('path')
+const { spawn, spawnSync } = require('child_process')
 
 // keep track of the `tauri-driver` child process
-let tauriDriver;
+let tauriDriver
 
 exports.config = {
-  specs: ["./test/specs/**/*.js"],
+  specs: ['./test/specs/**/*.js'],
   maxInstances: 1,
   capabilities: [
     {
       maxInstances: 1,
-      "tauri:options": {
-        application: "../../target/release/hello-tauri-webdriver",
+      'tauri:options': {
+        application: '../../target/release/hello-tauri-webdriver',
       },
     },
   ],
-  reporters: ["spec"],
-  framework: "mocha",
+  reporters: ['spec'],
+  framework: 'mocha',
   mochaOpts: {
-    ui: "bdd",
+    ui: 'bdd',
     timeout: 60000,
   },
 
   // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
-  onPrepare: () => spawnSync("cargo", ["build", "--release"]),
+  onPrepare: () => spawnSync('cargo', ['build', '--release']),
 
   // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
   beforeSession: () =>
     (tauriDriver = spawn(
-      path.resolve(os.homedir(), ".cargo", "bin", "tauri-driver"),
+      path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
       [],
       { stdio: [null, process.stdout, process.stderr] }
     )),
 
   // clean up the `tauri-driver` process we spawned at the start of the session
   afterSession: () => tauriDriver.kill(),
-};
+}
 ```
 
-If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][WebDriver documentation].
+If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][webdriver documentation].
 For non-WDIO specific items, there are comments explaining why we are running commands in `onPrepare`, `beforeSession`,
 and `afterSession`. We also have our specs set to `"./test/specs/**/*.js"`, so let's create a spec now.
 
@@ -161,39 +163,40 @@ A spec contains the code that is testing your actual application. The test runne
 run them as it sees fit. Let's create our spec now in the directory we specified.
 
 `test/specs/example.e2e.js`:
+
 ```js
 // calculates the luma from a hex color `#abcdef`
 function luma(hex) {
-  if (hex.startsWith("#")) {
-    hex = hex.substring(1);
+  if (hex.startsWith('#')) {
+    hex = hex.substring(1)
   }
 
-  const rgb = parseInt(hex, 16);
-  const r = (rgb >> 16) & 0xff;
-  const g = (rgb >> 8) & 0xff;
-  const b = (rgb >> 0) & 0xff;
-  return  0.2126 * r + 0.7152 * g + 0.0722 * b;
+  const rgb = parseInt(hex, 16)
+  const r = (rgb >> 16) & 0xff
+  const g = (rgb >> 8) & 0xff
+  const b = (rgb >> 0) & 0xff
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
 }
 
-describe("Hello Tauri", () => {
-  it("should be cordial", async () => {
-    const header = await $("body > h1");
-    const text = await header.getText();
-    expect(text).toMatch(/^[hH]ello/);
-  });
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const header = await $('body > h1')
+    const text = await header.getText()
+    expect(text).toMatch(/^[hH]ello/)
+  })
 
-  it("should be excited", async () => {
-    const header = await $("body > h1");
-    const text = await header.getText();
-    expect(text).toMatch(/!$/);
-  });
+  it('should be excited', async () => {
+    const header = await $('body > h1')
+    const text = await header.getText()
+    expect(text).toMatch(/!$/)
+  })
 
-  it("should be easy on the eyes", async () => {
-    const body = await $("body");
-    const backgroundColor = await body.getCSSProperty("background-color");
-    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
-  });
-});
+  it('should be easy on the eyes', async () => {
+    const body = await $('body')
+    const backgroundColor = await body.getCSSProperty('background-color')
+    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100)
+  })
+})
 ```
 
 The `luma` function on top is just a helper function for one of our tests and is not related to the actual testing of
@@ -259,15 +262,14 @@ Done in 1.98s.
 ```
 
 We see the Spec Reporter tell us that all 3 tests from the `test/specs/example.e2e.js` file, along with the final report
-`Spec Files:	 1 passed, 1 total (100% completed) in 00:00:01`.
+`Spec Files: 1 passed, 1 total (100% completed) in 00:00:01`.
 
 Using the [WebdriverIO] test suite, we just easily enabled e2e testing for our Tauri application from just a few lines
 of configuration and a single command to run it! Even better, we didn't have to modify the application at all.
 
-
-[WebdriverIO]: https://webdriver.io/
+[webdriverio]: https://webdriver.io/
 [finished example project]: https://github.com/chippers/hello_tauri
-[example Application setup]: setup
-[Mocha]: https://mochajs.org/
-[WebDriver documentation]: https://webdriver.io/docs/configurationfile
-[WebdriverIO API docs]: https://webdriver.io/docs/api
+[example application setup]: ./setup.md
+[mocha]: https://mochajs.org/
+[webdriver documentation]: https://webdriver.io/docs/configurationfile
+[webdriverio api docs]: https://webdriver.io/docs/api

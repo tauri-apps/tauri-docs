@@ -79,7 +79,9 @@ try {
 ### Events
 
 :::caution
+
 You need to _disable the built-in dialog_ in your [tauri configuration](#configuration); Otherwise, events aren't emitted.
+
 :::
 
 To know when an update is ready to be installed, you can subscribe to these events:
@@ -109,7 +111,7 @@ Event: `tauri://update-available`
 
 Emitted data:
 
-```none
+```
 version    Version announced by the server
 date       Date announced by the server
 body       Note announced by the server
@@ -157,7 +159,7 @@ Event: `tauri://update-status`
 
 Emitted data:
 
-```none
+```
 status    [ERROR/PENDING/DONE]
 error     String/null
 ```
@@ -207,7 +209,7 @@ When an update is available, Tauri expects the following schema in response to t
 
 The only required keys are "url" and "version"; the others are optional.
 
-"pub_date" if present must be formatted according to [RFC 3339][Date and Time on the Internet: Timestamps].
+"pub_date" if present must be formatted according to [RFC 3339][date and time on the internet: timestamps].
 
 "signature" must be a valid signature generated with Tauri CLI. See [Signing updates](#signing-updates).
 
@@ -256,7 +258,7 @@ You can see how it's [bundled with the CI][artifacts updater workflow] and a [sa
 
 On macOS, we create a .tar.gz from the whole application. (.app)
 
-```none
+```
 target/release/bundle
 └── macos
     └── app.app
@@ -268,7 +270,7 @@ target/release/bundle
 
 On Windows, we create a .zip from the MSI; when downloaded and validated, we run the MSI install.
 
-```none
+```
 target/release/bundle
 └── msi
     └── app.x64.msi
@@ -280,7 +282,7 @@ target/release/bundle
 
 On Linux, we create a .tar.gz from the AppImage.
 
-```none
+```
 target/release/bundle
 └── appimage
     └── app.AppImage
@@ -329,6 +331,6 @@ If they are set, the bundler automatically generates and signs the updater artif
 
 [200 ok]: http://tools.ietf.org/html/rfc2616#section-10.2.1
 [204 no content]: http://tools.ietf.org/html/rfc2616#section-10.2.5
-[Date and Time on the Internet: Timestamps]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.8
+[date and time on the internet: timestamps]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.8
 [artifacts updater workflow]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/.github/workflows/artifacts-updater.yml#L44
 [sample tauri.conf.json]: https://github.com/tauri-apps/tauri/blob/5b6c7bb6ee3661f5a42917ce04a89d94f905c949/examples/updater/src-tauri/tauri.conf.json#L52

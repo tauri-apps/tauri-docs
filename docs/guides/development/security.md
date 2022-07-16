@@ -55,23 +55,26 @@ Tauri restricts the [Content Security Policy (CSP)] of your HTML pages. Local sc
 The CSP protection is only enabled if [`tauri.security.csp`] is set on the Tauri configuration file. You should make it as restricted as possible, only allowing the webview to load assets from hosts you trust and preferably own. At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically, so you only need to worry about what is unique to your application.
 
 :::note
+
 See [script-src][csp script-src], [style-src][csp style-src] and [CSP Sources] for more information about this protection.
+
 :::
 
 :::note
+
 With the CSP protection enabled, using inline `style` attributes is not allowed.
+
 :::
 
 :::caution
+
 Avoid loading remote content such as scripts served over a CDN as they introduce an attack vector, but any untrusted file can introduce new and subtle attack vectors.
+
 :::
 
 ### Isolation Pattern
 
-The [Isolation Pattern] is a way to inject a secondary, ideally minimal,
-JavaScript application in between your frontend application and Tauri Core. This minimal Isolation application can then
-be used to securely verify and modify IPC messages before they reach Tauri Core. The [Isolation Pattern] guide
-has more information.
+The [Isolation Pattern] is a way to inject a secondary, ideally minimal, JavaScript application in between your frontend application and Tauri Core. This minimal Isolation application can then be used to securely verify and modify IPC messages before they reach Tauri Core. The [Isolation Pattern] guide has more information.
 
 ### Tauri API
 
@@ -262,10 +265,10 @@ open('https://docs.rs/tauri/latest/tauri')
 [security-is-everyones-responsibility]: https://www.electronjs.org/docs/latest/tutorial/security#security-is-everyones-responsibility
 [xss]: https://owasp.org/www-community/attacks/xss/
 [content security policy (csp)]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-[`tauri.security.csp`]: ../../api/config/#tauri.security.csp
+[`tauri.security.csp`]: ../../api/config.md#tauri.security.csp
 [csp script-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
 [csp style-src]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
 [csp sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
-[isolation pattern]: ../architecture/inter-process-communication/isolation
+[isolation pattern]: ../architecture/inter-process-communication/isolation.md
 [tauri api]: https://www.npmjs.com/package/@tauri-apps/api
-[the allowlist configuration]: ../../api/config/#tauri.allowlist
+[the allowlist configuration]: ../../api/config.md#tauri.allowlist
