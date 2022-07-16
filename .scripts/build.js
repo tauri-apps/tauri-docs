@@ -8,8 +8,11 @@ async function run() {
     var configFile = process.cwd() + '/docusaurus.config.js'
     var config = fs.readFileSync(configFile).toString()
 
-    if (github.context.eventName === 'push') {
-      console.log('Running a production deploy build...')
+    if (
+      github.context.eventName === 'push' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    ) {
+      console.log('Running from a trusted location...')
       var locales = config.match(/(?<=locales: )(.*)(?=,)/g)
       locales = locales[0].replaceAll("'", '"')
       locales = JSON.parse(locales)
@@ -17,7 +20,7 @@ async function run() {
       console.log(`Found the locales ${locales}`)
       core.setOutput('locale-list', locales)
     } else {
-      console.log('Running a deploy preview...')
+      console.log('Running an untrusted deploy preview...')
       core.setOutput('locale-list', ['en'])
     }
   } catch (error) {
