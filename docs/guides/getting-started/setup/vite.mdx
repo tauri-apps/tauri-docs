@@ -92,13 +92,7 @@ export default defineConfig({
 
 ## Create the Rust Project
 
-:::tip
-
-You'll use `../dist` for step 3 (this is Vite's default output directory) and `http://localhost:5173` (or whichever port you've set in your Vite config) for step 4.
-
-:::
-
-<TauriInit />
+<TauriInit destDirValue="../dist" devPathValue="http://localhost:5173" />
 
 Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
 But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:

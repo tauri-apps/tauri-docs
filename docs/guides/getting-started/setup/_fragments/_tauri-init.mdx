@@ -77,17 +77,27 @@ cargo tauri init
 
 It will walk you through a series of questions:
 
-1. **What is your app name?**  
+1. **What is your app name?**
+
    This will be the name of your final bundle and what the OS will call your app. You can use any name you want here.
 
-2. **What should the window title be?**  
+2. **What should the window title be?**
+
    This will be the title of the default main window. You can use any title you want here.
 
-3. **Where are your web assets (HTML/CSS/JS) located relative to the `<current dir>/src-tauri/tauri.conf.json` file that will be created?**  
-   This is the path that Tauri will load your frontend assets from when building for **production**. Use the value mentioned previously.
+3. **Where are your web assets (HTML/CSS/JS) located relative to the `<current dir>/src-tauri/tauri.conf.json` file that will be created?**
 
-4. **What is the URL of your dev server?**  
-   This can be either a URL or a file path that Tauri will load during **development**. Use the value mentioned previously.
+   <div>
+     This is the path that Tauri will load your frontend assets from when
+     building for <b>production</b>. Use <code>{props.destDirValue}</code> for
+     this value.
+   </div>
+
+4. **What is the URL of your dev server?**
+   <div>
+     This can be either a URL or a file path that Tauri will load during{' '}
+     <b>development</b>. Use <code>{props.devPathValue}</code> for this value.
+   </div>
 
 :::info
 
