@@ -55,7 +55,7 @@ Another thing to take note of is the `features=[]` portion of the `tauri` depend
 
 When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used later on as were used during development. Since you are developing a Tauri app, this file should be committed into your source repository. Only Rust libraries should omit comitting this file.
 
-To learn more about `Cargo.toml` you can read more in the [official documentation](https://doc.rust-lang.org/cargo/reference/manifest.html).
+To learn more about `Cargo.toml` you can read more in the [official documentation][cargo-manifest].
 
 ## `package.json`
 
