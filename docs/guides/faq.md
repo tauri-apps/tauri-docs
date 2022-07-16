@@ -11,9 +11,9 @@ To use Tauri from GitHub (bleeding edge version) you need to change your `Cargo.
 <details>
   <summary>Pulling the Rust crate from source</summary>
 
-Append this to your `cargo.toml` file:
+Append this to your `Cargo.toml` file:
 
-```toml title=cargo.toml
+```toml title=Cargo.toml
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
