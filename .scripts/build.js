@@ -12,9 +12,9 @@ async function run() {
     console.log(github.context)
 
     if (github.context.eventName === 'pull_request') {
-      const head = github.context.payload.head.repo.full_name
+      const head = github.context.payload.pull_request.head.repo.full_name
       const repo = github.context.repository.full_name
-      console.log(head, repo)
+      console.log('Head:', head, 'Repo:', repo)
       if (head === repo) {
         trustedPr = true
       }
