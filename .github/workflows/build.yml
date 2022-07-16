@@ -10,6 +10,11 @@ on:
   push:
     branches: [dev]
 
+concurrency: crowdin_sync
+
+env:
+  LATEST_VERSION: v1
+
 jobs:
   build-locale-list:
     runs-on: ubuntu-latest
@@ -34,7 +39,10 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: ${{ github.event_name == 'push' }}
+        if: |
+          github.event_name == 'push' ||
+          (github.event_name == 'pull_request_target' &&
+          github.event.pull_request.head.repo.full_name == github.repository)
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -88,7 +96,9 @@ jobs:
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
+        run: |
+          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION
+          yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
@@ -96,27 +106,27 @@ jobs:
           path: build
           if-no-files-found: error
 
-  deploy-to-netlify:
-    needs: build-locales
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Retrieve build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99
-        with:
-          publish-dir: './build'
-          netlify-config-path: ./netlify.toml
-          production-deploy: ${{ github.event_name == 'push' }}
-          alias: deploy-preview-${{ github.event.number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from GitHub Actions'
-          fails-without-credentials: true
-          enable-commit-comment: false
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+  # deploy-to-netlify:
+  #   needs: build-locales
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Retrieve build folder
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: build
+  #         path: build
+  #     - name: Deploy to Netlify
+  #       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99
+  #       with:
+  #         publish-dir: './build'
+  #         netlify-config-path: ./netlify.toml
+  #         production-deploy: ${{ github.event_name == 'push' }}
+  #         alias: deploy-preview-${{ github.event.number }}
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #         deploy-message: 'Deploy from GitHub Actions'
+  #         fails-without-credentials: true
+  #         enable-commit-comment: false
+  #       env:
+  #         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  #         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
