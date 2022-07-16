@@ -72,7 +72,7 @@ export default defineConfig({
   clearScreen: false,
   // Tauri expects a fixed port, fail if that port is not available
   server: {
-    port: 3000,
+    port: 5173,
     strictPort: true,
   },
   // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
@@ -94,7 +94,7 @@ export default defineConfig({
 
 :::tip
 
-You'll use `../dist` for step 3 (this is Vite's default output directory) and `http://localhost:3000` (or whichever port you've set in your Vite config) for step 4.
+You'll use `../dist` for step 3 (this is Vite's default output directory) and `http://localhost:5173` (or whichever port you've set in your Vite config) for step 4.
 
 :::
 
@@ -112,7 +112,7 @@ But before you do, let's quickly configure Tauri so it **automatically** start's
     // this command will execute when you run `tauri dev`
     "beforeDevCommand": "npm run dev",
     // highlight-end
-    "devPath": "http://localhost:3000",
+    "devPath": "http://localhost:5173",
     "distDir": "../dist"
   },
 ```
