@@ -7,29 +7,13 @@ async function run() {
     // Load in the config file
     var configFile = process.cwd() + '/docusaurus.config.js'
     var config = fs.readFileSync(configFile).toString()
-    var trustedPr = false
 
-    if (github.context.eventName === 'pull_request_target') {
-      const head = github.context.payload.pull_request.head.repo.full_name
-      const repo = github.context.payload.repository.full_name
+    var locales = config.match(/(?<=locales: )(.*)(?=,)/g)
+    locales = locales[0].replaceAll("'", '"')
+    locales = JSON.parse(locales)
 
-      if (head === repo) {
-        trustedPr = true
-      }
-    }
-
-    if (github.context.eventName === 'push' || trustedPr) {
-      console.log('Running from a trusted location...')
-      var locales = config.match(/(?<=locales: )(.*)(?=,)/g)
-      locales = locales[0].replaceAll("'", '"')
-      locales = JSON.parse(locales)
-
-      console.log(`Found the locales ${locales}`)
-      core.setOutput('locale-list', locales)
-    } else {
-      console.log('Running an untrusted deploy preview...')
-      core.setOutput('locale-list', ['en'])
-    }
+    console.log(`Found the locales ${locales}`)
+    core.setOutput('locale-list', locales)
   } catch (error) {
     core.setFailed(`An issue ocurred while retrieving the languages: ${error}`)
   }
