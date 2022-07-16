@@ -10,7 +10,8 @@ async function run() {
 
     if (
       github.context.eventName === 'push' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.context.event.pull_request.head.repo.full_name ==
+        github.context.repository
     ) {
       console.log('Running from a trusted location...')
       var locales = config.match(/(?<=locales: )(.*)(?=,)/g)
