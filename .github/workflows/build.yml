@@ -10,6 +10,8 @@ on:
   push:
     branches: [dev]
 
+concurrency: crowdin_sync
+
 env:
   LATEST_VERSION: v1
 

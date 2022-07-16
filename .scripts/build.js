@@ -9,7 +9,7 @@ async function run() {
     var config = fs.readFileSync(configFile).toString()
     var trustedPr = false
 
-    console.log(github.context)
+    console.log(github.context.payload.pull_request.head)
 
     if (github.context.eventName === 'pull_request_target') {
       const head = github.context.payload.pull_request.head.repo.full_name
