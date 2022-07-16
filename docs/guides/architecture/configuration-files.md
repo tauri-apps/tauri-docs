@@ -79,7 +79,7 @@ The above file would specify a command that you can run using e.g. `yarn dev` or
 
 In addition to the `package.json` file you may see either a `yarn.lock` file or a `package-lock.json` file. These files assist in ensuring that when you download the dependencies later you'll get the exact same ones that you have used during development.
 
-To learn more about `package.json` you can read more in the [official documentation](https://docs.npmjs.com/cli/v8/configuring-npm/package-json).
+To learn more about `package.json` you can read more in the [official documentation][npm-package].
 
 [`tauri.conf.json` api reference]: ../../api/config.md
 [before-build-command]: ../../api/config.md#buildconfig.beforebuildcommand
