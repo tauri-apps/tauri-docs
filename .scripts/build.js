@@ -9,13 +9,9 @@ async function run() {
     var config = fs.readFileSync(configFile).toString()
     var trustedPr = false
 
-    console.log(github.context)
-
     if (github.context.eventName === 'pull_request_target') {
       const head = github.context.payload.pull_request.head.repo.full_name
-      console.log(head)
       const repo = github.context.payload.repository.full_name
-      console.log(repo)
 
       if (head === repo) {
         trustedPr = true
