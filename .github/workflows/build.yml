@@ -10,13 +10,12 @@ on:
   push:
     branches: [dev]
 
-concurrency: crowdin_sync
-
 env:
   LATEST_VERSION: v1
 
 jobs:
   build-locale-list:
+    concurrency: crowdin_sync
     runs-on: ubuntu-latest
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
@@ -39,10 +38,7 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: |
-          github.event_name == 'push' ||
-          (github.event_name == 'pull_request_target' &&
-          github.event.pull_request.head.repo.full_name == github.repository)
+        if: github.event_name == 'push'
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -92,13 +88,15 @@ jobs:
       - name: Build English locale
         if: matrix.locale == 'en'
         run: yarn build --locale ${{ matrix.locale }}
+      - name: Attempt to copy docs translations
+        continue-on-error: true
+        if: matrix.locale != 'en'
+        run: mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION
       - name: Build non-English locale
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: |
-          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION
-          yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
+        run: yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
