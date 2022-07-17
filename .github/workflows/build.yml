@@ -10,13 +10,12 @@ on:
   push:
     branches: [dev]
 
-concurrency: crowdin_sync
-
 env:
   LATEST_VERSION: v1
 
 jobs:
   build-locale-list:
+    concurrency: crowdin_sync
     runs-on: ubuntu-latest
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
