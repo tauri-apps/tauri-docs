@@ -39,10 +39,7 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: |
-          github.event_name == 'push' ||
-          (github.event_name == 'pull_request_target' &&
-          github.event.pull_request.head.repo.full_name == github.repository)
+        if: github.event_name == 'push'
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
