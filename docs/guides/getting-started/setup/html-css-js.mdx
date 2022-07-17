@@ -1,17 +1,17 @@
 ---
-description: Build a Tauri app from scratch using just HTML, CSS, and JavaScript
+description: Build a Tauri app using HTML, CSS, and JavaScript using either Node or Cargo
 pagination_next: guides/architecture/README
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/html5-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
 ---
 
-import TauriInit from './_tauri-init.mdx'
-import Commands from './_commands.mdx'
-import Intro from './_intro.mdx'
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
 import Command from '@theme/Command'
 
-# HTML/CSS/JavaScript
+# HTML, CSS, and JavaScript
 
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
@@ -21,12 +21,6 @@ Here's a preview of what we will be building:
 
 ![Preview of Application](./html-css-js-light.png#gh-light-mode-only)
 ![Preview of Application](./html-css-js-dark.png#gh-dark-mode-only)
-
-:::info
-
-Before we continue, make sure you have completed the [prerequisites] and installed the [Tauri CLI][tauri-cli] to have a working development environment.
-
-:::
 
 ## Create the Frontend
 
@@ -53,12 +47,11 @@ Next, create an `index.html` file inside of that folder with the following conte
 </html>
 ```
 
-We will leave the UI at this for this Guide, but feel free to play around with more content or add styling through CSS.
+We will keep the UI minimal for this guide, but feel free to play around with more content or add styling through CSS.
 
-<TauriInit
-  webAssets="For the sake of this tutorial we will answer this with '../ui'."
-  devServer="Because we don't use a frontend bundler with Hot Module Reloading (HMR) for this tutorial we will answer with the same path as the previous question: '../ui'."
-/>
+## Create the Rust Project
+
+<TauriInit destDirValue="../ui" devPathValue="../ui" />
 
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
 
@@ -75,13 +68,13 @@ Preview of Application
 
 We would normally be recommending the [`@tauri-apps/api`] package here, but since we're not using a bundler for this guide, please enable [`withGlobalTauri`] in your `tauri.conf.json` file:
 
-```json
+```json title=tauri.conf.json
 {
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "..",
-    "distDir": "..",
+    "devPath": "../ui",
+    "distDir": "../ui",
     // highlight-next-line
     "withGlobalTauri": true
   },
@@ -128,6 +121,5 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [inter-process-communication]: ../../architecture/inter-process-communication/README.md
 [cargo]: https://doc.rust-lang.org/cargo/
 [prerequisites]: ../prerequisites.md
-[tauri-cli]: ../tauri-cli.md
 [`withglobaltauri`]: ../../../api/config.md#buildconfig.withglobaltauri
 [`@tauri-apps/api`]: ../../../api/js/

@@ -21,7 +21,6 @@ function CardContainer({ href, children }) {
 }
 
 function CardLayout({ href, icon, title, description, image, imageDark }) {
-  console.log(image)
   return (
     <CardContainer href={href}>
       {image && (
