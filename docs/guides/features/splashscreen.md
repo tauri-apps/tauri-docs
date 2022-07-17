@@ -33,7 +33,7 @@ Now, your main window will be hidden and the splashscreen window will show when 
 
 If you are waiting for your web code, you'll want to create a `close_splashscreen` [command](command).
 
-```rust title=src-tauri/main.rs
+```rust src-tauri/main.rs
 use tauri::Manager;
 // Create the command:
 // This command must be async so that it doesn't run on the main thread.
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
 
-```rust title=src-tauri/main.rs
+```rust src-tauri/main.rs
 use tauri::Manager;
 fn main() {
   tauri::Builder::default()

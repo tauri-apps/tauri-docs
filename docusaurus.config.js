@@ -226,7 +226,7 @@ const siteConfig = {
     prism: {
       theme: require('prism-react-renderer/themes/github'),
       darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-      additionalLanguages: ['rust', 'powershell', 'bash'],
+      additionalLanguages: ['rust', 'powershell', 'bash', 'toml'],
     },
     colorMode: {
       defaultMode: 'dark',

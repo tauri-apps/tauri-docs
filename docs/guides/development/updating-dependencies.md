@@ -4,10 +4,6 @@ sidebar_position: 3
 
 # Updating Dependencies
 
-:::caution Please note
-Especially during the alpha and beta phases, we expect you to keep all Tauri dependencies and toolchains up to date. There is no support for any versions other than latest.
-:::
-
 ## Update NPM Packages
 
 If you are using the `tauri` package:

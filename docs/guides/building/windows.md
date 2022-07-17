@@ -15,6 +15,7 @@ To build and bundle your Tauri application into a single executable simply run t
 It will build your Frontend, compile the Rust binary, collect all external binaries and resources and finally produce neat platform-specific bundles and installers.
 
 :::info 32-bit Windows
+
 The Tauri CLI compiles your executable using your machine's architecture by default. Assuming that you're developing on a 64-bit machine, the CLI will produce 64-bit applications. If you need to support 32-bit machines, you can compile your application with a **different** [Rust target][platform support] using the `--target` flag:
 
 ```powershell
@@ -22,6 +23,7 @@ tauri build --target i686-pc-windows-msvc
 ```
 
 By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`. You can get a full list of Rust targets by running `rustup target list`.
+
 :::
 
 ## Supporting Windows 7
@@ -52,7 +54,9 @@ The Windows Installer by default downloads the Webview2 bootstapper and executes
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the Webview2 as part of the Windows Installer.              |
 
 :::info
+
 On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
+
 :::
 
 ### Downloaded Boostrapper
@@ -325,13 +329,13 @@ The `WixLocalization` element's `Culture` field must match the configured langua
 Currently Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation] for more information.
 
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
-[webviewinstallmode]: ../../api/config/#webviewinstallmode
+[webviewinstallmode]: ../../api/config.md#webviewinstallmode
 [download-webview2-runtime]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [default wix template]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs
 [handlebars]: https://docs.rs/handlebars/latest/handlebars/
-[`tauri.bundle.windows.wix.template`]: ../../api/config#wixconfig.template
+[`tauri.bundle.windows.wix.template`]: ../../api/config.md#wixconfig.template
 [wix fragment]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html
-[`tauri.bundle.windows.wix.language`]: ../../api/config#wixconfig.language
+[`tauri.bundle.windows.wix.language`]: ../../api/config.md#wixconfig.language
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables

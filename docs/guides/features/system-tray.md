@@ -29,7 +29,9 @@ By default, the Debian package (`.deb` file) will add a dependency on `libayatan
 The AppImage bundle automatically embeds the installed tray library, and you can also use the `TAURI_TRAY` environment variable to manually select it.
 
 :::info
+
 `libappindicator3` is unmaintained and does not exist on some distros like `debian11`, but `libayatana-appindicator` does not exist on older releases.
+
 :::
 
 ### Creating a system tray
@@ -191,5 +193,5 @@ Note that `tauri::Icon` must be a `Path` variant on Linux, and `Raw` variant on 
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico"))).unwrap();
 ```
 
-[Template Image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
+[template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
 [libayatana-appindicator]: https://github.com/AyatanaIndicators/libayatana-appindicator

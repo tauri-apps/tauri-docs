@@ -11,7 +11,9 @@ import Command from '@theme/Command'
 Now that you are ready to package your project, you need to run your framework's or bundler's build command (assuming you're using one, of course).
 
 :::note
+
 Every framework has its publishing tooling. It is outside of the scope of this document to treat them all or keep them up to date.
+
 :::
 
 ### 2. Bundle your application with Tauri

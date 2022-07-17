@@ -82,9 +82,10 @@ You can also run a built app from the terminal, giving you the Rust compiler not
 
 #### Enable Devtools Feature
 
-
 :::warning
+
 The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted to the App Store.
+
 :::
 
 To enable the devtools in production builds, you must enable the `devtools` Cargo feature in the `src-tauri/Cargo.toml` file:
@@ -98,6 +99,6 @@ tauri = { version = "...", features = ["...", "devtools"] }
 
 The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] guide to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
-[Debugging in VS Code]: vs-code
-[`Window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
-[`Window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
+[debugging in vs code]: ./vs-code.md
+[`window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
+[`window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools

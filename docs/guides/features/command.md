@@ -102,8 +102,10 @@ invoke('my_custom_command')
 ## Async Commands
 
 :::note
+
 Async commands are executed on a separate thread using [`async_runtime::spawn`].
-Commands without the *async* keyword are executed on the main thread, unless defined with *#[tauri::command(async)]*.
+Commands without the _async_ keyword are executed on the main thread, unless defined with _#[tauri::command(async)]_.
+
 :::
 
 If your command needs to run asynchronously, simply declare it as `async`:
@@ -198,8 +200,7 @@ fn main() {
 
 Any or all of the above features can be combined:
 
-```rust title=main.rs
-// Definition in main.rs
+```rust main.rs
 
 struct Database;
 
@@ -253,5 +254,5 @@ invoke('my_custom_command', {
 ```
 
 [`async_runtime::spawn`]: https://docs.rs/tauri/1/tauri/async_runtime/fn.spawn.html
-[`serde::Serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
-[`serde::Deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
