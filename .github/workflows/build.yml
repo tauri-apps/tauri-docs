@@ -15,7 +15,9 @@ env:
 
 jobs:
   build-locale-list:
-    concurrency: crowdin_sync
+    concurrency:
+      group: crowdin_sync
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     outputs:
       locale-list: ${{ steps.generate.outputs.locale-list }}
