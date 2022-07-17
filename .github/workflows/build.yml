@@ -88,15 +88,14 @@ jobs:
       - name: Build English locale
         if: matrix.locale == 'en'
         run: yarn build --locale ${{ matrix.locale }}
-      - name: Attempt to copy docs translations
-        continue-on-error: true
-        if: matrix.locale != 'en'
-        run: mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION
       - name: Build non-English locale
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        run: yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
+        run: |
+          echo $LATEST_VERSION
+          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION || true
+          yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
