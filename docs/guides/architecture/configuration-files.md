@@ -16,7 +16,7 @@ Cargo's manifest file. You can declare Rust crates your app depends on, metadata
 
 An example of a barebones `Cargo.toml` file for a Tauri project might look a little something like this:
 
-```toml Cargo.toml
+```toml title=Cargo.toml
 [package]
 name = "app"
 version = "0.1.0"
@@ -63,15 +63,15 @@ This is the Node.js package file. If the frontend of a Tauri app is developed us
 
 An example of a barebones `package.json` file for a Tauri project might look a little something like this:
 
-```json
+```json title=package.json
 {
-    "scripts": {
-        "dev": "command-for-your-framework"
-    },
-    "dependencies": {
-        "@tauri-apps/api": "^1.0",
-        "@tauri-apps/cli": "^1.0"
-    }
+  "scripts": {
+    "dev": "command-for-your-framework"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.0",
+    "@tauri-apps/cli": "^1.0"
+  }
 }
 ```
 
