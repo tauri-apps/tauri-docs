@@ -30,10 +30,11 @@ fn main() {
 Now, you can invoke the command from your JS code:
 
 ```js
-// With the Tauri API npm package:
+// When using the Tauri API npm package:
 import { invoke } from '@tauri-apps/api/tauri'
-// With the Tauri global script, enabled when `tauri.conf.json > build > withGlobalTauri` is set to true:
-const invokeTauri = window.__TAURI__.invoke
+// When using the Tauri global script (if not using the npm package
+// Be sure to set `build.withGlobalTauri` in `tauri.conf.json` to true
+const invoke = window.__TAURI__.invoke
 
 // Invoke the command
 invoke('my_custom_command')
