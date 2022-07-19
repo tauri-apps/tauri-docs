@@ -134,7 +134,7 @@ env:
 
 ### Usage Notes
 
-Make sure to check the [documentation for GitHub Actions][3] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][usage limits billing and administration] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
+Make sure to check the [documentation for GitHub Actions][github actions] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][usage limits billing and administration] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configure it to use your web artifacts.
 
 [tauri action]: https://github.com/tauri-apps/tauri-action
 [tauri action production build workflow example]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
