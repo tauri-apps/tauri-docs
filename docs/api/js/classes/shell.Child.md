@@ -26,7 +26,7 @@ The child process `pid`.
 
 #### Defined in
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/shell.ts#L181)
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L181)
 
 ## Methods
 

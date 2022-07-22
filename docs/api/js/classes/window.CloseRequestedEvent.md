@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[window.ts:1761](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L1761)
+[window.ts:1761](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1761)
 
 ___
 
@@ -36,7 +36,7 @@ Event name
 
 #### Defined in
 
-[window.ts:1756](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L1756)
+[window.ts:1756](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1756)
 
 ___
 
@@ -48,7 +48,7 @@ Event identifier used to unlisten
 
 #### Defined in
 
-[window.ts:1760](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L1760)
+[window.ts:1760](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1760)
 
 ___
 
@@ -60,7 +60,7 @@ The label of the window that emitted this event.
 
 #### Defined in
 
-[window.ts:1758](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L1758)
+[window.ts:1758](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1758)
 
 ## Methods
 
