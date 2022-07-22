@@ -147,7 +147,7 @@ fn main() {
       std::thread::spawn(move || {
         // you can also `set_selected`, `set_enabled` and `set_native_image` (macOS only).
         menu_handle.get_item("item_id").set_title("New title");
-      })
+      });
       Ok(())
     })
 }
