@@ -126,6 +126,20 @@ sudo dnf group install "C Development Tools and Libraries"
 ```
 
   </TabItem>
+  <TabItem value="opensuse" label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in patterns-devel-base-devel_basis \
+    webkit2gtk3-soup2-devel \
+    libopenssl-devel \
+    curl \
+    wget \
+    libappindicator3-1 \
+    librsvg-devel
+```
+
+  </TabItem>
 </Tabs>
 
 #### 2. Rust
