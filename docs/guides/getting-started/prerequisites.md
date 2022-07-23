@@ -130,13 +130,13 @@ sudo dnf group install "C Development Tools and Libraries"
 
 ```sh
 sudo zypper up
-sudo zypper in patterns-devel-base-devel_basis \
-    webkit2gtk3-soup2-devel \
+sudo zypper in webkit2gtk3-soup2-devel \
     libopenssl-devel \
     curl \
     wget \
     libappindicator3-1 \
     librsvg-devel
+sudo zypper in -t pattern devel_basis
 ```
 
   </TabItem>
