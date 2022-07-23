@@ -4,17 +4,17 @@ sidebar_position: 1
 
 # Configuration Files
 
-Since Tauri is a toolkit for building applications there can be a lot of places to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. You can use this page as a reference to understand the differences between each of these and where to configure the relevant settings for your project.
+Since Tauri is a toolkit for building applications there can be many files to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. We briefly explain each on this page to help point you in the right direction for which file to modify.
 
 ## `tauri.conf.json`
 
-This is the file used by the Tauri process. You can define the build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and any plugin settings. Find all of the options for this config file in the [`tauri.conf.json` API reference].
+This is the file used by the Tauri process. You can define build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
 ## `Cargo.toml`
 
-Cargo's manifest file. You can declare Rust crates your app depends on, metadata about your app, and much more. If you do not intend to do a lot of backend development using Rust for your app then you probably won't be changing it very much, but it's important to know it exists and what it does.
+Cargo's manifest file used to declare Rust crates your app depends on, metadata about your app, and other Rust-related features. If you do not intend to do backend development using Rust for your app then you may not modifying it much, but it's important to know that it exists and what it does.
 
-An example of a barebones `Cargo.toml` file for a Tauri project might look a little something like this:
+Below is an example of a barebones `Cargo.toml` file for a Tauri project:
 
 ```toml title=Cargo.toml
 [package]
@@ -45,21 +45,25 @@ default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
 ```
 
-The most important parts to take note of here are the `tauri-build` and `tauri` dependencies. Their versions must be the same as the version of your CLI in order to ensure that there won't be any issues running your app. If any of these are not the same version number you are highly likely to encounter issues.
+The most important parts to take note of are the `tauri-build` and `tauri` dependencies. Their versions must be the same as the Tauri CLI in order to ensure that there won't be any issues running your app. If any of these are not the same version number you are highly likely to encounter issues.
 
-Cargo version numbers use [Semantic Versioning], and running `cargo update` will pull the latest available Semver-compatible versions of all dependencies. What this means is that even if you specify `1.0.0` as the version for `tauri-build`, Cargo can actually decide to download version `1.0.4`, because it is the latest Semver-compatible version available. According to Semver projects are required to update their major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
+Cargo version numbers use [Semantic Versioning]. Running `cargo update` will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `1.0.0` as the version for `tauri-build`, Cargo will actually detect and download version `1.0.4` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
 
-If you want to use specific versions of crates you can use exact versions instead by prepending `=` to the version number of the dependency, e.g. `=1.0.4`.
+If you want to use specific crate version you can use exact versions instead by prepending `=` to the version number of the dependency:
 
-Another thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the `"allowlist"` properties you set in `tauri.conf.json`.
+```
+tauri-build = { version = "=1.0.0" }
+```
 
-When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used later on as were used during development. Since you are developing a Tauri app, this file should be committed into your source repository. Only Rust libraries should omit comitting this file.
+An additional thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the `"allowlist"` properties you set in `tauri.conf.json`.
+
+When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used across machines during development (similar to `yarn.lock` or `package-lock.json` in Node.js). Since you are developing a Tauri app, this file should be committed into your source repository (only Rust libraries should omit committing this file).
 
 To learn more about `Cargo.toml` you can read more in the [official documentation][cargo-manifest].
 
 ## `package.json`
 
-This is the Node.js package file. If the frontend of a Tauri app is developed using Node.js-based technologies this file is used to configure the frontend such as which dependencies are used. It's also common to use the `"scripts"` section to store the command used to launch the frontend used by your Tauri application.
+This is the package file used by Node.js. If the frontend of a Tauri app is developed using Node.js-based technologies (such as `npm`, `yarn`, or `pnpm`) this file is used to configure the frontend dependencies and scripts.
 
 An example of a barebones `package.json` file for a Tauri project might look a little something like this:
 
@@ -76,9 +80,11 @@ An example of a barebones `package.json` file for a Tauri project might look a l
 }
 ```
 
-The above file would specify a command that you can run using e.g. `yarn dev` or `npm run dev`, as well as which Node.js dependencies should be downloaded when you run either `yarn` or `npm install`, in this case the Tauri CLI and API.
+It's common to use the `"scripts"` section to store the command used to launch the frontend used by your Tauri application. The above file specifies the `dev` command that you can run using `yarn dev` or `npm run dev` to start the frontend framework.
 
-In addition to the `package.json` file you may see either a `yarn.lock` file or a `package-lock.json` file. These files assist in ensuring that when you download the dependencies later you'll get the exact same ones that you have used during development.
+The dependencies object specifies which dependencies Node.js should downloaded when you run either `yarn` or `npm install` (in this case the Tauri CLI and API).
+
+In addition to the `package.json` file you may see either a `yarn.lock` file or a `package-lock.json` file. These files assist in ensuring that when you download the dependencies later you'll get the exact same versions that you have used during development (similar to `Cargo.lock` in Rust).
 
 To learn more about `package.json` you can read more in the [official documentation][npm-package].
 
