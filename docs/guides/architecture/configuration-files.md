@@ -66,7 +66,8 @@ An example of a barebones `package.json` file for a Tauri project might look a l
 ```json title=package.json
 {
   "scripts": {
-    "dev": "command-for-your-framework"
+    "dev": "command-for-your-framework",
+    "tauri": "tauri"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0",
