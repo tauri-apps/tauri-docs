@@ -20,7 +20,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 #### Defined in
 
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/updater.ts#L14)
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L14)
 
 ## Functions
 

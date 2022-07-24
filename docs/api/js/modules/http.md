@@ -66,7 +66,7 @@ Options for the `fetch` API.
 
 #### Defined in
 
-[http.ts:213](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L213)
+[http.ts:213](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L213)
 
 ___
 
@@ -78,7 +78,7 @@ The request HTTP verb.
 
 #### Defined in
 
-[http.ts:188](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L188)
+[http.ts:188](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L188)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L70)
 
 ___
 
@@ -100,7 +100,7 @@ Request options.
 
 #### Defined in
 
-[http.ts:211](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/http.ts#L211)
+[http.ts:211](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L211)
 
 ## Functions
 
