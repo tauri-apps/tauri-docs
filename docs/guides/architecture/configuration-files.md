@@ -12,7 +12,7 @@ This is the file used by the Tauri process. You can define build settings (such 
 
 ## `Cargo.toml`
 
-Cargo's manifest file used to declare Rust crates your app depends on, metadata about your app, and other Rust-related features. If you do not intend to do backend development using Rust for your app then you may not modifying it much, but it's important to know that it exists and what it does.
+Cargo's manifest file is used to declare Rust crates your app depends on, metadata about your app, and other Rust-related features. If you do not intend to do backend development using Rust for your app then you may not be modifying it much, but it's important to know that it exists and what it does.
 
 Below is an example of a barebones `Cargo.toml` file for a Tauri project:
 
