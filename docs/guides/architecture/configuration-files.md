@@ -49,7 +49,7 @@ The most important parts to take note of are the `tauri-build` and `tauri` depen
 
 Cargo version numbers use [Semantic Versioning]. Running `cargo update` will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `1.0.0` as the version for `tauri-build`, Cargo will actually detect and download version `1.0.4` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
 
-If you want to use specific crate version you can use exact versions instead by prepending `=` to the version number of the dependency:
+If you want to use a specific crate version you can use exact versions instead by prepending `=` to the version number of the dependency:
 
 ```
 tauri-build = { version = "=1.0.0" }
