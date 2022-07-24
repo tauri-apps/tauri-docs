@@ -82,7 +82,7 @@ An example of a barebones `package.json` file for a Tauri project might look a l
 
 It's common to use the `"scripts"` section to store the command used to launch the frontend used by your Tauri application. The above file specifies the `dev` command that you can run using `yarn dev` or `npm run dev` to start the frontend framework.
 
-The dependencies object specifies which dependencies Node.js should downloaded when you run either `yarn` or `npm install` (in this case the Tauri CLI and API).
+The dependencies object specifies which dependencies Node.js should download when you run either `yarn` or `npm install` (in this case the Tauri CLI and API).
 
 In addition to the `package.json` file you may see either a `yarn.lock` file or a `package-lock.json` file. These files assist in ensuring that when you download the dependencies later you'll get the exact same versions that you have used during development (similar to `Cargo.lock` in Rust).
 
