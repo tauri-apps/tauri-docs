@@ -34,8 +34,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # install system dependencies that Tauri needs to compile on Linux.
-      # note the extra dependencies for `tauri-driver` to run which are:
-      # `libwebkit2gtk-4.0-dev`, `webkit2gtk-driver` and `xvfb`
+      # note the extra dependencies for `tauri-driver` to run which are: `webkit2gtk-driver` and `xvfb`
       - name: Tauri dependencies
         run: >-
           sudo apt-get update &&
