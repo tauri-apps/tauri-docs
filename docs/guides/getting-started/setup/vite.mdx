@@ -62,7 +62,7 @@ pnpm create vite
 3. **Select a variant**  
    Vite offers [TypeScript] and vanilla JavaScript variants for all templates, and you can select the variant here. We **strongly** recommend TypeScript as it helps you write more secure, maintainable code faster and more efficiently. For this guide, we assume you choose `vanilla-ts`.
 
-When starting the frontend via the `vite` command, Vite will look for a config file named `vite.config.ts` inside the project root. We want to customize this file to get the best compatibility with Tauri. Since it is not created by the scaffolding above, create the `vite.config.ts` file in the root directory of the project and add the following content: 
+When starting the frontend via the `vite` command, Vite will look for a config file named `vite.config.ts` inside the project root. We want to customize this file to get the best compatibility with Tauri. If it is not created by the scaffolding above (such as if you're using vanilla JavaScript), you may need to create the `vite.config.ts` file in the root directory of the project. Update the file with the following content: 
 
 ```typescript title=vite.config.ts
 import { defineConfig } from 'vite'
