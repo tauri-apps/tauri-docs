@@ -181,10 +181,10 @@ function typeConstructor(object, describeObject = false) {
         // See if referencing a different type
         switch (object.type) {
           case 'string':
-              typeString = object.enum
-                ? object.enum.map(e => `"${e}"`).join(', ')
-                : `${m}${object.type}${m}`
-              break
+            typeString = object.enum
+              ? object.enum.map(e => `"${e}"`).join(', ')
+              : `${m}${object.type}${m}`
+            break
           case 'number':
           case 'boolean':
             typeString = `${m}${object.type}${m}`
@@ -211,7 +211,7 @@ function typeConstructor(object, describeObject = false) {
               } else {
                 const type = typeConstructor(object.items, true)
                 const hasLink = type.includes('(#')
-                typeString = hasLink ? `${type}[]` : typeString = `${m}${type}[]${m}`
+                typeString = hasLink ? type.replace(/`(.*)`/, "`$1[]`") : `${m}${type}[]${m}`
               }
               break
             }
