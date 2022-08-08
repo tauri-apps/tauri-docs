@@ -211,7 +211,7 @@ function typeConstructor(object, describeObject = false) {
               } else {
                 const type = typeConstructor(object.items, true)
                 const hasLink = type.includes('(#')
-                typeString = hasLink ? type.replace(/\[`(.*)`\](\(.*\))/,"`[$1]$2[]`") : `${m}${type}[]${m}`
+                typeString = hasLink ? type.replace(/\[`(.*)`\]/,"[`$1[]`]") : `${m}${type}[]${m}`
               }
               break
             }
