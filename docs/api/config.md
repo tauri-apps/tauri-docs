@@ -90,7 +90,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="tauriconfig.pattern">`pattern`<a class="hash-link" href="#tauriconfig.pattern"></a></div> | [`PatternKind`](#patternkind) | [view](#patternkind) | The pattern to use. |
-| <div className="anchor-with-padding" id="tauriconfig.windows">`windows`<a class="hash-link" href="#tauriconfig.windows"></a></div> | [`WindowConfig[]`](#windowconfig) | [] | The windows configuration. |
+| <div className="anchor-with-padding" id="tauriconfig.windows">`windows`<a class="hash-link" href="#tauriconfig.windows"></a></div> | [`WindowConfig`[]](#windowconfig) | [] | The windows configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.cli">`cli`<a class="hash-link" href="#tauriconfig.cli"></a></div> | [`CliConfig`](#cliconfig)? | [view](#cliconfig) | The CLI configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.bundle">`bundle`<a class="hash-link" href="#tauriconfig.bundle"></a></div> | [`BundleConfig`](#bundleconfig) | [view](#bundleconfig) | The bundler configuration. |
 | <div className="anchor-with-padding" id="tauriconfig.allowlist">`allowlist`<a class="hash-link" href="#tauriconfig.allowlist"></a></div> | [`AllowlistConfig`](#allowlistconfig) | [view](#allowlistconfig) | The allowlist configuration. |
@@ -260,7 +260,7 @@ Targets to bundle. Each value is case insensitive.
 Can be any of the following types:
 
 - `"all"`: Bundle all targets.
-- [`BundleType[]`](#bundletype): A list of bundle targets.
+- [`BundleType`[]](#bundletype): A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
 <br />
@@ -539,7 +539,7 @@ Type: `object`
 
 Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
 
-Type: [`ShellAllowedCommand[]`](#shellallowedcommand)
+Type: [`ShellAllowedCommand`[]](#shellallowedcommand)
 
 
 <br />
@@ -570,7 +570,7 @@ A value of `true` will allow any arguments to be passed to the command. `false` 
 Can be any of the following types:
 
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
-- [`ShellAllowedArg[]`](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
+- [`ShellAllowedArg`[]](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
 <br />
 
