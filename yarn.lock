@@ -1671,10 +1671,10 @@
     url-loader "^4.1.1"
     webpack "^5.73.0"
 
-"@fontsource/rubik@4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.10.tgz#da291ed751850d9f79d957a23369125aacb20f03"
-  integrity sha512-VQuuko0lAKgI6p9lylpeJ/xcG/FpQqUYgPC+NUwVGvYvZNSQYT20UT13MKjPk2bPuxSuSHeeOyZ9x/6eRy4pfQ==
+"@fontsource/rubik@4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.11.tgz#e2d06b840ba5c2111b269bea2842f570848af070"
+  integrity sha512-m0/4GKOqJjF9cB4wuLgDhRdRVt35WzqI5n7SgddRjRD+yzsO0eEq/ak0ezgfbR3+f91ydDCek1+RuOVB8dNYwg==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
