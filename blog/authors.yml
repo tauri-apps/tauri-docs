@@ -1,8 +1,14 @@
-nothingismagick:
-  name: Daniel Thompson-Yvetot
-  title: Tauri Cofounder
-  url: https://github.com/nothingismagick
-  image_url: ./author_images/nothingismagick.jpg
+amrbashir:
+  name: Amr Bashir
+  title: Tauri Core
+  url: https://github.com/amrbashir
+  image_url: ./author_images/amrbashir.png
+
+beanow:
+  name: Robin van Boven
+  title: Tauri Board Director
+  url: https://github.com/Beanow
+  image_url: ./author_images/beanow.jpg
 
 jonaskruckenberg:
   name: Jonas Kruckenberg
@@ -10,8 +16,20 @@ jonaskruckenberg:
   url: https://github.com/JonasKruckenberg
   image_url: ./author_images/jonaskruckenberg.jpg
 
-beanow:
-  name: Robin van Boven
-  title: Tauri Board Director
-  url: https://github.com/Beanow
-  image_url: ./author_images/beanow.jpg
+lorenzolewis:
+  name: Lorenzo Lewis
+  title: Tauri Working Group
+  url: https://github.com/lorenzolewis
+  image_url: ./author_images/lorenzolewis.png
+
+nothingismagick:
+  name: Daniel Thompson-Yvetot
+  title: Tauri Cofounder
+  url: https://github.com/nothingismagick
+  image_url: ./author_images/nothingismagick.jpg
+
+wusyong:
+  name: Wu Yu Wei
+  title: Tauri Core
+  url: https://github.com/wusyong
+  image_url: ./author_images/wusyong.png
