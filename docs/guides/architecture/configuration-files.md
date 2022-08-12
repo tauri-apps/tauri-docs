@@ -6,23 +6,25 @@ sidebar_position: 1
 
 Since Tauri is a toolkit for building applications there can be many files to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. We briefly explain each on this page to help point you in the right direction for which file to modify.
 
-## Tauri Config (`tauri.conf.json`, `tauri.conf.json5`, or `Tauri.toml`)
+## Tauri Config
+
+The file can be either `tauri.conf.json`, `tauri.conf.json5`, or `Tauri.toml`. The default is `tauri.conf.json`. See the note below for more information.
 
 This is the file used by the Tauri process. You can define build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
 :::note
 
-The default Tauri config format is `.json`. `.json5` and `.toml` formats can be enabled by adding the feature flag `config-json5` or `config-toml` (respectively) to the `tauri` dependency in `Cargo.toml`. The structure and values are the same across all formats, however the formatting should be consistent with the respective file format.
+The default Tauri config format is `.json`. The `.json5` or `.toml` format can be enabled by adding the `config-json5` or `config-toml` feature flag (respectively) to the `tauri` dependency in `Cargo.toml`. Note that the `.toml` format is only available from Tauri 1.1.0 and above.
 
-`.toml` is only available from Tauri 1.1.0 and above.
+```toml title=Cargo.toml
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+// highlight-next-line
+tauri = { version = "1.0.0", features = [ "api-all", "config-json5" ] }
+```
 
-:::
-
-:::note
-
-The Tauri config can be a `.json`, `.json5`, or `.toml` format. The structure and values are the same across all formats, however the formatting should be consistent with the respective file format.
-
-Note that `Tauri.toml` is only supported for Tauri 1.1.0 and above.
+The structure and values are the same across all formats, however the formatting should be consistent with the respective file's format.
 
 :::
 
