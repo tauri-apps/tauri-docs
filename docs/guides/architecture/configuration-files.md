@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Since Tauri is a toolkit for building applications there can be many files to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. We briefly explain each on this page to help point you in the right direction for which file to modify.
 
-## `tauri.conf.json`
+## Tauri Config (`tauri.conf.json`, `tauri.conf.json5`, or `Tauri.toml`)
 
 This is the file used by the Tauri process. You can define build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
