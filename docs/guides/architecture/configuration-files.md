@@ -10,6 +10,14 @@ Since Tauri is a toolkit for building applications there can be many files to co
 
 This is the file used by the Tauri process. You can define build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
+:::note
+
+The Tauri config can be a `.json`, `.json5`, or `.toml` format. The structure and values are the same across all formats, however the formatting should be consistent with the respective file format.
+
+Note that `Tauri.toml` is only supported for Tauri 1.1.0 and above.
+
+:::
+
 ## `Cargo.toml`
 
 Cargo's manifest file is used to declare Rust crates your app depends on, metadata about your app, and other Rust-related features. If you do not intend to do backend development using Rust for your app then you may not be modifying it much, but it's important to know that it exists and what it does.
