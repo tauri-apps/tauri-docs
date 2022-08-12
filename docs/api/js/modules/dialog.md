@@ -24,10 +24,185 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Interfaces
 
-- [DialogFilter](../interfaces/dialog.DialogFilter.md)
-- [MessageDialogOptions](../interfaces/dialog.MessageDialogOptions.md)
-- [OpenDialogOptions](../interfaces/dialog.OpenDialogOptions.md)
-- [SaveDialogOptions](../interfaces/dialog.SaveDialogOptions.md)
+### DialogFilter
+
+Extension filters for the file dialog.
+
+#### Properties
+
+##### extensions
+
+ **extensions**: `string`[]
+
+Extensions to filter, without a `.` prefix.
+
+**`Example`**
+
+```typescript
+extensions: ['svg', 'png']
+```
+
+###### Defined in
+
+[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L41)
+
+___
+
+##### name
+
+ **name**: `string`
+
+Filter name.
+
+###### Defined in
+
+[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L33)
+
+### MessageDialogOptions
+
+#### Properties
+
+##### title
+
+ `Optional` **title**: `string`
+
+The title of the dialog. Defaults to the app name.
+
+###### Defined in
+
+[dialog.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L79)
+
+___
+
+##### type
+
+ `Optional` **type**: ``"error"`` \| ``"info"`` \| ``"warning"``
+
+The type of the dialog. Defaults to `info`.
+
+###### Defined in
+
+[dialog.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L81)
+
+### OpenDialogOptions
+
+Options for the open dialog.
+
+#### Properties
+
+##### defaultPath
+
+ `Optional` **defaultPath**: `string`
+
+Initial directory or file path.
+
+###### Defined in
+
+[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L51)
+
+___
+
+##### directory
+
+ `Optional` **directory**: `boolean`
+
+Whether the dialog is a directory selection or not.
+
+###### Defined in
+
+[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L55)
+
+___
+
+##### filters
+
+ `Optional` **filters**: [`DialogFilter`](dialog.DialogFilter.md)[]
+
+The filters of the dialog.
+
+###### Defined in
+
+[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L49)
+
+___
+
+##### multiple
+
+ `Optional` **multiple**: `boolean`
+
+Whether the dialog allows multiple selection or not.
+
+###### Defined in
+
+[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L53)
+
+___
+
+##### recursive
+
+ `Optional` **recursive**: `boolean`
+
+If `directory` is true, indicates that it will be read recursively later.
+Defines whether subdirectories will be allowed on the scope or not.
+
+###### Defined in
+
+[dialog.ts:60](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L60)
+
+___
+
+##### title
+
+ `Optional` **title**: `string`
+
+The title of the dialog window.
+
+###### Defined in
+
+[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L47)
+
+### SaveDialogOptions
+
+Options for the save dialog.
+
+#### Properties
+
+##### defaultPath
+
+ `Optional` **defaultPath**: `string`
+
+Initial directory or file path.
+If it's a directory path, the dialog interface will change to that folder.
+If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
+
+###### Defined in
+
+[dialog.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L74)
+
+___
+
+##### filters
+
+ `Optional` **filters**: [`DialogFilter`](dialog.DialogFilter.md)[]
+
+The filters of the dialog.
+
+###### Defined in
+
+[dialog.ts:68](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L68)
+
+___
+
+##### title
+
+ `Optional` **title**: `string`
+
+The title of the dialog window.
+
+###### Defined in
+
+[dialog.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L66)
+
 
 ## Functions
 

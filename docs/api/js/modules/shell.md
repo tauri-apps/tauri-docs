@@ -73,14 +73,369 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ## Classes
 
-- [Child](../classes/shell.Child.md)
-- [Command](../classes/shell.Command.md)
-- [EventEmitter](../classes/shell.EventEmitter.md)
+### Child
+
+#### Constructors
+
+##### constructor
+
+**new Child**(`pid`)
+
+###### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `pid` | `number` |
+
+#### Properties
+
+##### pid
+
+ **pid**: `number`
+
+The child process `pid`.
+
+###### Defined in
+
+[shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L181)
+
+#### Methods
+
+##### kill
+
+**kill**(): `Promise`<`void`\>
+
+Kills the child process.
+
+###### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+___
+
+##### write
+
+**write**(`data`): `Promise`<`void`\>
+
+Writes `data` to the `stdin`.
+
+**`Example`**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = new Command('node');
+const child = await command.spawn();
+await child.write('message');
+await child.write([0, 1, 2, 3, 4, 5]);
+```
+
+###### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `string` \| `Uint8Array` | The message to write, either a string or a byte array. |
+
+###### Returns
+
+`Promise`<`void`\>
+
+A promise indicating the success or failure of the operation.
+
+### Command
+
+The entry point for spawning child processes.
+It emits the `close` and `error` events.
+
+**`Example`**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = new Command('node');
+command.on('close', data => {
+  console.log(`command finished with code ${data.code} and signal ${data.signal}`)
+});
+command.on('error', error => console.error(`command error: "${error}"`));
+command.stdout.on('data', line => console.log(`command stdout: "${line}"`));
+command.stderr.on('data', line => console.log(`command stderr: "${line}"`));
+
+const child = await command.spawn();
+console.log('pid:', child.pid);
+```
+
+#### Hierarchy
+
+- [`EventEmitter`](shell.EventEmitter.md)<``"close"`` \| ``"error"``\>
+
+  ↳ **`Command`**
+
+#### Constructors
+
+##### constructor
+
+**new Command**(`program`, `args?`, `options?`)
+
+Creates a new `Command` instance.
+
+###### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `program` | `string` | `undefined` | The program name to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.SpawnOptions.md) | `undefined` | Spawn options. |
+
+###### Overrides
+
+[EventEmitter](shell.EventEmitter.md).[constructor](shell.EventEmitter.md#constructor)
+
+#### Properties
+
+##### stderr
+
+ `Readonly` **stderr**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
+
+Event emitter for the `stderr`. Emits the `data` event.
+
+###### Defined in
+
+[shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L258)
+
+___
+
+##### stdout
+
+ `Readonly` **stdout**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
+
+Event emitter for the `stdout`. Emits the `data` event.
+
+###### Defined in
+
+[shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L256)
+
+#### Methods
+
+##### execute
+
+**execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
+
+Executes the command as a child process, waiting for it to finish and collecting all of its output.
+
+**`Example`**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const output = await new Command('echo', 'message').execute();
+assert(output.code === 0);
+assert(output.signal === null);
+assert(output.stdout === 'message');
+assert(output.stderr === '');
+```
+
+###### Returns
+
+`Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
+
+A promise resolving to the child process output.
+
+___
+
+##### on
+
+**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
+
+Listen to an event from the child process.
+
+###### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | ``"error"`` \| ``"close"`` | The event name. |
+| `handler` | (`arg`: `any`) => `void` | The event handler. |
+
+###### Returns
+
+[`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
+
+The `this` instance for chained calls.
+
+###### Inherited from
+
+[EventEmitter](shell.EventEmitter.md).[on](shell.EventEmitter.md#on)
+
+___
+
+##### spawn
+
+**spawn**(): `Promise`<[`Child`](shell.Child.md)\>
+
+Executes the command as a child process, returning a handle to it.
+
+###### Returns
+
+`Promise`<[`Child`](shell.Child.md)\>
+
+A promise resolving to the child process handle.
+
+___
+
+##### sidecar
+
+`Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.Command.md)
+
+Creates a command to execute the given sidecar program.
+
+**`Example`**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.sidecar('my-sidecar');
+const output = await command.execute();
+```
+
+###### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `program` | `string` | `undefined` | The program to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args` | `string` \| `string`[] | `[]` | Program arguments. |
+| `options?` | [`SpawnOptions`](../interfaces/shell.SpawnOptions.md) | `undefined` | Spawn options. |
+
+###### Returns
+
+[`Command`](shell.Command.md)
+
+### EventEmitter<E\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `E` | extends `string` |
+
+#### Hierarchy
+
+- **`EventEmitter`**
+
+  ↳ [`Command`](shell.Command.md)
+
+#### Constructors
+
+##### constructor
+
+**new EventEmitter**<`E`\>()
+
+###### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `E` | extends `string` |
+
+#### Methods
+
+##### on
+
+**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<`E`\>
+
+Listen to an event from the child process.
+
+###### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `E` | The event name. |
+| `handler` | (`arg`: `any`) => `void` | The event handler. |
+
+###### Returns
+
+[`EventEmitter`](shell.EventEmitter.md)<`E`\>
+
+The `this` instance for chained calls.
+
 
 ## Interfaces
 
-- [ChildProcess](../interfaces/shell.ChildProcess.md)
-- [SpawnOptions](../interfaces/shell.SpawnOptions.md)
+### ChildProcess
+
+#### Properties
+
+##### code
+
+ **code**: ``null`` \| `number`
+
+Exit code of the process. `null` if the process was terminated by a signal on Unix.
+
+###### Defined in
+
+[shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L95)
+
+___
+
+##### signal
+
+ **signal**: ``null`` \| `number`
+
+If the process was terminated by a signal, represents that signal.
+
+###### Defined in
+
+[shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L97)
+
+___
+
+##### stderr
+
+ **stderr**: `string`
+
+The data that the process wrote to `stderr`.
+
+###### Defined in
+
+[shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L101)
+
+___
+
+##### stdout
+
+ **stdout**: `string`
+
+The data that the process wrote to `stdout`.
+
+###### Defined in
+
+[shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L99)
+
+### SpawnOptions
+
+#### Properties
+
+##### cwd
+
+ `Optional` **cwd**: `string`
+
+Current working directory.
+
+###### Defined in
+
+[shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L83)
+
+___
+
+##### env
+
+ `Optional` **env**: `Object`
+
+Environment variables. set to `null` to clear the process env.
+
+###### Index signature
+
+▪ [name: `string`]: `string`
+
+###### Defined in
+
+[shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L85)
+
 
 ## Functions
 

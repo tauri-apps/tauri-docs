@@ -8,9 +8,82 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 ## Interfaces
 
-- [ArgMatch](../interfaces/cli.ArgMatch.md)
-- [CliMatches](../interfaces/cli.CliMatches.md)
-- [SubcommandMatch](../interfaces/cli.SubcommandMatch.md)
+### ArgMatch
+
+#### Properties
+
+##### occurrences
+
+ **occurrences**: `number`
+
+Number of occurrences
+
+###### Defined in
+
+[cli.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L24)
+
+___
+
+##### value
+
+ **value**: ``null`` \| `string` \| `boolean` \| `string`[]
+
+string if takes value
+boolean if flag
+string[] or null if takes multiple values
+
+###### Defined in
+
+[cli.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L20)
+
+### CliMatches
+
+#### Properties
+
+##### args
+
+ **args**: `Object`
+
+###### Index signature
+
+▪ [name: `string`]: [`ArgMatch`](cli.ArgMatch.md)
+
+###### Defined in
+
+[cli.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L33)
+
+___
+
+##### subcommand
+
+ **subcommand**: ``null`` \| [`SubcommandMatch`](cli.SubcommandMatch.md)
+
+###### Defined in
+
+[cli.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L34)
+
+### SubcommandMatch
+
+#### Properties
+
+##### matches
+
+ **matches**: [`CliMatches`](cli.CliMatches.md)
+
+###### Defined in
+
+[cli.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L29)
+
+___
+
+##### name
+
+ **name**: `string`
+
+###### Defined in
+
+[cli.ts:28](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L28)
+
 
 ## Functions
 

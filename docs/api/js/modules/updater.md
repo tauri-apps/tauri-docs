@@ -8,9 +8,82 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ## Interfaces
 
-- [UpdateManifest](../interfaces/updater.UpdateManifest.md)
-- [UpdateResult](../interfaces/updater.UpdateResult.md)
-- [UpdateStatusResult](../interfaces/updater.UpdateStatusResult.md)
+### UpdateManifest
+
+#### Properties
+
+##### body
+
+ **body**: `string`
+
+###### Defined in
+
+[updater.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L24)
+
+___
+
+##### date
+
+ **date**: `string`
+
+###### Defined in
+
+[updater.ts:23](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L23)
+
+___
+
+##### version
+
+ **version**: `string`
+
+###### Defined in
+
+[updater.ts:22](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L22)
+
+### UpdateResult
+
+#### Properties
+
+##### manifest
+
+ `Optional` **manifest**: [`UpdateManifest`](updater.UpdateManifest.md)
+
+###### Defined in
+
+[updater.ts:28](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L28)
+
+___
+
+##### shouldUpdate
+
+ **shouldUpdate**: `boolean`
+
+###### Defined in
+
+[updater.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L29)
+
+### UpdateStatusResult
+
+#### Properties
+
+##### error
+
+ `Optional` **error**: `string`
+
+###### Defined in
+
+[updater.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L17)
+
+___
+
+##### status
+
+ **status**: [`UpdateStatus`](../modules/updater.md#updatestatus)
+
+###### Defined in
+
+[updater.ts:18](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L18)
+
 
 ## Type Aliases
 

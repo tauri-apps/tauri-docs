@@ -8,7 +8,14 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 ## Interfaces
 
-- [InvokeArgs](../interfaces/tauri.InvokeArgs.md)
+### InvokeArgs
+
+Command arguments.
+
+#### Indexable
+
+▪ [key: `string`]: `unknown`
+
 
 ## Functions
 

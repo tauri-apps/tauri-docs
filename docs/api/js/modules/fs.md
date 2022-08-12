@@ -67,15 +67,338 @@ Note that this scope applies to **all** APIs on this module.
 
 ## Enumerations
 
-- [BaseDirectory](../enums/fs.BaseDirectory.md)
+### BaseDirectory
+
+#### Members
+
+##### App
+
+ **App** = ``18``
+
+###### Defined in
+
+[fs.ts:92](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L92)
+
+___
+
+##### Audio
+
+ **Audio** = ``1``
+
+###### Defined in
+
+[fs.ts:75](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L75)
+
+___
+
+##### Cache
+
+ **Cache** = ``2``
+
+###### Defined in
+
+[fs.ts:76](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L76)
+
+___
+
+##### Config
+
+ **Config** = ``3``
+
+###### Defined in
+
+[fs.ts:77](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L77)
+
+___
+
+##### Data
+
+ **Data** = ``4``
+
+###### Defined in
+
+[fs.ts:78](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L78)
+
+___
+
+##### Desktop
+
+ **Desktop** = ``6``
+
+###### Defined in
+
+[fs.ts:80](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L80)
+
+___
+
+##### Document
+
+ **Document** = ``7``
+
+###### Defined in
+
+[fs.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L81)
+
+___
+
+##### Download
+
+ **Download** = ``8``
+
+###### Defined in
+
+[fs.ts:82](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L82)
+
+___
+
+##### Executable
+
+ **Executable** = ``9``
+
+###### Defined in
+
+[fs.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L83)
+
+___
+
+##### Font
+
+ **Font** = ``10``
+
+###### Defined in
+
+[fs.ts:84](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L84)
+
+___
+
+##### Home
+
+ **Home** = ``11``
+
+###### Defined in
+
+[fs.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L85)
+
+___
+
+##### LocalData
+
+ **LocalData** = ``5``
+
+###### Defined in
+
+[fs.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L79)
+
+___
+
+##### Log
+
+ **Log** = ``19``
+
+###### Defined in
+
+[fs.ts:93](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L93)
+
+___
+
+##### Picture
+
+ **Picture** = ``12``
+
+###### Defined in
+
+[fs.ts:86](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L86)
+
+___
+
+##### Public
+
+ **Public** = ``13``
+
+###### Defined in
+
+[fs.ts:87](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L87)
+
+___
+
+##### Resource
+
+ **Resource** = ``17``
+
+###### Defined in
+
+[fs.ts:91](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L91)
+
+___
+
+##### Runtime
+
+ **Runtime** = ``14``
+
+###### Defined in
+
+[fs.ts:88](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L88)
+
+___
+
+##### Temp
+
+ **Temp** = ``20``
+
+###### Defined in
+
+[fs.ts:94](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L94)
+
+___
+
+##### Template
+
+ **Template** = ``15``
+
+###### Defined in
+
+[fs.ts:89](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L89)
+
+___
+
+##### Video
+
+ **Video** = ``16``
+
+###### Defined in
+
+[fs.ts:90](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L90)
+
 
 ## Interfaces
 
-- [FileEntry](../interfaces/fs.FileEntry.md)
-- [FsBinaryFileOption](../interfaces/fs.FsBinaryFileOption.md)
-- [FsDirOptions](../interfaces/fs.FsDirOptions.md)
-- [FsOptions](../interfaces/fs.FsOptions.md)
-- [FsTextFileOption](../interfaces/fs.FsTextFileOption.md)
+### FileEntry
+
+#### Properties
+
+##### children
+
+ `Optional` **children**: [`FileEntry`](fs.FileEntry.md)[]
+
+Children of this entry if it's a directory; null otherwise
+
+###### Defined in
+
+[fs.ts:133](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L133)
+
+___
+
+##### name
+
+ `Optional` **name**: `string`
+
+Name of the directory/file
+can be null if the path terminates with `..`
+
+###### Defined in
+
+[fs.ts:131](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L131)
+
+___
+
+##### path
+
+ **path**: `string`
+
+###### Defined in
+
+[fs.ts:126](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L126)
+
+### FsBinaryFileOption
+
+Options object used to write a binary data to a file.
+
+#### Properties
+
+##### contents
+
+ **contents**: [`BinaryFileContents`](../modules/fs.md#binaryfilecontents)
+
+The byte array contents.
+
+###### Defined in
+
+[fs.ts:122](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L122)
+
+___
+
+##### path
+
+ **path**: `string`
+
+Path to the file to write.
+
+###### Defined in
+
+[fs.ts:120](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L120)
+
+### FsDirOptions
+
+#### Properties
+
+##### dir
+
+ `Optional` **dir**: [`BaseDirectory`](../enums/fs.BaseDirectory.md)
+
+###### Defined in
+
+[fs.ts:103](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L103)
+
+___
+
+##### recursive
+
+ `Optional` **recursive**: `boolean`
+
+###### Defined in
+
+[fs.ts:104](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L104)
+
+### FsOptions
+
+#### Properties
+
+##### dir
+
+ `Optional` **dir**: [`BaseDirectory`](../enums/fs.BaseDirectory.md)
+
+###### Defined in
+
+[fs.ts:98](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L98)
+
+### FsTextFileOption
+
+Options object used to write a UTF-8 string to a file.
+
+#### Properties
+
+##### contents
+
+ **contents**: `string`
+
+The UTF-8 string to write to the file.
+
+###### Defined in
+
+[fs.ts:112](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L112)
+
+___
+
+##### path
+
+ **path**: `string`
+
+Path to the file to write.
+
+###### Defined in
+
+[fs.ts:110](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L110)
+
 
 ## References
 
