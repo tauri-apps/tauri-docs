@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / clipboard
-
-# Module: clipboard
+# clipboard
 
 Read and write to the system clipboard.
 
@@ -8,9 +6,9 @@ This package is also accessible with `window.__TAURI__.clipboard` when [`build.w
 
 ## Functions
 
-### readText
+### `readText`
 
-**readText**(): `Promise`<`string` \| ``null``\>
+> **readText**(): `Promise`<`string` \| ``null``\>
 
 Gets the clipboard content as plain text.
 
@@ -21,17 +19,15 @@ import { readText } from '@tauri-apps/api/clipboard';
 const clipboardText = await readText();
 ```
 
-#### Returns
-
-`Promise`<`string` \| ``null``\>
+**Returns**: `Promise`<`string` \| ``null``\>
 
 A promise resolving to the clipboard content as plain text.
 
 ___
 
-### writeText
+### `writeText`
 
-**writeText**(`text`): `Promise`<`void`\>
+> **writeText**(`text`): `Promise`<`void`\>
 
 Writes plain text to the clipboard.
 
@@ -49,8 +45,6 @@ assert(await readText(), 'Tauri is awesome!');
 | :------ | :------ |
 | `text` | `string` |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.

@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [shell](../modules/shell.md) / Command
-
-# Class: Command
+# Command
 
 [shell](../modules/shell.md).Command
 
@@ -31,9 +29,9 @@ console.log('pid:', child.pid);
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new Command**(`program`, `args?`, `options?`)
+> **new Command**(`program`, `args?`, `options?`)
 
 Creates a new `Command` instance.
 
@@ -51,33 +49,29 @@ Creates a new `Command` instance.
 
 ## Properties
 
-### stderr
+### `stderr`
 
  `Readonly` **stderr**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-#### Defined in
-
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L258)
+**Defined in** [shell.ts:258](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/shell.ts#L258)
 
 ___
 
-### stdout
+### `stdout`
 
  `Readonly` **stdout**: [`EventEmitter`](shell.EventEmitter.md)<``"data"``\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-#### Defined in
-
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L256)
+**Defined in** [shell.ts:256](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/shell.ts#L256)
 
 ## Methods
 
-### execute
+### `execute`
 
-**execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
+> **execute**(): `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
@@ -92,17 +86,15 @@ assert(output.stdout === 'message');
 assert(output.stderr === '');
 ```
 
-#### Returns
-
-`Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
+**Returns**: `Promise`<[`ChildProcess`](../interfaces/shell.ChildProcess.md)\>
 
 A promise resolving to the child process output.
 
 ___
 
-### on
+### `on`
 
-**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
+> **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
 
 Listen to an event from the child process.
 
@@ -113,9 +105,7 @@ Listen to an event from the child process.
 | `event` | ``"error"`` \| ``"close"`` | The event name. |
 | `handler` | (`arg`: `any`) => `void` | The event handler. |
 
-#### Returns
-
-[`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
+**Returns**: [`EventEmitter`](shell.EventEmitter.md)<``"error"`` \| ``"close"``\>
 
 The `this` instance for chained calls.
 
@@ -125,23 +115,21 @@ The `this` instance for chained calls.
 
 ___
 
-### spawn
+### `spawn`
 
-**spawn**(): `Promise`<[`Child`](shell.Child.md)\>
+> **spawn**(): `Promise`<[`Child`](shell.Child.md)\>
 
 Executes the command as a child process, returning a handle to it.
 
-#### Returns
-
-`Promise`<[`Child`](shell.Child.md)\>
+**Returns**: `Promise`<[`Child`](shell.Child.md)\>
 
 A promise resolving to the child process handle.
 
 ___
 
-### sidecar
+### `sidecar`
 
-`Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.Command.md)
+> `Static` **sidecar**(`program`, `args?`, `options?`): [`Command`](shell.Command.md)
 
 Creates a command to execute the given sidecar program.
 
@@ -161,6 +149,4 @@ const output = await command.execute();
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](../interfaces/shell.SpawnOptions.md) | `undefined` | Spawn options. |
 
-#### Returns
-
-[`Command`](shell.Command.md)
+**Returns**: [`Command`](shell.Command.md)

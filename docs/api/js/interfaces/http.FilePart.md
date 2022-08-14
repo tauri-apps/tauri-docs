@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [http](../modules/http.md) / FilePart
-
-# Interface: FilePart<T\>
+# FilePart<T\>
 
 [http](../modules/http.md).FilePart
 
@@ -12,30 +10,24 @@
 
 ## Properties
 
-### file
+### `file`
 
  **file**: `string` \| `T`
 
-#### Defined in
-
-[http.ts:65](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L65)
+**Defined in** [http.ts:65](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L65)
 
 ___
 
-### fileName
+### `fileName`
 
  `Optional` **fileName**: `string`
 
-#### Defined in
-
-[http.ts:67](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L67)
+**Defined in** [http.ts:67](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L67)
 
 ___
 
-### mime
+### `mime`
 
  `Optional` **mime**: `string`
 
-#### Defined in
-
-[http.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L66)
+**Defined in** [http.ts:66](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L66)

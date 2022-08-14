@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / OpenDialogOptions
-
-# Interface: OpenDialogOptions
+# OpenDialogOptions
 
 [dialog](../modules/dialog.md).OpenDialogOptions
 
@@ -8,73 +6,61 @@ Options for the open dialog.
 
 ## Properties
 
-### defaultPath
+### `defaultPath`
 
  `Optional` **defaultPath**: `string`
 
 Initial directory or file path.
 
-#### Defined in
-
-[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L51)
+**Defined in** [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L51)
 
 ___
 
-### directory
+### `directory`
 
  `Optional` **directory**: `boolean`
 
 Whether the dialog is a directory selection or not.
 
-#### Defined in
-
-[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L55)
+**Defined in** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L55)
 
 ___
 
-### filters
+### `filters`
 
  `Optional` **filters**: [`DialogFilter`](dialog.DialogFilter.md)[]
 
 The filters of the dialog.
 
-#### Defined in
-
-[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L49)
+**Defined in** [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L49)
 
 ___
 
-### multiple
+### `multiple`
 
  `Optional` **multiple**: `boolean`
 
 Whether the dialog allows multiple selection or not.
 
-#### Defined in
-
-[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L53)
+**Defined in** [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L53)
 
 ___
 
-### recursive
+### `recursive`
 
  `Optional` **recursive**: `boolean`
 
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-#### Defined in
-
-[dialog.ts:60](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L60)
+**Defined in** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L60)
 
 ___
 
-### title
+### `title`
 
  `Optional` **title**: `string`
 
 The title of the dialog window.
 
-#### Defined in
-
-[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L47)
+**Defined in** [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L47)

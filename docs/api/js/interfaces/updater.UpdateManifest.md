@@ -1,35 +1,27 @@
-[@tauri-apps/api](../README.md) / [updater](../modules/updater.md) / UpdateManifest
-
-# Interface: UpdateManifest
+# UpdateManifest
 
 [updater](../modules/updater.md).UpdateManifest
 
 ## Properties
 
-### body
+### `body`
 
  **body**: `string`
 
-#### Defined in
-
-[updater.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L24)
+**Defined in** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L24)
 
 ___
 
-### date
+### `date`
 
  **date**: `string`
 
-#### Defined in
-
-[updater.ts:23](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L23)
+**Defined in** [updater.ts:23](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L23)
 
 ___
 
-### version
+### `version`
 
  **version**: `string`
 
-#### Defined in
-
-[updater.ts:22](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L22)
+**Defined in** [updater.ts:22](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L22)

@@ -1,29 +1,23 @@
-[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / MessageDialogOptions
-
-# Interface: MessageDialogOptions
+# MessageDialogOptions
 
 [dialog](../modules/dialog.md).MessageDialogOptions
 
 ## Properties
 
-### title
+### `title`
 
  `Optional` **title**: `string`
 
 The title of the dialog. Defaults to the app name.
 
-#### Defined in
-
-[dialog.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L79)
+**Defined in** [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L79)
 
 ___
 
-### type
+### `type`
 
  `Optional` **type**: ``"error"`` \| ``"info"`` \| ``"warning"``
 
 The type of the dialog. Defaults to `info`.
 
-#### Defined in
-
-[dialog.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L81)
+**Defined in** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L81)

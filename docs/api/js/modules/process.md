@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / process
-
-# Module: process
+# process
 
 Perform operations on the current process.
 
@@ -8,9 +6,9 @@ This package is also accessible with `window.__TAURI__.process` when [`build.wit
 
 ## Functions
 
-### exit
+### `exit`
 
-**exit**(`exitCode?`): `Promise`<`void`\>
+> **exit**(`exitCode?`): `Promise`<`void`\>
 
 Exits immediately with the given `exitCode`.
 
@@ -27,17 +25,15 @@ await exit(1);
 | :------ | :------ | :------ | :------ |
 | `exitCode` | `number` | `0` | The exit code to use. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### relaunch
+### `relaunch`
 
-**relaunch**(): `Promise`<`void`\>
+> **relaunch**(): `Promise`<`void`\>
 
 Exits the current instance of the app then relaunches it.
 
@@ -48,8 +44,6 @@ import { relaunch } from '@tauri-apps/api/process';
 await relaunch();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.

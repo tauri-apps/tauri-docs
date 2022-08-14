@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / event
-
-# Module: event
+# event
 
 The event system allows you to emit events to the backend and listen to events from it.
 
@@ -12,7 +10,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ## Type Aliases
 
-### EventCallback
+### `EventCallback`
 
  **EventCallback**<`T`\>: (`event`: [`Event`](../interfaces/event.Event.md)<`T`\>) => `void`
 
@@ -24,55 +22,45 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 #### Type declaration
 
-(`event`): `void`
+> (`event`): `void`
 
-##### Parameters
+#### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `event` | [`Event`](../interfaces/event.Event.md)<`T`\> |
 
-##### Returns
+**Returns**: `void`
 
-`void`
-
-#### Defined in
-
-[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L22)
+**Defined in** [helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/helpers/event.ts#L22)
 
 ___
 
-### EventName
+### `EventName`
 
  **EventName**: `string`
 
-#### Defined in
-
-[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L20)
+**Defined in** [helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/helpers/event.ts#L20)
 
 ___
 
-### UnlistenFn
+### `UnlistenFn`
 
  **UnlistenFn**: () => `void`
 
 #### Type declaration
 
-(): `void`
+> (): `void`
 
-##### Returns
+**Returns**: `void`
 
-`void`
-
-#### Defined in
-
-[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L24)
+**Defined in** [helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/helpers/event.ts#L24)
 
 ## Functions
 
-### emit
+### `emit`
 
-**emit**(`event`, `payload?`): `Promise`<`void`\>
+> **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend.
 
@@ -90,15 +78,13 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `payload?` | `unknown` | Event payload |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### listen
+### `listen`
 
-**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+> **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an event from the backend.
 
@@ -127,18 +113,16 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
 ___
 
-### once
+### `once`
 
-**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+> **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an one-off event from the backend.
 
@@ -171,9 +155,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

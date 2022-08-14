@@ -1,24 +1,20 @@
-[@tauri-apps/api](../README.md) / [cli](../modules/cli.md) / ArgMatch
-
-# Interface: ArgMatch
+# ArgMatch
 
 [cli](../modules/cli.md).ArgMatch
 
 ## Properties
 
-### occurrences
+### `occurrences`
 
  **occurrences**: `number`
 
 Number of occurrences
 
-#### Defined in
-
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L24)
+**Defined in** [cli.ts:24](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/cli.ts#L24)
 
 ___
 
-### value
+### `value`
 
  **value**: ``null`` \| `string` \| `boolean` \| `string`[]
 
@@ -26,6 +22,4 @@ string if takes value
 boolean if flag
 string[] or null if takes multiple values
 
-#### Defined in
-
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L20)
+**Defined in** [cli.ts:20](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/cli.ts#L20)

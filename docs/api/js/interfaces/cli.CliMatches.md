@@ -1,12 +1,10 @@
-[@tauri-apps/api](../README.md) / [cli](../modules/cli.md) / CliMatches
-
-# Interface: CliMatches
+# CliMatches
 
 [cli](../modules/cli.md).CliMatches
 
 ## Properties
 
-### args
+### `args`
 
  **args**: `Object`
 
@@ -14,16 +12,12 @@
 
 ▪ [name: `string`]: [`ArgMatch`](cli.ArgMatch.md)
 
-#### Defined in
-
-[cli.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L33)
+**Defined in** [cli.ts:33](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/cli.ts#L33)
 
 ___
 
-### subcommand
+### `subcommand`
 
  **subcommand**: ``null`` \| [`SubcommandMatch`](cli.SubcommandMatch.md)
 
-#### Defined in
-
-[cli.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/cli.ts#L34)
+**Defined in** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/cli.ts#L34)

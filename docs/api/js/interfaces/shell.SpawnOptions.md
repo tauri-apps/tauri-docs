@@ -1,24 +1,20 @@
-[@tauri-apps/api](../README.md) / [shell](../modules/shell.md) / SpawnOptions
-
-# Interface: SpawnOptions
+# SpawnOptions
 
 [shell](../modules/shell.md).SpawnOptions
 
 ## Properties
 
-### cwd
+### `cwd`
 
  `Optional` **cwd**: `string`
 
 Current working directory.
 
-#### Defined in
-
-[shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L83)
+**Defined in** [shell.ts:83](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/shell.ts#L83)
 
 ___
 
-### env
+### `env`
 
  `Optional` **env**: `Object`
 
@@ -28,6 +24,4 @@ Environment variables. set to `null` to clear the process env.
 
 ▪ [name: `string`]: `string`
 
-#### Defined in
-
-[shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L85)
+**Defined in** [shell.ts:85](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/shell.ts#L85)

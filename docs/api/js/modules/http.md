@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / http
-
-# Module: http
+# http
 
 Access the HTTP client written in Rust.
 
@@ -58,55 +56,47 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 ## Type Aliases
 
-### FetchOptions
+### `FetchOptions`
 
  **FetchOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"url"``\>
 
 Options for the `fetch` API.
 
-#### Defined in
-
-[http.ts:213](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L213)
+**Defined in** [http.ts:213](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L213)
 
 ___
 
-### HttpVerb
+### `HttpVerb`
 
  **HttpVerb**: ``"GET"`` \| ``"POST"`` \| ``"PUT"`` \| ``"DELETE"`` \| ``"PATCH"`` \| ``"HEAD"`` \| ``"OPTIONS"`` \| ``"CONNECT"`` \| ``"TRACE"``
 
 The request HTTP verb.
 
-#### Defined in
-
-[http.ts:188](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L188)
+**Defined in** [http.ts:188](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L188)
 
 ___
 
-### Part
+### `Part`
 
  **Part**: `string` \| `Uint8Array` \| [`FilePart`](../interfaces/http.FilePart.md)<`Uint8Array`\>
 
-#### Defined in
-
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L70)
+**Defined in** [http.ts:70](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L70)
 
 ___
 
-### RequestOptions
+### `RequestOptions`
 
  **RequestOptions**: `Omit`<[`HttpOptions`](../interfaces/http.HttpOptions.md), ``"method"`` \| ``"url"``\>
 
 Request options.
 
-#### Defined in
-
-[http.ts:211](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L211)
+**Defined in** [http.ts:211](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L211)
 
 ## Functions
 
-### fetch
+### `fetch`
 
-**fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
+> **fetch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
@@ -133,17 +123,15 @@ const response = await fetch('http://localhost:3003/users/2', {
 | `url` | `string` | The request URL. |
 | `options?` | [`FetchOptions`](http.md#fetchoptions) | The fetch options. |
 
-#### Returns
-
-`Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](../classes/http.Response.md)<`T`\>\>
 
 The response object.
 
 ___
 
-### getClient
+### `getClient`
 
-**getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
+> **getClient**(`options?`): `Promise`<[`Client`](../classes/http.Client.md)\>
 
 Creates a new client using the specified options.
 
@@ -160,8 +148,6 @@ const client = await getClient();
 | :------ | :------ | :------ |
 | `options?` | [`ClientOptions`](../interfaces/http.ClientOptions.md) | Client configuration. |
 
-#### Returns
-
-`Promise`<[`Client`](../classes/http.Client.md)\>
+**Returns**: `Promise`<[`Client`](../classes/http.Client.md)\>
 
 A promise resolving to the client instance.

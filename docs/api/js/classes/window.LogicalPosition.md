@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / LogicalPosition
-
-# Class: LogicalPosition
+# LogicalPosition
 
 [window](../modules/window.md).LogicalPosition
 
@@ -8,9 +6,9 @@ A position represented in logical pixels.
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new LogicalPosition**(`x`, `y`)
+> **new LogicalPosition**(`x`, `y`)
 
 #### Parameters
 
@@ -21,30 +19,24 @@ A position represented in logical pixels.
 
 ## Properties
 
-### type
+### `type`
 
  **type**: `string` = `'Logical'`
 
-#### Defined in
-
-[window.ts:135](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L135)
+**Defined in** [window.ts:135](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L135)
 
 ___
 
-### x
+### `x`
 
  **x**: `number`
 
-#### Defined in
-
-[window.ts:136](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L136)
+**Defined in** [window.ts:136](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L136)
 
 ___
 
-### y
+### `y`
 
  **y**: `number`
 
-#### Defined in
-
-[window.ts:137](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L137)
+**Defined in** [window.ts:137](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L137)

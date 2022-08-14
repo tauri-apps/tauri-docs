@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / updater
-
-# Module: updater
+# updater
 
 Customize the auto updater flow.
 
@@ -14,19 +12,17 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ## Type Aliases
 
-### UpdateStatus
+### `UpdateStatus`
 
  **UpdateStatus**: ``"PENDING"`` \| ``"ERROR"`` \| ``"DONE"`` \| ``"UPTODATE"``
 
-#### Defined in
-
-[updater.ts:14](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L14)
+**Defined in** [updater.ts:14](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
-### checkUpdate
+### `checkUpdate`
 
-**checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
+> **checkUpdate**(): `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Checks if an update is available.
 
@@ -38,17 +34,15 @@ const update = await checkUpdate();
 // now run installUpdate() if needed
 ```
 
-#### Returns
-
-`Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
+**Returns**: `Promise`<[`UpdateResult`](../interfaces/updater.UpdateResult.md)\>
 
 Promise resolving to the update status.
 
 ___
 
-### installUpdate
+### `installUpdate`
 
-**installUpdate**(): `Promise`<`void`\>
+> **installUpdate**(): `Promise`<`void`\>
 
 Install the update if there's one available.
 
@@ -63,17 +57,15 @@ if (update.shouldUpdate) {
 }
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### onUpdaterEvent
+### `onUpdaterEvent`
 
-**onUpdaterEvent**(`handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+> **onUpdaterEvent**(`handler`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an updater event.
 
@@ -95,9 +87,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | (`status`: [`UpdateStatusResult`](../interfaces/updater.UpdateStatusResult.md)) => `void` |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

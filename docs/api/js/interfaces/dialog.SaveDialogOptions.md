@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / SaveDialogOptions
-
-# Interface: SaveDialogOptions
+# SaveDialogOptions
 
 [dialog](../modules/dialog.md).SaveDialogOptions
 
@@ -8,7 +6,7 @@ Options for the save dialog.
 
 ## Properties
 
-### defaultPath
+### `defaultPath`
 
  `Optional` **defaultPath**: `string`
 
@@ -16,30 +14,24 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-#### Defined in
-
-[dialog.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L74)
+**Defined in** [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L74)
 
 ___
 
-### filters
+### `filters`
 
  `Optional` **filters**: [`DialogFilter`](dialog.DialogFilter.md)[]
 
 The filters of the dialog.
 
-#### Defined in
-
-[dialog.ts:68](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L68)
+**Defined in** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L68)
 
 ___
 
-### title
+### `title`
 
  `Optional` **title**: `string`
 
 The title of the dialog window.
 
-#### Defined in
-
-[dialog.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L66)
+**Defined in** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L66)

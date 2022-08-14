@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / cli
-
-# Module: cli
+# cli
 
 Parse arguments from your Command Line Interface.
 
@@ -14,9 +12,9 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 ## Functions
 
-### getMatches
+### `getMatches`
 
-**getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
+> **getMatches**(): `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
 Parse the arguments provided to the current process and get the matches using the configuration defined [`tauri.cli`](https://tauri.app/v1/api/config/#tauriconfig.cli) in `tauri.conf.json`
 
@@ -37,8 +35,6 @@ if (matches.subcommand?.name === 'run') {
 }
 ```
 
-#### Returns
-
-`Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
+**Returns**: `Promise`<[`CliMatches`](../interfaces/cli.CliMatches.md)\>
 
 A promise resolving to the parsed arguments.

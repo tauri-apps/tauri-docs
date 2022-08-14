@@ -1,25 +1,19 @@
-[@tauri-apps/api](../README.md) / [updater](../modules/updater.md) / UpdateStatusResult
-
-# Interface: UpdateStatusResult
+# UpdateStatusResult
 
 [updater](../modules/updater.md).UpdateStatusResult
 
 ## Properties
 
-### error
+### `error`
 
  `Optional` **error**: `string`
 
-#### Defined in
-
-[updater.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L17)
+**Defined in** [updater.ts:17](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L17)
 
 ___
 
-### status
+### `status`
 
  **status**: [`UpdateStatus`](../modules/updater.md#updatestatus)
 
-#### Defined in
-
-[updater.ts:18](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/updater.ts#L18)
+**Defined in** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/updater.ts#L18)

@@ -1,14 +1,12 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / CloseRequestedEvent
-
-# Class: CloseRequestedEvent
+# CloseRequestedEvent
 
 [window](../modules/window.md).CloseRequestedEvent
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new CloseRequestedEvent**(`event`)
+> **new CloseRequestedEvent**(`event`)
 
 #### Parameters
 
@@ -18,66 +16,54 @@
 
 ## Properties
 
-### \_preventDefault
+### `\_preventDefault`
 
  `Private` **\_preventDefault**: `boolean` = `false`
 
-#### Defined in
-
-[window.ts:1761](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1761)
+**Defined in** [window.ts:1761](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L1761)
 
 ___
 
-### event
+### `event`
 
  **event**: `string`
 
 Event name
 
-#### Defined in
-
-[window.ts:1756](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1756)
+**Defined in** [window.ts:1756](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L1756)
 
 ___
 
-### id
+### `id`
 
  **id**: `number`
 
 Event identifier used to unlisten
 
-#### Defined in
-
-[window.ts:1760](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1760)
+**Defined in** [window.ts:1760](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L1760)
 
 ___
 
-### windowLabel
+### `windowLabel`
 
  **windowLabel**: `string`
 
 The label of the window that emitted this event.
 
-#### Defined in
-
-[window.ts:1758](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1758)
+**Defined in** [window.ts:1758](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L1758)
 
 ## Methods
 
-### isPreventDefault
+### `isPreventDefault`
 
-**isPreventDefault**(): `boolean`
+> **isPreventDefault**(): `boolean`
 
-#### Returns
-
-`boolean`
+**Returns**: `boolean`
 
 ___
 
-### preventDefault
+### `preventDefault`
 
-**preventDefault**(): `void`
+> **preventDefault**(): `void`
 
-#### Returns
-
-`void`
+**Returns**: `void`

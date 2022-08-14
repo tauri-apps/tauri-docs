@@ -1,24 +1,20 @@
-[@tauri-apps/api](../README.md) / [http](../modules/http.md) / Client
-
-# Class: Client
+# Client
 
 [http](../modules/http.md).Client
 
 ## Properties
 
-### id
+### `id`
 
  **id**: `number`
 
-#### Defined in
-
-[http.ts:251](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L251)
+**Defined in** [http.ts:251](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L251)
 
 ## Methods
 
-### delete
+### `delete`
 
-**delete**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **delete**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a DELETE request.
 
@@ -43,17 +39,15 @@ const response = await client.delete('http://localhost:3003/users/1');
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](../modules/http.md#requestoptions) | The request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
 
 ___
 
-### drop
+### `drop`
 
-**drop**(): `Promise`<`void`\>
+> **drop**(): `Promise`<`void`\>
 
 Drops the client instance.
 
@@ -65,15 +59,13 @@ const client = await getClient();
 await client.drop();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### get
+### `get`
 
-**get**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **get**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a GET request.
 
@@ -102,17 +94,15 @@ const response = await client.get('http://localhost:3003/users', {
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](../modules/http.md#requestoptions) | The request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
 
 ___
 
-### patch
+### `patch`
 
-**patch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **patch**<`T`\>(`url`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a PATCH request.
 
@@ -139,17 +129,15 @@ const response = await client.patch('http://localhost:3003/users/1', {
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](../modules/http.md#requestoptions) | The request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
 
 ___
 
-### post
+### `post`
 
-**post**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **post**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a POST request.
 
@@ -182,17 +170,15 @@ const response = await client.post('http://localhost:3003/users', {
 | `body?` | [`Body`](http.Body.md) | The body of the request. |
 | `options?` | [`RequestOptions`](../modules/http.md#requestoptions) | The request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
 
 ___
 
-### put
+### `put`
 
-**put**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **put**<`T`\>(`url`, `body?`, `options?`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes a PUT request.
 
@@ -226,17 +212,15 @@ const response = await client.put('http://localhost:3003/users/1', {
 | `body?` | [`Body`](http.Body.md) | The body of the request. |
 | `options?` | [`RequestOptions`](../modules/http.md#requestoptions) | Request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.
 
 ___
 
-### request
+### `request`
 
-**request**<`T`\>(`options`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
+> **request**<`T`\>(`options`): `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 Makes an HTTP request.
 
@@ -263,8 +247,6 @@ const response = await client.request({
 | :------ | :------ | :------ |
 | `options` | [`HttpOptions`](../interfaces/http.HttpOptions.md) | The request options. |
 
-#### Returns
-
-`Promise`<[`Response`](http.Response.md)<`T`\>\>
+**Returns**: `Promise`<[`Response`](http.Response.md)<`T`\>\>
 
 A promise resolving to the response.

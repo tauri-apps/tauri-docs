@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / dialog
-
-# Module: dialog
+# dialog
 
 Native system dialogs for opening and saving files.
 
@@ -31,9 +29,9 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Functions
 
-### ask
+### `ask`
 
-**ask**(`message`, `options?`): `Promise`<`boolean`\>
+> **ask**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -52,17 +50,15 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](../interfaces/dialog.MessageDialogOptions.md) | The dialog's options. If a string, it represents the dialog title. |
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 ___
 
-### confirm
+### `confirm`
 
-**confirm**(`message`, `options?`): `Promise`<`boolean`\>
+> **confirm**(`message`, `options?`): `Promise`<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -81,17 +77,15 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](../interfaces/dialog.MessageDialogOptions.md) | The dialog's options. If a string, it represents the dialog title. |
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 ___
 
-### message
+### `message`
 
-**message**(`message`, `options?`): `Promise`<`void`\>
+> **message**(`message`, `options?`): `Promise`<`void`\>
 
 Shows a message dialog with an `Ok` button.
 
@@ -110,17 +104,15 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](../interfaces/dialog.MessageDialogOptions.md) | The dialog's options. If a string, it represents the dialog title. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### open
+### `open`
 
-**open**(`options?`): `Promise`<``null`` \| `string` \| `string`[]\>
+> **open**(`options?`): `Promise`<``null`` \| `string` \| `string`[]\>
 
 Open a file/directory selection dialog.
 
@@ -178,17 +170,15 @@ if (Array.isArray(selected)) {
 | :------ | :------ |
 | `options` | [`OpenDialogOptions`](../interfaces/dialog.OpenDialogOptions.md) |
 
-#### Returns
-
-`Promise`<``null`` \| `string` \| `string`[]\>
+**Returns**: `Promise`<``null`` \| `string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
 ___
 
-### save
+### `save`
 
-**save**(`options?`): `Promise`<`string`\>
+> **save**(`options?`): `Promise`<`string`\>
 
 Open a file/directory save dialog.
 
@@ -218,8 +208,6 @@ const filePath = await save({
 | :------ | :------ |
 | `options` | [`SaveDialogOptions`](../interfaces/dialog.SaveDialogOptions.md) |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 A promise resolving to the selected path.

@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / Monitor
-
-# Interface: Monitor
+# Monitor
 
 [window](../modules/window.md).Monitor
 
@@ -8,48 +6,40 @@ Allows you to retrieve information about a given monitor.
 
 ## Properties
 
-### name
+### `name`
 
  **name**: ``null`` \| `string`
 
 Human-readable name of the monitor
 
-#### Defined in
-
-[window.ts:72](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L72)
+**Defined in** [window.ts:72](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L72)
 
 ___
 
-### position
+### `position`
 
  **position**: [`PhysicalPosition`](../classes/window.PhysicalPosition.md)
 
 the Top-left corner position of the monitor relative to the larger full screen area.
 
-#### Defined in
-
-[window.ts:76](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L76)
+**Defined in** [window.ts:76](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L76)
 
 ___
 
-### scaleFactor
+### `scaleFactor`
 
  **scaleFactor**: `number`
 
 The scale factor that can be used to map physical pixels to logical pixels.
 
-#### Defined in
-
-[window.ts:78](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L78)
+**Defined in** [window.ts:78](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L78)
 
 ___
 
-### size
+### `size`
 
  **size**: [`PhysicalSize`](../classes/window.PhysicalSize.md)
 
 The monitor's resolution.
 
-#### Defined in
-
-[window.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L74)
+**Defined in** [window.ts:74](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L74)

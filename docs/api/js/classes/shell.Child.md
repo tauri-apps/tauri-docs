@@ -1,14 +1,12 @@
-[@tauri-apps/api](../README.md) / [shell](../modules/shell.md) / Child
-
-# Class: Child
+# Child
 
 [shell](../modules/shell.md).Child
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new Child**(`pid`)
+> **new Child**(`pid`)
 
 #### Parameters
 
@@ -18,35 +16,31 @@
 
 ## Properties
 
-### pid
+### `pid`
 
  **pid**: `number`
 
 The child process `pid`.
 
-#### Defined in
-
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L181)
+**Defined in** [shell.ts:181](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/shell.ts#L181)
 
 ## Methods
 
-### kill
+### `kill`
 
-**kill**(): `Promise`<`void`\>
+> **kill**(): `Promise`<`void`\>
 
 Kills the child process.
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### write
+### `write`
 
-**write**(`data`): `Promise`<`void`\>
+> **write**(`data`): `Promise`<`void`\>
 
 Writes `data` to the `stdin`.
 
@@ -66,8 +60,6 @@ await child.write([0, 1, 2, 3, 4, 5]);
 | :------ | :------ | :------ |
 | `data` | `string` \| `Uint8Array` | The message to write, either a string or a byte array. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.

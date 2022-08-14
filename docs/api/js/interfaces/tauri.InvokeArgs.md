@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [tauri](../modules/tauri.md) / InvokeArgs
-
-# Interface: InvokeArgs
+# InvokeArgs
 
 [tauri](../modules/tauri.md).InvokeArgs
 

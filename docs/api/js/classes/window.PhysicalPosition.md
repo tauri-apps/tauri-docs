@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / PhysicalPosition
-
-# Class: PhysicalPosition
+# PhysicalPosition
 
 [window](../modules/window.md).PhysicalPosition
 
@@ -8,9 +6,9 @@ A position represented in physical pixels.
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new PhysicalPosition**(`x`, `y`)
+> **new PhysicalPosition**(`x`, `y`)
 
 #### Parameters
 
@@ -21,39 +19,33 @@ A position represented in physical pixels.
 
 ## Properties
 
-### type
+### `type`
 
  **type**: `string` = `'Physical'`
 
-#### Defined in
-
-[window.ts:147](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L147)
+**Defined in** [window.ts:147](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L147)
 
 ___
 
-### x
+### `x`
 
  **x**: `number`
 
-#### Defined in
-
-[window.ts:148](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L148)
+**Defined in** [window.ts:148](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L148)
 
 ___
 
-### y
+### `y`
 
  **y**: `number`
 
-#### Defined in
-
-[window.ts:149](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L149)
+**Defined in** [window.ts:149](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L149)
 
 ## Methods
 
-### toLogical
+### `toLogical`
 
-**toLogical**(`scaleFactor`): [`LogicalPosition`](window.LogicalPosition.md)
+> **toLogical**(`scaleFactor`): [`LogicalPosition`](window.LogicalPosition.md)
 
 Converts the physical position to a logical one.
 
@@ -72,6 +64,4 @@ const logical = position.toLogical(factor);
 | :------ | :------ |
 | `scaleFactor` | `number` |
 
-#### Returns
-
-[`LogicalPosition`](window.LogicalPosition.md)
+**Returns**: [`LogicalPosition`](window.LogicalPosition.md)

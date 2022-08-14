@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / fs
-
-# Module: fs
+# fs
 
 Access the file system.
 
@@ -79,31 +77,29 @@ Note that this scope applies to **all** APIs on this module.
 
 ## References
 
-### Dir
+### `Dir`
 
 Renames and re-exports [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ___
 
-### writeFile
+### `writeFile`
 
 Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ## Type Aliases
 
-### BinaryFileContents
+### `BinaryFileContents`
 
  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| `ArrayBuffer`
 
-#### Defined in
-
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L115)
+**Defined in** [fs.ts:115](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
-### copyFile
+### `copyFile`
 
-**copyFile**(`source`, `destination`, `options?`): `Promise`<`void`\>
+> **copyFile**(`source`, `destination`, `options?`): `Promise`<`void`\>
 
 Copys a file to a destination.
 
@@ -123,17 +119,15 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 | `destination` | `string` | A path for the destination file. |
 | `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### createDir
+### `createDir`
 
-**createDir**(`dir`, `options?`): `Promise`<`void`\>
+> **createDir**(`dir`, `options?`): `Promise`<`void`\>
 
 Creates a directory.
 If one of the path's parent components doesn't exist
@@ -154,17 +148,15 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 | `dir` | `string` | Path to the directory to create. |
 | `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### readBinaryFile
+### `readBinaryFile`
 
-**readBinaryFile**(`filePath`, `options?`): `Promise`<`Uint8Array`\>
+> **readBinaryFile**(`filePath`, `options?`): `Promise`<`Uint8Array`\>
 
 Reads a file as byte array.
 
@@ -183,17 +175,15 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 | `filePath` | `string` | Path to the file. |
 | `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`Uint8Array`\>
+**Returns**: `Promise`<`Uint8Array`\>
 
 A promise resolving to the file bytes array.
 
 ___
 
-### readDir
+### `readDir`
 
-**readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
+> **readDir**(`dir`, `options?`): `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
 
 List directory files.
 
@@ -221,17 +211,15 @@ function processEntries(entries) {
 | `dir` | `string` | Path to the directory to read. |
 | `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
+**Returns**: `Promise`<[`FileEntry`](../interfaces/fs.FileEntry.md)[]\>
 
 A promise resolving to the directory entries.
 
 ___
 
-### readTextFile
+### `readTextFile`
 
-**readTextFile**(`filePath`, `options?`): `Promise`<`string`\>
+> **readTextFile**(`filePath`, `options?`): `Promise`<`string`\>
 
 Reads a file as an UTF-8 encoded string.
 
@@ -250,17 +238,15 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 | `filePath` | `string` | Path to the file. |
 | `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
 ___
 
-### removeDir
+### `removeDir`
 
-**removeDir**(`dir`, `options?`): `Promise`<`void`\>
+> **removeDir**(`dir`, `options?`): `Promise`<`void`\>
 
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
@@ -280,17 +266,15 @@ await removeDir('users', { dir: BaseDirectory.App });
 | `dir` | `string` | Path to the directory to remove. |
 | `options` | [`FsDirOptions`](../interfaces/fs.FsDirOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### removeFile
+### `removeFile`
 
-**removeFile**(`file`, `options?`): `Promise`<`void`\>
+> **removeFile**(`file`, `options?`): `Promise`<`void`\>
 
 Removes a file.
 
@@ -309,17 +293,15 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 | `file` | `string` | Path to the file to remove. |
 | `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### renameFile
+### `renameFile`
 
-**renameFile**(`oldPath`, `newPath`, `options?`): `Promise`<`void`\>
+> **renameFile**(`oldPath`, `newPath`, `options?`): `Promise`<`void`\>
 
 Renames a file.
 
@@ -339,17 +321,15 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 | `newPath` | `string` | A path of the new file name. |
 | `options` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### writeBinaryFile
+### `writeBinaryFile`
 
-**writeBinaryFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
+> **writeBinaryFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
 
 Writes a byte array content to a file.
 
@@ -369,13 +349,11 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 | `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | The file contents. |
 | `options?` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
+> **writeBinaryFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a byte array content to a file.
 
@@ -394,17 +372,15 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 | `file` | [`FsBinaryFileOption`](../interfaces/fs.FsBinaryFileOption.md) | The object containing the file path and contents. |
 | `options?` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ___
 
-### writeTextFile
+### `writeTextFile`
 
-**writeTextFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
+> **writeTextFile**(`path`, `contents`, `options?`): `Promise`<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -424,13 +400,11 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 | `contents` | `string` | The file contents. |
 | `options?` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeTextFile**(`file`, `options?`): `Promise`<`void`\>
+> **writeTextFile**(`file`, `options?`): `Promise`<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -449,8 +423,6 @@ await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: Base
 | `file` | [`FsTextFileOption`](../interfaces/fs.FsTextFileOption.md) | The object containing the file path and contents. |
 | `options?` | [`FsOptions`](../interfaces/fs.FsOptions.md) | Configuration object. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.

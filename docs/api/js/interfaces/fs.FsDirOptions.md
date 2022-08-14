@@ -1,25 +1,19 @@
-[@tauri-apps/api](../README.md) / [fs](../modules/fs.md) / FsDirOptions
-
-# Interface: FsDirOptions
+# FsDirOptions
 
 [fs](../modules/fs.md).FsDirOptions
 
 ## Properties
 
-### dir
+### `dir`
 
  `Optional` **dir**: [`BaseDirectory`](../enums/fs.BaseDirectory.md)
 
-#### Defined in
-
-[fs.ts:103](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L103)
+**Defined in** [fs.ts:103](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/fs.ts#L103)
 
 ___
 
-### recursive
+### `recursive`
 
  `Optional` **recursive**: `boolean`
 
-#### Defined in
-
-[fs.ts:104](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L104)
+**Defined in** [fs.ts:104](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/fs.ts#L104)

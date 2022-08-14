@@ -1,5 +1,3 @@
-@tauri-apps/api
-
 # @tauri-apps/api
 
 ## Modules

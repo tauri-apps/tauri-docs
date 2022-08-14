@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [dialog](../modules/dialog.md) / DialogFilter
-
-# Interface: DialogFilter
+# DialogFilter
 
 [dialog](../modules/dialog.md).DialogFilter
 
@@ -8,7 +6,7 @@ Extension filters for the file dialog.
 
 ## Properties
 
-### extensions
+### `extensions`
 
  **extensions**: `string`[]
 
@@ -20,18 +18,14 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-#### Defined in
-
-[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L41)
+**Defined in** [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L41)
 
 ___
 
-### name
+### `name`
 
  **name**: `string`
 
 Filter name.
 
-#### Defined in
-
-[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/dialog.ts#L33)
+**Defined in** [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/dialog.ts#L33)

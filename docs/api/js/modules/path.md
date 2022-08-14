@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / path
-
-# Module: path
+# path
 
 The path module provides utilities for working with file and directory paths.
 
@@ -22,13 +20,13 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## References
 
-### BaseDirectory
+### `BaseDirectory`
 
 Re-exports [BaseDirectory](../enums/fs.BaseDirectory.md)
 
 ## Variables
 
-### delimiter
+### `delimiter`
 
  `Const` **delimiter**: ``";"`` \| ``":"``
 
@@ -36,13 +34,11 @@ Provides the platform-specific path segment delimiter:
 - `;` on Windows
 - `:` on POSIX
 
-#### Defined in
-
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/path.ts#L568)
+**Defined in** [path.ts:568](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/path.ts#L568)
 
 ___
 
-### sep
+### `sep`
 
  `Const` **sep**: ``"\\"`` \| ``"/"``
 
@@ -50,15 +46,13 @@ Provides the platform-specific path segment separator:
 - `\` on Windows
 - `/` on POSIX
 
-#### Defined in
-
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/path.ts#L561)
+**Defined in** [path.ts:561](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/path.ts#L561)
 
 ## Functions
 
-### appDir
+### `appDir`
 
-**appDir**(): `Promise`<`string`\>
+> **appDir**(): `Promise`<`string`\>
 
 Returns the path to the suggested directory for your app config files.
 Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
@@ -70,15 +64,13 @@ import { appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### audioDir
+### `audioDir`
 
-**audioDir**(): `Promise`<`string`\>
+> **audioDir**(): `Promise`<`string`\>
 
 Returns the path to the user's audio directory.
 
@@ -95,15 +87,13 @@ import { audioDir } from '@tauri-apps/api/path';
 const audioDirPath = await audioDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### basename
+### `basename`
 
-**basename**(`path`, `ext?`): `Promise`<`string`\>
+> **basename**(`path`, `ext?`): `Promise`<`string`\>
 
 Returns the last portion of a `path`. Trailing directory separators are ignored.
 
@@ -123,15 +113,13 @@ assert(base === 'app');
 | `path` | `string` | - |
 | `ext?` | `string` | An optional file extension to be removed from the returned path. |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### cacheDir
+### `cacheDir`
 
-**cacheDir**(): `Promise`<`string`\>
+> **cacheDir**(): `Promise`<`string`\>
 
 Returns the path to the user's cache directory.
 
@@ -148,15 +136,13 @@ import { cacheDir } from '@tauri-apps/api/path';
 const cacheDirPath = await cacheDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### configDir
+### `configDir`
 
-**configDir**(): `Promise`<`string`\>
+> **configDir**(): `Promise`<`string`\>
 
 Returns the path to the user's config directory.
 
@@ -173,15 +159,13 @@ import { configDir } from '@tauri-apps/api/path';
 const configDirPath = await configDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### dataDir
+### `dataDir`
 
-**dataDir**(): `Promise`<`string`\>
+> **dataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's data directory.
 
@@ -198,15 +182,13 @@ import { dataDir } from '@tauri-apps/api/path';
 const dataDirPath = await dataDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### desktopDir
+### `desktopDir`
 
-**desktopDir**(): `Promise`<`string`\>
+> **desktopDir**(): `Promise`<`string`\>
 
 Returns the path to the user's desktop directory.
 
@@ -223,15 +205,13 @@ import { desktopDir } from '@tauri-apps/api/path';
 const desktopPath = await desktopDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### dirname
+### `dirname`
 
-**dirname**(`path`): `Promise`<`string`\>
+> **dirname**(`path`): `Promise`<`string`\>
 
 Returns the directory name of a `path`. Trailing directory separators are ignored.
 
@@ -249,15 +229,13 @@ const dir = await dirname(appDirPath);
 | :------ | :------ |
 | `path` | `string` |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### documentDir
+### `documentDir`
 
-**documentDir**(): `Promise`<`string`\>
+> **documentDir**(): `Promise`<`string`\>
 
 Returns the path to the user's document directory.
 
@@ -274,15 +252,13 @@ const documentDirPath = await documentDir();
 - **macOS:** Resolves to `$HOME/Documents`.
 - **Windows:** Resolves to `{FOLDERID_Documents}`.
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### downloadDir
+### `downloadDir`
 
-**downloadDir**(): `Promise`<`string`\>
+> **downloadDir**(): `Promise`<`string`\>
 
 Returns the path to the user's download directory.
 
@@ -299,15 +275,13 @@ import { downloadDir } from '@tauri-apps/api/path';
 const downloadDirPath = await downloadDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### executableDir
+### `executableDir`
 
-**executableDir**(): `Promise`<`string`\>
+> **executableDir**(): `Promise`<`string`\>
 
 Returns the path to the user's executable directory.
 
@@ -324,15 +298,13 @@ import { executableDir } from '@tauri-apps/api/path';
 const executableDirPath = await executableDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### extname
+### `extname`
 
-**extname**(`path`): `Promise`<`string`\>
+> **extname**(`path`): `Promise`<`string`\>
 
 Returns the extension of the `path`.
 
@@ -351,15 +323,13 @@ assert(ext === 'conf');
 | :------ | :------ |
 | `path` | `string` |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### fontDir
+### `fontDir`
 
-**fontDir**(): `Promise`<`string`\>
+> **fontDir**(): `Promise`<`string`\>
 
 Returns the path to the user's font directory.
 
@@ -376,15 +346,13 @@ import { fontDir } from '@tauri-apps/api/path';
 const fontDirPath = await fontDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### homeDir
+### `homeDir`
 
-**homeDir**(): `Promise`<`string`\>
+> **homeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's home directory.
 
@@ -401,15 +369,13 @@ import { homeDir } from '@tauri-apps/api/path';
 const homeDirPath = await homeDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### isAbsolute
+### `isAbsolute`
 
-**isAbsolute**(`path`): `Promise`<`boolean`\>
+> **isAbsolute**(`path`): `Promise`<`boolean`\>
 
 Returns whether the path is absolute or not.
 
@@ -426,15 +392,13 @@ assert(await isAbsolute('/home/tauri'));
 | :------ | :------ |
 | `path` | `string` |
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 ___
 
-### join
+### `join`
 
-**join**(...`paths`): `Promise`<`string`\>
+> **join**(...`paths`): `Promise`<`string`\>
 
 Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
 
@@ -452,15 +416,13 @@ const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 | :------ | :------ | :------ |
 | `...paths` | `string`[] | A sequence of path segments. |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### localDataDir
+### `localDataDir`
 
-**localDataDir**(): `Promise`<`string`\>
+> **localDataDir**(): `Promise`<`string`\>
 
 Returns the path to the user's local data directory.
 
@@ -477,15 +439,13 @@ import { localDataDir } from '@tauri-apps/api/path';
 const localDataDirPath = await localDataDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### logDir
+### `logDir`
 
-**logDir**(): `Promise`<`string`\>
+> **logDir**(): `Promise`<`string`\>
 
 Returns the path to the suggested log directory.
 
@@ -502,15 +462,13 @@ import { logDir } from '@tauri-apps/api/path';
 const logDirPath = await logDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### normalize
+### `normalize`
 
-**normalize**(`path`): `Promise`<`string`\>
+> **normalize**(`path`): `Promise`<`string`\>
 
 Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
 
@@ -528,15 +486,13 @@ const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 | :------ | :------ |
 | `path` | `string` |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### pictureDir
+### `pictureDir`
 
-**pictureDir**(): `Promise`<`string`\>
+> **pictureDir**(): `Promise`<`string`\>
 
 Returns the path to the user's picture directory.
 
@@ -553,15 +509,13 @@ import { pictureDir } from '@tauri-apps/api/path';
 const pictureDirPath = await pictureDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### publicDir
+### `publicDir`
 
-**publicDir**(): `Promise`<`string`\>
+> **publicDir**(): `Promise`<`string`\>
 
 Returns the path to the user's public directory.
 
@@ -578,15 +532,13 @@ import { publicDir } from '@tauri-apps/api/path';
 const publicDirPath = await publicDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### resolve
+### `resolve`
 
-**resolve**(...`paths`): `Promise`<`string`\>
+> **resolve**(...`paths`): `Promise`<`string`\>
 
 Resolves a sequence of `paths` or `path` segments into an absolute path.
 
@@ -604,15 +556,13 @@ const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 | :------ | :------ | :------ |
 | `...paths` | `string`[] | A sequence of paths or path segments. |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### resolveResource
+### `resolveResource`
 
-**resolveResource**(`resourcePath`): `Promise`<`string`\>
+> **resolveResource**(`resourcePath`): `Promise`<`string`\>
 
 Resolve the path to a resource file.
 
@@ -629,17 +579,15 @@ const resourcePath = await resolveResource('script.sh');
 | :------ | :------ | :------ |
 | `resourcePath` | `string` | The path to the resource. Must follow the same syntax as defined in `tauri.conf.json > tauri > bundle > resources`, i.e. keeping subfolders and parent dir components (`../`). |
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 The full path to the resource.
 
 ___
 
-### resourceDir
+### `resourceDir`
 
-**resourceDir**(): `Promise`<`string`\>
+> **resourceDir**(): `Promise`<`string`\>
 
 Returns the path to the application's resource directory.
 To resolve a resource path, see the [[resolveResource | `resolveResource API`]].
@@ -651,15 +599,13 @@ import { resourceDir } from '@tauri-apps/api/path';
 const resourceDirPath = await resourceDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### runtimeDir
+### `runtimeDir`
 
-**runtimeDir**(): `Promise`<`string`\>
+> **runtimeDir**(): `Promise`<`string`\>
 
 Returns the path to the user's runtime directory.
 
@@ -676,15 +622,13 @@ import { runtimeDir } from '@tauri-apps/api/path';
 const runtimeDirPath = await runtimeDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### templateDir
+### `templateDir`
 
-**templateDir**(): `Promise`<`string`\>
+> **templateDir**(): `Promise`<`string`\>
 
 Returns the path to the user's template directory.
 
@@ -701,15 +645,13 @@ import { templateDir } from '@tauri-apps/api/path';
 const templateDirPath = await templateDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>
 
 ___
 
-### videoDir
+### `videoDir`
 
-**videoDir**(): `Promise`<`string`\>
+> **videoDir**(): `Promise`<`string`\>
 
 Returns the path to the user's video directory.
 
@@ -726,6 +668,4 @@ import { videoDir } from '@tauri-apps/api/path';
 const videoDirPath = await videoDir();
 ```
 
-#### Returns
-
-`Promise`<`string`\>
+**Returns**: `Promise`<`string`\>

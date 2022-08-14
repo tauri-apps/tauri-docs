@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / shell
-
-# Module: shell
+# shell
 
 Access the system shell.
 Allows you to spawn child processes and manage files and URLs using their default application.
@@ -84,9 +82,9 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ## Functions
 
-### open
+### `open`
 
-**open**(`path`, `openWith?`): `Promise`<`void`\>
+> **open**(`path`, `openWith?`): `Promise`<`void`\>
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
@@ -113,6 +111,4 @@ await open('/path/to/file');
 | `path` | `string` | The path or URL to open. This value is matched against the string regex defined on `tauri.conf.json > tauri > allowlist > shell > open`, which defaults to `^https?://`. |
 | `openWith?` | `string` | The app to open the file or URL with. Defaults to the system default application for the specified path type. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>

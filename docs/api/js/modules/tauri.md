@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / tauri
-
-# Module: tauri
+# tauri
 
 Invoke your custom commands.
 
@@ -12,9 +10,9 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 ## Functions
 
-### convertFileSrc
+### `convertFileSrc`
 
-**convertFileSrc**(`filePath`, `protocol?`): `string`
+> **convertFileSrc**(`filePath`, `protocol?`): `string`
 
 Convert a device file path to an URL that can be loaded by the webview.
 Note that `asset:` and `https://asset.localhost` must be added to [`tauri.security.csp`](https://tauri.app/v1/api/config/#securityconfig.csp) in `tauri.conf.json`.
@@ -47,17 +45,15 @@ video.load();
 | `filePath` | `string` | `undefined` | The file path. |
 | `protocol` | `string` | `'asset'` | The protocol to use. Defaults to `asset`. You only need to set this when using a custom protocol. |
 
-#### Returns
-
-`string`
+**Returns**: `string`
 
 the URL that can be used as source on the webview.
 
 ___
 
-### invoke
+### `invoke`
 
-**invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
+> **invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
 
 Sends a message to the backend.
 
@@ -81,17 +77,15 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 | `cmd` | `string` | The command name. |
 | `args` | [`InvokeArgs`](../interfaces/tauri.InvokeArgs.md) | The optional arguments to pass to the command. |
 
-#### Returns
-
-`Promise`<`T`\>
+**Returns**: `Promise`<`T`\>
 
 A promise resolving or rejecting to the backend response.
 
 ___
 
-### transformCallback
+### `transformCallback`
 
-**transformCallback**(`callback?`, `once?`): `number`
+> **transformCallback**(`callback?`, `once?`): `number`
 
 Transforms a callback function to a string identifier that can be passed to the backend.
 The backend uses the identifier to `eval()` the callback.
@@ -103,8 +97,6 @@ The backend uses the identifier to `eval()` the callback.
 | `callback?` | (`response`: `any`) => `void` | `undefined` |
 | `once` | `boolean` | `false` |
 
-#### Returns
-
-`number`
+**Returns**: `number`
 
 A unique identifier associated with the callback function.

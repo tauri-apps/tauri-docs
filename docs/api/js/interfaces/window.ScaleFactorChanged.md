@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / ScaleFactorChanged
-
-# Interface: ScaleFactorChanged
+# ScaleFactorChanged
 
 [window](../modules/window.md).ScaleFactorChanged
 
@@ -8,24 +6,20 @@ The payload for the `scaleChange` event.
 
 ## Properties
 
-### scaleFactor
+### `scaleFactor`
 
  **scaleFactor**: `number`
 
 The new window scale factor.
 
-#### Defined in
-
-[window.ts:84](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L84)
+**Defined in** [window.ts:84](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L84)
 
 ___
 
-### size
+### `size`
 
  **size**: [`PhysicalSize`](../classes/window.PhysicalSize.md)
 
 The new window size
 
-#### Defined in
-
-[window.ts:86](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L86)
+**Defined in** [window.ts:86](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L86)

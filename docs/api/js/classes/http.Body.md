@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [http](../modules/http.md) / Body
-
-# Class: Body
+# Body
 
 [http](../modules/http.md).Body
 
@@ -8,29 +6,25 @@ The body object to be used on POST and PUT requests.
 
 ## Properties
 
-### payload
+### `payload`
 
  **payload**: `unknown`
 
-#### Defined in
-
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L75)
+**Defined in** [http.ts:75](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L75)
 
 ___
 
-### type
+### `type`
 
  **type**: `string`
 
-#### Defined in
-
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L74)
+**Defined in** [http.ts:74](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/http.ts#L74)
 
 ## Methods
 
-### bytes
+### `bytes`
 
-`Static` **bytes**(`bytes`): [`Body`](http.Body.md)
+> `Static` **bytes**(`bytes`): [`Body`](http.Body.md)
 
 Creates a new byte array body.
 
@@ -47,17 +41,15 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 | :------ | :------ |
 | `bytes` | `ArrayBuffer` \| `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
 
-#### Returns
-
-[`Body`](http.Body.md)
+**Returns**: [`Body`](http.Body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 ___
 
-### form
+### `form`
 
-`Static` **form**(`data`): [`Body`](http.Body.md)
+> `Static` **form**(`data`): [`Body`](http.Body.md)
 
 Creates a new form data body. The form data is an object where each key is the entry name,
 and the value is either a string or a file object.
@@ -87,17 +79,15 @@ Body.form({
 | :------ | :------ | :------ |
 | `data` | `Record`<`string`, [`Part`](../modules/http.md#part)\> | The body data. |
 
-#### Returns
-
-[`Body`](http.Body.md)
+**Returns**: [`Body`](http.Body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 ___
 
-### json
+### `json`
 
-`Static` **json**(`data`): [`Body`](http.Body.md)
+> `Static` **json**(`data`): [`Body`](http.Body.md)
 
 Creates a new JSON body.
 
@@ -117,17 +107,15 @@ Body.json({
 | :------ | :------ | :------ |
 | `data` | `Record`<`any`, `any`\> | The body JSON object. |
 
-#### Returns
-
-[`Body`](http.Body.md)
+**Returns**: [`Body`](http.Body.md)
 
 The body object ready to be used on the POST and PUT requests.
 
 ___
 
-### text
+### `text`
 
-`Static` **text**(`value`): [`Body`](http.Body.md)
+> `Static` **text**(`value`): [`Body`](http.Body.md)
 
 Creates a new UTF-8 string body.
 
@@ -144,8 +132,6 @@ Body.text('The body content as a string');
 | :------ | :------ |
 | `value` | `string` |
 
-#### Returns
-
-[`Body`](http.Body.md)
+**Returns**: [`Body`](http.Body.md)
 
 The body object ready to be used on the POST and PUT requests.

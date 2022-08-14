@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / window
-
-# Module: window
+# window
 
 Provides APIs to create windows, communicate with other windows and manipulate the current window.
 
@@ -79,53 +77,45 @@ appWindow.listen("my-window-event", ({ event, payload }) => { });
 
 ## Type Aliases
 
-### CursorIcon
+### `CursorIcon`
 
  **CursorIcon**: ``"default"`` \| ``"crosshair"`` \| ``"hand"`` \| ``"arrow"`` \| ``"move"`` \| ``"text"`` \| ``"wait"`` \| ``"help"`` \| ``"progress"`` \| ``"notAllowed"`` \| ``"contextMenu"`` \| ``"cell"`` \| ``"verticalText"`` \| ``"alias"`` \| ``"copy"`` \| ``"noDrop"`` \| ``"grab"`` \| ``"grabbing"`` \| ``"allScroll"`` \| ``"zoomIn"`` \| ``"zoomOut"`` \| ``"eResize"`` \| ``"nResize"`` \| ``"neResize"`` \| ``"nwResize"`` \| ``"sResize"`` \| ``"seResize"`` \| ``"swResize"`` \| ``"wResize"`` \| ``"ewResize"`` \| ``"nsResize"`` \| ``"neswResize"`` \| ``"nwseResize"`` \| ``"colResize"`` \| ``"rowResize"``
 
-#### Defined in
-
-[window.ts:202](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L202)
+**Defined in** [window.ts:202](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L202)
 
 ___
 
-### FileDropEvent
+### `FileDropEvent`
 
  **FileDropEvent**: { `paths`: `string`[] ; `type`: ``"hover"``  } \| { `paths`: `string`[] ; `type`: ``"drop"``  } \| { `type`: ``"cancel"``  }
 
 The file drop event types.
 
-#### Defined in
-
-[window.ts:90](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L90)
+**Defined in** [window.ts:90](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L90)
 
 ___
 
-### Theme
+### `Theme`
 
  **Theme**: ``"light"`` \| ``"dark"``
 
-#### Defined in
-
-[window.ts:67](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L67)
+**Defined in** [window.ts:67](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L67)
 
 ## Variables
 
-### appWindow
+### `appWindow`
 
  **appWindow**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 The WebviewWindow for the current window.
 
-#### Defined in
-
-[window.ts:1871](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1871)
+**Defined in** [window.ts:1871](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L1871)
 
 ## Functions
 
-### availableMonitors
+### `availableMonitors`
 
-**availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
+> **availableMonitors**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 Returns the list of all the monitors available on the system.
 
@@ -136,15 +126,13 @@ import { availableMonitors } from '@tauri-apps/api/window';
 const monitors = availableMonitors();
 ```
 
-#### Returns
-
-`Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
+**Returns**: `Promise`<[`Monitor`](../interfaces/window.Monitor.md)[]\>
 
 ___
 
-### currentMonitor
+### `currentMonitor`
 
-**currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+> **currentMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the monitor on which the window currently resides.
 Returns `null` if current monitor can't be detected.
@@ -156,43 +144,37 @@ import { currentMonitor } from '@tauri-apps/api/window';
 const monitor = currentMonitor();
 ```
 
-#### Returns
-
-`Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+**Returns**: `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 ___
 
-### getAll
+### `getAll`
 
-**getAll**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
+> **getAll**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
 
 Gets an instance of `WebviewWindow` for all available webview windows.
 
-#### Returns
-
-[`WebviewWindow`](../classes/window.WebviewWindow.md)[]
+**Returns**: [`WebviewWindow`](../classes/window.WebviewWindow.md)[]
 
 The list of WebviewWindow.
 
 ___
 
-### getCurrent
+### `getCurrent`
 
-**getCurrent**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)
+> **getCurrent**(): [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 Get an instance of `WebviewWindow` for the current webview window.
 
-#### Returns
-
-[`WebviewWindow`](../classes/window.WebviewWindow.md)
+**Returns**: [`WebviewWindow`](../classes/window.WebviewWindow.md)
 
 The current WebviewWindow.
 
 ___
 
-### primaryMonitor
+### `primaryMonitor`
 
-**primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+> **primaryMonitor**(): `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
 
 Returns the primary monitor of the system.
 Returns `null` if it can't identify any monitor as a primary one.
@@ -204,6 +186,4 @@ import { primaryMonitor } from '@tauri-apps/api/window';
 const monitor = primaryMonitor();
 ```
 
-#### Returns
-
-`Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>
+**Returns**: `Promise`<[`Monitor`](../interfaces/window.Monitor.md) \| ``null``\>

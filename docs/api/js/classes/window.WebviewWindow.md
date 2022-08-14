@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / WebviewWindow
-
-# Class: WebviewWindow
+# WebviewWindow
 
 [window](../modules/window.md).WebviewWindow
 
@@ -43,9 +41,9 @@ unlisten();
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new WebviewWindow**(`label`, `options?`)
+> **new WebviewWindow**(`label`, `options?`)
 
 Creates a new WebviewWindow.
 
@@ -79,7 +77,7 @@ webview.once('tauri://error', function (e) {
 
 ## Properties
 
-### label
+### `label`
 
  **label**: `string`
 
@@ -89,13 +87,11 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 [WindowManager](window.WindowManager.md).[label](window.WindowManager.md#label)
 
-#### Defined in
-
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L280)
+**Defined in** [window.ts:280](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L280)
 
 ___
 
-### listeners
+### `listeners`
 
  **listeners**: `Object`
 
@@ -109,15 +105,13 @@ Local event listeners.
 
 [WindowManager](window.WindowManager.md).[listeners](window.WindowManager.md#listeners)
 
-#### Defined in
-
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L282)
+**Defined in** [window.ts:282](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L282)
 
 ## Methods
 
-### \_handleTauriEvent
+### `\_handleTauriEvent`
 
-**_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
+> **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
 #### Type parameters
 
@@ -132,9 +126,7 @@ Local event listeners.
 | `event` | `string` |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> |
 
-#### Returns
-
-`boolean`
+**Returns**: `boolean`
 
 #### Inherited from
 
@@ -142,9 +134,9 @@ Local event listeners.
 
 ___
 
-### center
+### `center`
 
-**center**(): `Promise`<`void`\>
+> **center**(): `Promise`<`void`\>
 
 Centers the window.
 
@@ -155,9 +147,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.center();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -167,9 +157,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### close
+### `close`
 
-**close**(): `Promise`<`void`\>
+> **close**(): `Promise`<`void`\>
 
 Closes the window.
 
@@ -180,9 +170,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.close();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -192,9 +180,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### emit
+### `emit`
 
-**emit**(`event`, `payload?`): `Promise`<`void`\>
+> **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
@@ -212,9 +200,7 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `payload?` | `unknown` | Event payload. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 #### Inherited from
 
@@ -222,9 +208,9 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 
 ___
 
-### hide
+### `hide`
 
-**hide**(): `Promise`<`void`\>
+> **hide**(): `Promise`<`void`\>
 
 Sets the window visibility to false.
 
@@ -235,9 +221,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.hide();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -247,9 +231,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### innerPosition
+### `innerPosition`
 
-**innerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+> **innerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The position of the top-left hand corner of the window's client area relative to the top-left hand corner of the desktop.
 
@@ -260,9 +244,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const position = await appWindow.innerPosition();
 ```
 
-#### Returns
-
-`Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+**Returns**: `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The window's inner position.
 
@@ -272,9 +254,9 @@ The window's inner position.
 
 ___
 
-### innerSize
+### `innerSize`
 
-**innerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+> **innerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The physical size of the window's client area.
 The client area is the content of the window, excluding the title bar and borders.
@@ -286,9 +268,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const size = await appWindow.innerSize();
 ```
 
-#### Returns
-
-`Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+**Returns**: `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The window's inner size.
 
@@ -298,9 +278,9 @@ The window's inner size.
 
 ___
 
-### isDecorated
+### `isDecorated`
 
-**isDecorated**(): `Promise`<`boolean`\>
+> **isDecorated**(): `Promise`<`boolean`\>
 
 Gets the window's current decorated state.
 
@@ -311,9 +291,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const decorated = await appWindow.isDecorated();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 Whether the window is decorated or not.
 
@@ -323,9 +301,9 @@ Whether the window is decorated or not.
 
 ___
 
-### isFullscreen
+### `isFullscreen`
 
-**isFullscreen**(): `Promise`<`boolean`\>
+> **isFullscreen**(): `Promise`<`boolean`\>
 
 Gets the window's current fullscreen state.
 
@@ -336,9 +314,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const fullscreen = await appWindow.isFullscreen();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 Whether the window is in fullscreen mode or not.
 
@@ -348,9 +324,9 @@ Whether the window is in fullscreen mode or not.
 
 ___
 
-### isMaximized
+### `isMaximized`
 
-**isMaximized**(): `Promise`<`boolean`\>
+> **isMaximized**(): `Promise`<`boolean`\>
 
 Gets the window's current maximized state.
 
@@ -361,9 +337,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const maximized = await appWindow.isMaximized();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 Whether the window is maximized or not.
 
@@ -373,9 +347,9 @@ Whether the window is maximized or not.
 
 ___
 
-### isResizable
+### `isResizable`
 
-**isResizable**(): `Promise`<`boolean`\>
+> **isResizable**(): `Promise`<`boolean`\>
 
 Gets the window's current resizable state.
 
@@ -386,9 +360,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const resizable = await appWindow.isResizable();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 Whether the window is resizable or not.
 
@@ -398,9 +370,9 @@ Whether the window is resizable or not.
 
 ___
 
-### isVisible
+### `isVisible`
 
-**isVisible**(): `Promise`<`boolean`\>
+> **isVisible**(): `Promise`<`boolean`\>
 
 Gets the window's current visible state.
 
@@ -411,9 +383,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const visible = await appWindow.isVisible();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 Whether the window is visible or not.
 
@@ -423,9 +393,9 @@ Whether the window is visible or not.
 
 ___
 
-### listen
+### `listen`
 
-**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
@@ -454,9 +424,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -467,9 +435,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### maximize
+### `maximize`
 
-**maximize**(): `Promise`<`void`\>
+> **maximize**(): `Promise`<`void`\>
 
 Maximizes the window.
 
@@ -480,9 +448,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.maximize();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -492,9 +458,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### minimize
+### `minimize`
 
-**minimize**(): `Promise`<`void`\>
+> **minimize**(): `Promise`<`void`\>
 
 Minimizes the window.
 
@@ -505,9 +471,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.minimize();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -517,9 +481,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### onCloseRequested
+### `onCloseRequested`
 
-**onCloseRequested**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onCloseRequested**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window close requested. Emitted when the user requests to closes the window.
 
@@ -546,9 +510,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | (`event`: [`CloseRequestedEvent`](window.CloseRequestedEvent.md)) => `void` |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -559,9 +521,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onFileDropEvent
+### `onFileDropEvent`
 
-**onFileDropEvent**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onFileDropEvent**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to a file drop event.
 The listener is triggered when the user hovers the selected files on the window,
@@ -591,9 +553,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<[`FileDropEvent`](../modules/window.md#filedropevent)\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -604,9 +564,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onFocusChanged
+### `onFocusChanged`
 
-**onFocusChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onFocusChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window focus change.
 
@@ -628,9 +588,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`boolean`\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -641,9 +599,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onMenuClicked
+### `onMenuClicked`
 
-**onMenuClicked**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onMenuClicked**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to the window menu item click. The payload is the item id.
 
@@ -665,9 +623,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`string`\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -678,9 +634,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onMoved
+### `onMoved`
 
-**onMoved**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onMoved**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window move.
 
@@ -702,9 +658,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<[`PhysicalPosition`](window.PhysicalPosition.md)\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -715,9 +669,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onResized
+### `onResized`
 
-**onResized**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onResized**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window resize.
 
@@ -739,9 +693,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<[`PhysicalSize`](window.PhysicalSize.md)\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -752,9 +704,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onScaleChanged
+### `onScaleChanged`
 
-**onScaleChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onScaleChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to window scale change. Emitted when the window's scale factor has changed.
 The following user actions can cause DPI changes:
@@ -780,9 +732,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<[`ScaleFactorChanged`](../interfaces/window.ScaleFactorChanged.md)\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -793,9 +743,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### onThemeChanged
+### `onThemeChanged`
 
-**onThemeChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **onThemeChanged**(`handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to the system theme change.
 
@@ -817,9 +767,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<[`Theme`](../modules/window.md#theme)\> |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -830,9 +778,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### once
+### `once`
 
-**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
@@ -861,9 +809,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -874,9 +820,9 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ___
 
-### outerPosition
+### `outerPosition`
 
-**outerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+> **outerPosition**(): `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The position of the top-left hand corner of the window relative to the top-left hand corner of the desktop.
 
@@ -887,9 +833,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const position = await appWindow.outerPosition();
 ```
 
-#### Returns
-
-`Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
+**Returns**: `Promise`<[`PhysicalPosition`](window.PhysicalPosition.md)\>
 
 The window's outer position.
 
@@ -899,9 +843,9 @@ The window's outer position.
 
 ___
 
-### outerSize
+### `outerSize`
 
-**outerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+> **outerSize**(): `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The physical size of the entire window.
 These dimensions include the title bar and borders. If you don't want that (and you usually don't), use inner_size instead.
@@ -913,9 +857,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const size = await appWindow.outerSize();
 ```
 
-#### Returns
-
-`Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
+**Returns**: `Promise`<[`PhysicalSize`](window.PhysicalSize.md)\>
 
 The window's outer size.
 
@@ -925,9 +867,9 @@ The window's outer size.
 
 ___
 
-### requestUserAttention
+### `requestUserAttention`
 
-**requestUserAttention**(`requestType`): `Promise`<`void`\>
+> **requestUserAttention**(`requestType`): `Promise`<`void`\>
 
 Requests user attention to the window, this has no effect if the application
 is already focused. How requesting for user attention manifests is platform dependent,
@@ -954,9 +896,7 @@ await appWindow.requestUserAttention();
 | :------ | :------ |
 | `requestType` | ``null`` \| [`UserAttentionType`](../enums/window.UserAttentionType.md) |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -966,9 +906,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### scaleFactor
+### `scaleFactor`
 
-**scaleFactor**(): `Promise`<`number`\>
+> **scaleFactor**(): `Promise`<`number`\>
 
 The scale factor that can be used to map physical pixels to logical pixels.
 
@@ -979,9 +919,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const factor = await appWindow.scaleFactor();
 ```
 
-#### Returns
-
-`Promise`<`number`\>
+**Returns**: `Promise`<`number`\>
 
 The window's monitor scale factor.
 
@@ -991,9 +929,9 @@ The window's monitor scale factor.
 
 ___
 
-### setAlwaysOnTop
+### `setAlwaysOnTop`
 
-**setAlwaysOnTop**(`alwaysOnTop`): `Promise`<`void`\>
+> **setAlwaysOnTop**(`alwaysOnTop`): `Promise`<`void`\>
 
 Whether the window should always be on top of other windows.
 
@@ -1010,9 +948,7 @@ await appWindow.setAlwaysOnTop(true);
 | :------ | :------ | :------ |
 | `alwaysOnTop` | `boolean` | Whether the window should always be on top of other windows or not. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1022,9 +958,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setCursorGrab
+### `setCursorGrab`
 
-**setCursorGrab**(`grab`): `Promise`<`void`\>
+> **setCursorGrab**(`grab`): `Promise`<`void`\>
 
 Grabs the cursor, preventing it from leaving the window.
 
@@ -1049,9 +985,7 @@ await appWindow.setCursorGrab(true);
 | :------ | :------ | :------ |
 | `grab` | `boolean` | `true` to grab the cursor icon, `false` to release it. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1061,9 +995,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setCursorIcon
+### `setCursorIcon`
 
-**setCursorIcon**(`icon`): `Promise`<`void`\>
+> **setCursorIcon**(`icon`): `Promise`<`void`\>
 
 Modifies the cursor icon of the window.
 
@@ -1080,9 +1014,7 @@ await appWindow.setCursorIcon('help');
 | :------ | :------ | :------ |
 | `icon` | [`CursorIcon`](../modules/window.md#cursoricon) | The new cursor icon. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1092,9 +1024,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setCursorPosition
+### `setCursorPosition`
 
-**setCursorPosition**(`position`): `Promise`<`void`\>
+> **setCursorPosition**(`position`): `Promise`<`void`\>
 
 Changes the position of the cursor in window coordinates.
 
@@ -1111,9 +1043,7 @@ await appWindow.setCursorPosition(new LogicalPosition(600, 300));
 | :------ | :------ | :------ |
 | `position` | [`PhysicalPosition`](window.PhysicalPosition.md) \| [`LogicalPosition`](window.LogicalPosition.md) | The new cursor position. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1123,9 +1053,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setCursorVisible
+### `setCursorVisible`
 
-**setCursorVisible**(`visible`): `Promise`<`void`\>
+> **setCursorVisible**(`visible`): `Promise`<`void`\>
 
 Modifies the cursor's visibility.
 
@@ -1148,9 +1078,7 @@ await appWindow.setCursorVisible(false);
 | :------ | :------ | :------ |
 | `visible` | `boolean` | If `false`, this will hide the cursor. If `true`, this will show the cursor. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1160,9 +1088,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setDecorations
+### `setDecorations`
 
-**setDecorations**(`decorations`): `Promise`<`void`\>
+> **setDecorations**(`decorations`): `Promise`<`void`\>
 
 Whether the window should have borders and bars.
 
@@ -1179,9 +1107,7 @@ await appWindow.setDecorations(false);
 | :------ | :------ | :------ |
 | `decorations` | `boolean` | Whether the window should have borders and bars. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1191,9 +1117,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setFocus
+### `setFocus`
 
-**setFocus**(): `Promise`<`void`\>
+> **setFocus**(): `Promise`<`void`\>
 
 Bring the window to front and focus.
 
@@ -1204,9 +1130,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.setFocus();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1216,9 +1140,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setFullscreen
+### `setFullscreen`
 
-**setFullscreen**(`fullscreen`): `Promise`<`void`\>
+> **setFullscreen**(`fullscreen`): `Promise`<`void`\>
 
 Sets the window fullscreen state.
 
@@ -1235,9 +1159,7 @@ await appWindow.setFullscreen(true);
 | :------ | :------ | :------ |
 | `fullscreen` | `boolean` | Whether the window should go to fullscreen or not. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1247,9 +1169,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setIcon
+### `setIcon`
 
-**setIcon**(`icon`): `Promise`<`void`\>
+> **setIcon**(`icon`): `Promise`<`void`\>
 
 Sets the window icon.
 
@@ -1273,9 +1195,7 @@ tauri = { version = "...", features = ["...", "icon-png"] }
 | :------ | :------ | :------ |
 | `icon` | `string` \| `Uint8Array` | Icon bytes or path to the icon file. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1285,9 +1205,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setMaxSize
+### `setMaxSize`
 
-**setMaxSize**(`size`): `Promise`<`void`\>
+> **setMaxSize**(`size`): `Promise`<`void`\>
 
 Sets the window maximum inner size. If the `size` argument is undefined, the constraint is unset.
 
@@ -1304,9 +1224,7 @@ await appWindow.setMaxSize(new LogicalSize(600, 500));
 | :------ | :------ | :------ |
 | `size` | `undefined` \| ``null`` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size, or `null` to unset the constraint. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1316,9 +1234,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setMinSize
+### `setMinSize`
 
-**setMinSize**(`size`): `Promise`<`void`\>
+> **setMinSize**(`size`): `Promise`<`void`\>
 
 Sets the window minimum inner size. If the `size` argument is not provided, the constraint is unset.
 
@@ -1335,9 +1253,7 @@ await appWindow.setMinSize(new PhysicalSize(600, 500));
 | :------ | :------ | :------ |
 | `size` | `undefined` \| ``null`` \| [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size, or `null` to unset the constraint. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1347,9 +1263,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setPosition
+### `setPosition`
 
-**setPosition**(`position`): `Promise`<`void`\>
+> **setPosition**(`position`): `Promise`<`void`\>
 
 Sets the window outer position.
 
@@ -1366,9 +1282,7 @@ await appWindow.setPosition(new LogicalPosition(600, 500));
 | :------ | :------ | :------ |
 | `position` | [`PhysicalPosition`](window.PhysicalPosition.md) \| [`LogicalPosition`](window.LogicalPosition.md) | The new position, in logical or physical pixels. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1378,9 +1292,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setResizable
+### `setResizable`
 
-**setResizable**(`resizable`): `Promise`<`void`\>
+> **setResizable**(`resizable`): `Promise`<`void`\>
 
 Updates the window resizable flag.
 
@@ -1397,9 +1311,7 @@ await appWindow.setResizable(false);
 | :------ | :------ |
 | `resizable` | `boolean` |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1409,9 +1321,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setSize
+### `setSize`
 
-**setSize**(`size`): `Promise`<`void`\>
+> **setSize**(`size`): `Promise`<`void`\>
 
 Resizes the window with a new inner size.
 
@@ -1428,9 +1340,7 @@ await appWindow.setSize(new LogicalSize(600, 500));
 | :------ | :------ | :------ |
 | `size` | [`PhysicalSize`](window.PhysicalSize.md) \| [`LogicalSize`](window.LogicalSize.md) | The logical or physical inner size. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1440,9 +1350,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setSkipTaskbar
+### `setSkipTaskbar`
 
-**setSkipTaskbar**(`skip`): `Promise`<`void`\>
+> **setSkipTaskbar**(`skip`): `Promise`<`void`\>
 
 Whether to show the window icon in the task bar or not.
 
@@ -1459,9 +1369,7 @@ await appWindow.setSkipTaskbar(true);
 | :------ | :------ | :------ |
 | `skip` | `boolean` | true to hide window icon, false to show it. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1471,9 +1379,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### setTitle
+### `setTitle`
 
-**setTitle**(`title`): `Promise`<`void`\>
+> **setTitle**(`title`): `Promise`<`void`\>
 
 Sets the window title.
 
@@ -1490,9 +1398,7 @@ await appWindow.setTitle('Tauri');
 | :------ | :------ | :------ |
 | `title` | `string` | The new title |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1502,9 +1408,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### show
+### `show`
 
-**show**(): `Promise`<`void`\>
+> **show**(): `Promise`<`void`\>
 
 Sets the window visibility to true.
 
@@ -1515,9 +1421,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.show();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1527,9 +1431,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### startDragging
+### `startDragging`
 
-**startDragging**(): `Promise`<`void`\>
+> **startDragging**(): `Promise`<`void`\>
 
 Starts dragging the window.
 
@@ -1540,9 +1444,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.startDragging();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1552,9 +1454,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### theme
+### `theme`
 
-**theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
+> **theme**(): `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
 
 Gets the window's current theme.
 
@@ -1570,9 +1472,7 @@ import { appWindow } from '@tauri-apps/api/window';
 const theme = await appWindow.theme();
 ```
 
-#### Returns
-
-`Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
+**Returns**: `Promise`<``null`` \| [`Theme`](../modules/window.md#theme)\>
 
 The window theme.
 
@@ -1582,9 +1482,9 @@ The window theme.
 
 ___
 
-### toggleMaximize
+### `toggleMaximize`
 
-**toggleMaximize**(): `Promise`<`void`\>
+> **toggleMaximize**(): `Promise`<`void`\>
 
 Toggles the window maximized state.
 
@@ -1595,9 +1495,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.toggleMaximize();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1607,9 +1505,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### unmaximize
+### `unmaximize`
 
-**unmaximize**(): `Promise`<`void`\>
+> **unmaximize**(): `Promise`<`void`\>
 
 Unmaximizes the window.
 
@@ -1620,9 +1518,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.unmaximize();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1632,9 +1528,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### unminimize
+### `unminimize`
 
-**unminimize**(): `Promise`<`void`\>
+> **unminimize**(): `Promise`<`void`\>
 
 Unminimizes the window.
 
@@ -1645,9 +1541,7 @@ import { appWindow } from '@tauri-apps/api/window';
 await appWindow.unminimize();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -1657,9 +1551,9 @@ A promise indicating the success or failure of the operation.
 
 ___
 
-### getByLabel
+### `getByLabel`
 
-`Static` **getByLabel**(`label`): ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
+> `Static` **getByLabel**(`label`): ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
 
 Gets the WebviewWindow for the webview associated with the given label.
 
@@ -1676,8 +1570,6 @@ const mainWindow = WebviewWindow.getByLabel('main');
 | :------ | :------ | :------ |
 | `label` | `string` | The webview window label. |
 
-#### Returns
-
-``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
+**Returns**: ``null`` \| [`WebviewWindow`](window.WebviewWindow.md)
 
 The WebviewWindow instance to communicate with the webview or null if the webview doesn't exist.

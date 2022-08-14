@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / globalShortcut
-
-# Module: globalShortcut
+# globalShortcut
 
 Register global shortcuts.
 
@@ -22,33 +20,29 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Type Aliases
 
-### ShortcutHandler
+### `ShortcutHandler`
 
  **ShortcutHandler**: (`shortcut`: `string`) => `void`
 
 #### Type declaration
 
-(`shortcut`): `void`
+> (`shortcut`): `void`
 
-##### Parameters
+#### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shortcut` | `string` |
 
-##### Returns
+**Returns**: `void`
 
-`void`
-
-#### Defined in
-
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/globalShortcut.ts#L29)
+**Defined in** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
-### isRegistered
+### `isRegistered`
 
-**isRegistered**(`shortcut`): `Promise`<`boolean`\>
+> **isRegistered**(`shortcut`): `Promise`<`boolean`\>
 
 Determines whether the given shortcut is registered by this application or not.
 
@@ -65,17 +59,15 @@ const isRegistered = await isRegistered('CommandOrControl+P');
 | :------ | :------ | :------ |
 | `shortcut` | `string` | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 A promise resolving to the state.
 
 ___
 
-### register
+### `register`
 
-**register**(`shortcut`, `handler`): `Promise`<`void`\>
+> **register**(`shortcut`, `handler`): `Promise`<`void`\>
 
 Register a global shortcut.
 
@@ -95,15 +87,13 @@ await register('CommandOrControl+Shift+C', () => {
 | `shortcut` | `string` | Shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 | `handler` | [`ShortcutHandler`](globalShortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### registerAll
+### `registerAll`
 
-**registerAll**(`shortcuts`, `handler`): `Promise`<`void`\>
+> **registerAll**(`shortcuts`, `handler`): `Promise`<`void`\>
 
 Register a collection of global shortcuts.
 
@@ -123,15 +113,13 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 | `shortcuts` | `string`[] | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 | `handler` | [`ShortcutHandler`](globalShortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### unregister
+### `unregister`
 
-**unregister**(`shortcut`): `Promise`<`void`\>
+> **unregister**(`shortcut`): `Promise`<`void`\>
 
 Unregister a global shortcut.
 
@@ -148,15 +136,13 @@ await unregister('CmdOrControl+Space');
 | :------ | :------ | :------ |
 | `shortcut` | `string` | shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### unregisterAll
+### `unregisterAll`
 
-**unregisterAll**(): `Promise`<`void`\>
+> **unregisterAll**(): `Promise`<`void`\>
 
 Unregisters all shortcuts registered by the application.
 
@@ -167,6 +153,4 @@ import { unregisterAll } from '@tauri-apps/api/globalShortcut';
 await unregisterAll();
 ```
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>

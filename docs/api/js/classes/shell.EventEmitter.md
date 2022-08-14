@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [shell](../modules/shell.md) / EventEmitter
-
-# Class: EventEmitter<E\>
+# EventEmitter<E\>
 
 [shell](../modules/shell.md).EventEmitter
 
@@ -18,9 +16,9 @@
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new EventEmitter**<`E`\>()
+> **new EventEmitter**<`E`\>()
 
 #### Type parameters
 
@@ -30,9 +28,9 @@
 
 ## Methods
 
-### on
+### `on`
 
-**on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<`E`\>
+> **on**(`event`, `handler`): [`EventEmitter`](shell.EventEmitter.md)<`E`\>
 
 Listen to an event from the child process.
 
@@ -43,8 +41,6 @@ Listen to an event from the child process.
 | `event` | `E` | The event name. |
 | `handler` | (`arg`: `any`) => `void` | The event handler. |
 
-#### Returns
-
-[`EventEmitter`](shell.EventEmitter.md)<`E`\>
+**Returns**: [`EventEmitter`](shell.EventEmitter.md)<`E`\>
 
 The `this` instance for chained calls.

@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / notification
-
-# Module: notification
+# notification
 
 Send toast notifications (brief auto-expiring OS window element) to your user.
 Can also be used with the Notification Web API.
@@ -27,21 +25,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Type Aliases
 
-### Permission
+### `Permission`
 
  **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
 
 Possible permission values.
 
-#### Defined in
-
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/notification.ts#L42)
+**Defined in** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
-### isPermissionGranted
+### `isPermissionGranted`
 
-**isPermissionGranted**(): `Promise`<`boolean`\>
+> **isPermissionGranted**(): `Promise`<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
@@ -52,15 +48,13 @@ import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
 
-#### Returns
-
-`Promise`<`boolean`\>
+**Returns**: `Promise`<`boolean`\>
 
 ___
 
-### requestPermission
+### `requestPermission`
 
-**requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
+> **requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
@@ -75,17 +69,15 @@ if (!permissionGranted) {
 }
 ```
 
-#### Returns
-
-`Promise`<[`Permission`](notification.md#permission)\>
+**Returns**: `Promise`<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 
 ___
 
-### sendNotification
+### `sendNotification`
 
-**sendNotification**(`options`): `void`
+> **sendNotification**(`options`): `void`
 
 Sends a notification to the user.
 
@@ -110,6 +102,4 @@ if (permissionGranted) {
 | :------ | :------ | :------ |
 | `options` | `string` \| [`Options`](../interfaces/notification.Options.md) | Notification options. |
 
-#### Returns
-
-`void`
+**Returns**: `void`

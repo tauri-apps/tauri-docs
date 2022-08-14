@@ -1,6 +1,4 @@
-[@tauri-apps/api](../README.md) / [window](../modules/window.md) / WebviewWindowHandle
-
-# Class: WebviewWindowHandle
+# WebviewWindowHandle
 
 [window](../modules/window.md).WebviewWindowHandle
 
@@ -14,9 +12,9 @@ A webview window handle allows emitting and listening to events from the backend
 
 ## Constructors
 
-### constructor
+### `constructor`
 
-**new WebviewWindowHandle**(`label`)
+> **new WebviewWindowHandle**(`label`)
 
 #### Parameters
 
@@ -26,19 +24,17 @@ A webview window handle allows emitting and listening to events from the backend
 
 ## Properties
 
-### label
+### `label`
 
  **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-#### Defined in
-
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L280)
+**Defined in** [window.ts:280](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L280)
 
 ___
 
-### listeners
+### `listeners`
 
  **listeners**: `Object`
 
@@ -48,15 +44,13 @@ Local event listeners.
 
 ▪ [key: `string`]: [`EventCallback`](../modules/event.md#eventcallback)<`any`\>[]
 
-#### Defined in
-
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L282)
+**Defined in** [window.ts:282](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/window.ts#L282)
 
 ## Methods
 
-### \_handleTauriEvent
+### `\_handleTauriEvent`
 
-**_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
+> **_handleTauriEvent**<`T`\>(`event`, `handler`): `boolean`
 
 #### Type parameters
 
@@ -71,15 +65,13 @@ Local event listeners.
 | `event` | `string` |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> |
 
-#### Returns
-
-`boolean`
+**Returns**: `boolean`
 
 ___
 
-### emit
+### `emit`
 
-**emit**(`event`, `payload?`): `Promise`<`void`\>
+> **emit**(`event`, `payload?`): `Promise`<`void`\>
 
 Emits an event to the backend, tied to the webview window.
 
@@ -97,15 +89,13 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `payload?` | `unknown` | Event payload. |
 
-#### Returns
-
-`Promise`<`void`\>
+**Returns**: `Promise`<`void`\>
 
 ___
 
-### listen
+### `listen`
 
-**listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **listen**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an event emitted by the backend that is tied to the webview window.
 
@@ -134,18 +124,16 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
 ___
 
-### once
+### `once`
 
-**once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+> **once**<`T`\>(`event`, `handler`): `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 Listen to an one-off event emitted by the backend that is tied to the webview window.
 
@@ -174,9 +162,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](../modules/event.md#eventcallback)<`T`\> | Event handler. |
 
-#### Returns
-
-`Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
+**Returns**: `Promise`<[`UnlistenFn`](../modules/event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
