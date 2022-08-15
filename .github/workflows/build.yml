@@ -95,8 +95,7 @@ jobs:
         env:
           LOCALE: ${{ matrix.locale }}
         run: |
-          echo $LATEST_VERSION
-          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION || true
+          rsync -a --ignore-existing docs/ i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
