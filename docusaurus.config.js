@@ -43,10 +43,6 @@ const navbarItems = [
         to: 'about/security',
       },
       {
-        label: 'Governance',
-        to: 'about/governance',
-      },
-      {
         label: 'Get the Book',
         to: 'about/book',
       },
@@ -104,6 +100,10 @@ const navbarItems = [
       {
         label: 'Get Involved',
         href: 'https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md',
+      },
+      {
+        label: 'Governance & Guidance',
+        href: 'https://github.com/tauri-apps/governance-and-guidance',
       },
       {
         label: 'Sponsors',
