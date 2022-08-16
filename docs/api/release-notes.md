@@ -21,11 +21,11 @@ import ReleaseNotes from '@theme/ReleaseNotes';
     <p><a href="https://github.com/tauri-apps/tauri/releases">View releases on GitHub</a></p>
     <ReleaseNotes url='https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md' />
   </TabItem>
-  <TabItem value ='tao' label="Tao">
+  <TabItem value ='tao' label="TAO">
     <p><a href="https://github.com/tauri-apps/tao/releases">View releases on GitHub</a></p>
     <ReleaseNotes url='https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md' />
   </TabItem>
-  <TabItem value ='wry' label="Wry">
+  <TabItem value ='wry' label="WRY">
     <p><a href="https://github.com/tauri-apps/wry/releases">View releases on GitHub</a></p>
     <ReleaseNotes url='https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md' />
   </TabItem>
