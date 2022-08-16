@@ -85,16 +85,16 @@ const navbarItems = [
         label: 'Rust (via Docs.rs)',
         href: 'https://docs.rs/tauri/1/',
       },
+      {
+        type: 'doc',
+        docId: 'api/release-notes',
+        label: 'Release Notes',
+      },
     ],
   },
   {
     to: 'blog',
     label: 'Blog',
-    position: 'left',
-  },
-  {
-    to: 'release-notes',
-    label: 'Release Notes',
     position: 'left',
   },
   {
