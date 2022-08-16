@@ -53,3 +53,7 @@ to = "/v1/guides/getting-started/setup/html-css-js"
 [[redirects]]
 from = "/blog/tauri_1_0"
 to = "/blog/2022/06/19/tauri-1-0"
+
+[[redirects]]
+from = "/about/governance"
+to = "https://github.com/tauri-apps/governance-and-guidance"
