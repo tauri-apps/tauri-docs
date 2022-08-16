@@ -26,40 +26,15 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    to: 'about/intro',
-    label: 'About',
-    position: 'left',
-    items: [
-      {
-        label: 'What is Tauri?',
-        to: 'about/intro',
-      },
-      {
-        label: 'Architecture',
-        to: 'about/architecture',
-      },
-      {
-        label: 'Security',
-        to: 'about/security',
-      },
-      {
-        label: 'Governance',
-        to: 'about/governance',
-      },
-      {
-        label: 'Get the Book',
-        to: 'about/book',
-      },
-      {
-        label: 'Benchmarks',
-        to: 'about/benchmarks',
-      },
-    ],
-  },
-  {
     type: 'docSidebar',
     sidebarId: 'guides',
     label: 'Guides',
+    position: 'left',
+  },
+  {
+    type: 'docSidebar',
+    sidebarId: 'concepts',
+    label: 'Concepts',
     position: 'left',
   },
   {
@@ -288,7 +263,10 @@ const siteConfig = {
             ...args
           }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args)
-            return sidebarItems.filter((item) => item.id !== 'guides/readme')
+            return sidebarItems.filter(
+              (item) =>
+                item.id !== 'guides/readme' && item.id !== 'concepts/readme'
+            )
           },
         },
 
