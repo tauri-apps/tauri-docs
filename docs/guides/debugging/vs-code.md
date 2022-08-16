@@ -81,4 +81,4 @@ Note that it does not use the Tauri CLI, so exclusive CLI features are not execu
 
 Now you can set breakpoints in `src-tauri/src/main.rs` or any other Rust file and start debugging by pressing `F5`.
 
-[core process in tauri applications]: ../architecture/process-model.md#the-core-process
+[core process in tauri applications]: ../../concepts/process-model.md#the-core-process

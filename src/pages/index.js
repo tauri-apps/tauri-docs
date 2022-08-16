@@ -41,7 +41,8 @@ function Cards() {
         message:
           'Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable.',
       }),
-      link: 'about/intro#honest-open-source',
+      link: '/concepts#honest-open-source',
+      isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/floss.svg',
     },
