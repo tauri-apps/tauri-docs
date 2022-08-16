@@ -10,9 +10,6 @@ on:
   push:
     branches: [dev]
 
-env:
-  LATEST_VERSION: v1
-
 jobs:
   build-locale-list:
     concurrency:
@@ -94,6 +91,7 @@ jobs:
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
+        # We temporarily copy docs since not all are uploaded to Crowdin
         run: |
           rsync -a --ignore-existing docs/ i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
