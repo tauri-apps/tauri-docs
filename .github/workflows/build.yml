@@ -93,6 +93,7 @@ jobs:
           LOCALE: ${{ matrix.locale }}
         # We temporarily copy docs since not all are uploaded to Crowdin
         run: |
+          mkdir -p i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           rsync -a --ignore-existing docs/ i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
