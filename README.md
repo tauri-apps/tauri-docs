@@ -16,6 +16,9 @@ The **API docs** are generated from our [Rust] and [TypeScript] source code.
 
 See [Contributing Guide].
 
+## Trademark Usage
+If you are interested in using the Tauri trademarks, please read this page: https://tauri.app/about/trademark
+
 ## License
 
 MIT License
