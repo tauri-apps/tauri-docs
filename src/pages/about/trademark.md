@@ -92,12 +92,14 @@ Always use a trademark as an adjective modifying a noun.
 ### Use of Logos
 You may not change any logo except to scale it. This means you may not add decorative elements, change the colors, change the proportions, distort it, add elements, or combine it with other logos.
 
-We have a high-contrast version of the logo, which you can download here in our [`logo-pack`](/img/bookCover.png)
+We have a high-contrast version of the logo, which you can download below in the assets section.
 
 ## Assets
 - Here you may download the entire [Brand Guidelines](/img/Brand_Guidelines.pdf) - (PDF, 74.3 MB)
 - Here you may download SVG and PNG formats of the LOGO and Wordmark in the [Logopack](/img/TAURI_LOGOPACK.zip) - (ZIP, 203 KB)
 
 --
+The Tauri Programme within the Commons Conservancy retains all rights to the modification of these trademark guidelines at any time. If you have a question or enquiry, please send an email to `trademark@tauri.app`.
+
 
 These guidelines are based on the Model Trademark Guidelines, available at http://www.modeltrademarkguidelines.org, used under a Creative Commons Attribution 3.0 Unported license: https://creativecommons.org/licenses/by/3.0/deed.en_EU. 
