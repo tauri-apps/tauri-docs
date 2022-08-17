@@ -47,6 +47,10 @@ const navbarItems = [
         to: 'about/governance',
       },
       {
+        label: 'Trademark Guidelines',
+        to: 'about/trademark',
+      },      
+      {
         label: 'Get the Book',
         to: 'about/book',
       },
