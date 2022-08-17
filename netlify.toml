@@ -56,4 +56,4 @@ to = "/blog/2022/06/19/tauri-1-0"
 
 [[redirects]]
 from = "/release-notes"
-to = "/v1/api/release-notes"
+to = "/releases"
