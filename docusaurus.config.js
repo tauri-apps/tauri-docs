@@ -26,9 +26,9 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    to: 'about/intro',
     label: 'About',
-    position: 'left',
+    to: 'about/intro',
+
     items: [
       {
         label: 'What is Tauri?',
@@ -61,14 +61,12 @@ const navbarItems = [
     ],
   },
   {
+    label: 'Guides',
     type: 'docSidebar',
     sidebarId: 'guides',
-    label: 'Guides',
-    position: 'left',
   },
   {
     label: 'API',
-    position: 'left',
     items: [
       {
         type: 'doc',
@@ -92,13 +90,8 @@ const navbarItems = [
     ],
   },
   {
-    to: 'blog',
     label: 'Blog',
-    position: 'left',
-  },
-  {
-    to: 'release-notes',
-    label: 'Release Notes',
+    to: 'blog',
     position: 'left',
   },
   {
@@ -125,10 +118,17 @@ const navbarItems = [
     ],
   },
   {
+    label: 'Releases',
+    to: 'releases',
+    position: 'right',
+    className: 'navbarIcon releasesIcon',
+  },
+  {
+    label: 'GitHub',
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
-    className: 'header-github-link',
+    className: 'navbarIcon gitHubIcon',
   },
   {
     type: 'localeDropdown',
