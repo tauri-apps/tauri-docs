@@ -26,44 +26,14 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    label: 'About',
-    to: 'about/intro',
-
-    items: [
-      {
-        label: 'What is Tauri?',
-        to: 'about/intro',
-      },
-      {
-        label: 'Architecture',
-        to: 'about/architecture',
-      },
-      {
-        label: 'Security',
-        to: 'about/security',
-      },
-      {
-        label: 'Governance',
-        to: 'about/governance',
-      },
-      {
-        label: 'Trademark Guidelines',
-        to: 'about/trademark',
-      },      
-      {
-        label: 'Get the Book',
-        to: 'about/book',
-      },
-      {
-        label: 'Benchmarks',
-        to: 'about/benchmarks',
-      },
-    ],
-  },
-  {
     label: 'Guides',
     type: 'docSidebar',
     sidebarId: 'guides',
+  },
+  {
+    label: 'References',
+    type: 'docSidebar',
+    sidebarId: 'references',
   },
   {
     label: 'API',
@@ -114,6 +84,41 @@ const navbarItems = [
       {
         label: 'Awesome Tauri',
         href: awesomeTauriUrl,
+      },
+    ],
+  },
+  {
+    label: 'About',
+    to: 'about/intro',
+
+    items: [
+      {
+        label: 'What is Tauri?',
+        to: 'about/intro',
+      },
+      {
+        label: 'Architecture',
+        to: 'about/architecture',
+      },
+      {
+        label: 'Security',
+        to: 'about/security',
+      },
+      {
+        label: 'Governance',
+        to: 'about/governance',
+      },
+      {
+        label: 'Trademark Guidelines',
+        to: 'about/trademark',
+      },
+      {
+        label: 'Get the Book',
+        to: 'about/book',
+      },
+      {
+        label: 'Benchmarks',
+        to: 'about/benchmarks',
       },
     ],
   },
