@@ -1,11 +1,12 @@
 ---
+sidebar_position: 1
 toc_max_heading_level: 2
 ---
 
 import { colors } from '@theme/Mermaid'
 import { Mermaid } from 'mdx-mermaid/Mermaid';
 
-# The Tauri Architecture
+# Tauri Architecture
 
 ## Introduction
 
