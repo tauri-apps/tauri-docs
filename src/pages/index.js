@@ -31,7 +31,8 @@ function Cards() {
         message:
           'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.',
       }),
-      link: 'about/security',
+      link: '/references/security',
+      isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/security.svg',
     },
@@ -51,7 +52,8 @@ function Cards() {
         message:
           "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.",
       }),
-      link: 'about/benchmarks',
+      link: '/references/benchmarks',
+      isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/box.svg',
     },

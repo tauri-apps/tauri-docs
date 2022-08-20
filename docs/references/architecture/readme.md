@@ -12,7 +12,7 @@ import { Mermaid } from 'mdx-mermaid/Mermaid';
 
 Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
 
-Tauri apps can have [custom menus](/v1/guides/features/menu) and [tray-type interfaces](/v1/guides/features/system-tray). They can be [updated](/v1/guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](./benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](./security).
+Tauri apps can have [custom menus](/v1/guides/features/menu) and [tray-type interfaces](/v1/guides/features/system-tray). They can be [updated](/v1/guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](./security).
 
 ### What Tauri is Not
 
