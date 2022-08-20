@@ -97,14 +97,6 @@ const navbarItems = [
         to: 'about/intro',
       },
       {
-        label: 'Architecture',
-        to: 'about/architecture',
-      },
-      {
-        label: 'Security',
-        to: 'about/security',
-      },
-      {
         label: 'Governance',
         to: 'about/governance',
       },
@@ -297,7 +289,10 @@ const siteConfig = {
             ...args
           }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args)
-            return sidebarItems.filter((item) => item.id !== 'guides/readme')
+            return sidebarItems.filter(
+              (item) =>
+                item.id !== 'guides/readme' && item.id !== 'references/readme'
+            )
           },
         },
 
