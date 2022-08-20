@@ -108,10 +108,6 @@ const navbarItems = [
         label: 'Get the Book',
         to: 'about/book',
       },
-      {
-        label: 'Benchmarks',
-        to: 'about/benchmarks',
-      },
     ],
   },
   {
