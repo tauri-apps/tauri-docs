@@ -6,13 +6,23 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 ## Interfaces
 
-- [InvokeArgs](../interfaces/tauri.InvokeArgs.md)
+### InvokeArgs
+
+Command arguments.
+
+**Indexable**
+
+context.indexSignaturePartial(props.model.indexSignature)
+
+---
+
+---
 
 ## Functions
 
-### `convertFileSrc`
+### convertFileSrc
 
-> **convertFileSrc**(`filePath`, `protocol?`): `string`
+**convertFileSrc**(`filePath`: `string`, `protocol?`: `string`): `string`
 
 Convert a device file path to an URL that can be loaded by the webview.
 Note that `asset:` and `https://asset.localhost` must be added to [`tauri.security.csp`](https://tauri.app/v1/api/config/#securityconfig.csp) in `tauri.conf.json`.
@@ -38,22 +48,22 @@ video.appendChild(source);
 video.load();
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `filePath` | `string` | `undefined` | The file path. |
 | `protocol` | `string` | `'asset'` | The protocol to use. Defaults to `asset`. You only need to set this when using a custom protocol. |
 
-**Returns**: `string`
+**Returns**
 
-the URL that can be used as source on the webview.
+`string`
 
-___
+---
 
-### `invoke`
+### invoke
 
-> **invoke**<`T`\>(`cmd`, `args?`): `Promise`<`T`\>
+**invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): `Promise`<`T`\>
 
 Sends a message to the backend.
 
@@ -64,39 +74,37 @@ import { invoke } from '@tauri-apps/api/tauri';
 await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 ```
 
-#### Type parameters
+**Type parameters**
 
-| Name |
-| :------ |
-| `T` |
+- `T`
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `cmd` | `string` | The command name. |
-| `args` | [`InvokeArgs`](../interfaces/tauri.InvokeArgs.md) | The optional arguments to pass to the command. |
+| `args` | [`InvokeArgs`](tauri.md#invokeargs) | The optional arguments to pass to the command. |
 
-**Returns**: `Promise`<`T`\>
+**Returns**
 
-A promise resolving or rejecting to the backend response.
+`Promise`<`T`\>
 
-___
+---
 
-### `transformCallback`
+### transformCallback
 
-> **transformCallback**(`callback?`, `once?`): `number`
+**transformCallback**(`callback?`: `fn`, `once?`: `boolean`): `number`
 
 Transforms a callback function to a string identifier that can be passed to the backend.
 The backend uses the identifier to `eval()` the callback.
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `callback?` | (`response`: `any`) => `void` | `undefined` |
 | `once` | `boolean` | `false` |
 
-**Returns**: `number`
+**Returns**
 
-A unique identifier associated with the callback function.
+`number`

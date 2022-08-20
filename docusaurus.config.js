@@ -78,7 +78,7 @@ const navbarItems = [
       },
       {
         type: 'doc',
-        docId: 'api/js/modules/app',
+        docId: 'api/js/README',
         label: 'JavaScript / TypeScript',
       },
       {
@@ -210,6 +210,7 @@ const footerLinks = [
 ]
 
 const siteConfig = {
+  onBrokenLinks: 'warn',
   title: 'Tauri Apps',
   tagline:
     'Build smaller, faster, and more secure desktop applications with a web frontend',

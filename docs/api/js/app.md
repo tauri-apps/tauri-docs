@@ -6,9 +6,9 @@ This package is also accessible with `window.__TAURI__.app` when [`build.withGlo
 
 ## Functions
 
-### `getName`
+### getName
 
-> **getName**(): `Promise`<`string`\>
+**getName**(): `Promise`<`string`\>
 
 Gets the application name.
 
@@ -19,15 +19,15 @@ import { getName } from '@tauri-apps/api/app';
 const appName = await getName();
 ```
 
-**Returns**: `Promise`<`string`\>
+**Returns**
 
-A promise resolving to application name.
+`Promise`<`string`\>
 
-___
+---
 
-### `getTauriVersion`
+### getTauriVersion
 
-> **getTauriVersion**(): `Promise`<`string`\>
+**getTauriVersion**(): `Promise`<`string`\>
 
 Gets the Tauri version.
 
@@ -38,15 +38,15 @@ import { getTauriVersion } from '@tauri-apps/api/app';
 const tauriVersion = await getTauriVersion();
 ```
 
-**Returns**: `Promise`<`string`\>
+**Returns**
 
-A promise resolving to Tauri version.
+`Promise`<`string`\>
 
-___
+---
 
-### `getVersion`
+### getVersion
 
-> **getVersion**(): `Promise`<`string`\>
+**getVersion**(): `Promise`<`string`\>
 
 Gets the application version.
 
@@ -57,6 +57,6 @@ import { getVersion } from '@tauri-apps/api/app';
 const appVersion = await getVersion();
 ```
 
-**Returns**: `Promise`<`string`\>
+**Returns**
 
-A promise resolving to the application version.
+`Promise`<`string`\>

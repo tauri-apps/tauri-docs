@@ -2,9 +2,9 @@
 
 ## Functions
 
-### `clearMocks`
+### clearMocks
 
-> **clearMocks**(): `void`
+**clearMocks**(): `void`
 
 Clears mocked functions/data injected by the other functions in this module.
 When using a test runner that doesn't provide a fresh window object for each test, calling this function will reset tauri specific properties.
@@ -29,13 +29,15 @@ test("no mocked windows", () => {
 })
 ```
 
-**Returns**: `void`
+**Returns**
 
-___
+`void`
 
-### `mockIPC`
+---
 
-> **mockIPC**(`cb`): `void`
+### mockIPC
+
+**mockIPC**(`cb`: `fn`): `void`
 
 Intercepts all IPC requests with the given mock handler.
 
@@ -66,19 +68,21 @@ test("mocked command", () => {
 })
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type |
 | :------ | :------ |
 | `cb` | (`cmd`: `string`, `args`: `Record`<`string`, `unknown`\>) => `any` |
 
-**Returns**: `void`
+**Returns**
 
-___
+`void`
 
-### `mockWindows`
+---
 
-> **mockWindows**(`current`, ...`additionalWindows`): `void`
+### mockWindows
+
+**mockWindows**(`current`: `string`, ...`additionalWindows`: `string`[]): `void`
 
 Mocks one or many window labels.
 In non-tauri context it is required to call this function *before* using the `@tauri-apps/api/window` module.
@@ -122,11 +126,13 @@ const win = getCurrent();
 await win.close(); // this will cause the mocked IPC handler to log to the console.
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `current` | `string` | Label of window this JavaScript context is running in. |
 | `...additionalWindows` | `string`[] | Label of additional windows the app has. |
 
-**Returns**: `void`
+**Returns**
+
+`void`

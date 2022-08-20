@@ -6,9 +6,9 @@ This package is also accessible with `window.__TAURI__.clipboard` when [`build.w
 
 ## Functions
 
-### `readText`
+### readText
 
-> **readText**(): `Promise`<`string` \| ``null``\>
+**readText**(): `Promise`<`string` \| `null`\>
 
 Gets the clipboard content as plain text.
 
@@ -19,15 +19,15 @@ import { readText } from '@tauri-apps/api/clipboard';
 const clipboardText = await readText();
 ```
 
-**Returns**: `Promise`<`string` \| ``null``\>
+**Returns**
 
-A promise resolving to the clipboard content as plain text.
+`Promise`<`string` \| `null`\>
 
-___
+---
 
-### `writeText`
+### writeText
 
-> **writeText**(`text`): `Promise`<`void`\>
+**writeText**(`text`: `string`): `Promise`<`void`\>
 
 Writes plain text to the clipboard.
 
@@ -39,12 +39,12 @@ await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type |
 | :------ | :------ |
 | `text` | `string` |
 
-**Returns**: `Promise`<`void`\>
+**Returns**
 
-A promise indicating the success or failure of the operation.
+`Promise`<`void`\>

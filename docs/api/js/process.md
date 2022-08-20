@@ -6,9 +6,9 @@ This package is also accessible with `window.__TAURI__.process` when [`build.wit
 
 ## Functions
 
-### `exit`
+### exit
 
-> **exit**(`exitCode?`): `Promise`<`void`\>
+**exit**(`exitCode?`: `number`): `Promise`<`void`\>
 
 Exits immediately with the given `exitCode`.
 
@@ -19,21 +19,21 @@ import { exit } from '@tauri-apps/api/process';
 await exit(1);
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `exitCode` | `number` | `0` | The exit code to use. |
 
-**Returns**: `Promise`<`void`\>
+**Returns**
 
-A promise indicating the success or failure of the operation.
+`Promise`<`void`\>
 
-___
+---
 
-### `relaunch`
+### relaunch
 
-> **relaunch**(): `Promise`<`void`\>
+**relaunch**(): `Promise`<`void`\>
 
 Exits the current instance of the app then relaunches it.
 
@@ -44,6 +44,6 @@ import { relaunch } from '@tauri-apps/api/process';
 await relaunch();
 ```
 
-**Returns**: `Promise`<`void`\>
+**Returns**
 
-A promise indicating the success or failure of the operation.
+`Promise`<`void`\>

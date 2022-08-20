@@ -21,23 +21,69 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Interfaces
 
-- [Options](../interfaces/notification.Options.md)
+### Options
+
+Options to send a notification.
+
+---
+
+#### Properties
+
+##### body
+
+`Optional` **body**: `string`
+
+Optional notification body.
+
+**Defined in** 
+
+[notification.ts:36](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L36)
+
+---
+
+##### icon
+
+`Optional` **icon**: `string`
+
+Optional notification icon.
+
+**Defined in** 
+
+[notification.ts:38](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L38)
+
+---
+
+##### title
+
+ **title**: `string`
+
+Notification title.
+
+**Defined in** 
+
+[notification.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L34)
+
+---
 
 ## Type Aliases
 
-### `Permission`
+### Permission
 
- **Permission**: ``"granted"`` \| ``"denied"`` \| ``"default"``
+ **Permission**: `"granted"` \| `"denied"` \| `"default"`
 
 Possible permission values.
 
-**Defined in** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/e29997c5/tooling/api/src/notification.ts#L42)
+**Defined in** 
+
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L42)
+
+---
 
 ## Functions
 
-### `isPermissionGranted`
+### isPermissionGranted
 
-> **isPermissionGranted**(): `Promise`<`boolean`\>
+**isPermissionGranted**(): `Promise`<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
@@ -48,13 +94,15 @@ import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
 
-**Returns**: `Promise`<`boolean`\>
+**Returns**
 
-___
+`Promise`<`boolean`\>
 
-### `requestPermission`
+---
 
-> **requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
+### requestPermission
+
+**requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
@@ -69,15 +117,15 @@ if (!permissionGranted) {
 }
 ```
 
-**Returns**: `Promise`<[`Permission`](notification.md#permission)\>
+**Returns**
 
-A promise resolving to whether the user granted the permission or not.
+`Promise`<[`Permission`](notification.md#permission)\>
 
-___
+---
 
-### `sendNotification`
+### sendNotification
 
-> **sendNotification**(`options`): `void`
+**sendNotification**(`options`: `string` \| [`Options`](notification.md#options)): `void`
 
 Sends a notification to the user.
 
@@ -96,10 +144,12 @@ if (permissionGranted) {
 }
 ```
 
-#### Parameters
+**Parameters**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | `string` \| [`Options`](../interfaces/notification.Options.md) | Notification options. |
+| `options` | `string` \| [`Options`](notification.md#options) | Notification options. |
 
-**Returns**: `void`
+**Returns**
+
+`void`
