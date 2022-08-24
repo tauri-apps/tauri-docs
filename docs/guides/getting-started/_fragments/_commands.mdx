@@ -2,7 +2,7 @@ Tauri lets you enhance your Frontend with native capabilities. We call these [Co
 
 Let's make a simple example:
 
-```rust
+```rust title=src-tauri/src/main.rs
 #[tauri::command]
 fn greet(name: &str) -> String {
    format!("Hello, {}!", name)
@@ -13,7 +13,7 @@ A Command is just like any regular Rust function, with the addition of the `#[ta
 
 Lastly, we also need to tell Tauri about our newly created command so that it can route calls accordingly. This is done with the combination of the `.invoke_handler()` function and the `generate_handler![]` macro you can see below:
 
-```rust
+```rust title=src-tauri/src/main.rs
 fn main() {
   tauri::Builder::default()
   // highlight-next-line
@@ -25,4 +25,4 @@ fn main() {
 
 Now we're ready to call your Command from the JavaScript frontend!
 
-[command]: ../../../features/command.md
+[command]: ../../features/command.md

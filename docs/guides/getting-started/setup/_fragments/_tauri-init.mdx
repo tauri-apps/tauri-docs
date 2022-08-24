@@ -1,5 +1,7 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import TauriInitQuestions from '../../_fragments/_tauri-init-questions.mdx'
+import TauriFiles from '../../_fragments/_tauri-files.mdx'
 
 At the heart of every Tauri app is a Rust binary that manages windows, the webview and calls to the operating system through a Rust crate called `tauri`. This project is managed by [Cargo], the official package manager and general-purpose build tool for Rust.
 
@@ -75,29 +77,7 @@ cargo tauri init
 </TabItem>
 </Tabs>
 
-It will walk you through a series of questions:
-
-1. **What is your app name?**
-
-   This will be the name of your final bundle and what the OS will call your app. You can use any name you want here.
-
-2. **What should the window title be?**
-
-   This will be the title of the default main window. You can use any title you want here.
-
-3. **Where are your web assets (HTML/CSS/JS) located relative to the `<current dir>/src-tauri/tauri.conf.json` file that will be created?**
-
-   <div>
-     This is the path that Tauri will load your frontend assets from when
-     building for <b>production</b>. Use <code>{props.destDirValue}</code> for
-     this value.
-   </div>
-
-4. **What is the URL of your dev server?**
-   <div>
-     This can be either a URL or a file path that Tauri will load during{' '}
-     <b>development</b>. Use <code>{props.devPathValue}</code> for this value.
-   </div>
+<TauriInitQuestions destDirValue={props.destDirValue} devPathValue={props.devPathValue}  />
 
 :::info
 
@@ -105,40 +85,7 @@ If you're familiar with Rust, you will notice that `tauri init` looks and works 
 
 :::
 
-The `tauri init` command generates a folder called `src-tauri`. It's a convention for Tauri apps to place all core-related files into this folder. Let's quickly run through the contents of this folder:
-
-- **`Cargo.toml`**
-
-  Cargo's manifest file. You can declare Rust crates your app depends on, metadata about your app, and much more. For the full reference see [Cargo's Manifest Format][manifest-format].
-
-- **`tauri.conf.json`**
-
-  This file lets you configure and customize aspects of your Tauri application from the name of your app to the list of allowed APIs. See [Tauri's API Configuration][api config] for the full list of supported options and in-depth explanations for each.
-
-- **`src/main.rs`**
-
-  This is the entrypoint to your Rust program and the place where we bootstrap into Tauri. You will find two sections in it:
-
-  ```rust title=src/main.rs
-   #![cfg_attr(
-      all(not(debug_assertions), target_os = "windows"),
-      windows_subsystem = "windows"
-   )]
-
-  fn main() {
-  tauri::Builder::default()
-     .run(tauri::generate_context!())
-     .expect("error while running tauri application");
-  }
-  ```
-
-  The line beginning with [`cfg! macro`][cfg macro] serves just one purpose: it disables the command prompt window that would normally pop up on Windows if you run a bundled app. If you're on Windows, try to comment it out and see what happens.
-
-  The `main` function is the entry point and the first function that gets invoked when your program runs.
-
-- **`icons`**
-
-  Chances are you want a snazzy icon for your app! To get you going quickly, we included a set of default icons. You should switch these out before publishing your application. Learn more about the various icon formats in Tauri's [icons feature guide][icons].
+<TauriFiles />
 
 [manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html

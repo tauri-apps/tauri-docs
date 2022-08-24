@@ -1,0 +1,170 @@
+---
+sidebar_position: 4
+pagination_next: guides/architecture/README
+---
+
+import TauriInitQuestions from "./_fragments/_tauri-init-questions.mdx"
+import TauriFiles from "./_fragments/_tauri-files.mdx"
+import Commands from './_fragments/_commands.mdx'
+
+
+# Integrate Tauri into your existing project
+
+This guide will walk you through integrating tauri into your existing project.
+
+:::info
+
+Before we continue, make sure you have completed the [prerequisites] to have a working development environment.
+
+:::
+
+## Intro
+
+If you are here that means you already have a web project whether it is Node.js-based,
+like [Svelte], [React], [Vue] or even [Angular] or Rust-based like [Yew], [Dominator]
+and you are looking to integrate tauri into it.
+
+For the purposes of this guide we will use a [React] project that has been created using [create-react-app] and has this structure:
+
+```
+❯ tree
+.
+│── node_modules/
+│── README.md
+│── package-lock.json
+│── package.json
+│── public
+│   │── favicon.ico
+│   │── index.html
+│   │── logo192.png
+│   │── logo512.png
+│   │── manifest.json
+│   ╰── robots.txt
+╰── src
+    │── App.css
+    │── App.js
+    │── App.test.js
+    │── index.css
+    │── index.js
+    │── logo.svg
+    │── reportWebVitals.js
+    ╰── setupTests.js
+```
+
+## Integrate Tauri
+
+### 1. Add Tauri CLI
+
+To integrate Tauri into your project, you first need to install the Tauri CLI as a dev dependency or globally if you prefer.
+
+```shell
+yarn add -D @tauri-apps/cli
+```
+
+:::info
+
+You don't have to use [Yarn], you can use the npm package manager you use with your existing project or use [Cargo] if you have a rust project.
+
+:::
+
+### 2. Intialize Tauri project
+
+Now you just can initialize tauri by running:
+
+```shell
+yarn tauri init
+```
+
+<TauriInitQuestions
+    destDirValue="../build"
+    devPathValue="https://localhost:3000"
+    beforeDevCommandValue="yarn start"
+    beforeBuildCommandValue="yarn build" />
+
+And that's it, you have now added Tauri to your existing project and you should see a `src-tauri` directory:
+
+```diff {23-28}
+❯ tree
+.
+│── node_modules/
+│── README.md
+│── package-lock.json
+│── package.json
+│── public
+│   │── favicon.ico
+│   │── index.html
+│   │── logo192.png
+│   │── logo512.png
+│   │── manifest.json
+│   ╰── robots.txt
+│── src
+│   │── App.css
+│   │── App.js
+│   │── App.test.js
+│   │── index.css
+│   │── index.js
+│   │── logo.svg
+│   │── reportWebVitals.js
+│   ╰── setupTests.js
+╰── src-tauri
+    │── Cargo.toml
+    │── build.rs
+    │── icons
+    │── src
+    ╰── tauri.conf.json
+```
+
+<TauriFiles />
+
+### 3. (Optional) Add JS api package
+
+You can also add The Javascript api package to use Tauri's [APIs]
+
+```shell
+yarn add @tauri-apps/api
+```
+
+## Invoke Commands
+
+<Commands />
+
+
+```jsx title=src/App.js {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+import { invoke } from '@tauri-apps/api'
+
+function App() {
+  // now we can call our Command!
+  // Right-click the application background and open the developer tools.
+  // You will see "Hello, World!" printed in the console!
+  invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+
+[prerequisites]: ./prerequisites.md
+[create-react-app]: https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+[Svelte]: https://svelte.dev
+[React]: https://svelte.dev
+[Vue]: https://vuejs.org
+[Angular]: https://angluar.io
+[Yew]: https://yew.rs
+[Dominator]: https://github.com/Pauan/rust-dominator
+[Yarn]: https://yarnpkg.com
+[Cargo]: https://doc.rust-lang.org/cargo/
+[APIs]: ../../api/js/modules/app
+[inter-process-communication]: ../architecture/inter-process-communication/README.md
