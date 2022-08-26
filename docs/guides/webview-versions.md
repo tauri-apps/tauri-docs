@@ -8,7 +8,7 @@ WebView2 is supported on Windows 7 and newer and comes preinstalled on Windows 1
 
 ## macOS, iOS, & Linux: WebKit
 
-Tauri uses WebKit on macOS (through [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview?language=objc)) and on Linux (through webkit2gtk).
+Tauri uses WebKit on macOS (through [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview?language=objc)) and on Linux (through `webkit2gtk`).
 
 Webkit version numbers are quite complicated, so below is some helpful information to understand them.
 
