@@ -50,7 +50,7 @@ The webkit version shipped with Safari 15.5 on macOS Monterey (12.x) has the fol
 
 </details>
 
-The tables below map OS versions to WebKit versions and the corresponding Safari equivalent, so you can use sites like [caniuse](https://caniuse.com) to figure out if a specific web platform feature is supported.
+The tables below map OS versions to WebKit versions and the corresponding Safari equivalent so that you can use sites like [caniuse](https://caniuse.com) to figure out if a specific web platform feature is supported.
 
 ### macOS
 
