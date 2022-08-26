@@ -95,7 +95,7 @@ awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Framew
 |             | 11.2.1                           |                  |                   |                                                                  |
 |             | 11.2.2                           |                  |                   |                                                                  |
 |             | 11.2.3                           | [610.4.3.1.7]    |                   |                                                                  |
-|             | 11.3                             | [611.1.21.161.3] | 14.1              | 24" M1 iMac's received a special webkit version: [611.1.21.1.12] |
+|             | 11.3                             | [611.1.21.161.3] | 14.1              | 24" M1 iMac received a special WebKit version: [611.1.21.1.12] |
 |             | 11.3.1                           |                  |                   |                                                                  |
 |             | 11.4                             | [611.2.7.1.4]    | 14.1.1            |                                                                  |
 |             | 11.5                             | [611.3.10.1.3]   | 14.1.2            |                                                                  |
