@@ -15,7 +15,7 @@ Webkit version numbers are quite complicated, so below is some helpful informati
 <details>
 <summary>How to read WebKit version numbers</summary>
 
-WebKit version numbers are made up of 5 segments and a numeric prefix indicating the OS WebKit is built for. The prefix is called the `SYSTEM_VERSION_PREFIX` and seems to be only present for macOS and iOS builds, not for Linux. Furthermore, if the last two segments are both `0` they can be omitted; So a version like `613.2.7.0.0` would be referred to as `613.2.7`.
+WebKit version numbers are made up of 5 segments and a numeric prefix indicating which OS WebKit is built for. The numeric prefix is called the `SYSTEM_VERSION_PREFIX` and seems to be only present for macOS and iOS builds, not for Linux. Furthermore, if the last two segments are both `0` they can be omitted (so a version like `613.2.7.0.0` would be referred to as `613.2.7`).
 
 `$(SYSTEM_VERSION_PREFIX)$(MAJOR_VERSION).$(MINOR_VERSION).$(TINY_VERSION).$(MICRO_VERSION).$(NANO_VERSION)`
 
