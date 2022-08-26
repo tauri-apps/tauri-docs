@@ -207,7 +207,7 @@ When an update is available, Tauri expects the following schema in response to t
 }
 ```
 
-The only required keys are "url" and "version"; the others are optional.
+The required keys are "url", "version" and "signature"; the others are optional.
 
 "pub_date" if present must be formatted according to [RFC 3339][date and time on the internet: timestamps].
 
