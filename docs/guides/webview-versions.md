@@ -56,7 +56,7 @@ The tables below map OS versions to WebKit versions and the corresponding Safari
 
 On macOS Tauri uses the webview that comes preinstalled with macOS since version 10.10 (Yosemite). It is considered a core component and is therefore updated with the regular OS updates. This means _unsuspported_ macOS versions **do not** receive WebKit updates.
 
-To find the Webkit version used by WKWebView you can use this command:
+To find the Webkit version used by `WKWebView` you can use this command in the terminal on macOS:
 
 ```shell
 awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Frameworks/WebKit.framework/Resources/Info.plist
