@@ -1,6 +1,6 @@
 # Webview Versions
 
-## WebView2 (Edge/Chromium)
+## Windows: WebView2
 
 Tauri uses WebView2 which is based on Microsoft Edge and therefore Chromium. WebView2 can update itself, you are guaranteed a relatively recent chromium build on all Windows targets.
 
