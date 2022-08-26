@@ -25,9 +25,9 @@ Here's a preview of what we will be building:
 
 ## Create the Frontend
 
-[NextJS] is a React Framework that came with both `SSR` and `SSG` capability to make it work with tauri we are only going to use `SSG` mode.
-It comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of pre-defined templates.
-For this guide we will use the `typescript` template to create a simple project.
+[NextJS] is a React Framework that came with both `SSR` and `SSG` capability, to make it work with tauri we are only going to use SSG mode.
+It comes with a scaffolding utility similar to create-tauri-app that can quickly setup a new project from a number of pre-defined templates.
+For this guide we will use the typescript template to create a simple project.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm" label="npm" default>
@@ -67,8 +67,8 @@ Update the file with the following content:
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Note: This experimental feature is require to use NextJS Image in SSG mode
-  // You can see other workarround https://nextjs.org/docs/messages/export-image-api
+  // Note: This experimental feature is required to use NextJS Image in SSG mode.
+  // You can see other workaround https://nextjs.org/docs/messages/export-image-api
   experimental: {
     images: {
       unoptimized: true,
@@ -79,7 +79,7 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-To be abble to build in production we must add `next export` command in `package.json`.
+To be able to build in production we must add `next export` command in `package.json`.
 This will render a pure Html/JavaScript version of your [NextJS] application and create the `out` folder.
 We are also going to add `tauri` command.
 
@@ -161,13 +161,13 @@ With the library installed, you can modify your `pages/index.ts` file to call th
 import { invoke } from "@tauri-apps/api/tauri"
 
 // Note: When working with NextJS in development you have 2 execution contexts:
-// - In server side where Tauri cannot be call because it's out of his context.
+// - In server side where Tauri cannot be called because it's out of the context.
 // - In client side where Tauri can be executed.
-// To know if we are in server or client side we can do it like this:
+// To know if we are in server or client side we can do the following:
 const isClient = typeof window !== 'undefined'
 
 // now we can call our Command!
-// Right-click the application background and open the developer tools.
+// Right-click on the application background and open the developer tools.
 // You will see "Hello, World!" printed in the console!
 isClient && invoke('greet', { name: 'World' })
     .then(console.log)
