@@ -167,7 +167,7 @@ awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Framew
 
 ### Linux (WebKitGTK)
 
-The fractured nature of the Linux ecosystem means it is very hard to compile accurate information about WebKitGTK on the various distros. The table below is a very incomplete list of the most commonly used distributions and their webkit versions. You should always check your distros repositories for up-to-date information.
+The diverse nature of the Linux ecosystem means it is very hard to compile accurate information about WebKitGTK on the various distros. The table below is a very incomplete list of the most commonly used distributions and their WebKit versions. You should always check your distro's repositories for up-to-date information.
 
 | Distro                                                            | webkitgtk | WebKit    | Safari Equivalent |
 | ----------------------------------------------------------------- | --------- | --------- | ----------------- |
