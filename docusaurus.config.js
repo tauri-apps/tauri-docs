@@ -49,7 +49,7 @@ const navbarItems = [
       {
         label: 'Trademark Guidelines',
         to: 'about/trademark',
-      },      
+      },
       {
         label: 'Get the Book',
         to: 'about/book',
@@ -224,7 +224,7 @@ const siteConfig = {
   url: 'https://tauri.app',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr', 'ko', 'zh'],
+    locales: ['en', 'fr', 'ko', 'zh', 'it'],
   },
   themeConfig: {
     prism: {
