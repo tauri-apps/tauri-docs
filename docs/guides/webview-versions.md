@@ -169,18 +169,14 @@ awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Framew
 
 The fractured nature of the Linux ecosystem means it is very hard to compile accurate information about WebKitGTK on the various distros. The table below is a very incomplete list of the most commonly used distributions and their webkit versions. You should always check your distros repositories for up-to-date information.
 
-#### Note on the Ubuntu situation
-
-On Ubuntu 18 through 20 it appears only `amd64` and `i386` machines received subsequent WebKit updates. All other supported arches remained on the initial releases' WebKit version. As you can see this results in really outdated Webkit versionson those machines. Since Ubuntu 22.04 however, it seems all arches receive WebKit updates.
-
 | Distro                                                         | webkitgtk | WebKit    | Safari Equivalent |
-| -------------------------------------------------------------- | --------- | --------- | ----------------- |
-| debian 9                                                       | 2.18      | [605.1.3] | 11.1              |
-| Ubuntu 18.04 (arm64, armhf, ppc64el, s390x)                    | 2.20      | [606.1.4] | 12.0              |
-| Ubuntu 20.04 (arm64, armhf, ppc64el, s390x)                    | 2.28      | [610.1.1] | 14.0              |
-| Ubuntu 18.04 (amd64, i386), centos 8 (non-stream)              | 2.32      | [612.1.6] | 15.0              |
-| debian 10                                                      | 2.34      | [613.1.1] | 15.4              |
-| Ubuntu 20.04 (amd64, i386), Ubuntu 22.04, debian 11, debian 12 | 2.36      | [614.1.6] | TP 140 (16.0)     |
+| -------------------------------------------------------------------------- | --------- | --------- | ------------- |
+| Ubuntu 18.04                                                                                        | 2.20      | [606.1.4] | 12.0              |
+| Debian 9 (with backport), Debian 10                                                      | 2.24      | [608.1.6] | 13.0              |
+| Ubuntu 20.04                                                                                        | 2.28      | [610.1.1] | 14.0              |
+| Debian 11, Ubuntu 18.04 (with update), centos 8 (non-stream)             | 2.32      | [612.1.6] | 15.0              |
+| Debian 10 (with update)                                                                        | 2.34      | [613.1.1] | 15.4              |
+| Debian 11 (with update), Ubuntu 20.04 (with update), Ubuntu 22.04    | 2.36      | [614.1.6] | TP 140 (16.0)     |
 
 [605.1.3]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.18/Source/WebKit/Configurations/Version.xcconfig
 [606.1.4]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.20/Source/WebKit/Configurations/Version.xcconfig
