@@ -14,7 +14,7 @@ import Command from '@theme/Command'
 
 # NextJS
 
-This guide will walk you through creating your first Tauri app using the React framework [nextjs].
+This guide will walk you through creating your first Tauri app using the React framework [NextJS].
 
 <Intro />
 
@@ -25,8 +25,9 @@ Here's a preview of what we will be building:
 
 ## Create the Frontend
 
-[NextJS] is a React Framework that came with both `SSR` and `SSG` capability, to make it work with tauri we are only going to use SSG mode.
-It comes with a scaffolding utility similar to create-tauri-app that can quickly setup a new project from a number of pre-defined templates.
+[NextJS] is a React Framework that comes with both Server-Side Rendering (SSR) and Static-Site Generation (SSG) capabilities. To make NextJS work with Tauri we are going to use the SSG mode since it generates only static files that can be included in the final binary.
+
+It comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of pre-defined templates.
 For this guide we will use the typescript template to create a simple project.
 
 <Tabs groupId="package-manager">
@@ -56,7 +57,7 @@ pnpm create next-app --use-pnpm --typescript
 1. **Project name**  
    This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
-When starting the frontend via the `next-app` command, Next will look for a config file named `next.config.js` inside the project root.
+When starting the frontend via the `next-app` command, NextJS will look for a config file named `next.config.js` inside the project root.
 We want to customize this file to get the best compatibility with Tauri.
 
 Update the file with the following content: 
@@ -80,7 +81,7 @@ module.exports = nextConfig;
 ```
 
 To be able to build in production we must add `next export` command in `package.json`.
-This will render a pure Html/JavaScript version of your [NextJS] application and create the `out` folder.
+This will produce a static HTML/JavaScript version of your NextJS application in the `out` folder.
 We are also going to add `tauri` command.
 
 You `package.json` should look like this:
@@ -96,6 +97,19 @@ You `package.json` should look like this:
     "lint": "next lint"
   },
 ```
+
+## NextJS in SSG mode
+
+The `benefit` of it is React pre rendered in static HTML/JavaScript version, that means your page can load faster.
+React doesn't have to render the html on client side on the first load it will just hydrate it if needed.
+But the `downside` is we cannot use `getServerSideProps` or use any data fetching for render our page for a request.
+
+:::tip
+
+You can use `getStaticProps` to generate HTML/JavaScript pages at build time.
+Since it's executed in nodejs context calling tauri api wont work.
+
+:::
 
 ## Create the Rust Project
 
@@ -175,6 +189,18 @@ isClient && invoke('greet', { name: 'World' })
 ```
 
 A better approche will be to use tauri calls in `componentDidMount` or `useEffect` that are only run in client side by [NextJS]
+So to make it cleaner we should rewrite it like this:
+
+```typescript title=pages/index.tsx
+import { invoke } from "@tauri-apps/api/tauri"
+
+const Home: NextPage = () => {
+  useEffect(() => {
+    invoke('greet', { name: 'World' })
+    .then(console.log)
+    .catch(console.error)
+  }, []);
+```
 
 :::tip
 
