@@ -100,16 +100,18 @@ You `package.json` should look like this:
 
 ## NextJS in SSG mode
 
-The `benefit` of it is React pre rendered in static HTML/JavaScript version, that means your page can load faster.
-React doesn't have to render the html on client side on the first load it will just hydrate it if needed.
-But the `downside` is we cannot use `getServerSideProps` or use any data fetching for render our page for a request.
+Its `benefit` is pre-rendered React in static HTML/JavaScript version, that means your page can load faster.
+React doesn't have to render the html on client side, on the first load it will just hydrate it if needed.
+The `downside` is that we cannot use `getServerSideProps` or use any type of `data fetching` for rendering our page for a request.
 
 :::tip
 
 You can use `getStaticProps` to generate HTML/JavaScript pages at build time.
-Since it's executed in nodejs context calling tauri api wont work.
+Since it is executed in nodejs context, calling the tauri api wont work.
+You can learn more about NextJS SSG on [official documentation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
 :::
+
 
 ## Create the Rust Project
 
@@ -188,7 +190,8 @@ isClient && invoke('greet', { name: 'World' })
     .catch(console.error)
 ```
 
-A better approche will be to use tauri calls in `componentDidMount` or `useEffect` that are only run in client side by [NextJS]
+A better approche will be to use tauri calls in `componentDidMount` or `useEffect` that are only run in client side by [NextJS].
+
 So to make it cleaner we should rewrite it like this:
 
 ```typescript title=pages/index.tsx
