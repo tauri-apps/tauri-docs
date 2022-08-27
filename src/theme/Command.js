@@ -22,6 +22,25 @@ function insertDashDashBeforeOption(value, name) {
 export const CreateTauriApp = () => {
   return (
     <Tabs>
+      <TabItem value="bash">
+        <CodeBlock title='curl' className={`language-shell`}>
+          {`sh <(curl https://create.tauri.app/sh)`}
+        </CodeBlock>
+        <CodeBlock title='wget' className={`language-shell`}>
+          {`sh <(wget https://create.tauri.app/sh)`}
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="powershell">
+        <CodeBlock className={`language-powershell`}>
+          iwr https://create.tauri.app/ps | iex
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="cargo">
+        <CodeBlock className={`language-shell`}>
+          {`cargo install create tauri-app
+cargo create-tauri-app`}
+        </CodeBlock>
+      </TabItem>
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>
           npm create tauri-app
