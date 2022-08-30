@@ -44,7 +44,7 @@ export const InstallTauriCLI = () => {
     <Tabs>
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>
-          yarn add -D @tauri-apps/cli
+          npm install --save-dev @tauri-apps/cli
         </CodeBlock>
       </TabItem>
       <TabItem value="yarn">
@@ -54,12 +54,12 @@ export const InstallTauriCLI = () => {
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className={`language-shell`}>
-          yarn add -D @tauri-apps/cli
+          pnpm add -D @tauri-apps/cli
         </CodeBlock>
       </TabItem>
       <TabItem value="cargo">
         <CodeBlock className={`language-shell`}>
-          yarn add -D @tauri-apps/cli
+          cargo install tauri-cli
         </CodeBlock>
       </TabItem>
     </Tabs>
