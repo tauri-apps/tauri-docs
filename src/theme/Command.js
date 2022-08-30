@@ -23,9 +23,7 @@ export const CreateTauriApp = () => {
   return (
     <Tabs>
       <TabItem value="npm">
-        <CodeBlock className={`language-shell`}>
-          npm create tauri-app
-        </CodeBlock>
+        <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
       </TabItem>
       <TabItem value="yarn">
         <CodeBlock className={`language-shell`}>
@@ -35,6 +33,33 @@ export const CreateTauriApp = () => {
       <TabItem value="pnpm">
         <CodeBlock className={`language-shell`}>
           pnpm create tauri-app
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  )
+}
+
+export const InstallTauriCLI = () => {
+  return (
+    <Tabs>
+      <TabItem value="npm">
+        <CodeBlock className={`language-shell`}>
+          yarn add -D @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="yarn">
+        <CodeBlock className={`language-shell`}>
+          yarn add -D @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="pnpm">
+        <CodeBlock className={`language-shell`}>
+          yarn add -D @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="cargo">
+        <CodeBlock className={`language-shell`}>
+          yarn add -D @tauri-apps/cli
         </CodeBlock>
       </TabItem>
     </Tabs>
