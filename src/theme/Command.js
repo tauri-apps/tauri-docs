@@ -21,7 +21,7 @@ function insertDashDashBeforeOption(value, name) {
 
 export const CreateTauriApp = () => {
   return (
-    <Tabs>
+    <Tabs groupId="package-manager">
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
       </TabItem>
@@ -41,7 +41,7 @@ export const CreateTauriApp = () => {
 
 export const InstallTauriCLI = () => {
   return (
-    <Tabs>
+    <Tabs groupId="package-manager">
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>
           npm install --save-dev @tauri-apps/cli
@@ -66,9 +66,31 @@ export const InstallTauriCLI = () => {
   )
 }
 
+export const InstallTauriAPI = () => {
+  return (
+    <Tabs groupId="package-manager">
+      <TabItem value="npm">
+        <CodeBlock className={`language-shell`}>
+          npm install @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="yarn">
+        <CodeBlock className={`language-shell`}>
+          yarn add @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="pnpm">
+        <CodeBlock className={`language-shell`}>
+          pnpm add @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  )
+}
+
 export default ({ name, shell = 'shell' }) => {
   return (
-    <Tabs groupId="installMode" defaultValue="yarn tauri " values={types}>
+    <Tabs groupId="package-manager" values={types}>
       {types.map((type) => (
         <TabItem value={type.value}>
           <CodeBlock className={`language-${shell}`}>

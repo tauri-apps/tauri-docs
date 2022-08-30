@@ -10,7 +10,7 @@ import Commands from '../_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import Command from '@theme/Command'
+import Command, { InstallTauriAPI } from '@theme/Command'
 
 # Vite
 
@@ -125,29 +125,7 @@ And that's it! Now you can run the following command in your terminal to start a
 
 To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm" label="npm" default>
-
-```shell
-npm install @tauri-apps/api
-```
-
-  </TabItem>
-  <TabItem value="yarn" label="yarn">
-
-```shell
-yarn add @tauri-apps/api
-```
-
-  </TabItem>
-  <TabItem value="pnpm" label="pnpm">
-
-```shell
-pnpm add @tauri-apps/api
-```
-
-  </TabItem>
-</Tabs>
+<InstallTauriAPI />
 
 With the library installed, you can modify your `main.ts` file to call the Command:
 
