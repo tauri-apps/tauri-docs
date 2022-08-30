@@ -489,7 +489,7 @@ ___
 
 Returns the path to the suggested log directory.
 
-### Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `${configDir}/${bundleIdentifier}`.
 - **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
