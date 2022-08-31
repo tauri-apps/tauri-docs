@@ -95,7 +95,7 @@ This Rust executable provides the full interface to all of the required activiti
 
 ### [cli.js](https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/node) (JavaScript)
 
-Wrapper around [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/tooling/cli) using [`napi-rs`](https://github.com/napi-rs/napi-rs) to produce NPM packages for each platform.
+Wrapper around [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/tooling/cli) using [`napi-rs`](https://github.com/napi-rs/napi-rs) to produce npm packages for each platform.
 
 ### [create-tauri-app](https://github.com/tauri-apps/create-tauri-app) (JavaScript)
 

@@ -5,7 +5,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 const types = [
-  { label: 'NPM', value: 'npm run tauri ' },
+  { label: 'npm', value: 'npm run tauri ' },
   { label: 'Yarn', value: 'yarn tauri ' },
   { label: 'PNPM', value: 'pnpm tauri ' },
   { label: 'Cargo', value: 'cargo tauri ' },
@@ -38,7 +38,7 @@ export const CreateTauriApp = () => {
 cargo create-tauri-app`}
         </CodeBlock>
       </TabItem>
-      <TabItem value="NPM">
+      <TabItem value="npm">
         <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
@@ -61,7 +61,7 @@ export default ({ name, shell = 'shell' }) => {
       {types.map((type) => (
         <TabItem value={type.value}>
           <CodeBlock className={`language-${shell}`}>
-            {type.label !== 'NPM'
+            {type.label !== 'npm'
               ? type.value + name
               : insertDashDashBeforeOption(type.value, name)}
           </CodeBlock>
