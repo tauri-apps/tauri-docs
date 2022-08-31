@@ -31,7 +31,7 @@ function Cards() {
         message:
           'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.',
       }),
-      link: '/references/security',
+      link: '/references/architecture/security',
       isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/security.svg',
