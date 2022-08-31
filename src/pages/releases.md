@@ -31,6 +31,6 @@ import ReleaseNotes from '@theme/ReleaseNotes';
   </TabItem>
   <TabItem value ='create-tauri-app' label="create-tauri-app">
     <p><a href="https://github.com/tauri-apps/create-tauri-app/releases">View releases on GitHub</a></p>
-    <ReleaseNotes url='https://raw.githubusercontent.com/tauri-apps/create-tauri-app/dev/CHANGELOG.md' />
+    <ReleaseNotes url='https://raw.githubusercontent.com/tauri-apps/create-tauri-app/dev/packages/cli/CHANGELOG.md' />
   </TabItem>
 </Tabs>
