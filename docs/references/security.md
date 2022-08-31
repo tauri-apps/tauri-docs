@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: Learn about the steps you can take to help your app be as secure as possible.
 ---
 
 # Development Security
