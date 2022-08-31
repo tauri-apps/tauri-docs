@@ -164,10 +164,10 @@ Rust is installed now. Great!
 
 ## Updating and Uninstalling
 
-Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo upgrade` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
+Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo update` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
 
 ```shell
-cargo upgrade
+cargo update
 ```
 
 Updating Rust itself is easy via `rustup`. Open a terminal and run the following command:
