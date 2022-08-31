@@ -1,57 +1,11 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import { CreateTauriApp } from '@theme/Command'
 
 :::tip `create-tauri-app`
 
 The easiest way to scaffold a new project is the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility. It has support for vanilla HTML/CSS/JavaScript but also many frontend frameworks like React, Vue, and Svelte.
 
-<Tabs groupId="package-manager">
+<CreateTauriApp />
 
-<TabItem value="bash" label="bash" default>
-
-```shell title=curl
-sh <(curl https://create.tauri.app/sh)
-```
-```shell title=wget
-sh <(wget https://create.tauri.app/sh)
-```
-
-</TabItem>
-<TabItem value="powershell" label="powershell">
-
-```powershell
-iwr https://create.tauri.app/ps | iex
-```
-
-</TabItem>
-<TabItem value="cargo" label="cargo">
-
-```shell
-cargo install create-tauri-app
-cargo create-tauri-app
-```
-
-</TabItem>
-<TabItem value="npm" label="npm">
-
-```shell
-npm create tauri-app
-```
-
-</TabItem>
-<TabItem value="yarn" label="yarn">
-
-```shell
-yarn create tauri-app
-```
-
-</TabItem>
-<TabItem value="pnpm" label="pnpm">
-
-```shell
-pnpm create tauri-app
-```
-
-</TabItem>
-</Tabs>
 :::
