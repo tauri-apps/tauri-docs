@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem'
 const types = [
   { label: 'npm', value: 'npm run tauri ' },
   { label: 'Yarn', value: 'yarn tauri ' },
-  { label: 'PNPM', value: 'pnpm tauri ' },
+  { label: 'npm', value: 'pnpm tauri ' },
   { label: 'Cargo', value: 'cargo tauri ' },
 ]
 
@@ -46,7 +46,7 @@ cargo create-tauri-app`}
           yarn create tauri-app
         </CodeBlock>
       </TabItem>
-      <TabItem value="PNPM">
+      <TabItem value="npm">
         <CodeBlock className={`language-shell`}>
           pnpm create tauri-app
         </CodeBlock>
