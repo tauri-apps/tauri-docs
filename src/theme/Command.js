@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem'
 const types = [
   { label: 'npm', value: 'npm run tauri ' },
   { label: 'Yarn', value: 'yarn tauri ' },
-  { label: 'npm', value: 'pnpm tauri ' },
+  { label: 'pnpm', value: 'pnpm tauri ' },
   { label: 'Cargo', value: 'cargo tauri ' },
 ]
 
