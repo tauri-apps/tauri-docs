@@ -11,7 +11,7 @@ This is why we have taken every opportunity to help you secure your application,
 
 ## Security Is A Community Responsibility
 
-It is important to remember that the security of your Tauri application is the sum of the overall security of Tauri itself, all Rust and NPM dependencies, your code, and the devices that run the final application. The Tauri Team does their best to do their part, the security community does its part, and you too should follow a few important best practices.
+It is important to remember that the security of your Tauri application is the sum of the overall security of Tauri itself, all Rust and npm dependencies, your code, and the devices that run the final application. The Tauri Team does their best to do their part, the security community does its part, and you too should follow a few important best practices.
 
 ### Keep Your Application Up-To-Date
 
@@ -19,7 +19,7 @@ When releasing your app into the wild, you are also shipping a bundle that has T
 
 ### Evaluate Your Dependencies
 
-While NPM and Crates.io provide many convenient packages, it is your responsibility to choose trustworthy third-party libraries - or rewrite them in Rust. If you do use outdated libraries which are affected by known vulnerabilities or are unmaintained, your application security and good night's sleep could be in jeopardy. Use tooling like npm audit and cargo audit to automate this process, and lean on the security community's important work.
+While npm and Crates.io provide many convenient packages, it is your responsibility to choose trustworthy third-party libraries - or rewrite them in Rust. If you do use outdated libraries which are affected by known vulnerabilities or are unmaintained, your application security and good night's sleep could be in jeopardy. Use tooling like npm audit and cargo audit to automate this process, and lean on the security community's important work.
 
 ### Adopt More Secure Coding Practices
 
