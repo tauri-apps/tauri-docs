@@ -287,6 +287,7 @@ const siteConfig = {
             const sidebarItems = await defaultSidebarItemsGenerator(args)
             return sidebarItems.filter(
               (item) =>
+                // This makes sure that the landing pages are not duplicated in the sidebars
                 item.id !== 'guides/readme' && item.id !== 'references/readme'
             )
           },
