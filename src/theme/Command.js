@@ -6,9 +6,9 @@ import TabItem from '@theme/TabItem'
 
 const types = [
   { label: 'npm', value: 'npm run tauri ' },
-  { label: 'yarn', value: 'yarn tauri ' },
+  { label: 'Yarn', value: 'yarn tauri ' },
   { label: 'pnpm', value: 'pnpm tauri ' },
-  { label: 'cargo', value: 'cargo tauri ' },
+  { label: 'Cargo', value: 'cargo tauri ' },
 ]
 
 function insertDashDashBeforeOption(value, name) {
@@ -21,13 +21,27 @@ function insertDashDashBeforeOption(value, name) {
 
 export const CreateTauriApp = () => {
   return (
-    <Tabs>
-      <TabItem value="npm">
+    <Tabs className="">
+      <TabItem value="Bash">
         <CodeBlock className={`language-shell`}>
-          npm create tauri-app
+          {`sh <(curl https://create.tauri.app/sh)`}
         </CodeBlock>
       </TabItem>
-      <TabItem value="yarn">
+      <TabItem value="PowerShell">
+        <CodeBlock className={`language-powershell`}>
+          iwr https://create.tauri.app/ps | iex
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Cargo">
+        <CodeBlock className={`language-shell`}>
+          {`cargo install create tauri-app
+cargo create-tauri-app`}
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="npm">
+        <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
+      </TabItem>
+      <TabItem value="Yarn">
         <CodeBlock className={`language-shell`}>
           yarn create tauri-app
         </CodeBlock>
