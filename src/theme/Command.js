@@ -46,7 +46,7 @@ cargo create-tauri-app`}
           yarn create tauri-app
         </CodeBlock>
       </TabItem>
-      <TabItem value="npm">
+      <TabItem value="pnpm">
         <CodeBlock className={`language-shell`}>
           pnpm create tauri-app
         </CodeBlock>
