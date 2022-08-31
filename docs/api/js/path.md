@@ -22,7 +22,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### BaseDirectory
 
-Re-exports <a href=fs.md#basedirectory>BaseDirectory</a>
+Re-exports <a href="fs.md#basedirectory">BaseDirectory</a>
 
 ---
 
