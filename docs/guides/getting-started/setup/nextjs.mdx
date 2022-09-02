@@ -93,6 +93,14 @@ When using the `build` command, it does not generate a static site automatically
 // ...
 ```
 
+The downside of creating a static site will be that you won't be able to use any type of data fetching like `getServerSideProps`.
+
+:::note
+
+You can still use `getStaticProps` to generate HTML/JavaScript pages at build time. Since it is executed in nodejs context, calling the tauri api wont work. You can learn more about NextJS SSG on [official documentation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
+
+:::
+
 ## Create the Rust Project
 
 <TauriInit destDirValue="../dist" devPathValue="http://localhost:5173" />
