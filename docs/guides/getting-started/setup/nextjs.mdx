@@ -79,12 +79,26 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-When using the `build` command, it does not generate a static site automatically. Next.js provides us a way to generate a static HTML/Javascript website. Update the `build` script in the `package.json` in the root of your project like this:
+Using the `dev` script will open the development website at any available server. So, to make it permanent, modify the `dev` script in `package.json` in the root of the project:
+
+```json
+"scripts": {
+  // highlight-next-line
+  "dev": "next dev -p 2005",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint"
+},
+```
+
+Now, your app will run on https://localhost:2005 everytime you run the `dev` or `tauri dev` script.
+
+When using the `build` command, it does not generate a static site automatically. Next.js provides us a way to generate a static HTML/Javascript website. Update the `build` script in the `package.json` in the root of your project:
 
 ```json
 // ...
 "scripts": {
-  "dev": "next dev",
+  "dev": "next dev -p 2005",
   // highlight-next-line
   "build": "next build && next export -o dist",
   "start": "next start",
