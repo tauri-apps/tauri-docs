@@ -117,10 +117,10 @@ You can still use `getStaticProps` to generate HTML/JavaScript pages at build ti
 
 ## Create the Rust Project
 
-<TauriInit destDirValue="../dist" devPathValue="http://localhost:5173" />
+<TauriInit destDirValue="../dist" devPathValue="http://localhost:2005" />
 
 Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
-But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
+But before you do, let's quickly configure Tauri so it **automatically** start's the nextjs development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
 
 ```json title=src-tauri/tauri.conf.json
 {
