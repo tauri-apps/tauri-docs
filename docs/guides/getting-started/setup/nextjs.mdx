@@ -30,65 +30,67 @@ Here's a preview of what we will be building:
 Next.js comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of [pre-defined templates](https://github.com/vercel/next.js/tree/canary/examples). You can choose from many templates like with-cms, with-tailwindcss and many many more. For this guide we will select the `with-typescript` template to create a simple project.
 
 <Tabs groupId="package-manager">
-  <TabItem value="npm" label="npm" default>
+  <TabItem value="npm" label="Npm" default>
 
 ```shell
-npm create vite@latest
+npx create-next-app@latest --ts
 ```
 
   </TabItem>
   <TabItem value="yarn" label="Yarn">
 
 ```shell
-yarn create vite
+yarn create next-app --typescript
 ```
 
   </TabItem>
-  <TabItem value="pnpm" label="pnpm">
+  <TabItem value="pnpm" label="Pnpm">
 
 ```shell
-pnpm create vite
+pnpm create next-app --ts
 ```
 
   </TabItem>
 </Tabs>
 
-1. **Project name**  
-   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
+Running the create command will ask you for the **Project name**
 
-2. **Select a framework**  
-   If you plan on using a frontend framework later, this is where you can select it. For this guide, we assume you choose `vanilla`.
+- This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
-3. **Select a variant**  
-   Vite offers [TypeScript] and vanilla JavaScript variants for all templates, and you can select the variant here. We **strongly** recommend TypeScript as it helps you write more secure, maintainable code faster and more efficiently. For this guide, we assume you choose `vanilla-ts`.
-
-When starting the frontend via the `vite` command, Vite will look for a config file named `vite.config.ts` inside the project root. We want to customize this file to get the best compatibility with Tauri. If it is not created by the scaffolding above (such as if you're using vanilla JavaScript), you may need to create the `vite.config.ts` file in the root directory of the project.
+When starting the frontend via the next-app command, NextJS will look for a config file named next.config.js inside the project root. We want to customize this file to get the best compatibility with Tauri. If you are not using the scaffolding above and trying a custom setup, you may need to create the `next.config.js` in the root directory of your project.
 
 Update the file with the following content:
 
-```typescript title=vite.config.ts
-import { defineConfig } from 'vite'
+```typescript title=next.config.js
+/** @type {import('next').NextConfig} */
 
-export default defineConfig({
-  // prevent vite from obscuring rust errors
-  clearScreen: false,
-  // Tauri expects a fixed port, fail if that port is not available
-  server: {
-    strictPort: true,
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  // Note: This experimental feature is required to use NextJS Image in SSG mode.
+  // You can see other workaround https://nextjs.org/docs/messages/export-image-api
+  experimental: {
+    images: {
+      unoptimized: true,
+    },
   },
-  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
-  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
-  // env variables
-  envPrefix: ['VITE_', 'TAURI_'],
-  build: {
-    // Tauri supports es2021
-    target: ['es2021', 'chrome100', 'safari13'],
-    // don't minify for debug builds
-    minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-    // produce sourcemaps for debug builds
-    sourcemap: !!process.env.TAURI_DEBUG,
-  },
-})
+}
+
+module.exports = nextConfig
+```
+
+When using the `build` command, it does not generate a static site automatically. Next.js provides us a way to generate a static HTML/Javascript website. Update the `build` script in the `package.json` in the root of your project like this:
+
+```json
+// ...
+"scripts": {
+  "dev": "next dev",
+  // highlight-next-line
+  "build": "next build && next export -o dist",
+  "start": "next start",
+  "lint": "next lint"
+},
+// ...
 ```
 
 ## Create the Rust Project
