@@ -5,21 +5,12 @@ import TabItem from '@theme/TabItem'
 <TabItem value="pages/index.tsx">
 
 ```jsx
-import { useState } from "react"
-import { invoke } from "@tauri-apps/api/tauri"
 import Image from "next/image"
 import reactLogo from "../assets/react.svg"
 import tauriLogo from "../assets/tauri.svg"
 import nextLogo from "../assets/next.svg"
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("")
-  const [name, setName] = useState("")
-
-  async function greet() {
-    setGreetMsg(await invoke("greet", { name }))
-  }
-
   return (
     <div className="container">
       <h1>Welcome to Tauri!</h1>
@@ -56,26 +47,11 @@ function App() {
               className="logo react"
               alt="React logo"
             />
-            </a>
+          </a>
         </span>
       </div>
 
       <p>Click on the Tauri, Next, and React logos to learn more.</p>
-
-      <div className="row">
-        <div>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="button" onClick={() => greet()}>
-            Greet
-          </button>
-        </div>
-      </div>
-
-      <p>{greetMsg}</p>
     </div>
   )
 }
@@ -84,7 +60,7 @@ export default App
 ```
 
 </TabItem>
-<TabItem value="styles/global.css">
+<TabItem value="styles/globals.css">
 
 ```css
 :root {
@@ -142,37 +118,6 @@ h1 {
   text-align: center;
 }
 
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
 .logo {
   padding: 1.5em !important;
 }
@@ -194,44 +139,17 @@ span.logos > a > span {
     color: #f6f6f6;
     background-color: #2f2f2f;
   }
+  
+  .logo.next:hover {
+    filter: drop-shadow(0 0 2em #ffff);
+  }
 
   a:hover {
     color: #24c8db;
   }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-
-  .logo.next:hover {
-    filter: drop-shadow(0 0 2em #ffff);
-  }
 }
 ```
 
 </TabItem>
-<TabItem value="src-tauri/src/main.rs">
 
-```rust
-#![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)]
-
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
-fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
-
-</TabItem>
 </Tabs>
