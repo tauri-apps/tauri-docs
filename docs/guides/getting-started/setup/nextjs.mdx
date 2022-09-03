@@ -17,7 +17,7 @@ import Command from '@theme/Command'
 
 # Next.js
 
-This guide will walk you through creating your first Tauri app using the React Framework [Next.js][nextjs].
+This guide will walk you through creating your first Tauri app using the React Framework - [Next.js][nextjs].
 
 <Intro />
 
@@ -30,11 +30,11 @@ Here's a preview of what we will be building:
 
 ## Create the Frontend
 
-[Next.js][nextjs] is a React framework that gives you building blocks to create web applications. By framework, we mean Next.js handles the tooling and configuration needed for React, and provides additional structure, features, and optimizations for your application. To make NextJS work with Tauri we are going to use the SSG mode since it generates only static files that can be included in the final binary.
+[Next.js][nextjs] is a React framework that gives you the building blocks to create web applications. By framework, we mean Next.js handles the tooling and configuration needed for React and provides additional structure, features, and optimizations for your application. To make NextJS work with Tauri, we are going to use the SSG mode since it generates only static files that can be included in the final binary.
 
-### Creating Nextjs App
+### Creating Next.js App
 
-Next.js comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of [pre-defined templates](https://github.com/vercel/next.js/tree/canary/examples). You can choose from many templates like with-cms, with-tailwindcss and many many more. For this guide we will select the `with-typescript` template to create a simple project.
+Next.js comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of [pre-defined templates](https://github.com/vercel/next.js/tree/canary/examples). You can choose from many templates like with-cms, with-tailwindcss and many many more. For this guide, we will select the `with-typescript` template to create a simple typescript project.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm" label="Npm" default>
@@ -60,7 +60,7 @@ pnpm create next-app --ts
   </TabItem>
 </Tabs>
 
-Running the create command will ask you for the **Project name**
+Running the create command will ask you for the **Project name**.
 
 - This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
@@ -88,7 +88,7 @@ module.exports = nextConfig
 
 ### Updating scripts
 
-Using the `dev` script will open the development website at any available server. So, to make it permanent, modify the `dev` script in `package.json` in the root of the project:
+Using the `dev` script will open the development website on any available server. So, to make it permanent, modify the `dev` script at `package.json` in the root of the project:
 
 ```json
 "scripts": {
@@ -100,9 +100,9 @@ Using the `dev` script will open the development website at any available server
 },
 ```
 
-Now, your app will run on https://localhost:2005 everytime you run the `dev` or `tauri dev` script.
+Your app will now run on https://localhost:2005 every time you run the `dev` or `tauri dev` script.
 
-When using the `build` command, it does not generate a static site automatically. Next.js provides us a way to generate a static HTML/Javascript website. Update the `build` script in the `package.json` in the root of your project:
+When using the `build` command, it does not generate a static site automatically. Next.js provides us a way to generate a static HTML/Javascript website. Update the `build` script in the `package.json` at the root of your project:
 
 ```json
 // ...
@@ -116,11 +116,11 @@ When using the `build` command, it does not generate a static site automatically
 // ...
 ```
 
-The downside of creating a static site will be that you won't be able to use any type of data fetching like `getServerSideProps`.
+The downside of creating a static site will be that you will not be able to use any type of data fetching like `getServerSideProps`.
 
 :::info
 
-You can still use `getStaticProps` to generate HTML/JavaScript pages at build time. Since it is executed in nodejs context, calling the tauri api wont work. You can learn more about NextJS SSG on [official documentation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
+You can still use `getStaticProps` to generate HTML/JavaScript pages at build time. Since it is executed in nodejs context, calling the tauri api will not work. You can learn more about NextJS SSG from the [official documentation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
 :::
 
@@ -134,8 +134,8 @@ We will also modify the home page like this:
 
 <TauriInit destDirValue="../dist" devPathValue="http://localhost:2005" />
 
-Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
-But before you do, let's quickly configure Tauri so it **automatically** start's the nextjs development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
+Now that we have scaffolded our Frontend and initialized the Rust project, you're almost ready to run your Tauri app.
+But before you do, let's quickly configure Tauri so it **automatically** start's the nextjs development server when you run `tauri dev` and automatically runs the build script when you run `tauri build`:
 
 ```json title=src-tauri/tauri.conf.json
 {
@@ -162,7 +162,7 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Commands />
 
-To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
+To call our newly created command, we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favourite JavaScript package manager:
 
 <Tabs groupId="package-manager">
   <TabItem value="npm" label="npm" default>
@@ -188,7 +188,7 @@ pnpm add @tauri-apps/api
   </TabItem>
 </Tabs>
 
-With the library installed, you can modify your `pages/index.tsx` file to call the Command:
+With the library installed, you can modify your `pages/index.tsx` file to call the command:
 
 <NextInvoke />
 
