@@ -22,7 +22,6 @@ yarn-error.log*
 
 .yarnrc.yml
 .yarn
-yarn.lock
 
 .vscode
 examples
