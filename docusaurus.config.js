@@ -31,11 +31,6 @@ const navbarItems = [
     sidebarId: 'guides',
   },
   {
-    label: 'References',
-    type: 'docSidebar',
-    sidebarId: 'references',
-  },
-  {
     label: 'API',
     items: [
       {
@@ -59,6 +54,12 @@ const navbarItems = [
       },
     ],
   },
+  {
+    label: 'References',
+    type: 'docSidebar',
+    sidebarId: 'references',
+  },
+
   {
     label: 'Blog',
     to: 'blog',
