@@ -14,9 +14,13 @@ This is the file used by the Tauri process. You can define build settings (such 
 
 :::note
 
-The default Tauri config format is `.json`. The `.json5` or `.toml` format can be enabled by adding the `config-json5` or `config-toml` feature flag (respectively) to the `tauri` dependency in `Cargo.toml`. Note that the `.toml` format is only available from Tauri 1.1 and above.
+The default Tauri config format is `.json`. The `.json5` or `.toml` format can be enabled by adding the `config-json5` or `config-toml` feature flag (respectively) to the `tauri` and `tauri-build` dependencies in `Cargo.toml`. Note that the `.toml` format is only available from Tauri 1.1 and above.
 
 ```toml title=Cargo.toml
+[build-dependencies]
+// highlight-next-line
+tauri-build = { version = "1.0.0", features = [ "config-json5" ] }
+
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
