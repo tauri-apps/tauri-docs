@@ -10,9 +10,6 @@ on:
   push:
     branches: [dev]
 
-env:
-  LATEST_VERSION: v1
-
 jobs:
   build-locale-list:
     concurrency:
@@ -94,9 +91,10 @@ jobs:
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
+        # We temporarily copy docs since not all are uploaded to Crowdin
         run: |
-          echo $LATEST_VERSION
-          mv i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/$LATEST_VERSION || true
+          mkdir -p i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
+          rsync -a --ignore-existing docs/ i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           yarn build --locale ${{ matrix.locale }} --out-dir ./build/${{ matrix.locale }}
       - name: Save build folder
         uses: actions/upload-artifact@v3
@@ -110,6 +108,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       - name: Retrieve build folder
         uses: actions/download-artifact@v3
         with:

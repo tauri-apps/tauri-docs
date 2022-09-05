@@ -85,7 +85,7 @@ appWindow.listen("my-window-event", ({ event, payload }) => { });
 
 #### Defined in
 
-[window.ts:202](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L202)
+[window.ts:202](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L202)
 
 ___
 
@@ -97,7 +97,7 @@ The file drop event types.
 
 #### Defined in
 
-[window.ts:90](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L90)
+[window.ts:90](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L90)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[window.ts:67](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L67)
+[window.ts:67](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L67)
 
 ## Variables
 
@@ -119,7 +119,7 @@ The WebviewWindow for the current window.
 
 #### Defined in
 
-[window.ts:1871](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/window.ts#L1871)
+[window.ts:1871](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/window.ts#L1871)
 
 ## Functions
 

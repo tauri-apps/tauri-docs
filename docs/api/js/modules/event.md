@@ -38,7 +38,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 #### Defined in
 
-[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/helpers/event.ts#L22)
+[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L22)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/helpers/event.ts#L20)
+[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L20)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/helpers/event.ts#L24)
+[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/helpers/event.ts#L24)
 
 ## Functions
 
