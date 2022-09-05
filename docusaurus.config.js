@@ -273,7 +273,6 @@ async function siteConfig() {
                 return 'https://github.com/tauri-apps/tauri/edit/dev/core/tauri-utils/src/config.rs';
               } else if (docPath.startsWith("api/js")) {
                 const mod = docPath.split('/').at(-1).split('.')[0];
-                console.log(mod)
                 return `https://github.com/tauri-apps/tauri/edit/dev/tooling/api/src/${mod}.ts`;
               } else {
                 return `https://github.com/tauri-apps/tauri-docs/edit/dev/${versionDocsDirPath}/${docPath}`;
