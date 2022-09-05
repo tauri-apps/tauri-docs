@@ -26,41 +26,6 @@ const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
   {
-    label: 'About',
-    to: 'about/intro',
-
-    items: [
-      {
-        label: 'What is Tauri?',
-        to: 'about/intro',
-      },
-      {
-        label: 'Architecture',
-        to: 'about/architecture',
-      },
-      {
-        label: 'Security',
-        to: 'about/security',
-      },
-      {
-        label: 'Governance',
-        to: 'about/governance',
-      },
-      {
-        label: 'Trademark Guidelines',
-        to: 'about/trademark',
-      },
-      {
-        label: 'Get the Book',
-        to: 'about/book',
-      },
-      {
-        label: 'Benchmarks',
-        to: 'about/benchmarks',
-      },
-    ],
-  },
-  {
     label: 'Guides',
     type: 'docSidebar',
     sidebarId: 'guides',
@@ -90,6 +55,12 @@ const navbarItems = [
     ],
   },
   {
+    label: 'References',
+    type: 'docSidebar',
+    sidebarId: 'references',
+  },
+
+  {
     label: 'Blog',
     to: 'blog',
     position: 'left',
@@ -114,6 +85,29 @@ const navbarItems = [
       {
         label: 'Awesome Tauri',
         href: awesomeTauriUrl,
+      },
+    ],
+  },
+  {
+    label: 'About',
+    to: 'about/intro',
+
+    items: [
+      {
+        label: 'What is Tauri?',
+        to: 'about/intro',
+      },
+      {
+        label: 'Governance',
+        to: 'about/governance',
+      },
+      {
+        label: 'Trademark Guidelines',
+        to: 'about/trademark',
+      },
+      {
+        label: 'Get the Book',
+        to: 'about/book',
       },
     ],
   },
@@ -288,15 +282,17 @@ async function siteConfig() {
                 },
               }),
             },
-            remarkPlugins: [
-              [mdxMermaid.default, { theme: { light: 'light', dark: 'dark' } }],
-            ],
+            remarkPlugins: [require('mdx-mermaid')],
             async sidebarItemsGenerator({
               defaultSidebarItemsGenerator,
               ...args
             }) {
               const sidebarItems = await defaultSidebarItemsGenerator(args)
-              return sidebarItems.filter((item) => item.id !== 'guides/readme')
+              return sidebarItems.filter(
+                (item) =>
+                  // This makes sure that the landing pages are not duplicated in the sidebars
+                  item.id !== 'guides/readme' && item.id !== 'references/readme'
+              )
             },
           },
 

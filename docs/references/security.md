@@ -1,8 +1,9 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
+description: Learn about the steps you can take to help your app be as secure as possible.
 ---
 
-# Security
+# Development Security
 
 Whether you like it or not, today's applications live in operating systems that can be (and regularly are) compromised by any number of attacks. When your insecure application is a gateway for such lateral movement into the operating system, you are contributing to the tools that professional hackers have at their disposal. Don't be a tool.
 
