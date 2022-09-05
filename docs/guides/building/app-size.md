@@ -86,7 +86,7 @@ No one appreciates you shipping the 6K raw image with your app, so make sure to 
 
 #### Don't Use Responsive Images
 
-In a Web Environment, you are supposed to use [Responsive Images] to load the correct image size for each user dynamically. Since you are not dynamically distributting images over the web, using Responsive Images only bloat your app withredundant copies being distributed.
+In a Web Environment, you are supposed to use [Responsive Images] to load the correct image size for each user dynamically. Since you are not dynamically distributting images over the web, using Responsive Images only bloat your app with redundant copies being distributed.
 
 #### Remove Metadata
 

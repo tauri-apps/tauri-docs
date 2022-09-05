@@ -100,7 +100,7 @@ Even though installing the CLI through Cargo is the preferred option, it has to 
 
 As the CLI is written in Rust, it is naturally available through [crates.io] and installable with Cargo.
 
-We also compile the CLI as a native Node.js addon and distribute it [via NPM]. This has a number of advantages compared to the Cargo installation method:
+We also compile the CLI as a native Node.js addon and distribute it [via npm]. This has a number of advantages compared to the Cargo installation method:
 
 1. The CLI is pre-compiled, leading to much faster install times
 2. You can pin a specific version in your package.json file
@@ -113,7 +113,7 @@ We recommend using `es2021`, `last 3 Chrome versions`, and `safari13` for your b
 
 ## Build Conflict with Homebrew on Linux
 
-Homebrew on Linux includes it's own `pkg-config` (a utility to find libraries on the system). This can cause conflicts when installing the same `pkg-config` package for Tauri (usually installed through the package manager like `apt`). When you try to build a Tauri app it will try to invoke `pkg-config` and will end up invoking the one from Homebrew. If Homebrew wasn't used to install Tauri's dependencies this can cause errors.
+Homebrew on Linux includes its own `pkg-config` (a utility to find libraries on the system). This can cause conflicts when installing the same `pkg-config` package for Tauri (usually installed through the package manager like `apt`). When you try to build a Tauri app it will try to invoke `pkg-config` and will end up invoking the one from Homebrew. If Homebrew wasn't used to install Tauri's dependencies, this can cause errors.
 
 There are two solutions to this issue:
 

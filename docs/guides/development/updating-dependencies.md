@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Updating Dependencies
 
-## Update NPM Packages
+## Update npm Packages
 
 If you are using the `tauri` package:
 

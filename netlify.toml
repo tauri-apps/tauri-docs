@@ -49,3 +49,27 @@ to = "/v1/guides/architecture/inter-process-communication/isolation"
 [[redirects]]
 from = "/v1/guides/getting-started/tauri-cli"
 to = "/v1/guides/getting-started/setup/html-css-js"
+
+[[redirects]]
+from = "/blog/tauri_1_0"
+to = "/blog/2022/06/19/tauri-1-0"
+
+[[redirects]]
+from = "/release-notes"
+to = "/releases"
+
+[[redirects]]
+from = "/v1/guides/architecture/*"
+to = "/v1/references/architecture/:splat"
+
+[[redirects]]
+from = "/v1/guides/development/security"
+to = "/v1/references/security"
+
+[[redirects]]
+from = "/about/security"
+to = "/v1/references/architecture/security"
+
+[[redirects]]
+from = "/about/benchmarks"
+to = "/v1/references/benchmarks"

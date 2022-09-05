@@ -97,7 +97,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 #### Defined in
 
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/b1d5342/tooling/api/src/fs.ts#L115)
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
