@@ -266,7 +266,18 @@ async function siteConfig() {
             exclude: ['api/rust/**', 'api/js/js-api.json', '**/_*.{md,mdx}'],
             sidebarPath: require.resolve('./sidebars.js'),
             showLastUpdateTime: true,
-            editUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev/',
+            editUrl: ({ docPath, versionDocsDirPath }) => {
+              if (docPath === "api/cli.md") {
+                return 'https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/src';
+              } else if (docPath === "api/config.md") {
+                return 'https://github.com/tauri-apps/tauri/edit/dev/core/tauri-utils/src/config.rs';
+              } else if (docPath.startsWith("api/js")) {
+                const mod = docPath.split('/').at(-1).split('.')[0];
+                return `https://github.com/tauri-apps/tauri/edit/dev/tooling/api/src/${mod}.ts`;
+              } else {
+                return `https://github.com/tauri-apps/tauri-docs/edit/dev/${versionDocsDirPath}/${docPath}`;
+              }
+            },
             sidebarCollapsible: true,
             versions: {
               // Maps the working "current" version to a custom url instead of `next`
