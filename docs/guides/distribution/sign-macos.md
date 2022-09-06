@@ -17,7 +17,7 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 - Xcode 10 or later
 - An Apple Developer account enrolled in the [Apple Developer Program]
 
-The prerequisites above are also the minimum conditions for notarization. For more details please read the developer article on [notarizing macOS software before distribution].
+For more details please read the developer article on [notarizing macOS software before distribution].
 
 ## tl;dr
 
