@@ -250,7 +250,7 @@ Note that each platform key is in the `OS-ARCH` format, where `OS` is one of `li
 The Tauri bundler automatically generates update artifacts if the updater is enabled in `tauri.conf.json`
 Your update artifacts are automatically signed if the bundler can locate your private and public key.
 
-The signature can be found in the content `sig` file. The signature can be uploaded to GitHub safely or made public if your private key is secure.
+The signature can be found in the content of a `sig` file. The signature can be uploaded to GitHub safely or made public if your private key is secure.
 
 You can see how it's [bundled with the CI][artifacts updater workflow] and a [sample tauri.conf.json].
 
