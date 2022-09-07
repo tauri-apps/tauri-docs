@@ -29,7 +29,7 @@ export const CreateTauriApp = () => {
       </TabItem>
       <TabItem value="PowerShell">
         <CodeBlock className={`language-powershell`}>
-          iwr https://create.tauri.app/ps | iex
+          iwr -useb https://create.tauri.app/ps | iex
         </CodeBlock>
       </TabItem>
       <TabItem value="Cargo">
