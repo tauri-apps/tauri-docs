@@ -5,10 +5,10 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 const types = [
-  { label: 'npm', value: 'npm run tauri ' },
-  { label: 'Yarn', value: 'yarn tauri ' },
-  { label: 'pnpm', value: 'pnpm tauri ' },
-  { label: 'Cargo', value: 'cargo tauri ' },
+  { value: 'npm', content: 'npm run tauri ' },
+  { value: 'Yarn', content: 'yarn tauri ' },
+  { value: 'pnpm', content: 'pnpm tauri ' },
+  { value: 'Cargo', content: 'cargo tauri ' },
 ]
 
 function insertDashDashBeforeOption(value, name) {
@@ -21,33 +21,35 @@ function insertDashDashBeforeOption(value, name) {
 
 export const CreateTauriApp = () => {
   return (
-    <Tabs className="">
+    <Tabs groupId="package-manager">
       <TabItem value="Bash">
-        <CodeBlock className={`language-shell`}>
+        <CodeBlock className="language-shell" language="shell">
           {`sh <(curl https://create.tauri.app/sh)`}
         </CodeBlock>
       </TabItem>
       <TabItem value="PowerShell">
-        <CodeBlock className={`language-powershell`}>
+        <CodeBlock className="language-shell" language="powershell">
           iwr -useb https://create.tauri.app/ps | iex
         </CodeBlock>
       </TabItem>
       <TabItem value="Cargo">
-        <CodeBlock className={`language-shell`}>
+        <CodeBlock className="language-shell" language="shell">
           {`cargo install create-tauri-app
 cargo create-tauri-app`}
         </CodeBlock>
       </TabItem>
       <TabItem value="npm">
-        <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
+        <CodeBlock className="language-shell" language="shell">
+          npm create tauri-app
+        </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
-        <CodeBlock className={`language-shell`}>
+        <CodeBlock className="language-shell" language="shell">
           yarn create tauri-app
         </CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
-        <CodeBlock className={`language-shell`}>
+        <CodeBlock className="language-shell" language="shell">
           pnpm create tauri-app
         </CodeBlock>
       </TabItem>
@@ -55,15 +57,64 @@ cargo create-tauri-app`}
   )
 }
 
-export default ({ name, shell = 'shell' }) => {
+export const InstallTauriCli = () => {
   return (
-    <Tabs groupId="installMode" defaultValue="yarn tauri " values={types}>
+    <Tabs groupId="package-manager">
+      <TabItem value="npm" default>
+        <CodeBlock className="language-shell" language="shell">
+          npm install @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Yarn">
+        <CodeBlock className="language-shell" language="shell">
+          yarn add @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="pnpm">
+        <CodeBlock className="language-shell" language="shell">
+          pnpm add @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Cargo">
+        <CodeBlock className="language-shell" language="shell">
+          cargo install tauri-cli
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  )
+}
+
+export const InstallTauriApi = () => {
+  return (
+    <Tabs groupId="package-manager">
+      <TabItem value="npm" default>
+        <CodeBlock className="language-shell" language="shell">
+          npm install @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Yarn">
+        <CodeBlock className="language-shell" language="shell">
+          yarn add @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="pnpm">
+        <CodeBlock className="language-shell" language="shell">
+          pnpm add @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  )
+}
+
+export default ({ name }) => {
+  return (
+    <Tabs groupId="package-manager" values={types}>
       {types.map((type) => (
         <TabItem value={type.value}>
-          <CodeBlock className={`language-${shell}`}>
-            {type.label !== 'npm'
-              ? type.value + name
-              : insertDashDashBeforeOption(type.value, name)}
+          <CodeBlock className="language-shell" language="shell">
+            {type.value !== 'npm'
+              ? type.content + name
+              : insertDashDashBeforeOption(type.content, name)}
           </CodeBlock>
         </TabItem>
       ))}
