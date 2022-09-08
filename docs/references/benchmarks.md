@@ -1,3 +1,7 @@
+---
+description: View the current benchmarks of Tauri for binary size, memory usage, and other metrics.
+---
+
 # Benchmarks
 
 import Chart, { fetchData } from '@theme/BenchmarkChart'

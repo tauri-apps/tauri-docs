@@ -6,9 +6,9 @@ import TabItem from '@theme/TabItem'
 
 const types = [
   { label: 'npm', value: 'npm run tauri ' },
-  { label: 'yarn', value: 'yarn tauri ' },
+  { label: 'Yarn', value: 'yarn tauri ' },
   { label: 'pnpm', value: 'pnpm tauri ' },
-  { label: 'cargo', value: 'cargo tauri ' },
+  { label: 'Cargo', value: 'cargo tauri ' },
 ]
 
 function insertDashDashBeforeOption(value, name) {
@@ -21,60 +21,27 @@ function insertDashDashBeforeOption(value, name) {
 
 export const CreateTauriApp = () => {
   return (
-    <Tabs groupId="package-manager">
+    <Tabs>
+      <TabItem value="Bash">
+        <CodeBlock className={`language-shell`}>
+          {`sh <(curl https://create.tauri.app/sh)`}
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="PowerShell">
+        <CodeBlock className={`language-powershell`}>
+          iwr -useb https://create.tauri.app/ps | iex
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Cargo">
+        <CodeBlock className={`language-shell`}>
+          {`cargo install create-tauri-app
+cargo create-tauri-app`}
+        </CodeBlock>
+      </TabItem>
       <TabItem value="npm">
         <CodeBlock className={`language-shell`}>npm create tauri-app</CodeBlock>
       </TabItem>
-      <TabItem value="yarn">
-        <CodeBlock className={`language-shell`}>
-          yarn create tauri-app
-        </CodeBlock>
-      </TabItem>
-      <TabItem value="pnpm">
-        <CodeBlock className={`language-shell`}>
-          pnpm create tauri-app
-        </CodeBlock>
-      </TabItem>
-    </Tabs>
-  )
-}
-
-export const InstallTauriCLI = () => {
-  return (
-    <Tabs groupId="package-manager">
-      <TabItem value="npm">
-        <CodeBlock className={`language-shell`}>
-          npm install --save-dev @tauri-apps/cli
-        </CodeBlock>
-      </TabItem>
-      <TabItem value="yarn">
-        <CodeBlock className={`language-shell`}>
-          yarn add -D @tauri-apps/cli
-        </CodeBlock>
-      </TabItem>
-      <TabItem value="pnpm">
-        <CodeBlock className={`language-shell`}>
-          pnpm add -D @tauri-apps/cli
-        </CodeBlock>
-      </TabItem>
-      <TabItem value="cargo">
-        <CodeBlock className={`language-shell`}>
-          cargo install tauri-cli
-        </CodeBlock>
-      </TabItem>
-    </Tabs>
-  )
-}
-
-export const InstallTauriAPI = () => {
-  return (
-    <Tabs groupId="package-manager">
-      <TabItem value="npm">
-        <CodeBlock className={`language-shell`}>
-          npm install @tauri-apps/api
-        </CodeBlock>
-      </TabItem>
-      <TabItem value="yarn">
+      <TabItem value="Yarn">
         <CodeBlock className={`language-shell`}>
           yarn add @tauri-apps/api
         </CodeBlock>
