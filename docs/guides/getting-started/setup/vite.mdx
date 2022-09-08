@@ -11,7 +11,7 @@ import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import Command from '@theme/Command'
+import Command, { InstallTauriApi } from '@theme/Command'
 
 # Vite
 
@@ -31,21 +31,23 @@ Here's a preview of what we will be building:
 Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from a number of pre-defined templates. You can choose from many frontend frameworks like React, Svelte or Vue. For this guide we will select the `vanilla-ts` template to create a simple project _without_ any frontend framework.
 
 <Tabs groupId="package-manager">
-  <TabItem value="npm" label="npm" default>
+  <TabItem value="npm">
 
 ```shell
 npm create vite@latest
 ```
 
   </TabItem>
-  <TabItem value="yarn" label="Yarn">
+
+  <TabItem value="Yarn">
 
 ```shell
 yarn create vite
 ```
 
   </TabItem>
-  <TabItem value="pnpm" label="pnpm">
+
+  <TabItem value="pnpm">
 
 ```shell
 pnpm create vite
@@ -94,20 +96,22 @@ export default defineConfig({
 
 ## Create the Rust Project
 
-<TauriInit destDirValue="../dist" devPathValue="http://localhost:5173" />
+<TauriInit
+  destDirExplination='Use "../dist" for this value.'
+  devPathExplination='Use "http://localhost:5173" for this value.'
+  beforeDevCommandExplination='Use "npm run dev" for this value (be sure to adapt to use your package manager of choice).'
+  beforeBuildCommandExplination='Use "npm run build" for this value (be sure to adapt to use your package manager of choice).'
+/>
 
-Now that we have scaffolded our Frontend and initialized the Rust project you're almost ready to run your App.
-But before you do, let's quickly configure Tauri so it **automatically** start's the vite development server when you type `tauri dev` and automatically runs the build script when you run `tauri build`:
+Now that we have scaffolded our frontend and initialized the Rust project the created `tauri.conf.json` file should look like this:
 
 ```json title=src-tauri/tauri.conf.json
 {
   "build": {
-    // highlight-start
-    // this command will execute when you run `tauri build`
+    // This command will execute when you run `tauri build`.
     "beforeBuildCommand": "npm run build",
-    // this command will execute when you run `tauri dev`
+    // This command will execute when you run `tauri dev`
     "beforeDevCommand": "npm run dev",
-    // highlight-end
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
   },
@@ -126,29 +130,7 @@ And that's it! Now you can run the following command in your terminal to start a
 
 To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm" label="npm" default>
-
-```shell
-npm install @tauri-apps/api
-```
-
-  </TabItem>
-  <TabItem value="yarn" label="Yarn">
-
-```shell
-yarn add @tauri-apps/api
-```
-
-  </TabItem>
-  <TabItem value="pnpm" label="pnpm">
-
-```shell
-pnpm add @tauri-apps/api
-```
-
-  </TabItem>
-</Tabs>
+<InstallTauriApi />
 
 With the library installed, you can modify your `main.ts` file to call the Command:
 
@@ -168,8 +150,6 @@ invoke('greet', { name: 'World' })
 If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
 
 :::
-
-<!-- TODO: Show how you can add this and screenshots of what it looks like -->
 
 [vite]: https://vitejs.dev
 [cargo]: https://doc.rust-lang.org/cargo/

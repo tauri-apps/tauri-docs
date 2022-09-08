@@ -1,0 +1,115 @@
+---
+description: If you already have an existing web project, this guide will walk you through integrating Tauri into your project
+pagination_next: guides/development/development-cycle
+sidebar_position: 3
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
+---
+
+import Commands from './_fragments/_commands.mdx'
+import { InstallTauriCli, InstallTauriApi } from '@theme/Command'
+import TauriInit from './_fragments/_tauri-init.mdx'
+
+# Integrate into Existing Project
+
+If you already have an existing web project, this guide will walk you through integrating Tauri into your project, whether it is Node.js-based (like [Svelte], [React], [Vue], or [Angular]) or Rust-based (like [Yew] or [Dominator]).
+
+:::info
+
+Before we continue, make sure you have completed the [prerequisites] to have a working development environment.
+
+:::
+
+Although Tauri is compatiable with nearly any frontend framework, we'll use examples with a [React] project throughout this guide. We'll assuming you're starting off with a project structure similar to this:
+
+```
+.
+│── package.json
+│── public
+│   ╰── index.html
+╰── src
+    │── App.css
+    │── App.js
+    │── index.css
+    ╰── index.js
+```
+
+## Create the Rust Project
+
+<TauriInit
+  destDirExplination='Use the path where your compiled web assets will be located. This may be something like "../dist" or "../build".'
+  devPathExplination='This is the path or address your frontend is served at during development. If servering from localhost this could be "https://localhost:3000". This can also be a directory similar to the above question.'
+  beforeDevCommandExplination='Use "npm run dev" for this value (be sure to adapt to use your package manager of choice).'
+  beforeBuildCommandExplination='Use "npm run build" for this value (be sure to adapt to use your package manager of choice).'
+/>
+
+And that's it, you have now added Tauri to your existing project and you should see a `src-tauri` directory that looks something like this:
+
+```diff {11-16}
+│── README.md
+│── package.json
+│── public
+│   │── favicon.ico
+│   ╰── index.html
+│── src
+│   │── App.css
+│   │── App.js
+│   │── index.css
+│   ╰── index.js
+╰── src-tauri
+    │── Cargo.toml
+    │── build.rs
+    │── icons
+    │── src
+    ╰── tauri.conf.json
+```
+
+## Add JavaScript API Package (Optional)
+
+You can also add the JavaScript API package to use Tauri's [APIs] inside your JavaScript project with the below command:
+
+<InstallTauriAPI />
+
+## Invoke Commands
+
+<Commands />
+
+```jsx title=src/App.js {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+import { invoke } from '@tauri-apps/api'
+
+function App() {
+  // now we can call our Command!
+  // Right-click the application background and open the developer tools.
+  // You will see "Hello, World!" printed in the console!
+  invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[prerequisites]: ../prerequisites.md
+[create-react-app]: https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+[svelte]: https://svelte.dev
+[react]: https://svelte.dev
+[vue]: https://vuejs.org
+[angular]: https://angluar.io
+[yew]: https://yew.rs
+[dominator]: https://github.com/Pauan/rust-dominator
+[yarn]: https://yarnpkg.com
+[cargo]: https://doc.rust-lang.org/cargo/
+[apis]: ../../api/js/modules/app
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
