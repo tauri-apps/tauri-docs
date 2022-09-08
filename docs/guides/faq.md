@@ -115,6 +115,8 @@ We recommend using `es2021`, `last 3 Chrome versions`, and `safari13` for your b
 
 Homebrew on Linux includes its own `pkg-config` (a utility to find libraries on the system). This can cause conflicts when installing the same `pkg-config` package for Tauri (usually installed through the package manager like `apt`). When you try to build a Tauri app it will try to invoke `pkg-config` and will end up invoking the one from Homebrew. If Homebrew wasn't used to install Tauri's dependencies, this can cause errors.
 
+Errors will _usually_ contain messages along the lines of `error: failed to run custom build command for X` - `Package Y was not found in the pkg-config search path.`. Note that you may see similar errors if the required dependencies are not installed at all.
+
 There are two solutions to this issue:
 
 1. [Uninstall Homebrew]

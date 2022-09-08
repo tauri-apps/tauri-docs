@@ -61,7 +61,7 @@ function Cards() {
       label: translate({ message: 'Cross Platform' }),
       description: translate({
         message:
-          'Bundle binaries for all major desktop platforms (mobile & WASM coming soon).',
+          'Bundle binaries for all major desktop platforms (mobile coming soon).',
       }),
       link: '/guides/building/cross-platform',
       isDoc: true,
