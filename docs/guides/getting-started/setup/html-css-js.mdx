@@ -1,6 +1,7 @@
 ---
 description: Build a Tauri app using HTML, CSS, and JavaScript using either Node or Cargo
 pagination_next: guides/development/development-cycle
+sidebar_position: 1
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/html5-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
@@ -19,8 +20,8 @@ This guide will walk you through creating your first Tauri app using just HTML, 
 
 Here's a preview of what we will be building:
 
-![Preview of Application](./html-css-js-light.png#gh-light-mode-only)
-![Preview of Application](./html-css-js-dark.png#gh-dark-mode-only)
+![Preview of Application](./assets/html-css-js/html-css-js-light.png#gh-light-mode-only)
+![Preview of Application](./assets/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -51,7 +52,12 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 
 ## Create the Rust Project
 
-<TauriInit destDirValue="../ui" devPathValue="../ui" />
+<TauriInit
+  destDirExplination="Use ../ui for this value."
+  devPathExplination="Use ../ui for this value."
+  beforeDevCommandExplination="You can leave this blank since nothing needs to be compiled."
+  beforeBuildCommandExplination="You can leave this blank since nothing needs to be compiled."
+/>
 
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
 
@@ -59,8 +65,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 Preview of Application
 
-![Development Progress](./html-css-js-dev-light.png#gh-light-mode-only)
-![Development Progress](./html-css-js-dev-dark.png#gh-dark-mode-only)
+![Development Progress](./assets/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
+![Development Progress](./assets/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 
