@@ -166,7 +166,7 @@ isClient &&
   invoke('greet', { name: 'World' }).then(console.log).catch(console.error)
 ```
 
-A better approche will be to use Tauri calls in `componentDidMount` or `useEffect` that are only run in client side by [Next.js].
+A better approach would be to use Tauri calls in `componentDidMount` or `useEffect` that are only run on the client-side by [Next.js].
 
 So to make it cleaner we should rewrite it like this:
 
