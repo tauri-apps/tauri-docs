@@ -9,7 +9,7 @@ sidebar_custom_props:
 
 import Commands from './_fragments/_commands.mdx'
 import TauriInit from './_fragments/_tauri-init.mdx'
-import { InstallTauriCli, InstallTauriApi } from '@theme/Command'
+import Command, { InstallTauriCli, InstallTauriApi } from '@theme/Command'
 
 # Integrate into Existing Project
 
@@ -63,15 +63,24 @@ And that's it, you have now added Tauri to your existing project and you should 
     ╰── tauri.conf.json
 ```
 
-## Add JavaScript API Package (Optional)
-
-You can also add the JavaScript API package to use Tauri's [APIs] inside your JavaScript project with the below command:
-
-<InstallTauriApi />
-
 ## Invoke Commands
 
+There are two different ways you can invoke commands from your frontend project:
+
+1. Using the [`@tauri-apps/api`] JavaScript library (preferred)
+2. Using [`withGlobalTauri`] to use a pre-bundled version of the Tauri API
+
+:::tip
+
+The rest of this section assumes you're using the [`@tauri-apps/api`] library. If you want to use [`withGlobalTauri`] instead, we recommend following the [Invoke Commands] section of the HTML, CSS, and JavaScript guide instead.
+
+:::
+
 <Commands />
+
+To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
+
+<InstallTauriApi />
 
 ```jsx title=src/App.js {4,7-12}
 import logo from './logo.svg';
@@ -93,6 +102,10 @@ function App() {
 }
 ```
 
+You can now run the following command in your terminal to start a development build of your app:
+
+<Command name="dev" />
+
 :::tip
 
 If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
@@ -111,3 +124,6 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [cargo]: https://doc.rust-lang.org/cargo/
 [apis]: ../../../api/js/modules/app.md
 [inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withglobaltauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[invoke commands]: ./html-css-js.mdx#invoke-commands
+[`@tauri-apps/api`]: ../../../api/js/
