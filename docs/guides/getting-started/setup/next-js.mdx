@@ -103,7 +103,7 @@ Your `package.json` should look like this:
 ## Next.js in SSG mode
 
 The "benefit" of using SSG mode is pre-rendered React code in static HTML/JavaScript. This means your page can load faster.
-React doesn't have to render the HTML on client side, on the first load it will just hydrate it if needed.
+React doesn't have to render the HTML on the client-side but will hydrate it on the first load if needed.
 The "downside" is that we cannot use `getServerSideProps` or use any type of "data fetching" for rendering our page for a request.
 
 :::tip
