@@ -293,7 +293,17 @@ async function siteConfig() {
                 },
               }),
             },
-            remarkPlugins: [require('mdx-mermaid')],
+            remarkPlugins: [
+              [
+                mdxMermaid.default,
+                {
+                  mermaid: {
+                    theme: 'default',
+                    themeCSS: fs.readFileSync('./src/css/mermaid.css', 'utf-8'),
+                  },
+                },
+              ],
+            ],
             async sidebarItemsGenerator({
               defaultSidebarItemsGenerator,
               ...args

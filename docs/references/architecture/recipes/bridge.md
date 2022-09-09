@@ -50,23 +50,21 @@ The Bridge recipe is a secure pattern where messages are passed between brokers 
 
 ## Diagram
 
-import { colors } from '@theme/Mermaid'
-
 ```mermaid
 graph TD
   H==>F
   subgraph WEBVIEW
-  F-.-E
+    F-.-E
   end
   D-->E
   E-->D
   B-->D
   D-->B
   subgraph RUST
-  A==>H
-  A-->B
-  B-.-C
-  B-.-G
+    A==>H
+    A-->B
+    B-.-C
+    B-.-G
   end
   A[Binary]
   B{Rust Broker}
@@ -76,9 +74,9 @@ graph TD
   E{JS Broker}
   F[Window]
   H{Bootstrap}
-  style D fill:#ccc,stroke:#333,stroke-width:4px,color:white
-  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  class D apibridge
+  class RUST rust
+  class WEBVIEW webview
 ```
 
 ## Configuration

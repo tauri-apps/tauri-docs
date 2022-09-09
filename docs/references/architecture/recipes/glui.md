@@ -54,8 +54,6 @@ The GLUI is a research pattern that we will use internally to test approaches us
 
 ## Diagram
 
-import { colors } from '@theme/Mermaid'
-
 ```mermaid
 graph TD
   A==>H
@@ -63,17 +61,17 @@ graph TD
   A-->D
   D-->G
   subgraph GLUTIN
-  G
+    G
   end
   subgraph RUST
-  A
+    A
   end
   A[Binary]
   D(Framebuffer)
   G[GL Window]
   H{Bootstrap}
-  style GLUTIN stroke:${colors.blue.dark},stroke-width:4px
-  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+  class GLUTIN other
+  class RUST rust
 ```
 
 ## Configuration

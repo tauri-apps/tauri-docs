@@ -50,8 +50,6 @@ The Cloudish recipe is a pattern for maximum flexibility and app performance. It
 
 ## Diagram
 
-import { colors } from '@theme/Mermaid'
-
 ```mermaid
 graph TD
   H==>F
@@ -59,23 +57,23 @@ graph TD
   D-->F
   F-->D
   subgraph RUST
-  A==>H
+    A==>H
   end
   subgraph WEBVIEW
-  F
+    F
   end
   subgraph SERVER
-  D
-  E-->D
+    D
+    E-->D
   end
   A[Binary]
   D(( localhost ))
   E[bundled resources]
   F[Window]
   H{Bootstrap}
-  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-  style SERVER fill:#49A24A,stroke:#2B6063,stroke-width:4px
+  class RUST rust
+  class WEBVIEW webview
+  class SERVER server
 ```
 
 ## Configuration

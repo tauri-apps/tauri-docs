@@ -49,29 +49,27 @@ The Multiwin recipe will allow you to have multiple windows.
 
 ## Diagram
 
-import { colors } from '@theme/Mermaid'
-
 ```mermaid
 graph LR
   A==>H
   H==>F
   H==>G
   subgraph WEBVIEW
-  F
+    F
   end
   subgraph WINIT
-  G
+    G
   end
   subgraph RUST
-  A
+    A
   end
   A[Binary]
   F[Window]
   G[Window]
   H{Bootstrap}
-  style WINIT stroke:${colors.blue.dark},stroke-width:4px
-  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  class WINIT other
+  class RUST rust
+  class WEBVIEW webview
 ```
 
 ## Configuration
