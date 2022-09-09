@@ -38,10 +38,22 @@ Although Tauri is compatiable with nearly any frontend framework, we'll use a [R
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination='Use the path where your compiled web assets will be located. This may be something like "../dist" or "../build".'
-  devPathExplination='This is the path or address your frontend is served at during development. If servering from localhost this could be "https://localhost:3000". This can also be a directory similar to the above question.'
-  beforeDevCommandExplination='Use "npm run dev" for this value (be sure to adapt to use your package manager of choice).'
-  beforeBuildCommandExplination='Use "npm run build" for this value (be sure to adapt to use your package manager of choice).'
+  destDirExplination={{
+    __html:
+      'Use the path where your compiled web assets will be located. This may be something like <code>../dist</code> or <code>../build</code>.',
+  }}
+  devPathExplination={{
+    __html:
+      'This is the path or address your frontend is served at during development. If servering from localhost this could be <code>https://localhost:3000</code>. This can also be a directory similar to the above question.',
+  }}
+  beforeDevCommandExplination={{
+    __html:
+      'Use <code>npm run dev</code> for this value (be sure to adapt to use your package manager of choice).',
+  }}
+  beforeBuildCommandExplination={{
+    __html:
+      'Use <code>npm run build</code> for this value (be sure to adapt to use your package manager of choice).',
+  }}
 />
 
 And that's it, you have now added Tauri to your existing project and you should see a `src-tauri` directory that looks something like this:

@@ -53,10 +53,18 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination="Use ../ui for this value."
-  devPathExplination="Use ../ui for this value."
-  beforeDevCommandExplination="You can leave this blank since nothing needs to be compiled."
-  beforeBuildCommandExplination="You can leave this blank since nothing needs to be compiled."
+  destDirExplination={{
+    __html: 'Use <code>../ui</code> for this value.',
+  }}
+  devPathExplination={{
+    __html: 'Use <code>../ui</code> for this value.',
+  }}
+  beforeDevCommandExplination={{
+    __html: 'You can leave this blank since nothing needs to be compiled.',
+  }}
+  beforeBuildCommandExplination={{
+    __html: 'You can leave this blank since nothing needs to be compiled.',
+  }}
 />
 
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
