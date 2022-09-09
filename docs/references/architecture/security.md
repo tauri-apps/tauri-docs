@@ -1,6 +1,10 @@
+---
+sidebar_position: 2
+---
+
 # Security
 
-This guide seeks to explain the high-level concepts and Security Features at the core of Tauri's design that make you, your apps, and your users safer by default.
+This guide seeks to explain the high-level concepts and security features at the core of Tauri's design that make you, your apps, and your users safer by default.
 
 :::info Note
 While we take every opportunity to help you harden your application - there are always underlying threats like BIOS attacks, memory rowhammering and other operating system vulnerabilities that are constantly being discovered and (in the best cases) responsibly disclosed.

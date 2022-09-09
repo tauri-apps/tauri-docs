@@ -31,7 +31,8 @@ function Cards() {
         message:
           'Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.',
       }),
-      link: 'about/security',
+      link: '/references/architecture/security',
+      isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/security.svg',
     },
@@ -51,7 +52,8 @@ function Cards() {
         message:
           "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.",
       }),
-      link: 'about/benchmarks',
+      link: '/references/benchmarks',
+      isDoc: true,
       linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/box.svg',
     },
@@ -59,7 +61,7 @@ function Cards() {
       label: translate({ message: 'Cross Platform' }),
       description: translate({
         message:
-          'Bundle binaries for all major desktop platforms (mobile & WASM coming soon).',
+          'Bundle binaries for all major desktop platforms (mobile coming soon).',
       }),
       link: '/guides/building/cross-platform',
       isDoc: true,
