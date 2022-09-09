@@ -62,17 +62,17 @@ export const InstallTauriCli = () => {
     <Tabs groupId="package-manager">
       <TabItem value="npm" default>
         <CodeBlock className="language-shell" language="shell">
-          npm install @tauri-apps/cli
+          npm install --save-dev @tauri-apps/cli
         </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
         <CodeBlock className="language-shell" language="shell">
-          yarn add @tauri-apps/cli
+          yarn add -D @tauri-apps/cli
         </CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className="language-shell" language="shell">
-          pnpm add @tauri-apps/cli
+          pnpm add -D @tauri-apps/cli
         </CodeBlock>
       </TabItem>
       <TabItem value="Cargo">
