@@ -74,7 +74,7 @@ It will walk you through a series of questions:
     This is the path that Tauri will load your frontend assets from when
     building for <b>production</b>.{' '}
     {props.destDirExplination && (
-      <span dangerouslySetInnerHTML={props.destDirExplination} />
+      <div dangerouslySetInnerHTML={props.destDirExplination} />
     )}
   </li>
   <br />
@@ -84,7 +84,7 @@ It will walk you through a series of questions:
     This can be either a URL or a file path that Tauri will load during{' '}
     <b>development</b>.{' '}
     {props.devPathExplination && (
-      <span dangerouslySetInnerHTML={props.devPathExplination} />
+      <div dangerouslySetInnerHTML={props.devPathExplination} />
     )}
   </li>
   <br />
@@ -93,7 +93,7 @@ It will walk you through a series of questions:
     <br />
     This is the command to used to start your frontend dev server.{' '}
     {props.beforeDevCommandExplination && (
-      <span dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
+      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
     )}
   </li>
   <br />
@@ -102,7 +102,7 @@ It will walk you through a series of questions:
     <br />
     This the the command to build your frontend files.{' '}
     {props.beforeBuildCommandExplination && (
-      <span dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
+      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
     )}
   </li>
 </ol>
