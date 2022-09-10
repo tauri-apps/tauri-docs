@@ -67,13 +67,13 @@ Note that this scope applies to **all** APIs on this module.
 
 ### Dir
 
-Renames and re-exports <a href="fs.md#basedirectory">BaseDirectory</a>
+Renames and re-exports [BaseDirectory](fs.md#basedirectory)
 
 ---
 
 ### writeFile
 
-Renames and re-exports <a href="fs.md#writetextfile">writeTextFile</a>
+Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ---
 
