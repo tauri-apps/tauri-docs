@@ -73,3 +73,8 @@ to = "/v1/references/architecture/security"
 [[redirects]]
 from = "/about/benchmarks"
 to = "/v1/references/benchmarks"
+
+# Temporary fix for search results
+[[redirects]]
+from = "/references/*"
+to = "/v1/references/:splat"
