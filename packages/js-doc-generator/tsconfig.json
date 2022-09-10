@@ -1,3 +1,0 @@
-{
-  "extends": "../../../tauri/tooling/api/tsconfig.json"
-}

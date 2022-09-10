@@ -39,7 +39,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri
-          ref: ${{ github.event.inputs.tauriBranch }}
+          ref: feat/js-api-docs
+          # Temporarily using this specific branch above
+          # ref: ${{ github.event.inputs.tauriBranch }}
           path: tauri
 
       - name: Checkout tauri-docs
@@ -81,14 +83,18 @@ jobs:
       #     linksRoot: ""
       #     cratesToProcess: "tauri"
 
-      - name: Generate JS docs
+      - name: Prep for JS doc generation
+        working-directory: ./tauri/tooling/api
+        run: yarn
+
+      - name: Build JS docs
         working-directory: ./tauri-docs/packages/js-doc-generator
         run: yarn && yarn generate-docs
 
       - name: Copy JS docs
         run: |
           rm -rf tauri-docs/docs/api/js/*
-          cp -r tauri/tooling/api/docs/* tauri-docs/docs/api/js/
+          cp -r tauri-docs/packages/js-doc-generator/docs/* tauri-docs/docs/api/js/
 
       # this doesn't really need to be run on the content generation and PR opening
       # should this be removed and run at the same time as our netlify publish sequence

@@ -1,28 +1,11 @@
 {
-  "entryPoints": [
-    "../../../tauri/tooling/api/src/app.ts",
-    "../../../tauri/tooling/api/src/cli.ts",
-    "../../../tauri/tooling/api/src/clipboard.ts",
-    "../../../tauri/tooling/api/src/dialog.ts",
-    "../../../tauri/tooling/api/src/event.ts",
-    "../../../tauri/tooling/api/src/fs.ts",
-    "../../../tauri/tooling/api/src/globalShortcut.ts",
-    "../../../tauri/tooling/api/src/http.ts",
-    "../../../tauri/tooling/api/src/mocks.ts",
-    "../../../tauri/tooling/api/src/notification.ts",
-    "../../../tauri/tooling/api/src/os.ts",
-    "../../../tauri/tooling/api/src/path.ts",
-    "../../../tauri/tooling/api/src/process.ts",
-    "../../../tauri/tooling/api/src/shell.ts",
-    "../../../tauri/tooling/api/src/tauri.ts",
-    "../../../tauri/tooling/api/src/updater.ts",
-    "../../../tauri/tooling/api/src/window.ts"
-  ],
+  "tsconfig": "../../../tauri/tooling/api/tsconfig.json",
+  "extends": "../../../tauri/tooling/api/typedoc.json",
   "githubPages": false,
   "readme": "none",
-  "hideInPageTOC": true,
-  "hideMembersSymbol": true,
   "out": "docs",
   "json": "docs/js-api.json",
-  "pretty": false
+  "pretty": false,
+  "hideInPageTOC": true,
+  "hideMembersSymbol": true
 }
