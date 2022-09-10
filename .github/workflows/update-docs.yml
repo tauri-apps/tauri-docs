@@ -39,9 +39,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: tauri-apps/tauri
-          ref: feat/js-api-docs
-          # Temporarily using this specific branch above
-          # ref: ${{ github.event.inputs.tauriBranch }}
+          ref: ${{ github.event.inputs.tauriBranch }}
           path: tauri
 
       - name: Checkout tauri-docs
@@ -56,6 +54,23 @@ jobs:
           repository: tauri-apps/typedoc-plugin-markdown
           ref: next
           path: typedoc-plugin-markdown
+
+      - name: Build typedoc-plugin-markdown
+        working-directory: typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+        run: yarn && yarn build
+
+      - name: Prep for JS doc generation
+        working-directory: ./tauri/tooling/api
+        run: yarn
+
+      - name: Build JS docs
+        working-directory: ./tauri-docs/packages/js-doc-generator
+        run: yarn && yarn generate-docs
+
+      - name: Copy JS docs
+        run: |
+          rm -rf tauri-docs/docs/api/js/*
+          cp -r tauri-docs/packages/js-doc-generator/docs/* tauri-docs/docs/api/js/
 
       # - name: checkout tauri-search-bot
       #   uses: actions/checkout@v2
@@ -82,29 +97,6 @@ jobs:
       #     sidebarPath: "${{ github.workspace }}/tauri-docs/sidebars/rustdoc.json"
       #     linksRoot: ""
       #     cratesToProcess: "tauri"
-
-      - name: Build typedoc-plugin-markdown
-        working-directory: typedoc-plugin-markdown/packages/typedoc-plugin-markdown
-        run: yarn && yarn build
-
-      - name: Prep for JS doc generation
-        working-directory: ./tauri/tooling/api
-        run: yarn
-
-      - name: Build JS docs
-        working-directory: ./tauri-docs/packages/js-doc-generator
-        run: yarn && yarn generate-docs
-
-      - name: Copy JS docs
-        run: |
-          rm -rf tauri-docs/docs/api/js/*
-          cp -r tauri-docs/packages/js-doc-generator/docs/* tauri-docs/docs/api/js/
-
-      - name: Save docs as an artifact
-        uses: actions/upload-artifact@v3
-        with:
-          path: tauri-docs/packages/js-doc-generator/docs
-          if-no-files-found: error
 
       # this doesn't really need to be run on the content generation and PR opening
       # should this be removed and run at the same time as our netlify publish sequence
@@ -158,30 +150,30 @@ jobs:
       #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
       #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
-      # - uses: actions-rs/toolchain@v1
-      #   with:
-      #     profile: minimal
-      #     toolchain: stable
-      #     components: rust-docs
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          components: rust-docs
 
-      # - uses: Swatinem/rust-cache@v1
-      #   with:
-      #     working-directory: tauri/tooling/cli
+      - uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: tauri/tooling/cli
 
-      # - name: Build tauri-cli
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: build
-      #     args: --manifest-path ./tauri/tooling/cli/Cargo.toml
+      - name: Build tauri-cli
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --manifest-path ./tauri/tooling/cli/Cargo.toml
 
-      # - name: Install dependencies
-      #   working-directory: ./tauri-docs
-      #   run: yarn
+      - name: Install dependencies
+        working-directory: ./tauri-docs
+        run: yarn
 
-      # - name: Generate cli and config docs
-      #   run: |
-      #     node tauri-docs/.scripts/generate-cli-doc.js
-      #     node tauri-docs/.scripts/generate-config-doc.js
+      - name: Generate cli and config docs
+        run: |
+          node tauri-docs/.scripts/generate-cli-doc.js
+          node tauri-docs/.scripts/generate-config-doc.js
 
       #- name: Generate tauri AST
       #  uses: actions-rs/cargo@v1
