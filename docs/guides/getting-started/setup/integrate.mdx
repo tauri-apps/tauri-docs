@@ -139,7 +139,7 @@ import logo from './logo.svg';
 import './App.css';
 
 // access the pre-bundled global API functions
-const invoke = window.__TAURI__.invoke
+const { invoke } = window.__TAURI__
 
 function App() {
   // now we can call our Command!
