@@ -187,10 +187,9 @@ fn main() {
 
 #### Updating tray icon
 
-Note that `tauri::Icon` must be a `Path` variant on Linux, and `Raw` variant on Windows and macOS.
 
 ```rust
-app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico"))).unwrap();
+app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
 [template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
