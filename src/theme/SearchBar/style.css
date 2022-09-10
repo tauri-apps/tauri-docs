@@ -21,7 +21,7 @@ div[data-ds-theme='dark']
 }
 
 /* Media Queries for specific width screen */
-@media only screen and (max-width: 1185px) {
+@media only screen and (max-width: 1400px) {
   .searchbox {
     width: 200px !important;
   }
