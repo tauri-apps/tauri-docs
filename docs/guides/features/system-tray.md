@@ -187,6 +187,7 @@ fn main() {
 
 #### Updating tray icon
 
+Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dependency in your Cargo.toml in order to be able to use `Icon::Raw`
 
 ```rust
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
