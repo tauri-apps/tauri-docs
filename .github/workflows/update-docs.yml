@@ -55,7 +55,7 @@ jobs:
         with:
           repository: tauri-apps/typedoc-plugin-markdown
           ref: next
-          path: typedoc/plugin-markdown
+          path: typedoc-plugin-markdown
 
       # - name: checkout tauri-search-bot
       #   uses: actions/checkout@v2
@@ -82,6 +82,10 @@ jobs:
       #     sidebarPath: "${{ github.workspace }}/tauri-docs/sidebars/rustdoc.json"
       #     linksRoot: ""
       #     cratesToProcess: "tauri"
+
+      - name: Build typedoc-plugin-markdown
+        working-directory: typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+        run: yarn && yarn build
 
       - name: Prep for JS doc generation
         working-directory: ./tauri/tooling/api
