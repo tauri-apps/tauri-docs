@@ -109,7 +109,7 @@ The body object to be used on POST and PUT requests.
 
 ##### bytes
 
-`Static` **bytes**(`bytes`: `ArrayBuffer` \| `ArrayLike`<`number`\> \| `Iterable`<`number`\>): [`Body`](http.md#body)
+`Static` **bytes**(`bytes`: [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\>): [`Body`](http.md#body)
 
 Creates a new byte array body.
 
@@ -124,7 +124,7 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 
 | Name | Type |
 | :------ | :------ |
-| `bytes` | `ArrayBuffer` \| `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
+| `bytes` | [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
 
 **Returns**
 
@@ -251,7 +251,7 @@ The body object ready to be used on the POST and PUT requests.
 
 ##### delete
 
-**delete**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**delete**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a DELETE request.
 
@@ -276,7 +276,7 @@ const response = await client.delete('http://localhost:3003/users/1');
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -284,7 +284,7 @@ A promise resolving to the response.
 
 ##### drop
 
-**drop**(): `Promise`<`void`\>
+**drop**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Drops the client instance.
 
@@ -298,13 +298,13 @@ await client.drop();
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ##### get
 
-**get**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**get**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a GET request.
 
@@ -333,7 +333,7 @@ const response = await client.get('http://localhost:3003/users', {
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -341,7 +341,7 @@ A promise resolving to the response.
 
 ##### patch
 
-**patch**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**patch**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a PATCH request.
 
@@ -368,7 +368,7 @@ const response = await client.patch('http://localhost:3003/users/1', {
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -376,7 +376,7 @@ A promise resolving to the response.
 
 ##### post
 
-**post**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**post**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a POST request.
 
@@ -409,7 +409,7 @@ const response = await client.post('http://localhost:3003/users', {
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -417,7 +417,7 @@ A promise resolving to the response.
 
 ##### put
 
-**put**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**put**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a PUT request.
 
@@ -451,7 +451,7 @@ const response = await client.put('http://localhost:3003/users/1', {
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -459,7 +459,7 @@ A promise resolving to the response.
 
 ##### request
 
-**request**<`T`\>(`options`: [`HttpOptions`](http.md#httpoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**request**<`T`\>(`options`: [`HttpOptions`](http.md#httpoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes an HTTP request.
 
@@ -486,7 +486,7 @@ const response = await client.request({
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -776,7 +776,7 @@ The request HTTP verb.
 
 ### Part
 
- **Part**: `string` \| `Uint8Array` \| [`FilePart`](http.md#filepart)<`Uint8Array`\>
+ **Part**: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) \| [`FilePart`](http.md#filepart)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 **Defined in** 
 
@@ -800,7 +800,7 @@ Request options.
 
 ### fetch
 
-**fetch**<`T`\>(`url`: `string`, `options?`: [`FetchOptions`](http.md#fetchoptions)): `Promise`<[`Response`](http.md#response)<`T`\>\>
+**fetch**<`T`\>(`url`: `string`, `options?`: [`FetchOptions`](http.md#fetchoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
@@ -827,7 +827,7 @@ const response = await fetch('http://localhost:3003/users/2', {
 
 **Returns**
 
-`Promise`<[`Response`](http.md#response)<`T`\>\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 The response object.
 
@@ -835,7 +835,7 @@ The response object.
 
 ### getClient
 
-**getClient**(`options?`: [`ClientOptions`](http.md#clientoptions)): `Promise`<[`Client`](http.md#client)\>
+**getClient**(`options?`: [`ClientOptions`](http.md#clientoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
 
 Creates a new client using the specified options.
 
@@ -854,6 +854,6 @@ const client = await getClient();
 
 **Returns**
 
-`Promise`<[`Client`](http.md#client)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
 
 A promise resolving to the client instance.

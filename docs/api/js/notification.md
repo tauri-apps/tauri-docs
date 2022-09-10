@@ -83,7 +83,7 @@ Possible permission values.
 
 ### isPermissionGranted
 
-**isPermissionGranted**(): `Promise`<`boolean`\>
+**isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
@@ -96,13 +96,13 @@ const permissionGranted = await isPermissionGranted();
 
 **Returns**
 
-`Promise`<`boolean`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ---
 
 ### requestPermission
 
-**requestPermission**(): `Promise`<[`Permission`](notification.md#permission)\>
+**requestPermission**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
@@ -119,7 +119,7 @@ if (!permissionGranted) {
 
 **Returns**
 
-`Promise`<[`Permission`](notification.md#permission)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 

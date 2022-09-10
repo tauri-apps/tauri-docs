@@ -126,7 +126,7 @@ The label of the window that emitted this event.
 
 ### emit
 
-**emit**(`event`: `string`, `payload?`: `unknown`): `Promise`<`void`\>
+**emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Emits an event to the backend.
 
@@ -146,13 +146,13 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### listen
 
-**listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an event from the backend.
 
@@ -181,7 +181,7 @@ unlisten();
 
 **Returns**
 
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -190,7 +190,7 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ### once
 
-**once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an one-off event from the backend.
 
@@ -223,7 +223,7 @@ unlisten();
 
 **Returns**
 
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

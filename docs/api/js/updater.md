@@ -110,7 +110,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ### checkUpdate
 
-**checkUpdate**(): `Promise`<[`UpdateResult`](updater.md#updateresult)\>
+**checkUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
 
 Checks if an update is available.
 
@@ -124,7 +124,7 @@ const update = await checkUpdate();
 
 **Returns**
 
-`Promise`<[`UpdateResult`](updater.md#updateresult)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
 
 Promise resolving to the update status.
 
@@ -132,7 +132,7 @@ Promise resolving to the update status.
 
 ### installUpdate
 
-**installUpdate**(): `Promise`<`void`\>
+**installUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Install the update if there's one available.
 
@@ -149,7 +149,7 @@ if (update.shouldUpdate) {
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -157,7 +157,7 @@ A promise indicating the success or failure of the operation.
 
 ### onUpdaterEvent
 
-**onUpdaterEvent**(`handler`: `fn`): `Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+**onUpdaterEvent**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an updater event.
 
@@ -181,7 +181,7 @@ unlisten();
 
 **Returns**
 
-`Promise`<[`UnlistenFn`](event.md#unlistenfn)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

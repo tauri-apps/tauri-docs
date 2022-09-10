@@ -48,7 +48,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### isRegistered
 
-**isRegistered**(`shortcut`: `string`): `Promise`<`boolean`\>
+**isRegistered**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Determines whether the given shortcut is registered by this application or not.
 
@@ -67,7 +67,7 @@ const isRegistered = await isRegistered('CommandOrControl+P');
 
 **Returns**
 
-`Promise`<`boolean`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to the state.
 
@@ -75,7 +75,7 @@ A promise resolving to the state.
 
 ### register
 
-**register**(`shortcut`: `string`, `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): `Promise`<`void`\>
+**register**(`shortcut`: `string`, `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Register a global shortcut.
 
@@ -97,13 +97,13 @@ await register('CommandOrControl+Shift+C', () => {
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### registerAll
 
-**registerAll**(`shortcuts`: `string`[], `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): `Promise`<`void`\>
+**registerAll**(`shortcuts`: `string`[], `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Register a collection of global shortcuts.
 
@@ -125,13 +125,13 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### unregister
 
-**unregister**(`shortcut`: `string`): `Promise`<`void`\>
+**unregister**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Unregister a global shortcut.
 
@@ -150,13 +150,13 @@ await unregister('CmdOrControl+Space');
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### unregisterAll
 
-**unregisterAll**(): `Promise`<`void`\>
+**unregisterAll**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Unregisters all shortcuts registered by the application.
 
@@ -169,4 +169,4 @@ await unregisterAll();
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

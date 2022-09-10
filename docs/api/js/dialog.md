@@ -221,7 +221,7 @@ The title of the dialog window.
 
 ### ask
 
-**ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): `Promise`<`boolean`\>
+**ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -242,7 +242,7 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 
 **Returns**
 
-`Promise`<`boolean`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
@@ -250,7 +250,7 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 ### confirm
 
-**confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): `Promise`<`boolean`\>
+**confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -271,7 +271,7 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 
 **Returns**
 
-`Promise`<`boolean`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
@@ -279,7 +279,7 @@ A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 ### message
 
-**message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): `Promise`<`void`\>
+**message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Shows a message dialog with an `Ok` button.
 
@@ -300,7 +300,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -308,7 +308,7 @@ A promise indicating the success or failure of the operation.
 
 ### open
 
-**open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): `Promise`<`null` \| `string` \| `string`[]\>
+**open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
 Open a file/directory selection dialog.
 
@@ -368,7 +368,7 @@ if (Array.isArray(selected)) {
 
 **Returns**
 
-`Promise`<`null` \| `string` \| `string`[]\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
@@ -376,7 +376,7 @@ A promise resolving to the selected path(s)
 
 ### save
 
-**save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): `Promise`<`string`\>
+**save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Open a file/directory save dialog.
 
@@ -408,6 +408,6 @@ const filePath = await save({
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to the selected path.

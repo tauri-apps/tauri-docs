@@ -70,7 +70,7 @@ The operating system-specific end-of-line marker.
 
 ### arch
 
-**arch**(): `Promise`<[`Arch`](os.md#arch)\>
+**arch**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
 Returns the operating system CPU architecture for which the tauri app was compiled.
 Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`.
@@ -84,13 +84,13 @@ const archName = await arch();
 
 **Returns**
 
-`Promise`<[`Arch`](os.md#arch)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
 ---
 
 ### platform
 
-**platform**(): `Promise`<[`Platform`](os.md#platform)\>
+**platform**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
 Returns a string identifying the operating system platform.
 The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
@@ -104,13 +104,13 @@ const platformName = await platform();
 
 **Returns**
 
-`Promise`<[`Platform`](os.md#platform)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
 ---
 
 ### tempdir
 
-**tempdir**(): `Promise`<`string`\>
+**tempdir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the operating system's default directory for temporary files as a string.
 
@@ -123,13 +123,13 @@ const tempdirPath = await tempdir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### type
 
-**type**(): `Promise`<[`OsType`](os.md#ostype)\>
+**type**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
@@ -142,13 +142,13 @@ const osType = await type();
 
 **Returns**
 
-`Promise`<[`OsType`](os.md#ostype)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
 ---
 
 ### version
 
-**version**(): `Promise`<`string`\>
+**version**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns a string identifying the kernel version.
 
@@ -161,4 +161,4 @@ const osVersion = await version();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>

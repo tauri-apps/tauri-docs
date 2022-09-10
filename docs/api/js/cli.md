@@ -96,7 +96,7 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
 ### getMatches
 
-**getMatches**(): `Promise`<[`CliMatches`](cli.md#climatches)\>
+**getMatches**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
 
 Parse the arguments provided to the current process and get the matches using the configuration defined [`tauri.cli`](https://tauri.app/v1/api/config/#tauriconfig.cli) in `tauri.conf.json`
 
@@ -119,6 +119,6 @@ if (matches.subcommand?.name === 'run') {
 
 **Returns**
 
-`Promise`<[`CliMatches`](cli.md#climatches)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
 
 A promise resolving to the parsed arguments.

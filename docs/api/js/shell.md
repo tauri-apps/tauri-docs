@@ -107,13 +107,13 @@ The child process `pid`.
 
 ##### kill
 
-**kill**(): `Promise`<`void`\>
+**kill**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Kills the child process.
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -121,7 +121,7 @@ A promise indicating the success or failure of the operation.
 
 ##### write
 
-**write**(`data`: `string` \| `Uint8Array`): `Promise`<`void`\>
+**write**(`data`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes `data` to the `stdin`.
 
@@ -139,11 +139,11 @@ await child.write([0, 1, 2, 3, 4, 5]);
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `string` \| `Uint8Array` | The message to write, either a string or a byte array. |
+| `data` | `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) | The message to write, either a string or a byte array. |
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -229,7 +229,7 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 ##### execute
 
-**execute**(): `Promise`<[`ChildProcess`](shell.md#childprocess)\>
+**execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
@@ -246,7 +246,7 @@ assert(output.stderr === '');
 
 **Returns**
 
-`Promise`<[`ChildProcess`](shell.md#childprocess)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
 
 A promise resolving to the child process output.
 
@@ -275,13 +275,13 @@ The `this` instance for chained calls.
 
 ##### spawn
 
-**spawn**(): `Promise`<[`Child`](shell.md#child)\>
+**spawn**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
 Executes the command as a child process, returning a handle to it.
 
 **Returns**
 
-`Promise`<[`Child`](shell.md#child)\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
 A promise resolving to the child process handle.
 
@@ -455,7 +455,7 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
 ### open
 
-**open**(`path`: `string`, `openWith?`: `string`): `Promise`<`void`\>
+**open**(`path`: `string`, `openWith?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
@@ -484,4 +484,4 @@ await open('/path/to/file');
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

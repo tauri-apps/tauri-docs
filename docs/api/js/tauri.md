@@ -65,7 +65,7 @@ the URL that can be used as source on the webview.
 
 ### invoke
 
-**invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): `Promise`<`T`\>
+**invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 Sends a message to the backend.
 
@@ -89,7 +89,7 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 
 **Returns**
 
-`Promise`<`T`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 A promise resolving or rejecting to the backend response.
 

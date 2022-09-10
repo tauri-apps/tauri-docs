@@ -438,7 +438,7 @@ Path to the file to write.
 
 ### BinaryFileContents
 
- **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| `ArrayBuffer`
+ **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
 **Defined in** 
 
@@ -450,7 +450,7 @@ Path to the file to write.
 
 ### copyFile
 
-**copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Copys a file to a destination.
 
@@ -472,7 +472,7 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -480,7 +480,7 @@ A promise indicating the success or failure of the operation.
 
 ### createDir
 
-**createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): `Promise`<`void`\>
+**createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Creates a directory.
 If one of the path's parent components doesn't exist
@@ -503,7 +503,7 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -511,7 +511,7 @@ A promise indicating the success or failure of the operation.
 
 ### readBinaryFile
 
-**readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`Uint8Array`\>
+**readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 Reads a file as byte array.
 
@@ -532,7 +532,7 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 
 **Returns**
 
-`Promise`<`Uint8Array`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 A promise resolving to the file bytes array.
 
@@ -540,7 +540,7 @@ A promise resolving to the file bytes array.
 
 ### readDir
 
-**readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): `Promise`<[`FileEntry`](fs.md#fileentry)[]\>
+**readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 List directory files.
 
@@ -570,7 +570,7 @@ function processEntries(entries) {
 
 **Returns**
 
-`Promise`<[`FileEntry`](fs.md#fileentry)[]\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 A promise resolving to the directory entries.
 
@@ -578,7 +578,7 @@ A promise resolving to the directory entries.
 
 ### readTextFile
 
-**readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`string`\>
+**readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Reads a file as an UTF-8 encoded string.
 
@@ -599,7 +599,7 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
@@ -607,7 +607,7 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 ### removeDir
 
-**removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): `Promise`<`void`\>
+**removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
@@ -629,7 +629,7 @@ await removeDir('users', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -637,7 +637,7 @@ A promise indicating the success or failure of the operation.
 
 ### removeFile
 
-**removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a file.
 
@@ -658,7 +658,7 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -666,7 +666,7 @@ A promise indicating the success or failure of the operation.
 
 ### renameFile
 
-**renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Renames a file.
 
@@ -688,7 +688,7 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -696,7 +696,7 @@ A promise indicating the success or failure of the operation.
 
 ### writeBinaryFile
 
-**writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
@@ -718,11 +718,11 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
@@ -743,7 +743,7 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -751,7 +751,7 @@ A promise indicating the success or failure of the operation.
 
 ### writeTextFile
 
-**writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -773,11 +773,11 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): `Promise`<`void`\>
+**writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -798,6 +798,6 @@ await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: Base
 
 **Returns**
 
-`Promise`<`void`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.

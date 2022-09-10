@@ -60,7 +60,7 @@ Provides the platform-specific path segment separator:
 
 ### appDir
 
-**appDir**(): `Promise`<`string`\>
+**appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the suggested directory for your app config files.
 Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
@@ -74,13 +74,13 @@ const appDirPath = await appDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### audioDir
 
-**audioDir**(): `Promise`<`string`\>
+**audioDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's audio directory.
 
@@ -99,13 +99,13 @@ const audioDirPath = await audioDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### basename
 
-**basename**(`path`: `string`, `ext?`: `string`): `Promise`<`string`\>
+**basename**(`path`: `string`, `ext?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the last portion of a `path`. Trailing directory separators are ignored.
 
@@ -127,13 +127,13 @@ assert(base === 'app');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### cacheDir
 
-**cacheDir**(): `Promise`<`string`\>
+**cacheDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's cache directory.
 
@@ -152,13 +152,13 @@ const cacheDirPath = await cacheDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### configDir
 
-**configDir**(): `Promise`<`string`\>
+**configDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's config directory.
 
@@ -177,13 +177,13 @@ const configDirPath = await configDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### dataDir
 
-**dataDir**(): `Promise`<`string`\>
+**dataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's data directory.
 
@@ -202,13 +202,13 @@ const dataDirPath = await dataDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### desktopDir
 
-**desktopDir**(): `Promise`<`string`\>
+**desktopDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's desktop directory.
 
@@ -227,13 +227,13 @@ const desktopPath = await desktopDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### dirname
 
-**dirname**(`path`: `string`): `Promise`<`string`\>
+**dirname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the directory name of a `path`. Trailing directory separators are ignored.
 
@@ -253,13 +253,13 @@ const dir = await dirname(appDirPath);
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### documentDir
 
-**documentDir**(): `Promise`<`string`\>
+**documentDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's document directory.
 
@@ -278,13 +278,13 @@ const documentDirPath = await documentDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### downloadDir
 
-**downloadDir**(): `Promise`<`string`\>
+**downloadDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's download directory.
 
@@ -303,13 +303,13 @@ const downloadDirPath = await downloadDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### executableDir
 
-**executableDir**(): `Promise`<`string`\>
+**executableDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's executable directory.
 
@@ -328,13 +328,13 @@ const executableDirPath = await executableDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### extname
 
-**extname**(`path`: `string`): `Promise`<`string`\>
+**extname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the extension of the `path`.
 
@@ -355,13 +355,13 @@ assert(ext === 'conf');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### fontDir
 
-**fontDir**(): `Promise`<`string`\>
+**fontDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's font directory.
 
@@ -380,13 +380,13 @@ const fontDirPath = await fontDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### homeDir
 
-**homeDir**(): `Promise`<`string`\>
+**homeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's home directory.
 
@@ -405,13 +405,13 @@ const homeDirPath = await homeDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### isAbsolute
 
-**isAbsolute**(`path`: `string`): `Promise`<`boolean`\>
+**isAbsolute**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Returns whether the path is absolute or not.
 
@@ -430,13 +430,13 @@ assert(await isAbsolute('/home/tauri'));
 
 **Returns**
 
-`Promise`<`boolean`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ---
 
 ### join
 
-**join**(...`paths`: `string`[]): `Promise`<`string`\>
+**join**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
 
@@ -456,13 +456,13 @@ const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### localDataDir
 
-**localDataDir**(): `Promise`<`string`\>
+**localDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's local data directory.
 
@@ -481,13 +481,13 @@ const localDataDirPath = await localDataDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### logDir
 
-**logDir**(): `Promise`<`string`\>
+**logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the suggested log directory.
 
@@ -506,13 +506,13 @@ const logDirPath = await logDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### normalize
 
-**normalize**(`path`: `string`): `Promise`<`string`\>
+**normalize**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
 
@@ -532,13 +532,13 @@ const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### pictureDir
 
-**pictureDir**(): `Promise`<`string`\>
+**pictureDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's picture directory.
 
@@ -557,13 +557,13 @@ const pictureDirPath = await pictureDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### publicDir
 
-**publicDir**(): `Promise`<`string`\>
+**publicDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's public directory.
 
@@ -582,13 +582,13 @@ const publicDirPath = await publicDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### resolve
 
-**resolve**(...`paths`: `string`[]): `Promise`<`string`\>
+**resolve**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Resolves a sequence of `paths` or `path` segments into an absolute path.
 
@@ -608,13 +608,13 @@ const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### resolveResource
 
-**resolveResource**(`resourcePath`: `string`): `Promise`<`string`\>
+**resolveResource**(`resourcePath`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Resolve the path to a resource file.
 
@@ -633,7 +633,7 @@ const resourcePath = await resolveResource('script.sh');
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 The full path to the resource.
 
@@ -641,7 +641,7 @@ The full path to the resource.
 
 ### resourceDir
 
-**resourceDir**(): `Promise`<`string`\>
+**resourceDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the application's resource directory.
 To resolve a resource path, see the [[resolveResource | `resolveResource API`]].
@@ -655,13 +655,13 @@ const resourceDirPath = await resourceDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### runtimeDir
 
-**runtimeDir**(): `Promise`<`string`\>
+**runtimeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's runtime directory.
 
@@ -680,13 +680,13 @@ const runtimeDirPath = await runtimeDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### templateDir
 
-**templateDir**(): `Promise`<`string`\>
+**templateDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's template directory.
 
@@ -705,13 +705,13 @@ const templateDirPath = await templateDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### videoDir
 
-**videoDir**(): `Promise`<`string`\>
+**videoDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's video directory.
 
@@ -730,4 +730,4 @@ const videoDirPath = await videoDir();
 
 **Returns**
 
-`Promise`<`string`\>
+[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
