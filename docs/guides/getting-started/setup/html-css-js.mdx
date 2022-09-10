@@ -53,10 +53,18 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination="Use ../ui for this value."
-  devPathExplination="Use ../ui for this value."
-  beforeDevCommandExplination="You can leave this blank since nothing needs to be compiled."
-  beforeBuildCommandExplination="You can leave this blank since nothing needs to be compiled."
+  destDirExplination={{
+    __html: 'Use <code>../ui</code> for this value.',
+  }}
+  devPathExplination={{
+    __html: 'Use <code>../ui</code> for this value.',
+  }}
+  beforeDevCommandExplination={{
+    __html: 'You can leave this blank since nothing needs to be compiled.',
+  }}
+  beforeBuildCommandExplination={{
+    __html: 'You can leave this blank since nothing needs to be compiled.',
+  }}
 />
 
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
@@ -104,7 +112,7 @@ You can now modify your `index.html` file to call your Command:
     // highlight-start
     <script>
       // access the pre-bundled global API functions
-      const invoke = window.__TAURI__.invoke
+      const { invoke } = window.__TAURI__
 
       // now we can call our Command!
       // Right-click the application background and open the developer tools.
