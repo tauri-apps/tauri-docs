@@ -175,7 +175,7 @@ Window communication can be done using the event system. See the [Event Guide] f
 [app::handle]: https://docs.rs/tauri/1.0.0/tauri/struct.App.html#method.handle
 [get_window]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html#method.get_window
 [wry#583]: https://github.com/tauri-apps/wry/issues/583
-[webviewwindow]: ../../api/js/classes/window.WebviewWindow.md
-[webviewwindow.getbylabel]: ../../api/js/classes/window.WebviewWindow.md#getbylabel
+[webviewwindow]: ../../api/js/window.md#webviewwindow
+[webviewwindow.getbylabel]: ../../api/js/window.md#getbylabel
 [tauri::manager]: https://docs.rs/tauri/1.0.0/tauri/trait.Manager.html
 [event guide]: ./events.md
