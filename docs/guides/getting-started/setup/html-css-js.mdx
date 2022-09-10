@@ -112,7 +112,7 @@ You can now modify your `index.html` file to call your Command:
     // highlight-start
     <script>
       // access the pre-bundled global API functions
-      const { invoke } = window.__TAURI__
+      const { invoke } = window.__TAURI__.tauri
 
       // now we can call our Command!
       // Right-click the application background and open the developer tools.
