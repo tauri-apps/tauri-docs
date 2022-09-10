@@ -77,24 +77,24 @@ And that's it, you have now added Tauri to your existing project and you should 
 
 ## Invoke Commands
 
+<Commands />
+
 There are two different ways you can invoke commands from your frontend project:
 
 1. Using the [`@tauri-apps/api`] JavaScript library (preferred)
 2. Using [`withGlobalTauri`] to use a pre-bundled version of the Tauri API
 
-:::tip
+We'll go through both below.
 
-The rest of this section assumes you're using the [`@tauri-apps/api`] library. If you want to use [`withGlobalTauri`] instead, we recommend following the [Invoke Commands] section of the HTML, CSS, and JavaScript guide instead.
-
-:::
-
-<Commands />
+### Using JavaScript Library
 
 To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
 
 <InstallTauriApi />
 
-```jsx title=src/App.js {4,7-12}
+You can now import the `invoke` function from the library and use it to call our command:
+
+```jsx title=src/App.jsx {4,7-12}
 import logo from './logo.svg';
 import './App.css';
 
@@ -113,6 +113,49 @@ function App() {
   )
 }
 ```
+
+### Using `withTauriGlobal`
+
+To interact with Tauri from your frontend without using the `@tauri-apps/api` JavaScript package you will need to enable [`withGlobalTauri`] in your `tauri.conf.json` file:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:3000",
+    "distDir": "../build",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+This will inject a pre-bundled version of the API functions into your frontend.
+
+You can now modify the `App.jsx` file to call your command:
+
+```jsx title=src/App.js {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+// access the pre-bundled global API functions
+const invoke = window.__TAURI__.invoke
+
+function App() {
+  // now we can call our Command!
+  // Right-click the application background and open the developer tools.
+  // You will see "Hello, World!" printed in the console!
+  invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+## Running Your App
 
 You can now run the following command in your terminal to start a development build of your app:
 
