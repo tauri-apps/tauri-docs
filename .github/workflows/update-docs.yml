@@ -96,6 +96,12 @@ jobs:
           rm -rf tauri-docs/docs/api/js/*
           cp -r tauri-docs/packages/js-doc-generator/docs/* tauri-docs/docs/api/js/
 
+      - name: Save docs as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: tauri-docs/packages/js-doc-generator/docs
+          if-no-files-found: error
+
       # this doesn't really need to be run on the content generation and PR opening
       # should this be removed and run at the same time as our netlify publish sequence
       # Indexing
