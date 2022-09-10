@@ -47,7 +47,7 @@ jobs:
         with:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
-          
+
       - name: Checkout typedoc-plugin-markdown
         uses: actions/checkout@v2
         with:
@@ -82,7 +82,7 @@ jobs:
       #     cratesToProcess: "tauri"
 
       - name: Generate JS docs
-        working-directory: ./tauri/tooling/api
+        working-directory: ./tauri-docs/packages/js-doc-generator
         run: yarn && yarn generate-docs
 
       - name: Copy JS docs
