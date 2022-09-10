@@ -284,12 +284,6 @@ function PremiumSponsors() {
       logoColorLight: '1Password_color_light.svg',
     },
     {
-      name: 'PACKT',
-      link: 'https://www.packtpub.com',
-      logoColorDark: 'packt_color_dark.svg',
-      logoColorLight: 'packt_color_light.svg',
-    },
-    {
       name: 'Cloudflare',
       link: 'https://www.cloudflare.com',
       logoColorDark: 'Cloudflare_color_dark.svg',
@@ -300,6 +294,12 @@ function PremiumSponsors() {
       link: 'https://nlnet.nl',
       logoColorDark: 'nlnet_color_dark.svg',
       logoColorLight: 'nlnet_color_light.svg',
+    },
+    {
+      name: 'Padloc',
+      link: 'https://padloc.app',
+      logoColorDark: 'padloc_color_light.svg',
+      logoColorLight: 'padloc_color_light.svg',
     },
   ]
 
