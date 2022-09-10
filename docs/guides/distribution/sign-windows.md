@@ -91,7 +91,7 @@ We can also create a workflow to sign the application with GitHub actions.
 
 We need to add a few GitHub secrets for the proper configuration of the GitHub Action. These can be named however you would like.
 
-- You can view [this][encrypted secrets] guide for how to add GitHub secrets.
+- You can view the [encrypted secrets] guide on how to add GitHub secrets.
 
 The secrets we used are as follows
 
@@ -111,7 +111,7 @@ The secrets we used are as follows
    5. Remove tempCert.txt
    6. Import the `.pfx` file into the Cert store of Windows & convert the `WINDOWS_CERTIFICATE_PASSWORD` to a secure string to be used in the import command.
 
-2. We be using the `tauri-action` publish template available [here][tauri action].
+2. We will be using the [`tauri-action` publish template].
 
 ```yml
 name: 'publish'
@@ -177,4 +177,4 @@ jobs:
 5. Your workflow can now import your windows certificate and import it into the GitHub runner, allowing for automated code-signing!
 
 [encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
-[tauri action]: https://github.com/tauri-apps/tauri-action
+[`tauri-action` publish template]: https://github.com/tauri-apps/tauri-action
