@@ -47,6 +47,14 @@ jobs:
         with:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
+          
+      - name: Checkout typedoc-plugin-markdown
+        uses: actions/checkout@v2
+        with:
+          repository: tauri-apps/typedoc-plugin-markdown
+          ref: next
+          path: typedoc/plugin-markdown
+
       # - name: checkout tauri-search-bot
       #   uses: actions/checkout@v2
       #   with:
