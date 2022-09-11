@@ -93,7 +93,7 @@
 
 /* Required due to a lot of items in navbar */
 /* https://github.com/facebook/docusaurus/issues/7635 */
-@media only screen and (max-width: 1224px) {
+@media only screen and (max-width: 1300px) {
   .navbar__items {
     white-space: nowrap;
   }
