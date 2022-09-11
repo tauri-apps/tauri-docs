@@ -91,6 +91,22 @@
   background-color: var(--ifm-background-color);
 }
 
+/* Required due to a lot of items in navbar */
+/* https://github.com/facebook/docusaurus/issues/7635 */
+@media only screen and (max-width: 1224px) {
+  .navbar__items {
+    white-space: nowrap;
+  }
+
+  .navbar__items--right {
+    font-size: 0;
+  }
+
+  .navbar__items--right .navbar__item > svg {
+    display: none;
+  }
+}
+
 .navbarIcon::before {
   display: inline-block;
   content: '';
