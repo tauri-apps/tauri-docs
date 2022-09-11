@@ -25,8 +25,6 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Options to send a notification.
 
----
-
 #### Properties
 
 ##### body
@@ -35,9 +33,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in** 
-
-[notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36)
 
 ---
 
@@ -47,9 +43,7 @@ Optional notification body.
 
 Optional notification icon.
 
-**Defined in** 
-
-[notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38)
 
 ---
 
@@ -59,9 +53,7 @@ Optional notification icon.
 
 Notification title.
 
-**Defined in** 
-
-[notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34)
+**Defined in:** [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34)
 
 ---
 
@@ -73,9 +65,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in** 
-
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L42)
+**Defined in:** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L42)
 
 ---
 
@@ -83,30 +73,28 @@ Possible permission values.
 
 ### isPermissionGranted
 
-**isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ---
 
 ### requestPermission
 
-**requestPermission**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
+> **requestPermission**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification';
@@ -117,9 +105,7 @@ if (!permissionGranted) {
 }
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 
@@ -127,11 +113,11 @@ A promise resolving to whether the user granted the permission or not.
 
 ### sendNotification
 
-**sendNotification**(`options`: `string` \| [`Options`](notification.md#options)): `void`
+> **sendNotification**(`options`: `string` \| [`Options`](notification.md#options)): `void`
 
 Sends a notification to the user.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
@@ -152,6 +138,4 @@ if (permissionGranted) {
 | :------ | :------ | :------ |
 | `options` | `string` \| [`Options`](notification.md#options) | Notification options. |
 
-**Returns**
-
-`void`
+**Returns: **`void`

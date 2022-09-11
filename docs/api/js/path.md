@@ -36,9 +36,7 @@ Provides the platform-specific path segment delimiter:
 - `;` on Windows
 - `:` on POSIX
 
-**Defined in** 
-
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L568)
+**Defined in:** [path.ts:568](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L568)
 
 ---
 
@@ -50,9 +48,7 @@ Provides the platform-specific path segment separator:
 - `\` on Windows
 - `/` on POSIX
 
-**Defined in** 
-
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L561)
+**Defined in:** [path.ts:561](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L561)
 
 ---
 
@@ -60,27 +56,25 @@ Provides the platform-specific path segment separator:
 
 ### appDir
 
-**appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the suggested directory for your app config files.
 Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### audioDir
 
-**audioDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **audioDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's audio directory.
 
@@ -90,26 +84,24 @@ Returns the path to the user's audio directory.
 - **macOS:** Resolves to `$HOME/Music`.
 - **Windows:** Resolves to `{FOLDERID_Music}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { audioDir } from '@tauri-apps/api/path';
 const audioDirPath = await audioDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### basename
 
-**basename**(`path`: `string`, `ext?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **basename**(`path`: `string`, `ext?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the last portion of a `path`. Trailing directory separators are ignored.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { basename, resolveResource } from '@tauri-apps/api/path';
@@ -125,15 +117,13 @@ assert(base === 'app');
 | `path` | `string` | - |
 | `ext?` | `string` | An optional file extension to be removed from the returned path. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### cacheDir
 
-**cacheDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **cacheDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's cache directory.
 
@@ -143,22 +133,20 @@ Returns the path to the user's cache directory.
 - **macOS:** Resolves to `$HOME/Library/Caches`.
 - **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { cacheDir } from '@tauri-apps/api/path';
 const cacheDirPath = await cacheDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### configDir
 
-**configDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **configDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's config directory.
 
@@ -168,22 +156,20 @@ Returns the path to the user's config directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_RoamingAppData}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { configDir } from '@tauri-apps/api/path';
 const configDirPath = await configDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### dataDir
 
-**dataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **dataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's data directory.
 
@@ -193,22 +179,20 @@ Returns the path to the user's data directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_RoamingAppData}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { dataDir } from '@tauri-apps/api/path';
 const dataDirPath = await dataDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### desktopDir
 
-**desktopDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **desktopDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's desktop directory.
 
@@ -218,26 +202,24 @@ Returns the path to the user's desktop directory.
 - **macOS:** Resolves to `$HOME/Library/Desktop`.
 - **Windows:** Resolves to `{FOLDERID_Desktop}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { desktopDir } from '@tauri-apps/api/path';
 const desktopPath = await desktopDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### dirname
 
-**dirname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **dirname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the directory name of a `path`. Trailing directory separators are ignored.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { dirname, appDir } from '@tauri-apps/api/path';
@@ -251,19 +233,17 @@ const dir = await dirname(appDirPath);
 | :------ | :------ |
 | `path` | `string` |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### documentDir
 
-**documentDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **documentDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's document directory.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { documentDir } from '@tauri-apps/api/path';
@@ -276,15 +256,13 @@ const documentDirPath = await documentDir();
 - **macOS:** Resolves to `$HOME/Documents`.
 - **Windows:** Resolves to `{FOLDERID_Documents}`.
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### downloadDir
 
-**downloadDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **downloadDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's download directory.
 
@@ -294,22 +272,20 @@ Returns the path to the user's download directory.
 - **macOS**: Resolves to `$HOME/Downloads`.
 - **Windows**: Resolves to `{FOLDERID_Downloads}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { downloadDir } from '@tauri-apps/api/path';
 const downloadDirPath = await downloadDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### executableDir
 
-**executableDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **executableDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's executable directory.
 
@@ -319,26 +295,24 @@ Returns the path to the user's executable directory.
 - **macOS:** Not supported.
 - **Windows:** Not supported.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { executableDir } from '@tauri-apps/api/path';
 const executableDirPath = await executableDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### extname
 
-**extname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **extname**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the extension of the `path`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { extname, resolveResource } from '@tauri-apps/api/path';
@@ -353,15 +327,13 @@ assert(ext === 'conf');
 | :------ | :------ |
 | `path` | `string` |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### fontDir
 
-**fontDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **fontDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's font directory.
 
@@ -371,22 +343,20 @@ Returns the path to the user's font directory.
 - **macOS:** Resolves to `$HOME/Library/Fonts`.
 - **Windows:** Not supported.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { fontDir } from '@tauri-apps/api/path';
 const fontDirPath = await fontDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### homeDir
 
-**homeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **homeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's home directory.
 
@@ -396,26 +366,24 @@ Returns the path to the user's home directory.
 - **macOS:** Resolves to `$HOME`.
 - **Windows:** Resolves to `{FOLDERID_Profile}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { homeDir } from '@tauri-apps/api/path';
 const homeDirPath = await homeDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### isAbsolute
 
-**isAbsolute**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **isAbsolute**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Returns whether the path is absolute or not.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { isAbsolute } from '@tauri-apps/api/path';
@@ -428,19 +396,17 @@ assert(await isAbsolute('/home/tauri'));
 | :------ | :------ |
 | `path` | `string` |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ---
 
 ### join
 
-**join**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **join**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Joins all given `path` segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { join, appDir } from '@tauri-apps/api/path';
@@ -454,15 +420,13 @@ const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 | :------ | :------ | :------ |
 | `...paths` | `string`[] | A sequence of path segments. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### localDataDir
 
-**localDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **localDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's local data directory.
 
@@ -472,22 +436,20 @@ Returns the path to the user's local data directory.
 - **macOS:** Resolves to `$HOME/Library/Application Support`.
 - **Windows:** Resolves to `{FOLDERID_LocalAppData}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { localDataDir } from '@tauri-apps/api/path';
 const localDataDirPath = await localDataDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### logDir
 
-**logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the suggested log directory.
 
@@ -497,26 +459,24 @@ Returns the path to the suggested log directory.
 - **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
 - **Windows:** Resolves to `${configDir}/${bundleIdentifier}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { logDir } from '@tauri-apps/api/path';
 const logDirPath = await logDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### normalize
 
-**normalize**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **normalize**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { normalize, appDir } from '@tauri-apps/api/path';
@@ -530,15 +490,13 @@ const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 | :------ | :------ |
 | `path` | `string` |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### pictureDir
 
-**pictureDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **pictureDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's picture directory.
 
@@ -548,22 +506,20 @@ Returns the path to the user's picture directory.
 - **macOS:** Resolves to `$HOME/Pictures`.
 - **Windows:** Resolves to `{FOLDERID_Pictures}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { pictureDir } from '@tauri-apps/api/path';
 const pictureDirPath = await pictureDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### publicDir
 
-**publicDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **publicDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's public directory.
 
@@ -573,26 +529,24 @@ Returns the path to the user's public directory.
 - **macOS:** Resolves to `$HOME/Public`.
 - **Windows:** Resolves to `{FOLDERID_Public}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { publicDir } from '@tauri-apps/api/path';
 const publicDirPath = await publicDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### resolve
 
-**resolve**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **resolve**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Resolves a sequence of `paths` or `path` segments into an absolute path.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { resolve, appDir } from '@tauri-apps/api/path';
@@ -606,19 +560,17 @@ const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 | :------ | :------ | :------ |
 | `...paths` | `string`[] | A sequence of paths or path segments. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### resolveResource
 
-**resolveResource**(`resourcePath`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **resolveResource**(`resourcePath`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Resolve the path to a resource file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { resolveResource } from '@tauri-apps/api/path';
@@ -631,9 +583,7 @@ const resourcePath = await resolveResource('script.sh');
 | :------ | :------ | :------ |
 | `resourcePath` | `string` | The path to the resource. Must follow the same syntax as defined in `tauri.conf.json > tauri > bundle > resources`, i.e. keeping subfolders and parent dir components (`../`). |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 The full path to the resource.
 
@@ -641,27 +591,25 @@ The full path to the resource.
 
 ### resourceDir
 
-**resourceDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **resourceDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the application's resource directory.
 To resolve a resource path, see the [[resolveResource | `resolveResource API`]].
 
-**`Example`**
+**Example**
 
 ```typescript
 import { resourceDir } from '@tauri-apps/api/path';
 const resourceDirPath = await resourceDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### runtimeDir
 
-**runtimeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **runtimeDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's runtime directory.
 
@@ -671,22 +619,20 @@ Returns the path to the user's runtime directory.
 - **macOS:** Not supported.
 - **Windows:** Not supported.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { runtimeDir } from '@tauri-apps/api/path';
 const runtimeDirPath = await runtimeDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### templateDir
 
-**templateDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **templateDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's template directory.
 
@@ -696,22 +642,20 @@ Returns the path to the user's template directory.
 - **macOS:** Not supported.
 - **Windows:** Resolves to `{FOLDERID_Templates}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { templateDir } from '@tauri-apps/api/path';
 const templateDirPath = await templateDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ---
 
 ### videoDir
 
-**videoDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **videoDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the user's video directory.
 
@@ -721,13 +665,11 @@ Returns the path to the user's video directory.
 - **macOS:** Resolves to `$HOME/Movies`.
 - **Windows:** Resolves to `{FOLDERID_Videos}`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { videoDir } from '@tauri-apps/api/path';
 const videoDirPath = await videoDir();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>

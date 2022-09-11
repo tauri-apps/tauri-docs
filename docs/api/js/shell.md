@@ -73,13 +73,11 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ### Child
 
----
-
 #### Constructors
 
 ##### constructor
 
-**new Child**(`pid`: `number`): [`Child`](shell.md#child)
+> **new Child**(`pid`: `number`): [`Child`](shell.md#child)
 
 **Parameters**
 
@@ -97,9 +95,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 The child process `pid`.
 
-**Defined in** 
-
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L181)
+**Defined in:** [shell.ts:181](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L181)
 
 ---
 
@@ -107,13 +103,11 @@ The child process `pid`.
 
 ##### kill
 
-**kill**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **kill**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Kills the child process.
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -121,11 +115,11 @@ A promise indicating the success or failure of the operation.
 
 ##### write
 
-**write**(`data`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **write**(`data`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes `data` to the `stdin`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
@@ -141,9 +135,7 @@ await child.write([0, 1, 2, 3, 4, 5]);
 | :------ | :------ | :------ |
 | `data` | `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) | The message to write, either a string or a byte array. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -154,7 +146,7 @@ A promise indicating the success or failure of the operation.
 The entry point for spawning child processes.
 It emits the `close` and `error` events.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
@@ -175,13 +167,11 @@ console.log('pid:', child.pid);
 - [`EventEmitter`](shell.md#eventemitter)<`"close"` \| `"error"`\>
    - **Command**
 
----
-
 #### Constructors
 
 ##### constructor
 
-**new Command**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
+> **new Command**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
 
 Creates a new `Command` instance.
 
@@ -193,9 +183,7 @@ Creates a new `Command` instance.
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
 
-**Overrides** 
-
-[EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
+**Overrides** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
 
 ---
 
@@ -207,9 +195,7 @@ Creates a new `Command` instance.
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-**Defined in** 
-
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L258)
+**Defined in:** [shell.ts:258](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L258)
 
 ---
 
@@ -219,9 +205,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-**Defined in** 
-
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L256)
+**Defined in:** [shell.ts:256](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L256)
 
 ---
 
@@ -229,11 +213,11 @@ Event emitter for the `stdout`. Emits the `data` event.
 
 ##### execute
 
-**execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
+> **execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
@@ -244,9 +228,7 @@ assert(output.stdout === 'message');
 assert(output.stderr === '');
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
 
 A promise resolving to the child process output.
 
@@ -254,7 +236,7 @@ A promise resolving to the child process output.
 
 ##### on
 
-**on**(`event`: `"error"` \| `"close"`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
+> **on**(`event`: `"error"` \| `"close"`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
 
 Listen to an event from the child process.
 
@@ -265,9 +247,7 @@ Listen to an event from the child process.
 | `event` | `"error"` \| `"close"` | The event name. |
 | `handler` | (`arg`: `any`) => `void` | The event handler. |
 
-**Returns**
-
-[`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
 
 The `this` instance for chained calls.
 
@@ -275,13 +255,11 @@ The `this` instance for chained calls.
 
 ##### spawn
 
-**spawn**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
+> **spawn**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
 Executes the command as a child process, returning a handle to it.
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
 A promise resolving to the child process handle.
 
@@ -289,11 +267,11 @@ A promise resolving to the child process handle.
 
 ##### sidecar
 
-`Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
+> `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
 
 Creates a command to execute the given sidecar program.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
@@ -309,9 +287,7 @@ const output = await command.execute();
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
 
-**Returns**
-
-[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)
 
 ---
 
@@ -326,13 +302,11 @@ const output = await command.execute();
 - **EventEmitter**
    - [`Command`](shell.md#command)
 
----
-
 #### Constructors
 
 ##### constructor
 
-**new EventEmitter**<`E`\>(): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **new EventEmitter**<`E`\>(): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 **Type parameters**
 
@@ -344,7 +318,7 @@ const output = await command.execute();
 
 ##### on
 
-**on**(`event`: `E`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **on**(`event`: `E`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Listen to an event from the child process.
 
@@ -355,9 +329,7 @@ Listen to an event from the child process.
 | `event` | `E` | The event name. |
 | `handler` | (`arg`: `any`) => `void` | The event handler. |
 
-**Returns**
-
-[`EventEmitter`](shell.md#eventemitter)<`E`\>
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 The `this` instance for chained calls.
 
@@ -367,8 +339,6 @@ The `this` instance for chained calls.
 
 ### ChildProcess
 
----
-
 #### Properties
 
 ##### code
@@ -377,9 +347,7 @@ The `this` instance for chained calls.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in** 
-
-[shell.ts:95](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L95)
+**Defined in:** [shell.ts:95](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L95)
 
 ---
 
@@ -389,9 +357,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in** 
-
-[shell.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L97)
+**Defined in:** [shell.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L97)
 
 ---
 
@@ -401,9 +367,7 @@ If the process was terminated by a signal, represents that signal.
 
 The data that the process wrote to `stderr`.
 
-**Defined in** 
-
-[shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101)
+**Defined in:** [shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101)
 
 ---
 
@@ -413,15 +377,11 @@ The data that the process wrote to `stderr`.
 
 The data that the process wrote to `stdout`.
 
-**Defined in** 
-
-[shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99)
+**Defined in:** [shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99)
 
 ---
 
 ### SpawnOptions
-
----
 
 #### Properties
 
@@ -431,9 +391,7 @@ The data that the process wrote to `stdout`.
 
 Current working directory.
 
-**Defined in** 
-
-[shell.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L83)
+**Defined in:** [shell.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L83)
 
 ---
 
@@ -443,11 +401,7 @@ Current working directory.
 
 Environment variables. set to `null` to clear the process env.
 
-context.indexSignaturePartial(typeDeclaration.indexSignature)
-
-**Defined in** 
-
-[shell.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L85)
+**Defined in:** [shell.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L85)
 
 ---
 
@@ -455,7 +409,7 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
 ### open
 
-**open**(`path`: `string`, `openWith?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **open**(`path`: `string`, `openWith?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Opens a path or URL with the system's default app,
 or the one specified with `openWith`.
@@ -463,7 +417,7 @@ or the one specified with `openWith`.
 The `openWith` value must be one of `firefox`, `google chrome`, `chromium` `safari`,
 `open`, `start`, `xdg-open`, `gio`, `gnome-open`, `kde-open` or `wslview`.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { open } from '@tauri-apps/api/shell';
@@ -482,6 +436,4 @@ await open('/path/to/file');
 | `path` | `string` | The path or URL to open. This value is matched against the string regex defined on `tauri.conf.json > tauri > allowlist > shell > open`, which defaults to `^https?://`. |
 | `openWith?` | `string` | The app to open the file or URL with. Defaults to the system default application for the specified path type. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

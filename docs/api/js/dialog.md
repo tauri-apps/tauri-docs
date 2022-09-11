@@ -26,8 +26,6 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Extension filters for the file dialog.
 
----
-
 #### Properties
 
 ##### extensions
@@ -36,15 +34,13 @@ Extension filters for the file dialog.
 
 Extensions to filter, without a `.` prefix.
 
-**`Example`**
+**Example**
 
 ```typescript
 extensions: ['svg', 'png']
 ```
 
-**Defined in** 
-
-[dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41)
+**Defined in:** [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41)
 
 ---
 
@@ -54,15 +50,11 @@ extensions: ['svg', 'png']
 
 Filter name.
 
-**Defined in** 
-
-[dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33)
+**Defined in:** [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33)
 
 ---
 
 ### MessageDialogOptions
-
----
 
 #### Properties
 
@@ -72,9 +64,7 @@ Filter name.
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in** 
-
-[dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79)
+**Defined in:** [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79)
 
 ---
 
@@ -84,17 +74,13 @@ The title of the dialog. Defaults to the app name.
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in** 
-
-[dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81)
+**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81)
 
 ---
 
 ### OpenDialogOptions
 
 Options for the open dialog.
-
----
 
 #### Properties
 
@@ -104,9 +90,7 @@ Options for the open dialog.
 
 Initial directory or file path.
 
-**Defined in** 
-
-[dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L51)
+**Defined in:** [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L51)
 
 ---
 
@@ -116,9 +100,7 @@ Initial directory or file path.
 
 Whether the dialog is a directory selection or not.
 
-**Defined in** 
-
-[dialog.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L55)
+**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L55)
 
 ---
 
@@ -128,9 +110,7 @@ Whether the dialog is a directory selection or not.
 
 The filters of the dialog.
 
-**Defined in** 
-
-[dialog.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L49)
+**Defined in:** [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L49)
 
 ---
 
@@ -140,9 +120,7 @@ The filters of the dialog.
 
 Whether the dialog allows multiple selection or not.
 
-**Defined in** 
-
-[dialog.ts:53](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L53)
+**Defined in:** [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L53)
 
 ---
 
@@ -153,9 +131,7 @@ Whether the dialog allows multiple selection or not.
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-**Defined in** 
-
-[dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60)
+**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60)
 
 ---
 
@@ -165,17 +141,13 @@ Defines whether subdirectories will be allowed on the scope or not.
 
 The title of the dialog window.
 
-**Defined in** 
-
-[dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47)
+**Defined in:** [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47)
 
 ---
 
 ### SaveDialogOptions
 
 Options for the save dialog.
-
----
 
 #### Properties
 
@@ -187,9 +159,7 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-**Defined in** 
-
-[dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L74)
+**Defined in:** [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L74)
 
 ---
 
@@ -199,9 +169,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 The filters of the dialog.
 
-**Defined in** 
-
-[dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L68)
+**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L68)
 
 ---
 
@@ -211,9 +179,7 @@ The filters of the dialog.
 
 The title of the dialog window.
 
-**Defined in** 
-
-[dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L66)
+**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L66)
 
 ---
 
@@ -221,11 +187,11 @@ The title of the dialog window.
 
 ### ask
 
-**ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { ask } from '@tauri-apps/api/dialog';
@@ -240,9 +206,7 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions) | The dialog's options. If a string, it represents the dialog title. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
@@ -250,11 +214,11 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 ### confirm
 
-**confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { confirm } from '@tauri-apps/api/dialog';
@@ -269,9 +233,7 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions) | The dialog's options. If a string, it represents the dialog title. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
@@ -279,11 +241,11 @@ A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
 ### message
 
-**message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Shows a message dialog with an `Ok` button.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { message } from '@tauri-apps/api/dialog';
@@ -298,9 +260,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 | `message` | `string` | The message to show. |
 | `options?` | `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions) | The dialog's options. If a string, it represents the dialog title. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -308,7 +268,7 @@ A promise indicating the success or failure of the operation.
 
 ### open
 
-**open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
+> **open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
 Open a file/directory selection dialog.
 
@@ -319,7 +279,7 @@ prefer writing a dedicated command instead.
 Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
 You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/tauri-plugin-persisted-scope).
 
-**`Example`**
+**Example**
 
 ```typescript
 import { open } from '@tauri-apps/api/dialog';
@@ -340,7 +300,7 @@ if (Array.isArray(selected)) {
 }
 ```
 
-**`Example`**
+**Example**
 
 ```typescript
 import { open } from '@tauri-apps/api/dialog';
@@ -366,9 +326,7 @@ if (Array.isArray(selected)) {
 | :------ | :------ |
 | `options` | [`OpenDialogOptions`](dialog.md#opendialogoptions) |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
 
@@ -376,7 +334,7 @@ A promise resolving to the selected path(s)
 
 ### save
 
-**save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Open a file/directory save dialog.
 
@@ -387,7 +345,7 @@ prefer writing a dedicated command instead.
 Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
 You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/tauri-plugin-persisted-scope).
 
-**`Example`**
+**Example**
 
 ```typescript
 import { save } from '@tauri-apps/api/dialog';
@@ -406,8 +364,6 @@ const filePath = await save({
 | :------ | :------ |
 | `options` | [`SaveDialogOptions`](dialog.md#savedialogoptions) |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to the selected path.

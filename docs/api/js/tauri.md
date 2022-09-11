@@ -10,19 +10,13 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 Command arguments.
 
-**Indexable**
-
-context.indexSignaturePartial(props.model.indexSignature)
-
----
-
 ---
 
 ## Functions
 
 ### convertFileSrc
 
-**convertFileSrc**(`filePath`: `string`, `protocol?`: `string`): `string`
+> **convertFileSrc**(`filePath`: `string`, `protocol?`: `string`): `string`
 
 Convert a device file path to an URL that can be loaded by the webview.
 Note that `asset:` and `https://asset.localhost` must be added to [`tauri.security.csp`](https://tauri.app/v1/api/config/#securityconfig.csp) in `tauri.conf.json`.
@@ -31,7 +25,7 @@ Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://as
 Additionally, `asset` must be added to [`tauri.allowlist.protocol`](https://tauri.app/v1/api/config/#allowlistconfig.protocol)
 in `tauri.conf.json` and its access scope must be defined on the `assetScope` array on the same `protocol` object.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { appDir, join } from '@tauri-apps/api/path';
@@ -55,9 +49,7 @@ video.load();
 | `filePath` | `string` | `undefined` | The file path. |
 | `protocol` | `string` | `'asset'` | The protocol to use. Defaults to `asset`. You only need to set this when using a custom protocol. |
 
-**Returns**
-
-`string`
+**Returns: **`string`
 
 the URL that can be used as source on the webview.
 
@@ -65,11 +57,11 @@ the URL that can be used as source on the webview.
 
 ### invoke
 
-**invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
+> **invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 Sends a message to the backend.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { invoke } from '@tauri-apps/api/tauri';
@@ -87,9 +79,7 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 | `cmd` | `string` | The command name. |
 | `args` | [`InvokeArgs`](tauri.md#invokeargs) | The optional arguments to pass to the command. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 A promise resolving or rejecting to the backend response.
 
@@ -97,7 +87,7 @@ A promise resolving or rejecting to the backend response.
 
 ### transformCallback
 
-**transformCallback**(`callback?`: `fn`, `once?`: `boolean`): `number`
+> **transformCallback**(`callback?`: `fn`, `once?`: `boolean`): `number`
 
 Transforms a callback function to a string identifier that can be passed to the backend.
 The backend uses the identifier to `eval()` the callback.
@@ -109,8 +99,6 @@ The backend uses the identifier to `eval()` the callback.
 | `callback?` | (`response`: `any`) => `void` | `undefined` |
 | `once` | `boolean` | `false` |
 
-**Returns**
-
-`number`
+**Returns: **`number`
 
 A unique identifier associated with the callback function.

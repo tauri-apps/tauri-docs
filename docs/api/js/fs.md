@@ -81,215 +81,36 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ### BaseDirectory
 
----
-
 #### Enumeration Members
 
-##### App
-
- **App** = `18`
-
-**Defined in** 
-
-[fs.ts:92](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L92)
-
----
-
-##### Audio
-
- **Audio** = `1`
-
-**Defined in** 
-
-[fs.ts:75](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L75)
-
----
-
-##### Cache
-
- **Cache** = `2`
-
-**Defined in** 
-
-[fs.ts:76](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L76)
-
----
-
-##### Config
-
- **Config** = `3`
-
-**Defined in** 
-
-[fs.ts:77](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L77)
-
----
-
-##### Data
-
- **Data** = `4`
-
-**Defined in** 
-
-[fs.ts:78](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L78)
-
----
-
-##### Desktop
-
- **Desktop** = `6`
-
-**Defined in** 
-
-[fs.ts:80](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L80)
-
----
-
-##### Document
-
- **Document** = `7`
-
-**Defined in** 
-
-[fs.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L81)
-
----
-
-##### Download
-
- **Download** = `8`
-
-**Defined in** 
-
-[fs.ts:82](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L82)
-
----
-
-##### Executable
-
- **Executable** = `9`
-
-**Defined in** 
-
-[fs.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L83)
-
----
-
-##### Font
-
- **Font** = `10`
-
-**Defined in** 
-
-[fs.ts:84](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L84)
-
----
-
-##### Home
-
- **Home** = `11`
-
-**Defined in** 
-
-[fs.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L85)
-
----
-
-##### LocalData
-
- **LocalData** = `5`
-
-**Defined in** 
-
-[fs.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L79)
-
----
-
-##### Log
-
- **Log** = `19`
-
-**Defined in** 
-
-[fs.ts:93](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L93)
-
----
-
-##### Picture
-
- **Picture** = `12`
-
-**Defined in** 
-
-[fs.ts:86](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L86)
-
----
-
-##### Public
-
- **Public** = `13`
-
-**Defined in** 
-
-[fs.ts:87](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L87)
-
----
-
-##### Resource
-
- **Resource** = `17`
-
-**Defined in** 
-
-[fs.ts:91](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L91)
-
----
-
-##### Runtime
-
- **Runtime** = `14`
-
-**Defined in** 
-
-[fs.ts:88](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L88)
-
----
-
-##### Temp
-
- **Temp** = `20`
-
-**Defined in** 
-
-[fs.ts:94](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L94)
-
----
-
-##### Template
-
- **Template** = `15`
-
-**Defined in** 
-
-[fs.ts:89](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L89)
-
----
-
-##### Video
-
- **Video** = `16`
-
-**Defined in** 
-
-[fs.ts:90](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L90)
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `App` | `18` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L92) |
+| `Audio` | `1` | [fs.ts:75](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L75) |
+| `Cache` | `2` | [fs.ts:76](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L76) |
+| `Config` | `3` | [fs.ts:77](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L77) |
+| `Data` | `4` | [fs.ts:78](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L78) |
+| `Desktop` | `6` | [fs.ts:80](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L80) |
+| `Document` | `7` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L81) |
+| `Download` | `8` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L82) |
+| `Executable` | `9` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L83) |
+| `Font` | `10` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L84) |
+| `Home` | `11` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L85) |
+| `LocalData` | `5` | [fs.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L79) |
+| `Log` | `19` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L93) |
+| `Picture` | `12` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L86) |
+| `Public` | `13` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L87) |
+| `Resource` | `17` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L91) |
+| `Runtime` | `14` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L88) |
+| `Temp` | `20` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L94) |
+| `Template` | `15` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L89) |
+| `Video` | `16` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L90) |
 
 ---
 
 ## Interfaces
 
 ### FileEntry
-
----
 
 #### Properties
 
@@ -299,9 +120,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 Children of this entry if it's a directory; null otherwise
 
-**Defined in** 
-
-[fs.ts:133](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L133)
+**Defined in:** [fs.ts:133](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L133)
 
 ---
 
@@ -312,9 +131,7 @@ Children of this entry if it's a directory; null otherwise
 Name of the directory/file
 can be null if the path terminates with `..`
 
-**Defined in** 
-
-[fs.ts:131](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L131)
+**Defined in:** [fs.ts:131](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L131)
 
 ---
 
@@ -322,17 +139,13 @@ can be null if the path terminates with `..`
 
  **path**: `string`
 
-**Defined in** 
-
-[fs.ts:126](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L126)
+**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L126)
 
 ---
 
 ### FsBinaryFileOption
 
 Options object used to write a binary data to a file.
-
----
 
 #### Properties
 
@@ -342,9 +155,7 @@ Options object used to write a binary data to a file.
 
 The byte array contents.
 
-**Defined in** 
-
-[fs.ts:122](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L122)
+**Defined in:** [fs.ts:122](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L122)
 
 ---
 
@@ -354,15 +165,11 @@ The byte array contents.
 
 Path to the file to write.
 
-**Defined in** 
-
-[fs.ts:120](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L120)
+**Defined in:** [fs.ts:120](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L120)
 
 ---
 
 ### FsDirOptions
-
----
 
 #### Properties
 
@@ -370,9 +177,7 @@ Path to the file to write.
 
 `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in** 
-
-[fs.ts:103](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L103)
+**Defined in:** [fs.ts:103](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L103)
 
 ---
 
@@ -380,15 +185,11 @@ Path to the file to write.
 
 `Optional` **recursive**: `boolean`
 
-**Defined in** 
-
-[fs.ts:104](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L104)
+**Defined in:** [fs.ts:104](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L104)
 
 ---
 
 ### FsOptions
-
----
 
 #### Properties
 
@@ -396,17 +197,13 @@ Path to the file to write.
 
 `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in** 
-
-[fs.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L98)
+**Defined in:** [fs.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L98)
 
 ---
 
 ### FsTextFileOption
 
 Options object used to write a UTF-8 string to a file.
-
----
 
 #### Properties
 
@@ -416,9 +213,7 @@ Options object used to write a UTF-8 string to a file.
 
 The UTF-8 string to write to the file.
 
-**Defined in** 
-
-[fs.ts:112](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L112)
+**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L112)
 
 ---
 
@@ -428,9 +223,7 @@ The UTF-8 string to write to the file.
 
 Path to the file to write.
 
-**Defined in** 
-
-[fs.ts:110](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L110)
+**Defined in:** [fs.ts:110](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L110)
 
 ---
 
@@ -440,9 +233,7 @@ Path to the file to write.
 
  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
-**Defined in** 
-
-[fs.ts:115](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L115)
+**Defined in:** [fs.ts:115](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L115)
 
 ---
 
@@ -450,11 +241,11 @@ Path to the file to write.
 
 ### copyFile
 
-**copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Copys a file to a destination.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { copyFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -470,9 +261,7 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 | `destination` | `string` | A path for the destination file. |
 | `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -480,13 +269,13 @@ A promise indicating the success or failure of the operation.
 
 ### createDir
 
-**createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Creates a directory.
 If one of the path's parent components doesn't exist
 and the `recursive` option isn't set to true, the promise will be rejected.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { createDir, BaseDirectory } from '@tauri-apps/api/fs';
@@ -501,9 +290,7 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 | `dir` | `string` | Path to the directory to create. |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -511,11 +298,11 @@ A promise indicating the success or failure of the operation.
 
 ### readBinaryFile
 
-**readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+> **readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 Reads a file as byte array.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -530,9 +317,7 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 | `filePath` | `string` | Path to the file. |
 | `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 A promise resolving to the file bytes array.
 
@@ -540,11 +325,11 @@ A promise resolving to the file bytes array.
 
 ### readDir
 
-**readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
+> **readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 List directory files.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
@@ -568,9 +353,7 @@ function processEntries(entries) {
 | `dir` | `string` | Path to the directory to read. |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 A promise resolving to the directory entries.
 
@@ -578,11 +361,11 @@ A promise resolving to the directory entries.
 
 ### readTextFile
 
-**readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Reads a file as an UTF-8 encoded string.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { readTextFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -597,9 +380,7 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 | `filePath` | `string` | Path to the file. |
 | `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
@@ -607,12 +388,12 @@ A promise resolving to the file content as a UTF-8 encoded string.
 
 ### removeDir
 
-**removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
@@ -627,9 +408,7 @@ await removeDir('users', { dir: BaseDirectory.App });
 | `dir` | `string` | Path to the directory to remove. |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -637,11 +416,11 @@ A promise indicating the success or failure of the operation.
 
 ### removeFile
 
-**removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { removeFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -656,9 +435,7 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 | `file` | `string` | Path to the file to remove. |
 | `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -666,11 +443,11 @@ A promise indicating the success or failure of the operation.
 
 ### renameFile
 
-**renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Renames a file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -686,9 +463,7 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 | `newPath` | `string` | A path of the new file name. |
 | `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -696,11 +471,11 @@ A promise indicating the success or failure of the operation.
 
 ### writeBinaryFile
 
-**writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -716,17 +491,15 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 | `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | The file contents. |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -741,9 +514,7 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 | `file` | [`FsBinaryFileOption`](fs.md#fsbinaryfileoption) | The object containing the file path and contents. |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
@@ -751,11 +522,11 @@ A promise indicating the success or failure of the operation.
 
 ### writeTextFile
 
-**writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -771,17 +542,15 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 | `contents` | `string` | The file contents. |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-**writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
@@ -796,8 +565,6 @@ await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: Base
 | `file` | [`FsTextFileOption`](fs.md#fstextfileoption) | The object containing the file path and contents. |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.

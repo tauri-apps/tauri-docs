@@ -8,20 +8,18 @@ This package is also accessible with `window.__TAURI__.clipboard` when [`build.w
 
 ### readText
 
-**readText**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+> **readText**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 Gets the clipboard content as plain text.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { readText } from '@tauri-apps/api/clipboard';
 const clipboardText = await readText();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 A promise resolving to the clipboard content as plain text.
 
@@ -29,11 +27,11 @@ A promise resolving to the clipboard content as plain text.
 
 ### writeText
 
-**writeText**(`text`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeText**(`text`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes plain text to the clipboard.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { writeText, readText } from '@tauri-apps/api/clipboard';
@@ -47,8 +45,6 @@ assert(await readText(), 'Tauri is awesome!');
 | :------ | :------ |
 | `text` | `string` |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.

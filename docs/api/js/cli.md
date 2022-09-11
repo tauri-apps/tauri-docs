@@ -8,8 +8,6 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 ### ArgMatch
 
----
-
 #### Properties
 
 ##### occurrences
@@ -18,9 +16,7 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 Number of occurrences
 
-**Defined in** 
-
-[cli.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L24)
+**Defined in:** [cli.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L24)
 
 ---
 
@@ -32,15 +28,11 @@ string if takes value
 boolean if flag
 string[] or null if takes multiple values
 
-**Defined in** 
-
-[cli.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L20)
+**Defined in:** [cli.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L20)
 
 ---
 
 ### CliMatches
-
----
 
 #### Properties
 
@@ -48,11 +40,7 @@ string[] or null if takes multiple values
 
  **args**: { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  }
 
-context.indexSignaturePartial(typeDeclaration.indexSignature)
-
-**Defined in** 
-
-[cli.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L33)
+**Defined in:** [cli.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L33)
 
 ---
 
@@ -60,15 +48,11 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
  **subcommand**: `null` \| [`SubcommandMatch`](cli.md#subcommandmatch)
 
-**Defined in** 
-
-[cli.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L34)
+**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L34)
 
 ---
 
 ### SubcommandMatch
-
----
 
 #### Properties
 
@@ -76,9 +60,7 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
  **matches**: [`CliMatches`](cli.md#climatches)
 
-**Defined in** 
-
-[cli.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L29)
+**Defined in:** [cli.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L29)
 
 ---
 
@@ -86,9 +68,7 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
  **name**: `string`
 
-**Defined in** 
-
-[cli.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L28)
+**Defined in:** [cli.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L28)
 
 ---
 
@@ -96,11 +76,11 @@ context.indexSignaturePartial(typeDeclaration.indexSignature)
 
 ### getMatches
 
-**getMatches**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
+> **getMatches**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
 
 Parse the arguments provided to the current process and get the matches using the configuration defined [`tauri.cli`](https://tauri.app/v1/api/config/#tauriconfig.cli) in `tauri.conf.json`
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getMatches } from '@tauri-apps/api/cli';
@@ -117,8 +97,6 @@ if (matches.subcommand?.name === 'run') {
 }
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
 
 A promise resolving to the parsed arguments.

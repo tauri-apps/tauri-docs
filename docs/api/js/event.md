@@ -12,8 +12,6 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 - `T`
 
----
-
 #### Properties
 
 ##### event
@@ -22,9 +20,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 Event name
 
-**Defined in** 
-
-[helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L11)
+**Defined in:** [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L11)
 
 ---
 
@@ -34,9 +30,7 @@ Event name
 
 Event identifier used to unlisten
 
-**Defined in** 
-
-[helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L15)
+**Defined in:** [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L15)
 
 ---
 
@@ -46,9 +40,7 @@ Event identifier used to unlisten
 
 Event payload
 
-**Defined in** 
-
-[helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L17)
+**Defined in:** [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L17)
 
 ---
 
@@ -58,9 +50,7 @@ Event payload
 
 The label of the window that emitted this event.
 
-**Defined in** 
-
-[helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L13)
+**Defined in:** [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L13)
 
 ---
 
@@ -76,7 +66,7 @@ The label of the window that emitted this event.
 
 **Type declaration**
 
-(`event`: [`Event`](event.md#event)<`T`\>): `void`
+> (`event`: [`Event`](event.md#event)<`T`\>): `void`
 
 **Parameters**
 
@@ -84,13 +74,9 @@ The label of the window that emitted this event.
 | :------ | :------ |
 | `event` | [`Event`](event.md#event)<`T`\> |
 
-**Returns**
+**Returns: **`void`
 
-`void`
-
-**Defined in** 
-
-[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L22)
+**Defined in:** [helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L22)
 
 ---
 
@@ -98,9 +84,7 @@ The label of the window that emitted this event.
 
  **EventName**: `string`
 
-**Defined in** 
-
-[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L20)
+**Defined in:** [helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L20)
 
 ---
 
@@ -110,15 +94,11 @@ The label of the window that emitted this event.
 
 **Type declaration**
 
-(): `void`
+> (): `void`
 
-**Returns**
+**Returns: **`void`
 
-`void`
-
-**Defined in** 
-
-[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L24)
+**Defined in:** [helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L24)
 
 ---
 
@@ -126,11 +106,11 @@ The label of the window that emitted this event.
 
 ### emit
 
-**emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Emits an event to the backend.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { emit } from '@tauri-apps/api/event';
@@ -144,19 +124,17 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `payload?` | `unknown` | Event payload |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### listen
 
-**listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+> **listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an event from the backend.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { listen } from '@tauri-apps/api/event';
@@ -179,9 +157,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
@@ -190,11 +166,11 @@ Note that removing the listener is required if your listener goes out of scope e
 
 ### once
 
-**once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+> **once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an one-off event from the backend.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { once } from '@tauri-apps/api/event';
@@ -221,9 +197,7 @@ unlisten();
 | `event` | `string` | Event name. Must include only alphanumeric characters, `-`, `/`, `:` and `_`. |
 | `handler` | [`EventCallback`](event.md#eventcallback)<`T`\> | Event handler callback. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.

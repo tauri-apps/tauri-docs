@@ -26,7 +26,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 **Type declaration**
 
-(`shortcut`: `string`): `void`
+> (`shortcut`: `string`): `void`
 
 **Parameters**
 
@@ -34,13 +34,9 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 | :------ | :------ |
 | `shortcut` | `string` |
 
-**Returns**
+**Returns: **`void`
 
-`void`
-
-**Defined in** 
-
-[globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/globalShortcut.ts#L29)
+**Defined in:** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/globalShortcut.ts#L29)
 
 ---
 
@@ -48,11 +44,11 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### isRegistered
 
-**isRegistered**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **isRegistered**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Determines whether the given shortcut is registered by this application or not.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { isRegistered } from '@tauri-apps/api/globalShortcut';
@@ -65,9 +61,7 @@ const isRegistered = await isRegistered('CommandOrControl+P');
 | :------ | :------ | :------ |
 | `shortcut` | `string` | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 A promise resolving to the state.
 
@@ -75,11 +69,11 @@ A promise resolving to the state.
 
 ### register
 
-**register**(`shortcut`: `string`, `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **register**(`shortcut`: `string`, `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Register a global shortcut.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { register } from '@tauri-apps/api/globalShortcut';
@@ -95,19 +89,17 @@ await register('CommandOrControl+Shift+C', () => {
 | `shortcut` | `string` | Shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 | `handler` | [`ShortcutHandler`](globalShortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### registerAll
 
-**registerAll**(`shortcuts`: `string`[], `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **registerAll**(`shortcuts`: `string`[], `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Register a collection of global shortcuts.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { registerAll } from '@tauri-apps/api/globalShortcut';
@@ -123,19 +115,17 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 | `shortcuts` | `string`[] | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 | `handler` | [`ShortcutHandler`](globalShortcut.md#shortcuthandler) | Shortcut handler callback - takes the triggered shortcut as argument |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### unregister
 
-**unregister**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **unregister**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Unregister a global shortcut.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { unregister } from '@tauri-apps/api/globalShortcut';
@@ -148,25 +138,21 @@ await unregister('CmdOrControl+Space');
 | :------ | :------ | :------ |
 | `shortcut` | `string` | shortcut definition, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ### unregisterAll
 
-**unregisterAll**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **unregisterAll**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Unregisters all shortcuts registered by the application.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { unregisterAll } from '@tauri-apps/api/globalShortcut';
 await unregisterAll();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

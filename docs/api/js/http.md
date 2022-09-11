@@ -41,37 +41,13 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 ### ResponseType
 
----
-
 #### Enumeration Members
 
-##### Binary
-
- **Binary** = `3`
-
-**Defined in** 
-
-[http.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L61)
-
----
-
-##### JSON
-
- **JSON** = `1`
-
-**Defined in** 
-
-[http.ts:59](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L59)
-
----
-
-##### Text
-
- **Text** = `2`
-
-**Defined in** 
-
-[http.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L60)
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `Binary` | `3` | [http.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L61) |
+| `JSON` | `1` | [http.ts:59](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L59) |
+| `Text` | `2` | [http.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L60) |
 
 ---
 
@@ -81,17 +57,13 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 The body object to be used on POST and PUT requests.
 
----
-
 #### Properties
 
 ##### payload
 
  **payload**: `unknown`
 
-**Defined in** 
-
-[http.ts:75](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L75)
+**Defined in:** [http.ts:75](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L75)
 
 ---
 
@@ -99,9 +71,7 @@ The body object to be used on POST and PUT requests.
 
  **type**: `string`
 
-**Defined in** 
-
-[http.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L74)
+**Defined in:** [http.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L74)
 
 ---
 
@@ -109,11 +79,11 @@ The body object to be used on POST and PUT requests.
 
 ##### bytes
 
-`Static` **bytes**(`bytes`: [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\>): [`Body`](http.md#body)
+> `Static` **bytes**(`bytes`: [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\>): [`Body`](http.md#body)
 
 Creates a new byte array body.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Body } from "@tauri-apps/api/http"
@@ -126,9 +96,7 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 | :------ | :------ |
 | `bytes` | [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\> |
 
-**Returns**
-
-[`Body`](http.md#body)
+**Returns: **[`Body`](http.md#body)
 
 The body object ready to be used on the POST and PUT requests.
 
@@ -136,7 +104,7 @@ The body object ready to be used on the POST and PUT requests.
 
 ##### form
 
-`Static` **form**(`data`: `Record`<`string`, [`Part`](http.md#part)\>): [`Body`](http.md#body)
+> `Static` **form**(`data`: `Record`<`string`, [`Part`](http.md#part)\>): [`Body`](http.md#body)
 
 Creates a new form data body. The form data is an object where each key is the entry name,
 and the value is either a string or a file object.
@@ -146,7 +114,7 @@ but you can set it to `multipart/form-data` if the Cargo feature `http-multipart
 
 Note that a file path must be allowed in the `fs` allowlist scope.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Body } from "@tauri-apps/api/http"
@@ -166,9 +134,7 @@ Body.form({
 | :------ | :------ | :------ |
 | `data` | `Record`<`string`, [`Part`](http.md#part)\> | The body data. |
 
-**Returns**
-
-[`Body`](http.md#body)
+**Returns: **[`Body`](http.md#body)
 
 The body object ready to be used on the POST and PUT requests.
 
@@ -176,11 +142,11 @@ The body object ready to be used on the POST and PUT requests.
 
 ##### json
 
-`Static` **json**(`data`: `Record`<`any`, `any`\>): [`Body`](http.md#body)
+> `Static` **json**(`data`: `Record`<`any`, `any`\>): [`Body`](http.md#body)
 
 Creates a new JSON body.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Body } from "@tauri-apps/api/http"
@@ -196,9 +162,7 @@ Body.json({
 | :------ | :------ | :------ |
 | `data` | `Record`<`any`, `any`\> | The body JSON object. |
 
-**Returns**
-
-[`Body`](http.md#body)
+**Returns: **[`Body`](http.md#body)
 
 The body object ready to be used on the POST and PUT requests.
 
@@ -206,11 +170,11 @@ The body object ready to be used on the POST and PUT requests.
 
 ##### text
 
-`Static` **text**(`value`: `string`): [`Body`](http.md#body)
+> `Static` **text**(`value`: `string`): [`Body`](http.md#body)
 
 Creates a new UTF-8 string body.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { Body } from "@tauri-apps/api/http"
@@ -223,9 +187,7 @@ Body.text('The body content as a string');
 | :------ | :------ |
 | `value` | `string` |
 
-**Returns**
-
-[`Body`](http.md#body)
+**Returns: **[`Body`](http.md#body)
 
 The body object ready to be used on the POST and PUT requests.
 
@@ -233,17 +195,13 @@ The body object ready to be used on the POST and PUT requests.
 
 ### Client
 
----
-
 #### Properties
 
 ##### id
 
  **id**: `number`
 
-**Defined in** 
-
-[http.ts:251](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L251)
+**Defined in:** [http.ts:251](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L251)
 
 ---
 
@@ -251,11 +209,11 @@ The body object ready to be used on the POST and PUT requests.
 
 ##### delete
 
-**delete**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **delete**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a DELETE request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient } from '@tauri-apps/api/http';
@@ -274,9 +232,7 @@ const response = await client.delete('http://localhost:3003/users/1');
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](http.md#requestoptions) | The request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -284,11 +240,11 @@ A promise resolving to the response.
 
 ##### drop
 
-**drop**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **drop**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Drops the client instance.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient } from '@tauri-apps/api/http';
@@ -296,19 +252,17 @@ const client = await getClient();
 await client.drop();
 ```
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 ---
 
 ##### get
 
-**get**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **get**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a GET request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient, ResponseType } from '@tauri-apps/api/http';
@@ -331,9 +285,7 @@ const response = await client.get('http://localhost:3003/users', {
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](http.md#requestoptions) | The request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -341,11 +293,11 @@ A promise resolving to the response.
 
 ##### patch
 
-**patch**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **patch**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a PATCH request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
@@ -366,9 +318,7 @@ const response = await client.patch('http://localhost:3003/users/1', {
 | `url` | `string` | The request URL. |
 | `options?` | [`RequestOptions`](http.md#requestoptions) | The request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -376,11 +326,11 @@ A promise resolving to the response.
 
 ##### post
 
-**post**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **post**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a POST request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient, Body, ResponseType } from '@tauri-apps/api/http';
@@ -407,9 +357,7 @@ const response = await client.post('http://localhost:3003/users', {
 | `body?` | [`Body`](http.md#body) | The body of the request. |
 | `options?` | [`RequestOptions`](http.md#requestoptions) | The request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -417,11 +365,11 @@ A promise resolving to the response.
 
 ##### put
 
-**put**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **put**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes a PUT request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient, Body } from '@tauri-apps/api/http';
@@ -449,9 +397,7 @@ const response = await client.put('http://localhost:3003/users/1', {
 | `body?` | [`Body`](http.md#body) | The body of the request. |
 | `options?` | [`RequestOptions`](http.md#requestoptions) | Request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -459,11 +405,11 @@ A promise resolving to the response.
 
 ##### request
 
-**request**<`T`\>(`options`: [`HttpOptions`](http.md#httpoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **request**<`T`\>(`options`: [`HttpOptions`](http.md#httpoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Makes an HTTP request.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient } from '@tauri-apps/api/http';
@@ -484,9 +430,7 @@ const response = await client.request({
 | :------ | :------ | :------ |
 | `options` | [`HttpOptions`](http.md#httpoptions) | The request options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 A promise resolving to the response.
 
@@ -500,8 +444,6 @@ Response object.
 
 - `T`
 
----
-
 #### Properties
 
 ##### data
@@ -510,9 +452,7 @@ Response object.
 
 The response data.
 
-**Defined in** 
-
-[http.ts:237](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L237)
+**Defined in:** [http.ts:237](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L237)
 
 ---
 
@@ -522,9 +462,7 @@ The response data.
 
 The response headers.
 
-**Defined in** 
-
-[http.ts:233](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L233)
+**Defined in:** [http.ts:233](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L233)
 
 ---
 
@@ -534,9 +472,7 @@ The response headers.
 
 A boolean indicating whether the response was successful (status in the range 200–299) or not.
 
-**Defined in** 
-
-[http.ts:231](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L231)
+**Defined in:** [http.ts:231](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L231)
 
 ---
 
@@ -546,9 +482,7 @@ A boolean indicating whether the response was successful (status in the range 20
 
 The response raw headers.
 
-**Defined in** 
-
-[http.ts:235](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L235)
+**Defined in:** [http.ts:235](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L235)
 
 ---
 
@@ -558,9 +492,7 @@ The response raw headers.
 
 The response status code.
 
-**Defined in** 
-
-[http.ts:229](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L229)
+**Defined in:** [http.ts:229](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L229)
 
 ---
 
@@ -570,9 +502,7 @@ The response status code.
 
 The request URL.
 
-**Defined in** 
-
-[http.ts:227](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L227)
+**Defined in:** [http.ts:227](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L227)
 
 ---
 
@@ -580,17 +510,13 @@ The request URL.
 
 ### ClientOptions
 
----
-
 #### Properties
 
 ##### connectTimeout
 
 `Optional` **connectTimeout**: `number` \| [`Duration`](http.md#duration)
 
-**Defined in** 
-
-[http.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L55)
+**Defined in:** [http.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L55)
 
 ---
 
@@ -598,15 +524,11 @@ The request URL.
 
 `Optional` **maxRedirections**: `number`
 
-**Defined in** 
-
-[http.ts:54](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L54)
+**Defined in:** [http.ts:54](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L54)
 
 ---
 
 ### Duration
-
----
 
 #### Properties
 
@@ -614,9 +536,7 @@ The request URL.
 
  **nanos**: `number`
 
-**Defined in** 
-
-[http.ts:50](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L50)
+**Defined in:** [http.ts:50](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L50)
 
 ---
 
@@ -624,9 +544,7 @@ The request URL.
 
  **secs**: `number`
 
-**Defined in** 
-
-[http.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L49)
+**Defined in:** [http.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L49)
 
 ---
 
@@ -636,17 +554,13 @@ The request URL.
 
 - `T`
 
----
-
 #### Properties
 
 ##### file
 
  **file**: `string` \| `T`
 
-**Defined in** 
-
-[http.ts:65](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L65)
+**Defined in:** [http.ts:65](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L65)
 
 ---
 
@@ -654,9 +568,7 @@ The request URL.
 
 `Optional` **fileName**: `string`
 
-**Defined in** 
-
-[http.ts:67](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L67)
+**Defined in:** [http.ts:67](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L67)
 
 ---
 
@@ -664,9 +576,7 @@ The request URL.
 
 `Optional` **mime**: `string`
 
-**Defined in** 
-
-[http.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L66)
+**Defined in:** [http.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L66)
 
 ---
 
@@ -674,17 +584,13 @@ The request URL.
 
 Options object sent to the backend.
 
----
-
 #### Properties
 
 ##### body
 
 `Optional` **body**: [`Body`](http.md#body)
 
-**Defined in** 
-
-[http.ts:205](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L205)
+**Defined in:** [http.ts:205](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L205)
 
 ---
 
@@ -692,9 +598,7 @@ Options object sent to the backend.
 
 `Optional` **headers**: `Record`<`string`, `any`\>
 
-**Defined in** 
-
-[http.ts:203](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L203)
+**Defined in:** [http.ts:203](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L203)
 
 ---
 
@@ -702,9 +606,7 @@ Options object sent to the backend.
 
  **method**: [`HttpVerb`](http.md#httpverb)
 
-**Defined in** 
-
-[http.ts:201](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L201)
+**Defined in:** [http.ts:201](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L201)
 
 ---
 
@@ -712,9 +614,7 @@ Options object sent to the backend.
 
 `Optional` **query**: `Record`<`string`, `any`\>
 
-**Defined in** 
-
-[http.ts:204](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L204)
+**Defined in:** [http.ts:204](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L204)
 
 ---
 
@@ -722,9 +622,7 @@ Options object sent to the backend.
 
 `Optional` **responseType**: [`ResponseType`](http.md#responsetype)
 
-**Defined in** 
-
-[http.ts:207](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L207)
+**Defined in:** [http.ts:207](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L207)
 
 ---
 
@@ -732,9 +630,7 @@ Options object sent to the backend.
 
 `Optional` **timeout**: `number` \| [`Duration`](http.md#duration)
 
-**Defined in** 
-
-[http.ts:206](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L206)
+**Defined in:** [http.ts:206](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L206)
 
 ---
 
@@ -742,9 +638,7 @@ Options object sent to the backend.
 
  **url**: `string`
 
-**Defined in** 
-
-[http.ts:202](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L202)
+**Defined in:** [http.ts:202](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L202)
 
 ---
 
@@ -756,9 +650,7 @@ Options object sent to the backend.
 
 Options for the `fetch` API.
 
-**Defined in** 
-
-[http.ts:213](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L213)
+**Defined in:** [http.ts:213](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L213)
 
 ---
 
@@ -768,9 +660,7 @@ Options for the `fetch` API.
 
 The request HTTP verb.
 
-**Defined in** 
-
-[http.ts:188](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L188)
+**Defined in:** [http.ts:188](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L188)
 
 ---
 
@@ -778,9 +668,7 @@ The request HTTP verb.
 
  **Part**: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) \| [`FilePart`](http.md#filepart)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
-**Defined in** 
-
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L70)
+**Defined in:** [http.ts:70](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L70)
 
 ---
 
@@ -790,9 +678,7 @@ The request HTTP verb.
 
 Request options.
 
-**Defined in** 
-
-[http.ts:211](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L211)
+**Defined in:** [http.ts:211](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L211)
 
 ---
 
@@ -800,11 +686,11 @@ Request options.
 
 ### fetch
 
-**fetch**<`T`\>(`url`: `string`, `options?`: [`FetchOptions`](http.md#fetchoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+> **fetch**<`T`\>(`url`: `string`, `options?`: [`FetchOptions`](http.md#fetchoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 Perform an HTTP request using the default client.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { fetch } from '@tauri-apps/api/http';
@@ -825,9 +711,7 @@ const response = await fetch('http://localhost:3003/users/2', {
 | `url` | `string` | The request URL. |
 | `options?` | [`FetchOptions`](http.md#fetchoptions) | The fetch options. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
 The response object.
 
@@ -835,11 +719,11 @@ The response object.
 
 ### getClient
 
-**getClient**(`options?`: [`ClientOptions`](http.md#clientoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
+> **getClient**(`options?`: [`ClientOptions`](http.md#clientoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
 
 Creates a new client using the specified options.
 
-**`Example`**
+**Example**
 
 ```typescript
 import { getClient } from '@tauri-apps/api/http';
@@ -852,8 +736,6 @@ const client = await getClient();
 | :------ | :------ | :------ |
 | `options?` | [`ClientOptions`](http.md#clientoptions) | Client configuration. |
 
-**Returns**
-
-[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
 
 A promise resolving to the client instance.
