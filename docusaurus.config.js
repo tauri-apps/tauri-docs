@@ -134,10 +134,6 @@ const navbarItems = [
       },
     ],
   },
-  {
-    type: 'search',
-    position: 'right',
-  },
 ]
 
 const footerLinks = [
@@ -267,15 +263,15 @@ async function siteConfig() {
             sidebarPath: require.resolve('./sidebars.js'),
             showLastUpdateTime: true,
             editUrl: ({ docPath, versionDocsDirPath }) => {
-              if (docPath === "api/cli.md") {
-                return 'https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/src';
-              } else if (docPath === "api/config.md") {
-                return 'https://github.com/tauri-apps/tauri/edit/dev/core/tauri-utils/src/config.rs';
-              } else if (docPath.startsWith("api/js")) {
-                const mod = docPath.split('/').at(-1).split('.')[0];
-                return `https://github.com/tauri-apps/tauri/edit/dev/tooling/api/src/${mod}.ts`;
+              if (docPath === 'api/cli.md') {
+                return 'https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/src'
+              } else if (docPath === 'api/config.md') {
+                return 'https://github.com/tauri-apps/tauri/edit/dev/core/tauri-utils/src/config.rs'
+              } else if (docPath.startsWith('api/js')) {
+                const mod = docPath.split('/').at(-1).split('.')[0]
+                return `https://github.com/tauri-apps/tauri/edit/dev/tooling/api/src/${mod}.ts`
               } else {
-                return `https://github.com/tauri-apps/tauri-docs/edit/dev/${versionDocsDirPath}/${docPath}`;
+                return `https://github.com/tauri-apps/tauri-docs/edit/dev/${versionDocsDirPath}/${docPath}`
               }
             },
             sidebarCollapsible: true,
