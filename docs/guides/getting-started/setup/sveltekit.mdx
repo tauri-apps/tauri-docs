@@ -129,7 +129,9 @@ export const prerender = true
 export const ssr = false
 ```
 
-Note that if you prefer a Single-Page Application (SPA) mode over SSG, you need to change the adapter configurations and `+layout.ts` according to the [adapter docs].
+Note that static-adapter doesn't require you to disable ssr for the whole app but it makes it possible to use APIs which depend on the global `window` object, like Tauri's API, without [Client-side checks].
+
+Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you can change the adapter configurations and `+layout.ts` according to the [adapter docs].
 
 ## Create the Rust Project
 
@@ -209,6 +211,7 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [`@sveltejs/adapter-static`]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static
 [`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
 [webdriver documentation]: ../../testing/webdriver/introduction.md
+[client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
 [adapter docs]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
 [typescript]: https://www.typescriptlang.org
 [`@tauri-apps/api`]: ../../../api/js/
