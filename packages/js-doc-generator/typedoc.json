@@ -25,5 +25,6 @@
   "json": "../../docs/api/js/js-api.json",
   "pretty": false,
   "hideInPageTOC": true,
-  "hasOwnDocument": "None"
+  "hasOwnDocument": "None",
+  "hideHorizontalDivider": true
 }
