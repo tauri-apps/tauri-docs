@@ -29,9 +29,9 @@ Options to send a notification.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="notification.Options.body"><a href="#notification.Options.body">`body?`</a></div> | `string` | Optional notification body. | [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36) |
-| <div class="anchor-with-padding" id="notification.Options.icon"><a href="#notification.Options.icon">`icon?`</a></div> | `string` | Optional notification icon. | [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38) |
-| <div class="anchor-with-padding" id="notification.Options.title"><a href="#notification.Options.title">`title`</a></div> | `string` | Notification title. | [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34) |
+| <div class="anchor-with-padding" id="notification.Options.body"><a href="#notification.Options.body">`body?`</a></div> | `string` | Optional notification body. | [notification.ts:36](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L36) |
+| <div class="anchor-with-padding" id="notification.Options.icon"><a href="#notification.Options.icon">`icon?`</a></div> | `string` | Optional notification icon. | [notification.ts:38](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L38) |
+| <div class="anchor-with-padding" id="notification.Options.title"><a href="#notification.Options.title">`title`</a></div> | `string` | Notification title. | [notification.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L34) |
 
 ## Type Aliases
 
@@ -41,7 +41,7 @@ Options to send a notification.
 
 Possible permission values.
 
-[notification.ts:42](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L42)
+**Defined in:** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L42)
 
 ## Functions
 

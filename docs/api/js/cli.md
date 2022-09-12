@@ -12,8 +12,8 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="cli.ArgMatch.occurrences"><a href="#cli.ArgMatch.occurrences">`occurrences`</a></div> | `number` | Number of occurrences | [cli.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L24) |
-| <div class="anchor-with-padding" id="cli.ArgMatch.value"><a href="#cli.ArgMatch.value">`value`</a></div> | `null` \| `string` \| `boolean` \| `string`[] | string if takes value boolean if flag string[] or null if takes multiple values | [cli.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L20) |
+| <div class="anchor-with-padding" id="cli.ArgMatch.occurrences"><a href="#cli.ArgMatch.occurrences">`occurrences`</a></div> | `number` | Number of occurrences | [cli.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L24) |
+| <div class="anchor-with-padding" id="cli.ArgMatch.value"><a href="#cli.ArgMatch.value">`value`</a></div> | `null` \| `string` \| `boolean` \| `string`[] | string if takes value boolean if flag string[] or null if takes multiple values | [cli.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L20) |
 
 ### `CliMatches`
 
@@ -21,8 +21,8 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="cli.CliMatches.args"><a href="#cli.CliMatches.args">`args`</a></div> | { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  } | [cli.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L33) |
-| <div class="anchor-with-padding" id="cli.CliMatches.subcommand"><a href="#cli.CliMatches.subcommand">`subcommand`</a></div> | `null` \| [`SubcommandMatch`](cli.md#subcommandmatch) | [cli.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L34) |
+| <div class="anchor-with-padding" id="cli.CliMatches.args"><a href="#cli.CliMatches.args">`args`</a></div> | { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  } | [cli.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L33) |
+| <div class="anchor-with-padding" id="cli.CliMatches.subcommand"><a href="#cli.CliMatches.subcommand">`subcommand`</a></div> | `null` \| [`SubcommandMatch`](cli.md#subcommandmatch) | [cli.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L34) |
 
 ### `SubcommandMatch`
 
@@ -30,8 +30,8 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="cli.SubcommandMatch.matches"><a href="#cli.SubcommandMatch.matches">`matches`</a></div> | [`CliMatches`](cli.md#climatches) | [cli.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L29) |
-| <div class="anchor-with-padding" id="cli.SubcommandMatch.name"><a href="#cli.SubcommandMatch.name">`name`</a></div> | `string` | [cli.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L28) |
+| <div class="anchor-with-padding" id="cli.SubcommandMatch.matches"><a href="#cli.SubcommandMatch.matches">`matches`</a></div> | [`CliMatches`](cli.md#climatches) | [cli.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L29) |
+| <div class="anchor-with-padding" id="cli.SubcommandMatch.name"><a href="#cli.SubcommandMatch.name">`name`</a></div> | `string` | [cli.ts:28](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L28) |
 
 ## Functions
 

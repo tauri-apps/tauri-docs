@@ -30,8 +30,8 @@ Extension filters for the file dialog.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="dialog.DialogFilter.extensions"><a href="#dialog.DialogFilter.extensions">`extensions`</a></div> | `string`[] | Extensions to filter, without a `.` prefix.  **Example**  ```typescript extensions: ['svg', 'png'] ``` | [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41) |
-| <div class="anchor-with-padding" id="dialog.DialogFilter.name"><a href="#dialog.DialogFilter.name">`name`</a></div> | `string` | Filter name. | [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33) |
+| <div class="anchor-with-padding" id="dialog.DialogFilter.extensions"><a href="#dialog.DialogFilter.extensions">`extensions`</a></div> | `string`[] | Extensions to filter, without a `.` prefix.  **Example**  ```typescript extensions: ['svg', 'png'] ``` | [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L41) |
+| <div class="anchor-with-padding" id="dialog.DialogFilter.name"><a href="#dialog.DialogFilter.name">`name`</a></div> | `string` | Filter name. | [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L33) |
 
 ### `MessageDialogOptions`
 
@@ -39,8 +39,8 @@ Extension filters for the file dialog.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="dialog.MessageDialogOptions.title"><a href="#dialog.MessageDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog. Defaults to the app name. | [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79) |
-| <div class="anchor-with-padding" id="dialog.MessageDialogOptions.type"><a href="#dialog.MessageDialogOptions.type">`type?`</a></div> | `"error"` \| `"info"` \| `"warning"` | The type of the dialog. Defaults to `info`. | [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81) |
+| <div class="anchor-with-padding" id="dialog.MessageDialogOptions.title"><a href="#dialog.MessageDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog. Defaults to the app name. | [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L79) |
+| <div class="anchor-with-padding" id="dialog.MessageDialogOptions.type"><a href="#dialog.MessageDialogOptions.type">`type?`</a></div> | `"error"` \| `"info"` \| `"warning"` | The type of the dialog. Defaults to `info`. | [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L81) |
 
 ### `OpenDialogOptions`
 
@@ -50,12 +50,12 @@ Options for the open dialog.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.defaultPath"><a href="#dialog.OpenDialogOptions.defaultPath">`defaultPath?`</a></div> | `string` | Initial directory or file path. | [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L51) |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.directory"><a href="#dialog.OpenDialogOptions.directory">`directory?`</a></div> | `boolean` | Whether the dialog is a directory selection or not. | [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L55) |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.filters"><a href="#dialog.OpenDialogOptions.filters">`filters?`</a></div> | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L49) |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.multiple"><a href="#dialog.OpenDialogOptions.multiple">`multiple?`</a></div> | `boolean` | Whether the dialog allows multiple selection or not. | [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L53) |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.recursive"><a href="#dialog.OpenDialogOptions.recursive">`recursive?`</a></div> | `boolean` | If `directory` is true, indicates that it will be read recursively later. Defines whether subdirectories will be allowed on the scope or not. | [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60) |
-| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.title"><a href="#dialog.OpenDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog window. | [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.defaultPath"><a href="#dialog.OpenDialogOptions.defaultPath">`defaultPath?`</a></div> | `string` | Initial directory or file path. | [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L51) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.directory"><a href="#dialog.OpenDialogOptions.directory">`directory?`</a></div> | `boolean` | Whether the dialog is a directory selection or not. | [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L55) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.filters"><a href="#dialog.OpenDialogOptions.filters">`filters?`</a></div> | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L49) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.multiple"><a href="#dialog.OpenDialogOptions.multiple">`multiple?`</a></div> | `boolean` | Whether the dialog allows multiple selection or not. | [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L53) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.recursive"><a href="#dialog.OpenDialogOptions.recursive">`recursive?`</a></div> | `boolean` | If `directory` is true, indicates that it will be read recursively later. Defines whether subdirectories will be allowed on the scope or not. | [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L60) |
+| <div class="anchor-with-padding" id="dialog.OpenDialogOptions.title"><a href="#dialog.OpenDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog window. | [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L47) |
 
 ### `SaveDialogOptions`
 
@@ -65,9 +65,9 @@ Options for the save dialog.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.defaultPath"><a href="#dialog.SaveDialogOptions.defaultPath">`defaultPath?`</a></div> | `string` | Initial directory or file path. If it's a directory path, the dialog interface will change to that folder. If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder. | [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L74) |
-| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.filters"><a href="#dialog.SaveDialogOptions.filters">`filters?`</a></div> | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L68) |
-| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.title"><a href="#dialog.SaveDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog window. | [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L66) |
+| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.defaultPath"><a href="#dialog.SaveDialogOptions.defaultPath">`defaultPath?`</a></div> | `string` | Initial directory or file path. If it's a directory path, the dialog interface will change to that folder. If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder. | [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L74) |
+| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.filters"><a href="#dialog.SaveDialogOptions.filters">`filters?`</a></div> | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L68) |
+| <div class="anchor-with-padding" id="dialog.SaveDialogOptions.title"><a href="#dialog.SaveDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog window. | [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L66) |
 
 ## Functions
 
