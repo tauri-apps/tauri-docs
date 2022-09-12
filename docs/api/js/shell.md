@@ -85,6 +85,8 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
+**Defined in:** [shell.ts:183](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L183)
+
 #### Properties
 
 ##### `pid`
@@ -175,7 +177,9 @@ Creates a new `Command` instance.
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
 
-**Overrides** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
+**Overrides:** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
+
+**Defined in:** [shell.ts:268](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L268)
 
 #### Properties
 

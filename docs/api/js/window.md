@@ -83,6 +83,8 @@ Attention type to request on a window.
 | :------ | :------ |
 | `event` | [`Event`](event.md#event)<`null`\> |
 
+**Defined in:** [window.ts:1763](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1763)
+
 #### Properties
 
 ##### `event`
@@ -140,6 +142,8 @@ A position represented in logical pixels.
 | `x` | `number` |
 | `y` | `number` |
 
+**Defined in:** [window.ts:139](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L139)
+
 #### Properties
 
 ##### `type`
@@ -177,6 +181,8 @@ A size represented in logical pixels.
 | `width` | `number` |
 | `height` | `number` |
 
+**Defined in:** [window.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L101)
+
 #### Properties
 
 ##### `height`
@@ -213,6 +219,8 @@ A position represented in physical pixels.
 | :------ | :------ |
 | `x` | `number` |
 | `y` | `number` |
+
+**Defined in:** [window.ts:151](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L151)
 
 #### Properties
 
@@ -275,6 +283,8 @@ A size represented in physical pixels.
 | :------ | :------ |
 | `width` | `number` |
 | `height` | `number` |
+
+**Defined in:** [window.ts:113](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L113)
 
 #### Properties
 
@@ -391,7 +401,9 @@ webview.once('tauri://error', function (e) {
 | `label` | `string` | The unique webview window label. Must be alphanumeric: `a-zA-Z-/:_`. |
 | `options` | [`WindowOptions`](window.md#windowoptions) | - |
 
-**Overrides** [WindowManager](window.md#windowmanager).[constructor](window.md#constructor)
+**Overrides:** [WindowManager](window.md#windowmanager).[constructor](window.md#constructor)
+
+**Defined in:** [window.ts:1829](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1829)
 
 #### Properties
 
@@ -401,7 +413,9 @@ webview.once('tauri://error', function (e) {
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-**Inherited from** [WindowManager](window.md#windowmanager).[label](window.md#label)**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
+**Inherited from:** [WindowManager](window.md#windowmanager).[label](window.md#label)
+
+**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
 
 ##### `listeners`
 
@@ -409,7 +423,9 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 Local event listeners.
 
-**Inherited from** [WindowManager](window.md#windowmanager).[listeners](window.md#listeners)**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
+**Inherited from:** [WindowManager](window.md#windowmanager).[listeners](window.md#listeners)
+
+**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
 
 #### Methods
 
@@ -1593,6 +1609,8 @@ A webview window handle allows emitting and listening to events from the backend
 | :------ | :------ |
 | `label` | `string` |
 
+**Defined in:** [window.ts:284](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L284)
+
 #### Properties
 
 ##### `label`
@@ -1742,7 +1760,9 @@ Manage the current window object.
 | :------ | :------ |
 | `label` | `string` |
 
-**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[constructor](window.md#constructor)
+**Inherited from:** [WebviewWindowHandle](window.md#webviewwindowhandle).[constructor](window.md#constructor)
+
+**Defined in:** [window.ts:284](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L284)
 
 #### Properties
 
@@ -1752,7 +1772,9 @@ Manage the current window object.
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[label](window.md#label)**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
+**Inherited from:** [WebviewWindowHandle](window.md#webviewwindowhandle).[label](window.md#label)
+
+**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
 
 ##### `listeners`
 
@@ -1760,7 +1782,9 @@ The window label. It is a unique identifier for the window, can be used to refer
 
 Local event listeners.
 
-**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[listeners](window.md#listeners)**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
+**Inherited from:** [WebviewWindowHandle](window.md#webviewwindowhandle).[listeners](window.md#listeners)
+
+**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
 
 #### Methods
 
