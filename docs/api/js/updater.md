@@ -12,9 +12,9 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| `body` | `string` | [updater.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L24) |
-| `date` | `string` | [updater.ts:23](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L23) |
-| `version` | `string` | [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L22) |
+| <div class="anchor-with-padding" id="updater.UpdateManifest.body"><a href="#updater.UpdateManifest.body">`body`</a></div> | `string` | [updater.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L24) |
+| <div class="anchor-with-padding" id="updater.UpdateManifest.date"><a href="#updater.UpdateManifest.date">`date`</a></div> | `string` | [updater.ts:23](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L23) |
+| <div class="anchor-with-padding" id="updater.UpdateManifest.version"><a href="#updater.UpdateManifest.version">`version`</a></div> | `string` | [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L22) |
 
 ### UpdateResult
 
@@ -22,8 +22,8 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| `manifest?` | [`UpdateManifest`](updater.md#updatemanifest) | [updater.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L28) |
-| `shouldUpdate` | `boolean` | [updater.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L29) |
+| <div class="anchor-with-padding" id="updater.UpdateResult.manifest"><a href="#updater.UpdateResult.manifest">`manifest?`</a></div> | [`UpdateManifest`](updater.md#updatemanifest) | [updater.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L28) |
+| <div class="anchor-with-padding" id="updater.UpdateResult.shouldUpdate"><a href="#updater.UpdateResult.shouldUpdate">`shouldUpdate`</a></div> | `boolean` | [updater.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L29) |
 
 ### UpdateStatusResult
 
@@ -31,8 +31,8 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| `error?` | `string` | [updater.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L17) |
-| `status` | [`UpdateStatus`](updater.md#updatestatus) | [updater.ts:18](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L18) |
+| <div class="anchor-with-padding" id="updater.UpdateStatusResult.error"><a href="#updater.UpdateStatusResult.error">`error?`</a></div> | `string` | [updater.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L17) |
+| <div class="anchor-with-padding" id="updater.UpdateStatusResult.status"><a href="#updater.UpdateStatusResult.status">`status`</a></div> | [`UpdateStatus`](updater.md#updatestatus) | [updater.ts:18](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L18) |
 
 ## Type Aliases
 

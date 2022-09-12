@@ -29,9 +29,9 @@ Options to send a notification.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| `body?` | `string` | Optional notification body. | [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36) |
-| `icon?` | `string` | Optional notification icon. | [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38) |
-| `title` | `string` | Notification title. | [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34) |
+| <div class="anchor-with-padding" id="notification.Options.body"><a href="#notification.Options.body">`body?`</a></div> | `string` | Optional notification body. | [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36) |
+| <div class="anchor-with-padding" id="notification.Options.icon"><a href="#notification.Options.icon">`icon?`</a></div> | `string` | Optional notification icon. | [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38) |
+| <div class="anchor-with-padding" id="notification.Options.title"><a href="#notification.Options.title">`title`</a></div> | `string` | Notification title. | [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34) |
 
 ## Type Aliases
 
