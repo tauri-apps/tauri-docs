@@ -89,7 +89,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.Child.pid"><a href="#shell.Child.pid">`pid`</a></div> | `number` | The child process `pid`. | [shell.ts:181](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L181) |
+| <div class="anchor-with-padding" id="shell.Child.pid"><a href="#shell.Child.pid">`pid`</a></div> | `number` | The child process `pid`. | [shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L181) |
 
 #### Methods
 
@@ -177,8 +177,8 @@ Creates a new `Command` instance.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.Command.stderr"><a href="#shell.Command.stderr">`stderr`</a></div> | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stderr`. Emits the `data` event. | [shell.ts:258](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L258) |
-| <div class="anchor-with-padding" id="shell.Command.stdout"><a href="#shell.Command.stdout">`stdout`</a></div> | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stdout`. Emits the `data` event. | [shell.ts:256](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L256) |
+| <div class="anchor-with-padding" id="shell.Command.stderr"><a href="#shell.Command.stderr">`stderr`</a></div> | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stderr`. Emits the `data` event. | [shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L258) |
+| <div class="anchor-with-padding" id="shell.Command.stdout"><a href="#shell.Command.stdout">`stdout`</a></div> | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stdout`. Emits the `data` event. | [shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L256) |
 
 #### Methods
 
@@ -302,10 +302,10 @@ The `this` instance for chained calls.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.ChildProcess.code"><a href="#shell.ChildProcess.code">`code`</a></div> | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L95) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.signal"><a href="#shell.ChildProcess.signal">`signal`</a></div> | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L97) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99) |
+| <div class="anchor-with-padding" id="shell.ChildProcess.code"><a href="#shell.ChildProcess.code">`code`</a></div> | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L95) |
+| <div class="anchor-with-padding" id="shell.ChildProcess.signal"><a href="#shell.ChildProcess.signal">`signal`</a></div> | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L97) |
+| <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L101) |
+| <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L99) |
 
 ### `SpawnOptions`
 
@@ -313,8 +313,8 @@ The `this` instance for chained calls.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.cwd"><a href="#shell.SpawnOptions.cwd">`cwd?`</a></div> | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L83) |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.env"><a href="#shell.SpawnOptions.env">`env?`</a></div> | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L85) |
+| <div class="anchor-with-padding" id="shell.SpawnOptions.cwd"><a href="#shell.SpawnOptions.cwd">`cwd?`</a></div> | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L83) |
+| <div class="anchor-with-padding" id="shell.SpawnOptions.env"><a href="#shell.SpawnOptions.env">`env?`</a></div> | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/shell.ts#L85) |
 
 ## Functions
 

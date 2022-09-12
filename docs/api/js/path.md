@@ -34,7 +34,7 @@ Provides the platform-specific path segment delimiter:
 - `;` on Windows
 - `:` on POSIX
 
-[path.ts:568](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L568)
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/path.ts#L568)
 
 ### `sep`
 
@@ -44,7 +44,7 @@ Provides the platform-specific path segment separator:
 - `\` on Windows
 - `/` on POSIX
 
-[path.ts:561](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L561)
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/path.ts#L561)
 
 ## Functions
 

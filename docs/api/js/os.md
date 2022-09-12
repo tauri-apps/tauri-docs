@@ -24,19 +24,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
-[os.ts:43](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L43)
+[os.ts:43](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
 
-[os.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L41)
+[os.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/os.ts#L41)
 
 ### `Platform`
 
  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
-[os.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L29)
+[os.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -48,7 +48,7 @@ The operating system-specific end-of-line marker.
 - `\n` on POSIX
 - `\r\n` on Windows
 
-[os.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L61)
+[os.ts:61](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/os.ts#L61)
 
 ## Functions
 

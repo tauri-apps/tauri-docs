@@ -45,9 +45,9 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.ResponseType.Binary"><a href="#http.ResponseType.Binary">`Binary`</a></div> | `3` | [http.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L61) |
-| <div class="anchor-with-padding" id="http.ResponseType.JSON"><a href="#http.ResponseType.JSON">`JSON`</a></div> | `1` | [http.ts:59](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L59) |
-| <div class="anchor-with-padding" id="http.ResponseType.Text"><a href="#http.ResponseType.Text">`Text`</a></div> | `2` | [http.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L60) |
+| <div class="anchor-with-padding" id="http.ResponseType.Binary"><a href="#http.ResponseType.Binary">`Binary`</a></div> | `3` | [http.ts:61](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L61) |
+| <div class="anchor-with-padding" id="http.ResponseType.JSON"><a href="#http.ResponseType.JSON">`JSON`</a></div> | `1` | [http.ts:59](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L59) |
+| <div class="anchor-with-padding" id="http.ResponseType.Text"><a href="#http.ResponseType.Text">`Text`</a></div> | `2` | [http.ts:60](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L60) |
 
 ## Classes
 
@@ -59,8 +59,8 @@ The body object to be used on POST and PUT requests.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.Body.payload"><a href="#http.Body.payload">`payload`</a></div> | `unknown` | [http.ts:75](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L75) |
-| <div class="anchor-with-padding" id="http.Body.type"><a href="#http.Body.type">`type`</a></div> | `string` | [http.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L74) |
+| <div class="anchor-with-padding" id="http.Body.payload"><a href="#http.Body.payload">`payload`</a></div> | `unknown` | [http.ts:75](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L75) |
+| <div class="anchor-with-padding" id="http.Body.type"><a href="#http.Body.type">`type`</a></div> | `string` | [http.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L74) |
 
 #### Methods
 
@@ -178,7 +178,7 @@ The body object ready to be used on the POST and PUT requests.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.Client.id"><a href="#http.Client.id">`id`</a></div> | `number` | [http.ts:251](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L251) |
+| <div class="anchor-with-padding" id="http.Client.id"><a href="#http.Client.id">`id`</a></div> | `number` | [http.ts:251](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L251) |
 
 #### Methods
 
@@ -409,12 +409,12 @@ Response object.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.Response.data"><a href="#http.Response.data">`data`</a></div> | `T` | The response data. | [http.ts:237](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L237) |
-| <div class="anchor-with-padding" id="http.Response.headers"><a href="#http.Response.headers">`headers`</a></div> | `Record`<`string`, `string`\> | The response headers. | [http.ts:233](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L233) |
-| <div class="anchor-with-padding" id="http.Response.ok"><a href="#http.Response.ok">`ok`</a></div> | `boolean` | A boolean indicating whether the response was successful (status in the range 200–299) or not. | [http.ts:231](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L231) |
-| <div class="anchor-with-padding" id="http.Response.rawHeaders"><a href="#http.Response.rawHeaders">`rawHeaders`</a></div> | `Record`<`string`, `string`[]\> | The response raw headers. | [http.ts:235](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L235) |
-| <div class="anchor-with-padding" id="http.Response.status"><a href="#http.Response.status">`status`</a></div> | `number` | The response status code. | [http.ts:229](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L229) |
-| <div class="anchor-with-padding" id="http.Response.url"><a href="#http.Response.url">`url`</a></div> | `string` | The request URL. | [http.ts:227](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L227) |
+| <div class="anchor-with-padding" id="http.Response.data"><a href="#http.Response.data">`data`</a></div> | `T` | The response data. | [http.ts:237](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L237) |
+| <div class="anchor-with-padding" id="http.Response.headers"><a href="#http.Response.headers">`headers`</a></div> | `Record`<`string`, `string`\> | The response headers. | [http.ts:233](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L233) |
+| <div class="anchor-with-padding" id="http.Response.ok"><a href="#http.Response.ok">`ok`</a></div> | `boolean` | A boolean indicating whether the response was successful (status in the range 200–299) or not. | [http.ts:231](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L231) |
+| <div class="anchor-with-padding" id="http.Response.rawHeaders"><a href="#http.Response.rawHeaders">`rawHeaders`</a></div> | `Record`<`string`, `string`[]\> | The response raw headers. | [http.ts:235](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L235) |
+| <div class="anchor-with-padding" id="http.Response.status"><a href="#http.Response.status">`status`</a></div> | `number` | The response status code. | [http.ts:229](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L229) |
+| <div class="anchor-with-padding" id="http.Response.url"><a href="#http.Response.url">`url`</a></div> | `string` | The request URL. | [http.ts:227](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L227) |
 
 ## Interfaces
 
@@ -424,8 +424,8 @@ Response object.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.ClientOptions.connectTimeout"><a href="#http.ClientOptions.connectTimeout">`connectTimeout?`</a></div> | `number` \| [`Duration`](http.md#duration) | [http.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L55) |
-| <div class="anchor-with-padding" id="http.ClientOptions.maxRedirections"><a href="#http.ClientOptions.maxRedirections">`maxRedirections?`</a></div> | `number` | [http.ts:54](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L54) |
+| <div class="anchor-with-padding" id="http.ClientOptions.connectTimeout"><a href="#http.ClientOptions.connectTimeout">`connectTimeout?`</a></div> | `number` \| [`Duration`](http.md#duration) | [http.ts:55](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L55) |
+| <div class="anchor-with-padding" id="http.ClientOptions.maxRedirections"><a href="#http.ClientOptions.maxRedirections">`maxRedirections?`</a></div> | `number` | [http.ts:54](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L54) |
 
 ### `Duration`
 
@@ -433,8 +433,8 @@ Response object.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.Duration.nanos"><a href="#http.Duration.nanos">`nanos`</a></div> | `number` | [http.ts:50](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L50) |
-| <div class="anchor-with-padding" id="http.Duration.secs"><a href="#http.Duration.secs">`secs`</a></div> | `number` | [http.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L49) |
+| <div class="anchor-with-padding" id="http.Duration.nanos"><a href="#http.Duration.nanos">`nanos`</a></div> | `number` | [http.ts:50](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L50) |
+| <div class="anchor-with-padding" id="http.Duration.secs"><a href="#http.Duration.secs">`secs`</a></div> | `number` | [http.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L49) |
 
 ### `FilePart<T\>`
 
@@ -446,9 +446,9 @@ Response object.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.FilePart.file"><a href="#http.FilePart.file">`file`</a></div> | `string` \| `T` | [http.ts:65](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L65) |
-| <div class="anchor-with-padding" id="http.FilePart.fileName"><a href="#http.FilePart.fileName">`fileName?`</a></div> | `string` | [http.ts:67](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L67) |
-| <div class="anchor-with-padding" id="http.FilePart.mime"><a href="#http.FilePart.mime">`mime?`</a></div> | `string` | [http.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L66) |
+| <div class="anchor-with-padding" id="http.FilePart.file"><a href="#http.FilePart.file">`file`</a></div> | `string` \| `T` | [http.ts:65](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L65) |
+| <div class="anchor-with-padding" id="http.FilePart.fileName"><a href="#http.FilePart.fileName">`fileName?`</a></div> | `string` | [http.ts:67](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L67) |
+| <div class="anchor-with-padding" id="http.FilePart.mime"><a href="#http.FilePart.mime">`mime?`</a></div> | `string` | [http.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L66) |
 
 ### `HttpOptions`
 
@@ -458,13 +458,13 @@ Options object sent to the backend.
 
 | Name | Type | Source |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="http.HttpOptions.body"><a href="#http.HttpOptions.body">`body?`</a></div> | [`Body`](http.md#body) | [http.ts:205](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L205) |
-| <div class="anchor-with-padding" id="http.HttpOptions.headers"><a href="#http.HttpOptions.headers">`headers?`</a></div> | `Record`<`string`, `any`\> | [http.ts:203](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L203) |
-| <div class="anchor-with-padding" id="http.HttpOptions.method"><a href="#http.HttpOptions.method">`method`</a></div> | [`HttpVerb`](http.md#httpverb) | [http.ts:201](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L201) |
-| <div class="anchor-with-padding" id="http.HttpOptions.query"><a href="#http.HttpOptions.query">`query?`</a></div> | `Record`<`string`, `any`\> | [http.ts:204](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L204) |
-| <div class="anchor-with-padding" id="http.HttpOptions.responseType"><a href="#http.HttpOptions.responseType">`responseType?`</a></div> | [`ResponseType`](http.md#responsetype) | [http.ts:207](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L207) |
-| <div class="anchor-with-padding" id="http.HttpOptions.timeout"><a href="#http.HttpOptions.timeout">`timeout?`</a></div> | `number` \| [`Duration`](http.md#duration) | [http.ts:206](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L206) |
-| <div class="anchor-with-padding" id="http.HttpOptions.url"><a href="#http.HttpOptions.url">`url`</a></div> | `string` | [http.ts:202](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L202) |
+| <div class="anchor-with-padding" id="http.HttpOptions.body"><a href="#http.HttpOptions.body">`body?`</a></div> | [`Body`](http.md#body) | [http.ts:205](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L205) |
+| <div class="anchor-with-padding" id="http.HttpOptions.headers"><a href="#http.HttpOptions.headers">`headers?`</a></div> | `Record`<`string`, `any`\> | [http.ts:203](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L203) |
+| <div class="anchor-with-padding" id="http.HttpOptions.method"><a href="#http.HttpOptions.method">`method`</a></div> | [`HttpVerb`](http.md#httpverb) | [http.ts:201](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L201) |
+| <div class="anchor-with-padding" id="http.HttpOptions.query"><a href="#http.HttpOptions.query">`query?`</a></div> | `Record`<`string`, `any`\> | [http.ts:204](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L204) |
+| <div class="anchor-with-padding" id="http.HttpOptions.responseType"><a href="#http.HttpOptions.responseType">`responseType?`</a></div> | [`ResponseType`](http.md#responsetype) | [http.ts:207](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L207) |
+| <div class="anchor-with-padding" id="http.HttpOptions.timeout"><a href="#http.HttpOptions.timeout">`timeout?`</a></div> | `number` \| [`Duration`](http.md#duration) | [http.ts:206](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L206) |
+| <div class="anchor-with-padding" id="http.HttpOptions.url"><a href="#http.HttpOptions.url">`url`</a></div> | `string` | [http.ts:202](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L202) |
 
 ## Type Aliases
 
@@ -474,7 +474,7 @@ Options object sent to the backend.
 
 Options for the `fetch` API.
 
-[http.ts:213](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L213)
+[http.ts:213](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L213)
 
 ### `HttpVerb`
 
@@ -482,13 +482,13 @@ Options for the `fetch` API.
 
 The request HTTP verb.
 
-[http.ts:188](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L188)
+[http.ts:188](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L188)
 
 ### `Part`
 
  **Part**: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) \| [`FilePart`](http.md#filepart)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
-[http.ts:70](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L70)
+[http.ts:70](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L70)
 
 ### `RequestOptions`
 
@@ -496,7 +496,7 @@ The request HTTP verb.
 
 Request options.
 
-[http.ts:211](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L211)
+[http.ts:211](https://github.com/tauri-apps/tauri/blob/679abc6/tooling/api/src/http.ts#L211)
 
 ## Functions
 
