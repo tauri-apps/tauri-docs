@@ -6,10 +6,10 @@
   "scripts": {
     "generate-docs": "typedoc"
   },
-  "dependencies": {
-    "typedoc": "0.23.5",
+  "devDependencies": {
+    "typedoc": "0.23.14",
     "typedoc-plugin-markdown": "../../../typedoc-plugin-markdown/packages/typedoc-plugin-markdown",
     "typedoc-plugin-mdn-links": "2.0.0",
-    "typescript": "4.7.4"
+    "typescript": "4.8.2"
   }
 }
