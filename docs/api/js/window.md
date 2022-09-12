@@ -62,10 +62,10 @@ Attention type to request on a window.
 
 #### Enumeration Members
 
-| Name | Type | Description | Source |
+| Name | Type | Description | Defined in |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="window.UserAttentionType.Critical"><a href="#window.UserAttentionType.Critical">`Critical`</a></div> | `1` | #### Platform-specific<br/> - **macOS:** Bounces the dock icon until the application is in focus.<br/>- **Windows:** Flashes both the window and the taskbar button until the application is in focus. | [window.ts:193](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L193)<br/><br/> |
-| <div class="anchor-with-padding" id="window.UserAttentionType.Informational"><a href="#window.UserAttentionType.Informational">`Informational`</a></div> | `2` | #### Platform-specific<br/>- **macOS:** Bounces the dock icon once.<br/>- **Windows:** Flashes the taskbar button until the application is in focus. | [window.ts:199](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L199)<br/><br/> |
+| <div class="anchor-with-padding" id="window.UserAttentionType.Critical"><a href="#window.UserAttentionType.Critical">`Critical`</a></div> | `1` | #### Platform-specific<br/> - **macOS:** Bounces the dock icon until the application is in focus.<br/>- **Windows:** Flashes both the window and the taskbar button until the application is in focus. | [window.ts:193](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L193) |
+| <div class="anchor-with-padding" id="window.UserAttentionType.Informational"><a href="#window.UserAttentionType.Informational">`Informational`</a></div> | `2` | #### Platform-specific<br/>- **macOS:** Bounces the dock icon once.<br/>- **Windows:** Flashes the taskbar button until the application is in focus. | [window.ts:199](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L199) |
 
 ## Classes
 
@@ -87,27 +87,27 @@ Attention type to request on a window.
 
 ##### `event`
 
- **event**: `string`
+>  **event**: `string`
 
 Event name
 
-[window.ts:1756](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1756)
+**Defined in:** [window.ts:1756](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1756)
 
 ##### `id`
 
- **id**: `number`
+>  **id**: `number`
 
 Event identifier used to unlisten
 
-[window.ts:1760](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1760)
+**Defined in:** [window.ts:1760](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1760)
 
 ##### `windowLabel`
 
- **windowLabel**: `string`
+>  **windowLabel**: `string`
 
 The label of the window that emitted this event.
 
-[window.ts:1758](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1758)
+**Defined in:** [window.ts:1758](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1758)
 
 #### Methods
 
@@ -144,21 +144,21 @@ A position represented in logical pixels.
 
 ##### `type`
 
- **type**: `string` = `'Logical'`
+>  **type**: `string` = `'Logical'`
 
-[window.ts:135](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L135)
+**Defined in:** [window.ts:135](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L135)
 
 ##### `x`
 
- **x**: `number`
+>  **x**: `number`
 
-[window.ts:136](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L136)
+**Defined in:** [window.ts:136](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L136)
 
 ##### `y`
 
- **y**: `number`
+>  **y**: `number`
 
-[window.ts:137](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L137)
+**Defined in:** [window.ts:137](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L137)
 
 ### `LogicalSize`
 
@@ -181,21 +181,21 @@ A size represented in logical pixels.
 
 ##### `height`
 
- **height**: `number`
+>  **height**: `number`
 
-[window.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L99)
+**Defined in:** [window.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L99)
 
 ##### `type`
 
- **type**: `string` = `'Logical'`
+>  **type**: `string` = `'Logical'`
 
-[window.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L97)
+**Defined in:** [window.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L97)
 
 ##### `width`
 
- **width**: `number`
+>  **width**: `number`
 
-[window.ts:98](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L98)
+**Defined in:** [window.ts:98](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L98)
 
 ### `PhysicalPosition`
 
@@ -218,21 +218,21 @@ A position represented in physical pixels.
 
 ##### `type`
 
- **type**: `string` = `'Physical'`
+>  **type**: `string` = `'Physical'`
 
-[window.ts:147](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L147)
+**Defined in:** [window.ts:147](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L147)
 
 ##### `x`
 
- **x**: `number`
+>  **x**: `number`
 
-[window.ts:148](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L148)
+**Defined in:** [window.ts:148](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L148)
 
 ##### `y`
 
- **y**: `number`
+>  **y**: `number`
 
-[window.ts:149](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L149)
+**Defined in:** [window.ts:149](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L149)
 
 #### Methods
 
@@ -280,21 +280,21 @@ A size represented in physical pixels.
 
 ##### `height`
 
- **height**: `number`
+>  **height**: `number`
 
-[window.ts:111](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L111)
+**Defined in:** [window.ts:111](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L111)
 
 ##### `type`
 
- **type**: `string` = `'Physical'`
+>  **type**: `string` = `'Physical'`
 
-[window.ts:109](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L109)
+**Defined in:** [window.ts:109](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L109)
 
 ##### `width`
 
- **width**: `number`
+>  **width**: `number`
 
-[window.ts:110](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L110)
+**Defined in:** [window.ts:110](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L110)
 
 #### Methods
 
@@ -397,19 +397,19 @@ webview.once('tauri://error', function (e) {
 
 ##### `label`
 
- **label**: `string`
+>  **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-**Inherited from** [WindowManager](window.md#windowmanager).[label](window.md#label)[window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
+**Inherited from** [WindowManager](window.md#windowmanager).[label](window.md#label)**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
 
 ##### `listeners`
 
- **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
+>  **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
 
 Local event listeners.
 
-**Inherited from** [WindowManager](window.md#windowmanager).[listeners](window.md#listeners)[window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
+**Inherited from** [WindowManager](window.md#windowmanager).[listeners](window.md#listeners)**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
 
 #### Methods
 
@@ -1597,19 +1597,19 @@ A webview window handle allows emitting and listening to events from the backend
 
 ##### `label`
 
- **label**: `string`
+>  **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-[window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
+**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
 
 ##### `listeners`
 
- **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
+>  **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
 
 Local event listeners.
 
-[window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
+**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
 
 #### Methods
 
@@ -1748,19 +1748,19 @@ Manage the current window object.
 
 ##### `label`
 
- **label**: `string`
+>  **label**: `string`
 
 The window label. It is a unique identifier for the window, can be used to reference it later.
 
-**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[label](window.md#label)[window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
+**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[label](window.md#label)**Defined in:** [window.ts:280](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L280)
 
 ##### `listeners`
 
- **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
+>  **listeners**: { `[key: string]`: [`EventCallback`](event.md#eventcallback)<`any`\>[];  }
 
 Local event listeners.
 
-**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[listeners](window.md#listeners)[window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
+**Inherited from** [WebviewWindowHandle](window.md#webviewwindowhandle).[listeners](window.md#listeners)**Defined in:** [window.ts:282](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L282)
 
 #### Methods
 
@@ -2908,12 +2908,37 @@ Allows you to retrieve information about a given monitor.
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="window.Monitor.name"><a href="#window.Monitor.name">`name`</a></div> | `null` \| `string` | Human-readable name of the monitor | [window.ts:72](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L72)<br/><br/> |
-| <div class="anchor-with-padding" id="window.Monitor.position"><a href="#window.Monitor.position">`position`</a></div> | [`PhysicalPosition`](window.md#physicalposition) | the Top-left corner position of the monitor relative to the larger full screen area. | [window.ts:76](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L76)<br/><br/> |
-| <div class="anchor-with-padding" id="window.Monitor.scaleFactor"><a href="#window.Monitor.scaleFactor">`scaleFactor`</a></div> | `number` | The scale factor that can be used to map physical pixels to logical pixels. | [window.ts:78](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L78)<br/><br/> |
-| <div class="anchor-with-padding" id="window.Monitor.size"><a href="#window.Monitor.size">`size`</a></div> | [`PhysicalSize`](window.md#physicalsize) | The monitor's resolution. | [window.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L74)<br/><br/> |
+##### `name`
+
+>  **name**: `null` \| `string`
+
+Human-readable name of the monitor
+
+**Defined in:** [window.ts:72](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L72)
+
+##### `position`
+
+>  **position**: [`PhysicalPosition`](window.md#physicalposition)
+
+the Top-left corner position of the monitor relative to the larger full screen area.
+
+**Defined in:** [window.ts:76](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L76)
+
+##### `scaleFactor`
+
+>  **scaleFactor**: `number`
+
+The scale factor that can be used to map physical pixels to logical pixels.
+
+**Defined in:** [window.ts:78](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L78)
+
+##### `size`
+
+>  **size**: [`PhysicalSize`](window.md#physicalsize)
+
+The monitor's resolution.
+
+**Defined in:** [window.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L74)
 
 ### `ScaleFactorChanged`
 
@@ -2921,10 +2946,21 @@ The payload for the `scaleChange` event.
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="window.ScaleFactorChanged.scaleFactor"><a href="#window.ScaleFactorChanged.scaleFactor">`scaleFactor`</a></div> | `number` | The new window scale factor. | [window.ts:84](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L84)<br/><br/> |
-| <div class="anchor-with-padding" id="window.ScaleFactorChanged.size"><a href="#window.ScaleFactorChanged.size">`size`</a></div> | [`PhysicalSize`](window.md#physicalsize) | The new window size | [window.ts:86](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L86)<br/><br/> |
+##### `scaleFactor`
+
+>  **scaleFactor**: `number`
+
+The new window scale factor.
+
+**Defined in:** [window.ts:84](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L84)
+
+##### `size`
+
+>  **size**: [`PhysicalSize`](window.md#physicalsize)
+
+The new window size
+
+**Defined in:** [window.ts:86](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L86)
 
 ### `WindowOptions`
 
@@ -2932,42 +2968,203 @@ Configuration for the window to create.
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="window.WindowOptions.alwaysOnTop"><a href="#window.WindowOptions.alwaysOnTop">`alwaysOnTop?`</a></div> | `boolean` | Whether the window should always be on top of other windows or not. | [window.ts:1939](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1939)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.center"><a href="#window.WindowOptions.center">`center?`</a></div> | `boolean` | Show window in the center of the screen.. | [window.ts:1901](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1901)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.decorations"><a href="#window.WindowOptions.decorations">`decorations?`</a></div> | `boolean` | Whether the window should have borders and bars or not. | [window.ts:1937](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1937)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.fileDropEnabled"><a href="#window.WindowOptions.fileDropEnabled">`fileDropEnabled?`</a></div> | `boolean` | Whether the file drop is enabled or not on the webview. By default it is enabled.<br/><br/>Disabling it is required to use drag and drop on the frontend on Windows. | [window.ts:1947](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1947)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.focus"><a href="#window.WindowOptions.focus">`focus?`</a></div> | `boolean` | Whether the window will be initially hidden or focused. | [window.ts:1925](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1925)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.fullscreen"><a href="#window.WindowOptions.fullscreen">`fullscreen?`</a></div> | `boolean` | Whether the window is in fullscreen mode or not. | [window.ts:1923](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1923)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.height"><a href="#window.WindowOptions.height">`height?`</a></div> | `number` | The initial height. | [window.ts:1909](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1909)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.maxHeight"><a href="#window.WindowOptions.maxHeight">`maxHeight?`</a></div> | `number` | The maximum height. Only applies if `maxWidth` is also set. | [window.ts:1917](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1917)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.maxWidth"><a href="#window.WindowOptions.maxWidth">`maxWidth?`</a></div> | `number` | The maximum width. Only applies if `maxHeight` is also set. | [window.ts:1915](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1915)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.maximized"><a href="#window.WindowOptions.maximized">`maximized?`</a></div> | `boolean` | Whether the window should be maximized upon creation or not. | [window.ts:1933](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1933)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.minHeight"><a href="#window.WindowOptions.minHeight">`minHeight?`</a></div> | `number` | The minimum height. Only applies if `minWidth` is also set. | [window.ts:1913](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1913)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.minWidth"><a href="#window.WindowOptions.minWidth">`minWidth?`</a></div> | `number` | The minimum width. Only applies if `minHeight` is also set. | [window.ts:1911](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1911)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.resizable"><a href="#window.WindowOptions.resizable">`resizable?`</a></div> | `boolean` | Whether the window is resizable or not. | [window.ts:1919](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1919)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.skipTaskbar"><a href="#window.WindowOptions.skipTaskbar">`skipTaskbar?`</a></div> | `boolean` | Whether or not the window icon should be added to the taskbar. | [window.ts:1941](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1941)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.theme"><a href="#window.WindowOptions.theme">`theme?`</a></div> | [`Theme`](window.md#theme) | The initial window theme. Defaults to the system theme.<br/><br/>Only implemented on Windows and macOS 10.14+. | [window.ts:1953](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1953)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.title"><a href="#window.WindowOptions.title">`title?`</a></div> | `string` | Window title. | [window.ts:1921](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1921)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.transparent"><a href="#window.WindowOptions.transparent">`transparent?`</a></div> | `boolean` | Whether the window is transparent or not.<br/>Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`.<br/>WARNING: Using private APIs on `macOS` prevents your application from being accepted to the `App Store`. | [window.ts:1931](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1931)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.url"><a href="#window.WindowOptions.url">`url?`</a></div> | `string` | Remote URL or local file path to open.<br/><br/>- URL such as `https://github.com/tauri-apps` is opened directly on a Tauri window.<br/>- data: URL such as `data:text/html,<html>...` is only supported with the `window-data-url` Cargo feature for the `tauri` dependency.<br/>- local file path or route such as `/path/to/page.html` or `/users` is appended to the application URL (the devServer URL on development, or `tauri://localhost/` and `https://tauri.localhost/` on production). | [window.ts:1899](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1899)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.visible"><a href="#window.WindowOptions.visible">`visible?`</a></div> | `boolean` | Whether the window should be immediately visible upon creation or not. | [window.ts:1935](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1935)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.width"><a href="#window.WindowOptions.width">`width?`</a></div> | `number` | The initial width. | [window.ts:1907](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1907)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.x"><a href="#window.WindowOptions.x">`x?`</a></div> | `number` | The initial vertical position. Only applies if `y` is also set. | [window.ts:1903](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1903)<br/><br/> |
-| <div class="anchor-with-padding" id="window.WindowOptions.y"><a href="#window.WindowOptions.y">`y?`</a></div> | `number` | The initial horizontal position. Only applies if `x` is also set. | [window.ts:1905](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1905)<br/><br/> |
+##### `alwaysOnTop`
+
+> `Optional` **alwaysOnTop**: `boolean`
+
+Whether the window should always be on top of other windows or not.
+
+**Defined in:** [window.ts:1939](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1939)
+
+##### `center`
+
+> `Optional` **center**: `boolean`
+
+Show window in the center of the screen..
+
+**Defined in:** [window.ts:1901](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1901)
+
+##### `decorations`
+
+> `Optional` **decorations**: `boolean`
+
+Whether the window should have borders and bars or not.
+
+**Defined in:** [window.ts:1937](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1937)
+
+##### `fileDropEnabled`
+
+> `Optional` **fileDropEnabled**: `boolean`
+
+Whether the file drop is enabled or not on the webview. By default it is enabled.
+
+Disabling it is required to use drag and drop on the frontend on Windows.
+
+**Defined in:** [window.ts:1947](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1947)
+
+##### `focus`
+
+> `Optional` **focus**: `boolean`
+
+Whether the window will be initially hidden or focused.
+
+**Defined in:** [window.ts:1925](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1925)
+
+##### `fullscreen`
+
+> `Optional` **fullscreen**: `boolean`
+
+Whether the window is in fullscreen mode or not.
+
+**Defined in:** [window.ts:1923](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1923)
+
+##### `height`
+
+> `Optional` **height**: `number`
+
+The initial height.
+
+**Defined in:** [window.ts:1909](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1909)
+
+##### `maxHeight`
+
+> `Optional` **maxHeight**: `number`
+
+The maximum height. Only applies if `maxWidth` is also set.
+
+**Defined in:** [window.ts:1917](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1917)
+
+##### `maxWidth`
+
+> `Optional` **maxWidth**: `number`
+
+The maximum width. Only applies if `maxHeight` is also set.
+
+**Defined in:** [window.ts:1915](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1915)
+
+##### `maximized`
+
+> `Optional` **maximized**: `boolean`
+
+Whether the window should be maximized upon creation or not.
+
+**Defined in:** [window.ts:1933](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1933)
+
+##### `minHeight`
+
+> `Optional` **minHeight**: `number`
+
+The minimum height. Only applies if `minWidth` is also set.
+
+**Defined in:** [window.ts:1913](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1913)
+
+##### `minWidth`
+
+> `Optional` **minWidth**: `number`
+
+The minimum width. Only applies if `minHeight` is also set.
+
+**Defined in:** [window.ts:1911](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1911)
+
+##### `resizable`
+
+> `Optional` **resizable**: `boolean`
+
+Whether the window is resizable or not.
+
+**Defined in:** [window.ts:1919](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1919)
+
+##### `skipTaskbar`
+
+> `Optional` **skipTaskbar**: `boolean`
+
+Whether or not the window icon should be added to the taskbar.
+
+**Defined in:** [window.ts:1941](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1941)
+
+##### `theme`
+
+> `Optional` **theme**: [`Theme`](window.md#theme)
+
+The initial window theme. Defaults to the system theme.
+
+Only implemented on Windows and macOS 10.14+.
+
+**Defined in:** [window.ts:1953](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1953)
+
+##### `title`
+
+> `Optional` **title**: `string`
+
+Window title.
+
+**Defined in:** [window.ts:1921](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1921)
+
+##### `transparent`
+
+> `Optional` **transparent**: `boolean`
+
+Whether the window is transparent or not.
+Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri.conf.json > tauri > macOSPrivateApi`.
+WARNING: Using private APIs on `macOS` prevents your application from being accepted to the `App Store`.
+
+**Defined in:** [window.ts:1931](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1931)
+
+##### `url`
+
+> `Optional` **url**: `string`
+
+Remote URL or local file path to open.
+
+- URL such as `https://github.com/tauri-apps` is opened directly on a Tauri window.
+- data: URL such as `data:text/html,<html>...` is only supported with the `window-data-url` Cargo feature for the `tauri` dependency.
+- local file path or route such as `/path/to/page.html` or `/users` is appended to the application URL (the devServer URL on development, or `tauri://localhost/` and `https://tauri.localhost/` on production).
+
+**Defined in:** [window.ts:1899](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1899)
+
+##### `visible`
+
+> `Optional` **visible**: `boolean`
+
+Whether the window should be immediately visible upon creation or not.
+
+**Defined in:** [window.ts:1935](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1935)
+
+##### `width`
+
+> `Optional` **width**: `number`
+
+The initial width.
+
+**Defined in:** [window.ts:1907](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1907)
+
+##### `x`
+
+> `Optional` **x**: `number`
+
+The initial vertical position. Only applies if `y` is also set.
+
+**Defined in:** [window.ts:1903](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1903)
+
+##### `y`
+
+> `Optional` **y**: `number`
+
+The initial horizontal position. Only applies if `x` is also set.
+
+**Defined in:** [window.ts:1905](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L1905)
 
 ## Type Aliases
 
 ### `CursorIcon`
 
- **CursorIcon**: `"default"` \| `"crosshair"` \| `"hand"` \| `"arrow"` \| `"move"` \| `"text"` \| `"wait"` \| `"help"` \| `"progress"` \| `"notAllowed"` \| `"contextMenu"` \| `"cell"` \| `"verticalText"` \| `"alias"` \| `"copy"` \| `"noDrop"` \| `"grab"` \| `"grabbing"` \| `"allScroll"` \| `"zoomIn"` \| `"zoomOut"` \| `"eResize"` \| `"nResize"` \| `"neResize"` \| `"nwResize"` \| `"sResize"` \| `"seResize"` \| `"swResize"` \| `"wResize"` \| `"ewResize"` \| `"nsResize"` \| `"neswResize"` \| `"nwseResize"` \| `"colResize"` \| `"rowResize"`
+>  **CursorIcon**: `"default"` \| `"crosshair"` \| `"hand"` \| `"arrow"` \| `"move"` \| `"text"` \| `"wait"` \| `"help"` \| `"progress"` \| `"notAllowed"` \| `"contextMenu"` \| `"cell"` \| `"verticalText"` \| `"alias"` \| `"copy"` \| `"noDrop"` \| `"grab"` \| `"grabbing"` \| `"allScroll"` \| `"zoomIn"` \| `"zoomOut"` \| `"eResize"` \| `"nResize"` \| `"neResize"` \| `"nwResize"` \| `"sResize"` \| `"seResize"` \| `"swResize"` \| `"wResize"` \| `"ewResize"` \| `"nsResize"` \| `"neswResize"` \| `"nwseResize"` \| `"colResize"` \| `"rowResize"`
 
 **Defined in:** [window.ts:202](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L202)
 
 ### `FileDropEvent`
 
- **FileDropEvent**: { `paths`: `string`[] ; `type`: `"hover"`  } \| { `paths`: `string`[] ; `type`: `"drop"`  } \| { `type`: `"cancel"`  }
+>  **FileDropEvent**: { `paths`: `string`[] ; `type`: `"hover"`  } \| { `paths`: `string`[] ; `type`: `"drop"`  } \| { `type`: `"cancel"`  }
 
 The file drop event types.
 
@@ -2975,7 +3172,7 @@ The file drop event types.
 
 ### `Theme`
 
- **Theme**: `"light"` \| `"dark"`
+>  **Theme**: `"light"` \| `"dark"`
 
 **Defined in:** [window.ts:67](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/window.ts#L67)
 
@@ -2983,7 +3180,7 @@ The file drop event types.
 
 ### `appWindow`
 
- **appWindow**: [`WebviewWindow`](window.md#webviewwindow)
+>  **appWindow**: [`WebviewWindow`](window.md#webviewwindow)
 
 The WebviewWindow for the current window.
 

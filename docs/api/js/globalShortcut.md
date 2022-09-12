@@ -22,7 +22,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### `ShortcutHandler`
 
- **ShortcutHandler**: (`shortcut`: `string`) => `void`
+>  **ShortcutHandler**: (`shortcut`: `string`) => `void`
 
 **Type declaration**
 

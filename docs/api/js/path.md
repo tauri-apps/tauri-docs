@@ -28,7 +28,7 @@ Re-exports [BaseDirectory](fs.md#basedirectory)
 
 ### `delimiter`
 
-`Const` **delimiter**: `";"` \| `":"`
+> `Const` **delimiter**: `";"` \| `":"`
 
 Provides the platform-specific path segment delimiter:
 - `;` on Windows
@@ -38,7 +38,7 @@ Provides the platform-specific path segment delimiter:
 
 ### `sep`
 
-`Const` **sep**: `"\\"` \| `"/"`
+> `Const` **sep**: `"\\"` \| `"/"`
 
 Provides the platform-specific path segment separator:
 - `\` on Windows

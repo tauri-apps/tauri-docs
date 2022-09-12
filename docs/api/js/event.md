@@ -14,18 +14,43 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="event.Event.event"><a href="#event.Event.event">`event`</a></div> | `string` | Event name | [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L11)<br/><br/> |
-| <div class="anchor-with-padding" id="event.Event.id"><a href="#event.Event.id">`id`</a></div> | `number` | Event identifier used to unlisten | [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L15)<br/><br/> |
-| <div class="anchor-with-padding" id="event.Event.payload"><a href="#event.Event.payload">`payload`</a></div> | `T` | Event payload | [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L17)<br/><br/> |
-| <div class="anchor-with-padding" id="event.Event.windowLabel"><a href="#event.Event.windowLabel">`windowLabel`</a></div> | `string` | The label of the window that emitted this event. | [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L13)<br/><br/> |
+##### `event`
+
+>  **event**: `string`
+
+Event name
+
+**Defined in:** [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L11)
+
+##### `id`
+
+>  **id**: `number`
+
+Event identifier used to unlisten
+
+**Defined in:** [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L15)
+
+##### `payload`
+
+>  **payload**: `T`
+
+Event payload
+
+**Defined in:** [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L17)
+
+##### `windowLabel`
+
+>  **windowLabel**: `string`
+
+The label of the window that emitted this event.
+
+**Defined in:** [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L13)
 
 ## Type Aliases
 
 ### `EventCallback<T\>`
 
- **EventCallback**<`T`\>: (`event`: [`Event`](event.md#event)<`T`\>) => `void`
+>  **EventCallback**<`T`\>: (`event`: [`Event`](event.md#event)<`T`\>) => `void`
 
 **Type parameters**
 
@@ -47,13 +72,13 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ### `EventName`
 
- **EventName**: `string`
+>  **EventName**: `string`
 
 **Defined in:** [helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L20)
 
 ### `UnlistenFn`
 
- **UnlistenFn**: () => `void`
+>  **UnlistenFn**: () => `void`
 
 **Type declaration**
 

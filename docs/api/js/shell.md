@@ -89,11 +89,11 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ##### `pid`
 
- **pid**: `number`
+>  **pid**: `number`
 
 The child process `pid`.
 
-[shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L181)
+**Defined in:** [shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L181)
 
 #### Methods
 
@@ -181,19 +181,19 @@ Creates a new `Command` instance.
 
 ##### `stderr`
 
-`Readonly` **stderr**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
+> `Readonly` **stderr**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-[shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L258)
+**Defined in:** [shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L258)
 
 ##### `stdout`
 
-`Readonly` **stdout**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
+> `Readonly` **stdout**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-[shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L256)
+**Defined in:** [shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L256)
 
 #### Methods
 
@@ -315,21 +315,57 @@ The `this` instance for chained calls.
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.ChildProcess.code"><a href="#shell.ChildProcess.code">`code`</a></div> | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L95)<br/><br/> |
-| <div class="anchor-with-padding" id="shell.ChildProcess.signal"><a href="#shell.ChildProcess.signal">`signal`</a></div> | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L97)<br/><br/> |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L101)<br/><br/> |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L99)<br/><br/> |
+##### `code`
+
+>  **code**: `null` \| `number`
+
+Exit code of the process. `null` if the process was terminated by a signal on Unix.
+
+**Defined in:** [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L95)
+
+##### `signal`
+
+>  **signal**: `null` \| `number`
+
+If the process was terminated by a signal, represents that signal.
+
+**Defined in:** [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L97)
+
+##### `stderr`
+
+>  **stderr**: `string`
+
+The data that the process wrote to `stderr`.
+
+**Defined in:** [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L101)
+
+##### `stdout`
+
+>  **stdout**: `string`
+
+The data that the process wrote to `stdout`.
+
+**Defined in:** [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L99)
 
 ### `SpawnOptions`
 
 #### Properties
 
-| Name | Type | Description | Source |
-| :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.cwd"><a href="#shell.SpawnOptions.cwd">`cwd?`</a></div> | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L83)<br/><br/> |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.env"><a href="#shell.SpawnOptions.env">`env?`</a></div> | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L85)<br/><br/> |
+##### `cwd`
+
+> `Optional` **cwd**: `string`
+
+Current working directory.
+
+**Defined in:** [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L83)
+
+##### `env`
+
+> `Optional` **env**: { `[name: string]`: `string`;  }
+
+Environment variables. set to `null` to clear the process env.
+
+**Defined in:** [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L85)
 
 ## Functions
 

@@ -22,19 +22,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### `Arch`
 
- **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
+>  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
 **Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
- **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
+>  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
 
 **Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L41)
 
 ### `Platform`
 
- **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
+>  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
 **Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L29)
 
@@ -42,7 +42,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### `EOL`
 
-`Const` **EOL**: `"\n"` \| `"\r\n"`
+> `Const` **EOL**: `"\n"` \| `"\r\n"`
 
 The operating system-specific end-of-line marker.
 - `\n` on POSIX
