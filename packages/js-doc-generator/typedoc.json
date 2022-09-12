@@ -22,7 +22,7 @@
   "githubPages": false,
   "readme": "none",
   "out": "docs",
-  "json": "docs",
+  "json": "docs/js-api.json",
   "pretty": false,
   "hideInPageTOC": true,
   "hasOwnDocument": "None",
