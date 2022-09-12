@@ -87,7 +87,6 @@ Attention type to request on a window.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| `_preventDefault` | `boolean` | - | [window.ts:1761](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L1761) |
 | `event` | `string` | Event name | [window.ts:1756](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L1756) |
 | `id` | `number` | Event identifier used to unlisten | [window.ts:1760](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L1760) |
 | `windowLabel` | `string` | The label of the window that emitted this event. | [window.ts:1758](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L1758) |

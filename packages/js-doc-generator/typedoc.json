@@ -26,5 +26,6 @@
   "pretty": false,
   "hideInPageTOC": true,
   "hasOwnDocument": "None",
-  "hideHorizontalDivider": true
+  "hideHorizontalDivider": true,
+  "excludePrivate": true
 }
