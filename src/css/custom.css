@@ -168,3 +168,15 @@ pre.language-shell .token-line::before {
 pre.language-powershell > code::before {
   content: 'PS C:\\> ';
 }
+
+blockquote {
+  padding-left: unset;
+}
+
+blockquote p {
+  display: inline-block;
+  background-color: var(--ifm-table-stripe-background);
+  padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-vertical)
+    var(--ifm-code-padding-vertical) 1rem;
+  border-radius: 0 var(--ifm-code-border-radius) var(--ifm-code-border-radius) 0;
+}
