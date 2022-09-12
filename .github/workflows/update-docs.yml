@@ -63,14 +63,12 @@ jobs:
         working-directory: ./tauri/tooling/api
         run: yarn
 
+      - name: Cleanup JS Docs
+        run: rm -rf tauri-docs/docs/api/js/*
+
       - name: Build JS docs
         working-directory: ./tauri-docs/packages/js-doc-generator
         run: yarn && yarn generate-docs
-
-      - name: Copy JS docs
-        run: |
-          rm -rf tauri-docs/docs/api/js/*
-          cp -r tauri-docs/packages/js-doc-generator/docs/* tauri-docs/docs/api/js/
 
       # Any Rust documentation is currently disabled while we're falling back to docs.rs
 
