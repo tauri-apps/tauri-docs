@@ -134,10 +134,6 @@ const navbarItems = [
       },
     ],
   },
-  {
-    type: 'search',
-    position: 'right',
-  },
 ]
 
 const footerLinks = [
