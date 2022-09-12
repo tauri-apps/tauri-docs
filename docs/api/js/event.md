@@ -16,10 +16,10 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="event.Event.event"><a href="#event.Event.event">`event`</a></div> | `string` | Event name | [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L11) |
-| <div class="anchor-with-padding" id="event.Event.id"><a href="#event.Event.id">`id`</a></div> | `number` | Event identifier used to unlisten | [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L15) |
-| <div class="anchor-with-padding" id="event.Event.payload"><a href="#event.Event.payload">`payload`</a></div> | `T` | Event payload | [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L17) |
-| <div class="anchor-with-padding" id="event.Event.windowLabel"><a href="#event.Event.windowLabel">`windowLabel`</a></div> | `string` | The label of the window that emitted this event. | [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L13) |
+| <div class="anchor-with-padding" id="event.Event.event"><a href="#event.Event.event">`event`</a></div> | `string` | Event name | [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L11)<br/><br/> |
+| <div class="anchor-with-padding" id="event.Event.id"><a href="#event.Event.id">`id`</a></div> | `number` | Event identifier used to unlisten | [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L15)<br/><br/> |
+| <div class="anchor-with-padding" id="event.Event.payload"><a href="#event.Event.payload">`payload`</a></div> | `T` | Event payload | [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L17)<br/><br/> |
+| <div class="anchor-with-padding" id="event.Event.windowLabel"><a href="#event.Event.windowLabel">`windowLabel`</a></div> | `string` | The label of the window that emitted this event. | [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/helpers/event.ts#L13)<br/><br/> |
 
 ## Type Aliases
 

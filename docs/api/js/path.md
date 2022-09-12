@@ -531,7 +531,7 @@ const resourcePath = await resolveResource('script.sh');
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `resourcePath` | `string` | The path to the resource. Must follow the same syntax as defined in `tauri.conf.json > tauri > bundle > resources`, i.e. keeping subfolders and parent dir components (`../`). |
+| `resourcePath` | `string` | The path to the resource.<br/>Must follow the same syntax as defined in `tauri.conf.json > tauri > bundle > resources`, i.e. keeping subfolders and parent dir components (`../`). |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 

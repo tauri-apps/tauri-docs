@@ -171,7 +171,7 @@ Creates a new `Command` instance.
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program name to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `program` | `string` | `undefined` | The program name to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
 
@@ -263,7 +263,7 @@ const output = await command.execute();
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program to execute. It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `program` | `string` | `undefined` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
 | `args` | `string` \| `string`[] | `[]` | Program arguments. |
 | `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
 
@@ -317,10 +317,10 @@ The `this` instance for chained calls.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.ChildProcess.code"><a href="#shell.ChildProcess.code">`code`</a></div> | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L95) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.signal"><a href="#shell.ChildProcess.signal">`signal`</a></div> | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L97) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L101) |
-| <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L99) |
+| <div class="anchor-with-padding" id="shell.ChildProcess.code"><a href="#shell.ChildProcess.code">`code`</a></div> | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L95)<br/><br/> |
+| <div class="anchor-with-padding" id="shell.ChildProcess.signal"><a href="#shell.ChildProcess.signal">`signal`</a></div> | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L97)<br/><br/> |
+| <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L101)<br/><br/> |
+| <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L99)<br/><br/> |
 
 ### `SpawnOptions`
 
@@ -328,8 +328,8 @@ The `this` instance for chained calls.
 
 | Name | Type | Description | Source |
 | :------ | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.cwd"><a href="#shell.SpawnOptions.cwd">`cwd?`</a></div> | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L83) |
-| <div class="anchor-with-padding" id="shell.SpawnOptions.env"><a href="#shell.SpawnOptions.env">`env?`</a></div> | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L85) |
+| <div class="anchor-with-padding" id="shell.SpawnOptions.cwd"><a href="#shell.SpawnOptions.cwd">`cwd?`</a></div> | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L83)<br/><br/> |
+| <div class="anchor-with-padding" id="shell.SpawnOptions.env"><a href="#shell.SpawnOptions.env">`env?`</a></div> | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L85)<br/><br/> |
 
 ## Functions
 
@@ -359,7 +359,7 @@ await open('/path/to/file');
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `path` | `string` | The path or URL to open. This value is matched against the string regex defined on `tauri.conf.json > tauri > allowlist > shell > open`, which defaults to `^https?://`. |
-| `openWith?` | `string` | The app to open the file or URL with. Defaults to the system default application for the specified path type. |
+| `path` | `string` | The path or URL to open.<br/>This value is matched against the string regex defined on `tauri.conf.json > tauri > allowlist > shell > open`,<br/>which defaults to `^https?://`. |
+| `openWith?` | `string` | The app to open the file or URL with.<br/>Defaults to the system default application for the specified path type. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
