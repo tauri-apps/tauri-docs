@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ## Interfaces
 
-### Event<T\>
+### `Event<T\>`
 
 **Type parameters**
 
@@ -23,7 +23,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ## Type Aliases
 
-### EventCallback<T\>
+### `EventCallback<T\>`
 
  **EventCallback**<`T`\>: (`event`: [`Event`](event.md#event)<`T`\>) => `void`
 
@@ -45,13 +45,13 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 [helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L22)
 
-### EventName
+### `EventName`
 
  **EventName**: `string`
 
 [helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L20)
 
-### UnlistenFn
+### `UnlistenFn`
 
  **UnlistenFn**: () => `void`
 
@@ -65,7 +65,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ## Functions
 
-### emit
+### `emit`
 
 > **emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -87,7 +87,7 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-### listen
+### `listen`
 
 > **listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -121,7 +121,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-### once
+### `once`
 
 > **once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 

@@ -2,7 +2,7 @@
 
 ## Functions
 
-### clearMocks
+### `clearMocks`
 
 > **clearMocks**(): `void`
 
@@ -31,7 +31,7 @@ test("no mocked windows", () => {
 
 **Returns: **`void`
 
-### mockIPC
+### `mockIPC`
 
 > **mockIPC**(`cb`: `fn`): `void`
 
@@ -72,7 +72,7 @@ test("mocked command", () => {
 
 **Returns: **`void`
 
-### mockWindows
+### `mockWindows`
 
 > **mockWindows**(`current`: `string`, ...`additionalWindows`: `string`[]): `void`
 

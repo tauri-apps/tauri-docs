@@ -56,7 +56,7 @@ appWindow.listen("my-window-event", ({ event, payload }) => { });
 
 ## Enumerations
 
-### UserAttentionType
+### `UserAttentionType`
 
 Attention type to request on a window.
 
@@ -69,11 +69,11 @@ Attention type to request on a window.
 
 ## Classes
 
-### CloseRequestedEvent
+### `CloseRequestedEvent`
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new CloseRequestedEvent**(`event`: [`Event`](event.md#event)<`null`\>): [`CloseRequestedEvent`](window.md#closerequestedevent)
 
@@ -93,25 +93,25 @@ Attention type to request on a window.
 
 #### Methods
 
-##### isPreventDefault
+##### `isPreventDefault`
 
 > **isPreventDefault**(): `boolean`
 
 **Returns: **`boolean`
 
-##### preventDefault
+##### `preventDefault`
 
 > **preventDefault**(): `void`
 
 **Returns: **`void`
 
-### LogicalPosition
+### `LogicalPosition`
 
 A position represented in logical pixels.
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new LogicalPosition**(`x`: `number`, `y`: `number`): [`LogicalPosition`](window.md#logicalposition)
 
@@ -130,13 +130,13 @@ A position represented in logical pixels.
 | <div class="anchor-with-padding" id="window.LogicalPosition.x"><a href="#window.LogicalPosition.x">`x`</a></div> | `number` | [window.ts:136](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L136) |
 | <div class="anchor-with-padding" id="window.LogicalPosition.y"><a href="#window.LogicalPosition.y">`y`</a></div> | `number` | [window.ts:137](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L137) |
 
-### LogicalSize
+### `LogicalSize`
 
 A size represented in logical pixels.
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new LogicalSize**(`width`: `number`, `height`: `number`): [`LogicalSize`](window.md#logicalsize)
 
@@ -155,13 +155,13 @@ A size represented in logical pixels.
 | <div class="anchor-with-padding" id="window.LogicalSize.type"><a href="#window.LogicalSize.type">`type`</a></div> | `string` | [window.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L97) |
 | <div class="anchor-with-padding" id="window.LogicalSize.width"><a href="#window.LogicalSize.width">`width`</a></div> | `number` | [window.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L98) |
 
-### PhysicalPosition
+### `PhysicalPosition`
 
 A position represented in physical pixels.
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new PhysicalPosition**(`x`: `number`, `y`: `number`): [`PhysicalPosition`](window.md#physicalposition)
 
@@ -182,7 +182,7 @@ A position represented in physical pixels.
 
 #### Methods
 
-##### toLogical
+##### `toLogical`
 
 > **toLogical**(`scaleFactor`: `number`): [`LogicalPosition`](window.md#logicalposition)
 
@@ -205,13 +205,13 @@ const logical = position.toLogical(factor);
 
 **Returns: **[`LogicalPosition`](window.md#logicalposition)
 
-### PhysicalSize
+### `PhysicalSize`
 
 A size represented in physical pixels.
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new PhysicalSize**(`width`: `number`, `height`: `number`): [`PhysicalSize`](window.md#physicalsize)
 
@@ -232,7 +232,7 @@ A size represented in physical pixels.
 
 #### Methods
 
-##### toLogical
+##### `toLogical`
 
 > **toLogical**(`scaleFactor`: `number`): [`LogicalSize`](window.md#logicalsize)
 
@@ -255,7 +255,7 @@ const logical = size.toLogical(factor);
 
 **Returns: **[`LogicalSize`](window.md#logicalsize)
 
-### WebviewWindow
+### `WebviewWindow`
 
 Create new webview windows and get a handle to existing ones.
 
@@ -295,7 +295,7 @@ unlisten();
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new WebviewWindow**(`label`: `string`, `options?`: [`WindowOptions`](window.md#windowoptions)): [`WebviewWindow`](window.md#webviewwindow)
 
@@ -336,7 +336,7 @@ webview.once('tauri://error', function (e) {
 
 #### Methods
 
-##### \_handleTauriEvent
+##### `\_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
@@ -353,7 +353,7 @@ webview.once('tauri://error', function (e) {
 
 **Returns: **`boolean`
 
-##### center
+##### `center`
 
 > **center**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -370,7 +370,7 @@ await appWindow.center();
 
 A promise indicating the success or failure of the operation.
 
-##### close
+##### `close`
 
 > **close**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -387,7 +387,7 @@ await appWindow.close();
 
 A promise indicating the success or failure of the operation.
 
-##### emit
+##### `emit`
 
 > **emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -409,7 +409,7 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-##### hide
+##### `hide`
 
 > **hide**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -426,7 +426,7 @@ await appWindow.hide();
 
 A promise indicating the success or failure of the operation.
 
-##### innerPosition
+##### `innerPosition`
 
 > **innerPosition**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalPosition`](window.md#physicalposition)\>
 
@@ -443,7 +443,7 @@ const position = await appWindow.innerPosition();
 
 The window's inner position.
 
-##### innerSize
+##### `innerSize`
 
 > **innerSize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalSize`](window.md#physicalsize)\>
 
@@ -461,7 +461,7 @@ const size = await appWindow.innerSize();
 
 The window's inner size.
 
-##### isDecorated
+##### `isDecorated`
 
 > **isDecorated**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -478,7 +478,7 @@ const decorated = await appWindow.isDecorated();
 
 Whether the window is decorated or not.
 
-##### isFullscreen
+##### `isFullscreen`
 
 > **isFullscreen**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -495,7 +495,7 @@ const fullscreen = await appWindow.isFullscreen();
 
 Whether the window is in fullscreen mode or not.
 
-##### isMaximized
+##### `isMaximized`
 
 > **isMaximized**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -512,7 +512,7 @@ const maximized = await appWindow.isMaximized();
 
 Whether the window is maximized or not.
 
-##### isResizable
+##### `isResizable`
 
 > **isResizable**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -529,7 +529,7 @@ const resizable = await appWindow.isResizable();
 
 Whether the window is resizable or not.
 
-##### isVisible
+##### `isVisible`
 
 > **isVisible**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -546,7 +546,7 @@ const visible = await appWindow.isVisible();
 
 Whether the window is visible or not.
 
-##### listen
+##### `listen`
 
 > **listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -580,7 +580,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### maximize
+##### `maximize`
 
 > **maximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -597,7 +597,7 @@ await appWindow.maximize();
 
 A promise indicating the success or failure of the operation.
 
-##### minimize
+##### `minimize`
 
 > **minimize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -614,7 +614,7 @@ await appWindow.minimize();
 
 A promise indicating the success or failure of the operation.
 
-##### onCloseRequested
+##### `onCloseRequested`
 
 > **onCloseRequested**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -648,7 +648,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onFileDropEvent
+##### `onFileDropEvent`
 
 > **onFileDropEvent**(`handler`: [`EventCallback`](event.md#eventcallback)<[`FileDropEvent`](window.md#filedropevent)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -685,7 +685,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onFocusChanged
+##### `onFocusChanged`
 
 > **onFocusChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<`boolean`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -714,7 +714,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onMenuClicked
+##### `onMenuClicked`
 
 > **onMenuClicked**(`handler`: [`EventCallback`](event.md#eventcallback)<`string`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -743,7 +743,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onMoved
+##### `onMoved`
 
 > **onMoved**(`handler`: [`EventCallback`](event.md#eventcallback)<[`PhysicalPosition`](window.md#physicalposition)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -772,7 +772,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onResized
+##### `onResized`
 
 > **onResized**(`handler`: [`EventCallback`](event.md#eventcallback)<[`PhysicalSize`](window.md#physicalsize)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -801,7 +801,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onScaleChanged
+##### `onScaleChanged`
 
 > **onScaleChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<[`ScaleFactorChanged`](window.md#scalefactorchanged)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -834,7 +834,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onThemeChanged
+##### `onThemeChanged`
 
 > **onThemeChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<[`Theme`](window.md#theme)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -863,7 +863,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### once
+##### `once`
 
 > **once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -897,7 +897,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### outerPosition
+##### `outerPosition`
 
 > **outerPosition**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalPosition`](window.md#physicalposition)\>
 
@@ -914,7 +914,7 @@ const position = await appWindow.outerPosition();
 
 The window's outer position.
 
-##### outerSize
+##### `outerSize`
 
 > **outerSize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalSize`](window.md#physicalsize)\>
 
@@ -932,7 +932,7 @@ const size = await appWindow.outerSize();
 
 The window's outer size.
 
-##### requestUserAttention
+##### `requestUserAttention`
 
 > **requestUserAttention**(`requestType`: `null` \| [`UserAttentionType`](window.md#userattentiontype)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -965,7 +965,7 @@ await appWindow.requestUserAttention();
 
 A promise indicating the success or failure of the operation.
 
-##### scaleFactor
+##### `scaleFactor`
 
 > **scaleFactor**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`number`\>
 
@@ -982,7 +982,7 @@ const factor = await appWindow.scaleFactor();
 
 The window's monitor scale factor.
 
-##### setAlwaysOnTop
+##### `setAlwaysOnTop`
 
 > **setAlwaysOnTop**(`alwaysOnTop`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1005,7 +1005,7 @@ await appWindow.setAlwaysOnTop(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorGrab
+##### `setCursorGrab`
 
 > **setCursorGrab**(`grab`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1036,7 +1036,7 @@ await appWindow.setCursorGrab(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorIcon
+##### `setCursorIcon`
 
 > **setCursorIcon**(`icon`: [`CursorIcon`](window.md#cursoricon)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1059,7 +1059,7 @@ await appWindow.setCursorIcon('help');
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorPosition
+##### `setCursorPosition`
 
 > **setCursorPosition**(`position`: [`PhysicalPosition`](window.md#physicalposition) \| [`LogicalPosition`](window.md#logicalposition)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1082,7 +1082,7 @@ await appWindow.setCursorPosition(new LogicalPosition(600, 300));
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorVisible
+##### `setCursorVisible`
 
 > **setCursorVisible**(`visible`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1111,7 +1111,7 @@ await appWindow.setCursorVisible(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setDecorations
+##### `setDecorations`
 
 > **setDecorations**(`decorations`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1134,7 +1134,7 @@ await appWindow.setDecorations(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setFocus
+##### `setFocus`
 
 > **setFocus**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1151,7 +1151,7 @@ await appWindow.setFocus();
 
 A promise indicating the success or failure of the operation.
 
-##### setFullscreen
+##### `setFullscreen`
 
 > **setFullscreen**(`fullscreen`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1174,7 +1174,7 @@ await appWindow.setFullscreen(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setIcon
+##### `setIcon`
 
 > **setIcon**(`icon`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1204,7 +1204,7 @@ tauri = { version = "...", features = ["...", "icon-png"] }
 
 A promise indicating the success or failure of the operation.
 
-##### setMaxSize
+##### `setMaxSize`
 
 > **setMaxSize**(`size`: `undefined` \| `null` \| [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1227,7 +1227,7 @@ await appWindow.setMaxSize(new LogicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setMinSize
+##### `setMinSize`
 
 > **setMinSize**(`size`: `undefined` \| `null` \| [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1250,7 +1250,7 @@ await appWindow.setMinSize(new PhysicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setPosition
+##### `setPosition`
 
 > **setPosition**(`position`: [`PhysicalPosition`](window.md#physicalposition) \| [`LogicalPosition`](window.md#logicalposition)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1273,7 +1273,7 @@ await appWindow.setPosition(new LogicalPosition(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setResizable
+##### `setResizable`
 
 > **setResizable**(`resizable`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1296,7 +1296,7 @@ await appWindow.setResizable(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setSize
+##### `setSize`
 
 > **setSize**(`size`: [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1319,7 +1319,7 @@ await appWindow.setSize(new LogicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setSkipTaskbar
+##### `setSkipTaskbar`
 
 > **setSkipTaskbar**(`skip`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1342,7 +1342,7 @@ await appWindow.setSkipTaskbar(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setTitle
+##### `setTitle`
 
 > **setTitle**(`title`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1365,7 +1365,7 @@ await appWindow.setTitle('Tauri');
 
 A promise indicating the success or failure of the operation.
 
-##### show
+##### `show`
 
 > **show**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1382,7 +1382,7 @@ await appWindow.show();
 
 A promise indicating the success or failure of the operation.
 
-##### startDragging
+##### `startDragging`
 
 > **startDragging**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1399,7 +1399,7 @@ await appWindow.startDragging();
 
 A promise indicating the success or failure of the operation.
 
-##### theme
+##### `theme`
 
 > **theme**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| [`Theme`](window.md#theme)\>
 
@@ -1421,7 +1421,7 @@ const theme = await appWindow.theme();
 
 The window theme.
 
-##### toggleMaximize
+##### `toggleMaximize`
 
 > **toggleMaximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1438,7 +1438,7 @@ await appWindow.toggleMaximize();
 
 A promise indicating the success or failure of the operation.
 
-##### unmaximize
+##### `unmaximize`
 
 > **unmaximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1455,7 +1455,7 @@ await appWindow.unmaximize();
 
 A promise indicating the success or failure of the operation.
 
-##### unminimize
+##### `unminimize`
 
 > **unminimize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1472,7 +1472,7 @@ await appWindow.unminimize();
 
 A promise indicating the success or failure of the operation.
 
-##### getByLabel
+##### `getByLabel`
 
 > `Static` **getByLabel**(`label`: `string`): `null` \| [`WebviewWindow`](window.md#webviewwindow)
 
@@ -1495,7 +1495,7 @@ const mainWindow = WebviewWindow.getByLabel('main');
 
 The WebviewWindow instance to communicate with the webview or null if the webview doesn't exist.
 
-### WebviewWindowHandle
+### `WebviewWindowHandle`
 
 A webview window handle allows emitting and listening to events from the backend that are tied to the window.
 
@@ -1506,7 +1506,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new WebviewWindowHandle**(`label`: `string`): [`WebviewWindowHandle`](window.md#webviewwindowhandle)
 
@@ -1525,7 +1525,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 #### Methods
 
-##### \_handleTauriEvent
+##### `\_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
@@ -1542,7 +1542,7 @@ A webview window handle allows emitting and listening to events from the backend
 
 **Returns: **`boolean`
 
-##### emit
+##### `emit`
 
 > **emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1564,7 +1564,7 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-##### listen
+##### `listen`
 
 > **listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -1598,7 +1598,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### once
+##### `once`
 
 > **once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -1632,7 +1632,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-### WindowManager
+### `WindowManager`
 
 Manage the current window object.
 
@@ -1644,7 +1644,7 @@ Manage the current window object.
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new WindowManager**(`label`: `string`): [`WindowManager`](window.md#windowmanager)
 
@@ -1665,7 +1665,7 @@ Manage the current window object.
 
 #### Methods
 
-##### \_handleTauriEvent
+##### `\_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
@@ -1682,7 +1682,7 @@ Manage the current window object.
 
 **Returns: **`boolean`
 
-##### center
+##### `center`
 
 > **center**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1699,7 +1699,7 @@ await appWindow.center();
 
 A promise indicating the success or failure of the operation.
 
-##### close
+##### `close`
 
 > **close**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1716,7 +1716,7 @@ await appWindow.close();
 
 A promise indicating the success or failure of the operation.
 
-##### emit
+##### `emit`
 
 > **emit**(`event`: `string`, `payload?`: `unknown`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1738,7 +1738,7 @@ await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-##### hide
+##### `hide`
 
 > **hide**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1755,7 +1755,7 @@ await appWindow.hide();
 
 A promise indicating the success or failure of the operation.
 
-##### innerPosition
+##### `innerPosition`
 
 > **innerPosition**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalPosition`](window.md#physicalposition)\>
 
@@ -1772,7 +1772,7 @@ const position = await appWindow.innerPosition();
 
 The window's inner position.
 
-##### innerSize
+##### `innerSize`
 
 > **innerSize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalSize`](window.md#physicalsize)\>
 
@@ -1790,7 +1790,7 @@ const size = await appWindow.innerSize();
 
 The window's inner size.
 
-##### isDecorated
+##### `isDecorated`
 
 > **isDecorated**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -1807,7 +1807,7 @@ const decorated = await appWindow.isDecorated();
 
 Whether the window is decorated or not.
 
-##### isFullscreen
+##### `isFullscreen`
 
 > **isFullscreen**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -1824,7 +1824,7 @@ const fullscreen = await appWindow.isFullscreen();
 
 Whether the window is in fullscreen mode or not.
 
-##### isMaximized
+##### `isMaximized`
 
 > **isMaximized**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -1841,7 +1841,7 @@ const maximized = await appWindow.isMaximized();
 
 Whether the window is maximized or not.
 
-##### isResizable
+##### `isResizable`
 
 > **isResizable**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -1858,7 +1858,7 @@ const resizable = await appWindow.isResizable();
 
 Whether the window is resizable or not.
 
-##### isVisible
+##### `isVisible`
 
 > **isVisible**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -1875,7 +1875,7 @@ const visible = await appWindow.isVisible();
 
 Whether the window is visible or not.
 
-##### listen
+##### `listen`
 
 > **listen**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -1909,7 +1909,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### maximize
+##### `maximize`
 
 > **maximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1926,7 +1926,7 @@ await appWindow.maximize();
 
 A promise indicating the success or failure of the operation.
 
-##### minimize
+##### `minimize`
 
 > **minimize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -1943,7 +1943,7 @@ await appWindow.minimize();
 
 A promise indicating the success or failure of the operation.
 
-##### onCloseRequested
+##### `onCloseRequested`
 
 > **onCloseRequested**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -1977,7 +1977,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onFileDropEvent
+##### `onFileDropEvent`
 
 > **onFileDropEvent**(`handler`: [`EventCallback`](event.md#eventcallback)<[`FileDropEvent`](window.md#filedropevent)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2014,7 +2014,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onFocusChanged
+##### `onFocusChanged`
 
 > **onFocusChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<`boolean`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2043,7 +2043,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onMenuClicked
+##### `onMenuClicked`
 
 > **onMenuClicked**(`handler`: [`EventCallback`](event.md#eventcallback)<`string`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2072,7 +2072,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onMoved
+##### `onMoved`
 
 > **onMoved**(`handler`: [`EventCallback`](event.md#eventcallback)<[`PhysicalPosition`](window.md#physicalposition)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2101,7 +2101,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onResized
+##### `onResized`
 
 > **onResized**(`handler`: [`EventCallback`](event.md#eventcallback)<[`PhysicalSize`](window.md#physicalsize)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2130,7 +2130,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onScaleChanged
+##### `onScaleChanged`
 
 > **onScaleChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<[`ScaleFactorChanged`](window.md#scalefactorchanged)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2163,7 +2163,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### onThemeChanged
+##### `onThemeChanged`
 
 > **onThemeChanged**(`handler`: [`EventCallback`](event.md#eventcallback)<[`Theme`](window.md#theme)\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2192,7 +2192,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### once
+##### `once`
 
 > **once**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
@@ -2226,7 +2226,7 @@ unlisten();
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
 
-##### outerPosition
+##### `outerPosition`
 
 > **outerPosition**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalPosition`](window.md#physicalposition)\>
 
@@ -2243,7 +2243,7 @@ const position = await appWindow.outerPosition();
 
 The window's outer position.
 
-##### outerSize
+##### `outerSize`
 
 > **outerSize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PhysicalSize`](window.md#physicalsize)\>
 
@@ -2261,7 +2261,7 @@ const size = await appWindow.outerSize();
 
 The window's outer size.
 
-##### requestUserAttention
+##### `requestUserAttention`
 
 > **requestUserAttention**(`requestType`: `null` \| [`UserAttentionType`](window.md#userattentiontype)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2294,7 +2294,7 @@ await appWindow.requestUserAttention();
 
 A promise indicating the success or failure of the operation.
 
-##### scaleFactor
+##### `scaleFactor`
 
 > **scaleFactor**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`number`\>
 
@@ -2311,7 +2311,7 @@ const factor = await appWindow.scaleFactor();
 
 The window's monitor scale factor.
 
-##### setAlwaysOnTop
+##### `setAlwaysOnTop`
 
 > **setAlwaysOnTop**(`alwaysOnTop`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2334,7 +2334,7 @@ await appWindow.setAlwaysOnTop(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorGrab
+##### `setCursorGrab`
 
 > **setCursorGrab**(`grab`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2365,7 +2365,7 @@ await appWindow.setCursorGrab(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorIcon
+##### `setCursorIcon`
 
 > **setCursorIcon**(`icon`: [`CursorIcon`](window.md#cursoricon)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2388,7 +2388,7 @@ await appWindow.setCursorIcon('help');
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorPosition
+##### `setCursorPosition`
 
 > **setCursorPosition**(`position`: [`PhysicalPosition`](window.md#physicalposition) \| [`LogicalPosition`](window.md#logicalposition)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2411,7 +2411,7 @@ await appWindow.setCursorPosition(new LogicalPosition(600, 300));
 
 A promise indicating the success or failure of the operation.
 
-##### setCursorVisible
+##### `setCursorVisible`
 
 > **setCursorVisible**(`visible`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2440,7 +2440,7 @@ await appWindow.setCursorVisible(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setDecorations
+##### `setDecorations`
 
 > **setDecorations**(`decorations`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2463,7 +2463,7 @@ await appWindow.setDecorations(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setFocus
+##### `setFocus`
 
 > **setFocus**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2480,7 +2480,7 @@ await appWindow.setFocus();
 
 A promise indicating the success or failure of the operation.
 
-##### setFullscreen
+##### `setFullscreen`
 
 > **setFullscreen**(`fullscreen`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2503,7 +2503,7 @@ await appWindow.setFullscreen(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setIcon
+##### `setIcon`
 
 > **setIcon**(`icon`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2533,7 +2533,7 @@ tauri = { version = "...", features = ["...", "icon-png"] }
 
 A promise indicating the success or failure of the operation.
 
-##### setMaxSize
+##### `setMaxSize`
 
 > **setMaxSize**(`size`: `undefined` \| `null` \| [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2556,7 +2556,7 @@ await appWindow.setMaxSize(new LogicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setMinSize
+##### `setMinSize`
 
 > **setMinSize**(`size`: `undefined` \| `null` \| [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2579,7 +2579,7 @@ await appWindow.setMinSize(new PhysicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setPosition
+##### `setPosition`
 
 > **setPosition**(`position`: [`PhysicalPosition`](window.md#physicalposition) \| [`LogicalPosition`](window.md#logicalposition)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2602,7 +2602,7 @@ await appWindow.setPosition(new LogicalPosition(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setResizable
+##### `setResizable`
 
 > **setResizable**(`resizable`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2625,7 +2625,7 @@ await appWindow.setResizable(false);
 
 A promise indicating the success or failure of the operation.
 
-##### setSize
+##### `setSize`
 
 > **setSize**(`size`: [`PhysicalSize`](window.md#physicalsize) \| [`LogicalSize`](window.md#logicalsize)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2648,7 +2648,7 @@ await appWindow.setSize(new LogicalSize(600, 500));
 
 A promise indicating the success or failure of the operation.
 
-##### setSkipTaskbar
+##### `setSkipTaskbar`
 
 > **setSkipTaskbar**(`skip`: `boolean`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2671,7 +2671,7 @@ await appWindow.setSkipTaskbar(true);
 
 A promise indicating the success or failure of the operation.
 
-##### setTitle
+##### `setTitle`
 
 > **setTitle**(`title`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2694,7 +2694,7 @@ await appWindow.setTitle('Tauri');
 
 A promise indicating the success or failure of the operation.
 
-##### show
+##### `show`
 
 > **show**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2711,7 +2711,7 @@ await appWindow.show();
 
 A promise indicating the success or failure of the operation.
 
-##### startDragging
+##### `startDragging`
 
 > **startDragging**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2728,7 +2728,7 @@ await appWindow.startDragging();
 
 A promise indicating the success or failure of the operation.
 
-##### theme
+##### `theme`
 
 > **theme**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| [`Theme`](window.md#theme)\>
 
@@ -2750,7 +2750,7 @@ const theme = await appWindow.theme();
 
 The window theme.
 
-##### toggleMaximize
+##### `toggleMaximize`
 
 > **toggleMaximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2767,7 +2767,7 @@ await appWindow.toggleMaximize();
 
 A promise indicating the success or failure of the operation.
 
-##### unmaximize
+##### `unmaximize`
 
 > **unmaximize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2784,7 +2784,7 @@ await appWindow.unmaximize();
 
 A promise indicating the success or failure of the operation.
 
-##### unminimize
+##### `unminimize`
 
 > **unminimize**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -2803,7 +2803,7 @@ A promise indicating the success or failure of the operation.
 
 ## Interfaces
 
-### Monitor
+### `Monitor`
 
 Allows you to retrieve information about a given monitor.
 
@@ -2816,7 +2816,7 @@ Allows you to retrieve information about a given monitor.
 | <div class="anchor-with-padding" id="window.Monitor.scaleFactor"><a href="#window.Monitor.scaleFactor">`scaleFactor`</a></div> | `number` | The scale factor that can be used to map physical pixels to logical pixels. | [window.ts:78](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L78) |
 | <div class="anchor-with-padding" id="window.Monitor.size"><a href="#window.Monitor.size">`size`</a></div> | [`PhysicalSize`](window.md#physicalsize) | The monitor's resolution. | [window.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L74) |
 
-### ScaleFactorChanged
+### `ScaleFactorChanged`
 
 The payload for the `scaleChange` event.
 
@@ -2827,7 +2827,7 @@ The payload for the `scaleChange` event.
 | <div class="anchor-with-padding" id="window.ScaleFactorChanged.scaleFactor"><a href="#window.ScaleFactorChanged.scaleFactor">`scaleFactor`</a></div> | `number` | The new window scale factor. | [window.ts:84](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L84) |
 | <div class="anchor-with-padding" id="window.ScaleFactorChanged.size"><a href="#window.ScaleFactorChanged.size">`size`</a></div> | [`PhysicalSize`](window.md#physicalsize) | The new window size | [window.ts:86](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L86) |
 
-### WindowOptions
+### `WindowOptions`
 
 Configuration for the window to create.
 
@@ -2860,13 +2860,13 @@ Configuration for the window to create.
 
 ## Type Aliases
 
-### CursorIcon
+### `CursorIcon`
 
  **CursorIcon**: `"default"` \| `"crosshair"` \| `"hand"` \| `"arrow"` \| `"move"` \| `"text"` \| `"wait"` \| `"help"` \| `"progress"` \| `"notAllowed"` \| `"contextMenu"` \| `"cell"` \| `"verticalText"` \| `"alias"` \| `"copy"` \| `"noDrop"` \| `"grab"` \| `"grabbing"` \| `"allScroll"` \| `"zoomIn"` \| `"zoomOut"` \| `"eResize"` \| `"nResize"` \| `"neResize"` \| `"nwResize"` \| `"sResize"` \| `"seResize"` \| `"swResize"` \| `"wResize"` \| `"ewResize"` \| `"nsResize"` \| `"neswResize"` \| `"nwseResize"` \| `"colResize"` \| `"rowResize"`
 
 [window.ts:202](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L202)
 
-### FileDropEvent
+### `FileDropEvent`
 
  **FileDropEvent**: { `paths`: `string`[] ; `type`: `"hover"`  } \| { `paths`: `string`[] ; `type`: `"drop"`  } \| { `type`: `"cancel"`  }
 
@@ -2874,7 +2874,7 @@ The file drop event types.
 
 [window.ts:90](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/window.ts#L90)
 
-### Theme
+### `Theme`
 
  **Theme**: `"light"` \| `"dark"`
 
@@ -2882,7 +2882,7 @@ The file drop event types.
 
 ## Variables
 
-### appWindow
+### `appWindow`
 
  **appWindow**: [`WebviewWindow`](window.md#webviewwindow)
 
@@ -2892,7 +2892,7 @@ The WebviewWindow for the current window.
 
 ## Functions
 
-### availableMonitors
+### `availableMonitors`
 
 > **availableMonitors**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Monitor`](window.md#monitor)[]\>
 
@@ -2907,7 +2907,7 @@ const monitors = availableMonitors();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Monitor`](window.md#monitor)[]\>
 
-### currentMonitor
+### `currentMonitor`
 
 > **currentMonitor**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Monitor`](window.md#monitor) \| `null`\>
 
@@ -2923,7 +2923,7 @@ const monitor = currentMonitor();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Monitor`](window.md#monitor) \| `null`\>
 
-### getAll
+### `getAll`
 
 > **getAll**(): [`WebviewWindow`](window.md#webviewwindow)[]
 
@@ -2933,7 +2933,7 @@ Gets an instance of `WebviewWindow` for all available webview windows.
 
 The list of WebviewWindow.
 
-### getCurrent
+### `getCurrent`
 
 > **getCurrent**(): [`WebviewWindow`](window.md#webviewwindow)
 
@@ -2943,7 +2943,7 @@ Get an instance of `WebviewWindow` for the current webview window.
 
 The current WebviewWindow.
 
-### primaryMonitor
+### `primaryMonitor`
 
 > **primaryMonitor**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Monitor`](window.md#monitor) \| `null`\>
 

@@ -20,7 +20,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Type Aliases
 
-### ShortcutHandler
+### `ShortcutHandler`
 
  **ShortcutHandler**: (`shortcut`: `string`) => `void`
 
@@ -40,7 +40,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Functions
 
-### isRegistered
+### `isRegistered`
 
 > **isRegistered**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -63,7 +63,7 @@ const isRegistered = await isRegistered('CommandOrControl+P');
 
 A promise resolving to the state.
 
-### register
+### `register`
 
 > **register**(`shortcut`: `string`, `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -87,7 +87,7 @@ await register('CommandOrControl+Shift+C', () => {
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-### registerAll
+### `registerAll`
 
 > **registerAll**(`shortcuts`: `string`[], `handler`: [`ShortcutHandler`](globalShortcut.md#shortcuthandler)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -111,7 +111,7 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-### unregister
+### `unregister`
 
 > **unregister**(`shortcut`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -132,7 +132,7 @@ await unregister('CmdOrControl+Space');
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-### unregisterAll
+### `unregisterAll`
 
 > **unregisterAll**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

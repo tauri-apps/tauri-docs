@@ -65,17 +65,17 @@ Note that this scope applies to **all** APIs on this module.
 
 ## References
 
-### Dir
+### `Dir`
 
 Renames and re-exports [BaseDirectory](fs.md#basedirectory)
 
-### writeFile
+### `writeFile`
 
 Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ## Enumerations
 
-### BaseDirectory
+### `BaseDirectory`
 
 #### Enumeration Members
 
@@ -104,7 +104,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ## Interfaces
 
-### FileEntry
+### `FileEntry`
 
 #### Properties
 
@@ -114,7 +114,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 | <div class="anchor-with-padding" id="fs.FileEntry.name"><a href="#fs.FileEntry.name">`name?`</a></div> | `string` | Name of the directory/file can be null if the path terminates with `..` | [fs.ts:131](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L131) |
 | <div class="anchor-with-padding" id="fs.FileEntry.path"><a href="#fs.FileEntry.path">`path`</a></div> | `string` | - | [fs.ts:126](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L126) |
 
-### FsBinaryFileOption
+### `FsBinaryFileOption`
 
 Options object used to write a binary data to a file.
 
@@ -125,7 +125,7 @@ Options object used to write a binary data to a file.
 | <div class="anchor-with-padding" id="fs.FsBinaryFileOption.contents"><a href="#fs.FsBinaryFileOption.contents">`contents`</a></div> | [`BinaryFileContents`](fs.md#binaryfilecontents) | The byte array contents. | [fs.ts:122](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L122) |
 | <div class="anchor-with-padding" id="fs.FsBinaryFileOption.path"><a href="#fs.FsBinaryFileOption.path">`path`</a></div> | `string` | Path to the file to write. | [fs.ts:120](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L120) |
 
-### FsDirOptions
+### `FsDirOptions`
 
 #### Properties
 
@@ -134,7 +134,7 @@ Options object used to write a binary data to a file.
 | <div class="anchor-with-padding" id="fs.FsDirOptions.dir"><a href="#fs.FsDirOptions.dir">`dir?`</a></div> | [`BaseDirectory`](fs.md#basedirectory) | [fs.ts:103](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L103) |
 | <div class="anchor-with-padding" id="fs.FsDirOptions.recursive"><a href="#fs.FsDirOptions.recursive">`recursive?`</a></div> | `boolean` | [fs.ts:104](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L104) |
 
-### FsOptions
+### `FsOptions`
 
 #### Properties
 
@@ -142,7 +142,7 @@ Options object used to write a binary data to a file.
 | :------ | :------ | :------ |
 | <div class="anchor-with-padding" id="fs.FsOptions.dir"><a href="#fs.FsOptions.dir">`dir?`</a></div> | [`BaseDirectory`](fs.md#basedirectory) | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L98) |
 
-### FsTextFileOption
+### `FsTextFileOption`
 
 Options object used to write a UTF-8 string to a file.
 
@@ -155,7 +155,7 @@ Options object used to write a UTF-8 string to a file.
 
 ## Type Aliases
 
-### BinaryFileContents
+### `BinaryFileContents`
 
  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
@@ -163,7 +163,7 @@ Options object used to write a UTF-8 string to a file.
 
 ## Functions
 
-### copyFile
+### `copyFile`
 
 > **copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -189,7 +189,7 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-### createDir
+### `createDir`
 
 > **createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -216,7 +216,7 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 
 A promise indicating the success or failure of the operation.
 
-### readBinaryFile
+### `readBinaryFile`
 
 > **readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
@@ -241,7 +241,7 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 
 A promise resolving to the file bytes array.
 
-### readDir
+### `readDir`
 
 > **readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
@@ -275,7 +275,7 @@ function processEntries(entries) {
 
 A promise resolving to the directory entries.
 
-### readTextFile
+### `readTextFile`
 
 > **readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -300,7 +300,7 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 
 A promise resolving to the file content as a UTF-8 encoded string.
 
-### removeDir
+### `removeDir`
 
 > **removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -326,7 +326,7 @@ await removeDir('users', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-### removeFile
+### `removeFile`
 
 > **removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -351,7 +351,7 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-### renameFile
+### `renameFile`
 
 > **renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -377,7 +377,7 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
-### writeBinaryFile
+### `writeBinaryFile`
 
 > **writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -426,7 +426,7 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 
 A promise indicating the success or failure of the operation.
 
-### writeTextFile
+### `writeTextFile`
 
 > **writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

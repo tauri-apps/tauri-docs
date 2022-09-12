@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.app` when [`build.withGlo
 
 ## Functions
 
-### getName
+### `getName`
 
 > **getName**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -23,7 +23,7 @@ const appName = await getName();
 
 A promise resolving to application name.
 
-### getTauriVersion
+### `getTauriVersion`
 
 > **getTauriVersion**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -40,7 +40,7 @@ const tauriVersion = await getTauriVersion();
 
 A promise resolving to Tauri version.
 
-### getVersion
+### `getVersion`
 
 > **getVersion**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 

@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.clipboard` when [`build.w
 
 ## Functions
 
-### readText
+### `readText`
 
 > **readText**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
@@ -23,7 +23,7 @@ const clipboardText = await readText();
 
 A promise resolving to the clipboard content as plain text.
 
-### writeText
+### `writeText`
 
 > **writeText**(`text`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

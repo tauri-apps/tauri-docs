@@ -20,19 +20,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Type Aliases
 
-### Arch
+### `Arch`
 
  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
 [os.ts:43](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L43)
 
-### OsType
+### `OsType`
 
  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
 
 [os.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L41)
 
-### Platform
+### `Platform`
 
  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
@@ -40,7 +40,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Variables
 
-### EOL
+### `EOL`
 
 `Const` **EOL**: `"\n"` \| `"\r\n"`
 
@@ -52,7 +52,7 @@ The operating system-specific end-of-line marker.
 
 ## Functions
 
-### arch
+### `arch`
 
 > **arch**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
@@ -68,7 +68,7 @@ const archName = await arch();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
-### platform
+### `platform`
 
 > **platform**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
@@ -84,7 +84,7 @@ const platformName = await platform();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
-### tempdir
+### `tempdir`
 
 > **tempdir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -99,7 +99,7 @@ const tempdirPath = await tempdir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
-### type
+### `type`
 
 > **type**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
@@ -114,7 +114,7 @@ const osType = await type();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
-### version
+### `version`
 
 > **version**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 

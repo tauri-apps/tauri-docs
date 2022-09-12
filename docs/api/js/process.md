@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.process` when [`build.wit
 
 ## Functions
 
-### exit
+### `exit`
 
 > **exit**(`exitCode?`: `number`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -29,7 +29,7 @@ await exit(1);
 
 A promise indicating the success or failure of the operation.
 
-### relaunch
+### `relaunch`
 
 > **relaunch**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

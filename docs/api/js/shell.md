@@ -71,11 +71,11 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ## Classes
 
-### Child
+### `Child`
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new Child**(`pid`: `number`): [`Child`](shell.md#child)
 
@@ -93,7 +93,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 #### Methods
 
-##### kill
+##### `kill`
 
 > **kill**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -103,7 +103,7 @@ Kills the child process.
 
 A promise indicating the success or failure of the operation.
 
-##### write
+##### `write`
 
 > **write**(`data`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -129,7 +129,7 @@ await child.write([0, 1, 2, 3, 4, 5]);
 
 A promise indicating the success or failure of the operation.
 
-### Command
+### `Command`
 
 The entry point for spawning child processes.
 It emits the `close` and `error` events.
@@ -157,7 +157,7 @@ console.log('pid:', child.pid);
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new Command**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
 
@@ -182,7 +182,7 @@ Creates a new `Command` instance.
 
 #### Methods
 
-##### execute
+##### `execute`
 
 > **execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
 
@@ -203,7 +203,7 @@ assert(output.stderr === '');
 
 A promise resolving to the child process output.
 
-##### on
+##### `on`
 
 > **on**(`event`: `"error"` \| `"close"`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
 
@@ -220,7 +220,7 @@ Listen to an event from the child process.
 
 The `this` instance for chained calls.
 
-##### spawn
+##### `spawn`
 
 > **spawn**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
@@ -230,7 +230,7 @@ Executes the command as a child process, returning a handle to it.
 
 A promise resolving to the child process handle.
 
-##### sidecar
+##### `sidecar`
 
 > `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
 
@@ -254,7 +254,7 @@ const output = await command.execute();
 
 **Returns: **[`Command`](shell.md#command)
 
-### EventEmitter<E\>
+### `EventEmitter<E\>`
 
 **Type parameters**
 
@@ -267,7 +267,7 @@ const output = await command.execute();
 
 #### Constructors
 
-##### constructor
+##### `constructor`
 
 > **new EventEmitter**<`E`\>(): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
@@ -277,7 +277,7 @@ const output = await command.execute();
 
 #### Methods
 
-##### on
+##### `on`
 
 > **on**(`event`: `E`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
@@ -296,7 +296,7 @@ The `this` instance for chained calls.
 
 ## Interfaces
 
-### ChildProcess
+### `ChildProcess`
 
 #### Properties
 
@@ -307,7 +307,7 @@ The `this` instance for chained calls.
 | <div class="anchor-with-padding" id="shell.ChildProcess.stderr"><a href="#shell.ChildProcess.stderr">`stderr`</a></div> | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101) |
 | <div class="anchor-with-padding" id="shell.ChildProcess.stdout"><a href="#shell.ChildProcess.stdout">`stdout`</a></div> | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99) |
 
-### SpawnOptions
+### `SpawnOptions`
 
 #### Properties
 
@@ -318,7 +318,7 @@ The `this` instance for chained calls.
 
 ## Functions
 
-### open
+### `open`
 
 > **open**(`path`: `string`, `openWith?`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

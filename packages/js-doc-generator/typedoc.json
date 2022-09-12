@@ -27,5 +27,6 @@
   "hideInPageTOC": true,
   "hasOwnDocument": "None",
   "hideHorizontalDivider": true,
-  "excludePrivate": true
+  "excludePrivate": true,
+  "embedTitleInCodeBlocks": true
 }

@@ -22,7 +22,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Interfaces
 
-### DialogFilter
+### `DialogFilter`
 
 Extension filters for the file dialog.
 
@@ -33,7 +33,7 @@ Extension filters for the file dialog.
 | <div class="anchor-with-padding" id="dialog.DialogFilter.extensions"><a href="#dialog.DialogFilter.extensions">`extensions`</a></div> | `string`[] | Extensions to filter, without a `.` prefix.  **Example**  ```typescript extensions: ['svg', 'png'] ``` | [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41) |
 | <div class="anchor-with-padding" id="dialog.DialogFilter.name"><a href="#dialog.DialogFilter.name">`name`</a></div> | `string` | Filter name. | [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33) |
 
-### MessageDialogOptions
+### `MessageDialogOptions`
 
 #### Properties
 
@@ -42,7 +42,7 @@ Extension filters for the file dialog.
 | <div class="anchor-with-padding" id="dialog.MessageDialogOptions.title"><a href="#dialog.MessageDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog. Defaults to the app name. | [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79) |
 | <div class="anchor-with-padding" id="dialog.MessageDialogOptions.type"><a href="#dialog.MessageDialogOptions.type">`type?`</a></div> | `"error"` \| `"info"` \| `"warning"` | The type of the dialog. Defaults to `info`. | [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81) |
 
-### OpenDialogOptions
+### `OpenDialogOptions`
 
 Options for the open dialog.
 
@@ -57,7 +57,7 @@ Options for the open dialog.
 | <div class="anchor-with-padding" id="dialog.OpenDialogOptions.recursive"><a href="#dialog.OpenDialogOptions.recursive">`recursive?`</a></div> | `boolean` | If `directory` is true, indicates that it will be read recursively later. Defines whether subdirectories will be allowed on the scope or not. | [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60) |
 | <div class="anchor-with-padding" id="dialog.OpenDialogOptions.title"><a href="#dialog.OpenDialogOptions.title">`title?`</a></div> | `string` | The title of the dialog window. | [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47) |
 
-### SaveDialogOptions
+### `SaveDialogOptions`
 
 Options for the save dialog.
 
@@ -71,7 +71,7 @@ Options for the save dialog.
 
 ## Functions
 
-### ask
+### `ask`
 
 > **ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -96,7 +96,7 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
-### confirm
+### `confirm`
 
 > **confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -121,7 +121,7 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
-### message
+### `message`
 
 > **message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -146,7 +146,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 A promise indicating the success or failure of the operation.
 
-### open
+### `open`
 
 > **open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
@@ -210,7 +210,7 @@ if (Array.isArray(selected)) {
 
 A promise resolving to the selected path(s)
 
-### save
+### `save`
 
 > **save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 

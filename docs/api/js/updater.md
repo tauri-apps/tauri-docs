@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ## Interfaces
 
-### UpdateManifest
+### `UpdateManifest`
 
 #### Properties
 
@@ -16,7 +16,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 | <div class="anchor-with-padding" id="updater.UpdateManifest.date"><a href="#updater.UpdateManifest.date">`date`</a></div> | `string` | [updater.ts:23](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L23) |
 | <div class="anchor-with-padding" id="updater.UpdateManifest.version"><a href="#updater.UpdateManifest.version">`version`</a></div> | `string` | [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L22) |
 
-### UpdateResult
+### `UpdateResult`
 
 #### Properties
 
@@ -25,7 +25,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 | <div class="anchor-with-padding" id="updater.UpdateResult.manifest"><a href="#updater.UpdateResult.manifest">`manifest?`</a></div> | [`UpdateManifest`](updater.md#updatemanifest) | [updater.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L28) |
 | <div class="anchor-with-padding" id="updater.UpdateResult.shouldUpdate"><a href="#updater.UpdateResult.shouldUpdate">`shouldUpdate`</a></div> | `boolean` | [updater.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L29) |
 
-### UpdateStatusResult
+### `UpdateStatusResult`
 
 #### Properties
 
@@ -36,7 +36,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ## Type Aliases
 
-### UpdateStatus
+### `UpdateStatus`
 
  **UpdateStatus**: `"PENDING"` \| `"ERROR"` \| `"DONE"` \| `"UPTODATE"`
 
@@ -44,7 +44,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 ## Functions
 
-### checkUpdate
+### `checkUpdate`
 
 > **checkUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
 
@@ -62,7 +62,7 @@ const update = await checkUpdate();
 
 Promise resolving to the update status.
 
-### installUpdate
+### `installUpdate`
 
 > **installUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -83,7 +83,7 @@ if (update.shouldUpdate) {
 
 A promise indicating the success or failure of the operation.
 
-### onUpdaterEvent
+### `onUpdaterEvent`
 
 > **onUpdaterEvent**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 

@@ -39,7 +39,7 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 ## Enumerations
 
-### ResponseType
+### `ResponseType`
 
 #### Enumeration Members
 
@@ -51,7 +51,7 @@ Trying to execute any API with a URL not configured on the scope results in a pr
 
 ## Classes
 
-### Body
+### `Body`
 
 The body object to be used on POST and PUT requests.
 
@@ -64,7 +64,7 @@ The body object to be used on POST and PUT requests.
 
 #### Methods
 
-##### bytes
+##### `bytes`
 
 > `Static` **bytes**(`bytes`: [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer ) \| `ArrayLike`<`number`\> \| `Iterable`<`number`\>): [`Body`](http.md#body)
 
@@ -87,7 +87,7 @@ Body.bytes(new Uint8Array([1, 2, 3]));
 
 The body object ready to be used on the POST and PUT requests.
 
-##### form
+##### `form`
 
 > `Static` **form**(`data`: `Record`<`string`, [`Part`](http.md#part)\>): [`Body`](http.md#body)
 
@@ -123,7 +123,7 @@ Body.form({
 
 The body object ready to be used on the POST and PUT requests.
 
-##### json
+##### `json`
 
 > `Static` **json**(`data`: `Record`<`any`, `any`\>): [`Body`](http.md#body)
 
@@ -149,7 +149,7 @@ Body.json({
 
 The body object ready to be used on the POST and PUT requests.
 
-##### text
+##### `text`
 
 > `Static` **text**(`value`: `string`): [`Body`](http.md#body)
 
@@ -172,7 +172,7 @@ Body.text('The body content as a string');
 
 The body object ready to be used on the POST and PUT requests.
 
-### Client
+### `Client`
 
 #### Properties
 
@@ -182,7 +182,7 @@ The body object ready to be used on the POST and PUT requests.
 
 #### Methods
 
-##### delete
+##### `delete`
 
 > **delete**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -211,7 +211,7 @@ const response = await client.delete('http://localhost:3003/users/1');
 
 A promise resolving to the response.
 
-##### drop
+##### `drop`
 
 > **drop**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -227,7 +227,7 @@ await client.drop();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-##### get
+##### `get`
 
 > **get**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -260,7 +260,7 @@ const response = await client.get('http://localhost:3003/users', {
 
 A promise resolving to the response.
 
-##### patch
+##### `patch`
 
 > **patch**<`T`\>(`url`: `string`, `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -291,7 +291,7 @@ const response = await client.patch('http://localhost:3003/users/1', {
 
 A promise resolving to the response.
 
-##### post
+##### `post`
 
 > **post**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -328,7 +328,7 @@ const response = await client.post('http://localhost:3003/users', {
 
 A promise resolving to the response.
 
-##### put
+##### `put`
 
 > **put**<`T`\>(`url`: `string`, `body?`: [`Body`](http.md#body), `options?`: [`RequestOptions`](http.md#requestoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -366,7 +366,7 @@ const response = await client.put('http://localhost:3003/users/1', {
 
 A promise resolving to the response.
 
-##### request
+##### `request`
 
 > **request**<`T`\>(`options`: [`HttpOptions`](http.md#httpoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -397,7 +397,7 @@ const response = await client.request({
 
 A promise resolving to the response.
 
-### Response<T\>
+### `Response<T\>`
 
 Response object.
 
@@ -418,7 +418,7 @@ Response object.
 
 ## Interfaces
 
-### ClientOptions
+### `ClientOptions`
 
 #### Properties
 
@@ -427,7 +427,7 @@ Response object.
 | <div class="anchor-with-padding" id="http.ClientOptions.connectTimeout"><a href="#http.ClientOptions.connectTimeout">`connectTimeout?`</a></div> | `number` \| [`Duration`](http.md#duration) | [http.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L55) |
 | <div class="anchor-with-padding" id="http.ClientOptions.maxRedirections"><a href="#http.ClientOptions.maxRedirections">`maxRedirections?`</a></div> | `number` | [http.ts:54](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L54) |
 
-### Duration
+### `Duration`
 
 #### Properties
 
@@ -436,7 +436,7 @@ Response object.
 | <div class="anchor-with-padding" id="http.Duration.nanos"><a href="#http.Duration.nanos">`nanos`</a></div> | `number` | [http.ts:50](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L50) |
 | <div class="anchor-with-padding" id="http.Duration.secs"><a href="#http.Duration.secs">`secs`</a></div> | `number` | [http.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L49) |
 
-### FilePart<T\>
+### `FilePart<T\>`
 
 **Type parameters**
 
@@ -450,7 +450,7 @@ Response object.
 | <div class="anchor-with-padding" id="http.FilePart.fileName"><a href="#http.FilePart.fileName">`fileName?`</a></div> | `string` | [http.ts:67](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L67) |
 | <div class="anchor-with-padding" id="http.FilePart.mime"><a href="#http.FilePart.mime">`mime?`</a></div> | `string` | [http.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L66) |
 
-### HttpOptions
+### `HttpOptions`
 
 Options object sent to the backend.
 
@@ -468,7 +468,7 @@ Options object sent to the backend.
 
 ## Type Aliases
 
-### FetchOptions
+### `FetchOptions`
 
  **FetchOptions**: `Omit`<[`HttpOptions`](http.md#httpoptions), `"url"`\>
 
@@ -476,7 +476,7 @@ Options for the `fetch` API.
 
 [http.ts:213](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L213)
 
-### HttpVerb
+### `HttpVerb`
 
  **HttpVerb**: `"GET"` \| `"POST"` \| `"PUT"` \| `"DELETE"` \| `"PATCH"` \| `"HEAD"` \| `"OPTIONS"` \| `"CONNECT"` \| `"TRACE"`
 
@@ -484,13 +484,13 @@ The request HTTP verb.
 
 [http.ts:188](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L188)
 
-### Part
+### `Part`
 
  **Part**: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) \| [`FilePart`](http.md#filepart)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 [http.ts:70](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/http.ts#L70)
 
-### RequestOptions
+### `RequestOptions`
 
  **RequestOptions**: `Omit`<[`HttpOptions`](http.md#httpoptions), `"method"` \| `"url"`\>
 
@@ -500,7 +500,7 @@ Request options.
 
 ## Functions
 
-### fetch
+### `fetch`
 
 > **fetch**<`T`\>(`url`: `string`, `options?`: [`FetchOptions`](http.md#fetchoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Response`](http.md#response)<`T`\>\>
 
@@ -531,7 +531,7 @@ const response = await fetch('http://localhost:3003/users/2', {
 
 The response object.
 
-### getClient
+### `getClient`
 
 > **getClient**(`options?`: [`ClientOptions`](http.md#clientoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Client`](http.md#client)\>
 

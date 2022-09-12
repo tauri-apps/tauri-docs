@@ -21,7 +21,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ## Interfaces
 
-### Options
+### `Options`
 
 Options to send a notification.
 
@@ -35,7 +35,7 @@ Options to send a notification.
 
 ## Type Aliases
 
-### Permission
+### `Permission`
 
  **Permission**: `"granted"` \| `"denied"` \| `"default"`
 
@@ -45,7 +45,7 @@ Possible permission values.
 
 ## Functions
 
-### isPermissionGranted
+### `isPermissionGranted`
 
 > **isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -60,7 +60,7 @@ const permissionGranted = await isPermissionGranted();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
-### requestPermission
+### `requestPermission`
 
 > **requestPermission**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
@@ -81,7 +81,7 @@ if (!permissionGranted) {
 
 A promise resolving to whether the user granted the permission or not.
 
-### sendNotification
+### `sendNotification`
 
 > **sendNotification**(`options`: `string` \| [`Options`](notification.md#options)): `void`
 

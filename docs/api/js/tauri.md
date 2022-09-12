@@ -6,13 +6,13 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 ## Interfaces
 
-### InvokeArgs
+### `InvokeArgs`
 
 Command arguments.
 
 ## Functions
 
-### convertFileSrc
+### `convertFileSrc`
 
 > **convertFileSrc**(`filePath`: `string`, `protocol?`: `string`): `string`
 
@@ -51,7 +51,7 @@ video.load();
 
 the URL that can be used as source on the webview.
 
-### invoke
+### `invoke`
 
 > **invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
@@ -79,7 +79,7 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 
 A promise resolving or rejecting to the backend response.
 
-### transformCallback
+### `transformCallback`
 
 > **transformCallback**(`callback?`: `fn`, `once?`: `boolean`): `number`
 
