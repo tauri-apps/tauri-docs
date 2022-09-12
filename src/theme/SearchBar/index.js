@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
-import { useColorMode } from '@docusaurus/theme-common'
-import 'docs-searchbar.js/dist/cdn/docs-searchbar.min.css'
 import './style.css'
 
 export default function Component() {
-  const isDarkTheme = useColorMode().colorMode === 'dark'
-
   useEffect(() => {
     const DocsSearchBar = require('docs-searchbar.js').default
 
@@ -14,20 +10,17 @@ export default function Component() {
       apiKey:
         'XZEH8BS90ee09c45215a8421c06857bcbde5c1a6797bdf4859a57a3ac1228a2b81df0994',
       indexUid: 'consolidated',
-      inputSelector: '.search-bar-input',
+      inputSelector: '#search-bar-input',
       debug: process.env.NODE_ENV === 'development',
-      enableDarkMode: isDarkTheme,
-      enhancedSearchInput: true,
     })
   }, [])
 
-  useEffect(() => {
-    document.querySelector('.docs-searchbar-js').setAttribute('data-ds-theme', isDarkTheme ? 'dark' : 'light')
-  }, [isDarkTheme])
-
   return (
-    <div>
-      <input className="search-bar-input" />
-    </div>
+    <input
+      type="search"
+      id="search-bar-input"
+      className="navbar__search navbar__search-input"
+      placeholder="Search"
+    />
   )
 }
