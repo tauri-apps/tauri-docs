@@ -10,67 +10,28 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 #### Properties
 
-##### occurrences
-
- **occurrences**: `number`
-
-Number of occurrences
-
-**Defined in:** [cli.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L24)
-
----
-
-##### value
-
- **value**: `null` \| `string` \| `boolean` \| `string`[]
-
-string if takes value
-boolean if flag
-string[] or null if takes multiple values
-
-**Defined in:** [cli.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L20)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `occurrences` | `number` | Number of occurrences | [cli.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L24) |
+| `value` | `null` \| `string` \| `boolean` \| `string`[] | string if takes value boolean if flag string[] or null if takes multiple values | [cli.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L20) |
 
 ### CliMatches
 
 #### Properties
 
-##### args
-
- **args**: { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  }
-
-**Defined in:** [cli.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L33)
-
----
-
-##### subcommand
-
- **subcommand**: `null` \| [`SubcommandMatch`](cli.md#subcommandmatch)
-
-**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L34)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `args` | { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  } | [cli.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L33) |
+| `subcommand` | `null` \| [`SubcommandMatch`](cli.md#subcommandmatch) | [cli.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L34) |
 
 ### SubcommandMatch
 
 #### Properties
 
-##### matches
-
- **matches**: [`CliMatches`](cli.md#climatches)
-
-**Defined in:** [cli.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L29)
-
----
-
-##### name
-
- **name**: `string`
-
-**Defined in:** [cli.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L28)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `matches` | [`CliMatches`](cli.md#climatches) | [cli.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L29) |
+| `name` | `string` | [cli.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/cli.ts#L28) |
 
 ## Functions
 

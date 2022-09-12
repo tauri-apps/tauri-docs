@@ -24,25 +24,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
-**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L43)
-
----
+[os.ts:43](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L43)
 
 ### OsType
 
  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
 
-**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L41)
-
----
+[os.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L41)
 
 ### Platform
 
  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
-**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L29)
-
----
+[os.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -54,9 +48,7 @@ The operating system-specific end-of-line marker.
 - `\n` on POSIX
 - `\r\n` on Windows
 
-**Defined in:** [os.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L61)
-
----
+[os.ts:61](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/os.ts#L61)
 
 ## Functions
 
@@ -76,8 +68,6 @@ const archName = await arch();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
----
-
 ### platform
 
 > **platform**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
@@ -94,8 +84,6 @@ const platformName = await platform();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
----
-
 ### tempdir
 
 > **tempdir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -111,8 +99,6 @@ const tempdirPath = await tempdir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### type
 
 > **type**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
@@ -127,8 +113,6 @@ const osType = await type();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
-
----
 
 ### version
 

@@ -28,55 +28,19 @@ Extension filters for the file dialog.
 
 #### Properties
 
-##### extensions
-
- **extensions**: `string`[]
-
-Extensions to filter, without a `.` prefix.
-
-**Example**
-
-```typescript
-extensions: ['svg', 'png']
-```
-
-**Defined in:** [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41)
-
----
-
-##### name
-
- **name**: `string`
-
-Filter name.
-
-**Defined in:** [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `extensions` | `string`[] | Extensions to filter, without a `.` prefix.  **Example**  ```typescript extensions: ['svg', 'png'] ``` | [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L41) |
+| `name` | `string` | Filter name. | [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L33) |
 
 ### MessageDialogOptions
 
 #### Properties
 
-##### title
-
-`Optional` **title**: `string`
-
-The title of the dialog. Defaults to the app name.
-
-**Defined in:** [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79)
-
----
-
-##### type
-
-`Optional` **type**: `"error"` \| `"info"` \| `"warning"`
-
-The type of the dialog. Defaults to `info`.
-
-**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `title?` | `string` | The title of the dialog. Defaults to the app name. | [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L79) |
+| `type?` | `"error"` \| `"info"` \| `"warning"` | The type of the dialog. Defaults to `info`. | [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L81) |
 
 ### OpenDialogOptions
 
@@ -84,66 +48,14 @@ Options for the open dialog.
 
 #### Properties
 
-##### defaultPath
-
-`Optional` **defaultPath**: `string`
-
-Initial directory or file path.
-
-**Defined in:** [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L51)
-
----
-
-##### directory
-
-`Optional` **directory**: `boolean`
-
-Whether the dialog is a directory selection or not.
-
-**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L55)
-
----
-
-##### filters
-
-`Optional` **filters**: [`DialogFilter`](dialog.md#dialogfilter)[]
-
-The filters of the dialog.
-
-**Defined in:** [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L49)
-
----
-
-##### multiple
-
-`Optional` **multiple**: `boolean`
-
-Whether the dialog allows multiple selection or not.
-
-**Defined in:** [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L53)
-
----
-
-##### recursive
-
-`Optional` **recursive**: `boolean`
-
-If `directory` is true, indicates that it will be read recursively later.
-Defines whether subdirectories will be allowed on the scope or not.
-
-**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60)
-
----
-
-##### title
-
-`Optional` **title**: `string`
-
-The title of the dialog window.
-
-**Defined in:** [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `defaultPath?` | `string` | Initial directory or file path. | [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L51) |
+| `directory?` | `boolean` | Whether the dialog is a directory selection or not. | [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L55) |
+| `filters?` | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L49) |
+| `multiple?` | `boolean` | Whether the dialog allows multiple selection or not. | [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L53) |
+| `recursive?` | `boolean` | If `directory` is true, indicates that it will be read recursively later. Defines whether subdirectories will be allowed on the scope or not. | [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L60) |
+| `title?` | `string` | The title of the dialog window. | [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L47) |
 
 ### SaveDialogOptions
 
@@ -151,37 +63,11 @@ Options for the save dialog.
 
 #### Properties
 
-##### defaultPath
-
-`Optional` **defaultPath**: `string`
-
-Initial directory or file path.
-If it's a directory path, the dialog interface will change to that folder.
-If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
-
-**Defined in:** [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L74)
-
----
-
-##### filters
-
-`Optional` **filters**: [`DialogFilter`](dialog.md#dialogfilter)[]
-
-The filters of the dialog.
-
-**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L68)
-
----
-
-##### title
-
-`Optional` **title**: `string`
-
-The title of the dialog window.
-
-**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L66)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `defaultPath?` | `string` | Initial directory or file path. If it's a directory path, the dialog interface will change to that folder. If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder. | [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L74) |
+| `filters?` | [`DialogFilter`](dialog.md#dialogfilter)[] | The filters of the dialog. | [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L68) |
+| `title?` | `string` | The title of the dialog window. | [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/dialog.ts#L66) |
 
 ## Functions
 
@@ -210,8 +96,6 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 
 A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
----
-
 ### confirm
 
 > **confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
@@ -237,8 +121,6 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 
 A promise resolving to a boolean indicating whether `Ok` was clicked or not.
 
----
-
 ### message
 
 > **message**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
@@ -263,8 +145,6 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### open
 
@@ -329,8 +209,6 @@ if (Array.isArray(selected)) {
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
 
 A promise resolving to the selected path(s)
-
----
 
 ### save
 

@@ -10,69 +10,29 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 #### Properties
 
-##### body
-
- **body**: `string`
-
-**Defined in:** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L24)
-
----
-
-##### date
-
- **date**: `string`
-
-**Defined in:** [updater.ts:23](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L23)
-
----
-
-##### version
-
- **version**: `string`
-
-**Defined in:** [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L22)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `body` | `string` | [updater.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L24) |
+| `date` | `string` | [updater.ts:23](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L23) |
+| `version` | `string` | [updater.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L22) |
 
 ### UpdateResult
 
 #### Properties
 
-##### manifest
-
-`Optional` **manifest**: [`UpdateManifest`](updater.md#updatemanifest)
-
-**Defined in:** [updater.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L28)
-
----
-
-##### shouldUpdate
-
- **shouldUpdate**: `boolean`
-
-**Defined in:** [updater.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L29)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `manifest?` | [`UpdateManifest`](updater.md#updatemanifest) | [updater.ts:28](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L28) |
+| `shouldUpdate` | `boolean` | [updater.ts:29](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L29) |
 
 ### UpdateStatusResult
 
 #### Properties
 
-##### error
-
-`Optional` **error**: `string`
-
-**Defined in:** [updater.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L17)
-
----
-
-##### status
-
- **status**: [`UpdateStatus`](updater.md#updatestatus)
-
-**Defined in:** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L18)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `error?` | `string` | [updater.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L17) |
+| `status` | [`UpdateStatus`](updater.md#updatestatus) | [updater.ts:18](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L18) |
 
 ## Type Aliases
 
@@ -80,9 +40,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
  **UpdateStatus**: `"PENDING"` \| `"ERROR"` \| `"DONE"` \| `"UPTODATE"`
 
-**Defined in:** [updater.ts:14](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L14)
-
----
+[updater.ts:14](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/updater.ts#L14)
 
 ## Functions
 
@@ -104,8 +62,6 @@ const update = await checkUpdate();
 
 Promise resolving to the update status.
 
----
-
 ### installUpdate
 
 > **installUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
@@ -126,8 +82,6 @@ if (update.shouldUpdate) {
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### onUpdaterEvent
 

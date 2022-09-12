@@ -23,8 +23,6 @@ const clipboardText = await readText();
 
 A promise resolving to the clipboard content as plain text.
 
----
-
 ### writeText
 
 > **writeText**(`text`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

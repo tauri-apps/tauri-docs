@@ -14,45 +14,12 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 #### Properties
 
-##### event
-
- **event**: `string`
-
-Event name
-
-**Defined in:** [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L11)
-
----
-
-##### id
-
- **id**: `number`
-
-Event identifier used to unlisten
-
-**Defined in:** [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L15)
-
----
-
-##### payload
-
- **payload**: `T`
-
-Event payload
-
-**Defined in:** [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L17)
-
----
-
-##### windowLabel
-
- **windowLabel**: `string`
-
-The label of the window that emitted this event.
-
-**Defined in:** [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L13)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `event` | `string` | Event name | [helpers/event.ts:11](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L11) |
+| `id` | `number` | Event identifier used to unlisten | [helpers/event.ts:15](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L15) |
+| `payload` | `T` | Event payload | [helpers/event.ts:17](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L17) |
+| `windowLabel` | `string` | The label of the window that emitted this event. | [helpers/event.ts:13](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L13) |
 
 ## Type Aliases
 
@@ -76,17 +43,13 @@ The label of the window that emitted this event.
 
 **Returns: **`void`
 
-**Defined in:** [helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L22)
-
----
+[helpers/event.ts:22](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L22)
 
 ### EventName
 
  **EventName**: `string`
 
-**Defined in:** [helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L20)
-
----
+[helpers/event.ts:20](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L20)
 
 ### UnlistenFn
 
@@ -98,9 +61,7 @@ The label of the window that emitted this event.
 
 **Returns: **`void`
 
-**Defined in:** [helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L24)
-
----
+[helpers/event.ts:24](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/helpers/event.ts#L24)
 
 ## Functions
 
@@ -125,8 +86,6 @@ await emit('frontend-loaded', { loggedIn: true, token: 'authToken' });
 | `payload?` | `unknown` | Event payload |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
-
----
 
 ### listen
 
@@ -161,8 +120,6 @@ unlisten();
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
-
----
 
 ### once
 

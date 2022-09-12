@@ -31,8 +31,6 @@ test("no mocked windows", () => {
 
 **Returns: **`void`
 
----
-
 ### mockIPC
 
 > **mockIPC**(`cb`: `fn`): `void`
@@ -73,8 +71,6 @@ test("mocked command", () => {
 | `cb` | (`cmd`: `string`, `args`: `Record`<`string`, `unknown`\>) => `any` |
 
 **Returns: **`void`
-
----
 
 ### mockWindows
 

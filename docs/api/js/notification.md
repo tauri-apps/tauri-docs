@@ -27,35 +27,11 @@ Options to send a notification.
 
 #### Properties
 
-##### body
-
-`Optional` **body**: `string`
-
-Optional notification body.
-
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36)
-
----
-
-##### icon
-
-`Optional` **icon**: `string`
-
-Optional notification icon.
-
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38)
-
----
-
-##### title
-
- **title**: `string`
-
-Notification title.
-
-**Defined in:** [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `body?` | `string` | Optional notification body. | [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L36) |
+| `icon?` | `string` | Optional notification icon. | [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L38) |
+| `title` | `string` | Notification title. | [notification.ts:34](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L34) |
 
 ## Type Aliases
 
@@ -65,9 +41,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L42)
-
----
+[notification.ts:42](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/notification.ts#L42)
 
 ## Functions
 
@@ -85,8 +59,6 @@ const permissionGranted = await isPermissionGranted();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
-
----
 
 ### requestPermission
 
@@ -108,8 +80,6 @@ if (!permissionGranted) {
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
-
----
 
 ### sendNotification
 

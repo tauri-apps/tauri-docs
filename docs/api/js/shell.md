@@ -85,19 +85,11 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
----
-
 #### Properties
 
-##### pid
-
- **pid**: `number`
-
-The child process `pid`.
-
-**Defined in:** [shell.ts:181](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L181)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `pid` | `number` | The child process `pid`. | [shell.ts:181](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L181) |
 
 #### Methods
 
@@ -110,8 +102,6 @@ Kills the child process.
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ##### write
 
@@ -138,8 +128,6 @@ await child.write([0, 1, 2, 3, 4, 5]);
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### Command
 
@@ -185,29 +173,12 @@ Creates a new `Command` instance.
 
 **Overrides** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
 
----
-
 #### Properties
 
-##### stderr
-
-`Readonly` **stderr**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
-
-Event emitter for the `stderr`. Emits the `data` event.
-
-**Defined in:** [shell.ts:258](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L258)
-
----
-
-##### stdout
-
-`Readonly` **stdout**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
-
-Event emitter for the `stdout`. Emits the `data` event.
-
-**Defined in:** [shell.ts:256](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L256)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `stderr` | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stderr`. Emits the `data` event. | [shell.ts:258](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L258) |
+| `stdout` | [`EventEmitter`](shell.md#eventemitter)<`"data"`\> | Event emitter for the `stdout`. Emits the `data` event. | [shell.ts:256](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L256) |
 
 #### Methods
 
@@ -232,8 +203,6 @@ assert(output.stderr === '');
 
 A promise resolving to the child process output.
 
----
-
 ##### on
 
 > **on**(`event`: `"error"` \| `"close"`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
@@ -251,8 +220,6 @@ Listen to an event from the child process.
 
 The `this` instance for chained calls.
 
----
-
 ##### spawn
 
 > **spawn**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
@@ -262,8 +229,6 @@ Executes the command as a child process, returning a handle to it.
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Child`](shell.md#child)\>
 
 A promise resolving to the child process handle.
-
----
 
 ##### sidecar
 
@@ -289,8 +254,6 @@ const output = await command.execute();
 
 **Returns: **[`Command`](shell.md#command)
 
----
-
 ### EventEmitter<E\>
 
 **Type parameters**
@@ -312,8 +275,6 @@ const output = await command.execute();
 
 - `E` *extends* `string`
 
----
-
 #### Methods
 
 ##### on
@@ -333,77 +294,27 @@ Listen to an event from the child process.
 
 The `this` instance for chained calls.
 
----
-
 ## Interfaces
 
 ### ChildProcess
 
 #### Properties
 
-##### code
-
- **code**: `null` \| `number`
-
-Exit code of the process. `null` if the process was terminated by a signal on Unix.
-
-**Defined in:** [shell.ts:95](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L95)
-
----
-
-##### signal
-
- **signal**: `null` \| `number`
-
-If the process was terminated by a signal, represents that signal.
-
-**Defined in:** [shell.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L97)
-
----
-
-##### stderr
-
- **stderr**: `string`
-
-The data that the process wrote to `stderr`.
-
-**Defined in:** [shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101)
-
----
-
-##### stdout
-
- **stdout**: `string`
-
-The data that the process wrote to `stdout`.
-
-**Defined in:** [shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `code` | `null` \| `number` | Exit code of the process. `null` if the process was terminated by a signal on Unix. | [shell.ts:95](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L95) |
+| `signal` | `null` \| `number` | If the process was terminated by a signal, represents that signal. | [shell.ts:97](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L97) |
+| `stderr` | `string` | The data that the process wrote to `stderr`. | [shell.ts:101](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L101) |
+| `stdout` | `string` | The data that the process wrote to `stdout`. | [shell.ts:99](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L99) |
 
 ### SpawnOptions
 
 #### Properties
 
-##### cwd
-
-`Optional` **cwd**: `string`
-
-Current working directory.
-
-**Defined in:** [shell.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L83)
-
----
-
-##### env
-
-`Optional` **env**: { `[name: string]`: `string`;  }
-
-Environment variables. set to `null` to clear the process env.
-
-**Defined in:** [shell.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L85)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `cwd?` | `string` | Current working directory. | [shell.ts:83](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L83) |
+| `env?` | { `[name: string]`: `string`;  } | Environment variables. set to `null` to clear the process env. | [shell.ts:85](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/shell.ts#L85) |
 
 ## Functions
 

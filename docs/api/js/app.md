@@ -23,8 +23,6 @@ const appName = await getName();
 
 A promise resolving to application name.
 
----
-
 ### getTauriVersion
 
 > **getTauriVersion**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -41,8 +39,6 @@ const tauriVersion = await getTauriVersion();
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to Tauri version.
-
----
 
 ### getVersion
 

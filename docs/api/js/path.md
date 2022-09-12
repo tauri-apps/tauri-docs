@@ -24,8 +24,6 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Re-exports [BaseDirectory](fs.md#basedirectory)
 
----
-
 ## Variables
 
 ### delimiter
@@ -36,9 +34,7 @@ Provides the platform-specific path segment delimiter:
 - `;` on Windows
 - `:` on POSIX
 
-**Defined in:** [path.ts:568](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L568)
-
----
+[path.ts:568](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L568)
 
 ### sep
 
@@ -48,9 +44,7 @@ Provides the platform-specific path segment separator:
 - `\` on Windows
 - `/` on POSIX
 
-**Defined in:** [path.ts:561](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L561)
-
----
+[path.ts:561](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/path.ts#L561)
 
 ## Functions
 
@@ -69,8 +63,6 @@ const appDirPath = await appDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### audioDir
 
@@ -92,8 +84,6 @@ const audioDirPath = await audioDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### basename
 
@@ -119,8 +109,6 @@ assert(base === 'app');
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### cacheDir
 
 > **cacheDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -141,8 +129,6 @@ const cacheDirPath = await cacheDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### configDir
 
@@ -165,8 +151,6 @@ const configDirPath = await configDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### dataDir
 
 > **dataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -188,8 +172,6 @@ const dataDirPath = await dataDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### desktopDir
 
 > **desktopDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -210,8 +192,6 @@ const desktopPath = await desktopDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### dirname
 
@@ -235,8 +215,6 @@ const dir = await dirname(appDirPath);
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### documentDir
 
 > **documentDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -257,8 +235,6 @@ const documentDirPath = await documentDir();
 - **Windows:** Resolves to `{FOLDERID_Documents}`.
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### downloadDir
 
@@ -281,8 +257,6 @@ const downloadDirPath = await downloadDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### executableDir
 
 > **executableDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -303,8 +277,6 @@ const executableDirPath = await executableDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### extname
 
@@ -329,8 +301,6 @@ assert(ext === 'conf');
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### fontDir
 
 > **fontDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -351,8 +321,6 @@ const fontDirPath = await fontDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### homeDir
 
@@ -375,8 +343,6 @@ const homeDirPath = await homeDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### isAbsolute
 
 > **isAbsolute**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
@@ -397,8 +363,6 @@ assert(await isAbsolute('/home/tauri'));
 | `path` | `string` |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
-
----
 
 ### join
 
@@ -422,8 +386,6 @@ const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### localDataDir
 
 > **localDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -445,8 +407,6 @@ const localDataDirPath = await localDataDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### logDir
 
 > **logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -467,8 +427,6 @@ const logDirPath = await logDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### normalize
 
@@ -492,8 +450,6 @@ const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### pictureDir
 
 > **pictureDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -514,8 +470,6 @@ const pictureDirPath = await pictureDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### publicDir
 
@@ -538,8 +492,6 @@ const publicDirPath = await publicDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### resolve
 
 > **resolve**(...`paths`: `string`[]): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -561,8 +513,6 @@ const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 | `...paths` | `string`[] | A sequence of paths or path segments. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### resolveResource
 
@@ -587,8 +537,6 @@ const resourcePath = await resolveResource('script.sh');
 
 The full path to the resource.
 
----
-
 ### resourceDir
 
 > **resourceDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -604,8 +552,6 @@ const resourceDirPath = await resourceDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### runtimeDir
 
@@ -628,8 +574,6 @@ const runtimeDirPath = await runtimeDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
----
-
 ### templateDir
 
 > **templateDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -650,8 +594,6 @@ const templateDirPath = await templateDir();
 ```
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
----
 
 ### videoDir
 

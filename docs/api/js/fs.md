@@ -69,13 +69,9 @@ Note that this scope applies to **all** APIs on this module.
 
 Renames and re-exports [BaseDirectory](fs.md#basedirectory)
 
----
-
 ### writeFile
 
 Renames and re-exports [writeTextFile](fs.md#writetextfile)
-
----
 
 ## Enumerations
 
@@ -106,42 +102,17 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 | `Template` | `15` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L89) |
 | `Video` | `16` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L90) |
 
----
-
 ## Interfaces
 
 ### FileEntry
 
 #### Properties
 
-##### children
-
-`Optional` **children**: [`FileEntry`](fs.md#fileentry)[]
-
-Children of this entry if it's a directory; null otherwise
-
-**Defined in:** [fs.ts:133](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L133)
-
----
-
-##### name
-
-`Optional` **name**: `string`
-
-Name of the directory/file
-can be null if the path terminates with `..`
-
-**Defined in:** [fs.ts:131](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L131)
-
----
-
-##### path
-
- **path**: `string`
-
-**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L126)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `children?` | [`FileEntry`](fs.md#fileentry)[] | Children of this entry if it's a directory; null otherwise | [fs.ts:133](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L133) |
+| `name?` | `string` | Name of the directory/file can be null if the path terminates with `..` | [fs.ts:131](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L131) |
+| `path` | `string` | - | [fs.ts:126](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L126) |
 
 ### FsBinaryFileOption
 
@@ -149,57 +120,27 @@ Options object used to write a binary data to a file.
 
 #### Properties
 
-##### contents
-
- **contents**: [`BinaryFileContents`](fs.md#binaryfilecontents)
-
-The byte array contents.
-
-**Defined in:** [fs.ts:122](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L122)
-
----
-
-##### path
-
- **path**: `string`
-
-Path to the file to write.
-
-**Defined in:** [fs.ts:120](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L120)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | The byte array contents. | [fs.ts:122](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L122) |
+| `path` | `string` | Path to the file to write. | [fs.ts:120](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L120) |
 
 ### FsDirOptions
 
 #### Properties
 
-##### dir
-
-`Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
-
-**Defined in:** [fs.ts:103](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L103)
-
----
-
-##### recursive
-
-`Optional` **recursive**: `boolean`
-
-**Defined in:** [fs.ts:104](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L104)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `dir?` | [`BaseDirectory`](fs.md#basedirectory) | [fs.ts:103](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L103) |
+| `recursive?` | `boolean` | [fs.ts:104](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L104) |
 
 ### FsOptions
 
 #### Properties
 
-##### dir
-
-`Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
-
-**Defined in:** [fs.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L98)
-
----
+| Name | Type | Source |
+| :------ | :------ | :------ |
+| `dir?` | [`BaseDirectory`](fs.md#basedirectory) | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L98) |
 
 ### FsTextFileOption
 
@@ -207,25 +148,10 @@ Options object used to write a UTF-8 string to a file.
 
 #### Properties
 
-##### contents
-
- **contents**: `string`
-
-The UTF-8 string to write to the file.
-
-**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L112)
-
----
-
-##### path
-
- **path**: `string`
-
-Path to the file to write.
-
-**Defined in:** [fs.ts:110](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L110)
-
----
+| Name | Type | Description | Source |
+| :------ | :------ | :------ | :------ |
+| `contents` | `string` | The UTF-8 string to write to the file. | [fs.ts:112](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L112) |
+| `path` | `string` | Path to the file to write. | [fs.ts:110](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L110) |
 
 ## Type Aliases
 
@@ -233,9 +159,7 @@ Path to the file to write.
 
  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
-**Defined in:** [fs.ts:115](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L115)
-
----
+[fs.ts:115](https://github.com/tauri-apps/tauri/blob/a5f2945d/tooling/api/src/fs.ts#L115)
 
 ## Functions
 
@@ -265,8 +189,6 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
----
-
 ### createDir
 
 > **createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
@@ -294,8 +216,6 @@ await createDir('users', { dir: BaseDirectory.App, recursive: true });
 
 A promise indicating the success or failure of the operation.
 
----
-
 ### readBinaryFile
 
 > **readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
@@ -320,8 +240,6 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 A promise resolving to the file bytes array.
-
----
 
 ### readDir
 
@@ -357,8 +275,6 @@ function processEntries(entries) {
 
 A promise resolving to the directory entries.
 
----
-
 ### readTextFile
 
 > **readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -383,8 +299,6 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 A promise resolving to the file content as a UTF-8 encoded string.
-
----
 
 ### removeDir
 
@@ -412,8 +326,6 @@ await removeDir('users', { dir: BaseDirectory.App });
 
 A promise indicating the success or failure of the operation.
 
----
-
 ### removeFile
 
 > **removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
@@ -438,8 +350,6 @@ await removeFile('app.conf', { dir: BaseDirectory.App });
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### renameFile
 
@@ -466,8 +376,6 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### writeBinaryFile
 
@@ -517,8 +425,6 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
-
----
 
 ### writeTextFile
 
