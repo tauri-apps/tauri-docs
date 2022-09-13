@@ -10,6 +10,10 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 Command arguments.
 
+**Since**
+
+1.0.0
+
 ## Functions
 
 ### `convertFileSrc`
@@ -40,6 +44,10 @@ video.appendChild(source);
 video.load();
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
 | Name | Type | Default value | Description |
@@ -64,6 +72,10 @@ import { invoke } from '@tauri-apps/api/tauri';
 await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 ```
 
+**Since**
+
+1.0.0
+
 **Type parameters**
 
 - `T`
@@ -85,6 +97,10 @@ A promise resolving or rejecting to the backend response.
 
 Transforms a callback function to a string identifier that can be passed to the backend.
 The backend uses the identifier to `eval()` the callback.
+
+**Since**
+
+1.0.0
 
 **Parameters**
 

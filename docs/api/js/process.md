@@ -19,6 +19,10 @@ import { exit } from '@tauri-apps/api/process';
 await exit(1);
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
 | Name | Type | Default value | Description |
@@ -41,6 +45,10 @@ Exits the current instance of the app then relaunches it.
 import { relaunch } from '@tauri-apps/api/process';
 await relaunch();
 ```
+
+**Since**
+
+1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

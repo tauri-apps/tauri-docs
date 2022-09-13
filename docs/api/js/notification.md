@@ -25,6 +25,10 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Options to send a notification.
 
+**Since**
+
+1.0.0
+
 #### Properties
 
 ##### `body`
@@ -33,7 +37,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/notification.ts#L38)
 
 ##### `icon`
 
@@ -41,7 +45,7 @@ Optional notification body.
 
 Optional notification icon.
 
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/notification.ts#L40)
 
 ##### `title`
 
@@ -49,7 +53,7 @@ Optional notification icon.
 
 Notification title.
 
-**Defined in:** [notification.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L34)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/notification.ts#L36)
 
 ## Type Aliases
 
@@ -59,7 +63,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:42](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/notification.ts#L42)
+**Defined in:** [notification.ts:44](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/notification.ts#L44)
 
 ## Functions
 
@@ -75,6 +79,10 @@ Checks if the permission to send notifications is granted.
 import { isPermissionGranted } from '@tauri-apps/api/notification';
 const permissionGranted = await isPermissionGranted();
 ```
+
+**Since**
+
+1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -94,6 +102,10 @@ if (!permissionGranted) {
   permissionGranted = permission === 'granted';
 }
 ```
+
+**Since**
+
+1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
@@ -120,10 +132,14 @@ if (permissionGranted) {
 }
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | `string` \| [`Options`](notification.md#options) | Notification options. |
+| Name | Type |
+| :------ | :------ |
+| `options` | `string` \| [`Options`](notification.md#options) |
 
 **Returns: **`void`

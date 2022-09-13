@@ -77,34 +77,42 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 ### `BaseDirectory`
 
+**Since**
+
+1.0.0
+
 #### Enumeration Members
 
 | Name | Type | Defined in |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L92) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:75](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L75) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:76](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L76) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:77](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L77) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:78](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L78) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:80](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L80) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L81) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L82) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L83) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L84) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L85) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L79) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L93) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L86) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L87) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L91) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L88) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L94) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L89) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L90) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:95](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L95) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:78](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L78) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:79](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L79) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:80](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L80) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L81) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L83) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L84) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L85) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L86) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L87) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L88) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L82) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:96](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L96) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L89) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L90) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L94) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L91) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:97](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L97) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L92) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L93) |
 
 ## Interfaces
 
 ### `FileEntry`
+
+**Since**
+
+1.0.0
 
 #### Properties
 
@@ -114,7 +122,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 Children of this entry if it's a directory; null otherwise
 
-**Defined in:** [fs.ts:133](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L133)
+**Defined in:** [fs.ts:153](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L153)
 
 ##### `name`
 
@@ -123,17 +131,21 @@ Children of this entry if it's a directory; null otherwise
 Name of the directory/file
 can be null if the path terminates with `..`
 
-**Defined in:** [fs.ts:131](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L131)
+**Defined in:** [fs.ts:151](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L151)
 
 ##### `path`
 
 >  **path**: `string`
 
-**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L126)
+**Defined in:** [fs.ts:146](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L146)
 
 ### `FsBinaryFileOption`
 
 Options object used to write a binary data to a file.
+
+**Since**
+
+1.0.0
 
 #### Properties
 
@@ -143,7 +155,7 @@ Options object used to write a binary data to a file.
 
 The byte array contents.
 
-**Defined in:** [fs.ts:122](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L122)
+**Defined in:** [fs.ts:139](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L139)
 
 ##### `path`
 
@@ -151,9 +163,13 @@ The byte array contents.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:120](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L120)
+**Defined in:** [fs.ts:137](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L137)
 
 ### `FsDirOptions`
+
+**Since**
+
+1.0.0
 
 #### Properties
 
@@ -161,15 +177,19 @@ Path to the file to write.
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:103](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L103)
+**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L112)
 
 ##### `recursive`
 
 > `Optional` **recursive**: `boolean`
 
-**Defined in:** [fs.ts:104](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L104)
+**Defined in:** [fs.ts:113](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L113)
 
 ### `FsOptions`
+
+**Since**
+
+1.0.0
 
 #### Properties
 
@@ -177,11 +197,15 @@ Path to the file to write.
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:98](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L98)
+**Defined in:** [fs.ts:104](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L104)
 
 ### `FsTextFileOption`
 
 Options object used to write a UTF-8 string to a file.
+
+**Since**
+
+1.0.0
 
 #### Properties
 
@@ -191,7 +215,7 @@ Options object used to write a UTF-8 string to a file.
 
 The UTF-8 string to write to the file.
 
-**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L112)
+**Defined in:** [fs.ts:125](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L125)
 
 ##### `path`
 
@@ -199,7 +223,7 @@ The UTF-8 string to write to the file.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:110](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L110)
+**Defined in:** [fs.ts:123](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L123)
 
 ## Type Aliases
 
@@ -207,7 +231,7 @@ Path to the file to write.
 
 >  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
-**Defined in:** [fs.ts:115](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/fs.ts#L115)
+**Defined in:** [fs.ts:128](https://github.com/tauri-apps/tauri/blob/ed9ac05/tooling/api/src/fs.ts#L128)
 
 ## Functions
 
@@ -215,7 +239,7 @@ Path to the file to write.
 
 > **copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-Copys a file to a destination.
+Copies a file to a destination.
 
 **Example**
 
@@ -225,13 +249,17 @@ import { copyFile, BaseDirectory } from '@tauri-apps/api/fs';
 await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `source` | `string` | A path of the file to copy. |
-| `destination` | `string` | A path for the destination file. |
-| `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `source` | `string` |
+| `destination` | `string` |
+| `options` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -253,12 +281,16 @@ import { createDir, BaseDirectory } from '@tauri-apps/api/fs';
 await createDir('users', { dir: BaseDirectory.App, recursive: true });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `dir` | `string` | Path to the directory to create. |
-| `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `dir` | `string` |
+| `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -278,16 +310,18 @@ import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resource });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `filePath` | `string` | Path to the file. |
-| `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `filePath` | `string` |
+| `options` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
-
-A promise resolving to the file bytes array.
 
 ### `readDir`
 
@@ -312,16 +346,18 @@ function processEntries(entries) {
 }
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `dir` | `string` | Path to the directory to read. |
-| `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `dir` | `string` |
+| `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
-
-A promise resolving to the directory entries.
 
 ### `readTextFile`
 
@@ -337,16 +373,18 @@ import { readTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 const contents = await readTextFile('app.conf', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `filePath` | `string` | Path to the file. |
-| `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `filePath` | `string` |
+| `options` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-A promise resolving to the file content as a UTF-8 encoded string.
 
 ### `removeDir`
 
@@ -363,12 +401,16 @@ import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
 await removeDir('users', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `dir` | `string` | Path to the directory to remove. |
-| `options` | [`FsDirOptions`](fs.md#fsdiroptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `dir` | `string` |
+| `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -388,12 +430,16 @@ import { removeFile, BaseDirectory } from '@tauri-apps/api/fs';
 await removeFile('app.conf', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `file` | `string` | Path to the file to remove. |
-| `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `file` | `string` |
+| `options` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -413,13 +459,17 @@ import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
 await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `oldPath` | `string` | A path of the file to rename. |
-| `newPath` | `string` | A path of the new file name. |
-| `options` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `oldPath` | `string` |
+| `newPath` | `string` |
+| `options` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -439,12 +489,16 @@ import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `path` | `string` | The file path. |
-| `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | The file contents. |
+| `path` | `string` | - |
+| `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | - |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
@@ -462,6 +516,10 @@ import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 // Write a binary file to the `$APPDIR/avatar.png` path
 await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { dir: BaseDirectory.App });
 ```
+
+**Since**
+
+1.0.0
 
 **Parameters**
 
@@ -488,17 +546,19 @@ import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `path` | `string` | The file path. |
-| `contents` | `string` | The file contents. |
-| `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `contents` | `string` |
+| `options?` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
-
-A promise indicating the success or failure of the operation.
 
 > **writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
@@ -512,12 +572,16 @@ import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: BaseDirectory.App });
 ```
 
+**Since**
+
+1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `file` | [`FsTextFileOption`](fs.md#fstextfileoption) | The object containing the file path and contents. |
-| `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
+| Name | Type |
+| :------ | :------ |
+| `file` | [`FsTextFileOption`](fs.md#fstextfileoption) |
+| `options?` | [`FsOptions`](fs.md#fsoptions) |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 

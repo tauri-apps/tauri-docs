@@ -29,6 +29,10 @@ test("no mocked windows", () => {
 })
 ```
 
+**Since**
+
+1.0.0
+
 **Returns: **`void`
 
 ### `mockIPC`
@@ -63,6 +67,31 @@ test("mocked command", () => {
  expect(invoke('add', { a: 12, b: 15 })).resolves.toBe(27);
 })
 ```
+
+The callback function can also return a Promise:
+```js
+import { mockIPC, clearMocks } from "@tauri-apps/api/mocks"
+import { invoke } from "@tauri-apps/api/tauri"
+
+afterEach(() => {
+   clearMocks()
+})
+
+test("mocked command", () => {
+ mockIPC((cmd, args) => {
+  if(cmd === "get_data") {
+   return fetch("https://example.com/data.json")
+     .then((response) => response.json())
+  }
+ });
+
+ expect(invoke('get_data')).resolves.toBe({ foo: 'bar' });
+})
+```
+
+**Since**
+
+1.0.0
 
 **Parameters**
 
@@ -117,6 +146,10 @@ const { getCurrent } = await import("@tauri-apps/api/window");
 const win = getCurrent();
 await win.close(); // this will cause the mocked IPC handler to log to the console.
 ```
+
+**Since**
+
+1.0.0
 
 **Parameters**
 
