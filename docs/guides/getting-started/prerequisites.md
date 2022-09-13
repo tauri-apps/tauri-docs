@@ -39,7 +39,7 @@ The bootstrapper script will try to determine the correct architecture and versi
 
 #### 3. Rust
 
-Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
+Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases Windows itself, for the changes to take effect.
 
 ### Setting Up macOS
 
@@ -71,6 +71,8 @@ successful, the following line will appear:
 ```text
 Rust is installed now. Great!
 ```
+
+Make sure to restart your Terminal for the changes to take effect.
 
 ### Setting Up Linux
 
@@ -161,6 +163,8 @@ The command downloads a script and starts the installation of the `rustup` tool,
 ```text
 Rust is installed now. Great!
 ```
+
+Make sure to restart your Terminal for the changes to take effect.
 
 ## Managing The Rust Installation
 
