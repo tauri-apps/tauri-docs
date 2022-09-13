@@ -7,7 +7,7 @@ Tauri provides lots of options for customizing the look and feel of your app's w
 There are three ways to change the window configuration:
 
 - [Through tauri.conf.json](../../api/config.md#tauri.windows)
-- [Through the JS API](../../api/js/classes/window.WindowManager.md)
+- [Through the JS API](../../api/js/window.md#webviewwindow)
 - [Through the Window in Rust](https://docs.rs/tauri/1/tauri/window/struct.Window.html)
 
 ## Creating a Custom Titlebar

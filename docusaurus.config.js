@@ -45,7 +45,7 @@ const navbarItems = [
       },
       {
         type: 'doc',
-        docId: 'api/js/modules/app',
+        docId: 'api/js/README',
         label: 'JavaScript / TypeScript',
       },
       {
