@@ -162,15 +162,9 @@ The command downloads a script and starts the installation of the `rustup` tool,
 Rust is installed now. Great!
 ```
 
-## Updating and Uninstalling
+## Managing The Rust Installation
 
-Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo upgrade` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
-
-```shell
-cargo upgrade
-```
-
-Updating Rust itself is easy via `rustup`. Open a terminal and run the following command:
+You should keep your Rust version up to date whenever possible to always benefit from the latest improvements. To update Rust, open a terminal and run the following command:
 
 ```shell
 rustup update
