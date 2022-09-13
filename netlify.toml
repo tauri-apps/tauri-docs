@@ -80,6 +80,10 @@ from = "/references/*"
 to = "/v1/references/:splat"
 
 [[redirects]]
+from = "/v1/api/js/classes/window.webviewwindow/*"
+to = "/v1/api/js/window"
+
+[[redirects]]
 from = "/v1/api/js/modules/*"
 to = "/v1/api/js/:splat"
 
