@@ -78,3 +78,19 @@ to = "/v1/references/benchmarks"
 [[redirects]]
 from = "/references/*"
 to = "/v1/references/:splat"
+
+[[redirects]]
+from = "/v1/api/js/modules/*"
+to = "/v1/api/js/:splat"
+
+[[redirects]]
+from = "/v1/api/js/classes/*"
+to = "/v1/api/js/:splat"
+
+[[redirects]]
+from = "/v1/api/js/enums/*"
+to = "/v1/api/js/:splat"
+
+[[redirects]]
+from = "/v1/api/js/interfaces/*"
+to = "/v1/api/js/:splat"
