@@ -273,7 +273,7 @@ const output = await command.execute();
 
 **Returns: **[`Command`](shell.md#command)
 
-### `EventEmitter<E\>`
+### `EventEmitter<E>`
 
 **Type parameters**
 

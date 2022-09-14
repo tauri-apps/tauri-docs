@@ -6,7 +6,7 @@ This package is also accessible with `window.__TAURI__.event` when [`build.withG
 
 ## Interfaces
 
-### `Event<T\>`
+### `Event<T>`
 
 **Type parameters**
 
@@ -48,7 +48,7 @@ The label of the window that emitted this event.
 
 ## Type Aliases
 
-### `EventCallback<T\>`
+### `EventCallback<T>`
 
 >  **EventCallback**<`T`\>: (`event`: [`Event`](event.md#event)<`T`\>) => `void`
 

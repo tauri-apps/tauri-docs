@@ -406,7 +406,7 @@ const response = await client.request({
 
 A promise resolving to the response.
 
-### `Response<T\>`
+### `Response<T>`
 
 Response object.
 
@@ -498,7 +498,7 @@ The request URL.
 
 **Defined in:** [http.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/http.ts#L49)
 
-### `FilePart<T\>`
+### `FilePart<T>`
 
 **Type parameters**
 
