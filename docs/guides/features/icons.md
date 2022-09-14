@@ -4,7 +4,18 @@ import Command from '@theme/Command'
 
 Tauri ships with a default iconset based on its logo. This is NOT what you want when you ship your application. To remedy this common situation, Tauri provides the `icon` command that will take an input file (`"./app-icon.png"` by default) and create all the icons needed for the various platforms.
 
-## Usage
+:::info Note on filetypes
+
+- `icon.icns` = macOS
+- `icon.ico` = Windows
+- `*.png` = Linux
+- `Square*Logo.png` & `StoreLogo.png` = Currently unused but intended for AppX/MS Store targets.
+
+Note that icon types may be used on platforms other than those listed above (especially `png`). Therefore we recommend including all icons even if you intend to only build for a subset of platforms.
+
+:::
+
+## Command Usage
 
 Starting with `@tauri-apps/cli` / `tauri-cli` version 1.1 the `icon` subcommand is part of the main cli:
 
@@ -29,7 +40,7 @@ OPTIONS:
     -V, --version            Print version information
 ```
 
-If you (temporarily) can't use Tauri CLI with version 1.1 or above you can use the deprecated `tauricon` package via `npx`:
+If you can't use Tauri CLI with version 1.1 or above you can use the deprecated [`tauricon`] package via `npx`:
 
 ```console
 npx @tauri-apps/tauricon
@@ -57,20 +68,12 @@ By default, the icons will be placed in your `src-tauri/icons` folder where they
 }
 ```
 
-:::info Note on filetypes
-
-- `icon.icns` = macOS
-- `icon.ico` = Windows
-- `*.png` = Linux
-- `Square*Logo.png` & `StoreLogo.png` = Currently unused but intended for AppX/MS Store targets.
-
-Note that icon types may be used on platforms other than those listed above (especially `png`). Therefore we recommend including all icons even if you intend to only build for a subset of platforms.
-
-:::
+## Creating the icons manually
 
 If you prefer to build these icons yourself (if you want to have simpler design for small sizes or because you don't want to depend on the CLI's internal image resizing), the required layer sizes and names for the [`icns`] file are described [in the Tauri repo] and the [`ico`] file must include layers for 16, 24, 32, 48, 64 and 256 pixels.
 For optimal display of the ICO image _in development_, the 32px layer should be the first layer.
 
-[in the Tauri repo]: https://github.com/tauri-apps/tauri/blob/dev/tooling/cli/src/helpers/icns.json
+[`tauricon`]: https://github.com/tauri-apps/tauricon
+[in the tauri repo]: https://github.com/tauri-apps/tauri/blob/dev/tooling/cli/src/helpers/icns.json
 [`icns`]: https://en.wikipedia.org/wiki/Apple_Icon_Image_format
 [`ico`]: https://en.wikipedia.org/wiki/ICO_(file_format)
