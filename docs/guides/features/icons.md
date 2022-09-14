@@ -70,7 +70,7 @@ Note that icon types may be used on platforms other than those listed above (esp
 
 :::
 
-If you plan on building these icons yourself, for example because you don't want to depend on the CLI's itnernal image resizing, especially if you want to have simpler design for small sizes, the required layer sizes and names for the [ICNS] file are described [here] and the [ICO] file must include layers for 16, 24, 32, 48, 64 and 256px.  
+If you prefer to build these icons yourself (if you want to have simpler design for small sizes or because you don't want to depend on the CLI's internal image resizing), the required layer sizes and names for the [`icns`] file are described [in the Tauri repo] and the [`ico`] file must include layers for 16, 24, 32, 48, 64 and 256 pixels.
 For optimal display of the ICO image _in development_, the 32px layer should be the first layer.
 
 [here]: https://github.com/tauri-apps/tauri/blob/dev/tooling/cli/src/helpers/icns.json
