@@ -39,9 +39,7 @@ Note that `tauricon` uses the `--target` argument instead of `--output` to speci
 
 ---
 
-By default, the icons will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app.
-
-If you need to source your icons from some other location, you can edit this part of the `src-tauri/tauri.conf.json` file:
+By default, the icons will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app. If you want to source your icons from a different location, you can edit this part of the `tauri.conf.json` file:
 
 ```json
 {
