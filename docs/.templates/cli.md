@@ -63,6 +63,8 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 
 {icon}
 
+[Tauri Icon Guide](../guides/features/icons)
+
 ## `version`
 
 <Command name="--version" />
