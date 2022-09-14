@@ -1221,10 +1221,10 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@crowdin/cli@3.7.10":
-  version "3.7.10"
-  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-3.7.10.tgz#ee74da1f2b4d27a7050d7b6a3960835854b92b7d"
-  integrity sha512-L0sjeEv4bn7LHNYsKxl2aTrah16u1ThufN0xvMMH7o53lD29llvVfAD9jVOttSl/kyQ+mMDY8GLzjPRNFdLJqQ==
+"@crowdin/cli@3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-3.8.0.tgz#636b9aea680dd21ece9209f9b5e920637542aba2"
+  integrity sha512-DKgzCGOaBam3HwVzXkuPkd6CAFGhm9jr/3xqXHo5jV3U2wf68glkPJEvkIuzt8m36CrlqQwlCkSx6KrlEO2t0g==
   dependencies:
     njre "^0.2.0"
     shelljs "^0.8.4"
