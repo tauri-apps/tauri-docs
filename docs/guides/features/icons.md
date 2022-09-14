@@ -40,16 +40,6 @@ OPTIONS:
     -V, --version            Print version information
 ```
 
-If you can't use Tauri CLI with version 1.1 or above you can use the deprecated [`tauricon`] package via `npx`:
-
-```console
-npx @tauri-apps/tauricon
-```
-
-Note that `tauricon` uses the `--target` argument instead of `--output` to specify the output path.
-
----
-
 By default, the icons will be placed in your `src-tauri/icons` folder where they will automatically be included in your built app. If you want to source your icons from a different location, you can edit this part of the `tauri.conf.json` file:
 
 ```json
