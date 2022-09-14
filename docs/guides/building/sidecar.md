@@ -20,7 +20,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
   "tauri": {
     "bundle": {
       "externalBin": [
-        "/absolute/path/to/app",
+        "/absolute/path/to/sidecar",
         "relative/path/to/binary",
         "bin/python"
       ]
@@ -29,7 +29,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
       "shell": {
         "sidecar": true,
         "scope": [
-          { "name": "/absolute/path/to/app", "sidecar": true },
+          { "name": "/absolute/path/to/sidecar", "sidecar": true },
           { "name": "relative/path/to/binary", "sidecar": true },
           { "name": "bin/python", "sidecar": true }
         ]
@@ -63,8 +63,8 @@ async function main() {
     console.error('Failed to determine platform target triple')
   }
   fs.renameSync(
-    `src-tauri/binaries/app${extension}`,
-    `src-tauri/binaries/app-${targetTriple}${extension}`
+    `src-tauri/binaries/sidecar${extension}`,
+    `src-tauri/binaries/sidecar-${targetTriple}${extension}`
   )
 }
 
