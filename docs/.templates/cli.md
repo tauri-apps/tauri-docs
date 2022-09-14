@@ -57,6 +57,12 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 
 <a href="../api/config#build">See more about the configuration.</a>
 
+## `icon`
+
+<Command name="icon" />
+
+{icon}
+
 ## `version`
 
 <Command name="--version" />
