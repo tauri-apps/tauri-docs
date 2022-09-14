@@ -105,7 +105,8 @@ pnpm install -D @sveltejs/adapter-static@next
 Then update the `adapter` import in the `svelte.config.js` file:
 
 ```javascript title=svelte.config.js
-import adapter from '@sveltejs/adapter-static' // This was changed to adapter-static!
+// highlight-next-line
+import adapter from '@sveltejs/adapter-static' // This was changed from adapter-auto
 import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
