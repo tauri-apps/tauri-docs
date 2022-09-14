@@ -6,7 +6,7 @@ Tauri ships with a default iconset based on its logo. This is NOT what you want 
 
 ## Usage
 
-Starting with `@tauri-apps/cli` / `tauri-cli` version 1.1 the `icon` is part of the main cli:
+Starting with `@tauri-apps/cli` / `tauri-cli` version 1.1 the `icon` subcommand is part of the main cli:
 
 <Command name="icon" />
 
