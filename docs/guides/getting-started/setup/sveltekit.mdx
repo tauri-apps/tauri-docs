@@ -130,7 +130,7 @@ export const prerender = true
 export const ssr = false
 ```
 
-Note that static-adapter doesn't require you to disable ssr for the whole app but it makes it possible to use APIs which depend on the global `window` object, like Tauri's API, without [Client-side checks].
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs which depend on the global `window` object (like Tauri's API) without [Client-side checks].
 
 Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you can change the adapter configurations and `+layout.ts` according to the [adapter docs].
 
