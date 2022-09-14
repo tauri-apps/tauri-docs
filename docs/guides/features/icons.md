@@ -66,7 +66,7 @@ If you need to source your icons from some other location, you can edit this par
 - `*.png` = Linux
 - `Square*Logo.png` & `StoreLogo.png` = Currently unused but intended for AppX/MS Store targets.
 
-Note that especially the png icons may be used on other platforms. Therefore we recommend including all icons even if you intend to only build for a subset of platforms.
+Note that icon types may be used on platforms other than those listed above (especially `png`). Therefore we recommend including all icons even if you intend to only build for a subset of platforms.
 
 :::
 
