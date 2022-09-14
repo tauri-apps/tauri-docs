@@ -39,6 +39,12 @@ OPTIONS:
     -A, --app-name <APP_NAME>
             Name of your Tauri application
 
+        --before-build-command <BEFORE_BUILD_COMMAND>
+            A shell command to run before `tauri build` kicks in
+
+        --before-dev-command <BEFORE_DEV_COMMAND>
+            A shell command to run before `tauri dev` kicks in
+
         --ci
             Skip prompting for values
 
@@ -104,13 +110,15 @@ USAGE:
     cargo-tauri dev [OPTIONS] [--] [ARGS]...
 
 ARGS:
-    <ARGS>...    Command line arguments passed to the runner
+    <ARGS>...    Command line arguments passed to the runner. Arguments after `--` are passed to
+                 the application
 
 OPTIONS:
     -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
     -e, --exit-on-panic             Exit on panic
     -f, --features <FEATURES>...    List of cargo features to activate
     -h, --help                      Print help information
+        --no-watch                  Disable the file watcher
     -r, --runner <RUNNER>           Binary to use to run the application
         --release                   Run the code in release mode
     -t, --target <TARGET>           Target triple to build against
@@ -186,7 +194,30 @@ This command will bundle your application, either in production mode or debug mo
 
 If you have entered a command to the `build.beforeBuildCommand` property, this one will be executed before the `build` command.
 
-<a href="../api/config#build">See more about the configuration.</a>
+[See more about the configuration](../api/config#buildconfig)
+
+## `icon`
+
+<Command name="icon" />
+
+```
+
+USAGE:
+    cargo-tauri icon [OPTIONS] [INPUT]
+
+ARGS:
+    <INPUT>    Path to the source icon (png, 1240x1240px with transparency) [default:
+               ./app-icon.png]
+
+OPTIONS:
+    -h, --help               Print help information
+    -o, --output <OUTPUT>    Output directory. Default: 'icons' directory next to the
+                             tauri.conf.json file
+    -v, --verbose            Enables verbose logging
+    -V, --version            Print version information
+```
+
+[Tauri Icon Guide](../guides/features/icons)
 
 ## `version`
 

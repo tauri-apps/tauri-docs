@@ -36,7 +36,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 **Returns: **`void`
 
-**Defined in:** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/globalShortcut.ts#L29)
+**Defined in:** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/447370f/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
@@ -53,6 +53,8 @@ import { isRegistered } from '@tauri-apps/api/globalShortcut';
 const isRegistered = await isRegistered('CommandOrControl+P');
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
 | Name | Type | Description |
@@ -60,8 +62,6 @@ const isRegistered = await isRegistered('CommandOrControl+P');
 | `shortcut` | `string` | Array of shortcut definitions, modifiers and key separated by "+" e.g. CmdOrControl+Q |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
-
-A promise resolving to the state.
 
 ### `register`
 
@@ -77,6 +77,8 @@ await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
 });
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -102,6 +104,8 @@ await registerAll(['CommandOrControl+Shift+C', 'Ctrl+Alt+F12'], (shortcut) => {
 });
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
 | Name | Type | Description |
@@ -124,6 +128,8 @@ import { unregister } from '@tauri-apps/api/globalShortcut';
 await unregister('CmdOrControl+Space');
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
 | Name | Type | Description |
@@ -144,5 +150,7 @@ Unregisters all shortcuts registered by the application.
 import { unregisterAll } from '@tauri-apps/api/globalShortcut';
 await unregisterAll();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>

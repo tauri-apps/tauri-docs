@@ -19,9 +19,9 @@ import { getName } from '@tauri-apps/api/app';
 const appName = await getName();
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Since**: 1.0.0
 
-A promise resolving to application name.
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `getTauriVersion`
 
@@ -36,9 +36,9 @@ import { getTauriVersion } from '@tauri-apps/api/app';
 const tauriVersion = await getTauriVersion();
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Since**: 1.0.0
 
-A promise resolving to Tauri version.
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `getVersion`
 
@@ -53,6 +53,6 @@ import { getVersion } from '@tauri-apps/api/app';
 const appVersion = await getVersion();
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Since**: 1.0.0
 
-A promise resolving to the application version.
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
