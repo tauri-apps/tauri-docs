@@ -55,7 +55,15 @@ This command will bundle your application, either in production mode or debug mo
 
 If you have entered a command to the `build.beforeBuildCommand` property, this one will be executed before the `build` command.
 
-<a href="../api/config#build">See more about the configuration.</a>
+[See more about the configuration](../api/config#buildconfig)
+
+## `icon`
+
+<Command name="icon" />
+
+{icon}
+
+[Tauri Icon Guide](../guides/features/icons)
 
 ## `version`
 
