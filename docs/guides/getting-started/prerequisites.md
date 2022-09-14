@@ -72,7 +72,7 @@ successful, the following line will appear:
 Rust is installed now. Great!
 ```
 
-Make sure to restart your Terminal for the changes to take effect.
+Make sure to restart your terminal for the changes to take effect.
 
 ### Setting Up Linux
 
