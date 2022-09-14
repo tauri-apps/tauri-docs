@@ -429,7 +429,7 @@ Local event listeners.
 
 #### Methods
 
-##### `\_handleTauriEvent`
+##### `_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
@@ -1631,7 +1631,7 @@ Local event listeners.
 
 #### Methods
 
-##### `\_handleTauriEvent`
+##### `_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
@@ -1788,7 +1788,7 @@ Local event listeners.
 
 #### Methods
 
-##### `\_handleTauriEvent`
+##### `_handleTauriEvent`
 
 > **_handleTauriEvent**<`T`\>(`event`: `string`, `handler`: [`EventCallback`](event.md#eventcallback)<`T`\>): `boolean`
 
