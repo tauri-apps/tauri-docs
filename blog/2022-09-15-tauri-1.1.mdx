@@ -8,7 +8,7 @@ description: After 113 pull requests and nearly two months of work, the Tauri te
 
 ![Tauri 1.0 Launch Hero Image](./tauri_1_1_images/header.png)
 
-After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release. The changes were internally audited and no security issues were found.
+After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the [1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
 
 You can update the NPM dependencies with:
 
@@ -22,30 +22,30 @@ To update the Cargo dependencies, run the following in the `src-tauri` folder:
 $ cargo update
 ```
 
-## What's in 1.1.0
+## What's New in 1.1.0
 
 ### Security patch
 
-This release includes a patch for a security vulnerability reported by [@martin-ocasek](https://github.com/martin-ocasek). The `readDir` function was able to return entries outside the configured scope when a symlink is found. The patch is also available in 1.0.6. See [the issue](https://github.com/tauri-apps/tauri/issues/4882) for more details.
+This release includes a patch for a security vulnerability reported by [@martin-ocasek](https://github.com/martin-ocasek). The `readDir` function was able to return entries outside the configured scope when a symlink is found. The patch is also available in Tauri [1.0.6](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.0.6). See [the issue on GitHub](https://github.com/tauri-apps/tauri/issues/4882) for more details.
 
-### Icon generation
+### Icon Generation
 
-We have been recommending using the [tauricon](https://github.com/tauri-apps/tauricon) project to generate icons for your Tauri application using a single source PNG. Several issues have been reported, and we decided to `Rewrite It In Rust` to enhance its stability. This allowed us to move this functionality to the main Tauri CLI, so now you can use the `tauri icon` command.
+We have been recommending to use the [tauricon](https://github.com/tauri-apps/tauricon) project to generate icons for your Tauri application using a single source PNG. Several issues have been reported, and we decided to "Rewrite It In Rust" to enhance its stability. This allowed us to move this functionality to the main Tauri CLI, so now you can use the [`tauri icon`](https://tauri.app/v1/api/cli#icon) command.
 
-### cargo-binstall support for the Tauri CLI
+### `cargo-binstall` Support for Tauri CLI
 
-The Tauri CLI can now be installed using [cargo-binstall](https://github.com/cargo-bins/cargo-binstall), a mechanism to download and install prebuilt Rust binaries. The binaries are available for the main targets and can be installed with:
+The Tauri CLI can now be installed using [cargo-binstall](https://github.com/cargo-bins/cargo-binstall), a mechanism to download and install pre-built Rust binaries. The binaries are available for the main targets and can be installed with:
 
 ```
 $ cargo install cargo-binstall
 # in the next release, `$ cargo binstall tauri-cli` will be enough
 $ cargo binstall tauri-cli --pkg-url "{ repo }/releases/download/cli.rs-v{ version }/cargo-tauri-{ target }.{ archive-format }"
-$ cargo tauri dev # run any tauri command!
+$ cargo tauri dev # run any Tauri command!
 ```
 
-### Create system trays at runtime
+### Create System Trays at Runtime
 
-The system tray APIs previously only available in `tauri::Builder::system_tray` function can now be used at runtime, giving you control over its lifetime and even create multiple trays.
+The system tray APIs (previously only available in `tauri::Builder::system_tray`) can now be used at runtime with [`tauri::SystemTray`](https://docs.rs/tauri/1.1.0/tauri/struct.SystemTray.html) giving you control over its lifetime and even create multiple trays.
 
 Here's a quick example on how to use it:
 
@@ -67,15 +67,16 @@ Builder::default()
                     }
                 }
             })
+            .build(&handle)
+            .expect("unable to create tray");
     });
 ```
 
-### TOML configuration support
+### TOML Configuration Support
 
 In the 1.0 releases Tauri supports the `JSON` configuration format by default, and `JSON5` when the `config-json5` Cargo feature is enabled, meaning the following configurations are valid:
 
-```json
-tauri.conf.json:
+```json title=tauri.conf.json
 {
   "build": {
       "devPath": "http://localhost:8000",
@@ -84,13 +85,12 @@ tauri.conf.json:
 }
 ```
 
-```json5
-tauri.conf.json5:
+```json5 title=tauri.conf.json5
 {
-  build: {
+  "build": {
       // devServer URL (comments are allowed!)
-      devPath": http://localhost:8000,
-      distDir": ../dist
+      "devPath": "http://localhost:8000",
+      "distDir": "../dist"
   }
 }
 ```
@@ -103,7 +103,7 @@ dev-path = "http://localhost:8000"
 dist-dir = "../dist"
 ```
 
-### Dependency updates
+### Dependency Updates
 
 This release includes some dependency updates that must be handled in your app if you implement platform-specific functionalities using these crates. The most important updates are:
 
@@ -134,7 +134,7 @@ The Tauri team thanks the following contributors for the 1.1.0 release:
 - [LIMPIX31](https://github.com/LIMPIX31)
 - [AxlLind](https://github.com/AxlLind)
 
-# Other changes
+# Other Changes
 
 There is a lot of smaller changes and bug fixes in this release. You can see a summary of the release notes in the following sections. The complete changelog can be found in the [releases page](https://tauri.app/releases).
 
