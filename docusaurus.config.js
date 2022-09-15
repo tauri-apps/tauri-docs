@@ -236,7 +236,7 @@ async function siteConfig() {
       prism: {
         theme: require('prism-react-renderer/themes/github'),
         darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-        additionalLanguages: ['rust', 'powershell', 'bash', 'toml'],
+        additionalLanguages: ['rust', 'powershell', 'bash', 'toml', 'json5'],
       },
       colorMode: {
         defaultMode: 'dark',
@@ -245,7 +245,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 Tauri 1.0 has launched! <a id='announcement-link' href='/blog/2022/06/19/tauri-1-0'>Read the blog post</a></b>",
+          "<b>🚀 Tauri 1.1 has launched! <a id='announcement-link' href='/blog/2022/09/15/tauri-1-1'>Read the blog post</a></b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
