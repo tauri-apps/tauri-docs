@@ -15,3 +15,9 @@ beanow:
   title: Tauri Board Director
   url: https://github.com/Beanow
   image_url: ./author_images/beanow.jpg
+
+lucasfernog:
+  name: Lucas Nogueira
+  title: Tauri Cofounder
+  url: https://github.com/lucasfernog
+  image_url: ./author_images/lucasfernog.jpg
