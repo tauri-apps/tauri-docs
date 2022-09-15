@@ -8,6 +8,8 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 ### `ArgMatch`
 
+**Since**: 1.0.0
+
 #### Properties
 
 ##### `occurrences`
@@ -16,7 +18,7 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 Number of occurrences
 
-**Defined in:** [cli.ts:24](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L24)
+**Defined in:** [cli.ts:27](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L27)
 
 ##### `value`
 
@@ -26,9 +28,11 @@ string if takes value
 boolean if flag
 string[] or null if takes multiple values
 
-**Defined in:** [cli.ts:20](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L20)
+**Defined in:** [cli.ts:23](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L23)
 
 ### `CliMatches`
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -36,15 +40,17 @@ string[] or null if takes multiple values
 
 >  **args**: { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  }
 
-**Defined in:** [cli.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L33)
+**Defined in:** [cli.ts:42](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L42)
 
 ##### `subcommand`
 
 >  **subcommand**: `null` \| [`SubcommandMatch`](cli.md#subcommandmatch)
 
-**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L34)
+**Defined in:** [cli.ts:43](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L43)
 
 ### `SubcommandMatch`
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -52,13 +58,13 @@ string[] or null if takes multiple values
 
 >  **matches**: [`CliMatches`](cli.md#climatches)
 
-**Defined in:** [cli.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L29)
+**Defined in:** [cli.ts:35](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L35)
 
 ##### `name`
 
 >  **name**: `string`
 
-**Defined in:** [cli.ts:28](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/cli.ts#L28)
+**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L34)
 
 ## Functions
 
@@ -85,6 +91,6 @@ if (matches.subcommand?.name === 'run') {
 }
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>
+**Since**: 1.0.0
 
-A promise resolving to the parsed arguments.
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`CliMatches`](cli.md#climatches)\>

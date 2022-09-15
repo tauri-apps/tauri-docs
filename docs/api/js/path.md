@@ -34,7 +34,9 @@ Provides the platform-specific path segment delimiter:
 - `;` on Windows
 - `:` on POSIX
 
-**Defined in:** [path.ts:568](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/path.ts#L568)
+**Since**: 1.0.0
+
+**Defined in:** [path.ts:574](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/path.ts#L574)
 
 ### `sep`
 
@@ -44,7 +46,9 @@ Provides the platform-specific path segment separator:
 - `\` on Windows
 - `/` on POSIX
 
-**Defined in:** [path.ts:561](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/path.ts#L561)
+**Since**: 1.0.0
+
+**Defined in:** [path.ts:565](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/path.ts#L565)
 
 ## Functions
 
@@ -61,6 +65,8 @@ Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the 
 import { appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -83,6 +89,8 @@ import { audioDir } from '@tauri-apps/api/path';
 const audioDirPath = await audioDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `basename`
@@ -99,6 +107,8 @@ const resourcePath = await resolveResource('app.conf');
 const base = await basename(resourcePath);
 assert(base === 'app');
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -128,6 +138,8 @@ import { cacheDir } from '@tauri-apps/api/path';
 const cacheDirPath = await cacheDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `configDir`
@@ -148,6 +160,8 @@ Returns the path to the user's config directory.
 import { configDir } from '@tauri-apps/api/path';
 const configDirPath = await configDir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -170,6 +184,8 @@ import { dataDir } from '@tauri-apps/api/path';
 const dataDirPath = await dataDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `desktopDir`
@@ -191,6 +207,8 @@ import { desktopDir } from '@tauri-apps/api/path';
 const desktopPath = await desktopDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `dirname`
@@ -206,6 +224,8 @@ import { dirname, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const dir = await dirname(appDirPath);
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -234,6 +254,8 @@ const documentDirPath = await documentDir();
 - **macOS:** Resolves to `$HOME/Documents`.
 - **Windows:** Resolves to `{FOLDERID_Documents}`.
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `downloadDir`
@@ -254,6 +276,8 @@ Returns the path to the user's download directory.
 import { downloadDir } from '@tauri-apps/api/path';
 const downloadDirPath = await downloadDir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -276,6 +300,8 @@ import { executableDir } from '@tauri-apps/api/path';
 const executableDirPath = await executableDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `extname`
@@ -292,6 +318,8 @@ const resourcePath = await resolveResource('app.conf');
 const ext = await extname(resourcePath);
 assert(ext === 'conf');
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -320,6 +348,8 @@ import { fontDir } from '@tauri-apps/api/path';
 const fontDirPath = await fontDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `homeDir`
@@ -341,6 +371,8 @@ import { homeDir } from '@tauri-apps/api/path';
 const homeDirPath = await homeDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `isAbsolute`
@@ -355,6 +387,8 @@ Returns whether the path is absolute or not.
 import { isAbsolute } from '@tauri-apps/api/path';
 assert(await isAbsolute('/home/tauri'));
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -378,11 +412,13 @@ const appDirPath = await appDir();
 const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `...paths` | `string`[] | A sequence of path segments. |
+| Name | Type |
+| :------ | :------ |
+| `...paths` | `string`[] |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -405,6 +441,8 @@ import { localDataDir } from '@tauri-apps/api/path';
 const localDataDirPath = await localDataDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `logDir`
@@ -413,7 +451,7 @@ const localDataDirPath = await localDataDir();
 
 Returns the path to the suggested log directory.
 
-### Platform-specific
+#### Platform-specific
 
 - **Linux:** Resolves to `${configDir}/${bundleIdentifier}`.
 - **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
@@ -426,13 +464,15 @@ import { logDir } from '@tauri-apps/api/path';
 const logDirPath = await logDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `normalize`
 
 > **normalize**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
-Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symolic links.
+Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve symbolic links.
 
 **Example**
 
@@ -441,6 +481,8 @@ import { normalize, appDir } from '@tauri-apps/api/path';
 const appDirPath = await appDir();
 const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -469,6 +511,8 @@ import { pictureDir } from '@tauri-apps/api/path';
 const pictureDirPath = await pictureDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `publicDir`
@@ -490,6 +534,8 @@ import { publicDir } from '@tauri-apps/api/path';
 const publicDirPath = await publicDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `resolve`
@@ -506,11 +552,13 @@ const appDirPath = await appDir();
 const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `...paths` | `string`[] | A sequence of paths or path segments. |
+| Name | Type |
+| :------ | :------ |
+| `...paths` | `string`[] |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -526,6 +574,8 @@ Resolve the path to a resource file.
 import { resolveResource } from '@tauri-apps/api/path';
 const resourcePath = await resolveResource('script.sh');
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -551,6 +601,8 @@ import { resourceDir } from '@tauri-apps/api/path';
 const resourceDirPath = await resourceDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `runtimeDir`
@@ -571,6 +623,8 @@ Returns the path to the user's runtime directory.
 import { runtimeDir } from '@tauri-apps/api/path';
 const runtimeDirPath = await runtimeDir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -593,6 +647,8 @@ import { templateDir } from '@tauri-apps/api/path';
 const templateDirPath = await templateDir();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `videoDir`
@@ -613,5 +669,7 @@ Returns the path to the user's video directory.
 import { videoDir } from '@tauri-apps/api/path';
 const videoDirPath = await videoDir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>

@@ -24,19 +24,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 >  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
-**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L43)
+**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
 >  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
 
-**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L41)
+**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/os.ts#L41)
 
 ### `Platform`
 
 >  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
-**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L29)
+**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -48,7 +48,9 @@ The operating system-specific end-of-line marker.
 - `\n` on POSIX
 - `\r\n` on Windows
 
-**Defined in:** [os.ts:61](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/os.ts#L61)
+**Since**: 1.0.0
+
+**Defined in:** [os.ts:63](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/os.ts#L63)
 
 ## Functions
 
@@ -66,6 +68,8 @@ import { arch } from '@tauri-apps/api/os';
 const archName = await arch();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
 ### `platform`
@@ -82,6 +86,8 @@ import { platform } from '@tauri-apps/api/os';
 const platformName = await platform();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
 ### `tempdir`
@@ -96,6 +102,8 @@ Returns the operating system's default directory for temporary files as a string
 import { tempdir } from '@tauri-apps/api/os';
 const tempdirPath = await tempdir();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -112,6 +120,8 @@ import { type } from '@tauri-apps/api/os';
 const osType = await type();
 ```
 
+**Since**: 1.0.0
+
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
 ### `version`
@@ -126,5 +136,7 @@ Returns a string identifying the kernel version.
 import { version } from '@tauri-apps/api/os';
 const osVersion = await version();
 ```
+
+**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>

@@ -73,6 +73,8 @@ Trying to execute any API with a program not configured on the scope results in 
 
 ### `Child`
 
+**Since**: 1.1.0
+
 #### Constructors
 
 ##### `constructor`
@@ -85,7 +87,7 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
-**Defined in:** [shell.ts:183](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L183)
+**Defined in:** [shell.ts:323](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L323)
 
 #### Properties
 
@@ -95,7 +97,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 The child process `pid`.
 
-**Defined in:** [shell.ts:181](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L181)
+**Defined in:** [shell.ts:321](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L321)
 
 #### Methods
 
@@ -156,6 +158,8 @@ const child = await command.spawn();
 console.log('pid:', child.pid);
 ```
 
+**Since**: 1.1.0
+
 **Hierarchy**
 
 - [`EventEmitter`](shell.md#eventemitter)<`"close"` \| `"error"`\>
@@ -179,7 +183,7 @@ Creates a new `Command` instance.
 
 **Overrides:** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
 
-**Defined in:** [shell.ts:268](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L268)
+**Defined in:** [shell.ts:411](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L411)
 
 #### Properties
 
@@ -189,7 +193,7 @@ Creates a new `Command` instance.
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-**Defined in:** [shell.ts:258](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L258)
+**Defined in:** [shell.ts:401](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L401)
 
 ##### `stdout`
 
@@ -197,9 +201,26 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-**Defined in:** [shell.ts:256](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L256)
+**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L399)
 
 #### Methods
+
+##### `addListener`
+
+> **addListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Alias for `emitter.on(eventName, listener)`.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
 
 ##### `execute`
 
@@ -222,22 +243,158 @@ assert(output.stderr === '');
 
 A promise resolving to the child process output.
 
-##### `on`
+##### `listenerCount`
 
-> **on**(`event`: `"error"` \| `"close"`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
+> **listenerCount**(`eventName`: `"error"` \| `"close"`): `number`
 
-Listen to an event from the child process.
+Returns the number of listeners listening to the event named `eventName`.
+
+**Since**: 1.1.0
 
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `event` | `"error"` \| `"close"` | The event name. |
-| `handler` | (`arg`: `any`) => `void` | The event handler. |
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
 
-**Returns: **[`EventEmitter`](shell.md#eventemitter)<`"error"` \| `"close"`\>
+**Returns: **`number`
 
-The `this` instance for chained calls.
+##### `off`
+
+> **off**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Removes the all specified listener from the listener array for the event eventName
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `on`
+
+> **on**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Adds the `listener` function to the end of the listeners array for the
+event named `eventName`. No checks are made to see if the `listener` has
+already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+times.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.0.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `once`
+
+> **once**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Adds a **one-time**`listener` function for the event named `eventName`. The
+next time `eventName` is triggered, this listener is removed and then invoked.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `prependListener`
+
+> **prependListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Adds the `listener` function to the _beginning_ of the listeners array for the
+event named `eventName`. No checks are made to see if the `listener` has
+already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+times.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `prependOnceListener`
+
+> **prependOnceListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
+listener is removed, and then invoked.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `removeAllListeners`
+
+> **removeAllListeners**(`event?`: `"error"` \| `"close"`): [`Command`](shell.md#command)
+
+Removes all listeners, or those of the specified eventName.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `event?` | `"error"` \| `"close"` |
+
+**Returns: **[`Command`](shell.md#command)
+
+##### `removeListener`
+
+> **removeListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+
+Alias for `emitter.off(eventName, listener)`.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `"error"` \| `"close"` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`Command`](shell.md#command)
 
 ##### `spawn`
 
@@ -268,12 +425,14 @@ const output = await command.execute();
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `program` | `string` | `undefined` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
-| `args` | `string` \| `string`[] | `[]` | Program arguments. |
-| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
+| `args` | `string` \| `string`[] | `[]` | - |
+| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | - |
 
 **Returns: **[`Command`](shell.md#command)
 
 ### `EventEmitter<E>`
+
+**Since**: 1.0.0
 
 **Type parameters**
 
@@ -296,26 +455,181 @@ const output = await command.execute();
 
 #### Methods
 
-##### `on`
+##### `addListener`
 
-> **on**(`event`: `E`, `handler`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **addListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
-Listen to an event from the child process.
+Alias for `emitter.on(eventName, listener)`.
+
+**Since**: 1.1.0
 
 **Parameters**
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `event` | `E` | The event name. |
-| `handler` | (`arg`: `any`) => `void` | The event handler. |
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
-The `this` instance for chained calls.
+##### `listenerCount`
+
+> **listenerCount**(`eventName`: `E`): `number`
+
+Returns the number of listeners listening to the event named `eventName`.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+
+**Returns: **`number`
+
+##### `off`
+
+> **off**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Removes the all specified listener from the listener array for the event eventName
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `on`
+
+> **on**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Adds the `listener` function to the end of the listeners array for the
+event named `eventName`. No checks are made to see if the `listener` has
+already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+times.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.0.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `once`
+
+> **once**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Adds a **one-time**`listener` function for the event named `eventName`. The
+next time `eventName` is triggered, this listener is removed and then invoked.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `prependListener`
+
+> **prependListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Adds the `listener` function to the _beginning_ of the listeners array for the
+event named `eventName`. No checks are made to see if the `listener` has
+already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+times.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `prependOnceListener`
+
+> **prependOnceListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
+listener is removed, and then invoked.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `removeAllListeners`
+
+> **removeAllListeners**(`event?`: `E`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Removes all listeners, or those of the specified eventName.
+
+Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `event?` | `E` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+##### `removeListener`
+
+> **removeListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+
+Alias for `emitter.off(eventName, listener)`.
+
+**Since**: 1.1.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `E` |
+| `listener` | (...`args`: `any`[]) => `void` |
+
+**Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ## Interfaces
 
 ### `ChildProcess`
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -325,7 +639,7 @@ The `this` instance for chained calls.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in:** [shell.ts:95](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L95)
+**Defined in:** [shell.ts:107](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L107)
 
 ##### `signal`
 
@@ -333,7 +647,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in:** [shell.ts:97](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L97)
+**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L109)
 
 ##### `stderr`
 
@@ -341,7 +655,7 @@ If the process was terminated by a signal, represents that signal.
 
 The data that the process wrote to `stderr`.
 
-**Defined in:** [shell.ts:101](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L101)
+**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L113)
 
 ##### `stdout`
 
@@ -349,9 +663,11 @@ The data that the process wrote to `stderr`.
 
 The data that the process wrote to `stdout`.
 
-**Defined in:** [shell.ts:99](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L99)
+**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L111)
 
 ### `SpawnOptions`
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -361,7 +677,17 @@ The data that the process wrote to `stdout`.
 
 Current working directory.
 
-**Defined in:** [shell.ts:83](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L83)
+**Defined in:** [shell.ts:86](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L86)
+
+##### `encoding`
+
+> `Optional` **encoding**: `string`
+
+Character encoding for stdout/stderr
+
+**Since**: 1.1.0
+
+**Defined in:** [shell.ts:94](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L94)
 
 ##### `env`
 
@@ -369,7 +695,7 @@ Current working directory.
 
 Environment variables. set to `null` to clear the process env.
 
-**Defined in:** [shell.ts:85](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/shell.ts#L85)
+**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/shell.ts#L88)
 
 ## Functions
 
@@ -394,6 +720,8 @@ await open('https://github.com/tauri-apps/tauri', 'firefox');
 // opens a file using the default program:
 await open('/path/to/file');
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
