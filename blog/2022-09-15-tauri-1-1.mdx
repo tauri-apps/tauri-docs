@@ -4,22 +4,41 @@ image: ./tauri_1_1_images/header.png
 description: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release.
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Announcing Tauri 1.1.0
 
 ![Tauri 1.0 Launch Hero Image](./tauri_1_1_images/header.png)
 
 After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the [1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
 
+<!--truncate-->
+
 You can update the NPM dependencies with:
 
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+```shell
+npm update
 ```
-$ npm update
+  </TabItem>
+  <TabItem value="Yarn">
+```shell
+yarn upgrade
 ```
+  </TabItem>
+  <TabItem value="pnpm">
+```shell
+pnpm update
+```
+  </TabItem>
+</Tabs>
 
 To update the Cargo dependencies, run the following in the `src-tauri` folder:
 
-```
-$ cargo update
+```shell
+cargo update
 ```
 
 ## What's New in 1.1.0
@@ -97,7 +116,7 @@ In the 1.0 releases Tauri supports the `JSON` configuration format by default, a
 
 The 1.1.0 release includes TOML support behind the `config-toml` Cargo feature. Now you can define your Tauri configuration in a `Tauri.toml` file:
 
-```toml
+```toml title=Tauri.toml
 [build]
 dev-path = "http://localhost:8000"
 dist-dir = "../dist"
