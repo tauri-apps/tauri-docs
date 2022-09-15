@@ -18,7 +18,7 @@ This package is also accessible with `window.__TAURI__.cli` when [`build.withGlo
 
 Number of occurrences
 
-**Defined in:** [cli.ts:27](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L27)
+**Defined in:** [cli.ts:27](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L27)
 
 ##### `value`
 
@@ -28,7 +28,7 @@ string if takes value
 boolean if flag
 string[] or null if takes multiple values
 
-**Defined in:** [cli.ts:23](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L23)
+**Defined in:** [cli.ts:23](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L23)
 
 ### `CliMatches`
 
@@ -40,13 +40,13 @@ string[] or null if takes multiple values
 
 >  **args**: { `[name: string]`: [`ArgMatch`](cli.md#argmatch);  }
 
-**Defined in:** [cli.ts:42](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L42)
+**Defined in:** [cli.ts:42](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L42)
 
 ##### `subcommand`
 
 >  **subcommand**: `null` \| [`SubcommandMatch`](cli.md#subcommandmatch)
 
-**Defined in:** [cli.ts:43](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L43)
+**Defined in:** [cli.ts:43](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L43)
 
 ### `SubcommandMatch`
 
@@ -58,13 +58,13 @@ string[] or null if takes multiple values
 
 >  **matches**: [`CliMatches`](cli.md#climatches)
 
-**Defined in:** [cli.ts:35](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L35)
+**Defined in:** [cli.ts:35](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L35)
 
 ##### `name`
 
 >  **name**: `string`
 
-**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/cli.ts#L34)
+**Defined in:** [cli.ts:34](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/cli.ts#L34)
 
 ## Functions
 

@@ -35,7 +35,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/notification.ts#L38)
 
 ##### `icon`
 
@@ -43,7 +43,7 @@ Optional notification body.
 
 Optional notification icon.
 
-**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/notification.ts#L40)
+**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/notification.ts#L40)
 
 ##### `title`
 
@@ -51,7 +51,7 @@ Optional notification icon.
 
 Notification title.
 
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/notification.ts#L36)
 
 ## Type Aliases
 
@@ -61,7 +61,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:44](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/notification.ts#L44)
+**Defined in:** [notification.ts:44](https://github.com/tauri-apps/tauri/blob/0967da2/tooling/api/src/notification.ts#L44)
 
 ## Functions
 
