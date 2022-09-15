@@ -4,6 +4,22 @@ Read and write to the system clipboard.
 
 This package is also accessible with `window.__TAURI__.clipboard` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
+The APIs must be added to [`tauri.allowlist.clipboard`](https://tauri.app/v1/api/config/#allowlistconfig.clipboard) in `tauri.conf.json`:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "clipboard": {
+        "all": true, // enable all Clipboard APIs
+        "writeText": true,
+        "readText": true
+      }
+    }
+  }
+}
+```
+It is recommended to allowlist only the APIs you use for optimal bundle size and security.
+
 ## Functions
 
 ### `readText`
@@ -19,9 +35,9 @@ import { readText } from '@tauri-apps/api/clipboard';
 const clipboardText = await readText();
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+**Since**: 1.0.0.
 
-A promise resolving to the clipboard content as plain text.
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 ### `writeText`
 
@@ -36,6 +52,8 @@ import { writeText, readText } from '@tauri-apps/api/clipboard';
 await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');
 ```
+
+**Since**: 1.0.0.
 
 **Parameters**
 

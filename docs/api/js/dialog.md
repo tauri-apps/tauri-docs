@@ -26,6 +26,8 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 Extension filters for the file dialog.
 
+**Since**: 1.0.0
+
 #### Properties
 
 ##### `extensions`
@@ -40,7 +42,7 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-**Defined in:** [dialog.ts:41](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L41)
+**Defined in:** [dialog.ts:45](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L45)
 
 ##### `name`
 
@@ -48,9 +50,11 @@ extensions: ['svg', 'png']
 
 Filter name.
 
-**Defined in:** [dialog.ts:33](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L33)
+**Defined in:** [dialog.ts:37](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L37)
 
 ### `MessageDialogOptions`
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -60,7 +64,7 @@ Filter name.
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in:** [dialog.ts:79](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L79)
+**Defined in:** [dialog.ts:94](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L94)
 
 ##### `type`
 
@@ -68,11 +72,13 @@ The title of the dialog. Defaults to the app name.
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L81)
+**Defined in:** [dialog.ts:96](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L96)
 
 ### `OpenDialogOptions`
 
 Options for the open dialog.
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -82,7 +88,7 @@ Options for the open dialog.
 
 Initial directory or file path.
 
-**Defined in:** [dialog.ts:51](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L51)
+**Defined in:** [dialog.ts:59](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L59)
 
 ##### `directory`
 
@@ -90,7 +96,7 @@ Initial directory or file path.
 
 Whether the dialog is a directory selection or not.
 
-**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L55)
+**Defined in:** [dialog.ts:63](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L63)
 
 ##### `filters`
 
@@ -98,7 +104,7 @@ Whether the dialog is a directory selection or not.
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:49](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L49)
+**Defined in:** [dialog.ts:57](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L57)
 
 ##### `multiple`
 
@@ -106,7 +112,7 @@ The filters of the dialog.
 
 Whether the dialog allows multiple selection or not.
 
-**Defined in:** [dialog.ts:53](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L53)
+**Defined in:** [dialog.ts:61](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L61)
 
 ##### `recursive`
 
@@ -115,7 +121,7 @@ Whether the dialog allows multiple selection or not.
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L60)
+**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L68)
 
 ##### `title`
 
@@ -123,11 +129,13 @@ Defines whether subdirectories will be allowed on the scope or not.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:47](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L47)
+**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L55)
 
 ### `SaveDialogOptions`
 
 Options for the save dialog.
+
+**Since**: 1.0.0
 
 #### Properties
 
@@ -139,7 +147,7 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-**Defined in:** [dialog.ts:74](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L74)
+**Defined in:** [dialog.ts:86](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L86)
 
 ##### `filters`
 
@@ -147,7 +155,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L68)
+**Defined in:** [dialog.ts:80](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L80)
 
 ##### `title`
 
@@ -155,7 +163,7 @@ The filters of the dialog.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/679abc6a/tooling/api/src/dialog.ts#L66)
+**Defined in:** [dialog.ts:78](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/dialog.ts#L78)
 
 ## Functions
 
@@ -172,6 +180,8 @@ import { ask } from '@tauri-apps/api/dialog';
 const yes = await ask('Are you sure?', 'Tauri');
 const yes2 = await ask('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -198,6 +208,8 @@ const confirmed = await confirm('Are you sure?', 'Tauri');
 const confirmed2 = await confirm('This action cannot be reverted. Are you sure?', { title: 'Tauri', type: 'warning' });
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
 | Name | Type | Description |
@@ -222,6 +234,8 @@ import { message } from '@tauri-apps/api/dialog';
 await message('Tauri is awesome', 'Tauri');
 await message('File not found', { title: 'Tauri', type: 'error' });
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
@@ -288,6 +302,8 @@ if (Array.isArray(selected)) {
 }
 ```
 
+**Since**: 1.0.0
+
 **Parameters**
 
 | Name | Type |
@@ -323,6 +339,8 @@ const filePath = await save({
   }]
 });
 ```
+
+**Since**: 1.0.0
 
 **Parameters**
 
