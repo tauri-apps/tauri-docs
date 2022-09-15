@@ -26,16 +26,18 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
     },
     "allowlist": {
       "fs": {
-        "scope": [
-          "/absolute/path/to/textfile.txt",
-          "relative/path/to/jsonfile.json",
-          "resources/*"
-        ]
+        "scope": ["$RESOURCE/*"]
       }
     }
   }
 }
 ```
+
+:::note
+
+Absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/*"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
+
+:::
 
 ## Accessing files in JavaScript
 
@@ -48,7 +50,7 @@ In this example we want to bundle additional i18n json files that look like this
 }
 ```
 
-In this case we store these files in a `lang` directory next to the `tauri.conf.json`. For this we add `"lang/*"` to `resources` and to the fs scope as shown above.
+In this case we store these files in a `lang` directory next to the `tauri.conf.json`. For this we add `"lang/*"` to `resources` and `$RESOURCE/lang/*` to the fs scope as shown above.
 
 Note that you must configure the allowlist to enable `path > all` and the [`fs` APIs] you need, in this example `fs > readTextFile`.
 
