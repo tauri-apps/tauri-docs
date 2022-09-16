@@ -84,26 +84,26 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 | Name | Type | Defined in |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:96](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L96) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:79](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L79) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:80](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L80) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L81) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L82) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L84) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L85) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L86) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L87) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L88) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L89) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L83) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:97](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L97) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L90) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L91) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:95](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L95) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L92) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L98) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L93) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L94) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:96](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L96) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:79](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L79) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:80](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L80) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L81) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L82) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L84) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L85) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L86) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L87) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L88) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L89) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L83) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:97](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L97) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L90) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L91) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:95](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L95) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L92) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L98) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L93) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L94) |
 
 ## Interfaces
 
@@ -119,7 +119,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 Children of this entry if it's a directory; null otherwise
 
-**Defined in:** [fs.ts:154](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L154)
+**Defined in:** [fs.ts:154](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L154)
 
 ##### `name`
 
@@ -128,13 +128,13 @@ Children of this entry if it's a directory; null otherwise
 Name of the directory/file
 can be null if the path terminates with `..`
 
-**Defined in:** [fs.ts:152](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L152)
+**Defined in:** [fs.ts:152](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L152)
 
 ##### `path`
 
 >  **path**: `string`
 
-**Defined in:** [fs.ts:147](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L147)
+**Defined in:** [fs.ts:147](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L147)
 
 ### `FsBinaryFileOption`
 
@@ -150,7 +150,7 @@ Options object used to write a binary data to a file.
 
 The byte array contents.
 
-**Defined in:** [fs.ts:140](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L140)
+**Defined in:** [fs.ts:140](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L140)
 
 ##### `path`
 
@@ -158,7 +158,7 @@ The byte array contents.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:138](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L138)
+**Defined in:** [fs.ts:138](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L138)
 
 ### `FsDirOptions`
 
@@ -170,13 +170,13 @@ Path to the file to write.
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:113](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L113)
+**Defined in:** [fs.ts:113](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L113)
 
 ##### `recursive`
 
 > `Optional` **recursive**: `boolean`
 
-**Defined in:** [fs.ts:114](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L114)
+**Defined in:** [fs.ts:114](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L114)
 
 ### `FsOptions`
 
@@ -188,7 +188,7 @@ Path to the file to write.
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:105](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L105)
+**Defined in:** [fs.ts:105](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L105)
 
 ### `FsTextFileOption`
 
@@ -204,7 +204,7 @@ Options object used to write a UTF-8 string to a file.
 
 The UTF-8 string to write to the file.
 
-**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L126)
+**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L126)
 
 ##### `path`
 
@@ -212,7 +212,7 @@ The UTF-8 string to write to the file.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:124](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L124)
+**Defined in:** [fs.ts:124](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L124)
 
 ## Type Aliases
 
@@ -220,7 +220,7 @@ Path to the file to write.
 
 >  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
-**Defined in:** [fs.ts:129](https://github.com/tauri-apps/tauri/blob/3ceed62/tooling/api/src/fs.ts#L129)
+**Defined in:** [fs.ts:129](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/fs.ts#L129)
 
 ## Functions
 

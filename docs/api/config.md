@@ -519,6 +519,10 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowallowlistconfig.setfocus">`setFocus`<a class="hash-link" href="#windowallowlistconfig.setfocus"></a></div> | `boolean` | `false` | Allows focusing the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.seticon">`setIcon`<a class="hash-link" href="#windowallowlistconfig.seticon"></a></div> | `boolean` | `false` | Allows changing the window icon. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setskiptaskbar">`setSkipTaskbar`<a class="hash-link" href="#windowallowlistconfig.setskiptaskbar"></a></div> | `boolean` | `false` | Allows setting the skip_taskbar flag of the window. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcursorgrab">`setCursorGrab`<a class="hash-link" href="#windowallowlistconfig.setcursorgrab"></a></div> | `boolean` | `false` | Allows grabbing the cursor. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcursorvisible">`setCursorVisible`<a class="hash-link" href="#windowallowlistconfig.setcursorvisible"></a></div> | `boolean` | `false` | Allows setting the cursor visibility. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcursoricon">`setCursorIcon`<a class="hash-link" href="#windowallowlistconfig.setcursoricon"></a></div> | `boolean` | `false` | Allows changing the cursor icon. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcursorposition">`setCursorPosition`<a class="hash-link" href="#windowallowlistconfig.setcursorposition"></a></div> | `boolean` | `false` | Allows setting the cursor position. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.startdragging">`startDragging`<a class="hash-link" href="#windowallowlistconfig.startdragging"></a></div> | `boolean` | `false` | Allows start dragging on the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.print">`print`<a class="hash-link" href="#windowallowlistconfig.print"></a></div> | `boolean` | `false` | Allows opening the system dialog to print the window content. |
 
