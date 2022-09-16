@@ -26,7 +26,7 @@ tauri build --target i686-pc-windows-msvc
 
 By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`.
 
-If you need to build for **ARM64** you first need to install additional build tools. To do this, open `Visual Studio Installer`, click on "Modify" of your VS Build Tools or Visual Studio installation, and in the "Individual Components" tab install the "C++ ARM64 build tools", at the time of writing the exact name in VS2022 is `MSVC v143 - VS 2022 C++ build tools (Latest)`.  
+If you need to build for **ARM64** you first need to install additional build tools. To do this, open `Visual Studio Installer`, click on "Modify", and in the "Individual Components" tab install the "C++ ARM64 build tools". At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.  
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use above mentioned method to comile your app:
 
 ```powershell
