@@ -14,17 +14,24 @@ To build and bundle your Tauri application into a single executable simply run t
 
 It will build your Frontend, compile the Rust binary, collect all external binaries and resources and finally produce neat platform-specific bundles and installers.
 
-:::info 32-bit Windows
+## Building for 32-bit or ARM
 
-The Tauri CLI compiles your executable using your machine's architecture by default. Assuming that you're developing on a 64-bit machine, the CLI will produce 64-bit applications. If you need to support 32-bit machines, you can compile your application with a **different** [Rust target][platform support] using the `--target` flag:
+The Tauri CLI compiles your executable using your machine's architecture by default. Assuming that you're developing on a 64-bit machine, the CLI will produce 64-bit applications.
+
+If you need to support **32-bit** machines, you can compile your application with a **different** [Rust target][platform support] using the `--target` flag:
 
 ```powershell
 tauri build --target i686-pc-windows-msvc
 ```
 
-By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`. You can get a full list of Rust targets by running `rustup target list`.
+By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`.
 
-:::
+If you need to build for **ARM64** you first need to install additional build tools. To do this, open `Visual Studio Installer`, click on "Modify", and in the "Individual Components" tab install the "C++ ARM64 build tools". At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.  
+Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use above mentioned method to comile your app:
+
+```powershell
+tauri build --target aarc64-pc-windows-msvc
+```
 
 ## Supporting Windows 7
 
@@ -36,10 +43,6 @@ Additionally, to use the Notification API in Windows 7, you need to enable the `
 [dependencies]
 tauri = { version = "1", features = [ "windows7-compat" ] }
 ```
-
-## Distributing a 32-bit Executable
-
-The Tauri CLI compiles your executable using your machine's architecture by default. You can target a different architecture using the `target` argument. For example, to generate an installer for the x86 architecture, you can execute `tauri build --target i686-pc-windows-msvc` (you will first need to install the _i686-pc-windows-msvc_ target by running `rustup target add i686-pc-windows-msvc`). You can see the list of available targets running `rustup target list`.
 
 ## Webview2 Installation Options
 
