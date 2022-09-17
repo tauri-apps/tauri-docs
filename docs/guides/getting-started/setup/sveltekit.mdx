@@ -21,7 +21,7 @@ This guide will walk you through creating your first Tauri app using the [Svelte
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/sveltekit/sveltekit.png)
+![Application Preview](./assets/sveltekit/result.png)
 
 ## Create the Frontend
 
@@ -88,7 +88,7 @@ npm install --save-dev @sveltejs/adapter-static@next
   <TabItem value="Yarn">
 
 ```shell
-yarn install -D @sveltejs/adapter-static@next
+yarn add -D @sveltejs/adapter-static@next
 ```
 
   </TabItem>
@@ -171,7 +171,7 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/sveltekit/sveltekit-dev.png)
+![Application Window](./assets/sveltekit/init.png)
 
 ## Invoke Commands
 
@@ -181,26 +181,41 @@ To call our newly created command we will use the [`@tauri-apps/api`] JavaScript
 
 <InstallTauriApi />
 
-With the library installed, you can modify your `+page.svelte` file to call the command:
+With the library installed, we can now create a new Svelte component. We'll create it in `src/lib/Greet.svelte`:
+
+```html title=src/lib/Greet.svelte
+<script>
+  import { invoke } from '@tauri-apps/api/tauri'
+
+  let name = ''
+  let greetMsg = ''
+
+  async function greet() {
+    greetMsg = await invoke('greet', { name })
+  }
+</script>
+
+<div>
+  <input id="greet-input" placeholder="Enter a name..." bind:value="{name}" />
+  <button on:click="{greet}">Greet</button>
+  <p>{greetMsg}</p>
+</div>
+```
+
+You can now add this component into `src/routes/+page.svelte`:
 
 ```html title=src/routes/+page.svelte
 <script>
-  import { invoke } from '@tauri-apps/api'
-
-  // now we can call our command
-  // Right-click the application background and open the developer tools
-  // You will see "Hello, World!" printed in the console
-  invoke('greet', { name: 'World' })
-    // `invoke` returns a Promise
-    .then((response) => console.log(response))
+  import Greet from '../lib/Greet.svelte'
 </script>
 
 <h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the
-  documentation
-</p>
+<Greet />
 ```
+
+You can now run this with `npm run dev` and see the result:
+
+![Application Preview](./assets/sveltekit/result.png)
 
 :::tip
 
