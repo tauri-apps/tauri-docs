@@ -39,6 +39,12 @@ OPTIONS:
     -A, --app-name <APP_NAME>
             Name of your Tauri application
 
+        --before-build-command <BEFORE_BUILD_COMMAND>
+            A shell command to run before `tauri build` kicks in
+
+        --before-dev-command <BEFORE_DEV_COMMAND>
+            A shell command to run before `tauri dev` kicks in
+
         --ci
             Skip prompting for values
 
@@ -104,13 +110,15 @@ USAGE:
     cargo-tauri dev [OPTIONS] [--] [ARGS]...
 
 ARGS:
-    <ARGS>...    Command line arguments passed to the runner
+    <ARGS>...    Command line arguments passed to the runner. Arguments after `--` are passed to
+                 the application
 
 OPTIONS:
     -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
     -e, --exit-on-panic             Exit on panic
     -f, --features <FEATURES>...    List of cargo features to activate
     -h, --help                      Print help information
+        --no-watch                  Disable the file watcher
     -r, --runner <RUNNER>           Binary to use to run the application
         --release                   Run the code in release mode
     -t, --target <TARGET>           Target triple to build against
@@ -122,7 +130,7 @@ This command will open the WebView in development mode. It makes use of the `bui
 
 If you have entered a command to the `build.beforeDevCommand` property, this one will be executed before the `dev` command.
 
-<a href="../api/config#build">See more about the configuration.</a><br/><br/>
+**[See more about the configuration.](./config.md#build)**
 
 :::caution Troubleshooting
 If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
@@ -186,7 +194,30 @@ This command will bundle your application, either in production mode or debug mo
 
 If you have entered a command to the `build.beforeBuildCommand` property, this one will be executed before the `build` command.
 
-<a href="../api/config#build">See more about the configuration.</a>
+**[See more about the configuration.](./config.md#build)**
+
+## `icon`
+
+<Command name="icon" />
+
+```
+
+USAGE:
+    cargo-tauri icon [OPTIONS] [INPUT]
+
+ARGS:
+    <INPUT>    Path to the source icon (png, 1240x1240px with transparency) [default:
+               ./app-icon.png]
+
+OPTIONS:
+    -h, --help               Print help information
+    -o, --output <OUTPUT>    Output directory. Default: 'icons' directory next to the
+                             tauri.conf.json file
+    -v, --verbose            Enables verbose logging
+    -V, --version            Print version information
+```
+
+[Tauri Icon Guide](../guides/features/icons.md)
 
 ## `version`
 

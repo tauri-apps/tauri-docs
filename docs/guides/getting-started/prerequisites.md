@@ -39,7 +39,7 @@ The bootstrapper script will try to determine the correct architecture and versi
 
 #### 3. Rust
 
-Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer).
+Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases Windows itself, for the changes to take effect.
 
 ### Setting Up macOS
 
@@ -71,6 +71,8 @@ successful, the following line will appear:
 ```text
 Rust is installed now. Great!
 ```
+
+Make sure to restart your terminal for the changes to take effect.
 
 ### Setting Up Linux
 
@@ -162,15 +164,11 @@ The command downloads a script and starts the installation of the `rustup` tool,
 Rust is installed now. Great!
 ```
 
-## Updating and Uninstalling
+Make sure to restart your Terminal for the changes to take effect.
 
-Tauri and its components can be manually updated by editing the `Cargo.toml` file or running the `cargo upgrade` command that is part of the [`cargo-edit`] tool. Open a terminal and enter the following command:
+## Managing The Rust Installation
 
-```shell
-cargo upgrade
-```
-
-Updating Rust itself is easy via `rustup`. Open a terminal and run the following command:
+You should keep your Rust version up to date whenever possible to always benefit from the latest improvements. To update Rust, open a terminal and run the following command:
 
 ```shell
 rustup update

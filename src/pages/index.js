@@ -426,10 +426,10 @@ function DynamicHeaderImage() {
   useEffect(() => {
     const images = []
 
-    const darkTauriLogo = (new Image().src = 'img/tauri_1_0_dark.svg')
+    const darkTauriLogo = (new Image().src = 'img/tauri_1_1_dark.svg')
     images.push(darkTauriLogo)
 
-    const lightTauriLogo = (new Image().src = 'img/tauri_1_0_light.svg')
+    const lightTauriLogo = (new Image().src = 'img/tauri_1_1_light.svg')
     images.push(lightTauriLogo)
   }, [])
 
@@ -442,8 +442,8 @@ function DynamicHeaderImage() {
     <img
       src={
         isDarkMode
-          ? '/img/index/tauri_1_0_dark.svg'
-          : '/img/index/tauri_1_0_light.svg'
+          ? '/img/index/tauri_1_1_dark.svg'
+          : '/img/index/tauri_1_1_light.svg'
       }
     />
   )

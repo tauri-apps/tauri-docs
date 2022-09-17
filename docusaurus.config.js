@@ -45,12 +45,13 @@ const navbarItems = [
       },
       {
         type: 'doc',
-        docId: 'api/js/modules/app',
+        docId: 'api/js/README',
         label: 'JavaScript / TypeScript',
       },
       {
         label: 'Rust (via Docs.rs)',
         href: 'https://docs.rs/tauri/1/',
+        target: '_self',
       },
     ],
   },
@@ -72,6 +73,7 @@ const navbarItems = [
       {
         label: 'Get Involved',
         href: 'https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md',
+        target: '_self',
       },
       {
         label: 'Sponsors',
@@ -81,10 +83,12 @@ const navbarItems = [
       {
         label: 'Discord',
         href: discordUrl,
+        target: '_self',
       },
       {
         label: 'Awesome Tauri',
         href: awesomeTauriUrl,
+        target: '_self',
       },
     ],
   },
@@ -123,6 +127,7 @@ const navbarItems = [
     'aria-label': 'GitHub',
     position: 'right',
     className: 'navbarIcon gitHubIcon',
+    target: '_self',
   },
   {
     type: 'localeDropdown',
@@ -143,14 +148,17 @@ const footerLinks = [
       {
         label: 'Tauri',
         href: repoUrl,
+        target: '_self',
       },
       {
-        label: 'Tao',
+        label: 'TAO',
         href: 'https://github.com/tauri-apps/tao',
+        target: '_self',
       },
       {
-        label: 'Wry',
+        label: 'WRY',
         href: 'https://github.com/tauri-apps/wry',
+        target: '_self',
       },
     ],
   },
@@ -160,10 +168,12 @@ const footerLinks = [
       {
         label: 'Mail',
         href: 'mailto:contact@tauri.app',
+        target: '_self',
       },
       {
         label: 'Twitter',
         href: 'https://twitter.com/TauriApps',
+        target: '_self',
       },
     ],
   },
@@ -171,16 +181,18 @@ const footerLinks = [
     title: 'Network',
     items: [
       {
-        label: 'DevTo Blog',
-        href: devToUrl,
+        label: 'Blog',
+        to: 'blog',
       },
       {
         label: 'OpenCollective',
         href: 'https://opencollective.com/tauri',
+        target: '_self',
       },
       {
         label: 'GitHub',
         href: 'https://github.com/tauri-apps',
+        target: '_self',
       },
     ],
   },
@@ -194,10 +206,12 @@ const footerLinks = [
       {
         label: 'Discord',
         href: discordUrl,
+        target: '_self',
       },
       {
         label: 'Awesome Tauri',
         href: awesomeTauriUrl,
+        target: '_self',
       },
     ],
   },
@@ -222,7 +236,7 @@ async function siteConfig() {
       prism: {
         theme: require('prism-react-renderer/themes/github'),
         darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-        additionalLanguages: ['rust', 'powershell', 'bash', 'toml'],
+        additionalLanguages: ['rust', 'powershell', 'bash', 'toml', 'json5'],
       },
       colorMode: {
         defaultMode: 'dark',
@@ -231,7 +245,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 Tauri 1.0 has launched! <a id='announcement-link' href='/blog/2022/06/19/tauri-1-0'>Read the blog post</a></b>",
+          "<b>🚀 Tauri 1.1 has launched! <a id='announcement-link' href='/blog/2022/09/15/tauri-1-1'>Read the blog post</a></b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },

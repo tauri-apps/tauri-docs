@@ -47,11 +47,28 @@ jobs:
         with:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
-      # - name: checkout tauri-search-bot
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: tauri-apps/tauri-search-bot
-      #     path: tauri-search-bot
+
+      - name: Checkout typedoc-plugin-markdown
+        uses: actions/checkout@v2
+        with:
+          repository: tauri-apps/typedoc-plugin-markdown
+          ref: next
+          path: typedoc-plugin-markdown
+
+      - name: Build typedoc-plugin-markdown
+        working-directory: typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+        run: yarn && yarn build
+
+      - name: Prep for JS doc generation
+        working-directory: ./tauri/tooling/api
+        run: yarn
+
+      - name: Cleanup JS Docs
+        run: rm -rf tauri-docs/docs/api/js/*
+
+      - name: Build JS docs
+        working-directory: ./tauri-docs/packages/js-doc-generator
+        run: yarn && yarn generate-docs
 
       # Any Rust documentation is currently disabled while we're falling back to docs.rs
 
@@ -72,67 +89,6 @@ jobs:
       #     sidebarPath: "${{ github.workspace }}/tauri-docs/sidebars/rustdoc.json"
       #     linksRoot: ""
       #     cratesToProcess: "tauri"
-
-      - name: Generate JS docs
-        working-directory: ./tauri/tooling/api
-        run: yarn && yarn generate-docs
-
-      - name: Copy JS docs
-        run: |
-          rm -rf tauri-docs/docs/api/js/*
-          cp -r tauri/tooling/api/docs/* tauri-docs/docs/api/js/
-
-      # this doesn't really need to be run on the content generation and PR opening
-      # should this be removed and run at the same time as our netlify publish sequence
-      # Indexing
-      # - name: meilisearch indexation
-      #   uses: tauri-apps/docusaurus-meilisearch-indexer@v1
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   with:
-      #     version: ${{ github.event.inputs.version || github.event.release.tag_name }}
-      #     docusaurusPath: "${{ github.workspace }}/tauri-docs"
-      #     host: https://search.tauri.studio
-      #     apiKey: ${{ secrets.MEILISEARCH_APIKEY }}
-      #     docs: "Getting started,Usage,API"
-
-      # Applying Version for Release Notes
-      # - name: set docs' Tauri version
-      #   working-directory: ./tauri-docs
-      #   working-directory: ./tauri-search-bot
-      #   run: echo ${{ github.event.inputs.version || github.event.release.tag_name }} > version.txt
-
-      # Sets up envs for the search bot and the search indexing
-      # - uses: iamsauravsharma/create-dotenv@v1.1.0
-      #   with:
-      #     directory: './tauri-search-bot'
-      #   env:
-      #     ENV_KEY_DISCORD_BOT_SECRET: ${{ secrets.DISCORD_BOT_SECRET }}
-      #     ENV_KEY_PREFIX: \!
-      #     ENV_KEY_SITE: tauri.studio
-      #     ENV_KEY_ICON: https://i.imgur.com/UzDERvw.png
-      #     ENV_KEY_LIMIT: 5
-      #     ENV_KEY_SEARCH_INDEX: ${{ github.event.release.tag_name }}
-      #     ENV_KEY_MEILISEARCH_PUBLIC_KEY: ea0105f56bb5a2111ed28c7a0c637fc0bed07273f571dc7cb1f73900e44f8e7f
-
-      # TODO do we even need to do a bot deploy here?
-      # Bot Deployment
-      # - name: scp bot
-      #   uses: appleboy/scp-action@master
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   with:
-      #     host: ${{ secrets.DISCORD_BOT_HOST }}
-      #     username: ${{ secrets.DISCORD_BOT_SSH_USER }}
-      #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
-      #     source: "${{ github.workspace }}/tauri-search-bot"
-      #     target: "~/tauri-search-bot"
-      # - name: restart the bot
-      #   uses: appleboy/ssh-action@master
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   with:
-      #     host: ${{ secrets.DISCORD_BOT_HOST }}
-      #     username: ${{ secrets.DISCORD_BOT_SSH_USER }}
-      #     key: ${{ secrets.DISCORD_BOT_SSH_KEY }}
-      #     script: cd ~/tauri-search-bot/github/workspace/tauri-search-bot/ && yarn && forever stopall && forever start ./src/index.js
 
       - uses: actions-rs/toolchain@v1
         with:
