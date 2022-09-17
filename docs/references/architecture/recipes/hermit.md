@@ -50,23 +50,21 @@ The Hermit recipe is a pattern for ultimate application isolation where all logi
 
 ## Diagram
 
-import { colors } from '@theme/Mermaid'
-
 ```mermaid
 graph LR
   A==>H
   H==>F
   subgraph WEBVIEW
-  F
+    F
   end
   subgraph RUST
-  A
+    A
   end
   A[fa:fa-cog Binary ]
   F[fa:fa-window-maximize Window]
   H{Bootstrap}
-  style RUST fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-  style WEBVIEW fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+  class RUST rust
+  class WEBVIEW webview
 ```
 
 ## Configuration
