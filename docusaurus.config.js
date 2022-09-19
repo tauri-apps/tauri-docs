@@ -245,7 +245,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 <a id='announcement-link' href='/blog/2022/09/15/tauri-1-1'>Tauri 1.1</a> and <a id='announcement-link' href='/blog/2022/09/19/tauri-egui-0-1'>tauri-egui 0.1</a></b> have launched!</b>",
+          "<b>🚀 <a id='announcement-link' href='/blog/2022/09/15/tauri-1-1'>Tauri 1.1</a> and <a id='announcement-link' href='/blog/2022/09/19/tauri-egui-0-1'>tauri-egui 0.1</a> have launched!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
