@@ -128,7 +128,7 @@ fn control_label(ui: &mut egui::Ui, label: &str) {
 }
 ```
 
-- Load an image, allocate is as a texture and add it to the UI (requires the `png` dependency):
+- Load an image, allocate it as a texture and add it to the UI (requires the `png` dependency):
 
 ```rust
 let texture: &egui::TextureHandle = self.texture.get_or_insert_with(|| {
