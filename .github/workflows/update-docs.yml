@@ -1,4 +1,4 @@
-ORG_TAURI_BOT_PAT# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
+# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
@@ -136,7 +136,7 @@ jobs:
         uses: tauri-apps/create-pull-request@v3.4.1
         if: github.event_name != 'pull_request' && github.event_name != 'push'
         with:
-          token: ${{ secrets.TAURI_BOT_PAT }}
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
           branch: docs/release
           path: tauri-docs
