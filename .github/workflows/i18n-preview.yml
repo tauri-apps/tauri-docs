@@ -38,7 +38,7 @@ jobs:
           title: i18n Preview
           branch: i18n-preview
           draft: true
-          token: ${{ secrets.TAURI_BOT_PAT }}
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           body: |
             **DO NOT MERGE**
 

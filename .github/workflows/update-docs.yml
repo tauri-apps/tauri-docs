@@ -136,7 +136,7 @@ jobs:
         uses: tauri-apps/create-pull-request@v3.4.1
         if: github.event_name != 'pull_request' && github.event_name != 'push'
         with:
-          token: ${{ secrets.TAURI_BOT_PAT }}
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
           branch: docs/release
           path: tauri-docs
