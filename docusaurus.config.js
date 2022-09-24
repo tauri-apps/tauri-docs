@@ -333,6 +333,10 @@ async function siteConfig() {
 
           blog: {
             blogSidebarCount: 0,
+            feedOptions: {
+              type: 'all',
+              copyright: `Copyright © ${new Date().getFullYear()} Tauri Programme within The Commons Conservancy`,
+            },
           },
         },
       ],
