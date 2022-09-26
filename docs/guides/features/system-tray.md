@@ -201,8 +201,8 @@ If your app should run in the backgorund, you can call `api.prevent_close()` lik
 ```rust
 tauri::Builder::default()
     .on_window_event(|event| if let tauri::RunEvent::ExitRequested { api, .. } => {
-    api.prevent_exit();
-  })
+      api.prevent_exit();
+    })
 ```
 
 [template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
