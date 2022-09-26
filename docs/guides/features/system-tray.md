@@ -201,7 +201,6 @@ If your app should run in the backgorund, you can call `api.prevent_close()` lik
 ```rust
 tauri::Builder::default()
     .on_window_event(|event| if let tauri::WindowEvent::CloseRequested { api, .. } = event.event() {
-        event.window().hide().unwrap();
         api.prevent_close();
     })
 ```
