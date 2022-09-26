@@ -193,5 +193,22 @@ Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dep
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
+### Keep app running in the background after closing all windows
+
+By default, tauri closes the application when the last window is closed.
+If your app should run in the backgorund, you can call `api.prevent_close()` like so:
+
+```rust
+tauri::Builder::default()
+  .build(tauri::generate_context!())
+  .expect("error while building tauri application")
+  .run(|_app_handle, event| match event {
+    tauri::RunEvent::ExitRequested { api, .. } => {
+      api.prevent_exit();
+    }
+    _ => {}
+  });
+```
+
 [template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
 [libayatana-appindicator]: https://github.com/AyatanaIndicators/libayatana-appindicator
