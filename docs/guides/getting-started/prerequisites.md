@@ -142,6 +142,105 @@ sudo zypper in -t pattern devel_basis
 ```
 
   </TabItem>
+  <TabItem value="nixos" label="NixOS">
+
+  Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
+  dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
+
+  When using [Nix Flakes], copy the following code into `flake.nix` on your repository, then run `nix develop` to activate the development environment. You can also use [direnv's Flakes integration] to automatically start the dev shell when entering the project folder.
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+
+        libraries = with pkgs;[
+          webkitgtk
+          gtk3
+          cairo
+          gdk-pixbuf
+          glib.out
+          dbus.lib
+          openssl_3.out
+        ];
+
+        packages = with pkgs; [
+          curl
+          wget
+          pkg-config
+          dbus
+          openssl_3
+          glib
+          gtk3
+          libsoup
+          webkitgtk
+        ];
+      in
+      {
+        devShell = pkgs.mkShell {
+          buildInputs = packages;
+
+          shellHook =
+            let
+              joinLibs = libs: builtins.concatStringsSep ":" (builtins.map (x: "${x}/lib") libs);
+              libs = joinLibs libraries;
+            in
+            ''
+              export LD_LIBRARY_PATH=${libs}:$LD_LIBRARY_PATH
+            '';
+        };
+      });
+}
+```
+
+  If you don't use Nix Flakes, the [Nix Shell] can be configured using the following `shell.nix` script. Run `nix-shell` to activate the development environment, or use [direnv's Shell integration] to automatically start the dev shell when entering the project folder.
+
+```nix
+let
+  pkgs = import <nixpkgs> { };
+
+  libraries = with pkgs;[
+    webkitgtk
+    gtk3
+    cairo
+    gdk-pixbuf
+    glib.out
+    dbus.lib
+    openssl_3.out
+  ];
+
+  packages = with pkgs; [
+    pkg-config
+    dbus
+    openssl_3
+    glib
+    gtk3
+    libsoup
+    webkitgtk
+    appimagekit
+  ];
+in
+pkgs.mkShell {
+  buildInputs = packages;
+
+  shellHook =
+    let
+      joinLibs = libs: builtins.concatStringsSep ":" (builtins.map (x: "${x}/lib") libs);
+      libs = joinLibs libraries;
+    in
+    ''
+      export LD_LIBRARY_PATH=${libs}:$LD_LIBRARY_PATH
+    '';
+}
+```
+  </TabItem>
 </Tabs>
 
 #### 2. Rust
@@ -205,3 +304,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
+[Nix Flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
