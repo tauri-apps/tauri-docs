@@ -96,7 +96,7 @@ export default defineConfig({
 
 :::info
 
-Note that if you are not using vanilla JavaScript, you should modify this config and add the necessary plugins your framework requires.
+Note that if you are not using vanilla JavaScript, you must keep the framework-specific plugins that were already in this file.
 
 :::
 
@@ -130,14 +130,6 @@ Now that we have scaffolded our frontend and initialized the Rust project the cr
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
-  },
-```
-
-Be sure that tauri is accessible to your package manager of choice. For example if you are using npm, the `package.json` file should include tauri as a script:
-```json title=package.json
-{
-  "scripts": {
-    "tauri": "tauri"
   },
 ```
 
