@@ -41,6 +41,12 @@ The bootstrapper script will try to determine the correct architecture and versi
 
 Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases Windows itself, for the changes to take effect.
 
+Alternatively, you could use `winget` to install rustup using the follwing command in PowerShell:
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
 ### Setting Up macOS
 
 #### 1. CLang and macOS Development Dependencies
