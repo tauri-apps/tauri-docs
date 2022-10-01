@@ -15,6 +15,14 @@ Code signing your application lets users know that they downloaded the official 
 - Code signing certificate - you can acquire one of these on services such as Digicert.com, Comodo.com, & Godaddy.com. In this guide, we are using Comodo.com
 - A working Tauri application
 
+:::note
+
+If you sign the app with an EV Certificate, it'll receive immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
+
+If you opt for an OV Certificate, which is generally cheaper, Microsoft SmartScreen will show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app](https://www.microsoft.com/en-us/wdsi/filesubmission/) to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may approved and the warning for the uploaded file.
+
+:::
+
 ## Getting Started
 
 There are a few things we have to do to get Windows prepared for code signing. This includes converting our certificate to a specific format, installing this certificate, and decoding required information from the certificate.
