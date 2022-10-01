@@ -64,6 +64,19 @@ export const InstallTauriCli = () => {
         <CodeBlock className="language-shell" language="shell">
           npm install --save-dev @tauri-apps/cli
         </CodeBlock>
+        <div style={{ margin: 8 }}>
+          For npm to detect Tauri correctly you need to add it to the "scripts"
+          section in your package.json file:
+        </div>
+        <CodeBlock
+          className="language-json"
+          language="json"
+          title="package.json"
+        >
+          {`"scripts": {
+  "tauri": "tauri"
+}`}
+        </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
         <CodeBlock className="language-shell" language="shell">
