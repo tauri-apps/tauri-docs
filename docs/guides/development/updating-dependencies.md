@@ -2,28 +2,90 @@
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Updating Dependencies
 
 ## Update npm Packages
 
 If you are using the `tauri` package:
 
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
 ```shell
-yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 ```
 
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm update @tauri-apps/cli @tauri-apps/api --latest
+```
+
+  </TabItem>
+</Tabs>
+
 You can also detect what the latest version of Tauri is on the command line, using:
 
-- `npm outdated @tauri-apps/cli`
-- `yarn outdated @tauri-apps/cli`
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm outdated @tauri-apps/cli
+```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn outdated @tauri-apps/cli
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm outdated @tauri-apps/cli
+```
+
+  </TabItem>
+</Tabs>
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
 
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
 ```shell
-yarn upgrade vue-cli-plugin-tauri --latest
 npm install vue-cli-plugin-tauri@latest
 ```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn upgrade vue-cli-plugin-tauri --latest
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm update vue-cli-plugin-tauri --latest
+```
+
+  </TabItem>
+</Tabs>
 
 ## Update Cargo Packages
 
