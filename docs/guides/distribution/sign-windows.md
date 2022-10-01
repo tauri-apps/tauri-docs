@@ -19,7 +19,7 @@ Code signing your application lets users know that they downloaded the official 
 
 If you sign the app with an EV Certificate, it'll receive immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
 
-If you opt for an OV Certificate, which is generally cheaper, Microsoft SmartScreen will show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app](https://www.microsoft.com/en-us/wdsi/filesubmission/) to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may approved and the warning for the uploaded file.
+If you opt for an OV Certificate, which is generally cheaper, Microsoft SmartScreen will show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app](https://www.microsoft.com/en-us/wdsi/filesubmission/) to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant instant reputation and remove the warning for that specific uploaded file.
 
 :::
 
