@@ -50,8 +50,8 @@ The Windows Installer by default downloads the Webview2 bootstapper and executes
 
 | Installation Method                                | Requires Internet Connection? | Additional Installer Size | Notes                                                                                                  |
 | :------------------------------------------------- | :---------------------------- | :------------------------ | :----------------------------------------------------------------------------------------------------- |
-| [`downloadedBoostrapper`](#downloaded-boostrapper) | Yes                           | 0MB                       | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment. |
-| [`embeddedBoostrapper`](#embedded-bootstrapper)    | Yes                           | ~1.8MB                    | Better support on Windows 7.                                                                           |
+| [`downloadedBootstrapper`](#downloaded-bootstrapper) | Yes                           | 0MB                       | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment. |
+| [`embeddedBootstrapper`](#embedded-bootstrapper)    | Yes                           | ~1.8MB                    | Better support on Windows 7.                                                                           |
 | [`offlineInstaller`](#offline-installer)           | No                            | ~127MB                    | Embeds Webview2 installer. Recommended for offline environments                                        |
 | [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed Webview2 version                                                                        |
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the Webview2 as part of the Windows Installer.              |
@@ -62,7 +62,7 @@ On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime
 
 :::
 
-### Downloaded Boostrapper
+### Downloaded Bootstrapper
 
 This is the default setting for building the Windows Installer. It downloads the bootstrapper and run it. Requires internet connection but results in a smaller installer size. This is not recommended if you're going to be distributing to Windows 7.
 
@@ -72,7 +72,7 @@ This is the default setting for building the Windows Installer. It downloads the
     "bundle": {
       "windows": {
         "webviewInstallMode": {
-          "type": "downloadedBoostrapper"
+          "type": "downloadedBootstrapper"
         }
       }
     }
