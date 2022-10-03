@@ -196,7 +196,7 @@ app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ic
 ### Keep app running in the background after closing all windows
 
 By default, tauri closes the application when the last window is closed.
-If your app should run in the backgorund, you can call `api.prevent_close()` like so:
+If your app should run in the background, you can call `api.prevent_close()` like so:
 
 ```rust
 tauri::Builder::default()
