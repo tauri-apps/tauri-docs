@@ -10,7 +10,7 @@ import Chart, { fetchData } from '@theme/BenchmarkChart'
 
 export var data = fetchData()
 
-All benchmarks run on Github Actions using the `ubuntu-latest` matrix. Various metrics are measuresd by the following applications:
+All benchmarks run on Github Actions using the `ubuntu-latest` matrix. Various metrics are measured by the following applications:
 
 | Tauri                 | Wry                   | Electron                 |
 | :-------------------- | :-------------------- | :----------------------- |
@@ -34,7 +34,7 @@ The CPU intensive benchmark measures how much time it takes to calculate all the
 
 ## Execution Time
 
-How much time in total it takes to intialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
+How much time in total it takes to initialize the application and wait for the `DOMContentLoaded` event. This uses [hyperfine](https://github.com/sharkdp/hyperfine) under the hood and runs 3 warm-up sequence first, then 10 sequences to calculate the average execution time.
 
 <Chart data={data} column="exec_time" />
 
