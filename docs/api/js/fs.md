@@ -283,7 +283,7 @@ A promise indicating the success or failure of the operation.
 
 ### `exists`
 
-> **exists**(`path`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **exists**(`path`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Check if a path exists.
 
@@ -292,7 +292,7 @@ Check if a path exists.
 ```typescript
 import { exists, BaseDirectory } from '@tauri-apps/api/fs';
 // Check if the `$APPDIR/avatar.png` file exists
-await exists('avatar.png', { dir: BaseDirectory.App });
+const avatarExists = await exists('avatar.png', { dir: BaseDirectory.App });
 ```
 
 **Since**: 1.1.0
@@ -304,7 +304,7 @@ await exists('avatar.png', { dir: BaseDirectory.App });
 | `path` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ### `readBinaryFile`
 
