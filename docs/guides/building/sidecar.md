@@ -73,11 +73,11 @@ main().catch((e) => {
 })
 ```
 
-## Running on JavaScript
+## Running it from JavaScript
 
-On the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method.
+In the JavaScript code, import the `Command` class on the `shell` module and use the `sidecar` static method.
 
-Note that you must configure the allowlist to enable `shell > sidecar` and configure all binaries in the shell scope.
+Note that you must configure the allowlist to enable `shell > sidecar` and configure all binaries in `shell > scope`.
 
 ```javascript
 import { Command } from '@tauri-apps/api/shell'
@@ -87,9 +87,9 @@ const command = Command.sidecar('my-sidecar')
 const output = await command.execute()
 ```
 
-## Running on Rust
+## Running it from Rust
 
-On the Rust code, import the `Command` struct from the `tauri::api::process` module:
+On the Rust side, import the `Command` struct from the `tauri::api::process` module:
 
 ```rust
 let (mut rx, mut child) = Command::new_sidecar("my-sidecar")
