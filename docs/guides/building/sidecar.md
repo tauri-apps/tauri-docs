@@ -89,7 +89,7 @@ const output = await command.execute()
 
 ## Running it from Rust
 
-On the Rust code, import the `Command` struct from the `tauri::api::process` module:
+On the Rust side, import the `Command` struct from the `tauri::api::process` module:
 
 ```rust
 let (mut rx, mut child) = Command::new_sidecar("my-sidecar")
