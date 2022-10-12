@@ -14,41 +14,34 @@ const output = []
 
 buildObject(null, schema, 1)
 
-function buildObject(key, value, headerLevel) {
-  var headerTitle
+function buildObject(key, value) {
+  var headerTitle, headerLevel
   if (value.title) {
-    headerTitle = value.title
+    headerTitle = 'Configuration'
+    headerLevel = 1
   } else {
     headerTitle = key
-  }
-
-  if (headerTitle === 'Config') {
-    headerTitle = 'Configuration'
+    headerLevel = headerTitle.endsWith('Config') ? 3 : 4
   }
 
   var header = `${'#'.repeat(headerLevel)} ${headerTitle}\n`
 
-  if (headerLevel == 3) {
-    header = '\n<br />\n\n' + header
-  }
-
   output.push(header)
-  output.push(`${descriptionConstructor(value.description, false)}\n`)
-  output.push(longFormTypeConstructor(value))
+  output.push(`${descriptionConstructor(value.description)}\n`)
 
-  buildProperties(headerTitle, value)
-
-  if (value.definitions) {
+  if (headerLevel > 1) {
+    output.push(`:::note Type\n\n${longFormTypeConstructor(value)}\n\n:::\n`)
+    buildProperties(headerTitle, value)
+  }
+  else {
     Object.entries(value.definitions).forEach(([innerKey, innerValue]) => {
-      buildObject(innerKey, innerValue, headerLevel + 2)
+      buildObject(innerKey, innerValue)
     })
   }
 }
 
 function buildProperties(parentName, object) {
-  if (!object.properties) {
-    return
-  }
+  if (!object.properties) return
 
   var required = []
 
@@ -62,9 +55,7 @@ function buildProperties(parentName, object) {
 
   // Populate table
   Object.entries(object.properties).forEach(([key, value]) => {
-    if (key == '$schema') {
-      return
-    }
+    if (key == '$schema') return
 
     var propertyType = typeConstructor(value)
 
@@ -87,9 +78,7 @@ function buildProperties(parentName, object) {
 }
 
 function descriptionConstructor(description, fixNewlines = false) {
-  if (!description) {
-    return description
-  }
+  if (!description) return
 
   // fix Rust doc style links
   description = description.replaceAll(/\[`Self::(\S+)`\]/g, '`$1`')
@@ -211,7 +200,7 @@ function typeConstructor(object, describeObject = false) {
               } else {
                 const type = typeConstructor(object.items, true)
                 const hasLink = type.includes('(#')
-                typeString = hasLink ? type.replace(/\[`(.*)`\]/,"[`$1[]`]") : `${m}${type}[]${m}`
+                typeString = hasLink ? type.replace(/\[`(.*)`\]/, "[`$1[]`]") : `${m}${type}[]${m}`
               }
               break
             }
@@ -304,7 +293,7 @@ function longFormTypeConstructor(object) {
     object.anyOf.forEach((item) => {
       var description = ':'
       if (item.description) {
-        description = `: ${descriptionConstructor(item.description, false)}`
+        description = `: ${descriptionConstructor(item.description)}`
       }
       buffer.push(`- ${typeConstructor(item)}${listDescription(description)}`)
     })
@@ -318,7 +307,7 @@ function longFormTypeConstructor(object) {
     object.oneOf.forEach((item) => {
       var description = ':'
       if (item.description) {
-        description = `: ${descriptionConstructor(item.description, false)}`
+        description = `: ${descriptionConstructor(item.description)}`
       }
       buffer.push(`- ${typeConstructor(item, true)}${listDescription(description)}`)
     })
@@ -326,7 +315,7 @@ function longFormTypeConstructor(object) {
     return buffer.join(`\n`)
   }
 
-  return `Type: ${typeConstructor(object)}\n`
+  return `Type: ${typeConstructor(object)}`
 }
 
 function defaultConstructor(object) {
