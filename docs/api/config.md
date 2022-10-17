@@ -61,19 +61,6 @@ The configuration is composed of the following objects:
 }
 ```
 
-Type: `object`
-
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="configuration.package">`package`<a class="hash-link" href="#configuration.package"></a></div> | [`PackageConfig`](#packageconfig) | [view](#packageconfig) | Package settings. |
-| <div className="anchor-with-padding" id="configuration.tauri">`tauri`<a class="hash-link" href="#configuration.tauri"></a></div> | [`TauriConfig`](#tauriconfig) | [view](#tauriconfig) | The Tauri configuration. |
-| <div className="anchor-with-padding" id="configuration.build">`build`<a class="hash-link" href="#configuration.build"></a></div> | [`BuildConfig`](#buildconfig) | [view](#buildconfig) | The build configuration. |
-| <div className="anchor-with-padding" id="configuration.plugins">`plugins`<a class="hash-link" href="#configuration.plugins"></a></div> | [`PluginConfig`](#pluginconfig) | [view](#pluginconfig) | The plugins config. |
-
-
-
-<br />
-
 ### PackageConfig
 
 The package configuration.
@@ -85,9 +72,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="packageconfig.productname">`productName`<a class="hash-link" href="#packageconfig.productname"></a></div> | `string`? | _null_ | App name. |
 | <div className="anchor-with-padding" id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file containing the `version` field. |
 
-
-
-<br />
 
 ### TauriConfig
 
@@ -108,10 +92,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="tauriconfig.macosprivateapi">`macOSPrivateApi`<a class="hash-link" href="#tauriconfig.macosprivateapi"></a></div> | `boolean` | `false` | MacOS private API configuration. Enables the transparent background API and sets the `fullScreenEnabled` preference to `true`. |
 
 
-
-<br />
-
-### PatternKind
+#### PatternKind
 
 The application pattern.
 
@@ -119,8 +100,6 @@ Can be any **ONE** of the following types:
 
 - { "use": "brownfield" }: Brownfield pattern.
 - { "use": "isolation", "options": { "dir": string } }: Isolation pattern. Recommended for security purposes.
-
-<br />
 
 ### WindowConfig
 
@@ -155,10 +134,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
 
 
-
-<br />
-
-### WindowUrl
+#### WindowUrl
 
 An URL to open on a Tauri webview window.
 
@@ -167,17 +143,13 @@ Can be any of the following types:
 - `string` _(format: `uri`)_: An external URL.
 - `string`: The path portion of an app URL. For instance, to load `tauri://localhost/users/john`, you can simply provide `users/john` in this configuration.
 
-<br />
-
-### Theme
+#### Theme
 
 System theme.
 
 Can be any of the following `string` values:
 - Light
 - Dark
-
-<br />
 
 ### CliConfig
 
@@ -195,10 +167,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="cliconfig.subcommands">`subcommands`<a class="hash-link" href="#cliconfig.subcommands"></a></div> | `object`? | _null_ | List of subcommands of this command |
 
 
-
-<br />
-
-### CliArg
+#### CliArg
 
 A CLI argument definition.
 
@@ -231,9 +200,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="cliarg.index">`index`<a class="hash-link" href="#cliarg.index"></a></div> | `integer`? _(format: `uint`, minimum: `1`)_ | _null_ | The positional argument index, starting at 1.<br /><br />The index refers to position according to other positional argument. It does not define position in the argument list as a whole. When utilized with multiple=true, only the last positional argument may be defined as multiple (i.e. the one with the highest index). |
 
 
-
-<br />
-
 ### BundleConfig
 
 Configuration for tauri-bundler.
@@ -258,10 +224,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.windows">`windows`<a class="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig) | [view](#windowsconfig) | Configuration for the Windows bundle. |
 
 
-
-<br />
-
-### BundleTarget
+#### BundleTarget
 
 Targets to bundle. Each value is case insensitive.
 
@@ -271,9 +234,7 @@ Can be any of the following types:
 - [`BundleType[]`](#bundletype): A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
-<br />
-
-### BundleType
+#### BundleType
 
 A bundle referenced by tauri-bundler.
 
@@ -284,8 +245,6 @@ Can be any of the following `string` values:
 - app
 - dmg
 - updater
-
-<br />
 
 ### AppImageConfig
 
@@ -298,9 +257,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="appimageconfig.bundlemediaframework">`bundleMediaFramework`<a class="hash-link" href="#appimageconfig.bundlemediaframework"></a></div> | `boolean` | `false` | Include additional gstreamer dependencies needed for audio and video playback. This increases the bundle size by ~15-35MB depending on your build system. |
 
 
-
-<br />
-
 ### DebConfig
 
 Configuration for Debian (.deb) bundles.
@@ -312,9 +268,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="debconfig.depends">`depends`<a class="hash-link" href="#debconfig.depends"></a></div> | `array`? | _null_ | The list of deb dependencies your application relies on. |
 | <div className="anchor-with-padding" id="debconfig.files">`files`<a class="hash-link" href="#debconfig.files"></a></div> | `object` | _null_ | The files to include on the package. |
 
-
-
-<br />
 
 ### MacConfig
 
@@ -332,9 +285,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="macconfig.providershortname">`providerShortName`<a class="hash-link" href="#macconfig.providershortname"></a></div> | `string`? | _null_ | Provider short name for notarization. |
 | <div className="anchor-with-padding" id="macconfig.entitlements">`entitlements`<a class="hash-link" href="#macconfig.entitlements"></a></div> | `string`? | _null_ | Path to the entitlements file. |
 
-
-
-<br />
 
 ### WindowsConfig
 
@@ -354,10 +304,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
 
 
-
-<br />
-
-### WebviewInstallMode
+#### WebviewInstallMode
 
 Install modes for the Webview2 runtime. Note that for the updater bundle `DownloadBootstrapper` is used.
 
@@ -370,8 +317,6 @@ Can be any **ONE** of the following types:
 - { "type": "embedBootstrapper", "silent": boolean }: Embed the bootstrapper and run it. Requires internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
 - { "type": "offlineInstaller", "silent": boolean }: Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
 - { "type": "fixedRuntime", "path": string }: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
-
-<br />
 
 ### WixConfig
 
@@ -396,10 +341,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="wixconfig.dialogimagepath">`dialogImagePath`<a class="hash-link" href="#wixconfig.dialogimagepath"></a></div> | `string`? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
 
 
-
-<br />
-
-### WixLanguage
+#### WixLanguage
 
 The languages to build using WiX.
 
@@ -408,8 +350,6 @@ Can be any of the following types:
 - `string`: A single language to build, without configuration.
 - `string[]`: A list of languages to build, without configuration.
 - `object`: A map of languages and its configuration.
-
-<br />
 
 ### WixLanguageConfig
 
@@ -421,9 +361,6 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="wixlanguageconfig.localepath">`localePath`<a class="hash-link" href="#wixlanguageconfig.localepath"></a></div> | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
 
-
-
-<br />
 
 ### AllowlistConfig
 
@@ -448,9 +385,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="allowlistconfig.clipboard">`clipboard`<a class="hash-link" href="#allowlistconfig.clipboard"></a></div> | [`ClipboardAllowlistConfig`](#clipboardallowlistconfig) | [view](#clipboardallowlistconfig) | Clipboard APIs allowlist. |
 
 
-
-<br />
-
 ### FsAllowlistConfig
 
 Allowlist for the file system APIs.
@@ -472,10 +406,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="fsallowlistconfig.exists">`exists`<a class="hash-link" href="#fsallowlistconfig.exists"></a></div> | `boolean` | `false` | Check if path exists on the local filesystem. |
 
 
-
-<br />
-
-### FsAllowlistScope
+#### FsAllowlistScope
 
 Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview.
 
@@ -485,8 +416,6 @@ Can be any of the following types:
 
 - `string[]`: A list of paths that are allowed by this scope.
 - `object`: A complete scope configuration.
-
-<br />
 
 ### WindowAllowlistConfig
 
@@ -527,9 +456,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowallowlistconfig.print">`print`<a class="hash-link" href="#windowallowlistconfig.print"></a></div> | `boolean` | `false` | Allows opening the system dialog to print the window content. |
 
 
-
-<br />
-
 ### ShellAllowlistConfig
 
 Allowlist for the shell APIs.
@@ -545,19 +471,13 @@ Type: `object`
 | <div className="anchor-with-padding" id="shellallowlistconfig.open">`open`<a class="hash-link" href="#shellallowlistconfig.open"></a></div> | [`ShellAllowlistOpen`](#shellallowlistopen) | `false` | Open URL with the user's default application. |
 
 
-
-<br />
-
-### ShellAllowlistScope
+#### ShellAllowlistScope
 
 Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
 
 Type: [`ShellAllowedCommand[]`](#shellallowedcommand)
 
-
-<br />
-
-### ShellAllowedCommand
+#### ShellAllowedCommand
 
 A command allowed to be executed by the webview API.
 
@@ -571,10 +491,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | `boolean` | `false` | If this command is a sidecar command. |
 
 
-
-<br />
-
-### ShellAllowedArgs
+#### ShellAllowedArgs
 
 A set of command arguments allowed to be executed by the webview API.
 
@@ -585,9 +502,7 @@ Can be any of the following types:
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
 - [`ShellAllowedArg[]`](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
-<br />
-
-### ShellAllowedArg
+#### ShellAllowedArg
 
 A command argument allowed to be executed by the webview API.
 
@@ -596,9 +511,7 @@ Can be any of the following types:
 - `string`: A non-configurable argument that is passed to the command in the order it was specified.
 - `object`: A variable that is set while calling the command from the webview API.
 
-<br />
-
-### ShellAllowlistOpen
+#### ShellAllowlistOpen
 
 Defines the `shell > open` api scope.
 
@@ -610,8 +523,6 @@ Can be any of the following types:
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
 	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
-
-<br />
 
 ### DialogAllowlistConfig
 
@@ -629,9 +540,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="dialogallowlistconfig.confirm">`confirm`<a class="hash-link" href="#dialogallowlistconfig.confirm"></a></div> | `boolean` | `false` | Allows the API to show a dialog window with Ok/Cancel buttons. |
 
 
-
-<br />
-
 ### HttpAllowlistConfig
 
 Allowlist for the HTTP APIs.
@@ -645,10 +553,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="httpallowlistconfig.request">`request`<a class="hash-link" href="#httpallowlistconfig.request"></a></div> | `boolean` | `false` | Allows making HTTP requests. |
 
 
-
-<br />
-
-### HttpAllowlistScope
+#### HttpAllowlistScope
 
 HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern.
 
@@ -658,9 +563,6 @@ Examples:
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
 Type: `string _(format: `uri`)_[]`
-
-
-<br />
 
 ### NotificationAllowlistConfig
 
@@ -673,9 +575,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="notificationallowlistconfig.all">`all`<a class="hash-link" href="#notificationallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all notification API features. |
 
 
-
-<br />
-
 ### GlobalShortcutAllowlistConfig
 
 Allowlist for the global shortcut APIs.
@@ -686,9 +585,6 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="globalshortcutallowlistconfig.all">`all`<a class="hash-link" href="#globalshortcutallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all global shortcut API features. |
 
-
-
-<br />
 
 ### OsAllowlistConfig
 
@@ -701,9 +597,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="osallowlistconfig.all">`all`<a class="hash-link" href="#osallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all OS API features. |
 
 
-
-<br />
-
 ### PathAllowlistConfig
 
 Allowlist for the path APIs.
@@ -714,9 +607,6 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="pathallowlistconfig.all">`all`<a class="hash-link" href="#pathallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all path API features. |
 
-
-
-<br />
 
 ### ProtocolAllowlistConfig
 
@@ -730,9 +620,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="protocolallowlistconfig.all">`all`<a class="hash-link" href="#protocolallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all custom protocols. |
 | <div className="anchor-with-padding" id="protocolallowlistconfig.asset">`asset`<a class="hash-link" href="#protocolallowlistconfig.asset"></a></div> | `boolean` | `false` | Enables the asset protocol. |
 
-
-
-<br />
 
 ### ProcessAllowlistConfig
 
@@ -748,9 +635,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="processallowlistconfig.exit">`exit`<a class="hash-link" href="#processallowlistconfig.exit"></a></div> | `boolean` | `false` | Enables the exit API. |
 
 
-
-<br />
-
 ### ClipboardAllowlistConfig
 
 Allowlist for the clipboard APIs.
@@ -763,9 +647,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="clipboardallowlistconfig.writetext">`writeText`<a class="hash-link" href="#clipboardallowlistconfig.writetext"></a></div> | `boolean` | `false` | Enables the clipboard's `writeText` API. |
 | <div className="anchor-with-padding" id="clipboardallowlistconfig.readtext">`readText`<a class="hash-link" href="#clipboardallowlistconfig.readtext"></a></div> | `boolean` | `false` | Enables the clipboard's `readText` API. |
 
-
-
-<br />
 
 ### SecurityConfig
 
@@ -781,10 +662,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="securityconfig.dangerousdisableassetcspmodification">`dangerousDisableAssetCspModification`<a class="hash-link" href="#securityconfig.dangerousdisableassetcspmodification"></a></div> | [`DisabledCspModificationKind`](#disabledcspmodificationkind) | `false` | Disables the Tauri-injected CSP sources.<br /><br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources.<br /><br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject.<br /><br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
 
 
-
-<br />
-
-### Csp
+#### Csp
 
 A Content-Security-Policy definition. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
@@ -793,9 +671,7 @@ Can be any of the following types:
 - `string`: The entire CSP policy in a single text string.
 - `object`: An object mapping a directive with its sources values as a list of strings.
 
-<br />
-
-### CspDirectiveSources
+#### CspDirectiveSources
 
 A Content-Security-Policy directive source list. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources>.
 
@@ -804,9 +680,7 @@ Can be any of the following types:
 - `string`: An inline list of CSP sources. Same as `List`, but concatenated with a space separator.
 - `string[]`: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
 
-<br />
-
-### DisabledCspModificationKind
+#### DisabledCspModificationKind
 
 The possible values for the `dangerous_disable_asset_csp_modification` config option.
 
@@ -814,8 +688,6 @@ Can be any of the following types:
 
 - `boolean`: If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
 - `string[]`: Disables the given list of CSP directives modifications.
-
-<br />
 
 ### UpdaterConfig
 
@@ -832,19 +704,13 @@ Type: `object`
 | <div className="anchor-with-padding" id="updaterconfig.windows">`windows`<a class="hash-link" href="#updaterconfig.windows"></a></div> | [`UpdaterWindowsConfig`](#updaterwindowsconfig) | [view](#updaterwindowsconfig) | The Windows configuration for the updater. |
 
 
-
-<br />
-
-### UpdaterEndpoint
+#### UpdaterEndpoint
 
 A URL to an updater server.
 
 The URL must use the `https` scheme on production.
 
 Type: `string` _(format: `uri`)_
-
-
-<br />
 
 ### UpdaterWindowsConfig
 
@@ -857,10 +723,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="updaterwindowsconfig.installmode">`installMode`<a class="hash-link" href="#updaterwindowsconfig.installmode"></a></div> | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode) | [view](#windowsupdateinstallmode) | The installation mode for the update on Windows. Defaults to `passive`. |
 
 
-
-<br />
-
-### WindowsUpdateInstallMode
+#### WindowsUpdateInstallMode
 
 Install modes for the Windows update.
 
@@ -868,8 +731,6 @@ Can be any of the following `string` values:
 - basicUi
 - quiet
 - passive
-
-<br />
 
 ### SystemTrayConfig
 
@@ -883,9 +744,6 @@ Type: `object`
 | <div className="anchor-with-padding" id="systemtrayconfig.iconastemplate">`iconAsTemplate`<a class="hash-link" href="#systemtrayconfig.iconastemplate"></a></div> | `boolean` | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.menuonleftclick">`menuOnLeftClick`<a class="hash-link" href="#systemtrayconfig.menuonleftclick"></a></div> | `boolean` | `true` | A Boolean value that determines whether the menu should appear when the tray icon receives a left click on macOS. |
 
-
-
-<br />
 
 ### BuildConfig
 
@@ -905,10 +763,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="buildconfig.withglobaltauri">`withGlobalTauri`<a class="hash-link" href="#buildconfig.withglobaltauri"></a></div> | `boolean` | `false` | Whether we should inject the Tauri API on `window.__TAURI__` or not. |
 
 
-
-<br />
-
-### AppUrl
+#### AppUrl
 
 Defines the URL or assets to embed in the application.
 
@@ -917,9 +772,7 @@ Can be any of the following types:
 - [`WindowUrl`](#windowurl): The app's external URL, or the path to the directory containing the app assets.
 - `string[]`: An array of files to embed on the app.
 
-<br />
-
-### BeforeDevCommand
+#### BeforeDevCommand
 
 Describes the shell command to run before `tauri dev`.
 
@@ -928,9 +781,7 @@ Can be any of the following types:
 - `string`: Run the given script with the default options.
 - `object`: Run the given script with custom options.
 
-<br />
-
-### HookCommand
+#### HookCommand
 
 Describes a shell command to be executed when a CLI hook is triggered.
 
@@ -938,8 +789,6 @@ Can be any of the following types:
 
 - `string`: Run the given script with the default options.
 - `object`: Run the given script with custom options.
-
-<br />
 
 ### PluginConfig
 
