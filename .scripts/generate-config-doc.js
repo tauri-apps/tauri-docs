@@ -30,7 +30,7 @@ function buildObject(key, value) {
   output.push(`${descriptionConstructor(value.description)}\n`)
 
   if (headerLevel > 1) {
-    output.push(`:::note Type\n\n${longFormTypeConstructor(value)}\n\n:::\n`)
+    output.push(`${longFormTypeConstructor(value)}\n`)
     buildProperties(headerTitle, value)
   }
   else {

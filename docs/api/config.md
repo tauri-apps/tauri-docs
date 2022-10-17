@@ -65,11 +65,7 @@ The configuration is composed of the following objects:
 
 The package configuration.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -81,11 +77,7 @@ Type: `object`
 
 The Tauri configuration object.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -104,24 +96,16 @@ Type: `object`
 
 The application pattern.
 
-:::note Type
-
 Can be any **ONE** of the following types:
 
 - { "use": "brownfield" }: Brownfield pattern.
 - { "use": "isolation", "options": { "dir": string } }: Isolation pattern. Recommended for security purposes.
 
-:::
-
 ### WindowConfig
 
 The window configuration object.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -154,36 +138,24 @@ Type: `object`
 
 An URL to open on a Tauri webview window.
 
-:::note Type
-
 Can be any of the following types:
 
 - `string` _(format: `uri`)_: An external URL.
 - `string`: The path portion of an app URL. For instance, to load `tauri://localhost/users/john`, you can simply provide `users/john` in this configuration.
 
-:::
-
 #### Theme
 
 System theme.
-
-:::note Type
 
 Can be any of the following `string` values:
 - Light
 - Dark
 
-:::
-
 ### CliConfig
 
 describes a CLI configuration
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -199,11 +171,7 @@ Type: `object`
 
 A CLI argument definition.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -236,11 +204,7 @@ Type: `object`
 
 Configuration for tauri-bundler.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -264,21 +228,15 @@ Type: `object`
 
 Targets to bundle. Each value is case insensitive.
 
-:::note Type
-
 Can be any of the following types:
 
 - `"all"`: Bundle all targets.
 - [`BundleType[]`](#bundletype): A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
-:::
-
 #### BundleType
 
 A bundle referenced by tauri-bundler.
-
-:::note Type
 
 Can be any of the following `string` values:
 - deb
@@ -288,17 +246,11 @@ Can be any of the following `string` values:
 - dmg
 - updater
 
-:::
-
 ### AppImageConfig
 
 Configuration for AppImage bundles.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -309,11 +261,7 @@ Type: `object`
 
 Configuration for Debian (.deb) bundles.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -325,11 +273,7 @@ Type: `object`
 
 Configuration for the macOS bundles.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -346,11 +290,7 @@ Type: `object`
 
 Windows bundler configuration.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -370,8 +310,6 @@ Install modes for the Webview2 runtime. Note that for the updater bundle `Downlo
 
 For more information see <https://tauri.app/v1/guides/building/windows>.
 
-:::note Type
-
 Can be any **ONE** of the following types:
 
 - { "type": "skip" }: Do not install the Webview2 as part of the Windows Installer.
@@ -380,17 +318,11 @@ Can be any **ONE** of the following types:
 - { "type": "offlineInstaller", "silent": boolean }: Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
 - { "type": "fixedRuntime", "path": string }: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
 
-:::
-
 ### WixConfig
 
 Configuration for the MSI bundle using WiX.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -413,25 +345,17 @@ Type: `object`
 
 The languages to build using WiX.
 
-:::note Type
-
 Can be any of the following types:
 
 - `string`: A single language to build, without configuration.
 - `string[]`: A list of languages to build, without configuration.
 - `object`: A map of languages and its configuration.
 
-:::
-
 ### WixLanguageConfig
 
 Configuration for a target language for the WiX build.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -442,11 +366,7 @@ Type: `object`
 
 Allowlist configuration.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -469,11 +389,7 @@ Type: `object`
 
 Allowlist for the file system APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -496,24 +412,16 @@ Filesystem scope definition. It is a list of glob patterns that restrict the API
 
 Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
 
-:::note Type
-
 Can be any of the following types:
 
 - `string[]`: A list of paths that are allowed by this scope.
 - `object`: A complete scope configuration.
 
-:::
-
 ### WindowAllowlistConfig
 
 Allowlist for the window APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -552,11 +460,7 @@ Type: `object`
 
 Allowlist for the shell APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -571,21 +475,13 @@ Type: `object`
 
 Shell scope definition. It is a list of command names and associated CLI arguments that restrict the API access from the webview.
 
-:::note Type
-
 Type: [`ShellAllowedCommand[]`](#shellallowedcommand)
-
-:::
 
 #### ShellAllowedCommand
 
 A command allowed to be executed by the webview API.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -601,33 +497,23 @@ A set of command arguments allowed to be executed by the webview API.
 
 A value of `true` will allow any arguments to be passed to the command. `false` will disable all arguments. A list of [`ShellAllowedArg`] will set those arguments as the only valid arguments to be passed to the attached command configuration.
 
-:::note Type
-
 Can be any of the following types:
 
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
 - [`ShellAllowedArg[]`](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
-:::
-
 #### ShellAllowedArg
 
 A command argument allowed to be executed by the webview API.
-
-:::note Type
 
 Can be any of the following types:
 
 - `string`: A non-configurable argument that is passed to the command in the order it was specified.
 - `object`: A variable that is set while calling the command from the webview API.
 
-:::
-
 #### ShellAllowlistOpen
 
 Defines the `shell > open` api scope.
-
-:::note Type
 
 Can be any of the following types:
 
@@ -638,17 +524,11 @@ Can be any of the following types:
 
 	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
 
-:::
-
 ### DialogAllowlistConfig
 
 Allowlist for the dialog APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -664,11 +544,7 @@ Type: `object`
 
 Allowlist for the HTTP APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -686,21 +562,13 @@ Examples:
 - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
-:::note Type
-
 Type: `string _(format: `uri`)_[]`
-
-:::
 
 ### NotificationAllowlistConfig
 
 Allowlist for the notification APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -711,11 +579,7 @@ Type: `object`
 
 Allowlist for the global shortcut APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -726,11 +590,7 @@ Type: `object`
 
 Allowlist for the OS APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -741,11 +601,7 @@ Type: `object`
 
 Allowlist for the path APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -756,11 +612,7 @@ Type: `object`
 
 Allowlist for the custom protocols.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -773,11 +625,7 @@ Type: `object`
 
 Allowlist for the process APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -791,11 +639,7 @@ Type: `object`
 
 Allowlist for the clipboard APIs.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -808,11 +652,7 @@ Type: `object`
 
 Security configuration.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -826,50 +666,34 @@ Type: `object`
 
 A Content-Security-Policy definition. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
-:::note Type
-
 Can be any of the following types:
 
 - `string`: The entire CSP policy in a single text string.
 - `object`: An object mapping a directive with its sources values as a list of strings.
 
-:::
-
 #### CspDirectiveSources
 
 A Content-Security-Policy directive source list. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources>.
-
-:::note Type
 
 Can be any of the following types:
 
 - `string`: An inline list of CSP sources. Same as `List`, but concatenated with a space separator.
 - `string[]`: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
 
-:::
-
 #### DisabledCspModificationKind
 
 The possible values for the `dangerous_disable_asset_csp_modification` config option.
-
-:::note Type
 
 Can be any of the following types:
 
 - `boolean`: If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
 - `string[]`: Disables the given list of CSP directives modifications.
 
-:::
-
 ### UpdaterConfig
 
 The Updater configuration object.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -886,21 +710,13 @@ A URL to an updater server.
 
 The URL must use the `https` scheme on production.
 
-:::note Type
-
 Type: `string` _(format: `uri`)_
-
-:::
 
 ### UpdaterWindowsConfig
 
 The updater configuration for Windows.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -911,24 +727,16 @@ Type: `object`
 
 Install modes for the Windows update.
 
-:::note Type
-
 Can be any of the following `string` values:
 - basicUi
 - quiet
 - passive
 
-:::
-
 ### SystemTrayConfig
 
 Configuration for application system tray icon.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -941,11 +749,7 @@ Type: `object`
 
 The Build configuration object.
 
-:::note Type
-
 Type: `object`
-
-:::
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -963,47 +767,31 @@ Type: `object`
 
 Defines the URL or assets to embed in the application.
 
-:::note Type
-
 Can be any of the following types:
 
 - [`WindowUrl`](#windowurl): The app's external URL, or the path to the directory containing the app assets.
 - `string[]`: An array of files to embed on the app.
 
-:::
-
 #### BeforeDevCommand
 
 Describes the shell command to run before `tauri dev`.
-
-:::note Type
 
 Can be any of the following types:
 
 - `string`: Run the given script with the default options.
 - `object`: Run the given script with custom options.
-
-:::
 
 #### HookCommand
 
 Describes a shell command to be executed when a CLI hook is triggered.
 
-:::note Type
-
 Can be any of the following types:
 
 - `string`: Run the given script with the default options.
 - `object`: Run the given script with custom options.
 
-:::
-
 ### PluginConfig
 
 The plugin configs holds a HashMap mapping a plugin name to its configuration object.
 
-:::note Type
-
 Type: `object`
-
-:::
