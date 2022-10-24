@@ -31,30 +31,30 @@ First, let's create our Tauri `distDir` that we know we will need once building 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Hello Tauri!</title>
     <style>
-        body {
-            /* Add a nice colorscheme */
-            background-color: #222831;
-            color: #ececec;
+      body {
+        /* Add a nice colorscheme */
+        background-color: #222831;
+        color: #ececec;
 
-            /* Make the body the exact size of the window */
-            margin: 0;
-            height: 100vh;
-            width: 100vw;
+        /* Make the body the exact size of the window */
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
 
-            /* Vertically and horizontally center children of the body tag */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Vertically and horizontally center children of the body tag */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     </style>
-</head>
-<body>
-<h1>Hello, Tauri!</h1>
-</body>
+  </head>
+  <body>
+    <h1>Hello, Tauri!</h1>
+  </body>
 </html>
 ```
 
@@ -146,9 +146,7 @@ here.
   "tauri": {
     "bundle": {
       "identifier": "studio.tauri.hello_tauri_webdriver",
-      "icon": [
-        "icon.png"
-      ]
+      "icon": ["icon.png"]
     },
     "allowlist": {
       "all": false
@@ -179,7 +177,7 @@ will also run our WebDriver tests with a release profile. Run `cargo run --relea
 see the following application pop up.
 
 <div style={{textAlign: 'center'}}>
-    <img src={HelloTauriWebdriver}/>
+  <img src={HelloTauriWebdriver}/>
 </div>
 
 _Note: If you are modifying the application and want to use the Devtools, then run it without `--release` and "Inspect
