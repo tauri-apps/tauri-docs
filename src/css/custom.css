@@ -64,7 +64,7 @@
   min-height: 3rem;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 350px) {
   #announcement-link {
     display: block;
   }
