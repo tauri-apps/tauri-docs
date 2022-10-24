@@ -22,7 +22,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
       "externalBin": [
         "/absolute/path/to/sidecar",
         "relative/path/to/binary",
-        "bin/python"
+        "binaries/my-sidecar"
       ]
     },
     "allowlist": {
@@ -31,7 +31,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
         "scope": [
           { "name": "/absolute/path/to/sidecar", "sidecar": true },
           { "name": "relative/path/to/binary", "sidecar": true },
-          { "name": "bin/python", "sidecar": true }
+          { "name": "binaries/my-sidecar", "sidecar": true }
         ]
       }
     }
@@ -39,7 +39,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
-A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["bin/python"]` requires a `src-tauri/bin/python-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple running the following command:
+A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple running the following command:
 
 ```shell
 rustc -Vv | grep host | cut -f2 -d' '
@@ -82,8 +82,8 @@ Note that you must configure the allowlist to enable `shell > sidecar` and confi
 ```javascript
 import { Command } from '@tauri-apps/api/shell'
 // alternatively, use `window.__TAURI__.shell.Command`
-// `my-sidecar` is the value specified on `tauri.conf.json > tauri > bundle > externalBin`
-const command = Command.sidecar('my-sidecar')
+// `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
+const command = Command.sidecar('binaries/my-sidecar')
 const output = await command.execute()
 ```
 
@@ -92,6 +92,7 @@ const output = await command.execute()
 On the Rust side, import the `Command` struct from the `tauri::api::process` module:
 
 ```rust
+// `new_sidecar()` expects just the filename, NOT the whole path like in JavaScript
 let (mut rx, mut child) = Command::new_sidecar("my-sidecar")
   .expect("failed to create `my-sidecar` binary command")
   .spawn()
@@ -111,7 +112,7 @@ tauri::async_runtime::spawn(async move {
 });
 ```
 
-Note that you must enable the **process-command-api** Cargo feature:
+Note that you must enable the **process-command-api** Cargo feature (Tauri's CLI will do this for you once you changed the config):
 
 ```toml
 # Cargo.toml
