@@ -19,7 +19,7 @@ Code signing your application lets users know that they downloaded the official 
 
 If you sign the app with an EV Certificate, it'll receive immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
 
-If you opt for an OV Certificate, which is generally cheaper, Microsoft SmartScreen will show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app](https://www.microsoft.com/en-us/wdsi/filesubmission/) to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant instant reputation and remove the warning for that specific uploaded file.
+If you opt for an OV Certificate, which is generally cheaper and available for Individuals, Microsoft SmartScreen will still show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app] to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant additional reputation and potentially remove the warning for that specific uploaded file.
 
 :::
 
@@ -184,5 +184,6 @@ jobs:
 
 5. Your workflow can now import your windows certificate and import it into the GitHub runner, allowing for automated code-signing!
 
+[submitting your app]: https://www.microsoft.com/en-us/wdsi/filesubmission/
 [encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
 [`tauri-action` publish template]: https://github.com/tauri-apps/tauri-action
