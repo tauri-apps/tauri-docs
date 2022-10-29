@@ -48,15 +48,8 @@ jobs:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
 
-      - name: Checkout typedoc-plugin-markdown
-        uses: actions/checkout@v2
-        with:
-          repository: tauri-apps/typedoc-plugin-markdown
-          ref: next
-          path: typedoc-plugin-markdown
-
       - name: Build typedoc-plugin-markdown
-        working-directory: typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+        working-directory: packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
         run: yarn && yarn build
 
       - name: Prep for JS doc generation
