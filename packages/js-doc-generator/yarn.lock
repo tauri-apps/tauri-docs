@@ -45,7 +45,7 @@ shiki@^0.11.1:
     vscode-oniguruma "^1.6.1"
     vscode-textmate "^6.0.0"
 
-typedoc-plugin-markdown@../../../typedoc-plugin-markdown/packages/typedoc-plugin-markdown:
+typedoc-plugin-markdown@../typedoc-plugin-markdown/packages/typedoc-plugin-markdown:
   version "3.13.4"
 
 typedoc-plugin-mdn-links@2.0.0:
