@@ -47,6 +47,7 @@ jobs:
         with:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
+          submodules: true
 
       - name: Build typedoc-plugin-markdown
         working-directory: packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
