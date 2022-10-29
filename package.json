@@ -11,9 +11,9 @@
     "i18n:sync:dryrun": "docusaurus write-translations && crowdin upload --dryrun && crowdin download"
   },
   "dependencies": {
-    "@docusaurus/core": "2.1.0",
-    "@docusaurus/plugin-pwa": "2.1.0",
-    "@docusaurus/preset-classic": "2.1.0",
+    "@docusaurus/core": "2.2.0",
+    "@docusaurus/plugin-pwa": "2.2.0",
+    "@docusaurus/preset-classic": "2.2.0",
     "@fontsource/rubik": "4.5.11",
     "@mdx-js/react": "1.6.22",
     "apexcharts": "3.36.0",
