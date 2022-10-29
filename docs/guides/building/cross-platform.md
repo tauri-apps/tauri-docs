@@ -110,7 +110,6 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: "./src-tauri -> target"
-          shared-key: ${{ runner.os }}-release
 
       - name: Yarn cache
         uses: actions/cache@v2
