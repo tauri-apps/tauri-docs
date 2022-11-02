@@ -12,8 +12,10 @@ Code signing your application lets users know that they downloaded the official 
 ## Prerequisites
 
 - Windows - you can likely use other platforms, but this tutorial uses Powershell native features.
-- Code signing certificate - you can acquire one of these on services such as Digicert.com, Comodo.com, & Godaddy.com. In this guide, we are using Comodo.com
 - A working Tauri application
+- Code signing certificate - you can acquire one of these on services listed in the [Microsoft docs]. Please make sure to get a **code signing** certificate, SSL certificates do not work!
+
+This guide assumes that you have a standard code signing certificate, in case you have an EV certificate, which generally involves a hardware token, please follow your issuers documentation instead.
 
 :::note
 
@@ -184,6 +186,7 @@ jobs:
 
 5. Your workflow can now import your windows certificate and import it into the GitHub runner, allowing for automated code-signing!
 
+[microsoft docs]: https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage
 [submitting your app]: https://www.microsoft.com/en-us/wdsi/filesubmission/
 [encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
 [`tauri-action` publish template]: https://github.com/tauri-apps/tauri-action
