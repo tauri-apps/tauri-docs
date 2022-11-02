@@ -16,7 +16,7 @@ Code signing your application lets users know that they downloaded the official 
 - Code signing certificate - you can acquire one of these on services listed in [Microsoft's docs]. There are likely additional authorities for non-EV certificates than included in that list, please compare them yourself and choose one at your own risk.
   - Please make sure to get a **code signing** certificate, SSL certificates do not work!
 
-This guide assumes that you have a standard code signing certificate, in case you have an EV certificate, which generally involves a hardware token, please follow your issuer's documentation instead.
+This guide assumes that you have a standard code signing certificate> If you have an EV certificate, which generally involves a hardware token, please follow your issuer's documentation instead.
 
 :::note
 
