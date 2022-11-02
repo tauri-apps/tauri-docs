@@ -63,7 +63,7 @@ The table below maps an OS version to the corresponding WebKit Safari versions s
 
 | OS Name     | OS Version                       | WebKit Version     | Safari Version | Notes                                                         |
 | ----------- | -------------------------------- | ------------------ | -------------- | ------------------------------------------------------------- |
-| Ventura     | 13.0 (Beta)                      | 614.1.25.11.1      | 16.0           |                                                               | 
+| Ventura     | 13.0                             | 614.2.9.1.12       | 16.1           | Verified on a 2020 M1 13" MacBook Pro                         | 
 | Monterey    | 12.6                             |                    |                | Verified on a 2020 M1 13" MacBook Pro                         |
 |             | 12.5.1                           | 613.3.9.1.16       | 15.6.1         | Verified on a 2020 M1 13" MacBook Pro                         |
 |             | 12.5                             | [613.3.9.1.5]      | 15.6           | Verified on a 2020 M1 13" MacBook Pro                         |
