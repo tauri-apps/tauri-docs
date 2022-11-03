@@ -87,6 +87,32 @@ test("invoke", async () => {
 })
 ```
 
+Mocking IPC requests to a sidecar (shell command) required grabbing the event handler id, and emitting events, as if they are coming from the spawned process:
+
+```js
+mockIPC(async (cmd, args) => {
+  if (args.message.cmd === 'execute') {
+    const eventCbId = `_${args.message.onEventFn}`;
+    const eventEmitter = window[eventCbId];
+
+    // 'Stdout' event can be called multiple times
+    eventEmitter({
+      event: 'Stdout',
+      payload: 'some data sent from the process',
+    });
+
+    // 'Terminated' event must be called at the end to resolve the promise
+    eventEmitter({
+      event: 'Terminated',
+      payload: {
+        code: 0,
+        signal: 'kill',
+      },
+    });
+  }
+});
+```
+
 ## Windows
 
 Sometimes you have window-specific code (a splash screen window, for example), so you need to simulate different windows.
