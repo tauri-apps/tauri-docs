@@ -53,10 +53,10 @@ typedoc-plugin-mdn-links@2.0.0:
   resolved "https://registry.yarnpkg.com/typedoc-plugin-mdn-links/-/typedoc-plugin-mdn-links-2.0.0.tgz#b43893bc7bdbb94927091f66d465f31e8440ad6c"
   integrity sha512-IGLuelXPOenGdmklr5DHgPPf/MfZj7aEYCxCMtPN8C1D0lA7w0YLahd0jhDDcOMU7zL1EPcM5pPnhZHltDhqGQ==
 
-typedoc@0.23.19:
-  version "0.23.19"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.19.tgz#6c8b76a7b5c1fc316e961464f0d6c3592ff09328"
-  integrity sha512-70jPL0GQnSJtgQqI7ifOWxpTXrB3sxc4SWPPRn3K0wdx3txI6ZIT/ZYMF39dNg2Gjmql45cO+cAKXJp0TpqOVA==
+typedoc@0.23.20:
+  version "0.23.20"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.20.tgz#c6fa221762322837161932990b79416afcdc895c"
+  integrity sha512-nfb4Mx05ZZZXux3zPcLuc7+3TVePDW3jTdEBqXdQzJUyEILxoprgPIiTChbvci9crkqNJG9YESmfCptuh9Gn3g==
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.19"
