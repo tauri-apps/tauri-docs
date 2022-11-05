@@ -35,7 +35,7 @@ tauri build --target aarc64-pc-windows-msvc
 
 ## Supporting Windows 7
 
-By default the Microsoft Installer does not work on Windows 7 because it needs to download the Webview2 bootstrapper if not installed (which might fail if TLS 1.2 is not enabled in the operating system). Tauri includes an option to embed the Webview2 bootstrapper (see the [Embedding the Webview2 Bootstrapper](#embedding-the-webview2-bootstrapper) section below).
+By default the Microsoft Installer does not work on Windows 7 because it needs to download the Webview2 bootstrapper if not installed (which might fail if TLS 1.2 is not enabled in the operating system). Tauri includes an option to embed the Webview2 bootstrapper (see the [Embedding the Webview2 Bootstrapper](#embedded-bootstrapper) section below).
 
 Additionally, to use the Notification API in Windows 7, you need to enable the `windows7-compat` Cargo feature:
 
