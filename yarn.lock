@@ -2641,10 +2641,10 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apexcharts@3.36.1:
-  version "3.36.1"
-  resolved "https://registry.yarnpkg.com/apexcharts/-/apexcharts-3.36.1.tgz#fa2b12380231a39c940f9a1e989bc467b831dc2c"
-  integrity sha512-jXSEVfG1IoSkE0oFPqcK+1qMZBSuqrPwAaeRsgSJdfk9BgGnHgESgydQgJ5Vu8KZFuoXdJQdJgzCY8nsntBopw==
+apexcharts@3.36.3:
+  version "3.36.3"
+  resolved "https://registry.yarnpkg.com/apexcharts/-/apexcharts-3.36.3.tgz#debd58ded07163d51e00aeb15827d594e0cc8129"
+  integrity sha512-8/FXEs0ohXMff07Gv28XjhPwEJphIUdq2/wii/pcvi54Tw6z1mjrV8ydN8rlWi/ve8BAPBefJkLmRWv7UOBsLw==
   dependencies:
     svg.draggable.js "^2.2.2"
     svg.easing.js "^2.0.0"
