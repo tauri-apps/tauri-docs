@@ -55,7 +55,7 @@ This release includes a patch for a security vulnerability reported by [MessyCom
 Due to incorrect escaping of special characters in paths selected via the file dialog and drag and drop functionality, it was possible to partially bypass the `fs` scope definition.
 It was not possible to traverse into arbitrary paths, as the issue was limited to neighboring files and sub folders of already allowed paths.
 A successful bypass requires the user to select a pre-existing malicious file or directory during the file picker dialog and an adversary controlled logic to access these files. This means the issue by itself can not be abused and requires further intentional or unintentional privileges.
-The patch is also available in 1.0.7 and 1.1.1. See [the advisory](https://github.com/tauri-apps/tauri/security/advisories/GHSA-q9wv-22m9-vhqh) for more details.
+The patch is also available in 1.0.7 and 1.1.2. See [the advisory](https://github.com/tauri-apps/tauri/security/advisories/GHSA-q9wv-22m9-vhqh) for more details.
 
 ### Rust version update
 
