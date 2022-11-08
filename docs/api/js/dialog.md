@@ -42,7 +42,7 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-**Defined in:** [dialog.ts:45](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L45)
+**Defined in:** [dialog.ts:45](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L45)
 
 ##### `name`
 
@@ -50,7 +50,7 @@ extensions: ['svg', 'png']
 
 Filter name.
 
-**Defined in:** [dialog.ts:37](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L37)
+**Defined in:** [dialog.ts:37](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L37)
 
 ### `MessageDialogOptions`
 
@@ -64,15 +64,15 @@ Filter name.
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in:** [dialog.ts:94](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L94)
+**Defined in:** [dialog.ts:94](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L94)
 
 ##### `type`
 
-> `Optional` **type**: `"error"` \| `"info"` \| `"warning"`
+> `Optional` **type**: `"info"` \| `"warning"` \| `"error"`
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in:** [dialog.ts:96](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L96)
+**Defined in:** [dialog.ts:96](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L96)
 
 ### `OpenDialogOptions`
 
@@ -88,7 +88,7 @@ Options for the open dialog.
 
 Initial directory or file path.
 
-**Defined in:** [dialog.ts:59](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L59)
+**Defined in:** [dialog.ts:59](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L59)
 
 ##### `directory`
 
@@ -96,7 +96,7 @@ Initial directory or file path.
 
 Whether the dialog is a directory selection or not.
 
-**Defined in:** [dialog.ts:63](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L63)
+**Defined in:** [dialog.ts:63](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L63)
 
 ##### `filters`
 
@@ -104,7 +104,7 @@ Whether the dialog is a directory selection or not.
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:57](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L57)
+**Defined in:** [dialog.ts:57](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L57)
 
 ##### `multiple`
 
@@ -112,7 +112,7 @@ The filters of the dialog.
 
 Whether the dialog allows multiple selection or not.
 
-**Defined in:** [dialog.ts:61](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L61)
+**Defined in:** [dialog.ts:61](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L61)
 
 ##### `recursive`
 
@@ -121,7 +121,7 @@ Whether the dialog allows multiple selection or not.
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L68)
+**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L68)
 
 ##### `title`
 
@@ -129,7 +129,7 @@ Defines whether subdirectories will be allowed on the scope or not.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L55)
+**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L55)
 
 ### `SaveDialogOptions`
 
@@ -147,7 +147,7 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-**Defined in:** [dialog.ts:86](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L86)
+**Defined in:** [dialog.ts:86](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L86)
 
 ##### `filters`
 
@@ -155,7 +155,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:80](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L80)
+**Defined in:** [dialog.ts:80](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L80)
 
 ##### `title`
 
@@ -163,7 +163,7 @@ The filters of the dialog.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:78](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/dialog.ts#L78)
+**Defined in:** [dialog.ts:78](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/dialog.ts#L78)
 
 ## Functions
 
@@ -316,7 +316,7 @@ A promise resolving to the selected path(s)
 
 ### `save`
 
-> **save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **save**(`options?`: [`SaveDialogOptions`](dialog.md#savedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 Open a file/directory save dialog.
 
@@ -332,10 +332,9 @@ You can save it to the filesystem using [tauri-plugin-persisted-scope](https://g
 ```typescript
 import { save } from '@tauri-apps/api/dialog';
 const filePath = await save({
-  multiple: true,
   filters: [{
     name: 'Image',
-    extensions: ['stronghold']
+    extensions: ['png', 'jpeg']
   }]
 });
 ```
@@ -348,6 +347,6 @@ const filePath = await save({
 | :------ | :------ |
 | `options` | [`SaveDialogOptions`](dialog.md#savedialogoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 A promise resolving to the selected path.

@@ -28,10 +28,10 @@ in `tauri.conf.json` and its access scope must be defined on the `assetScope` ar
 **Example**
 
 ```typescript
-import { appDir, join } from '@tauri-apps/api/path';
+import { appDataDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
-const appDirPath = await appDir();
-const filePath = await join(appDir, 'assets/video.mp4');
+const appDataDirPath = await appDataDir();
+const filePath = await join(appDataDirPath, 'assets/video.mp4');
 const assetUrl = convertFileSrc(filePath);
 
 const video = document.getElementById('my-video');

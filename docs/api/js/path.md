@@ -36,7 +36,7 @@ Provides the platform-specific path segment delimiter:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:574](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/path.ts#L574)
+**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/path.ts#L660)
 
 ### `sep`
 
@@ -48,25 +48,116 @@ Provides the platform-specific path segment separator:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:565](https://github.com/tauri-apps/tauri/blob/e4292ce/tooling/api/src/path.ts#L565)
+**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/path.ts#L651)
 
 ## Functions
+
+### `appCacheDir`
+
+> **appCacheDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns the path to the suggested directory for your app's cache files.
+Resolves to `${cacheDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
+
+**Example**
+
+```typescript
+import { appCacheDir } from '@tauri-apps/api/path';
+const appCacheDirPath = await appCacheDir();
+```
+
+**Since**: 1.2.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `appConfigDir`
+
+> **appConfigDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns the path to the suggested directory for your app's config files.
+Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
+
+**Example**
+
+```typescript
+import { appConfigDir } from '@tauri-apps/api/path';
+const appConfigDirPath = await appConfigDir();
+```
+
+**Since**: 1.2.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `appDataDir`
+
+> **appDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns the path to the suggested directory for your app's data files.
+Resolves to `${dataDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
+
+**Example**
+
+```typescript
+import { appDataDir } from '@tauri-apps/api/path';
+const appDataDirPath = await appDataDir();
+```
+
+**Since**: 1.2.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `appDir`
 
 > **appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the path to the suggested directory for your app config files.
-Resolves to `${configDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
+
+**Deprecated**
+
+since 1.2.0: Will be removed in 2.0.0. Use [appConfigDir](path.md#appconfigdir) or [appDataDir](path.md#appdatadir) instead.
+
+**Since**: 1.0.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `appLocalDataDir`
+
+> **appLocalDataDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns the path to the suggested directory for your app's local data files.
+Resolves to `${localDataDir}/${bundleIdentifier}`, where `bundleIdentifier` is the value [`tauri.bundle.identifier`](https://tauri.app/v1/api/config/#bundleconfig.identifier) is configured in `tauri.conf.json`.
 
 **Example**
 
 ```typescript
-import { appDir } from '@tauri-apps/api/path';
-const appDirPath = await appDir();
+import { appLocalDataDir } from '@tauri-apps/api/path';
+const appLocalDataDirPath = await appLocalDataDir();
 ```
 
-**Since**: 1.0.0
+**Since**: 1.2.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `appLogDir`
+
+> **appLogDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns the path to the suggested directory for your app's log files.
+
+#### Platform-specific
+
+- **Linux:** Resolves to `${configDir}/${bundleIdentifier}/logs`.
+- **macOS:** Resolves to `${homeDir}/Library/Logs/{bundleIdentifier}`
+- **Windows:** Resolves to `${configDir}/${bundleIdentifier}/logs`.
+
+**Example**
+
+```typescript
+import { appLogDir } from '@tauri-apps/api/path';
+const appLogDirPath = await appLogDir();
+```
+
+**Since**: 1.2.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -197,7 +288,7 @@ Returns the path to the user's desktop directory.
 #### Platform-specific
 
 - **Linux:** Resolves to [`xdg-user-dirs`](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)' `XDG_DESKTOP_DIR`.
-- **macOS:** Resolves to `$HOME/Library/Desktop`.
+- **macOS:** Resolves to `$HOME/Desktop`.
 - **Windows:** Resolves to `{FOLDERID_Desktop}`.
 
 **Example**
@@ -220,9 +311,9 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 **Example**
 
 ```typescript
-import { dirname, appDir } from '@tauri-apps/api/path';
-const appDirPath = await appDir();
-const dir = await dirname(appDirPath);
+import { dirname, appDataDir } from '@tauri-apps/api/path';
+const appDataDirPath = await appDataDir();
+const dir = await dirname(appDataDirPath);
 ```
 
 **Since**: 1.0.0
@@ -407,9 +498,9 @@ Joins all given `path` segments together using the platform-specific separator a
 **Example**
 
 ```typescript
-import { join, appDir } from '@tauri-apps/api/path';
-const appDirPath = await appDir();
-const path = await join(appDirPath, 'users', 'tauri', 'avatar.png');
+import { join, appDataDir } from '@tauri-apps/api/path';
+const appDataDirPath = await appDataDir();
+const path = await join(appDataDirPath, 'users', 'tauri', 'avatar.png');
 ```
 
 **Since**: 1.0.0
@@ -451,18 +542,9 @@ const localDataDirPath = await localDataDir();
 
 Returns the path to the suggested log directory.
 
-#### Platform-specific
+**Deprecated**
 
-- **Linux:** Resolves to `${configDir}/${bundleIdentifier}`.
-- **macOS:** Resolves to `${homeDir}//Library/Logs/{bundleIdentifier}`
-- **Windows:** Resolves to `${configDir}/${bundleIdentifier}`.
-
-**Example**
-
-```typescript
-import { logDir } from '@tauri-apps/api/path';
-const logDirPath = await logDir();
-```
+since 1.2.0: Will be removed in 2.0.0. Use [appLogDir](path.md#applogdir) instead.
 
 **Since**: 1.0.0
 
@@ -477,9 +559,9 @@ Normalizes the given `path`, resolving `'..'` and `'.'` segments and resolve sym
 **Example**
 
 ```typescript
-import { normalize, appDir } from '@tauri-apps/api/path';
-const appDirPath = await appDir();
-const path = await normalize(appDirPath, '..', 'users', 'tauri', 'avatar.png');
+import { normalize, appDataDir } from '@tauri-apps/api/path';
+const appDataDirPath = await appDataDir();
+const path = await normalize(appDataDirPath, '..', 'users', 'tauri', 'avatar.png');
 ```
 
 **Since**: 1.0.0
@@ -547,9 +629,9 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 **Example**
 
 ```typescript
-import { resolve, appDir } from '@tauri-apps/api/path';
-const appDirPath = await appDir();
-const path = await resolve(appDirPath, '..', 'users', 'tauri', 'avatar.png');
+import { resolve, appDataDir } from '@tauri-apps/api/path';
+const appDataDirPath = await appDataDir();
+const path = await resolve(appDataDirPath, '..', 'users', 'tauri', 'avatar.png');
 ```
 
 **Since**: 1.0.0
