@@ -3099,7 +3099,7 @@ Configuration for the window to create.
 
 > `Optional` **acceptFirstMouse**: `boolean`
 
-Whether clicking an inactive window also clicks through to the webview.
+Whether clicking an inactive window also clicks through to the webview on macOS.
 
 **Defined in:** [window.ts:2048](https://github.com/tauri-apps/tauri/blob/2e1bd04/tooling/api/src/window.ts#L2048)
 
