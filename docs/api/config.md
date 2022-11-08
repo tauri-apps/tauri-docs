@@ -111,6 +111,7 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="windowconfig.label">`label`<a class="hash-link" href="#windowconfig.label"></a></div> | `string` | _null_ | The window identifier. It must be alphanumeric. |
 | <div className="anchor-with-padding" id="windowconfig.url">`url`<a class="hash-link" href="#windowconfig.url"></a></div> | [`WindowUrl`](#windowurl) | [view](#windowurl) | The window webview URL. |
+| <div className="anchor-with-padding" id="windowconfig.useragent">`userAgent`<a class="hash-link" href="#windowconfig.useragent"></a></div> | `string`? | _null_ | The user agent for the webview |
 | <div className="anchor-with-padding" id="windowconfig.filedropenabled">`fileDropEnabled`<a class="hash-link" href="#windowconfig.filedropenabled"></a></div> | `boolean` | `true` | Whether the file drop is enabled or not on the webview. By default it is enabled.<br /><br />Disabling it is required to use drag and drop on the frontend on Windows. |
 | <div className="anchor-with-padding" id="windowconfig.center">`center`<a class="hash-link" href="#windowconfig.center"></a></div> | `boolean` | `false` | Whether or not the window starts centered or not. |
 | <div className="anchor-with-padding" id="windowconfig.x">`x`<a class="hash-link" href="#windowconfig.x"></a></div> | `number`? _(format: `double`)_ | _null_ | The horizontal position of the window's top left corner |
@@ -124,7 +125,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.resizable">`resizable`<a class="hash-link" href="#windowconfig.resizable"></a></div> | `boolean` | `true` | Whether the window is resizable or not. |
 | <div className="anchor-with-padding" id="windowconfig.title">`title`<a class="hash-link" href="#windowconfig.title"></a></div> | `string` | _null_ | The window title. |
 | <div className="anchor-with-padding" id="windowconfig.fullscreen">`fullscreen`<a class="hash-link" href="#windowconfig.fullscreen"></a></div> | `boolean` | `false` | Whether the window starts as fullscreen or not. |
-| <div className="anchor-with-padding" id="windowconfig.focus">`focus`<a class="hash-link" href="#windowconfig.focus"></a></div> | `boolean` | `true` | Whether the window will be initially hidden or focused. |
+| <div className="anchor-with-padding" id="windowconfig.focus">`focus`<a class="hash-link" href="#windowconfig.focus"></a></div> | `boolean` | `true` | Whether the window will be initially focused or not. |
 | <div className="anchor-with-padding" id="windowconfig.transparent">`transparent`<a class="hash-link" href="#windowconfig.transparent"></a></div> | `boolean` | `false` | Whether the window is transparent or not.<br /><br />Note that on `macOS` this requires the `macos-private-api` feature flag, enabled under `tauri > macOSPrivateApi`. WARNING: Using private APIs on `macOS` prevents your application from being accepted to the `App Store`. |
 | <div className="anchor-with-padding" id="windowconfig.maximized">`maximized`<a class="hash-link" href="#windowconfig.maximized"></a></div> | `boolean` | `false` | Whether the window is maximized or not. |
 | <div className="anchor-with-padding" id="windowconfig.visible">`visible`<a class="hash-link" href="#windowconfig.visible"></a></div> | `boolean` | `true` | Whether the window is visible or not. |
@@ -132,6 +133,10 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.alwaysontop">`alwaysOnTop`<a class="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean` | `false` | Whether the window should always be on top of other windows. |
 | <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean` | `false` | Whether or not the window icon should be added to the taskbar. |
 | <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
+| <div className="anchor-with-padding" id="windowconfig.titlebarstyle">`titleBarStyle`<a class="hash-link" href="#windowconfig.titlebarstyle"></a></div> | [`TitleBarStyle`](#titlebarstyle) | [view](#titlebarstyle) | The style of the macOS title bar. |
+| <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | `boolean` | `false` | If `true`, sets the window title to be hidden on macOS. |
+| <div className="anchor-with-padding" id="windowconfig.acceptfirstmouse">`acceptFirstMouse`<a class="hash-link" href="#windowconfig.acceptfirstmouse"></a></div> | `boolean` | `false` | Whether clicking an inactive window also clicks through to the webview. |
+| <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | `string`? | _null_ | Defines the window [tabbing identifier] for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled.<br /><br />[tabbing identifier]: <https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier> |
 
 
 #### WindowUrl
@@ -147,9 +152,27 @@ Can be any of the following types:
 
 System theme.
 
-Can be any of the following `string` values:
-- Light
-- Dark
+Can be any **ONE** of the following types:
+
+- "Light": Light theme.
+- "Dark": Dark theme.
+
+#### TitleBarStyle
+
+How the window title bar should be displayed.
+
+Can be any **ONE** of the following types:
+
+- "Visible": A normal title bar.
+- "Transparent": Makes the title bar transparent, so the window background color is shown instead.
+
+	Useful if you don't need to have actual HTML under the title bar. This lets you avoid the caveats of using `TitleBarStyle::Overlay`. Will be more useful when Tauri lets you set a custom window background color.
+- "Overlay": Shows the title bar as a transparent overlay over the window's content.
+
+	Keep in mind:
+- The height of the title bar is different on different OS versions, which can lead to window the controls and title not being where you don't expect.
+- You need to define a custom drag region to make your window draggable, however due to a limitation you can't drag the window when it's not in focus (https://github.com/tauri-apps/tauri/issues/4316).
+- The color of the window title depends on the system theme.
 
 ### CliConfig
 
@@ -211,6 +234,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean` | `false` | Whether Tauri should bundle your application or just output the executable. |
 | <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "msi", "app", "dmg", "updater"] or "all". |
 | <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string`(required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
+| <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | `string`? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | `string[]` | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | `array`? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
 | <div className="anchor-with-padding" id="bundleconfig.copyright">`copyright`<a class="hash-link" href="#bundleconfig.copyright"></a></div> | `string`? | _null_ | A copyright string associated with your application. |
@@ -238,13 +262,14 @@ Can be any of the following types:
 
 A bundle referenced by tauri-bundler.
 
-Can be any of the following `string` values:
-- deb
-- appimage
-- msi
-- app
-- dmg
-- updater
+Can be any **ONE** of the following types:
+
+- "deb": The debian bundle (.deb).
+- "appimage": The AppImage bundle (.appimage).
+- "msi": The Microsoft Installer bundle (.msi).
+- "app": The macOS application bundle (.app).
+- "dmg": The Apple Disk Image bundle (.dmg).
+- "updater": The Tauri updater bundle.
 
 ### AppImageConfig
 
@@ -383,6 +408,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="allowlistconfig.protocol">`protocol`<a class="hash-link" href="#allowlistconfig.protocol"></a></div> | [`ProtocolAllowlistConfig`](#protocolallowlistconfig) | [view](#protocolallowlistconfig) | Custom protocol allowlist. |
 | <div className="anchor-with-padding" id="allowlistconfig.process">`process`<a class="hash-link" href="#allowlistconfig.process"></a></div> | [`ProcessAllowlistConfig`](#processallowlistconfig) | [view](#processallowlistconfig) | Process API allowlist. |
 | <div className="anchor-with-padding" id="allowlistconfig.clipboard">`clipboard`<a class="hash-link" href="#allowlistconfig.clipboard"></a></div> | [`ClipboardAllowlistConfig`](#clipboardallowlistconfig) | [view](#clipboardallowlistconfig) | Clipboard APIs allowlist. |
+| <div className="anchor-with-padding" id="allowlistconfig.app">`app`<a class="hash-link" href="#allowlistconfig.app"></a></div> | [`AppAllowlistConfig`](#appallowlistconfig) | [view](#appallowlistconfig) | App APIs allowlist. |
 
 
 ### FsAllowlistConfig
@@ -410,7 +436,7 @@ Type: `object`
 
 Filesystem scope definition. It is a list of glob patterns that restrict the API access from the webview.
 
-Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`.
+Each pattern can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`, `$APPCONFIG`, `$APPDATA`, `$APPLOCALDATA`, `$APPCACHE`, `$APPLOG`.
 
 Can be any of the following types:
 
@@ -452,6 +478,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowallowlistconfig.setcursorvisible">`setCursorVisible`<a class="hash-link" href="#windowallowlistconfig.setcursorvisible"></a></div> | `boolean` | `false` | Allows setting the cursor visibility. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setcursoricon">`setCursorIcon`<a class="hash-link" href="#windowallowlistconfig.setcursoricon"></a></div> | `boolean` | `false` | Allows changing the cursor icon. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setcursorposition">`setCursorPosition`<a class="hash-link" href="#windowallowlistconfig.setcursorposition"></a></div> | `boolean` | `false` | Allows setting the cursor position. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setignorecursorevents">`setIgnoreCursorEvents`<a class="hash-link" href="#windowallowlistconfig.setignorecursorevents"></a></div> | `boolean` | `false` | Allows ignoring cursor events. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.startdragging">`startDragging`<a class="hash-link" href="#windowallowlistconfig.startdragging"></a></div> | `boolean` | `false` | Allows start dragging on the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.print">`print`<a class="hash-link" href="#windowallowlistconfig.print"></a></div> | `boolean` | `false` | Allows opening the system dialog to print the window content. |
 
@@ -486,7 +513,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="shellallowedcommand.name">`name`<a class="hash-link" href="#shellallowedcommand.name"></a></div> | `string`(required) | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
-| <div className="anchor-with-padding" id="shellallowedcommand.cmd">`cmd`<a class="hash-link" href="#shellallowedcommand.cmd"></a></div> | `string` | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`. |
+| <div className="anchor-with-padding" id="shellallowedcommand.cmd">`cmd`<a class="hash-link" href="#shellallowedcommand.cmd"></a></div> | `string` | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`, `$APPCONFIG`, `$APPDATA`, `$APPLOCALDATA`, `$APPCACHE`, `$APPLOG`. |
 | <div className="anchor-with-padding" id="shellallowedcommand.args">`args`<a class="hash-link" href="#shellallowedcommand.args"></a></div> | [`ShellAllowedArgs`](#shellallowedargs) | `false` | The allowed arguments for the command execution. |
 | <div className="anchor-with-padding" id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | `boolean` | `false` | If this command is a sidecar command. |
 
@@ -648,6 +675,19 @@ Type: `object`
 | <div className="anchor-with-padding" id="clipboardallowlistconfig.readtext">`readText`<a class="hash-link" href="#clipboardallowlistconfig.readtext"></a></div> | `boolean` | `false` | Enables the clipboard's `readText` API. |
 
 
+### AppAllowlistConfig
+
+Allowlist for the app APIs.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="appallowlistconfig.all">`all`<a class="hash-link" href="#appallowlistconfig.all"></a></div> | `boolean` | `false` | Use this flag to enable all app APIs. |
+| <div className="anchor-with-padding" id="appallowlistconfig.show">`show`<a class="hash-link" href="#appallowlistconfig.show"></a></div> | `boolean` | `false` | Enables the app's `show` API. |
+| <div className="anchor-with-padding" id="appallowlistconfig.hide">`hide`<a class="hash-link" href="#appallowlistconfig.hide"></a></div> | `boolean` | `false` | Enables the app's `hide` API. |
+
+
 ### SecurityConfig
 
 Security configuration.
@@ -727,10 +767,11 @@ Type: `object`
 
 Install modes for the Windows update.
 
-Can be any of the following `string` values:
-- basicUi
-- quiet
-- passive
+Can be any **ONE** of the following types:
+
+- "basicUi": Specifies there's a basic UI during the installation process, including a final dialog box at the end.
+- "quiet": The quiet mode means there's no user interaction required. Requires admin privileges if the installer does.
+- "passive": Specifies unattended mode, which means the installation only shows a progress bar.
 
 ### SystemTrayConfig
 
@@ -743,6 +784,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | `string`(required) | _null_ | Path to the default icon to use on the system tray. |
 | <div className="anchor-with-padding" id="systemtrayconfig.iconastemplate">`iconAsTemplate`<a class="hash-link" href="#systemtrayconfig.iconastemplate"></a></div> | `boolean` | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.menuonleftclick">`menuOnLeftClick`<a class="hash-link" href="#systemtrayconfig.menuonleftclick"></a></div> | `boolean` | `true` | A Boolean value that determines whether the menu should appear when the tray icon receives a left click on macOS. |
+| <div className="anchor-with-padding" id="systemtrayconfig.title">`title`<a class="hash-link" href="#systemtrayconfig.title"></a></div> | `string`? | _null_ | Title for MacOS tray |
 
 
 ### BuildConfig
