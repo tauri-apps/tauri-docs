@@ -19,10 +19,17 @@ npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 ```
 
   </TabItem>
-  <TabItem value="Yarn">
+  <TabItem value="Yarn Classic">
 
 ```shell
 yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
+```
+
+  </TabItem>
+  <TabItem value="Yarn Berry">
+
+```shell
+yarn up @tauri-apps/cli @tauri-apps/api
 ```
 
   </TabItem>
@@ -71,10 +78,17 @@ npm install vue-cli-plugin-tauri@latest
 ```
 
   </TabItem>
-  <TabItem value="Yarn">
+  <TabItem value="Yarn Classic">
 
 ```shell
 yarn upgrade vue-cli-plugin-tauri --latest
+```
+
+  </TabItem>
+  <TabItem value="Yarn Berry">
+
+```shell
+yarn up vue-cli-plugin-tauri
 ```
 
   </TabItem>
