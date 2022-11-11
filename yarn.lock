@@ -2862,10 +2862,10 @@ boolbase@^1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootstrap-icons@1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.9.1.tgz#cf22d91a25447645e45c49ebde4e56eafdfe761b"
-  integrity sha512-d4ZkO30MIkAhQ2nNRJqKXJVEQorALGbLWTuRxyCTJF96lRIV6imcgMehWGJUiJMJhglN0o2tqLIeDnMdiQEE9g==
+bootstrap-icons@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.10.0.tgz#8641a4a80e708a71a16e20b8d2235ee151f3725c"
+  integrity sha512-SNQ3EUv5cKuoqkS6tebZztusF1P8hKyCVVSlYjm6d5H2fa1v32w72oPjujrTlGy2g9LiZ0tR/uFMEZwO71GHPQ==
 
 boxen@^5.0.0:
   version "5.1.2"
