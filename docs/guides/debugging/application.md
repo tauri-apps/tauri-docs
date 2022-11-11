@@ -47,7 +47,7 @@ You can also use the `Ctrl + Shift + i` shortcut on Linux and Windows, and `Comm
 
 The inspector is platform-specific, rendering the webkit2gtk WebInspector on Linux, Safari's inspector on macOS and the Microsoft Edge DevTools on Windows.
 
-### Opening Devtools Programatically
+### Opening Devtools Programmatically
 
 You can control the inspector window visibility by using the [`Window::open_devtools`] and [`Window::close_devtools`] functions:
 
@@ -67,7 +67,7 @@ tauri::Builder::default()
 
 ### Using the Inspector in Production
 
-By default the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
+By default, the inspector is only enabled in development and debug builds unless you enable it with a Cargo feature.
 
 #### Create a Debug Build
 

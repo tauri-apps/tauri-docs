@@ -70,7 +70,7 @@ This means that your apps cannot be easily decompiled, as is the case with Elect
 
 ### Build Pipelines and Artifact Authenticity
 
-The process of releasing our source-code artifacts is highly automated yet mandates kickoff and review from real humans. Our current release strategy uses a combination of Github Actions and IOTA Tangle publication
+The process of releasing our source-code artifacts is highly automated yet mandates kickoff and review from real humans. Our current release strategy uses a combination of GitHub Actions and IOTA Tangle publication
 
 ### Resilient PR and Approval Processes
 

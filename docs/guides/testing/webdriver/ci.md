@@ -22,7 +22,7 @@ name: WebDriver
 jobs:
   # a single job named test
   test:
-    # the display name the test job
+    # the display name of the test job
     name: WebDriverIO Test Runner
 
     # we want to run on the latest linux environment

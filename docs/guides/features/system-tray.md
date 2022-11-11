@@ -50,7 +50,7 @@ let tray = SystemTray::new();
 
 ### Configuring a system tray context menu
 
-Optionally you can add a context menu that is visible when the tray icon is right clicked. Import the `SystemTrayMenu`, `SystemTrayMenuItem` and `CustomMenuItem` types:
+Optionally you can add a context menu that is visible when the tray icon is right-clicked. Import the `SystemTrayMenu`, `SystemTrayMenuItem` and `CustomMenuItem` types:
 
 ```rust
 use tauri::{CustomMenuItem, SystemTrayMenu, SystemTrayMenuItem};
@@ -165,7 +165,7 @@ fn main() {
       SystemTrayEvent::MenuItemClick { id, .. } => {
         // get a handle to the clicked menu item
         // note that `tray_handle` can be called anywhere,
-        // just get a `AppHandle` instance with `app.handle()` on the setup hook
+        // just get an `AppHandle` instance with `app.handle()` on the setup hook
         // and move it to another function or thread
         let item_handle = app.tray_handle().get_item(&id);
         match id.as_str() {
@@ -187,13 +187,13 @@ fn main() {
 
 #### Updating tray icon
 
-Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dependency in your Cargo.toml in order to be able to use `Icon::Raw`
+Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dependency in your Cargo.toml to be able to use `Icon::Raw`
 
 ```rust
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
-### Keep app running in the background after closing all windows
+### Keep the app running in the background after closing all windows
 
 By default, tauri closes the application when the last window is closed.
 If your app should run in the background, you can call `api.prevent_close()` like so:

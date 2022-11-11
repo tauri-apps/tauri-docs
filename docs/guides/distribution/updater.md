@@ -25,7 +25,7 @@ The required keys are "active", "endpoints" and "pubkey"; others are optional.
 
 "active" must be a boolean. By default, it's set to false.
 
-"endpoints" must be an array. The string `{{target}}` and `{{current_version}}` are automatically replaced in the URL allowing you determine [server-side](#update-server-json-format) if an update is available. If multiple endpoints are specified, the updater will fallback if a server is not responding within the pre-defined timeout.
+"endpoints" must be an array. The string `{{target}}` and `{{current_version}}` are automatically replaced in the URL allowing you to determine [server-side](#update-server-json-format) if an update is available. If multiple endpoints are specified, the updater will fallback if a server is not responding within the pre-defined timeout.
 
 "dialog" if present must be a boolean. By default, it's set to true. If enabled, [events](#events) are turned off as the updater handles everything. If you need the custom events, you MUST turn off the built-in dialog.
 
@@ -68,7 +68,7 @@ try {
   if (shouldUpdate) {
     // display dialog
     await installUpdate()
-    // install complete, restart app
+    // install complete, restart the app
     await relaunch()
   }
 } catch (error) {
@@ -105,7 +105,7 @@ import { emit } from '@tauri-apps/api/event'
 emit('tauri://update')
 ```
 
-#### Listen New Update Available
+#### Listen to the New Update Available event
 
 Event: `tauri://update-available`
 
@@ -134,7 +134,7 @@ listen('tauri://update-available', function (res) {
 })
 ```
 
-#### Emit Install and Download
+#### Emit Install and Download events
 
 You need to emit this event to initialize the download and listen to the [install progress](#listen-install-progress).
 
@@ -153,7 +153,7 @@ import { emit } from '@tauri-apps/api/event'
 emit('tauri://update-install')
 ```
 
-#### Listen Install Progress
+#### Listen to the Install Progress
 
 Event: `tauri://update-status`
 
@@ -248,7 +248,7 @@ Note that each platform key is in the `OS-ARCH` format, where `OS` is one of `li
 ## Bundler (Artifacts)
 
 The Tauri bundler automatically generates update artifacts if the updater is enabled in `tauri.conf.json`
-Your update artifacts are automatically signed if the bundler can locate your private and public key.
+Your update artifacts are automatically signed if the bundler can locate your private and public keys.
 
 The signature is the content of the generated `.sig` file. The signature can be uploaded to GitHub safely or made public if your private key is secure.
 

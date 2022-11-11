@@ -50,7 +50,7 @@ In this example we want to bundle additional i18n json files that look like this
 }
 ```
 
-In this case we store these files in a `lang` directory next to the `tauri.conf.json`. For this we add `"lang/*"` to `resources` and `$RESOURCE/lang/*` to the fs scope as shown above.
+In this case, we store these files in a `lang` directory next to the `tauri.conf.json`. For this we add `"lang/*"` to `resources` and `$RESOURCE/lang/*` to the fs scope as shown above.
 
 Note that you must configure the allowlist to enable `path > all` and the [`fs` APIs] you need, in this example `fs > readTextFile`.
 
@@ -69,7 +69,7 @@ console.log(langDe.hello) // This will print 'Guten Tag!' to the devtools consol
 
 ## Accessing files in Rust
 
-This is based on the example from above. On the Rust side you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`]:
+This is based on the example above. On the Rust side you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`]:
 
 ```rust
 tauri::Builder::default()

@@ -27,7 +27,7 @@ Here's a preview of what we will be building:
 
 [SvelteKit] is a Svelte Frontend which is primarily designed for Server-Side Rendering (SSR). To make SvelteKit work with Tauri we are going to disable SSR and use [`@sveltejs/adapter-static`] to create a frontend based on Static-Site Generation (SSG).
 
-SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project with a number of customization options. For this guide we will select the [TypeScript] template, with ESLint and Prettier enabled.
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project with many customization options. For this guide, we will select the [TypeScript] template, with ESLint and Prettier enabled.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -59,7 +59,7 @@ pnpm create svelte
    This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
 2. _App template_  
-   We will select `Skeleton project` for a barebones template. If you want to play around with a more complete SvelteKit example you can select `SvelteKit demo app`.
+   We will select the `Skeleton project` for a barebones template. If you want to play around with a more complete SvelteKit example you can select `SvelteKit demo app`.
 
 3. _Type checking_  
    Whether you want type checking via JSDoc or TypeScript in your project. For this guide, we assume you choose TypeScript.
@@ -74,7 +74,7 @@ pnpm create svelte
 
 <!-- TODO: section intro -->
 
-First we need to install [`@sveltejs/adapter-static`]:
+First, we need to install [`@sveltejs/adapter-static`]:
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -123,7 +123,7 @@ const config = {
 export default config
 ```
 
-Lastly we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
+Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
 
 ```typescript title=src/routes/+layout.ts
 export const prerender = true

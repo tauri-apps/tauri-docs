@@ -1,9 +1,9 @@
 # Events
 
 The Tauri event system is a multi-producer multi-consumer communication primitive that allows message passing between the frontend and the backend.
-It is analogous to the command system, but payload type check must be written on the event handler and it simplifies communication from the backend to the frontend, working like a channel.
+It is analogous to the command system, but a payload type check must be written on the event handler and it simplifies communication from the backend to the frontend, working like a channel.
 
-A Tauri application can listen and emit to global and window-specific events. Usage from the frontend and the backend are described below.
+A Tauri application can listen and emit global and window-specific events. Usage from the frontend and the backend is described below.
 
 ## Frontend
 

@@ -10,7 +10,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
     <img src={useBaseUrl('img/bookCover.png')} alt="Tauri - From Theory to Practice" title="Book Cover Mockup" style={{maxWidth:'80%'}}/>
 </div>
 
-:::info 
+:::info
 Tauri: From Theory to Practice<br/>
 Architecting Next-Gen Native-Apps for all Platforms [v1:Rust Edition]<br/>
 Authors: [Daniel Thompson-Yvetot, Lucas Fernandes Gonçalves Nogueira]<br/>
@@ -190,7 +190,7 @@ This is an early outline of the contents that we expect to publish. Contents sub
     - Self-Updater
         - Anatomy
         - Service Provisioning
-            - Github
+            - GitHub
             - AWS
             - Homegrown
     - Cross-Platform Bundler

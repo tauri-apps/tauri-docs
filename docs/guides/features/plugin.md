@@ -17,7 +17,7 @@ fn main() {
 
 ## Writing a Plugin
 
-Plugins are reusable extensions to the Tauri API that solve common problems. They are also a very convenient way to structure your own code base!
+Plugins are reusable extensions to the Tauri API that solve common problems. They are also a very convenient way to structure your code base!
 
 If you intend to share your plugin with others, we provide a ready-made template! With the tauri-cli installed just run:
 
@@ -36,10 +36,10 @@ invoke('plugin:awesome|do_something')
 
 where `awesome` will be replaced by your plugin name.
 
-This isn't very convenient however, so it's common for plugins to provide a so called _API package_, a JavaScript package that provides convenient access to your commands.
+This isn't very convenient, however, so it's common for plugins to provide a so-called _API package_, a JavaScript package that provides convenient access to your commands.
 
-> An example of this is the [tauri-plugin-store](https://github.com/tauri-apps/tauri-plugin-store), that provides a convenient class structure to accessing a store.
-> You can scaffold a plugin with attached API package like this:
+> An example of this is the [tauri-plugin-store](https://github.com/tauri-apps/tauri-plugin-store), which provides a convenient class structure for accessing a store.
+> You can scaffold a tauri plugin with attached javascript API package like this:
 
 ```shell
 tauri plugin init --name awesome --api
@@ -166,7 +166,7 @@ impl<R: Runtime> Plugin<R> for MyAwesomePlugin<R> {
   /// Callback invoked when the Window is created.
   fn created(&mut self, window: Window<R>) {}
 
-  /// Callback invoked when the webview performs a navigation.
+  /// Callback invoked when the webview performs navigation.
   fn on_page_load(&mut self, window: Window<R>, payload: PageLoadPayload) {}
 
   /// Extend the invoke handler.

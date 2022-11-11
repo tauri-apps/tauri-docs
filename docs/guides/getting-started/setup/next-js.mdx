@@ -29,8 +29,8 @@ Here's a preview of what we will be building:
 
 [Next.js] is a React Framework that comes with both Server-Side Rendering (SSR) and Static-Site Generation (SSG) capabilities. To make Next.js work with Tauri we are going to use the SSG mode since it generates only static files that can be included in the final binary.
 
-Next.js comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project from a number of pre-defined templates.
-For this guide we will use the TypeScript template to create a simple project.
+Next.js comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project from many pre-defined templates.
+For this guide, we will use the TypeScript template to create a simple project.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -158,14 +158,14 @@ With the library installed, you can modify your `pages/index.tsx` file to call t
 import { invoke } from '@tauri-apps/api/tauri'
 
 // Note: When working with Next.js in development you have 2 execution contexts:
-// - In server side where Tauri cannot be called because it's out of the context.
-// - In client side where Tauri can be executed.
-// To know if we are in server or client side we can do the following:
+// - The server (nodejs), where Tauri cannot be reached, because the current context is inside of nodejs.
+// - The client (webview), where it is possible to interact with the Tauri rust backend.
+// To check if we are currently executing in the client context, we can check the type of the window object;
 const isClient = typeof window !== 'undefined'
 
 // Now we can call our Command!
 // Right-click on the application background and open the developer tools.
-// You will see "Hello, World!" printed in the console!
+// You will see "Hello, World!" printed in the console.
 isClient &&
   invoke('greet', { name: 'World' }).then(console.log).catch(console.error)
 ```

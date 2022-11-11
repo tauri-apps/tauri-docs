@@ -6,11 +6,11 @@ The Isolation pattern is a way to intercept and modify Tauri API messages sent b
 
 The Isolation pattern's purpose is to provide a mechanism for developers to help protect their application from unwanted or malicious frontend calls to Tauri Core. The need for the Isolation pattern rose out of threats coming from untrusted content running on the frontend, a common case for applications with many dependencies. See [Security: Threat Models] for a list of many sources of threats that an application may see.
 
-The largest threat model described above that the Isolation pattern was designed in mind with was Development Threats. Not only do many frontend build-time tools consist of many dozen (or hundreds) of often deeply-nested dependencies, but a complex application may also have a large amount of (also often deeply-nested) dependencies that are bundled into the final output.
+The largest threat model described above that the Isolation pattern was designed in mind was Development Threats. Not only do many frontend build-time tools consist of many dozen (or hundreds) of often deeply-nested dependencies, but a complex application may also have a large amount of (also often deeply-nested) dependencies that are bundled into the final output.
 
 ## When
 
-Tauri highly recommends using the isolation patten whenever it can be used. Because the Isolation application intercepts _**all**_ messages from the frontend, it can _always_ be used.
+Tauri highly recommends using the isolation pattern whenever it can be used. Because the Isolation application intercepts _**all**_ messages from the frontend, it can _always_ be used.
 
 Tauri also strongly suggests locking down your application whenever you use external Tauri APIs. As the developer, you can utilize the secure Isolation application to try and verify IPC inputs, to make sure they are within some expected parameters. For example, you may want to check that a call to read or write a file is not trying to access a path outside your application's expected locations. Another example is making sure that a Tauri API HTTP fetch call is only setting the Origin header to what your application expects it to be.
 
@@ -26,7 +26,7 @@ To ensure that someone cannot manually read the keys for a specific version of y
 
 To make it easier to follow, here's an ordered list with the approximate steps an IPC message will go through when being sent to Tauri Core with the Isolation pattern:
 
-1. Tauri's IPC handler receives message
+1. Tauri's IPC handler receives a message
 2. IPC handler -> Isolation application
 3. `[sandbox]` Isolation application hook runs and potentially modifies the message
 4. `[sandbox]` Message is encrypted with AES-GCM using a runtime-generated key
@@ -39,7 +39,7 @@ _Note: Arrows (->) indicate message passing._
 
 Because encryption of the message does occur, there are additional overhead costs compared to the [Brownfield pattern], even if the secure Isolation application doesn't do anything. Aside from performance-sensitive applications (who likely have a carefully-maintained and small set of dependencies, to keep the performance adequate), most applications should not notice the runtime costs of encrypting/decrypting the IPC messages, as they are relatively small and AES-GCM is relatively fast. If you are unfamiliar with AES-GCM, all that is relevant in this context is that it's the only authenticated mode algorithm included in [SubtleCrypto] and that you probably already use it every day under the hood with [TLS][transport_layer_security].
 
-There is also a cryptographically secure key generated once each time the Tauri application is started. It is not generally noticeable if the system already has enough entropy to immediately return enough random numbers, which is extremely common for desktop environments. If running in a headless environment to perform some [integration testing with WebDriver] then you may want to install some sort of entropy generating service such as `haveged` if your operating system does not have one included. <sup>Linux 5.6 (March 2020) now includes entropy generation using speculative execution.</sup>
+There is also a cryptographically secure key generated once each time the Tauri application is started. It is not generally noticeable if the system already has enough entropy to immediately return enough random numbers, which is extremely common for desktop environments. If running in a headless environment to perform some [integration testing with WebDriver] then you may want to install some sort of entropy-generating service such as `haveged` if your operating system does not have one included. <sup>Linux 5.6 (March 2020) now includes entropy generation using speculative execution.</sup>
 
 ### Limitations
 

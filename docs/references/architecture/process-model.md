@@ -22,7 +22,7 @@ The Core's primary responsibility is to use that access to create and orchestrat
 
 The Core process should also be responsible for managing global state, such as settings or database connections. This allows you to easily synchronize state between windows and protect your business-sensitive data from prying eyes in the Frontend.
 
-We chose Rust to implement Tauri because its concept of [Ownership]
+We chose Rust to implement Tauri because of its concept of [Ownership]
 guarantees memory safety while retaining excellent performance.
 
 <figure>
@@ -50,7 +50,7 @@ This means that most of your techniques and tools used in traditional web develo
 
 Security best practices apply as well; for example, you must always sanitize user input, never handle secrets in the Frontend, and ideally defer as much business logic as possible to the Core process to keep your attack surface small.
 
-Unlike other similar solutions, the WebView libraries are **not** included in your final executable, but dynamically linked at runtime[^1]. This makes your application _significantly_ smaller, but it also means that you need to keep platform differences in mind, just like traditional web development.
+Unlike other similar solutions, the WebView libraries are **not** included in your final executable but dynamically linked at runtime[^1]. This makes your application _significantly_ smaller, but it also means that you need to keep platform differences in mind, just like traditional web development.
 
 <!-- prettier-ignore -->
 [^1]: Currently, Tauri uses [Microsoft Edge WebView2] on Windows, [WKWebView] on

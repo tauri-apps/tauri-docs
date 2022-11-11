@@ -10,7 +10,7 @@ Since Tauri is a toolkit for building applications there can be many files to co
 
 The file can be either `tauri.conf.json`, `tauri.conf.json5`, or `Tauri.toml`. The default is `tauri.conf.json`. See the note below for more information.
 
-This is the file used by the Tauri process. You can define build settings (such as the [command run prior to `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
+This is the file used by the Tauri process. You can define build settings (such as the [command run before `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
 :::note
 
@@ -28,7 +28,7 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.0.0", features = [ "api-all", "config-json5" ] }
 ```
 
-The structure and values are the same across all formats, however the formatting should be consistent with the respective file's format.
+The structure and values are the same across all formats, however, the formatting should be consistent with the respective file's format.
 
 :::
 
@@ -62,14 +62,14 @@ tauri = { version = "1.0.0", features = [ "api-all" ] }
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
 default = [ "custom-protocol" ]
-# this feature is used used for production builds where `devPath` points to the filesystem
+# this feature is used for production builds where `devPath` points to the filesystem
 # DO NOT remove this
 custom-protocol = [ "tauri/custom-protocol" ]
 ```
 
-The most important parts to take note of are the `tauri-build` and `tauri` dependencies. Generally they must both be on the latest minor versions as the Tauri CLI, but this is not strictly required. If you encounter issues while trying to run your app you should check that any Tauri versions (`tauri` and `tauri-cli`) are on the latest versions for their respective minor releases.
+The most important parts to take note of are the `tauri-build` and `tauri` dependencies. Generally, they must both be on the latest minor versions as the Tauri CLI, but this is not strictly required. If you encounter issues while trying to run your app you should check that any Tauri versions (`tauri` and `tauri-cli`) are on the latest versions for their respective minor releases.
 
-Cargo version numbers use [Semantic Versioning]. Running `cargo update` will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `1.0.0` as the version for `tauri-build`, Cargo will actually detect and download version `1.0.4` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
+Cargo version numbers use [Semantic Versioning]. Running `cargo update` will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `1.0.0` as the version for `tauri-build`, Cargo will detect and download version `1.0.4` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
 
 If you want to use a specific crate version you can use exact versions instead by prepending `=` to the version number of the dependency:
 
@@ -79,7 +79,7 @@ tauri-build = { version = "=1.0.0" }
 
 An additional thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the `"allowlist"` properties you set in `tauri.conf.json`.
 
-When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used across machines during development (similar to `yarn.lock` or `package-lock.json` in Node.js). Since you are developing a Tauri app, this file should be committed into your source repository (only Rust libraries should omit committing this file).
+When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used across machines during development (similar to `yarn.lock` or `package-lock.json` in Node.js). Since you are developing a Tauri app, this file should be committed to your source repository (only Rust libraries should omit committing this file).
 
 To learn more about `Cargo.toml` you can read more in the [official documentation][cargo-manifest].
 

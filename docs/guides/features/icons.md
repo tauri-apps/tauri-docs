@@ -60,8 +60,8 @@ By default, the icons will be placed in your `src-tauri/icons` folder where they
 
 ## Creating the icons manually
 
-If you prefer to build these icons yourself (if you want to have simpler design for small sizes or because you don't want to depend on the CLI's internal image resizing), the required layer sizes and names for the [`icns`] file are described [in the Tauri repo] and the [`ico`] file must include layers for 16, 24, 32, 48, 64 and 256 pixels.
-For optimal display of the ICO image _in development_, the 32px layer should be the first layer.
+If you prefer to build these icons yourself (if you want to have a simpler design for small sizes or because you don't want to depend on the CLI's internal image resizing), the required layer sizes and names for the [`icns`] file are described [in the Tauri repo] and the [`ico`] file must include layers for 16, 24, 32, 48, 64 and 256 pixels.
+For an optimal display of the ICO image _in development_, the 32px layer should be the first layer.
 
 [`tauricon`]: https://github.com/tauri-apps/tauricon
 [in the tauri repo]: https://github.com/tauri-apps/tauri/blob/dev/tooling/cli/src/helpers/icns.json

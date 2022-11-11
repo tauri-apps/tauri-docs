@@ -110,7 +110,7 @@ cd src-tauri
 cargo update
 ```
 
-Alternatively you can run the `cargo upgrade` command provided by [cargo-edit] which does all of this automatically.
+Alternatively, you can run the `cargo upgrade` command provided by [cargo-edit] which does all of this automatically.
 
 [`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
 [tauri]: https://crates.io/crates/tauri/versions

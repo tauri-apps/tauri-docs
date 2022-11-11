@@ -24,10 +24,10 @@ If you need to support **32-bit** machines, you can compile your application wit
 tauri build --target i686-pc-windows-msvc
 ```
 
-By default Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`.
+By default, Rust only installs toolchains for your machine's target, so you need to install the 32-bit Windows toolchain first: `rustup target add i686-pc-windows-msvc`.
 
 If you need to build for **ARM64** you first need to install additional build tools. To do this, open `Visual Studio Installer`, click on "Modify", and in the "Individual Components" tab install the "C++ ARM64 build tools". At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.  
-Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use above mentioned method to comile your app:
+Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 ```powershell
 tauri build --target aarc64-pc-windows-msvc
@@ -35,7 +35,7 @@ tauri build --target aarc64-pc-windows-msvc
 
 ## Supporting Windows 7
 
-By default the Microsoft Installer does not work on Windows 7 because it needs to download the Webview2 bootstrapper if not installed (which might fail if TLS 1.2 is not enabled in the operating system). Tauri includes an option to embed the Webview2 bootstrapper (see the [Embedding the Webview2 Bootstrapper](#embedded-bootstrapper) section below).
+By default, the Microsoft Installer does not work on Windows 7 because it needs to download the Webview2 bootstrapper if not installed (which might fail if TLS 1.2 is not enabled in the operating system). Tauri includes an option to embed the Webview2 bootstrapper (see the [Embedding the Webview2 Bootstrapper](#embedded-bootstrapper) section below).
 
 Additionally, to use the Notification API in Windows 7, you need to enable the `windows7-compat` Cargo feature:
 
@@ -46,12 +46,12 @@ tauri = { version = "1", features = [ "windows7-compat" ] }
 
 ## Webview2 Installation Options
 
-The Windows Installer by default downloads the Webview2 bootstapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer, or use a fixed Webview2 runtime version. See the following table for a comparison between these methods:
+The Windows Installer by default downloads the Webview2 bootstrapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer, or use a fixed Webview2 runtime version. See the following table for a comparison between these methods:
 
 | Installation Method                                | Requires Internet Connection? | Additional Installer Size | Notes                                                                                                  |
 | :------------------------------------------------- | :---------------------------- | :------------------------ | :----------------------------------------------------------------------------------------------------- |
 | [`downloadBootstrapper`](#downloaded-bootstrapper) | Yes                           | 0MB                       | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment. |
-| [`embedBootstrapper`](#embedded-bootstrapper)    | Yes                           | ~1.8MB                    | Better support on Windows 7.                                                                           |
+| [`embedBootstrapper`](#embedded-bootstrapper)      | Yes                           | ~1.8MB                    | Better support on Windows 7.                                                                           |
 | [`offlineInstaller`](#offline-installer)           | No                            | ~127MB                    | Embeds Webview2 installer. Recommended for offline environments                                        |
 | [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed Webview2 version                                                                        |
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the Webview2 as part of the Windows Installer.              |
@@ -174,7 +174,7 @@ Your application WILL NOT work if the user does not have the runtime installed a
 
 ## Customizing the Installer
 
-The Windows Installer package is built using the [WiX Toolset v3]. Currently you can change it by using a custom WiX source code (an XML file with a `.wxs` file extension) or through WiX fragments.
+The Windows Installer package is built using the [WiX Toolset v3]. Currently, you can change it by using a custom WiX source code (an XML file with a `.wxs` file extension) or through WiX fragments.
 
 ### Replacing the Installer Code with a Custom WiX File
 
@@ -238,7 +238,7 @@ Save the fragment file with the `.wxs` extension somewhere in your project and r
 }
 ```
 
-Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` element ids must be referenced on the `wix` object of `tauri.conf.json` on the `componentGroupRefs`, `componentRefs`, `featureGroupRefs`, `featureRefs` and `mergeRefs` respectively in order to be included on the installer.
+Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` element ids must be referenced on the `wix` object of `tauri.conf.json` on the `componentGroupRefs`, `componentRefs`, `featureGroupRefs`, `featureRefs` and `mergeRefs` respectively to be included in the installer.
 
 ## Internationalization
 
@@ -329,7 +329,7 @@ The `localePath` property defines the path to a language file, a XML configuring
 The `WixLocalization` element's `Culture` field must match the configured language.
 :::
 
-Currently Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation] for more information.
+Currently, Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation] for more information.
 
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 [webviewinstallmode]: ../../api/config.md#webviewinstallmode
