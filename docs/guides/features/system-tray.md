@@ -163,7 +163,7 @@ fn main() {
     .system_tray(SystemTray::new().with_menu(tray_menu))
     .on_system_tray_event(|app, event| match event {
       SystemTrayEvent::MenuItemClick { id, .. } => {
-        // get a handle on the clicked menu item
+        // get a handle to the clicked menu item
         // note that `tray_handle` can be called anywhere,
         // just get an `AppHandle` instance with `app.handle()` on the setup hook
         // and move it to another function or thread
