@@ -39,7 +39,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
-A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple running the following command:
+A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple by running the following command:
 
 ```shell
 rustc -Vv | grep host | cut -f2 -d' '

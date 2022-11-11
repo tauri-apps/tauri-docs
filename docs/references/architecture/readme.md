@@ -10,15 +10,15 @@ import { Mermaid } from 'mdx-mermaid/Mermaid';
 
 ## Introduction
 
-Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. In fact, developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
+Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. Developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
 
 Tauri apps can have [custom menus](/v1/guides/features/menu) and [tray-type interfaces](/v1/guides/features/system-tray). They can be [updated](/v1/guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](./security).
 
 ### What Tauri is Not
 
-Tauri is not a lightweight kernel wrapper. Instead it directly uses [WRY](#wry) and [TAO](#tao) to do the heavy-lifting in making system calls to the OS.
+Tauri is not a lightweight kernel wrapper. Instead, it directly uses [WRY](#wry) and [TAO](#tao) to do the heavy lifting in making system calls to the OS.
 
-Tauri is not a VM or virtualized environment. Instead it is an application toolkit that allows making Webview OS applications.
+Tauri is not a VM or virtualized environment. Instead, it is an application toolkit that allows making Webview OS applications.
 
 ## Core Ecosystem
 
@@ -33,7 +33,7 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
     tauri-macros
     tauri-utils
     end
-    %% This section should be organised top to bottom
+    %% This section should be organized from top to bottom
     tauri-build
     tauri-codegen
     tauri-runtime-wry
@@ -54,11 +54,11 @@ Tauri is not a VM or virtualized environment. Instead it is an application toolk
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
-This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/v1/api/config) file at compile time in order to bring in features and undertake actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages updating.
+This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/v1/api/config) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
 
 ### [tauri-runtime](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime)
 
-The glue layer between Tauri itself and lower level webview libraries.
+The glue layer between Tauri itself and lower-level webview libraries.
 
 ### [tauri-macros](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-macros)
 
@@ -70,15 +70,15 @@ Common code that is reused in many places and offers useful utilities like parsi
 
 ### [tauri-build](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build)
 
-Applies the macros at build-time in order to rig some special features needed by `cargo`.
+Applies the macros at build-time to rig some special features needed by `cargo`.
 
 ### [tauri-codegen](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen)
 
-Embeds, hashes, and compresses assets, including icons for the app as well as the system-tray. Parses [`tauri.conf.json`](v1/api/config) at compile time and generate the Config struct.
+Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](v1/api/config) at compile time and generates the Config struct.
 
 ### [tauri-runtime-wry](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry)
 
-This crate opens up direct systems-level interactions specifically for WRY, such as printing, monitor detection, and other windowing related tasks.
+This crate opens up direct systems-level interactions specifically for WRY, such as printing, monitor detection, and other windowing-related tasks.
 
 ## Tauri Tooling
 
@@ -108,7 +108,7 @@ The Tauri-Apps organisation maintains two "upstream" crates from Tauri, namely T
 
 ### [TAO](https://github.com/tauri-apps/tao)
 
-Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit](https://github.com/rust-windowing/winit) that we have extended for our own needs like menu bar and system tray.
+Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit](https://github.com/rust-windowing/winit) that we have extended for our own needs.
 
 ### [WRY](https://github.com/tauri-apps/wry)
 

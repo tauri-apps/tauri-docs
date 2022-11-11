@@ -39,9 +39,9 @@ The bootstrapper script will try to determine the correct architecture and versi
 
 #### 3. Rust
 
-Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases Windows itself, for the changes to take effect.
+Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases, Windows itself, for the changes to take effect.
 
-Alternatively, you could use `winget` to install rustup using the follwing command in PowerShell:
+Alternatively, you could use `winget` to install rustup using the following command in PowerShell:
 
 ```powershell
 winget install --id Rustlang.Rustup
@@ -150,10 +150,10 @@ sudo zypper in -t pattern devel_basis
   </TabItem>
   <TabItem value="nixos" label="NixOS">
 
-  Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
-  dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
+Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
+dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
 
-  When using [Nix Flakes], copy the following code into `flake.nix` on your repository, then run `nix develop` to activate the development environment. You can also use [direnv's Flakes integration] to automatically start the dev shell when entering the project folder.
+When using [Nix Flakes], copy the following code into `flake.nix` on your repository, then run `nix develop` to activate the development environment. You can also use [direnv's Flakes integration] to automatically start the dev shell when entering the project folder.
 
 ```nix
 {
@@ -206,7 +206,7 @@ sudo zypper in -t pattern devel_basis
 }
 ```
 
-  If you don't use Nix Flakes, the [Nix Shell] can be configured using the following `shell.nix` script. Run `nix-shell` to activate the development environment, or use [direnv's Shell integration] to automatically start the dev shell when entering the project folder.
+If you don't use Nix Flakes, the [Nix Shell] can be configured using the following `shell.nix` script. Run `nix-shell` to activate the development environment, or use [direnv's Shell integration] to automatically start the dev shell when entering the project folder.
 
 ```nix
 let
@@ -246,6 +246,7 @@ pkgs.mkShell {
     '';
 }
 ```
+
   </TabItem>
 </Tabs>
 
@@ -310,7 +311,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
-[Nix Flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[nix flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv

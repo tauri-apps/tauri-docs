@@ -12,7 +12,7 @@ WebView2 is supported on Windows 7 and newer and comes preinstalled on Windows 1
 
 ## WebKit (macOS, iOS, & Linux)
 
-Tauri uses WebKit on macOS (through [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview?language=objc)) and on Linux (through `webkit2gtk`).
+Tauri uses WebKit on macOS (through [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview?language=objc)) and Linux (through `webkit2gtk`).
 
 ### Interpreting WebKit Version Numbers
 
@@ -33,7 +33,7 @@ As an example, the WebKit version shipped with Safari 15.5 on macOS Monterey (12
 - `MICRO_VERSION`: 1
 - `NANO_VERSION`: 8
 
-Here are what the `SYSTEM_VERSION_PREFIX` values map to:
+Here is what the `SYSTEM_VERSION_PREFIX` values map to:
 
 | macOS version | `SYSTEM_VERSION_PREFIX` |
 | ------------- | ----------------------- |
@@ -49,7 +49,7 @@ Here are what the `SYSTEM_VERSION_PREFIX` values map to:
 
 ### macOS & iOS
 
-On macOS Tauri uses the webview that comes preinstalled with macOS since version 10.10 (Yosemite). It is considered a core component and is therefore updated with the regular OS updates. This means unsupported macOS versions **do not** receive WebKit updates.
+On macOS, Tauri uses the webview that comes preinstalled with macOS since version 10.10 (Yosemite). It is considered a core component and is therefore updated with the regular OS updates. This means unsupported macOS versions **do not** receive WebKit updates.
 
 To find the WebKit version used by `WKWebView` on your version of macOS you can use this command in the terminal:
 
@@ -61,65 +61,65 @@ awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Framew
 
 The table below maps an OS version to the corresponding WebKit Safari versions so that you can use sites like [caniuse](https://caniuse.com) to figure out if a specific web platform feature is supported.
 
-| OS Name     | OS Version                       | WebKit Version     | Safari Version | Notes                                                         |
-| ----------- | -------------------------------- | ------------------ | -------------- | ------------------------------------------------------------- |
-| Ventura     | 13.0.1                           |                    |                | Verified on a 2020 M1 13" MacBook Pro
-|             | 13.0                             | 614.2.9.1.12       | 16.1           | Verified on a 2020 M1 13" MacBook Pro                         | 
-| Monterey    | 12.6                             |                    |                | Verified on a 2020 M1 13" MacBook Pro                         |
-|             | 12.5.1                           | 613.3.9.1.16       | 15.6.1         | Verified on a 2020 M1 13" MacBook Pro                         |
-|             | 12.5                             | [613.3.9.1.5]      | 15.6           | Verified on a 2020 M1 13" MacBook Pro                         |
-|             | 12.4                             | [613.2.7.1.8]      | 15.5           | Verified on a 2020 M1 13" MacBook Pro                         |
-|             | 12.3.1                           | [613.1.17.1.13]    |                |                                                               |
-|             | 12.3                             | [613.1.17.1.6]     | 15.4           |                                                               |
-|             | 12.2.1                           | [612.4.9.1.8]      |                |                                                               |
-|             | 12.2                             | [612.4.9.1.5]      | 15.3           |                                                               |
-|             | 12.1.1                           |                    |                |                                                               |
-|             | 12.1                             | [612.3.6.1.6]      | 15.2           |                                                               |
-|             | 12.0.1                           | [612.2.9.1.20]     | 15.1           |                                                               |
-|             | 12.0                             | [612.1.29.41.4]    | 15.0           |                                                               |
-| Big Sur     | 11.6.7                           |                    |                |                                                               |
-|             | 11.6.6                           |                    |                |                                                               |
-|             | 11.6.5                           |                    |                |                                                               |
-|             | 11.6.2                           |                    |                |                                                               |
-|             | 11.6.1                           |                    |                |                                                               |
-|             | 11.6                             |                    |                |                                                               |
-|             | 11.5.2                           | [611.3.10.1.6]     |                |                                                               |
-|             | 11.5.1                           |                    |                |                                                               |
-|             | 11.5                             | [611.3.10.1.3]     | 14.1.2         |                                                               |
-|             | 11.4                             | [611.2.7.1.4]      | 14.1.1         |                                                               |
-|             | 11.3.1                           |                    |                |                                                               |
-|             | 11.3                             | [611.1.21.161.3]   | 14.1           | 24" M1 iMac received a special WebKit version [611.1.21.1.12] |
-|             | 11.2.3                           | [610.4.3.1.7]      |                |                                                               |
-|             | 11.2.2                           |                    |                |                                                               |
-|             | 11.2.1                           |                    |                |                                                               |
-|             | 11.2                             | [610.4.3.1.4]      | 14.0.3         |                                                               |
-|             | 11.1                             | [610.3.7.1.9]      | 14.0.2         |                                                               |
-|             | 11.0.1                           | [610.2.11.51.8]    |                |                                                               |
-|             | 11.0                             | [610.2.11.1.3]     | 14.0.1         | Safari 14.0 was only ever available on iPhones                |
-| Catalina    | 10.15.7 Security Update 2022-004 | [609.4.1.1.1]      |                |                                                               |
-|             | 10.15.7                          | [609.4.1]          | 13.1.3         |                                                               |
-|             | 10.15.6                          | [609.3.5.1.3]      | 13.1.2         |                                                               |
-|             | 10.15.5                          | [609.2.9.1.2]      | 13.1.1         |                                                               |
-|             | 10.15.4                          | [609.1.20.111.8]   | 13.1           |                                                               |
-|             | 10.15.3                          | [608.5.11]         | 13.0.5         |                                                               |
-|             | 10.15.2                          | [608.4.9.1.3]      | 13.0.4         |                                                               |
-|             | 10.15.1                          | [608.3.10.1.4]     | 13.0.3         | Verified on a 2014 15" MacBook Pro                            |
-|             | 10.15                            | [608.2.30.1.1]     | 13.0.2         |                                                               |
-| Mojave      | 10.14.6                          | [608.1.49]         | 13.0           |                                                               |
-|             | 10.14.4                          | [607.1.40.1.5]     | 12.1           |                                                               |
-|             | 10.14.3                          | [606.4.5]          | 12.0.3         |                                                               |
-|             | 10.14.2                          | [606.3.4]          | 12.0.2         |                                                               |
-|             | 10.14.1                          | [606.2.104.1.1]    | 12.0.1         |                                                               |
-|             | 10.14                            | [606.2.11]         | 12.0           |                                                               |
-| High Sierra | 10.13.6                          | [605.3.8]          | 11.1.2         |                                                               |
-|             | 10.13.5                          | [605.2.8]          | 11.1.1         |                                                               |
-|             | 10.13.4 Security Update 2018-001 | [605.1.33.1.4]     | 11.1           |                                                               |
-|             | 10.13.4                          | [605.1.33.1.2]     | 11.1           |                                                               |
-|             | 10.13.3                          | [604.5.6]          | 11.0.3         |                                                               |
-|             | 10.13.2 Supplemental Update      | [604.4.7.1.6]      | 11.0.2         | 27" iMac Pro received a special WebKit version [604.4.7.10.6] |
-|             | 10.13.2                          | [604.4.7.1.3]      | 11.0.2         | 27" iMac Pro received a special WebKit version [604.4.7.10.4] |
-|             | 10.13.1                          | [604.3.5]          | 11.0.1         |                                                               |
-|             | 10.13                            | [604.1.38.1.6]     | 11.0           |                                                               |
+| OS Name     | OS Version                       | WebKit Version   | Safari Version | Notes                                                         |
+| ----------- | -------------------------------- | ---------------- | -------------- | ------------------------------------------------------------- |
+| Ventura     | 13.0.1                           |                  |                | Verified on a 2020 M1 13" MacBook Pro                         |
+|             | 13.0                             | 614.2.9.1.12     | 16.1           | Verified on a 2020 M1 13" MacBook Pro                         |
+| Monterey    | 12.6                             |                  |                | Verified on a 2020 M1 13" MacBook Pro                         |
+|             | 12.5.1                           | 613.3.9.1.16     | 15.6.1         | Verified on a 2020 M1 13" MacBook Pro                         |
+|             | 12.5                             | [613.3.9.1.5]    | 15.6           | Verified on a 2020 M1 13" MacBook Pro                         |
+|             | 12.4                             | [613.2.7.1.8]    | 15.5           | Verified on a 2020 M1 13" MacBook Pro                         |
+|             | 12.3.1                           | [613.1.17.1.13]  |                |                                                               |
+|             | 12.3                             | [613.1.17.1.6]   | 15.4           |                                                               |
+|             | 12.2.1                           | [612.4.9.1.8]    |                |                                                               |
+|             | 12.2                             | [612.4.9.1.5]    | 15.3           |                                                               |
+|             | 12.1.1                           |                  |                |                                                               |
+|             | 12.1                             | [612.3.6.1.6]    | 15.2           |                                                               |
+|             | 12.0.1                           | [612.2.9.1.20]   | 15.1           |                                                               |
+|             | 12.0                             | [612.1.29.41.4]  | 15.0           |                                                               |
+| Big Sur     | 11.6.7                           |                  |                |                                                               |
+|             | 11.6.6                           |                  |                |                                                               |
+|             | 11.6.5                           |                  |                |                                                               |
+|             | 11.6.2                           |                  |                |                                                               |
+|             | 11.6.1                           |                  |                |                                                               |
+|             | 11.6                             |                  |                |                                                               |
+|             | 11.5.2                           | [611.3.10.1.6]   |                |                                                               |
+|             | 11.5.1                           |                  |                |                                                               |
+|             | 11.5                             | [611.3.10.1.3]   | 14.1.2         |                                                               |
+|             | 11.4                             | [611.2.7.1.4]    | 14.1.1         |                                                               |
+|             | 11.3.1                           |                  |                |                                                               |
+|             | 11.3                             | [611.1.21.161.3] | 14.1           | 24" M1 iMac received a special WebKit version [611.1.21.1.12] |
+|             | 11.2.3                           | [610.4.3.1.7]    |                |                                                               |
+|             | 11.2.2                           |                  |                |                                                               |
+|             | 11.2.1                           |                  |                |                                                               |
+|             | 11.2                             | [610.4.3.1.4]    | 14.0.3         |                                                               |
+|             | 11.1                             | [610.3.7.1.9]    | 14.0.2         |                                                               |
+|             | 11.0.1                           | [610.2.11.51.8]  |                |                                                               |
+|             | 11.0                             | [610.2.11.1.3]   | 14.0.1         | Safari 14.0 was only ever available on iPhones                |
+| Catalina    | 10.15.7 Security Update 2022-004 | [609.4.1.1.1]    |                |                                                               |
+|             | 10.15.7                          | [609.4.1]        | 13.1.3         |                                                               |
+|             | 10.15.6                          | [609.3.5.1.3]    | 13.1.2         |                                                               |
+|             | 10.15.5                          | [609.2.9.1.2]    | 13.1.1         |                                                               |
+|             | 10.15.4                          | [609.1.20.111.8] | 13.1           |                                                               |
+|             | 10.15.3                          | [608.5.11]       | 13.0.5         |                                                               |
+|             | 10.15.2                          | [608.4.9.1.3]    | 13.0.4         |                                                               |
+|             | 10.15.1                          | [608.3.10.1.4]   | 13.0.3         | Verified on a 2014 15" MacBook Pro                            |
+|             | 10.15                            | [608.2.30.1.1]   | 13.0.2         |                                                               |
+| Mojave      | 10.14.6                          | [608.1.49]       | 13.0           |                                                               |
+|             | 10.14.4                          | [607.1.40.1.5]   | 12.1           |                                                               |
+|             | 10.14.3                          | [606.4.5]        | 12.0.3         |                                                               |
+|             | 10.14.2                          | [606.3.4]        | 12.0.2         |                                                               |
+|             | 10.14.1                          | [606.2.104.1.1]  | 12.0.1         |                                                               |
+|             | 10.14                            | [606.2.11]       | 12.0           |                                                               |
+| High Sierra | 10.13.6                          | [605.3.8]        | 11.1.2         |                                                               |
+|             | 10.13.5                          | [605.2.8]        | 11.1.1         |                                                               |
+|             | 10.13.4 Security Update 2018-001 | [605.1.33.1.4]   | 11.1           |                                                               |
+|             | 10.13.4                          | [605.1.33.1.2]   | 11.1           |                                                               |
+|             | 10.13.3                          | [604.5.6]        | 11.0.3         |                                                               |
+|             | 10.13.2 Supplemental Update      | [604.4.7.1.6]    | 11.0.2         | 27" iMac Pro received a special WebKit version [604.4.7.10.6] |
+|             | 10.13.2                          | [604.4.7.1.3]    | 11.0.2         | 27" iMac Pro received a special WebKit version [604.4.7.10.4] |
+|             | 10.13.1                          | [604.3.5]        | 11.0.1         |                                                               |
+|             | 10.13                            | [604.1.38.1.6]   | 11.0           |                                                               |
 
 [613.3.9.1.5]: https://github.com/WebKit/WebKit/blob/7f88b99524540e94abcdef4d45c1c0324d63fb56/Source/WebKit/Configurations/Version.xcconfig
 [609.1.20.111.8]: https://github.com/WebKit/WebKit/blob/5c90480a38a86464b6b421c2fd28c744b43a4faa/Source/WebKit/Configurations/Version.xcconfig

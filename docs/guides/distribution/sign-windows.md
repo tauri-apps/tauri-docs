@@ -3,7 +3,7 @@ sidebar_label: Windows Code Signing
 sidebar_position: 3
 ---
 
-# Windows - Code signing guide locally & with Github Actions
+# Windows - Code signing guide locally & with GitHub Actions
 
 ## Intro
 
@@ -20,7 +20,7 @@ This guide assumes that you have a standard code signing certificate> If you hav
 
 :::note
 
-If you sign the app with an EV Certificate, it'll receive immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
+If you sign the app with an EV Certificate, it'll receive an immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
 
 If you opt for an OV Certificate, which is generally cheaper and available to individuals, Microsoft SmartScreen will still show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app] to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant additional reputation and potentially remove the warning for that specific uploaded file.
 
@@ -28,7 +28,7 @@ If you opt for an OV Certificate, which is generally cheaper and available to in
 
 ## Getting Started
 
-There are a few things we have to do to get Windows prepared for code signing. This includes converting our certificate to a specific format, installing this certificate, and decoding required information from the certificate.
+There are a few things we have to do to get Windows prepared for code signing. This includes converting our certificate to a specific format, installing this certificate, and decoding the required information from the certificate.
 
 ### A. Convert your `.cer` to `.pfx`
 
@@ -60,11 +60,11 @@ Bag Attributes
     localKeyID: A1 B1 A2 B2 A3 B3 A4 B4 A5 B5 A6 B6 A7 B7 A8 B8 A9 B9 A0 B0
 ```
 
-2. You will capture the `localKeyID` but with no spaces, in this example it would be `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. This is our `certificateThumbprint`.
+2. You will capture the `localKeyID` but with no spaces, in this example, it would be `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. This is our `certificateThumbprint`.
 
 3. We need the SHA digest algorithm used for your certificate (Hint: this is likely `sha256`
 
-4. We also need a timestamp URL; this is a time server used to verify the time of the certificate signing. I'm using `http://timestamp.comodoca.com`, but whomever you got your certificate from likely has one as well.
+4. We also need a timestamp URL; this is a time server used to verify the time of the certificate signing. I'm using `http://timestamp.comodoca.com`, but whoever you got your certificate from likely has one as well.
 
 ## Prepare `tauri.conf.json` file
 

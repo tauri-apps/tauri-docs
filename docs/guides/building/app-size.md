@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Reducing App Size
 
-With Tauri, we are working to reduce the environmental footprint of applications by using less system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing performance or security. By saving resources we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
+With Tauri, we are working to reduce the environmental footprint of applications by using fewer system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing performance or security. By saving resources we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
 
 So if you are interested in learning how to improve your app size and performance, read on!
 
@@ -18,7 +18,7 @@ Before you can optimize your app, you need to figure out what takes up space in 
 
 - **`rollup-plugin-visualizer`** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
 
-- **`rollup-plugin-graph`** - You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`][rollup-plugin-graph] generates graphviz compatible visualizations of your entire dependency graph.
+- **`rollup-plugin-graph`** - You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`][rollup-plugin-graph] generates Graphviz-compatible visualizations of your entire dependency graph.
 
 These are just a couple of tools that you might use. Make sure to check your frontend bundlers plugin list for more!
 
@@ -55,7 +55,7 @@ Source maps provide a pleasant developer experience when working with languages 
 
 ### Optimize Dependencies
 
-Many popular libraries have smaller and faster alternatives that you can choose instead.
+Many popular libraries have smaller and faster alternatives that you can choose from instead.
 
 Most libraries you use depend on many libraries themselves, so a library that looks inconspicuous at first glance might add **several megabytes** worth of code to your app.
 
@@ -67,7 +67,7 @@ But keep in mind: **The best dependency is no dependency**, meaning that you sho
 
 ### Optimize Images
 
-According to the [Http Archive], images are the [biggest contributor to website weight][http archive report, image bytes]. So if your app includes have background images or icons, make sure to optimize them!
+According to the [Http Archive], images are the [biggest contributor to website weight][http archive report, image bytes]. So if your app includes images, make sure to optimize them!
 
 You can choose between a variety of manual options ([GIMP], [Photoshop], [Squoosh]) or plugins for your favorite frontend build tools ([vite-imagetools], [vite-plugin-imagemin], [image-minimizer-webpack-plugin]).
 
@@ -86,7 +86,7 @@ No one appreciates you shipping the 6K raw image with your app, so make sure to 
 
 #### Don't Use Responsive Images
 
-In a Web Environment, you are supposed to use [Responsive Images] to load the correct image size for each user dynamically. Since you are not dynamically distributting images over the web, using Responsive Images only bloat your app with redundant copies being distributed.
+In a Web Environment, you are supposed to use [Responsive Images] to load the correct image size for each user dynamically. Since you are not dynamically distributing images over the web, using Responsive Images only needlessly bloats your app with redundant copies.
 
 #### Remove Metadata
 
@@ -155,7 +155,7 @@ An example from a typical `tauri.conf.json`:
 
 ### Rust Build-Time Optimizations
 
-Configure your cargo project to take advantage of Rusts size optimization features. [Why is a rust executable large ?] provides an excellent explanation on why this matters and an in-depth walkthrough. At the same time, [Minimizing Rust Binary Size] is more up-to-date and has a couple of extra recommendations.
+Configure your cargo project to take advantage of Rusts size optimization features. [Why is a rust executable large ?] provides an excellent explanation of why this matters and an in-depth walkthrough. At the same time, [Minimizing Rust Binary Size] is more up-to-date and has a couple of extra recommendations.
 
 Rust is notorious for producing large binaries, but you can instruct the compiler to optimize the final executable's size.
 
@@ -196,7 +196,7 @@ The Rust Standard Library comes precompiled. This means Rust is faster to instal
 cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
 ```
 
-If you are using `panic = "abort"` in your release profile optimizations, you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can further reduce the binary size. The following applies both:
+If you are using `panic = "abort"` in your release profile optimizations, you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can further reduce the binary size. The following applies to both:
 
 ```shell
 cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu

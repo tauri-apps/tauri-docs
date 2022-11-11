@@ -69,7 +69,7 @@ fn main() {
 
 ### Listening to events on custom menu items
 
-Each `CustomMenuItem` triggers an event when clicked. Use the `on_menu_event` API to handle them, either on the global `tauri::Builder` or on an specific window.
+Each `CustomMenuItem` triggers an event when clicked. Use the `on_menu_event` API to handle them, either on the global `tauri::Builder` or on a specific window.
 
 #### Listening to events on global menus
 

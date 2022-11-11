@@ -92,7 +92,7 @@ fn my_custom_command() -> Result<String, String> {
 }
 ```
 
-If the command returns an error, the promise will reject, otherwise it resolves:
+If the command returns an error, the promise will reject, otherwise, it resolves:
 
 ```js
 invoke('my_custom_command')
@@ -105,7 +105,7 @@ invoke('my_custom_command')
 :::note
 
 Async commands are executed on a separate thread using [`async_runtime::spawn`].
-Commands without the _async_ keyword are executed on the main thread, unless defined with _#[tauri::command(async)]_.
+Commands without the _async_ keyword are executed on the main thread unless defined with _#[tauri::command(async)]_.
 
 :::
 

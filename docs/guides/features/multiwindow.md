@@ -89,7 +89,7 @@ This method is useful when you cannot move ownership of values to the setup clos
 
 ##### Create a window using an [AppHandle] instance
 
-An [AppHandle] instance can be obtained using the [`App::handle`] function or directly injection in Tauri commands.
+An [AppHandle] instance can be obtained using the [`App::handle`] function or directly injected in Tauri commands.
 
 ```rust Create a window in a separate thread
 tauri::Builder::default()
@@ -138,7 +138,7 @@ webview.once('tauri://created', function () {
   // webview window successfully created
 })
 webview.once('tauri://error', function (e) {
-  // an error happened creating the webview window
+  // an error occurred during webview window creation
 })
 ```
 

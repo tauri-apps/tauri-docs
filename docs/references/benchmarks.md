@@ -10,7 +10,7 @@ import Chart, { fetchData } from '@theme/BenchmarkChart'
 
 export var data = fetchData()
 
-All benchmarks run on Github Actions using the `ubuntu-latest` matrix. Various metrics are measured by the following applications:
+All benchmarks run on GitHub Actions using the `ubuntu-latest` matrix. Various metrics are measured by the following applications:
 
 | Tauri                 | Wry                   | Electron                 |
 | :-------------------- | :-------------------- | :----------------------- |
