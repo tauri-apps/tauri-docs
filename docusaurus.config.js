@@ -175,6 +175,12 @@ const footerLinks = [
         href: 'https://twitter.com/TauriApps',
         target: '_self',
       },
+      {
+        label: 'Mastodon',
+        href: 'https://fosstodon.org/@TauriApps',
+        rel: 'me',
+        target: '_self',
+      }
     ],
   },
   {
