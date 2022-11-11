@@ -67,7 +67,7 @@ But keep in mind: **The best dependency is no dependency**, meaning that you sho
 
 ### Optimize Images
 
-According to the [Http Archive], images are the [biggest contributor to website weight][http archive report, image bytes]. So if your app includes images, make sure to optimize them!
+According to the [Http Archive], images are the [biggest contributor to website weight][http archive report, image bytes]. So if your app includes images or icons, make sure to optimize them!
 
 You can choose between a variety of manual options ([GIMP], [Photoshop], [Squoosh]) or plugins for your favorite frontend build tools ([vite-imagetools], [vite-plugin-imagemin], [image-minimizer-webpack-plugin]).
 
