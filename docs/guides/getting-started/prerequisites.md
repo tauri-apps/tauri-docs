@@ -311,7 +311,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
-[nix flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[Nix Flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv

@@ -108,7 +108,7 @@ The Tauri-Apps organisation maintains two "upstream" crates from Tauri, namely T
 
 ### [TAO](https://github.com/tauri-apps/tao)
 
-Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit](https://github.com/rust-windowing/winit) that we have extended for our own needs.
+Cross-platform application window creation library in Rust that supports all major platforms like Windows, macOS, Linux, iOS and Android. Written in Rust, it is a fork of [winit](https://github.com/rust-windowing/winit) that we have extended for our own needs - like menu bar and system tray.
 
 ### [WRY](https://github.com/tauri-apps/wry)
 

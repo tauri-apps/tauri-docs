@@ -53,7 +53,7 @@ Because the point of the Isolation application is to protect against Development
 
 In this example, we will make a small hello-world style Isolation application and hook it up to an imaginary existing Tauri application. It will do no verification of the messages passing through it, only print the contents to the WebView console.
 
-For this example, let's imagine we are in the same directory as `tauri.conf.json`. The existing Tauri application has it's `distDir` set to `../dist`.
+For the purposes of this example, let's imagine we are in the same directory as `tauri.conf.json`. The existing Tauri application has it's `distDir` set to `../dist`.
 
 `../dist-isolation/index.html`:
 

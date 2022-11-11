@@ -26,7 +26,7 @@ You can embed a signature in the AppImage by setting the following environment v
 
 - **SIGN**: set to `1` to sign the AppImage.
 - **SIGN_KEY**: optional variable to use a specific GPG Key ID for signing.
-- **APPIMAGETOOL_SIGN_PASSPHRASE**: the signing key password. If unset, gpg shows a dialog so you can input it. So you must set this when running automated tasks.
+- **APPIMAGETOOL_SIGN_PASSPHRASE**: the signing key password. If unset, gpg shows a dialog so you can input it. You must set this when running automated tasks.
 
 You can display the signature embedded in the AppImage by running the following command:
 
