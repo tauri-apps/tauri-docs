@@ -57,7 +57,7 @@ These options generate the application bundle [Info.plist file]. You can extend 
 See the [Code signing guide].
 
 [application bundle]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
-[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config.md#tauri.bundle.macOS.minimumSystemVersion
+[`tauri.bundle.macos.minimumsystemversion`]: ../../api/config.md#macconfig.minimumsystemversion 
 [lsminimumsystemversion]: https://developer.apple.com/documentation/bundleresources/information_property_list/lsminimumsystemversion
 [universal macos binaries]: https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary
 [`package.productname`]: ../../api/config.md#package.productName
