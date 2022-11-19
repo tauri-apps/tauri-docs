@@ -1,6 +1,6 @@
 ---
 sidebar_label: Windows Code Signing
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Windows - Code signing guide locally & with GitHub Actions

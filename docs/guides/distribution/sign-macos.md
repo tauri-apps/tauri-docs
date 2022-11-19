@@ -1,6 +1,6 @@
 ---
 sidebar_label: macOS Code Signing
-sidebar_position: 7
+sidebar_position: 4
 ---
 
 # Code Signing macOS Applications
@@ -154,7 +154,7 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 
 [tauri-apps/tauri#592]: https://github.com/tauri-apps/tauri/issues/592
 [apple developer program]: https://developer.apple.com/programs/
-[notarizing macOS software before distribution]: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
+[notarizing macos software before distribution]: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
 [app-specific password]: https://support.apple.com/en-ca/HT204397
 [create a certificate signing request]: https://help.apple.com/developer-account/#/devbfa00fef7
 [certificates, ids & profiles page]: https://developer.apple.com/account/resources/certificates/list
