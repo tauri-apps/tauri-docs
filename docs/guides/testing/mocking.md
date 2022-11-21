@@ -4,7 +4,9 @@ When writing your frontend tests, having a "fake" Tauri environment to simulate 
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
 
 :::caution
+
 Remember to clear mocks after each test run to undo mock state changes between runs! See [`clearMocks()`] docs for more info.
+
 :::
 
 ## IPC Requests
@@ -87,13 +89,13 @@ test("invoke", async () => {
 })
 ```
 
-Mocking IPC requests to a sidecar (shell command) required grabbing the event handler id, and emitting events, as if they are coming from the spawned process:
+To mock IPC requests to a sidecar or shell command you need to grab the ID of the event handler when `spawn()` or `execute()` is called and use this ID to emit events the backend would send back:
 
 ```js
 mockIPC(async (cmd, args) => {
   if (args.message.cmd === 'execute') {
-    const eventCbId = `_${args.message.onEventFn}`;
-    const eventEmitter = window[eventCbId];
+    const eventCallbackId = `_${args.message.onEventFn}`;
+    const eventEmitter = window[eventCallbackId];
 
     // 'Stdout' event can be called multiple times
     eventEmitter({
@@ -119,7 +121,9 @@ Sometimes you have window-specific code (a splash screen window, for example), s
 You can use the [`mockWindows()`] method to create fake window labels. The first string identifies the "current" window (i.e., the window your JavaScript believes itself in), and all other strings are treated as additional windows.
 
 :::note
+
 [`mockWindows()`] only fakes the existence of windows but no window properties. To simulate window properties, you need to intercept the correct calls using [`mockIPC()`]
+
 :::
 
 ```js
