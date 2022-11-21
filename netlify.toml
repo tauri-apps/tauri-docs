@@ -98,3 +98,19 @@ to = "/v1/api/js"
 [[redirects]]
 from = "/v1/api/js/interfaces/*"
 to = "/v1/api/js"
+
+[[redirects]]
+from = "/v1/guides/distribution/windows"
+to = "/v1/guides/building/windows"
+
+[[redirects]]
+from = "/v1/guides/distribution/windows"
+to = "/v1/guides/building/windows"
+
+[[redirects]]
+from = "/v1/guides/distribution/linux"
+to = "/v1/guides/building/linux"
+
+[[redirects]]
+from = "/v1/guides/building/debian"
+to = "/v1/guides/building/linux"

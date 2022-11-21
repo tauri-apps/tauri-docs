@@ -22,17 +22,11 @@ The minimum version of the operating system required for a Tauri app to run in m
 
 ## Binary Targets
 
-macOS applications can target Apple Silicon, Intel-based Mac computers, or Universal macOS binaries that work on both architectures. By default, the Tauri CLI uses your machine's architecture, but you can configure a different target using the `--target` flag:
+You can compile your application targeting Apple Silicon, Intel-based Mac computers, or universal macOS binaries. By default, the CLI builds a binary targeting your machine's architecture, but you can configure a different target using the `--target` flag:
 
-```shell
-tauri build --target aarch64-apple-darwin
-```
-
-Supported targets are:
-
-- `aarch64-apple-darwin`: Apple Silicon (using the M1 processor architecture)
-- `x86_64-apple-darwin`: Intel-based Macs
-- `universal-apple-darwin`: produces a [Universal macOS Binary] that runs on both Apple silicon and Intel-based Macs.
+- `tauri build --target aarch64-apple-darwin`: targets Apple silicon machines.
+- `tauri build --target x86_64-apple-darwin`: targets Intel-based machines.
+- `tauri build --target universal-apple-darwin`: produces a [universal macOS binary] which runs on both Apple silicon and Intel-based Macs.
 
 While Apple silicon machines can run applications compiled for Intel-based Macs through a translation layer called [Rosetta], this leads to a reduction in performance due to processor instruction translations. It is common practice to let the user choose the correct target when downloading the app, but you can also choose to distribute a [Universal Binary][universal macos binary]. Universal Binaries include both `aarch64` and `x86_64` executables, giving you the best experience on both architectures. Note, however, that this increases your bundle size significantly.
 
