@@ -1,0 +1,29 @@
+import CodeBlock from '@theme/CodeBlock'
+
+#### 2. Install the Android SDK and NDK
+
+Download the SDK Manager directly through the Command line tools bundle:
+
+<CodeBlock language="sh">
+  {`wget ${
+    props.platform === 'linux'
+      ? 'https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip'
+      : 'https://dl.google.com/android/repository/commandlinetools-mac-8512546_latest.zip'
+  } -O cmdline-tools.zip
+unzip cmdline-tools.zip
+mkdir ~/.android
+mv cmdline-tools ~/.android`}
+</CodeBlock>
+
+Set the `ANDROID_HOME` and `NDK_HOME` environment variables:
+
+```sh
+export ANDROID_HOME="$HOME/.android"
+export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+```
+
+Install required SDK and NDK components:
+
+```sh
+~/.android/cmdline-tools/bin/sdkmanager "platforms;android-33" "platform-tools" "ndk;25.0.8775105" "build-tools;33.0.0"
+```
