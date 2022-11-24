@@ -1,0 +1,4 @@
+label: 'Debugging'
+position: 5
+customProps:
+  description: Tips and tricks for your debugging workflow

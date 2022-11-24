@@ -2,19 +2,17 @@ const path = require('path')
 const fs = require('fs')
 
 // Change this value to update what the un-versioned docs url should be
-const unreleasedTauriVersion = 'v1'
-var lastestReleasedVersion
+const unreleasedTauriVersion = 'v2'
+let lastReleasedVersion
 
 // Checks if Docusaurus has been versioned before and sets versions accordingly
 try {
-  lastestReleasedVersion = JSON.parse(
-    fs.readFileSync('versions.json', 'utf-8')
-  )[0]
+  lastReleasedVersion = JSON.parse(fs.readFileSync('versions.json', 'utf-8'))[0]
 } catch {
   console.error()
 }
 
-var baseUrl =
+const baseUrl =
   process.env.LOCALE === 'en' || process.env.LOCALE == undefined
     ? '/'
     : `/${process.env.LOCALE}/`
@@ -116,6 +114,12 @@ const navbarItems = [
     ],
   },
   {
+    type: 'docsVersionDropdown',
+    position: 'right',
+    //dropdownItemsAfter: [{ to: '/versions', label: 'All versions' }],
+    dropdownActiveClassDisabled: true,
+  },
+  {
     label: 'Releases',
     to: 'releases',
     position: 'right',
@@ -180,7 +184,7 @@ const footerLinks = [
         href: 'https://fosstodon.org/@TauriApps',
         rel: 'me',
         target: '_self',
-      }
+      },
     ],
   },
   {
@@ -298,14 +302,14 @@ async function siteConfig() {
             versions: {
               // Maps the working "current" version to a custom url instead of `next`
               current: {
-                label: unreleasedTauriVersion,
+                label: `${unreleasedTauriVersion}-alpha`,
                 path: unreleasedTauriVersion,
               },
               // If there is a "latest" version, map url to version number
-              ...(lastestReleasedVersion && {
-                [lastestReleasedVersion]: {
-                  label: lastestReleasedVersion,
-                  path: lastestReleasedVersion,
+              ...(lastReleasedVersion && {
+                [lastReleasedVersion]: {
+                  label: lastReleasedVersion,
+                  path: lastReleasedVersion,
                 },
               }),
             },
