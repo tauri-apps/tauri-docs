@@ -94,7 +94,7 @@ await hide();
 
 > **show**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-Shows the application on macOS. This function does not automatically focuses any app window.
+Shows the application on macOS. This function does not automatically focus any specific app window.
 
 **Example**
 
