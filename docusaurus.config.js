@@ -3,9 +3,9 @@ const fs = require('fs')
 
 // Change this value to update what the un-versioned docs url should be
 const unreleasedTauriVersion = 'v2'
-const lastReleasedVersion = JSON.parse(
+/* const lastReleasedVersion = JSON.parse(
   fs.readFileSync('versions.json', 'utf-8')
-)[0]
+)[0] */
 
 const baseUrl =
   process.env.LOCALE === 'en' || process.env.LOCALE == undefined
@@ -111,7 +111,10 @@ const navbarItems = [
   {
     type: 'docsVersionDropdown',
     position: 'right',
-    //dropdownItemsAfter: [{ to: '/versions', label: 'All versions' }],
+    dropdownItemsAfter: [
+      // TODO: Remove on release
+      { href: 'https://tauri.app/', label: 'v1-stable', target: '_self' },
+    ],
     dropdownActiveClassDisabled: true,
   },
   {
@@ -300,11 +303,10 @@ async function siteConfig() {
                 label: `${unreleasedTauriVersion}-alpha`,
                 path: unreleasedTauriVersion,
               },
-              // If there is a "latest" version, map url to version number
-              [lastReleasedVersion]: {
+              /* [lastReleasedVersion]: {
                 label: lastReleasedVersion,
                 path: lastReleasedVersion,
-              },
+              }, */
             },
             remarkPlugins: [
               [
