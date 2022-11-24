@@ -131,7 +131,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.visible">`visible`<a class="hash-link" href="#windowconfig.visible"></a></div> | `boolean` | `true` | Whether the window is visible or not. |
 | <div className="anchor-with-padding" id="windowconfig.decorations">`decorations`<a class="hash-link" href="#windowconfig.decorations"></a></div> | `boolean` | `true` | Whether the window should have borders and bars. |
 | <div className="anchor-with-padding" id="windowconfig.alwaysontop">`alwaysOnTop`<a class="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean` | `false` | Whether the window should always be on top of other windows. |
-| <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean` | `false` | Whether or not the window icon should be added to the taskbar. |
+| <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean` | `false` | If `true`, hides the window icon from the taskbar on Windows and Linux. |
 | <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
 | <div className="anchor-with-padding" id="windowconfig.titlebarstyle">`titleBarStyle`<a class="hash-link" href="#windowconfig.titlebarstyle"></a></div> | [`TitleBarStyle`](#titlebarstyle) | [view](#titlebarstyle) | The style of the macOS title bar. |
 | <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | `boolean` | `false` | If `true`, sets the window title to be hidden on macOS. |
@@ -170,8 +170,8 @@ Can be any **ONE** of the following types:
 - "Overlay": Shows the title bar as a transparent overlay over the window's content.
 
 	Keep in mind:
-- The height of the title bar is different on different OS versions, which can lead to window controls and title not being exactly where you expect them to be.
-- You need to define a custom drag region to make your window draggable, however, due to a limitation you can't drag the window when it's not in focus (https://github.com/tauri-apps/tauri/issues/4316).
+- The height of the title bar is different on different OS versions, which can lead to window the controls and title not being where you don't expect.
+- You need to define a custom drag region to make your window draggable, however due to a limitation you can't drag the window when it's not in focus <https://github.com/tauri-apps/tauri/issues/4316>.
 - The color of the window title depends on the system theme.
 
 ### CliConfig
