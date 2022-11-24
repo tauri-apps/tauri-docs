@@ -15,10 +15,10 @@ Select the operating system on which you are installing Tauri:
 
 <DocCardList items={
   [
-    { docId: "guides/getting-started/windows", href: "/v1/guides/getting-started/windows", label: "Windows", type: "category" },
-    { docId: "guides/getting-started/macos", href: "/v1/guides/getting-started/macos", label: "macOS", type: "category" },
-    { docId: "guides/getting-started/linux", href: "/v1/guides/getting-started/linux", label: "Linux", type: "category" }
-  ]
+    { id: "windows", label: "Windows" },
+    { id: "macos",  label: "macOS" },
+    { id: "linux", label: "Linux" }
+  ].map(i => ({ docId: `guides/getting-started/${i.id}`, href: `/v1/guides/getting-started/${i.id}`, label: i.label, type: "link", customProps: { doc_card_image: `/img/guides/getting-started/setup/${i.id}.svg` } }))
 }/>
 
 ## Managing The Rust Installation
