@@ -2,17 +2,10 @@ const path = require('path')
 const fs = require('fs')
 
 // Change this value to update what the un-versioned docs url should be
-const unreleasedTauriVersion = 'v1'
-var lastestReleasedVersion
-
-// Checks if Docusaurus has been versioned before and sets versions accordingly
-try {
-  lastestReleasedVersion = JSON.parse(
-    fs.readFileSync('versions.json', 'utf-8')
-  )[0]
-} catch {
-  console.error()
-}
+const unreleasedTauriVersion = 'next'
+/* const lastestReleasedVersion = JSON.parse(
+  fs.readFileSync('versions.json', 'utf-8')
+)[0] */
 
 var baseUrl =
   process.env.LOCALE === 'en' || process.env.LOCALE == undefined
@@ -116,6 +109,15 @@ const navbarItems = [
     ],
   },
   {
+    type: 'docsVersionDropdown',
+    position: 'right',
+    dropdownItemsAfter: [
+      // TODO: Remove on release
+      { href: 'https://tauri.app/', label: 'v1-stable', target: '_self' },
+    ],
+    dropdownActiveClassDisabled: true,
+  },
+  {
     label: 'Releases',
     to: 'releases',
     position: 'right',
@@ -180,7 +182,7 @@ const footerLinks = [
         href: 'https://fosstodon.org/@TauriApps',
         rel: 'me',
         target: '_self',
-      }
+      },
     ],
   },
   {
@@ -298,16 +300,16 @@ async function siteConfig() {
             versions: {
               // Maps the working "current" version to a custom url instead of `next`
               current: {
-                label: unreleasedTauriVersion,
+                label: 'v2-alpha', // unreleasedTauriVersion,
                 path: unreleasedTauriVersion,
               },
               // If there is a "latest" version, map url to version number
-              ...(lastestReleasedVersion && {
+              /*
                 [lastestReleasedVersion]: {
                   label: lastestReleasedVersion,
                   path: lastestReleasedVersion,
                 },
-              }),
+              */
             },
             remarkPlugins: [
               [
