@@ -4,6 +4,8 @@ description: ""
 
 import AndroidStudioSetup from './_fragments/_android-studio-setup.mdx'
 import AndroidStandaloneSetup from './_fragments/_android-standalone-unix-setup.mdx'
+import SetupManagingRust from './_fragments/_setup-managing-rust.mdx'
+import SetupTroubleshooting from './_fragments/_setup-troubleshooting.mdx'
 
 # Setting Up Windows
 
@@ -97,3 +99,15 @@ Install required SDK and NDK components:
 ```powershell
 "$env:ANDROID_HOME\cmdline-tools\bin\sdkmanager.exe" "platforms;android-33" "platform-tools" "ndk;25.0.8775105" "build-tools;33.0.0"
 ```
+
+## Managing The Rust Installation
+
+<SetupManagingRust />
+
+## Troubleshooting
+
+<SetupTroubleshooting />
+
+[install rust]: https://www.rust-lang.org/tools/install
+[build tools for visual studio 2022]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+[download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section

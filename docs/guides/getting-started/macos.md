@@ -4,6 +4,8 @@ description: ""
 
 import AndroidStudioSetup from './_fragments/_android-studio-setup.mdx'
 import AndroidStandaloneSetup from './_fragments/_android-standalone-unix-setup.mdx'
+import SetupManagingRust from './_fragments/_setup-managing-rust.mdx'
+import SetupTroubleshooting from './_fragments/_setup-troubleshooting.mdx'
 
 # Setting Up macOS
 
@@ -60,3 +62,13 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
 ```
 
 <AndroidStandaloneSetup platform="macos" />
+
+## Managing The Rust Installation
+
+<SetupManagingRust />
+
+## Troubleshooting
+
+<SetupTroubleshooting />
+
+[rustup.sh]: https://sh.rustup.rs
