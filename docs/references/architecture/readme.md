@@ -12,7 +12,7 @@ import { Mermaid } from 'mdx-mermaid/Mermaid';
 
 Tauri is a polyglot and generic toolkit that is very composable and allows engineers to make a wide variety of applications. It is used for building applications for desktop computers using a combination of Rust tools and HTML rendered in a Webview. Apps built with Tauri can ship with any number of pieces of an optional JS API and Rust API so that webviews can control the system via message passing. Developers can extend the default API with their own functionality and bridge the Webview and Rust-based backend easily.
 
-Tauri apps can have [custom menus](/v1/guides/features/menu) and [tray-type interfaces](/v1/guides/features/system-tray). They can be [updated](/v1/guides/distribution/updater) and are managed by the user's operating system as expected. They are [very small](../benchmarks) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](./security).
+Tauri apps can have [custom menus](../../guides/features/menu.md) and [tray-type interfaces](../../guides/features/system-tray.md). They can be [updated](../../guides/distribution/updater.md) and are managed by the user's operating system as expected. They are [very small](../benchmarks.md) because they use the OS's webview. They do not ship a runtime since the final binary is compiled from Rust. This makes the [reversing of Tauri apps not a trivial task](./security.md).
 
 ### What Tauri is Not
 
@@ -54,7 +54,7 @@ Tauri is not a VM or virtualized environment. Instead, it is an application tool
 
 ### [tauri](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
 
-This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/v1/api/config) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
+This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](../../api/config.md) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
 
 ### [tauri-runtime](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime)
 
@@ -74,7 +74,7 @@ Applies the macros at build-time to rig some special features needed by `cargo`.
 
 ### [tauri-codegen](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen)
 
-Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](v1/api/config) at compile time and generates the Config struct.
+Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](../../api/config.md) at compile time and generates the Config struct.
 
 ### [tauri-runtime-wry](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry)
 
@@ -131,7 +131,7 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 ## Plugins
 
-[Tauri Plugin Guide](/v1/guides/features/plugin)
+[Tauri Plugin Guide](../../guides/features/plugin.md)
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 
@@ -153,10 +153,10 @@ Here you may peruse our [Software Bill of Materials](https://app.fossa.com/proje
 
 ## Next Steps
 
-[Your First Tauri App](/v1/guides/getting-started/setup)
+[Your First Tauri App](../../guides/getting-started/setup/README.mdx)
 
-[Development Cycle](/v1/guides/development/development-cycle)
+[Development Cycle](../../guides/development/development-cycle.md)
 
-[Publishing](/v1/guides/distribution/publishing)
+[Publishing](../../guides/distribution/publishing.md)
 
-[Updating](/v1/guides/distribution/updater)
+[Updating](../../guides/distribution/updater.md)
