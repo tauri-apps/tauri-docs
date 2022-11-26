@@ -131,7 +131,7 @@ jobs:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
           production-deploy: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
-          alias: deploy-preview-${{ github.event.number }}
+          alias: ${{ format('-{0}', github.ref_name) }}${{ format('-{0}', github.event.number) }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
           fails-without-credentials: true
