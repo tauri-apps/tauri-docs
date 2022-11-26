@@ -125,7 +125,8 @@ jobs:
           name: build
           path: build
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99
+        # Fork of https://github.com/nwtgck/actions-netlify for security reasons
+        uses: tauri-apps/actions-netlify@v1.2.4
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
