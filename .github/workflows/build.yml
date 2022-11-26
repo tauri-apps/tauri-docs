@@ -9,7 +9,7 @@ on:
   pull_request_target:
     branches: [dev]
   push:
-    branches: [dev]
+    branches: [dev, next]
 
 jobs:
   build-locale-list:
