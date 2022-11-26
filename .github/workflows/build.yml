@@ -9,10 +9,12 @@ on:
   pull_request_target:
     branches: [dev]
   push:
-    branches: [dev]
+    branches: [dev, next]
 
 jobs:
   build-locale-list:
+    # Crowdin only supports syncing concurrently
+    # This forces any runners using Crowdin to queue
     concurrency:
       group: crowdin_sync
       cancel-in-progress: false
@@ -23,6 +25,7 @@ jobs:
       - name: Checkout site
         uses: actions/checkout@v3
         with:
+          # Forces so that only pull requests from the original repo are executed
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
       - uses: actions/setup-node@v3
@@ -33,12 +36,12 @@ jobs:
       - name: Generate i18n files
         run: yarn docusaurus write-translations
       - name: Upload i18n files
-        if: ${{ github.event_name == 'push' }}
+        if: github.event_name == 'push' && github.ref_name == 'dev'
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref_name == 'dev'
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -67,6 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          # Forces so that only pull requests from the original repo are executed
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
       - name: Retrieve translations
@@ -92,7 +96,9 @@ jobs:
         if: matrix.locale != 'en'
         env:
           LOCALE: ${{ matrix.locale }}
-        # We temporarily copy docs since not all are uploaded to Crowdin
+        # Files are copied to ensure the full docs are available for each locale
+        # This allows us to selectively enable docs for translations and falls back
+        # to building 'en' docs for non-translated files
         run: |
           mkdir -p i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
           rsync -a --ignore-existing docs/ i18n/${{ matrix.locale }}/docusaurus-plugin-content-docs/current
@@ -110,6 +116,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          # Forces so that only pull requests from the original repo are executed
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
       - name: Retrieve build folder
@@ -118,11 +125,12 @@ jobs:
           name: build
           path: build
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99
+        # Fork of https://github.com/nwtgck/actions-netlify for security reasons
+        uses: tauri-apps/actions-netlify@v1.2.4
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
-          production-deploy: ${{ github.event_name == 'push' }}
+          production-deploy: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
           alias: deploy-preview-${{ github.event.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
