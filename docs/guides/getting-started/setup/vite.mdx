@@ -12,6 +12,13 @@ import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
+import ThemedImage from '@theme/ThemedImage'
+import desktopLightPreview from './assets/vite/vite-light.png'
+import desktopDarkPreview from './assets/vite/vite-dark.png'
+import androidLightPreview from './assets/vite/android-vite-light.png'
+import iosLightPreview from './assets/vite/ios-vite-light.png'
+import desktopLightApplicationWindow from './assets/vite/vite-dev-light.png'
+import desktopDarkApplicationWindow from './assets/vite/vite-dev-dark.png'
 
 # Vite
 
@@ -21,8 +28,35 @@ This guide will walk you through creating your first Tauri app using the fronten
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/vite/vite-light.png#gh-light-mode-only)
-![Application Preview](./assets/vite/vite-dark.png#gh-dark-mode-only)
+<Tabs groupId="preview">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: desktopLightPreview,
+        dark: desktopDarkPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Create the Frontend
 
@@ -137,8 +171,35 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/vite/vite-dev-light.png#gh-light-mode-only)
-![Application Window](./assets/vite/vite-dev-dark.png#gh-dark-mode-only)
+<Tabs groupId="applicationWindow">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: desktopLightApplicationWindow,
+        dark: desktopDarkApplicationWindow,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Invoke Commands
 
