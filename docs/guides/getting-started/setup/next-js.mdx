@@ -98,6 +98,9 @@ We want to customize this file to get the best compatibility with Tauri.
 
 Update the file with the following content:
 
+<Tabs groupId="target">
+  <TabItem value="desktop" label="Desktop" default>
+
 ```typescript title=next.config.js
 /** @type {import('next').NextConfig} */
 
@@ -113,6 +116,36 @@ const nextConfig = {
 
 module.exports = nextConfig
 ```
+
+  </TabItem>
+
+  <TabItem value="mobile" label="Mobile" default>
+
+  For mobile support you also need the `internal-ip` NPM dependency to resolve your public address.
+
+```typescript title=next.config.js
+module.exports = async (phase, { defaultConfig }) => {
+  const { internalIpV4 } = await import('internal-ip')
+  const internalHost = await internalIpV4()
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    // Note: This experimental feature is required to use NextJS Image in SSG mode.
+    // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+    images: {
+      unoptimized: true,
+    },
+    assetPrefix: `http://${internalHost}:3000`
+  }
+  return nextConfig
+}
+```
+
+  </TabItem>
+</Tabs>
 
 To be able to build in production we must add a `next export` command in `package.json`.
 This will produce a static HTML/JavaScript version of your Next.js application in the `out` folder.
@@ -155,7 +188,7 @@ You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Si
     __html: 'Use <code>npm run build && npm run export</code> for this value.',
   }}
   beforeDevCommandExplination={{
-    __html: 'Use <code>npm run dev</code> for this value.',
+    __html: 'Use <code>npm run dev</code> for this value. For mobile support use <code>npm run dev -- -h $HOST</code>.',
   }}
 />
 
