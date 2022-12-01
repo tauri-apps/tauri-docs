@@ -114,3 +114,7 @@ to = "/v1/guides/building/linux"
 [[redirects]]
 from = "/v1/guides/building/debian"
 to = "/v1/guides/building/linux"
+
+[[redirects]]
+from = "/zh/*"
+to = "/zh-cn/:splat"

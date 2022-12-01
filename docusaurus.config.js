@@ -180,7 +180,7 @@ const footerLinks = [
         href: 'https://fosstodon.org/@TauriApps',
         rel: 'me',
         target: '_self',
-      }
+      },
     ],
   },
   {
@@ -236,7 +236,7 @@ async function siteConfig() {
     url: 'https://tauri.app',
     i18n: {
       defaultLocale: 'en',
-      locales: ['en', 'fr', 'ko', 'zh', 'it'],
+      locales: ['en', 'fr', 'ko', 'zh-cn', 'it'],
     },
     themeConfig: {
       prism: {
