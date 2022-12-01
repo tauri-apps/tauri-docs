@@ -111,15 +111,11 @@ jobs:
         with:
           workspaces: "./src-tauri -> target"
 
-      - name: Yarn cache
-        uses: actions/cache@v2
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ~/.cache/yarn
-            **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: 'lts/*'
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
           
       - name: Install app dependencies and build web
         run: yarn && yarn build
