@@ -27,15 +27,18 @@ To setup code signing for both Windows and macOS on your workflow, follow the sp
 
 To set up Tauri Action you must first set up a GitHub repository. You can use this action on a repo that doesn't have Tauri configured since it automatically initializes Tauri before building and configuring it to use your artifacts.
 
-Go to the Actions tab on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the [Tauri Action production build workflow example]. Alternatively, you may set up the workflow based on the [example lower on this page](#example-workflow)
+Go to the Actions tab on your GitHub project and choose "New workflow", then choose "Set up a workflow yourself". Replace the file with the [Tauri Action production build workflow example]. Alternatively, you may set up the workflow based on the [example at the bottom of this page](#example-workflow)
 
 ### Configuration
 
 You can configure Tauri with the `configPath`, `distPath` and `iconPath` options. See the actions Readme for details.
 
-Custom Tauri CLI scripts can be run with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, `${tauriScript}` will be executed. This can be useful when you need custom build functionality such as when creating Tauri apps e.g. a `desktop:build` script.
+<!-- FIXME: tauriScript is currently broken.
+  Custom Tauri CLI scripts can be run with the `tauriScript` option. So instead of running `yarn tauri build` or `npx tauri build`, `${tauriScript}` will be executed. This can be useful when you need custom build functionality such as when creating Tauri apps e.g. a `desktop:build` script.
+-->
 
 When your app isn't on the root of the repo, use the `projectPath` input.
+
 You may modify the workflow name, change the triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow, since this runs the build script and releases the artifacts:
 
 ```yaml
@@ -44,7 +47,7 @@ You may modify the workflow name, change the triggers, and add more steps such a
 
 ### How to Trigger
 
-The release workflow by default is triggered by pushes on the "release" branch. The action automatically creates a tag and title for the GitHub release using the application version specified in `tauri.config.json`.
+The release workflow in the README examples linked above is triggered by pushes on the "release" branch. The action automatically creates a tag and title for the GitHub release using the application version specified in `tauri.config.json`.
 
 You can also trigger the workflow on the push of a version tag such as "app-v0.7.0". For this you can change the start of the release workflow:
 
@@ -61,15 +64,15 @@ on:
 
 Below is an example workflow that has been setup to run every time a new version is created on git.
 
-This workflow sets up the environment on Windows, Ubuntu, and macOS latest versions. Note under `jobs.release.strategy.matrix` the platform array which contains `macos-latest`, `ubuntu-latest`, and `windows-latest`.
+This workflow sets up the environment on Windows, Ubuntu, and macOS latest versions. Note under `jobs.release.strategy.matrix` the platform array which contains `macos-latest`, `ubuntu-20.04`, and `windows-latest`.
 
 The steps this workflow takes are:
 
-1. Checkout the repository using `actions/checkout@v2`
-2. Set up Node 16 using `actions/setup-node@v1`
-3. Set up Rust using `actions-rs/toolchain@v1`
-4. Installs all the dependencies and run the build script (for the web app)
-5. Finally, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create the GitHub release
+1. Checkout the repository using `actions/checkout@v3`
+2. Set up Node LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v3`.
+3. Set up Rust and a cache for `target/` folder using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
+4. Installs all the dependencies and run the build script (for the web app).
+5. Finally, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create the GitHub release.
 
 ```yaml
 name: Release
@@ -84,41 +87,36 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest, ubuntu-20.04, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Node.js setup
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-
-      - name: Rust setup
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+        uses: actions/checkout@v3
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-20.04'
+        # You can remove libayatana-appindicator3-dev if you don't use the system tray feature.
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-          
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: "./src-tauri -> target"
+          workspaces: './src-tauri -> target'
 
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'yarn' # Set this to npm, yarn or pnpm.
-          
+
       - name: Install app dependencies and build web
-        run: yarn && yarn build
+        # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
+        run: yarn && yarn build # Change this to npm, yarn or pnpm.
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
@@ -126,9 +124,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__ # tauri-action replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
+          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
+          releaseName: 'App Name v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
+          releaseBody: 'See the assets to download and install this version.'
           releaseDraft: true
           prerelease: false
 ```
