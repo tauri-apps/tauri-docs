@@ -13,5 +13,5 @@ files:
       [
         /docs/.templates,
         /docs/api,
-        /docs/guides/distribution/updater,
+        /docs/guides/distribution/updater.md,
       ]
