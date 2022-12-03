@@ -49,6 +49,10 @@ jobs:
           path: tauri-docs
           submodules: true
 
+      - name: Update submodules
+        working-directory: ./tauri-docs
+        run: git submodule update --remote
+
       - name: Build typedoc-plugin-markdown
         working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
         run: yarn && yarn build
