@@ -13,12 +13,5 @@ files:
       [
         /docs/.templates,
         /docs/api,
-        /docs/guides/architecture/recipes,
-        /docs/guides/development,
-        /docs/guides/debugging,
-        /docs/guides/testing,
-        /docs/guides/building,
-        /docs/guides/distribution,
-        /docs/guides/features,
-        /docs/guides/faq.md,
+        /docs/guides/distribution/updater.md,
       ]
