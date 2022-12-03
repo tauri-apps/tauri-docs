@@ -28,5 +28,5 @@
   "hasOwnDocument": "None",
   "hideHorizontalDivider": true,
   "excludePrivate": true,
-  "embedTitleInCodeBlocks": true
+  "embedHeadingsInCodeBlock": true
 }
