@@ -120,6 +120,56 @@ Note that you must enable the **process-command-api** Cargo feature (Tauri's CLI
 tauri = { version = "1", features = ["process-command-api", ...] }
 ```
 
+## Passing arguments
+
+You can pass arguments to Sidecar commands just like you would for running normal `Command`s (see [Restricting access to the Command APIs]).
+
+First, define the arguments that need to be passed to the Sidecar command in `tauri.conf.json`:
+
+```json
+{
+  "tauri": {
+    "bundle": {
+      "externalBin": [
+        "/absolute/path/to/sidecar",
+        "relative/path/to/binary",
+        "binaries/my-sidecar"
+      ]
+    },
+    "allowlist": {
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          {
+            "name": "binaries/my-sidecar",
+            "sidecar": true,
+            "args": [
+              "arg1",
+              "-a",
+              "--arg2",
+              {
+                "validator": "\\S+"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+Then, to call the sidecar command, simply pass in **all** the arguments as an array:
+
+```js
+import { Command } from '@tauri-apps/api/shell'
+// alternatively, use `window.__TAURI__.shell.Command`
+// `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
+// notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
+const command = Command.sidecar('binaries/my-sidecar', ['arg1', '-a', '--arg2', 'any-string-that-matches-the-validator'])
+const output = await command.execute()
+```
+
 ## Using Node.js on a Sidecar
 
 The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Node.js application on Tauri.
@@ -127,4 +177,5 @@ It compiles the Node.js code using [pkg] and uses the scripts above to run it.
 
 [tauri.bundle]: ../../api/config.md#tauri.bundle
 [sidecar example]: https://github.com/tauri-apps/tauri/tree/dev/examples/sidecar
+[Restricting access to the Command APIs]: ../../api/js/shell.md#restricting-access-to-the-command-apis
 [pkg]: https://github.com/vercel/pkg

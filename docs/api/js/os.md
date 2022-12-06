@@ -22,13 +22,13 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 ### `Arch`
 
->  **Arch**: `"x86"` \| `"x86\_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
+>  **Arch**: `"x86"` \| `"x86_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
 **Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
->  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows\_NT"`
+>  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows_NT"`
 
 **Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/os.ts#L41)
 

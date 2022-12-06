@@ -172,9 +172,9 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           gtk3
           cairo
           gdk-pixbuf
-          glib.out
-          dbus.lib
-          openssl_3.out
+          glib
+          dbus
+          openssl_3
         ];
 
         packages = with pkgs; [
@@ -194,12 +194,8 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           buildInputs = packages;
 
           shellHook =
-            let
-              joinLibs = libs: builtins.concatStringsSep ":" (builtins.map (x: "${x}/lib") libs);
-              libs = joinLibs libraries;
-            in
             ''
-              export LD_LIBRARY_PATH=${libs}:$LD_LIBRARY_PATH
+              export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath libraries}:$LD_LIBRARY_PATH
             '';
         };
       });
@@ -217,9 +213,9 @@ let
     gtk3
     cairo
     gdk-pixbuf
-    glib.out
-    dbus.lib
-    openssl_3.out
+    glib
+    dbus
+    openssl_3
   ];
 
   packages = with pkgs; [
@@ -237,12 +233,8 @@ pkgs.mkShell {
   buildInputs = packages;
 
   shellHook =
-    let
-      joinLibs = libs: builtins.concatStringsSep ":" (builtins.map (x: "${x}/lib") libs);
-      libs = joinLibs libraries;
-    in
     ''
-      export LD_LIBRARY_PATH=${libs}:$LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath libraries}:$LD_LIBRARY_PATH
     '';
 }
 ```
