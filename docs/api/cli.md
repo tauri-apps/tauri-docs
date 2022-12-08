@@ -99,6 +99,7 @@ Options:
   -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
       --release                   Run the code in release mode
       --no-watch                  Disable the file watcher
+      --no-dev-server             Disable the dev server for static files
   -h, --help                      Print help information
   -V, --version                   Print version information
 ```
