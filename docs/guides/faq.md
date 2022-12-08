@@ -105,7 +105,7 @@ We also compile the CLI as a native Node.js addon and distribute it [via npm]. T
 1. The CLI is pre-compiled, leading to much faster install times
 2. You can pin a specific version in your package.json file
 3. If you develop custom tooling around Tauri, you can import the CLI as a regular JavaScript module
-4. You can install the CLI using a JavaScript manager:
+4. You can install the CLI using a JavaScript manager
 
 ## Recommended Browserlist
 
