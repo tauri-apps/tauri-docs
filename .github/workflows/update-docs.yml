@@ -36,18 +36,22 @@ jobs:
     steps:
       # Setup
       - name: Checkout tauri
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: tauri-apps/tauri
           ref: ${{ github.event.inputs.tauriBranch }}
           path: tauri
 
       - name: Checkout tauri-docs
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: tauri-apps/tauri-docs
           path: tauri-docs
           submodules: true
+
+      - name: Update submodules
+        working-directory: ./tauri-docs
+        run: git submodule update --remote
 
       - name: Build typedoc-plugin-markdown
         working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
@@ -84,21 +88,16 @@ jobs:
       #     linksRoot: ""
       #     cratesToProcess: "tauri"
 
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: stable
           components: rust-docs
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
         with:
-          working-directory: tauri/tooling/cli
+          workspaces: tauri/tooling/cli
 
       - name: Build tauri-cli
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --manifest-path ./tauri/tooling/cli/Cargo.toml
+        run: cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
 
       - name: Install dependencies
         working-directory: ./tauri-docs

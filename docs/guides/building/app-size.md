@@ -177,6 +177,17 @@ We've seen smaller binary sizes from `"s"` for Tauri example applications, but r
 
 For a detailed explanation of each option and a bunch more, refer to the [Cargo books Profiles section][cargo profiles].
 
+#### Disable Tauri's Asset Compression
+
+By default, Tauri uses Brotli to compress assets in the final binary. Brotli embeds a large (~170KiB) lookup table to achieve great results, but if the resources you embed are smaller than this or compress poorly, the resulting binary may be bigger than any savings.
+
+Compression can be disabled by setting `default-features` to `false` and specifying everything except the `compression` feature:
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["objc-exception", "wry"], default-features = false }
+```
+
 #### Unstable Rust Compression Features
 
 :::caution

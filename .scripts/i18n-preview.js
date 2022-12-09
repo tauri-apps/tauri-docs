@@ -21,7 +21,7 @@ async function run() {
     const project = await projectsGroupsApi.getProject(projectId)
     const sourceLanguage = project.data.sourceLanguageId
     var locales = project.data.targetLanguages.map(
-      (language) => language.twoLettersCode
+      (language) => language.locale
     )
     locales.push(sourceLanguage)
     console.log(`Retrieved the following locales: ${locales}`)
