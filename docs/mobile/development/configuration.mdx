@@ -1,0 +1,118 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Configuration
+
+To develop mobile Tauri applications, your frontend must serve the assets listening on your public network address.
+The network address can be found using the `internal-ip` NPM:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install --save-dev internal-ip
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn add -D internal-ip
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm add -D internal-ip
+```
+
+  </TabItem>
+</Tabs>
+
+Then you need to configure your framework to use the internal IP.
+
+## Vite
+
+For Vite, you need to change your configuration to be defined using the `defineConfig` helper with an async closure.
+Then, resolve the internal IP address and set it to the [server object][vite server].
+
+```javascript title=vite.config.js
+import { defineConfig } from 'vite'
+import { internalIpV4 } from 'internal-ip'
+
+// https://vitejs.dev/config/
+export default defineConfig(async () => {
+  const host = await internalIpV4()
+
+  /** @type {import('vite').UserConfig} */
+  const config = {
+    server: {
+      host: '0.0.0.0', // listen on all addresses
+      port: 5173,
+      strictPort: true,
+      hmr: {
+        protocol: 'ws',
+        host,
+        port: 5183,
+      },
+    },
+  }
+
+  return config
+})
+```
+
+## Next.js
+
+For Next.js, you need to configure the [assetPerfix] to use the internal IP so the server properly resolves your assets.
+
+```typescript title=next.config.js
+const isProd = process.env.NODE_ENV === 'production'
+module.exports = async (phase, { defaultConfig }) => {
+  let internalHost = null
+  if (!isProd) {
+    const { internalIpV4 } = await import('internal-ip')
+    internalHost = await internalIpV4()
+  }
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    // Note: This experimental feature is required to use NextJS Image in SSG mode.
+    // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+    images: {
+      unoptimized: true,
+    },
+    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  }
+  return nextConfig
+}
+```
+
+Currently there is no configuration option to configure Next.js to use the internal IP address, only the CLI allows changing it.
+So you need to append `--hostname $HOST` to the [beforeDevCommand].
+
+## Webpack
+
+Webpack has a built-in option to use the local IP address as the host for the development server:
+
+```typescript title=webpack.config.js
+export default {
+  devServer: {
+    host: 'local-ipv4',
+  },
+}
+```
+
+[vite server]: https://vitejs.dev/config/server-options.html
+[assetprefix]: https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
+[beforedevcommand]: ../../api/config.md#buildconfig.beforedevcommand

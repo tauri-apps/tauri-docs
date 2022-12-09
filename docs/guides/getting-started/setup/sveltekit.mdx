@@ -12,6 +12,13 @@ import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
+import ThemedImage from '@theme/ThemedImage'
+import desktopLightPreview from './assets/sveltekit/sveltekit-light.png'
+import desktopDarkPreview from './assets/sveltekit/sveltekit-dark.png'
+import androidLightPreview from './assets/sveltekit/android-sveltekit-light.png'
+import iosLightPreview from './assets/sveltekit/ios-sveltekit-light.png'
+import desktopLightApplicationWindow from './assets/sveltekit/sveltekit-dev-light.png'
+import desktopDarkApplicationWindow from './assets/sveltekit/sveltekit-dev-dark.png'
 
 # SvelteKit
 
@@ -21,7 +28,35 @@ This guide will walk you through creating your first Tauri app using the [Svelte
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/sveltekit/result.png)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: desktopLightPreview,
+        dark: desktopDarkPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Create the Frontend
 
@@ -123,11 +158,50 @@ const config = {
 export default config
 ```
 
+For mobile support, you also need to install the `internal-ip` NPM dependency and change the `vite.config.js` file:
+
+```javascript title=vite.config.js
+import { defineConfig } from 'vite'
+import { sveltekit } from '@sveltejs/kit/vite';
+import { internalIpV4 } from 'internal-ip';
+
+// https://vitejs.dev/config/
+export default defineConfig(async () => {
+	const host = await internalIpV4();
+
+	/** @type {import('vite').UserConfig} */
+	const config = {
+		plugins: [sveltekit()],
+		test: {
+			include: ['src/**/*.{test,spec}.{js,ts}']
+		},
+		server: {
+			host: '0.0.0.0', // listen on all addresses
+			port: 5173,
+			strictPort: true,
+			hmr: {
+				protocol: 'ws',
+				host,
+				port: 5183
+			}
+		}
+	};
+
+	return config;
+})
+```
+
+:::caution Mobile static asset handling
+Importing an asset as URL is not supported on mobile. Prefer the [import.meta.url approach].
+:::
+
 Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
 
 ```typescript title=src/routes/+layout.ts
+import { PUBLIC_TAURI_DEV } from '$env/static/public'
+
 export const prerender = true
-export const ssr = false
+export const ssr = PUBLIC_TAURI_DEV === 'true'
 ```
 
 Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs which depend on the global `window` object (like Tauri's API) without [Client-side checks].
@@ -145,7 +219,7 @@ Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you ca
   }}
   beforeDevCommandExplination={{
     __html:
-      'Use <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
+      'Use <code>PUBLIC_TAURI_DEV=true npm run dev</code> (be sure to adapt to use your package manager of choice).',
   }}
   beforeBuildCommandExplination={{
     __html:
@@ -170,8 +244,6 @@ Now that we have scaffolded our frontend and initialized the Rust project the cr
 And that's it! Now you can run the following command in your terminal to start a development build of your app:
 
 <Command name="dev" />
-
-![Application Window](./assets/sveltekit/init.png)
 
 ## Invoke Commands
 
@@ -215,7 +287,35 @@ You can now add this component into `src/routes/+page.svelte`:
 
 You can now run this with `npm run dev` and see the result:
 
-![Application Preview](./assets/sveltekit/result.png)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: desktopLightApplicationWindow,
+        dark: desktopDarkApplicationWindow,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 :::tip
 
@@ -228,6 +328,7 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
 [webdriver documentation]: ../../testing/webdriver/introduction.md
 [client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
+[import.meta.url approach]: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
 [adapter docs]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
 [typescript]: https://www.typescriptlang.org
 [`@tauri-apps/api`]: ../../../api/js/

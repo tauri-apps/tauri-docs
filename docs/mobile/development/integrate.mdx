@@ -1,0 +1,110 @@
+# Integrate into Existing Project
+
+If you have a desktop Tauri project and want to target mobile platforms using the same code, you must configure your Rust crate.
+
+## Change your crate type
+
+The Rust crate must output a library that will be embedded in the Android and iOS packages. Add the following section to your `Cargo.toml` file:
+
+```toml title=src-tauri/Cargo.toml
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+## Create the library source code
+
+The default entry point for the Rust library is the `lib.rs` file.
+Let's write a `tauri::Builder` wrapper that will be reused by both the desktop and mobile targets.
+
+```rust title=src-tauri/src/lib.rs
+use tauri::App;
+
+#[cfg(mobile)]
+mod mobile;
+#[cfg(mobile)]
+pub use mobile::*;
+
+pub type SetupHook = Box<dyn FnOnce(&mut App) -> Result<(), Box<dyn std::error::Error>> + Send>;
+
+#[derive(Default)]
+pub struct AppBuilder {
+  setup: Option<SetupHook>,
+}
+
+impl AppBuilder {
+  pub fn new() -> Self {
+    Self::default()
+  }
+
+  #[must_use]
+  pub fn setup<F>(mut self, setup: F) -> Self
+  where
+    F: FnOnce(&mut App) -> Result<(), Box<dyn std::error::Error>> + Send + 'static,
+  {
+    self.setup.replace(Box::new(setup));
+    self
+  }
+
+  pub fn run(self) {
+    let setup = self.setup;
+    tauri::Builder::default()
+      .setup(move |app| {
+        if let Some(setup) = setup {
+          (setup)(app)?;
+        }
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+}
+```
+
+In this example, the `AppBuilder::run` function is where you write all the shared logic. Custom mobile/desktop code can be defined in the AppBuilder methods, such as the setup method.
+
+Now let's create the mobile module that will have the entry point for iOS and Android and consume the shared AppBuilder logic:
+
+```rust title=src-tauri/src/mobile.rs
+#[tauri::mobile_entry_point]
+fn main() {
+  super::AppBuilder::new().run();
+}
+```
+
+The default Tauri project has the binary source code under `src-tauri/src/main.rs`. Let's change it to use the AppBuilder struct:
+
+```rust title=src-tauri/src/main.rs
+#![cfg_attr(
+  all(not(debug_assertions), target_os = "windows"),
+  windows_subsystem = "windows"
+)]
+
+pub fn main() {
+  app::AppBuilder::new().run();
+}
+
+```
+
+## Conditional compilation
+
+The `#[cfg(desktop)]` and `#[cfg(mobile)]` conditional checks can be used to conditionally compile code for each target.
+
+```rust title=lib.rs
+#[cfg(mobile)]
+fn do_something() {
+  println!("Hello from Mobile!");
+}
+
+#[cfg(desktop)]
+fn do_something() {
+  println!("Hello from Desktop!");
+}
+
+fn run() {
+  if cfg!(mobile) {
+    println!("Hello from Mobile!");
+  } else {
+    println!("Hello from Desktop!");
+  }
+}
+```

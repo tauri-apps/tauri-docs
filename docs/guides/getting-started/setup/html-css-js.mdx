@@ -11,6 +11,15 @@ import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
 import Command from '@theme/Command'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import ThemedImage from '@theme/ThemedImage'
+import desktopLightPreview from './assets/html-css-js/html-css-js-light.png'
+import desktopDarkPreview from './assets/html-css-js/html-css-js-dark.png'
+import androidLightPreview from './assets/html-css-js/android-html-css-js-light.png'
+import iosLightPreview from './assets/html-css-js/ios-html-css-js-light.png'
+import desktopLightProgress from './assets/html-css-js/html-css-js-dev-light.png'
+import desktopDarkProgress from './assets/html-css-js/html-css-js-dev-dark.png'
 
 # HTML, CSS, and JavaScript
 
@@ -20,8 +29,35 @@ This guide will walk you through creating your first Tauri app using just HTML, 
 
 Here's a preview of what we will be building:
 
-![Preview of Application](./assets/html-css-js/html-css-js-light.png#gh-light-mode-only)
-![Preview of Application](./assets/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: desktopLightPreview,
+        dark: desktopDarkPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Create the Frontend
 
@@ -72,8 +108,35 @@ And that's it! Now you can run the following command in your terminal to start a
 
 Preview of Application
 
-![Development Progress](./assets/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
-![Development Progress](./assets/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Development Progress"
+      sources={{
+        light: desktopLightProgress,
+        dark: desktopDarkProgress,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Development Progress"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Development Progress"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Invoke Commands
 

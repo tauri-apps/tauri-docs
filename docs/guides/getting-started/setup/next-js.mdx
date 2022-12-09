@@ -13,6 +13,13 @@ import Intro from './_fragments/_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
+import ThemedImage from '@theme/ThemedImage'
+import desktopLightPreview from './assets/next-js/next-js-light.png'
+import desktopDarkPreview from './assets/next-js/next-js-dark.png'
+import androidLightPreview from './assets/next-js/android-next-js-light.png'
+import iosLightPreview from './assets/next-js/ios-next-js-light.png'
+import desktopLightApplicationWindow from './assets/next-js/next-js-dev-light.png'
+import desktopDarkApplicationWindow from './assets/next-js/next-js-dev-dark.png'
 
 # Next.js
 
@@ -22,8 +29,35 @@ This guide will walk you through creating your first Tauri app using the React f
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/next-js/next-js-light.png#gh-light-mode-only)
-![Application Preview](./assets/next-js/next-js-dark.png#gh-dark-mode-only)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: desktopLightPreview,
+        dark: desktopDarkPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Preview of Application"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Create the Frontend
 
@@ -64,6 +98,9 @@ We want to customize this file to get the best compatibility with Tauri.
 
 Update the file with the following content:
 
+<Tabs groupId="target">
+  <TabItem value="desktop" label="Desktop" default>
+
 ```typescript title=next.config.js
 /** @type {import('next').NextConfig} */
 
@@ -79,6 +116,40 @@ const nextConfig = {
 
 module.exports = nextConfig
 ```
+
+  </TabItem>
+
+  <TabItem value="mobile" label="Mobile" default>
+
+For mobile support you also need the `internal-ip` NPM dependency to resolve your public address.
+
+```typescript title=next.config.js
+const isProd = process.env.NODE_ENV === 'production'
+module.exports = async (phase, { defaultConfig }) => {
+  let internalHost = null
+  if (!isProd) {
+    const { internalIpV4 } = await import('internal-ip')
+    internalHost = await internalIpV4()
+  }
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    // Note: This experimental feature is required to use NextJS Image in SSG mode.
+    // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+    images: {
+      unoptimized: true,
+    },
+    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  }
+  return nextConfig
+}
+```
+
+  </TabItem>
+</Tabs>
 
 To be able to build in production we must add a `next export` command in `package.json`.
 This will produce a static HTML/JavaScript version of your Next.js application in the `out` folder.
@@ -121,7 +192,8 @@ You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Si
     __html: 'Use <code>npm run build && npm run export</code> for this value.',
   }}
   beforeDevCommandExplination={{
-    __html: 'Use <code>npm run dev</code> for this value.',
+    __html:
+      'Use <code>npm run dev</code> for this value. For mobile support use <code>npm run dev -- -h $HOST</code>.',
   }}
 />
 
@@ -141,8 +213,35 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/next-js/next-js-dev-light.png#gh-light-mode-only)
-![Application Window](./assets/next-js/next-js-dev-dark.png#gh-dark-mode-only)
+<Tabs groupId="platform">
+  <TabItem value="desktop" label="Desktop" default>
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: desktopLightApplicationWindow,
+        dark: desktopDarkApplicationWindow,
+      }}
+    />
+  </TabItem>
+  <TabItem value="android" label="Android">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: androidLightPreview,
+        dark: androidLightPreview,
+      }}
+    />
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+    <ThemedImage
+      alt="Application Window"
+      sources={{
+        light: iosLightPreview,
+        dark: iosLightPreview,
+      }}
+    />
+  </TabItem>
+</Tabs>
 
 ## Invoke Commands
 

@@ -42,12 +42,14 @@ For more information about this error, try `rustc --explain E0425`.
 
 ## WebView Console
 
+### Desktop
+
 Right-click in the WebView, and choose `Inspect Element`. This opens up a web-inspector similar to the Chrome or Firefox dev tools you are used to.
 You can also use the `Ctrl + Shift + i` shortcut on Linux and Windows, and `Command + Option + i` on macOS to open the inspector.
 
 The inspector is platform-specific, rendering the webkit2gtk WebInspector on Linux, Safari's inspector on macOS and the Microsoft Edge DevTools on Windows.
 
-### Opening Devtools Programmatically
+#### Opening Devtools Programmatically
 
 You can control the inspector window visibility by using the [`Window::open_devtools`] and [`Window::close_devtools`] functions:
 
@@ -64,6 +66,24 @@ tauri::Builder::default()
     Ok(())
   });
 ```
+
+### Mobile
+
+The mobile device does not have an embedded WebView console, so you must open it via your desktop. Note that both devices must be connected to the same network.
+
+#### Android
+
+Open `chrome://inspect/#devices` in the Google Chrome browser.
+
+#### iOS
+
+- Enable the Develop menu:
+
+Open the Safari browser and select the `Safari > Settings...` menu. In the `Advanced` tab, tick the `Show Develop menu in menu bar` checkbox.
+
+- Show the WebView console:
+
+Under the Safari menu, select `Develop > [Your Device Name] > [Your WebView]`.
 
 ### Using the Inspector in Production
 
