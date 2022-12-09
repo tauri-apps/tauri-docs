@@ -125,6 +125,13 @@ html[data-theme='light'] .gitHubIcon::before {
   display: none;
 }
 
+[data-theme='light'] img.transparent {
+  background-color: #f6f6f6;
+}
+[data-theme='dark'] img.transparent {
+  background-color: #1b1b1d;
+}
+
 .anchor-with-padding {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
 }
