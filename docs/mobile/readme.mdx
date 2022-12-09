@@ -5,4 +5,14 @@ import { useCurrentSidebarCategory } from '@docusaurus/theme-common'
 
 The Tauri mobile implementation is now in alpha! Check out the following guides.
 
-<DocCardList items={useCurrentSidebarCategory().items} />
+<DocCardList
+  items={[
+    {
+      docId: 'guides/getting-started/prerequisites/README',
+      href: '../guides/getting-started/prerequisites',
+      label: 'Prerequisites',
+      type: 'link',
+    },
+    ...useCurrentSidebarCategory().items,
+  ]}
+/>

@@ -1,11 +1,13 @@
 ---
-description: ""
+sidebar_position: 1
+pagination_next: guides/getting-started/setup/README
+description: ''
 ---
 
-import AndroidStudioSetup from './_fragments/_android-studio-setup.mdx'
-import AndroidStandaloneSetup from './_fragments/_android-standalone-unix-setup.mdx'
-import SetupManagingRust from './_fragments/_setup-managing-rust.mdx'
-import SetupTroubleshooting from './_fragments/_setup-troubleshooting.mdx'
+import AndroidStudioSetup from './\_fragments/\_android-studio-setup.mdx'
+import AndroidStandaloneSetup from './\_fragments/\_android-standalone-unix-setup.mdx'
+import SetupManagingRust from './\_fragments/\_setup-managing-rust.mdx'
+import SetupTroubleshooting from './\_fragments/\_setup-troubleshooting.mdx'
 
 # Setting Up Windows
 

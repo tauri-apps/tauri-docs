@@ -1,11 +1,13 @@
 ---
-description: ""
+sidebar_position: 2
+pagination_next: guides/getting-started/setup/README
+description: ''
 ---
 
-import AndroidStudioSetup from './_fragments/_android-studio-setup.mdx'
-import AndroidStandaloneSetup from './_fragments/_android-standalone-unix-setup.mdx'
-import SetupManagingRust from './_fragments/_setup-managing-rust.mdx'
-import SetupTroubleshooting from './_fragments/_setup-troubleshooting.mdx'
+import AndroidStudioSetup from './\_fragments/\_android-studio-setup.mdx'
+import AndroidStandaloneSetup from './\_fragments/\_android-standalone-unix-setup.mdx'
+import SetupManagingRust from './\_fragments/\_setup-managing-rust.mdx'
+import SetupTroubleshooting from './\_fragments/\_setup-troubleshooting.mdx'
 
 # Setting Up macOS
 
@@ -51,11 +53,15 @@ To setup your Linux machine for Android development you can either install Andro
 ### Standalone Installation
 
 #### 1. Installing JDK
+
 Install the JDK using Homebrew:
+
 ```sh
 brew install openjdk
 ```
+
 - Link to system Java wrapper and set the `JAVA_HOME` env:
+
 ```sh
 sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"

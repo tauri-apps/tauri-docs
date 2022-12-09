@@ -1,13 +1,15 @@
 ---
-description: ""
+sidebar_position: 3
+pagination_next: guides/getting-started/setup/README
+description: ''
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import AndroidStudioSetup from './_fragments/_android-studio-setup.mdx'
-import AndroidStandaloneSetup from './_fragments/_android-standalone-unix-setup.mdx'
-import SetupManagingRust from './_fragments/_setup-managing-rust.mdx'
-import SetupTroubleshooting from './_fragments/_setup-troubleshooting.mdx'
+import AndroidStudioSetup from './\_fragments/\_android-studio-setup.mdx'
+import AndroidStandaloneSetup from './\_fragments/\_android-standalone-unix-setup.mdx'
+import SetupManagingRust from './\_fragments/\_setup-managing-rust.mdx'
+import SetupTroubleshooting from './\_fragments/\_setup-troubleshooting.mdx'
 
 # Setting Up Linux
 
@@ -238,7 +240,7 @@ export JAVA_HOME=/usr/lib/jvm/java-19-openjdk/
 <SetupTroubleshooting />
 
 [rustup.sh]: https://sh.rustup.rs
-[Nix Flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[nix flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
