@@ -14,7 +14,7 @@ Tauri also supports JSON5 and TOML files via the `config-json5` and `config-toml
 
 ## Platform-Specific Configuration
 
-In addition to the default configuration file, Tauri can read a platform-specific configuration from `tauri.linux.conf.json`, `tauri.windows.conf.json`, and `tauri.macos.conf.json` (or `Tauri.linux.toml`, `Tauri.windows.toml` and `Tauri.macos.toml` if the `Tauri.toml` format is used), which gets merged with the main configuration object.
+In addition to the default configuration file, Tauri can read a platform-specific configuration from `tauri.linux.conf.json`, `tauri.windows.conf.json`, `tauri.macos.conf.json`, `tauri.android.conf.json` and `tauri.ios.conf.json` (or `Tauri.linux.toml`, `Tauri.windows.toml`, `Tauri.macos.toml`, `Tauri.android.toml` and `Tauri.ios.toml` if the `Tauri.toml` format is used), which gets merged with the main configuration object.
 
 ## Configuration Structure
 
@@ -246,6 +246,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.macos">`macOS`<a class="hash-link" href="#bundleconfig.macos"></a></div> | [`MacConfig`](#macconfig) | [view](#macconfig) | Configuration for the macOS bundles. |
 | <div className="anchor-with-padding" id="bundleconfig.externalbin">`externalBin`<a class="hash-link" href="#bundleconfig.externalbin"></a></div> | `array`? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows<br />- "my-binary-x86_64-apple-darwin" for macOS<br />- "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
 | <div className="anchor-with-padding" id="bundleconfig.windows">`windows`<a class="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig) | [view](#windowsconfig) | Configuration for the Windows bundle. |
+| <div className="anchor-with-padding" id="bundleconfig.ios">`iOS`<a class="hash-link" href="#bundleconfig.ios"></a></div> | [`IosConfig`](#iosconfig) | [view](#iosconfig) | iOS configuration. |
 
 
 #### BundleTarget
@@ -385,6 +386,17 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="wixlanguageconfig.localepath">`localePath`<a class="hash-link" href="#wixlanguageconfig.localepath"></a></div> | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
+
+
+### IosConfig
+
+General configuration for the iOS target.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="iosconfig.developmentteam">`developmentTeam`<a class="hash-link" href="#iosconfig.developmentteam"></a></div> | `string`? | _null_ | The development team. This value is required for iOS development because code signing is enforced. The `TAURI_APPLE_DEVELOPMENT_TEAM` environment variable can be set to overwrite it. |
 
 
 ### AllowlistConfig

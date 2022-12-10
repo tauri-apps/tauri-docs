@@ -87,7 +87,7 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
-**Defined in:** [shell.ts:323](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L323)
+**Defined in:** [shell.ts:323](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L323)
 
 #### Properties
 
@@ -97,7 +97,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 The child process `pid`.
 
-**Defined in:** [shell.ts:321](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L321)
+**Defined in:** [shell.ts:321](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L321)
 
 #### Methods
 
@@ -183,7 +183,7 @@ Creates a new `Command` instance.
 
 **Overrides:** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
 
-**Defined in:** [shell.ts:411](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L411)
+**Defined in:** [shell.ts:411](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L411)
 
 #### Properties
 
@@ -193,7 +193,7 @@ Creates a new `Command` instance.
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-**Defined in:** [shell.ts:401](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L401)
+**Defined in:** [shell.ts:401](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L401)
 
 ##### `stdout`
 
@@ -201,7 +201,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L399)
+**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L399)
 
 #### Methods
 
@@ -639,7 +639,7 @@ Alias for `emitter.off(eventName, listener)`.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in:** [shell.ts:107](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L107)
+**Defined in:** [shell.ts:107](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L107)
 
 ##### `signal`
 
@@ -647,7 +647,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L109)
+**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L109)
 
 ##### `stderr`
 
@@ -655,7 +655,7 @@ If the process was terminated by a signal, represents that signal.
 
 The data that the process wrote to `stderr`.
 
-**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L113)
+**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L113)
 
 ##### `stdout`
 
@@ -663,7 +663,7 @@ The data that the process wrote to `stderr`.
 
 The data that the process wrote to `stdout`.
 
-**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L111)
+**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L111)
 
 ### `SpawnOptions`
 
@@ -677,7 +677,7 @@ The data that the process wrote to `stdout`.
 
 Current working directory.
 
-**Defined in:** [shell.ts:86](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L86)
+**Defined in:** [shell.ts:86](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L86)
 
 ##### `encoding`
 
@@ -687,7 +687,7 @@ Character encoding for stdout/stderr
 
 **Since**: 1.1.0
 
-**Defined in:** [shell.ts:94](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L94)
+**Defined in:** [shell.ts:94](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L94)
 
 ##### `env`
 
@@ -695,7 +695,7 @@ Character encoding for stdout/stderr
 
 Environment variables. set to `null` to clear the process env.
 
-**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/527bd9f/tooling/api/src/shell.ts#L88)
+**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/dd65bc9/tooling/api/src/shell.ts#L88)
 
 ## Functions
 
