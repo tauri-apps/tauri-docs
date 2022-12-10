@@ -10,7 +10,7 @@ import TauriBuild from './\_tauri-build.md'
 
 Core libraries such as glibc frequently break compatibility with older systems. For this reason, you must build your Tauri application using the oldest base system you intend to support. A relatively old system such as Ubuntu 18.04 is more suited than Ubuntu 22.04, as the binary compiled on Ubuntu 22.04 will have a higher requirement of the glibc version, so when running on an older system, you will face a runtime error like `/usr/lib/libc.so.6: version 'GLIBC_2.33' not found`. We recommend using a Docker container or GitHub Actions to build your Tauri application for Linux.
 
-See the issues [rust-lang/rust#1355] and [rust-lang/rust#57497], in addition to the [AppImage guide] for more information.
+See the issues [tauri-apps/tauri#1355] and [rust-lang/rust#57497], in addition to the [AppImage guide] for more information.
 
 ## Debian
 
@@ -65,6 +65,6 @@ If your app plays audio/video you need to enable `tauri.conf.json > tauri > bund
 [sidecar]: sidecar.md
 [debian package]: https://wiki.debian.org/Packaging
 [appimage]: https://appimage.org/
-[rust-lang/rust#1355]: https://github.com/tauri-apps/tauri/issues/1355
+[tauri-apps/tauri#1355]: https://github.com/tauri-apps/tauri/issues/1355
 [rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497
 [appimage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
