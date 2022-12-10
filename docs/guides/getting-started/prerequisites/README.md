@@ -9,10 +9,4 @@ The first step is to install [Rust](https://www.rust-lang.org) and system depend
 
 Select the operating system on which you are installing Tauri:
 
-<DocCardList items={
-[
-{ id: "windows", label: "Windows" },
-{ id: "macos", label: "macOS" },
-{ id: "linux", label: "Linux" }
-].map(i => ({ docId: `guides/getting-started/prerequisites/${i.id}`, href: `${i.id}`, label: i.label, type: "link", customProps: { doc_card_image: `/img/guides/getting-started/setup/${i.id}.svg` } }))
-}/>
+<DocCardList items={useCurrentSidebarCategory().items.map(i => {const label = i.label.replace('Setting Up ', ''); return {...i, label, customProps: { doc_card_image: `/img/guides/getting-started/setup/${label}.svg` }}})} />
