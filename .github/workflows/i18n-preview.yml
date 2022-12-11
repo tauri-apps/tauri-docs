@@ -36,8 +36,8 @@ jobs:
               owner,
               repo,
               title: 'i18n Preview',
-              head: '${{ github.ref_name }}',
-              base: 'dev',
+              head: 'i18n-preview',
+              base: '${{ github.ref_name }}',
               draft: true
             });
             
