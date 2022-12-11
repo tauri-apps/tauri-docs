@@ -20,7 +20,8 @@ async function run() {
     // Get get locales from Crowdin
     const project = await projectsGroupsApi.getProject(projectId)
     const sourceLanguage = project.data.sourceLanguageId
-    var locales = project.data.targetLanguages.map(
+
+    var locales = Object.values(project.data.languageMapping).map(
       (language) => language.locale
     )
     locales.push(sourceLanguage)
