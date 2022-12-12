@@ -1,4 +1,4 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "cloneSubmodules": true
 }
