@@ -109,6 +109,13 @@ function Cards() {
 function Features() {
   const items = [
     {
+      title: translate({ message: 'Mobile Bundler' }),
+      description: translate({
+        message: 'Bundle to all major mobile device operating systems',
+      }),
+      icon: 'phone',
+    },
+    {
       title: translate({ message: 'Desktop Bundler' }),
       description: translate({
         message: 'Bundle for all major desktops from native systems',
@@ -190,13 +197,6 @@ function Features() {
 
 function Roadmap() {
   const items = [
-    {
-      title: translate({ message: 'Mobile Bundler' }),
-      description: translate({
-        message: 'Bundle to all major mobile device operating systems',
-      }),
-      icon: 'phone',
-    },
     {
       title: translate({ message: 'Cross Compiler' }),
       description: translate({
