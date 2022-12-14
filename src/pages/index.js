@@ -341,12 +341,6 @@ function Sponsors() {
       logoColorLight: 'ClickUp_color_light.svg',
     },
     {
-      name: 'CoParse',
-      link: 'https://coparse.com',
-      logoColorDark: 'CoParse_color_dark.svg',
-      logoColorLight: 'CoParse_color_light.svg',
-    },
-    {
       name: 'Mintter',
       link: 'https://mintter.com',
       logoColorDark: 'Mintter_color_dark.svg',
