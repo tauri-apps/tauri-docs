@@ -100,6 +100,52 @@ invoke('my_custom_command')
   .catch((error) => console.error(error))
 ```
 
+As mentioned above, everything returned from commands must implement [serde::Serialize], including errors.
+This can be problematic if you're working with error types from Rust's std library or external crates as most error types do not implement it.
+In simple scenarios you can use `map_err` to convert these errors to `String`s:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> Result<(), String> {
+  // This will return an error
+  std::fs::File::open("path/that/does/not/exist").map_err(|err| err.to_string())?;
+  // Return nothing on success
+  Ok(())
+}
+```
+
+Since this is not very idiomatic you may want to create your own error type which implements `serde::Serialize`. In the following example, we use the [thiserror] crate to help create the error type. It allows you to turn enums into error types by deriving the `thiserror::Error` trait. You can consult its documentation for more details.
+
+```rust
+// create the error type that represents all errors possible in our program
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error(transparent)]
+  Io(#[from] std::io::Error)
+}
+
+// we must manually implement serde::Serialize
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    serializer.serialize_str(self.to_string().as_ref())
+  }
+}
+
+#[tauri::command]
+fn my_custom_command() -> Result<(), String> {
+  // This will return an error
+  std::fs::File::open("path/that/does/not/exist")?;
+  // Return nothing on success
+  Ok(())
+}
+```
+
+A custom error type has the advantage of making all possible errors explicit so readers can quickly identify what errors can happen. This saves other people (and yourself) enormous amounts of time when reviewing and refactoring code later.<br/>
+It also gives you full control over the way your error type gets serialized. In the above example, we simply returned the error message as a string, but you could assign each error a code similar to C, this way you could more easily map it to a similar looking TypeScript error enum for example.
+
 ## Async Commands
 
 :::note
@@ -257,3 +303,4 @@ invoke('my_custom_command', {
 [`async_runtime::spawn`]: https://docs.rs/tauri/1/tauri/async_runtime/fn.spawn.html
 [`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
 [`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`thiserror`]: https://github.com/dtolnay/thiserror
