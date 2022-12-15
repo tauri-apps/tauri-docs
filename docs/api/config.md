@@ -131,12 +131,14 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.visible">`visible`<a class="hash-link" href="#windowconfig.visible"></a></div> | `boolean` | `true` | Whether the window is visible or not. |
 | <div className="anchor-with-padding" id="windowconfig.decorations">`decorations`<a class="hash-link" href="#windowconfig.decorations"></a></div> | `boolean` | `true` | Whether the window should have borders and bars. |
 | <div className="anchor-with-padding" id="windowconfig.alwaysontop">`alwaysOnTop`<a class="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean` | `false` | Whether the window should always be on top of other windows. |
+| <div className="anchor-with-padding" id="windowconfig.contentprotected">`contentProtected`<a class="hash-link" href="#windowconfig.contentprotected"></a></div> | `boolean` | `false` | Prevents the window contents from being captured by other apps. |
 | <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean` | `false` | If `true`, hides the window icon from the taskbar on Windows and Linux. |
 | <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
 | <div className="anchor-with-padding" id="windowconfig.titlebarstyle">`titleBarStyle`<a class="hash-link" href="#windowconfig.titlebarstyle"></a></div> | [`TitleBarStyle`](#titlebarstyle) | [view](#titlebarstyle) | The style of the macOS title bar. |
 | <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | `boolean` | `false` | If `true`, sets the window title to be hidden on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.acceptfirstmouse">`acceptFirstMouse`<a class="hash-link" href="#windowconfig.acceptfirstmouse"></a></div> | `boolean` | `false` | Whether clicking an inactive window also clicks through to the webview on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | `string`? | _null_ | Defines the window [tabbing identifier] for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled.<br /><br />[tabbing identifier]: <https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier> |
+| <div className="anchor-with-padding" id="windowconfig.additionalbrowserargs">`additionalBrowserArgs`<a class="hash-link" href="#windowconfig.additionalbrowserargs"></a></div> | `string`? | _null_ | Defines additional browser arguments on Windows. By default wry passes `--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection` so if you use this method, you also need to disable these components by yourself if you want. |
 
 
 #### WindowUrl
@@ -466,6 +468,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowallowlistconfig.close">`close`<a class="hash-link" href="#windowallowlistconfig.close"></a></div> | `boolean` | `false` | Allows closing the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setdecorations">`setDecorations`<a class="hash-link" href="#windowallowlistconfig.setdecorations"></a></div> | `boolean` | `false` | Allows setting the decorations flag of the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setalwaysontop">`setAlwaysOnTop`<a class="hash-link" href="#windowallowlistconfig.setalwaysontop"></a></div> | `boolean` | `false` | Allows setting the always_on_top flag of the window. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcontentprotected">`setContentProtected`<a class="hash-link" href="#windowallowlistconfig.setcontentprotected"></a></div> | `boolean` | `false` | Allows preventing the window contents from being captured by other apps. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setsize">`setSize`<a class="hash-link" href="#windowallowlistconfig.setsize"></a></div> | `boolean` | `false` | Allows setting the window size. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setminsize">`setMinSize`<a class="hash-link" href="#windowallowlistconfig.setminsize"></a></div> | `boolean` | `false` | Allows setting the window minimum size. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setmaxsize">`setMaxSize`<a class="hash-link" href="#windowallowlistconfig.setmaxsize"></a></div> | `boolean` | `false` | Allows setting the window maximum size. |
@@ -546,7 +549,7 @@ Can be any of the following types:
 
 - `boolean`: If the shell open API should be enabled.
 
-	If enabled, the default validation regex (`^https?://`) is used.
+	If enabled, the default validation regex (`^((mailto:\w+)|(tel:\w+)|(https?://\w+)).+`) is used.
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
 	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
