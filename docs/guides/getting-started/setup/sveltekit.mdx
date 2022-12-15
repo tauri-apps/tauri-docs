@@ -191,10 +191,6 @@ export default defineConfig(async () => {
 })
 ```
 
-:::caution Mobile static asset handling
-Importing an asset as URL is not supported on mobile. Prefer the [import.meta.url approach].
-:::
-
 Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
 
 ```typescript title=src/routes/+layout.ts
@@ -328,7 +324,6 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
 [webdriver documentation]: ../../testing/webdriver/introduction.md
 [client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
-[import.meta.url approach]: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
 [adapter docs]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
 [typescript]: https://www.typescriptlang.org
 [`@tauri-apps/api`]: ../../../api/js/

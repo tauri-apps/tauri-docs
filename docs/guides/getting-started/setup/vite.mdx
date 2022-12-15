@@ -176,10 +176,6 @@ export default defineConfig(async () => {
 
 </Tabs>
 
-:::caution Mobile static asset handling
-Importing an asset as URL is not supported on mobile. Prefer the [import.meta.url approach].
-:::
-
 :::info
 
 Note that if you are not using vanilla JavaScript, you must keep the framework-specific plugins that were already in this file.
@@ -285,6 +281,5 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [typescript]: https://www.typescriptlang.org
 [prerequisites]: ../prerequisites/
 [awesome-vite]: https://github.com/vitejs/awesome-vite#plugins
-[import.meta.url approach]: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
 [`@tauri-apps/api`]: ../../../api/js/
 [inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
