@@ -48,10 +48,10 @@ shiki@^0.11.1:
 typedoc-plugin-markdown@../typedoc-plugin-markdown/packages/typedoc-plugin-markdown:
   version "3.13.4"
 
-typedoc-plugin-mdn-links@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/typedoc-plugin-mdn-links/-/typedoc-plugin-mdn-links-2.0.0.tgz#b43893bc7bdbb94927091f66d465f31e8440ad6c"
-  integrity sha512-IGLuelXPOenGdmklr5DHgPPf/MfZj7aEYCxCMtPN8C1D0lA7w0YLahd0jhDDcOMU7zL1EPcM5pPnhZHltDhqGQ==
+typedoc-plugin-mdn-links@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-mdn-links/-/typedoc-plugin-mdn-links-2.0.1.tgz#ab93ea8c1830ebfbc8dd4dde40d63840b1467d1b"
+  integrity sha512-NKhlev3wO/YnEOgo7WVG9KhxENaxk6n0zTrLG2zcXrkY1WryEe17n5Jjn+0IfEPAzCC0BxHzEBavWdHngBclVw==
 
 typedoc@0.23.22:
   version "0.23.22"
