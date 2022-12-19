@@ -21,7 +21,6 @@ var baseUrl =
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
-const devToUrl = 'https://dev.to/tauri'
 const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
@@ -251,7 +250,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>Tauri mobile alpha has launched! <a id='announcement-link' href='/blog/2022/12/09/tauri-mobile-alpha'>Read the blog post</a></b>",
+          "<b>Give your feedback in the <a id='announcement-link' href='https://tripetto.app/run/7NCT3QTC00'>Tauri 2022 Community Survey</a>!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
