@@ -68,7 +68,6 @@ mv jdk-11.0.2 $env:LocalAppData\Java
 Set the `JAVA_HOME` environment variable:
 
 ```powershell
-$env:JAVA_HOME="$env:LocalAppData\Java\jdk-11.0.2"
 [System.Environment]::SetEnvironmentVariable("JAVA_HOME", "$env:LocalAppData\Java\jdk-11.0.2", "User")
 ```
 
@@ -87,13 +86,14 @@ rm cmdline-tools
 Set the `ANDROID_HOME` and `NDK_HOME` environment variables:
 
 ```powershell
-$env:ANDROID_HOME="$HOME\.android"
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$HOME\.android", "User")
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$HOME\.android\ndk\25.0.8775105", "User")
 ```
 
 :::warning
-You need to reboot your Windows machine in order for the environment variables to be loaded correctly.
+
+You need to reboot your Windows machine now in order for the environment variables to be loaded correctly.
+
 :::
 
 Install required SDK and NDK components:
