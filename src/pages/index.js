@@ -364,6 +364,12 @@ function Sponsors() {
       logoColorDark: 'tensor_color_dark.svg',
       logoColorLight: 'tensor_color_light.svg',
     },
+    {
+      name: 'VPS Server',
+      link: 'https://www.vpsserver.com',
+      logoColorDark: 'vps_server_color_dark.svg',
+      logoColorLight: 'vps_server_color_light.svg',
+    },
   ]
 
   return (
