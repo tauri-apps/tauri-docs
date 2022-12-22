@@ -40,7 +40,7 @@ The first step to sign a macOS application is getting a signing certificate from
 
 To create a new signing certificate, you must generate a Certificate Signing Request (CSR) file from your Mac computer. [Create a certificate signing request] describes creating a CSR.
 
-On your Apple Developer account, navigate to the [Certificates, IDs & Profiles page] and click on the `Add` button to open the interface to create a new certificate. Choose the appropriate certificate type (`Apple Distribution` to submit apps to the App Store, and `Developer ID Application` to ship apps outside the App Store). Upload your CSR, and the certificate will be created.
+On your Apple Developer account, navigate to the [Certificates, IDs & Profiles page] and click on the `Create a certificate` button to open the interface to create a new certificate. Choose the appropriate certificate type (`Apple Distribution` to submit apps to the App Store, and `Developer ID Application` to ship apps outside the App Store). Upload your CSR, and the certificate will be created.
 
 :::note
 
@@ -156,7 +156,7 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 [apple developer program]: https://developer.apple.com/programs/
 [notarizing macos software before distribution]: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
 [app-specific password]: https://support.apple.com/en-ca/HT204397
-[create a certificate signing request]: https://help.apple.com/developer-account/#/devbfa00fef7
+[create a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [certificates, ids & profiles page]: https://developer.apple.com/account/resources/certificates/list
 [users and access page]: https://appstoreconnect.apple.com/access/users
 [tauri action]: https://github.com/tauri-apps/tauri-action
