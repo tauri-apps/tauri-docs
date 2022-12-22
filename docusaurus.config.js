@@ -118,11 +118,20 @@ const navbarItems = [
   {
     type: 'docsVersionDropdown',
     position: 'right',
+    dropdownItemsBefore: [
+      {
+        type: 'html',
+        value: '<b>Stable versions</b>',
+      },
+    ],
     dropdownItemsAfter: [
-      // TODO: Remove on release
+      {
+        type: 'html',
+        value: '<b>Alpha versions</b>',
+      },
       {
         href: 'https://next--tauri.netlify.app/',
-        label: 'v2-alpha',
+        label: 'v2',
         target: '_self',
       },
     ],
@@ -311,7 +320,7 @@ async function siteConfig() {
             versions: {
               // Maps the working "current" version to a custom url instead of `next`
               current: {
-                label: `${unreleasedTauriVersion}-stable`,
+                label: unreleasedTauriVersion,
                 path: unreleasedTauriVersion,
               },
               // If there is a "latest" version, map url to version number
