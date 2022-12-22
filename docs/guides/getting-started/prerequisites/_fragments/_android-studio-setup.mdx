@@ -34,5 +34,5 @@ Now you need to set the `ANDROID_HOME` and `NDK_HOME` environment variables:
     ? 'export ANDROID_HOME="$HOME/Android/Sdk"\nexport NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"'
     : ''}
   {props.platform == 'windows' &&
-    '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\AndroidSdk\\ndk\\25.0.8775105", "User")'}
+    '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\Android\\Sdk\\ndk\\25.0.8775105", "User")'}
 </CodeBlock>
