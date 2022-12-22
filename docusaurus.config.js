@@ -115,10 +115,9 @@ const navbarItems = [
     ],
   },
   {
-    label: 'Releases',
+    label: 'Release Notes',
     to: 'releases',
     position: 'right',
-    className: 'navbarIcon releasesIcon',
   },
   {
     label: 'GitHub',
@@ -137,6 +136,29 @@ const navbarItems = [
         label: 'Help us translate',
       },
     ],
+  },
+  {
+    type: 'docsVersionDropdown',
+    position: 'right',
+    className: 'navbarIcon versionIcon',
+    dropdownItemsBefore: [
+      {
+        type: 'html',
+        value: '<b>Stable</b>',
+      },
+    ],
+    dropdownItemsAfter: [
+      {
+        type: 'html',
+        value: '<b>Alpha</b>',
+      },
+      {
+        href: 'https://next--tauri.netlify.app/',
+        label: 'v2',
+        target: '_self',
+      },
+    ],
+    dropdownActiveClassDisabled: true,
   },
 ]
 
