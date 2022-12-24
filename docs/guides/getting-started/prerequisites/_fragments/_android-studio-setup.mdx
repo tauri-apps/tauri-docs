@@ -9,7 +9,7 @@ Android Studio includes a JDK so you do not need to download a separate one. Set
 <CodeBlock language={props.platform === 'windows' ? 'powershell' : 'sh'}>
   {props.platform == 'linux' ? 'export JAVA_HOME=/opt/android-studio/jre' : ''}
   {props.platform == 'windows'
-    ? '$env:JAVA_HOME="$env:LocalAppData\\Java\\jdk-11.0.2"\n[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jre", "User")'
+    ? '[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jre", "User")'
     : ''}
 </CodeBlock>
 
@@ -34,5 +34,5 @@ Now you need to set the `ANDROID_HOME` and `NDK_HOME` environment variables:
     ? 'export ANDROID_HOME="$HOME/Android/Sdk"\nexport NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"'
     : ''}
   {props.platform == 'windows' &&
-    '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppDataAndroidSdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppDataAndroidSdk\\ndk\\25.0.8775105", "User")'}
+    '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\Android\\Sdk\\ndk\\25.0.8775105", "User")'}
 </CodeBlock>
