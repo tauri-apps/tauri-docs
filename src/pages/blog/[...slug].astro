@@ -1,0 +1,24 @@
+---
+import { CollectionEntry, getCollection } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+
+// TODO: Need to match the current schema with yyyy/mm/dd values
+export async function getStaticPaths() {
+  const blog = await getCollection('blog')
+  return blog.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }))
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<Layout title={entry.slug}>
+  <Content />
+</Layout>

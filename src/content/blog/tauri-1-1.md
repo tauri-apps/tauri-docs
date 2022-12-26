@@ -1,7 +1,9 @@
 ---
-authors: [lucasfernog]
+date: 2022-09-15
+title: Announcing Tauri 1.1.0
+summary: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release.
 image: ./tauri_1_1_images/header.png
-description: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release.
+authors: [lucasfernog]
 ---
 
 import Tabs from '@theme/Tabs'
@@ -110,19 +112,19 @@ In the 1.0 releases Tauri supports the `JSON` configuration format by default, a
 ```json title=tauri.conf.json
 {
   "build": {
-      "devPath": "http://localhost:8000",
-      "distDir": "../dist"
+    "devPath": "http://localhost:8000",
+    "distDir": "../dist"
   }
 }
 ```
 
 ```json5 title=tauri.conf.json5
 {
-  "build": {
-      // devServer URL (comments are allowed!)
-      "devPath": "http://localhost:8000",
-      "distDir": "../dist"
-  }
+  build: {
+    // devServer URL (comments are allowed!)
+    devPath: 'http://localhost:8000',
+    distDir: '../dist',
+  },
 }
 ```
 

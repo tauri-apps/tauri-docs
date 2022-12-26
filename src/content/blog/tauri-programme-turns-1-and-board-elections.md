@@ -1,6 +1,8 @@
 ---
+date: 2022-07-12
+title: Tauri Programme Turns 1 and Board Elections
+summary: The one year anniversary for Tauri becoming a programme within The Commons Conservancy is upcoming on the 16th of July!
 authors: [beanow]
-description: The one year anniversary for Tauri becoming a programme within The Commons Conservancy is upcoming on the 16th of July!
 ---
 
 # Tauri Programme Turns 1 and Board Elections

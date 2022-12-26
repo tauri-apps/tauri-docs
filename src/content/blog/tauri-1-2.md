@@ -1,7 +1,9 @@
 ---
-authors: [lucasfernog]
+date: 2022-11-08
+title: Announcing Tauri 1.2.0
+summary: The Tauri team is happy to announce the 1.2.0 release.
 image: ./tauri_1_2_images/header.png
-description: The Tauri team is happy to announce the 1.2.0 release.
+authors: [lucasfernog]
 ---
 
 import Tabs from '@theme/Tabs'

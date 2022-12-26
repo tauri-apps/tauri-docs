@@ -1,7 +1,9 @@
 ---
-authors: [lucasfernog]
+date: 2022-12-09
+title: Announcing the Tauri Mobile Alpha Release
+summary: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
 image: ./tauri_2_0_0_alpha_0/header.png
-description: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
+authors: [lucasfernog]
 ---
 
 import Tabs from '@theme/Tabs'
