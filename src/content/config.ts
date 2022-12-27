@@ -11,6 +11,7 @@ const blog = defineCollection({
 })
 
 const apiCoreJs1 = defineCollection({
+  // TODO: Currently the `1` value is hard-coded in the page, not here
   // slug: ({ defaultSlug }) => {
   //   return `1/${defaultSlug}`
   // },
