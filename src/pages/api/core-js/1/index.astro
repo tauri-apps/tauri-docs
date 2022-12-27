@@ -12,6 +12,7 @@ collection.map((entry) => console.log(entry.slug))
     {
       collection.map((entry) => (
         <li>
+          <!-- TODO: For some reason this isn't keeping the `/1/` in the url -->
           <a href={`${entry.slug}`}>{entry.slug}</a>
         </li>
       ))
