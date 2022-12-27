@@ -42,7 +42,25 @@ declare module 'astro:content' {
 	};
 
 	const entryMap: {
-		"api-core-js-1": {
+		"api-core-cli-1": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "api-core-cli-1",
+  data: any
+},
+},
+"api-core-config-1": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "api-core-config-1",
+  data: any
+},
+},
+"api-core-js-1": {
 "app.md": {
   id: "app.md",
   slug: "app",

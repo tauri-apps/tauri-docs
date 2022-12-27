@@ -1,5 +1,16 @@
 import { z, defineCollection } from 'astro:content'
 
+const apiCoreCli1 = defineCollection({})
+const apiCoreConfig1 = defineCollection({})
+
+const apiCoreJs1 = defineCollection({
+  // TODO: Currently the `1` value is hard-coded in the page, not here
+  // slug: ({ defaultSlug }) => {
+  //   return `1/${defaultSlug}`
+  // },
+  schema: {},
+})
+
 const blog = defineCollection({
   schema: {
     date: z.date(),
@@ -10,15 +21,9 @@ const blog = defineCollection({
   },
 })
 
-const apiCoreJs1 = defineCollection({
-  // TODO: Currently the `1` value is hard-coded in the page, not here
-  // slug: ({ defaultSlug }) => {
-  //   return `1/${defaultSlug}`
-  // },
-  schema: {},
-})
-
 export const collections = {
   blog,
+  'api-core-cli-1': apiCoreCli1,
+  'api-core-config-1': apiCoreConfig1,
   'api-core-js-1': apiCoreJs1,
 }
