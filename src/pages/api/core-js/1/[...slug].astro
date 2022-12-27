@@ -25,5 +25,6 @@ const { Content, headings } = await entry.render()
       {headings.map((heading) => <li>{JSON.stringify(heading)}</li>)}
     </ul>
   </div>
+  <!-- FIXME: Markdown links ending in `.md` don't have the `.md` extension removed when rendering -->
   <Content />
 </Layout>

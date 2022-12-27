@@ -61,6 +61,13 @@ declare module 'astro:content' {
 },
 },
 "api-core-js-1": {
+"README.md": {
+  id: "README.md",
+  slug: "README",
+  body: string,
+  collection: "api-core-js-1",
+  data: any
+},
 "app.md": {
   id: "app.md",
   slug: "app",
@@ -117,13 +124,6 @@ declare module 'astro:content' {
   collection: "api-core-js-1",
   data: any
 },
-"index.md": {
-  id: "index.md",
-  slug: "index",
-  body: string,
-  collection: "api-core-js-1",
-  data: any
-},
 "mocks.md": {
   id: "mocks.md",
   slug: "mocks",
@@ -155,6 +155,13 @@ declare module 'astro:content' {
 "process.md": {
   id: "process.md",
   slug: "process",
+  body: string,
+  collection: "api-core-js-1",
+  data: any
+},
+"readme.md": {
+  id: "readme.md",
+  slug: "readme",
   body: string,
   collection: "api-core-js-1",
   data: any
