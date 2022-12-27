@@ -15,8 +15,6 @@ import TabItem from '@theme/TabItem'
 
 After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the [1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
 
-<!--truncate-->
-
 You can update the NPM dependencies with:
 
 <Tabs groupId="package-manager">

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 import Layout from '../../../../layouts/Layout.astro'
 
 const collection = await getCollection('api-core-js-1')
-// collection.map((entry) => console.log(entry.slug))
+// FIXME: Does `1/` need to be hardcoded below?
 ---
 
 <Layout title="Core JavaScript API">
@@ -13,8 +13,7 @@ const collection = await getCollection('api-core-js-1')
     {
       collection.map((entry) => (
         <li>
-          <!-- FIXME: For some reason this isn't keeping the `/1/` in the url -->
-          <a href={entry.slug}>{entry.slug}</a>
+          <a href={`1/${entry.slug}`}>{entry.slug}</a>
         </li>
       ))
     }

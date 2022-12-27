@@ -159,13 +159,6 @@ declare module 'astro:content' {
   collection: "api-core-js-1",
   data: any
 },
-"readme.md": {
-  id: "readme.md",
-  slug: "readme",
-  body: string,
-  collection: "api-core-js-1",
-  data: any
-},
 "shell.md": {
   id: "shell.md",
   slug: "shell",
@@ -198,42 +191,42 @@ declare module 'astro:content' {
 "blog": {
 "tauri-1-0.md": {
   id: "tauri-1-0.md",
-  slug: "tauri-1-0",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
 "tauri-1-1.md": {
   id: "tauri-1-1.md",
-  slug: "tauri-1-1",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
 "tauri-1-2.md": {
   id: "tauri-1-2.md",
-  slug: "tauri-1-2",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
 "tauri-egui-0-1.md": {
   id: "tauri-egui-0-1.md",
-  slug: "tauri-egui-0-1",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
 "tauri-mobile-alpha.md": {
   id: "tauri-mobile-alpha.md",
-  slug: "tauri-mobile-alpha",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
 "tauri-programme-turns-1-and-board-elections.md": {
   id: "tauri-programme-turns-1-and-board-elections.md",
-  slug: "tauri-programme-turns-1-and-board-elections",
+  slug: string,
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">

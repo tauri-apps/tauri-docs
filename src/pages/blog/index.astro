@@ -1,1 +1,21 @@
-<h1>This is a stub for the list of blog posts</h1>
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+
+const collection = await getCollection('blog')
+// FIXME: Does `blog/` need to be hard-coded below?
+---
+
+<Layout title="Latest Blog Posts">
+  <h1>Latest Blog Posts</h1>
+  <p>This is a custom astro page</p>
+  <ul>
+    {
+      collection.map((entry) => (
+        <li>
+          <a href={`blog/${entry.slug}`}>{entry.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
