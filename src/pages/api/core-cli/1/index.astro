@@ -1,0 +1,10 @@
+---
+import { getEntry } from 'astro:content'
+import Layout from '../../../../layouts/Layout.astro'
+const entry = await getEntry('api-core-cli-1', 'index.md')
+const { Content } = await entry.render()
+---
+
+<Layout title={entry.slug}>
+  <Content />
+</Layout>
