@@ -42,7 +42,135 @@ declare module 'astro:content' {
 	};
 
 	const entryMap: {
-		"blog": {
+		"api-core-js-1": {
+"app.md": {
+  id: "app.md",
+  slug: "app",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"cli.md": {
+  id: "cli.md",
+  slug: "cli",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"clipboard.md": {
+  id: "clipboard.md",
+  slug: "clipboard",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"dialog.md": {
+  id: "dialog.md",
+  slug: "dialog",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"event.md": {
+  id: "event.md",
+  slug: "event",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"fs.md": {
+  id: "fs.md",
+  slug: "fs",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"globalShortcut.md": {
+  id: "globalShortcut.md",
+  slug: "globalShortcut",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"http.md": {
+  id: "http.md",
+  slug: "http",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"mocks.md": {
+  id: "mocks.md",
+  slug: "mocks",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"notification.md": {
+  id: "notification.md",
+  slug: "notification",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"os.md": {
+  id: "os.md",
+  slug: "os",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"path.md": {
+  id: "path.md",
+  slug: "path",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"process.md": {
+  id: "process.md",
+  slug: "process",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"shell.md": {
+  id: "shell.md",
+  slug: "shell",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"tauri.md": {
+  id: "tauri.md",
+  slug: "tauri",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"updater.md": {
+  id: "updater.md",
+  slug: "updater",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+"window.md": {
+  id: "window.md",
+  slug: "window",
+  body: string,
+  collection: "api-core-js-1",
+  data: InferEntrySchema<"api-core-js-1">
+},
+},
+"blog": {
 "tauri-1-0.md": {
   id: "tauri-1-0.md",
   slug: "tauri-1-0",
@@ -84,6 +212,470 @@ declare module 'astro:content' {
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
+},
+},
+"docs-core": {
+"building/README.md": {
+  id: "building/README.md",
+  slug: "building/README",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/_tauri-build.md": {
+  id: "building/_tauri-build.md",
+  slug: "building/_tauri-build",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/app-size.md": {
+  id: "building/app-size.md",
+  slug: "building/app-size",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/cross-platform.md": {
+  id: "building/cross-platform.md",
+  slug: "building/cross-platform",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/linux.md": {
+  id: "building/linux.md",
+  slug: "building/linux",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/macos.md": {
+  id: "building/macos.md",
+  slug: "building/macos",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/resources.md": {
+  id: "building/resources.md",
+  slug: "building/resources",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/sidecar.md": {
+  id: "building/sidecar.md",
+  slug: "building/sidecar",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"building/windows.md": {
+  id: "building/windows.md",
+  slug: "building/windows",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"debugging/application.md": {
+  id: "debugging/application.md",
+  slug: "debugging/application",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"debugging/vs-code.md": {
+  id: "debugging/vs-code.md",
+  slug: "debugging/vs-code",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"development/development-cycle.md": {
+  id: "development/development-cycle.md",
+  slug: "development/development-cycle",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"development/updating-dependencies.md": {
+  id: "development/updating-dependencies.md",
+  slug: "development/updating-dependencies",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"distribution/publishing.md": {
+  id: "distribution/publishing.md",
+  slug: "distribution/publishing",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"distribution/sign-linux.md": {
+  id: "distribution/sign-linux.md",
+  slug: "distribution/sign-linux",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"distribution/sign-macos.md": {
+  id: "distribution/sign-macos.md",
+  slug: "distribution/sign-macos",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"distribution/sign-windows.md": {
+  id: "distribution/sign-windows.md",
+  slug: "distribution/sign-windows",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"distribution/updater.md": {
+  id: "distribution/updater.md",
+  slug: "distribution/updater",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"faq.md": {
+  id: "faq.md",
+  slug: "faq",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/README.md": {
+  id: "features/README.md",
+  slug: "features/README",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/cli.md": {
+  id: "features/cli.md",
+  slug: "features/cli",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/command.md": {
+  id: "features/command.md",
+  slug: "features/command",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/events.md": {
+  id: "features/events.md",
+  slug: "features/events",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/icons.md": {
+  id: "features/icons.md",
+  slug: "features/icons",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/menu.md": {
+  id: "features/menu.md",
+  slug: "features/menu",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/multiwindow.md": {
+  id: "features/multiwindow.md",
+  slug: "features/multiwindow",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/plugin.md": {
+  id: "features/plugin.md",
+  slug: "features/plugin",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/splashscreen.md": {
+  id: "features/splashscreen.md",
+  slug: "features/splashscreen",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/system-tray.md": {
+  id: "features/system-tray.md",
+  slug: "features/system-tray",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"features/window-customization.md": {
+  id: "features/window-customization.md",
+  slug: "features/window-customization",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/prerequisites.md": {
+  id: "getting-started/prerequisites.md",
+  slug: "getting-started/prerequisites",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/README.mdx": {
+  id: "getting-started/setup/README.mdx",
+  slug: "getting-started/setup/README",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/_fragments/_commands.mdx": {
+  id: "getting-started/setup/_fragments/_commands.mdx",
+  slug: "getting-started/setup/_fragments/_commands",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/_fragments/_intro.mdx": {
+  id: "getting-started/setup/_fragments/_intro.mdx",
+  slug: "getting-started/setup/_fragments/_intro",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/_fragments/_tauri-init.mdx": {
+  id: "getting-started/setup/_fragments/_tauri-init.mdx",
+  slug: "getting-started/setup/_fragments/_tauri-init",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/html-css-js.mdx": {
+  id: "getting-started/setup/html-css-js.mdx",
+  slug: "getting-started/setup/html-css-js",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/integrate.mdx": {
+  id: "getting-started/setup/integrate.mdx",
+  slug: "getting-started/setup/integrate",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/next-js.mdx": {
+  id: "getting-started/setup/next-js.mdx",
+  slug: "getting-started/setup/next-js",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/sveltekit.mdx": {
+  id: "getting-started/setup/sveltekit.mdx",
+  slug: "getting-started/setup/sveltekit",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"getting-started/setup/vite.mdx": {
+  id: "getting-started/setup/vite.mdx",
+  slug: "getting-started/setup/vite",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"readme.mdx": {
+  id: "readme.mdx",
+  slug: "readme",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/inter-process-communication/brownfield.md": {
+  id: "references/architecture/inter-process-communication/brownfield.md",
+  slug: "references/architecture/inter-process-communication/brownfield",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/inter-process-communication/isolation.md": {
+  id: "references/architecture/inter-process-communication/isolation.md",
+  slug: "references/architecture/inter-process-communication/isolation",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/inter-process-communication/readme.md": {
+  id: "references/architecture/inter-process-communication/readme.md",
+  slug: "references/architecture/inter-process-communication/readme",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/process-model.md": {
+  id: "references/architecture/process-model.md",
+  slug: "references/architecture/process-model",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/readme.md": {
+  id: "references/architecture/readme.md",
+  slug: "references/architecture/readme",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/about-recipes.md": {
+  id: "references/architecture/recipes/about-recipes.md",
+  slug: "references/architecture/recipes/about-recipes",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/bridge.md": {
+  id: "references/architecture/recipes/bridge.md",
+  slug: "references/architecture/recipes/bridge",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/cloudbridge.md": {
+  id: "references/architecture/recipes/cloudbridge.md",
+  slug: "references/architecture/recipes/cloudbridge",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/cloudish.md": {
+  id: "references/architecture/recipes/cloudish.md",
+  slug: "references/architecture/recipes/cloudish",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/glui.md": {
+  id: "references/architecture/recipes/glui.md",
+  slug: "references/architecture/recipes/glui",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/hermit.md": {
+  id: "references/architecture/recipes/hermit.md",
+  slug: "references/architecture/recipes/hermit",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/lockdown.md": {
+  id: "references/architecture/recipes/lockdown.md",
+  slug: "references/architecture/recipes/lockdown",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/recipes/multiwin.md": {
+  id: "references/architecture/recipes/multiwin.md",
+  slug: "references/architecture/recipes/multiwin",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/architecture/security.md": {
+  id: "references/architecture/security.md",
+  slug: "references/architecture/security",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/benchmarks.md": {
+  id: "references/benchmarks.md",
+  slug: "references/benchmarks",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/configuration-files.md": {
+  id: "references/configuration-files.md",
+  slug: "references/configuration-files",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/readme.mdx": {
+  id: "references/readme.mdx",
+  slug: "references/readme",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/security.md": {
+  id: "references/security.md",
+  slug: "references/security",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"references/webview-versions.md": {
+  id: "references/webview-versions.md",
+  slug: "references/webview-versions",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/mocking.md": {
+  id: "testing/mocking.md",
+  slug: "testing/mocking",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/webdriver/ci.md": {
+  id: "testing/webdriver/ci.md",
+  slug: "testing/webdriver/ci",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/webdriver/example/selenium.md": {
+  id: "testing/webdriver/example/selenium.md",
+  slug: "testing/webdriver/example/selenium",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/webdriver/example/setup.md": {
+  id: "testing/webdriver/example/setup.md",
+  slug: "testing/webdriver/example/setup",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/webdriver/example/webdriverio.md": {
+  id: "testing/webdriver/example/webdriverio.md",
+  slug: "testing/webdriver/example/webdriverio",
+  body: string,
+  collection: "docs-core",
+  data: any
+},
+"testing/webdriver/introduction.md": {
+  id: "testing/webdriver/introduction.md",
+  slug: "testing/webdriver/introduction",
+  body: string,
+  collection: "docs-core",
+  data: any
 },
 },
 

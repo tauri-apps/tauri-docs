@@ -19,6 +19,6 @@ const { entry } = Astro.props
 const { Content } = await entry.render()
 ---
 
-<Layout title={entry.slug}>
+<Layout title={`${entry.slug} Core JavaScript API`}>
   <Content />
 </Layout>

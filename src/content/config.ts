@@ -10,6 +10,14 @@ const blog = defineCollection({
   },
 })
 
+const apiCoreJs1 = defineCollection({
+  // slug: ({ defaultSlug }) => {
+  //   return `1/${defaultSlug}`
+  // },
+  schema: {},
+})
+
 export const collections = {
-  blog: blog,
+  blog,
+  'api-core-js-1': apiCoreJs1,
 }
