@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import Layout from '../../../../layouts/Layout.astro'
 
 const collection = await getCollection('api-core-js-1')
+collection.map((entry) => console.log(entry.slug))
 ---
 
 <Layout title="Core JavaScript API">

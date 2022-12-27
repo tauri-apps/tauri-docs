@@ -3,14 +3,7 @@ import { z, defineCollection } from 'astro:content'
 const apiCoreCli1 = defineCollection({})
 const apiCoreConfig1 = defineCollection({})
 
-const apiCoreJs1 = defineCollection({
-  // This is currently the absolute slug (not accounting for locale)
-  // The "pages" entry needs to have the last segment I think
-  // slug: ({ defaultSlug }) => {
-  //   return `/api/core-js/1/${defaultSlug}`
-  // },
-  schema: {},
-})
+const apiCoreJs1 = defineCollection({})
 
 const blog = defineCollection({
   schema: {

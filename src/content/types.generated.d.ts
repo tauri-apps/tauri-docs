@@ -66,126 +66,126 @@ declare module 'astro:content' {
   slug: "app",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "cli.md": {
   id: "cli.md",
   slug: "cli",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "clipboard.md": {
   id: "clipboard.md",
   slug: "clipboard",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "dialog.md": {
   id: "dialog.md",
   slug: "dialog",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "event.md": {
   id: "event.md",
   slug: "event",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "fs.md": {
   id: "fs.md",
   slug: "fs",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "globalShortcut.md": {
   id: "globalShortcut.md",
   slug: "globalShortcut",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "http.md": {
   id: "http.md",
   slug: "http",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "index.md": {
   id: "index.md",
   slug: "index",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "mocks.md": {
   id: "mocks.md",
   slug: "mocks",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "notification.md": {
   id: "notification.md",
   slug: "notification",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "os.md": {
   id: "os.md",
   slug: "os",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "path.md": {
   id: "path.md",
   slug: "path",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "process.md": {
   id: "process.md",
   slug: "process",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "shell.md": {
   id: "shell.md",
   slug: "shell",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "tauri.md": {
   id: "tauri.md",
   slug: "tauri",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "updater.md": {
   id: "updater.md",
   slug: "updater",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 "window.md": {
   id: "window.md",
   slug: "window",
   body: string,
   collection: "api-core-js-1",
-  data: InferEntrySchema<"api-core-js-1">
+  data: any
 },
 },
 "blog": {
