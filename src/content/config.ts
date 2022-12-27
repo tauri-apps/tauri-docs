@@ -4,9 +4,10 @@ const apiCoreCli1 = defineCollection({})
 const apiCoreConfig1 = defineCollection({})
 
 const apiCoreJs1 = defineCollection({
-  // TODO: Currently the `1` value is hard-coded in the page, not here
+  // This is currently the absolute slug (not accounting for locale)
+  // The "pages" entry needs to have the last segment I think
   // slug: ({ defaultSlug }) => {
-  //   return `1/${defaultSlug}`
+  //   return `/api/core-js/1/${defaultSlug}`
   // },
   schema: {},
 })

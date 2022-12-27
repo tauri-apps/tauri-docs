@@ -2,17 +2,16 @@
 import { getCollection } from 'astro:content'
 import Layout from '../../../../layouts/Layout.astro'
 
-const items = await getCollection('api-core-js-1')
+const collection = await getCollection('api-core-js-1')
 ---
 
 <Layout title="Core JavaScript API">
   <h1>Core JavaScript API</h1>
   <ul>
     {
-      items.map((item) => (
+      collection.map((entry) => (
         <li>
-            <!-- TODO: Is hard-coding `1` in href the best way to do this? -->
-          <a href={`1/${item.slug}`}>{item.slug}</a>
+          <a href={`${entry.slug}`}>{entry.slug}</a>
         </li>
       ))
     }

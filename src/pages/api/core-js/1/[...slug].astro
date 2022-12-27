@@ -4,8 +4,8 @@ import Layout from '../../../../layouts/Layout.astro'
 
 // TODO: Need to match the current schema with yyyy/mm/dd values
 export async function getStaticPaths() {
-  const blog = await getCollection('api-core-js-1')
-  return blog.map((entry) => ({
+  const collection = await getCollection('api-core-js-1')
+  return collection.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }))
@@ -16,9 +16,15 @@ interface Props {
 }
 
 const { entry } = Astro.props
-const { Content } = await entry.render()
+const { Content, headings } = await entry.render()
 ---
 
 <Layout title={entry.slug}>
+  <div>
+    <p>On this page</p>
+    <ul>
+      {headings.map((heading) => <li>{JSON.stringify(heading)}</li>)}
+    </ul>
+  </div>
   <Content />
 </Layout>
