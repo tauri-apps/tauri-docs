@@ -2,57 +2,46 @@
 date: 2022-12-09
 title: Announcing the Tauri Mobile Alpha Release
 summary: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
-image: ./tauri_2_0_0_alpha_0/header.png
+image: /img/blog/tauri_2_0_0_alpha_0/header.png
 authors: [lucasfernog]
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 import iOSPreview from './tauri_2_0_0_alpha_0/ios-preview.png'
 import androidPreview from './tauri_2_0_0_alpha_0/android-preview.png'
 
 # Announcing the Tauri Mobile Alpha Release
 
-![Tauri 1.2 Launch Hero Image](./tauri_2_0_0_alpha_0/header.png)
+![Tauri 1.2 Launch Hero Image](/img/blog/tauri_2_0_0_alpha_0/header.png)
 
 Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
-
-<!--truncate-->
 
 ## Updating dependencies
 
 Make sure to update both NPM and Cargo dependencies to the 2.0.0-alpha.0 release. You can update the NPM dependencies with:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
+**npm**
 
 ```shell
 npm install @tauri-apps/cli@next @tauri-apps/api@next
 ```
 
-  </TabItem>
-  <TabItem value="Yarn Classic">
+**Yarn Classic**
 
 ```shell
 yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next
 ```
 
-  </TabItem>
-  <TabItem value="Yarn Berry">
+**Yarn Berry**
 
 ```shell
 yarn up @tauri-apps/cli@next @tauri-apps/api@next
 ```
 
-  </TabItem>
-  <TabItem value="pnpm">
+**pnpm**
 
 ```shell
 pnpm update @tauri-apps/cli@next @tauri-apps/api@next
 ```
-
-  </TabItem>
-</Tabs>
 
 To update the Cargo dependencies, run the following in the `src-tauri` folder:
 

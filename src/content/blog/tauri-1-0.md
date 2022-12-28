@@ -2,17 +2,15 @@
 date: 2022-06-19
 title: Tauri 1.0 Release
 summary: After 9 months of betas and 4 months of release candidates, Tauri version 1.0 is now available!
-image: ./tauri_1_0_images/header.png
+image: /img/blog/tauri_1_0/header.png
 authors: [nothingismagick]
 ---
 
 # Tauri 1.0 Release
 
-![Tauri 1.0 Launch Hero Image](./tauri_1_0_images/header.png)
+![Tauri 1.0 Launch Hero Image](/img/blog/tauri_1_0/header.png)
 
 After 9 months of betas and 4 months of release candidates, [Tauri version 1.0 is now available!](https://github.com/tauri-apps/tauri)
-
-<!--truncate-->
 
 ## What is Tauri?
 
@@ -32,7 +30,7 @@ The entire project has been [horizontally and vertically audited by an independe
 
 <figure>
 
-![Printed sweatshirt](./tauri_1_0_images/hoodie.jpg)
+![Printed sweatshirt](/img/blog/tauri_1_0/hoodie.jpg)
 
 <figcaption>
   <i>Hoodie by jprovost</i>
@@ -46,7 +44,7 @@ Tauri allows you to build "[local first](https://twitter.com/schickling/status/1
 
 <figure>
 
-![Johannes Schickling at Worker Conf 2022 (photo by @TejasKumar)](./tauri_1_0_images/worker_conf_2022.png)
+![Johannes Schickling at Worker Conf 2022 (photo by @TejasKumar)](/img/blog/tauri_1_0/worker_conf_2022.png)
 
 <figcaption>
   <i>
@@ -98,8 +96,8 @@ Here are some of the things people are saying about Tauri:
 <div class="row">
 <div class="col col--2">
 
-![Spacedrive Logo](./tauri_1_0_images/spacedrive_logo_light.png#gh-light-mode-only)
-![Spacedrive Logo](./tauri_1_0_images/spacedrive_logo_dark.png#gh-dark-mode-only)
+![Spacedrive Logo](/img/blog/tauri_1_0/spacedrive_logo_light.png#gh-light-mode-only)
+![Spacedrive Logo](/img/blog/tauri_1_0/spacedrive_logo_dark.png#gh-dark-mode-only)
 
 </div>
 <div class="col col--10">
@@ -113,8 +111,8 @@ _"Spacedrive had to feel native across all platforms, all while being lightweigh
 <div class="row">
 <div class="col col--2">
 
-![Prism Logo](./tauri_1_0_images/prisma_logo_light.svg#gh-light-mode-only)
-![Prism Logo](./tauri_1_0_images/prisma_logo_dark.svg#gh-dark-mode-only)
+![Prism Logo](/img/blog/tauri_1_0/prisma_logo_light.svg#gh-light-mode-only)
+![Prism Logo](/img/blog/tauri_1_0/prisma_logo_dark.svg#gh-dark-mode-only)
 
 </div>
 <div class="col col--10">
@@ -129,8 +127,8 @@ _"Tauri has the potential to unlock a new generation of desktop software that fe
 <div class="row">
 <div class="col col--2">
 
-![OSSC Logo](./tauri_1_0_images/ossc_logo_light.png#gh-light-mode-only)
-![OSSC Logo](./tauri_1_0_images/ossc_logo_dark.png#gh-dark-mode-only)
+![OSSC Logo](/img/blog/tauri_1_0/ossc_logo_light.png#gh-light-mode-only)
+![OSSC Logo](/img/blog/tauri_1_0/ossc_logo_dark.png#gh-dark-mode-only)
 
 </div>
 <div class="col col--10">
@@ -145,8 +143,8 @@ _"Tauri stands to reduce the disastrously negative environmental costs of bloate
 <div class="row">
 <div class="col col--2">
 
-![Padloc Logo](./tauri_1_0_images/padloc_logo_light.svg#gh-light-mode-only)
-![Padloc Logo](./tauri_1_0_images/padloc_logo_dark.svg#gh-dark-mode-only)
+![Padloc Logo](/img/blog/tauri_1_0/padloc_logo_light.svg#gh-light-mode-only)
+![Padloc Logo](/img/blog/tauri_1_0/padloc_logo_dark.svg#gh-dark-mode-only)
 
 </div>
 <div class="col col--10">
@@ -168,8 +166,8 @@ Tauri is one of the top 200 projects on GitHub in all programming languages.
 
 <figure>
 
-![github](./tauri_1_0_images/github_stars_light.png#gh-light-mode-only)
-![github](./tauri_1_0_images/github_stars_dark.png#gh-dark-mode-only)
+![github](/img/blog/tauri_1_0/github_stars_light.png#gh-light-mode-only)
+![github](/img/blog/tauri_1_0/github_stars_dark.png#gh-dark-mode-only)
 
 <figcaption>
 </figcaption>
@@ -179,7 +177,7 @@ People love to discuss what is great and terrible about Tauri on orange websites
 
 <figure>
 
-![hackernews](./tauri_1_0_images/hackernews.jpg)
+![hackernews](/img/blog/tauri_1_0/hackernews.jpg)
 
 <figcaption>
 </figcaption>
@@ -192,7 +190,7 @@ Tauri entered at the top of the charts for the [2021 edition of State of JS](htt
 </a>
 <figure>
 
-![State of JS 2021](./tauri_1_0_images/state_of_js.png)
+![State of JS 2021](/img/blog/tauri_1_0/state_of_js.png)
 
 <figcaption>
 </figcaption>
@@ -202,7 +200,7 @@ Engineers at big companies seem to be eying up Tauri for future projects.
 
 <figure>
 
-![hackernews](./tauri_1_0_images/ossinsight.jpg)
+![hackernews](/img/blog/tauri_1_0/ossinsight.jpg)
 
 <figcaption>
 

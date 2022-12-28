@@ -2,53 +2,41 @@
 date: 2022-11-08
 title: Announcing Tauri 1.2.0
 summary: The Tauri team is happy to announce the 1.2.0 release.
-image: ./tauri_1_2_images/header.png
+image: /img/blog/tauri_1_2/header.png
 authors: [lucasfernog]
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
 # Announcing Tauri 1.2.0
 
-![Tauri 1.2 Launch Hero Image](./tauri_1_2_images/header.png)
+![Tauri 1.2 Launch Hero Image](/img/blog/tauri_1_2/header.png)
 
 The Tauri team is happy to announce the 1.2.0 release. It includes a security fix, so we encourage new and existing users to update to one of the fixed versions. Other changes were internally audited and no security issues were found.
 
-<!--truncate-->
-
 Make sure to update both NPM and Cargo dependencies to the 1.2.0 release. You can update the NPM dependencies with:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
+**npm**
 
 ```shell
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 ```
 
-  </TabItem>
-  <TabItem value="Yarn Classic">
+**Yarn Classic**
 
 ```shell
 yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
 ```
 
-  </TabItem>
-  <TabItem value="Yarn Berry">
+**Yarn Berry**
 
 ```shell
 yarn up @tauri-apps/cli @tauri-apps/api
 ```
 
-  </TabItem>
-  <TabItem value="pnpm">
+**pnpm**
 
 ```shell
 pnpm update @tauri-apps/cli @tauri-apps/api --latest
 ```
-
-  </TabItem>
-</Tabs>
 
 To update the Cargo dependencies, run the following in the `src-tauri` folder:
 

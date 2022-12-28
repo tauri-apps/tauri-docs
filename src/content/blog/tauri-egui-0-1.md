@@ -14,8 +14,6 @@ The Tauri team is pleased to announce the first release of [tauri-egui](https://
 tauri-egui is a Tauri plugin that connects with the Tauri runtime event loop to allow you to create glutin windows via our [glutin fork](https://github.com/tauri-apps/glutin)
 and use egui through our [egui-tao](https://github.com/tauri-apps/egui) integration.
 
-<!--truncate-->
-
 ## Setup
 
 The first step is to add the crate to your dependencies in Cargo.toml:
@@ -268,6 +266,6 @@ fn main() {
 
 Here's how it will look on **all** platforms:
 
-![tauri_egui layout](./tauri_egui_0_1_images/example.png)
+![tauri_egui layout](/img/blog/tauri_egui_0_1/example.png)
 
 To customize the look and feel of your egui application, check out the [Context#set_style API](https://docs.rs/egui/latest/egui/struct.Context.html#method.set_style).
