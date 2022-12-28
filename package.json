@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/prefetch": "^0.1.1",
     "astro": "1.8.0"
   },
   "browserslist": {
