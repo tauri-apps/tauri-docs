@@ -1,3 +1,23 @@
+---
+import type { MarkdownHeading } from 'astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+---
+
 <aside>
-  <p>This is a trailing sidebar</p>
+  <p>Trailing Sidebar</p>
+  <p>On this page</p>
+  <ul>
+    {
+      headings.map((heading) => (
+        <li>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))
+    }
+  </ul>
 </aside>
