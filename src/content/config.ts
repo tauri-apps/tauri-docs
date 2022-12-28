@@ -17,9 +17,12 @@ const blog = defineCollection({
   },
 })
 
+const docsCore1 = defineCollection({})
+
 export const collections = {
   blog,
   'api-core-cli-1': apiCoreCli1,
   'api-core-config-1': apiCoreConfig1,
   'api-core-js-1': apiCoreJs1,
+  'docs-core-1': docsCore1,
 }

@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../../../layouts/Layout.astro'
+
+const collection = await getCollection('docs-core-1')
+// FIXME: Does `1/` need to be hardcoded below?
+---
+
+<Layout title="Core Docs">
+  <h1>Core Docs</h1>
+  <p>This is a custom astro page</p>
+  <ul>
+    {
+      collection.map((entry) => (
+        <li>
+          <a href={`1/${entry.slug}`}>{entry.slug}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

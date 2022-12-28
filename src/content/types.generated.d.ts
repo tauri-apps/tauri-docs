@@ -232,6 +232,15 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 },
 },
+"docs-core-1": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "docs-core-1",
+  data: any
+},
+},
 
 	};
 
