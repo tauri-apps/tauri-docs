@@ -233,9 +233,9 @@ declare module 'astro:content' {
 },
 },
 "docs-core-1": {
-"index.md": {
-  id: "index.md",
-  slug: "index",
+"sample.md": {
+  id: "sample.md",
+  slug: "sample",
   body: string,
   collection: "docs-core-1",
   data: any
