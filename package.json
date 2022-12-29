@@ -27,5 +27,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.11",
+    "@types/marked": "^4.0.8",
+    "marked": "^4.2.5"
   }
 }

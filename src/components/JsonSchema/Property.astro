@@ -1,0 +1,63 @@
+---
+import type { JSONSchema7 } from 'json-schema'
+
+interface Props {
+  name: string
+  // TODO: This should be a JSONSchema7Definition since it could be a simple bool
+  definition: JSONSchema7
+}
+
+const { name, definition } = Astro.props
+
+if (definition.not) {
+  throw `'not' case not handled, found in ${name}`
+}
+---
+
+<h3><code>{name}</code></h3>
+
+<!-- TODO -->
+{
+  definition.allOf && (
+    <>
+      <strong>All Of</strong>
+      <p>{JSON.stringify(definition.allOf)}</p>
+    </>
+  )
+}
+
+<!-- TODO -->
+{
+  definition.anyOf && (
+    <>
+      <strong>Any Of</strong>
+      <p>{JSON.stringify(definition.anyOf)}</p>
+    </>
+  )
+}
+
+<!-- TODO -->
+{
+  definition.oneOf && (
+    <p>
+      <strong>One Of</strong>
+      {JSON.stringify(definition.oneOf)}
+    </p>
+  )
+}
+
+{definition.description && <p>{definition.description}</p>}
+
+<!-- TODO: Put this in a code block that will scroll if beyond ~5 lines -->
+{
+  definition.default && (
+    <>
+      <h4>Default</h4>
+      <p>
+        <code>{JSON.stringify(definition.default, null, 2)}</code>
+      </p>
+    </>
+  )
+}
+
+<!-- <p>{JSON.stringify(definition)}</p> -->
