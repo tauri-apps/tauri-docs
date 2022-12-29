@@ -1229,10 +1229,10 @@
     njre "^0.2.0"
     shelljs "^0.8.4"
 
-"@crowdin/crowdin-api-client@1.19.2":
-  version "1.19.2"
-  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.19.2.tgz#fadca85e9335266800194afce657ef89197e421d"
-  integrity sha512-H6BdppqFUVLvO73TNxVKJNnPuUAy1tTABlTEyThrJYhIBxc4X2z1DsVrYpjHMKi4EFORrcPHIBoAaJDUS3Cu8w==
+"@crowdin/crowdin-api-client@1.20.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.20.1.tgz#0a14dbe5f8ef35940caefac3ffbf800ffb5b6f31"
+  integrity sha512-NgDeQLxh5yDb5V3JuRVEQgdbee00rGWOaqg0FGuqFOWDEkbMb6GZAsusX+AsbopfMDnRJL18hvHphnsMst1jCg==
   dependencies:
     axios "0.21.3"
 
