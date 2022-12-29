@@ -135,7 +135,7 @@ impl serde::Serialize for Error {
 }
 
 #[tauri::command]
-fn my_custom_command() -> Result<(), String> {
+fn my_custom_command() -> Result<(), Error> {
   // This will return an error
   std::fs::File::open("path/that/does/not/exist")?;
   // Return nothing on success
