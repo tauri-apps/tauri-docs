@@ -100,7 +100,7 @@ invoke('my_custom_command')
   .catch((error) => console.error(error))
 ```
 
-As mentioned above, everything returned from commands must implement [serde::Serialize], including errors.
+As mentioned above, everything returned from commands must implement [`serde::Serialize`], including errors.
 This can be problematic if you're working with error types from Rust's std library or external crates as most error types do not implement it.
 In simple scenarios you can use `map_err` to convert these errors to `String`s:
 
