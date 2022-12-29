@@ -1,10 +1,3 @@
----
-sidebar_position: 1
----
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Prerequisites
 
 ## Installing
@@ -19,8 +12,8 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 <figure>
 
-![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
+![Microsoft Visual Studio Installer](/img/guides/getting-started/prerequisites/vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](/img/guides/getting-started/prerequisites/vs-installer-dark.png#gh-dark-mode-only)
 
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
@@ -86,8 +79,7 @@ Make sure to restart your terminal for the changes to take effect.
 
 You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions:
 
-<Tabs>
-  <TabItem value="debian" label="Debian" default>
+**Debian**
 
 ```sh
 sudo apt update
@@ -101,8 +93,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
     librsvg2-dev
 ```
 
-  </TabItem>
-  <TabItem value="arch" label="Arch">
+**Arch**
 
 ```sh
 sudo pacman -Syu
@@ -119,8 +110,7 @@ sudo pacman -S --needed \
     libvips
 ```
 
-  </TabItem>
-  <TabItem value="fedora" label="Fedora">
+**Fedora**
 
 ```sh
 sudo dnf check-update
@@ -133,8 +123,7 @@ sudo dnf install webkit2gtk3-devel.x86_64 \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-  </TabItem>
-  <TabItem value="opensuse" label="openSUSE">
+**openSUSE**
 
 ```sh
 sudo zypper up
@@ -147,8 +136,7 @@ sudo zypper in webkit2gtk3-soup2-devel \
 sudo zypper in -t pattern devel_basis
 ```
 
-  </TabItem>
-  <TabItem value="nixos" label="NixOS">
+**NixOS**
 
 Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
 dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
@@ -239,9 +227,6 @@ pkgs.mkShell {
 }
 ```
 
-  </TabItem>
-</Tabs>
-
 #### 2. Rust
 
 To install Rust on Linux, open a terminal and enter the following command:
@@ -303,7 +288,7 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
-[Nix Flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[nix flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv

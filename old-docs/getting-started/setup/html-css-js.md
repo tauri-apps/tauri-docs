@@ -7,9 +7,9 @@ sidebar_custom_props:
   doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
 import Command from '@theme/Command'
 
 # HTML, CSS, and JavaScript
@@ -20,8 +20,8 @@ This guide will walk you through creating your first Tauri app using just HTML, 
 
 Here's a preview of what we will be building:
 
-![Preview of Application](./assets/html-css-js/html-css-js-light.png#gh-light-mode-only)
-![Preview of Application](./assets/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only)
+![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -52,16 +52,16 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{
+destDirExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-  devPathExplination={{
+devPathExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
 />
@@ -72,8 +72,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 Preview of Application
 
-![Development Progress](./assets/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
-![Development Progress](./assets/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
+![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 

@@ -6,9 +6,9 @@ sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/svelte.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -21,7 +21,7 @@ This guide will walk you through creating your first Tauri app using the [Svelte
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/sveltekit/result.png)
+![Application Preview](/img/guides/getting-started/setup/sveltekit/result.png)
 
 ## Create the Frontend
 
@@ -137,17 +137,17 @@ Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you ca
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{
+destDirExplination={{
     __html: 'Use <code>../build</code> for this value.',
   }}
-  devPathExplination={{
+devPathExplination={{
     __html: 'Use <code>http://localhost:5173</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html:
       'Use <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html:
       'Use <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
   }}
@@ -171,7 +171,7 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/sveltekit/init.png)
+![Application Window](/img/guides/getting-started/setup/sveltekit/init.png)
 
 ## Invoke Commands
 
@@ -215,7 +215,7 @@ You can now add this component into `src/routes/+page.svelte`:
 
 You can now run this with `npm run dev` and see the result:
 
-![Application Preview](./assets/sveltekit/result.png)
+![Application Preview](/img/guides/getting-started/setup/sveltekit/result.png)
 
 :::tip
 

@@ -12,7 +12,7 @@ const collection = await getCollection('docs-core-1')
     {
       collection.map((entry) => (
         <li>
-          <a href={`${Astro.url.pathname}${entry.slug}`}>{entry.slug}</a>
+          <a href={`${Astro.url.pathname}/${entry.slug}`}>{entry.slug}</a>
         </li>
       ))
     }

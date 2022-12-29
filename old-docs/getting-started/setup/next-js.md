@@ -7,9 +7,9 @@ sidebar_custom_props:
   doc_card_image_dark: /img/guides/getting-started/setup/nextjs-dark.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -22,8 +22,8 @@ This guide will walk you through creating your first Tauri app using the React f
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/next-js/next-js-light.png#gh-light-mode-only)
-![Application Preview](./assets/next-js/next-js-dark.png#gh-dark-mode-only)
+![Application Preview](/img/guides/getting-started/setup/next-js/next-js-light.png#gh-light-mode-only)
+![Application Preview](/img/guides/getting-started/setup/next-js/next-js-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -113,14 +113,14 @@ You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Si
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }}
-  devPathExplination={{
+destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }}
+devPathExplination={{
     __html: 'Use <code>http://localhost:3000</code> for this value.',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html: 'Use <code>npm run build && npm run export</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html: 'Use <code>npm run dev</code> for this value.',
   }}
 />
@@ -141,8 +141,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/next-js/next-js-dev-light.png#gh-light-mode-only)
-![Application Window](./assets/next-js/next-js-dev-dark.png#gh-dark-mode-only)
+![Application Window](/img/guides/getting-started/setup/next-js/next-js-dev-light.png#gh-light-mode-only)
+![Application Window](/img/guides/getting-started/setup/next-js/next-js-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 

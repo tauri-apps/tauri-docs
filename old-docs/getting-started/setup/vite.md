@@ -6,9 +6,9 @@ sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/vite.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -21,8 +21,8 @@ This guide will walk you through creating your first Tauri app using the fronten
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/vite/vite-light.png#gh-light-mode-only)
-![Application Preview](./assets/vite/vite-dark.png#gh-dark-mode-only)
+![Application Preview](/img/guides/getting-started/setup/vite/vite-light.png#gh-light-mode-only)
+![Application Preview](/img/guides/getting-started/setup/vite/vite-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -103,17 +103,17 @@ Note that if you are not using vanilla JavaScript, you must keep the framework-s
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{
+destDirExplination={{
     __html: 'Use <code>../dist</code> for this value.',
   }}
-  devPathExplination={{
+devPathExplination={{
     __html: 'Use <code>http://localhost:5173</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html:
       'Use <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html:
       'Use <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
   }}
@@ -137,8 +137,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/vite/vite-dev-light.png#gh-light-mode-only)
-![Application Window](./assets/vite/vite-dev-dark.png#gh-dark-mode-only)
+![Application Window](/img/guides/getting-started/setup/vite/vite-dev-light.png#gh-light-mode-only)
+![Application Window](/img/guides/getting-started/setup/vite/vite-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 
