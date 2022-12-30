@@ -1,0 +1,13 @@
+/* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
+
+@media (prefers-color-scheme: dark) {
+  .light-mode-only {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .dark-mode-only {
+    display: none;
+  }
+}

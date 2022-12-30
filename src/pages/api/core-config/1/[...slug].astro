@@ -4,6 +4,8 @@ import schema from './schema.json'
 import type { JSONSchema7 } from 'json-schema'
 import { marked } from 'marked'
 import Property from '../../../../components/JsonSchema/Property.astro'
+import LeadingSidebar from '../../../../components/Layout/LeadingSidebar.astro'
+import TrailingSidebar from '../../../../components/Layout/TrailingSidebar.astro'
 
 export async function getStaticPaths() {
   return [
@@ -37,6 +39,7 @@ const siblingPages = await getStaticPaths()
 ---
 
 <Layout title={name}>
+  <LeadingSidebar />
   <h1>{name}</h1>
 
   {data.description && <div set:html={marked.parse(data.description)} />}
@@ -77,17 +80,5 @@ const siblingPages = await getStaticPaths()
     )
   }
 
-  <strong>Leading Sidebar Placeholder</strong>
-  <ul>
-    <!-- Need to handle the index page -->
-    {
-      siblingPages
-        .sort((a, b) => a.params.slug.localeCompare(b.params.slug))
-        .map((value) => (
-          <p>
-            <a href={`${value.params.slug}`}>{value.params.slug}</a>
-          </p>
-        ))
-    }
-  </ul>
+  <TrailingSidebar />
 </Layout>

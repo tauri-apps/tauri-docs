@@ -2,24 +2,59 @@
 import Search from './Search.astro'
 ---
 
-<nav>
-  <a href={Astro.url.origin}>Tauri Logo</a>
-  <ul>
-    <li><a href="./docs">Docs</a></li>
-    <li><a href="./api">References</a></li>
-    <li><a href="./about">About</a></li>
-  </ul>
-  <ul>
-    <li>
-      <a href="https://github.com/tauri-apps/tauri" target="_blank">GitHub</a>
-    </li>
-    <li>
-      <a href="https://discord.com/invite/tauri" target="_blank">Discord</a>
-    </li>
-    <li><a href="https://twitter.com/TauriApps" target="_blank">Twitter</a></li>
-    <li>
-      <a href="https://fosstodon.org/@TauriApps" target="_blank">Mastodon</a>
-    </li>
-  </ul>
-  <Search />
+<nav class="navbar bg-base-200">
+  <div class="navbar-start">
+    <a href={Astro.url.origin}>
+      <!-- Darkmode toggling could be better -->
+      <img
+        src="/meta/tauri_logo_light.svg"
+        alt="Tauri logo"
+        class="h-8 mr-4 light-mode-only"
+      />
+      <img
+        src="/meta/tauri_logo_dark.svg"
+        alt="Tauri logo"
+        class="h-8 mr-4 dark-mode-only"
+      />
+    </a>
+    <!-- flex-nowrap is temporary -->
+    <ul class="menu menu-horizontal">
+      <li><a href="./docs">Docs</a></li>
+      <li><a href="./api">References</a></li>
+      <li><a href="./about">About</a></li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <ul class="menu menu-horizontal">
+      <li>
+        <a
+          href="https://github.com/tauri-apps/tauri"
+          target="_blank"
+          class="i-bi-github">GitHub</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://discord.com/invite/tauri"
+          target="_blank"
+          class="i-bi-discord">Discord</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://twitter.com/TauriApps"
+          target="_blank"
+          class="i-bi-twitter">Twitter</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://fosstodon.org/@TauriApps"
+          target="_blank"
+          class="i-bi-mastodon">Mastodon</a
+        >
+      </li>
+    </ul>
+    <Search />
+  </div>
 </nav>
