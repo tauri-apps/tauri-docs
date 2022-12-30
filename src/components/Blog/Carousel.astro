@@ -1,0 +1,45 @@
+---
+import type { Page } from '../../types'
+import { getStaticPaths } from '../../pages/blog/[...slug].astro'
+
+const markdownPosts = await getStaticPaths()
+const astroPosts = await Astro.glob('../../pages/blog/*/**/*.astro')
+const test = astroPosts
+
+const posts: Page[] = [
+  ...markdownPosts
+    .sort((a, b) => {
+      return b.props.entry.data.date - a.props.entry.data.date
+    })
+    .map((post) => {
+      return {
+        title: post.props.entry.data.title,
+        description: post.props.entry.data.summary,
+        href: `/blog/${post.params.slug}`,
+      }
+    }),
+  ...astroPosts.map((post) => {
+    return {
+      title: post.meta.title,
+      href: post.url ? post.url : '',
+    }
+  }),
+]
+---
+
+<div class="carousel space-x-4 -mt-8">
+  {
+    posts.map((post) => (
+      <a href={post.href}>
+        <div class="carousel-item">
+          <div class="card bg-base-300 w-96 shadow-lg">
+            <div class="card-body">
+              <div class="card-title line-clamp-1">{post.title}</div>
+              <p class="line-clamp-3">{post.description}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    ))
+  }
+</div>
