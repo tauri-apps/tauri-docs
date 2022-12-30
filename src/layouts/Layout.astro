@@ -1,7 +1,6 @@
 ---
+import BaseLayout from './BaseLayout.astro'
 import Footer from '../components/Layout/Footer.astro'
-import NavBar from '../components/Layout/NavBar.astro'
-import '../styles/global.css'
 
 export interface Props {
   title: string
@@ -10,21 +9,9 @@ export interface Props {
 const { title } = Astro.props
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <!-- TODO: Add a site config with the site title -->
-    <title>{`${title} | Tauri.app`}</title>
-  </head>
-  <body>
-    <NavBar />
-    <main>
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseLayout title={title}>
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
