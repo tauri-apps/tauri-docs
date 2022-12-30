@@ -1,4 +1,6 @@
 @import url('bootstrap-icons');
+@import '@fontsource/rubik';
+@import '@fontsource/ibm-plex-mono';
 
 /* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
 
