@@ -2,7 +2,7 @@
 import Search from './Search.astro'
 ---
 
-<nav class="navbar bg-base-200 px-10">
+<nav class="sticky top-0 navbar bg-base-300 px-10">
   <div class="navbar-start">
     <a href={Astro.url.origin}>
       <!-- TODO: Darkmode toggling might be able to be better -->
@@ -24,7 +24,7 @@ import Search from './Search.astro'
           References
           <i class="bi bi-chevron-down"></i>
         </a>
-        <ul class="bg-base-200 p-2">
+        <ul class="bg-base-300 p-2">
           <li class="menu-title uppercase">
             <span>Tauri Core</span>
           </li>

@@ -1,18 +1,16 @@
 ---
-import Layout from '../../../../layouts/Layout.astro'
+import Layout from '../../../../layouts/SidebarLayout.astro'
 import schema from './schema.json'
 import type { JSONSchema7 } from 'json-schema'
 import { marked } from 'marked'
 import Property from '../../../../components/JsonSchema/Property.astro'
-import LeadingSidebar from '../../../../components/Layout/LeadingSidebar.astro'
-import TrailingSidebar from '../../../../components/Layout/TrailingSidebar.astro'
 
 export async function getStaticPaths() {
   return [
     // Root object
     {
       params: { slug: undefined },
-      props: { name: 'Tauri Config', data: schema },
+      props: { name: 'Tauri Configuration', data: schema },
     },
     // Definitions
     ...Object.entries(schema.definitions).map(([key, value]) => {
@@ -35,11 +33,17 @@ interface Props {
 }
 
 const { name, data } = Astro.props
-const siblingPages = await getStaticPaths()
+const paths = await getStaticPaths()
+const siblingPages = paths.map((path) => {
+  return {
+    depth: 1,
+    slug: `/api/core-config/1/${path.params.slug}`,
+    text: path.props.name,
+  }
+})
 ---
 
-<Layout title={name}>
-  <LeadingSidebar />
+<Layout title={name} leadingHeadings={siblingPages}>
   <div class="prose max-w-none">
     <h1>{name}</h1>
 
@@ -81,6 +85,4 @@ const siblingPages = await getStaticPaths()
       )
     }
   </div>
-
-  <TrailingSidebar />
 </Layout>

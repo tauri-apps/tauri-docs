@@ -1,3 +1,23 @@
-<aside>
-  <p>This is a leading sidebar</p>
+---
+import type { Heading } from '../../types'
+
+interface Props {
+  headings: Heading[]
+}
+
+const { headings } = Astro.props
+---
+
+<aside class="bg-base-200 w-80 fixed inset-0 top-16 overflow-y-auto">
+  {
+    headings && (
+      <ul class="menu">
+        {headings.map((heading) => (
+          <li>
+            <a href={heading.slug}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 </aside>
