@@ -230,7 +230,7 @@
 
 "@astrojs/tailwind@^2.1.3":
   version "2.1.3"
-  resolved "https://registry.npmjs.org/@astrojs/tailwind/-/tailwind-2.1.3.tgz"
+  resolved "https://registry.yarnpkg.com/@astrojs/tailwind/-/tailwind-2.1.3.tgz#371dd987e2d8c1b932dbe06c30c183c5c0d10053"
   integrity sha512-W7UUUBJ3itDGcvJPvk+M/eNKFlLBYGODIzPsJ3zuehNzcJDhv/Ues+TzrpSvd0FaKfmV9Zlq3ZtToy96xxJU6Q==
   dependencies:
     "@proload/core" "^0.3.2"
@@ -521,6 +521,16 @@
   resolved "https://registry.yarnpkg.com/@esbuild/linux-loong64/-/linux-loong64-0.15.18.tgz#128b76ecb9be48b60cf5cfc1c63a4f00691a3239"
   integrity sha512-L4jVKS82XVhw2nvzLg/19ClLWg0y27ulRwuP7lcyL6AbUWB5aPglXY3M21mauDQMDfRLs8cQmeT03r/+X3cZYQ==
 
+"@fontsource/ibm-plex-mono@^4.5.13":
+  version "4.5.13"
+  resolved "https://registry.yarnpkg.com/@fontsource/ibm-plex-mono/-/ibm-plex-mono-4.5.13.tgz#f91559ab3b5074a8e2db75c0370b9640e80c99b2"
+  integrity sha512-KAE7X2LgCV4X6p7vj1h2phRnhPX4YUa8FBAB0Jj9xW7Q+p+k2ce4HEAMJJ2RFHI075ClgQx+KZuDBNuiKgp5yw==
+
+"@fontsource/rubik@^4.5.13":
+  version "4.5.13"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.13.tgz#c390b7197e893d5dfeb67dfa76cf68f7c9203442"
+  integrity sha512-oykfZOFcr+yHiCisHEbX9byVhr7dH4V0XvUSTFZt6xk1Qx+3FFyi8iV4iy/aiKLJOFfgfN6aPMtgifGR6hvIUA==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
@@ -606,7 +616,7 @@
 
 "@proload/core@^0.3.2", "@proload/core@^0.3.3":
   version "0.3.3"
-  resolved "https://registry.npmjs.org/@proload/core/-/core-0.3.3.tgz"
+  resolved "https://registry.yarnpkg.com/@proload/core/-/core-0.3.3.tgz#0a30c5ab69e21254b339813c674a6197a42337c3"
   integrity sha512-7dAFWsIK84C90AMl24+N/ProHKm4iw0akcnoKjRvbfHifJZBLhaDsDus1QJmhG12lXj4e/uB/8mB/0aduCW+NQ==
   dependencies:
     deepmerge "^4.2.2"
@@ -973,7 +983,7 @@ astro@1.8.0:
 
 autoprefixer@^10.4.7:
   version "10.4.13"
-  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.13.tgz"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.13.tgz#b5136b59930209a321e9fa3dca2e7c4d223e83a8"
   integrity sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==
   dependencies:
     browserslist "^4.21.4"
@@ -1662,7 +1672,7 @@ formdata-polyfill@^4.0.10:
 
 fraction.js@^4.2.0:
   version "4.2.0"
-  resolved "https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
 fsevents@~2.3.2:
@@ -2755,7 +2765,7 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
 
 normalize-range@^0.1.2:
   version "0.1.2"
-  resolved "https://registry.npmjs.org/normalize-range/-/normalize-range-0.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
 
 npm-run-path@^5.1.0:
