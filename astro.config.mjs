@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config'
 import prefetch from '@astrojs/prefetch'
 import tailwind from '@astrojs/tailwind'
-import Unocss from 'unocss/astro'
-import presetIcons from '@unocss/preset-icons'
 import sitemap from '@astrojs/sitemap'
 
 // https://astro.build/config
@@ -11,12 +9,5 @@ export default defineConfig({
   experimental: {
     contentCollections: true,
   },
-  integrations: [
-    prefetch(),
-    tailwind(),
-    Unocss({
-      presets: [presetIcons()],
-    }),
-    sitemap(),
-  ],
+  integrations: [prefetch(), tailwind(), sitemap()],
 })

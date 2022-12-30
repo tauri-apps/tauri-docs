@@ -2,10 +2,10 @@
 import Search from './Search.astro'
 ---
 
-<nav class="navbar bg-base-200">
+<nav class="navbar bg-base-200 px-10">
   <div class="navbar-start">
     <a href={Astro.url.origin}>
-      <!-- Darkmode toggling could be better -->
+      <!-- TODO: Darkmode toggling might be able to be better -->
       <img
         src="/meta/tauri_logo_light.svg"
         alt="Tauri logo"
@@ -17,44 +17,54 @@ import Search from './Search.astro'
         class="h-8 mr-4 dark-mode-only"
       />
     </a>
-    <!-- flex-nowrap is temporary -->
-    <ul class="menu menu-horizontal">
+    <ul class="menu menu-horizontal px-1">
       <li><a href="./docs">Docs</a></li>
-      <li><a href="./api">References</a></li>
+      <li>
+        <a>
+          References
+          <i class="bi bi-chevron-down"></i>
+        </a>
+        <ul class="bg-base-200 p-2">
+          <li class="menu-title uppercase">
+            <span>Tauri Core</span>
+          </li>
+          <li>
+            <a href="./api">
+              Rust API (via Docs.rs)
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </li>
+          <li><a href="/api/core-js/1">JavaScript API</a></li>
+          <li><a href="/api/core-config/1">Tauri Configuration</a></li>
+          <li><a href="/api/core-cli/1">Tauri CLI</a></li>
+        </ul>
+      </li>
       <li><a href="./about">About</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <ul class="menu menu-horizontal">
-      <li>
-        <a
-          href="https://github.com/tauri-apps/tauri"
-          target="_blank"
-          class="i-bi-github">GitHub</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://discord.com/invite/tauri"
-          target="_blank"
-          class="i-bi-discord">Discord</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/TauriApps"
-          target="_blank"
-          class="i-bi-twitter">Twitter</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://fosstodon.org/@TauriApps"
-          target="_blank"
-          class="i-bi-mastodon">Mastodon</a
-        >
-      </li>
-    </ul>
+    <div>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://github.com/tauri-apps/tauri" target="_blank">
+          <i class="bi bi-github"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://discord.com/invite/tauri" target="_blank">
+          <i class="bi bi-discord"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://twitter.com/TauriApps" target="_blank">
+          <i class="bi bi-twitter"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://fosstodon.org/@TauriApps" target="_blank">
+          <i class="bi bi-mastodon"></i>
+        </a>
+      </button>
+    </div>
     <Search />
   </div>
 </nav>

@@ -1,3 +1,5 @@
+@import url('bootstrap-icons');
+
 /* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
 
 @media (prefers-color-scheme: dark) {
@@ -10,4 +12,9 @@
   .dark-mode-only {
     display: none;
   }
+}
+
+/* Resizes icons in buttons to fit nicely */
+button > a > i {
+  font-size: 1.5em;
 }

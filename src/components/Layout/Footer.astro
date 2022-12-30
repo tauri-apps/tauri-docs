@@ -2,20 +2,53 @@
 const year = new Date().getFullYear()
 ---
 
-<footer class="footer">
-  <div>
-    <p>Tauri Logo</p>
-    <div>Social links</div>
+<footer class="footer p-10">
+  <div class="gap-y-6">
+    <a href={Astro.url.origin}>
+      <img
+        src="/meta/tauri_logo_watermark.svg"
+        alt="Tauri logo"
+        class="h-8 mx-2 opacity-80 hover:opacity-100 transition"
+      />
+    </a>
+
+    <div>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://github.com/tauri-apps/tauri" target="_blank">
+          <i class="bi bi-github"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://discord.com/invite/tauri" target="_blank">
+          <i class="bi bi-discord"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://twitter.com/TauriApps" target="_blank">
+          <i class="bi bi-twitter"></i>
+        </a>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <a href="https://fosstodon.org/@TauriApps" target="_blank">
+          <i class="bi bi-mastodon"></i>
+        </a>
+      </button>
+    </div>
     <p>Copyright &copy; {year} Tauri Contributors. CC-BY / MIT</p>
   </div>
 
   <div>
-    <span class="footer-title">Links</span>
-    <ul>
-      <li>Blog</li>
-      <li>Email</li>
-      <li>OpenCollective</li>
-      <li>Awesome Tauri</li>
-    </ul>
+    <span class="footer-title">Sections</span>
+    <a href="/blog" class="link link-hover">Docs</a>
+    <a href="/api" class="link link-hover">References</a>
+    <a href="/about" class="link link-hover">About</a>
+  </div>
+
+  <div>
+    <span class="footer-title">Placeholder</span>
+    <a href="/blog" class="link link-hover">Blog</a>
+    <a href="" class="link link-hover">Email</a>
+    <a href="" class="link link-hover">OpenCollective</a>
+    <a href="" class="link link-hover">Awesome Tauri</a>
   </div>
 </footer>
