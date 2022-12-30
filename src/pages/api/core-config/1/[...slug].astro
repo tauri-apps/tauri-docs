@@ -40,45 +40,47 @@ const siblingPages = await getStaticPaths()
 
 <Layout title={name}>
   <LeadingSidebar />
-  <h1>{name}</h1>
+  <div class="prose max-w-none">
+    <h1>{name}</h1>
 
-  {data.description && <div set:html={marked.parse(data.description)} />}
+    {data.description && <div set:html={marked.parse(data.description)} />}
 
-  <!-- TODO: Render the type object nicely -->
-  {
-    data.type && (
-      <p>
-        <strong>Type</strong> <code>{data.type}</code>
-      </p>
-    )
-  }
+    <!-- TODO: Render the type object nicely -->
+    {
+      data.type && (
+        <p>
+          <strong>Type</strong> <code>{data.type}</code>
+        </p>
+      )
+    }
 
-  {
-    data.default && (
-      <>
-        <h2>Default</h2>
-        <p>{JSON.stringify(data.default)}</p>
-      </>
-    )
-  }
+    {
+      data.default && (
+        <>
+          <h2>Default</h2>
+          <p>{JSON.stringify(data.default)}</p>
+        </>
+      )
+    }
 
-  <!-- TODO: Examples -->
+    <!-- TODO: Examples -->
 
-  <!-- TODO: allOf anyOf oneOf not -->
+    <!-- TODO: allOf anyOf oneOf not -->
 
-  {
-    data.properties && (
-      <>
-        <h2>Properties</h2>
+    {
+      data.properties && (
+        <>
+          <h2>Properties</h2>
 
-        {Object.entries(data.properties)
-          .filter(([name, _]) => name !== '$schema')
-          .map(([name, definition]) => (
-            <Property name={name} definition={definition} />
-          ))}
-      </>
-    )
-  }
+          {Object.entries(data.properties)
+            .filter(([name, _]) => name !== '$schema')
+            .map(([name, definition]) => (
+              <Property name={name} definition={definition} />
+            ))}
+        </>
+      )
+    }
+  </div>
 
   <TrailingSidebar />
 </Layout>
