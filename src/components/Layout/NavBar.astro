@@ -2,6 +2,12 @@
 import Search from './Search.astro'
 ---
 
+<script>
+  // TODO
+  // @ts-ignore
+  document.getElementById('display-mode').indeterminate = true
+</script>
+
 <nav class="sticky top-0 navbar bg-base-300 px-10">
   <div class="navbar-start">
     <a href={Astro.url.origin}>
@@ -28,6 +34,7 @@ import Search from './Search.astro'
           <li class="menu-title uppercase">
             <span>Tauri Core</span>
           </li>
+          <li><a href="/api/core-config/1">Tauri Configuration</a></li>
           <li>
             <a href="./api">
               Rust API (via Docs.rs)
@@ -35,7 +42,7 @@ import Search from './Search.astro'
             </a>
           </li>
           <li><a href="/api/core-js/1">JavaScript API</a></li>
-          <li><a href="/api/core-config/1">Tauri Configuration</a></li>
+
           <li><a href="/api/core-cli/1">Tauri CLI</a></li>
         </ul>
       </li>
@@ -43,7 +50,7 @@ import Search from './Search.astro'
     </ul>
   </div>
   <div class="navbar-end">
-    <div>
+    <ul class="menu menu-horizontal px-1">
       <button class="btn btn-ghost btn-circle">
         <a href="https://github.com/tauri-apps/tauri" target="_blank">
           <i class="bi bi-github"></i>
@@ -64,7 +71,30 @@ import Search from './Search.astro'
           <i class="bi bi-mastodon"></i>
         </a>
       </button>
-    </div>
+      <li></li>
+      <button class="btn btn-ghost btn-circle">
+        <label class="swap swap-rotate">
+          <input type="checkbox" id="display-mode" />
+          <i class="bi bi-sun-fill swap-on"></i>
+          <i class="bi bi-moon-stars-fill swap-off"></i>
+          <i class="bi bi-circle-half swap-indeterminate"></i>
+        </label>
+      </button>
+      <li>
+        <button class="btn btn-ghost">
+          <a>
+            <i class="bi bi-translate"></i>
+            <i class="bi bi-chevron-down"></i>
+          </a>
+        </button>
+        <ul class="bg-base-300 p-2">
+          <li><a class="active">🇺🇸 English</a></li>
+          <li><a>🇮🇹 Italian</a></li>
+          <li><a>🇨🇳 Chinese (Simplified)</a></li>
+          <li><a>🇰🇷 Korean</a></li>
+        </ul>
+      </li>
+    </ul>
     <Search />
   </div>
 </nav>
