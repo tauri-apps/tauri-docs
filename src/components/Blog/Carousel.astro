@@ -14,6 +14,8 @@ const posts: Page[] = [
       return {
         title: post.props.entry.data.title,
         description: post.props.entry.data.summary,
+        image: post.props.entry.data.image,
+        darkImage: post.props.entry.data.darkImage,
         href: `/blog/${post.params.slug}`,
       }
     }),
@@ -25,11 +27,33 @@ const posts: Page[] = [
     posts.map((post) => (
       <a href={post.href}>
         <div class="carousel-item">
-          <div class="card bg-base-300 w-96 shadow-lg">
+          <div class="card card-side bg-base-300 w-[34em] drop-shadow h-44">
             <div class="card-body">
               <div class="card-title line-clamp-1">{post.title}</div>
               <p class="line-clamp-3">{post.description}</p>
             </div>
+            {post.image && (
+              <figure class="aspect-square shrink-0">
+                <img
+                  src={post.image}
+                  class:list={[
+                    'aspect-square object-cover',
+                    post.darkImage ? 'light-mode-only' : '',
+                  ]}
+                />
+              </figure>
+            )}
+            {post.darkImage && (
+              <figure class="aspect-square shrink-0">
+                <img
+                  src={post.darkImage}
+                  class:list={[
+                    'aspect-square object-cover',
+                    post.image ? 'dark-mody-only' : '',
+                  ]}
+                />
+              </figure>
+            )}
           </div>
         </div>
       </a>
