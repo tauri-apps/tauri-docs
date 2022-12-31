@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Tauri.app",
+  "short_name": "Tauri.app",
+  "description": "Build smaller, faster, and more secure desktop applications with a web frontend",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "start_url": ".",
+  "theme_color": "#0F0F0F",
+  "icons": [
+    {
+      "src": "/meta/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/meta/favicon-32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/meta/favicon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/meta/favicon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/meta/favicon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
