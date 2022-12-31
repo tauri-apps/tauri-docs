@@ -8,6 +8,8 @@ authors: [nothingismagick]
 
 # Tauri 1.0 Release
 
+<!-- TODO: Dynamic images for markdown files -->
+
 ![Tauri 1.0 Launch Hero Image](/img/blog/tauri_1_0/header.png)
 
 After 9 months of betas and 4 months of release candidates, [Tauri version 1.0 is now available!](https://github.com/tauri-apps/tauri)
@@ -92,69 +94,58 @@ We know that open source software is a means of fostering equality and collabora
 
 Here are some of the things people are saying about Tauri:
 
-<div class="container">
-<div class="row">
-<div class="col col--2">
+<div class="grid grid-cols-4 gap-8">
+<div>
 
-![Spacedrive Logo](/img/blog/tauri_1_0/spacedrive_logo_light.png#gh-light-mode-only)
-![Spacedrive Logo](/img/blog/tauri_1_0/spacedrive_logo_dark.png#gh-dark-mode-only)
+<img src="/img/blog/tauri_1_0/spacedrive_logo_light.png" alt="Spacedrive Logo" class="light-mode-only" />
+<img src="/img/blog/tauri_1_0/spacedrive_logo_dark.png" alt="Spacedrive Logo" class="dark-mode-only" />
 
 </div>
-<div class="col col--10">
+<div class="col-span-3">
 
 _"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_  
 **- Jamie Pine**, [Spacedrive](https://www.spacedrive.com) Founder
 
 </div>
-</div>
-<br />
-<div class="row">
-<div class="col col--2">
+<div>
 
-![Prism Logo](/img/blog/tauri_1_0/prisma_logo_light.svg#gh-light-mode-only)
-![Prism Logo](/img/blog/tauri_1_0/prisma_logo_dark.svg#gh-dark-mode-only)
+<img src="/img/blog/tauri_1_0/prisma_logo_light.svg" alt="Prism Logo" class="light-mode-only" />
+<img src="/img/blog/tauri_1_0/prisma_logo_dark.svg" alt="Prism Logo" class="dark-mode-only" />
 
 </div>
-<div class="col col--10">
+<div class="col-span-3">
 
 _"Tauri has the potential to unlock a new generation of desktop software that feels native to users but is as easy to build as web apps."_
 
 **- Johannes Schickling**, [Prisma](https://www.prisma.io) Founder
 
 </div>
-</div>
-<br />
-<div class="row">
-<div class="col col--2">
+<div>
 
-![OSSC Logo](/img/blog/tauri_1_0/ossc_logo_light.png#gh-light-mode-only)
-![OSSC Logo](/img/blog/tauri_1_0/ossc_logo_dark.png#gh-dark-mode-only)
+<img src="/img/blog/tauri_1_0/ossc_logo_light.png" alt="OSSC Logo" class="light-mode-only" />
+<img src="/img/blog/tauri_1_0/ossc_logo_dark.png" alt="OSSC Logo" class="dark-mode-only" />
 
 </div>
-<div class="col col--10">
+<div class="col-span-3">
 
 _"Tauri stands to reduce the disastrously negative environmental costs of bloated and memory-hogging applications on the internet by orders of magnitude. Any rough approximation of monetary value that could result in, would easily reach hundreds of billions in cost savings for our modern era of grossly underutilized local compute and storage resources."_
 
 **- Joseph Jacks**, [OSS Capital](https://oss.capital) Founder / GP
 
 </div>
-</div>
-<br />
-<div class="row">
-<div class="col col--2">
+<div>
 
-![Padloc Logo](/img/blog/tauri_1_0/padloc_logo_light.svg#gh-light-mode-only)
-![Padloc Logo](/img/blog/tauri_1_0/padloc_logo_dark.svg#gh-dark-mode-only)
+<img src="/img/blog/tauri_1_0/padloc_logo_dark.svg" alt="Padloc Logo" class="light-mode-only" />
+<img src="/img/blog/tauri_1_0/padloc_logo_dark.svg" alt="Padloc Logo" class="dark-mode-only" />
 
 </div>
-<div class="col col--10">
+<div class="col-span-3">
 
 _"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_  
 _P.S.: Can't wait for mobile support!"_
 
 **- Martin Kleinschrodt**, [Padloc](https://padloc.app/) Founder
 
-</div>
 </div>
 </div>
 
@@ -166,8 +157,8 @@ Tauri is one of the top 200 projects on GitHub in all programming languages.
 
 <figure>
 
-![github](/img/blog/tauri_1_0/github_stars_light.png#gh-light-mode-only)
-![github](/img/blog/tauri_1_0/github_stars_dark.png#gh-dark-mode-only)
+<img src="/img/blog/tauri_1_0/github_stars_light.png" alt="GitHub Stars" class="light-mode-only" />
+<img src="/img/blog/tauri_1_0/github_stars_dark.png" alt="GitHub Stars" class="dark-mode-only" />
 
 <figcaption>
 </figcaption>

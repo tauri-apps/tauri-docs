@@ -53,10 +53,18 @@ cargo install tauri-cli --version "^2.0.0-alpha"
 You can adapt your existing desktop application to run on mobile or start a fresh project.
 Tauri runs on the connected device or starts an emulator if available.
 
+<div class="grid grid-cols-2 gap-8">
+<div>
+
 ![iOS Preview](/img/blog/tauri_2_0_0_alpha_0/ios-preview.png)
+
+</div>
+<div>
+
 ![Android Preview](/img/blog/tauri_2_0_0_alpha_0/android-preview.png)
 
-<br></br>
+</div>
+</div>
 
 ## Getting started
 
