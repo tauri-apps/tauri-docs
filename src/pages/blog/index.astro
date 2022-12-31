@@ -7,6 +7,10 @@ const collection = await getCollection('blog')
 
 <Layout title="Latest Blog Posts">
   <h1>Latest Blog Posts</h1>
+
+  <p>{Astro.url}</p>
+  <p>{Astro.url.pathname}</p>
+  <p>{Astro.url.origin}</p>
   <p>This is a custom astro page</p>
   <ul>
     {
