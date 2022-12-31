@@ -1,25 +1,27 @@
 ---
 import type { Heading } from '../types'
-import Carousel from '../components/Blog/Carousel.astro'
+import type { CollectionEntry } from 'astro:content'
 import Footer from '../components/Layout/Footer.astro'
 import TrailingSidebar from '../components/Layout/TrailingSidebar.astro'
 import BaseLayout from './BaseLayout.astro'
+import BlogFooter from '../components/Blog/BlogFooter.astro'
 
 export interface Props {
-  title: string
+  entry: CollectionEntry<'blog'>
   headings: Heading[]
 }
 
-const { title, headings } = Astro.props
+const { entry, headings } = Astro.props
 ---
 
-<BaseLayout title={title}>
-  <div class="p-8 mr-40">
+<BaseLayout title={entry.data.title}>
+  <div class="p-8 max-w-4xl mx-48">
     <main>
       <slot />
     </main>
-    <p>Recent Blog Posts</p>
-    <Carousel />
+    <div class="py-8">
+      <BlogFooter postId={entry.id} />
+    </div>
     <Footer />
   </div>
   <TrailingSidebar headings={headings} />

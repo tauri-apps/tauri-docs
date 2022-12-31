@@ -18,8 +18,8 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<Layout title={entry.slug} headings={headings}>
-  <div class="prose mx-auto">
+<Layout entry={entry} headings={headings}>
+  <div class="prose max-w-none">
     <Content />
   </div>
 </Layout>

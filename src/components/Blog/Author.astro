@@ -1,0 +1,10 @@
+---
+interface Props {
+  authors: string[]
+}
+
+const { authors } = Astro.props
+---
+
+<!-- TODO: Build the component powered by authors.json -->
+<p>Posted by {JSON.stringify(authors)}</p>
