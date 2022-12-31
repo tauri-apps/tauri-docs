@@ -6,9 +6,6 @@ image: /img/blog/tauri_2_0_0_alpha_0/header.png
 authors: [lucasfernog]
 ---
 
-import iOSPreview from './tauri_2_0_0_alpha_0/ios-preview.png'
-import androidPreview from './tauri_2_0_0_alpha_0/android-preview.png'
-
 # Announcing the Tauri Mobile Alpha Release
 
 ![Tauri 1.2 Launch Hero Image](/img/blog/tauri_2_0_0_alpha_0/header.png)
@@ -56,17 +53,8 @@ cargo install tauri-cli --version "^2.0.0-alpha"
 You can adapt your existing desktop application to run on mobile or start a fresh project.
 Tauri runs on the connected device or starts an emulator if available.
 
-<div
-  style={{
-    display: 'flex',
-    'flex-direction': 'column',
-    'align-items': 'center',
-    gap: '16px',
-  }}
->
-  <img className="transparent" src={iOSPreview} alt="iOS preview" />
-  <img className="transparent" src={androidPreview} alt="Android preview" />
-</div>
+![iOS Preview](/img/blog/tauri_2_0_0_alpha_0/ios-preview.png)
+![Android Preview](/img/blog/tauri_2_0_0_alpha_0/android-preview.png)
 
 <br></br>
 

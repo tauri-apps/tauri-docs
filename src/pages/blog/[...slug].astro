@@ -1,7 +1,6 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content'
-import TrailingSidebar from '../../components/Layout/TrailingSidebar.astro'
-import Layout from '../../layouts/Layout.astro'
+import Layout from '../../layouts/BlogPostLayout.astro'
 
 export async function getStaticPaths() {
   const blog = await getCollection('blog')
@@ -19,7 +18,8 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<Layout title={entry.slug}>
-  <Content />
-  <TrailingSidebar headings={headings} />
+<Layout title={entry.slug} headings={headings}>
+  <div class="prose max-w-none">
+    <Content />
+  </div>
 </Layout>

@@ -3,12 +3,11 @@ import type { Page } from '../../types'
 import { getStaticPaths } from '../../pages/blog/[...slug].astro'
 
 const markdownPosts = await getStaticPaths()
-const astroPosts = await Astro.glob('../../pages/blog/*/**/*.astro')
-const test = astroPosts
 
 const posts: Page[] = [
   ...markdownPosts
     .sort((a, b) => {
+      // @ts-ignore
       return b.props.entry.data.date - a.props.entry.data.date
     })
     .map((post) => {
@@ -18,16 +17,10 @@ const posts: Page[] = [
         href: `/blog/${post.params.slug}`,
       }
     }),
-  ...astroPosts.map((post) => {
-    return {
-      title: post.meta.title,
-      href: post.url ? post.url : '',
-    }
-  }),
 ]
 ---
 
-<div class="carousel space-x-4 -mt-8">
+<div class="carousel space-x-4">
   {
     posts.map((post) => (
       <a href={post.href}>
