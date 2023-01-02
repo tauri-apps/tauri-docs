@@ -4,7 +4,7 @@ In this guide, we’ll be setting up IntelliJ CLion for debugging the [Core Proc
 
 ## Prerequisites
 
-You need to install the [IntelliJ Rust Plugin](https://plugins.jetbrains.com/plugin/8182-rust/docs) that Rust features are enabled.
+You need to install the [IntelliJ Rust Plugin](https://plugins.jetbrains.com/plugin/8182-rust/docs) so that Rust features are enabled.
 
 ## Top-level Cargo Workspace
 
