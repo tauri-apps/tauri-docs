@@ -8,7 +8,7 @@ import Search from './Search.astro'
   document.getElementById('display-mode').indeterminate = true
 </script>
 
-<nav class="sticky top-0 navbar bg-base-300 px-10">
+<nav class="sticky top-0 navbar bg-base-100 px-10">
   <div class="navbar-start">
     <a href={Astro.url.origin}>
       <!-- TODO: Darkmode toggling might be able to be better -->
@@ -28,9 +28,9 @@ import Search from './Search.astro'
       <li>
         <a>
           References
-          <i class="bi bi-chevron-down"></i>
+          <i class="bi bi-caret-down-fill"></i>
         </a>
-        <ul class="bg-base-300 p-2">
+        <ul class="bg-base-200 p-2">
           <li class="menu-title uppercase">
             <span>Tauri Core</span>
           </li>
@@ -51,28 +51,28 @@ import Search from './Search.astro'
   </div>
   <div class="navbar-end">
     <ul class="menu menu-horizontal px-1">
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn btn-ghost btn-square">
         <a href="https://github.com/tauri-apps/tauri" target="_blank">
           <i class="bi bi-github"></i>
         </a>
       </button>
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn btn-ghost btn-square">
         <a href="https://discord.com/invite/tauri" target="_blank">
           <i class="bi bi-discord"></i>
         </a>
       </button>
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn btn-ghost btn-square">
         <a href="https://twitter.com/TauriApps" target="_blank">
           <i class="bi bi-twitter"></i>
         </a>
       </button>
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn btn-ghost btn-square">
         <a href="https://fosstodon.org/@TauriApps" target="_blank">
           <i class="bi bi-mastodon"></i>
         </a>
       </button>
       <li></li>
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn btn-ghost btn-square">
         <label class="swap swap-rotate">
           <input type="checkbox" id="display-mode" />
           <i class="bi bi-sun-fill swap-on"></i>
@@ -84,11 +84,11 @@ import Search from './Search.astro'
         <button class="btn btn-ghost">
           <a>
             <i class="bi bi-translate"></i>
-            <i class="bi bi-chevron-down"></i>
+            <i class="bi bi-caret-down-fill"></i>
           </a>
         </button>
-        <ul class="bg-base-300 p-2">
-          <li><a class="active">🇺🇸 English</a></li>
+        <ul class="bg-base-200 p-2">
+          <li><a>🇺🇸 English</a></li>
           <li><a>🇮🇹 Italian</a></li>
           <li><a>🇨🇳 Chinese (Simplified)</a></li>
           <li><a>🇰🇷 Korean</a></li>
