@@ -46,6 +46,6 @@ pnpm vite dev
 
 ## Launch a Debugging Session
 
-With the development server running and the Run/Debug Configuration selected in the Switcher, you can now start a new debugging session by clicking Debug `Ctrl+D` on Windows/Linux, `⌃D` on macOS). CLion will automatically recognize breakpoints placed in any Rust file in your project.
+With the development server running and the Run/Debug Configuration selected in the Switcher, you can now start a new debugging session by clicking Debug. CLion will automatically recognize breakpoints placed in any Rust file in your project.
 
 [core process of your tauri app]: ../../references/architecture/process-model.md#the-core-process
