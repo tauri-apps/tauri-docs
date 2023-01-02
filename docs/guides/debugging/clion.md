@@ -21,20 +21,18 @@ Before you proceeed, make sure that your project is fully loaded. If the indexin
 
 We will set up a Run/Debug configuration that we can use to launch our Tauri app in debugging mode. To create a configuration, go to Edit Configurations, click **+**, and then select Cargo Command.
 
-![Add Run/Debug Configuration](/img/guides/debugging/clion/add-cargo-config.png)
+![Add Run/Debug Configuration](/img/guides/debugging/clion/add-cargo-config-light.png#gh-light-mode-only)
+![Add Run/Debug Configuration](/img/guides/debugging/clion/add-cargo-config-dark.png#gh-dark-mode-only)
 
-With that created we need to configure a few options so that CLion can properly launch our app. The first one is setting the Working Directory. CLion will not recognize our configuration as valid until we set one, so let's set it to the root of our project.
+With that created we need to configure CLion so it instructs Cargo to build our app without any default features. This will tell Tauri to use your development server instead of reading assets from disk. Normally this flag is passed by the Tauri CLI, but since we're completely sidestepping that here, we need to pass the flag manually.
 
-![Set the current working directory](/img/guides/debugging/assets/clion/set-cwd.png)
-
-Next we need to instruct Cargo to build our app without any default features. This will tell Tauri to use your development server instead of reading assets from disk. Normally this flag is passed by the Tauri CLI, but since we're completely sidestepping that here, we need to pass the flag manually.
-
-![Add `--no-default-features` flag](/img/guides/debugging/assets/clion/set-no-default-features2.png)
-
+![Add `--no-default-features` flag](/img/guides/debugging/clion/set-no-default-features-light.png#gh-light-mode-only)
+![Add `--no-default-features` flag](/img/guides/debugging/clion/set-no-default-features-dark.png#gh-dark-mode-only)
 
 Now we can optionally rename the Run/Debug Configguration to something more memorable, in this example we called it "Run Tauri App", but you can name it whatever you want.
 
-![Rename Configuration](/img/guides/debugging/clion/rename%20configuration.png)
+![Rename Configuration](/img/guides/debugging/clion/rename-configuration-light.png#gh-light-mode-only)
+![Rename Configuration](/img/guides/debugging/clion/rename-configuration-dark.png#gh-dark-mode-only)
 
 ## Launch the Development Server
 
