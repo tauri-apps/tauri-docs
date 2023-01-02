@@ -44,6 +44,8 @@ The above configuration will use Cargo directly to build the Rust application an
 pnpm vite dev
 ```
 
+> Note that CLion currently has no support for background tasks in Run/Debug configurations like VS Code has, so for now you need to manually run the development server.
+
 ## Launch a Debugging Session
 
 With the development server running and the Run/Debug Configuration selected in the Switcher, you can now start a new debugging session by clicking Debug `Ctrl+D` on Windows/Linux, `⌃D` on macOS). CLion will automatically recognize breakpoints placed in any Rust file in your project.
