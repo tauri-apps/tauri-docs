@@ -1,0 +1,54 @@
+---
+sidebar_position: 3
+---
+
+import Command from '@theme/Command'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Mobile specific workflow (Android)
+
+If you want to target the Android platform you have to do some additional steps:
+
+## Configure Rust crate
+
+See [Integrate into Existing Project]
+
+## Setup Android dependecies
+
+<Tabs groupId="android-setup">
+  <TabItem value="Windows">
+
+  See [Prerequisites#Windows](../../guides/getting-started/prerequisites/windows.md#android)
+
+  </TabItem>
+
+  <TabItem value="macOS">
+
+  See [Prerequisites#macOS](../../guides/getting-started/prerequisites/macos.md#android)
+
+  </TabItem>
+
+  <TabItem value="Linux">
+
+  See [Prerequisites#Linux](../../guides/getting-started/prerequisites/linux.md#android)
+
+  </TabItem>
+</Tabs>
+
+## Generate Android setup
+
+After you installed the Android dependencies use the `tauri-cli` to generate the required android source code:
+
+<Command name="android init" />
+
+## Development cycle
+
+Now you can either use the `open` subcommand to open the generated project in Android Studio or use the `dev` and `build`
+subcommands if you haven't installed Android Studio.
+
+<Command name="android open" />
+
+<Command name="android dev" />
+
+[Integrate into Existing Project]: ./integrate.mdx
