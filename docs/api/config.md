@@ -25,7 +25,7 @@ The configuration is composed of the following objects:
 - [`build`](#buildconfig): The build configuration
 - [`plugins`](#pluginconfig): The plugins config
 
-```json title="Example tauri.config.json file" 
+```json title="Example tauri.config.json file"
 {
   "build": {
     "beforeBuildCommand": "",
@@ -389,7 +389,8 @@ Type: `object`
 
 ### AllowlistConfig
 
-Allowlist configuration.
+Allowlist configuration. The allowlist is a translation of the [Cargo allowlist features](https://docs.rs/tauri/latest/tauri/#cargo-allowlist-features).<br>
+<b>Endpoints that don't have their own allowlist option are enabled by default.<b>
 
 Type: `object`
 
