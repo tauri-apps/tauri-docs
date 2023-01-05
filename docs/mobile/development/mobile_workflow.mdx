@@ -1,0 +1,101 @@
+---
+sidebar_position: 3
+---
+
+import Command from '@theme/Command'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Mobile Workflow
+
+If you want to target the mobile platforms you have to do some additional steps:
+
+## Setup Android dependecies
+
+<Tabs groupId="os">
+  <TabItem value="windows" label="Windows">
+
+See [Setting up Windows for Android].
+
+  </TabItem>
+
+  <TabItem value="macos" label="macOS">
+
+See [Setting up macOS for Android].
+
+  </TabItem>
+
+  <TabItem value="linux" label="Linux">
+
+See [Setting up Linux for Android].
+
+  </TabItem>
+</Tabs>
+
+## Setup iOS dependencies
+
+See [Setting up macOS].
+
+## Configure Rust crate
+
+See [Integrate into Existing Project].
+
+## Generate Mobile setup
+
+<Tabs groupId="platform">
+  <TabItem value="android" label="Android">
+
+After you installed the [Android dependencies](#setup-android-dependecies) use the Tauri CLI to generate the required Android source code:
+
+<Command name="android init" />
+
+  </TabItem>
+
+  <TabItem value="ios" label="iOS">
+
+After you installed the [iOS dependencies](#setup-ios-dependencies) use the Tauri CLI to generate the required iOS source code:
+
+<Command name="ios init" />
+
+  </TabItem>
+</Tabs>
+
+## Development cycle
+
+<Tabs groupId="platform">
+  <TabItem value="android" label="Android">
+
+Now you can use the `dev` command to run the app in an existing emulator or a connected device directly from the command line.
+You can also use the `--open` flag to use Android Studio instead.
+
+<Command name="android dev [--open]" />
+
+To build the application bundles (APK and AAB files), run the `build` command.
+
+:::caution
+On release builds it is required to sign your application.
+:::
+
+<Command name="android build" />
+
+  </TabItem>
+
+  <TabItem value="ios" label="iOS">
+
+Now you can use the `dev` command to run the app in a simulator or a connected device directly from the command line.
+You can also use the `--open` flag to use Xcode instead.
+
+<Command name="ios dev [--open]" />
+
+To build the application bundles (IPA file), run the `build` command.
+
+<Command name="ios build" />
+
+  </TabItem>
+</Tabs>
+
+[integrate into existing project]: ./integrate.mdx
+[setting up windows for android]: ../../guides/getting-started/prerequisites/windows.md#android
+[setting up macos for android]: ../../guides/getting-started/prerequisites/macos.md#android
+[setting up linux for android]: ../../guides/getting-started/prerequisites/linux.md#android
+[setting up macos]: ../../guides/getting-started/prerequisites/macos.md
