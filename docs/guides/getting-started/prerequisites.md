@@ -47,6 +47,14 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
+#### 3. MSVC toolchain as default
+
+In order to be able to install tools like `tauri-cli` and `trunk` you need to make sure that the proper toolchain is set as default:
+
+```powershell
+rustup default stable-msvc
+```
+
 ### Setting Up macOS
 
 #### 1. CLang and macOS Development Dependencies
