@@ -167,6 +167,7 @@ panic = "abort" # Strip expensive panic clean-up logic
 codegen-units = 1 # Compile crates one after another so the compiler can optimize better
 lto = true # Enables link to optimizations
 opt-level = "s" # Optimize for binary size
+strip = true # Remove debug symbols
 ```
 
 :::note
@@ -201,16 +202,24 @@ rustup toolchain install nightly
 rustup component add rust-src --toolchain nightly
 ```
 
+To tell Cargo that the current project uses the nightly toolchain, we will create an [Override File] at the root of our project called `rust-toolchain.toml`. This file will contain the following:
+
+```toml title=rust-toolchain.toml
+[toolchain]
+channel = "nightly-2023-01-03" # The nightly release to use, you can update this to the most recent one if you want
+profile = "minimal"
+```
+
 The Rust Standard Library comes precompiled. This means Rust is faster to install, but also that the compiler can't optimize the Standard Library. You can apply the optimization options for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple you are targeting.
 
 ```shell
-cargo +nightly build --release -Z build-std --target x86_64-unknown-linux-gnu
+cargo tauri build --target <Target triple to build for> -- -Z build-std
 ```
 
 If you are using `panic = "abort"` in your release profile optimizations, you need to make sure the `panic_abort` crate is compiled with std. Additionally, an extra std feature can further reduce the binary size. The following applies to both:
 
 ```shell
-cargo +nightly build --release -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu
+cargo tauri build --target <Target triple to build for> -- -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort
 ```
 
 See the unstable documentation for more details about [`-Z build-std`][cargo build-std] and [`-Z build-std-features`][cargo build-std-features].
@@ -299,6 +308,7 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [why is a rust executable large ?]: https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
 [minimizing rust binary size]: https://github.com/johnthagen/min-sized-rust
 [cargo unstable features]: https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features
+[override file]: https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
 [cargo profiles]: https://doc.rust-lang.org/cargo/reference/profiles.html
 [cargo build-std]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
 [cargo build-std-features]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std-features
