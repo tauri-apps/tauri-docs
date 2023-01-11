@@ -11,8 +11,9 @@ Download the SDK Manager directly through the Command line tools bundle:
       : 'https://dl.google.com/android/repository/commandlinetools-mac-8512546_latest.zip'
   } -O cmdline-tools.zip
 unzip cmdline-tools.zip
-mkdir ~/.android
-mv cmdline-tools ~/.android`}
+mkdir ~/.android/cmdline-tools/latest
+mv cmdline-tools/* ~/.android/cmdline-tools/latest
+rm cmdline-tools`}
 </CodeBlock>
 
 Set the `ANDROID_HOME` and `NDK_HOME` environment variables:
@@ -25,5 +26,5 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 Install required SDK and NDK components:
 
 ```sh
-~/.android/cmdline-tools/bin/sdkmanager "platforms;android-33" "platform-tools" "ndk;25.0.8775105" "build-tools;33.0.0"
+~/.android/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "platform-tools" "ndk;25.0.8775105" "build-tools;33.0.0"
 ```
