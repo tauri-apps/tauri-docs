@@ -28,6 +28,54 @@ The APIs must be added to [`tauri.allowlist.fs`](https://tauri.app/v1/api/config
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Security
+<!--- begin-tab-group --->
+<!--- tab-title=npm --->
+```shell
+npm install --save-dev @tauri-apps/cli
+```
+
+<!--- tab-title=yarn --->
+```shell
+yarn add -D @tauri-apps/cli
+```
+
+<!--- tab-title=pnpm --->
+```shell
+pnpm add -D @tauri-apps/cli
+```
+
+<!--- tab-title=Cargo --->
+```shell
+cargo install tauri-cli
+```
+
+<!--- end-tab-group --->
+
+
+
+
+<!--- begin-tab-group --->
+<!--- tab-title=npm --->
+```shell
+npm install --save-dev @tauri-apps/cli
+```
+
+<!--- tab-title=yarn --->
+```shell
+yarn add -D @tauri-apps/cli
+```
+
+<!--- tab-title=pnpm --->
+```shell
+pnpm add -D @tauri-apps/cli
+```
+
+<!--- tab-title=Cargo --->
+```shell
+cargo install tauri-cli
+```
+
+<!--- end-tab-group --->
 
 This module prevents path traversal, not allowing absolute paths or parent dir components
 (i.e. "/usr/path/to/file" or "../path/to/file" paths are not allowed).

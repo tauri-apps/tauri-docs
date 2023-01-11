@@ -39,5 +39,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "hastscript": "^7.2.0",
+    "rehype-raw": "^6.1.1",
+    "unist-util-find-after": "^4.0.0",
+    "unist-util-find-all-between": "^2.1.0",
+    "unist-util-replace-all-between": "^0.1.1",
+    "unist-util-visit": "^4.1.1"
   }
 }
