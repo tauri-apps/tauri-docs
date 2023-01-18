@@ -2,10 +2,7 @@ import { defineConfig } from 'astro/config'
 import prefetch from '@astrojs/prefetch'
 import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
-import { findAfter } from 'unist-util-find-after'
 import { visit } from 'unist-util-visit'
-import findAllBetween from 'unist-util-find-all-between'
-import replaceAllBetween from 'unist-util-replace-all-between'
 import { h } from 'hastscript'
 import rehypeRaw from 'rehype-raw'
 
@@ -13,13 +10,13 @@ const TAB_GROUP_BEGINNING = /^- begin-tab-group -$/
 const TAB_GROUP_ENDING = /^- end-tab-group -$/
 const TAB_REGEX = /^- tab-title=(.+?) -$/
 function isTabGroupBeginning(node) {
-  return node.type === "comment" && TAB_GROUP_BEGINNING.test(node.value)
+  return node.type === 'comment' && TAB_GROUP_BEGINNING.test(node.value)
 }
 function isTabGroupEnding(node) {
-  return node.type === "comment" && TAB_GROUP_ENDING.test(node.value)
+  return node.type === 'comment' && TAB_GROUP_ENDING.test(node.value)
 }
 function isTab(node) {
-  return node.type === "comment" && TAB_REGEX.test(node.value)
+  return node.type === 'comment' && TAB_REGEX.test(node.value)
 }
 function getTabTitle(node) {
   return node.value.match(TAB_REGEX)?.[1]
@@ -74,74 +71,77 @@ export default defineConfig({
       rehypeRaw,
       function rehypeComponents() {
         return (tree) => {
-          let tab_beginnings = []
-          visit(tree, (node, _, parent) => {
-            if (isTabGroupBeginning(node)) {
-              tab_beginnings.push({
-                node,
-                parent,
-              })
+          visit(tree, (maybeStartNode, maybeStartIndex, parent) => {
+            if (isTabGroupBeginning(maybeStartNode)) {
+              let tabs = []
+              let startIndex = maybeStartIndex
+              let endIndex = -1
+              let suffix = ctr++
+
+              let tabTitle = null
+              let contents = []
+              for (let i = startIndex + 1; i < parent.children.length; i++) {
+                let node = parent.children[i]
+                if (isTab(node)) {
+                  if (tabTitle) {
+                    tabs.push({
+                      title: tabTitle,
+                      contents,
+                    })
+                  }
+                  tabTitle = getTabTitle(node)
+                  contents = []
+                } else if (isTabGroupEnding(node)) {
+                  tabs.push({
+                    title: tabTitle,
+                    contents,
+                  })
+                  endIndex = i
+                  break
+                } else if (isTabGroupBeginning(node)) {
+                  throw new Error('Unclosed tab group detected')
+                } else {
+                  contents.push(node)
+                }
+              }
+
+              if (endIndex === -1) {
+                throw new Error('Unclosed tab group detected')
+              }
+
+              parent.children.splice(
+                startIndex,
+                endIndex - startIndex + 1,
+                h(
+                  'div',
+                  {
+                    class: 'tab-container',
+                  },
+                  [
+                    h(
+                      'div',
+                      {
+                        role: 'tablist',
+                        'data-docs-tablist': true,
+                      },
+                      tabs.map((t) => createHastTab(t, suffix))
+                    ),
+                    h(
+                      'div',
+                      {
+                        class: 'spacer',
+                      },
+                      tabs.map((t) => createHastTabPanel(t, suffix))
+                    ),
+                  ]
+                )
+              )
             }
           })
-
-          for (let { node, parent } of tab_beginnings) {
-            let tabs = []
-            let start = node
-            let end = null
-            let suffix = ctr++
-
-            let searchFrom = start
-            do {
-              let nextNode = findAfter(parent, searchFrom, (node) => {
-                return isTab(node) || isTabGroupEnding(node)
-              })
-              let tabTitle = getTabTitle(searchFrom)
-              if (tabTitle) {
-                tabs.push({
-                  title: tabTitle,
-                  contents: findAllBetween(parent, searchFrom, nextNode),
-                })
-              }
-
-              if (isTabGroupEnding(nextNode)) {
-                end = nextNode
-                break
-              } else {
-                searchFrom = nextNode
-              }
-            } while (searchFrom && searchFrom.value?.match(TAB_REGEX))
-
-            replaceAllBetween(parent, start, end, () => [
-              h(
-                'div',
-                {
-                  class: 'tab-container',
-                },
-                [
-                  h(
-                    'div',
-                    {
-                      role: 'tablist',
-                      'data-docs-tablist': true
-                    },
-                    tabs.map((t, i) => createHastTab(t, suffix))
-                  ),
-                  h(
-                    'div',
-                    {
-                      class: 'spacer',
-                    },
-                    tabs.map((t) => createHastTabPanel(t, suffix))
-                  ),
-                ]
-              ),
-            ])
-          }
 
           return undefined
         }
       },
-      // rehypeStringify,
     ],
   },
 })
