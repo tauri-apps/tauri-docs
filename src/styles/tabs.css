@@ -1,0 +1,22 @@
+.tab-container {
+  width: max-content;
+}
+
+[role='tab'] {
+  border-bottom: 3px solid transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 1rem;
+}
+
+[role='tab'][aria-selected='true'] {
+  border-bottom-color: #67d6ed;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #67d6ed;
+}
+
+.spacer {
+  margin-top: 1rem;
+}
