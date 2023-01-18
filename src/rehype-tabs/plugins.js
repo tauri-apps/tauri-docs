@@ -53,6 +53,9 @@ let ctr = 0
 function rehypeTabs() {
   return (tree) => {
     visit(tree, (maybeStartNode, maybeStartIndex, parent) => {
+      if (isTabGroupEnding(maybeStartNode) || isTab(maybeStartNode)) {
+        throw new Error('Tab group missing opening')
+      }
       if (isTabGroupBeginning(maybeStartNode)) {
         let tabs = []
         let startIndex = maybeStartIndex
