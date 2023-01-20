@@ -1,5 +1,9 @@
 import Command from '@theme/Command'
 
+# Temp heading to fix render
+
+<!-- The above heading is here because fragments aren't really supported in the context of Astro Content Collections -->
+
 To build and bundle your Tauri application into a single executable simply run the following command:
 
 <Command name="build" />
