@@ -1,23 +1,28 @@
 ---
-import type { Heading } from '../../types'
+import type { SidebarItem } from '../../types'
 
 interface Props {
-  headings: Heading[]
+  sidebarItems: SidebarItem[]
+  currentPageId: string
 }
 
-const { headings } = Astro.props
+const { sidebarItems, currentPageId } = Astro.props
 ---
 
-<aside class="bg-base-200 w-80 fixed inset-0 top-16 overflow-y-auto">
+<aside>
   {
-    headings && (
-      <ul class="menu">
-        {headings.map((heading) => (
-          <li>
-            <a href={heading.slug}>{heading.text}</a>
-          </li>
-        ))}
-      </ul>
+    sidebarItems && (
+      <>
+        <p>Related Pages</p>
+        <p>{currentPageId}</p>
+        <ul>
+          {sidebarItems.map((item) => (
+            <li>
+              <a href={item.id}>{item.title}</a>
+            </li>
+          ))}
+        </ul>
+      </>
     )
   }
 </aside>
