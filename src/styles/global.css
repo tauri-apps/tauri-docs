@@ -2,6 +2,17 @@
 @import '@fontsource/rubik';
 @import '@fontsource/ibm-plex-mono';
 
+@tailwind base;
+
+@layer base {
+  :root {
+    --color-base-100: 20 20 20;
+    --color-base-200: 30 30 30;
+    --color-base-300: 40 40 40;
+    --color-base-content: 246 246 246;
+  }
+}
+
 /* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
 
 @media (prefers-color-scheme: dark) {
