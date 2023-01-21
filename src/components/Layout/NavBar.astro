@@ -3,7 +3,7 @@ import Search from './Search.astro'
 ---
 
 <nav class="bg-base-100 sticky top-0 py-4 px-8 flex justify-between">
-  <ul class="flex gap-8">
+  <div class="flex gap-8">
     <a href={Astro.url.origin}>
       <!-- <img
         src="/meta/tauri_logo_light.svg"
@@ -16,105 +16,62 @@ import Search from './Search.astro'
         class="h-10 dark-mode-only"
       />
     </a>
-    <li>Docs</li>
-    <li>
-      References
-      <!-- <ul>
-        <li>Tauri Config</li>
-        <li>JavaScript API</li>
-        <li>Rust API</li>
-        <li>Tauri CLI</li>
-      </ul> -->
-    </li>
-    <li>About</li>
-    <!-- <ul class="menu menu-horizontal px-1">
+    <ul class="hidden lg:flex gap-8">
       <li><a href="/docs/core/1">Docs</a></li>
       <li>
         <a>
           References
           <i class="bi bi-caret-down-fill"></i>
         </a>
-        <ul class="bg-base-200 p-2">
-          <li class="menu-title uppercase">
-            <span>Tauri Core</span>
-          </li>
-          <li><a href="/api/core-config/1">Tauri Configuration</a></li>
-          <li>
-            <a href="./api">
-              Rust API (via Docs.rs)
-              <i class="bi bi-box-arrow-up-right"></i>
-            </a>
-          </li>
-          <li><a href="/api/core-js/1">JavaScript API</a></li>
-
-          <li><a href="/api/core-cli/1">Tauri CLI</a></li>
-        </ul>
+        <!-- <ul>
+        <li>Tauri Config</li>
+        <li>JavaScript API</li>
+        <li>Rust API</li>
+        <li>Tauri CLI</li>
+      </ul> -->
       </li>
-      <li><a href="./about">About</a></li>
-    </ul> -->
-  </ul>
-  <ul class="flex gap-4">
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+  <!-- Desktop trailing -->
+  <ul class="hidden lg:flex gap-4">
     <li>
-      <button>
-        <a href="https://github.com/tauri-apps/tauri" target="_blank">
-          <i class="bi bi-github"></i>
-        </a>
-      </button>
+      <a href="https://github.com/tauri-apps/tauri" target="_blank">
+        <i class="bi bi-github"></i>
+      </a>
     </li>
     <li>
-      <button>
-        <a href="https://discord.com/invite/tauri" target="_blank">
-          <i class="bi bi-discord"></i>
-        </a>
-      </button>
+      <a href="https://discord.com/invite/tauri" target="_blank">
+        <i class="bi bi-discord"></i>
+      </a>
     </li>
     <li>
-      <button>
-        <a href="https://twitter.com/TauriApps" target="_blank">
-          <i class="bi bi-twitter"></i>
-        </a>
-      </button>
+      <a href="https://twitter.com/TauriApps" target="_blank">
+        <i class="bi bi-twitter"></i>
+      </a>
     </li>
     <li>
-      <button>
-        <a href="https://fosstodon.org/@TauriApps" target="_blank">
-          <i class="bi bi-mastodon"></i>
-        </a>
-      </button>
+      <a href="https://fosstodon.org/@TauriApps" target="_blank">
+        <i class="bi bi-mastodon"></i>
+      </a>
     </li>
     <li class="border-x border-border rounded"></li>
     <li>
-      <button>
-        <a href="https://fosstodon.org/@TauriApps" target="_blank">
-          <i class="bi bi-translate"></i>
-          <i class="bi bi-caret-down-fill"></i>
-        </a>
-      </button>
+      <i class="bi bi-translate"></i>
+      <i class="bi bi-caret-down-fill"></i>
     </li>
     <li>
-      <button>
-        <a href="https://fosstodon.org/@TauriApps" target="_blank">
-          <i class="bi bi-circle-half"></i>
-          <i class="bi bi-caret-down-fill"></i>
-        </a>
-      </button>
+      <i class="bi bi-circle-half"></i>
+      <i class="bi bi-caret-down-fill"></i>
     </li>
     <li>
       <Search />
     </li>
-    <!-- <li>
-      <button class="btn btn-ghost">
-        <a>
-          <i class="bi bi-translate"></i>
-          <i class="bi bi-caret-down-fill"></i>
-        </a>
-      </button>
-      <ul class="bg-base-200 p-2">
-        <li><a>🇺🇸 English</a></li>
-        <li><a>🇮🇹 Italian</a></li>
-        <li><a>🇨🇳 Chinese (Simplified)</a></li>
-        <li><a>🇰🇷 Korean</a></li>
-      </ul>
-    </li> -->
+  </ul>
+  <!-- Mobile Trailing -->
+  <ul class="lg:hidden">
+    <button>
+      <i class="bi bi-list"></i>
+    </button>
   </ul>
 </nav>
