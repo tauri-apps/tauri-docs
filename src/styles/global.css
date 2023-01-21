@@ -3,6 +3,7 @@
 @import '@fontsource/ibm-plex-mono';
 
 @tailwind base;
+@tailwind components;
 
 @layer base {
   :root {
@@ -10,6 +11,14 @@
     --color-base-200: 30 30 30;
     --color-base-300: 40 40 40;
     --color-base-content: 246 246 246;
+
+    --color-border: var(--color-base-content) / 25%;
+  }
+}
+
+@layer components {
+  .input-text {
+    @apply bg-base-200 rounded;
   }
 }
 
