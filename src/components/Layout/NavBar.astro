@@ -16,10 +16,10 @@ import Search from './Search.astro'
         class="h-10 dark-mode-only"
       />
     </a>
-    <ul class="hidden lg:flex gap-8">
-      <li><a href="/docs/core/1">Docs</a></li>
+    <ul class="hidden lg:flex gap-2">
+      <li><a href="/docs/core/1" class="btn">Docs</a></li>
       <li>
-        <a>
+        <a class="btn" href="#">
           References
           <i class="bi bi-caret-down-fill"></i>
         </a>
@@ -30,39 +30,43 @@ import Search from './Search.astro'
         <li>Tauri CLI</li>
       </ul> -->
       </li>
-      <li><a href="/about">About</a></li>
+      <li><a href="/about" class="btn">About</a></li>
     </ul>
   </div>
   <!-- Desktop trailing -->
-  <ul class="hidden lg:flex gap-4">
+  <ul class="hidden lg:flex gap-2">
     <li>
-      <a href="https://github.com/tauri-apps/tauri" target="_blank">
+      <a href="https://github.com/tauri-apps/tauri" target="_blank" class="btn">
         <i class="bi bi-github"></i>
       </a>
     </li>
     <li>
-      <a href="https://discord.com/invite/tauri" target="_blank">
+      <a href="https://discord.com/invite/tauri" target="_blank" class="btn">
         <i class="bi bi-discord"></i>
       </a>
     </li>
     <li>
-      <a href="https://twitter.com/TauriApps" target="_blank">
+      <a href="https://twitter.com/TauriApps" target="_blank" class="btn">
         <i class="bi bi-twitter"></i>
       </a>
     </li>
     <li>
-      <a href="https://fosstodon.org/@TauriApps" target="_blank">
+      <a href="https://fosstodon.org/@TauriApps" target="_blank" class="btn">
         <i class="bi bi-mastodon"></i>
       </a>
     </li>
-    <li class="border-x border-border rounded"></li>
+    <li class="border-x border-border rounded m-2"></li>
     <li>
-      <i class="bi bi-translate"></i>
-      <i class="bi bi-caret-down-fill"></i>
+      <button class="btn">
+        <i class="bi bi-translate"></i>
+        <i class="bi bi-caret-down-fill"></i>
+      </button>
     </li>
     <li>
-      <i class="bi bi-circle-half"></i>
-      <i class="bi bi-caret-down-fill"></i>
+      <button class="btn">
+        <i class="bi bi-circle-half"></i>
+        <i class="bi bi-caret-down-fill"></i>
+      </button>
     </li>
     <li>
       <Search />
@@ -70,7 +74,7 @@ import Search from './Search.astro'
   </ul>
   <!-- Mobile Trailing -->
   <ul class="lg:hidden">
-    <button>
+    <button class="btn">
       <i class="bi bi-list"></i>
     </button>
   </ul>
