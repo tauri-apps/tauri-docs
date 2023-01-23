@@ -6,7 +6,7 @@ import Search from './Search.astro'
   <div class="flex gap-8">
     <a href={Astro.url.origin}>
       <!-- <img
-        src="/meta/tauri_logo_light.svg"
+        src="/meta/tauri_logo_light.svg" 
         alt="Tauri logo"
         class="h-10 light-mode-only"
       /> -->
@@ -16,7 +16,7 @@ import Search from './Search.astro'
         class="h-10 dark-mode-only"
       />
     </a>
-    <ul class="hidden lg:flex gap-2">
+    <ul class="hidden lg:flex">
       <li><a href="/docs/core/1" class="btn">Docs</a></li>
       <li>
         <a class="btn" href="#">
@@ -34,7 +34,7 @@ import Search from './Search.astro'
     </ul>
   </div>
   <!-- Desktop trailing -->
-  <ul class="hidden lg:flex gap-2">
+  <ul class="hidden lg:flex">
     <li>
       <a href="https://github.com/tauri-apps/tauri" target="_blank" class="btn">
         <i class="bi bi-github"></i>
@@ -68,7 +68,7 @@ import Search from './Search.astro'
         <i class="bi bi-caret-down-fill"></i>
       </button>
     </li>
-    <li>
+    <li class="pl-2">
       <Search />
     </li>
   </ul>
