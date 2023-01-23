@@ -2,8 +2,20 @@
 import Search from './Search.astro'
 ---
 
+<style>
+  /* Hide submenus by default */
+  li ul {
+    @apply hidden absolute;
+  }
+
+  /* Show submenus */
+  li:hover ul {
+    @apply block bg-base-200;
+  }
+</style>
+
 <nav class="bg-base-100 sticky top-0 py-4 px-8 flex justify-between">
-  <div class="flex gap-8">
+  <div class="flex gap-8 items-center">
     <a href={Astro.url.origin}>
       <!-- <img
         src="/meta/tauri_logo_light.svg" 
@@ -23,12 +35,12 @@ import Search from './Search.astro'
           References
           <i class="bi bi-caret-down-fill"></i>
         </a>
-        <!-- <ul>
-        <li>Tauri Config</li>
-        <li>JavaScript API</li>
-        <li>Rust API</li>
-        <li>Tauri CLI</li>
-      </ul> -->
+        <ul>
+          <li><a class="btn" href="#">Tauri Config</a></li>
+          <li><a class="btn" href="#">JavaScript API</a></li>
+          <li><a class="btn" href="#">Rust API</a></li>
+          <li><a class="btn" href="#">Tauri CLI</a></li>
+        </ul>
       </li>
       <li><a href="/about" class="btn">About</a></li>
     </ul>
@@ -61,12 +73,20 @@ import Search from './Search.astro'
         <i class="bi bi-translate"></i>
         <i class="bi bi-caret-down-fill"></i>
       </button>
+      <ul>
+        <li><a class="btn" href="#">English</a></li>
+      </ul>
     </li>
     <li>
       <button class="btn">
         <i class="bi bi-circle-half"></i>
         <i class="bi bi-caret-down-fill"></i>
       </button>
+      <ul>
+        <li><a class="btn" href="#">Auto</a></li>
+        <li><a class="btn" href="#">Dark</a></li>
+        <li><a class="btn" href="#">Light</a></li>
+      </ul>
     </li>
     <li class="pl-2">
       <Search />
