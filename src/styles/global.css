@@ -21,6 +21,15 @@
     @apply text-base-content;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mt-6 mb-2;
+  }
+
   /* Headings */
   h1 {
     @apply font-semibold text-4xl;
@@ -87,9 +96,4 @@
   .dark-mode-only {
     display: none;
   }
-}
-
-/* Resizes icons in buttons to fit nicely */
-button > * > i {
-  font-size: 1.5em;
 }
