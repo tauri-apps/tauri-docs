@@ -55,7 +55,8 @@
 @layer components {
   /* Buttons */
   .btn {
-    @apply p-3 rounded h-12 min-w-[48px] transition;
+    /* min-w-[48] is used to ensure that small icons are square */
+    @apply p-3 rounded h-12 min-w-[48px] transition inline-block text-center;
   }
   .btn-hover {
     @apply bg-base-content/10;
