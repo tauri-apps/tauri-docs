@@ -1,5 +1,13 @@
 ---
 import Search from './Search.astro'
+import IconCaret from '~icons/bi/caret-down-fill'
+import IconTranslate from '~icons/bi/translate'
+import IconCircleHalf from '~icons/bi/circle-half'
+import IconGithub from '~icons/bi/github'
+import IconTwitter from '~icons/bi/twitter'
+import IconDiscord from '~icons/bi/discord'
+import IconMastodon from '~icons/bi/mastodon'
+import IconList from '~icons/bi/list'
 ---
 
 <style>
@@ -33,7 +41,7 @@ import Search from './Search.astro'
       <li>
         <a class="btn" href="#">
           References
-          <i class="bi bi-caret-down-fill"></i>
+          <IconCaret class="text-xs" />
         </a>
         <ul>
           <li><a class="btn" href="#">Tauri Config</a></li>
@@ -49,29 +57,29 @@ import Search from './Search.astro'
   <ul class="hidden lg:flex">
     <li>
       <a href="https://github.com/tauri-apps/tauri" target="_blank" class="btn">
-        <i class="bi bi-github"></i>
+        <IconGithub />
       </a>
     </li>
     <li>
       <a href="https://discord.com/invite/tauri" target="_blank" class="btn">
-        <i class="bi bi-discord"></i>
+        <IconDiscord />
       </a>
     </li>
     <li>
       <a href="https://twitter.com/TauriApps" target="_blank" class="btn">
-        <i class="bi bi-twitter"></i>
+        <IconTwitter />
       </a>
     </li>
     <li>
       <a href="https://fosstodon.org/@TauriApps" target="_blank" class="btn">
-        <i class="bi bi-mastodon"></i>
+        <IconMastodon />
       </a>
     </li>
     <li class="border-x border-border rounded m-2"></li>
     <li>
       <button class="btn">
-        <i class="bi bi-translate"></i>
-        <i class="bi bi-caret-down-fill"></i>
+        <IconTranslate />
+        <IconCaret class="text-xs" />
       </button>
       <ul>
         <li><a class="btn" href="#">English</a></li>
@@ -79,8 +87,8 @@ import Search from './Search.astro'
     </li>
     <li>
       <button class="btn">
-        <i class="bi bi-circle-half"></i>
-        <i class="bi bi-caret-down-fill"></i>
+        <IconCircleHalf />
+        <IconCaret class="text-xs" />
       </button>
       <ul>
         <li><a class="btn" href="#">Auto</a></li>
@@ -95,7 +103,7 @@ import Search from './Search.astro'
   <!-- Mobile Trailing -->
   <ul class="lg:hidden">
     <button class="btn">
-      <i class="bi bi-list"></i>
+      <IconList />
     </button>
   </ul>
 </nav>

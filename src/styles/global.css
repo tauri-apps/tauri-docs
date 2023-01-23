@@ -1,4 +1,3 @@
-@import url('bootstrap-icons');
 @import '@fontsource/rubik';
 @import '@fontsource/ibm-plex-mono';
 
@@ -57,6 +56,9 @@
   .btn {
     /* min-w-[48] is used to ensure that small icons are square */
     @apply p-3 rounded h-12 min-w-[48px] transition inline-block text-center;
+  }
+  .btn > * {
+    @apply inline-block;
   }
   .btn-hover {
     @apply bg-base-content/10;

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Icon from '~icons/bi/fire'
 ---
 
 <Layout title="Components">
@@ -66,10 +67,22 @@ import Layout from '../layouts/Layout.astro'
         <button class="btn btn-selected">Button</button>
       </div>
       <div class="p-8 flex gap-8">
-        <a href="#" class="btn">Button</a>
-        <a href="#" class="btn btn-hover">Button</a>
-        <a href="#" class="btn btn-active">Button</a>
-        <a href="#" class="btn btn-selected">Button</a>
+        <a href="#" class="btn"
+          >Button
+          <Icon />
+        </a>
+        <a href="#" class="btn btn-hover"
+          >Button
+          <Icon />
+        </a>
+        <a href="#" class="btn btn-active"
+          >Button
+          <Icon />
+        </a>
+        <a href="#" class="btn btn-selected"
+          >Button
+          <Icon />
+        </a>
       </div>
     </div>
   </div>
