@@ -6,56 +6,76 @@ import IconMastodon from '~icons/bi/mastodon'
 const year = new Date().getFullYear()
 ---
 
-<footer>
-  <div class="divider"></div>
-  <div class="footer">
-    <div class="gap-y-6">
-      <a href={Astro.url.origin}>
-        <img
-          src="/meta/tauri_logo_watermark.svg"
-          alt="Tauri logo"
-          class="h-8 opacity-80 hover:opacity-100 transition"
-        />
-      </a>
+<style>
+  a {
+    @apply text-base-content;
+  }
+  ul li {
+    @apply py-1;
+  }
+</style>
+
+<footer class="py-4 flex flex-col gap-8">
+  <div class="border-y border-border rounded"></div>
+  <div class="grid lg:grid-cols-3 gap-8">
+    <div class="flex flex-col gap-6">
+      <div>
+        <a href={Astro.url.origin}>
+          <img
+            src="/meta/tauri_logo_light.svg"
+            alt="Tauri logo"
+            class="h-10 light-mode-only"
+          />
+          <img
+            src="/meta/tauri_logo_dark.svg"
+            alt="Tauri logo"
+            class="h-10 dark-mode-only"
+          />
+        </a>
+      </div>
 
       <div class="-ml-3">
-        <button class="btn btn-ghost btn-circle">
-          <a href="https://github.com/tauri-apps/tauri" target="_blank">
-            <IconGithub />
-          </a>
-        </button>
-        <button class="btn btn-ghost btn-circle">
-          <a href="https://discord.com/invite/tauri" target="_blank">
-            <IconDiscord />
-          </a>
-        </button>
-        <button class="btn btn-ghost btn-circle">
-          <a href="https://twitter.com/TauriApps" target="_blank">
-            <IconTwitter />
-          </a>
-        </button>
-        <button class="btn btn-ghost btn-circle">
-          <a href="https://fosstodon.org/@TauriApps" target="_blank">
-            <IconMastodon />
-          </a>
-        </button>
+        <a
+          href="https://github.com/tauri-apps/tauri"
+          target="_blank"
+          class="btn"
+        >
+          <IconGithub />
+        </a>
+
+        <a href="https://discord.com/invite/tauri" target="_blank" class="btn">
+          <IconDiscord />
+        </a>
+
+        <a href="https://twitter.com/TauriApps" target="_blank" class="btn">
+          <IconTwitter />
+        </a>
+
+        <a href="https://fosstodon.org/@TauriApps" target="_blank" class="btn">
+          <IconMastodon />
+        </a>
       </div>
-      <p>Copyright &copy; {year} Tauri Contributors. CC-BY / MIT</p>
     </div>
 
-    <div>
-      <span class="footer-title">Sections</span>
-      <a href="/blog" class="link link-hover">Docs</a>
-      <a href="/api" class="link link-hover">References</a>
-      <a href="/about" class="link link-hover">About</a>
-    </div>
+    <ul>
+      <li><a href="/docs">Docs</a></li>
+      <li><a href="/api">References</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
 
-    <div>
-      <span class="footer-title">Placeholder</span>
-      <a href="/blog" class="link link-hover">Blog</a>
-      <a href="" class="link link-hover">Email</a>
-      <a href="" class="link link-hover">OpenCollective</a>
-      <a href="" class="link link-hover">Awesome Tauri</a>
-    </div>
+    <ul>
+      <li><a href="mailto:contact@tauri.app">Email</a></li>
+      <li>
+        <a href="https://opencollective.com/tauri" target="_blank"
+          >OpenCollective</a
+        >
+      </li>
+      <li>
+        <a href="https://github.com/tauri-apps/awesome-tauri" target="_blank"
+          >Awesome Tauri</a
+        >
+      </li>
+    </ul>
   </div>
+  <div>Copyright &copy; {year} Tauri Contributors. CC-BY / MIT</div>
 </footer>
