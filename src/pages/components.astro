@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Icon from '~icons/bi/fire'
+import { Code } from 'astro/components'
 ---
 
 <Layout title="Components">
@@ -56,7 +57,23 @@ import Icon from '~icons/bi/fire'
         similique reprehenderit. Cumque minima vero assumenda veritatis deserunt
         odio nam similique hic?
       </p>
-      <code>console.log("Hello, world!");</code>
+      <p>
+        Let's show some inline code: <code>console.log("Hello, world!");</code> That's
+        neat!
+      </p>
+      <Code
+        code={`<script>
+  import { invoke } from '@tauri-apps/api/tauri'
+
+  let name = ''
+  let greetMsg = ''
+
+  async function greet() {
+    greetMsg = await invoke('greet', { name })
+  }
+</script>`}
+        lang="js"
+      />
     </div>
     <div>
       <h2>Buttons</h2>

@@ -12,8 +12,8 @@ module.exports = {
       'base-200': 'rgb(var(--color-base-200) / <alpha-value>)',
       'base-300': 'rgb(var(--color-base-300) / <alpha-value>)',
       'base-content': 'rgb(var(--color-base-content) / <alpha-value>)',
+      'content-background': 'rgba(var(--color-content-background))',
       primary: 'rgb(var(--color-primary) / <alpha-value>)',
-      border: 'rgba(var(--color-border))',
     },
     extend: {
       fontFamily: {

@@ -11,7 +11,7 @@
     --color-base-200: 30 30 30;
     --color-base-300: 40 40 40;
     --color-base-content: 246 246 246;
-    --color-border: var(--color-base-content) / 20%;
+    --color-content-background: var(--color-base-content) / 15%;
 
     --color-primary: 36 200 219;
   }
@@ -26,6 +26,10 @@
 
   a:hover {
     @apply underline;
+  }
+
+  :not(pre) > code {
+    @apply bg-content-background py-1 px-1 rounded;
   }
 
   h1,
