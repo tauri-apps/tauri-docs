@@ -2,99 +2,80 @@
 import Search from './Search.astro'
 ---
 
-<script>
-  // TODO
-  // @ts-ignore
-  document.getElementById('display-mode').indeterminate = true
-</script>
-
-<nav class="sticky top-0 navbar bg-base-100 px-10">
-  <div class="navbar-start">
+<nav class="bg-base-100 sticky top-0 py-4 px-8 flex justify-between">
+  <div class="flex gap-8">
     <a href={Astro.url.origin}>
-      <!-- TODO: Darkmode toggling might be able to be better -->
-      <img
+      <!-- <img
         src="/meta/tauri_logo_light.svg"
         alt="Tauri logo"
-        class="h-8 mr-4 light-mode-only"
-      />
+        class="h-10 light-mode-only"
+      /> -->
       <img
         src="/meta/tauri_logo_dark.svg"
         alt="Tauri logo"
-        class="h-8 mr-4 dark-mode-only"
+        class="h-10 dark-mode-only"
       />
     </a>
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/docs/core/1">Docs</a></li>
+    <ul class="hidden lg:flex gap-2">
+      <li><a href="/docs/core/1" class="btn">Docs</a></li>
       <li>
-        <a>
+        <a class="btn" href="#">
           References
           <i class="bi bi-caret-down-fill"></i>
         </a>
-        <ul class="bg-base-200 p-2">
-          <li class="menu-title uppercase">
-            <span>Tauri Core</span>
-          </li>
-          <li><a href="/api/core-config/1">Tauri Configuration</a></li>
-          <li>
-            <a href="./api">
-              Rust API (via Docs.rs)
-              <i class="bi bi-box-arrow-up-right"></i>
-            </a>
-          </li>
-          <li><a href="/api/core-js/1">JavaScript API</a></li>
-
-          <li><a href="/api/core-cli/1">Tauri CLI</a></li>
-        </ul>
+        <!-- <ul>
+        <li>Tauri Config</li>
+        <li>JavaScript API</li>
+        <li>Rust API</li>
+        <li>Tauri CLI</li>
+      </ul> -->
       </li>
-      <li><a href="./about">About</a></li>
+      <li><a href="/about" class="btn">About</a></li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <ul class="menu menu-horizontal px-1">
-      <button class="btn btn-ghost btn-square">
-        <a href="https://github.com/tauri-apps/tauri" target="_blank">
-          <i class="bi bi-github"></i>
-        </a>
+  <!-- Desktop trailing -->
+  <ul class="hidden lg:flex gap-2">
+    <li>
+      <a href="https://github.com/tauri-apps/tauri" target="_blank" class="btn">
+        <i class="bi bi-github"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://discord.com/invite/tauri" target="_blank" class="btn">
+        <i class="bi bi-discord"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://twitter.com/TauriApps" target="_blank" class="btn">
+        <i class="bi bi-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://fosstodon.org/@TauriApps" target="_blank" class="btn">
+        <i class="bi bi-mastodon"></i>
+      </a>
+    </li>
+    <li class="border-x border-border rounded m-2"></li>
+    <li>
+      <button class="btn">
+        <i class="bi bi-translate"></i>
+        <i class="bi bi-caret-down-fill"></i>
       </button>
-      <button class="btn btn-ghost btn-square">
-        <a href="https://discord.com/invite/tauri" target="_blank">
-          <i class="bi bi-discord"></i>
-        </a>
+    </li>
+    <li>
+      <button class="btn">
+        <i class="bi bi-circle-half"></i>
+        <i class="bi bi-caret-down-fill"></i>
       </button>
-      <button class="btn btn-ghost btn-square">
-        <a href="https://twitter.com/TauriApps" target="_blank">
-          <i class="bi bi-twitter"></i>
-        </a>
-      </button>
-      <button class="btn btn-ghost btn-square">
-        <a href="https://fosstodon.org/@TauriApps" target="_blank">
-          <i class="bi bi-mastodon"></i>
-        </a>
-      </button>
-      <li></li>
-      <button class="btn btn-ghost btn-square">
-        <label class="swap swap-rotate">
-          <input type="checkbox" id="display-mode" />
-          <i class="bi bi-sun-fill swap-on"></i>
-          <i class="bi bi-moon-stars-fill swap-off"></i>
-          <i class="bi bi-circle-half swap-indeterminate"></i>
-        </label>
-      </button>
-      <li>
-        <button class="btn btn-ghost">
-          <a>
-            <i class="bi bi-translate"></i>
-            <i class="bi bi-caret-down-fill"></i>
-          </a>
-        </button>
-        <ul class="bg-base-200 p-2">
-          <li><a>🇺🇸 English</a></li>
-          <li><a>🇮🇹 Italian</a></li>
-          <li><a>🇨🇳 Chinese (Simplified)</a></li>
-          <li><a>🇰🇷 Korean</a></li>
-        </ul>
-      </li>
-    </ul>
-    <Search />
-  </div>
+    </li>
+    <li>
+      <Search />
+    </li>
+  </ul>
+  <!-- Mobile Trailing -->
+  <ul class="lg:hidden">
+    <button class="btn">
+      <i class="bi bi-list"></i>
+    </button>
+  </ul>
 </nav>

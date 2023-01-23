@@ -2,6 +2,89 @@
 @import '@fontsource/rubik';
 @import '@fontsource/ibm-plex-mono';
 
+@tailwind base;
+@tailwind components;
+
+@layer base {
+  /* Variables */
+  :root {
+    --color-base-100: 20 20 20;
+    --color-base-200: 30 30 30;
+    --color-base-300: 40 40 40;
+    --color-base-content: 246 246 246;
+    --color-border: var(--color-base-content) / 20%;
+
+    --color-primary: 36 200 219;
+  }
+
+  body {
+    @apply text-base-content;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply mt-6 mb-2;
+  }
+
+  /* Headings */
+  h1 {
+    @apply font-semibold text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply font-semibold text-2xl;
+  }
+  h4 {
+    @apply text-2xl;
+  }
+  h5 {
+    @apply font-semibold text-xl;
+  }
+  h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply p-3 rounded h-12 min-w-[48px] transition;
+  }
+  .btn-hover {
+    @apply bg-base-content/10;
+  }
+  .btn:hover {
+    @apply btn-hover;
+  }
+  .btn-active {
+    @apply text-primary bg-base-content/10;
+  }
+  .btn:active {
+    @apply btn-active;
+  }
+  .btn-selected {
+    @apply text-primary;
+  }
+
+  /* Inputs */
+  .input-text {
+    @apply p-3 rounded h-12 transition bg-base-200;
+  }
+  .input-hover {
+    @apply bg-base-content/10;
+  }
+  .input-text:hover {
+    @apply input-hover;
+  }
+}
+
 /* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
 
 @media (prefers-color-scheme: dark) {
@@ -14,9 +97,4 @@
   .dark-mode-only {
     display: none;
   }
-}
-
-/* Resizes icons in buttons to fit nicely */
-button > * > i {
-  font-size: 1.5em;
 }
