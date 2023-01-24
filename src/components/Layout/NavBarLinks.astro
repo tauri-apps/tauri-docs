@@ -13,7 +13,7 @@ const { mobile } = Astro.props
   config.navbar.map((item, index) => (
     <li>
       <div>
-        <div class="dropdown">
+        <div class:list={[{ dropdown: item.children }]}>
           {mobile && item.children && (
             <input type="checkbox" id={`nav-dropdown-${index}`} />
           )}

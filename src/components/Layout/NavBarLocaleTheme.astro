@@ -3,6 +3,7 @@ import IconCaret from '~icons/bi/caret-down-fill'
 import IconTranslate from '~icons/bi/translate'
 import IconCircleHalf from '~icons/bi/circle-half'
 import IconMoonStarsFill from '~icons/bi/moon-stars-fill'
+import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
 
 export interface Props {
   mobile: boolean
@@ -38,6 +39,9 @@ const { mobile } = Astro.props
       <IconMoonStarsFill />
       Dark
     </li>
-    <li class="btn">Light</li>
+    <li class="btn">
+      <IconBrightnessHighFill />
+      Light
+    </li>
   </ul>
 </li>
