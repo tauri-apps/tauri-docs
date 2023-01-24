@@ -7,6 +7,7 @@ module.exports = {
     borderRadius: {
       none: '0',
       DEFAULT: '6px',
+      lg: '16px',
     },
     colors: {
       'base-100': 'rgb(var(--color-base-100) / <alpha-value>)',
@@ -15,6 +16,10 @@ module.exports = {
       'base-content': 'rgb(var(--color-base-content) / <alpha-value>)',
       'content-background': 'rgba(var(--color-content-background))',
       primary: 'rgb(var(--color-primary) / <alpha-value>)',
+      info: 'rgb(var(--color-info) / <alpha-value>)',
+      success: 'rgb(var(--color-success) / <alpha-value>)',
+      caution: 'rgb(var(--color-caution) / <alpha-value>)',
+      danger: 'rgb(var(--color-danger) / <alpha-value>)',
     },
     zIndex: {
       dropdown: '1',

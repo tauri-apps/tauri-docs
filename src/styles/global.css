@@ -3,6 +3,7 @@
 
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
 @layer base {
   /* Variables */
@@ -14,6 +15,11 @@
     --color-content-background: var(--color-base-content) / 15%;
 
     --color-primary: 36 200 219;
+
+    --color-info: 46 138 149;
+    --color-success: 42 111 57;
+    --color-caution: 167 130 43;
+    --color-danger: 178 54 37;
   }
 
   body {
@@ -138,6 +144,12 @@
   }
   .input-text:hover {
     @apply input-hover;
+  }
+}
+
+@layer utilities {
+  .small-caps {
+    @apply uppercase font-bold text-xs;
   }
 }
 
