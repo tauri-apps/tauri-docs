@@ -22,6 +22,10 @@
     --color-danger: 178 54 37;
   }
 
+  /***************/
+  /* Base styles */
+  /***************/
+
   body {
     @apply text-base-content;
   }
@@ -48,7 +52,6 @@
     @apply mt-6 mb-2;
   }
 
-  /* Headings */
   h1 {
     @apply font-semibold text-4xl;
   }
@@ -70,9 +73,11 @@
 }
 
 @layer components {
+  /***********/
   /* Buttons */
+  /***********/
   .btn {
-    /* min-w-[48] is used to ensure that small icons are square */
+    /* min-w-[48px] is used to ensure that small icons are square */
     @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
   .btn > * {
@@ -94,48 +99,41 @@
     @apply text-primary;
   }
 
+  /************/
   /* Dropdown */
+  /************/
+
+  /* .dropdown: Container that has a checkbox to toggle (usually via a label) as well as .dropdown-content  */
+  /* .dropdown-content: Content that should be shown and hidden */
+  /* .dropdown-hover: Modifier to enable dropdown on hover */
+  /* .dropdown-inline: Modifier to shift page content on expansion */
+
+  /* Base styling */
   .dropdown > input {
     @apply hidden;
   }
-  .dropdown > label {
-    @apply lg:rounded-b-none;
-  }
   .dropdown > .dropdown-content {
-    @apply hidden lg:absolute bg-base-200 rounded-b rounded-tr;
-  }
-  .dropdown:hover > label {
-    @apply bg-base-300;
-  }
-  .dropdown > .dropdown-content {
-    @apply flex-col;
-  }
-  .dropdown:hover > .dropdown-content {
-    @apply lg:flex;
-  }
-  .dropdown > input:checked {
-    @apply rounded-b-none;
-  }
-  .dropdown > input:checked ~ label {
-    @apply bg-base-300 rounded-b-none;
-  }
-  .dropdown > input:checked ~ .dropdown-content {
-    @apply flex;
+    @apply hidden bg-base-200 rounded;
   }
 
-  /*
-  .dropdown-checkbox:checked ~ .dropdown-label,
-  .dropdown-label:hover {
-    @apply bg-base-300 rounded-t;
+  .dropdown:not(.dropdown-inline) > .dropdown-content {
+    @apply absolute;
   }
-  .dropdown-checkbox:checked ~ .dropdown-content {
-    @apply flex flex-col rounded-t-none;
-  }
-  .dropdown-label:hover > .dropdown-content {
-    @apply lg:block;
-  } */
 
+  /* Utility class */
+  .dropdown-content-expanded {
+    @apply block;
+  }
+
+  /* States */
+  .dropdown > input:checked ~ .dropdown-content,
+  .dropdown.dropdown-hover:hover > .dropdown-content {
+    @apply dropdown-content-expanded;
+  }
+
+  /**********/
   /* Inputs */
+  /**********/
   .input-text {
     @apply p-3 rounded h-12 transition bg-base-200;
   }
@@ -151,18 +149,10 @@
   .small-caps {
     @apply uppercase font-bold text-xs;
   }
-}
-
-/* TODO: How this is handled doesn't reflect how daisyUI handles it, also doesn't support a future toggle */
-
-@media (prefers-color-scheme: dark) {
-  .light-mode-only {
-    display: none;
+  .menu {
+    @apply flex flex-col;
   }
-}
-
-@media (prefers-color-scheme: light) {
-  .dark-mode-only {
-    display: none;
+  .menu > li > * {
+    @apply w-full text-left;
   }
 }

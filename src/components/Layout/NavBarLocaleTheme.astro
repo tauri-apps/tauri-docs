@@ -12,36 +12,48 @@ export interface Props {
 const { mobile } = Astro.props
 ---
 
-<li class="dropdown z-nav-dropdown" tabindex="0">
+<li
+  class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}
+  tabindex="0"
+>
   {mobile && <input type="checkbox" id="nav-dropdown-locale" />}
 
   <label class="btn" for="nav-dropdown-locale">
     <IconTranslate />
     <IconCaret class="text-xs" />
   </label>
-  <ul class="dropdown-content absolute">
-    <li class="btn">English</li>
-    <li class="btn">Chinese</li>
+  <ul class="dropdown-content menu">
+    <li><button class="btn">English</button></li>
+    <li><button class="btn">Chinese</button></li>
   </ul>
 </li>
-<li class="dropdown z-nav-dropdown" tabindex="0">
+<li
+  class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}
+  tabindex="0"
+>
   {mobile && <input type="checkbox" id="nav-dropdown-theme" />}
   <label class="btn" for="nav-dropdown-theme">
     <IconCircleHalf />
     <IconCaret class="text-xs" />
   </label>
-  <ul class="dropdown-content absolute">
-    <li class="btn">
-      <IconCircleHalf />
-      Auto
+  <ul class="dropdown-content menu">
+    <li>
+      <button class="btn">
+        <IconCircleHalf />
+        Auto
+      </button>
     </li>
-    <li class="btn">
-      <IconMoonStarsFill />
-      Dark
+    <li>
+      <button class="btn">
+        <IconMoonStarsFill />
+        Dark
+      </button>
     </li>
-    <li class="btn">
-      <IconBrightnessHighFill />
-      Light
+    <li>
+      <button class="btn">
+        <IconBrightnessHighFill />
+        Light
+      </button>
     </li>
   </ul>
 </li>
