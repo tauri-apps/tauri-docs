@@ -1,10 +1,8 @@
 ---
-import IconCaret from '~icons/bi/caret-down-fill'
-import IconTranslate from '~icons/bi/translate'
-import IconCircleHalf from '~icons/bi/circle-half'
 import IconList from '~icons/bi/list'
 
 import NavBarLinks from './NavBarLinks.astro'
+import NavBarLocaleTheme from './NavBarLocaleTheme.astro'
 import Social from './NavBarSocial.astro'
 import Search from './NavBarSearch.astro'
 ---
@@ -17,33 +15,14 @@ import Search from './NavBarSearch.astro'
         <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
       </a>
       <ul class="flex">
-        <NavBarLinks />
+        <NavBarLinks mobile={false} />
       </ul>
     </li>
     <li>
       <ul class="flex">
         <Social />
         <li class="border-x border-content-background rounded m-2"></li>
-        <li>
-          <button class="btn">
-            <IconTranslate />
-            <IconCaret class="text-xs" />
-          </button>
-          <ul class="dropdown-content">
-            <li><a class="btn" href="#">English</a></li>
-          </ul>
-        </li>
-        <li>
-          <button class="btn">
-            <IconCircleHalf />
-            <IconCaret class="text-xs" />
-          </button>
-          <ul class="dropdown-content">
-            <li><a class="btn" href="#">Auto</a></li>
-            <li><a class="btn" href="#">Dark</a></li>
-            <li><a class="btn" href="#">Light</a></li>
-          </ul>
-        </li>
+        <NavBarLocaleTheme mobile={false} />
         <li class="pl-2">
           <Search />
         </li>
@@ -57,18 +36,7 @@ import Search from './NavBarSearch.astro'
         <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
       </a>
       <ul class="flex">
-        <li>
-          <button class="btn">
-            <IconTranslate />
-            <IconCaret class="text-xs" />
-          </button>
-        </li>
-        <li>
-          <button class="btn">
-            <IconCircleHalf />
-            <IconCaret class="text-xs" />
-          </button>
-        </li>
+        <NavBarLocaleTheme mobile={true} />
         <li>
           <button class="btn">
             <IconList />
@@ -81,10 +49,9 @@ import Search from './NavBarSearch.astro'
     </li>
     <li>
       <ul>
-        <NavBarLinks />
+        <NavBarLinks mobile={true} />
       </ul>
     </li>
-
     <li>
       <ul class="flex">
         <Social />

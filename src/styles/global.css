@@ -67,7 +67,7 @@
   /* Buttons */
   .btn {
     /* min-w-[48] is used to ensure that small icons are square */
-    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center;
+    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
   .btn > * {
     @apply inline-block;
@@ -88,13 +88,46 @@
     @apply text-primary;
   }
 
-  /* Dropdown Content */
-  .dropdown-content {
-    @apply hidden absolute;
+  /* Dropdown */
+  .dropdown > input {
+    @apply hidden;
   }
-  *:hover > .dropdown-content {
-    @apply block bg-base-200;
+  .dropdown > label {
+    @apply lg:rounded-b-none;
   }
+  .dropdown > .dropdown-content {
+    @apply hidden lg:absolute bg-base-200 rounded-b;
+  }
+  .dropdown:hover > label {
+    @apply bg-base-300;
+  }
+  .dropdown > .dropdown-content {
+    @apply flex-col;
+  }
+  .dropdown:hover > .dropdown-content {
+    @apply lg:flex;
+  }
+  .dropdown > input:checked {
+    @apply rounded-b-none;
+  }
+  .dropdown > input:checked ~ label {
+    @apply bg-base-300 rounded-b-none;
+  }
+  .dropdown > input:checked ~ .dropdown-content {
+    @apply flex;
+  }
+
+  /*
+  .dropdown-checkbox:checked ~ .dropdown-label,
+  .dropdown-label:hover {
+    @apply bg-base-300 rounded-t;
+  }
+  .dropdown-checkbox:checked ~ .dropdown-content {
+    @apply flex flex-col rounded-t-none;
+  }
+  .dropdown-label:hover > .dropdown-content {
+    @apply lg:block;
+  } */
 
   /* Inputs */
   .input-text {

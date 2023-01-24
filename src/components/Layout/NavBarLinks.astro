@@ -1,26 +1,47 @@
 ---
 import config from '../../config'
 import IconCaret from '~icons/bi/caret-down-fill'
+
+export interface Props {
+  mobile: boolean
+}
+
+const { mobile } = Astro.props
 ---
 
 {
-  config.navbar.map((item) => (
+  config.navbar.map((item, index) => (
     <li>
-      <a class="btn" href={item.href}>
-        {item.title}
-        {item.children && <IconCaret class="text-sm" />}
-      </a>
-      {item.children && (
-        <ul class="dropdown-content">
-          {item.children.map((child) => (
-            <li>
-              <a class="btn" href={child.href}>
-                {child.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div>
+        <div class="dropdown">
+          {mobile && item.children && (
+            <input type="checkbox" id={`nav-dropdown-${index}`} />
+          )}
+          <label
+            for={`nav-dropdown-${index}`}
+            class="btn w-full"
+            style="text-align: start;"
+          >
+            {item.title}
+            {item.children && <IconCaret class="text-xs" />}
+          </label>
+          {item.children && (
+            <ul class="dropdown-content">
+              {item.children.map((child) => (
+                <li>
+                  <a
+                    class="btn w-full"
+                    style="text-align: start;"
+                    href={child.href}
+                  >
+                    {child.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </li>
   ))
 }

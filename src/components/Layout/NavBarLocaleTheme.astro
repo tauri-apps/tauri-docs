@@ -1,0 +1,36 @@
+---
+import IconCaret from '~icons/bi/caret-down-fill'
+import IconTranslate from '~icons/bi/translate'
+import IconCircleHalf from '~icons/bi/circle-half'
+
+export interface Props {
+  mobile: boolean
+}
+
+const { mobile } = Astro.props
+---
+
+<li class="dropdown">
+  {mobile && <input type="checkbox" id="nav-dropdown-locale" />}
+
+  <label class="btn" for="nav-dropdown-locale">
+    <IconTranslate />
+    <IconCaret class="text-xs" />
+  </label>
+  <ul class="dropdown-content absolute">
+    <li class="btn">English</li>
+    <li class="btn">Chinese</li>
+  </ul>
+</li>
+<li class="dropdown">
+  {mobile && <input type="checkbox" id="nav-dropdown-theme" />}
+  <label class="btn" for="nav-dropdown-theme">
+    <IconCircleHalf />
+    <IconCaret class="text-xs" />
+  </label>
+  <ul class="dropdown-content absolute">
+    <li class="btn">Auto</li>
+    <li class="btn">Dark</li>
+    <li class="btn">Light</li>
+  </ul>
+</li>
