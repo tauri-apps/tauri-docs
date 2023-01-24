@@ -11,36 +11,34 @@ const { mobile } = Astro.props
 
 {
   config.navbar.map((item, index) => (
-    <li>
-      <div>
-        <div class:list={[{ dropdown: item.children }]}>
-          {mobile && item.children && (
-            <input type="checkbox" id={`nav-dropdown-${index}`} />
-          )}
-          <label
-            for={`nav-dropdown-${index}`}
-            class="btn w-full"
-            style="text-align: start;"
-          >
-            {item.title}
-            {item.children && <IconCaret class="text-xs" />}
-          </label>
-          {item.children && (
-            <ul class="dropdown-content">
-              {item.children.map((child) => (
-                <li>
-                  <a
-                    class="btn w-full"
-                    style="text-align: start;"
-                    href={child.href}
-                  >
-                    {child.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+    <li tabindex="0">
+      <div class:list={[{ dropdown: item.children }]}>
+        {mobile && item.children && (
+          <input type="checkbox" id={`nav-dropdown-${index}`} />
+        )}
+        <label
+          for={`nav-dropdown-${index}`}
+          class="btn w-full"
+          style="text-align: start;"
+        >
+          {item.title}
+          {item.children && <IconCaret class="text-xs" />}
+        </label>
+        {item.children && (
+          <ul class="dropdown-content">
+            {item.children.map((child) => (
+              <li>
+                <a
+                  class="btn w-full"
+                  style="text-align: start;"
+                  href={child.href}
+                >
+                  {child.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </li>
   ))

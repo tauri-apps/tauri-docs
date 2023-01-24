@@ -12,7 +12,7 @@ export interface Props {
 const { mobile } = Astro.props
 ---
 
-<li class="dropdown z-nav-dropdown">
+<li class="dropdown z-nav-dropdown" tabindex="0">
   {mobile && <input type="checkbox" id="nav-dropdown-locale" />}
 
   <label class="btn" for="nav-dropdown-locale">
@@ -24,7 +24,7 @@ const { mobile } = Astro.props
     <li class="btn">Chinese</li>
   </ul>
 </li>
-<li class="dropdown z-nav-dropdown">
+<li class="dropdown z-nav-dropdown" tabindex="0">
   {mobile && <input type="checkbox" id="nav-dropdown-theme" />}
   <label class="btn" for="nav-dropdown-theme">
     <IconCircleHalf />
