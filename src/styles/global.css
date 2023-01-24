@@ -96,7 +96,7 @@
     @apply lg:rounded-b-none;
   }
   .dropdown > .dropdown-content {
-    @apply hidden lg:absolute bg-base-200 rounded-b;
+    @apply hidden lg:absolute bg-base-200 rounded-b rounded-tr;
   }
   .dropdown:hover > label {
     @apply bg-base-300;
