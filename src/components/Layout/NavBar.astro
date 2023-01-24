@@ -1,5 +1,6 @@
 ---
 import IconList from '~icons/bi/list'
+import IconClose from '~icons/bi/x-lg'
 
 import NavBarLinks from './NavBarLinks.astro'
 import NavBarLocaleTheme from './NavBarLocaleTheme.astro'
@@ -15,14 +16,20 @@ import Search from './NavBarSearch.astro'
   .nav-drawer > * .content {
     @apply hidden;
   }
-
   .nav-drawer > input:checked ~ .content,
   .nav-drawer > input:checked ~ * .content {
     @apply flex;
   }
+  .nav-drawer > input:checked ~ * .icon-closed {
+    @apply hidden;
+  }
+
+  .nav-drawer > input:not(:checked) ~ * .icon-open {
+    @apply hidden;
+  }
 </style>
 
-<nav class="bg-base-100 sticky top-0 py-4 px-8">
+<nav class="bg-base-100 sticky top-0 py-4 px-8 z-nav">
   <!-- Desktop -->
   <ul class="hidden lg:flex justify-between">
     <li class="flex items-center">
@@ -58,25 +65,25 @@ import Search from './NavBarSearch.astro'
           </ul>
         </li>
         <li>
-          <label for="nav-drawer" class="btn">
+          <label for="nav-drawer" class="btn icon-closed">
             <IconList />
+          </label>
+          <label for="nav-drawer" class="btn icon-open">
+            <IconClose />
           </label>
         </li>
       </ul>
     </li>
-
-    <li class="content">
+    <div
+      class="content fixed inset-0 top-16 flex flex-col gap-4 bg-base-100 w-full z-mobile-nav px-8 py-4"
+    >
       <Search />
-    </li>
-    <li class="content">
-      <ul class="w-full">
+      <ul class="overflow-auto">
         <NavBarLinks mobile={true} />
       </ul>
-    </li>
-    <li class="content">
       <ul class="flex">
         <Social />
       </ul>
-    </li>
+    </div>
   </ul>
 </nav>

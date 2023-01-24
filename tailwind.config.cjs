@@ -16,6 +16,12 @@ module.exports = {
       'content-background': 'rgba(var(--color-content-background))',
       primary: 'rgb(var(--color-primary) / <alpha-value>)',
     },
+    zIndex: {
+      dropdown: '1',
+      nav: '2',
+      'mobile-nav': '3',
+      'nav-dropdown': '4',
+    },
     extend: {
       fontFamily: {
         sans: ['Rubik', ...fontFamily.sans],
