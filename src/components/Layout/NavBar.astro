@@ -7,6 +7,21 @@ import Social from './NavBarSocial.astro'
 import Search from './NavBarSearch.astro'
 ---
 
+<style>
+  .nav-drawer > input {
+    @apply hidden;
+  }
+  .nav-drawer > .content,
+  .nav-drawer > * .content {
+    @apply hidden;
+  }
+
+  .nav-drawer > input:checked ~ .content,
+  .nav-drawer > input:checked ~ * .content {
+    @apply flex;
+  }
+</style>
+
 <nav class="bg-base-100 sticky top-0 py-4 px-8">
   <!-- Desktop -->
   <ul class="hidden lg:flex justify-between">
@@ -30,29 +45,35 @@ import Search from './NavBarSearch.astro'
     </li>
   </ul>
   <!-- Mobile -->
-  <ul class="lg:hidden flex flex-col items-stretch gap-4">
+  <ul class="lg:hidden flex flex-col items-stretch gap-4 nav-drawer">
+    <input type="checkbox" id="nav-drawer" />
     <li class="flex justify-between">
       <a href={Astro.url.origin}>
         <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
       </a>
       <ul class="flex">
-        <NavBarLocaleTheme mobile={true} />
         <li>
-          <button class="btn">
+          <ul class="content">
+            <NavBarLocaleTheme mobile={true} />
+          </ul>
+        </li>
+        <li>
+          <label for="nav-drawer" class="btn">
             <IconList />
-          </button>
+          </label>
         </li>
       </ul>
     </li>
-    <li>
+
+    <li class="content">
       <Search />
     </li>
-    <li>
-      <ul>
+    <li class="content">
+      <ul class="w-full">
         <NavBarLinks mobile={true} />
       </ul>
     </li>
-    <li>
+    <li class="content">
       <ul class="flex">
         <Social />
       </ul>
