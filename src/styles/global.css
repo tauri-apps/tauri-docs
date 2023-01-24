@@ -88,6 +88,14 @@
     @apply text-primary;
   }
 
+  /* Dropdown Content */
+  .dropdown-content {
+    @apply hidden absolute;
+  }
+  *:hover > .dropdown-content {
+    @apply block bg-base-200;
+  }
+
   /* Inputs */
   .input-text {
     @apply p-3 rounded h-12 transition bg-base-200;

@@ -1,0 +1,26 @@
+---
+import config from '../../config'
+import IconCaret from '~icons/bi/caret-down-fill'
+---
+
+{
+  config.navbar.map((item) => (
+    <li>
+      <a class="btn" href={item.href}>
+        {item.title}
+        {item.children && <IconCaret class="text-sm" />}
+      </a>
+      {item.children && (
+        <ul class="dropdown-content">
+          {item.children.map((child) => (
+            <li>
+              <a class="btn" href={child.href}>
+                {child.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  ))
+}

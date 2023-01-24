@@ -1,100 +1,94 @@
 ---
-import Search from './Search.astro'
 import IconCaret from '~icons/bi/caret-down-fill'
 import IconTranslate from '~icons/bi/translate'
 import IconCircleHalf from '~icons/bi/circle-half'
-import IconGithub from '~icons/bi/github'
-import IconTwitter from '~icons/bi/twitter'
-import IconDiscord from '~icons/bi/discord'
-import IconMastodon from '~icons/bi/mastodon'
 import IconList from '~icons/bi/list'
+
+import NavBarLinks from './NavBarLinks.astro'
+import Social from './NavBarSocial.astro'
+import Search from './NavBarSearch.astro'
 ---
 
-<style>
-  /* Hide submenus by default */
-  li ul {
-    @apply hidden absolute;
-  }
-
-  /* Show submenus */
-  li:hover ul {
-    @apply block bg-base-200;
-  }
-</style>
-
-<nav class="bg-base-100 sticky top-0 py-4 px-8 flex justify-between">
-  <div class="flex gap-8 items-center">
-    <a href={Astro.url.origin}>
-      <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
-    </a>
-    <ul class="hidden lg:flex">
-      <li><a href="/docs/core/1" class="btn">Docs</a></li>
-      <li>
-        <a class="btn" href="#">
-          References
-          <IconCaret class="text-xs" />
-        </a>
-        <ul>
-          <li><a class="btn" href="#">Tauri Config</a></li>
-          <li><a class="btn" href="#">JavaScript API</a></li>
-          <li><a class="btn" href="#">Rust API</a></li>
-          <li><a class="btn" href="#">Tauri CLI</a></li>
-        </ul>
-      </li>
-      <li><a href="/about" class="btn">About</a></li>
-    </ul>
-  </div>
-  <!-- Desktop trailing -->
-  <ul class="hidden lg:flex">
-    <li>
-      <a href="https://github.com/tauri-apps/tauri" target="_blank" class="btn">
-        <IconGithub />
+<nav class="bg-base-100 sticky top-0 py-4 px-8">
+  <!-- Desktop -->
+  <ul class="hidden lg:flex justify-between">
+    <li class="flex items-center">
+      <a class="pr-8" href={Astro.url.origin}>
+        <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
       </a>
-    </li>
-    <li>
-      <a href="https://discord.com/invite/tauri" target="_blank" class="btn">
-        <IconDiscord />
-      </a>
-    </li>
-    <li>
-      <a href="https://twitter.com/TauriApps" target="_blank" class="btn">
-        <IconTwitter />
-      </a>
-    </li>
-    <li>
-      <a href="https://fosstodon.org/@TauriApps" target="_blank" class="btn">
-        <IconMastodon />
-      </a>
-    </li>
-    <li class="border-x border-content-background rounded m-2"></li>
-    <li>
-      <button class="btn">
-        <IconTranslate />
-        <IconCaret class="text-xs" />
-      </button>
-      <ul>
-        <li><a class="btn" href="#">English</a></li>
+      <ul class="flex">
+        <NavBarLinks />
       </ul>
     </li>
     <li>
-      <button class="btn">
-        <IconCircleHalf />
-        <IconCaret class="text-xs" />
-      </button>
-      <ul>
-        <li><a class="btn" href="#">Auto</a></li>
-        <li><a class="btn" href="#">Dark</a></li>
-        <li><a class="btn" href="#">Light</a></li>
+      <ul class="flex">
+        <Social />
+        <li class="border-x border-content-background rounded m-2"></li>
+        <li>
+          <button class="btn">
+            <IconTranslate />
+            <IconCaret class="text-xs" />
+          </button>
+          <ul class="dropdown-content">
+            <li><a class="btn" href="#">English</a></li>
+          </ul>
+        </li>
+        <li>
+          <button class="btn">
+            <IconCircleHalf />
+            <IconCaret class="text-xs" />
+          </button>
+          <ul class="dropdown-content">
+            <li><a class="btn" href="#">Auto</a></li>
+            <li><a class="btn" href="#">Dark</a></li>
+            <li><a class="btn" href="#">Light</a></li>
+          </ul>
+        </li>
+        <li class="pl-2">
+          <Search />
+        </li>
       </ul>
-    </li>
-    <li class="pl-2">
-      <Search />
     </li>
   </ul>
-  <!-- Mobile Trailing -->
-  <ul class="lg:hidden">
-    <button class="btn">
-      <IconList />
-    </button>
+  <!-- Mobile -->
+  <ul class="lg:hidden flex flex-col items-stretch gap-4">
+    <li class="flex justify-between">
+      <a href={Astro.url.origin}>
+        <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
+      </a>
+      <ul class="flex">
+        <li>
+          <button class="btn">
+            <IconTranslate />
+            <IconCaret class="text-xs" />
+          </button>
+        </li>
+        <li>
+          <button class="btn">
+            <IconCircleHalf />
+            <IconCaret class="text-xs" />
+          </button>
+        </li>
+        <li>
+          <button class="btn">
+            <IconList />
+          </button>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <Search />
+    </li>
+    <li>
+      <ul>
+        <NavBarLinks />
+      </ul>
+    </li>
+
+    <li>
+      <ul class="flex">
+        <Social />
+      </ul>
+    </li>
   </ul>
 </nav>
