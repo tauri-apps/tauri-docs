@@ -5,6 +5,7 @@ module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     borderRadius: {
+      none: '0',
       DEFAULT: '6px',
     },
     colors: {
