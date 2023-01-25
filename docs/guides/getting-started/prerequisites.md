@@ -47,24 +47,17 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
-#### 3. MSVC toolchain as default
+:::caution MSVC toolchain as default
 
-In order to be able to install tools like `tauri-cli` and `trunk` you need to make sure that the proper toolchain is set as default.
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog.<br/>Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
 
-To display the current configured default toolchain please run the following command:
-
-```powershell
-rustup default
-```
-
-The command should return either `i686-pc-windows-msvc`, `x86_64-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
-
-If the command returns a different toolchain, please configure the default toolchain in the following way: 
+If you already had Rust installed, you can make sure the correct toolchain is installed by running this command:
 
 ```powershell
 rustup default stable-msvc
 ```
 
+:::
 ### Setting Up macOS
 
 #### 1. CLang and macOS Development Dependencies
