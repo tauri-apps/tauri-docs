@@ -10,42 +10,37 @@ const { mobile } = Astro.props
 ---
 
 {
-  config.navbar.map((item, index) => (
-    <li tabindex="0" class:list={[
-      {"dropdown" : item.children},
-      {"dropdown-hover": item.children && !mobile},
-      {"dropdown-inline": item.children && mobile}
-    ]}>
-        {mobile && item.children && (
-          <input type="checkbox" id={`nav-dropdown-${index}`} />
-                  <label
-          for={`nav-dropdown-${index}`}
-          class="btn"
-        >
+  config.navbar.map((item) => (
+    <li
+      class:list={[
+        { dropdown: item.children },
+        { 'dropdown-hover': item.children && !mobile },
+        { 'dropdown-inline': item.children && mobile },
+      ]}
+    >
+      {mobile && item.children && (
+        <label tabindex="0" class="btn">
           {item.title}
           {item.children && <IconCaret class="text-xs" />}
         </label>
-        )}
-        {(!mobile || !item.children) && (
-          <a class="btn" href={item.href}>
-            {item.title}
-            {item.children && <IconCaret class="text-xs" />}
-          </a>
-        )}
-        {item.children && (
-          <ul class="dropdown-content menu">
-            {item.children.map((child) => (
-              <li>
-                <a
-                  class="btn"
-                  href={child.href}
-                >
-                  {child.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+      )}
+      {(!mobile || !item.children) && (
+        <a class="btn" href={item.href}>
+          {item.title}
+          {item.children && <IconCaret class="text-xs" />}
+        </a>
+      )}
+      {item.children && (
+        <ul class="dropdown-content menu">
+          {item.children.map((child) => (
+            <li>
+              <a class="btn" href={child.href}>
+                {child.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </li>
   ))
 }

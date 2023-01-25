@@ -109,26 +109,24 @@
   /* .dropdown-inline: Modifier to shift page content on expansion */
 
   /* Base styling */
-  .dropdown > input {
-    @apply hidden;
-  }
   .dropdown > .dropdown-content {
-    @apply hidden bg-base-200 rounded;
+    @apply invisible absolute bg-base-200 rounded;
   }
 
-  .dropdown:not(.dropdown-inline) > .dropdown-content {
-    @apply absolute;
-  }
-
-  /* Utility class */
-  .dropdown-content-expanded {
-    @apply block;
+  .dropdown.dropdown-inline > .dropdown-content {
+    @apply hidden static;
   }
 
   /* States */
-  .dropdown > input:checked ~ .dropdown-content,
+  .dropdown.dropdown-inline:focus > .dropdown-content,
+  .dropdown.dropdown-inline:focus-within > .dropdown-content {
+    @apply inline;
+  }
+
+  .dropdown:focus .dropdown-content,
+  .dropdown:focus-within .dropdown-content,
   .dropdown.dropdown-hover:hover > .dropdown-content {
-    @apply dropdown-content-expanded;
+    @apply visible;
   }
 
   /**********/

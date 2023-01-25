@@ -12,13 +12,8 @@ export interface Props {
 const { mobile } = Astro.props
 ---
 
-<li
-  class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}
-  tabindex="0"
->
-  {mobile && <input type="checkbox" id="nav-dropdown-locale" />}
-
-  <label class="btn" for="nav-dropdown-locale">
+<li class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}>
+  <label tabindex="0" class="btn">
     <IconTranslate />
     <IconCaret class="text-xs" />
   </label>
@@ -27,12 +22,8 @@ const { mobile } = Astro.props
     <li><button class="btn">Chinese</button></li>
   </ul>
 </li>
-<li
-  class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}
-  tabindex="0"
->
-  {mobile && <input type="checkbox" id="nav-dropdown-theme" />}
-  <label class="btn" for="nav-dropdown-theme">
+<li class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}>
+  <label tabindex="0" class="btn">
     <IconCircleHalf />
     <IconCaret class="text-xs" />
   </label>
