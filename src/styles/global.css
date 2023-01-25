@@ -171,7 +171,11 @@
   /* Menu items */
   .menu > li > *:not(ul),
   .menu > li > ul > li > *:not(ul) {
-    @apply btn btn-inline text-left;
+    @apply btn btn-inline;
+  }
+
+  .menu.menu-inline > li *:not(ul) {
+    @apply text-left;
   }
 
   /* Submenu */
