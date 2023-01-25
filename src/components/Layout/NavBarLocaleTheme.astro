@@ -7,35 +7,35 @@ import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
 ---
 
 <li class="z-nav-dropdown">
-  <label tabindex="0">
+  <label tabindex="0" aria-label="Locale">
     <IconTranslate />
     <IconCaret class="text-xs" />
   </label>
   <ul>
-    <li><button>English</button></li>
     <li><button>Chinese</button></li>
+    <li><button>English</button></li>
   </ul>
 </li>
 <li class="z-nav-dropdown">
-  <label tabindex="0">
+  <label tabindex="0" aria-label="Theme">
     <IconCircleHalf />
     <IconCaret class="text-xs" />
   </label>
   <ul>
     <li>
-      <button>
+      <button aria-label="System theme">
         <IconCircleHalf />
         Auto
       </button>
     </li>
     <li>
-      <button>
+      <button aria-label="Dark">
         <IconMoonStarsFill />
         Dark
       </button>
     </li>
     <li>
-      <button>
+      <button aria-label="Light">
         <IconBrightnessHighFill />
         Light
       </button>

@@ -61,10 +61,20 @@ import Search from './NavBarSearch.astro'
       <ul class="menu menu-horizontal">
         <NavBarLocaleTheme />
         <li>
-          <label for="nav-drawer" class="icon-closed" tabindex="0">
+          <label
+            for="nav-drawer"
+            class="icon-closed"
+            tabindex="0"
+            aria-label="Open navigation"
+          >
             <IconList />
           </label>
-          <label for="nav-drawer" class="icon-open" tabindex="0">
+          <label
+            for="nav-drawer"
+            class="icon-open"
+            tabindex="0"
+            aria-label="Close navigation"
+          >
             <IconClose />
           </label>
         </li>
