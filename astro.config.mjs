@@ -7,9 +7,6 @@ import Icons from 'unplugin-icons/vite'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tauri.app',
-  experimental: {
-    contentCollections: true,
-  },
   integrations: [prefetch(), tailwind(), sitemap()],
   vite: {
     plugins: [Icons({ compiler: 'astro' })],

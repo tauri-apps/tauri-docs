@@ -6,6 +6,7 @@ dist/
 .output/
 
 # Generated files
+.astro
 
 # Misc
 .DS_Store

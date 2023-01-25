@@ -12,14 +12,14 @@ const blog = defineCollection({
 
     return `${year}/${month}/${day}/${defaultSlug}`
   },
-  schema: {
+  schema: z.object({
     date: z.date(),
     title: z.string(),
     summary: z.string().optional(),
     image: z.string().optional(),
     darkImage: z.string().optional(),
     authors: z.array(z.string()).optional(),
-  },
+  }),
 })
 
 const docsCore1 = defineCollection({})
