@@ -160,9 +160,12 @@
     @apply rounded-b;
   }
 
-  .menu > li:focus-within,
-  .menu.menu-hover > li:hover {
-    @apply rounded-t rounded-b-none;
+  .menu > li:focus:has(> ul),
+  .menu > li:focus-within:has(> ul),
+  .menu.menu-hover > li:hover:has(> ul),
+  .menu > li:focus:has(> ul) > *:not(ul),
+  .menu > li:focus-within:has(> ul) > *:not(ul) {
+    @apply rounded-b-none;
   }
 
   /* Menu items */
