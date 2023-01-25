@@ -80,11 +80,11 @@
     /* min-w-[48px] is used to ensure that small icons are square */
     @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
-  .btn-inline {
-    @apply w-full;
-  }
   .btn > * {
     @apply inline-block;
+  }
+  .btn-inline {
+    @apply w-full;
   }
   .btn-hover {
     @apply bg-base-content/10 no-underline;
@@ -102,40 +102,6 @@
   }
   .btn-selected {
     @apply text-primary;
-  }
-
-  /************/
-  /* Dropdown */
-  /************/
-
-  /* .dropdown: Container that has a checkbox to toggle (usually via a label) as well as .dropdown-content  */
-  /* .dropdown-content: Content that should be shown and hidden */
-  /* .dropdown-hover: Modifier to enable dropdown on hover */
-  /* .dropdown-inline: Modifier to shift page content on expansion */
-
-  /* Utilities */
-  .utility-dropdown-content {
-    @apply invisible absolute bg-base-200 rounded;
-  }
-  .utility-dropdown-focus {
-    @apply visible;
-  }
-  .utility-dropdown-focus-inline {
-    @apply inline static;
-  }
-
-  /* States */
-  .dropdown > .dropdown-content {
-    @apply utility-dropdown-content;
-  }
-  .dropdown:focus .dropdown-content,
-  .dropdown:focus-within .dropdown-content,
-  .dropdown.dropdown-hover:hover > .dropdown-content {
-    @apply utility-dropdown-focus;
-  }
-  .dropdown.dropdown-inline:focus > .dropdown-content,
-  .dropdown.dropdown-inline:focus-within > .dropdown-content {
-    @apply utility-dropdown-focus-inline;
   }
 
   /**********/
@@ -164,27 +130,42 @@
   /* .menu-horizontal: Modifier, should be sibling to .menu */
   /* .menu-hover: Modifier, enable submenus on hover */
   /* .menu-inline: Modifier, style any submenus to be inline */
+
+  /* Basic styling */
   .menu {
     @apply flex flex-col;
   }
+
   .menu.menu-horizontal {
     @apply flex-row;
   }
+
+  /* Menu items */
   .menu > li > *:not(ul),
-  .menu > li > ul > li > * {
+  .menu > li > ul > li > *:not(ul) {
     @apply btn btn-inline text-left;
   }
   .menu > li > ul {
-    @apply invisible absolute bg-base-200 rounded-b rounded-tr;
+    @apply bg-base-200 hidden absolute z-nav-dropdown;
   }
 
+  /* Inline styling */
+  .menu.menu-inline > li > *:not(ul),
+  .menu.menu-inline > li > ul > li > *:not(ul) {
+    /* @apply rounded-none; */
+  }
+  .menu.menu-inline:first-child {
+    /* @apply rounded; */
+  }
+
+  /* States */
   .menu.menu-hover > li:hover > ul,
   .menu > li:focus > ul,
   .menu > li:focus-within > ul {
-    @apply utility-dropdown-focus;
+    @apply block;
   }
   .menu.menu-inline > li:focus > ul,
   .menu.menu-inline > li:focus-within > ul {
-    @apply utility-dropdown-focus-inline;
+    @apply static;
   }
 }
