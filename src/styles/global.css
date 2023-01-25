@@ -140,22 +140,40 @@
     @apply flex-row;
   }
 
+  /* Focused button */
+  .menu > li:hover,
+  .menu > li:focus,
+  .menu > li:focus-within {
+    @apply bg-base-200 rounded;
+  }
+
+  /* Focused submenu */
+  .menu > li:focus > ul,
+  .menu > li:focus-within > ul,
+  .menu.menu-hover > li:hover > ul {
+    @apply bg-base-200 rounded-b rounded-tr;
+  }
+
+  /* Focused inline submenu */
+  .menu.menu-inline > li:focus,
+  .menu.menu-inline > li:focus-within {
+    @apply rounded-b;
+  }
+
+  .menu > li:focus-within,
+  .menu.menu-hover > li:hover {
+    @apply rounded-t rounded-b-none;
+  }
+
   /* Menu items */
   .menu > li > *:not(ul),
   .menu > li > ul > li > *:not(ul) {
     @apply btn btn-inline text-left;
   }
-  .menu > li > ul {
-    @apply bg-base-200 hidden absolute z-nav-dropdown;
-  }
 
-  /* Inline styling */
-  .menu.menu-inline > li > *:not(ul),
-  .menu.menu-inline > li > ul > li > *:not(ul) {
-    /* @apply rounded-none; */
-  }
-  .menu.menu-inline:first-child {
-    /* @apply rounded; */
+  /* Submenu */
+  .menu > li > ul {
+    @apply hidden absolute;
   }
 
   /* States */
