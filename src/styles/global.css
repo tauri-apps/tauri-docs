@@ -80,13 +80,18 @@
     /* min-w-[48px] is used to ensure that small icons are square */
     @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
+  .btn-inline {
+    @apply w-full;
+  }
   .btn > * {
     @apply inline-block;
   }
   .btn-hover {
     @apply bg-base-content/10 no-underline;
   }
-  .btn:hover {
+  .btn:hover,
+  .btn:focus,
+  .btn:focus-within {
     @apply btn-hover;
   }
   .btn-active {
@@ -108,25 +113,29 @@
   /* .dropdown-hover: Modifier to enable dropdown on hover */
   /* .dropdown-inline: Modifier to shift page content on expansion */
 
-  /* Base styling */
-  .dropdown > .dropdown-content {
+  /* Utilities */
+  .utility-dropdown-content {
     @apply invisible absolute bg-base-200 rounded;
   }
-
-  .dropdown.dropdown-inline > .dropdown-content {
-    @apply hidden static;
+  .utility-dropdown-focus {
+    @apply visible;
+  }
+  .utility-dropdown-focus-inline {
+    @apply inline static;
   }
 
   /* States */
-  .dropdown.dropdown-inline:focus > .dropdown-content,
-  .dropdown.dropdown-inline:focus-within > .dropdown-content {
-    @apply inline;
+  .dropdown > .dropdown-content {
+    @apply utility-dropdown-content;
   }
-
   .dropdown:focus .dropdown-content,
   .dropdown:focus-within .dropdown-content,
   .dropdown.dropdown-hover:hover > .dropdown-content {
-    @apply visible;
+    @apply utility-dropdown-focus;
+  }
+  .dropdown.dropdown-inline:focus > .dropdown-content,
+  .dropdown.dropdown-inline:focus-within > .dropdown-content {
+    @apply utility-dropdown-focus-inline;
   }
 
   /**********/
@@ -147,10 +156,35 @@
   .small-caps {
     @apply uppercase font-bold text-xs;
   }
+
+  /********/
+  /* Menu */
+  /********/
+  /* .menu: Should be applied to the ul */
+  /* .menu-horizontal: Modifier, should be sibling to .menu */
+  /* .menu-hover: Modifier, enable submenus on hover */
+  /* .menu-inline: Modifier, style any submenus to be inline */
   .menu {
     @apply flex flex-col;
   }
-  .menu > li > * {
-    @apply w-full text-left;
+  .menu.menu-horizontal {
+    @apply flex-row;
+  }
+  .menu > li > *:not(ul),
+  .menu > li > ul > li > * {
+    @apply btn btn-inline text-left;
+  }
+  .menu > li > ul {
+    @apply invisible absolute bg-base-200 rounded-b rounded-tr;
+  }
+
+  .menu.menu-hover > li:hover > ul,
+  .menu > li:focus > ul,
+  .menu > li:focus-within > ul {
+    @apply utility-dropdown-focus;
+  }
+  .menu.menu-inline > li:focus > ul,
+  .menu.menu-inline > li:focus-within > ul {
+    @apply utility-dropdown-focus-inline;
   }
 }

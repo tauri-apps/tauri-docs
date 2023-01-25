@@ -1,6 +1,6 @@
 type navbarItem = {
   title: string
-  href: string
+  href?: string
   children?: navbarItem[]
 }
 
@@ -11,7 +11,6 @@ const navbar: navbarItem[] = [
   },
   {
     title: 'References',
-    href: '/api',
     children: [
       {
         title: 'JavaScript API',

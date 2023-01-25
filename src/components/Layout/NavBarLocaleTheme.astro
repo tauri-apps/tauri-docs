@@ -4,44 +4,38 @@ import IconTranslate from '~icons/bi/translate'
 import IconCircleHalf from '~icons/bi/circle-half'
 import IconMoonStarsFill from '~icons/bi/moon-stars-fill'
 import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
-
-export interface Props {
-  mobile: boolean
-}
-
-const { mobile } = Astro.props
 ---
 
-<li class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}>
-  <label tabindex="0" class="btn">
+<li class="z-nav-dropdown">
+  <label tabindex="0">
     <IconTranslate />
     <IconCaret class="text-xs" />
   </label>
-  <ul class="dropdown-content menu">
-    <li><button class="btn">English</button></li>
-    <li><button class="btn">Chinese</button></li>
+  <ul>
+    <li><button>English</button></li>
+    <li><button>Chinese</button></li>
   </ul>
 </li>
-<li class:list={['dropdown z-nav-dropdown', { 'dropdown-hover': !mobile }]}>
-  <label tabindex="0" class="btn">
+<li class="z-nav-dropdown">
+  <label tabindex="0">
     <IconCircleHalf />
     <IconCaret class="text-xs" />
   </label>
-  <ul class="dropdown-content menu">
+  <ul>
     <li>
-      <button class="btn">
+      <button>
         <IconCircleHalf />
         Auto
       </button>
     </li>
     <li>
-      <button class="btn">
+      <button>
         <IconMoonStarsFill />
         Dark
       </button>
     </li>
     <li>
-      <button class="btn">
+      <button>
         <IconBrightnessHighFill />
         Light
       </button>
