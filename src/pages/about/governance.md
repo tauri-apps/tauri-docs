@@ -27,11 +27,11 @@ Visit the [Governance and Guideance repository](https://github.com/tauri-apps/go
 
 ## Code of Conduct
 
-Everyone participating in the Tauri community is expected to follow the [Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/master/CODE_OF_CONDUCT.md).
+Everyone participating in the Tauri community is expected to follow the [Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/main/CODE_OF_CONDUCT.md).
 
 ## Social Contract
 
-We have a [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/master/SOCIAL_CONTRACT.md) that informs our decision making and organization.
+We have a [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/main/SOCIAL_CONTRACT.md) that informs our decision making and organization.
 
 ## Licensing
 
