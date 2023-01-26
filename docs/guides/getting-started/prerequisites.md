@@ -47,6 +47,18 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
+:::caution MSVC toolchain as default
+
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
 ### Setting Up macOS
 
 #### 1. CLang and macOS Development Dependencies
@@ -303,7 +315,8 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
-[Nix Flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's Flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[Nix Shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's Shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[nix flakes]: https://nixos.wiki/wiki/Flakes
+[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
+[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
+[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[`trunk`]: https://trunkrs.dev
