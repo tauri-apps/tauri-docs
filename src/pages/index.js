@@ -370,6 +370,12 @@ function Sponsors() {
       logoColorDark: 'vps_server_color_dark.svg',
       logoColorLight: 'vps_server_color_light.svg',
     },
+    {
+      name: 'Dimension',
+      link: 'https://dimension.dev/',
+      logoColorDark: 'dimension_color_dark.svg',
+      logoColorLight: 'dimension_color_light.svg',
+    },
   ]
 
   return (

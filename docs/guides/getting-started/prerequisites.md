@@ -47,6 +47,18 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
+:::caution MSVC toolchain as default
+
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
 ### Setting Up macOS
 
 #### 1. CLang and macOS Development Dependencies
@@ -133,7 +145,7 @@ sudo dnf install webkit2gtk4.0-devel \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-Note that on Fedora 36 and below the `webkit2gtk` package was called `webkit2gtk3-devel`.
+Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
 
   </TabItem>
   <TabItem value="opensuse" label="openSUSE">
@@ -309,3 +321,4 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
 [nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
 [direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[`trunk`]: https://trunkrs.dev
