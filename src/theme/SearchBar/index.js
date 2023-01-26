@@ -6,9 +6,9 @@ export default function Component() {
     const DocsSearchBar = require('docs-searchbar.js').default
 
     DocsSearchBar({
-      hostUrl: 'https://search.tauri.studio',
+      hostUrl: 'https://ms-4ebb96f179f0-1619.fra.meilisearch.io',
       apiKey:
-        'XZEH8BS90ee09c45215a8421c06857bcbde5c1a6797bdf4859a57a3ac1228a2b81df0994',
+        '3eb6db150af1abefe000f00386e149dfb5a006932cab55d1ccd810b8672a4e12',
       indexUid: 'docs-v1',
       inputSelector: '#search-bar-input',
       debug: process.env.NODE_ENV === 'development',
