@@ -303,7 +303,7 @@ The _Private key_ (privkey) is used to sign your update and should NEVER be shar
 To generate your keys, you need to use the Tauri CLI:
 
 ```shell
-tauri signer generate -w ~/.tauri/myapp.key
+cargo tauri signer generate -w ~/.tauri/myapp.key
 ```
 
 You have multiple options available
