@@ -96,9 +96,6 @@
   color: var(--ifm-font-color-base);
   font-family: var(--ifm-heading-font-family);
   font-weight: var(--ifm-heading-font-weight);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .meilisearch-autocomplete .docs-searchbar-suggestion--subcategory-column {
