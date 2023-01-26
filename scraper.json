@@ -1,0 +1,22 @@
+{
+  "index_uid": "docs-v1",
+  "start_urls": ["https://tauri.app/v1/"],
+  "sitemap_urls": ["https://tauri.app/sitemap.xml"],
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": {
+      "selector": "",
+      "default_value": "Documentation"
+    },
+    "lvl1": {
+      "selector": "h1",
+      "global": true,
+      "default_value": "Guide"
+    },
+    "lvl2": "article h2",
+    "lvl3": "article h3",
+    "lvl4": "article h4",
+    "lvl5": "article h5",
+    "text": "article p, article li"
+  }
+}
