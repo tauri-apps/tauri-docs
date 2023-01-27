@@ -1,10 +1,10 @@
 ---
-import config from '../../config'
+import { navbar } from '../../config'
 import IconCaret from '~icons/bi/caret-down-fill'
 ---
 
 {
-  config.navbar.map((item) => (
+  navbar.map((item) => (
     <li>
       {item.children && (
         <label tabindex="0">

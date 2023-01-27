@@ -1,0 +1,26 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+import { locales } from '../../../config'
+
+export async function getStaticPaths() {
+  const collection = await getCollection('docs')
+
+  // TODO: Need to build in fallbacks if a non-english page doesn't exist
+
+  return collection.map((entry) => ({
+    params: {
+      locale: entry.slug.slice(0, 2),
+      slug: entry.slug.split('/').slice(1).join('/'),
+    },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content, headings } = await entry.render()
+---
+
+<Layout title={headings[0].text ?? ''}>
+  <Content />
+</Layout>

@@ -4,7 +4,7 @@ type navbarItem = {
   children?: navbarItem[]
 }
 
-const navbar: navbarItem[] = [
+export const navbar: navbarItem[] = [
   {
     title: 'Docs',
     href: '/docs',
@@ -36,6 +36,4 @@ const navbar: navbarItem[] = [
   },
 ]
 
-export default {
-  navbar: navbar,
-}
+export const locales = ['en', 'zh-cn', 'es', 'ko', 'fr', 'it']
