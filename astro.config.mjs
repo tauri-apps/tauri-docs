@@ -3,7 +3,7 @@ import prefetch from '@astrojs/prefetch'
 import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 import Icons from 'unplugin-icons/vite'
-import { extractImageClass } from './remark-plugins/extract-image-class'
+import { extractImageClass } from './src/plugins/remark-extract-image-class'
 
 // https://astro.build/config
 export default defineConfig({
