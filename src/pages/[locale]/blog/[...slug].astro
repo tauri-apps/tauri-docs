@@ -9,12 +9,15 @@ export async function getStaticPaths() {
   // TODO: Need to build in fallbacks if a non-english page doesn't exist
 
   return collection.map((entry) => {
-    const [locale, ...slug] = entry.slug.split('/')
+    const [locale, slug] = entry.slug.split('/')
+    const year = entry.data.date.getFullYear()
+    const month = String(entry.data.date.getMonth() + 1).padStart(2, '0')
+    const day = String(entry.data.date.getDate() + 1).padStart(2, '0')
 
     return {
       params: {
         locale,
-        slug: slug.join('/'),
+        slug: `${year}/${month}/${day}/${slug}`,
       },
       props: { entry },
     }

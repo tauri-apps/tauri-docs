@@ -18,11 +18,14 @@ const { locale } = Astro.params
 const collection = await getCollection('blog')
 const filteredCollection = collection
   .filter((entry) => entry.slug.startsWith(locale ?? 'en'))
-  .map(({ slug }) => {
-    const [locale, ...rest] = slug.split('/')
+  .map((entry) => {
+    const [locale, slug] = entry.slug.split('/')
+    const year = entry.data.date.getFullYear()
+    const month = String(entry.data.date.getMonth() + 1).padStart(2, '0')
+    const day = String(entry.data.date.getDate() + 1).padStart(2, '0')
 
     return {
-      slug: `${locale}/blog/${rest}`,
+      slug: `${locale}/blog/${year}/${month}/${day}/${slug}`,
     }
   })
 ---
