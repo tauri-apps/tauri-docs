@@ -38,5 +38,6 @@ const { Content, headings } = await entry.render()
   </p>
   <Author authors={entry.data.authors} />
   {entry.data.imageSrc && <img src={entry.data.imageSrc} />}
+  {entry.data.summary && <p>{entry.data.summary}</p>}
   <Content />
 </Layout>
