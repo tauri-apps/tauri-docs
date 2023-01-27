@@ -1,16 +1,12 @@
 ---
 date: 2022-09-15
 title: Announcing Tauri 1.1.0
-summary: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release.
+summary: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce Tauri 1.1.0.
 image: /img/blog/tauri_1_1/header.png
 authors: [lucasfernog]
 ---
 
-# Announcing Tauri 1.1.0
-
-![Tauri 1.1 Launch Hero Image](/img/blog/tauri_1_1/header.png)
-
-After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the [1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
+Announce the [Tauri 1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
 
 You can update the NPM dependencies with:
 

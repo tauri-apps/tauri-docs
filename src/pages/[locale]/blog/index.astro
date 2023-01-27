@@ -1,0 +1,41 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+import { locales } from '../../../config'
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: {
+      locale,
+    },
+  }))
+}
+
+// TODO: Need to still list out if non-english page doesn't exist
+
+const { locale } = Astro.params
+
+const collection = await getCollection('blog')
+const filteredCollection = collection
+  .filter((entry) => entry.slug.startsWith(locale ?? 'en'))
+  .map(({ slug }) => {
+    const [locale, ...rest] = slug.split('/')
+
+    return {
+      slug: `${locale}/blog/${rest}`,
+    }
+  })
+---
+
+<Layout title="Blog Posts">
+  <h1>Blog Posts</h1>
+  <ul>
+    {
+      filteredCollection.map((entry) => (
+        <li>
+          <a href={`/${entry.slug}`}>{entry.slug}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

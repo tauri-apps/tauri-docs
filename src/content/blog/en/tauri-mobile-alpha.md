@@ -6,12 +6,6 @@ image: /img/blog/tauri_2_0_0_alpha_0/header.png
 authors: [lucasfernog]
 ---
 
-# Announcing the Tauri Mobile Alpha Release
-
-![Tauri 1.2 Launch Hero Image](/img/blog/tauri_2_0_0_alpha_0/header.png)
-
-Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
-
 ## Updating dependencies
 
 Make sure to update both NPM and Cargo dependencies to the 2.0.0-alpha.0 release. You can update the NPM dependencies with:

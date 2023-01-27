@@ -6,11 +6,7 @@ image: /img/blog/tauri_1_2/header.png
 authors: [lucasfernog]
 ---
 
-# Announcing Tauri 1.2.0
-
-![Tauri 1.2 Launch Hero Image](/img/blog/tauri_1_2/header.png)
-
-The Tauri team is happy to announce the 1.2.0 release. It includes a security fix, so we encourage new and existing users to update to one of the fixed versions. Other changes were internally audited and no security issues were found.
+Tauri 1.2.0 includes a security fix, so we encourage new and existing users to update to one of the fixed versions. Other changes were internally audited and no security issues were found.
 
 Make sure to update both NPM and Cargo dependencies to the 1.2.0 release. You can update the NPM dependencies with:
 

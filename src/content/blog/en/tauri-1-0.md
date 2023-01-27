@@ -6,14 +6,6 @@ image: /img/blog/tauri_1_0/header.png
 authors: [nothingismagick]
 ---
 
-# Tauri 1.0 Release
-
-<!-- TODO: Dynamic images for markdown files -->
-
-![Tauri 1.0 Launch Hero Image](/img/blog/tauri_1_0/header.png)
-
-After 9 months of betas and 4 months of release candidates, [Tauri version 1.0 is now available!](https://github.com/tauri-apps/tauri)
-
 ## What is Tauri?
 
 Tauri is an app construction toolkit that lets you build software for all major desktop operating systems using web technologies. The core libraries have been written for you in Rust and the user interface can be written using virtually any frontend framework. It includes an optional and tree-shakeable JavaScript API for comfortable low-level system access, a desktop binary bundler with code signing and artifact verification, a secure updater to keep your users on the latest version, an extensive plugin system, and support for OS-level integrations such as notifications and app trays.

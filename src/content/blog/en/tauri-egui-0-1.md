@@ -5,9 +5,7 @@ summary: The Tauri team is happy to announce the tauri-egui 0.1.0 release
 authors: [lucasfernog]
 ---
 
-# Announcing tauri-egui 0.1.0
-
-The Tauri team is pleased to announce the first release of [tauri-egui](https://github.com/tauri-apps/tauri-egui).
+Announcing [tauri-egui](https://github.com/tauri-apps/tauri-egui).
 
 [`egui`](https://github.com/emilk/egui) is a GUI library written in Rust. It leverages an OpenGL context via [glutin](https://github.com/rust-windowing/glutin).
 
