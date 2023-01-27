@@ -30,7 +30,11 @@ const { Content, headings } = await entry.render()
 
 <Layout title={entry.data.title}>
   <h1>{entry.data.title}</h1>
-  <p>{entry.data.date}, read time</p>
+  <p class="small-caps">
+    Posted {
+      entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })
+    }
+  </p>
   <p>Author info</p>
   {entry.data.imageSrc && <img src={entry.data.imageSrc} />}
   <Content />
