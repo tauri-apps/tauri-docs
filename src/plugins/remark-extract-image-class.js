@@ -1,4 +1,9 @@
 import { visit } from 'unist-util-visit'
+
+// when extending or modifying this plugin, consider
+// svg fragment identifiers, which also use a # to demarcate the start
+// of an identifier
+// https://css-tricks.com/svg-fragment-identifiers-work/
 export function extractImageClass() {
     return (tree) => {
       visit(tree, "image", (node) => {
