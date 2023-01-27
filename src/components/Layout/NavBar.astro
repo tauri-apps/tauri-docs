@@ -40,15 +40,15 @@ import Search from './NavBarSearch.astro'
         <NavBarLinks />
       </ul>
     </li>
-    <li>
+    <li class="flex items-center">
       <ul class="menu menu-horizontal menu-hover">
         <Social />
         <li class="border-x border-content-background rounded m-2"></li>
         <NavBarLocaleTheme />
-        <li class="pl-2">
-          <Search />
-        </li>
       </ul>
+      <div class="pl-2">
+        <Search />
+      </div>
     </li>
   </ul>
   <!-- Mobile -->
