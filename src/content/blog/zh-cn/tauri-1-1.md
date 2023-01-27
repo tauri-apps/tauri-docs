@@ -2,7 +2,7 @@
 date: 2022-09-15
 title: Announcing Tauri 1.1.0
 summary: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce Tauri 1.1.0.
-image: /img/blog/tauri_1_1/header.png
+imageSrc: /img/blog/tauri_1_1/header.png
 authors: [lucasfernog]
 ---
 

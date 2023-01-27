@@ -28,6 +28,10 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<Layout title={headings[0].text ?? ''}>
+<Layout title={entry.data.title}>
+  <h1>{entry.data.title}</h1>
+  <p>{entry.data.date}, read time</p>
+  <p>Author info</p>
+  {entry.data.imageSrc && <img src={entry.data.imageSrc} />}
   <Content />
 </Layout>

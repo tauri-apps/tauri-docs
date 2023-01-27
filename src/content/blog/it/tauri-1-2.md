@@ -2,7 +2,7 @@
 date: 2022-11-08
 title: Announcing Tauri 1.2.0
 summary: The Tauri team is happy to announce the 1.2.0 release.
-image: /img/blog/tauri_1_2/header.png
+imageSrc: /img/blog/tauri_1_2/header.png
 authors: [lucasfernog]
 ---
 
