@@ -113,6 +113,12 @@
   font-style: italic;
   font-size: 0.85em;
   color: var(--ifm-font-color-base);
+  /* Limit displayed lines of content preview to 3 */
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
 /* Highlighted text */
