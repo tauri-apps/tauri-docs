@@ -28,7 +28,8 @@ import { visit } from 'unist-util-visit'
 export function extractImageClass() {
     return (tree) => {
       visit(tree, "image", (node) => {
-        let [url, ending] = node.url.split("#");
+        // regex matches on last # in the url
+        let [url, ending] = node.url.split(/#(?=[^#]+$)/);
 
         if (!ending) {
           return;
