@@ -1,10 +1,75 @@
 ---
+type Author = {
+  id: string
+  name: string
+  title: string
+  url: string
+  imageSrc: string
+}
+
+const availableAuthors: Author[] = [
+  {
+    id: 'nothingismagick',
+    name: 'Daniel Thompson-Yvetot',
+    title: 'Tauri Cofounder',
+    url: 'https://github.com/nothingismagick',
+    imageSrc: '/img/blog/authors/nothingismagick.jpg',
+  },
+  {
+    id: 'jonaskruckenberg',
+    name: 'Jonas Kruckenberg',
+    title: 'Tauri Working Group',
+    url: 'https://github.com/JonasKruckenberg',
+    imageSrc: '/img/blog/authors/jonaskruckenberg.jpg',
+  },
+  {
+    id: 'beanow',
+    name: 'Robin van Boven',
+    title: 'Tauri Board Director',
+    url: 'https://github.com/Beanow',
+    imageSrc: '/img/blog/authors/beanow.jpg',
+  },
+  {
+    id: 'lucasfernog',
+    name: 'Lucas Nogueira',
+    title: 'Tauri Cofounder',
+    url: 'https://github.com/lucasfernog',
+    imageSrc: '/img/blog/authors/lucasfernog.jpg',
+  },
+]
 interface Props {
   authors: string[]
 }
 
 const { authors } = Astro.props
+
+const authorsObject = authors.map((author) => {
+  const matchedAuthor = availableAuthors.find(
+    (avilableAuthor) => avilableAuthor.id === author
+  )
+  if (!matchedAuthor) {
+    throw `${author} is not in the list of available authors.`
+  }
+  return matchedAuthor
+})
 ---
 
-<!-- TODO: Build the component powered by authors.json -->
-<p>Posted by {JSON.stringify(authors)}</p>
+<div class="flex gap-4">
+  {
+    authorsObject.map((author) => (
+      <div class="flex gap-4 items-center">
+        <img
+          src={author.imageSrc}
+          alt="Author image"
+          class="w-12 rounded-[24px]"
+        />
+        <div class="flex flex-col gap-1">
+          <a href={author.url} target="_blank" class="text-base-content">
+            {author.name}
+          </a>
+          <div class="small-caps">{author.title}</div>
+        </div>
+      </div>
+    ))
+  }
+</div>

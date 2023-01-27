@@ -9,7 +9,7 @@ const blog = defineCollection({
     summary: z.string().optional(),
     imageSrc: z.string().optional(),
     imageDarkSrc: z.string().optional(),
-    author: z.union([z.array(z.string()), z.string()]).optional(),
+    authors: z.array(z.string()).optional(),
   }),
 })
 

@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { locales } from '../../../config'
+import Author from '../../../components/Blog/Author.astro'
 
 export async function getStaticPaths() {
   const collection = await getCollection('blog')
@@ -35,7 +36,7 @@ const { Content, headings } = await entry.render()
       entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })
     }
   </p>
-  <p>Author info</p>
+  <Author authors={entry.data.authors} />
   {entry.data.imageSrc && <img src={entry.data.imageSrc} />}
   <Content />
 </Layout>

@@ -1,17 +1,14 @@
 ---
-import type { Heading } from '../types'
 import type { CollectionEntry } from 'astro:content'
 import Footer from '../components/Layout/Footer.astro'
-import TrailingSidebar from '../components/Layout/TrailingSidebar.astro'
 import BaseLayout from './BaseLayout.astro'
 import BlogFooter from '../components/Blog/BlogFooter.astro'
 
 export interface Props {
   entry: CollectionEntry<'blog'>
-  headings: Heading[]
 }
 
-const { entry, headings } = Astro.props
+const { entry } = Astro.props
 ---
 
 <BaseLayout title={entry.data.title}>
@@ -24,5 +21,4 @@ const { entry, headings } = Astro.props
     </div>
     <Footer />
   </div>
-  <TrailingSidebar headings={headings} />
 </BaseLayout>
