@@ -3190,6 +3190,20 @@ unist-util-visit@^4.0.0, unist-util-visit@^4.1.0:
     unist-util-is "^5.0.0"
     unist-util-visit-parents "^5.1.1"
 
+unist-util-visit@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-4.1.2.tgz#125a42d1eb876283715a3cb5cceaa531828c72e2"
+  integrity sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==
+  dependencies:
+    "@types/unist" "^2.0.0"
+    unist-util-is "^5.0.0"
+    unist-util-visit-parents "^5.1.1"
+
+unist@^8.0.11:
+  version "8.0.11"
+  resolved "https://registry.yarnpkg.com/unist/-/unist-8.0.11.tgz#585964c67807e341b878d7f8cff1bb8c0dbeae34"
+  integrity sha512-qnWJT2X2zv8UVrAFAxz83rRek9NBdzNLEM5+EKSP0kbZeEGVWuxwKbVwoi2GvgBoIrQLsZ0xLok6+q7VEv4ERw==
+
 unplugin-icons@^0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/unplugin-icons/-/unplugin-icons-0.15.1.tgz#816eaa67e545e31087b055d211fbf0a66f35d963"

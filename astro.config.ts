@@ -3,6 +3,7 @@ import prefetch from '@astrojs/prefetch'
 import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 import Icons from 'unplugin-icons/vite'
+import { extractImageClass } from './src/plugins/remark-extract-image-class'
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,4 +12,9 @@ export default defineConfig({
   vite: {
     plugins: [Icons({ compiler: 'astro' })],
   },
+  markdown: {
+    remarkPlugins: [
+      extractImageClass
+    ]
+  }
 })
