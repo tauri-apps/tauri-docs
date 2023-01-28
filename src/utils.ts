@@ -14,7 +14,7 @@ export const buildLocalizedStaticPaths = (params?: object, props?: object) => [
 // Updates the slug of localized documents from this: `[locale]/[...slug]`
 // ...to this: `[locale]/[basePath]/[...slug]
 // Will also remove `en` from slugs as English is treated as the default route
-export const transformRelativeLocalizedEntrySlug = (
+export const transformLocalizedEntrySlug = (
   slug: string,
   basePath?: string
 ) => {

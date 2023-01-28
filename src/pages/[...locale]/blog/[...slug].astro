@@ -8,14 +8,20 @@ export async function getStaticPaths() {
 
   return collection.map((entry) => {
     const [locale, slug] = entry.slug.split('/')
-    const year = entry.data.date.getFullYear()
-    const month = String(entry.data.date.getMonth() + 1).padStart(2, '0')
-    const day = String(entry.data.date.getDate() + 1).padStart(2, '0')
+
+    const path = []
+    if (locale !== 'en') {
+      path.push(locale)
+    }
+
+    path.push(entry.data.date.getFullYear())
+    path.push(String(entry.data.date.getMonth() + 1).padStart(2, '0'))
+    path.push(String(entry.data.date.getDate() + 1).padStart(2, '0'))
+    path.push(slug)
 
     return {
       params: {
-        locale,
-        slug: `${year}/${month}/${day}/${slug}`,
+        slug: path.join('/'),
       },
       props: { entry },
     }

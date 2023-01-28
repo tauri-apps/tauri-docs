@@ -3,7 +3,7 @@ import Layout from '@src/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import {
   buildLocalizedStaticPaths,
-  transformRelativeLocalizedEntrySlug,
+  transformLocalizedEntrySlug,
 } from '@src/utils'
 
 export async function getStaticPaths() {
@@ -24,8 +24,8 @@ const filteredCollection = collection.filter((entry) =>
     {
       filteredCollection.map((entry) => (
         <li>
-          <a href={transformRelativeLocalizedEntrySlug(entry.slug, 'api')}>
-            {entry.slug}
+          <a href={transformLocalizedEntrySlug(entry.slug, 'api')}>
+            {transformLocalizedEntrySlug(entry.slug, 'api')}
           </a>
         </li>
       ))

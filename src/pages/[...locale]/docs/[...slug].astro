@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content'
 import {
   buildLocalizedStaticPaths,
-  transformRelativeLocalizedEntrySlug,
+  transformLocalizedEntrySlug,
 } from '@src/utils'
 import Layout from '@src/layouts/Layout.astro'
 import TrailingSidebar from '@src/components/Layout/TrailingSidebar.astro'
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
   return collection.flatMap((entry) => {
     return buildLocalizedStaticPaths(
-      { slug: transformRelativeLocalizedEntrySlug(entry.slug) },
+      { slug: transformLocalizedEntrySlug(entry.slug) },
       { entry }
     )
   })
