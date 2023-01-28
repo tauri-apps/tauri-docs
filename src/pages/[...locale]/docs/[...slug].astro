@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content'
+import {
+  buildLocalizedStaticPaths,
+  transformRelativeLocalizedEntrySlug,
+} from '../../../utils'
+import Layout from '../../../layouts/Layout.astro'
+import TrailingSidebar from '../../../components/Layout/TrailingSidebar.astro'
+import LeadingSidebar from '../../../components/Layout/LeadingSidebar.astro'
+
+export async function getStaticPaths() {
+  const collection = await getCollection('docs')
+
+  return collection.flatMap((entry) => {
+    return buildLocalizedStaticPaths(
+      { slug: transformRelativeLocalizedEntrySlug(entry.slug) },
+      { entry }
+    )
+  })
+}
+
+const { entry } = Astro.props
+const { Content, headings } = await entry.render()
+
+const entries = await getCollection('docs')
+---
+
+<Layout title={headings[0].text ?? ''}>
+  <div class="flex gap-8 bg-base-200">
+    <LeadingSidebar entries={entries} />
+    <main>
+      <Content />
+    </main>
+    <TrailingSidebar headings={headings} />
+  </div>
+</Layout>

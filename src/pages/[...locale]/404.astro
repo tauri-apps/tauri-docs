@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { buildLocalizedStaticPaths } from '../../utils'
+
+export async function getStaticPaths() {
+  return buildLocalizedStaticPaths()
+}
+---
+
+<Layout title="Not Found">
+  <h1>404</h1>
+  <h2>The page you're looking for couldn't be found</h2>
+</Layout>

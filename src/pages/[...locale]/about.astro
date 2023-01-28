@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { buildLocalizedStaticPaths } from '../../utils'
+
+export async function getStaticPaths() {
+  return buildLocalizedStaticPaths()
+}
+---
+
+<Layout title="About">
+  <h1>About Stub</h1>
+  <h2>Tbd</h2>
+</Layout>

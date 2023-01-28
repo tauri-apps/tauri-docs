@@ -1,14 +1,13 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
 import { getCollection } from 'astro:content'
-import { locales } from '../../../config'
+import {
+  buildLocalizedStaticPaths,
+  transformRelativeLocalizedEntrySlug,
+} from '../../../utils'
 
 export async function getStaticPaths() {
-  return locales.map((locale) => ({
-    params: {
-      locale,
-    },
-  }))
+  return buildLocalizedStaticPaths()
 }
 
 // TODO: Need to still list out if non-english page doesn't exist
@@ -16,12 +15,9 @@ export async function getStaticPaths() {
 const { locale } = Astro.params
 
 const collection = await getCollection('api')
-const filteredCollection = collection
-  .filter((entry) => entry.slug.startsWith(locale ?? 'en'))
-  .map(({ slug, ...rest }) => ({
-    slug: slug.substring(slug.indexOf('/') + 1),
-    ...rest,
-  }))
+const filteredCollection = collection.filter((entry) =>
+  entry.slug.startsWith(locale ?? 'en')
+)
 ---
 
 <Layout title="API">
@@ -30,7 +26,9 @@ const filteredCollection = collection
     {
       filteredCollection.map((entry) => (
         <li>
-          <a href={`/${locale}/api/${entry.slug}`}>{entry.slug}</a>
+          <a href={transformRelativeLocalizedEntrySlug(entry.slug, 'api')}>
+            {entry.slug}
+          </a>
         </li>
       ))
     }

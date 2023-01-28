@@ -1,27 +1,28 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
 import { getCollection } from 'astro:content'
+import {
+  buildLocalizedStaticPaths,
+  transformRelativeLocalizedEntrySlug,
+} from '../../../utils'
+import Layout from '../../../layouts/Layout.astro'
 import TrailingSidebar from '../../../components/Layout/TrailingSidebar.astro'
 import LeadingSidebar from '../../../components/Layout/LeadingSidebar.astro'
 
 export async function getStaticPaths() {
-  const collection = await getCollection('docs')
+  const collection = await getCollection('api')
 
-  // TODO: Need to build in fallbacks if a non-english page doesn't exist
-
-  return collection.map((entry) => ({
-    params: {
-      locale: entry.slug.slice(0, 2),
-      slug: entry.slug.split('/').slice(1).join('/'),
-    },
-    props: { entry },
-  }))
+  return collection.flatMap((entry) => {
+    return buildLocalizedStaticPaths(
+      { slug: transformRelativeLocalizedEntrySlug(entry.slug) },
+      { entry }
+    )
+  })
 }
 
 const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 
-const entries = await getCollection('docs')
+const entries = await getCollection('api')
 ---
 
 <Layout title={headings[0].text ?? ''}>
