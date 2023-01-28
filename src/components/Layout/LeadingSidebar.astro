@@ -1,28 +1,19 @@
 ---
-import type { SidebarItem } from '../../types'
+import type { CollectionEntry } from 'astro:content'
 
 interface Props {
-  sidebarItems: SidebarItem[]
-  currentPageId: string
+  // Need a way to make this generic
+  // @ts-ignore
+  entries: CollectionEntry[]
 }
 
-const { sidebarItems, currentPageId } = Astro.props
+// TODO: Need to pull the H1 (or maybe title) from each page
+const { entries } = Astro.props
 ---
 
 <aside>
-  {
-    sidebarItems && (
-      <>
-        <p>Related Pages</p>
-        <p>{currentPageId}</p>
-        <ul>
-          {sidebarItems.map((item) => (
-            <li>
-              <a href={item.id}>{item.title}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+  <div class="small-caps">Related Pages</div>
+  <ul>
+    {entries.map((entry) => <li>{entry.slug}</li>)}
+  </ul>
 </aside>

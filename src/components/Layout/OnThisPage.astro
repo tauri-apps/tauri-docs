@@ -1,0 +1,25 @@
+---
+import type { MarkdownHeading } from 'astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+---
+
+<div>
+  <div class="small-caps">On this page</div>
+
+  <ul>
+    {
+      headings.map((heading) => (
+        <li>
+          <a href={`#${heading.slug}`}>
+            {heading.depth}: {heading.text}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

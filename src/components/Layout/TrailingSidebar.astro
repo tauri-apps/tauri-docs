@@ -1,24 +1,25 @@
 ---
-import type { Heading } from '../../types'
+import type { MarkdownHeading } from 'astro'
+import OnThisPage from './OnThisPage.astro'
+import IconEdit from '~icons/bi/pen-fill'
+import IconTranslate from '~icons/bi/translate'
 
 interface Props {
-  headings: Heading[]
+  headings: MarkdownHeading[]
 }
 
 const { headings } = Astro.props
 ---
 
-{
-  headings && (
-    <aside class="w-48 fixed inset-y-0 right-0 top-16 overflow-y-auto p-4">
-      <p class="uppercase opacity-50 font-bold">On this page</p>
-      <ul>
-        {headings.map((heading) => (
-          <li>
-            <a href={`#${heading.slug}`}>{heading.text}</a>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  )
-}
+<aside class="shrink-0 w-56 flex flex-col gap-8">
+  <div>
+    <div class="small-caps">Versions</div>
+    <div>V1 (Latest)</div>
+  </div>
+  <OnThisPage headings={headings} />
+  <div>
+    <div class="small-caps">Contribute</div>
+    <a href="#"><IconEdit />Edit on GitHub</a>
+    <a href="#"><IconTranslate />Translate</a>
+  </div>
+</aside>

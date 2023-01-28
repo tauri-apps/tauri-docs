@@ -120,7 +120,7 @@
 
 @layer utilities {
   .small-caps {
-    @apply uppercase font-bold text-xs;
+    @apply uppercase font-bold text-xs opacity-75;
   }
 
   /********/
