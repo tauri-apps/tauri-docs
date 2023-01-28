@@ -21,12 +21,17 @@ export const transformLocalizedEntrySlug = (
   const [locale, ...rest] = slug.split('/')
   const path = []
 
+  // Adds a leading slash to make the link absolute
   if (basePath !== undefined) {
-    path.push(basePath)
+    path.push('')
   }
 
   if (locale !== 'en') {
     path.push(locale)
+  }
+
+  if (basePath !== undefined) {
+    path.push(basePath)
   }
 
   return path.concat(rest).join('/')
