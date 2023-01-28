@@ -1,17 +1,8 @@
-project_id: 1
 base_url: 'https://tauri.crowdin.com'
 api_token_env: CROWDIN_TOKEN
+project_id: 2
 preserve_hierarchy: true
 files:
-  # JSON translation files
-  - source: /i18n/en/**/*
-    translation: /i18n/%locale%/**/%original_file_name%
   # Docs Markdown files
-  - source: /docs/**/*
-    translation: /i18n/%locale%/docusaurus-plugin-content-docs/current/**/%original_file_name%
-    ignore:
-      [
-        /docs/.templates,
-        /docs/api,
-        /docs/guides/distribution/updater.md,
-      ]
+  - source: /src/content/docs/en/**/*
+    translation: /src/content/docs/%locale%/**/%original_file_name%
