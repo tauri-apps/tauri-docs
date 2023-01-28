@@ -3,10 +3,10 @@ import { getCollection } from 'astro:content'
 import {
   buildLocalizedStaticPaths,
   transformRelativeLocalizedEntrySlug,
-} from '../../../utils'
-import Layout from '../../../layouts/Layout.astro'
-import TrailingSidebar from '../../../components/Layout/TrailingSidebar.astro'
-import LeadingSidebar from '../../../components/Layout/LeadingSidebar.astro'
+} from '@src/utils'
+import Layout from '@src/layouts/Layout.astro'
+import TrailingSidebar from '@src/components/Layout/TrailingSidebar.astro'
+import LeadingSidebar from '@src/components/Layout/LeadingSidebar.astro'
 
 export async function getStaticPaths() {
   const collection = await getCollection('docs')

@@ -1,16 +1,14 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
+import Layout from '@src/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import {
   buildLocalizedStaticPaths,
   transformRelativeLocalizedEntrySlug,
-} from '../../../utils'
+} from '@src/utils'
 
 export async function getStaticPaths() {
   return buildLocalizedStaticPaths()
 }
-
-// TODO: Need to still list out if non-english page doesn't exist
 
 const { locale } = Astro.params
 

@@ -1,13 +1,10 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
+import Layout from '@src/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
-import { locales } from '../../../config'
-import Author from '../../../components/Blog/Author.astro'
+import Author from '@src/components/Blog/Author.astro'
 
 export async function getStaticPaths() {
   const collection = await getCollection('blog')
-
-  // TODO: Need to build in fallbacks if a non-english page doesn't exist
 
   return collection.map((entry) => {
     const [locale, slug] = entry.slug.split('/')

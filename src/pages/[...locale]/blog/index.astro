@@ -1,7 +1,7 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
+import Layout from '@src/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
-import { buildLocalizedStaticPaths } from '../../../utils'
+import { buildLocalizedStaticPaths } from '@src/utils'
 
 export async function getStaticPaths() {
   return buildLocalizedStaticPaths()
