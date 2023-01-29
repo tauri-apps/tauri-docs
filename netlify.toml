@@ -1,0 +1,19 @@
+[[redirects]]
+from = '/fr/*'
+to = '/fr/404'
+status = 404
+
+[[redirects]]
+from = '/it/*'
+to = '/it/404'
+status = 404
+
+[[redirects]]
+from = '/ko/*'
+to = '/ko/404'
+status = 404
+
+[[redirects]]
+from = '/zh-cn/*'
+to = '/zh-cn/404'
+status = 404
