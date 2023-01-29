@@ -1,0 +1,39 @@
+---
+import Layout from '@src/layouts/Layout.astro'
+import { getCollection, getEntryBySlug } from 'astro:content'
+import { astroI18n } from 'astro-i18n'
+
+export async function getStaticPaths() {
+  const collection = await getCollection('docs')
+  return collection
+    .filter((entry) => entry.slug.startsWith('en/'))
+    .map((entry) => ({
+      ...entry,
+      slug: entry.slug.slice(3),
+    }))
+    .map((entry) => ({
+      params: {
+        slug: entry.slug,
+      },
+      props: {
+        entry,
+      },
+    }))
+}
+
+const { entry: englishEntry } = Astro.props
+const localizedEntry = await getEntryBySlug(
+  'docs',
+  `${astroI18n.langCode}/${englishEntry.slug}`
+)
+
+// If a localized entry doesn't exist then fall back to English
+const entry = localizedEntry || englishEntry
+
+const { Content } = await entry.render()
+---
+
+<Layout title="test docs post">
+  {!localizedEntry && <p>You're reading the English version</p>}
+  <Content />
+</Layout>
