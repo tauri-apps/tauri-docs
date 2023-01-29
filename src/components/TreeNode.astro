@@ -1,0 +1,25 @@
+---
+interface Props {
+  node: TreeNode
+}
+
+const { node } = Astro.props
+
+interface TreeNode {
+  name: string
+  children: TreeNode[]
+}
+---
+
+<li>
+  {node.name}
+  {
+    node.children && (
+      <ul class="pl-4">
+        {node.children.map((child) => (
+          <Astro.self node={child} />
+        ))}
+      </ul>
+    )
+  }
+</li>

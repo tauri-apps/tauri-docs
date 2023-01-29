@@ -1,9 +1,9 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { getDefaultLangCollection } from '@src/utils'
-import { t, l } from 'astro-i18n'
+import { geti18nCollection } from '@src/utils'
+import { t, l, astroI18n } from 'astro-i18n'
 
-const entries = await getDefaultLangCollection('blog')
+const entries = await geti18nCollection('blog', astroI18n.langCode)
 ---
 
 <Layout title={t('blog.title')}>

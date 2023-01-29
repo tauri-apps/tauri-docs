@@ -1,0 +1,48 @@
+---
+import TreeNode from './TreeNode.astro'
+
+interface Props {
+  list: string[]
+}
+
+const { list } = Astro.props
+
+// const list = ['hello', 'foo', 'hello/foo', 'hello/test', 'bar']
+
+interface TreeNode {
+  name: string
+  children: TreeNode[]
+}
+
+function createNode(path: string[], tree: TreeNode[]): void {
+  const name = path.shift()
+  const idx = tree.findIndex((e: TreeNode) => {
+    return e.name == name
+  })
+  if (idx < 0) {
+    tree.push({
+      name: name,
+      children: [],
+    })
+    if (path.length !== 0) {
+      createNode(path, tree[tree.length - 1].children)
+    }
+  } else {
+    createNode(path, tree[idx].children)
+  }
+}
+
+function parse(data: string[]): TreeNode[] {
+  const tree: TreeNode[] = []
+  for (let i = 0; i < data.length; i++) {
+    const path: string = data[i]
+    const split: string[] = path.split('/')
+    createNode(split, tree)
+  }
+  return tree
+}
+
+const result = parse(list)
+---
+
+<ul>{result.map((node) => <TreeNode node={node} />)}</ul>

@@ -1,9 +1,10 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { getDefaultLangCollection } from '@src/utils'
+import { geti18nCollection } from '@src/utils'
+import { astroI18n } from 'astro-i18n'
 
 export async function getStaticPaths() {
-  const collection = await getDefaultLangCollection('docs')
+  const collection = await geti18nCollection('docs', astroI18n.langCode)
 
   return collection.map((entry) => ({
     params: {

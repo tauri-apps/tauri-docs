@@ -1,10 +1,16 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { t } from 'astro-i18n'
+import { geti18nCollection } from '@src/utils'
+import { t, astroI18n } from 'astro-i18n'
+import Tree from '@src/components/Tree.astro'
+
+const entries = await geti18nCollection('docs', astroI18n.langCode)
+const list = entries.map((entry) => entry.slug)
 ---
 
 <Layout title={t('docs.title')}>
   <main>
     <h1>{t('docs.title')}</h1>
+    <Tree list={list} />
   </main>
 </Layout>
