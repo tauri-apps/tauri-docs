@@ -5,6 +5,7 @@ import type { collections } from './content/config'
 type CollectionKeys = keyof typeof collections
 
 export async function getDefaultLangCollection(c: CollectionKeys) {
+  // TODO: Fix types
   const defaultLangCollection = await getCollection(c, ({ slug }) =>
     slug.startsWith(astroI18n.defaultLangCode)
   )
