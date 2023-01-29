@@ -5,13 +5,12 @@ import type { collections } from './content/config'
 type CollectionKeys = keyof typeof collections
 
 export async function getDefaultLangCollection(c: CollectionKeys) {
-  // Get all the entries for the default lang code
-  const collection = await getCollection(c, ({ slug }) =>
+  const defaultLangCollection = await getCollection(c, ({ slug }) =>
     slug.startsWith(astroI18n.defaultLangCode)
   )
 
   // For each default lang entry, build a route for each lang
-  return collection.flatMap((entry) => {
+  return defaultLangCollection.flatMap((entry) => {
     const supportedLangEntries = astroI18n.supportedLangCodes.map(
       async (lang) => {
         // Builds out a dynamic slug per lang
@@ -22,14 +21,19 @@ export async function getDefaultLangCollection(c: CollectionKeys) {
         return (await getEntryBySlug(c, slug)) || entry
       }
     )
-    let defaultEntry = entry
 
+    let defaultLangEntry = entry
+
+    // Fixes the slug if default lang is at the root
     if (!astroI18n.showDefaultLangCode) {
-      defaultEntry = {
+      const defaultLangEntrySlug = defaultLangEntry.slug.slice(
+        astroI18n.defaultLangCode.length + 1
+      )
+      defaultLangEntry = {
         ...entry,
-        slug: defaultEntry.slug.slice(astroI18n.defaultLangCode.length + 1),
+        slug: defaultLangEntrySlug,
       }
     }
-    return [defaultEntry, ...supportedLangEntries]
+    return [defaultLangEntry, ...supportedLangEntries]
   })
 }
