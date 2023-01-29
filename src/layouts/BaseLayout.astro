@@ -1,5 +1,5 @@
 ---
-import { astroI18n } from 'astro-i18n'
+import { astroI18n, l } from 'astro-i18n'
 import NavBar from '../components/Layout/NavBar.astro'
 import '../styles/global.css'
 
@@ -13,10 +13,19 @@ astroI18n.init(Astro)
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={astroI18n.langCode}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    {
+      astroI18n.langCodes.map((lang) => (
+        <link
+          rel="alternative"
+          hreflang={lang}
+          href={l(String(Astro.url.pathname), undefined, lang)}
+        />
+      ))
+    }
     <link
       rel="apple-touch-icon"
       sizes="180x180"
