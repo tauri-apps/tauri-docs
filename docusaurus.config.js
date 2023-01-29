@@ -14,7 +14,6 @@ var baseUrl =
 
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
-const devToUrl = 'https://dev.to/tauri'
 const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
 
 const navbarItems = [
@@ -114,19 +113,9 @@ const navbarItems = [
     ],
   },
   {
-    type: 'docsVersionDropdown',
-    position: 'right',
-    dropdownItemsAfter: [
-      // TODO: Remove on release
-      { href: 'https://tauri.app/', label: 'v1-stable', target: '_self' },
-    ],
-    dropdownActiveClassDisabled: true,
-  },
-  {
-    label: 'Releases',
+    label: 'Release Notes',
     to: 'releases',
     position: 'right',
-    className: 'navbarIcon releasesIcon',
   },
   {
     label: 'GitHub',
@@ -145,6 +134,29 @@ const navbarItems = [
         label: 'Help us translate',
       },
     ],
+  },
+  {
+    type: 'docsVersionDropdown',
+    position: 'right',
+    className: 'navbarIcon versionIcon',
+    dropdownItemsBefore: [
+      {
+        type: 'html',
+        value: '<b>Alpha</b>',
+      },
+    ],
+    dropdownItemsAfter: [
+      {
+        type: 'html',
+        value: '<b>Stable</b>',
+      },
+      {
+        href: 'https://tauri.app/',
+        label: 'v1',
+        target: '_self',
+      },
+    ],
+    dropdownActiveClassDisabled: true,
   },
 ]
 
@@ -256,12 +268,12 @@ async function siteConfig() {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      announcementBar: {
-        content:
-          "<b>Tauri mobile alpha has launched! <a id='announcement-link' href='/blog/2022/12/09/tauri-mobile-alpha'>Read the blog post</a></b>",
-        backgroundColor: 'var(--ifm-color-primary)',
-        textColor: 'var(--ifm-button-color)',
-      },
+      // announcementBar: {
+      //   content:
+      //     "<b>Give your feedback in the <a id='announcement-link' href='https://tripetto.app/run/7NCT3QTC00'>Tauri 2022 Community Survey</a>!</b>",
+      //   backgroundColor: 'var(--ifm-color-primary)',
+      //   textColor: 'var(--ifm-button-color)',
+      // },
       navbar: {
         hideOnScroll: false,
         logo: {
@@ -335,7 +347,9 @@ async function siteConfig() {
               return sidebarItems.filter(
                 (item) =>
                   // This makes sure that the landing pages are not duplicated in the sidebars
-                  item.id !== 'guides/readme' && item.id !== 'mobile/readme' && item.id !== 'references/readme'
+                  item.id !== 'guides/readme' &&
+                  item.id !== 'mobile/readme' &&
+                  item.id !== 'references/readme'
               )
             },
           },

@@ -41,7 +41,7 @@ jobs:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin upload
       - name: Download i18n files
-        if: (github.event_name == 'push' && github.ref_name == 'dev') || github.ref_name == 'i18n-preview'
+        if: (github.event_name == 'push' && github.ref_name == 'dev') || github.head_ref == 'i18n-preview'
         env:
           CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
         run: yarn crowdin download
@@ -126,7 +126,7 @@ jobs:
           path: build
       - name: Deploy to Netlify
         # Fork of https://github.com/nwtgck/actions-netlify for security reasons
-        uses: tauri-apps/actions-netlify@v1.2.4
+        uses: tauri-apps/actions-netlify@v2.0.0
         with:
           publish-dir: './build'
           netlify-config-path: ./netlify.toml
@@ -139,3 +139,21 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  update-search-index:
+    needs: deploy-to-netlify
+    if: github.event_name == 'push' && github.ref_name == 'dev'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run scraper
+        env:
+          HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+          API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
+          CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
+        run: |
+          docker run -t --rm \
+            -e MEILISEARCH_HOST_URL=$HOST_URL \
+            -e MEILISEARCH_API_KEY=$API_KEY \
+            -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
+            getmeili/docs-scraper:v0.12.6 pipenv run ./docs_scraper ./scraper.json

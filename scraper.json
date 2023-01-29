@@ -1,0 +1,66 @@
+{
+  "index_uid": "docs-v1",
+  "start_urls": [
+    {
+      "url": "https://tauri.app/v1/guides/",
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/v1/api/js/",
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri.app/v1/references/",
+      "selectors_key": "references"
+    },
+    "https://tauri.app/v1/"
+  ],
+  "sitemap_urls": ["https://tauri.app/sitemap.xml"],
+  "stop_urls": [],
+  "selectors": {
+    "default": {
+      "lvl0": "article h1",
+      "lvl1": "article h2",
+      "lvl2": "article h3",
+      "lvl3": "article h4",
+      "lvl4": "article h5",
+      "text": "article p, article li"
+    },
+    "guides": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Documentation"
+      },
+      "lvl1": "article h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5",
+      "text": "article p, article li"
+    },
+    "api-js": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "JS API"
+      },
+      "lvl1": "article h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5",
+      "text": "article :not(blockquote) > p, article li"
+    },
+    "references": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "References"
+      },
+      "lvl1": "article h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5",
+      "text": "article p, article li"
+    }
+  }
+}

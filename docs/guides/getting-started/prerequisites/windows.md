@@ -44,6 +44,18 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
+:::caution MSVC toolchain as default
+
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
 ## Android
 
 To setup your Windows machine for Android development you can either install Android Studio or download the tools separetely.
@@ -113,3 +125,4 @@ Install required SDK and NDK components:
 [install rust]: https://www.rust-lang.org/tools/install
 [build tools for visual studio 2022]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
+[`trunk`]: https://trunkrs.dev

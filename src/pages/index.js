@@ -341,12 +341,6 @@ function Sponsors() {
       logoColorLight: 'ClickUp_color_light.svg',
     },
     {
-      name: 'CoParse',
-      link: 'https://coparse.com',
-      logoColorDark: 'CoParse_color_dark.svg',
-      logoColorLight: 'CoParse_color_light.svg',
-    },
-    {
       name: 'Mintter',
       link: 'https://mintter.com',
       logoColorDark: 'Mintter_color_dark.svg',
@@ -369,6 +363,18 @@ function Sponsors() {
       link: 'https://www.youtube.com/c/tensorprogramming',
       logoColorDark: 'tensor_color_dark.svg',
       logoColorLight: 'tensor_color_light.svg',
+    },
+    {
+      name: 'VPS Server',
+      link: 'https://www.vpsserver.com',
+      logoColorDark: 'vps_server_color_dark.svg',
+      logoColorLight: 'vps_server_color_light.svg',
+    },
+    {
+      name: 'Dimension',
+      link: 'https://dimension.dev/',
+      logoColorDark: 'dimension_color_dark.svg',
+      logoColorLight: 'dimension_color_light.svg',
     },
   ]
 
