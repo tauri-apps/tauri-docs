@@ -12,30 +12,30 @@ export const buildLocalizedStaticPaths = (params?: object, props?: object) => [
     })),
 ]
 
-export const getTransformedBlogCollection = async () => {
-  const collection = await getCollection('blog')
-  return collection.map((entry) => {
-    const slug = []
+// export const getTransformedBlogCollection = async () => {
+//   const collection = await getCollection('blog')
+//   return collection.map((entry) => {
+//     const slug = []
 
-    slug.push('')
-    const [locale, blog, slugTitle] = entry.slug.split('/')
+//     slug.push('')
+//     const [locale, blog, slugTitle] = entry.slug.split('/')
 
-    if (locale !== 'en') {
-      slug.push(locale)
-    }
+//     if (locale !== 'en') {
+//       slug.push(locale)
+//     }
 
-    slug.push(blog)
-    slug.push(String(entry.data.date.getFullYear()))
-    slug.push(String(entry.data.date.getMonth() + 1).padStart(2, '0'))
-    slug.push(String(entry.data.date.getDate()).padStart(2, '0'))
-    slug.push(slugTitle)
+//     slug.push(blog)
+//     slug.push(String(entry.data.date.getFullYear()))
+//     slug.push(String(entry.data.date.getMonth() + 1).padStart(2, '0'))
+//     slug.push(String(entry.data.date.getDate()).padStart(2, '0'))
+//     slug.push(slugTitle)
 
-    return {
-      ...entry,
-      slug: slug.join('/'),
-    }
-  })
-}
+//     return {
+//       ...entry,
+//       slug: slug.join('/'),
+//     }
+//   })
+// }
 
 // Updates the slug of localized documents from this: `[locale]/[...slug]`
 // ...to this: `[locale]/[basePath]/[...slug]

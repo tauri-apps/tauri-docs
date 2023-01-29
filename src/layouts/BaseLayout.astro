@@ -1,4 +1,5 @@
 ---
+import { astroI18n } from 'astro-i18n'
 import NavBar from '../components/Layout/NavBar.astro'
 import '../styles/global.css'
 
@@ -7,6 +8,8 @@ export interface Props {
 }
 
 const { title } = Astro.props
+
+astroI18n.init(Astro)
 ---
 
 <!DOCTYPE html>

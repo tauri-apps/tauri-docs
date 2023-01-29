@@ -7,6 +7,11 @@ dist/
 
 # Generated files
 .astro
+.astro-i18n
+src/pages/fr
+src/pages/it
+src/pages/ko
+src/pages/zh-cn
 
 # Misc
 .DS_Store
