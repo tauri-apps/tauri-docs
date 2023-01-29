@@ -1,13 +1,9 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { buildLocalizedStaticPaths } from '@src/utils'
-
-export async function getStaticPaths() {
-  return buildLocalizedStaticPaths()
-}
+import { t } from 'astro-i18n'
 ---
 
-<Layout title="Not Found">
-  <h1>404</h1>
+<Layout title={t('404.title')}>
+  <h1>{t('404.title')}</h1>
   <h2>The page you're looking for couldn't be found</h2>
 </Layout>

@@ -1,13 +1,9 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { buildLocalizedStaticPaths } from '@src/utils'
-
-export async function getStaticPaths() {
-  return buildLocalizedStaticPaths()
-}
+import { t } from 'astro-i18n'
 ---
 
-<Layout title="About">
-  <h1>About Stub</h1>
+<Layout title={t('about.title')}>
+  <h1>{t('about.title')}</h1>
   <h2>Tbd</h2>
 </Layout>

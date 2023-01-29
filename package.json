@@ -5,11 +5,11 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "yarn i18n:extract:keys && yarn i18n:sync && astro build",
-    "preview": "yarn i18n:extract:keys && yarn i18n:sync && astro preview",
+    "dev": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro dev",
+    "build": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro build",
+    "preview": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro preview",
     "astro": "astro",
+    "i18n:purge": "rm -rf src/pages/{fr,it,ko,zh-cn}",
     "i18n:sync": "astro-i18n sync",
     "i18n:extract:keys": "astro-i18n extract:keys"
   },

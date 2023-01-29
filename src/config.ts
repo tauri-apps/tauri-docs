@@ -35,5 +35,3 @@ export const navbar: navbarItem[] = [
     href: '/about',
   },
 ]
-
-export const locales = ['en', 'zh-cn', 'es', 'ko', 'fr', 'it']
