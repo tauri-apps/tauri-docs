@@ -1,21 +1,21 @@
 {
-  "index_uid": "docs-v1",
+  "index_uid": "docs-v2-alpha",
   "start_urls": [
     {
-      "url": "https://tauri.app/v1/guides/",
+      "url": "https://next--tauri.netlify.app/v1/guides/",
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri.app/v1/api/js/",
+      "url": "https://next--tauri.netlify.app/v1/api/js/",
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri.app/v1/references/",
+      "url": "https://next--tauri.netlify.app/v1/references/",
       "selectors_key": "references"
     },
-    "https://tauri.app/v1/"
+    "https://next--tauri.netlify.app/v1/"
   ],
-  "sitemap_urls": ["https://tauri.app/sitemap.xml"],
+  "sitemap_urls": ["https://next--tauri.netlify.app/sitemap.xml"],
   "stop_urls": [],
   "selectors": {
     "default": {

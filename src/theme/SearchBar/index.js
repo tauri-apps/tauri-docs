@@ -9,7 +9,7 @@ export default function Component() {
       hostUrl: 'https://ms-4ebb96f179f0-1619.fra.meilisearch.io',
       apiKey:
         '3eb6db150af1abefe000f00386e149dfb5a006932cab55d1ccd810b8672a4e12',
-      indexUid: 'docs-v1',
+      indexUid: 'docs-v2-alpha',
       inputSelector: '#search-bar-input',
       debug: process.env.NODE_ENV === 'development',
     })

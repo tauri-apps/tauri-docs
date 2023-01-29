@@ -142,7 +142,7 @@ jobs:
 
   update-search-index:
     needs: deploy-to-netlify
-    if: github.event_name == 'push' && github.ref_name == 'dev'
+    if: github.event_name == 'push' && (github.ref_name == 'dev' || github.ref_name == 'next')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
