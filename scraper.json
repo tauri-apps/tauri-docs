@@ -2,18 +2,22 @@
   "index_uid": "docs-v2-alpha",
   "start_urls": [
     {
-      "url": "https://next--tauri.netlify.app/v1/guides/",
+      "url": "https://next--tauri.netlify.app/next/guides/",
       "selectors_key": "guides"
     },
     {
-      "url": "https://next--tauri.netlify.app/v1/api/js/",
+      "url": "https://next--tauri.netlify.app/next/guides/",
+      "selectors_key": "mobile"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/next/api/js/",
       "selectors_key": "api-js"
     },
     {
-      "url": "https://next--tauri.netlify.app/v1/references/",
+      "url": "https://next--tauri.netlify.app/next/references/",
       "selectors_key": "references"
     },
-    "https://next--tauri.netlify.app/v1/"
+    "https://next--tauri.netlify.app/next/"
   ],
   "sitemap_urls": ["https://next--tauri.netlify.app/sitemap.xml"],
   "stop_urls": [],
@@ -30,6 +34,19 @@
       "lvl0": {
         "selector": "",
         "default_value": "Documentation"
+      },
+      "lvl1": "article h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5",
+      "text": "article p, article li"
+    },
+
+    "mobile": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Mobile Docs"
       },
       "lvl1": "article h1",
       "lvl2": "article h2",
