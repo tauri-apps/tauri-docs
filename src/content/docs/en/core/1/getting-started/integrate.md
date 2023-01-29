@@ -1,14 +1,13 @@
 ---
 description: If you already have an existing web project you can integrate Tauri into it
-pagination_next: guides/development/development-cycle
-sidebar_position: 5
+sidebar_position: 6
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/integrate-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/integrate-dark.svg
 ---
 
-import Commands from './_fragments/_commands.mdx'
-import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
 import Command, { InstallTauriCli, InstallTauriApi } from '@theme/Command'
 
 # Integrate into Existing Project
@@ -38,19 +37,19 @@ Although Tauri is compatible with nearly any frontend framework, we'll use a [Re
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{
+destDirExplination={{
     __html:
       "For the project example in this guide, this is <code>../build</code>. Note that it may be something different like <code>../dist</code> if you're using a different framework.",
   }}
-  devPathExplination={{
+devPathExplination={{
     __html:
       "For the project example in this guide, this is <code>http://localhost:3000</code>. Note that it may be something different (or even a directory) if you're using a different framework.",
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html:
       'For the project example in this guide, this is <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html:
       'For the project example in this guide, this is <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
   }}

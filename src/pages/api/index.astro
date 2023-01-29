@@ -5,12 +5,11 @@ import { t, astroI18n } from 'astro-i18n'
 import Tree from '@src/components/Tree.astro'
 
 const entries = await geti18nCollection('api', astroI18n.langCode)
-const list = entries.map((entry) => entry.slug)
 ---
 
 <Layout title={t('api.title')}>
   <main>
     <h1>{t('api.title')}</h1>
-    <Tree list={list} />
+    <Tree entries={entries} />
   </main>
 </Layout>

@@ -1,7 +1,6 @@
 ---
 description: Build a Tauri app using Vite as the frontend build tool
-pagination_next: guides/development/development-cycle
-sidebar_position: 4
+sidebar_position: 5
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/vite.svg
 ---

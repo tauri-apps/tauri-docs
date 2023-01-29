@@ -1,7 +1,6 @@
 ---
 description: Build a Tauri app using HTML, CSS, and JavaScript using either Node or Cargo
-pagination_next: guides/development/development-cycle
-sidebar_position: 1
+sidebar_position: 2
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/html5-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg

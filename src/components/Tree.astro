@@ -1,49 +1,48 @@
 ---
+import type { CollectionEntry } from 'astro:content'
+import { l } from 'astro-i18n'
 import TreeNode from './TreeNode.astro'
 
 interface Props {
-  list: string[]
+  entries: CollectionEntry<'docs'>[]
+  // Will be appended to the beginning of a slug
+  baseUrl?: string
+  // Takes into account full slug
+  maxDepth?: number
+  startsWith?: string
 }
 
-const { list } = Astro.props
+// TODO: How to do titles and such for pages that don't have a folder? Do an index file with frontmatter and no content
+// TODO: Sort based off of `sidebar_position`
 
-// TODO: A way to specify the level to begin rendering
-// TODO: How to do titles and such for pages that don't have a folder?
+let { entries, baseUrl, maxDepth, startsWith } = Astro.props
 
-interface TreeNode {
-  name: string
-  children: TreeNode[]
+if (startsWith) {
+  entries = entries.filter((entry) => entry.slug.startsWith(startsWith))
 }
 
-function createNode(path: string[], tree: TreeNode[]): void {
-  const name = path.shift()
-  const idx = tree.findIndex((e: TreeNode) => {
-    return e.name == name
-  })
-  if (idx < 0) {
-    tree.push({
-      name: name,
-      children: [],
-    })
-    if (path.length !== 0) {
-      createNode(path, tree[tree.length - 1].children)
-    }
-  } else {
-    createNode(path, tree[idx].children)
-  }
+if (maxDepth) {
+  entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
 }
 
-function parse(data: string[]): TreeNode[] {
-  const tree: TreeNode[] = []
-  for (let i = 0; i < data.length; i++) {
-    const path: string = data[i]
-    const split: string[] = path.split('/')
-    createNode(split, tree)
-  }
-  return tree
-}
+// @ts-ignore We know this can be undefined, move to the bottom of the lists
+entries.sort((a, b) => a.data.sidebar_position - b.data.sidebar_position)
 
-const result = parse(list)
+const renderedEntries = await Promise.all(
+  entries.map(async (entry) => await entry.render())
+)
 ---
 
-<ul>{result.map((node) => <TreeNode node={node} />)}</ul>
+<ul>
+  {
+    entries.map((entry, index) => (
+      <li>
+        <a href={l(`${baseUrl ? `${baseUrl}/` : ''}${entry.slug}`)}>
+          {entry.data.sidebar_title ||
+            renderedEntries[index].headings[0]?.text ||
+            entry.slug}
+        </a>
+      </li>
+    ))
+  }
+</ul>
