@@ -1,6 +1,6 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { getDefaultLangCollection, getLocalizedEntry } from '@src/utils'
+import { getDefaultLangCollection } from '@src/utils'
 
 export async function getStaticPaths() {
   const collection = await getDefaultLangCollection('docs')
@@ -15,29 +15,11 @@ export async function getStaticPaths() {
   }))
 }
 
-const { entry: englishEntry } = Astro.props
-
-// If a localized entry doesn't exist then fall back to English
-const localizedEntry = await getLocalizedEntry('docs', englishEntry)
-const entry = localizedEntry || englishEntry
+const { entry } = Astro.props
 
 const { Content } = await entry.render()
 ---
 
 <Layout title="test docs post">
-  {
-    !localizedEntry && (
-      <p>
-        You're reading the <strong>English</strong> version
-      </p>
-    )
-  }
-  {
-    localizedEntry && (
-      <p>
-        You're reading the <strong>localized</strong> version
-      </p>
-    )
-  }
   <Content />
 </Layout>
