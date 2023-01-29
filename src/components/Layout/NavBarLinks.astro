@@ -1,6 +1,44 @@
 ---
-import { navbar } from '../../config'
+import { t, l } from 'astro-i18n'
 import IconCaret from '~icons/bi/caret-down-fill'
+
+type navbarItem = {
+  title: string
+  href?: string
+  children?: navbarItem[]
+}
+
+const navbar: navbarItem[] = [
+  {
+    title: t('global.nav.docs'),
+    href: l('/docs'),
+  },
+  {
+    title: t('global.nav.references'),
+    children: [
+      {
+        title: t('global.nav.javascript-api'),
+        href: l('/api/core-js'),
+      },
+      {
+        title: t('global.nav.rust-api'),
+        href: l('/api/core-rust'),
+      },
+      {
+        title: t('global.nav.tauri-config'),
+        href: l('/api/core-config'),
+      },
+      {
+        title: t('global.nav.tauri-cli'),
+        href: l('/api/core-cli'),
+      },
+    ],
+  },
+  {
+    title: t('global.nav.about'),
+    href: l('/about'),
+  },
+]
 ---
 
 {

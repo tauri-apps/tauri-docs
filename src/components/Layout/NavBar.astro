@@ -1,11 +1,11 @@
 ---
 import IconList from '~icons/bi/list'
 import IconClose from '~icons/bi/x-lg'
-
 import NavBarLinks from './NavBarLinks.astro'
 import NavBarLocaleTheme from './NavBarLocaleTheme.astro'
 import Social from './NavBarSocial.astro'
 import Search from './NavBarSearch.astro'
+import { l, t } from 'astro-i18n'
 ---
 
 <style>
@@ -33,8 +33,12 @@ import Search from './NavBarSearch.astro'
   <!-- Desktop -->
   <ul class="hidden lg:flex justify-between">
     <li class="flex items-center">
-      <a class="pr-8" href={Astro.url.origin}>
-        <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
+      <a class="pr-8" href={l('/')}>
+        <img
+          src="/meta/tauri_logo_dark.svg"
+          alt={t('global.tauri-logo')}
+          class="h-10"
+        />
       </a>
       <ul class="menu menu-horizontal menu-hover">
         <NavBarLinks />
@@ -55,8 +59,12 @@ import Search from './NavBarSearch.astro'
   <ul class="lg:hidden flex flex-col items-stretch gap-4 nav-drawer">
     <input type="checkbox" id="nav-drawer" />
     <li class="flex justify-between items-center">
-      <a href={Astro.url.origin}>
-        <img src="/meta/tauri_logo_dark.svg" alt="Tauri logo" class="h-10" />
+      <a href={l('/')}>
+        <img
+          src="/meta/tauri_logo_dark.svg"
+          alt={t('global.tauri-logo')}
+          class="h-10"
+        />
       </a>
       <ul class="menu menu-horizontal">
         <NavBarLocaleTheme />
@@ -65,7 +73,7 @@ import Search from './NavBarSearch.astro'
             for="nav-drawer"
             class="icon-closed"
             tabindex="0"
-            aria-label="Open navigation"
+            aria-label={t('global.nav.open-navigation')}
           >
             <IconList />
           </label>
@@ -73,7 +81,7 @@ import Search from './NavBarSearch.astro'
             for="nav-drawer"
             class="icon-open"
             tabindex="0"
-            aria-label="Close navigation"
+            aria-label={t('global.nav.close-navigation')}
           >
             <IconClose />
           </label>

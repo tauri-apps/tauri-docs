@@ -4,40 +4,51 @@ import IconTranslate from '~icons/bi/translate'
 import IconCircleHalf from '~icons/bi/circle-half'
 import IconMoonStarsFill from '~icons/bi/moon-stars-fill'
 import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
+import { astroI18n, l, t } from 'astro-i18n'
 ---
 
 <li class="z-nav-dropdown">
-  <label tabindex="0" aria-label="Locale">
+  <label tabindex="0" aria-label={t('global.nav.locale-dropdown')}>
     <IconTranslate />
     <IconCaret class="text-xs" />
   </label>
   <ul>
-    <li><button>Chinese</button></li>
-    <li><button>English</button></li>
+    {
+      astroI18n.langCodes.map((lang) => (
+        <li>
+          <a
+            href={l(String(Astro.url.pathname), undefined, lang)}
+            class:list={astroI18n.langCode === lang ? 'btn-active' : ''}
+          >
+            {t(`global.locale.${lang}`)}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </li>
 <li class="z-nav-dropdown">
-  <label tabindex="0" aria-label="Theme">
+  <label tabindex="0" aria-label={t('global.nav.theme-dropdown')}>
     <IconCircleHalf />
     <IconCaret class="text-xs" />
   </label>
   <ul>
     <li>
-      <button aria-label="System theme">
+      <button>
         <IconCircleHalf />
-        Auto
+        {t('global.nav.theme.system')}
       </button>
     </li>
     <li>
-      <button aria-label="Dark">
+      <button>
         <IconMoonStarsFill />
-        Dark
+        {t('global.nav.theme.dark')}
       </button>
     </li>
     <li>
-      <button aria-label="Light">
+      <button>
         <IconBrightnessHighFill />
-        Light
+        {t('global.nav.theme.light')}
       </button>
     </li>
   </ul>
