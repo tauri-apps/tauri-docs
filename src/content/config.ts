@@ -12,7 +12,13 @@ const blog = defineCollection({
 })
 
 const api = defineCollection({})
-const docs = defineCollection({})
+const docs = defineCollection({
+  schema: z.object({
+    // TODO: Remove the optional from all of these
+    sidebar_title: z.string().optional(),
+    sidebar_position: z.number().optional(),
+  }),
+})
 
 export const collections = {
   api,

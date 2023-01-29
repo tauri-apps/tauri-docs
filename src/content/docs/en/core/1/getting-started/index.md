@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-hide_table_of_contents: true
+sidebar_title: 'Getting Started'
+sidebar_position: 1
 ---
 
 import DocCardList from '@theme/DocCardList'
