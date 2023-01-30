@@ -1,6 +1,7 @@
 ---
-sidebar_title: Building
-sidebar_position: 5
+meta_title: Building
+meta_description: Prepare and package your app for users
+meta_position: 5
 ---
 
 # Introduction

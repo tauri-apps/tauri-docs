@@ -1,6 +1,7 @@
 ---
-sidebar_title: Getting Started
-sidebar_position: 1
+meta_title: Getting Started
+meta_description: Begin building your first Tauri app
+meta_position: 1
 ---
 
 import DocCardList from '@theme/DocCardList'

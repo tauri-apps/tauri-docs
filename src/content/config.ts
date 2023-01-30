@@ -15,8 +15,9 @@ const api = defineCollection({})
 const docs = defineCollection({
   schema: z.object({
     // TODO: Remove the optional from all of these
-    sidebar_title: z.string().optional(),
-    sidebar_position: z.number().optional(),
+    meta_title: z.string().optional(),
+    meta_description: z.string().optional(),
+    meta_position: z.number().optional(),
   }),
 })
 

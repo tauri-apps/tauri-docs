@@ -1,13 +1,21 @@
 ---
-const items = ['Getting Started', 'Building', 'Features']
+import type { TreeNode } from '@src/utils'
+import { l } from 'astro-i18n'
+
+interface Props {
+  tree: TreeNode[]
+}
+
+const { tree } = Astro.props
 ---
 
 <div class="grid lg:grid-cols-2 gap-4">
   {
-    items.map((item) => (
-      <div class="card">
-        <span class="text-lg font-bold">{item}</span>
-      </div>
+    tree.map((node) => (
+      <a class="card" href={l(`docs/${node.slug}`)}>
+        <div class="text-lg font-bold">{node.name}</div>
+        {node.description ?? <div>{node.description}</div>}
+      </a>
     ))
   }
 </div>

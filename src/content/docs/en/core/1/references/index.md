@@ -1,6 +1,7 @@
 ---
-sidebar_title: References
-sidebar_position: 9
+meta_title: References
+meta_description: Learn about the core concepts behind Tauri
+meta_position: 9
 ---
 
 import DocCardList from '@theme/DocCardList'

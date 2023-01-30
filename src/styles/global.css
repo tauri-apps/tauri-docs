@@ -96,11 +96,11 @@
   }
 
   .btn-active {
-    @apply text-primary bg-base-content/10;
+    @apply text-primary bg-content-background;
   }
 
   .btn-hover {
-    @apply bg-base-content/10 no-underline;
+    @apply bg-content-background no-underline;
   }
 
   /* FIXME: Is being overridden when used with `.menu` */
@@ -127,7 +127,7 @@
     @apply p-3 rounded h-12 transition bg-base-200;
   }
   .input-hover {
-    @apply bg-base-content/10;
+    @apply bg-content-background;
   }
   .input-text:hover {
     @apply input-hover;
@@ -206,6 +206,17 @@
   /********/
   .card {
     @apply p-4 bg-base-200 rounded-lg;
+  }
+  .card,
+  .card > * {
+    @apply text-base-content transition;
+  }
+  .card:hover,
+  .card:hover > * {
+    @apply no-underline text-primary;
+  }
+  .card:hover {
+    @apply bg-content-background;
   }
 }
 

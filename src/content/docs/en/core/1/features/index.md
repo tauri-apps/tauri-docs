@@ -1,6 +1,7 @@
 ---
-sidebar_title: Features
-sidebar_position: 7
+meta_title: Features
+meta_description: Learn the common Tauri features and how to use them
+meta_position: 7
 ---
 
 import DocCardList from '@theme/DocCardList';
