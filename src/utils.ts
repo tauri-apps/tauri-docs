@@ -92,7 +92,6 @@ export async function convertCollectionToTree<
       slug: entry.slug,
       children: undefined,
     }
-    console.log(node)
     return node
   })
 }
