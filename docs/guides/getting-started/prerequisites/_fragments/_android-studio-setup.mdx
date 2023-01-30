@@ -8,7 +8,7 @@ Android Studio includes a JDK so you do not need to download a separate one. Set
 
 <CodeBlock language={props.platform === 'windows' ? 'powershell' : 'sh'}>
   {props.platform == 'linux' ? 'export JAVA_HOME=/opt/android-studio/jre' : ''}
-  {props.platform == 'macos' ? 'export JAVA_HOME="/Applications/Android\ Studio.app/Contents/jbr/Contents/Home"' : ''}
+  {props.platform == 'macos' ? 'export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home' : ''}
   {props.platform == 'windows'
     ? '[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jre", "User")'
     : ''}
