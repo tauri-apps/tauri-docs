@@ -12,9 +12,6 @@ interface Props {
   startsWith?: string
 }
 
-// TODO: How to do titles and such for pages that don't have a folder? Do an index file with frontmatter and no content
-// TODO: Sort based off of `sidebar_position`
-
 let { entries, baseUrl, maxDepth, startsWith } = Astro.props
 
 if (startsWith) {
