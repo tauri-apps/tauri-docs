@@ -1,22 +1,31 @@
 ---
+import Author from '@src/components/Blog/Author.astro'
 import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
 import { t, l, astroI18n } from 'astro-i18n'
 
 const entries = await geti18nCollection('blog', astroI18n.langCode)
+entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 ---
 
 <Layout title={t('blog.title')}>
   <main>
     <h1>{t('blog.title')}</h1>
-    <ul>
+    <div class="flex flex-col gap-4">
       {
-        entries.map((entry) => (
-          <li>
-            <a href={l(`/blog/${entry.slug}`)}>{entry.slug}</a>
-          </li>
+        entries.map((post) => (
+          <a class="card flex flex-col gap-2" href={l(`/blog/${post.slug}`)}>
+            <div class="small-caps">
+              {post.data.date.toLocaleDateString(undefined, {
+                dateStyle: 'long',
+              })}
+            </div>
+
+            <div class="text-xl">{post.data.meta_title}</div>
+            <div>{post.data.meta_description}</div>
+          </a>
         ))
       }
-    </ul>
+    </div>
   </main>
 </Layout>

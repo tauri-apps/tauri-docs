@@ -1,7 +1,7 @@
 ---
 date: 2022-09-19
-title: Announcing tauri-egui 0.1.0
-summary: The Tauri team is happy to announce the tauri-egui 0.1.0 release
+meta_title: Announcing tauri-egui 0.1.0
+meta_description: The Tauri team is happy to announce the tauri-egui 0.1.0 release
 authors: [lucasfernog]
 ---
 

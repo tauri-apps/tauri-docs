@@ -1,7 +1,7 @@
 ---
 date: 2022-06-19
-title: Tauri 1.0 Release
-summary: After 9 months of betas and 4 months of release candidates, Tauri version 1.0 is now available!
+meta_title: Tauri 1.0 Release
+meta_description: After 9 months of betas and 4 months of release candidates, Tauri version 1.0 is now available!
 imageSrc: /img/blog/tauri_1_0/header.png
 authors: [nothingismagick]
 ---

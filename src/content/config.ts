@@ -1,20 +1,28 @@
 import { z, defineCollection } from 'astro:content'
 
+const metadataSchema = {
+  meta_title: z.string().optional(),
+  meta_description: z.string().optional(),
+}
+
 const blog = defineCollection({
   schema: z.object({
+    ...metadataSchema,
     date: z.date(),
-    title: z.string(),
-    summary: z.string().optional(),
     imageSrc: z.string().optional(),
     imageDarkSrc: z.string().optional(),
-    authors: z.array(z.string()).optional(),
+    authors: z.array(z.string()),
   }),
 })
 
-const api = defineCollection({})
+const api = defineCollection({
+  schema: z.object({
+    ...metadataSchema,
+  }),
+})
 const docs = defineCollection({
   schema: z.object({
-    // TODO: Remove the optional from all of these
+    ...metadataSchema,
     meta_title: z.string().optional(),
     meta_description: z.string().optional(),
     meta_position: z.number().optional(),

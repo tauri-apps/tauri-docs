@@ -1,7 +1,7 @@
 ---
 date: 2022-12-09
-title: Announcing the Tauri Mobile Alpha Release
-summary: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
+meta_title: Announcing the Tauri Mobile Alpha Release
+meta_description: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
 imageSrc: /img/blog/tauri_2_0_0_alpha_0/header.png
 authors: [lucasfernog]
 ---
