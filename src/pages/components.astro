@@ -9,6 +9,19 @@ import Callout from '@src/components/Callout.astro'
   <div class="container mx-auto">
     <h1>Components</h1>
     <div>
+      <h2>Menu</h2>
+      <ul class="menu menu-horizontal menu-hover menu-open">
+        <li>
+          <div>Item 1</div>
+          <ul>
+            <li><span>Submenu 1</span></li>
+            <li><span>Submenu 2</span></li>
+            <li><span>Longer menu item</span></li>
+          </ul>
+        </li>
+        <li><div>Item 2</div></li>
+        <li><div>Item 3</div></li>
+      </ul>
       <h2>Callouts</h2>
       <div>
         <Callout kind="note">

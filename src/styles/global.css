@@ -129,9 +129,9 @@
   /* .menu: Should be applied to the ul */
   /* .menu-horizontal: Modifier, should be sibling to .menu */
   /* .menu-hover: Modifier, enable submenus on hover */
+  /* .menu-open: Modifier, opens the submenus by default */
   /* .menu-inline: Modifier, style any submenus to be inline */
 
-  /* Basic styling */
   .menu {
     @apply flex flex-col;
   }
@@ -140,18 +140,22 @@
     @apply flex-row;
   }
 
+  /* Submenu */
+  .menu > li > ul {
+    @apply bg-base-200 rounded-b rounded-tr z-dropdown;
+  }
+
+  /* Submenu items */
+  .menu > li > *:not(ul),
+  .menu > li > ul > li > *:not(ul) {
+    @apply btn btn-inline text-left;
+  }
+
   /* Focused button */
   .menu > li:hover,
   .menu > li:focus,
   .menu > li:focus-within {
     @apply bg-base-200 rounded;
-  }
-
-  /* Focused submenu */
-  .menu > li:focus > ul,
-  .menu > li:focus-within > ul,
-  .menu.menu-hover > li:hover > ul {
-    @apply bg-base-200 rounded-b rounded-tr;
   }
 
   /* Focused inline submenu */
@@ -169,11 +173,6 @@
   }
 
   /* Menu items */
-  .menu > li > *:not(ul),
-  .menu > li > ul > li > *:not(ul) {
-    @apply btn btn-inline;
-  }
-
   .menu.menu-inline > li *:not(ul) {
     @apply text-left;
   }
@@ -186,7 +185,8 @@
   /* States */
   .menu.menu-hover > li:hover > ul,
   .menu > li:focus > ul,
-  .menu > li:focus-within > ul {
+  .menu > li:focus-within > ul,
+  .menu.menu-open > li > ul {
     @apply block;
   }
   .menu.menu-inline > li:focus > ul,
