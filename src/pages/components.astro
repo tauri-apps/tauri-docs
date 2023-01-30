@@ -10,11 +10,12 @@ import Callout from '@src/components/Callout.astro'
     <h1>Components</h1>
     <div>
       <h2>Menu</h2>
-      <ul class="menu menu-horizontal menu-hover menu-open">
+      <ul class="menu menu-inline menu-open">
         <li>
-          <div>Item 1</div>
+          <label tabindex="0">Item 1</label>
           <ul>
-            <li><span>Submenu 1</span></li>
+            <!-- TODO: The btn-selected class isn't working here -->
+            <li class="btn-selected"><span>Submenu 1</span></li>
             <li><span>Submenu 2</span></li>
             <li><span>Longer menu item</span></li>
           </ul>

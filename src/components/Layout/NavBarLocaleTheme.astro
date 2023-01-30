@@ -18,7 +18,7 @@ import { astroI18n, l, t } from 'astro-i18n'
         <li>
           <a
             href={l(String(Astro.url.pathname), undefined, lang)}
-            class:list={astroI18n.langCode === lang ? 'btn-active' : ''}
+            class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
           >
             {t(`global.locale.${lang}`)}
           </a>
@@ -34,7 +34,7 @@ import { astroI18n, l, t } from 'astro-i18n'
   </label>
   <ul>
     <li>
-      <button>
+      <button class="!text-primary">
         <IconCircleHalf />
         {t('global.nav.theme.system')}
       </button>

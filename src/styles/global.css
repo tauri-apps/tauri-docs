@@ -76,6 +76,12 @@
   /***********/
   /* Buttons */
   /***********/
+  /* .btn: Base button style */
+  /* .btn-inline: Modifier, makes the button full width */
+  /* .btn-active: Modifier */
+  /* .btn-hover: Modifier */
+  /* .btn-selected: Modifier */
+
   .btn {
     /* min-w-[48px] is used to ensure that small icons are square */
     @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
@@ -83,25 +89,35 @@
   .btn > * {
     @apply inline-block;
   }
+
+  /* Modifiers */
   .btn-inline {
     @apply w-full;
   }
+
+  .btn-active {
+    @apply text-primary bg-base-content/10;
+  }
+
   .btn-hover {
     @apply bg-base-content/10 no-underline;
   }
+
+  /* FIXME: Is being overridden when used with `.menu` */
+  .btn-selected,
+  .btn-selected > * {
+    @apply text-primary;
+  }
+
+  /* States */
+  .btn:active {
+    @apply btn-active;
+  }
+
   .btn:hover,
   .btn:focus,
   .btn:focus-within {
     @apply btn-hover;
-  }
-  .btn-active {
-    @apply text-primary bg-base-content/10;
-  }
-  .btn:active {
-    @apply btn-active;
-  }
-  .btn-selected {
-    @apply text-primary;
   }
 
   /**********/
@@ -115,12 +131,6 @@
   }
   .input-text:hover {
     @apply input-hover;
-  }
-}
-
-@layer utilities {
-  .small-caps {
-    @apply uppercase font-bold text-xs opacity-75;
   }
 
   /********/
@@ -136,13 +146,19 @@
     @apply flex flex-col;
   }
 
+  /* Modifiers */
   .menu.menu-horizontal {
     @apply flex-row;
   }
 
+  /* TODO: Fix square buttons */
+  .menu.menu-inline > li *:not(ul) {
+    @apply text-left;
+  }
+
   /* Submenu */
   .menu > li > ul {
-    @apply bg-base-200 rounded-b rounded-tr z-dropdown;
+    @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
   }
 
   /* Submenu items */
@@ -151,10 +167,11 @@
     @apply btn btn-inline text-left;
   }
 
-  /* Focused button */
+  /* Focused items */
   .menu > li:hover,
   .menu > li:focus,
-  .menu > li:focus-within {
+  .menu > li:focus-within,
+  .menu.menu-open > li:has(ul) {
     @apply bg-base-200 rounded;
   }
 
@@ -172,16 +189,6 @@
     @apply rounded-b-none;
   }
 
-  /* Menu items */
-  .menu.menu-inline > li *:not(ul) {
-    @apply text-left;
-  }
-
-  /* Submenu */
-  .menu > li > ul {
-    @apply hidden absolute;
-  }
-
   /* States */
   .menu.menu-hover > li:hover > ul,
   .menu > li:focus > ul,
@@ -190,7 +197,14 @@
     @apply block;
   }
   .menu.menu-inline > li:focus > ul,
-  .menu.menu-inline > li:focus-within > ul {
+  .menu.menu-inline > li:focus-within > ul,
+  .menu.menu-open.menu-inline > li > ul {
     @apply static;
+  }
+}
+
+@layer utilities {
+  .small-caps {
+    @apply uppercase font-bold text-xs opacity-75;
   }
 }
