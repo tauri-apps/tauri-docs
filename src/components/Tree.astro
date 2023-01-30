@@ -25,8 +25,18 @@ if (maxDepth) {
   entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
 }
 
-// @ts-ignore We know this can be undefined, move to the bottom of the lists
-entries.sort((a, b) => a.data.sidebar_position - b.data.sidebar_position)
+entries.sort((a, b) => {
+  if (a.data.sidebar_position && b.data.sidebar_position) {
+    // Use sidebar position primarily
+    return a.data.sidebar_position - b.data.sidebar_position
+  } else if (a.data.sidebar_title && b.data.sidebar_title) {
+    // Else use the title
+    return a.data.sidebar_title.localeCompare(b.data.sidebar_title)
+  } else {
+    // Else just use the passed order
+    return 0
+  }
+})
 
 const renderedEntries = await Promise.all(
   entries.map(async (entry) => await entry.render())

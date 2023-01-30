@@ -1,0 +1,13 @@
+---
+const items = ['Getting Started', 'Building', 'Features']
+---
+
+<div class="grid lg:grid-cols-2 gap-4">
+  {
+    items.map((item) => (
+      <div class="card">
+        <span class="text-lg font-bold">{item}</span>
+      </div>
+    ))
+  }
+</div>
