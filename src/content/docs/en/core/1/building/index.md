@@ -4,7 +4,7 @@ meta_description: Prepare and package your app for users
 meta_position: 5
 ---
 
-# Introduction
+# Building
 
 The Tauri Bundler is a Rust harness to compile your binary, package assets, and prepare a final bundle.
 

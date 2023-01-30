@@ -4,11 +4,7 @@ meta_description: Begin building your first Tauri app
 meta_position: 1
 ---
 
-import DocCardList from '@theme/DocCardList'
-import { useCurrentSidebarCategory } from '@docusaurus/theme-common'
-import { CreateTauriApp } from '@theme/Command'
-
-# Quick Start
+# Getting Started
 
 Tauri is compatible with **almost every frontend stack**. Select yours and get started!
 
