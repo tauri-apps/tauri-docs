@@ -1,5 +1,5 @@
 ---
-import Layout from '@src/layouts/Layout.astro'
+import Layout from '@src/layouts/BlogPostLayout.astro'
 import { geti18nCollection } from '@src/utils'
 import { astroI18n } from 'astro-i18n'
 
@@ -17,10 +17,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
-
-const { Content } = await entry.render()
 ---
 
-<Layout title="test blog post">
-  <Content />
-</Layout>
+<Layout entry={entry} />

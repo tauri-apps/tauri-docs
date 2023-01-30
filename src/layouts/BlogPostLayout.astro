@@ -3,18 +3,32 @@ import type { CollectionEntry } from 'astro:content'
 import Footer from '../components/Layout/Footer.astro'
 import BaseLayout from './BaseLayout.astro'
 import BlogFooter from '../components/Blog/BlogFooter.astro'
+import Author from '@src/components/Blog/Author.astro'
+import { t } from 'astro-i18n'
 
 export interface Props {
   entry: CollectionEntry<'blog'>
 }
 
 const { entry } = Astro.props
+const { Content } = await entry.render()
 ---
 
-<BaseLayout title={entry.data.title}>
-  <div class="p-8 max-w-4xl mx-48">
-    <main>
-      <slot />
+<BaseLayout title={entry.data.meta_title || entry.slug}>
+  <div class="container mx-auto">
+    <main class="flex flex-col gap-4">
+      {entry.data.meta_title && <h1>{entry.data.meta_title}</h1>}
+      <div class="small-caps">
+        {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
+      </div>
+      <Author authors={entry.data.authors} />
+      {
+        entry.data.imageSrc && (
+          <img src={entry.data.imageSrc} alt={t('blog.post-image')} />
+        )
+      }
+      {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
+      <Content />
     </main>
     <div class="py-8">
       <BlogFooter postId={entry.id} />
