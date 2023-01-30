@@ -151,20 +151,19 @@
     @apply flex-row;
   }
 
-  /* TODO: Fix square buttons */
-  .menu.menu-inline > li *:not(ul) {
-    @apply text-left;
+  /* Menu items */
+  .menu > li > *:not(ul),
+  .menu > li > ul > li > *:not(ul) {
+    @apply btn btn-inline text-left;
+  }
+
+  .menu.menu-horizontal > li > *:not(ul) {
+    @apply text-center;
   }
 
   /* Submenu */
   .menu > li > ul {
     @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
-  }
-
-  /* Submenu items */
-  .menu > li > *:not(ul),
-  .menu > li > ul > li > *:not(ul) {
-    @apply btn btn-inline text-left;
   }
 
   /* Focused items */
