@@ -80,11 +80,9 @@ export async function convertCollectionToTree<
       } else if (a.data.meta_title && b.data.meta_title) {
         // Else use the title
         return a.data.meta_title.localeCompare(b.data.meta_title)
-      } else {
-        // Else just use the passed order
-        return 0
       }
     }
+    return 0
   })
 
   return entries.map((entry) => {
