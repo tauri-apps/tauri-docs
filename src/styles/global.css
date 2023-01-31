@@ -12,7 +12,8 @@
     --color-base-200: 30 30 30;
     --color-base-300: 40 40 40;
     --color-base-content: 246 246 246;
-    --color-content-background: var(--color-base-content) / 15%;
+    --color-content-hover: var(--color-base-content) / 15%;
+    --color-border: 64 64 64;
 
     --color-primary: 36 200 219;
 
@@ -41,7 +42,7 @@
   }
 
   :not(pre) > code {
-    @apply bg-content-background py-1 px-1 rounded;
+    @apply bg-content-hover py-1 px-1 rounded;
   }
 
   h1,
@@ -72,6 +73,29 @@
   h6 {
     @apply font-semibold;
   }
+
+  table,
+  th,
+  td {
+    @apply border border-solid border-border;
+  }
+
+  th,
+  td {
+    @apply p-2;
+  }
+
+  th {
+    @apply bg-base-content/10;
+  }
+
+  tbody tr:nth-child(even) {
+    @apply bg-base-content/5;
+  }
+
+  tbody tr {
+    @apply transition odd:hover:bg-base-content/5 even:hover:bg-base-content/10;
+  }
 }
 
 @layer components {
@@ -98,11 +122,11 @@
   }
 
   .btn-active {
-    @apply text-primary bg-content-background;
+    @apply text-primary bg-content-hover;
   }
 
   .btn-hover {
-    @apply bg-content-background no-underline;
+    @apply bg-content-hover no-underline;
   }
 
   /* FIXME: Is being overridden when used with `.menu` */
@@ -129,7 +153,7 @@
     @apply p-3 rounded h-12 transition bg-base-200;
   }
   .input-hover {
-    @apply bg-content-background;
+    @apply bg-content-hover;
   }
   .input-text:hover {
     @apply input-hover;
@@ -218,7 +242,7 @@
     @apply no-underline text-primary;
   }
   .card:hover {
-    @apply bg-content-background;
+    @apply bg-content-hover;
   }
 }
 

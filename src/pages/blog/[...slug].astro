@@ -2,6 +2,7 @@
 import Author from '@src/components/Blog/Author.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
 import { geti18nCollection } from '@src/utils'
+import type { MarkdownHeading } from 'astro'
 import { astroI18n, t } from 'astro-i18n'
 
 export async function getStaticPaths() {
@@ -18,7 +19,16 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
-const { Content } = await entry.render()
+let { Content, headings }: { Content: any; headings: MarkdownHeading[] } =
+  await entry.render()
+const minHeading = headings.reduce(
+  (a, heading) => (a < heading.depth ? a : heading.depth),
+  6
+)
+const headingsWithIndention = headings.map((heading) => ({
+  ...heading,
+  indention: `pl-${(heading.depth - minHeading) * 2}`,
+}))
 ---
 
 <Layout title={entry.data.meta_title}>
@@ -34,5 +44,18 @@ const { Content } = await entry.render()
   {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
   <Author authors={entry.data.authors} />
   <Content />
-  <p slot="trailing-sidebar">Trailing Sidebar</p>
+  <div slot="trailing-sidebar">
+    <div class="small-caps">{t('layout.on-this-page')}</div>
+    <ul>
+      {
+        headingsWithIndention.map((heading) => (
+          <li>
+            <a class={heading.indention} href={`#${heading.slug}`}>
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </Layout>
