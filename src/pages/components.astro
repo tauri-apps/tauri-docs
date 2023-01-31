@@ -149,16 +149,14 @@ import Callout from '@src/components/Callout.astro'
         neat!
       </p>
       <Code
-        code={`<script>
-  import { invoke } from '@tauri-apps/api/tauri'
+        code={`
+let name = ''
+let greetMsg = ''
 
-  let name = ''
-  let greetMsg = ''
-
-  async function greet() {
-    greetMsg = await invoke('greet', { name })
-  }
-</script>`}
+async function greet() {
+  greetMsg = await invoke('greet', { name })
+}
+`}
         lang="js"
       />
     </div>
