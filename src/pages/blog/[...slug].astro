@@ -1,7 +1,8 @@
 ---
-import Layout from '@src/layouts/BlogPostLayout.astro'
+import Author from '@src/components/Blog/Author.astro'
+import Layout from '@src/layouts/SidebarLayout.astro'
 import { geti18nCollection } from '@src/utils'
-import { astroI18n } from 'astro-i18n'
+import { astroI18n, t } from 'astro-i18n'
 
 export async function getStaticPaths() {
   const collection = await geti18nCollection('blog', astroI18n.langCode)
@@ -17,6 +18,21 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
+const { Content } = await entry.render()
 ---
 
-<Layout entry={entry} />
+<Layout title={entry.data.meta_title}>
+  <h1>{entry.data.meta_title}</h1>
+  <div class="small-caps">
+    {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
+  </div>
+  {
+    entry.data.imageSrc && (
+      <img src={entry.data.imageSrc} alt={t('blog.post-image')} />
+    )
+  }
+  {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
+  <Author authors={entry.data.authors} />
+  <Content />
+  <p slot="trailing-sidebar">Trailing Sidebar</p>
+</Layout>

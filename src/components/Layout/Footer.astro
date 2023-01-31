@@ -5,9 +5,6 @@ const year = new Date().getFullYear()
 ---
 
 <style>
-  a {
-    @apply text-base-content;
-  }
   ul li {
     @apply py-1;
   }
@@ -31,22 +28,45 @@ const year = new Date().getFullYear()
     </div>
 
     <ul>
-      <li><a href={l('/docs/core/1')}>{t('global.nav.docs')}</a></li>
-      <li><a href={l('/api')}>{t('global.nav.references')}</a></li>
-      <li><a href={l('/about')}>{t('global.nav.about')}</a></li>
-      <li><a href={l('/blog')}>{t('global.nav.blog')}</a></li>
-    </ul>
-
-    <ul>
-      <li><a href="mailto:contact@tauri.app">{t('global.nav.email')}</a></li>
       <li>
-        <a href="https://opencollective.com/tauri" target="_blank"
-          >{t('global.nav.open-collective')}</a
+        <a href={l('/docs/core/1')} class="text-base-content"
+          >{t('global.nav.docs')}</a
         >
       </li>
       <li>
-        <a href="https://github.com/tauri-apps/awesome-tauri" target="_blank"
-          >{t('global.nav.awesome-tauri')}</a
+        <a href={l('/api')} class="text-base-content"
+          >{t('global.nav.references')}</a
+        >
+      </li>
+      <li>
+        <a href={l('/about')} class="text-base-content"
+          >{t('global.nav.about')}</a
+        >
+      </li>
+      <li>
+        <a href={l('/blog')} class="text-base-content">{t('global.nav.blog')}</a
+        >
+      </li>
+    </ul>
+
+    <ul>
+      <li>
+        <a href="mailto:contact@tauri.app" class="text-base-content"
+          >{t('global.nav.email')}</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://opencollective.com/tauri"
+          target="_blank"
+          class="text-base-content">{t('global.nav.open-collective')}</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://github.com/tauri-apps/awesome-tauri"
+          target="_blank"
+          class="text-base-content">{t('global.nav.awesome-tauri')}</a
         >
       </li>
     </ul>

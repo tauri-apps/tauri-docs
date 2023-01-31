@@ -20,6 +20,8 @@
     --color-success: 42 111 57;
     --color-caution: 167 130 43;
     --color-danger: 178 54 37;
+
+    --nav-height: calc(100vh - 80px);
   }
 
   /***************/
@@ -49,7 +51,7 @@
   h5,
   h6,
   p {
-    @apply mt-6 mb-2;
+    /* @apply mt-6 mb-2; */
   }
 
   h1 {

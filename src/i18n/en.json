@@ -2,6 +2,7 @@
   "404.title": "404",
   "about.title": "About",
   "api.title": "API",
+  "blog.recent-blog-posts": "Recent Blog Posts",
   "blog.title": "Blog",
   "docs.title": "Docs",
   "global.footer-copyright": "Copyright © {year} Tauri Contributors. CC-BY / MIT",
