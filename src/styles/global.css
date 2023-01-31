@@ -22,79 +22,19 @@
     --color-caution: 167 130 43;
     --color-danger: 178 54 37;
 
-    --nav-height: calc(100vh - 80px);
+    --nav-height: 80px;
   }
 
   /***************/
   /* Base styles */
   /***************/
 
+  html {
+    @apply scroll-pt-[var(--nav-height)];
+  }
+
   body {
     @apply text-base-content;
-  }
-
-  a {
-    @apply text-primary;
-  }
-
-  a:hover {
-    @apply underline;
-  }
-
-  :not(pre) > code {
-    @apply bg-content-hover py-1 px-1 rounded;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    /* @apply mt-6 mb-2; */
-  }
-
-  h1 {
-    @apply font-semibold text-4xl;
-  }
-  h2 {
-    @apply text-3xl;
-  }
-  h3 {
-    @apply font-semibold text-2xl;
-  }
-  h4 {
-    @apply text-2xl;
-  }
-  h5 {
-    @apply font-semibold text-xl;
-  }
-  h6 {
-    @apply font-semibold;
-  }
-
-  table,
-  th,
-  td {
-    @apply border border-solid border-border;
-  }
-
-  th,
-  td {
-    @apply p-2;
-  }
-
-  th {
-    @apply bg-base-content/10;
-  }
-
-  tbody tr:nth-child(even) {
-    @apply bg-base-content/5;
-  }
-
-  tbody tr {
-    @apply transition odd:hover:bg-base-content/5 even:hover:bg-base-content/10;
   }
 }
 

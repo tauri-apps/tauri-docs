@@ -32,18 +32,23 @@ const headingsWithIndention = headings.map((heading) => ({
 ---
 
 <Layout title={entry.data.meta_title}>
-  <h1>{entry.data.meta_title}</h1>
-  <div class="small-caps">
-    {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
+  <div class="flex flex-col gap-4">
+    <h1>{entry.data.meta_title}</h1>
+    <div class="small-caps">
+      {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
+    </div>
+    <Author authors={entry.data.authors} />
+    {
+      entry.data.imageSrc && (
+        <img src={entry.data.imageSrc} alt={t('blog.post-image')} />
+      )
+    }
+    {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
+
+    <main class="prose max-w-none">
+      <Content />
+    </main>
   </div>
-  {
-    entry.data.imageSrc && (
-      <img src={entry.data.imageSrc} alt={t('blog.post-image')} />
-    )
-  }
-  {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
-  <Author authors={entry.data.authors} />
-  <Content />
   <div slot="trailing-sidebar">
     <div class="small-caps">{t('layout.on-this-page')}</div>
     <ul>

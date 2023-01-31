@@ -30,5 +30,6 @@
   "global.locale.ko": "한국어",
   "global.locale.zh-cn": "中文（中国）",
   "global.locale.it": "Italiano",
-  "index.title": "Index"
+  "index.title": "Index",
+  "layout.on-this-page": "On this page"
 }
