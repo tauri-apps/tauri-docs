@@ -3,56 +3,6 @@
  -->
 
 <style is:global>
-  [data-theme='dark'] {
-    --ifm-color-primary: #67d6ed;
-    --ifm-color-primary-dark: #49cee9;
-    --ifm-color-primary-darker: #39cae8;
-    --ifm-color-primary-darkest: #19b5d5;
-    --ifm-color-primary-light: #85def1;
-    --ifm-color-primary-lighter: #95e2f2;
-    --ifm-color-primary-lightest: #c2eff8;
-    --ifm-card-background-color: #2f2f2f;
-    --docusaurus-highlighted-code-line-bg: #646464;
-    --tauri-orange: #ffc131;
-  }
-  html[data-theme='dark'] {
-    --ifm-color-scheme: dark;
-    --ifm-color-emphasis-0: var(--ifm-color-gray-1000);
-    --ifm-color-emphasis-100: var(--ifm-color-gray-900);
-    --ifm-color-emphasis-200: var(--ifm-color-gray-800);
-    --ifm-color-emphasis-300: var(--ifm-color-gray-700);
-    --ifm-color-emphasis-400: var(--ifm-color-gray-600);
-    --ifm-color-emphasis-600: var(--ifm-color-gray-400);
-    --ifm-color-emphasis-700: var(--ifm-color-gray-300);
-    --ifm-color-emphasis-800: var(--ifm-color-gray-200);
-    --ifm-color-emphasis-900: var(--ifm-color-gray-100);
-    --ifm-color-emphasis-1000: var(--ifm-color-gray-0);
-    --ifm-background-color: #1b1b1d;
-    --ifm-background-surface-color: #242526;
-    --ifm-hover-overlay: hsla(0, 0%, 100%, 0.05);
-    --ifm-color-content: #e3e3e3;
-    --ifm-color-content-secondary: #fff;
-    --ifm-breadcrumb-separator-filter: invert(64%) sepia(11%) saturate(0%)
-      hue-rotate(149deg) brightness(99%) contrast(95%);
-    --ifm-code-background: hsla(0, 0%, 100%, 0.1);
-    --ifm-scrollbar-track-background-color: #444;
-    --ifm-scrollbar-thumb-background-color: #686868;
-    --ifm-scrollbar-thumb-hover-background-color: #7a7a7a;
-    --ifm-table-stripe-background: hsla(0, 0%, 100%, 0.07);
-    --ifm-toc-border-color: var(--ifm-color-emphasis-200);
-    --ifm-color-primary-contrast-background: #102445;
-    --ifm-color-primary-contrast-foreground: #ebf2fc;
-    --ifm-color-secondary-contrast-background: #474748;
-    --ifm-color-secondary-contrast-foreground: #fdfdfe;
-    --ifm-color-success-contrast-background: #003100;
-    --ifm-color-success-contrast-foreground: #e6f6e6;
-    --ifm-color-info-contrast-background: #193c47;
-    --ifm-color-info-contrast-foreground: #eef9fd;
-    --ifm-color-warning-contrast-background: #4d3800;
-    --ifm-color-warning-contrast-foreground: #fff8e6;
-    --ifm-color-danger-contrast-background: #4b1113;
-    --ifm-color-danger-contrast-foreground: #ffebec;
-  }
   :root {
     --docusaurus-progress-bar-color: var(--ifm-color-primary);
     --tauri-orange: #d58100;
@@ -360,6 +310,54 @@
     --ifm-tabs-padding-horizontal: 1rem;
     --ifm-tabs-padding-vertical: 1rem;
   }
+  :root { /* dark mode overwrite */
+    --ifm-color-primary: #67d6ed;
+    --ifm-color-primary-dark: #49cee9;
+    --ifm-color-primary-darker: #39cae8;
+    --ifm-color-primary-darkest: #19b5d5;
+    --ifm-color-primary-light: #85def1;
+    --ifm-color-primary-lighter: #95e2f2;
+    --ifm-color-primary-lightest: #c2eff8;
+    --ifm-card-background-color: #2f2f2f;
+    --docusaurus-highlighted-code-line-bg: #646464;
+    --tauri-orange: #ffc131;
+    --ifm-color-scheme: dark;
+    --ifm-color-emphasis-0: var(--ifm-color-gray-1000);
+    --ifm-color-emphasis-100: var(--ifm-color-gray-900);
+    --ifm-color-emphasis-200: var(--ifm-color-gray-800);
+    --ifm-color-emphasis-300: var(--ifm-color-gray-700);
+    --ifm-color-emphasis-400: var(--ifm-color-gray-600);
+    --ifm-color-emphasis-600: var(--ifm-color-gray-400);
+    --ifm-color-emphasis-700: var(--ifm-color-gray-300);
+    --ifm-color-emphasis-800: var(--ifm-color-gray-200);
+    --ifm-color-emphasis-900: var(--ifm-color-gray-100);
+    --ifm-color-emphasis-1000: var(--ifm-color-gray-0);
+    --ifm-background-color: #1b1b1d;
+    --ifm-background-surface-color: #242526;
+    --ifm-hover-overlay: hsla(0, 0%, 100%, 0.05);
+    --ifm-color-content: #e3e3e3;
+    --ifm-color-content-secondary: #fff;
+    --ifm-breadcrumb-separator-filter: invert(64%) sepia(11%) saturate(0%)
+      hue-rotate(149deg) brightness(99%) contrast(95%);
+    --ifm-code-background: hsla(0, 0%, 100%, 0.1);
+    --ifm-scrollbar-track-background-color: #444;
+    --ifm-scrollbar-thumb-background-color: #686868;
+    --ifm-scrollbar-thumb-hover-background-color: #7a7a7a;
+    --ifm-table-stripe-background: hsla(0, 0%, 100%, 0.07);
+    --ifm-toc-border-color: var(--ifm-color-emphasis-200);
+    --ifm-color-primary-contrast-background: #102445;
+    --ifm-color-primary-contrast-foreground: #ebf2fc;
+    --ifm-color-secondary-contrast-background: #474748;
+    --ifm-color-secondary-contrast-foreground: #fdfdfe;
+    --ifm-color-success-contrast-background: #003100;
+    --ifm-color-success-contrast-foreground: #e6f6e6;
+    --ifm-color-info-contrast-background: #193c47;
+    --ifm-color-info-contrast-foreground: #eef9fd;
+    --ifm-color-warning-contrast-background: #4d3800;
+    --ifm-color-warning-contrast-foreground: #fff8e6;
+    --ifm-color-danger-contrast-background: #4b1113;
+    --ifm-color-danger-contrast-foreground: #ffebec;
+  }
   .navbar--dark,
   :root {
     --ifm-navbar-link-hover-color: var(--ifm-color-primary);
@@ -545,6 +543,7 @@
     apiKey: '2cd51aecd5cbb326d9abaf5b95393e92009ac8a795bb928a21be0550449b797c',
     indexUid: 'docs-dev',
     inputSelector: '#docsearch',
+    enableDarkMode: true,
     meilisearchOptions:{ filter: [`lang = ${lang}`]}
   })
 </script>
