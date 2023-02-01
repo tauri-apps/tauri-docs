@@ -31,7 +31,7 @@ let { Content, headings } = await entry.render()
     <div class="small-caps">
       {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
     </div>
-    <Author authors={entry.data.authors} enableLinks={false} />
+    <Author authors={entry.data.authors} enableLinks={true} />
     {
       entry.data.imageSrc && (
         <img
@@ -62,7 +62,11 @@ let { Content, headings } = await entry.render()
             <>
               <li class="list-heading">{t('Contribute')}</li>
               <li>
-                <a class="list-item" href={config.gitHubTranslateUrl}>
+                <a
+                  class="list-item"
+                  href={config.gitHubTranslateUrl}
+                  target="_blank"
+                >
                   <IconTranslate />
                   Translate
                 </a>
