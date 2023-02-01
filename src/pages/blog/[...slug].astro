@@ -2,11 +2,10 @@
 import Author from '@src/components/Blog/Author.astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
-import IconTranslate from '~icons/bi/translate'
 import { geti18nCollection } from '@src/utils'
 import { astroI18n, t } from 'astro-i18n'
 import Carousel from '@src/components/Blog/Carousel.astro'
-import config from '@src/config'
+import Translate from '@src/components/Layout/Translate.astro'
 
 export async function getStaticPaths() {
   const collection = await geti18nCollection('blog', astroI18n.langCode)
@@ -27,6 +26,9 @@ let { Content, headings } = await entry.render()
 
 <Layout title={entry.data.meta_title}>
   <div class="flex flex-col gap-4">
+    <div class="lg:hidden small-caps">
+      TODO: Placeholder for "On This Page" dropdown
+    </div>
     <h1 class="h1">{entry.data.meta_title}</h1>
     <div class="small-caps">
       {entry.data.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
@@ -50,6 +52,18 @@ let { Content, headings } = await entry.render()
       <div class="h3 pb-4">{t('blog.recent-blog-posts')}</div>
       <Carousel />
     </div>
+    <div class="lg:hidden">
+      {
+        entry.data.i18n_ready && (
+          <>
+            <div class="small-caps">{t('layout.contribute')}</div>
+            <ul>
+              <Translate />
+            </ul>
+          </>
+        )
+      }
+    </div>
   </div>
   <div slot="trailing-sidebar">
     <div>
@@ -60,17 +74,8 @@ let { Content, headings } = await entry.render()
         {
           entry.data.i18n_ready && (
             <>
-              <li class="list-heading">{t('Contribute')}</li>
-              <li>
-                <a
-                  class="list-item"
-                  href={config.gitHubTranslateUrl}
-                  target="_blank"
-                >
-                  <IconTranslate />
-                  Translate
-                </a>
-              </li>
+              <li class="list-heading">{t('layout.contribute')}</li>
+              <Translate />
             </>
           )
         }

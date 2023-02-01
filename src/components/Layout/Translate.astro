@@ -1,0 +1,12 @@
+---
+import IconTranslate from '~icons/bi/translate'
+import config from '@src/config'
+import { t } from 'astro-i18n'
+---
+
+<li>
+  <a class="list-item" href={config.gitHubTranslateUrl} target="_blank">
+    <IconTranslate />
+    {t('layout.translate')}
+  </a>
+</li>
