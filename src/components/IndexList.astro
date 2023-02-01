@@ -13,8 +13,10 @@ const { tree } = Astro.props
   {
     tree.map((node) => (
       <a class="card" href={l(`docs/${node.slug}`)}>
-        <div class="text-lg font-bold">{node.name}</div>
-        {node.description ?? <div>{node.description}</div>}
+        <div class="card-body">
+          <div class="text-lg font-bold">{node.name}</div>
+          {node.description ?? <div>{node.description}</div>}
+        </div>
       </a>
     ))
   }

@@ -24,7 +24,7 @@ const { entry } = Astro.props
 let { Content, headings } = await entry.render()
 ---
 
-<Layout title={entry.data.meta_title}>
+<Layout title={entry.data.meta_title} leadingSidebar={false}>
   <div class="flex flex-col gap-4">
     <div class="lg:hidden small-caps">
       TODO: Placeholder for "On This Page" dropdown
@@ -66,20 +66,18 @@ let { Content, headings } = await entry.render()
     </div>
   </div>
   <div slot="trailing-sidebar">
-    <div>
-      <ul>
-        <li class="list-heading">{t('layout.on-this-page')}</li>
-        <OnThisPage headings={headings} />
-        <li class="list-base"></li>
-        {
-          entry.data.i18n_ready && (
-            <>
-              <li class="list-heading">{t('layout.contribute')}</li>
-              <Translate />
-            </>
-          )
-        }
-      </ul>
-    </div>
+    <ul>
+      <li class="list-heading">{t('layout.on-this-page')}</li>
+      <OnThisPage headings={headings} />
+      <li class="list-base"></li>
+      {
+        entry.data.i18n_ready && (
+          <>
+            <li class="list-heading">{t('layout.contribute')}</li>
+            <Translate />
+          </>
+        )
+      }
+    </ul>
   </div>
 </Layout>

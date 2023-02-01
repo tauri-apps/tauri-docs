@@ -2,28 +2,31 @@
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
 
-export interface Props {
+interface Props {
   title: string
+  leadingSidebar: boolean
 }
 
-const { title } = Astro.props
+const { title, leadingSidebar } = Astro.props
 ---
 
 <Layout title={title}>
   <div class="bg-base-200 h-[calc(100vh - var(--nav-height))]">
     <div
-      class="hidden lg:block fixed top-[var(--nav-height)] left-0 bottom-0 w-48 pt-8"
+      class={`hidden ${
+        leadingSidebar && 'bg-base-100'
+      } lg:block fixed top-[var(--nav-height)] pl-4 left-0 bottom-0 w-[var(--sidebar-width)] pt-8`}
     >
       <slot name="leading-sidebar" />
     </div>
-    <div class="px-8 lg:w-[calc(100vw-28rem)] max-w-[100ch] mx-auto pt-8">
+    <div class="px-8 lg:px-56 max-w-[150ch] mx-auto pt-8">
       <article>
         <slot />
       </article>
       <Footer />
     </div>
     <div
-      class="hidden lg:block fixed top-[var(--nav-height)] right-0 bottom-0 w-48 pt-8 pl-2 overflow-y-auto"
+      class="hidden lg:block fixed top-[var(--nav-height)] pr-4 right-0 bottom-0 w-[var(--sidebar-width)] pt-8 pl-2 overflow-y-auto"
     >
       <slot name="trailing-sidebar" />
     </div>

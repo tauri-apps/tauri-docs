@@ -14,13 +14,15 @@ posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
           class="card shrink-0 w-[calc(100%*.75)] lg:w-[calc(100%/2.5)] snap-start flex flex-col gap-2"
           href={l(`/blog/${post.slug}`)}
         >
-          <div class="small-caps">
-            {post.data.date.toLocaleDateString(undefined, {
-              dateStyle: 'long',
-            })}
+          <div class="card-body">
+            <div class="small-caps">
+              {post.data.date.toLocaleDateString(undefined, {
+                dateStyle: 'long',
+              })}
+            </div>
+            <div class="h3 truncate">{post.data.meta_title ?? post.slug}</div>
+            <div>{post.data.meta_description ?? post.body}</div>
           </div>
-          <div class="h3 truncate">{post.data.meta_title ?? post.slug}</div>
-          <div>{post.data.meta_description ?? post.body}</div>
         </a>
       ))
     }

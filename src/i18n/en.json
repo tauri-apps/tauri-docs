@@ -31,7 +31,8 @@
   "global.locale.zh-cn": "中文（中国）",
   "global.locale.it": "Italiano",
   "index.title": "Index",
+  "layout.contribute": "Contribute",
   "layout.on-this-page": "On this page",
-  "layout.translate": "Translate",
-  "layout.contribute": "Contribute"
+  "layout.related-pages": "Related pages",
+  "layout.translate": "Translate"
 }

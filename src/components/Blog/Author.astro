@@ -58,22 +58,36 @@ const authorsObject = authors.map((author) => {
 <div class="flex gap-4">
   {
     authorsObject.map((author) => (
-      <a
-        href={enableLinks ? author.url : undefined}
-        class={enableLinks ? 'transition hover:text-primary' : undefined}
-      >
-        <div class="flex gap-4 items-center">
-          <img
-            src={author.imageSrc}
-            alt="Author image"
-            class="w-12 rounded-[24px]"
-          />
-          <div class="flex flex-col gap-1">
-            <p>{author.name}</p>
-            <div class="small-caps">{author.title}</div>
+      <>
+        {enableLinks && (
+          <a href={author.url} class="transition hover:text-primary">
+            <div class="flex gap-4 items-center">
+              <img
+                src={author.imageSrc}
+                alt="Author image"
+                class="w-12 rounded-[24px]"
+              />
+              <div class="flex flex-col gap-1">
+                <div>{author.name}</div>
+                <div class="small-caps">{author.title}</div>
+              </div>
+            </div>
+          </a>
+        )}
+        {!enableLinks && (
+          <div class="flex gap-4 items-center">
+            <img
+              src={author.imageSrc}
+              alt="Author image"
+              class="w-12 rounded-[24px]"
+            />
+            <div class="flex flex-col gap-1">
+              <div>{author.name}</div>
+              <div class="small-caps">{author.title}</div>
+            </div>
           </div>
-        </div>
-      </a>
+        )}
+      </>
     ))
   }
 </div>
