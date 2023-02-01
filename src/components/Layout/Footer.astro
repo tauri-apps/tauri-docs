@@ -11,7 +11,7 @@ const year = new Date().getFullYear()
 </style>
 
 <footer class="py-4 flex flex-col gap-8">
-  <div class="border-y border-content-hover rounded"></div>
+  <hr />
   <div class="grid lg:grid-cols-3 gap-8">
     <div class="flex flex-col gap-6">
       <div>
@@ -72,6 +72,6 @@ const year = new Date().getFullYear()
     </ul>
   </div>
   <div>
-    {t('global.footer-copyright', { year: year })}
+    {t('global.footer-copyright', { year: String(year) })}
   </div>
 </footer>

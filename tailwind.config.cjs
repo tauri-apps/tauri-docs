@@ -3,7 +3,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  safelist: [{ pattern: /pl-(2|4|6|8|10|12)/ }],
+  safelist: [{ pattern: /pl-(4|8|12|16|20|24)/ }],
   theme: {
     borderRadius: {
       none: '0',
@@ -19,6 +19,7 @@ module.exports = {
       'content-hover': 'rgba(var(--color-content-hover))',
       border: 'rgb(var(--color-border) / <alpha-value>)',
       primary: 'rgb(var(--color-primary) / <alpha-value>)',
+      accent: 'rgb(var(--color-accent) / <alpha-value>)',
       info: 'rgb(var(--color-info) / <alpha-value>)',
       success: 'rgb(var(--color-success) / <alpha-value>)',
       caution: 'rgb(var(--color-caution) / <alpha-value>)',

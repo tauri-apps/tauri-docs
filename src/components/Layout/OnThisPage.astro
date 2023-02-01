@@ -15,24 +15,16 @@ const minHeading = headings.reduce(
 )
 const headingsWithIndention = headings.map((heading) => ({
   ...heading,
-  indention: `${(heading.depth - minHeading + 1) * 2}`,
+  indention: `${(heading.depth - minHeading) * 2}`,
 }))
 ---
 
-<div>
-  <div class="pl-2 small-caps">On this page</div>
-  <ul>
-    {
-      headingsWithIndention.map((heading) => (
-        <li>
-          <a
-            href={`#${heading.slug}`}
-            class={`nav-link before:left-4 before:transition before:border-l-2 before:rounded before:border-transparent hover:before:border-base-content py-1 pl-${heading.indention} w-full`}
-          >
-            {heading.text}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+{
+  headingsWithIndention.map((heading) => (
+    <li>
+      <a href={`#${heading.slug}`} class={`list-item pl-${heading.indention}`}>
+        {heading.text}
+      </a>
+    </li>
+  ))
+}

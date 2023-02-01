@@ -3,6 +3,7 @@ import { z, defineCollection } from 'astro:content'
 const metadataSchema = {
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
+  i18n_ready: z.boolean().optional(),
 }
 
 const blog = defineCollection({

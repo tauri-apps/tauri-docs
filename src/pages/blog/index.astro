@@ -14,15 +14,12 @@ entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
     <div class="flex flex-col gap-4">
       {
         entries.map((post) => (
-          <a class="card flex flex-col gap-2" href={l(`/blog/${post.slug}`)}>
-            <div class="small-caps">
-              {post.data.date.toLocaleDateString(undefined, {
-                dateStyle: 'long',
-              })}
+          <a href={l(`/blog/${post.slug}`)}>
+            <div class="card flex flex-col gap-2">
+              <Author authors={post.data.authors} />
+              <div class="text-xl">{post.data.meta_title}</div>
+              <div>{post.data.meta_description}</div>
             </div>
-            <div>TODO: Add Author component</div>
-            <div class="text-xl">{post.data.meta_title}</div>
-            <div>{post.data.meta_description}</div>
           </a>
         ))
       }
