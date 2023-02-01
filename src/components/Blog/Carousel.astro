@@ -1,62 +1,28 @@
 ---
-import type { Page } from '../../types'
-import { getStaticPaths } from '../../pages/blog/[...slug].astro'
+import { geti18nCollection } from '@src/utils'
+import { astroI18n, l } from 'astro-i18n'
 
-const markdownPosts = await getStaticPaths()
-
-const posts: Page[] = [
-  ...markdownPosts
-    .sort((a, b) => {
-      // @ts-ignore
-      return b.props.entry.data.date - a.props.entry.data.date
-    })
-    .map((post) => {
-      return {
-        title: post.props.entry.data.title,
-        description: post.props.entry.data.summary,
-        image: post.props.entry.data.image,
-        darkImage: post.props.entry.data.darkImage,
-        href: `/blog/${post.params.slug}`,
-      }
-    }),
-]
+const posts = await geti18nCollection('blog', astroI18n.langCode)
+posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 ---
 
-<div class="carousel space-x-4">
-  {
-    posts.map((post) => (
-      <a href={post.href}>
-        <div class="carousel-item">
-          <div class="card card-side bg-base-300 w-[34em] drop-shadow h-44">
-            <div class="card-body">
-              <div class="card-title line-clamp-1">{post.title}</div>
-              <p class="line-clamp-3">{post.description}</p>
-            </div>
-            {post.image && (
-              <figure class="aspect-square shrink-0">
-                <img
-                  src={post.image}
-                  class:list={[
-                    'aspect-square object-cover',
-                    post.darkImage ? 'light-mode-only' : '',
-                  ]}
-                />
-              </figure>
-            )}
-            {post.darkImage && (
-              <figure class="aspect-square shrink-0">
-                <img
-                  src={post.darkImage}
-                  class:list={[
-                    'aspect-square object-cover',
-                    post.image ? 'dark-mody-only' : '',
-                  ]}
-                />
-              </figure>
-            )}
+<div class="overflow-x-scroll pb-4">
+  <div class="flex gap-4 snap-x">
+    {
+      posts.map((post) => (
+        <a
+          class="card shrink-0 w-[calc(100%*.75)] lg:w-[calc(100%/2.5)] snap-start flex flex-col gap-2"
+          href={l(`/blog/${post.slug}`)}
+        >
+          <div class="small-caps">
+            {post.data.date.toLocaleDateString(undefined, {
+              dateStyle: 'long',
+            })}
           </div>
-        </div>
-      </a>
-    ))
-  }
+          <div class="h3 truncate">{post.data.meta_title ?? post.slug}</div>
+          <div>{post.data.meta_description ?? post.body}</div>
+        </a>
+      ))
+    }
+  </div>
 </div>

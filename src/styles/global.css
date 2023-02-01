@@ -16,6 +16,7 @@
     --color-border: 50 50 50;
 
     --color-primary: 36 200 219;
+    --color-accent: 255 194 49;
 
     --color-info: 46 138 149;
     --color-success: 42 111 57;
@@ -38,25 +39,25 @@
   }
 
   /* Base font sizes */
-  p {
+  .p {
     @apply text-base;
   }
-  h1 {
+  .h1 {
     @apply text-4xl font-medium;
   }
-  h2 {
+  .h2 {
     @apply text-3xl;
   }
-  h3 {
+  .h3 {
     @apply text-2xl font-medium;
   }
-  h4 {
+  .h4 {
     @apply text-2xl;
   }
-  h5 {
+  .h5 {
     @apply text-xl font-medium;
   }
-  h6 {
+  .h6 {
     @apply font-medium;
   }
 
@@ -103,7 +104,7 @@
     /* min-w-[48px] is used to ensure that small icons are square */
     @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
-  .btn > * {
+  .btn * {
     @apply inline-block;
   }
 
@@ -222,24 +223,69 @@
   /* Card */
   /********/
   .card {
-    @apply p-4 bg-base-200 rounded-lg;
+    @apply p-4 bg-base-content/5 rounded-lg;
   }
   .card,
-  .card > * {
-    @apply text-base-content transition;
+  .card * {
+    @apply transition;
   }
   .card:hover,
-  .card:hover > * {
-    @apply no-underline text-primary;
+  .card:hover * {
+    @apply text-primary;
   }
   .card:hover {
-    @apply bg-content-hover;
+    @apply bg-base-content/10;
+  }
+
+  /*********/
+  /* Lists */
+  /*********/
+  .list-base {
+    @apply w-full my-2 relative;
+  }
+  .list-base,
+  .list-base * {
+    @apply inline-block;
+  }
+  .list-heading {
+    @apply list-base small-caps;
+  }
+  .list-item {
+    @apply list-base before:absolute before:inset-y-0 before:-left-2 before:transition before:border-l-2 before:border-transparent hover:before:border-accent before:rounded;
   }
 }
 
 @layer utilities {
   .small-caps {
-    @apply uppercase font-bold text-xs opacity-75;
+    @apply uppercase font-bold text-xs text-base-content/75;
+  }
+
+  .prose p {
+    @apply p;
+  }
+
+  .prose h1 {
+    @apply h1;
+  }
+
+  .prose h2 {
+    @apply h2;
+  }
+
+  .prose h3 {
+    @apply h3;
+  }
+
+  .prose h4 {
+    @apply h4;
+  }
+
+  .prose h5 {
+    @apply h5;
+  }
+
+  .prose h6 {
+    @apply h6;
   }
 
   .prose p,

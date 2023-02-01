@@ -39,9 +39,10 @@ const availableAuthors: Author[] = [
 ]
 interface Props {
   authors: string[]
+  enableLinks?: boolean
 }
 
-const { authors } = Astro.props
+const { authors, enableLinks } = Astro.props
 
 const authorsObject = authors.map((author) => {
   const matchedAuthor = availableAuthors.find(
@@ -58,18 +59,19 @@ const authorsObject = authors.map((author) => {
   {
     authorsObject.map((author) => (
       <a
-        class="flex gap-4 items-center hover:text-primary transition"
-        href={author.url}
-        target="_blank"
+        href={enableLinks ? author.url : undefined}
+        class={enableLinks ? 'transition hover:text-primary' : undefined}
       >
-        <img
-          src={author.imageSrc}
-          alt="Author image"
-          class="w-12 rounded-[24px]"
-        />
-        <div class="flex flex-col gap-1">
-          <p>{author.name}</p>
-          <div class="small-caps">{author.title}</div>
+        <div class="flex gap-4 items-center">
+          <img
+            src={author.imageSrc}
+            alt="Author image"
+            class="w-12 rounded-[24px]"
+          />
+          <div class="flex flex-col gap-1">
+            <p>{author.name}</p>
+            <div class="small-caps">{author.title}</div>
+          </div>
         </div>
       </a>
     ))
