@@ -1,0 +1,76 @@
+{
+  "index_uid": "docs-dev",
+  "start_urls": [
+    {
+      "url": "https://tauri-dev.netlify.app/it/",
+      "extra_attributes": { "lang": ["it"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/fr/",
+      "extra_attributes": { "lang": ["fr"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/ko/",
+      "extra_attributes": { "lang": ["ko"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/zh-cn/",
+      "extra_attributes": { "lang": ["zn-cn"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/",
+      "extra_attributes": { "lang": ["en"] }
+    }
+  ],
+  "stop_urls": [],
+  "sitemap_urls": ["https://tauri-dev.netlify.app/sitemap-index.xml"],
+  "custom_settings": {
+    "filterableAttributes": ["lang"]
+  },
+  "selectors": {
+    "default": {
+      "lvl0": "main h1",
+      "lvl1": "main h2",
+      "lvl2": "main h3",
+      "lvl3": "main h4",
+      "lvl4": "main h5",
+      "text": "main p, main li"
+    },
+    "guides": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Documentation"
+      },
+      "lvl1": "main h1",
+      "lvl2": "main h2",
+      "lvl3": "main h3",
+      "lvl4": "main h4",
+      "lvl5": "main h5",
+      "text": "main p, main li"
+    },
+    "api-js": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "JS API"
+      },
+      "lvl1": "main h1",
+      "lvl2": "main h2",
+      "lvl3": "main h3",
+      "lvl4": "main h4",
+      "lvl5": "main h5",
+      "text": "main :not(blockquote) > p, main li"
+    },
+    "references": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "References"
+      },
+      "lvl1": "main h1",
+      "lvl2": "main h2",
+      "lvl3": "main h3",
+      "lvl4": "main h4",
+      "lvl5": "main h5",
+      "text": "main p, main li"
+    }
+  }
+}

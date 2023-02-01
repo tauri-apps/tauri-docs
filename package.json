@@ -24,6 +24,7 @@
     "@types/marked": "^4.0.8",
     "astro": "^2.0.1",
     "astro-i18n": "^1.6.4",
+    "docs-searchbar.js": "^2.4.1",
     "marked": "^4.2.5",
     "tailwindcss": "^3.2.4",
     "unplugin-icons": "^0.15.1"
