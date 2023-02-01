@@ -313,16 +313,16 @@
     @apply transition text-primary underline decoration-transparent hover:decoration-primary;
   }
 
-  .prose figure {
-    @apply px-8;
-  }
-
   .prose figcaption {
     @apply italic;
   }
 
   .prose img {
-    @apply mx-auto;
+    @apply px-8 mx-auto;
+  }
+
+  .prose table {
+    @apply block overflow-x-auto whitespace-nowrap;
   }
 
   .prose code {
