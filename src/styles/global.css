@@ -314,7 +314,15 @@
   }
 
   .prose figure {
-    @apply lg:max-w-[calc(100%-64px)] mx-auto;
+    @apply px-8;
+  }
+
+  .prose figcaption {
+    @apply italic;
+  }
+
+  .prose img {
+    @apply mx-auto;
   }
 
   .prose code {
