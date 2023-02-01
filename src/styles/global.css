@@ -24,6 +24,7 @@
     --color-danger: 178 54 37;
 
     --nav-height: 80px;
+    --sidebar-width: 12rem;
   }
 
   /***************/
@@ -223,18 +224,16 @@
   /* Card */
   /********/
   .card {
-    @apply p-4 bg-base-content/5 rounded-lg;
+    @apply bg-base-content/5 rounded-lg transition;
   }
-  .card,
-  .card * {
-    @apply transition;
-  }
-  .card:hover,
   .card:hover * {
     @apply text-primary;
   }
   .card:hover {
     @apply bg-base-content/10;
+  }
+  .card-body {
+    @apply p-4;
   }
 
   /*********/
