@@ -42,8 +42,7 @@ Tauri allows you to build "[local first](https://twitter.com/schickling/status/1
 
 <figcaption>
   <i>
-    Johannes Schickling at Worker Conf 2022 (photo by{' '}
-    <a href="https://twitter.com/TejasKumar_">@TejasKumar via Twitter</a>)
+    Johannes Schickling at Worker Conf 2022 (photo by <a href="https://twitter.com/TejasKumar_">@TejasKumar via Twitter</a>)
   </i>
 </figcaption>
 
@@ -246,103 +245,103 @@ Here are a few notable contributors we'd like to thank explicitly:
 
 We'd like to wrap up by highlighting comments from just a small handful of core Tauri contributors:
 
-[Amr Bashir](https://github.com/amrbashir)
+**[Amr Bashir](https://github.com/amrbashir)**
 
-**What feature are you most excited about?**  
-The customizations we offer for the window but that's because it is what I mostly worked on. I am also excited about how Tauri will change the mindset of some people and help them build secure apps by default.
+> **What feature are you most excited about?**  
+> The customizations we offer for the window but that's because it is what I mostly worked on. I am also excited about how Tauri will change the mindset of some people and help them build secure apps by default.
 
-**What is your proudest moment/contribution with Tauri?**  
-Probably when I removed about 20 lines of code in favor of only 3 lines. I wrote both and that's why it felt special, because it was an indicator of how much I've grown as a developer.
+> **What is your proudest moment/contribution with Tauri?**  
+> Probably when I removed about 20 lines of code in favor of only 3 lines. I wrote both and that's why it felt special, because it was an indicator of how much I've grown as a developer.
 
-[Chip Reed](https://github.com/chippers)
+**[Chip Reed](https://github.com/chippers)**
 
-**What feature are you most excited about?**  
-Not needing to use `--locked` when installing the CLI.
+> **What feature are you most excited about?**  
+> Not needing to use `--locked` when installing the CLI.
 
-**What is your proudest moment/contribution with Tauri?**  
-Building the Isolation Pattern
+> **What is your proudest moment/contribution with Tauri?**  
+> Building the Isolation Pattern
 
-[Didrik Nordström](https://github.com/betamos/)
+**[Didrik Nordström](https://github.com/betamos/)**
 
-**What feature are you most excited about?**  
-File drag & drop.
+> **What feature are you most excited about?**  
+> File drag & drop.
 
-**What is your proudest moment/contribution with Tauri?**  
-Quality/stability: Tracking down and fixing a segmentation fault: https://github.com/h4llow3En/mac-notification-sys/pull/40
+> **What is your proudest moment/contribution with Tauri?**  
+> Quality/stability: Tracking down and fixing a segmentation fault: https://github.com/h4llow3En/mac-notification-sys/pull/40
 
-[Fabian-Lars](https://github.com/FabianLars)
+**[Fabian-Lars](https://github.com/FabianLars)**
 
-**What feature are you most excited about?**  
-Is "All of them" a valid answer?
+> **What feature are you most excited about?**  
+> Is "All of them" a valid answer?
 
-**What is your proudest moment/contribution with Tauri?**  
-Hmm, probably when I was asked to join the team. Fixing AppImages again and again and again is a close second...
+> **What is your proudest moment/contribution with Tauri?**  
+> Hmm, probably when I was asked to join the team. Fixing AppImages again and again and again is a close second...
 
-[Jonas Kruckenberg](https://github.com/JonasKruckenberg)
+**[Jonas Kruckenberg](https://github.com/JonasKruckenberg)**
 
-**What feature are you most excited about?**  
-The auto-updater is pretty great but plugins are very dear to me and definitely the most promising feature of Tauri!
+> **What feature are you most excited about?**  
+> The auto-updater is pretty great but plugins are very dear to me and definitely the most promising feature of Tauri!
 
-**What is your proudest moment/contribution with Tauri?**  
-Moderating the tauri-awesome repo. Seeing so many strangers build cool things with and for the work you've been doing. That's a really great feeling.
+> **What is your proudest moment/contribution with Tauri?**  
+> Moderating the tauri-awesome repo. Seeing so many strangers build cool things with and for the work you've been doing. That's a really great feeling.
 
-[Kasper Henningsen](https://github.com/probablykasper)
+**[Kasper Henningsen](https://github.com/probablykasper)**
 
-**What inspired you to join Tauri?**  
-I was making a few Tauri apps, and just found some features/improvements I wanted to go for.
+> **What inspired you to join Tauri?**  
+> I was making a few Tauri apps, and just found some features/improvements I wanted to go for.
 
-[Laegel](https://github.com/laegel)
+**[Laegel](https://github.com/laegel)**
 
-**What feature are you most excited about?**  
-It may sound silly but I love customizing stuff, so the possibility to make almost anything with our windows appearance is neat.
+> **What feature are you most excited about?**  
+> It may sound silly but I love customizing stuff, so the possibility to make almost anything with our windows appearance is neat.
 
-**What is your proudest moment/contribution with Tauri?**  
-Creating the foundations of Tauri docs as we know them today and trying to provide clean and easy to understand docs.
+> **What is your proudest moment/contribution with Tauri?**  
+> Creating the foundations of Tauri docs as we know them today and trying to provide clean and easy to understand docs.
 
-[lemarier](https://github.com/lemarier)
+**[lemarier](https://github.com/lemarier)**
 
-**What feature are you most excited about?**  
-Pretty much everything, getting Tauri out of a proof of concept to something stable is a huge milestone.
+> **What feature are you most excited about?**  
+> Pretty much everything, getting Tauri out of a proof of concept to something stable is a huge milestone.
 
-**What is your proudest moment/contribution with Tauri?**  
-TAO and all under laying features (menus, trays, etc..), benchmarks and the proof of concept for iOS.
+> **What is your proudest moment/contribution with Tauri?**  
+> TAO and all under laying features (menus, trays, etc..), benchmarks and the proof of concept for iOS.
 
-[Lorenzo Lewis](https://github.com/lorenzolewis)
+**[Lorenzo Lewis](https://github.com/lorenzolewis)**
 
-**What feature are you most excited about?**  
-Overall resource efficiency. We've all been where we have a handful of "native" web apps running on our machine and it grinds to a halt. I'm ready for those small bundle sizes!
+> **What feature are you most excited about?**  
+> Overall resource efficiency. We've all been where we have a handful of "native" web apps running on our machine and it grinds to a halt. I'm ready for those small bundle sizes!
 
-**What is your proudest moment/contribution with Tauri?**  
-The overall tauri.app website. It was in a really good place when I joined, but I knew I could help boost it up to the next level. Even things like picking a title for a sidebar can take a long time with all the discussions, but at the end of the day we all have the best output from putting our heads together.
+> **What is your proudest moment/contribution with Tauri?**  
+> The overall tauri.app website. It was in a really good place when I joined, but I knew I could help boost it up to the next level. Even things like picking a title for a sidebar can take a long time with all the discussions, but at the end of the day we all have the best output from putting our heads together.
 
-[Lucas Nogueira](https://github.com/lucasfernog)
+**[Lucas Nogueira](https://github.com/lucasfernog)**
 
-**What feature are you most excited about?**  
-Plugins!
+> **What feature are you most excited about?**  
+> Plugins!
 
-**What are you most excited about now that the launch is through?**  
-MOBILE and the upcoming egui integration launch
+> **What are you most excited about now that the launch is through?**  
+> MOBILE and the upcoming egui integration launch
 
-[Noah Klayman](https://github.com/nklayman)
+**[Noah Klayman](https://github.com/nklayman)**
 
-**What feature are you most excited about?**  
-Auto-updater. It's really hard to get something that complex right and Tauri has done a fantastic job.
+> **What feature are you most excited about?**  
+> Auto-updater. It's really hard to get something that complex right and Tauri has done a fantastic job.
 
-**What is your proudest moment/contribution with Tauri?**  
-Getting the custom protocol based asset loader to work, especially on Windows.
+> **What is your proudest moment/contribution with Tauri?**  
+> Getting the custom protocol based asset loader to work, especially on Windows.
 
-secdude
+**secdude**
 
-**What feature are you most excited about?**  
-Conditional compilation of features by default.
+> **What feature are you most excited about?**  
+> Conditional compilation of features by default.
 
-**What is your proudest moment/contribution with Tauri?**  
-:shrug: v1 I guess
+> **What is your proudest moment/contribution with Tauri?**  
+> :shrug: v1 I guess
 
-[Wu Yu-Wei](https://github.com/wusyong)
+**[Wu Yu-Wei](https://github.com/wusyong)**
 
-**What feature are you most excited about?**  
-Auto-updater I think. A built-in OTA feature feels pretty handy.
+> **What feature are you most excited about?**  
+> Auto-updater I think. A built-in OTA feature feels pretty handy.
 
-**What is your proudest moment/contribution with Tauri?**  
-Published wry crate and particular in this commit: https://github.com/tauri-apps/wry/commit/722e1212a4795f5f81638667cbd31bc53a5d27ed
+> **What is your proudest moment/contribution with Tauri?**  
+> Published wry crate and particular in this commit: https://github.com/tauri-apps/wry/commit/722e1212a4795f5f81638667cbd31bc53a5d27ed

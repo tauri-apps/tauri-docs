@@ -11,6 +11,7 @@ module.exports = {
       lg: '16px',
     },
     colors: {
+      transparent: 'transparent',
       'base-100': 'rgb(var(--color-base-100) / <alpha-value>)',
       'base-200': 'rgb(var(--color-base-200) / <alpha-value>)',
       'base-300': 'rgb(var(--color-base-300) / <alpha-value>)',
@@ -35,29 +36,6 @@ module.exports = {
         mono: ['IBM Plex Mono', ...fontFamily.mono],
         ...fontFamily,
       },
-      typography: ({ theme }) => ({
-        DEFAULT: {
-          css: {
-            '--tw-prose-body': theme('colors.base-content'),
-            '--tw-prose-headings': theme('colors.base-content'),
-            '--tw-prose-lead': theme('colors.base-content'),
-            '--tw-prose-links': theme('colors.primary'),
-            '--tw-prose-bold': theme('colors.base-content'),
-            // '--tw-prose-counters': theme('colors.pink[600]'),
-            '--tw-prose-bullets': theme('colors.base-content'),
-            '--tw-prose-hr': theme('colors.base-content'),
-            '--tw-prose-quotes': theme('colors.base-content'),
-            // '--tw-prose-quote-borders': theme('colors.pink[300]'),
-            '--tw-prose-captions': theme('colors.base-content'),
-            '--tw-prose-code': theme('colors.base-content'),
-            // '--tw-prose-pre-code': theme('colors.pink[100]'),
-            // '--tw-prose-pre-bg': theme('colors.pink[900]'),
-            // '--tw-prose-th-borders': theme('colors.pink[300]'),
-            // '--tw-prose-td-borders': theme('colors.pink[200]'),
-          },
-        },
-      }),
     },
   },
-  plugins: [require('@tailwindcss/typography')],
 }

@@ -1,8 +1,8 @@
 ---
 import Author from '@src/components/Blog/Author.astro'
+import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
 import { geti18nCollection } from '@src/utils'
-import type { MarkdownHeading } from 'astro'
 import { astroI18n, t } from 'astro-i18n'
 
 export async function getStaticPaths() {
@@ -19,16 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
-let { Content, headings }: { Content: any; headings: MarkdownHeading[] } =
-  await entry.render()
-const minHeading = headings.reduce(
-  (a, heading) => (a < heading.depth ? a : heading.depth),
-  6
-)
-const headingsWithIndention = headings.map((heading) => ({
-  ...heading,
-  indention: `pl-${(heading.depth - minHeading) * 2}`,
-}))
+let { Content, headings } = await entry.render()
 ---
 
 <Layout title={entry.data.meta_title}>
@@ -40,27 +31,20 @@ const headingsWithIndention = headings.map((heading) => ({
     <Author authors={entry.data.authors} />
     {
       entry.data.imageSrc && (
-        <img src={entry.data.imageSrc} alt={t('blog.post-image')} />
+        <img
+          src={entry.data.imageSrc}
+          alt={t('blog.post-image')}
+          class="rounded-lg"
+        />
       )
     }
     {entry.data.meta_description && <div>{entry.data.meta_description}</div>}
 
-    <main class="prose max-w-none">
+    <main class="prose">
       <Content />
     </main>
   </div>
   <div slot="trailing-sidebar">
-    <div class="small-caps">{t('layout.on-this-page')}</div>
-    <ul>
-      {
-        headingsWithIndention.map((heading) => (
-          <li>
-            <a class={heading.indention} href={`#${heading.slug}`}>
-              {heading.text}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <OnThisPage headings={headings} />
   </div>
 </Layout>

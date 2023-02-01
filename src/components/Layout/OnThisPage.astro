@@ -1,22 +1,35 @@
 ---
 import type { MarkdownHeading } from 'astro'
 
+// FIXME: Indention for hover effect needs to be fixed, should be lined up vertically between li's
+
 interface Props {
   headings: MarkdownHeading[]
 }
 
 const { headings } = Astro.props
+
+const minHeading = headings.reduce(
+  (a, heading) => (a < heading.depth ? a : heading.depth),
+  6
+)
+const headingsWithIndention = headings.map((heading) => ({
+  ...heading,
+  indention: `${(heading.depth - minHeading + 1) * 2}`,
+}))
 ---
 
 <div>
-  <div class="small-caps">On this page</div>
-
+  <div class="pl-2 small-caps">On this page</div>
   <ul>
     {
-      headings.map((heading) => (
+      headingsWithIndention.map((heading) => (
         <li>
-          <a href={`#${heading.slug}`}>
-            {heading.depth}: {heading.text}
+          <a
+            href={`#${heading.slug}`}
+            class={`nav-link before:left-4 before:transition before:border-l-2 before:rounded before:border-transparent hover:before:border-base-content py-1 pl-${heading.indention} w-full`}
+          >
+            {heading.text}
           </a>
         </li>
       ))

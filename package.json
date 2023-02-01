@@ -20,7 +20,6 @@
     "@fontsource/ibm-plex-mono": "^4.5.13",
     "@fontsource/rubik": "^4.5.13",
     "@iconify-json/bi": "^1.1.14",
-    "@tailwindcss/typography": "^0.5.9",
     "@types/json-schema": "^7.0.11",
     "@types/marked": "^4.0.8",
     "astro": "^2.0.1",

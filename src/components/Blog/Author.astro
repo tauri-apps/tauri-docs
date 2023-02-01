@@ -57,19 +57,21 @@ const authorsObject = authors.map((author) => {
 <div class="flex gap-4">
   {
     authorsObject.map((author) => (
-      <div class="flex gap-4 items-center">
+      <a
+        class="flex gap-4 items-center hover:text-primary transition"
+        href={author.url}
+        target="_blank"
+      >
         <img
           src={author.imageSrc}
           alt="Author image"
           class="w-12 rounded-[24px]"
         />
         <div class="flex flex-col gap-1">
-          <a href={author.url} target="_blank" class="text-base-content">
-            {author.name}
-          </a>
+          <p>{author.name}</p>
           <div class="small-caps">{author.title}</div>
         </div>
-      </div>
+      </a>
     ))
   }
 </div>
