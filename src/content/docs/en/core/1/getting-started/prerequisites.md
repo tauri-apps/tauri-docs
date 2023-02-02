@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1
+meta_title: Prerequisites
+meta_position: 1
 ---
 
 # Prerequisites

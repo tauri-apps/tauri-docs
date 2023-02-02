@@ -1,4 +1,5 @@
 ---
+meta_title: HTML, CSS and JavaScript
 description: Build a Tauri app using HTML, CSS, and JavaScript using either Node or Cargo
 sidebar_position: 2
 sidebar_custom_props:
@@ -11,7 +12,7 @@ import Commands from './\_fragments/\_commands.mdx'
 import Intro from './\_fragments/\_intro.mdx'
 import Command from '@theme/Command'
 
-# HTML, CSS, and JavaScript
+# HTML, CSS and JavaScript
 
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 

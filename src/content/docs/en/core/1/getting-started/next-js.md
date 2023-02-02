@@ -1,4 +1,5 @@
 ---
+meta_title: Next.js
 description: Build a Tauri app using Next.js as the frontend build tool
 pagination_next: guides/development/development-cycle
 sidebar_position: 3

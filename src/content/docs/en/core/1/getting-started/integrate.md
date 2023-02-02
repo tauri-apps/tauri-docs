@@ -1,6 +1,8 @@
 ---
+meta_title: Integrate
+meta_position: 6
 description: If you already have an existing web project you can integrate Tauri into it
-sidebar_position: 6
+
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/integrate-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/integrate-dark.svg
