@@ -2,7 +2,7 @@
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Translate from '@src/components/Layout/Translate.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
-import { geti18nCollection } from '@src/utils'
+import { geti18nCollection, convertCollectionToTree } from '@src/utils'
 import { astroI18n, t } from 'astro-i18n'
 
 export async function getStaticPaths() {
@@ -14,11 +14,13 @@ export async function getStaticPaths() {
     },
     props: {
       entry,
+      collection,
     },
   }))
 }
 
-const { entry } = Astro.props
+const { entry, collection } = Astro.props
+const tree = convertCollectionToTree(collection)
 
 const { Content, headings } = await entry.render()
 ---
@@ -27,6 +29,7 @@ const { Content, headings } = await entry.render()
   <div slot="leading-sidebar">
     <ul>
       <li class="list-heading">{t('layout.related-pages')}</li>
+      <!-- {tree.map((entry) => <li class="list-item">{entry.slug}</li>)} -->
     </ul>
   </div>
   <div class="prose">

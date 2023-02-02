@@ -1,12 +1,10 @@
 import { astroI18n } from 'astro-i18n'
-import { getCollection, getEntryBySlug } from 'astro:content'
-import type { collections } from './content/config'
+import { CollectionEntry, getCollection, getEntryBySlug } from 'astro:content'
+import type { getCollection as CollectionType } from 'astro:content'
 
-export async function geti18nCollection<C extends keyof typeof collections>(
-  collection: C,
-  lang: LangCode,
-  slugStartsWith?: string
-) {
+export async function geti18nCollection<
+  C extends Parameters<typeof CollectionType>[0]
+>(collection: C, lang: LangCode, slugStartsWith?: string) {
   // Get entries from a collection for the default lang
   const defaultLangCollection = await getCollection(collection, ({ slug }) =>
     slug.startsWith(
@@ -51,27 +49,15 @@ export async function geti18nCollection<C extends keyof typeof collections>(
 }
 
 export interface TreeNode {
-  name: string
-  description?: string
   slug: string
   children?: TreeNode[]
 }
 
-export async function convertCollectionToTree<
-  C extends keyof typeof collections
->(
-  collection: C,
-  lang: LangCode,
-  startsWith?: string,
-  maxDepth?: number,
-  baseUrl?: string
-): Promise<TreeNode[]> {
-  let entries = await geti18nCollection(collection, lang, startsWith)
-
-  if (maxDepth) {
-    entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
-  }
-
+export function convertCollectionToTree<
+  C extends Parameters<typeof CollectionType>[0]
+>(entries: CollectionEntry<C>[]): TreeNode[] {
+  // This sort should read the data of an entry and first sort on meta_position if
+  // it exists, else meta_title if it exists, else slug
   entries.sort((a, b) => {
     if (a.data && b.data) {
       if (a.data.meta_position && b.data.meta_position) {
@@ -85,10 +71,9 @@ export async function convertCollectionToTree<
     return 0
   })
 
+  // This is where the nice nesting can happen
   return entries.map((entry) => {
     const node: TreeNode = {
-      name: entry.data.meta_title ?? entry.slug,
-      description: entry.data.meta_description,
       slug: entry.slug,
       children: undefined,
     }

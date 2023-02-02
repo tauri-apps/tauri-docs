@@ -15,7 +15,7 @@ const { title, leadingSidebar } = Astro.props
     <div
       class={`hidden ${
         leadingSidebar && 'bg-base-100'
-      } lg:block fixed top-[var(--nav-height)] pl-4 left-0 bottom-0 w-[var(--sidebar-width)] pt-8`}
+      } lg:block fixed top-[var(--nav-height)] pl-4 left-0 bottom-0 w-[var(--sidebar-width)] pt-8 overflow-y-auto`}
     >
       <slot name="leading-sidebar" />
     </div>
