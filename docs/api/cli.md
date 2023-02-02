@@ -155,6 +155,9 @@ Options:
   -c, --config <CONFIG>
           JSON string or path to JSON file to merge with tauri.conf.json
 
+      --ci
+          Skip prompting for values
+
   -h, --help
           Print help information (use `-h` for a summary)
 
@@ -181,6 +184,7 @@ Arguments:
 Options:
   -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
   -v, --verbose...       Enables verbose logging
+  -p, --png <PNG>        Custom PNG icon sizes to generate. When set, the default icons are not generated
   -h, --help             Print help information
   -V, --version          Print version information
 ```
