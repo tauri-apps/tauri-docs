@@ -1,6 +1,7 @@
 import { astroI18n } from 'astro-i18n'
 import { CollectionEntry, getCollection, getEntryBySlug } from 'astro:content'
 import type { getCollection as CollectionType } from 'astro:content'
+import fs from 'fs/promises'
 
 export async function geti18nCollection<
   C extends Parameters<typeof CollectionType>[0]
@@ -71,12 +72,44 @@ export function convertCollectionToTree<
     return 0
   })
 
-  // This is where the nice nesting can happen
-  return entries.map((entry) => {
-    const node: TreeNode = {
-      slug: entry.slug,
-      children: undefined,
-    }
-    return node
-  })
+  const entriesMap = entries.reduce(
+    (obj, { slug, ...data }: { slug: string }) => {
+      const slugArray = slug.split('/')
+      slugArray.reduce((currentParent, slugSection, i) => {
+        let leaf = ((currentParent.children ??= {})[slugSection] ??= {
+          ...(i === slugArray.length - 1 ? data : {}),
+        })
+
+        return leaf
+      }, obj)
+
+      return obj
+    },
+    {} as EntryMap[string]
+  )
+
+  const tree = recurseTreeNodes(entriesMap.children)
+
+  fs.writeFile('docs.json', JSON.stringify({ tree, entries }, null, 4))
+  return tree
+}
+
+type EntryMap = {
+  [K: string]: {
+    children?: EntryMap
+  }
+}
+
+function recurseTreeNodes(obj: EntryMap, parent?: string) {
+  return Object.entries(obj).map(
+    ([slug, { children, ...data }]): TreeNode => ({
+      slug: `${parent ?? ''}${slug}`,
+      ...data,
+      ...(children
+        ? {
+            children: recurseTreeNodes(children, `${parent ?? ''}${slug}/`),
+          }
+        : {}),
+    })
+  )
 }
