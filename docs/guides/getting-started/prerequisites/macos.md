@@ -44,7 +44,13 @@ Make sure to restart your terminal for the changes to take effect.
 
 ## Android
 
-To setup your Linux machine for Android development you can either install Android Studio or download the tools separetely.
+First make sure to install the required rust android targets:
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+To setup your macOS machine for Android development you can then either install Android Studio or download the tools separetely.
 
 ### Android Studio
 
@@ -68,6 +74,16 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
 ```
 
 <AndroidStandaloneSetup platform="macos" />
+
+## iOS
+
+First make sure Xcode is properly installed. <!-- TODO: explain what this means -->
+
+Then install the required rust iOS targets:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
 
 ## Managing The Rust Installation
 

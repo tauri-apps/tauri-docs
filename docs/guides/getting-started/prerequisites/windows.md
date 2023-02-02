@@ -58,7 +58,13 @@ rustup default stable-msvc
 
 ## Android
 
-To setup your Windows machine for Android development you can either install Android Studio or download the tools separetely.
+First make sure to install the required rust android targets:
+
+```powershell
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+To setup your Windows machine for Android development you can then either install Android Studio or download the tools separetely.
 
 ### Android Studio
 
