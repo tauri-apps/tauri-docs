@@ -75,13 +75,14 @@ export function convertCollectionToTree<
   const entriesMap = entries.reduce(
     (obj, { slug, ...data }: { slug: string }) => {
       const slugArray = slug.split('/')
-      slugArray.reduce((currentParent, slugSection, i) => {
-        let leaf = ((currentParent.children ??= {})[slugSection] ??= {
-          ...(i === slugArray.length - 1 ? data : {}),
-        })
+
+      const leaf = slugArray.reduce((currentParent, slugSection, i) => {
+        let leaf = ((currentParent.children ??= {})[slugSection] ??= {})
 
         return leaf
       }, obj)
+
+      Object.assign(leaf, data)
 
       return obj
     },
@@ -90,7 +91,10 @@ export function convertCollectionToTree<
 
   const tree = recurseTreeNodes(entriesMap.children)
 
-  fs.writeFile('docs.json', JSON.stringify({ tree, entries }, null, 4))
+  fs.writeFile(
+    'docs.json',
+    JSON.stringify({ entries, entriesMap, tree }, null, 4)
+  )
   return tree
 }
 
