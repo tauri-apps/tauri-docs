@@ -72,10 +72,12 @@ export function convertCollectionToTree<
     return 0
   })
 
+  // Transforms flattened array to EntryMap format,
   const entriesMap = entries.reduce(
     (obj, { slug, ...data }: { slug: string }) => {
       const slugArray = slug.split('/')
 
+      // Creates all parent entries that don't exist
       const leaf = slugArray.reduce(
         (parent, slug) => ((parent.children ??= {})[slug] ??= {}),
         obj
@@ -97,14 +99,18 @@ type EntryMap = {
   }
 }
 
-function recurseTreeNodes(obj: EntryMap, parent?: string) {
+// Converts an `EntryMap` key-value tree to an array based `TreeNode` tree
+function recurseTreeNodes(obj: EntryMap, parent = '') {
   return Object.entries(obj).map(
     ([slug, { children, ...data }]): TreeNode => ({
-      slug: `${parent ?? ''}${slug}`,
+      // `slug` is the leaf slug, so it must be joined to the
+      // rest of the parent path
+      slug: `${parent}${slug}`,
       ...data,
+      // children shouldn't be defined if there aren't any
       ...(children
         ? {
-            children: recurseTreeNodes(children, `${parent ?? ''}${slug}/`),
+            children: recurseTreeNodes(children, `${parent}${slug}/`),
           }
         : {}),
     })
