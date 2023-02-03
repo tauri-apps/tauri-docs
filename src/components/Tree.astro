@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { l } from 'astro-i18n'
+import { convertCollectionToTree } from '@src/utils'
 import TreeNode from './TreeNode.astro'
 
 interface Props {
@@ -14,36 +15,17 @@ interface Props {
 
 let { entries, baseUrl, maxDepth, startsWith } = Astro.props
 
-if (startsWith) {
-  entries = entries.filter((entry) => entry.slug.startsWith(startsWith))
-}
+const tree = convertCollectionToTree(entries)
 
-if (maxDepth) {
-  entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
-}
+// if (startsWith) {
+//   entries = entries.filter((entry) => entry.slug.startsWith(startsWith))
+// }
 
-entries.sort((a, b) => {
-  if (a.data.sidebar_position && b.data.sidebar_position) {
-    // Use sidebar position primarily
-    return a.data.sidebar_position - b.data.sidebar_position
-  } else if (a.data.sidebar_title && b.data.sidebar_title) {
-    // Else use the title
-    return a.data.sidebar_title.localeCompare(b.data.sidebar_title)
-  } else {
-    // Else just use the passed order
-    return 0
-  }
-})
+// if (maxDepth) {
+//   entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
+// }
 ---
 
 <ul>
-  {
-    entries.map((entry, index) => (
-      <li>
-        <a href={l(`${baseUrl ? `${baseUrl}/` : ''}${entry.slug}`)}>
-          {entry.data.sidebar_title || entry.slug}
-        </a>
-      </li>
-    ))
-  }
+  {tree.map((node) => <TreeNode node={node} />)}
 </ul>

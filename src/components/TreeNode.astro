@@ -1,18 +1,15 @@
 ---
+import type { TreeNode } from '@src/utils'
+
 interface Props {
   node: TreeNode
 }
 
 const { node } = Astro.props
-
-interface TreeNode {
-  name: string
-  children: TreeNode[]
-}
 ---
 
 <li>
-  {node.name}
+  {node.slug}
   {
     node.children && (
       <ul class="pl-4">

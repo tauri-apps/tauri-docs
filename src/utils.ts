@@ -1,7 +1,6 @@
 import { astroI18n } from 'astro-i18n'
 import { CollectionEntry, getCollection, getEntryBySlug } from 'astro:content'
 import type { getCollection as CollectionType } from 'astro:content'
-import fs from 'fs/promises'
 
 export async function geti18nCollection<
   C extends Parameters<typeof CollectionType>[0]
