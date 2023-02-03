@@ -6,10 +6,12 @@ export async function geti18nCollection<
   C extends Parameters<typeof CollectionType>[0]
 >(collection: C, lang: LangCode, slugStartsWith?: string) {
   // Get entries from a collection for the default lang
-  const defaultLangCollection = await getCollection(collection, ({ slug }) =>
-    slug.startsWith(
-      `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
-    )
+  const defaultLangCollection: CollectionEntry<'docs'>[] = await getCollection(
+    collection,
+    ({ slug }) =>
+      slug.startsWith(
+        `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
+      )
   )
 
   // Iterate through each of the entries for the default lang
@@ -53,9 +55,9 @@ export interface TreeNode {
   children?: TreeNode[]
 }
 
-export function convertCollectionToTree<
-  C extends Parameters<typeof CollectionType>[0]
->(entries: CollectionEntry<C>[]): TreeNode[] {
+export function convertCollectionToTree(
+  entries: CollectionEntry<'docs'>[]
+): TreeNode[] {
   // This sort should read the data of an entry and first sort on meta_position if
   // it exists, else meta_title if it exists, else slug
   entries.sort((a, b) => {

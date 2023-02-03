@@ -27,19 +27,7 @@ const { Content, headings } = await entry.render()
 
 <Layout title="test docs post" leadingSidebar={true}>
   <div slot="leading-sidebar">
-    <Tree entries={collection} />
-    <!-- <ul>
-      <li class="list-heading">{t('layout.related-pages')}</li>
-      {
-        tree.map((entry) => (
-          <li>
-            <a href={l(`/docs/${entry.slug}`)} class="list-item">
-              {entry.slug}
-            </a>
-          </li>
-        ))
-      }
-    </ul> -->
+    <Tree entries={collection} baseUrl="docs" startAt={'core/1'} />
   </div>
   <div class="prose">
     <Content />

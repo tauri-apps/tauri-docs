@@ -1,20 +1,24 @@
 ---
 import type { TreeNode } from '@src/utils'
+import { l } from 'astro-i18n'
 
 interface Props {
   node: TreeNode
+  baseUrl?: string
 }
 
-const { node } = Astro.props
+const { node, baseUrl } = Astro.props
 ---
 
 <li>
-  {node.slug}
+  <a href={l(`${baseUrl ? baseUrl : ''}/${node.slug}`)} class="list-item">
+    {node.data?.meta_title ? node.data.meta_title : node.slug}
+  </a>
   {
     node.children && (
       <ul class="pl-4">
         {node.children.map((child) => (
-          <Astro.self node={child} />
+          <Astro.self node={child} baseUrl={baseUrl} />
         ))}
       </ul>
     )

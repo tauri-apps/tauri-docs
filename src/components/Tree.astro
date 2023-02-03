@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { l } from 'astro-i18n'
 import { convertCollectionToTree } from '@src/utils'
 import TreeNode from './TreeNode.astro'
+import type { TreeNode as TreeNodeType } from '@src/utils'
 
 interface Props {
   entries: CollectionEntry<'docs'>[]
@@ -10,22 +10,55 @@ interface Props {
   baseUrl?: string
   // Takes into account full slug
   maxDepth?: number
-  startsWith?: string
+  startAt?: string
 }
 
-let { entries, baseUrl, maxDepth, startsWith } = Astro.props
+let { entries, baseUrl, maxDepth, startAt } = Astro.props
 
 const tree = convertCollectionToTree(entries)
 
-// if (startsWith) {
-//   entries = entries.filter((entry) => entry.slug.startsWith(startsWith))
-// }
+function findStartAt(
+  tree: TreeNodeType[],
+  startAt?: string,
+  currentDepth?: number
+): TreeNodeType[] {
+  if (!startAt) {
+    return tree
+  }
 
-// if (maxDepth) {
-//   entries = entries.filter((entry) => entry.slug.split('/').length < maxDepth)
-// }
+  // Find the index of what we're looking for
+  const nestedIndex = tree.findIndex(
+    (node) =>
+      node.slug
+        .split('/')
+        .slice(0, currentDepth ? currentDepth : 1)
+        .join('/') ===
+      startAt
+        .split('/')
+        .slice(0, currentDepth ? currentDepth : 1)
+        .join('/')
+  )
+
+  if (nestedIndex != -1) {
+    // If it's the exact one, return it
+    if (tree[nestedIndex].slug === startAt) {
+      return tree[nestedIndex].children ?? []
+    }
+
+    // Otherwise, start iterating again
+    return findStartAt(
+      tree[nestedIndex].children ?? [],
+      startAt,
+      currentDepth ? currentDepth + 1 : 2
+    )
+  }
+
+  throw Error(`Couldn't find the object at the path '${startAt}'`)
+}
+
+const unnestedTree = findStartAt(tree, startAt)
 ---
 
 <ul>
-  {tree.map((node) => <TreeNode node={node} />)}
+  {unnestedTree.map((node) => <TreeNode node={node} baseUrl={baseUrl} />)}
 </ul>
