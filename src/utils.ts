@@ -62,11 +62,13 @@ export function convertCollectionToTree(
   // it exists, else meta_title if it exists, else slug
   entries.sort((a, b) => {
     if (a.data && b.data) {
+      // Use meta position primarily
       if (a.data.meta_position && b.data.meta_position) {
-        // Use meta position primarily
         return a.data.meta_position - b.data.meta_position
-      } else if (a.data.meta_title && b.data.meta_title) {
-        // Else use the title
+      }
+
+      // Else use the title
+      if (a.data.meta_title && b.data.meta_title) {
         return a.data.meta_title.localeCompare(b.data.meta_title)
       }
     }
