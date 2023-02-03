@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
   return collection.map((entry) => ({
     params: {
-      slug: entry.slug,
+      slug: `${astroI18n.langCode}/${entry.slug}`,
     },
     props: {
       entry,
@@ -29,7 +29,13 @@ const { Content, headings } = await entry.render()
   <div slot="leading-sidebar">
     <ul>
       <li class="list-heading">{t('layout.related-pages')}</li>
-      <!-- {tree.map((entry) => <li class="list-item">{entry.slug}</li>)} -->
+      {
+        tree.map((entry) => (
+          <li class="list-item">
+            <a href={`${entry.slug}`}>{entry.slug}</a>
+          </li>
+        ))
+      }
     </ul>
   </div>
   <div class="prose">

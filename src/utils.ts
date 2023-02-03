@@ -1,6 +1,7 @@
 import { astroI18n } from 'astro-i18n'
 import { CollectionEntry, getCollection, getEntryBySlug } from 'astro:content'
 import type { getCollection as CollectionType } from 'astro:content'
+import fs from 'fs/promises'
 
 export async function geti18nCollection<
   C extends Parameters<typeof CollectionType>[0]
@@ -71,12 +72,47 @@ export function convertCollectionToTree<
     return 0
   })
 
-  // This is where the nice nesting can happen
-  return entries.map((entry) => {
-    const node: TreeNode = {
-      slug: entry.slug,
-      children: undefined,
-    }
-    return node
-  })
+  // Transforms flattened array to EntryMap format,
+  const entriesMap = entries.reduce(
+    (obj, { slug, ...data }: { slug: string }) => {
+      const slugArray = slug.split('/')
+
+      // Creates all parent entries that don't exist
+      const leaf = slugArray.reduce(
+        (parent, slug) => ((parent.children ??= {})[slug] ??= {}),
+        obj
+      )
+
+      Object.assign(leaf, data)
+
+      return obj
+    },
+    {} as EntryMap[string]
+  )
+
+  return recurseTreeNodes(entriesMap.children)
+}
+
+type EntryMap = {
+  [K: string]: {
+    children?: EntryMap
+  }
+}
+
+// Converts an `EntryMap` key-value tree to an array based `TreeNode` tree
+function recurseTreeNodes(obj: EntryMap, parent = '') {
+  return Object.entries(obj).map(
+    ([slug, { children, ...data }]): TreeNode => ({
+      // `slug` is the leaf slug, so it must be joined to the
+      // rest of the parent path
+      slug: `${parent}${slug}`,
+      ...data,
+      // children shouldn't be defined if there aren't any
+      ...(children
+        ? {
+            children: recurseTreeNodes(children, `${parent}${slug}/`),
+          }
+        : {}),
+    })
+  )
 }
