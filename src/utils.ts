@@ -58,21 +58,26 @@ export interface TreeNode {
 export function convertCollectionToTree(
   entries: CollectionEntry<'docs'>[]
 ): TreeNode[] {
-  // This sort should read the data of an entry and first sort on meta_position if
-  // it exists, else meta_title if it exists, else slug
+  entries
+    .filter((entry) => !!Object.keys(entry.data).length)
+    .forEach((entry) => console.log(entry.data))
+
+  // Sort first on meta_position, then meta_title, then slug
   entries.sort((a, b) => {
-    if (a.data && b.data) {
-      // Use meta position primarily
-      if (a.data.meta_position && b.data.meta_position) {
+    // return a.data?.meta_position - b.data?.meta_position
+    if (a.data.meta_position) {
+      if (b.data.meta_position) {
         return a.data.meta_position - b.data.meta_position
       }
-
-      // Else use the title
-      if (a.data.meta_title && b.data.meta_title) {
-        return a.data.meta_title.localeCompare(b.data.meta_title)
-      }
+      // Use meta position
+      return -1
     }
-    return 0
+    // Else use the title
+    if (a.data.meta_title) {
+      // return a.data.meta_title.localeCompare(b.data.meta_title ?? b.slug)
+    }
+
+    return a.slug.localeCompare(b.slug)
   })
 
   // Transforms flattened array to EntryMap format,

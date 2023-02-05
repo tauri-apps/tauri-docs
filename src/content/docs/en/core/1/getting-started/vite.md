@@ -1,7 +1,7 @@
 ---
 meta_title: Vite
+meta_position: 5
 description: Build a Tauri app using Vite as the frontend build tool
-sidebar_position: 5
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/vite.svg
 ---

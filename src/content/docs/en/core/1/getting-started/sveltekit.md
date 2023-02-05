@@ -1,7 +1,7 @@
 ---
 meta_title: SvelteKit
+meta_position: 4
 description: Build a Tauri app using SvelteKit as the frontend build tool
-sidebar_position: 4
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/svelte.svg
 ---
