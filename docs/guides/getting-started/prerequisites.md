@@ -29,7 +29,7 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 :::note
 
-WebView2 is pre-installed in Windows 11
+On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 
 :::
 
