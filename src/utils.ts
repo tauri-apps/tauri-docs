@@ -58,9 +58,7 @@ export interface TreeNode {
 export function convertCollectionToTree(
   entries: CollectionEntry<'docs'>[]
 ): TreeNode[] {
-  entries
-    .filter((entry) => !!Object.keys(entry.data).length)
-    .forEach((entry) => console.log(entry.data))
+  entries.filter((entry) => !!Object.keys(entry.data).length)
 
   // Sort first on meta_position, then meta_title, then slug
   entries.sort((a, b) => {
