@@ -45,7 +45,7 @@ A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the spe
 rustc -Vv | grep host | cut -f2 -d' '
 ```
 
-In Rust, you can also obtain the host triple using [`rustc_host::from_cli()`] from [`rustc-host`](https://crates.io/crates/rustc-host) crate.
+In Rust, you can also obtain the host triple using [`rustc_host::from_cli()`] function or `rustc-host` CLI binary from [`rustc-host`](https://crates.io/crates/rustc-host) combined (library + binary) crate.
 
 Here's a Node.js script to append the target triple to a binary:
 
