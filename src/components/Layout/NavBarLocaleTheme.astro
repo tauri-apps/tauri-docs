@@ -5,51 +5,59 @@ import IconCircleHalf from '~icons/bi/circle-half'
 import IconMoonStarsFill from '~icons/bi/moon-stars-fill'
 import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
 import { astroI18n, l, t } from 'astro-i18n'
+import DropdownMenu from './DropdownMenu.astro'
 ---
 
-<li class="z-nav-dropdown">
-  <label tabindex="0" aria-label={t('global.nav.locale-dropdown')}>
-    <IconTranslate />
-    <IconCaret class="text-xs" />
-  </label>
-  <ul>
-    {
-      astroI18n.langCodes.map((lang) => (
-        <li>
-          <a
-            href={l(String(Astro.url.pathname), undefined, lang)}
-            class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
-          >
-            {t(`global.locale.${lang}`)}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</li>
-<li class="z-nav-dropdown">
-  <label tabindex="0" aria-label={t('global.nav.theme-dropdown')}>
-    <IconCircleHalf />
-    <IconCaret class="text-xs" />
-  </label>
-  <ul>
-    <li>
-      <button class="!text-primary">
+{/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
+<>
+  <li>
+    <DropdownMenu label={t('global.nav.locale-dropdown')}>
+      <Fragment slot="toggle">
+        <IconTranslate />
+        <IconCaret class="text-xs" />
+      </Fragment>
+      <Fragment slot="items">
+        {
+          astroI18n.langCodes.map((lang) => (
+            <li>
+              <a
+                href={l(String(Astro.url.pathname), undefined, lang)}
+                class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
+              >
+                {t(`global.locale.${lang}`)}
+              </a>
+            </li>
+          ))
+        }
+      </Fragment>
+    </DropdownMenu>
+  </li>
+  <li>
+    <DropdownMenu label={t('global.nav.theme-dropdown')}>
+      <Fragment slot="toggle">
         <IconCircleHalf />
-        {t('global.nav.theme.system')}
-      </button>
-    </li>
-    <li>
-      <button>
-        <IconMoonStarsFill />
-        {t('global.nav.theme.dark')}
-      </button>
-    </li>
-    <li>
-      <button>
-        <IconBrightnessHighFill />
-        {t('global.nav.theme.light')}
-      </button>
-    </li>
-  </ul>
-</li>
+        <IconCaret class="text-xs" />
+      </Fragment>
+      <Fragment slot="items">
+        <li>
+          <button class="!text-primary">
+            <IconCircleHalf />
+            {t('global.nav.theme.system')}
+          </button>
+        </li>
+        <li>
+          <button>
+            <IconMoonStarsFill />
+            {t('global.nav.theme.dark')}
+          </button>
+        </li>
+        <li>
+          <button>
+            <IconBrightnessHighFill />
+            {t('global.nav.theme.light')}
+          </button>
+        </li>
+      </Fragment>
+    </DropdownMenu>
+  </li>
+</>

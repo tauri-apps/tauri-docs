@@ -40,12 +40,12 @@ import { l, t } from 'astro-i18n'
           class="h-10"
         />
       </a>
-      <ul class="menu menu-horizontal menu-hover">
+      <ul class="menu menu-horizontal">
         <NavBarLinks />
       </ul>
     </li>
     <li class="flex items-center">
-      <ul class="menu menu-horizontal menu-hover">
+      <ul class="menu menu-horizontal">
         <Social />
         <li class="border-x border-border rounded m-2"></li>
         <NavBarLocaleTheme />
@@ -96,8 +96,8 @@ import { l, t } from 'astro-i18n'
     <div
       class="content fixed inset-0 top-16 flex flex-col gap-4 bg-base-100 w-full z-mobile-nav px-8 py-4"
     >
-      <ul class="menu menu-inline">
-        <NavBarLinks />
+      <ul class="menu">
+        <NavBarLinks inlineMenu={true} />
       </ul>
       <ul class="menu menu-horizontal">
         <Social />
