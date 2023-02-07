@@ -50,7 +50,7 @@ import { l, t } from 'astro-i18n'
         <li class="border-x border-border rounded m-2"></li>
         <NavBarLocaleTheme />
       </ul>
-      <div class="pl-2">
+      <div class="ml-2">
         <Search />
       </div>
     </li>
@@ -68,6 +68,11 @@ import { l, t } from 'astro-i18n'
       </a>
       <ul class="menu menu-horizontal">
         <NavBarLocaleTheme />
+        <li>
+          <div class="!pt-2 !px-2 !pb-0">
+            <Search />
+          </div>
+        </li>
         <li>
           <label
             for="nav-drawer"
@@ -91,7 +96,6 @@ import { l, t } from 'astro-i18n'
     <div
       class="content fixed inset-0 top-16 flex flex-col gap-4 bg-base-100 w-full z-mobile-nav px-8 py-4"
     >
-      <Search />
       <ul class="menu menu-inline">
         <NavBarLinks />
       </ul>

@@ -1,10 +1,13 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "moduleResolution": "nodenext",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]
     },
-    "types": ["unplugin-icons/types/astro"]
+    "types": ["unplugin-icons/types/astro"],
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   }
 }
