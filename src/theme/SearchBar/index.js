@@ -5,7 +5,6 @@ import 'meilisearch-docsearch/css'
 export default function Component() {
   useEffect(() => {
     const docsearch = require('meilisearch-docsearch').default
-
     docsearch({
       host: 'https://ms-4ebb96f179f0-1619.fra.meilisearch.io',
       apiKey:

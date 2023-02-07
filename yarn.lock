@@ -6083,18 +6083,18 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meilisearch-docsearch@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.2.0.tgz#3119b00afaebef0cd27cfc2686164cfa9c302f01"
-  integrity sha512-F8KqPh+d49b+YKT2DmX2EYISkhxIB7cgoATetbydXGbTlphF8GChxLsxI0wIZ8x7n7MJoYOBL8TZqk9JyBLPNA==
+meilisearch-docsearch@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.2.1.tgz#23f22f2f4c90ab66eff1597bdd8b79c54abec269"
+  integrity sha512-NzGL/A9EsmisMdsbvzmW7+UYS7cZ0BwUBW6VTVHF3sGFjTSl+dAQ3HWSXzHiRfdyCTPjjPKecDJ9N4nHElaj7Q==
   dependencies:
-    meilisearch "^0.30.0"
+    meilisearch "^0.31.0"
     solid-js "^1.6.9"
 
-meilisearch@^0.30.0:
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.30.0.tgz#707f9a6b07440c496b965379616e084f112160ae"
-  integrity sha512-3y1hALOwTDpquYar+gDREqRasFPWKxkWAhk6h+RF+nKObPVf9N77wcTNvukGwOKbxRyJnKge0OPgAB1BkB9VVw==
+meilisearch@^0.31.0:
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.31.1.tgz#c526274c3cda844e8ee8d9562cbd3febbe1b9508"
+  integrity sha512-ajMieU0e25lLkT+05J0snX0Ycow1UofxIy5sag03flERUbjXq8ouVwkrJkW27JsKftIeDeffRRRr89LasU9+0w==
   dependencies:
     cross-fetch "^3.1.5"
 
