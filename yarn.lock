@@ -6083,10 +6083,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meilisearch-docsearch@0.4:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.4.0.tgz#9eccd17120cb8f08ec3856e7f8128e5dbb922961"
-  integrity sha512-cQ8ccBPfLblHLZQtu11GvZvflI9Dkc/3f4d+QCU1/rGrdaGWXUuViZjfUaT3jqs9eKa4xWZaxHekeiRDKWJzsg==
+meilisearch-docsearch@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.4.1.tgz#942228c645326fa7254af54b116dae8107053125"
+  integrity sha512-dVEnHBBLU7NlgMa3LTb8p5WLnNUHsOj5ozArY7txhGwnjAF1SSv4FAry6CbzENn91yvpyz1aw7suLGNWk0JXvA==
   dependencies:
     meilisearch "^0.31.0"
     solid-js "^1.6.9"
