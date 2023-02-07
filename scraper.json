@@ -2,21 +2,112 @@
   "index_uid": "docs-v1",
   "start_urls": [
     {
-      "url": "https://tauri.app/v1/guides/",
+      "url": "https://tauri.app/it/v1/guides",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/it/v1/api/js/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri.app/it/v1/references",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://tauri.app/it/",
+      "extra_attributes": { "lang": ["it"] }
+    },
+    {
+      "url": "https://tauri.app/fr/v1/guides",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/fr/v1/api/js/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri.app/fr/v1/references",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://tauri.app/fr/",
+      "extra_attributes": { "lang": ["fr"] }
+    },
+    {
+      "url": "https://tauri.app/ko/v1/guides",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/ko/v1/api/ko/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri.app/ko/v1/references",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://tauri.app/ko/",
+      "extra_attributes": { "lang": ["ko"] }
+    },
+    {
+      "url": "https://tauri.app/zh-cn/v1/guides",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/zh-cn/v1/api/js/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri.app/zh-cn/v1/references",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://tauri.app/zh-cn/",
+      "extra_attributes": { "lang": ["zh-cn"] }
+    },
+    {
+      "url": "https://tauri.app/v1/guides",
+      "extra_attributes": { "lang": ["en"] },
       "selectors_key": "guides"
     },
     {
       "url": "https://tauri.app/v1/api/js/",
+      "extra_attributes": { "lang": ["en"] },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri.app/v1/references/",
+      "url": "https://tauri.app/v1/references",
+      "extra_attributes": { "lang": ["en"] },
       "selectors_key": "references"
     },
-    "https://tauri.app/v1/"
+    {
+      "url": "https://tauri.app/",
+      "extra_attributes": { "lang": ["en"] }
+    }
   ],
-  "sitemap_urls": ["https://tauri.app/sitemap.xml"],
   "stop_urls": [],
+  "sitemap_urls": [
+    "https://tauri.app/fr/sitemap.xml",
+    "https://tauri.app/it/sitemap.xml",
+    "https://tauri.app/ko/sitemap.xml",
+    "https://tauri.app/zh-cn/sitemap.xml",
+    "https://tauri.app/sitemap.xml"
+  ],
+  "custom_settings": {
+    "filterableAttributes": ["lang"]
+  },
   "selectors": {
     "default": {
       "lvl0": "article h1",
