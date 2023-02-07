@@ -1,11 +1,31 @@
 ---
-import Layout from '@src/layouts/Layout.astro'
+import Layout from '@src/layouts/BaseLayout.astro'
 import { t } from 'astro-i18n'
+import logo from '@src/images/tauri_logo_dark.svg'
+import Ios from '~icons/mdi/apple-ios'
+import Android from '~icons/bi/android'
+import Apple from '~icons/bi/apple'
+import Windows from '~icons/bi/windows'
+import Linux from '~icons/mdi/linux'
+
+const frameworks = []
+const features = []
+const contributors = []
+const premiumSponsors = []
+const sponsors = []
 ---
 
 <Layout title={t('index.title')}>
-  <div>
-    <h1>{t('index.title')}</h1>
-    <p>The footer should always be pinned down to the bottom</p>
+  <div class="bg-gradient-to-tr from-success to-info">
+    <img src={logo} class="w-1/3" />
+    <h1 class="h2">1 Codebase, 5 Platforms.</h1>
+    <div class="flex gap-8">
+      <Ios class="text-3xl" />
+      <Android class="text-3xl" />
+      <Apple class="text-3xl" />
+      <Windows class="text-3xl" />
+      <!-- TODO: I think we can find a better linux icon -->
+      <Linux class="text-3xl" />
+    </div>
   </div>
 </Layout>
