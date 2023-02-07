@@ -173,6 +173,28 @@ pkgs.mkShell {
 ```
 
   </TabItem>
+  <TabItem value="gnu_guix" label="GNU Guix">
+
+To create Tauri development environments using [Guix shell], copy the following code into `manifest.scm` on your repository, then run `guix shell` to activate. You can also use [direnv's Guix shell support] to automatically start the Guix shell when entering the project folder.
+
+```scheme
+(specifications->manifest
+ (list "gtk+@3"
+       "webkitgtk"
+       "libsoup"
+       "cairo"
+       "gdk-pixbuf"
+       "glib"
+       "dbus"
+       "openssl@3"
+       "gcc:lib"
+
+       "curl"
+       "wget"
+       "pkg-config"
+       "gsettings-desktop-schemas"))
+```
+  </TabItem>
 </Tabs>
 
 ### 2. Rust
