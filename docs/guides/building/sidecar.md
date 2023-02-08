@@ -39,10 +39,18 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
-A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple by running the following command:
+A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple by running `rustc -Vv` and extracting the `host:` property.
+
+If the `grep` and `cut` commands are available, as they should on most Unix systems, you can extract the target triple directly with the following command:
 
 ```shell
 rustc -Vv | grep host | cut -f2 -d' '
+```
+
+On Windows you can use PowerShell instead:
+
+```powershell
+rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 ```
 
 Here's a Node.js script to append the target triple to a binary:
@@ -166,7 +174,12 @@ import { Command } from '@tauri-apps/api/shell'
 // alternatively, use `window.__TAURI__.shell.Command`
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
 // notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
-const command = Command.sidecar('binaries/my-sidecar', ['arg1', '-a', '--arg2', 'any-string-that-matches-the-validator'])
+const command = Command.sidecar('binaries/my-sidecar', [
+  'arg1',
+  '-a',
+  '--arg2',
+  'any-string-that-matches-the-validator',
+])
 const output = await command.execute()
 ```
 
@@ -177,5 +190,5 @@ It compiles the Node.js code using [pkg] and uses the scripts above to run it.
 
 [tauri.bundle]: ../../api/config.md#tauri.bundle
 [sidecar example]: https://github.com/tauri-apps/tauri/tree/dev/examples/sidecar
-[Restricting access to the Command APIs]: ../../api/js/shell.md#restricting-access-to-the-command-apis
+[restricting access to the command apis]: ../../api/js/shell.md#restricting-access-to-the-command-apis
 [pkg]: https://github.com/vercel/pkg
