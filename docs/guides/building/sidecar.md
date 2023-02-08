@@ -39,7 +39,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
-A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the current platform's target triple by looking at the `host:` property reported by the `rustc -Vv` command.
+A binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux. You can find the **current** platform's target triple by looking at the `host:` property reported by the `rustc -Vv` command.
 
 If the `grep` and `cut` commands are available, as they should on most Unix systems, you can extract the target triple directly with the following command:
 
