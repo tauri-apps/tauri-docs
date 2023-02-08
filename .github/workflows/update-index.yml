@@ -1,0 +1,27 @@
+# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
+
+name: build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-search-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run scraper
+        env:
+          HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+          API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
+          CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
+        run: |
+          docker run -t --rm \
+            -e MEILISEARCH_HOST_URL=$HOST_URL \
+            -e MEILISEARCH_API_KEY=$API_KEY \
+            -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
+            getmeili/docs-scraper:v0.12.7 pipenv run ./docs_scraper ./scraper.json
