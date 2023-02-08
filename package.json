@@ -44,6 +44,6 @@
     "@actions/github": "5.1.1",
     "@crowdin/cli": "3.10.0",
     "@crowdin/crowdin-api-client": "1.21.1",
-    "esbuild-loader": "2.21.0"
+    "esbuild-loader": "3.0.0"
   }
 }
