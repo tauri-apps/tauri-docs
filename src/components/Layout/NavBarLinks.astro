@@ -1,7 +1,7 @@
 ---
 import { t, l } from 'astro-i18n'
 import IconCaret from '~icons/bi/caret-down-fill'
-import DropdownMenu from './DropdownMenu.astro'
+import Dropdown from './Dropdown.astro'
 
 type navbarItem = {
   title: string
@@ -48,7 +48,7 @@ const navbar: navbarItem[] = [
     navbar.map((item) =>
       item.children ? (
         <li>
-          <DropdownMenu
+          <Dropdown
             inlineMenu={Astro.props.inlineMenu}
           >
             <Fragment slot="toggle">
@@ -62,7 +62,7 @@ const navbar: navbarItem[] = [
                 </li>
               ))}
             </ul>
-          </DropdownMenu>
+          </Dropdown>
         </li>
       ) : (
         <li>

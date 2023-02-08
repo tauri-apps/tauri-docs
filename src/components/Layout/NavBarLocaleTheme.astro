@@ -5,13 +5,13 @@ import IconCircleHalf from '~icons/bi/circle-half'
 import IconMoonStarsFill from '~icons/bi/moon-stars-fill'
 import IconBrightnessHighFill from '~icons/bi/brightness-high-fill'
 import { astroI18n, l, t } from 'astro-i18n'
-import DropdownMenu from './DropdownMenu.astro'
+import Dropdown from './Dropdown.astro'
 ---
 
 {/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
 <>
   <li>
-    <DropdownMenu label={t('global.nav.locale-dropdown')}>
+    <Dropdown label={t('global.nav.locale-dropdown')}>
       <Fragment slot="toggle">
         <IconTranslate />
         <IconCaret class="text-xs" />
@@ -30,10 +30,10 @@ import DropdownMenu from './DropdownMenu.astro'
           ))
         }
       </ul>
-    </DropdownMenu>
+    </Dropdown>
   </li>
   <li>
-    <DropdownMenu label={t('global.nav.theme-dropdown')}>
+    <Dropdown label={t('global.nav.theme-dropdown')}>
       <Fragment slot="toggle">
         <IconCircleHalf />
         <IconCaret class="text-xs" />
@@ -58,6 +58,6 @@ import DropdownMenu from './DropdownMenu.astro'
           </button>
         </li>
       </ul>
-    </DropdownMenu>
+    </Dropdown>
   </li>
 </>
