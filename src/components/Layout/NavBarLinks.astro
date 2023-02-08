@@ -55,13 +55,13 @@ const navbar: navbarItem[] = [
               {item.title}
               <IconCaret class="text-xs" />
             </Fragment>
-            <Fragment slot="items">
+            <ul slot="items">
               {item.children.map((child) => (
                 <li>
                   <a href={child.href}>{child.title}</a>
                 </li>
               ))}
-            </Fragment>
+            </ul>
           </DropdownMenu>
         </li>
       ) : (

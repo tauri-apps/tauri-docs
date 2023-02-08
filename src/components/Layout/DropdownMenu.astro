@@ -28,13 +28,13 @@ let id = uid();
   >
     <slot name="toggle"/>
   </button>
-  <ul 
+  <div 
     id={id} 
     data-navigation-dropdown-menu-items
     class="dropdown-menu-body z-nav-dropdown" 
   >
     <slot name="items"/>
-  </ul>
+  </div>
 </div>
 
 <style>
