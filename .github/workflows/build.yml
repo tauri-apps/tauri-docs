@@ -148,7 +148,7 @@ jobs:
     if: (github.event_name == 'push' && github.ref_name == 'dev')
     runs-on: ubuntu-latest
     env:
-      MEILISEARCH_HOST_URL: https://ms-2b6734516304-1619.fra.meilisearch.io
+      MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
       MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
       CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
     steps:
