@@ -16,7 +16,7 @@ jobs:
     concurrency:
       group: search-indexing
       cancel-in-progress: true
-    needs: deploy-to-netlify
+    #needs: deploy-to-netlify
     #if: (github.event_name == 'push' && github.ref_name == 'dev')
     runs-on: ubuntu-latest
     env:
