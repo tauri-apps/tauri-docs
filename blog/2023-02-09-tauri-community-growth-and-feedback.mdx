@@ -49,13 +49,13 @@ With the current version of the scraper, we can handle all of the configuration 
 
 The final step was to create the frontend UI that people visiting [tauri.app](https://tauri.app) would interact with. [Amr](https://github.com/amrbashir) from the Tauri Working Group created the [meilisearch-docsearch](https://github.com/tauri-apps/meilisearch-docsearch) project to help with this. This repo is compatible with Meilisearch 1.0 (we're using it now on [tauri.app](https://tauri.app)).
 
-It's inspired by the [aloglia/docsearch](https://github.com/algolia/docsearch/) and [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) projects that provided a very solid foundation to begin with. The beauty of open source is that we can learn from each other and use that to give back to the ecosystem.
+It's inspired by the [algolia/docsearch](https://github.com/algolia/docsearch/) and [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) projects that provided a very solid foundation to begin with. The beauty of open source is that we can learn from each other and use that to give back to the ecosystem.
 
 To talk through some of the details, I'll hand it over to Amr:
 
 ---
 
-The [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) project was good, but I always felt it could use some improvements to get feature parity with [aloglia/docsearch](https://github.com/algolia/docsearch/). I also felt we could help with an update to help with UI/UX.
+The [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) project was good, but I always felt it could use some improvements to get feature parity with [algolia/docsearch](https://github.com/algolia/docsearch/). I also felt we could help with an update to help with UI/UX.
 
 The main pain points with [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) were:
 
@@ -63,7 +63,7 @@ The main pain points with [meilisearch/docs-searchbar.js](https://github.com/mei
 2. On desktop, the search results would normally appear under the search input, which in the case of [tauri.app](https://tauri.app) was placed on the top-right. This caused a bad UX because you'd have to keep moving your eyes between the page content in the middle and the search results in the top-right.
 3. It is missing a common keybinding. `ctrl/command + K` to start the search, `ctrl/command + K` is pretty common in the JS ecosystem documentation sites. It also doesn't have the ability to select text on the page and then trigger a search directly from that text.
 
-I have been always a big fan of [aloglia/docsearch](https://github.com/algolia/docsearch/) UI/UX. It checked all the features on my list, and I always wanted to have that for [tauri.app](https://tauri.app). In fact, several months ago, I tried to change the [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) CSS on our end to improve point 1 and 2 above but I stopped mid-way because of the difficulty of building on top of existing css and fighting for highest specifity (plus CSS is hard :wink:). Other projects also couldn't benefit from our modifications in an easy way.
+I have been always a big fan of [algolia/docsearch](https://github.com/algolia/docsearch/) UI/UX. It checked all the features on my list, and I always wanted to have that for [tauri.app](https://tauri.app). In fact, several months ago, I tried to change the [meilisearch/docs-searchbar.js](https://github.com/meilisearch/docs-searchbar.js/) CSS on our end to improve point 1 and 2 above but I stopped mid-way because of the difficulty of building on top of existing css and fighting for highest specifity (plus CSS is hard :wink:). Other projects also couldn't benefit from our modifications in an easy way.
 
 Later, we were discussing how to improve the search UI and UX, and we decided that we could improve on the base Meilisearch UI. That project turned into [meilisearch-docsearch](https://github.com/tauri-apps/meilisearch-docsearch).
 
