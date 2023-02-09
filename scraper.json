@@ -7,6 +7,11 @@
       "selectors_key": "guides"
     },
     {
+      "url": "https://tauri.app/it/v1/api/config/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "config"
+    },
+    {
       "url": "https://tauri.app/it/v1/api/js/",
       "extra_attributes": { "lang": ["it"] },
       "selectors_key": "api-js"
@@ -24,6 +29,11 @@
       "url": "https://tauri.app/fr/v1/guides/",
       "extra_attributes": { "lang": ["fr"] },
       "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/fr/v1/api/config/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "config"
     },
     {
       "url": "https://tauri.app/fr/v1/api/js/",
@@ -45,6 +55,11 @@
       "selectors_key": "guides"
     },
     {
+      "url": "https://tauri.app/ko/v1/api/config/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "config"
+    },
+    {
       "url": "https://tauri.app/ko/v1/api/js/",
       "extra_attributes": { "lang": ["ko"] },
       "selectors_key": "api-js"
@@ -64,6 +79,11 @@
       "selectors_key": "guides"
     },
     {
+      "url": "https://tauri.app/zh-cn/v1/api/config/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "config"
+    },
+    {
       "url": "https://tauri.app/zh-cn/v1/api/js/",
       "extra_attributes": { "lang": ["zh-cn"] },
       "selectors_key": "api-js"
@@ -81,6 +101,11 @@
       "url": "https://tauri.app/v1/guides/",
       "extra_attributes": { "lang": ["en"] },
       "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri.app/v1/api/config/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "config"
     },
     {
       "url": "https://tauri.app/v1/api/js/",
@@ -128,6 +153,17 @@
       "lvl4": "article h4",
       "lvl5": "article h5",
       "text": "article p, article li"
+    },
+    "config": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Configuration"
+      },
+      "lvl1": "article h2",
+      "lvl2": "article h3",
+      "lvl3": "article h4",
+      "lvl4": "article table td:first-child",
+      "text": "article :not(blockquote) > p, article li, article table td:last-child"
     },
     "api-js": {
       "lvl0": {
