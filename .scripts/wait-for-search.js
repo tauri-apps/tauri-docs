@@ -1,4 +1,4 @@
-const http = require('http')
+const http = require('https')
 
 ;(async () => {
   for (let i = 0; i < 5; i++) {
@@ -7,7 +7,7 @@ const http = require('http')
         `${process.env.MEILISEARCH_HOST_URL}/tasks?statuses=enqueued,processing`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY}`,
+            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY}sss`, //intentionally wrong to test exit(1)
           },
         },
         (res) => {
@@ -29,4 +29,7 @@ const http = require('http')
   }
 
   throw 'Meilisearch instance still has enqueued or processing tasks'
-})().catch(console.error)
+})().catch((err) => {
+  console.error(err)
+  process.exit(1)
+})
