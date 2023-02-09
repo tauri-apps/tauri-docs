@@ -32,7 +32,7 @@ jobs:
       - name: Run scraper
         run: |
           docker run -t --rm \
-            -e MEILISEARCH_HOST_URL=$HOSTMEILISEARCH_HOST_URL_URL \
+            -e MEILISEARCH_HOST_URL=$MEILISEARCH_HOST_URL \
             -e MEILISEARCH_API_KEY=$MEILISEARCH_API_KEY \
             -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
             getmeili/docs-scraper:v0.12.7 pipenv run ./docs_scraper ./scraper.json
