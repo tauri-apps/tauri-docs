@@ -7,7 +7,7 @@ const http = require('https')
         `${process.env.MEILISEARCH_HOST_URL}/tasks?statuses=enqueued,processing`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY}sss`, //intentionally wrong to test exit(1)
+            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY}`,
           },
         },
         (res) => {
