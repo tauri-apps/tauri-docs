@@ -42,4 +42,4 @@ jobs:
 
       - name: Swap index
         run: |
-          curl -X POST "$MEILISEARCH_HOST_URL/swap-indexes" -H "Authorization: Bearer $MEILISEARCH_API_KEY" -H "Content-Type: application/json" --data-binary '[ { "indexes": ["docs-v1-test", "docs-v1-staging"] } ]'
+          curl -X POST "$MEILISEARCH_HOST_URL/swap-indexes" -H "Authorization: Bearer $MEILISEARCH_API_KEY" -H "Content-Type: application/json" --data-binary '[ { "indexes": ["docs-v1", "docs-v1-staging"] } ]'
