@@ -8,9 +8,9 @@ export default function Component() {
 
     const docsearch = require('meilisearch-docsearch').default
     const destroy = docsearch({
-      host: 'https://ms-2b6734516304-1619.fra.meilisearch.io',
+      host: 'https://ms-4ebb96f179f0-1619.fra.meilisearch.io',
       apiKey:
-        '3220cad62c542233c11b77ef8cea268dd56b52444b76e2ae52f86c35505a86d0',
+        '3eb6db150af1abefe000f00386e149dfb5a006932cab55d1ccd810b8672a4e12',
       indexUid: 'docs-v1',
       container: '#docsearch',
       searchParams: { filter: [`lang = ${lang}`] },
