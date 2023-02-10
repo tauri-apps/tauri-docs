@@ -85,11 +85,11 @@ let id = uid();
     // Remove this when there's JS, we use it as a selector to decide whether or not to use the focus/hover expansion
     (navMenu as HTMLElement).removeAttribute("data-unactivated");
     // This doesn't make sense if there's no JS
-    navMenuToggle.ariaExpanded = "false";
+    navMenuToggle.setAttribute("aria-expanded", "false");
 
     navMenuToggle.addEventListener("click", function(e) {
       let target = e.currentTarget as HTMLElement;
-      target.ariaExpanded = target.ariaExpanded === "true" ? "false" : "true";
+      navMenuToggle.setAttribute("aria-expanded", target.getAttribute("aria-expanded") === "true" ? "false" : "true");
     });
 
     // If something's displayed inline (mobile view)
@@ -101,17 +101,17 @@ let id = uid();
 
       navMenuToggle.addEventListener("focusout", function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
-          navMenuToggle.ariaExpanded = "false";
+          navMenuToggle.setAttribute("aria-expanded", "false");
         }
       });
       navMenuBody.addEventListener("focusout", function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
-          navMenuToggle.ariaExpanded = "false";
+          navMenuToggle.setAttribute("aria-expanded", "false");
         }
       });
       let escapeListener = function(e: KeyboardEvent) {
         if (e.key === "Escape") {
-          navMenuToggle.ariaExpanded = "false";
+          navMenuToggle.setAttribute("aria-expanded", "false");
           navMenuToggle.focus();
         }
       };
