@@ -77,6 +77,7 @@ let id = uid();
 </style>
 
 <script>
+  let toCloseOnOutsideClick: { menu: HTMLElement; toggle: HTMLElement }[] = [];
   for (let navMenu of document.querySelectorAll(".js-dropdown")) {
     let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute('aria-controls')!)!;
@@ -96,6 +97,8 @@ let id = uid();
     // Given that there is very little current content
     // It seems better to keep the disclosure open
     if (!(navMenu as HTMLElement).matches(".js-dropdown-inline")) {
+      toCloseOnOutsideClick.push({ menu: (navMenu as HTMLElement), toggle: navMenuToggle });
+
       navMenuToggle.addEventListener('focusout', function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.ariaExpanded = "false";
@@ -116,4 +119,23 @@ let id = uid();
       navMenuBody.addEventListener("keydown", escapeListener);
     }
   }
+
+  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/shared/utils/is.ts#L25
+  const isIOS = window?.navigator?.userAgent && /iP(ad|hone|od)/.test(window.navigator.userAgent);
+  
+  // Older iOS Safari does not allow bubbling unless there's a listener on the body elements
+  // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+  if (isIOS) {
+    Array.from(window.document.body.children)
+      .forEach(el => el.addEventListener('click', () => {}))
+  }
+  window.addEventListener("click", function(e){
+    let target = e.currentTarget;
+    let elements = e.composedPath();
+    for (let { menu, toggle} of toCloseOnOutsideClick) {
+      if (menu !== target && !elements.includes(menu)) {
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    }
+  }, { passive: true, capture: true  })
 </script>
