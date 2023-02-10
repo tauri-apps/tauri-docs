@@ -40,6 +40,9 @@ let { inlineMenu, label, class: className } = Astro.props;
   .dropdown-content {
     @apply hidden absolute;
   }
+  .dropdown-inline .dropdown-content {
+    @apply static;
+  }
 
   /* No JS */
   .dropdown:hover > .dropdown-toggle:not([aria-expanded]),
@@ -52,12 +55,6 @@ let { inlineMenu, label, class: className } = Astro.props;
     @apply block;
   }
 
-  .dropdown.dropdown-inline:focus-within > .dropdown-toggle:not([aria-expanded]) + .dropdown-content,
-  .dropdown.dropdown-inline:hover > .dropdown-toggle:not([aria-expanded]) + .dropdown-content {
-    @apply static;
-  }
-
-
   /* With JS */
   .dropdown-toggle[aria-expanded=true] {
     @apply rounded-b-none;
@@ -65,10 +62,6 @@ let { inlineMenu, label, class: className } = Astro.props;
 
   .dropdown-toggle[aria-expanded=true] + .dropdown-content {
     @apply block;
-  }
-
-  .dropdown-inline .dropdown-toggle[aria-expanded=true] + .dropdown-content {
-    @apply static;
   }
 </style>
 
