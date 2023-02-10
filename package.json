@@ -5,9 +5,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro dev",
-    "build": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro build",
-    "preview": "yarn i18n:purge && yarn i18n:extract:keys && yarn i18n:sync && astro preview",
+    "dev": "pnpm i18n:purge && pnpm i18n:extract:keys && pnpm i18n:sync && astro dev",
+    "build": "pnpm i18n:purge && pnpm i18n:extract:keys && pnpm i18n:sync && astro build",
+    "preview": "pnpm i18n:purge && pnpm i18n:extract:keys && pnpm i18n:sync && astro preview",
     "astro": "astro",
     "i18n:purge": "rm -rf src/pages/{fr,it,ko,zh-cn}",
     "i18n:sync": "astro-i18n sync",
@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "unist": "^8.0.11",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^4.1.2",
+    "shiki": "^0.14.1"
   }
 }
