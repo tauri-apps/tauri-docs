@@ -16,9 +16,8 @@ let id = uid();
 ---
 
 <div 
-  data-navigation-dropdown-menu 
   data-unactivated
-  data-inline-menu={Astro.props.inlineMenu}
+  class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": Astro.props.inlineMenu }]}
 > 
   <button 
     aria-controls={id} 
@@ -45,22 +44,22 @@ let id = uid();
 
   /* No JS */
   /* Note that here we are allowing default menu styles to come through for focus, hover, focus-within */
-  [data-navigation-dropdown-menu][data-unactivated]:focus-within > .dropdown-menu-toggle:not(:hover, :focus, :focus-within) {
+  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:not(:hover, :focus, :focus-within) {
     @apply bg-base-200 rounded;
   }
   
-  [data-navigation-dropdown-menu][data-unactivated]:focus-within > .dropdown-menu-toggle:focus,
-  [data-navigation-dropdown-menu][data-unactivated]:focus-within > .dropdown-menu-toggle:focus-within, {
+  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:focus,
+  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:focus-within, {
     @apply rounded-b;
   }
 
-  [data-navigation-dropdown-menu][data-unactivated]:focus-within > .dropdown-menu-body,
-  [data-navigation-dropdown-menu][data-unactivated]:hover > .dropdown-menu-body {
+  [data-unactivated].dropdown:focus-within > .dropdown-menu-body,
+  [data-unactivated].dropdown:hover > .dropdown-menu-body {
     @apply block;
   }
 
-  [data-navigation-dropdown-menu][data-unactivated][data-inline-menu]:focus-within > .dropdown-menu-body,
-  [data-navigation-dropdown-menu][data-unactivated][data-inline-menu]:hover > .dropdown-menu-body {
+  [data-unactivated].dropdown.dropdown-inline:focus-within > .dropdown-menu-body,
+  [data-unactivated].dropdown.dropdown-inline:hover > .dropdown-menu-body {
     @apply static;
   }
 
@@ -74,13 +73,13 @@ let id = uid();
     @apply block;
   }
 
-  [data-inline-menu] .dropdown-menu-toggle[aria-expanded=true] + .dropdown-menu-body {
+  .dropdown-inline .dropdown-menu-toggle[aria-expanded=true] + .dropdown-menu-body {
     @apply static;
   }
 </style>
 
 <script>
-  for (let navMenu of document.querySelectorAll("[data-navigation-dropdown-menu]")) {
+  for (let navMenu of document.querySelectorAll(".js-dropdown")) {
     let navMenuToggle = navMenu.querySelector('[data-navigation-dropdown-menu-toggle]') as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute('aria-controls')!)!;
     
@@ -98,7 +97,7 @@ let id = uid();
     // It looks more like a disclosure since it takes up space. 
     // Given that there is very little current content
     // It seems better to keep the disclosure open
-    if ((navMenu as HTMLElement).dataset.inlineMenu === undefined) {
+    if (!(navMenu as HTMLElement).matches(".js-dropdown-inline")) {
       navMenuToggle.addEventListener('focusout', function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.ariaExpanded = "false";
