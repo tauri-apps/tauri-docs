@@ -100,12 +100,12 @@ let id = uid();
       toCloseOnOutsideClick.push({ menu: (navMenu as HTMLElement), toggle: navMenuToggle });
 
       navMenuToggle.addEventListener("focusout", function(e) {
-        if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
+        if (!e.relatedTarget || !navMenu.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.setAttribute("aria-expanded", "false");
         }
       });
       navMenuBody.addEventListener("focusout", function(e) {
-        if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
+        if (!e.relatedTarget || !navMenu.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.setAttribute("aria-expanded", "false");
         }
       });
