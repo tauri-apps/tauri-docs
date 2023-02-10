@@ -2,6 +2,7 @@
 interface Props {
   inlineMenu?: boolean;
   label?: string;
+  class?: string;
 }
 
 // generate unique ids for each component so that we can connect the button to the dropdown without requiring consumer to provide an id
@@ -13,14 +14,15 @@ function uid() {
 }
 
 let id = uid();
+let { inlineMenu, label, class: className } = Astro.props; 
 ---
 
 <div 
-  class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": Astro.props.inlineMenu }]}
+  class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": inlineMenu }, className]}
 > 
   <button 
     aria-controls={id} 
-    aria-label={Astro.props.label} 
+    aria-label={label} 
     class="dropdown-toggle js-dropdown-toggle" 
   >
     <slot name="toggle"/>
@@ -40,12 +42,6 @@ let id = uid();
   }
 
   /* No JS */
-  /* Note that here we are allowing default menu styles to come through for focus, hover, focus-within */
-  .dropdown:hover > .dropdown-toggle:not([aria-expanded]):not(:hover, :focus, :focus-within),
-  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]):not(:hover, :focus, :focus-within) {
-    @apply bg-base-200;
-  }
-  
   .dropdown:hover > .dropdown-toggle:not([aria-expanded]),
   .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) {
     @apply rounded-b-none;
@@ -64,7 +60,7 @@ let id = uid();
 
   /* With JS */
   .dropdown-toggle[aria-expanded=true] {
-    @apply bg-base-200 rounded-b-none;
+    @apply rounded-b-none;
   }
 
   .dropdown-toggle[aria-expanded=true] + .dropdown-content {

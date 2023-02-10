@@ -11,7 +11,7 @@ import Dropdown from './Dropdown.astro'
 {/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
 <>
   <li>
-    <Dropdown label={t('global.nav.locale-dropdown')}>
+    <Dropdown label={t('global.nav.locale-dropdown')} class="navbar-dropdown-menu">
       <Fragment slot="toggle">
         <IconTranslate />
         <IconCaret class="text-xs" />
@@ -33,7 +33,7 @@ import Dropdown from './Dropdown.astro'
     </Dropdown>
   </li>
   <li>
-    <Dropdown label={t('global.nav.theme-dropdown')}>
+    <Dropdown label={t('global.nav.theme-dropdown')} class="navbar-dropdown-menu">
       <Fragment slot="toggle">
         <IconCircleHalf />
         <IconCaret class="text-xs" />

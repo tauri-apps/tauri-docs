@@ -179,6 +179,12 @@
   /************************/
   /* Navbar dropdown menu */
   /************************/
+  .navbar-dropdown-menu:hover, 
+  .navbar-dropdown-menu:focus-within, 
+  .navbar-dropdown-menu > [aria-expanded=true] {
+    @apply bg-base-200;
+  }
+
   .navbar-dropdown-menu-content {
     @apply bg-base-200 rounded-b rounded-tr z-dropdown;
   }
