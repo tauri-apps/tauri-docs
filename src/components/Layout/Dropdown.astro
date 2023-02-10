@@ -3,6 +3,7 @@ interface Props {
   inlineMenu?: boolean;
   label?: string;
   class?: string;
+  trigger?: "click" | "hover";
 }
 
 // generate unique ids for each component so that we can connect the button to the dropdown without requiring consumer to provide an id
@@ -14,10 +15,11 @@ function uid() {
 }
 
 let id = uid();
-let { inlineMenu, label, class: className } = Astro.props; 
+let { inlineMenu, label, class: className, trigger } = Astro.props; 
 ---
 
-<div 
+<div
+  data-trigger={trigger ?? "click"}
   class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": inlineMenu }, className]}
 > 
   <button 
@@ -68,6 +70,9 @@ let { inlineMenu, label, class: className } = Astro.props;
 <script>
   let toCloseOnOutsideClick: { menu: HTMLElement; toggle: HTMLElement }[] = [];
   for (let navMenu of document.querySelectorAll(".js-dropdown")) {
+    if ((navMenu as HTMLElement).dataset.trigger === "hover") {
+      continue;
+    }
     let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute("aria-controls")!)!;
     
