@@ -21,9 +21,8 @@ let id = uid();
 > 
   <button 
     aria-controls={id} 
-    data-navigation-dropdown-menu-toggle 
     aria-label={Astro.props.label} 
-    class="dropdown-menu-toggle" 
+    class="dropdown-toggle js-dropdown-toggle" 
   >
     <slot name="toggle"/>
   </button>
@@ -44,12 +43,12 @@ let id = uid();
 
   /* No JS */
   /* Note that here we are allowing default menu styles to come through for focus, hover, focus-within */
-  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:not(:hover, :focus, :focus-within) {
+  [data-unactivated].dropdown:focus-within > .dropdown-toggle:not(:hover, :focus, :focus-within) {
     @apply bg-base-200 rounded;
   }
   
-  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:focus,
-  [data-unactivated].dropdown:focus-within > .dropdown-menu-toggle:focus-within, {
+  [data-unactivated].dropdown:focus-within > .dropdown-toggle:focus,
+  [data-unactivated].dropdown:focus-within > .dropdown-toggle:focus-within, {
     @apply rounded-b;
   }
 
@@ -65,22 +64,22 @@ let id = uid();
 
 
   /* With JS */
-  .dropdown-menu-toggle[aria-expanded=true] {
+  .dropdown-toggle[aria-expanded=true] {
     @apply bg-base-200 rounded-b-none;
   }
 
-  .dropdown-menu-toggle[aria-expanded=true] + .dropdown-menu-body {
+  .dropdown-toggle[aria-expanded=true] + .dropdown-menu-body {
     @apply block;
   }
 
-  .dropdown-inline .dropdown-menu-toggle[aria-expanded=true] + .dropdown-menu-body {
+  .dropdown-inline .dropdown-toggle[aria-expanded=true] + .dropdown-menu-body {
     @apply static;
   }
 </style>
 
 <script>
   for (let navMenu of document.querySelectorAll(".js-dropdown")) {
-    let navMenuToggle = navMenu.querySelector('[data-navigation-dropdown-menu-toggle]') as HTMLElement;
+    let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute('aria-controls')!)!;
     
     // Remove this when there's JS, we use it as a selector to decide whether or not to use the focus/hover expansion
