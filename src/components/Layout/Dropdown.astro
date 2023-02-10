@@ -16,7 +16,6 @@ let id = uid();
 ---
 
 <div 
-  data-unactivated
   class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": Astro.props.inlineMenu }]}
 > 
   <button 
@@ -42,22 +41,23 @@ let id = uid();
 
   /* No JS */
   /* Note that here we are allowing default menu styles to come through for focus, hover, focus-within */
-  [data-unactivated].dropdown:focus-within > .dropdown-toggle:not(:hover, :focus, :focus-within) {
-    @apply bg-base-200 rounded;
+  .dropdown:hover > .dropdown-toggle:not([aria-expanded]):not(:hover, :focus, :focus-within),
+  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]):not(:hover, :focus, :focus-within) {
+    @apply bg-base-200;
   }
   
-  [data-unactivated].dropdown:focus-within > .dropdown-toggle:focus,
-  [data-unactivated].dropdown:focus-within > .dropdown-toggle:focus-within, {
+  .dropdown:hover > .dropdown-toggle:not([aria-expanded]),
+  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) {
     @apply rounded-b-none;
   }
 
-  [data-unactivated].dropdown:focus-within > .dropdown-content,
-  [data-unactivated].dropdown:hover > .dropdown-content {
+  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) + .dropdown-content,
+  .dropdown:hover > .dropdown-toggle:not([aria-expanded]) + .dropdown-content {
     @apply block;
   }
 
-  [data-unactivated].dropdown.dropdown-inline:focus-within > .dropdown-content,
-  [data-unactivated].dropdown.dropdown-inline:hover > .dropdown-content {
+  .dropdown.dropdown-inline:focus-within > .dropdown-toggle:not([aria-expanded]) + .dropdown-content,
+  .dropdown.dropdown-inline:hover > .dropdown-toggle:not([aria-expanded]) + .dropdown-content {
     @apply static;
   }
 
@@ -82,8 +82,6 @@ let id = uid();
     let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute("aria-controls")!)!;
     
-    // Remove this when there's JS, we use it as a selector to decide whether or not to use the focus/hover expansion
-    (navMenu as HTMLElement).removeAttribute("data-unactivated");
     // This doesn't make sense if there's no JS
     navMenuToggle.setAttribute("aria-expanded", "false");
 
