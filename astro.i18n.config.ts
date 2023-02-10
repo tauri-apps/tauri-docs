@@ -1,19 +1,20 @@
 import { defineAstroI18nConfig } from 'astro-i18n'
-
-export const nonEnglishLocales = ['fr', 'zh-cn', 'ko', 'it']
+import { nonDefaultLocales } from './locales.js'
 
 let translations = {}
 
 Object.assign(translations, { en: 'src/i18n/en.json' })
 
-nonEnglishLocales.forEach((locale) => {
+nonDefaultLocales.forEach((locale) => {
   Object.assign(translations, { [locale]: `src/i18n/${locale}.json` })
 })
 
 export default defineAstroI18nConfig({
   defaultLangCode: 'en',
-  supportedLangCodes: nonEnglishLocales,
+  supportedLangCodes: nonDefaultLocales,
   showDefaultLangCode: false,
   translations,
   routeTranslations: {},
 })
+
+export { nonDefaultLocales }

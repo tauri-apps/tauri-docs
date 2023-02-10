@@ -9,7 +9,7 @@
     "build": "pnpm i18n:purge && pnpm i18n:extract:keys && pnpm i18n:sync && astro build",
     "preview": "pnpm i18n:purge && pnpm i18n:extract:keys && pnpm i18n:sync && astro preview",
     "astro": "astro",
-    "i18n:purge": "rm -rf src/pages/{fr,it,ko,zh-cn}",
+    "i18n:purge": "node .scripts/purge-i18n.js",
     "i18n:sync": "astro-i18n sync",
     "i18n:extract:keys": "astro-i18n extract:keys"
   },
@@ -45,8 +45,8 @@
   "devDependencies": {
     "@types/json-schema": "^7.0.11",
     "@types/marked": "^4.0.8",
+    "shiki": "^0.14.1",
     "unist": "^8.0.11",
-    "unist-util-visit": "^4.1.2",
-    "shiki": "^0.14.1"
+    "unist-util-visit": "^4.1.2"
   }
 }
