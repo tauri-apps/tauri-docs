@@ -121,6 +121,10 @@ let { inlineMenu, label, class: className, trigger } = Astro.props;
     Array.from(window.document.body.children)
       .forEach(el => el.addEventListener("click", () => {}))
   }
+  // this is a fix for macOS focus behaviour not allowing outside clicks to close the menu. 
+  // If we find that we need an onClickOutside function in other places, we can try extracting this
+  // into an onClickOutside utility
+  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/core/onClickOutside/index.ts#L38
   window.addEventListener("click", function(e){
     let target = e.currentTarget;
     let elements = e.composedPath();
