@@ -16,7 +16,7 @@ import Dropdown from './Dropdown.astro'
         <IconTranslate />
         <IconCaret class="text-xs" />
       </Fragment>
-      <ul slot="items">
+      <ul slot="content">
         {
           astroI18n.langCodes.map((lang) => (
             <li>
@@ -38,7 +38,7 @@ import Dropdown from './Dropdown.astro'
         <IconCircleHalf />
         <IconCaret class="text-xs" />
       </Fragment>
-      <ul slot="items">
+      <ul slot="content">
         <li>
           <button class="!text-primary">
             <IconCircleHalf />
