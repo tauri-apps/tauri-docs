@@ -181,7 +181,7 @@
   /************************/
   .navbar-dropdown-menu:hover, 
   .navbar-dropdown-menu:focus-within, 
-  .navbar-dropdown-menu > [aria-expanded=true] {
+  .navbar-dropdown-menu [aria-expanded=true] {
     @apply bg-base-200;
   }
 
