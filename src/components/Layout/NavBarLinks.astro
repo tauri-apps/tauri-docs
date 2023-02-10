@@ -55,7 +55,7 @@ const navbar: navbarItem[] = [
               {item.title}
               <IconCaret class="text-xs" />
             </Fragment>
-            <ul slot="content">
+            <ul slot="content" class="navbar-dropdown-menu-content">
               {item.children.map((child) => (
                 <li>
                   <a href={child.href}>{child.title}</a>

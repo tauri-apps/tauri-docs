@@ -176,6 +176,12 @@
   .menu.menu-horizontal label {
     @apply text-center;
   }
+  /************************/
+  /* Navbar dropdown menu */
+  /************************/
+  .navbar-dropdown-menu-content {
+    @apply bg-base-200 rounded-b rounded-tr z-dropdown;
+  }
 
   /********/
   /* Card */
