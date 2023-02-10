@@ -28,8 +28,7 @@ let id = uid();
   </button>
   <div 
     id={id} 
-    data-navigation-dropdown-menu-items
-    class="dropdown-menu-body z-nav-dropdown" 
+    class="dropdown-content z-nav-dropdown" 
   >
     <slot name="items"/>
   </div>
@@ -37,7 +36,7 @@ let id = uid();
 
 <style>
   /* hide the menu body */
-  .dropdown-menu-body {
+  .dropdown-content {
     @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
   }
 
@@ -52,13 +51,13 @@ let id = uid();
     @apply rounded-b;
   }
 
-  [data-unactivated].dropdown:focus-within > .dropdown-menu-body,
-  [data-unactivated].dropdown:hover > .dropdown-menu-body {
+  [data-unactivated].dropdown:focus-within > .dropdown-content,
+  [data-unactivated].dropdown:hover > .dropdown-content {
     @apply block;
   }
 
-  [data-unactivated].dropdown.dropdown-inline:focus-within > .dropdown-menu-body,
-  [data-unactivated].dropdown.dropdown-inline:hover > .dropdown-menu-body {
+  [data-unactivated].dropdown.dropdown-inline:focus-within > .dropdown-content,
+  [data-unactivated].dropdown.dropdown-inline:hover > .dropdown-content {
     @apply static;
   }
 
@@ -68,11 +67,11 @@ let id = uid();
     @apply bg-base-200 rounded-b-none;
   }
 
-  .dropdown-toggle[aria-expanded=true] + .dropdown-menu-body {
+  .dropdown-toggle[aria-expanded=true] + .dropdown-content {
     @apply block;
   }
 
-  .dropdown-inline .dropdown-toggle[aria-expanded=true] + .dropdown-menu-body {
+  .dropdown-inline .dropdown-toggle[aria-expanded=true] + .dropdown-content {
     @apply static;
   }
 </style>
