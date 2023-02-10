@@ -80,10 +80,10 @@ let id = uid();
   let toCloseOnOutsideClick: { menu: HTMLElement; toggle: HTMLElement }[] = [];
   for (let navMenu of document.querySelectorAll(".js-dropdown")) {
     let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
-    let navMenuBody = document.getElementById(navMenuToggle.getAttribute('aria-controls')!)!;
+    let navMenuBody = document.getElementById(navMenuToggle.getAttribute("aria-controls")!)!;
     
     // Remove this when there's JS, we use it as a selector to decide whether or not to use the focus/hover expansion
-    (navMenu as HTMLElement).removeAttribute('data-unactivated');
+    (navMenu as HTMLElement).removeAttribute("data-unactivated");
     // This doesn't make sense if there's no JS
     navMenuToggle.ariaExpanded = "false";
 
@@ -99,12 +99,12 @@ let id = uid();
     if (!(navMenu as HTMLElement).matches(".js-dropdown-inline")) {
       toCloseOnOutsideClick.push({ menu: (navMenu as HTMLElement), toggle: navMenuToggle });
 
-      navMenuToggle.addEventListener('focusout', function(e) {
+      navMenuToggle.addEventListener("focusout", function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.ariaExpanded = "false";
         }
       });
-      navMenuBody.addEventListener('focusout', function(e) {
+      navMenuBody.addEventListener("focusout", function(e) {
         if (!e.relatedTarget || !navMenuBody.contains(e.relatedTarget as HTMLElement)) {
           navMenuToggle.ariaExpanded = "false";
         }
@@ -127,7 +127,7 @@ let id = uid();
   // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
   if (isIOS) {
     Array.from(window.document.body.children)
-      .forEach(el => el.addEventListener('click', () => {}))
+      .forEach(el => el.addEventListener("click", () => {}))
   }
   window.addEventListener("click", function(e){
     let target = e.currentTarget;
