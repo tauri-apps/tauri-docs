@@ -1,1 +1,16 @@
-Test
+name: Tauri TypeScript Lint
+
+on:
+  workflow_dispatch:
+    inputs:
+      tauri_ref:
+        description: 'The upstream Tauri ref that this action should be run against'
+        default: 'dev'
+        required: false
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send greeting
+      run: echo "Hello, World"
