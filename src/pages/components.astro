@@ -13,8 +13,8 @@ import Carousel from '@src/components/Blog/Carousel.astro'
       <h2 class="h2">Feedback Form</h2>
       <div>
         <form name="feedback" method="POST" data-netlify="true">
-          <input type="text" name="url" value={Astro.url.toString()} hidden />
-          <input type="text" name="comments" />
+          <input type="text" name="Path" value={Astro.url.pathname} hidden />
+          <input type="text" name="Comments" />
           <button type="submit">Send</button>
         </form>
       </div>
