@@ -30,8 +30,6 @@ dependencies:
   '@fontsource/ibm-plex-mono': 4.5.13
   '@fontsource/rubik': 4.5.14
   '@iconify/json': 2.2.20
-  '@types/json-schema': 7.0.11
-  '@types/marked': 4.0.8
   astro: 2.0.10
   astro-i18n: 1.6.5
   docs-searchbar.js: 2.4.1
@@ -42,6 +40,8 @@ dependencies:
   unplugin-icons: 0.15.2
 
 devDependencies:
+  '@types/json-schema': 7.0.11
+  '@types/marked': 4.0.8
   shiki: 0.14.1
   unist: 8.0.11
   unist-util-visit: 4.1.2
@@ -820,7 +820,7 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
-    dev: false
+    dev: true
 
   /@types/json5/0.0.30:
     resolution: {integrity: sha512-sqm9g7mHlPY/43fcSNrCYfOeX9zkTTK+euO5E6+CVijSMm5tTjkVdwdqRkY3ljjIAf8679vps5jKUoJBCLsMDA==}
@@ -828,7 +828,7 @@ packages:
 
   /@types/marked/4.0.8:
     resolution: {integrity: sha512-HVNzMT5QlWCOdeuBsgXP8EZzKUf0+AXzN+sLmjvaB3ZlLqO+e4u0uXrdw9ub69wBKFs+c6/pA4r9sy6cCDvImw==}
-    dev: false
+    dev: true
 
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
