@@ -97,9 +97,8 @@
   /***********/
   /* .btn: Base button style */
   /* .btn-inline: Modifier, makes the button full width */
-  /* .btn-active: Modifier */
-  /* .btn-hover: Modifier */
-  /* .btn-selected: Modifier */
+  /* .btn-hover: Modifier, style for hover state */
+  /* .btn-active: Modifier,  style for when the element is being interacted with */
 
   .btn {
     /* min-w-[48px] is used to ensure that small icons are square */
@@ -114,18 +113,12 @@
     @apply w-full;
   }
 
-  .btn-active {
-    @apply text-primary bg-content-hover;
-  }
-
   .btn-hover {
     @apply bg-content-hover no-underline;
   }
 
-  /* FIXME: Is being overridden when used with `.menu` */
-  .btn-selected,
-  .btn-selected > * {
-    @apply text-primary;
+  .btn-active {
+    @apply text-primary bg-content-hover;
   }
 
   /* States */
