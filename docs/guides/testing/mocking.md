@@ -26,7 +26,7 @@ The following examples use [Vitest], but you can use any other frontend testing 
 import { beforeAll, expect, test } from "vitest";
 import { randomFillSync } from "crypto";
 
-import { mockIPC } from "@tauri-apps/api/mocks"
+import { mockIPC } from "@tauri-apps/api/mocks";
 import { invoke } from "@tauri-apps/api/tauri";
 
 // jsdom doesn't come with a WebCrypto implementation
@@ -94,14 +94,14 @@ To mock IPC requests to a sidecar or shell command you need to grab the ID of th
 ```js
 mockIPC(async (cmd, args) => {
   if (args.message.cmd === 'execute') {
-    const eventCallbackId = `_${args.message.onEventFn}`;
-    const eventEmitter = window[eventCallbackId];
+    const eventCallbackId = `_${args.message.onEventFn}`
+    const eventEmitter = window[eventCallbackId]
 
     // 'Stdout' event can be called multiple times
     eventEmitter({
       event: 'Stdout',
       payload: 'some data sent from the process',
-    });
+    })
 
     // 'Terminated' event must be called at the end to resolve the promise
     eventEmitter({
@@ -110,9 +110,9 @@ mockIPC(async (cmd, args) => {
         code: 0,
         signal: 'kill',
       },
-    });
+    })
   }
-});
+})
 ```
 
 ## Windows
