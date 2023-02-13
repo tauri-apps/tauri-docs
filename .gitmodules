@@ -2,3 +2,6 @@
 	path = packages/typedoc-plugin-markdown
 	url = https://github.com/tauri-apps/typedoc-plugin-markdown
 	branch = next
+[submodule "packages/tauri"]
+	path = packages/tauri
+	url = https://github.com/tauri-apps/tauri.git
