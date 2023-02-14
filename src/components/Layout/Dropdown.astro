@@ -1,7 +1,7 @@
 ---
 interface Props {
   inlineMenu?: boolean;
-  label?: string;
+  ariaLabel?: string;
   class?: string;
   trigger?: "click" | "hover";
 }
@@ -15,7 +15,7 @@ function uid() {
 }
 
 let id = uid();
-let { inlineMenu, label, class: className, trigger } = Astro.props; 
+let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props; 
 ---
 
 <div
@@ -24,7 +24,7 @@ let { inlineMenu, label, class: className, trigger } = Astro.props;
 > 
   <button 
     aria-controls={id} 
-    aria-label={label} 
+    aria-label={ariaLabel} 
     class="dropdown-toggle js-dropdown-toggle" 
   >
     <slot name="toggle"/>
@@ -76,7 +76,7 @@ let { inlineMenu, label, class: className, trigger } = Astro.props;
     let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
     let navMenuBody = document.getElementById(navMenuToggle.getAttribute("aria-controls")!)!;
     
-    // This doesn't make sense if there's no JS
+    // This aria doesn't make sense if there's no JS
     navMenuToggle.setAttribute("aria-expanded", "false");
 
     navMenuToggle.addEventListener("click", function(e) {
