@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
 
 # Setup Example

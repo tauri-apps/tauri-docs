@@ -12,13 +12,13 @@ So if you are interested in learning how to improve your app size and performanc
 
 Before you can optimize your app, you need to figure out what takes up space in your app! Here are a couple of tools that can assist you with that:
 
-- **`cargo-bloat`** - A Rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant Rust functions.
+- **[`cargo-bloat`]** - A Rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant Rust functions.
 
-- **`cargo-expand`** - [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use [`cargo-expand`][cargo-expand] to see what those macros generate under the hood.
+- **[`cargo-expand`]** - [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use `cargo-expand` to see what those macros generate under the hood.
 
-- **`rollup-plugin-visualizer`** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
+- **[`rollup-plugin-visualizer`]** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
 
-- **`rollup-plugin-graph`** - You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`][rollup-plugin-graph] generates Graphviz-compatible visualizations of your entire dependency graph.
+- **[`rollup-plugin-graph`]** - You noticed a dependency included in your final frontend bundle, but you are unsure why? `rollup-plugin-graph` generates Graphviz-compatible visualizations of your entire dependency graph.
 
 These are just a couple of tools that you might use. Make sure to check your frontend bundlers plugin list for more!
 
@@ -280,11 +280,11 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
     963140 ->    274448   28.50%   macho/amd64   app
 ```
 
-[cargo-bloat]: https://github.com/RazrFalcon/cargo-bloat
+[`cargo-bloat`]: https://github.com/RazrFalcon/cargo-bloat
 [macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
-[cargo-expand]: https://github.com/dtolnay/cargo-expand
-[rollup-plugin-visualizer]: https://github.com/btd/rollup-plugin-visualizer
-[rollup-plugin-graph]: https://github.com/ondras/rollup-plugin-graph
+[`cargo-expand`]: https://github.com/dtolnay/cargo-expand
+[`rollup-plugin-visualizer`]: https://github.com/btd/rollup-plugin-visualizer
+[`rollup-plugin-graph`]: https://github.com/ondras/rollup-plugin-graph
 [vite]: https://vitejs.dev
 [webpack]: https://webpack.js.org
 [rollup]: https://rollupjs.org/guide/en/
