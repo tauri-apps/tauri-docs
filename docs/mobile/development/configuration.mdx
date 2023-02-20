@@ -7,6 +7,65 @@ import TabItem from '@theme/TabItem'
 
 # Configuration
 
+Currently, Tauri Mobile support is only available on the `2.0.0` alpha tracks, so the main tauri build tools will not produce a project that supports it. You'll need to update a few dependencies to get started.
+
+Make sure to update the CLI, API, and core Cargo dependencies to the 2.0.0-alpha.0 release (or later). You can update the CLI and API dependencies here:
+
+:::note
+
+Alpha builds are updated regularly while this documentation may fall behind. To see the newest version numbers, check the [Tauri Releases on GitHub]
+
+:::
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install @tauri-apps/cli@next @tauri-apps/api@next
+```
+
+  </TabItem>
+  <TabItem value="Yarn Classic">
+
+```shell
+yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next
+```
+
+  </TabItem>
+  <TabItem value="Yarn Berry">
+
+```shell
+yarn up @tauri-apps/cli@next @tauri-apps/api@next
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm update @tauri-apps/cli@next @tauri-apps/api@next
+```
+
+  </TabItem>
+  <TabItem value="cargo">
+
+This is only needed if you run cli commands with `cargo tauri x`. You may still need to update `@tauri-apps/api` as described in the other tabs if you use it in your frontend.
+
+```shell
+cargo install tauri-cli --version "^2.0.0-alpha"
+```
+
+  </TabItem>
+</Tabs>
+
+Additionally, all projects need to update the core Cargo dependencies, by running the following in the `src-tauri` folder:
+
+```shell
+cargo add tauri@2.0.0-alpha.0
+cargo add tauri-build@2.0.0-alpha.0 --build
+```
+
+## Frontend Configuration
+
 To develop mobile Tauri applications, your frontend must serve the assets listening on your public network address.
 The network address can be found using the `internal-ip` NPM:
 
@@ -38,7 +97,7 @@ pnpm add -D internal-ip
 
 Then you need to configure your framework to use the internal IP.
 
-## Vite
+### Vite
 
 For Vite, you need to change your configuration to be defined using the `defineConfig` helper with an async closure.
 Then, resolve the internal IP address and set it to the [server object][vite server].
@@ -69,7 +128,7 @@ export default defineConfig(async () => {
 })
 ```
 
-## Next.js
+### Next.js
 
 For Next.js, you need to configure the [assetPrefix] to use the internal IP so the server properly resolves your assets.
 
@@ -101,7 +160,7 @@ module.exports = async (phase, { defaultConfig }) => {
 Currently there is no configuration option to configure Next.js to use the internal IP address, only the CLI allows changing it.
 So you need to append `--hostname $HOST` to the [beforeDevCommand].
 
-## Webpack
+### Webpack
 
 Webpack has a built-in option to use the local IP address as the host for the development server:
 
@@ -116,3 +175,4 @@ export default {
 [vite server]: https://vitejs.dev/config/server-options.html
 [assetprefix]: https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
 [beforedevcommand]: ../../api/config.md#buildconfig.beforedevcommand
+[tauri releases on github]: https://github.com/tauri-apps/tauri/releases
