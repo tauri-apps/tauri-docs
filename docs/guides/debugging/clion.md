@@ -34,7 +34,7 @@ Now we can optionally rename the Run/Debug Configguration to something more memo
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-light.png#gh-light-mode-only)
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-dark.png#gh-dark-mode-only)
 
-:::warn
+:::caution
 
 On Windows you must also make sure that CLion uses the correct debugger toolchain. To do this, open the Settings (`File -> Settings...`) select `Build, Execution, Deployment -> Toolchains` and move the `Visual Studio` toolchain to the top.
 
