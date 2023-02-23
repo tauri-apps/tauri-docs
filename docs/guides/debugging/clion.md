@@ -36,7 +36,7 @@ Now we can optionally rename the Run/Debug Configguration to something more memo
 
 :::caution
 
-On Windows you must also make sure that CLion uses the correct debugger toolchain. To do this, open the Settings (`File -> Settings...`) select `Build, Execution, Deployment -> Toolchains` and move the `Visual Studio` toolchain to the top.
+On Windows you must also make sure that CLion uses the correct debugger toolchain. To do this, open the Settings (`File -> Settings...`), select `Build, Execution, Deployment -> Toolchains` and move the `Visual Studio` toolchain to the top.
 
 :::
 
