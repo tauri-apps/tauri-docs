@@ -34,6 +34,12 @@ Now we can optionally rename the Run/Debug Configguration to something more memo
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-light.png#gh-light-mode-only)
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-dark.png#gh-dark-mode-only)
 
+:::warn
+
+On Windows you must also make sure that CLion uses the correct debugger toolchain. To do this, open the Settings (`File -> Settings...`) select `Build, Execution, Deployment -> Toolchains` and move the `Visual Studio` toolchain to the top.
+
+:::
+
 ## Launch the Development Server
 
 The above configuration will use Cargo directly to build the Rust application and attach the debugger to it. This means we completely sidestep the Tauri CLI, so features like the `beforeDevCommand` and `beforeBuildCommand` will **not** be executed. We need to take care of that by opening a new Terminal and starting running the development server manually:
