@@ -11,7 +11,7 @@ We'd like to apologize for this being delayed beyond the originally communicated
 
 ### Overview
 
-The Tauri Book will guide you through the history of Tauri and the design decisions we've made. It will also help you become a better developer by looking beyond the basics and understand why decisions around privacy, security and sustainability are important.
+The Tauri Book will guide you through the history of Tauri and the design decisions we've made. It will also talk in depth about why privacy, security and sustainability are important and fundamental discussions you can apply to any modern software project.
 
 Topics included are:
 
