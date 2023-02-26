@@ -9,6 +9,8 @@ on:
     branches:
       - dev
   pull_request:
+    branches:
+      - dev
   repository_dispatch:
     types: [update-docs, test-update-docs]
   workflow_dispatch:
