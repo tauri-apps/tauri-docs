@@ -50,13 +50,11 @@ const navbar: navbarItem[] = [
         <li>
           <Dropdown
             inlineMenu={Astro.props.inlineMenu}
-            class="navbar-dropdown-menu"
           >
             <Fragment slot="toggle">
               {item.title}
-              <IconCaret class="text-xs" />
             </Fragment>
-            <ul slot="content" class="navbar-dropdown-menu-content">
+            <ul slot="content">
               {item.children.map((child) => (
                 <li>
                   <a href={child.href}>{child.title}</a>

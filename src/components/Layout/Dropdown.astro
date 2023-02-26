@@ -1,4 +1,5 @@
 ---
+import IconCaret from '~icons/bi/caret-down-fill'
 interface Props {
   inlineMenu?: boolean;
   ariaLabel?: string;
@@ -35,7 +36,14 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
     aria-label={ariaLabel} 
     class="dropdown-toggle js-dropdown-toggle" 
   >
-    <slot name="toggle"/>
+    <!-- 
+      The div and caret are in here because we want btn styles to apply
+      even with Astro's scoped styles 
+    -->
+    <div>
+      <slot name="toggle"/>
+    </div>
+    <IconCaret class="text-xs" />
   </button>
   <div 
     id={id} 
@@ -46,15 +54,25 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
 </div>
 
 <style>
-  /* hide the menu body */
+  @import '../../styles/global.css';
+  /* hide the menu body and apply default styles */
   .dropdown-content {
-    @apply hidden absolute;
+    @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
   }
   .dropdown-inline .dropdown-content {
     @apply static;
   }
 
+  .dropdown-toggle {
+    @apply btn btn-inline text-left;
+  }
+
   /* No JS */
+  .dropdown:hover, 
+  .dropdown:focus-within {
+    @apply bg-base-200;
+  }
+
   .dropdown:hover > .dropdown-toggle:not([aria-expanded]),
   .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) {
     @apply rounded-b-none;
@@ -67,7 +85,7 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
 
   /* With JS */
   .dropdown-toggle[aria-expanded=true] {
-    @apply rounded-b-none;
+    @apply rounded-b-none bg-base-200;
   }
 
   .dropdown-toggle[aria-expanded=true] + .dropdown-content {

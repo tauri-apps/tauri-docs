@@ -11,12 +11,11 @@ import Dropdown from './Dropdown.astro'
 {/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
 <>
   <li>
-    <Dropdown ariaLabel={t('global.nav.locale-dropdown')} class="navbar-dropdown-menu">
+    <Dropdown ariaLabel={t('global.nav.locale-dropdown')}>
       <Fragment slot="toggle">
         <IconTranslate />
-        <IconCaret class="text-xs" />
       </Fragment>
-      <ul slot="content" class="navbar-dropdown-menu-content">
+      <ul slot="content">
         {
           astroI18n.langCodes.map((lang) => (
             <li>
@@ -33,12 +32,11 @@ import Dropdown from './Dropdown.astro'
     </Dropdown>
   </li>
   <li>
-    <Dropdown ariaLabel={t('global.nav.theme-dropdown')} class="navbar-dropdown-menu">
+    <Dropdown ariaLabel={t('global.nav.theme-dropdown')}>
       <Fragment slot="toggle">
         <IconCircleHalf />
-        <IconCaret class="text-xs" />
       </Fragment>
-      <ul slot="content" class="navbar-dropdown-menu-content">
+      <ul slot="content">
         <li>
           <button class="!text-primary">
             <IconCircleHalf />
