@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap'
 import i18n from 'astro-i18n'
 import Icons from 'unplugin-icons/vite'
 import { extractImageClass } from './src/plugins/remark-extract-image-class'
+import { rewriteMarkdownLinks } from './src/plugins/remark-rewrite-markdown-links'
 import { nonDefaultLocales } from './astro.i18n.config'
 import solidJs from '@astrojs/solid-js'
 import mdx from '@astrojs/mdx'
@@ -42,6 +43,6 @@ export default defineConfig({
     ],
   },
   markdown: {
-    remarkPlugins: [extractImageClass],
+    remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
   },
 })
