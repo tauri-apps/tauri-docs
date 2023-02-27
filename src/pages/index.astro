@@ -1,12 +1,68 @@
 ---
 import Layout from '@src/layouts/BaseLayout.astro'
 import { t, l } from 'astro-i18n'
-import logo from '@src/images/tauri_logo_dark.svg'
+import Footer from '@src/components/Layout/Footer.astro'
 ---
 
 <Layout title={t('index.title')}>
-  <div class="flex flex-col justify-center">
-    <a class="btn" href={l('/docs')}>Docs</a>
-    <a class="btn" href={l('/api')}>References</a>
+  <div class="scroll-block">
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="h1">Bring Your Own Framework</h1>
+      <p>
+        Tauri works with any frontend framework. Just generate the output and
+        let Tauri do the rest!
+      </p>
+    </div>
   </div>
+  <div class="overlap-block">Layer Image here</div>
+  <div class="scroll-block">
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="h1">Infinite Extensibility with Plugins</h1>
+    </div>
+  </div>
+  <div class="overlap-block">Layer Image here</div>
+  <div class="scroll-block">
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="h1">Native Webviews for Tiny Bundles</h1>
+      <p>
+        Powered by TAO for cross-platform window rendering and WRY for using the
+        native OS's webview, Tauri is able to use the webview already shipped
+        with the OS for tiny bundle sizes.
+      </p>
+    </div>
+  </div>
+  <div class="overlap-block">Layer Image Here</div>
+  <div class="scroll-block">
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="h1">From Init to Publish</h1>
+      <p>
+        Tauri integrates the frontend with plugins, windowing, and rendering for
+        a seamless cross-platform solution that's secure, private and efficient
+        for both developers and users.
+      </p>
+    </div>
+  </div>
+  <div class="overlap-block">Layer Image Here</div>
+  <Footer />
 </Layout>
+
+<style>
+  .scroll-block {
+    height: calc(100vh - var(--nav-height));
+    clip-path: inset(0);
+  }
+
+  .scroll-block > * {
+    position: fixed;
+    top: var(--nav-height);
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .shape {
+    height: 10px;
+    width: 100%;
+    background-color: aquamarine;
+  }
+</style>
