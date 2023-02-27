@@ -11,11 +11,9 @@ const { title, leadingSidebar } = Astro.props
 ---
 
 <Layout title={title}>
-  <div class="absolute inset-0 top-[var(--nav-height)] flex gap-4 bg-base-200">
+  <div class="absolute inset-0 top-[var(--nav-height)] flex bg-base-200">
     <div
-      class={`hidden ${
-        leadingSidebar && 'bg-base-100'
-      } flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto`}
+      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto"
     >
       <slot name="leading-sidebar" />
     </div>
