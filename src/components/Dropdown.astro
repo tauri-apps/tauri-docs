@@ -34,15 +34,9 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
   <button 
     aria-controls={id} 
     aria-label={ariaLabel} 
-    class="dropdown-toggle js-dropdown-toggle" 
+    class="dropdown-toggle btn btn-inline text-left js-dropdown-toggle" 
   >
-    <!-- 
-      The div and caret are in here because we want btn styles to apply
-      even with Astro's scoped styles 
-    -->
-    <div>
-      <slot name="toggle"/>
-    </div>
+    <slot name="toggle"/>
     <IconCaret class="text-xs" />
   </button>
   <div 
@@ -54,17 +48,12 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
 </div>
 
 <style>
-  @import '../styles/global.css';
   /* hide the menu body and apply default styles */
   .dropdown-content {
     @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
   }
   .dropdown-inline .dropdown-content {
     @apply static;
-  }
-
-  .dropdown-toggle {
-    @apply btn btn-inline text-left;
   }
 
   /* No JS */
