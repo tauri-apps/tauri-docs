@@ -34,7 +34,7 @@ let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props;
   <button 
     aria-controls={id} 
     aria-label={ariaLabel} 
-    class="dropdown-toggle btn btn-inline text-left js-dropdown-toggle" 
+    class="dropdown-toggle js-dropdown-toggle btn btn-inline text-left" 
   >
     <slot name="toggle"/>
     <IconCaret class="text-xs" />
