@@ -1,6 +1,7 @@
 ---
 import { t, l } from 'astro-i18n'
 import IconCaret from '~icons/bi/caret-down-fill'
+import Dropdown from '../Dropdown.astro'
 
 type navbarItem = {
   title: string
@@ -41,30 +42,34 @@ const navbar: navbarItem[] = [
 ]
 ---
 
-{
-  navbar.map((item) => (
-    <li>
-      {item.children && (
-        <label tabindex="0">
-          {item.title}
-          {item.children && <IconCaret class="text-xs" />}
-        </label>
-      )}
-      {!item.children && (
-        <a href={item.href}>
-          {item.title}
-          {item.children && <IconCaret class="text-xs" />}
-        </a>
-      )}
-      {item.children && (
-        <ul>
-          {item.children.map((child) => (
-            <li>
-              <a href={child.href}>{child.title}</a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  ))
-}
+{/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
+<>
+  {
+    navbar.map((item) =>
+      item.children ? (
+        <li>
+          <Dropdown
+            inlineMenu={Astro.props.inlineMenu}
+          >
+            <Fragment slot="toggle">
+              {item.title}
+            </Fragment>
+            <ul slot="content">
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href}>{child.title}</a>
+                </li>
+              ))}
+            </ul>
+          </Dropdown>
+        </li>
+      ) : (
+        <li>
+          <a href={item.href}>
+            {item.title}
+          </a>
+        </li>
+      )
+    )
+  }
+</>

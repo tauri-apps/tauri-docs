@@ -150,7 +150,6 @@
   /********/
   /* .menu: Should be applied to the ul */
   /* .menu-horizontal: Modifier, should be sibling to .menu */
-  /* .menu-hover: Modifier, enable submenus on hover */
   /* .menu-open: Modifier, opens the submenus by default */
   /* .menu-inline: Modifier, style any submenus to be inline */
 
@@ -164,53 +163,17 @@
   }
 
   /* Menu items */
-  .menu > li > *:not(ul),
-  .menu > li > ul > li > *:not(ul) {
+  .menu a, 
+  .menu button, 
+  .menu label {
+    /* Note that by applying button styles, we've also inherited styles for states such as focus, focus-within, and hover */
     @apply btn btn-inline text-left;
   }
 
-  .menu.menu-horizontal > li > *:not(ul) {
+  .menu.menu-horizontal a,
+  .menu.menu-horizontal button,
+  .menu.menu-horizontal label {
     @apply text-center;
-  }
-
-  /* Submenu */
-  .menu > li > ul {
-    @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
-  }
-
-  /* Focused items */
-  .menu > li:hover,
-  .menu > li:focus,
-  .menu > li:focus-within,
-  .menu.menu-open > li:has(ul) {
-    @apply bg-base-200 rounded;
-  }
-
-  /* Focused inline submenu */
-  .menu.menu-inline > li:focus,
-  .menu.menu-inline > li:focus-within {
-    @apply rounded-b;
-  }
-
-  .menu > li:focus:has(> ul),
-  .menu > li:focus-within:has(> ul),
-  .menu.menu-hover > li:hover:has(> ul),
-  .menu > li:focus:has(> ul) > *:not(ul),
-  .menu > li:focus-within:has(> ul) > *:not(ul) {
-    @apply rounded-b-none;
-  }
-
-  /* States */
-  .menu.menu-hover > li:hover > ul,
-  .menu > li:focus > ul,
-  .menu > li:focus-within > ul,
-  .menu.menu-open > li > ul {
-    @apply block;
-  }
-  .menu.menu-inline > li:focus > ul,
-  .menu.menu-inline > li:focus-within > ul,
-  .menu.menu-open.menu-inline > li > ul {
-    @apply static;
   }
 
   /********/

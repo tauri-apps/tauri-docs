@@ -1,0 +1,152 @@
+---
+import IconCaret from '~icons/bi/caret-down-fill'
+interface Props {
+  inlineMenu?: boolean;
+  ariaLabel?: string;
+  class?: string;
+  trigger?: "click" | "hover";
+}
+
+// generate unique ids for each component so that we can connect the button to the dropdown without requiring consumer to provide an id
+// https://github.com/MicroWebStacks/astro-examples/blob/c278c3fc597bce013d627025a0c93758d72cc433/05_client-uid-counters/src/libs/utils.js#L8
+function uid() {
+  let date = (Date.now()).toString();
+  const sub = date.substring(date.length-6,date.length-1);
+  return sub+"_"+Math.floor(Math.random() * 10000)
+}
+
+let id = uid();
+let { inlineMenu, ariaLabel, class: className, trigger } = Astro.props; 
+---
+
+<div
+  data-trigger={trigger ?? "click"}
+  class:list={["dropdown", "js-dropdown", { "dropdown-inline js-dropdown-inline": inlineMenu }, className]}
+> 
+  <!-- 
+    Safari still has issues with focus on button click, see
+    https://bugs.webkit.org/show_bug.cgi?id=22261
+
+    As a result, this dropdown had issues closing because 
+    focusout events were not being fired
+    and that's why we have an "outside click" listener
+  -->
+  <button 
+    aria-controls={id} 
+    aria-label={ariaLabel} 
+    class="dropdown-toggle js-dropdown-toggle btn btn-inline text-left" 
+  >
+    <slot name="toggle"/>
+    <IconCaret class="text-xs" />
+  </button>
+  <div 
+    id={id} 
+    class="dropdown-content z-nav-dropdown" 
+  >
+    <slot name="content"/>
+  </div>
+</div>
+
+<style>
+  /* hide the menu body and apply default styles */
+  .dropdown-content {
+    @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
+  }
+  .dropdown-inline .dropdown-content {
+    @apply static;
+  }
+
+  /* No JS */
+  .dropdown:hover, 
+  .dropdown:focus-within {
+    @apply bg-base-200;
+  }
+
+  .dropdown:hover > .dropdown-toggle:not([aria-expanded]),
+  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) {
+    @apply rounded-b-none;
+  }
+
+  .dropdown:focus-within > .dropdown-toggle:not([aria-expanded]) + .dropdown-content,
+  .dropdown:hover > .dropdown-toggle:not([aria-expanded]) + .dropdown-content {
+    @apply block;
+  }
+
+  /* With JS */
+  .dropdown-toggle[aria-expanded=true] {
+    @apply rounded-b-none bg-base-200;
+  }
+
+  .dropdown-toggle[aria-expanded=true] + .dropdown-content {
+    @apply block;
+  }
+</style>
+
+<script>
+  let toCloseOnOutsideClick: { menu: HTMLElement; toggle: HTMLElement }[] = [];
+  for (let navMenu of document.querySelectorAll(".js-dropdown")) {
+    if ((navMenu as HTMLElement).dataset.trigger === "hover") {
+      continue;
+    }
+    let navMenuToggle = navMenu.querySelector(".js-dropdown-toggle") as HTMLElement;
+    let navMenuBody = document.getElementById(navMenuToggle.getAttribute("aria-controls")!)!;
+    
+    // This aria doesn't make sense if there's no JS
+    navMenuToggle.setAttribute("aria-expanded", "false");
+
+    navMenuToggle.addEventListener("click", function(e) {
+      let target = e.currentTarget as HTMLElement;
+      navMenuToggle.setAttribute("aria-expanded", target.getAttribute("aria-expanded") === "true" ? "false" : "true");
+    });
+
+    // If something's displayed inline (mobile view)
+    // It looks more like a disclosure since it takes up space. 
+    // Given that there is very little current content
+    // It seems better to keep the disclosure open
+    if (!(navMenu as HTMLElement).matches(".js-dropdown-inline")) {
+      toCloseOnOutsideClick.push({ menu: (navMenu as HTMLElement), toggle: navMenuToggle });
+
+      navMenuToggle.addEventListener("focusout", function(e) {
+        if (!e.relatedTarget || !navMenu.contains(e.relatedTarget as HTMLElement)) {
+          navMenuToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+      navMenuBody.addEventListener("focusout", function(e) {
+        if (!e.relatedTarget || !navMenu.contains(e.relatedTarget as HTMLElement)) {
+          navMenuToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+      let escapeListener = function(e: KeyboardEvent) {
+        if (e.key === "Escape") {
+          navMenuToggle.setAttribute("aria-expanded", "false");
+          navMenuToggle.focus();
+        }
+      };
+      navMenuToggle.addEventListener("keydown", escapeListener);
+      navMenuBody.addEventListener("keydown", escapeListener);
+    }
+  }
+
+  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/shared/utils/is.ts#L25
+  const isIOS = window?.navigator?.userAgent && /iP(ad|hone|od)/.test(window.navigator.userAgent);
+  
+  // Older iOS Safari does not allow bubbling unless there's a listener on the body elements
+  // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+  if (isIOS) {
+    Array.from(window.document.body.children)
+      .forEach(el => el.addEventListener("click", () => {}))
+  }
+  // this is a fix for macOS focus behaviour not allowing outside clicks to close the menu. 
+  // If we find that we need an onClickOutside function in other places, we can try extracting this
+  // into an onClickOutside utility
+  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/core/onClickOutside/index.ts#L38
+  window.addEventListener("click", function(e){
+    let target = e.currentTarget;
+    let elements = e.composedPath();
+    for (let { menu, toggle} of toCloseOnOutsideClick) {
+      if (menu !== target && !elements.includes(menu)) {
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    }
+  }, { passive: true, capture: true  })
+</script>
