@@ -9,7 +9,7 @@ const entries = await geti18nCollection('api', astroI18n.langCode)
 
 <Layout title={t('api.title')}>
   <main>
-    <h1>{t('api.title')}</h1>
+    <h1 class="h1">{t('api.title')}</h1>
     <Tree baseUrl={l('/api')} entries={entries} />
   </main>
 </Layout>
