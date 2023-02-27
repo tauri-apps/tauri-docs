@@ -8,54 +8,52 @@ import { astroI18n, l, t } from 'astro-i18n'
 import Dropdown from '../Dropdown.astro'
 ---
 
-{/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
-<>
-  <li>
-    <Dropdown ariaLabel={t('global.nav.locale-dropdown')}>
-      <Fragment slot="toggle">
-        <IconTranslate />
-      </Fragment>
-      <ul slot="content">
-        {
-          astroI18n.langCodes.map((lang) => (
-            <li>
-              <a
-                href={l(String(Astro.url.pathname), undefined, lang)}
-                class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
-              >
-                {t(`global.locale.${lang}`)}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </Dropdown>
-  </li>
-  <li>
-    <Dropdown ariaLabel={t('global.nav.theme-dropdown')}>
-      <Fragment slot="toggle">
-        <IconCircleHalf />
-      </Fragment>
-      <ul slot="content">
-        <li>
-          <button class="!text-primary">
-            <IconCircleHalf />
-            {t('global.nav.theme.system')}
-          </button>
-        </li>
-        <li>
-          <button>
-            <IconMoonStarsFill />
-            {t('global.nav.theme.dark')}
-          </button>
-        </li>
-        <li>
-          <button>
-            <IconBrightnessHighFill />
-            {t('global.nav.theme.light')}
-          </button>
-        </li>
-      </ul>
-    </Dropdown>
-  </li>
-</>
+<li>
+  <Dropdown ariaLabel={t('global.nav.locale-dropdown')}>
+    <Fragment slot="toggle">
+      <IconTranslate />
+    </Fragment>
+    <ul slot="content">
+      <li><a>More Locales Coming Soon</a></li>
+      <!-- {
+        astroI18n.langCodes.map((lang) => (
+          <li>
+            <a
+              href={l(String(Astro.url.pathname), undefined, lang)}
+              class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
+            >
+              {t(`global.locale.${lang}`)}
+            </a>
+          </li>
+        ))
+      } -->
+    </ul>
+  </Dropdown>
+</li>
+<!-- <li>
+  <Dropdown ariaLabel={t('global.nav.theme-dropdown')}>
+    <Fragment slot="toggle">
+      <IconCircleHalf />
+    </Fragment>
+    <ul slot="content">
+      <li>
+        <button class="!text-primary">
+          <IconCircleHalf />
+          {t('global.nav.theme.system')}
+        </button>
+      </li>
+      <li>
+        <button>
+          <IconMoonStarsFill />
+          {t('global.nav.theme.dark')}
+        </button>
+      </li>
+      <li>
+        <button>
+          <IconBrightnessHighFill />
+          {t('global.nav.theme.light')}
+        </button>
+      </li>
+    </ul>
+  </Dropdown>
+</li> -->

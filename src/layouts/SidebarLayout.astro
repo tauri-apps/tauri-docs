@@ -11,22 +11,22 @@ const { title, leadingSidebar } = Astro.props
 ---
 
 <Layout title={title}>
-  <div class="bg-base-200 h-[calc(100vh - var(--nav-height))]">
+  <div class="absolute inset-0 top-[var(--nav-height)] flex gap-4 bg-base-200">
     <div
       class={`hidden ${
         leadingSidebar && 'bg-base-100'
-      } lg:block fixed top-[var(--nav-height)] pl-4 left-0 bottom-0 w-[var(--sidebar-width)] pt-8 overflow-y-auto`}
+      } flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto`}
     >
       <slot name="leading-sidebar" />
     </div>
-    <div class="px-8 lg:px-56 max-w-[150ch] mx-auto pt-8">
+    <div class="max-w-[150ch] overflow-y-auto">
       <article>
         <slot />
       </article>
       <Footer />
     </div>
     <div
-      class="hidden lg:block fixed top-[var(--nav-height)] pr-4 right-0 bottom-0 w-[var(--sidebar-width)] pt-8 pl-2 overflow-y-auto"
+      class="hidden lg:block flex-none w-[var(--sidebar-width)] overflow-y-auto"
     >
       <slot name="trailing-sidebar" />
     </div>

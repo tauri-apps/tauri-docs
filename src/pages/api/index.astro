@@ -1,7 +1,7 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
-import { t, astroI18n } from 'astro-i18n'
+import { l, t, astroI18n } from 'astro-i18n'
 import Tree from '@src/components/Tree.astro'
 
 const entries = await geti18nCollection('api', astroI18n.langCode)
@@ -9,7 +9,7 @@ const entries = await geti18nCollection('api', astroI18n.langCode)
 
 <Layout title={t('api.title')}>
   <main>
-    <h1>{t('api.title')}</h1>
-    <Tree entries={entries} />
+    <h1 class="h1">{t('api.title')}</h1>
+    <Tree baseUrl={l('/api')} entries={entries} />
   </main>
 </Layout>
