@@ -1,7 +1,10 @@
 ---
+import OnThisPage from '@src/components/Layout/OnThisPage.astro'
+import Translate from '@src/components/Layout/Translate.astro'
+import Tree from '@src/components/Tree.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
 import { geti18nCollection } from '@src/utils'
-import { astroI18n } from 'astro-i18n'
+import { astroI18n, t } from 'astro-i18n'
 
 export async function getStaticPaths() {
   const collection = await geti18nCollection('api', astroI18n.langCode)
@@ -12,15 +15,36 @@ export async function getStaticPaths() {
     },
     props: {
       entry,
+      collection,
     },
   }))
 }
 
-const { entry } = Astro.props
+const { entry, collection } = Astro.props
 
-const { Content } = await entry.render()
+const { Content, headings } = await entry.render()
 ---
 
 <Layout title="test api post">
-  <Content />
+  <div slot="leading-sidebar">
+    <Tree entries={collection} baseUrl="api" />
+  </div>
+  <div class="prose">
+    <Content />
+  </div>
+  <div slot="trailing-sidebar">
+    <ul>
+      <li class="list-heading">{t('layout.on-this-page')}</li>
+      <OnThisPage headings={headings} />
+      <li class="list-base"></li>
+      {
+        entry.data.i18n_ready && (
+          <>
+            <li class="list-heading">{t('layout.contribute')}</li>
+            <Translate />
+          </>
+        )
+      }
+    </ul>
+  </div>
 </Layout>
