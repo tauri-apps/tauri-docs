@@ -89,10 +89,6 @@
   code {
     @apply text-base;
   }
-
-  a {
-    @apply underline hover:text-primary transition;
-  }
 }
 
 @layer components {
@@ -106,7 +102,7 @@
 
   .btn {
     /* min-w-[48px] is used to ensure that small icons are square */
-    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer no-underline hover:text-base-content;
+    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
   .btn * {
     @apply inline-block;
