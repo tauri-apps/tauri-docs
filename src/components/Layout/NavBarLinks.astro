@@ -1,6 +1,5 @@
 ---
 import { t, l } from 'astro-i18n'
-import IconCaret from '~icons/bi/caret-down-fill'
 import Dropdown from '../Dropdown.astro'
 
 type navbarItem = {
@@ -42,22 +41,22 @@ const navbar: navbarItem[] = [
 ]
 ---
 
-{/* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */}
+{
+  /* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */
+}
 <>
   {
     navbar.map((item) =>
       item.children ? (
         <li>
-          <Dropdown
-            inlineMenu={Astro.props.inlineMenu}
-          >
-            <Fragment slot="toggle">
-              {item.title}
-            </Fragment>
+          <Dropdown inlineMenu={Astro.props.inlineMenu}>
+            <Fragment slot="toggle">{item.title}</Fragment>
             <ul slot="content">
               {item.children.map((child) => (
                 <li>
-                  <a href={child.href}>{child.title}</a>
+                  <a href={child.href} class="btn btn-inline text-left">
+                    {child.title}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -65,7 +64,7 @@ const navbar: navbarItem[] = [
         </li>
       ) : (
         <li>
-          <a href={item.href}>
+          <a href={item.href} class="btn">
             {item.title}
           </a>
         </li>

@@ -146,37 +146,6 @@
   }
 
   /********/
-  /* Menu */
-  /********/
-  /* .menu: Should be applied to the ul */
-  /* .menu-horizontal: Modifier, should be sibling to .menu */
-  /* .menu-open: Modifier, opens the submenus by default */
-  /* .menu-inline: Modifier, style any submenus to be inline */
-
-  .menu {
-    @apply flex flex-col;
-  }
-
-  /* Modifiers */
-  .menu.menu-horizontal {
-    @apply flex-row;
-  }
-
-  /* Menu items */
-  .menu a, 
-  .menu button, 
-  .menu label {
-    /* Note that by applying button styles, we've also inherited styles for states such as focus, focus-within, and hover */
-    @apply btn btn-inline text-left;
-  }
-
-  .menu.menu-horizontal a,
-  .menu.menu-horizontal button,
-  .menu.menu-horizontal label {
-    @apply text-center;
-  }
-
-  /********/
   /* Card */
   /********/
   .card {
