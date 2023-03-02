@@ -49,16 +49,6 @@ import { astroI18n } from 'astro-i18n'
   .docsearch-btn-key {
     line-height: 1;
   }
-
-  @media (max-width: 1024px) {
-    .docsearch-btn-placeholder,
-    .docsearch-btn-keys {
-      display: none !important;
-    }
-    .docsearch-btn {
-      padding: 0 8px;
-    }
-  }
 </style>
 
 <Search client:only lang={astroI18n.langCode} />
