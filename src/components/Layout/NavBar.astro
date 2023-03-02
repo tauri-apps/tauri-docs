@@ -9,30 +9,27 @@ import { l, t } from 'astro-i18n'
 ---
 
 <style>
-  .nav-drawer > input {
-    @apply hidden;
-  }
-  .nav-drawer > .content,
-  .nav-drawer > * .content {
-    @apply hidden;
-  }
-  .nav-drawer > input:checked ~ .content,
-  .nav-drawer > input:checked ~ * .content {
-    @apply flex;
-  }
-  .nav-drawer > input:checked ~ * .icon-closed {
-    @apply hidden;
-  }
-
+  .nav-drawer > input,
+  .nav-drawer > input:checked ~ * .icon-closed,
   .nav-drawer > input:not(:checked) ~ * .icon-open {
     @apply hidden;
+  }
+  .nav-drawer > input:not(:checked) ~ .content,
+  .nav-drawer > input:not(:checked) ~ * .content {
+    /* Will only hide when on smaller screen sizes */
+    @apply max-lg:hidden;
+  }
+
+  .nav-drawer:has(input:checked) {
+    /* Will only take up the full screen height when on smaller screen sizes */
+    @apply flex max-lg:h-screen;
   }
 </style>
 
 <nav class="bg-base-100 sticky top-0 py-4 px-8 z-nav">
-  <!-- Desktop -->
-  <ul class="hidden lg:flex justify-between">
-    <li class="flex items-center">
+  <ul class="nav-drawer flex flex-col lg:flex-row">
+    <input type="checkbox" id="nav-drawer" />
+    <li class="flex justify-between order-1">
       <a class="pr-8" href={l('/')}>
         <img
           src="/meta/tauri_logo_dark.svg"
@@ -40,68 +37,48 @@ import { l, t } from 'astro-i18n'
           class="h-10"
         />
       </a>
-      <ul class="menu menu-horizontal">
-        <NavBarLinks />
-      </ul>
-    </li>
-    <li class="flex items-center">
-      <ul class="menu menu-horizontal">
-        <Social />
-        <li class="border-x border-border rounded m-2"></li>
-        <NavBarLocaleTheme />
-      </ul>
-      <div class="ml-2">
-        <Search />
+      <div class="flex">
+        <ul class="content lg:hidden">
+          <NavBarLocaleTheme />
+        </ul>
+        <label
+          for="nav-drawer"
+          class="lg:hidden icon-closed btn"
+          tabindex="0"
+          aria-label={t('global.nav.open-navigation')}
+        >
+          <IconList />
+        </label>
+        <label
+          for="nav-drawer"
+          class="lg:hidden icon-open btn"
+          tabindex="0"
+          aria-label={t('global.nav.close-navigation')}
+        >
+          <IconClose />
+        </label>
       </div>
     </li>
-  </ul>
-  <!-- Mobile -->
-  <ul class="lg:hidden flex flex-col items-stretch gap-4 nav-drawer">
-    <input type="checkbox" id="nav-drawer" />
-    <li class="flex justify-between items-center">
-      <a href={l('/')}>
-        <img
-          src="/meta/tauri_logo_dark.svg"
-          alt={t('global.tauri-logo')}
-          class="h-10"
-        />
-      </a>
-      <ul class="menu menu-horizontal">
-        <NavBarLocaleTheme />
-        <li>
-          <div class="!pt-2 !px-2 !pb-0">
-            <Search />
-          </div>
-        </li>
-        <li>
-          <label
-            for="nav-drawer"
-            class="icon-closed"
-            tabindex="0"
-            aria-label={t('global.nav.open-navigation')}
-          >
-            <IconList />
-          </label>
-          <label
-            for="nav-drawer"
-            class="icon-open"
-            tabindex="0"
-            aria-label={t('global.nav.close-navigation')}
-          >
-            <IconClose />
-          </label>
-        </li>
+    <li class="content order-3">
+      <ul class="hidden lg:flex">
+        <NavBarLinks />
       </ul>
-    </li>
-    <div
-      class="content fixed inset-0 top-16 flex flex-col gap-4 bg-base-100 w-full z-mobile-nav px-8 py-4"
-    >
-      <ul class="menu">
+      <ul class="flex lg:hidden flex-col">
         <NavBarLinks inlineMenu={true} />
       </ul>
-      <ul class="menu menu-horizontal">
+    </li>
+    <li class="content order-3 lg:grow"></li>
+    <li class="content order-3">
+      <ul class="flex">
         <Social />
       </ul>
-    </div>
+    </li>
+    <li class="content order-3 border-x border-border rounded m-2"></li>
+    <li class="content order-3">
+      <ul class="hidden lg:flex"><NavBarLocaleTheme /></ul>
+    </li>
+    <!-- TODO: Align center vertically -->
+    <!-- TODO: Should adjust based on available size, not screen size -->
+    <li class="content order-2 lg:order-3"><Search /></li>
   </ul>
 </nav>
