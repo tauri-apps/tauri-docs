@@ -1,0 +1,79 @@
+---
+// Component adapted from https://tailwindui.com/components/application-ui/overlays/modals
+import { t } from 'astro-i18n'
+---
+
+<style>
+  input:not(:checked) ~ .content,
+  input:not(:checked) ~ * .content {
+    @apply hidden;
+  }
+</style>
+
+<input type="checkbox" id="feedback" class="hidden" />
+<label
+  for="feedback"
+  class="btn"
+  tabindex="0"
+  aria-label={t('global.footer.feedback')}
+>
+  {t('global.footer.feedback')}
+</label>
+<div class="content">
+  <div
+    class="relative z-10"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="fixed inset-0 bg-base-100 bg-opacity-75"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="flex min-h-full justify-center p-4 items-center">
+        <div
+          class="relative overflow-hidden rounded-lg bg-base-300 shadow-xl max-w-2xl"
+        >
+          <form>
+            <div class="bg-base-300 p-4 flex flex-col gap-4">
+              <h3 class="h3">Submit Feedback</h3>
+              <p>
+                Thank you for taking the time to submit feedback about using
+                beta.tauri.app. What you submit is publicly posted so that Tauri
+                contributors can view it so please do not submit any personal
+                information.
+              </p>
+
+              <p>
+                If you would like to share more information then you can <a
+                  href="https://github.com/tauri-apps/tauri-docs/issues/new"
+                  target="_blank">submit an issue on GitHub</a
+                > or reach out on our <a
+                  href="https://discord.com/invite/tauri"
+                  target="_blank">Discord server</a
+                >.
+              </p>
+
+              <textarea
+                id="w3review"
+                rows="4"
+                class="input-text"
+                placeholder="Provide your feedback here"></textarea>
+              <div>
+                <button type="button" class="btn btn-hover"
+                  >Submit Feedback</button
+                >
+                <label
+                  for="feedback"
+                  class="btn"
+                  tabindex="0"
+                  aria-label={t('global.footer.close-feedback')}
+                >
+                  {t('global.footer.close-feedback')}
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

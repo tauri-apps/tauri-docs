@@ -1,6 +1,7 @@
 ---
 import { l, t } from 'astro-i18n'
 import NavBarSocial from './NavBarSocial.astro'
+import Feedback from './Feedback.astro'
 const year = new Date().getFullYear()
 import logo from '@src/images/tauri_logo_dark.svg'
 ---
@@ -13,7 +14,7 @@ import logo from '@src/images/tauri_logo_dark.svg'
 
 <footer class="py-4 flex flex-col gap-8">
   <hr />
-  <div class="grid lg:grid-cols-3 gap-8">
+  <div class="grid lg:grid-cols-4 gap-8">
     <div class="flex flex-col gap-6">
       <div>
         <a href={l('/')}>
@@ -27,7 +28,6 @@ import logo from '@src/images/tauri_logo_dark.svg'
         </ul>
       </div>
     </div>
-
     <ul>
       <li>
         <a href={l('/docs')} class="text-base-content">{t('global.nav.docs')}</a
@@ -70,6 +70,7 @@ import logo from '@src/images/tauri_logo_dark.svg'
         >
       </li>
     </ul>
+    <Feedback />
   </div>
   <div>
     {t('global.footer-copyright', { year: String(year) })}
