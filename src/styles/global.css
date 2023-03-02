@@ -106,7 +106,7 @@
 
   .btn {
     /* min-w-[48px] is used to ensure that small icons are square */
-    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
+    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer no-underline hover:text-base-content;
   }
   .btn * {
     @apply inline-block;
