@@ -9,7 +9,6 @@ import { l, t } from 'astro-i18n'
 ---
 
 <style>
-  .nav-drawer > input,
   .nav-drawer > input:checked ~ * .icon-closed,
   .nav-drawer > input:not(:checked) ~ * .icon-open {
     @apply hidden;
@@ -19,66 +18,68 @@ import { l, t } from 'astro-i18n'
     /* Will only hide when on smaller screen sizes */
     @apply max-lg:hidden;
   }
-
-  .nav-drawer:has(input:checked) {
-    /* Will only take up the full screen height when on smaller screen sizes */
-    @apply flex max-lg:h-screen;
-  }
 </style>
 
-<nav class="bg-base-100 sticky top-0 py-4 px-8 z-nav">
-  <ul class="nav-drawer flex flex-col lg:flex-row lg:items-center">
-    <input type="checkbox" id="nav-drawer" />
-    <li class="flex justify-between order-1">
-      <a class="pr-8" href={l('/')}>
+<nav class="bg-base-100 sticky top-0 py-4 px-8 z-nav nav-drawer">
+  <input type="checkbox" id="nav-drawer" class="hidden" />
+  <ul class="flex items-center">
+    <li>
+      <a href={l('/')}>
         <img
           src="/meta/tauri_logo_dark.svg"
           alt={t('global.tauri-logo')}
-          class="h-10"
+          class="h-10 pr-8"
         />
       </a>
-      <div class="flex">
-        <ul class="content lg:hidden">
-          <NavBarLocaleTheme />
-        </ul>
-        <label
-          for="nav-drawer"
-          class="lg:hidden icon-closed btn"
-          tabindex="0"
-          aria-label={t('global.nav.open-navigation')}
-        >
-          <IconList />
-        </label>
-        <label
-          for="nav-drawer"
-          class="lg:hidden icon-open btn"
-          tabindex="0"
-          aria-label={t('global.nav.close-navigation')}
-        >
-          <IconClose />
-        </label>
-      </div>
     </li>
-    <li class="content order-3">
+    <li>
       <ul class="hidden lg:flex">
         <NavBarLinks />
       </ul>
-      <ul class="flex lg:hidden flex-col">
-        <NavBarLinks inlineMenu={true} />
+    </li>
+    <li class="grow"></li>
+    <li>
+      <ul class="hidden lg:flex">
+        <Social />
       </ul>
     </li>
-    <li class="content order-3 lg:grow"></li>
-    <li class="content order-3">
+    <li class="max-lg:hidden border-x border-border rounded m-2 h-8"></li>
+    <li class="content">
+      <ul>
+        <NavBarLocaleTheme />
+      </ul>
+    </li>
+    <li class="pl-4">
+      <Search />
+    </li>
+    <li>
+      <label
+        for="nav-drawer"
+        class="lg:hidden icon-closed btn"
+        tabindex="0"
+        aria-label={t('global.nav.open-navigation')}
+      >
+        <IconList />
+      </label>
+    </li>
+    <li>
+      <label
+        for="nav-drawer"
+        class="lg:hidden icon-open btn"
+        tabindex="0"
+        aria-label={t('global.nav.close-navigation')}
+      >
+        <IconClose />
+      </label>
+    </li>
+  </ul>
+  <ul class="lg:hidden content h-screen">
+    <NavBarLinks inlineMenu={true} />
+    <li></li>
+    <li>
       <ul class="flex">
         <Social />
       </ul>
     </li>
-    <li class="content order-3 border-x border-border rounded m-2"></li>
-    <li class="content order-3">
-      <ul class="hidden lg:flex"><NavBarLocaleTheme /></ul>
-    </li>
-    <!-- TODO: Align center vertically -->
-    <!-- TODO: Should adjust based on available size, not screen size -->
-    <li class="content order-2 lg:order-3"><Search /></li>
   </ul>
 </nav>
