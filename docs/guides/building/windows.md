@@ -44,6 +44,14 @@ Additionally, to use the Notification API in Windows 7, you need to enable the `
 tauri = { version = "1", features = [ "windows7-compat" ] }
 ```
 
+## FIPS Compliance
+
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true` before running the `tauri build` command. In PowerShell you could set it for the current terminal session like this:
+
+```powershell
+$env:TAURI_FIPS_COMPLIANT="true"
+```
+
 ## Webview2 Installation Options
 
 The Windows Installer by default downloads the Webview2 bootstrapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer, or use a fixed Webview2 runtime version. See the following table for a comparison between these methods:
