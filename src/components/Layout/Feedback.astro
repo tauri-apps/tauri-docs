@@ -34,7 +34,7 @@ import Megaphone from '~icons/bi/send-fill'
         <div
           class="relative overflow-hidden rounded-lg bg-base-300 shadow-xl max-w-2xl"
         >
-          <form>
+          <form name="feedback" method="POST" data-netlify="true">
             <div class="bg-base-300 p-4 flex flex-col gap-4 prose">
               <h3>Submit Feedback</h3>
               <p>
@@ -55,12 +55,12 @@ import Megaphone from '~icons/bi/send-fill'
               </p>
 
               <textarea
-                id="w3review"
                 rows="4"
                 class="input-text"
-                placeholder="Provide your feedback here"></textarea>
+                placeholder="Provide your feedback here"
+                name="feedback"></textarea>
               <div>
-                <button type="button" class="btn btn-hover"
+                <button type="submit" class="btn btn-hover"
                   >Submit Feedback</button
                 >
                 <label
