@@ -47,6 +47,19 @@ export async function geti18nCollection<
     })
   ).then((result) => result.flat())
 
+  // Sort first on meta_position, then meta_title, then slug
+  allEntries.sort((a, b) => {
+    if (a.data.meta_position) {
+      if (b.data.meta_position) {
+        return a.data.meta_position - b.data.meta_position
+      }
+      // Use meta position
+      return -1
+    }
+
+    return a.slug.localeCompare(b.slug)
+  })
+
   return allEntries
 }
 
@@ -59,26 +72,6 @@ export interface TreeNode<C extends Parameters<typeof CollectionType>> {
 export function convertCollectionToTree<
   C extends Parameters<typeof CollectionType>
 >(entries: CollectionEntry<C>[]): TreeNode<C> {
-  entries.filter((entry) => !!Object.keys(entry.data).length)
-
-  // Sort first on meta_position, then meta_title, then slug
-  entries.sort((a, b) => {
-    // return a.data?.meta_position - b.data?.meta_position
-    if (a.data.meta_position) {
-      if (b.data.meta_position) {
-        return a.data.meta_position - b.data.meta_position
-      }
-      // Use meta position
-      return -1
-    }
-    // Else use the title
-    if (a.data.meta_title) {
-      // return a.data.meta_title.localeCompare(b.data.meta_title ?? b.slug)
-    }
-
-    return a.slug.localeCompare(b.slug)
-  })
-
   var result: TreeNode<C> = { slug: '' }
 
   entries.forEach((entry) =>
