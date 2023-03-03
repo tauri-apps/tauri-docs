@@ -1,6 +1,7 @@
 ---
 // Component adapted from https://tailwindui.com/components/application-ui/overlays/modals
 import { t } from 'astro-i18n'
+import Megaphone from '~icons/bi/send-fill'
 ---
 
 <style>
@@ -17,6 +18,7 @@ import { t } from 'astro-i18n'
   tabindex="0"
   aria-label={t('global.footer.feedback')}
 >
+  <Megaphone />
   {t('global.footer.feedback')}
 </label>
 <div class="content">
