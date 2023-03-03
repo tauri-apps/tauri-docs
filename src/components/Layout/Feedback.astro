@@ -38,7 +38,7 @@ import Megaphone from '~icons/bi/send-fill'
             name="feedback"
             method="POST"
             data-netlify="true"
-            action={String(Astro.url)}
+            action={Astro.url.pathname}
           >
             <div class="bg-base-300 p-4 flex flex-col gap-4 prose">
               <h3>Submit Feedback</h3>
@@ -61,7 +61,7 @@ import Megaphone from '~icons/bi/send-fill'
               <input
                 type="text"
                 name="page"
-                value={String(Astro.url)}
+                value={Astro.url.pathname}
                 class="hidden"
               />
 
