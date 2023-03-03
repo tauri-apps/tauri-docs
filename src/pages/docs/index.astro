@@ -2,14 +2,27 @@
 import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
 import { l, t, astroI18n } from 'astro-i18n'
-import Tree from '@src/components/Tree.astro'
+import { convertCollectionToTree } from '@src/utils.js'
 
 const entries = await geti18nCollection('docs', astroI18n.langCode)
+const tree = convertCollectionToTree(entries)
 ---
 
 <Layout title={t('docs.title')}>
   <main>
-    <h1>{t('docs.title')}</h1>
-    <Tree baseUrl={l('/docs')} entries={entries} />
+    <h1 class="h1">Core Docs</h1>
+    <ul>
+      {
+        Object.entries(tree['core']['1'])
+          .filter((entry) => entry[0] != '_metadata')
+          .map(([key, value]) => (
+            <li>
+              <a href={l(`/docs/${value['_metadata']['slug']}`)}>
+                {value['_metadata']['data']['meta_title']}
+              </a>
+            </li>
+          ))
+      }
+    </ul>
   </main>
 </Layout>

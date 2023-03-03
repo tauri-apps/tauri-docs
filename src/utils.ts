@@ -50,14 +50,15 @@ export async function geti18nCollection<
   return allEntries
 }
 
-export interface TreeNode {
+export interface TreeNode<C extends Parameters<typeof CollectionType>> {
   slug: string
-  children?: TreeNode[]
+  children?: TreeNode<C>[]
+  entry?: CollectionEntry<C>
 }
 
-export function convertCollectionToTree(
-  entries: CollectionEntry<'docs'>[]
-): TreeNode[] {
+export function convertCollectionToTree<
+  C extends Parameters<typeof CollectionType>
+>(entries: CollectionEntry<C>[]): TreeNode<C> {
   entries.filter((entry) => !!Object.keys(entry.data).length)
 
   // Sort first on meta_position, then meta_title, then slug
@@ -78,47 +79,16 @@ export function convertCollectionToTree(
     return a.slug.localeCompare(b.slug)
   })
 
-  // Transforms flattened array to EntryMap format,
-  const entriesMap = entries.reduce(
-    (obj, { slug, ...data }: { slug: string }) => {
-      const slugArray = slug.split('/')
+  var result: TreeNode<C> = { slug: '' }
 
-      // Creates all parent entries that don't exist
-      const leaf = slugArray.reduce(
-        (parent, slug) => ((parent.children ??= {})[slug] ??= {}),
-        obj
+  entries.forEach((entry) =>
+    entry.slug
+      .split('/')
+      .reduce(
+        (o, slug) => (o[slug] = o[slug] || { _metadata: { ...entry } }),
+        result
       )
-
-      Object.assign(leaf, data)
-
-      return obj
-    },
-    {} as EntryMap[string]
   )
 
-  return recurseTreeNodes(entriesMap.children)
-}
-
-type EntryMap = {
-  [K: string]: {
-    children?: EntryMap
-  }
-}
-
-// Converts an `EntryMap` key-value tree to an array based `TreeNode` tree
-function recurseTreeNodes(obj: EntryMap, parent = '') {
-  return Object.entries(obj).map(
-    ([slug, { children, ...data }]): TreeNode => ({
-      // `slug` is the leaf slug, so it must be joined to the
-      // rest of the parent path
-      slug: `${parent}${slug}`,
-      ...data,
-      // children shouldn't be defined if there aren't any
-      ...(children
-        ? {
-            children: recurseTreeNodes(children, `${parent}${slug}/`),
-          }
-        : {}),
-    })
-  )
+  return result
 }

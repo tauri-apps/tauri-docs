@@ -1,13 +1,13 @@
 ---
+import type { TreeNode } from '@src/utils.js'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
 
 interface Props {
   title: string
-  leadingSidebar: boolean
 }
 
-const { title, leadingSidebar } = Astro.props
+const { title } = Astro.props
 ---
 
 <Layout title={title}>

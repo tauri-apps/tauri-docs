@@ -1,15 +1,56 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
+import { convertCollectionToTree } from '@src/utils.js'
 import { l, t, astroI18n } from 'astro-i18n'
-import Tree from '@src/components/Tree.astro'
 
 const entries = await geti18nCollection('api', astroI18n.langCode)
+const tree = convertCollectionToTree(entries)
 ---
 
 <Layout title={t('api.title')}>
   <main>
     <h1 class="h1">{t('api.title')}</h1>
-    <Tree baseUrl={l('/api')} entries={entries} />
+    <ul>
+      {
+        Object.entries(tree['core-js']['1'])
+          .filter((entry) => entry[0] != '_metadata')
+          .map(([_, value]) => (
+            <li>
+              <a href={l(`/api/${value['_metadata']['slug']}`)}>
+                {value['_metadata']['data']['meta_title']
+                  ? value['_metadata']['data']['meta_title']
+                  : value['_metadata']['slug']}
+              </a>
+            </li>
+          ))
+      }
+      {
+        Object.entries(tree['core-config']['1'])
+          .filter((entry) => entry[0] != '_metadata')
+          .map(([_, value]) => (
+            <li>
+              <a href={l(`/api/${value['_metadata']['slug']}`)}>
+                {value['_metadata']['data']['meta_title']
+                  ? value['_metadata']['data']['meta_title']
+                  : value['_metadata']['slug']}
+              </a>
+            </li>
+          ))
+      }
+      {
+        Object.entries(tree['core-config']['1'])
+          .filter((entry) => entry[0] != '_metadata')
+          .map(([_, value]) => (
+            <li>
+              <a href={l(`/api/${value['_metadata']['slug']}`)}>
+                {value['_metadata']['data']['meta_title']
+                  ? value['_metadata']['data']['meta_title']
+                  : value['_metadata']['slug']}
+              </a>
+            </li>
+          ))
+      }
+    </ul>
   </main>
 </Layout>

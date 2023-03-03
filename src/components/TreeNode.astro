@@ -8,16 +8,27 @@ interface Props {
 }
 
 const { node, baseUrl } = Astro.props
+const children = Object.entries(node)
+  .filter(([key, _]) => key !== '_metadata')
+  .map(([_, value]) => value)
+const filteredChildren = children.length > 1 ? children : undefined
 ---
 
 <li>
-  <a href={l(`${baseUrl ? baseUrl : ''}/${node.slug}`)} class="list-item">
-    {node.data?.meta_title ? node.data.meta_title : node.slug}
+  <a
+    href={l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)}
+    class="list-item"
+  >
+    {
+      node['_metadata']['data']['meta_title']
+        ? node['_metadata']['data']['meta_title']
+        : node['_metadata']['slug']
+    }
   </a>
   {
-    node.children && (
+    filteredChildren && (
       <ul class="pl-4">
-        {node.children.map((child) => (
+        {filteredChildren.map((child) => (
           <Astro.self node={child} baseUrl={baseUrl} />
         ))}
       </ul>

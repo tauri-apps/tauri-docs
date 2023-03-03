@@ -1,9 +1,10 @@
 ---
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Translate from '@src/components/Layout/Translate.astro'
-import Tree from '@src/components/Tree.astro'
 import Layout from '@src/layouts/SidebarLayout.astro'
+import Tree from '@src/components/Tree.astro'
 import { geti18nCollection } from '@src/utils'
+import { convertCollectionToTree } from '@src/utils.js'
 import { astroI18n, t, l } from 'astro-i18n'
 
 export async function getStaticPaths() {
@@ -21,13 +22,13 @@ export async function getStaticPaths() {
 }
 
 const { entry, collection } = Astro.props
-
 const { Content, headings } = await entry.render()
+const tree = convertCollectionToTree(collection)
 ---
 
-<Layout title="test docs post" leadingSidebar={true}>
+<Layout title="test docs post">
   <div slot="leading-sidebar">
-    <Tree entries={collection} baseUrl="docs" startAt={'core/1'} />
+    <Tree tree={tree['core']['1']} baseUrl={'/docs'} />
   </div>
   <div class="prose">
     <Content />
