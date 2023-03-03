@@ -46,7 +46,7 @@ tauri = { version = "1", features = [ "windows7-compat" ] }
 
 ## FIPS Compliance
 
-If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true` before running the `tauri build` command. In PowerShell you could set it for the current terminal session like this:
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true` before running the `tauri build` command. In PowerShell you can set it for the current terminal session like this:
 
 ```powershell
 $env:TAURI_FIPS_COMPLIANT="true"
