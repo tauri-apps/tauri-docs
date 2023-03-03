@@ -1,4 +1,6 @@
 {
+  "global.footer.feedback": "Submit Feedback",
+  "global.footer.close-feedback": "Close",
   "404.title": "404",
   "about.title": "About",
   "api.title": "API",
