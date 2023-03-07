@@ -23,12 +23,7 @@ To generate the keys, you need to use the Tauri CLI:
 
 <Command name="signer generate -w ~/.tauri/myapp.key" />
 
-If you're on Windows, you should use `$HOME/.tauri/myapp.key` instead.
-
-Then, to make Tauri pick up these keys should be set as environment variables when building your app:
-
-- `TAURI_PRIVATE_KEY`: Path or content of your private key
-- `TAURI_KEY_PASSWORD`: Your private key password (optional)
+If you are on Windows, you should use `$HOME/.tauri/myapp.key` instead.
 
 ## Tauri configuration
 
@@ -68,7 +63,12 @@ Each updater URL can contain the following variables allowing you to determine [
 
 Tauri's bundler will automatically generate and sign update artifacts once the updater is correctly configured and enabled.
 
-The signature is the content of the generated `.sig` file. The signature can be uploaded to GitHub safely or made public if your private key is secure.
+Before building your app, you need to set environment variables for the private key and password:
+
+- `TAURI_PRIVATE_KEY`: Path or content of your private key
+- `TAURI_KEY_PASSWORD`: Your private key password (optional)
+
+After that, you can run `tauri build` as usual and Tauri will generate the update bundle and its signature.
 
 - **macOS**: On macOS, Tauri will create a `.tar.gz` archive from the application bundle inside the `target/release/bundle/macos/` folder:
 
@@ -87,13 +87,15 @@ The signature is the content of the generated `.sig` file. The signature can be 
   - `myapp.msi.zip` - the updater bundle.
   - `myapp.msi.zip.sig` - the signature of the update bundle.
 
+The signature can be uploaded and shared safely as long as your private key is secure.
+
 ## Server Support
 
 Tauri's updater supports 2 kinds of servers. You can host a static JSON file on services like S3 or GitHub gists, or host a dynamic update server. The static JSON file is easier to use while an update server will give you finer control over the update mechanism.
 
 ### Dynamic Update Server
 
-With this approach Tauri will adhere to the instructions the updater sends. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
+With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
 
 Your server can use variables defined in the `endpoint` url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
 
@@ -121,7 +123,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ### Static JSON File
 
-With this approach Tauri will always request the same JSON file and determine if the app needs to be updated by comparing the version field of the response with the current version. Tauri will expect a response in this format:
+With this approach, Tauri will always request the same JSON file and determine if the app needs to be updated by comparing the version field of the response with the current version. Tauri will expect a response in this format:
 
 ```json
 {
