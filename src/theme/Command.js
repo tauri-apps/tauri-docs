@@ -12,11 +12,14 @@ const types = [
 ]
 
 function insertDashDashBeforeOption(value, name) {
-  const idx = name.indexOf('--')
+  let idx = name.indexOf(' --')
+  if (idx === -1) {
+    idx = name.indexOf(' -')
+  }
   if (idx === -1) {
     return value + name
   }
-  return value + name.slice(0, idx) + '-- ' + name.slice(idx)
+  return value + name.slice(0, idx + 1) + '--' + name.slice(idx)
 }
 
 export const CreateTauriApp = () => {
