@@ -164,7 +164,7 @@ Note that Tauri will validate the _whole_ file before checking the version field
 
 ### Built-in dialog
 
-By default, the updater uses a built-in dialog API from Tauri.
+By default, the updater uses a built-in dialog API from Tauri. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
 ![New Update](https://i.imgur.com/UMilB5A.png)
 
@@ -173,10 +173,60 @@ If the user accepts, the update is downloaded and installed. Afterwards, the use
 
 ### Custom stuff
 
-todo
+:::caution
+
+You need to disable the built-in dialog in your [Tauri configuration](#configuration) to enable the JavaScript APIs and updater events!
+
+:::
+
+#### Rust
+
+Please see the updater module documentation at [docs.rs] for the Rust API.
+
+#### JavaScript
+
+For the complete API docs see [here](../../api/js/updater.md). An example using the JS APIs could look like this:
+
+```js title=updater.ts
+import {
+  checkUpdate,
+  installUpdate,
+  onUpdaterEvent,
+} from '@tauri-apps/api/updater'
+import { relaunch } from '@tauri-apps/api/process'
+
+const unlisten = await onUpdaterEvent(({ error, status }) => {
+  // This will log all updater events, including status updates and errors.
+  console.log('Updater event', error, status)
+})
+
+try {
+  const { shouldUpdate, manifest } = await checkUpdate()
+
+  if (shouldUpdate) {
+    // You could show a dialog asking the user if they want to install the update here.
+    console.log(
+      `Installing update ${manifest?.version}, ${manifest?.date}, ${manifest?.body}`
+    )
+
+    // Install the update. This will also restart the app on Windows!
+    await installUpdate()
+
+    // On macOS and Linux you will need to restart the app manually.
+    // You could use this step to display another confirmation dialog.
+    await relaunch()
+  }
+} catch (error) {
+  console.error(error)
+}
+
+// you need to call unlisten if your handler goes out of scope, for example if the component is unmounted.
+unlisten()
+```
 
 [overwrite tauri's version comparison]: https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.should_install
 [request headers in rust]: https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.header
 [`200 ok`]: http://tools.ietf.org/html/rfc2616#section-10.2.1
 [`204 no content`]: http://tools.ietf.org/html/rfc2616#section-10.2.5
 [rfc 3339]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.8
+[docs.rs]: https://docs.rs/tauri/latest/tauri/updater/index.html
