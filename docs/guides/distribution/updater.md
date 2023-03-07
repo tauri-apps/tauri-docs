@@ -171,7 +171,7 @@ By default, the updater uses a built-in dialog API from Tauri. The dialog will o
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
 
-### Custom stuff
+### Custom Dialog and Logic
 
 :::caution
 
