@@ -175,7 +175,7 @@ If the user accepts, the update is downloaded and installed. Afterwards, the use
 
 :::caution
 
-You need to disable the built-in dialog in your [Tauri configuration](#configuration) to enable the JavaScript APIs and updater events!
+You need to disable the built-in dialog in your [Tauri configuration](#tauri-configuration) to enable the JavaScript APIs and updater events!
 
 :::
 
