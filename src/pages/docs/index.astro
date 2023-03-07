@@ -3,6 +3,7 @@ import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
 import { l, t, astroI18n } from 'astro-i18n'
 import { convertCollectionToTree } from '@src/utils.js'
+import Toc from '@src/components/Toc.astro'
 
 const entries = await geti18nCollection('docs', astroI18n.langCode)
 const tree = convertCollectionToTree(entries)
@@ -10,19 +11,26 @@ const tree = convertCollectionToTree(entries)
 
 <Layout title={t('docs.title')}>
   <main>
-    <h1 class="h1">Core Docs</h1>
-    <ul>
-      {
-        Object.entries(tree['core']['1'])
-          .filter((entry) => entry[0] != '_metadata')
-          .map(([key, value]) => (
-            <li>
-              <a href={l(`/docs/${value['_metadata']['slug']}`)}>
-                {value['_metadata']['data']['meta_title']}
-              </a>
-            </li>
-          ))
-      }
-    </ul>
+    <span class="prose">
+      <h1 class="h1">Docs</h1>
+      <p>
+        Tauri is an app construction toolkit that lets you build software for
+        all major desktop operating systems using web technologies.
+      </p>
+      <p>
+        Whether you're new to Tauri development, want to integrate Tauri into an
+        existing project, are ready to get your app into the hands of users, or
+        want to learn how to use a common Tauri feature, we have the help for
+        you.
+      </p>
+      <p>
+        If you can't find what you're looking for or have a suggestion to
+        improve our guides, reach out to our <a
+          href="https://discord.com/invite/tauri"
+          target="_blank">community on Discord</a
+        >.
+      </p>
+    </span>
+    <Toc path="core/1" />
   </main>
 </Layout>
