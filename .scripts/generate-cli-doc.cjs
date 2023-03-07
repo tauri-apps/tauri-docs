@@ -5,8 +5,13 @@ const rustCliPath = path.join(
   __dirname,
   '../../tauri/tooling/cli/target/debug/cargo-tauri'
 )
-const templatePath = path.join(__dirname, '../docs/.templates/cli.md')
-const targetPath = path.join(__dirname, '../docs/api/cli.md')
+const templatePath = path.join(__dirname, './cli-template.md')
+
+// TODO: get the actual version
+const targetPath = path.join(
+  __dirname,
+  '../src/content/api/en/core-cli/1/index.md'
+)
 const template = fs.readFileSync(templatePath, 'utf8')
 
 const commands = ['info', 'init', 'plugin init', 'dev', 'build', 'icon']
@@ -15,12 +20,20 @@ let doc = template
 
 for (const cmd of commands) {
   const output = childProcess
-    .execSync(`${rustCliPath} ${cmd} --help`)
+    .execSync(`cargo tauri ${cmd} --help`)
     .toString()
     .split('\n')
   output.splice(0, 2)
   output.splice(-1)
-  doc = doc.replace(`{${cmd}}`, '```\n' + output.join('\n') + '\n```')
+  doc = doc.replace(
+    `{${cmd}}`,
+    '```\n' +
+      output
+        .join('\n')
+        .replace(' [default: /home/runner/work/tauri-docs/tauri-docs]', '')
+        .replace('cargo-tauri', 'tauri') +
+      '\n```'
+  )
 }
 
 fs.writeFileSync(targetPath, doc)
