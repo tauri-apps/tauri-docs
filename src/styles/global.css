@@ -151,11 +151,14 @@
   .card {
     @apply bg-base-content/5 rounded-lg transition p-4 w-full;
   }
-  .card:hover * {
-    @apply text-primary;
-  }
   .card:hover {
     @apply bg-base-content/10;
+  }
+  .card * {
+    @apply text-base-content;
+  }
+  .card:hover * {
+    @apply text-primary;
   }
 
   /*********/
