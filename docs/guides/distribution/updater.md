@@ -8,11 +8,9 @@ import Command from '@theme/Command'
 
 Tauri offers a built-in updater for the MSI (Windows), AppImage (Linux) and App bundle (macOS) distribution formats.
 
-## Configuration
-
 Once your Tauri project is ready, you can configure Tauri's updater to enable auto updating for your users.
 
-### Signing updates
+## Signing updates
 
 Tauri's updater has a built-in signature to ensure updates are safe to be installed. This safety measurement can not be turned off.
 
@@ -32,7 +30,7 @@ Then, to make Tauri pick up these keys should be set as environment variables wh
 - `TAURI_PRIVATE_KEY`: Path or content of your private key
 - `TAURI_KEY_PASSWORD`: Your private key password (optional)
 
-### Tauri configuration
+## Tauri configuration
 
 Now you need to configure Tauri's updater. To do this, add this to your Tauri config file:
 
