@@ -6,9 +6,8 @@ import i18n from 'astro-i18n'
 import Icons from 'unplugin-icons/vite'
 import { extractImageClass } from './src/plugins/remark-extract-image-class'
 import { nonDefaultLocales } from './astro.i18n.config'
-
-// https://astro.build/config
 import solidJs from '@astrojs/solid-js'
+import mdx from '@astrojs/mdx'
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,6 +32,7 @@ export default defineConfig({
       },
     }),
     solidJs(),
+    mdx(),
   ],
   vite: {
     plugins: [
