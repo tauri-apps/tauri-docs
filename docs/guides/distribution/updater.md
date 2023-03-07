@@ -21,11 +21,13 @@ To sign your updates you need two things:
 - The _public key_, which will be added to your `tauri.conf.json` file later, to validate update artifacts before the installation.
 - The _private key_, which is used to sign your update artifacts and should NEVER be shared with anyone. Also, if you loose this key, you will NOT be able to publish new updates to your current user base. It is crucial to store it in a safe place where you can always access it.
 
-To generate the keys, you need to use the Tauri CLI (use `$HOME/.tauri/myapp.key` if you're on Windows):
+To generate the keys, you need to use the Tauri CLI:
 
 <Command name="signer generate -w ~/.tauri/myapp.key" />
 
-To make Tauri pick up these keys should be set as environment variables when building your app:
+If you're on Windows, you should use `$HOME/.tauri/myapp.key` instead.
+
+Then, to make Tauri pick up these keys should be set as environment variables when building your app:
 
 - `TAURI_PRIVATE_KEY`: Path or content of your private key
 - `TAURI_KEY_PASSWORD`: Your private key password (optional)
@@ -66,7 +68,7 @@ Each updater URL can contain the following variables allowing you to determine [
 
 ## Update artifacts
 
-Tauri's bunlder will automatically generate and sign update artifacts once the updater is correctly configured and enabled.
+Tauri's bundler will automatically generate and sign update artifacts once the updater is correctly configured and enabled.
 
 The signature is the content of the generated `.sig` file. The signature can be uploaded to GitHub safely or made public if your private key is secure.
 
