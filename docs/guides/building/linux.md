@@ -70,3 +70,4 @@ If your app plays audio/video you need to enable `tauri.conf.json > tauri > bund
 [tauri-apps/tauri#1355]: https://github.com/tauri-apps/tauri/issues/1355
 [rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497
 [appimage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
+[fix-path-env-rs]: https://github.com/tauri-apps/fix-path-env-rs
