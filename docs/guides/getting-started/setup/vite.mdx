@@ -58,13 +58,13 @@ pnpm create vite
   </TabItem>
 </Tabs>
 
-1. _Project name_
+1. _Project name_  
    This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
-2. _Select a framework_
+2. _Select a framework_  
    If you plan on using a frontend framework later, this is where you can select it. For this guide, we assume you choose `vanilla`.
 
-3. _Select a variant_
+3. _Select a variant_  
    Vite offers [TypeScript] and vanilla JavaScript variants for all templates, and you can select the variant here. We **strongly** recommend TypeScript as it helps you write more secure, maintainable code faster and more efficiently. For this guide, we assume you choose `vanilla-ts`.
 
 When starting the frontend via the `vite` command, Vite will look for a config file named `vite.config.ts` inside the project root. We want to customize this file to get the best compatibility with Tauri. If it is not created by the scaffolding above (such as if you're using vanilla JavaScript), you may need to create the `vite.config.ts` file in the root directory of the project.
