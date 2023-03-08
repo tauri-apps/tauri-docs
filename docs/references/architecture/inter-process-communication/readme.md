@@ -51,7 +51,7 @@ sequenceDiagram
 </figure>
 
 <!-- prettier-ignore -->
-[^1]: Because Commands still use message passing under the hood, they do do not share the same security pitfalls as real FFI interfaces do.
+[^1]: Because Commands still use message passing under the hood, they do not share the same security pitfalls as real FFI interfaces do.
 
 [asynchronous message passing]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
 [json-rpc]: https://www.jsonrpc.org
