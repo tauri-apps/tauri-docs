@@ -40,7 +40,7 @@ cargo create-tauri-app`}
       </TabItem>
       <TabItem value="npm">
         <CodeBlock className="language-shell" language="shell">
-          npm create tauri-app
+          npm create tauri-app@latest
         </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
