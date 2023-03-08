@@ -54,11 +54,13 @@ CLI: `git commit -m "the commit message"`
 Configuration:
 ```json
 {
-  "scope": {
-    "name": "run-git-commit",
-    "cmd": "git",
-    "args": ["commit", "-m", { "validator": "\\S+" }]
-  }
+  "scope": [
+    {
+      "name": "run-git-commit",
+      "cmd": "git",
+      "args": ["commit", "-m", { "validator": "\\S+" }]
+    }
+  ]
 }
 ```
 Usage:
