@@ -24,7 +24,7 @@ export const CreateTauriApp = () => {
     <Tabs groupId="package-manager">
       <TabItem value="Bash">
         <CodeBlock className="language-shell" language="shell">
-          {`sh <(curl https://create.tauri.app/sh)`}
+          {`curl --proto '=https' --tlsv1.2 -sSf https://create.tauri.app/sh | sh`}
         </CodeBlock>
       </TabItem>
       <TabItem value="PowerShell">
