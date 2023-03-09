@@ -15,14 +15,14 @@ function transformLink(link: string, currentFileIsIndex: boolean) {
   if (
     /^\/\//.test(link) ||
     /^http(s)?:\/\//.test(link) ||
-    !/\.md(#[^/]+)?$/.test(link)
+    !/\.mdx?(#[^/]+)?$/.test(link)
   ) {
     return link
   }
 
-  let [pathToMdFile, afterPoundSign] = link.split(/(?<=\.md)#/)
+  let [pathToMdFile, afterPoundSign] = link.split(/(?<=\.mdx?)#/)
   let fragment = afterPoundSign ? `#${afterPoundSign}` : ''
-  let pathToPage = pathToMdFile.replace(/\.md$/, '')
+  let pathToPage = pathToMdFile.replace(/\.mdx?$/, '')
 
   let urlPath = removeIndexFromEnd(removeExplicitCurrentDir(pathToPage))
   if (!currentFileIsIndex) {
