@@ -40,8 +40,9 @@ function transformLink(link: string, currentFileIsIndex: boolean) {
 
 let rewriteMarkdownLinks: RemarkPlugin = function rewriteMarkdownLinks() {
   return (tree, file) => {
-    visit(tree, 'link', (node, _index, _parent) => {
-      node.url = transformLink(node.url, file.basename === 'index.md')
+    visit(tree, ['link', 'definition'], (node, _index, _parent) => {
+      // node is actually a link or a definition given the filter above, but there doesn't appear to be sufficient type narrowing
+      (node as any).url = transformLink((node as any).url, file.basename === 'index.md' || file.basename === 'index.mdx')
     })
   }
 }
