@@ -33,7 +33,6 @@ dependencies:
   '@fontsource/ibm-plex-mono': 4.5.13
   '@fontsource/rubik': 4.5.14
   '@iconify/json': 2.2.31
-  '@types/node': 18.15.0
   astro: 2.1.0_@types+node@18.15.0
   astro-i18n: 1.6.6
   docs-searchbar.js: 2.4.1
@@ -46,6 +45,7 @@ dependencies:
 devDependencies:
   '@types/json-schema': 7.0.11
   '@types/marked': 4.0.8
+  '@types/node': 18.15.0
   shiki: 0.14.1
   unist: 8.0.11
   unist-util-visit: 4.1.2
@@ -952,7 +952,6 @@ packages:
 
   /@types/node/18.15.0:
     resolution: {integrity: sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==}
-    dev: false
 
   /@types/parse5/6.0.3:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
