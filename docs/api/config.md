@@ -70,7 +70,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="packageconfig.productname">`productName`<a class="hash-link" href="#packageconfig.productname"></a></div> | `string`? | _null_ | App name. |
-| <div className="anchor-with-padding" id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file containing the `version` field. |
+| <div className="anchor-with-padding" id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file containing the `version` field. If removed the version number from `Cargo.toml` is used. |
 
 
 ### TauriConfig
