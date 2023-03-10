@@ -10,7 +10,7 @@ function removeExplicitCurrentDir(link: string) {
 }
 
 // Content collection slug manipulation could affect this
-function transformLink(link: string, currentFileIsIndex: boolean) {
+export function transformLink(link: string, currentFileIsIndex: boolean) {
   link = link.trim()
   if (
     /^\/\//.test(link) ||
