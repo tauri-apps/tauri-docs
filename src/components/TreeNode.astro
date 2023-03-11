@@ -12,12 +12,16 @@ const children = Object.entries(node)
   .filter(([key, _]) => key !== '_metadata')
   .map(([_, value]) => value)
 const filteredChildren = children.length > 1 ? children : undefined
+const url = l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)
 ---
 
 <li>
   <a
-    href={l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)}
-    class="list-item"
+    href={url}
+    class:list={[
+      'list-item',
+      { 'list-item-hover': url === Astro.url.pathname },
+    ]}
   >
     {
       node['_metadata']['data']['meta_title']
