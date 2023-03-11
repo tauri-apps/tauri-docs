@@ -17,11 +17,6 @@ const blog = defineCollection({
   }),
 })
 
-const api = defineCollection({
-  schema: z.object({
-    ...metadataSchema,
-  }),
-})
 const docs = defineCollection({
   schema: z.object({
     ...metadataSchema,
@@ -29,7 +24,6 @@ const docs = defineCollection({
 })
 
 export const collections = {
-  api,
   blog,
   docs,
 }

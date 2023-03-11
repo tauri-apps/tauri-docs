@@ -12,45 +12,7 @@ const tree = convertCollectionToTree(entries)
   <main>
     <h1 class="h1">{t('api.title')}</h1>
     <ul>
-      {
-        Object.entries(tree['core-js']['1'])
-          .filter((entry) => entry[0] != '_metadata')
-          .map(([_, value]) => (
-            <li>
-              <a href={l(`/api/${value['_metadata']['slug']}`)}>
-                {value['_metadata']['data']['meta_title']
-                  ? value['_metadata']['data']['meta_title']
-                  : value['_metadata']['slug']}
-              </a>
-            </li>
-          ))
-      }
-      {
-        Object.entries(tree['core-config']['1'])
-          .filter((entry) => entry[0] != '_metadata')
-          .map(([_, value]) => (
-            <li>
-              <a href={l(`/api/${value['_metadata']['slug']}`)}>
-                {value['_metadata']['data']['meta_title']
-                  ? value['_metadata']['data']['meta_title']
-                  : value['_metadata']['slug']}
-              </a>
-            </li>
-          ))
-      }
-      {
-        Object.entries(tree['core-config']['1'])
-          .filter((entry) => entry[0] != '_metadata')
-          .map(([_, value]) => (
-            <li>
-              <a href={l(`/api/${value['_metadata']['slug']}`)}>
-                {value['_metadata']['data']['meta_title']
-                  ? value['_metadata']['data']['meta_title']
-                  : value['_metadata']['slug']}
-              </a>
-            </li>
-          ))
-      }
+      <li>This is where the stuff should go</li>
     </ul>
   </main>
 </Layout>
