@@ -1,13 +1,25 @@
 ---
 import type { TreeNode } from '@src/utils.js'
+import type { MarkdownHeading } from 'astro'
+import OnThisPage from '@src/components/Layout/OnThisPage.astro'
+import Translate from '@src/components/Layout/Translate.astro'
+import Tree from '@src/components/Tree.astro'
+import { t } from 'astro-i18n'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
+import Github from '~icons/bi/github'
 
 interface Props {
   title: string
+  relatedPages: TreeNode[]
+  baseUrl: string
+  headings: MarkdownHeading[]
+  entry: any
+  editOnGithub?: boolean
 }
 
-const { title } = Astro.props
+const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
+  Astro.props
 ---
 
 <Layout title={title}>
@@ -15,7 +27,8 @@ const { title } = Astro.props
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto"
     >
-      <slot name="leading-sidebar" />
+      <div class="small-caps">Related Pages</div>
+      <Tree tree={relatedPages} baseUrl={baseUrl} />
     </div>
     <div class="max-w-[150ch] overflow-y-auto">
       <article>
@@ -26,7 +39,33 @@ const { title } = Astro.props
     <div
       class="hidden lg:block flex-none w-[var(--sidebar-width)] overflow-y-auto"
     >
-      <slot name="trailing-sidebar" />
+      <ul>
+        <!-- TODO: Versions -->
+        <!-- <div class="small-caps">Version</div> -->
+        <!-- <div>TBD</div> -->
+        <li class="list-heading">{t('layout.on-this-page')}</li>
+        <OnThisPage headings={headings} />
+        <li class="list-base"></li>
+        {
+          (entry.data.i18n_ready || editOnGithub) && (
+            <li class="list-heading">{t('layout.contribute')}</li>
+          )
+        }
+        {entry.data.i18n_ready && <Translate />}
+        {
+          editOnGithub && (
+            <li>
+              <a
+                class="list-item"
+                href={`https://github.com/${entry.id}`}
+                target="_blank"
+              >
+                <Github /> Edit on GitHub
+              </a>
+            </li>
+          )
+        }
+      </ul>
     </div>
   </div>
 </Layout>

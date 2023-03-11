@@ -63,16 +63,16 @@ export async function geti18nCollection<
   return allEntries
 }
 
-export interface TreeNode<C extends Parameters<typeof CollectionType>> {
+export interface TreeNode {
   slug: string
-  children?: TreeNode<C>[]
-  entry?: CollectionEntry<C>
+  children?: TreeNode[]
+  entry?: CollectionEntry<'api'>
 }
 
 export function convertCollectionToTree<
   C extends Parameters<typeof CollectionType>
->(entries: CollectionEntry<C>[]): TreeNode<C> {
-  var result: TreeNode<C> = { slug: '' }
+>(entries: CollectionEntry<C>[]): TreeNode {
+  var result: TreeNode = { slug: '' }
 
   entries.forEach((entry) =>
     entry.slug
