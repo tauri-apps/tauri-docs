@@ -1,7 +1,7 @@
 ---
 import Author from '@src/components/Blog/Author.astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
-import Layout from '@src/layouts/SidebarLayout.astro'
+import Layout from '@src/layouts/Layout.astro'
 import { geti18nCollection } from '@src/utils'
 import { astroI18n, t } from 'astro-i18n'
 import Carousel from '@src/components/Blog/Carousel.astro'
@@ -24,7 +24,7 @@ const { entry } = Astro.props
 let { Content, headings } = await entry.render()
 ---
 
-<Layout title={entry.data.meta_title} leadingSidebar={false}>
+<Layout title={entry.data.meta_title}>
   <div class="flex flex-col gap-4">
     <div class="lg:hidden small-caps">
       TODO: Placeholder for "On This Page" dropdown
