@@ -359,18 +359,6 @@ function Sponsors() {
       logoColorLight: 'leniolabs_color_light.svg',
     },
     {
-      name: 'Meros',
-      link: 'https://meroscrypto.io',
-      logoColorDark: 'meros_color_dark.svg',
-      logoColorLight: 'meros_color_light.svg',
-    },
-    {
-      name: 'Tensor Programming',
-      link: 'https://www.youtube.com/c/tensorprogramming',
-      logoColorDark: 'tensor_color_dark.svg',
-      logoColorLight: 'tensor_color_light.svg',
-    },
-    {
       name: 'VPS Server',
       link: 'https://www.vpsserver.com',
       logoColorDark: 'vps_server_color_dark.svg',
