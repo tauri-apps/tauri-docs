@@ -1,6 +1,7 @@
 ---
 import type { TreeNode } from '@src/utils.js'
 import type { MarkdownHeading } from 'astro'
+import Breadcrumbs from '@src/components/Layout/Breadcrumbs.astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Translate from '@src/components/Layout/Translate.astro'
 import Tree from '@src/components/Tree.astro'
@@ -33,6 +34,9 @@ const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
       <Tree tree={relatedPages} baseUrl={baseUrl} />
     </div>
     <div class="max-w-[150ch] overflow-y-auto styled-scrollbar py-4 px-8">
+      <Breadcrumbs
+        items={['This', 'should', 'be', 'a', 'breadcrumb', 'trail']}
+      />
       <main>
         <slot />
       </main>
