@@ -1,15 +1,16 @@
 ---
 import { convertCollectionToTree, geti18nCollection } from '@src/utils.js'
 import { astroI18n, l } from 'astro-i18n'
+import type { getCollection as CollectionType } from 'astro:content'
 
-interface Props {
+interface Props<C extends Parameters<typeof CollectionType>[0]> {
+  collection: C
   path: string
 }
 
-const { path } = Astro.props
+const { path, collection } = Astro.props
 
-// FIXME: Hard-coded to docs collection
-const entries = await geti18nCollection('docs', astroI18n.langCode)
+const entries = await geti18nCollection(collection, astroI18n.langCode)
 const tree = convertCollectionToTree(entries)
 
 function resolve(path: string, obj = this, separator = '.') {
