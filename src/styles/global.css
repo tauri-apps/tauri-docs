@@ -114,7 +114,7 @@
   }
 
   .btn-hover {
-    @apply bg-content-hover no-underline;
+    @apply bg-content-hover no-underline text-primary;
   }
 
   .btn-active {
