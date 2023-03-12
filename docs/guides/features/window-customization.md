@@ -105,5 +105,12 @@ To make calls to `appWindow` work don't forget to add [window](../../api/js/wind
       }
   }
   ...
+  
+  "windows": [
+    {
+      "decorations": false,
+      ...
+    }
+  ]
 }
 ```
