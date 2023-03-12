@@ -1,7 +1,6 @@
 ---
 import { l, t } from 'astro-i18n'
 import NavBarSocial from './NavBarSocial.astro'
-import Feedback from './Feedback.astro'
 const year = new Date().getFullYear()
 import logo from '@src/images/tauri_logo_dark.svg'
 ---
@@ -29,27 +28,55 @@ import logo from '@src/images/tauri_logo_dark.svg'
       </div>
     </div>
     <ul>
+      <li class="small-caps">{t('global.nav.docs')}</li>
       <li>
-        <a href={l('/docs')} class="text-base-content">{t('global.nav.docs')}</a
-        >
+        <a href={l('/docs/1/getting-started')} class="text-base-content">
+          {t('global.nav.getting-started')}
+        </a>
       </li>
       <li>
-        <a href={l('/api')} class="text-base-content"
-          >{t('global.nav.references')}</a
-        >
+        <a href={l('/docs/1/getting-started')} class="text-base-content">
+          {t('global.nav.features')}
+        </a>
       </li>
       <li>
-        <a href={l('/about')} class="text-base-content"
-          >{t('global.nav.about')}</a
-        >
+        <a href={l('/docs/1/getting-started')} class="text-base-content">
+          {t('global.nav.concepts')}
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li class="small-caps">{t('global.nav.references')}</li>
+      <li>
+        <a href={l('/api/core-js/1')} class="text-base-content">
+          {t('global.nav.javascript-api')}
+        </a>
+      </li>
+      <li>
+        <a href={l('/api/core-js/1')} class="text-base-content">
+          {t('global.nav.rust-api')}
+        </a>
+      </li>
+      <li>
+        <a href={l('/api/core-js/1')} class="text-base-content">
+          {t('global.nav.tauri-config')}
+        </a>
+      </li>
+      <li>
+        <a href={l('/api/core-js/1')} class="text-base-content">
+          {t('global.nav.tauri-cli')}
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li class="small-caps">{t('global.nav.about')}</li>
+      <li>
+        <a href="" class="text-base-content">TODO</a>
       </li>
       <li>
         <a href={l('/blog')} class="text-base-content">{t('global.nav.blog')}</a
         >
       </li>
-    </ul>
-
-    <ul>
       <li>
         <a href="mailto:contact@tauri.app" class="text-base-content"
           >{t('global.nav.email')}</a
@@ -62,15 +89,7 @@ import logo from '@src/images/tauri_logo_dark.svg'
           class="text-base-content">{t('global.nav.open-collective')}</a
         >
       </li>
-      <li>
-        <a
-          href="https://github.com/tauri-apps/awesome-tauri"
-          target="_blank"
-          class="text-base-content">{t('global.nav.awesome-tauri')}</a
-        >
-      </li>
     </ul>
-    <Feedback />
   </div>
   <div>
     {t('global.footer-copyright', { year: String(year) })}
