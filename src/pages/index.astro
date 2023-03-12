@@ -5,19 +5,21 @@ import Footer from '@src/components/Layout/Footer.astro'
 ---
 
 <Layout title={t('index.title')}>
-  <main class="prose p-8 max-w-2xl">
-    <h1>Welcome to <span class="text-accent">beta.tauri.app</span></h1>
-    <p>Thank you for visiting the beta version of the Tauri website.</p>
-    <p>
-      If you come across any issues please report them using the Feedback button
-      at the bottom of any page. If you'd like to help with the development of
-      this site then feel free to reach out on the <a
-        href="https://discord.com/invite/tauri"
-        target="_blank">Tauri Discord</a
-      >.
-    </p>
-  </main>
-  <div class="p-8">
-    <Footer />
+  <div class="flex flex-col justify-between h-full">
+    <main class="prose p-8 max-w-2xl mx-auto">
+      <h1>Welcome to <span class="text-accent">beta.tauri.app</span></h1>
+      <p>Thank you for using the beta version of the Tauri website!</p>
+      <p>
+        If you come across any issues please report them using the Feedback
+        button at the bottom of any page. If you'd like to help with the
+        development of this site then feel free to reach out on the <a
+          href="https://discord.com/invite/tauri"
+          target="_blank">Tauri Discord</a
+        >.
+      </p>
+    </main>
+    <div class="p-8">
+      <Footer />
+    </div>
   </div>
 </Layout>
