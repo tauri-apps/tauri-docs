@@ -12,7 +12,7 @@ Once your Tauri project is ready, you can configure Tauri's updater to enable au
 
 ## Signing updates
 
-Tauri's updater has a built-in signature to ensure updates are safe to be installed. This safety measurement can not be turned off.
+Tauri's updater has a built-in signature to ensure that updates are safe to be installed. This safety measurement cannot be turned off.
 
 To sign your updates you need two things:
 
