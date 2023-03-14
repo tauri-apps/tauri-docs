@@ -22,7 +22,7 @@ You will need to install a couple of system dependencies, such as a C compiler a
 
 ```sh
 sudo apt update
-sudo apt install libwebkit2gtk-4.0-dev \
+sudo apt install libwebkit2gtk-4.1-dev \
     build-essential \
     curl \
     wget \
@@ -38,7 +38,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
 ```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
-    webkit2gtk \
+    webkit2gtk-4.1 \
     base-devel \
     curl \
     wget \
@@ -55,7 +55,7 @@ sudo pacman -S --needed \
 
 ```sh
 sudo dnf check-update
-sudo dnf install webkit2gtk4.0-devel \
+sudo dnf install webkit2gtk4.1-devel \
     openssl-devel \
     curl \
     wget \
@@ -71,7 +71,7 @@ Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `w
 
 ```sh
 sudo zypper up
-sudo zypper in webkit2gtk3-soup2-devel \
+sudo zypper in webkit2gtk3-devel \
     libopenssl-devel \
     curl \
     wget \
