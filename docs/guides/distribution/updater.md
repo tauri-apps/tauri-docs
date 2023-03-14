@@ -3,6 +3,7 @@ sidebar_position: 5
 ---
 
 import Command from '@theme/Command'
+import updaterDialogImage from '/img/guides/distribution/updater/update-available.png'
 
 # Updater
 
@@ -170,7 +171,7 @@ Note that Tauri will validate the _whole_ file before checking the version field
 
 By default, the updater uses a built-in dialog API from Tauri. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
-![New Update](/img/guides/distribution/updater/update-available.png)
+<img src={updaterDialogImage} alt="Default updater dialog" style={{maxHeight: "200px", textAlign: 'center'}} />
 
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
