@@ -71,7 +71,7 @@ Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `w
 
 ```sh
 sudo zypper up
-sudo zypper in webkit2gtk3-soup2-devel \
+sudo zypper in webkit2gtk3-devel \
     libopenssl-devel \
     curl \
     wget \
