@@ -70,17 +70,17 @@ Before building your app, you need to set environment variables for the private 
 
 After that, you can run `tauri build` as usual and Tauri will generate the update bundle and its signature.
 
-- **macOS**: On macOS, Tauri will create a `.tar.gz` archive from the application bundle inside the `target/release/bundle/macos/` folder:
-
-  - `myapp.app` - the standard app bundle.
-  - `myapp.app.tar.gz` - the updater bundle.
-  - `myapp.app.tar.gz.sig` - the signature of the update bundle.
-
 - **Linux**: On Linux, Tauri will create a `.tar.gz` archive from the AppImage inside the `target/release/bundle/appimage/` folder:
 
   - `myapp.AppImage` - the standard app bundle.
   - `myapp.AppImage.tar.gz` - the updater bundle.
   - `myapp.AppImage.tar.gz.sig` - the signature of the update bundle.
+
+- **macOS**: On macOS, Tauri will create a `.tar.gz` archive from the application bundle inside the `target/release/bundle/macos/` folder:
+
+  - `myapp.app` - the standard app bundle.
+  - `myapp.app.tar.gz` - the updater bundle.
+  - `myapp.app.tar.gz.sig` - the signature of the update bundle.
 
 - **Window**: On Windows, Tauri will create a `.zip` archive from the MSI installer inside the `target/release/bundle/msi/` folder:
   - `myapp.msi` - the standard app bundle.
@@ -168,7 +168,7 @@ Note that Tauri will validate the _whole_ file before checking the version field
 
 By default, the updater uses a built-in dialog API from Tauri. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
-![New Update](https://i.imgur.com/UMilB5A.png)
+![New Update](/img/guides/distribution/updater/update-available.png)
 
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
