@@ -101,34 +101,6 @@ Tauri's updater supports two ways of announcing update data:
 
 The static JSON file is easier to use while a dynamic update server will give you finer control over the update mechanism.
 
-### Dynamic Update Server
-
-With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
-
-Your server can use variables defined in the `endpoint` url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
-
-Your server should respond with a status code of [`204 No Content`] if there is no update available.
-
-If an update is required, your server should respond with a status code of [`200 OK`] and a JSON response in this format:
-
-```json
-{
-  "version": "0.2.0",
-  "pub_date": "2020-09-18T12:29:53+01:00",
-  "url": "https://mycompany.example.com/myapp/releases/myrelease.tar.gz",
-  "signature": "Content of the relevant .sig file",
-  "notes": "These are some release notes"
-}
-```
-
-The required keys are "url", "version" and "signature"; the others are optional.
-
-- `"version"` must be a valid semver, with or without a leading `v`, meaning that both `1.0.0` and `v1.0.0` are valid.
-- `"url"` must be a valid url to the update bundle.
-- `"signature"` must be the **content** of the generated `.sig` file. The signature may change each time you run `tauri build` so make sure to always update it.
-- `"notes"`: Here you can add notes about the update, like release notes. Tauri's default dialog will present this to the user when it asks if it's allowed to update.
-- `"pub_date"` must be formatted according to [RFC 3339] if present.
-
 ### Static JSON File
 
 With this approach, Tauri will always request the same JSON file and determine if the app needs to be updated by comparing the version field of the response with the requesting app's current version. Tauri will expect a response in this format:
@@ -169,6 +141,34 @@ The required keys are `"version"`, `"platforms.[target].url"` and `"platforms.[t
 - `"pub_date"` must be formatted according to [RFC 3339] if present.
 
 Note that Tauri will validate the _whole_ file before checking the version field, so make sure all existing platform configurations are valid and complete.
+
+### Dynamic Update Server
+
+With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
+
+Your server can use variables defined in the `endpoint` url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
+
+Your server should respond with a status code of [`204 No Content`] if there is no update available.
+
+If an update is required, your server should respond with a status code of [`200 OK`] and a JSON response in this format:
+
+```json
+{
+  "version": "0.2.0",
+  "pub_date": "2020-09-18T12:29:53+01:00",
+  "url": "https://mycompany.example.com/myapp/releases/myrelease.tar.gz",
+  "signature": "Content of the relevant .sig file",
+  "notes": "These are some release notes"
+}
+```
+
+The required keys are "url", "version" and "signature"; the others are optional.
+
+- `"version"` must be a valid semver, with or without a leading `v`, meaning that both `1.0.0` and `v1.0.0` are valid.
+- `"url"` must be a valid url to the update bundle.
+- `"signature"` must be the **content** of the generated `.sig` file. The signature may change each time you run `tauri build` so make sure to always update it.
+- `"notes"`: Here you can add notes about the update, like release notes. Tauri's default dialog will present this to the user when it asks if it's allowed to update.
+- `"pub_date"` must be formatted according to [RFC 3339] if present.
 
 ## Checking for Updates
 
