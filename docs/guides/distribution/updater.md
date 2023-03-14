@@ -27,7 +27,7 @@ If you are on Windows, you should use `$HOME/.tauri/myapp.key` instead.
 
 ## Tauri configuration
 
-Now you need to configure Tauri's updater. To do this, add this to your Tauri config file:
+Now you need to configure Tauri's updater. To do this, add this to your [Tauri config](../../api/config.md#updaterconfig):
 
 ```json title=tauri.conf.json
 {
