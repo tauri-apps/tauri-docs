@@ -174,7 +174,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ### Built-in dialog
 
-By default, the updater uses a built-in dialog API from Tauri. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
+By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/dialog.md#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
 <img src={updaterDialogImage} alt="Default updater dialog" style={{maxHeight: "200px", textAlign: 'center'}} />
 
