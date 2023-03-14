@@ -142,7 +142,7 @@ pre.language-shell .token-line::before {
   content: '$ ';
 }
 
-pre.language-powershell > code::before {
+pre.language-powershell .token-line::before {
   content: 'PS C:\\> ';
 }
 

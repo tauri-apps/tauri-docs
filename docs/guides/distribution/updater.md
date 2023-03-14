@@ -2,6 +2,8 @@
 sidebar_position: 5
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 import Command from '@theme/Command'
 import updaterDialogImage from '/img/guides/distribution/updater/update-available.png'
 
@@ -70,6 +72,27 @@ Before building your app, you need to set environment variables for the private 
 
 - `TAURI_PRIVATE_KEY`: Path or content of your private key
 - `TAURI_KEY_PASSWORD`: Your private key password (optional)
+
+If you want to set these variables for the current console session you could execute these commands in the console which you will use to build the app later:
+
+<Tabs groupId="set-env-vars">
+  <TabItem value="Bash">
+
+```shell
+export TAURI_PRIVATE_KEY="content of the generated key"
+export TAURI_KEY_PASSWORD="password"
+```
+
+  </TabItem>
+  <TabItem value="PowerShell">
+
+```powershell
+$env:TAURI_PRIVATE_KEY="content of the generated key"
+$env:TAURI_KEY_PASSWORD="password"
+```
+
+  </TabItem>
+</Tabs>
 
 After that, you can run `tauri build` as usual and Tauri will generate the update bundle and its signature.
 
