@@ -94,7 +94,12 @@ The signature can be uploaded and shared safely as long as your private key is s
 
 ## Server Support
 
-Tauri's updater supports 2 kinds of servers. You can host a static JSON file on services like S3 or GitHub gists, or host a dynamic update server. The static JSON file is easier to use while an update server will give you finer control over the update mechanism.
+Tauri's updater supports two ways of announcing update data:
+
+- A static JSON file (to use on services like S3 or GitHub gists)
+- A dynamic update server
+
+The static JSON file is easier to use while a dynamic update server will give you finer control over the update mechanism.
 
 ### Dynamic Update Server
 
