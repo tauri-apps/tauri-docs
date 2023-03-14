@@ -16,8 +16,8 @@ Tauri's updater has a built-in signature to ensure that updates are safe to be i
 
 To sign your updates you need two things:
 
-- The _public key_, which will be added to your `tauri.conf.json` file later, to validate update artifacts before the installation.
-- The _private key_, which is used to sign your update artifacts and should NEVER be shared with anyone. Also, if you loose this key, you will NOT be able to publish new updates to your current user base. It is crucial to store it in a safe place where you can always access it.
+1. The _public key_, which will be added to your `tauri.conf.json` file later, to validate update artifacts before the installation.
+2. The _private key_, which is used to sign your update artifacts and should NEVER be shared with anyone. Also, if you loose this key, you will NOT be able to publish new updates to your current user base. It is crucial to store it in a safe place where you can always access it.
 
 To generate the keys, you need to use the Tauri CLI:
 
