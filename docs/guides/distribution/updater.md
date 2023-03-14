@@ -146,7 +146,7 @@ Note that Tauri will validate the _whole_ file before checking the version field
 
 With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
 
-Your server can use variables defined in the `endpoint` url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
+Your server can use variables defined in the [`endpoint`](../../api/config.md#updaterconfig.endpoints) url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
 
 Your server should respond with a status code of [`204 No Content`] if there is no update available.
 
