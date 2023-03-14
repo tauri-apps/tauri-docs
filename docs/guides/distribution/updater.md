@@ -123,7 +123,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ### Static JSON File
 
-With this approach, Tauri will always request the same JSON file and determine if the app needs to be updated by comparing the version field of the response with the current version. Tauri will expect a response in this format:
+With this approach, Tauri will always request the same JSON file and determine if the app needs to be updated by comparing the version field of the response with the requesting app's current version. Tauri will expect a response in this format:
 
 ```json
 {
