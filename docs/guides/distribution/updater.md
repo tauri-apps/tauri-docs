@@ -187,7 +187,7 @@ Please see the updater module documentation at [docs.rs] for the Rust API.
 
 #### JavaScript
 
-For the complete API docs see [here](../../api/js/updater.md). An example using the JS APIs could look like this:
+For the complete API docs see [here](../../api/js/updater.md). An example using the JavaScript API looks like this:
 
 ```js title=updater.ts
 import {
