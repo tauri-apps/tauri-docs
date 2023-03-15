@@ -35,7 +35,7 @@ cargo install create-tauri-app
 cargo create-tauri-app --alpha
 
 # Bash
-curl https://create.tauri.app/sh | sh -s -- --alpha
+sh <(curl https://create.tauri.app/sh) --alpha
 
 # Powershell
 $env:CTA_ARGS="--alpha";iwr -useb https://create.tauri.app/ps | iex
@@ -147,7 +147,7 @@ cargo install create-tauri-app --version 2.8.0
 cargo create-tauri-app
 
 # Bash
-curl https://create.tauri.app/v/2.8.0/sh | sh
+sh <(curl https://create.tauri.app/v/2.8.0/sh)
 
 # Powershell
 iwr -useb https://create.tauri.app/v/2.8.0/ps | iex
