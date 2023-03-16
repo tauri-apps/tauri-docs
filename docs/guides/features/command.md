@@ -175,7 +175,7 @@ invoke('my_custom_command').then(() => console.log('Completed!'))
 
 :::note
 
-If you want to taka some `args` in the async command, you must return a `Result`。Otherwise, them compiler will throw an error like `argument requires that __tauri_message__ is borrowed for 'static`
+If you want to take some `args` in the async command, you must return a `Result`。Otherwise, the compiler will throw an error like `argument requires that __tauri_message__ is borrowed for 'static`
 
 :::
 
