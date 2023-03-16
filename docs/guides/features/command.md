@@ -172,6 +172,13 @@ Since invoking the command from JS already returns a promise, it works just like
 invoke('my_custom_command').then(() => console.log('Completed!'))
 ```
 
+
+:::note
+
+If you want to taka some `args` in the async command, you must return a `Result`。Otherwise, them compiler will throw an error like `argument requires that __tauri_message__ is borrowed for 'static`
+
+:::
+
 ## Accessing the Window in Commands
 
 Commands can access the `Window` instance that invoked the message:
