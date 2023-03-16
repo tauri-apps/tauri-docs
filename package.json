@@ -13,7 +13,8 @@
     "i18n:sync": "astro-i18n sync",
     "i18n:extract:keys": "astro-i18n extract:keys",
     "generate:cli": "node .scripts/generate-cli-doc.cjs",
-    "generate:config": "node .scripts/generate-config-doc.cjs"
+    "generate:config": "node .scripts/generate-config-doc.cjs",
+    "test": "ts-node --esm src/plugins/remark-rewrite-markdown-links/test.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.18.0",
@@ -31,6 +32,7 @@
     "meilisearch-docsearch": "0.4.5",
     "solid-js": "^1.6.12",
     "tailwindcss": "^3.2.7",
+    "ts-node": "^10.9.1",
     "unplugin-icons": "^0.15.3"
   },
   "browserslist": {
