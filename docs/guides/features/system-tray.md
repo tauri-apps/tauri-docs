@@ -199,15 +199,15 @@ By default, tauri closes the application when the last window is closed.
 If your app should run in the background, you can call `api.prevent_close()` like so:
 
 ```rust
-tauri::Builder::default()
-  .build(tauri::generate_context!())
-  .expect("error while building tauri application")
-  .run(|_app_handle, event| match event {
-    tauri::RunEvent::ExitRequested { api, .. } => {
-      api.prevent_exit();
-    }
-    _ => {}
-  });
+tauri::Builder::default().on_window_event(|event| match event.event() {
+  tauri::WindowEvent::CloseRequested { api, .. } => {
+    event.window().hide().unwrap();
+    api.prevent_close();
+  }
+  _ => {}
+})
+.run(tauri::generate_context!())
+.expect("error while running tauri application");
 ```
 
 [template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
