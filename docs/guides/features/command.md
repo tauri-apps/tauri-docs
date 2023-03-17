@@ -172,11 +172,10 @@ Since invoking the command from JS already returns a promise, it works just like
 invoke('my_custom_command').then(() => console.log('Completed!'))
 ```
 
+If you want to take some `args` in the async command, you should return a `Result<>`。Otherwise, the compiler will throw an error like `argument requires that __tauri_message__ is borrowed for 'static`
 
 :::note
-
-If you want to take some `args` in the async command, you must return a `Result`。Otherwise, the compiler will throw an error like `argument requires that __tauri_message__ is borrowed for 'static`
-
+If you're a senior developer in rust, you may know that only the `args` is borrowed or `tauri::State`(which's lifetime is't 'static),the `Result<>` is necessary.
 :::
 
 ## Accessing the Window in Commands
