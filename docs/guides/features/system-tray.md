@@ -193,10 +193,31 @@ Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dep
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
-### Keep the app running in the background after closing all windows
+### Preventing the app from closing when they are no windows left
 
-By default, tauri closes the application when the last window is closed.
-If your app should run in the background, you can call `api.prevent_close()` like so:
+By default, tauri closes the application when the last window is closed. We can simply call `api.prevent_close()` to prevent this.
+
+Depending of your need you can use one of the two following exemples:
+
+#### Keeping the backend running in the background after closing all windows
+
+If your backend should run in the background, you can call `api.prevent_close()` like so:
+
+```rust
+tauri::Builder::default()
+  .build(tauri::generate_context!())
+  .expect("error while building tauri application")
+  .run(|_app_handle, event| match event {
+    tauri::RunEvent::ExitRequested { api, .. } => {
+      api.prevent_exit();
+    }
+    _ => {}
+  });
+```
+
+#### Keeping the app running in the background after closing all windows
+
+In case you also need to keep the frontend running in the background, this can be achieved like this:
 
 ```rust
 tauri::Builder::default().on_window_event(|event| match event.event() {
