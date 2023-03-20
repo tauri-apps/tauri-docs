@@ -58,6 +58,13 @@ cargo add tauri-build@2.0.0-alpha.2 --build
 cargo install tauri-cli --version "^2.0.0-alpha"
 ```
 
+Recreate the mobile projects to use the new features:
+
+```shell
+rm -r src-tauri/gen
+tauri android init
+tauri ios init
+
 ## HTTP Client Breaking Change
 
 The default HTTP client using `attohttpc` has been removed due to issues with the development server proxy on Windows. All `reqwest-*` feature flags have been removed because `reqwest` is now the client we use.
