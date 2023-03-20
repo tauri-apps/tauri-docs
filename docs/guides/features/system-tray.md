@@ -199,7 +199,7 @@ By default, tauri closes the application when the last window is closed. We can 
 
 Depending of your need you can use one of the two following exemples:
 
-#### Keeping the backend running in the background after closing all windows
+#### Keeping the Backend Running in the Background
 
 If your backend should run in the background, you can call `api.prevent_close()` like so:
 
