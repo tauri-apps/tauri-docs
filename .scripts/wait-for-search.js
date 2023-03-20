@@ -4,10 +4,10 @@ const http = require('https')
   for (let i = 0; i < 5; i++) {
     const res = await new Promise((resolve, reject) =>
       http.get(
-        `${process.env.MEILISEARCH_HOST_URL_NEXT}/tasks?statuses=enqueued,processing`,
+        `${process.env.MEILISEARCH_HOST_URL}/tasks?statuses=enqueued,processing`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY_NEXT}`,
+            Authorization: `Bearer ${process.env.MEILISEARCH_API_KEY}`,
           },
         },
         (res) => {
