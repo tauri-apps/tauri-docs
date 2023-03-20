@@ -14,12 +14,12 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
 import ThemedImage from '@theme/ThemedImage'
-import desktopLightPreview from './assets/next-js/next-js-light.png'
-import desktopDarkPreview from './assets/next-js/next-js-dark.png'
-import androidLightPreview from './assets/next-js/android-next-js-light.png'
-import iosLightPreview from './assets/next-js/ios-next-js-light.png'
-import desktopLightApplicationWindow from './assets/next-js/next-js-dev-light.png'
-import desktopDarkApplicationWindow from './assets/next-js/next-js-dev-dark.png'
+import desktopLightPreview from '/img/guides/getting-started/setup/next-js/next-js-light.png'
+import desktopDarkPreview from '/img/guides/getting-started/setup/next-js/next-js-dark.png'
+import androidLightPreview from '/img/guides/getting-started/setup/next-js/android-next-js-light.png'
+import iosLightPreview from '/img/guides/getting-started/setup/next-js/ios-next-js-light.png'
+import desktopLightApplicationWindow from '/img/guides/getting-started/setup/next-js/next-js-dev-light.png'
+import desktopDarkApplicationWindow from '/img/guides/getting-started/setup/next-js/next-js-dev-dark.png'
 
 # Next.js
 
@@ -93,6 +93,9 @@ pnpm create next-app --use-pnpm --typescript
 1. _Project name_  
    This will be the name of your project. It corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
+2. _Experimental `app/` directory_  
+   Next.js will ask you if you want to try the new and experimental `app/` directory. You must select `No` because it does not yet support the `next export` command.
+
 When starting or building the frontend, Next.js will look for a config file named `next.config.js` inside the project root.
 We want to customize this file to get the best compatibility with Tauri.
 
@@ -106,8 +109,7 @@ Update the file with the following content:
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  // Note: This experimental feature is required to use NextJS Image in SSG mode.
+  // Note: This feature is required to use NextJS Image in SSG mode.
   // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
   images: {
     unoptimized: true,

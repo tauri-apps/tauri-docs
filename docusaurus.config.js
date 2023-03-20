@@ -107,7 +107,7 @@ const navbarItems = [
         to: 'about/trademark',
       },
       {
-        label: 'Get the Book',
+        label: 'Tauri Book',
         to: 'about/book',
       },
     ],

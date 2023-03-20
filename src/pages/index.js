@@ -301,6 +301,12 @@ function PremiumSponsors() {
       logoColorDark: 'padloc_color_light.svg',
       logoColorLight: 'padloc_color_light.svg',
     },
+    {
+      name: 'Meilisearch',
+      link: 'https://www.meilisearch.com',
+      logoColorDark: 'meilisearch_color_dark.svg',
+      logoColorLight: 'meilisearch_color_light.svg',
+    },
   ]
 
   return (

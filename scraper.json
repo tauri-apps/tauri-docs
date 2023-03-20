@@ -1,26 +1,163 @@
 {
-  "index_uid": "docs-v2-alpha",
+  "index_uid": "docs-v2-alpha-staging",
   "start_urls": [
     {
-      "url": "https://next--tauri.netlify.app/next/guides/",
+      "url": "https://next--tauri.netlify.app/it/next/guides/",
+      "extra_attributes": { "lang": ["it"] },
       "selectors_key": "guides"
     },
     {
-      "url": "https://next--tauri.netlify.app/next/guides/",
+      "url": "https://next--tauri.netlify.app/it/next/api/config/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/it/next/api/js/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/it/next/references/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/it/next/mobile/",
+      "extra_attributes": { "lang": ["it"] },
       "selectors_key": "mobile"
     },
     {
+      "url": "https://next--tauri.netlify.app/it/",
+      "extra_attributes": { "lang": ["it"] }
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/next/guides/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/next/api/config/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/next/api/js/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/next/references/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/next/mobile/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "mobile"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/fr/",
+      "extra_attributes": { "lang": ["fr"] }
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/next/guides/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/next/api/config/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/next/api/js/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/next/references/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/next/mobile/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "mobile"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/ko/",
+      "extra_attributes": { "lang": ["ko"] }
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/next/guides/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/next/api/config/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/next/api/js/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/next/references/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "references"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/next/mobile/",
+      "extra_attributes": { "lang": ["zh-nc"] },
+      "selectors_key": "mobile"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/zh-cn/",
+      "extra_attributes": { "lang": ["zh-cn"] }
+    },
+    {
+      "url": "https://next--tauri.netlify.app/next/guides/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/next/api/config/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "config"
+    },
+    {
       "url": "https://next--tauri.netlify.app/next/api/js/",
+      "extra_attributes": { "lang": ["en"] },
       "selectors_key": "api-js"
     },
     {
       "url": "https://next--tauri.netlify.app/next/references/",
+      "extra_attributes": { "lang": ["en"] },
       "selectors_key": "references"
     },
-    "https://next--tauri.netlify.app/next/"
+    {
+      "url": "https://next--tauri.netlify.app/next/mobile/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "mobile"
+    },
+    {
+      "url": "https://next--tauri.netlify.app/",
+      "extra_attributes": { "lang": ["en"] }
+    }
   ],
-  "sitemap_urls": ["https://next--tauri.netlify.app/sitemap.xml"],
   "stop_urls": [],
+  "sitemap_urls": [
+    "https://next--tauri.netlify.app/fr/sitemap.xml",
+    "https://next--tauri.netlify.app/it/sitemap.xml",
+    "https://next--tauri.netlify.app/ko/sitemap.xml",
+    "https://next--tauri.netlify.app/zh-cn/sitemap.xml",
+    "https://next--tauri.netlify.app/sitemap.xml"
+  ],
+  "custom_settings": {
+    "filterableAttributes": ["lang"]
+  },
   "selectors": {
     "default": {
       "lvl0": "article h1",
@@ -42,18 +179,16 @@
       "lvl5": "article h5",
       "text": "article p, article li"
     },
-
-    "mobile": {
+    "config": {
       "lvl0": {
         "selector": "",
-        "default_value": "Mobile Docs"
+        "default_value": "Configuration"
       },
-      "lvl1": "article h1",
-      "lvl2": "article h2",
-      "lvl3": "article h3",
-      "lvl4": "article h4",
-      "lvl5": "article h5",
-      "text": "article p, article li"
+      "lvl1": "article h2",
+      "lvl2": "article h3",
+      "lvl3": "article h4",
+      "lvl4": "article table td:first-child",
+      "text": "article :not(blockquote) > p, article li, article table td:last-child"
     },
     "api-js": {
       "lvl0": {
@@ -71,6 +206,18 @@
       "lvl0": {
         "selector": "",
         "default_value": "References"
+      },
+      "lvl1": "article h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5",
+      "text": "article p, article li"
+    },
+    "mobile": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Mobile Docs"
       },
       "lvl1": "article h1",
       "lvl2": "article h2",

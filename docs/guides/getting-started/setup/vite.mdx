@@ -9,22 +9,24 @@ sidebar_custom_props:
 import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
 import ThemedImage from '@theme/ThemedImage'
-import desktopLightPreview from './assets/vite/vite-light.png'
-import desktopDarkPreview from './assets/vite/vite-dark.png'
-import androidLightPreview from './assets/vite/android-vite-light.png'
-import iosLightPreview from './assets/vite/ios-vite-light.png'
-import desktopLightApplicationWindow from './assets/vite/vite-dev-light.png'
-import desktopDarkApplicationWindow from './assets/vite/vite-dev-dark.png'
+import desktopLightPreview from '/img/guides/getting-started/setup/vite/vite-light.png'
+import desktopDarkPreview from '/img/guides/getting-started/setup/vite/vite-dark.png'
+import androidLightPreview from '/img/guides/getting-started/setup/vite/android-vite-light.png'
+import iosLightPreview from '/img/guides/getting-started/setup/vite/ios-vite-light.png'
+import desktopLightApplicationWindow from '/img/guides/getting-started/setup/vite/vite-dev-light.png'
+import desktopDarkApplicationWindow from '/img/guides/getting-started/setup/vite/vite-dev-dark.png'
 
 # Vite
 
 This guide will walk you through creating your first Tauri app using the frontend build tool [Vite].
 
 <Intro />
+<CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
@@ -140,7 +142,7 @@ import { defineConfig } from 'vite'
 import { internalIpV4 } from 'internal-ip'
 
 export default defineConfig(async () => {
-  const host = await internalIpV4();
+  const host = await internalIpV4()
   return {
     // prevent vite from obscuring rust errors
     clearScreen: false,
@@ -152,7 +154,7 @@ export default defineConfig(async () => {
       hmr: {
         protocol: 'ws',
         host,
-        port: 5183
+        port: 5183,
       },
     },
     // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
@@ -166,10 +168,9 @@ export default defineConfig(async () => {
       minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
       // produce sourcemaps for debug builds
       sourcemap: !!process.env.TAURI_DEBUG,
-    }
+    },
   }
 })
-
 ```
 
 </TabItem>

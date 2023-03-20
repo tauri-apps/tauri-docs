@@ -142,6 +142,10 @@ webview.once('tauri://error', function (e) {
 })
 ```
 
+## Creating additional HTML pages
+
+If you want to create additional pages beyond `index.html`, you will need to make sure they are present in the `dist` directory at build time. How you do this depends on your frontend setup. If you use Vite, create an additional [input](https://vitejs.dev/guide/build.html#multi-page-app) for the second HTML page in `vite.config.js`.
+
 ## Accessing a window at runtime
 
 The window instance can be queried using its label and the [get_window] method on Rust or [WebviewWindow.getByLabel] on JavaScript.

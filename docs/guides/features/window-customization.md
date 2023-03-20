@@ -84,3 +84,33 @@ document
   .getElementById('titlebar-close')
   .addEventListener('click', () => appWindow.close())
 ```
+
+### tauri.conf.json
+
+To make calls to `appWindow` work don't forget to add [window](../../api/js/window.md) permissions in `tauri.conf.json` file:
+```json
+"tauri": {
+  "allowList": {
+    ...
+    "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      }
+  }
+  ...
+  
+  "windows": [
+    {
+      "decorations": false,
+      ...
+    }
+  ]
+}
+```

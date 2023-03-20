@@ -10,22 +10,24 @@ sidebar_custom_props:
 import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
 import Command from '@theme/Command'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import ThemedImage from '@theme/ThemedImage'
-import desktopLightPreview from './assets/html-css-js/html-css-js-light.png'
-import desktopDarkPreview from './assets/html-css-js/html-css-js-dark.png'
-import androidLightPreview from './assets/html-css-js/android-html-css-js-light.png'
-import iosLightPreview from './assets/html-css-js/ios-html-css-js-light.png'
-import desktopLightProgress from './assets/html-css-js/html-css-js-dev-light.png'
-import desktopDarkProgress from './assets/html-css-js/html-css-js-dev-dark.png'
+import desktopLightPreview from '/img/guides/getting-started/setup/html-css-js/html-css-js-light.png'
+import desktopDarkPreview from '/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png'
+import androidLightPreview from '/img/guides/getting-started/setup/html-css-js/android-html-css-js-light.png'
+import iosLightPreview from '/img/guides/getting-started/setup/html-css-js/ios-html-css-js-light.png'
+import desktopLightProgress from '/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png'
+import desktopDarkProgress from '/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png'
 
 # HTML, CSS, and JavaScript
 
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
 <Intro />
+<CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
@@ -169,18 +171,20 @@ You can now modify your `index.html` file to call your Command:
     <title>Document</title>
   </head>
   <body>
-    <h1>Welcome from Tauri!</h1>
     // highlight-start
+    <h1 id="header">Welcome from Tauri!</h1>
     <script>
       // access the pre-bundled global API functions
       const { invoke } = window.__TAURI__.tauri
 
       // now we can call our Command!
-      // Right-click the application background and open the developer tools.
-      // You will see "Hello, World!" printed in the console!
+      // You will see "Welcome from Tauri" replaced
+      // by "Hello, World!"!
       invoke('greet', { name: 'World' })
         // `invoke` returns a Promise
-        .then((response) => console.log(response))
+        .then((response) => {
+          window.header.innerHTML = response
+        })
     </script>
     // highlight-end
   </body>

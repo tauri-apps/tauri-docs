@@ -13,12 +13,12 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
 import ThemedImage from '@theme/ThemedImage'
-import desktopLightPreview from './assets/sveltekit/sveltekit-light.png'
-import desktopDarkPreview from './assets/sveltekit/sveltekit-dark.png'
-import androidLightPreview from './assets/sveltekit/android-sveltekit-light.png'
-import iosLightPreview from './assets/sveltekit/ios-sveltekit-light.png'
-import desktopLightApplicationWindow from './assets/sveltekit/sveltekit-dev-light.png'
-import desktopDarkApplicationWindow from './assets/sveltekit/sveltekit-dev-dark.png'
+import desktopLightPreview from '/img/guides/getting-started/setup/sveltekit/sveltekit-light.png'
+import desktopDarkPreview from '/img/guides/getting-started/setup/sveltekit/sveltekit-dark.png'
+import androidLightPreview from '/img/guides/getting-started/setup/sveltekit/android-sveltekit-light.png'
+import iosLightPreview from '/img/guides/getting-started/setup/sveltekit/ios-sveltekit-light.png'
+import desktopLightApplicationWindow from '/img/guides/getting-started/setup/sveltekit/sveltekit-dev-light.png'
+import desktopDarkApplicationWindow from '/img/guides/getting-started/setup/sveltekit/sveltekit-dev-dark.png'
 
 # SvelteKit
 
@@ -162,32 +162,32 @@ For mobile support, you also need to install the `internal-ip` NPM dependency an
 
 ```javascript title=vite.config.js
 import { defineConfig } from 'vite'
-import { sveltekit } from '@sveltejs/kit/vite';
-import { internalIpV4 } from 'internal-ip';
+import { sveltekit } from '@sveltejs/kit/vite'
+import { internalIpV4 } from 'internal-ip'
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => {
-	const host = await internalIpV4();
+  const host = await internalIpV4()
 
-	/** @type {import('vite').UserConfig} */
-	const config = {
-		plugins: [sveltekit()],
-		test: {
-			include: ['src/**/*.{test,spec}.{js,ts}']
-		},
-		server: {
-			host: '0.0.0.0', // listen on all addresses
-			port: 5173,
-			strictPort: true,
-			hmr: {
-				protocol: 'ws',
-				host,
-				port: 5183
-			}
-		}
-	};
+  /** @type {import('vite').UserConfig} */
+  const config = {
+    plugins: [sveltekit()],
+    test: {
+      include: ['src/**/*.{test,spec}.{js,ts}'],
+    },
+    server: {
+      host: '0.0.0.0', // listen on all addresses
+      port: 5173,
+      strictPort: true,
+      hmr: {
+        protocol: 'ws',
+        host,
+        port: 5183,
+      },
+    },
+  }
 
-	return config;
+  return config
 })
 ```
 

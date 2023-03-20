@@ -21,3 +21,21 @@ lucasfernog:
   title: Tauri Cofounder
   url: https://github.com/lucasfernog
   image_url: ./author_images/lucasfernog.jpg
+
+wusyong:
+  name: Wu Yu Wei
+  title: Tauri Core
+  url: https://github.com/wusyong
+  image_url: ./author_images/wusyong.jpg
+
+lorenzolewis:
+  name: Lorenzo Lewis
+  title: Tauri Working Group
+  url: https://github.com/lorenzolewis
+  image_url: ./author_images/lorenzolewis.png
+
+amrbashir:
+  name: Amr Bashir
+  title: Tauri Core
+  url: https://github.com/amrbashir
+  image_url: ./author_images/amrbashir.png

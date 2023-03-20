@@ -5,8 +5,8 @@
 name: i18n-preview
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
+  # schedule:
+  #   - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -40,13 +40,13 @@ jobs:
               base: '${{ github.ref_name }}',
               draft: true
             });
-            
+
 #       - name: Configure git
 #         run: |
 #           git config --global user.name 'Tauri Bot'
 #           git config --global user.email 'tauri-bot@tauri.studio'
 #       - name: Create pull request
-        # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
+# soft fork of https://github.com/peter-evans/create-pull-request for security purposes
 #         uses: tauri-apps/create-pull-request@v3
 #         with:
 #           title: i18n Preview

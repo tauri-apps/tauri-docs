@@ -141,19 +141,33 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
   update-search-index:
+    concurrency:
+      group: search-indexing
+      cancel-in-progress: true
     needs: deploy-to-netlify
     if: github.event_name == 'push' && (github.ref_name == 'dev' || github.ref_name == 'next')
     runs-on: ubuntu-latest
+    env:
+      MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL_NEXT }}
+      MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY_NEXT }}
+      CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
     steps:
       - uses: actions/checkout@v3
+
+      - name: Wait for Meilisearch
+        run: node ./.scripts/wait-for-search.js
+
       - name: Run scraper
-        env:
-          HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
-          API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
-          CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
         run: |
           docker run -t --rm \
-            -e MEILISEARCH_HOST_URL=$HOST_URL \
-            -e MEILISEARCH_API_KEY=$API_KEY \
+            -e MEILISEARCH_HOST_URL=$MEILISEARCH_HOST_URL \
+            -e MEILISEARCH_API_KEY=$MEILISEARCH_API_KEY \
             -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
-            getmeili/docs-scraper:v0.12.6 pipenv run ./docs_scraper ./scraper.json
+            getmeili/docs-scraper:v0.12.7 pipenv run ./docs_scraper ./scraper.json
+
+      - name: Wait for Meilisearch
+        run: node ./.scripts/wait-for-search.js
+
+      - name: Swap index
+        run: |
+          curl -X POST "$MEILISEARCH_HOST_URL/swap-indexes" -H "Authorization: Bearer $MEILISEARCH_API_KEY" -H "Content-Type: application/json" --data-binary '[ { "indexes": ["docs-v2-alpha", "docs-v2-alpha-staging"] } ]'
