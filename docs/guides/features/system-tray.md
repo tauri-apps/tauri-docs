@@ -193,7 +193,7 @@ Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dep
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
-### Preventing the app from closing when they are no windows left
+### Preventing the App from Closing
 
 By default, tauri closes the application when the last window is closed. We can simply call `api.prevent_close()` to prevent this.
 
