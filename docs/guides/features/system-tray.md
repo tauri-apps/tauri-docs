@@ -217,7 +217,7 @@ tauri::Builder::default()
 
 #### Keeping the Frontend Running in the Background
 
-In case you also need to keep the frontend running in the background, this can be achieved like this:
+If you need to keep the frontend running in the background, this can be achieved like this:
 
 ```rust
 tauri::Builder::default().on_window_event(|event| match event.event() {
