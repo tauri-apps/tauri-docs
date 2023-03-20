@@ -215,7 +215,7 @@ tauri::Builder::default()
   });
 ```
 
-#### Keeping the Frontend Running in the Background
+**Keep the Frontend Running in the Background**
 
 If you need to keep the frontend running in the background, this can be achieved like this:
 
