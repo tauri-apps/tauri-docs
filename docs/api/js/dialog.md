@@ -11,6 +11,9 @@ The APIs must be added to [`tauri.allowlist.dialog`](https://tauri.app/v1/api/co
     "allowlist": {
       "dialog": {
         "all": true, // enable all dialog APIs
+        "ask": true, // enable dialog ask API
+        "confirm": true, // enable dialog confirm API
+        "message": true, // enable dialog message API
         "open": true, // enable file open API
         "save": true // enable file save API
       }
@@ -21,6 +24,42 @@ The APIs must be added to [`tauri.allowlist.dialog`](https://tauri.app/v1/api/co
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
 ## Interfaces
+
+### `ConfirmDialogOptions`
+
+#### Properties
+
+##### `cancelLabel`
+
+> `Optional` **cancelLabel**: `string`
+
+The label of the cancel button.
+
+**Defined in:** [dialog.ts:112](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L112)
+
+##### `okLabel`
+
+> `Optional` **okLabel**: `string`
+
+The label of the confirm button.
+
+**Defined in:** [dialog.ts:110](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L110)
+
+##### `title`
+
+> `Optional` **title**: `string`
+
+The title of the dialog. Defaults to the app name.
+
+**Defined in:** [dialog.ts:106](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L106)
+
+##### `type`
+
+> `Optional` **type**: `"info"` \| `"warning"` \| `"error"`
+
+The type of the dialog. Defaults to `info`.
+
+**Defined in:** [dialog.ts:108](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L108)
 
 ### `DialogFilter`
 
@@ -42,7 +81,7 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-**Defined in:** [dialog.ts:45](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L45)
+**Defined in:** [dialog.ts:48](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L48)
 
 ##### `name`
 
@@ -50,7 +89,7 @@ extensions: ['svg', 'png']
 
 Filter name.
 
-**Defined in:** [dialog.ts:37](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L37)
+**Defined in:** [dialog.ts:40](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L40)
 
 ### `MessageDialogOptions`
 
@@ -58,13 +97,21 @@ Filter name.
 
 #### Properties
 
+##### `okLabel`
+
+> `Optional` **okLabel**: `string`
+
+The label of the confirm button.
+
+**Defined in:** [dialog.ts:101](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L101)
+
 ##### `title`
 
 > `Optional` **title**: `string`
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in:** [dialog.ts:94](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L94)
+**Defined in:** [dialog.ts:97](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L97)
 
 ##### `type`
 
@@ -72,7 +119,7 @@ The title of the dialog. Defaults to the app name.
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in:** [dialog.ts:96](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L96)
+**Defined in:** [dialog.ts:99](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L99)
 
 ### `OpenDialogOptions`
 
@@ -88,7 +135,7 @@ Options for the open dialog.
 
 Initial directory or file path.
 
-**Defined in:** [dialog.ts:59](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L59)
+**Defined in:** [dialog.ts:62](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L62)
 
 ##### `directory`
 
@@ -96,7 +143,7 @@ Initial directory or file path.
 
 Whether the dialog is a directory selection or not.
 
-**Defined in:** [dialog.ts:63](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L63)
+**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L66)
 
 ##### `filters`
 
@@ -104,7 +151,7 @@ Whether the dialog is a directory selection or not.
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:57](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L57)
+**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L60)
 
 ##### `multiple`
 
@@ -112,7 +159,7 @@ The filters of the dialog.
 
 Whether the dialog allows multiple selection or not.
 
-**Defined in:** [dialog.ts:61](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L61)
+**Defined in:** [dialog.ts:64](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L64)
 
 ##### `recursive`
 
@@ -121,7 +168,7 @@ Whether the dialog allows multiple selection or not.
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-**Defined in:** [dialog.ts:68](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L68)
+**Defined in:** [dialog.ts:71](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L71)
 
 ##### `title`
 
@@ -129,7 +176,7 @@ Defines whether subdirectories will be allowed on the scope or not.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:55](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L55)
+**Defined in:** [dialog.ts:58](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L58)
 
 ### `SaveDialogOptions`
 
@@ -147,7 +194,7 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-**Defined in:** [dialog.ts:86](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L86)
+**Defined in:** [dialog.ts:89](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L89)
 
 ##### `filters`
 
@@ -155,7 +202,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:80](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L80)
+**Defined in:** [dialog.ts:83](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L83)
 
 ##### `title`
 
@@ -163,13 +210,13 @@ The filters of the dialog.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:78](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/dialog.ts#L78)
+**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/2f70d8d/tooling/api/src/dialog.ts#L81)
 
 ## Functions
 
 ### `ask`
 
-> **ask**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **ask**(`message`: `string`, `options?`: `string` \| [`ConfirmDialogOptions`](dialog.md#confirmdialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -188,7 +235,7 @@ const yes2 = await ask('This action cannot be reverted. Are you sure?', { title:
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `message` | `string` | The message to show. |
-| `options?` | `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions) | The dialog's options. If a string, it represents the dialog title. |
+| `options?` | `string` \| [`ConfirmDialogOptions`](dialog.md#confirmdialogoptions) | The dialog's options. If a string, it represents the dialog title. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
@@ -196,7 +243,7 @@ A promise resolving to a boolean indicating whether `Yes` was clicked or not.
 
 ### `confirm`
 
-> **confirm**(`message`: `string`, `options?`: `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **confirm**(`message`: `string`, `options?`: `string` \| [`ConfirmDialogOptions`](dialog.md#confirmdialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -215,7 +262,7 @@ const confirmed2 = await confirm('This action cannot be reverted. Are you sure?'
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `message` | `string` | The message to show. |
-| `options?` | `string` \| [`MessageDialogOptions`](dialog.md#messagedialogoptions) | The dialog's options. If a string, it represents the dialog title. |
+| `options?` | `string` \| [`ConfirmDialogOptions`](dialog.md#confirmdialogoptions) | The dialog's options. If a string, it represents the dialog title. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
