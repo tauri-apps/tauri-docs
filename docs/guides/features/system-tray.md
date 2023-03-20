@@ -215,7 +215,7 @@ tauri::Builder::default()
   });
 ```
 
-#### Keeping the app running in the background after closing all windows
+#### Keeping the Frontend Running in the Background
 
 In case you also need to keep the frontend running in the background, this can be achieved like this:
 
