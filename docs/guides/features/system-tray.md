@@ -195,7 +195,7 @@ app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ic
 
 ### Preventing the App from Closing
 
-By default, tauri closes the application when the last window is closed. We can simply call `api.prevent_close()` to prevent this.
+By default, Tauri closes the application when the last window is closed. You can simply call `api.prevent_close()` to prevent this.
 
 Depending of your need you can use one of the two following exemples:
 
