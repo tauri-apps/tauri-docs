@@ -142,7 +142,7 @@ jobs:
 
   update-search-index:
     concurrency:
-      group: search-indexing
+      group: search-indexing-next
       cancel-in-progress: true
     needs: deploy-to-netlify
     if: github.event_name == 'push' && (github.ref_name == 'dev' || github.ref_name == 'next')
