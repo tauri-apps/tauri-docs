@@ -93,7 +93,7 @@ test("mocked command", () => {
 
 | Name | Type |
 | :------ | :------ |
-| `cb` | (`cmd`: `string`, `args`: `Record`<`string`, `unknown`\>) => `any` |
+| `cb` | (`cmd`: `string`, `args`: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `unknown`\>) => `any` |
 
 **Returns: **`void`
 

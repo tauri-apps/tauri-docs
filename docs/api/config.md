@@ -25,7 +25,7 @@ The configuration is composed of the following objects:
 - [`build`](#buildconfig): The build configuration
 - [`plugins`](#pluginconfig): The plugins config
 
-```json title="Example tauri.config.json file"
+```json title="Example tauri.config.json file" 
 {
   "build": {
     "beforeBuildCommand": "",
@@ -131,12 +131,14 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.visible">`visible`<a class="hash-link" href="#windowconfig.visible"></a></div> | `boolean` | `true` | Whether the window is visible or not. |
 | <div className="anchor-with-padding" id="windowconfig.decorations">`decorations`<a class="hash-link" href="#windowconfig.decorations"></a></div> | `boolean` | `true` | Whether the window should have borders and bars. |
 | <div className="anchor-with-padding" id="windowconfig.alwaysontop">`alwaysOnTop`<a class="hash-link" href="#windowconfig.alwaysontop"></a></div> | `boolean` | `false` | Whether the window should always be on top of other windows. |
+| <div className="anchor-with-padding" id="windowconfig.contentprotected">`contentProtected`<a class="hash-link" href="#windowconfig.contentprotected"></a></div> | `boolean` | `false` | Prevents the window contents from being captured by other apps. |
 | <div className="anchor-with-padding" id="windowconfig.skiptaskbar">`skipTaskbar`<a class="hash-link" href="#windowconfig.skiptaskbar"></a></div> | `boolean` | `false` | If `true`, hides the window icon from the taskbar on Windows and Linux. |
 | <div className="anchor-with-padding" id="windowconfig.theme">`theme`<a class="hash-link" href="#windowconfig.theme"></a></div> | [`Theme`](#theme)? | [view](#theme) | The initial window theme. Defaults to the system theme. Only implemented on Windows and macOS 10.14+. |
 | <div className="anchor-with-padding" id="windowconfig.titlebarstyle">`titleBarStyle`<a class="hash-link" href="#windowconfig.titlebarstyle"></a></div> | [`TitleBarStyle`](#titlebarstyle) | [view](#titlebarstyle) | The style of the macOS title bar. |
 | <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | `boolean` | `false` | If `true`, sets the window title to be hidden on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.acceptfirstmouse">`acceptFirstMouse`<a class="hash-link" href="#windowconfig.acceptfirstmouse"></a></div> | `boolean` | `false` | Whether clicking an inactive window also clicks through to the webview on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | `string`? | _null_ | Defines the window [tabbing identifier] for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled.<br /><br />[tabbing identifier]: <https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier> |
+| <div className="anchor-with-padding" id="windowconfig.additionalbrowserargs">`additionalBrowserArgs`<a class="hash-link" href="#windowconfig.additionalbrowserargs"></a></div> | `string`? | _null_ | Defines additional browser arguments on Windows. By default wry passes `--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection` so if you use this method, you also need to disable these components by yourself if you want. |
 
 
 #### WindowUrl
@@ -232,7 +234,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean` | `false` | Whether Tauri should bundle your application or just output the executable. |
-| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "msi", "app", "dmg", "updater"] or "all". |
+| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "nsis", "msi", "app", "dmg", "updater"] or "all". |
 | <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string`(required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | `string`? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | `string[]` | [] | The app's icons |
@@ -267,6 +269,7 @@ Can be any **ONE** of the following types:
 - "deb": The debian bundle (.deb).
 - "appimage": The AppImage bundle (.appimage).
 - "msi": The Microsoft Installer bundle (.msi).
+- "nsis": The NSIS bundle (.exe).
 - "app": The macOS application bundle (.app).
 - "dmg": The Apple Disk Image bundle (.dmg).
 - "updater": The Tauri updater bundle.
@@ -327,6 +330,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowsconfig.webviewfixedruntimepath">`webviewFixedRuntimePath`<a class="hash-link" href="#windowsconfig.webviewfixedruntimepath"></a></div> | `string`? | _null_ | Path to the webview fixed runtime to use. Overwrites `webview_install_mode` if set.<br /><br />Will be removed in v2, prefer the `webview_install_mode` option.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
 | <div className="anchor-with-padding" id="windowsconfig.allowdowngrades">`allowDowngrades`<a class="hash-link" href="#windowsconfig.allowdowngrades"></a></div> | `boolean` | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
 | <div className="anchor-with-padding" id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
+| <div className="anchor-with-padding" id="windowsconfig.nsis">`nsis`<a class="hash-link" href="#windowsconfig.nsis"></a></div> | [`NsisConfig`](#nsisconfig)? | [view](#nsisconfig) | Configuration for the installer generated with NSIS. |
 
 
 #### WebviewInstallMode
@@ -387,12 +391,53 @@ Type: `object`
 | <div className="anchor-with-padding" id="wixlanguageconfig.localepath">`localePath`<a class="hash-link" href="#wixlanguageconfig.localepath"></a></div> | `string`? | _null_ | The path to a locale (`.wxl`) file. See <https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/build_a_localized_version.html>. |
 
 
+### NsisConfig
+
+Configuration for the Installer bundle using NSIS.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="nsisconfig.license">`license`<a class="hash-link" href="#nsisconfig.license"></a></div> | `string`? | _null_ | The path to the license file to render on the installer. |
+| <div className="anchor-with-padding" id="nsisconfig.headerimage">`headerImage`<a class="hash-link" href="#nsisconfig.headerimage"></a></div> | `string`? | _null_ | The path to a bitmap file to display on the header of installers pages.<br /><br />The recommended dimensions are 150px x 57px. |
+| <div className="anchor-with-padding" id="nsisconfig.sidebarimage">`sidebarImage`<a class="hash-link" href="#nsisconfig.sidebarimage"></a></div> | `string`? | _null_ | The path to a bitmap file for the Welcome page and the Finish page.<br /><br />The recommended dimensions are 164px x 314px. |
+| <div className="anchor-with-padding" id="nsisconfig.installericon">`installerIcon`<a class="hash-link" href="#nsisconfig.installericon"></a></div> | `string`? | _null_ | The path to an icon file used as the installer icon. |
+| <div className="anchor-with-padding" id="nsisconfig.installmode">`installMode`<a class="hash-link" href="#nsisconfig.installmode"></a></div> | [`NSISInstallerMode`](#nsisinstallermode) | [view](#nsisinstallermode) | Whether the installation will be for all users or just the current user. |
+| <div className="anchor-with-padding" id="nsisconfig.languages">`languages`<a class="hash-link" href="#nsisconfig.languages"></a></div> | `array`? | _null_ | A list of installer languages. By default the OS language is used. If the OS language is not in the list of languages, the first language will be used. To allow the user to select the language, set `display_language_selector` to `true`.<br /><br />See <https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files> for the complete list of languages. |
+| <div className="anchor-with-padding" id="nsisconfig.displaylanguageselector">`displayLanguageSelector`<a class="hash-link" href="#nsisconfig.displaylanguageselector"></a></div> | `boolean` | `false` | Whether to display a language selector dialog before the installer and uninstaller windows are rendered or not. By default the OS language is selected, with a fallback to the first language in the `languages` array. |
+
+
+#### NSISInstallerMode
+
+Install Modes for the NSIS installer.
+
+Can be any **ONE** of the following types:
+
+- "currentUser": Default mode for the installer.
+
+	Install the app by default in a directory that doesn't require Administrator access.
+
+Installer metadata will be saved under the `HKCU` registry path.
+- "perMachine": Install the app by default in the `Program Files` folder directory requires Administrator access for the installation.
+
+	Installer metadata will be saved under the `HKLM` registry path.
+- "both": Combines both modes and allows the user to choose at install time whether to install for the current user or per machine. Note that this mode will require Administrator access even if the user wants to install it for the current user only.
+
+	Installer metadata will be saved under the `HKLM` or `HKCU` registry path based on the user's choice.
+
 ### AllowlistConfig
 
-Allowlist configuration. The allowlist is a translation of the [Cargo allowlist features](https://docs.rs/tauri/latest/tauri/#cargo-allowlist-features).<br />
-<b>Note:</b>
-* Endpoints that don't have their own allowlist option are enabled by default.
-* There is only "opt-in" no "opt-out". Setting an option to `false` has no effect. *Example:* [`"app-all": true`](https://tauri.app/v1/api/config/#appallowlistconfig.all) will make the [hide](https://tauri.app/v1/api/js/app#hide) endpoint be available regardless of whether `hide` is set to `false` or `true` in the allowlist.
+Allowlist configuration. The allowlist is a translation of the [Cargo allowlist features](https://docs.rs/tauri/latest/tauri/#cargo-allowlist-features).
+
+# Notes
+
+- Endpoints that don't have their own allowlist option are enabled by default.
+- There is only "opt-in", no "opt-out". Setting an option to `false` has no effect.
+
+# Examples
+
+- * [`"app-all": true`](https://tauri.app/v1/api/config/#appallowlistconfig.all) will make the [hide](https://tauri.app/v1/api/js/app#hide) endpoint be available regardless of whether `hide` is set to `false` or `true` in the allowlist.
 
 Type: `object`
 
@@ -469,6 +514,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowallowlistconfig.close">`close`<a class="hash-link" href="#windowallowlistconfig.close"></a></div> | `boolean` | `false` | Allows closing the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setdecorations">`setDecorations`<a class="hash-link" href="#windowallowlistconfig.setdecorations"></a></div> | `boolean` | `false` | Allows setting the decorations flag of the window. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setalwaysontop">`setAlwaysOnTop`<a class="hash-link" href="#windowallowlistconfig.setalwaysontop"></a></div> | `boolean` | `false` | Allows setting the always_on_top flag of the window. |
+| <div className="anchor-with-padding" id="windowallowlistconfig.setcontentprotected">`setContentProtected`<a class="hash-link" href="#windowallowlistconfig.setcontentprotected"></a></div> | `boolean` | `false` | Allows preventing the window contents from being captured by other apps. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setsize">`setSize`<a class="hash-link" href="#windowallowlistconfig.setsize"></a></div> | `boolean` | `false` | Allows setting the window size. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setminsize">`setMinSize`<a class="hash-link" href="#windowallowlistconfig.setminsize"></a></div> | `boolean` | `false` | Allows setting the window minimum size. |
 | <div className="anchor-with-padding" id="windowallowlistconfig.setmaxsize">`setMaxSize`<a class="hash-link" href="#windowallowlistconfig.setmaxsize"></a></div> | `boolean` | `false` | Allows setting the window maximum size. |
@@ -549,7 +595,7 @@ Can be any of the following types:
 
 - `boolean`: If the shell open API should be enabled.
 
-	If enabled, the default validation regex (`^https?://`) is used.
+	If enabled, the default validation regex (`^((mailto:\w+)|(tel:\w+)|(https?://\w+)).+`) is used.
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
 	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
@@ -763,6 +809,7 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="updaterwindowsconfig.installerargs">`installerArgs`<a class="hash-link" href="#updaterwindowsconfig.installerargs"></a></div> | `string[]` | [] | Additional arguments given to the NSIS or WiX installer. |
 | <div className="anchor-with-padding" id="updaterwindowsconfig.installmode">`installMode`<a class="hash-link" href="#updaterwindowsconfig.installmode"></a></div> | [`WindowsUpdateInstallMode`](#windowsupdateinstallmode) | [view](#windowsupdateinstallmode) | The installation mode for the update on Windows. Defaults to `passive`. |
 
 
@@ -773,7 +820,7 @@ Install modes for the Windows update.
 Can be any **ONE** of the following types:
 
 - "basicUi": Specifies there's a basic UI during the installation process, including a final dialog box at the end.
-- "quiet": The quiet mode means there's no user interaction required. Requires admin privileges if the installer does.
+- "quiet": The quiet mode means there's no user interaction required. Requires admin privileges if the installer does (WiX).
 - "passive": Specifies unattended mode, which means the installation only shows a progress bar.
 
 ### SystemTrayConfig
