@@ -193,10 +193,15 @@ Note that you need to add `icon-ico` or `icon-png` feature flag to the tauri dep
 app.tray_handle().set_icon(tauri::Icon::Raw(include_bytes!("../path/to/myicon.ico").to_vec())).unwrap();
 ```
 
-### Keep the app running in the background after closing all windows
+### Preventing the App from Closing
 
-By default, tauri closes the application when the last window is closed.
-If your app should run in the background, you can call `api.prevent_close()` like so:
+By default, Tauri closes the application when the last window is closed. You can simply call `api.prevent_close()` to prevent this.
+
+Depending on your needs you can use one of the two following options:
+
+**Keep the Backend Running in the Background**
+
+If your backend should run in the background, you can call `api.prevent_close()` like so:
 
 ```rust
 tauri::Builder::default()
@@ -208,6 +213,22 @@ tauri::Builder::default()
     }
     _ => {}
   });
+```
+
+**Keep the Frontend Running in the Background**
+
+If you need to keep the frontend running in the background, this can be achieved like this:
+
+```rust
+tauri::Builder::default().on_window_event(|event| match event.event() {
+  tauri::WindowEvent::CloseRequested { api, .. } => {
+    event.window().hide().unwrap();
+    api.prevent_close();
+  }
+  _ => {}
+})
+.run(tauri::generate_context!())
+.expect("error while running tauri application");
 ```
 
 [template image]: https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc
