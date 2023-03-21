@@ -13,7 +13,7 @@ Tauri offers a built-in updater for the MSI (Windows), AppImage (Linux) and App 
 
 Once your Tauri project is ready, you can configure Tauri's updater to enable auto updating for your users.
 
-## Signing updates
+## Signing Updates
 
 Tauri's updater has a built-in signature mechanism to ensure that updates are safe to be installed.
 
@@ -30,7 +30,7 @@ If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different pa
 
 <Command name="signer generate -w $HOME/.tauri/myapp.key" />
 
-## Tauri configuration
+## Tauri Configuration
 
 Now you need to configure Tauri's updater. To do this, add this to your [Tauri config](../../api/config.md#updaterconfig):
 
@@ -64,7 +64,7 @@ Each updater URL can contain the following variables allowing you to determine [
 
 `"dialog"` if present must ba a boolean. By default it's set to true. If enabled, updater [events](#events) will be disabled as the built-in dialog handles everything. If you need custom events, you must turn off the built-in dialog.
 
-### Installmode on Windows
+### `Installmode` on Windows
 
 On Windows there is an additional config [`"installMode"`](../../api/config.md#updaterwindowsconfig.installmode) to change how the update is installed.
 
@@ -72,7 +72,7 @@ On Windows there is an additional config [`"installMode"`](../../api/config.md#u
 - `"basicUI"`: There will be a basic user interface shown which requires user interaction to finish the installation.
 - `"quiet"`: There will be no progress feedback to the user. With this mode the installer cannot request admin privileges by itself so it only works in user-wide installations or when your app itself already runs with admin privileges. Generally not recommended.
 
-## Update artifacts
+## Update Artifacts
 
 Tauri's bundler will automatically generate and sign update artifacts once the updater is correctly configured and enabled.
 
@@ -203,7 +203,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ## Checking for Updates
 
-### Built-in dialog
+### Built-In Dialog
 
 By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/dialog.md#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
@@ -212,7 +212,7 @@ By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/d
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
 
-### Custom Dialog and Logic
+### Custom Dialog
 
 :::caution
 
