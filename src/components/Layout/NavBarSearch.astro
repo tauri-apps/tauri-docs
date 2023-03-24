@@ -6,18 +6,6 @@ import { astroI18n } from 'astro-i18n'
 ---
 
 <style is:global>
-  /* Variables */
-  :root {
-    --docsearch-primary-color: rgb(var(--color-primary));
-    --docsearch-text-color: rbg(var(--color-base-content));
-  }
-
-  html[data-theme='dark'] {
-    --docsearch-modal-background: rgb(var(--color-base-200)) !important;
-    --docsearch-footer-background: rgb(var(--color-base-200)) !important;
-    --docsearch-hit-background: rgb(var(--color-base-300)) !important;
-  }
-
   /* Button */
   .docsearch-btn {
     @apply max-lg:btn lg:input-text lg:bg-base-200 lg:hover:bg-content-hover shadow-none flex items-center justify-center gap-2 text-base-content/75 hover:text-primary !important;
@@ -46,14 +34,27 @@ import { astroI18n } from 'astro-i18n'
   }
 
   /* Modal */
-  html[data-theme='dark'] .docsearch-modal-search-hits-item--active,
-  html[data-theme='dark']
-    .docsearch-modal-search-hits-item--active
-    .docsearch-modal-search-hits-item--highlight,
-  html[data-theme='dark'] .docsearch-modal-search-hits-item--highlight:hover,
-  html[data-theme='dark'] .docsearch-modal-search-hits-item--highlight:active,
-  html[data-theme='dark'] .docsearch-modal-search-hits-item--highlight:focus {
-    color: #1f1f1f !important;
+  :root {
+    --docsearch-primary-color: rgb(var(--color-primary)) !important;
+    --docsearch-searchbox-focus-background: rgb(
+      var(--color-base-200)
+    ) !important;
+    --docsearch-searchbox-shadow: none !important;
+    --docsearch-modal-background: rgb(var(--color-base-300)) !important;
+    --docsearch-hit-background: rgb(var(--color-base-200)) !important;
+    --docsearch-footer-background: rgb(var(--color-base-200)) !important;
+    --docsearch-key-gradient: rgb(var(--color-base-100)) !important;
+    --docsearch-key-shadow: inset 0 -2px 0 0 rgb(var(--color-base-300)) !important;
+  }
+
+  .docsearch-modal-search-hits-item--active {
+    @apply bg-base-100;
+  }
+  .docsearch-modal-search-input-icon {
+    @apply text-base-content !important;
+  }
+  .docsearch-modal-title {
+    @apply text-base-content !important;
   }
 </style>
 
