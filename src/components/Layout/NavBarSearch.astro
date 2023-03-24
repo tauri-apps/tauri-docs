@@ -1,37 +1,54 @@
 ---
 import Search from '../Search/index.jsx'
-import 'meilisearch-docsearch/css'
+import 'meilisearch-docsearch/css/variables'
+import 'meilisearch-docsearch/css/modal'
 import { astroI18n } from 'astro-i18n'
 ---
 
 <style is:global>
+  /* Variables */
   :root {
-    --docsearch-primary-color: rgb(var(--color-primary)) !important;
+    --docsearch-primary-color: rgb(var(--color-primary));
+    --docsearch-text-color: rbg(var(--color-base-content));
   }
 
   html[data-theme='dark'] {
-    --docsearch-modal-container-background: rgba(23, 23, 23, 0.8) !important ;
-    --docsearch-searchbox-background: rgb(var(--color-base-200)) !important;
-    --docsearch-searchbox-focus-background: var(
-      --ifm-card-background-color
-    ) !important;
-
-    --docsearch-key-gradient: linear-gradient(
-      -26.5deg,
-      rgb(113, 114, 122) 0%,
-      rgb(70, 72, 90) 100%
-    ) !important;
-    --docsearch-key-shadow: inset 0 -2px 0 0 rgb(62, 62, 67),
-      inset 0 0 1px 1px rgb(104, 106, 120), 0 2px 2px 0 rgba(0, 0, 0, 0.3) !important;
-
     --docsearch-modal-background: rgb(var(--color-base-200)) !important;
     --docsearch-footer-background: rgb(var(--color-base-200)) !important;
     --docsearch-hit-background: rgb(var(--color-base-300)) !important;
   }
 
-  html[data-theme='dark'] .docsearch-btn-key {
-    color: #b4b4b4 !important;
+  /* Button */
+  .docsearch-btn {
+    @apply max-lg:btn lg:input-text lg:bg-base-200 lg:hover:bg-content-hover shadow-none flex gap-2 text-base-content/75 hover:text-primary lg:min-w-[12rem] !important;
   }
+  .docsearch-modal-btn-icon {
+    @apply hidden;
+  }
+  .docsearch-btn-icon-container::after {
+    display: inline-block;
+    content: '';
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>')
+      no-repeat 50% 50%;
+    mask-size: cover;
+    background-color: rgb(var(--color-base-content) / 0.75);
+    height: 16px;
+    width: 16px;
+  }
+  .docsearch-btn-placeholder {
+    @apply hidden lg:block;
+  }
+  .docsearch-btn:hover .docsearch-btn-icon-container::after {
+    background-color: rgb(var(--color-primary));
+  }
+  .docsearch-btn-keys {
+    @apply hidden xl:flex pl-4 gap-1;
+  }
+  .docsearch-btn-key {
+    @apply bg-content-hover rounded px-2;
+  }
+
+  /* Modal */
   html[data-theme='dark'] .docsearch-modal-search-hits-item--active,
   html[data-theme='dark']
     .docsearch-modal-search-hits-item--active
@@ -40,14 +57,6 @@ import { astroI18n } from 'astro-i18n'
   html[data-theme='dark'] .docsearch-modal-search-hits-item--highlight:active,
   html[data-theme='dark'] .docsearch-modal-search-hits-item--highlight:focus {
     color: #1f1f1f !important;
-  }
-
-  .docsearch-btn {
-    background: rgb(var(--color-base-200)) !important;
-  }
-
-  .docsearch-btn-key {
-    line-height: 1;
   }
 </style>
 
