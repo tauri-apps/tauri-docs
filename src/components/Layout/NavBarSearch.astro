@@ -20,32 +20,29 @@ import { astroI18n } from 'astro-i18n'
 
   /* Button */
   .docsearch-btn {
-    @apply max-lg:btn lg:input-text lg:bg-base-200 lg:hover:bg-content-hover shadow-none flex gap-2 text-base-content/75 hover:text-primary lg:min-w-[12rem] !important;
+    @apply max-lg:btn lg:input-text lg:bg-base-200 lg:hover:bg-content-hover shadow-none flex items-center justify-center gap-2 text-base-content/75 hover:text-primary !important;
+  }
+
+  .docsearch-btn-icon-container {
+    @apply flex;
   }
   .docsearch-modal-btn-icon {
     @apply hidden;
   }
+
   .docsearch-btn-icon-container::after {
-    display: inline-block;
+    @apply inline-block transition h-4 w-4 max-lg:bg-base-content lg:bg-base-content/75;
     content: '';
-    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>')
-      no-repeat 50% 50%;
-    mask-size: cover;
-    background-color: rgb(var(--color-base-content) / 0.75);
-    height: 16px;
-    width: 16px;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
   }
   .docsearch-btn-placeholder {
     @apply hidden lg:block;
   }
   .docsearch-btn:hover .docsearch-btn-icon-container::after {
-    background-color: rgb(var(--color-primary));
+    @apply bg-primary;
   }
   .docsearch-btn-keys {
-    @apply hidden xl:flex pl-4 gap-1;
-  }
-  .docsearch-btn-key {
-    @apply bg-content-hover rounded px-2;
+    @apply hidden xl:flex lg:pl-8 gap-1;
   }
 
   /* Modal */
