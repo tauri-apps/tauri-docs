@@ -10,8 +10,9 @@ type navbarItem = {
 
 const navbar: navbarItem[] = [
   {
-    title: t('global.nav.docs'),
+    title: t('global.nav.documentation'),
     href: l('/docs'),
+    children: [],
   },
   {
     title: t('global.nav.references'),
@@ -33,6 +34,10 @@ const navbar: navbarItem[] = [
         href: l('/api/core-cli/1'),
       },
     ],
+  },
+  {
+    title: t('global.nav.blog'),
+    href: l('/blog'),
   },
   {
     title: t('global.nav.about'),
