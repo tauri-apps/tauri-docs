@@ -32,15 +32,17 @@ const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
     >
       <Tree tree={relatedPages} baseUrl={baseUrl} />
     </div>
-    <div class="max-w-[150ch] overflow-y-auto styled-scrollbar py-4 px-8">
-      <span class="xl:hidden">
-        <OnThisPage headings={headings} dropdown={true} />
-      </span>
-      <main>
-        <slot />
-      </main>
-      <span class="xl:hidden"><Contribute /></span>
-      <Footer />
+    <div class="overflow-y-auto styled-scrollbar py-4 px-8 w-full">
+      <div class="max-w-[150ch] mx-auto">
+        <span class="xl:hidden">
+          <OnThisPage headings={headings} dropdown={true} />
+        </span>
+        <main>
+          <slot />
+        </main>
+        <span class="xl:hidden"><Contribute /></span>
+        <Footer />
+      </div>
     </div>
     <div
       class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words styled-scrollbar p-4"
