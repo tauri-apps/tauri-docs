@@ -25,9 +25,9 @@ Here's a preview of what we will be building:
 
 ## Create the Frontend
 
-[SvelteKit] is a Svelte Frontend which is primarily designed for Server-Side Rendering (SSR). To make SvelteKit work with Tauri we are going to disable SSR and use [`@sveltejs/adapter-static`] to create a frontend based on Static-Site Generation (SSG).
+[SvelteKit] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). To make SvelteKit work with Tauri we are going to disable SSR and use [`@sveltejs/adapter-static`] to create a frontend based on Static-Site Generation (SSG).
 
-SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project with many customization options. For this guide, we will select the [TypeScript] template, with ESLint and Prettier enabled.
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript] template, with ESLint and Prettier enabled.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -130,7 +130,7 @@ export const prerender = true
 export const ssr = false
 ```
 
-Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs which depend on the global `window` object (like Tauri's API) without [Client-side checks].
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks].
 
 Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you can change the adapter configurations and `+layout.ts` according to the [adapter docs].
 

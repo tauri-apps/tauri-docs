@@ -185,7 +185,7 @@ jobs:
 
 4. Save and push to your repo.
 
-5. Your workflow can now import your windows certificate and import it into the GitHub runner, allowing for automated code-signing!
+5. Your workflow can now import your windows certificate and import it into the GitHub runner, allowing for automated code signing!
 
 [microsoft's docs]: https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage
 [submitting your app]: https://www.microsoft.com/en-us/wdsi/filesubmission/

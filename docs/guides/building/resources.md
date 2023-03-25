@@ -69,7 +69,7 @@ console.log(langDe.hello) // This will print 'Guten Tag!' to the devtools consol
 
 ## Accessing files in Rust
 
-This is based on the example above. On the Rust side you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`]:
+This is based on the example above. On the Rust side, you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`]:
 
 ```rust
 tauri::Builder::default()
