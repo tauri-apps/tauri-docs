@@ -8,6 +8,7 @@
 @layer base {
   /* Variables */
   :root {
+    color-scheme: dark;
     --color-base-100: 20 20 20;
     --color-base-200: 30 30 30;
     --color-base-300: 40 40 40;
