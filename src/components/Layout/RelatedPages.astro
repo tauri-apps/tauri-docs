@@ -1,0 +1,46 @@
+---
+import TreeNode from './TreeNode.astro'
+import Dropdown from '@src/components/Dropdown.astro'
+import { t } from 'astro-i18n'
+import type { TreeNode as TreeNodeType } from '@src/utils'
+
+interface Props {
+  tree: TreeNodeType
+  // Will be appended to the beginning of a slug
+  baseUrl?: string
+  // Takes into account full slug
+  maxDepth?: number
+  dropdown?: boolean
+}
+
+let { tree, baseUrl, maxDepth, dropdown } = Astro.props
+---
+
+{
+  dropdown && (
+    <Dropdown class="-ml-3" btnClass="btn-compact">
+      <Fragment slot="toggle">{t('layout.related-pages')}</Fragment>
+      <div slot="content" class="py-2 px-4">
+        <ul>
+          {Object.entries(tree)
+            .filter(([_, value]) => value.hasOwnProperty('_metadata'))
+            .map(([_, object]) => (
+              <TreeNode node={object} baseUrl={baseUrl} />
+            ))}
+        </ul>
+      </div>
+    </Dropdown>
+  )
+}
+{
+  !dropdown && (
+    <ul>
+      <li class="small-caps">{t('layout.related-pages')}</li>
+      {Object.entries(tree)
+        .filter(([_, value]) => value.hasOwnProperty('_metadata'))
+        .map(([_, object]) => (
+          <TreeNode node={object} baseUrl={baseUrl} />
+        ))}
+    </ul>
+  )
+}

@@ -9,7 +9,11 @@ import Dropdown from '../Dropdown.astro'
 ---
 
 <li>
-  <Dropdown ariaLabel={t('global.nav.locale-dropdown')} btnClass="btn-normal">
+  <Dropdown
+    ariaLabel={t('global.nav.locale-dropdown')}
+    btnClass="btn-normal"
+    alignment={'right'}
+  >
     <Fragment slot="toggle">
       <IconTranslate />
     </Fragment>

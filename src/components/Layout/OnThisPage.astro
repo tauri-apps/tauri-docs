@@ -23,14 +23,14 @@ const headingsWithIndention = headings.map((heading) => ({
 
 {
   dropdown && (
-    <Dropdown inlineMenu={true} class="-ml-3" btnClass="btn-compact">
+    <Dropdown class="-ml-3" btnClass="btn-compact" alignment={'right'}>
       <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
       <ul slot="content" class="py-2 px-4">
         {headingsWithIndention.map((heading) => (
           <li>
             <a
               href={`#${heading.slug}`}
-              class={`list-item pl-${heading.indention}`}
+              class={`list-item pl-${heading.indention} whitespace-nowrap`}
             >
               {heading.text}
             </a>

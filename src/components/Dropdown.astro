@@ -5,7 +5,9 @@ interface Props {
   ariaLabel?: string
   class?: string
   btnClass?: string
+  contentClass?: string
   trigger?: 'click' | 'hover'
+  alignment?: 'right' | 'left'
 }
 
 // generate unique ids for each component so that we can connect the button to the dropdown without requiring consumer to provide an id
@@ -17,15 +19,24 @@ function uid() {
 }
 
 let id = uid()
-let { inlineMenu, ariaLabel, class: className, btnClass, trigger } = Astro.props
+let {
+  inlineMenu,
+  ariaLabel,
+  class: className,
+  btnClass,
+  contentClass,
+  trigger,
+  alignment,
+} = Astro.props
 ---
 
 <div
   data-trigger={trigger ?? 'click'}
   class:list={[
-    'dropdown',
-    'js-dropdown',
-    { 'dropdown-inline js-dropdown-inline': inlineMenu },
+    'dropdown js-dropdown relative',
+    {
+      'dropdown-inline js-dropdown-inline': inlineMenu,
+    },
     className,
   ]}
 >
@@ -40,12 +51,19 @@ let { inlineMenu, ariaLabel, class: className, btnClass, trigger } = Astro.props
   <button
     aria-controls={id}
     aria-label={ariaLabel}
-    class={`dropdown-toggle js-dropdown-toggle ${btnClass}`}
+    class={`dropdown-toggle js-dropdown-toggle whitespace-nowrap ${btnClass}`}
   >
     <slot name="toggle" />
     <IconCaret class="text-xs" />
   </button>
-  <div id={id} class="dropdown-content">
+  <div
+    id={id}
+    class:list={[
+      `dropdown-content ${contentClass}`,
+      { 'rounded-tr': alignment === 'left' || alignment === undefined },
+      { 'rounded-tl right-0': alignment === 'right' },
+    ]}
+  >
     <slot name="content" />
   </div>
 </div>
@@ -53,7 +71,7 @@ let { inlineMenu, ariaLabel, class: className, btnClass, trigger } = Astro.props
 <style>
   /* hide the menu body and apply default styles */
   .dropdown-content {
-    @apply hidden absolute bg-base-300 rounded-b rounded-tr;
+    @apply hidden absolute bg-base-300 rounded-b;
   }
   .dropdown-inline .dropdown-content {
     @apply static;

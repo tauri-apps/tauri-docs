@@ -194,7 +194,7 @@
     @apply list-base small-caps;
   }
   .list-item {
-    @apply list-base transition before:absolute before:inset-y-0 before:-left-2 before:transition before:border-l-2 before:border-transparent  before:rounded;
+    @apply list-base transition before:absolute before:inset-y-0 before:-left-2 before:transition before:border-l-2 before:border-transparent before:rounded;
   }
 
   .list-item-hover {

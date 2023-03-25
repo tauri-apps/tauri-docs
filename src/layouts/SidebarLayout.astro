@@ -2,12 +2,10 @@
 import type { TreeNode } from '@src/utils.js'
 import type { MarkdownHeading } from 'astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
-import Translate from '@src/components/Layout/Translate.astro'
-import Tree from '@src/components/Tree.astro'
+import RelatedPages from '@src/components/Layout/RelatedPages.astro'
 import { t } from 'astro-i18n'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
-import Github from '~icons/bi/github'
 import Contribute from '@src/components/Layout/Contribute.astro'
 
 interface Props {
@@ -30,13 +28,20 @@ const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words styled-scrollbar p-4"
     >
-      <Tree tree={relatedPages} baseUrl={baseUrl} />
+      <RelatedPages tree={relatedPages} baseUrl={baseUrl} />
     </div>
     <div class="overflow-y-auto styled-scrollbar py-4 px-8 w-full">
       <div class="max-w-[150ch] mx-auto">
-        <span class="xl:hidden">
+        <div class="flex xl:hidden justify-between lg:justify-end">
+          <div class="lg:hidden">
+            <RelatedPages
+              tree={relatedPages}
+              baseUrl={baseUrl}
+              dropdown={true}
+            />
+          </div>
           <OnThisPage headings={headings} dropdown={true} />
-        </span>
+        </div>
         <main>
           <slot />
         </main>
