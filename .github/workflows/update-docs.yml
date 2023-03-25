@@ -64,31 +64,11 @@ jobs:
         run: yarn
 
       - name: Cleanup JS Docs
-        run: rm -rf tauri-docs/docs/api/js/*
+        run: rm -rf tauri-docs/src/content/api/en/js/1/*
 
       - name: Build JS docs
         working-directory: ./tauri-docs/packages/js-doc-generator
         run: yarn && yarn generate-docs
-
-      # Any Rust documentation is currently disabled while we're falling back to docs.rs
-
-      #- name: install webkit2gtk
-      #  run: |
-      #    sudo apt-get update
-      #    sudo apt-get install -y webkit2gtk-4.0 libappindicator3-dev
-
-      # # Rust
-      # - name: generate rust docs
-      #   working-directory: ./tauri/core/tauri
-      #   run: cargo doc --no-deps
-      # - name: run rustdocusaurus
-      #   uses: tauri-apps/rustdocusaurus/github-action@v1
-      #   with:
-      #     originPath: ./tauri/target/doc/
-      #     targetPath: ./tauri-docs/docs/en/api/rust/
-      #     sidebarPath: "${{ github.workspace }}/tauri-docs/sidebars/rustdoc.json"
-      #     linksRoot: ""
-      #     cratesToProcess: "tauri"
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -109,16 +89,6 @@ jobs:
         run: |
           node tauri-docs/.scripts/generate-cli-doc.js
           node tauri-docs/.scripts/generate-config-doc.js
-
-      #- name: Generate tauri AST
-      #  uses: actions-rs/cargo@v1
-      #  with:
-      #    command: doc
-      #    args: --no-deps --manifest-path ./tauri/core/tauri/Cargo.toml --no-default-features --features "wry __isolation-docs custom-protocol api-all cli __updater-docs system-tray devtools dox"
-      #  env:
-      #    RUSTDOCFLAGS: '-Z unstable-options --output-format json'
-      #- name: Copy tauri.json
-      #  run: cp tauri/target/doc/tauri.json tauri-docs/docs/api/rust/
 
       # tauri-docs PR
       - name: Git config

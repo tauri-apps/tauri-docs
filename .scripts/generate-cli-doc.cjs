@@ -1,17 +1,10 @@
 const childProcess = require('child_process')
 const path = require('path')
 const fs = require('fs')
-const rustCliPath = path.join(
-  __dirname,
-  '../../tauri/tooling/cli/target/debug/cargo-tauri'
-)
 const templatePath = path.join(__dirname, './cli-template.md')
 
 // TODO: get the actual version
-const targetPath = path.join(
-  __dirname,
-  '../src/content/api/en/core-cli/1/index.md'
-)
+const targetPath = path.join(__dirname, '../src/content/api/en/cli/1/index.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 const commands = ['info', 'init', 'plugin init', 'dev', 'build', 'icon']
