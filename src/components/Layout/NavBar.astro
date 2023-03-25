@@ -73,7 +73,9 @@ import { l, t } from 'astro-i18n'
       </label>
     </li>
   </ul>
-  <ul class="lg:hidden content h-screen">
+  <ul
+    class="lg:hidden fixed top-[var(--nav-height)] inset-0 p-4 bg-base-100 content"
+  >
     <NavBarLinks inlineMenu={true} />
     <li></li>
     <li>
