@@ -33,10 +33,11 @@ let {
 <div
   data-trigger={trigger ?? 'click'}
   class:list={[
-    'dropdown js-dropdown relative',
+    'dropdown js-dropdown flex flex-col w-full',
     {
       'dropdown-inline js-dropdown-inline': inlineMenu,
     },
+    { 'justify-end items-end': alignment === 'right' },
     className,
   ]}
 >
@@ -48,30 +49,35 @@ let {
     focusout events were not being fired
     and that's why we have an "outside click" listener
   -->
+
   <button
     aria-controls={id}
     aria-label={ariaLabel}
-    class={`dropdown-toggle js-dropdown-toggle whitespace-nowrap ${btnClass}`}
+    class:list={[
+      `dropdown-toggle js-dropdown-toggle whitespace-nowrap ${btnClass}`,
+    ]}
   >
     <slot name="toggle" />
     <IconCaret class="text-xs" />
   </button>
-  <div
-    id={id}
-    class:list={[
-      `dropdown-content ${contentClass}`,
-      { 'rounded-tr': alignment === 'left' || alignment === undefined },
-      { 'rounded-tl right-0': alignment === 'right' },
-    ]}
-  >
-    <slot name="content" />
+  <div class="relative w-full">
+    <div
+      id={id}
+      class:list={[
+        `dropdown-content ${contentClass} absolute`,
+        { 'rounded-tr': alignment === 'left' || alignment === undefined },
+        { 'rounded-tl top-0 right-0': alignment === 'right' },
+      ]}
+    >
+      <slot name="content" />
+    </div>
   </div>
 </div>
 
 <style>
   /* hide the menu body and apply default styles */
   .dropdown-content {
-    @apply hidden absolute bg-base-300 rounded-b;
+    @apply hidden bg-base-300 rounded-b;
   }
   .dropdown-inline .dropdown-content {
     @apply static;
@@ -90,8 +96,12 @@ let {
 
   .dropdown:focus-within
     > .dropdown-toggle:not([aria-expanded])
-    + .dropdown-content,
-  .dropdown:hover > .dropdown-toggle:not([aria-expanded]) + .dropdown-content {
+    + div
+    > .dropdown-content,
+  .dropdown:hover
+    > .dropdown-toggle:not([aria-expanded])
+    + div
+    > .dropdown-content {
     @apply block;
   }
 
@@ -100,7 +110,7 @@ let {
     @apply rounded-b-none bg-base-200;
   }
 
-  .dropdown-toggle[aria-expanded='true'] + .dropdown-content {
+  .dropdown-toggle[aria-expanded='true'] + div > .dropdown-content {
     @apply block;
   }
 </style>

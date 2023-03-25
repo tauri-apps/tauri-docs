@@ -18,9 +18,9 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
 
 {
   dropdown && (
-    <Dropdown class="-ml-3" btnClass="btn-compact">
+    <Dropdown class="-ml-3 mr-3" btnClass="btn-compact">
       <Fragment slot="toggle">{t('layout.related-pages')}</Fragment>
-      <div slot="content" class="py-2 px-4 max-w-[150ch] w-[calc(100vw-64px)]">
+      <div slot="content" class="py-2 px-4">
         <ul>
           {Object.entries(tree)
             .filter(([_, value]) => value.hasOwnProperty('_metadata'))

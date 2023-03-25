@@ -28,8 +28,8 @@ const { title, relatedPages, baseUrl, headings } = Astro.props
     </div>
     <div class="overflow-y-auto styled-scrollbar py-4 px-8 w-full">
       <div class="max-w-[150ch] mx-auto">
-        <div class="flex xl:hidden justify-between lg:justify-end">
-          <div class="lg:hidden">
+        <div class="xl:hidden relative">
+          <div class="lg:hidden absolute">
             <RelatedPages
               tree={relatedPages}
               baseUrl={baseUrl}
