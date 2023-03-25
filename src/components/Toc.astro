@@ -1,52 +1,30 @@
 ---
 import { convertCollectionToTree, geti18nCollection } from '@src/utils.js'
-import { astroI18n, l } from 'astro-i18n'
 import type { getCollection as CollectionType } from 'astro:content'
+import { l } from 'astro-i18n'
 
 interface Props<C extends Parameters<typeof CollectionType>[0]> {
   collection: C
-  path: string
+  path?: string
   lang: string
 }
 
-const { path, collection, lang } = Astro.props
+const { collection, lang } = Astro.props
 
-const entries = await geti18nCollection(collection, lang)
-const tree = convertCollectionToTree(entries)
-
-function resolve(path: string, obj = this, separator = '.') {
-  var properties = Array.isArray(path) ? path : path.split(separator)
-  return properties.reduce((prev, curr) => prev?.[curr], obj)
-}
-
-// FIXME: What if this doesn't exist? Throw an error
-const resolvedTree = resolve(path, tree, '/')
-
-Object.entries(resolvedTree).forEach(([_, node]) => {
-  if (!node['_metadata']) {
-    console.warn(`Missing metadata for ${node.id}`)
-  } else {
-    if (!node['_metadata']['slug']) {
-      console.error(`Missing slug for ${node['_metadata']['id']}`)
-    }
-    if (!node['_metadata']['meta_title']) {
-      console.warn(
-        `Missing meta_title frontmatter for ${node['_metadata']['id']}`
-      )
-    }
-    if (!node['_metadata']['meta_description']) {
-      console.warn(
-        `Missing meta_description frontmatter for ${node['_metadata']['id']}`
-      )
-    }
-  }
-})
+// const entries = await geti18nCollection(collection, lang)
+// let tree = convertCollectionToTree(entries)
+// console.log(tree['getting-started'])
+// Object.entries(tree)
+//   .filter(([_, entry]) => Object.values(entry).includes('_metadata'))
+//   .forEach(([_, entry]) => console.log(entry['_metadata'['slug']]))
 ---
 
-<div class="grid lg:grid-cols-2 gap-4 auto-rows-fr">
+<p>TODO</p>
+
+<!-- <div class="grid lg:grid-cols-2 gap-4 auto-rows-fr">
   {
-    Object.entries(resolvedTree)
-      .filter((entry) => entry[0] != '_metadata')
+    Object.entries(tree['getting-started'])
+      .filter(([_, value]) => Object.values(value).includes('_metadata'))
       .map(([_, value]) => (
         <a
           href={l(`/docs/${value['_metadata']['slug']}`)}
@@ -57,4 +35,4 @@ Object.entries(resolvedTree).forEach(([_, node]) => {
         </a>
       ))
   }
-</div>
+</div> -->
