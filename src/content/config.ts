@@ -7,16 +7,6 @@ const metadataSchema = {
   i18n_ready: z.boolean().optional(),
 }
 
-const blog = defineCollection({
-  schema: z.object({
-    ...metadataSchema,
-    date: z.date(),
-    imageSrc: z.string().optional(),
-    imageDarkSrc: z.string().optional(),
-    authors: z.array(z.string()),
-  }),
-})
-
 const docs = defineCollection({
   schema: z.object({
     ...metadataSchema,
@@ -24,6 +14,5 @@ const docs = defineCollection({
 })
 
 export const collections = {
-  blog,
   docs,
 }
