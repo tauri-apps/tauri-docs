@@ -24,7 +24,7 @@ const headingsWithIndention = headings.map((heading) => ({
 
 {
   dropdown && (
-    <Dropdown inlineMenu={true} class="-ml-3" btnClass="btn btn-minimal">
+    <Dropdown inlineMenu={true} class="-ml-3" btnClass="btn-compact">
       <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
       <ul slot="content">
         {headingsWithIndention.map((heading) => (
