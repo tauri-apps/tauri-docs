@@ -106,7 +106,7 @@
   /* .btn-active: Modifier,  style for when the element is being interacted with */
 
   .base-btn {
-    @apply text-base-content transition inline-block text-center;
+    @apply text-base-content transition inline-block text-center whitespace-nowrap;
   }
   .base-btn * {
     @apply inline-block;
