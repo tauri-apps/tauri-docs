@@ -12,7 +12,6 @@ import mdx from '@astrojs/mdx'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tauri-dev.netlify.app',
-  trailingSlash: 'always',
   integrations: [
     i18n(),
     prefetch(),

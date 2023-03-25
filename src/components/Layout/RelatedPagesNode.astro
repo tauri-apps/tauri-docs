@@ -12,7 +12,11 @@ const children = Object.entries(node)
   .filter(([key, _]) => key !== '_metadata')
   .map(([_, value]) => value)
 const filteredChildren = children.length > 1 ? children : undefined
-const url = `${l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)}\/`
+const url = l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)
+
+function trimSlash(url: string) {
+  return url.replace(/^\/+|\/+$/g, '')
+}
 ---
 
 <li>
@@ -20,7 +24,7 @@ const url = `${l(`${baseUrl ? baseUrl : ''}/${node['_metadata']['slug']}`)}\/`
     href={url}
     class:list={[
       'list-item',
-      { 'list-item-hover': url === Astro.url.pathname },
+      { 'list-item-hover': trimSlash(url) === trimSlash(Astro.url.pathname) },
     ]}
   >
     {
