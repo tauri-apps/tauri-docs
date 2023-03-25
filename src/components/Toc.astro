@@ -6,11 +6,12 @@ import type { getCollection as CollectionType } from 'astro:content'
 interface Props<C extends Parameters<typeof CollectionType>[0]> {
   collection: C
   path: string
+  lang: string
 }
 
-const { path, collection } = Astro.props
+const { path, collection, lang } = Astro.props
 
-const entries = await geti18nCollection(collection, astroI18n.langCode)
+const entries = await geti18nCollection(collection, lang)
 const tree = convertCollectionToTree(entries)
 
 function resolve(path: string, obj = this, separator = '.') {

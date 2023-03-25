@@ -1,6 +1,6 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { t } from 'astro-i18n'
+import { t, astroI18n } from 'astro-i18n'
 import Toc from '@src/components/Toc.astro'
 ---
 
@@ -24,6 +24,6 @@ import Toc from '@src/components/Toc.astro'
       existing project, are ready to get your app into the hands of users, or
       want to learn how to use a common Tauri feature, we have the help for you.
     </p>
-    <Toc collection="docs" path="core/1" />
+    <Toc collection="docs" lang={astroI18n.langCode} path="core/1" />
   </main>
 </Layout>
