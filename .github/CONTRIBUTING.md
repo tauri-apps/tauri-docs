@@ -15,6 +15,7 @@ A few style guidelines to help us keep a common style across documents:
 3. Use present tense rather than future tense. This makes the text easier to comprehend.
    Make an exception for planned or obsolete features, using future or past tense as appropriate.
 4. Use active voice rather than passive voice. This makes the text more engaging and easier to comprehend.
+5. Use [Title Case] for section headers.
 
 ## Local Development
 
@@ -109,4 +110,5 @@ yarn docusaurus docs:version 'v1'
 This value above should match what was previously in the `unreleasedTauriVersion` variable
 
 [reference-style links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
+[title case]: https://en.wikipedia.org/wiki/Title_case
 [docusaurus admonitions]: https://docusaurus.io/docs/markdown-features/admonitions
