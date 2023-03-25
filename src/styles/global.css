@@ -108,7 +108,7 @@
   .base-btn {
     @apply text-base-content transition inline-block text-center;
   }
-  .btn * {
+  .base-btn * {
     @apply inline-block;
   }
 
