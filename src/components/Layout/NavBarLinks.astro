@@ -12,7 +12,6 @@ const navbar: navbarItem[] = [
   {
     title: t('global.nav.documentation'),
     href: l('/docs'),
-    children: [],
   },
   {
     title: t('global.nav.references'),
@@ -37,7 +36,7 @@ const navbar: navbarItem[] = [
   },
   {
     title: t('global.nav.blog'),
-    href: l('/blog'),
+    href: 'https://tauri.app/blog',
   },
   {
     title: t('global.nav.about'),
@@ -54,7 +53,10 @@ const navbar: navbarItem[] = [
     navbar.map((item) =>
       item.children ? (
         <li class="shrink-0">
-          <Dropdown inlineMenu={Astro.props.inlineMenu}>
+          <Dropdown
+            inlineMenu={Astro.props.inlineMenu}
+            class="btn btn-inline text-left"
+          >
             <Fragment slot="toggle">{item.title}</Fragment>
             <ul slot="content">
               {item.children.map((child) => (
