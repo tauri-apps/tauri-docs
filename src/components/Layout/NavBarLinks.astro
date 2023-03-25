@@ -5,6 +5,7 @@ import Dropdown from '../Dropdown.astro'
 type navbarItem = {
   title: string
   href?: string
+  target?: '_blank'
   children?: navbarItem[]
 }
 
@@ -22,7 +23,8 @@ const navbar: navbarItem[] = [
       },
       {
         title: t('global.nav.rust-api'),
-        href: l('/api/core-rust/1'),
+        href: 'https://docs.rs/tauri/1/',
+        target: '_blank',
       },
       {
         title: t('global.nav.tauri-config'),
@@ -61,7 +63,11 @@ const navbar: navbarItem[] = [
             <ul slot="content">
               {item.children.map((child) => (
                 <li>
-                  <a href={child.href} class="btn-normal btn-inline text-left">
+                  <a
+                    href={child.href}
+                    class="btn-normal btn-inline text-left"
+                    target={child.target}
+                  >
                     {child.title}
                   </a>
                 </li>
@@ -71,7 +77,11 @@ const navbar: navbarItem[] = [
         </li>
       ) : (
         <li>
-          <a href={item.href} class="btn-normal btn-inline text-left">
+          <a
+            href={item.href}
+            class="btn-normal btn-inline text-left"
+            target={item.target}
+          >
             {item.title}
           </a>
         </li>

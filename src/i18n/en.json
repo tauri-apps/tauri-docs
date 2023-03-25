@@ -20,7 +20,7 @@
   "global.nav.open-collective": "Open Collective",
   "global.nav.open-navigation": "Open Navigation",
   "global.nav.references": "References",
-  "global.nav.rust-api": "Rust API",
+  "global.nav.rust-api": "Rust API (via Docs.rs)",
   "global.nav.tauri-cli": "Tauri CLI",
   "global.nav.tauri-config": "Tauri Config",
   "global.nav.getting-started": "Getting Started",

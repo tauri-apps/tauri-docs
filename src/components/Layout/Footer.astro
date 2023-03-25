@@ -1,8 +1,9 @@
 ---
 import { l, t } from 'astro-i18n'
 import NavBarSocial from './NavBarSocial.astro'
-const year = new Date().getFullYear()
 import logo from '@src/images/tauri_logo_dark.svg'
+
+const year = new Date().getFullYear()
 ---
 
 <style>
@@ -50,7 +51,7 @@ import logo from '@src/images/tauri_logo_dark.svg'
         </a>
       </li>
       <li>
-        <a href={l('/api/core-js/1')} class="btn-link">
+        <a href="https://docs.rs/tauri/1/" class="btn-link" target="_blank">
           {t('global.nav.rust-api')}
         </a>
       </li>
