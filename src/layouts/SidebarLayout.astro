@@ -3,7 +3,6 @@ import type { TreeNode } from '@src/utils.js'
 import type { MarkdownHeading } from 'astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import RelatedPages from '@src/components/Layout/RelatedPages.astro'
-import { t } from 'astro-i18n'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
 import Contribute from '@src/components/Layout/Contribute.astro'
@@ -13,12 +12,9 @@ interface Props {
   relatedPages: TreeNode[]
   baseUrl: string
   headings: MarkdownHeading[]
-  entry: any
-  editOnGithub?: boolean
 }
 
-const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
-  Astro.props
+const { title, relatedPages, baseUrl, headings } = Astro.props
 ---
 
 <Layout title={title}>
