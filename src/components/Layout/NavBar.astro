@@ -2,7 +2,7 @@
 import IconList from '~icons/bi/list'
 import IconClose from '~icons/bi/x-lg'
 import NavBarLinks from './NavBarLinks.astro'
-import NavBarLocaleTheme from './NavBarLocaleTheme.astro'
+import NavBarLocale from './NavBarLocale.astro'
 import Social from './NavBarSocial.astro'
 import Search from './NavBarSearch.astro'
 import { l, t } from 'astro-i18n'
@@ -46,10 +46,10 @@ import { l, t } from 'astro-i18n'
     <li class="max-lg:hidden border-x border-border rounded m-2 h-8"></li>
     <li class="content shrink-0">
       <ul>
-        <NavBarLocaleTheme />
+        <NavBarLocale />
       </ul>
     </li>
-    <li class="pl-4">
+    <li class="lg:pl-4">
       <Search />
     </li>
     <li>
