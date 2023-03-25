@@ -22,11 +22,11 @@ const { title, relatedPages, baseUrl, headings } = Astro.props
     class="absolute inset-0 top-[var(--nav-height)] flex justify-between bg-base-200"
   >
     <div
-      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto scrollbar break-words p-4"
+      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
       <RelatedPages tree={relatedPages} baseUrl={baseUrl} />
     </div>
-    <div class="overflow-y-auto scrollbar py-4 px-8 w-full">
+    <div class="overflow-y-auto py-4 px-8 w-full">
       <div class="max-w-[150ch] mx-auto">
         <div class="xl:hidden relative">
           <div class="lg:hidden absolute">
@@ -46,7 +46,7 @@ const { title, relatedPages, baseUrl, headings } = Astro.props
       </div>
     </div>
     <div
-      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto scrollbar break-words p-4"
+      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
       <ul>
         <li>
