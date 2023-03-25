@@ -1,5 +1,5 @@
 ---
-import TreeNode from './TreeNode.astro'
+import RelatedPagesNode from './RelatedPagesNode.astro'
 import Dropdown from '@src/components/Dropdown.astro'
 import { t } from 'astro-i18n'
 import type { TreeNode as TreeNodeType } from '@src/utils'
@@ -25,7 +25,7 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
           {Object.entries(tree)
             .filter(([_, value]) => value.hasOwnProperty('_metadata'))
             .map(([_, object]) => (
-              <TreeNode node={object} baseUrl={baseUrl} />
+              <RelatedPagesNode node={object} baseUrl={baseUrl} />
             ))}
         </ul>
       </div>
@@ -39,7 +39,7 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
       {Object.entries(tree)
         .filter(([_, value]) => value.hasOwnProperty('_metadata'))
         .map(([_, object]) => (
-          <TreeNode node={object} baseUrl={baseUrl} />
+          <RelatedPagesNode node={object} baseUrl={baseUrl} />
         ))}
     </ul>
   )
