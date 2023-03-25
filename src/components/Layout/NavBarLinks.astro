@@ -48,44 +48,39 @@ const navbar: navbarItem[] = [
 ---
 
 {
-  /* Fragment is here because Astro cannot seem to handle multiple JSX-containing elements as root */
-}
-<>
-  {
-    navbar.map((item) =>
-      item.children ? (
-        <li class="shrink-0">
-          <Dropdown
-            inlineMenu={Astro.props.inlineMenu}
-            btnClass="btn-normal btn-inline text-left"
-          >
-            <Fragment slot="toggle">{item.title}</Fragment>
-            <ul slot="content">
-              {item.children.map((child) => (
-                <li>
-                  <a
-                    href={child.href}
-                    class="btn-normal btn-inline text-left"
-                    target={child.target}
-                  >
-                    {child.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Dropdown>
-        </li>
-      ) : (
-        <li>
-          <a
-            href={item.href}
-            class="btn-normal btn-inline text-left"
-            target={item.target}
-          >
-            {item.title}
-          </a>
-        </li>
-      )
+  navbar.map((item) =>
+    item.children ? (
+      <li class="shrink-0">
+        <Dropdown
+          inlineMenu={Astro.props.inlineMenu}
+          btnClass="btn-normal btn-inline text-left"
+        >
+          <Fragment slot="toggle">{item.title}</Fragment>
+          <ul slot="content">
+            {item.children.map((child) => (
+              <li>
+                <a
+                  href={child.href}
+                  class="btn-normal btn-inline text-left"
+                  target={child.target}
+                >
+                  {child.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Dropdown>
+      </li>
+    ) : (
+      <li>
+        <a
+          href={item.href}
+          class="btn-normal btn-inline text-left"
+          target={item.target}
+        >
+          {item.title}
+        </a>
+      </li>
     )
-  }
-</>
+  )
+}
