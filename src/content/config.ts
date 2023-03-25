@@ -13,6 +13,9 @@ const docs = defineCollection({
   }),
 })
 
+const api = defineCollection({})
+
 export const collections = {
+  api,
   docs,
 }
