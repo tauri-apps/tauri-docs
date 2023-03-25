@@ -55,20 +55,20 @@ jobs:
         working-directory: ./tauri-docs
         run: git submodule update --remote
 
-      - name: Build typedoc-plugin-markdown
-        working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
-        run: yarn && yarn build
+      # - name: Build typedoc-plugin-markdown
+      #   working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+      #   run: yarn && yarn build
 
       - name: Prep for JS doc generation
         working-directory: ./tauri/tooling/api
         run: yarn
 
-      - name: Cleanup JS Docs
-        run: rm -rf tauri-docs/src/content/api/en/js/1/*
+      # - name: Cleanup JS Docs
+      #   run: rm -rf tauri-docs/src/content/api/en/js/1/*
 
-      - name: Build JS docs
-        working-directory: ./tauri-docs/packages/js-doc-generator
-        run: yarn && yarn generate-docs
+      # - name: Build JS docs
+      #   working-directory: ./tauri-docs/packages/js-doc-generator
+      #   run: yarn && yarn generate-docs
 
       - uses: dtolnay/rust-toolchain@stable
         with:
