@@ -62,7 +62,6 @@ Arguments can be of any type, as long as they implement [`serde::Deserialize`].
 Please note, when declaring arguments in Rust using snake_case, the arguments are converted to camelCase for JavaScript.  
 To use snake_case in JavaScript, you have to declare it in the `tauri::command` statement:
 
-
 ```rust
 #[tauri::command(rename_all = "snake_case")]
 fn my_custom_command(invoke_message: String) {
