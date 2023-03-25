@@ -12,6 +12,7 @@
   "global.nav.awesome-tauri": "Awesome Tauri",
   "global.nav.close-navigation": "Close Navigation",
   "global.nav.documentation": "Documentation",
+  "global.nav.more": "More",
   "global.nav.blog": "Blog",
   "global.nav.email": "Email",
   "global.nav.javascript-api": "JavaScript API",
@@ -37,6 +38,7 @@
   "global.locale.it": "Italiano",
   "index.title": "Index",
   "layout.contribute": "Contribute",
+  "layout.report-issue": "Report Issue",
   "layout.on-this-page": "On this page",
   "layout.related-pages": "Related pages",
   "layout.translate": "Translate"

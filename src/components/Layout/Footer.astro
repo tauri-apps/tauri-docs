@@ -13,8 +13,10 @@ import logo from '@src/images/tauri_logo_dark.svg'
 
 <footer class="py-4 flex flex-col gap-8">
   <hr />
-  <div class="grid lg:grid-cols-4 gap-8 justify-items-start">
-    <div class="flex flex-col gap-6">
+  <div
+    class="grid grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 justify-items-start"
+  >
+    <div class="max-lg:col-span-3 flex flex-col gap-6">
       <div>
         <a href={l('/')}>
           <img src={logo} alt="Tauri logo" class="h-10" />
@@ -64,9 +66,9 @@ import logo from '@src/images/tauri_logo_dark.svg'
       </li>
     </ul>
     <ul>
-      <li class="small-caps">{t('global.nav.about')}</li>
+      <li class="small-caps">{t('global.nav.more')}</li>
       <li>
-        <a href="" class="btn-link">TODO</a>
+        <a href={l('/about')} class="btn-link">{t('global.nav.about')}</a>
       </li>
       <li>
         <a href="https://tauri.app/blog" class="btn-link"
