@@ -31,7 +31,7 @@ as `webkit2gtk-driver` on Debian-based distributions.
 
 ### Windows
 
-Make sure to grab the version of [Microsoft Edge Driver] that matches your Windows' Edge version that the application is
+Make sure to grab the version of [Microsoft Edge Driver] that matches your Windows Edge version that the application is
 being built and tested on. This should almost always be the latest stable version on up-to-date Windows installs. If the
 two versions do not match, you may experience your WebDriver testing suite hanging while trying to connect.
 

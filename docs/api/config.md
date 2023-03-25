@@ -344,8 +344,8 @@ For more information see <https://tauri.app/v1/guides/building/windows>.
 Can be any **ONE** of the following types:
 
 - { "type": "skip" }: Do not install the Webview2 as part of the Windows Installer.
-- { "type": "downloadBootstrapper", "silent": boolean }: Download the bootstrapper and run it. Requires internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
-- { "type": "embedBootstrapper", "silent": boolean }: Embed the bootstrapper and run it. Requires internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
+- { "type": "downloadBootstrapper", "silent": boolean }: Download the bootstrapper and run it. Requires an internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
+- { "type": "embedBootstrapper", "silent": boolean }: Embed the bootstrapper and run it. Requires an internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
 - { "type": "offlineInstaller", "silent": boolean }: Embed the offline installer and run it. Does not require internet connection. Increases the installer size by around 127MB.
 - { "type": "fixedRuntime", "path": string }: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
 

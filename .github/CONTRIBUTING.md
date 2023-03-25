@@ -77,7 +77,7 @@ The following items should be translated before enabling a language:
 - all files in `docs/.templates` (these are used to generate `docs/api/cli` and `docs/api/config`)
 - all markdown files in `src/pages`
 
-**Crowdin Admin Note**: You must setup a custom language mapping in the Crowdin UI since we're using a combination of Locale and 2-digit language codes. See the "Language Mapping" heading at the end of this section for instructions: https://support.crowdin.com/enterprise/project-settings/#export. You can also reference the currently configured mappings.
+**Crowdin Admin Note**: You must set up a custom language mapping in the Crowdin UI since we're using a combination of Locale and 2-digit language codes. See the "Language Mapping" heading at the end of this section for instructions: https://support.crowdin.com/enterprise/project-settings/#export. You can also reference the currently configured mappings.
 
 ## Versioning
 

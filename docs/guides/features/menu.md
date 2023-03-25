@@ -43,7 +43,7 @@ fn main() {
 
 ### Adding the menu to a specific window
 
-You can create a window and set the menu to be used. This allows defining a specific menu set for each application window.
+You can create a window and set the menu to be used. This allows for defining a specific menu set for each application window.
 
 ```rust
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};

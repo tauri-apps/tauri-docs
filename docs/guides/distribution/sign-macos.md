@@ -34,7 +34,7 @@ The Tauri code signing and notarization process is configured through the follow
 
 ## Signing Tauri apps
 
-The first step to sign a macOS application is getting a signing certificate from the Apple Developer Program.
+The first step to signing a macOS application is getting a signing certificate from the Apple Developer Program.
 
 ### Creating a signing certificate
 
@@ -50,7 +50,7 @@ Only the Apple Developer `Account Holder` can create _Developer ID Application_ 
 
 ### Downloading a certificate
 
-On [Certificates, IDs & Profiles page], click on the certificate you want to use and click on the `Download` button. It saves a `.cer` file that installs the certificate on the keychain once opened. The name of the keychain entry represents the `signing identity`, which can also be found by executing `security find-identity -v -p codesigning`.
+On the [Certificates, IDs & Profiles page], click on the certificate you want to use and click on the `Download` button. It saves a `.cer` file that installs the certificate on the keychain once opened. The name of the keychain entry represents the `signing identity`, which can also be found by executing `security find-identity -v -p codesigning`.
 
 :::note
 
@@ -69,7 +69,7 @@ The signing configuration is provided to the Tauri bundler via environment varia
 Additionally, to simplify the code signing process on CI, Tauri can install the certificate on the keychain for you if you define the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables.
 
 1. Open the `Keychain Access` app and find your certificate's keychain entry.
-2. Expand the entry, double click on the key item, and select `Export "$KEYNAME"`.
+2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the `.p12` file and define the exported certificate password.
 4. Convert the `.p12` file to base64 running the following script on the terminal: `openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt`.
 5. Set the contents of the `certificate-base64.txt` file to the `APPLE_CERTIFICATE` environment variable.

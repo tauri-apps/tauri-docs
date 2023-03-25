@@ -72,7 +72,7 @@ On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime
 
 ### Downloaded Bootstrapper
 
-This is the default setting for building the Windows Installer. It downloads the bootstrapper and run it. Requires internet connection but results in a smaller installer size. This is not recommended if you're going to be distributing to Windows 7.
+This is the default setting for building the Windows Installer. It downloads the bootstrapper and runs it. Requires an internet connection but results in a smaller installer size. This is not recommended if you're going to be distributing to Windows 7.
 
 ```json title="tauri.config.json"
 {

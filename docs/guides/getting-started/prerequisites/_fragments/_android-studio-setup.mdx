@@ -4,11 +4,11 @@ Download Android Studio on the [official website](https://developer.android.com/
 
 #### 1. Configure JDK
 
-Android Studio includes a JDK so you do not need to download a separate one. Set the `JAVA_HOME` environment variable to `<path to android studio>/jre`.
+Android Studio includes a JDK so you do not need to download a separate one. Set the `JAVA_HOME` environment variable to the location of the JDK:
 
 <CodeBlock language={props.platform === 'windows' ? 'powershell' : 'sh'}>
   {props.platform == 'linux' ? 'export JAVA_HOME=/opt/android-studio/jre' : ''}
-  {props.platform == 'macos' ? 'export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home' : ''}
+  {props.platform == 'macos' ? 'export JAVA_HOME="/Applications/Android\ Studio.app/Contents/jbr/Contents/Home"' : ''}
   {props.platform == 'windows'
     ? '[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jre", "User")'
     : ''}
@@ -18,7 +18,7 @@ Android Studio includes a JDK so you do not need to download a separate one. Set
 
 You can use the SDK Manager in Android Studio to install:
 
-- Android Sdk Platform 33
+- Android SDK Platform 33
 - Android SDK Platform-Tools
 - NDK (Side by side) 25.0.8775105
 - Android SDK Build-Tools 33.0
