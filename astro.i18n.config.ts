@@ -14,7 +14,6 @@ export default defineAstroI18nConfig({
   supportedLangCodes: nonDefaultLocales,
   showDefaultLangCode: false,
   translations,
-  routeTranslations: {},
 })
 
 export { nonDefaultLocales }
