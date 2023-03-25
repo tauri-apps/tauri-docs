@@ -4,7 +4,6 @@ import Dropdown from '@src/components/Dropdown.astro'
 import { t } from 'astro-i18n'
 
 // FIXME: Indention for hover effect needs to be fixed, should be lined up vertically between li's
-
 interface Props {
   headings: MarkdownHeading[]
   dropdown?: boolean
@@ -26,7 +25,7 @@ const headingsWithIndention = headings.map((heading) => ({
   dropdown && (
     <Dropdown inlineMenu={true} class="-ml-3" btnClass="btn-compact">
       <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
-      <ul slot="content">
+      <ul slot="content" class="py-2 px-4">
         {headingsWithIndention.map((heading) => (
           <li>
             <a

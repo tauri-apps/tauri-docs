@@ -45,7 +45,7 @@ let { inlineMenu, ariaLabel, class: className, btnClass, trigger } = Astro.props
     <slot name="toggle" />
     <IconCaret class="text-xs" />
   </button>
-  <div id={id} class="dropdown-content z-nav-dropdown">
+  <div id={id} class="dropdown-content">
     <slot name="content" />
   </div>
 </div>
@@ -53,7 +53,7 @@ let { inlineMenu, ariaLabel, class: className, btnClass, trigger } = Astro.props
 <style>
   /* hide the menu body and apply default styles */
   .dropdown-content {
-    @apply hidden absolute bg-base-200 rounded-b rounded-tr z-dropdown;
+    @apply hidden absolute bg-base-300 rounded-b rounded-tr;
   }
   .dropdown-inline .dropdown-content {
     @apply static;
