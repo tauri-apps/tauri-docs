@@ -64,11 +64,23 @@ Each updater URL can contain the following variables allowing you to determine [
 
 `"dialog"` if present must ba a boolean. By default it's set to true. If enabled, updater [events](#events) will be disabled as the built-in dialog handles everything. If you need custom events, you must turn off the built-in dialog.
 
-### `Installmode` on Windows
+### `installMode` on Windows
 
-On Windows there is an additional config [`"installMode"`](../../api/config.md#updaterwindowsconfig.installmode) to change how the update is installed.
+On Windows there is an additional optional config [`"installMode"`](../../api/config.md#updaterwindowsconfig.installmode) to change how the update is installed.
 
-- `"passive"`: The default and general recommendation. It will show a small progress bar when installing the update without requiring any user interaction.
+```json title=tauri.conf.json
+{
+  "tauri": {
+    "updater": {
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}
+```
+
+- `"passive"`: There will be a small window with a progress bar. The update will be installed without requiring any user interaction. Generally recommended and the default mode.
 - `"basicUI"`: There will be a basic user interface shown which requires user interaction to finish the installation.
 - `"quiet"`: There will be no progress feedback to the user. With this mode the installer cannot request admin privileges by itself so it only works in user-wide installations or when your app itself already runs with admin privileges. Generally not recommended.
 
