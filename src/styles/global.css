@@ -136,7 +136,7 @@
   /* Inputs */
   /**********/
   .input-text {
-    @apply p-3 rounded min-h-[48px] transition bg-base-200;
+    @apply p-3 rounded min-h-[48px] min-w-[48px] transition bg-base-200;
   }
   .input-hover {
     @apply bg-content-hover;
