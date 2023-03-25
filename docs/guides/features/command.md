@@ -70,11 +70,11 @@ fn my_custom_command(invoke_message: String) {
 }
 ```
 
-the corresponding JavaScript:
+The corresponding JavaScript:
+
 ```js
 invoke('my_custom_command', { invoke_message: 'Hello!' })
 ```
-
 
 ## Returning Data
 
