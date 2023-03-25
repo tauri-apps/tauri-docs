@@ -1,7 +1,6 @@
 ---
 import type { TreeNode } from '@src/utils.js'
 import type { MarkdownHeading } from 'astro'
-import Breadcrumbs from '@src/components/Layout/Breadcrumbs.astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import Translate from '@src/components/Layout/Translate.astro'
 import Tree from '@src/components/Tree.astro'
@@ -9,6 +8,7 @@ import { t } from 'astro-i18n'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
 import Github from '~icons/bi/github'
+import Contribute from '@src/components/Layout/Contribute.astro'
 
 interface Props {
   title: string
@@ -30,47 +30,29 @@ const { title, relatedPages, baseUrl, headings, entry, editOnGithub } =
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words styled-scrollbar p-4"
     >
-      <div class="small-caps">Related Pages</div>
       <Tree tree={relatedPages} baseUrl={baseUrl} />
     </div>
     <div class="max-w-[150ch] overflow-y-auto styled-scrollbar py-4 px-8">
-      <Breadcrumbs
-        items={['This', 'should', 'be', 'a', 'breadcrumb', 'trail']}
-      />
+      <span class="xl:hidden">
+        <OnThisPage headings={headings} dropdown={true} />
+      </span>
       <main>
         <slot />
       </main>
+      <span class="xl:hidden"><Contribute /></span>
       <Footer />
     </div>
     <div
-      class="hidden lg:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words styled-scrollbar p-4"
+      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words styled-scrollbar p-4"
     >
       <ul>
-        <!-- TODO: Versions -->
-        <!-- <div class="small-caps">Version</div> -->
-        <!-- <div>TBD</div> -->
-        <li class="list-heading">{t('layout.on-this-page')}</li>
-        <OnThisPage headings={headings} />
+        <li>
+          <OnThisPage headings={headings} />
+        </li>
         <li class="list-base"></li>
-        {
-          (entry.data.i18n_ready || editOnGithub) && (
-            <li class="list-heading">{t('layout.contribute')}</li>
-          )
-        }
-        {entry.data.i18n_ready && <Translate />}
-        {
-          editOnGithub && (
-            <li>
-              <a
-                class="list-item"
-                href={`https://github.com/${entry.id}`}
-                target="_blank"
-              >
-                <Github /> Edit on GitHub
-              </a>
-            </li>
-          )
-        }
+        <li>
+          <Contribute />
+        </li>
       </ul>
     </div>
   </div>

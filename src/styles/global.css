@@ -97,12 +97,13 @@
   /***********/
   /* .btn: Base button style */
   /* .btn-inline: Modifier, makes the button full width */
+  /* .btn-minimal: A shorter, all caps variant of a button */
   /* .btn-hover: Modifier, style for hover state */
   /* .btn-active: Modifier,  style for when the element is being interacted with */
 
   .btn {
     /* min-w-[48px] is used to ensure that small icons are square */
-    @apply text-base-content p-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
+    @apply text-base-content px-3 py-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
   }
   .btn * {
     @apply inline-block;
@@ -111,6 +112,10 @@
   /* Modifiers */
   .btn-inline {
     @apply w-full;
+  }
+
+  .btn-minimal {
+    @apply h-8 py-0 small-caps;
   }
 
   .btn-hover {

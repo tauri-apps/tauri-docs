@@ -1,13 +1,16 @@
 ---
 import type { MarkdownHeading } from 'astro'
+import Dropdown from '@src/components/Dropdown.astro'
+import { t } from 'astro-i18n'
 
 // FIXME: Indention for hover effect needs to be fixed, should be lined up vertically between li's
 
 interface Props {
   headings: MarkdownHeading[]
+  dropdown?: boolean
 }
 
-const { headings } = Astro.props
+const { headings, dropdown } = Astro.props
 
 const minHeading = headings.reduce(
   (a, heading) => (a < heading.depth ? a : heading.depth),
@@ -20,11 +23,38 @@ const headingsWithIndention = headings.map((heading) => ({
 ---
 
 {
-  headingsWithIndention.map((heading) => (
-    <li>
-      <a href={`#${heading.slug}`} class={`list-item pl-${heading.indention}`}>
-        {heading.text}
-      </a>
-    </li>
-  ))
+  dropdown && (
+    <Dropdown inlineMenu={true} class="-ml-3" btnClass="btn btn-minimal">
+      <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
+      <ul slot="content">
+        {headingsWithIndention.map((heading) => (
+          <li>
+            <a
+              href={`#${heading.slug}`}
+              class={`list-item pl-${heading.indention}`}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Dropdown>
+  )
+}
+{
+  !dropdown && (
+    <ul>
+      <li class="small-caps">{t('layout.on-this-page')}</li>
+      {headingsWithIndention.map((heading) => (
+        <li>
+          <a
+            href={`#${heading.slug}`}
+            class={`list-item pl-${heading.indention}`}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
 }

@@ -1,0 +1,25 @@
+---
+import IconTranslate from '~icons/bi/translate'
+import IconGithub from '~icons/bi/github'
+import config from '@src/config'
+import { t } from 'astro-i18n'
+---
+
+<ul>
+  <li class="small-caps">Contribute</li>
+  <li>
+    <ul class="max-lg:flex gap-4">
+      <li>
+        <a class="list-item" href={config.gitHubTranslateUrl} target="_blank">
+          <IconTranslate />
+          {t('layout.translate')}
+        </a>
+      </li>
+      <li>
+        <a class="list-item" href={`https://github.com/`} target="_blank">
+          <IconGithub /> Edit on GitHub
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
