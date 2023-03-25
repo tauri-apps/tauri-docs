@@ -95,27 +95,37 @@
   /***********/
   /* Buttons */
   /***********/
-  /* .btn: Base button style */
+  /* .base-btn: Base button layouts */
+
+  /* .btn-normal: Style, the main style used for a button */
+  /* .btn-compact: Style, a shorter, all caps variant of a button */
+  /* .btn-link: Style, a style for text-only links */
+
   /* .btn-inline: Modifier, makes the button full width */
-  /* .btn-minimal: A shorter, all caps variant of a button */
   /* .btn-hover: Modifier, style for hover state */
   /* .btn-active: Modifier,  style for when the element is being interacted with */
 
-  .btn {
-    /* min-w-[48px] is used to ensure that small icons are square */
-    @apply text-base-content px-3 py-3 rounded h-12 min-w-[48px] transition inline-block text-center cursor-pointer;
+  .base-btn {
+    @apply text-base-content transition inline-block text-center;
   }
   .btn * {
     @apply inline-block;
   }
 
+  /* Styles */
+  .btn-normal {
+    @apply base-btn px-3 py-3 rounded h-12 min-w-[48px] cursor-pointer;
+  }
+  .btn-compact {
+    @apply base-btn px-3 h-8 rounded small-caps;
+  }
+  .btn-link {
+    @apply base-btn hover:text-primary;
+  }
+
   /* Modifiers */
   .btn-inline {
     @apply w-full;
-  }
-
-  .btn-minimal {
-    @apply h-8 py-0 small-caps;
   }
 
   .btn-hover {
@@ -127,13 +137,17 @@
   }
 
   /* States */
-  .btn:active {
+  .btn-normal:active,
+  .btn-compact:active {
     @apply btn-active;
   }
 
-  .btn:hover,
-  .btn:focus,
-  .btn:focus-within {
+  .btn-normal:hover,
+  .btn-normal:focus,
+  .btn-normal:focus-within,
+  .btn-compact:hover,
+  .btn-compact:focus,
+  .btn-compact:focus-within {
     @apply btn-hover;
   }
 
