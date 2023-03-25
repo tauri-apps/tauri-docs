@@ -8,14 +8,14 @@ You need to install the [IntelliJ Rust Plugin](https://plugins.jetbrains.com/plu
 
 ## Top-level Cargo Workspace
 
-By default Tauri places the Rust project in a subdirectory called `src-tauri`. CLion may not recognize Cargo projects that are not at the top-level, in which case you should be able to attach it by using `Cargo -> Attach Cargo project`. If this option does not work, you will need to create a top-level Workspace that just points to the main `Cargo.toml` file: 
+By default, Tauri places the Rust project in a subdirectory called `src-tauri`. CLion may not recognize Cargo projects that are not at the top-level, in which case you should be able to attach it by using `Cargo -> Attach Cargo project`. If this option does not work, you will need to create a top-level Workspace that just points to the main `Cargo.toml` file: 
 
 ```toml title=Cargo.toml
 [workspace]
 members = ["src-tauri"]
 ```
 
-Before you proceeed, make sure that your project is fully loaded. If the indexing is finished and the Cargo tool window shows all the modules and targets of the workspace, you’re good to go.
+Before you proceed, make sure that your project is fully loaded. If the indexing is finished and the Cargo tool window shows all the modules and targets of the workspace, you’re good to go.
 
 ## Run/Debug Configuration
 
@@ -29,7 +29,7 @@ With that created we need to configure CLion so it instructs Cargo to build our 
 ![Add `--no-default-features` flag](/img/guides/debugging/clion/set-no-default-features-light.png#gh-light-mode-only)
 ![Add `--no-default-features` flag](/img/guides/debugging/clion/set-no-default-features-dark.png#gh-dark-mode-only)
 
-Now we can optionally rename the Run/Debug Configguration to something more memorable, in this example we called it "Run Tauri App", but you can name it whatever you want.
+Now we can optionally rename the Run/Debug Configuration to something more memorable, in this example we called it "Run Tauri App", but you can name it whatever you want.
 
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-light.png#gh-light-mode-only)
 ![Rename Configuration](/img/guides/debugging/clion/rename-configuration-dark.png#gh-dark-mode-only)

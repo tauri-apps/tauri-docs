@@ -44,13 +44,13 @@ Make sure to restart your terminal for the changes to take effect.
 
 ## Android
 
-First make sure to install the required rust android targets:
+First, make sure to install the required rust android targets:
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-To setup your macOS machine for Android development you can then either install Android Studio or download the tools separetely.
+To set up your macOS machine for Android development you can then either install Android Studio or download the tools separately.
 
 ### Android Studio
 
@@ -77,7 +77,7 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
 
 ## iOS
 
-First make sure Xcode is properly installed. <!-- TODO: explain what this means -->
+First, make sure Xcode is properly installed. <!-- TODO: explain what this means -->
 
 Then install the required rust iOS targets:
 

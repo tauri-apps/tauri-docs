@@ -18,7 +18,7 @@ GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles 
 
 ## Setting a Minimum System Version
 
-The minimum version of the operating system required for a Tauri app to run in macOS is `10.13`. If you need support for newer macOS APIs like `window.print` that is only supported from macOS version `11.0` onwards, you can change the [`tauri.bundle.macOS.minimumSystemVersion`]. This will in turn set the `Info.plist` [LSMinimumSystemVersion] property and the `MACOSX_DEPLOYMENT_TARGET` environment variable.
+The minimum version of the operating system required for a Tauri app to run on macOS is `10.13`. If you need support for newer macOS APIs like `window.print` that is only supported from macOS version `11.0` onwards, you can change the [`tauri.bundle.macOS.minimumSystemVersion`]. This will in turn set the `Info.plist` [LSMinimumSystemVersion] property and the `MACOSX_DEPLOYMENT_TARGET` environment variable.
 
 ## Binary Targets
 
@@ -26,7 +26,7 @@ You can compile your application targeting Apple Silicon, Intel-based Mac comput
 
 - `tauri build --target aarch64-apple-darwin`: targets Apple silicon machines.
 - `tauri build --target x86_64-apple-darwin`: targets Intel-based machines.
-- `tauri build --target universal-apple-darwin`: produces a [universal macOS binary] which runs on both Apple silicon and Intel-based Macs.
+- `tauri build --target universal-apple-darwin`: produces a [universal macOS binary] that runs on both Apple silicon and Intel-based Macs.
 
 While Apple silicon machines can run applications compiled for Intel-based Macs through a translation layer called [Rosetta], this leads to a reduction in performance due to processor instruction translations. It is common practice to let the user choose the correct target when downloading the app, but you can also choose to distribute a [Universal Binary][universal macos binary]. Universal Binaries include both `aarch64` and `x86_64` executables, giving you the best experience on both architectures. Note, however, that this increases your bundle size significantly.
 

@@ -25,11 +25,11 @@ The required keys are "active", "endpoints" and "pubkey"; others are optional.
 
 "active" must be a boolean. By default, it's set to false.
 
-"endpoints" must be an array. The string `{{target}}` and `{{current_version}}` are automatically replaced in the URL allowing you to determine [server-side](#update-server-json-format) if an update is available. If multiple endpoints are specified, the updater will fallback if a server is not responding within the pre-defined timeout.
+"endpoints" must be an array. The string `{{target}}` and `{{current_version}}` are automatically replaced in the URL allowing you to determine [server-side](#update-server-json-format) if an update is available. If multiple endpoints are specified, the updater will fall back if a server is not responding within the pre-defined timeout.
 
 "dialog" if present must be a boolean. By default, it's set to true. If enabled, [events](#events) are turned off as the updater handles everything. If you need the custom events, you MUST turn off the built-in dialog.
 
-"pubkey" must be a valid public-key generated with Tauri CLI. See [Signing updates](#signing-updates).
+"pubkey" must be a valid public key generated with Tauri CLI. See [Signing updates](#signing-updates).
 
 ### Update Requests
 
@@ -57,7 +57,7 @@ If the user accepts, the update is downloaded and installed. Afterward, the user
 ### Javascript API
 
 :::caution
-You need to _disable built-in dialog_ in your [tauri configuration](#configuration); Otherwise, the javascript API will NOT work.
+You need to _disable the built-in dialog_ in your [tauri configuration](#configuration); Otherwise, the javascript API will NOT work.
 :::
 
 ```js
@@ -86,7 +86,7 @@ You need to _disable the built-in dialog_ in your [tauri configuration](#configu
 
 To know when an update is ready to be installed, you can subscribe to these events:
 
-#### Initialize updater and check if a new version is available
+#### Initialize the updater and check if a new version is available
 
 ##### If a new version is available, the event `tauri://update-available` is emitted.
 

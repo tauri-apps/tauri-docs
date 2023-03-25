@@ -36,7 +36,7 @@ Window-specific events are exposed on the `window` module.
 ```js
 import { appWindow, WebviewWindow } from '@tauri-apps/api/window'
 
-// emit an event that are only visible to the current window
+// emit an event that is only visible to the current window
 appWindow.emit('event', { message: 'Tauri is awesome!' })
 
 // create a new webview window and emit an event only to that window
@@ -67,7 +67,7 @@ fn main() {
         println!("got event-name with payload {:?}", event.payload());
       });
       // unlisten to the event using the `id` returned on the `listen_global` function
-      // an `once_global` API is also exposed on the `App` struct
+      // a `once_global` API is also exposed on the `App` struct
       app.unlisten(id);
 
       // emit the `event-name` event to all webview windows on the frontend

@@ -98,7 +98,7 @@ Users can run your app as `./app -v -v -v`, `./app --verbose --verbose --verbose
 
 ## Subcommands
 
-Some CLI applications has additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
+Some CLI applications have additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
 
 ```json tauri.conf.json
 {

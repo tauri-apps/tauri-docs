@@ -49,7 +49,7 @@ One practice that we highly recommend, is to only ever consume critical dependen
 
 Modern organisations use CI/CD to manufacture binary artifacts. At Tauri, we even provide a GitHub Workflow for building on multiple platforms. If you create your own CI/CD and depend on third-party tooling, be wary of actions whose versions you have not explicitly pinned.
 
-You should sign your binaries for the platform you are shipping to, and while this can be complicated and somewhat costly to setup, end users expect that your app is verifiably from you.
+You should sign your binaries for the platform you are shipping to, and while this can be complicated and somewhat costly to set up, end users expect that your app is verifiably from you.
 
 ### Runtime Threats
 

@@ -195,7 +195,7 @@ describe('Hello Tauri', () => {
 ```
 
 If you are familiar with JS testing frameworks, `describe`, `it`, and `expect` should look familiar. We also have
-semi-complex `before()` and `after()` callbacks to setup and teardown mocha. Lines that are not the tests themselves
+semi-complex `before()` and `after()` callbacks to set up and teardown mocha. Lines that are not the tests themselves
 have comments explaining the setup and teardown code. If you were familiar with the Spec file from the
 [WebdriverIO example](webdriverio#spec), you notice a lot more code that isn't tests, as we have to set up a few
 more WebDriver related items.
@@ -245,7 +245,7 @@ $ Mocha
 Done in 0.93s.
 ```
 
-We can see that our `Hello Tauri` sweet we created with `decribe` had all 3 items we created with `it` pass their
+We can see that our `Hello Tauri` test suite we created with `describe` had all 3 items we created with `it` pass their
 tests!
 
 With [Selenium] and some hooking up to a test suite, we just enabled e2e testing without modifying our Tauri
