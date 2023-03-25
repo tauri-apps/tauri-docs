@@ -87,8 +87,8 @@ jobs:
 
       - name: Generate cli and config docs
         run: |
-          node tauri-docs/.scripts/generate-cli-doc.js
-          node tauri-docs/.scripts/generate-config-doc.js
+          node tauri-docs/.scripts/generate-cli-doc.cjs
+          node tauri-docs/.scripts/generate-config-doc.cjs
 
       # tauri-docs PR
       - name: Git config
