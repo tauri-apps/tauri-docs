@@ -300,20 +300,4 @@
   .light-mode-only {
     @apply hidden;
   }
-
-  /* Used for nicer scrollbars in flexbox items */
-  .styled-scrollbar {
-    scrollbar-color: rgb(var(--color-content-hover)) transparent;
-  }
-  .styled-scrollbar::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  .styled-scrollbar::-webkit-scrollbar-thumb {
-    background: rgb(var(--color-content-hover));
-    border-radius: 10px;
-  }
-  .styled-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
 }
