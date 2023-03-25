@@ -114,9 +114,9 @@ jobs:
           node-version: 'lts/*'
           cache: 'yarn' # Set this to npm, yarn or pnpm.
 
-      - name: Install app dependencies and build web
-        # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
-        run: yarn && yarn build # Change this to npm, yarn or pnpm.
+      - name: Install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: yarn install # Change this to npm, yarn or pnpm.
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
