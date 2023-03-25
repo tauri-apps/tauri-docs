@@ -21,11 +21,7 @@ export async function getStaticPaths() {
 const { entry, collection } = Astro.props
 const { Content, headings } = await entry.render()
 const tree = convertCollectionToTree(collection)
-const relatedPages = [
-  tree['core-js']['1'],
-  tree['core-cli']['1'],
-  tree['core-config']['1'],
-]
+const relatedPages = [tree['js']['1'], tree['cli']['1'], tree['config']['1']]
 ---
 
 <Layout
