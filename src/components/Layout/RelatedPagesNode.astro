@@ -24,7 +24,7 @@ function trimSlash(url: string) {
     href={url}
     class:list={[
       'list-item',
-      { 'list-item-hover': trimSlash(url) === trimSlash(Astro.url.pathname) },
+      { 'list-item-active': trimSlash(url) === trimSlash(Astro.url.pathname) },
     ]}
   >
     {
