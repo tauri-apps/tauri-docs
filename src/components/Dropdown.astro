@@ -7,7 +7,7 @@ interface Props {
   btnClass?: string
   contentClass?: string
   trigger?: 'click' | 'hover'
-  alignment?: 'right' | 'left'
+  alignment?: 'leading' | 'trailing'
 }
 
 // generate unique ids for each component so that we can connect the button to the dropdown without requiring consumer to provide an id
@@ -33,11 +33,10 @@ let {
 <div
   data-trigger={trigger ?? 'click'}
   class:list={[
-    'dropdown js-dropdown flex flex-col w-full',
+    'dropdown js-dropdown',
     {
       'dropdown-inline js-dropdown-inline': inlineMenu,
     },
-    { 'justify-end items-end': alignment === 'right' },
     className,
   ]}
 >
@@ -60,13 +59,15 @@ let {
     <slot name="toggle" />
     <IconCaret class="text-xs" />
   </button>
-  <div class="relative w-full">
+  <div class="relative">
     <div
       id={id}
       class:list={[
-        `dropdown-content ${contentClass} absolute`,
-        { 'rounded-tr': alignment === 'left' || alignment === undefined },
-        { 'rounded-tl top-0 right-0': alignment === 'right' },
+        `dropdown-content absolute ${contentClass}`,
+        { 'rounded-tr': alignment === 'leading' || alignment === undefined },
+        {
+          'rounded-tl right-0': alignment === 'trailing',
+        },
       ]}
     >
       <slot name="content" />

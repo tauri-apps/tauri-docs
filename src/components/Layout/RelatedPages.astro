@@ -18,7 +18,7 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
 
 {
   dropdown && (
-    <Dropdown class="-ml-3 mr-3" btnClass="btn-compact">
+    <Dropdown btnClass="btn-compact">
       <Fragment slot="toggle">{t('layout.related-pages')}</Fragment>
       <div slot="content" class="py-2 px-4">
         <ul>

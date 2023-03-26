@@ -7,9 +7,10 @@ import { t } from 'astro-i18n'
 interface Props {
   headings: MarkdownHeading[]
   dropdown?: boolean
+  alignment?: 'leading' | 'trailing'
 }
 
-const { headings, dropdown } = Astro.props
+const { headings, dropdown, alignment } = Astro.props
 
 const minHeading = headings.reduce(
   (a, heading) => (a < heading.depth ? a : heading.depth),
@@ -23,7 +24,7 @@ const headingsWithIndention = headings.map((heading) => ({
 
 {
   dropdown && (
-    <Dropdown class="-mr-3 ml-3" btnClass="btn-compact" alignment={'right'}>
+    <Dropdown btnClass="btn-compact" alignment={alignment}>
       <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
       <ul slot="content" class="py-2 px-4">
         {headingsWithIndention.map((heading) => (

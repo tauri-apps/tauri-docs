@@ -26,17 +26,24 @@ const { title, relatedPages, baseUrl, headings } = Astro.props
     >
       <RelatedPages tree={relatedPages} baseUrl={baseUrl} />
     </div>
-    <div class="overflow-y-auto py-4 px-8 w-full">
+    <div class="overflow-y-auto py-4 px-8">
       <div class="max-w-[150ch] mx-auto">
-        <div class="xl:hidden relative">
-          <div class="lg:hidden absolute">
+        <div class="-ml-3 -mr-3">
+          <div class="lg:hidden flex justify-between">
             <RelatedPages
               tree={relatedPages}
               baseUrl={baseUrl}
               dropdown={true}
             />
+            <OnThisPage
+              headings={headings}
+              dropdown={true}
+              alignment="trailing"
+            />
           </div>
-          <OnThisPage headings={headings} dropdown={true} />
+          <div class="hidden lg:max-xl:block">
+            <OnThisPage headings={headings} dropdown={true} />
+          </div>
         </div>
         <main>
           <slot />
