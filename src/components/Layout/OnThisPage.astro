@@ -2,8 +2,6 @@
 import type { MarkdownHeading } from 'astro'
 import Dropdown from '@src/components/Dropdown.astro'
 import { t } from 'astro-i18n'
-
-// FIXME: Indention for hover effect needs to be fixed, should be lined up vertically between li's
 interface Props {
   headings: MarkdownHeading[]
   dropdown?: boolean
@@ -11,28 +9,42 @@ interface Props {
 }
 
 const { headings, dropdown, alignment } = Astro.props
-
-const minHeading = headings.reduce(
-  (a, heading) => (a < heading.depth ? a : heading.depth),
-  6
-)
-const headingsWithIndention = headings.map((heading) => ({
-  ...heading,
-  indention: `${(heading.depth - minHeading) * 2}`,
-}))
 ---
+
+<script>
+  const setCurrentHeading: IntersectionObserverCallback = (entries) => {
+    for (let entry of entries) {
+      const { id } = entry.target
+      const tocLinkEl = document.querySelectorAll(`#toc a[href='#${id}']`)
+      if (!tocLinkEl) return
+
+      if (entry.isIntersecting) {
+        document
+          .querySelectorAll('#toc a')
+          .forEach((e) => e.classList.remove('list-item-active'))
+        tocLinkEl.forEach((e) => e.classList.add('list-item-active'))
+      }
+    }
+  }
+
+  const observerOptions = {
+    threshold: 1,
+    rootMargin: '-80px 0px -80%',
+  }
+
+  const observer = new IntersectionObserver(setCurrentHeading, observerOptions)
+  const elToObserve = document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6')
+  elToObserve.forEach((el) => observer.observe(el))
+</script>
 
 {
   dropdown && (
     <Dropdown btnClass="btn-compact" alignment={alignment}>
       <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
-      <ul slot="content" class="py-2 px-4">
-        {headingsWithIndention.map((heading) => (
+      <ul slot="content" class="py-2 px-4" id="toc">
+        {headings.map((heading) => (
           <li>
-            <a
-              href={`#${heading.slug}`}
-              class={`list-item pl-${heading.indention}`}
-            >
+            <a href={`#${heading.slug}`} class={`list-item`}>
               {heading.text}
             </a>
           </li>
@@ -43,14 +55,11 @@ const headingsWithIndention = headings.map((heading) => ({
 }
 {
   !dropdown && (
-    <ul>
+    <ul id="toc">
       <li class="small-caps">{t('layout.on-this-page')}</li>
-      {headingsWithIndention.map((heading) => (
+      {headings.map((heading) => (
         <li>
-          <a
-            href={`#${heading.slug}`}
-            class={`list-item pl-${heading.indention}`}
-          >
+          <a href={`#${heading.slug}`} class={`list-item`}>
             {heading.text}
           </a>
         </li>
