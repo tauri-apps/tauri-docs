@@ -7,12 +7,16 @@ Download Android Studio on the [official website](https://developer.android.com/
 Android Studio includes a JDK so you do not need to download a separate one. Set the `JAVA_HOME` environment variable to the location of the JDK:
 
 <CodeBlock language={props.platform === 'windows' ? 'powershell' : 'sh'}>
-  {props.platform == 'linux' ? 'export JAVA_HOME=/opt/android-studio/jre' : ''}
-  {props.platform == 'macos' ? 'export JAVA_HOME="/Applications/Android\ Studio.app/Contents/jbr/Contents/Home"' : ''}
+  {props.platform == 'linux' ? 'export JAVA_HOME=/opt/android-studio/jbr' : ''}
+  {props.platform == 'macos'
+    ? 'export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"'
+    : ''}
   {props.platform == 'windows'
-    ? '[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jre", "User")'
+    ? '[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Android\\Android Studio\\jbr", "User")'
     : ''}
 </CodeBlock>
+
+Note that on older Android Studio installations the `jbr` directory may still be called `jre`.
 
 #### 2. Install the Android SDK and NDK
 
@@ -37,6 +41,7 @@ Now you need to set the `ANDROID_HOME` and `NDK_HOME` environment variables:
   {props.platform == 'macos'
     ? 'export ANDROID_HOME="$HOME/Library/Android/sdk"\nexport NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"'
     : ''}
-  {props.platform == 'windows' ?
-    '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\Android\\Sdk\\ndk\\25.0.8775105", "User")' : ''}
+  {props.platform == 'windows'
+    ? '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\Android\\Sdk\\ndk\\25.0.8775105", "User")'
+    : ''}
 </CodeBlock>
