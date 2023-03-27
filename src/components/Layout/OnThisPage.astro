@@ -47,27 +47,27 @@ const { headings, dropdown, alignment } = Astro.props
 }
 
 <script>
-  const setCurrentHeading: IntersectionObserverCallback = (entries) => {
-    for (let entry of entries) {
-      const { id } = entry.target
-      const tocLinkEl = document.querySelectorAll(`#toc a[href='#${id}']`)
-      if (!tocLinkEl) return
+  // const setCurrentHeading: IntersectionObserverCallback = (entries) => {
+  //   for (let entry of entries) {
+  //     const { id } = entry.target
+  //     const tocLinkEl = document.querySelectorAll(`#toc a[href='#${id}']`)
+  //     if (!tocLinkEl) return
 
-      if (entry.isIntersecting) {
-        document
-          .querySelectorAll('#toc a')
-          .forEach((e) => e.classList.remove('list-item-active'))
-        tocLinkEl.forEach((e) => e.classList.add('list-item-active'))
-      }
-    }
-  }
+  //     if (entry.isIntersecting) {
+  //       document
+  //         .querySelectorAll('#toc a')
+  //         .forEach((e) => e.classList.remove('list-item-active'))
+  //       tocLinkEl.forEach((e) => e.classList.add('list-item-active'))
+  //     }
+  //   }
+  // }
 
-  const observerOptions = {
-    threshold: 1,
-    rootMargin: '-80px 0px -80%',
-  }
+  // const observerOptions = {
+  //   threshold: 1,
+  //   rootMargin: '-80px 0px -80%',
+  // }
 
-  const observer = new IntersectionObserver(setCurrentHeading, observerOptions)
-  const elToObserve = document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6')
-  elToObserve.forEach((el) => observer.observe(el))
+  // const observer = new IntersectionObserver(setCurrentHeading, observerOptions)
+  // const elToObserve = document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6')
+  // elToObserve.forEach((el) => observer.observe(el))
 </script>
