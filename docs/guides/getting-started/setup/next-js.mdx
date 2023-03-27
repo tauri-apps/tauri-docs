@@ -177,14 +177,21 @@ A better approach would be to use Tauri calls in `componentDidMount` or `useEffe
 So to make it cleaner we should rewrite it like this:
 
 ```typescript title=pages/index.tsx
-import { invoke } from "@tauri-apps/api/tauri"
+import { invoke } from '@tauri-apps/api/tauri'
+import { useEffect } from 'react';
 
-const Home: NextPage = () => {
+const MyGreet = () => {
   useEffect(() => {
     invoke('greet', { name: 'World' })
-    .then(console.log)
-    .catch(console.error)
+      .then(console.log)
+      .catch(console.error);
   }, []);
+}
+
+export default function Home() {
+  MyGreet()
+  ...
+
 ```
 
 :::tip
