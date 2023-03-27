@@ -47,9 +47,8 @@ const { headings, dropdown, alignment } = Astro.props
     )
   }
 </div>
-<script></script>
 
-<!-- <script>
+<script>
   const setCurrentHeading: IntersectionObserverCallback = (entries) => {
     for (let entry of entries) {
       const { id } = entry.target
@@ -73,4 +72,4 @@ const { headings, dropdown, alignment } = Astro.props
   const observer = new IntersectionObserver(setCurrentHeading, observerOptions)
   const elToObserve = document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6')
   elToObserve.forEach((el) => observer.observe(el))
-</script> -->
+</script>
