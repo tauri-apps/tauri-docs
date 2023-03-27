@@ -11,31 +11,15 @@ interface Props {
 const { headings, dropdown, alignment } = Astro.props
 ---
 
-<>
-  {
-    dropdown && (
-      <Dropdown btnClass="btn-compact" alignment={alignment}>
-        <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
-        <ul
-          slot="content"
-          class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
-          id="toc"
-        >
-          {headings.map((heading) => (
-            <li>
-              <a href={`#${heading.slug}`} class={`list-item`}>
-                {heading.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Dropdown>
-    )
-  }
-  {
-    !dropdown && (
-      <ul id="toc">
-        <li class="small-caps">{t('layout.on-this-page')}</li>
+{
+  dropdown && (
+    <Dropdown btnClass="btn-compact" alignment={alignment}>
+      <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
+      <ul
+        slot="content"
+        class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
+        id="toc"
+      >
         {headings.map((heading) => (
           <li>
             <a href={`#${heading.slug}`} class={`list-item`}>
@@ -44,9 +28,23 @@ const { headings, dropdown, alignment } = Astro.props
           </li>
         ))}
       </ul>
-    )
-  }
-</>
+    </Dropdown>
+  )
+}
+{
+  !dropdown && (
+    <ul id="toc">
+      <li class="small-caps">{t('layout.on-this-page')}</li>
+      {headings.map((heading) => (
+        <li>
+          <a href={`#${heading.slug}`} class={`list-item`}>
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 <script>
   const setCurrentHeading: IntersectionObserverCallback = (entries) => {
