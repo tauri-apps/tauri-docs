@@ -1,6 +1,11 @@
 import CodeBlock from '@theme/CodeBlock'
 
-Download Android Studio on the [official website](https://developer.android.com/studio) and install it.
+<p>
+  To set up your{' '}
+  {props.platform.charAt(0).toUpperCase() + props.platform.slice(1)} machine for
+  Android development you can need to download and install Android Studio on the{' '}
+  <a href="https://developer.android.com/studio">official website</a>.
+</p>
 
 #### 1. Configure JDK
 
@@ -22,10 +27,10 @@ Note that on older Android Studio installations the `jbr` directory may still be
 
 You can use the SDK Manager in Android Studio to install:
 
-- Android SDK Platform 33
+- Android SDK Platform
 - Android SDK Platform-Tools
-- NDK (Side by side) 25.0.8775105
-- Android SDK Build-Tools 33.0
+- NDK (Side by side)
+- Android SDK Build-Tools
 - Android SDK Command-line Tools
 
 :::note
@@ -45,3 +50,5 @@ Now you need to set the `ANDROID_HOME` and `NDK_HOME` environment variables:
     ? '[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\\Android\\Sdk", "User")\n[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\\Android\\Sdk\\ndk\\25.0.8775105", "User")'
     : ''}
 </CodeBlock>
+
+Note that the path might be slightly different based on the version of NDK you installed.
