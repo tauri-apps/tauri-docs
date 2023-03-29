@@ -11,6 +11,16 @@ interface Props<C extends Parameters<typeof getCollection>[0]> {
 }
 
 let { entries, baseUrl, dropdown } = Astro.props
+
+entries = entries.sort(function (
+  a: CollectionEntry<'docs'>,
+  b: CollectionEntry<'docs'>
+) {
+  if (a.data.title) {
+    return a.data.title.localeCompare(b.data.title || b.slug)
+  }
+  return a.slug.localeCompare(b.data.title || b.slug)
+})
 ---
 
 {
