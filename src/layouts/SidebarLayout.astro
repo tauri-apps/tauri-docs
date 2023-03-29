@@ -1,5 +1,4 @@
 ---
-import type { TreeNode } from '@src/utils.js'
 import type { MarkdownHeading } from 'astro'
 import OnThisPage from '@src/components/Layout/OnThisPage.astro'
 import RelatedPages from '@src/components/Layout/RelatedPages.astro'
@@ -9,12 +8,12 @@ import Contribute from '@src/components/Layout/Contribute.astro'
 
 interface Props {
   title: string
-  relatedPages: TreeNode[]
   baseUrl: string
+  sidebarEntries: any
   headings: MarkdownHeading[]
 }
 
-const { title, relatedPages, baseUrl, headings } = Astro.props
+const { title, baseUrl, sidebarEntries, headings } = Astro.props
 ---
 
 <Layout title={title}>
@@ -24,14 +23,14 @@ const { title, relatedPages, baseUrl, headings } = Astro.props
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
-      <RelatedPages tree={relatedPages} baseUrl={baseUrl} />
+      <RelatedPages entries={sidebarEntries} baseUrl={baseUrl} />
     </div>
     <div class="overflow-y-auto xl:py-4 px-8 flex-1">
       <div class="max-w-[150ch] mx-auto">
         <div class="-ml-3 -mr-3 sticky top-0 bg-base-200">
           <div class="lg:hidden flex justify-between">
             <RelatedPages
-              tree={relatedPages}
+              entries={sidebarEntries}
               baseUrl={baseUrl}
               dropdown={true}
             />

@@ -2,18 +2,15 @@
 import RelatedPagesNode from './RelatedPagesNode.astro'
 import Dropdown from '@src/components/Dropdown.astro'
 import { t } from 'astro-i18n'
-import type { TreeNode as TreeNodeType } from '@src/utils'
+import type { CollectionEntry, getCollection } from 'astro:content'
 
-interface Props {
-  tree: TreeNodeType
-  // Will be appended to the beginning of a slug
+interface Props<C extends Parameters<typeof getCollection>[0]> {
+  entries: CollectionEntry<C>[]
   baseUrl?: string
-  // Takes into account full slug
-  maxDepth?: number
   dropdown?: boolean
 }
 
-let { tree, baseUrl, maxDepth, dropdown } = Astro.props
+let { entries, baseUrl, dropdown } = Astro.props
 ---
 
 {
@@ -25,11 +22,10 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
         class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
       >
         <ul>
-          {Object.entries(tree)
-            .filter(([_, value]) => value.hasOwnProperty('_metadata'))
-            .map(([_, object]) => (
-              <RelatedPagesNode node={object} baseUrl={baseUrl} />
-            ))}
+          {/* @ts-ignore */}
+          {entries.map((entry) => (
+            <RelatedPagesNode entry={entry} baseUrl={baseUrl} />
+          ))}
         </ul>
       </div>
     </Dropdown>
@@ -39,11 +35,10 @@ let { tree, baseUrl, maxDepth, dropdown } = Astro.props
   !dropdown && (
     <ul>
       <li class="small-caps">{t('layout.related-pages')}</li>
-      {Object.entries(tree)
-        .filter(([_, value]) => value.hasOwnProperty('_metadata'))
-        .map(([_, object]) => (
-          <RelatedPagesNode node={object} baseUrl={baseUrl} />
-        ))}
+      {/* @ts-ignore */}
+      {entries.map((entry) => (
+        <RelatedPagesNode entry={entry} baseUrl={baseUrl} />
+      ))}
     </ul>
   )
 }

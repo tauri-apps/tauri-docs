@@ -1,12 +1,8 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { geti18nCollection } from '@src/utils'
 import { convertCollectionToTree } from '@src/utils.js'
 import { l, t, astroI18n } from 'astro-i18n'
 import Toc from '@src/components/Toc.astro'
-
-const entries = await geti18nCollection('api', astroI18n.langCode)
-const tree = convertCollectionToTree(entries)
 ---
 
 <Layout title={t('api.title')}>

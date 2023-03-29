@@ -1,11 +1,10 @@
 ---
 import Layout from '@src/layouts/SidebarLayout.astro'
-import { geti18nCollection } from '@src/utils'
-import { convertCollectionToTree } from '@src/utils.js'
+import { getI18nCollection } from '@src/utils'
 import { astroI18n } from 'astro-i18n'
 
 export async function getStaticPaths() {
-  const collection = await geti18nCollection('docs', astroI18n.langCode)
+  const collection = await getI18nCollection('docs', astroI18n.langCode)
 
   return collection.map((entry) => ({
     params: {
@@ -20,16 +19,13 @@ export async function getStaticPaths() {
 
 const { entry, collection } = Astro.props
 const { Content, headings } = await entry.render()
-const tree = convertCollectionToTree(collection)
 ---
 
 <Layout
   title="test docs post"
-  relatedPages={tree}
+  sidebarEntries={collection}
   baseUrl="docs"
-  entry={entry}
   headings={headings}
-  editOnGithub={true}
 >
   <div class="prose">
     <Content />

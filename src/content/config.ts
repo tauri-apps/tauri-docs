@@ -19,3 +19,5 @@ export const collections = {
   api,
   docs,
 }
+
+export type CollectionKey = keyof typeof collections
