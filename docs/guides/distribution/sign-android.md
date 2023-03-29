@@ -53,7 +53,7 @@ Create a file named `[project]/src-tauri/gen/android/[your-app]/local.properties
 storePassword=<password from previous step>
 keyPassword=<password from previous step>
 keyAlias=upload
-storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or
+storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or C:\\Users\\<user name>\\upload-keystore.jks>
 ```
 
 :::caution
