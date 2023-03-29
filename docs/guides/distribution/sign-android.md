@@ -1,6 +1,6 @@
 ---
 sidebar_label: Android APK/AAB Signing
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # Android - Sigining APKs and AABs
