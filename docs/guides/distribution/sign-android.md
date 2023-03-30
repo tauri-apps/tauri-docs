@@ -6,11 +6,11 @@ sidebar_position: 5
 # Android - Sigining APKs and AABs
 
 To publish on the Play Store, you need to give your app a digital signature. Use the following instructions to sign your app.
-On Android, there are two signing keys: deployment and upload. The end-users download the .apk signed with the ‘deployment key’. An ‘upload key’ is used to authenticate the .aab / .apk uploaded by developers onto the Play Store and is re-signed with the deployment key once in the Play Store.
+On Android, there are two signing keys: deployment and upload. The end-users download the .apk signed with the "deployment key". An "upload key" is used to authenticate the .aab / .apk uploaded by developers onto the Play Store and is re-signed with the deployment key once in the Play Store.
 
-- It’s highly recommended to use the automatic cloud managed signing for the deployment key. For more information, see the [official Play Store documentation](https://support.google.com/googleplay/android-developer/answer/7384423?hl=en).
+- It's highly recommended to use the automatic cloud managed signing for the deployment key. For more information, see the [official Play Store documentation](https://support.google.com/googleplay/android-developer/answer/7384423?hl=en).
 
-## Create an upload keystore
+## Create an `upload` Keystore
 
 If you have an existing keystore, skip to the next step. If not, create one by either:
 
@@ -29,11 +29,11 @@ If you have an existing keystore, skip to the next step. If not, create one by e
   keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
   ```
 
-  This command stores the `upload-keystore.jks` file in your home directory. If you want to store it elsewhere, change the argument you pass to the `-keystore` parameter. **However, keep the keystore file private; don’t check it into public source control!**
+  This command stores the `upload-keystore.jks` file in your home directory. If you want to store it elsewhere, change the argument you pass to the `-keystore` parameter. **However, keep the keystore file private; don't check it into public source control!**
 
 :::note
 
-- The `keytool` command might not be in your path—it’s part of Java, which is installed as part of Android Studio. You may find it installed in the JDK that is installed with Android Studio, for example:.
+- The `keytool` command might not be in your path—it's part of Java, which is installed as part of Android Studio. You may find it installed in the JDK that is installed with Android Studio, for example:.
 
   - Linux: `/opt/android-studio/jbr/bin/keytool`
   - macOS: `/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool`
@@ -45,7 +45,7 @@ If you have an existing keystore, skip to the next step. If not, create one by e
 
 :::
 
-## Reference the keystore from the app
+## Reference the Keystore from the App
 
 Create a file named `[project]/src-tauri/gen/android/[your-app]/local.properties` that contains a reference to your keystore:
 
@@ -57,10 +57,10 @@ storeFile=<location of the key store file, such as /Users/<user name>/upload-key
 ```
 
 :::caution
-Keep the `local.properties` file private; don’t check it into public source control.
+Keep the `local.properties` file private; don't check it into public source control.
 :::
 
-## Configure signing in gradle
+## Configure Signing in Gradle
 
 Configure gradle to use your upload key when building your app in release mode by editing the `[project]/src-tauri/gen/android/[your-app]/app/build.gradle.kts` file.
 
