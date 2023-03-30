@@ -54,7 +54,7 @@ On the [Certificates, IDs & Profiles page], click on the certificate you want to
 
 :::note
 
-A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output.
+A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output. If the certificate does not download to the correct location, make sure the "login" option is selected in <i>Keychain Access</i> under "Default Keychains" when downloading the .cer file. 
 
 :::
 
@@ -68,7 +68,7 @@ The signing configuration is provided to the Tauri bundler via environment varia
 
 Additionally, to simplify the code signing process on CI, Tauri can install the certificate on the keychain for you if you define the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables.
 
-1. Open the `Keychain Access` app and find your certificate's keychain entry.
+1. Open the `Keychain Access` app to <i>login > My Certificates</i> and find your certificate's keychain entry.
 2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the `.p12` file and define the exported certificate password.
 4. Convert the `.p12` file to base64 running the following script on the terminal: `openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt`.
