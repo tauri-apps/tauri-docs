@@ -50,30 +50,7 @@ First, make sure to install the required rust android targets:
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-To set up your macOS machine for Android development you can then either install Android Studio or download the tools separately.
-
-### Android Studio
-
 <AndroidStudioSetup platform="macos" />
-
-### Standalone Installation
-
-#### 1. Installing JDK
-
-Install the JDK using Homebrew:
-
-```sh
-brew install openjdk
-```
-
-- Link to system Java wrapper and set the `JAVA_HOME` env:
-
-```sh
-sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
-```
-
-<AndroidStandaloneSetup platform="macos" />
 
 ## iOS
 

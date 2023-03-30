@@ -64,61 +64,7 @@ First, make sure to install the required rust android targets:
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-To set up your Windows machine for Android development you can then either install Android Studio or download the tools separately.
-
-### Android Studio
-
 <AndroidStudioSetup platform="windows" />
-
-### Standalone Installation
-
-#### 1. Installing JDK
-
-Install the JDK. For example manually like this:
-
-```powershell
-Invoke-WebRequest https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip -o openjdk-11.zip
-Expand-Archive openjdk-11.zip -d .
-mkdir $env:LocalAppData\Java
-mv jdk-11.0.2 $env:LocalAppData\Java
-```
-
-Set the `JAVA_HOME` environment variable:
-
-```powershell
-[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "$env:LocalAppData\Java\jdk-11.0.2", "User")
-```
-
-#### 2. Install the Android SDK and NDK
-
-Download the Android SDK Manager directly through the Command line tools bundle:
-
-```powershell
-Invoke-WebRequest https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip -o cmdline-tools.zip
-Expand-Archive cmdline-tools.zip -d .
-mkdir $HOME\.android\cmdline-tools\latest
-mv cmdline-tools\* $HOME\.android\cmdline-tools\latest
-rm cmdline-tools
-```
-
-Set the `ANDROID_HOME` and `NDK_HOME` environment variables:
-
-```powershell
-[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$HOME\.android", "User")
-[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$HOME\.android\ndk\25.0.8775105", "User")
-```
-
-:::warning
-
-You need to reboot your Windows machine now in order for the environment variables to be loaded correctly.
-
-:::
-
-Install required SDK and NDK components:
-
-```powershell
-& "$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat" "platforms;android-33" "platform-tools" "ndk;25.0.8775105" "build-tools;33.0.0"
-```
 
 ## Managing The Rust Installation
 

@@ -261,7 +261,14 @@ async function siteConfig() {
       prism: {
         theme: require('prism-react-renderer/themes/github'),
         darkTheme: require('prism-react-renderer/themes/oceanicNext'),
-        additionalLanguages: ['rust', 'powershell', 'bash', 'toml', 'json5'],
+        additionalLanguages: [
+          'rust',
+          'powershell',
+          'bash',
+          'toml',
+          'json5',
+          'kotlin',
+        ],
       },
       colorMode: {
         defaultMode: 'dark',

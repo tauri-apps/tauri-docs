@@ -205,39 +205,7 @@ First, make sure to install the required rust android targets:
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-To set up your Linux machine for Android development you can then either install Android Studio or download the tools separately.
-
-### Android Studio
-
 <AndroidStudioSetup platform="linux" />
-
-### Standalone Installation
-
-#### 1. Installing JDK
-
-Install the JDK using your distribution package manager and set the `JAVA_HOME` environment variable:
-
-<Tabs>
-  <TabItem value="debian" label="Debian" default>
-
-```sh
-sudo apt update
-sudo apt install default-jdk
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-```
-
-  </TabItem>
-  <TabItem value="arch" label="Arch">
-
-```sh
-sudo pacman -S jdk-openjdk
-export JAVA_HOME=/usr/lib/jvm/java-19-openjdk/
-```
-
-  </TabItem>
-</Tabs>
-
-<AndroidStandaloneSetup platform="linux" />
 
 ## Managing The Rust Installation
 
