@@ -30,7 +30,7 @@ If you need to build for **ARM64** you first need to install additional build to
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 ```powershell
-tauri build --target aarc64-pc-windows-msvc
+tauri build --target aarch64-pc-windows-msvc
 ```
 
 ## Supporting Windows 7
