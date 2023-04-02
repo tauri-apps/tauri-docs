@@ -61,6 +61,11 @@ AppImages are convenient, simplifying the distribution process if you cannot mak
 
 If your app plays audio/video you need to enable `tauri.conf.json > tauri > bundle > appimage > bundleMediaFramework`. This will increase the size of the AppImage bundle to include additional `gstreamer` files needed for media playback. This flag is currently only supported on Ubuntu build systems.
 
+## Snap Package
+
+Snap packages are an alternative distribution format that also does not rely on the system installed packages. Snap was created by Canonical. Snap packages work across most linux distributions. In order to build snap packages using the CLI, the `snapcraft` package must be installed. On the other hand, users are required to havae the `snapd` package installed on their system. After building your snap package, it can be signed and uploaded to the official Snap Store for easier distribution. The output file can be installed using (`sudo snap install ./MyProject.snap --dangerous`). The dangerous flag is required to install the package. In order to bypass the --dangerous flag and sign your package, a Snap Store account is required and you must login via. snapcraft on your local system using (`snapcraft login`).
+
+
 :::
 
 [resource]: resources.md
