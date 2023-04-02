@@ -189,6 +189,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           glib
           dbus
           openssl_3
+          librsvg
         ];
 
         packages = with pkgs; [
@@ -201,6 +202,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           gtk3
           libsoup
           webkitgtk
+          librsvg
         ];
       in
       {
