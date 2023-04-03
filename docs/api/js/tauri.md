@@ -4,13 +4,17 @@ Invoke your custom commands.
 
 This package is also accessible with `window.__TAURI__.tauri` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-## Interfaces
+## Type Aliases
 
 ### `InvokeArgs`
+
+>  **InvokeArgs**: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `unknown`\>
 
 Command arguments.
 
 **Since**: 1.0.0
+
+**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/d3e4fb2/tooling/api/src/tauri.ts#L63)
 
 ## Functions
 
