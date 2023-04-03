@@ -120,6 +120,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           gtk3
           libsoup
           webkitgtk
+          librsvg
         ];
       in
       {
@@ -160,6 +161,7 @@ let
     libsoup
     webkitgtk
     appimagekit
+    librsvg
   ];
 in
 pkgs.mkShell {
