@@ -37,7 +37,7 @@ You can change that regex by changing the boolean value to a string, e.g. `open:
 The `shell` allowlist object has a `scope` field that defines an array of CLIs that can be used.
 Each CLI is a configuration object `{ name: string, cmd: string, sidecar?: bool, args?: boolean | Arg[] }`.
 
-- `name`: the unique identifier of the command, passed to the [Command constructor](shell.md#constructor).
+- `name`: the unique identifier of the command, passed to the [Command.create function](shell.md#create).
 If it's a sidecar, this must be the value defined on `tauri.conf.json > tauri > bundle > externalBin`.
 - `cmd`: the program that is executed on this configuration. If it's a sidecar, this value is ignored.
 - `sidecar`: whether the object configures a sidecar or a system program.
@@ -66,7 +66,7 @@ Configuration:
 Usage:
 ```typescript
 import { Command } from '@tauri-apps/api/shell'
-new Command('run-git-commit', ['commit', '-m', 'the commit message'])
+Command.create('run-git-commit', ['commit', '-m', 'the commit message'])
 ```
 
 Trying to execute any API with a program not configured on the scope results in a promise rejection due to denied access.
@@ -89,7 +89,7 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
-**Defined in:** [shell.ts:325](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L325)
+**Defined in:** [shell.ts:346](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L346)
 
 #### Properties
 
@@ -99,7 +99,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 The child process `pid`.
 
-**Defined in:** [shell.ts:323](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L323)
+**Defined in:** [shell.ts:344](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L344)
 
 #### Methods
 
@@ -115,7 +115,7 @@ A promise indicating the success or failure of the operation.
 
 ##### `write`
 
-> **write**(`data`: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **write**(`data`: [`IOPayload`](shell.md#iopayload)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes `data` to the `stdin`.
 
@@ -123,7 +123,7 @@ Writes `data` to the `stdin`.
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
-const command = new Command('node');
+const command = Command.create('node');
 const child = await command.spawn();
 await child.write('message');
 await child.write([0, 1, 2, 3, 4, 5]);
@@ -133,13 +133,13 @@ await child.write([0, 1, 2, 3, 4, 5]);
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array ) | The message to write, either a string or a byte array. |
+| `data` | [`IOPayload`](shell.md#iopayload) | The message to write, either a string or a byte array. |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-### `Command`
+### `Command<O>`
 
 The entry point for spawning child processes.
 It emits the `close` and `error` events.
@@ -148,7 +148,7 @@ It emits the `close` and `error` events.
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
-const command = new Command('node');
+const command = Command.create('node');
 command.on('close', data => {
   console.log(`command finished with code ${data.code} and signal ${data.signal}`)
 });
@@ -162,71 +162,59 @@ console.log('pid:', child.pid);
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `O` *extends* [`IOPayload`](shell.md#iopayload)
+
 **Hierarchy**
 
-- [`EventEmitter`](shell.md#eventemitter)<`"close"` \| `"error"`\>
+- [`EventEmitter`](shell.md#eventemitter)<[`CommandEvents`](shell.md#commandevents)\>
    - **Command**
-
-#### Constructors
-
-##### `constructor`
-
-> **new Command**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
-
-Creates a new `Command` instance.
-
-**Parameters**
-
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program name to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
-| `args` | `string` \| `string`[] | `[]` | Program arguments. |
-| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | Spawn options. |
-
-**Overrides:** [EventEmitter](shell.md#eventemitter).[constructor](shell.md#constructor)
-
-**Defined in:** [shell.ts:413](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L413)
 
 #### Properties
 
 ##### `stderr`
 
-> `Readonly` **stderr**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
+> `Readonly` **stderr**: [`EventEmitter`](shell.md#eventemitter)<[`OutputEvents`](shell.md#outputevents)<`O`\>\>
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-**Defined in:** [shell.ts:403](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L403)
+**Defined in:** [shell.ts:433](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L433)
 
 ##### `stdout`
 
-> `Readonly` **stdout**: [`EventEmitter`](shell.md#eventemitter)<`"data"`\>
+> `Readonly` **stdout**: [`EventEmitter`](shell.md#eventemitter)<[`OutputEvents`](shell.md#outputevents)<`O`\>\>
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-**Defined in:** [shell.ts:401](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L401)
+**Defined in:** [shell.ts:431](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L431)
 
 #### Methods
 
 ##### `addListener`
 
-> **addListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **addListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Alias for `emitter.on(eventName, listener)`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `execute`
 
-> **execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
+> **execute**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)<`O`\>\>
 
 Executes the command as a child process, waiting for it to finish and collecting all of its output.
 
@@ -234,54 +222,62 @@ Executes the command as a child process, waiting for it to finish and collecting
 
 ```typescript
 import { Command } from '@tauri-apps/api/shell';
-const output = await new Command('echo', 'message').execute();
+const output = await Command.create('echo', 'message').execute();
 assert(output.code === 0);
 assert(output.signal === null);
 assert(output.stdout === 'message');
 assert(output.stderr === '');
 ```
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`ChildProcess`](shell.md#childprocess)<`O`\>\>
 
 A promise resolving to the child process output.
 
 ##### `listenerCount`
 
-> **listenerCount**(`eventName`: `"error"` \| `"close"`): `number`
+> **listenerCount**<`N`\>(`eventName`: `N`): `number`
 
 Returns the number of listeners listening to the event named `eventName`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
+| `eventName` | `N` |
 
 **Returns: **`number`
 
 ##### `off`
 
-> **off**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **off**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Removes the all specified listener from the listener array for the event eventName
 Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `on`
 
-> **on**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **on**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Adds the `listener` function to the end of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -292,18 +288,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.0.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `once`
 
-> **once**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **once**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Adds a **one-time**`listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
@@ -312,18 +312,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `prependListener`
 
-> **prependListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **prependListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -334,18 +338,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `prependOnceListener`
 
-> **prependOnceListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **prependOnceListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
@@ -354,18 +362,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `removeAllListeners`
 
-> **removeAllListeners**(`event?`: `"error"` \| `"close"`): [`Command`](shell.md#command)
+> **removeAllListeners**<`N`\>(`event?`: `N`): [`Command`](shell.md#command)<`O`\>
 
 Removes all listeners, or those of the specified eventName.
 
@@ -373,30 +385,38 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `event?` | `"error"` \| `"close"` |
+| `event?` | `N` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `removeListener`
 
-> **removeListener**(`eventName`: `"error"` \| `"close"`, `listener`: `fn`): [`Command`](shell.md#command)
+> **removeListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`Command`](shell.md#command)<`O`\>
 
 Alias for `emitter.off(eventName, listener)`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* keyof [`CommandEvents`](shell.md#commandevents)
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `"error"` \| `"close"` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: [`CommandEvents`](shell.md#commandevents)[`N`]) => `void` |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`O`\>
 
 ##### `spawn`
 
@@ -408,9 +428,76 @@ Executes the command as a child process, returning a handle to it.
 
 A promise resolving to the child process handle.
 
+##### `create`
+
+> `Static` **create**(`program`: `string`, `args?`: `string` \| `string`[]): [`Command`](shell.md#command)<`string`\>
+
+Creates a command to execute the given program.
+
+**Example**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.create('my-app', ['run', 'tauri']);
+const output = await command.execute();
+```
+
+**Parameters**
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
+
+**Returns: **[`Command`](shell.md#command)<`string`\>
+
+> `Static` **create**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions) & { `encoding`: `"raw"`  }): [`Command`](shell.md#command)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+
+Creates a command to execute the given program.
+
+**Example**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.create('my-app', ['run', 'tauri']);
+const output = await command.execute();
+```
+
+**Parameters**
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
+| `options?` | [`SpawnOptions`](shell.md#spawnoptions) & { `encoding`: `"raw"`  } | - |
+
+**Returns: **[`Command`](shell.md#command)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+
+> `Static` **create**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)<`string`\>
+
+Creates a command to execute the given program.
+
+**Example**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.create('my-app', ['run', 'tauri']);
+const output = await command.execute();
+```
+
+**Parameters**
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
+| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | - |
+
+**Returns: **[`Command`](shell.md#command)<`string`\>
+
 ##### `sidecar`
 
-> `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)
+> `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[]): [`Command`](shell.md#command)<`string`\>
 
 Creates a command to execute the given sidecar program.
 
@@ -424,13 +511,56 @@ const output = await command.execute();
 
 **Parameters**
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `program` | `string` | `undefined` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
-| `args` | `string` \| `string`[] | `[]` | - |
-| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | `undefined` | - |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
 
-**Returns: **[`Command`](shell.md#command)
+**Returns: **[`Command`](shell.md#command)<`string`\>
+
+> `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions) & { `encoding`: `"raw"`  }): [`Command`](shell.md#command)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+
+Creates a command to execute the given sidecar program.
+
+**Example**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.sidecar('my-sidecar');
+const output = await command.execute();
+```
+
+**Parameters**
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
+| `options?` | [`SpawnOptions`](shell.md#spawnoptions) & { `encoding`: `"raw"`  } | - |
+
+**Returns: **[`Command`](shell.md#command)<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+
+> `Static` **sidecar**(`program`: `string`, `args?`: `string` \| `string`[], `options?`: [`SpawnOptions`](shell.md#spawnoptions)): [`Command`](shell.md#command)<`string`\>
+
+Creates a command to execute the given sidecar program.
+
+**Example**
+
+```typescript
+import { Command } from '@tauri-apps/api/shell';
+const command = Command.sidecar('my-sidecar');
+const output = await command.execute();
+```
+
+**Parameters**
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `program` | `string` | The program to execute.<br/>It must be configured on `tauri.conf.json > tauri > allowlist > shell > scope`. |
+| `args?` | `string` \| `string`[] | - |
+| `options?` | [`SpawnOptions`](shell.md#spawnoptions) | - |
+
+**Returns: **[`Command`](shell.md#command)<`string`\>
 
 ### `EventEmitter<E>`
 
@@ -438,7 +568,7 @@ const output = await command.execute();
 
 **Type parameters**
 
-- `E` *extends* `string`
+- `E` *extends* [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `any`\>
 
 **Hierarchy**
 
@@ -453,64 +583,76 @@ const output = await command.execute();
 
 **Type parameters**
 
-- `E` *extends* `string`
+- `E` *extends* [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `any`\>
 
 #### Methods
 
 ##### `addListener`
 
-> **addListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **addListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Alias for `emitter.on(eventName, listener)`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `listenerCount`
 
-> **listenerCount**(`eventName`: `E`): `number`
+> **listenerCount**<`N`\>(`eventName`: `N`): `number`
 
 Returns the number of listeners listening to the event named `eventName`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
+| `eventName` | `N` |
 
 **Returns: **`number`
 
 ##### `off`
 
-> **off**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **off**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Removes the all specified listener from the listener array for the event eventName
 Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `on`
 
-> **on**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **on**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Adds the `listener` function to the end of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -521,18 +663,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.0.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `once`
 
-> **once**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **once**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Adds a **one-time**`listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
@@ -541,18 +687,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `prependListener`
 
-> **prependListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **prependListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -563,18 +713,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `prependOnceListener`
 
-> **prependOnceListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **prependOnceListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
@@ -583,18 +737,22 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `removeAllListeners`
 
-> **removeAllListeners**(`event?`: `E`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **removeAllListeners**<`N`\>(`event?`: `N`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Removes all listeners, or those of the specified eventName.
 
@@ -602,36 +760,48 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `event?` | `E` |
+| `event?` | `N` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ##### `removeListener`
 
-> **removeListener**(`eventName`: `E`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
+> **removeListener**<`N`\>(`eventName`: `N`, `listener`: `fn`): [`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 Alias for `emitter.off(eventName, listener)`.
 
 **Since**: 1.1.0
 
+**Type parameters**
+
+- `N` *extends* `string` \| `number` \| `symbol`
+
 **Parameters**
 
 | Name | Type |
 | :------ | :------ |
-| `eventName` | `E` |
-| `listener` | (...`args`: `any`[]) => `void` |
+| `eventName` | `N` |
+| `listener` | (`arg`: `E`[`N`]) => `void` |
 
 **Returns: **[`EventEmitter`](shell.md#eventemitter)<`E`\>
 
 ## Interfaces
 
-### `ChildProcess`
+### `ChildProcess<O>`
 
 **Since**: 1.0.0
+
+**Type parameters**
+
+- `O` *extends* [`IOPayload`](shell.md#iopayload)
 
 #### Properties
 
@@ -641,7 +811,7 @@ Alias for `emitter.off(eventName, listener)`.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L109)
+**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L109)
 
 ##### `signal`
 
@@ -649,23 +819,53 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L111)
+**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L111)
 
 ##### `stderr`
 
->  **stderr**: `string`
+>  **stderr**: `O`
 
 The data that the process wrote to `stderr`.
 
-**Defined in:** [shell.ts:115](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L115)
+**Defined in:** [shell.ts:115](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L115)
 
 ##### `stdout`
 
->  **stdout**: `string`
+>  **stdout**: `O`
 
 The data that the process wrote to `stdout`.
 
-**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L113)
+**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L113)
+
+### `CommandEvents`
+
+#### Properties
+
+##### `close`
+
+>  **close**: [`TerminatedPayload`](shell.md#terminatedpayload)
+
+**Defined in:** [shell.ts:394](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L394)
+
+##### `error`
+
+>  **error**: `string`
+
+**Defined in:** [shell.ts:395](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L395)
+
+### `OutputEvents<O>`
+
+**Type parameters**
+
+- `O` *extends* [`IOPayload`](shell.md#iopayload)
+
+#### Properties
+
+##### `data`
+
+>  **data**: `O`
+
+**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L399)
 
 ### `SpawnOptions`
 
@@ -679,7 +879,7 @@ The data that the process wrote to `stdout`.
 
 Current working directory.
 
-**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L88)
+**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L88)
 
 ##### `encoding`
 
@@ -689,15 +889,47 @@ Character encoding for stdout/stderr
 
 **Since**: 1.1.0
 
-**Defined in:** [shell.ts:96](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L96)
+**Defined in:** [shell.ts:96](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L96)
 
 ##### `env`
 
-> `Optional` **env**: `Record`<`string`, `string`\>
+> `Optional` **env**: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `string`\>
 
 Environment variables. set to `null` to clear the process env.
 
-**Defined in:** [shell.ts:90](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/shell.ts#L90)
+**Defined in:** [shell.ts:90](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L90)
+
+### `TerminatedPayload`
+
+Payload for the `Terminated` command event.
+
+#### Properties
+
+##### `code`
+
+>  **code**: `null` \| `number`
+
+Exit code of the process. `null` if the process was terminated by a signal on Unix.
+
+**Defined in:** [shell.ts:615](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L615)
+
+##### `signal`
+
+>  **signal**: `null` \| `number`
+
+If the process was terminated by a signal, represents that signal.
+
+**Defined in:** [shell.ts:617](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L617)
+
+## Type Aliases
+
+### `IOPayload`
+
+>  **IOPayload**: `string` \| [`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )
+
+Event payload type
+
+**Defined in:** [shell.ts:621](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L621)
 
 ## Functions
 
