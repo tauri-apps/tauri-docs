@@ -13,9 +13,10 @@ import Command from '@theme/Command'
 Usage: cargo-tauri info [OPTIONS]
 
 Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help
-  -V, --version     Print version
+      --interactive  Interactive mode to apply automatic fixes
+  -v, --verbose...   Enables verbose logging
+  -h, --help         Print help
+  -V, --version      Print version
 ```
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.

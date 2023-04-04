@@ -8,13 +8,13 @@ This package is also accessible with `window.__TAURI__.tauri` when [`build.withG
 
 ### `InvokeArgs`
 
->  **InvokeArgs**: `Record`<`string`, `unknown`\>
+>  **InvokeArgs**: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `unknown`\>
 
 Command arguments.
 
 **Since**: 1.0.0
 
-**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/8a1b128/tooling/api/src/tauri.ts#L63)
+**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/tauri.ts#L63)
 
 ## Functions
 
