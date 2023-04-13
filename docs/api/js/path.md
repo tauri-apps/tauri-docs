@@ -36,7 +36,7 @@ Provides the platform-specific path segment delimiter:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/path.ts#L660)
+**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/dfb5f52/tooling/api/src/path.ts#L660)
 
 ### `sep`
 
@@ -48,7 +48,7 @@ Provides the platform-specific path segment separator:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/75a0c79/tooling/api/src/path.ts#L651)
+**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/dfb5f52/tooling/api/src/path.ts#L651)
 
 ## Functions
 
@@ -196,7 +196,7 @@ Returns the last portion of a `path`. Trailing directory separators are ignored.
 import { basename, resolveResource } from '@tauri-apps/api/path';
 const resourcePath = await resolveResource('app.conf');
 const base = await basename(resourcePath);
-assert(base === 'app');
+assert(base === 'app.conf');
 ```
 
 **Since**: 1.0.0
