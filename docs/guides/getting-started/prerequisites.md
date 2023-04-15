@@ -256,6 +256,23 @@ pkgs.mkShell {
 ```
 
   </TabItem>
+  <TabItem value="void" label="Void">
+
+```sh
+sudo xbps-install -Syu
+sudo xbps-install -S \
+    webkit2gtk \
+    curl \
+    wget \
+    openssl \
+    gtk+3 \
+    libappindicator \
+    librsvg \
+    gcc \
+    pkg-config
+```
+
+  </TabItem>
 </Tabs>
 
 #### 2. Rust
