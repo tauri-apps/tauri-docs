@@ -1,4 +1,4 @@
-# Calling Rust from the frontend
+# Communication between Rust and the Frontend
 
 Tauri provides a simple yet powerful `command` system for calling Rust functions from your web app.
 Commands can accept arguments and return values. They can also return errors and be `async`.
@@ -164,7 +164,7 @@ It also gives you full control over the way your error type gets serialized. In 
 
 ## Async Commands
 
-Asynchornous functions are benefical in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
+Asynchronous functions are benefical in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
 
 :::note
 
@@ -174,18 +174,17 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 :::
 
 
-
 :::note
 
-You need to be careful when creating asynchornous functions using Tauri. Currently, you cannot include types that contain the & symbol (indicating they are borrowed) in the constructor of an asynchornous function. A common example of a type like this is _&str_.
+You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot include types that contain the & symbol (indicating they are borrowed) in the constructor of an asynchronous function. A common example of a type like this is _&str_.
 
 :::
 
 
-If your command needs to run asynchronously, simply declare it as `async`:
+If your command needs to run asynchronously, simply declare it as `async`, and convert all borrowed types their non-borrowed counterparts:
 
 ```rust
-// declare the constructor using String instead of &str, as &str is unsupported
+// declare the constructor using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
 async fn my_custom_command(value: String) {
   // Call another async function and wait for it to finish
