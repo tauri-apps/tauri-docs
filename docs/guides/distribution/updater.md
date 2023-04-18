@@ -62,7 +62,7 @@ Each updater URL can contain the following variables allowing you to determine [
 
 `"pubkey"` must be a valid public key generated with Tauri's CLI [above](#signing-updates).
 
-`"dialog"` if present must ba a boolean. By default it's set to true. If enabled, updater [events](#events) will be disabled as the built-in dialog handles everything. If you need custom events, you must turn off the built-in dialog.
+`"dialog"` if present must be a boolean. By default it's set to true. If enabled, updater [events](#events) will be disabled as the built-in dialog handles everything. If you need custom events, you must turn off the built-in dialog.
 
 ### `installMode` on Windows
 
