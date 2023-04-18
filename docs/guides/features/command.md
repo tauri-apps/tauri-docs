@@ -176,15 +176,21 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 
 :::note
 
-You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot include types that contain the & symbol (indicating they are borrowed) in the constructor of an asynchronous function. A common example of a type like this is _&str_.
+You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot include types that are borrowed, such as those with the & symbol, in the constructor of an asynchronous function. Some common examples of types like this are `&str` and `State<'_, Data>`.
 
 :::
 
 
-If your command needs to run asynchronously, simply declare it as `async`, and convert all borrowed types to their non-borrowed counterparts:
+If your command needs to run asynchronously, simply declare it as `async`, and resolve any issues with borrowed types.
+
+When working with borrowed types, there are two main options.
+
+**Option 1**: Convert the type, such as `&str` to a similar type that is not borrowed, such as `String`. This won't work for all types.
+
+*Example:*
 
 ```rust
-// declare the constructor using String instead of &str, as &str is borrowed and thus unsupported
+// Declare the constructor using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
 async fn my_custom_command(value: String) {
   // Call another async function and wait for it to finish
@@ -193,7 +199,23 @@ async fn my_custom_command(value: String) {
 }
 ```
 
-Since invoking the command from JS already returns a promise, it works just like any other command:
+**Option 2**: Wrap the return type in a Result. This one is a bit harder to implement, but works for all types.
+
+If you have no return type, like in our function, use the return type `Result<(), ()>`. Otherwise, use the return type `Result<bool, ()>`, replacing `bool` with whatever type you wish to return.
+
+*Example:*
+
+```rust
+// Return a Result<(), ()> to bypass the borrowing issue
+#[tauri::command]
+async fn my_custom_command(value: &str) -> Result<(), ()> {
+  // Call another async function and wait for it to finish
+  let result = some_async_function(value).await;
+  println!("Result: {}", result);
+}
+```
+
+**Invoking from JS:** Since invoking the command from JS already returns a promise, it works just like any other command:
 
 ```js
 invoke('my_custom_command', {value: "Hello, Async!"}).then(() => console.log('Completed!'))
