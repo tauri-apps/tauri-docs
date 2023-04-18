@@ -164,6 +164,8 @@ It also gives you full control over the way your error type gets serialized. In 
 
 ## Async Commands
 
+Asynchornous functions are benefical in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
+
 :::note
 
 Async commands are executed on a separate thread using [`async_runtime::spawn`].
@@ -171,13 +173,23 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 
 :::
 
+
+
+:::note
+
+You need to be careful when creating asynchornous functions using Tauri. Currently, you cannot include types that contain the & symbol (indicating they are borrowed) in the constructor of an asynchornous function. A common example of a type like this is _&str_.
+
+:::
+
+
 If your command needs to run asynchronously, simply declare it as `async`:
 
 ```rust
+// declare the constructor using String instead of &str, as &str is unsupported
 #[tauri::command]
-async fn my_custom_command() {
+async fn my_custom_command(value: String) {
   // Call another async function and wait for it to finish
-  let result = some_async_function().await;
+  let result = some_async_function(value).await;
   println!("Result: {}", result);
 }
 ```
@@ -185,7 +197,7 @@ async fn my_custom_command() {
 Since invoking the command from JS already returns a promise, it works just like any other command:
 
 ```js
-invoke('my_custom_command').then(() => console.log('Completed!'))
+invoke('my_custom_command', {value: "Hello, Async!"}).then(() => console.log('Completed!'))
 ```
 
 ## Accessing the Window in Commands
