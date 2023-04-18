@@ -181,7 +181,7 @@ You need to be careful when creating asynchronous functions using Tauri. Current
 :::
 
 
-If your command needs to run asynchronously, simply declare it as `async`, and convert all borrowed types their non-borrowed counterparts:
+If your command needs to run asynchronously, simply declare it as `async`, and convert all borrowed types to their non-borrowed counterparts:
 
 ```rust
 // declare the constructor using String instead of &str, as &str is borrowed and thus unsupported
