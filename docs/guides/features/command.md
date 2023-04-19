@@ -199,7 +199,7 @@ async fn my_custom_command(value: String) {
 }
 ```
 
-**Option 2**: Wrap the return type in a Result. This one is a bit harder to implement, but works for all types.
+**Option 2**: Wrap the return type in a Result. This one is a bit harder to implement, but should work for all types.
 
 If you have no return type, like in our function, use the return type `Result<(), ()>`. Otherwise, use the return type `Result<bool, ()>`, replacing `bool` with whatever type you wish to return.
 
