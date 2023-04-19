@@ -190,7 +190,7 @@ When working with borrowed types, you have to make additional changes. These are
 *Example:*
 
 ```rust
-// Declare the constructor using String instead of &str, as &str is borrowed and thus unsupported
+// Declare the async function using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
 async fn my_custom_command(value: String) {
   // Call another async function and wait for it to finish
