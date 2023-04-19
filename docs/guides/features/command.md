@@ -181,9 +181,9 @@ You need to be careful when creating asynchronous functions using Tauri. Current
 :::
 
 
-If your command needs to run asynchronously, simply declare it as `async`, and resolve any issues with borrowed types.
+If your command needs to run asynchronously, simply declare it as `async`.
 
-When working with borrowed types, there are two main options.
+When working with borrowed types, you have to make additional changes. These are your two main options:
 
 **Option 1**: Convert the type, such as `&str` to a similar type that is not borrowed, such as `String`. This won't work for all types.
 
