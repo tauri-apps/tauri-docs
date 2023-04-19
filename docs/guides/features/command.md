@@ -164,6 +164,8 @@ It also gives you full control over the way your error type gets serialized. In 
 
 ## Async Commands
 
+Asynchronous functions are benefical in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
+
 :::note
 
 Async commands are executed on a separate thread using [`async_runtime::spawn`].
@@ -171,21 +173,59 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 
 :::
 
-If your command needs to run asynchronously, simply declare it as `async`:
+**If your command needs to run asynchronously, simply declare it as `async`.**
+
+:::caution
+
+You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot simply include borrowed arguments in the signature of an asynchronous function. Some common examples of types like this are `&str` and `State<'_, Data>`. This limitation is tracked here: https://github.com/tauri-apps/tauri/issues/2533 and workarounds are shown below.
+
+:::
+
+When working with borrowed types, you have to make additional changes. These are your two main options:
+
+**Option 1**: Convert the type, such as `&str` to a similar type that is not borrowed, such as `String`. This may not work for all types, for example `State<'_, Data>`.
+
+_Example:_
 
 ```rust
+// Declare the async function using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
-async fn my_custom_command() {
+async fn my_custom_command(value: String) -> String {
   // Call another async function and wait for it to finish
-  let result = some_async_function().await;
-  println!("Result: {}", result);
+  some_async_function().await;
+  format!(value)
 }
 ```
 
-Since invoking the command from JS already returns a promise, it works just like any other command:
+**Option 2**: Wrap the return type in a [`Result`]. This one is a bit harder to implement, but should work for all types.
+
+Use the return type `Result<a, b>`, replacing `a` with the type you wish to return, or `()` if you wish to return nothing, and replacing `b` with an error type to return if something goes wrong, or `()` if you wish to have no optional error returned. For example:
+
+- `Result<String, ()>` to return a String, and no error.
+- `Result<(), ()>` to return nothing.
+- `Result<bool, Error>` to return a boolean or an error as shown in the [Error Handling](#error-handling) section above.
+
+_Example:_
+
+```rust
+// Return a Result<String, ()> to bypass the borrowing issue
+#[tauri::command]
+async fn my_custom_command(value: &str) -> Result<String, ()> {
+  // Call another async function and wait for it to finish
+  some_async_function().await;
+  // Note that the return value must be wrapped in `Ok()` now.
+  Ok(format!(value))
+}
+```
+
+#### Invoking from JS
+
+Since invoking the command from JavaScript already returns a promise, it works just like any other command:
 
 ```js
-invoke('my_custom_command').then(() => console.log('Completed!'))
+invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
+  console.log('Completed!')
+)
 ```
 
 ## Accessing the Window in Commands
@@ -320,3 +360,4 @@ invoke('my_custom_command', {
 [`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
 [`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
 [`thiserror`]: https://github.com/dtolnay/thiserror
+[`result`]: https://doc.rust-lang.org/std/result/index.html
