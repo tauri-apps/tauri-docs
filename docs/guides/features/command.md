@@ -215,7 +215,9 @@ async fn my_custom_command(value: &str) -> Result<(), ()> {
 }
 ```
 
-**Invoking from JS:** Since invoking the command from JS already returns a promise, it works just like any other command:
+#### Invoking from JS
+
+Since invoking the command from JS already returns a promise, it works just like any other command:
 
 ```js
 invoke('my_custom_command', {value: "Hello, Async!"}).then(() => console.log('Completed!'))
