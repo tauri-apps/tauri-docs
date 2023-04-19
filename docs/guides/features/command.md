@@ -176,7 +176,7 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 
 :::note
 
-You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot include types that are borrowed, such as those with the & symbol, in the constructor of an asynchronous function. Some common examples of types like this are `&str` and `State<'_, Data>`.
+You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot include borrowed arguments in the signature of an asynchronous function. Some common examples of types like this are `&str` and `State<'_, Data>`.
 
 :::
 
