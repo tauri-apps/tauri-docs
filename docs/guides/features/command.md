@@ -173,13 +173,13 @@ Commands without the _async_ keyword are executed on the main thread unless defi
 
 :::
 
+**If your command needs to run asynchronously, simply declare it as `async`.**
+
 :::caution
 
 You need to be careful when creating asynchronous functions using Tauri. Currently, you cannot simply include borrowed arguments in the signature of an asynchronous function. Some common examples of types like this are `&str` and `State<'_, Data>`. This limitation is tracked here: https://github.com/tauri-apps/tauri/issues/2533 and workarounds are shown below.
 
 :::
-
-If your command needs to run asynchronously, simply declare it as `async`.
 
 When working with borrowed types, you have to make additional changes. These are your two main options:
 
