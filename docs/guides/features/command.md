@@ -192,26 +192,30 @@ When working with borrowed types, you have to make additional changes. These are
 ```rust
 // Declare the async function using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
-async fn my_custom_command(value: String) {
+async fn my_custom_command(value: String) -> String {
   // Call another async function and wait for it to finish
-  let result = some_async_function(value).await;
-  println!("Result: {}", result);
+  some_async_function().await;
+  format!(value)
 }
 ```
 
 **Option 2**: Wrap the return type in a Result. This one is a bit harder to implement, but should work for all types.
 
-If you have no return type, like in our function, use the return type `Result<(), ()>`. Otherwise, use the return type `Result<bool, ()>`, replacing `bool` with whatever type you wish to return.
+Use the return type `Result<a, b>`, replacing `a` with whatever type you wish to return, or `()` if you wish to return no type, and replacing `b` with an error type to return if something goes wrong, or `()` if you wish to have no optional error returned. For example:
+
+- Result<String, ()> returns a String, and no error.
+- Result<(), ()> returns nothing.
+- Result<bool, Error> returing a boolean or a generic error if something goes wrong.
 
 *Example:*
 
 ```rust
-// Return a Result<(), ()> to bypass the borrowing issue
+// Return a Result<String, ()> to bypass the borrowing issue
 #[tauri::command]
-async fn my_custom_command(value: &str) -> Result<(), ()> {
+async fn my_custom_command(value: &str) -> Result<String, ()> {
   // Call another async function and wait for it to finish
-  let result = some_async_function(value).await;
-  println!("Result: {}", result);
+  some_async_function().await;
+  format!(value)
 }
 ```
 
