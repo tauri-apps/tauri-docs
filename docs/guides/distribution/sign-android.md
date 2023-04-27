@@ -47,7 +47,7 @@ If you have an existing keystore, skip to the next step. If not, create one by e
 
 ## Reference the Keystore from the App
 
-Create a file named `[project]/src-tauri/gen/android/[your-app]/local.properties` that contains a reference to your keystore:
+Create a file named `[project]/src-tauri/gen/android/[your-app]/key.properties` that contains a reference to your keystore:
 
 ```
 storePassword=<password from previous step>
@@ -57,7 +57,7 @@ storeFile=<location of the key store file, such as /Users/<user name>/upload-key
 ```
 
 :::caution
-Keep the `local.properties` file private; don't check it into public source control.
+Keep the `key.properties` file private; don't check it into public source control.
 :::
 
 ## Configure Signing in Gradle
@@ -74,9 +74,9 @@ Configure gradle to use your upload key when building your app in release mode b
 2. Add the keystore information from your properties file before the `android` block:
 
    ```kotlin {1-3}
-   val localPropertiesFile = rootProject.file("local.properties")
-   val localProperties = Properties()
-   localProperties.load(FileInputStream(localPropertiesFile))
+   val keyPropertiesFile = rootProject.file("key.properties")
+   val keyProperties = Properties()
+   keyProperties.load(FileInputStream(keyPropertiesFile))
 
    android {
       ...
@@ -88,10 +88,10 @@ Configure gradle to use your upload key when building your app in release mode b
    ```kotlin {1-8}
    signingConfigs {
       create("release") {
-          keyAlias = localProperties["keyAlias"] as String
-          keyPassword = localProperties["keyPassword"] as String
-          storeFile = file(localProperties["storeFile"] as String)
-          storePassword = localProperties["storePassword"] as String
+          keyAlias = keyProperties["keyAlias"] as String
+          keyPassword = keyProperties["keyPassword"] as String
+          storeFile = file(keyProperties["storeFile"] as String)
+          storePassword = keyProperties["storePassword"] as String
       }
    }
 
