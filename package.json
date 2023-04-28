@@ -55,5 +55,5 @@
   "engines": {
     "pnpm": ">=7.24.2"
   },
-  "packageManager": "pnpm@7.24.2"
+  "packageManager": ">=pnpm@7.24.2"
 }
