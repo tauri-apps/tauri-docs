@@ -31,12 +31,14 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
-  //@ts-ignore
-  window.crypto = {
-    getRandomValues: function (buffer) {
-      return randomFillSync(buffer);
-    },
-  };
+    Object.defineProperty(window, 'crypto', {
+      value: {
+        // @ts-ignore      
+        getRandomValues: (buffer) => {
+          return randomFillSync(buffer);
+        },
+      },
+    });
 });
 
 
@@ -47,8 +49,6 @@ test("invoke simple", async () => {
            return (args.a as number) + (args.b as number);
         }
     })
-
-    expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
 });
 ```
 
@@ -64,12 +64,14 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
-  //@ts-ignore
-  window.crypto = {
-    getRandomValues: function (buffer) {
-      return randomFillSync(buffer);
-    },
-  };
+    Object.defineProperty(window, 'crypto', {
+      value: {
+        // @ts-ignore      
+        getRandomValues: (buffer) => {
+          return randomFillSync(buffer);
+        },
+      },
+    });
 });
 
 
@@ -134,12 +136,14 @@ import { mockWindows } from '@tauri-apps/api/mocks';
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
-  //@ts-ignore
-  window.crypto = {
-    getRandomValues: function (buffer) {
-      return randomFillSync(buffer);
-    },
-  }
+    Object.defineProperty(window, 'crypto', {
+      value: {
+        // @ts-ignore      
+        getRandomValues: (buffer) => {
+          return randomFillSync(buffer);
+        },
+      },
+    });
 });
 
 test('invoke', async () => {
