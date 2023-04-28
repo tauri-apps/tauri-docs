@@ -1,14 +1,15 @@
 ---
-meta_title: Vite
-meta_position: 5
 description: Build a Tauri app using Vite as the frontend build tool
+pagination_next: guides/development/development-cycle
+sidebar_position: 4
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/vite.svg
 ---
 
-import TauriInit from './\_fragments/\_tauri-init.mdx'
-import Commands from './\_fragments/\_commands.mdx'
-import Intro from './\_fragments/\_intro.mdx'
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -18,6 +19,7 @@ import Command, { InstallTauriApi } from '@theme/Command'
 This guide will walk you through creating your first Tauri app using the frontend build tool [Vite].
 
 <Intro />
+<CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
@@ -103,17 +105,17 @@ Note that if you are not using vanilla JavaScript, you must keep the framework-s
 ## Create the Rust Project
 
 <TauriInit
-destDirExplination={{
+  destDirExplination={{
     __html: 'Use <code>../dist</code> for this value.',
   }}
-devPathExplination={{
+  devPathExplination={{
     __html: 'Use <code>http://localhost:5173</code> for this value.',
   }}
-beforeDevCommandExplination={{
+  beforeDevCommandExplination={{
     __html:
       'Use <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
   }}
-beforeBuildCommandExplination={{
+  beforeBuildCommandExplination={{
     __html:
       'Use <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
   }}

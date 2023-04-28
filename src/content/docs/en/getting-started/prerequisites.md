@@ -1,7 +1,9 @@
 ---
-meta_title: Prerequisites
-meta_position: 1
+sidebar_position: 1
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Prerequisites
 
@@ -17,8 +19,8 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 <figure>
 
-![Microsoft Visual Studio Installer](/img/guides/getting-started/prerequisites/vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](/img/guides/getting-started/prerequisites/vs-installer-dark.png#gh-dark-mode-only)
+![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
 
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
@@ -27,7 +29,7 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 :::note
 
-WebView2 is pre-installed in Windows 11
+On Windows 10 (Version 1803 and later with all updates applied) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 
 :::
 
@@ -44,6 +46,18 @@ Alternatively, you could use `winget` to install rustup using the following comm
 ```powershell
 winget install --id Rustlang.Rustup
 ```
+
+:::caution MSVC toolchain as default
+
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
 
 ### Setting Up macOS
 
@@ -84,7 +98,8 @@ Make sure to restart your terminal for the changes to take effect.
 
 You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions:
 
-**Debian**
+<Tabs>
+  <TabItem value="debian" label="Debian" default>
 
 ```sh
 sudo apt update
@@ -98,7 +113,8 @@ sudo apt install libwebkit2gtk-4.0-dev \
     librsvg2-dev
 ```
 
-**Arch**
+  </TabItem>
+  <TabItem value="arch" label="Arch">
 
 ```sh
 sudo pacman -Syu
@@ -115,11 +131,12 @@ sudo pacman -S --needed \
     libvips
 ```
 
-**Fedora**
+  </TabItem>
+  <TabItem value="fedora" label="Fedora">
 
 ```sh
 sudo dnf check-update
-sudo dnf install webkit2gtk3-devel.x86_64 \
+sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
     curl \
     wget \
@@ -128,7 +145,10 @@ sudo dnf install webkit2gtk3-devel.x86_64 \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-**openSUSE**
+Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
+
+  </TabItem>
+  <TabItem value="opensuse" label="openSUSE">
 
 ```sh
 sudo zypper up
@@ -141,7 +161,8 @@ sudo zypper in webkit2gtk3-soup2-devel \
 sudo zypper in -t pattern devel_basis
 ```
 
-**NixOS**
+  </TabItem>
+  <TabItem value="nixos" label="NixOS">
 
 Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
 dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
@@ -232,6 +253,9 @@ pkgs.mkShell {
 }
 ```
 
+  </TabItem>
+</Tabs>
+
 #### 2. Rust
 
 To install Rust on Linux, open a terminal and enter the following command:
@@ -297,3 +321,4 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
 [nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
 [direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[`trunk`]: https://trunkrs.dev
