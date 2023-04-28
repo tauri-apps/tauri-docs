@@ -1,3 +1,7 @@
+---
+layout: '@src/layouts/Layout.astro'
+---
+
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 # The Tauri Book

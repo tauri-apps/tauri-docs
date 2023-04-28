@@ -1,5 +1,5 @@
 ---
-id: intro
+layout: '@src/layouts/Layout.astro'
 ---
 
 # What is Tauri?

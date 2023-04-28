@@ -1,5 +1,5 @@
 ---
-id: governance
+layout: '@src/layouts/Layout.astro'
 ---
 
 # Tauri Governance

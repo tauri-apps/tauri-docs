@@ -1,5 +1,5 @@
 ---
-id: trademark
+layout: '@src/layouts/Layout.astro'
 ---
 
 # Trademark Guidelines
