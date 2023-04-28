@@ -269,6 +269,28 @@ pkgs.mkShell {
 ```
 
   </TabItem>
+  <TabItem value="gnu_guix" label="GNU Guix">
+
+To create Tauri development environments using [Guix shell], copy the following code into `manifest.scm` on your repository, then run `guix shell` to activate. You can also use [direnv's Guix shell support] to automatically start the Guix shell when entering the project folder.
+
+```scheme
+(specifications->manifest
+ (list "gtk+@3"
+       "webkitgtk-with-libsoup2"
+       "libsoup-minimal@2"
+       "cairo"
+       "gdk-pixbuf"
+       "glib"
+       "dbus"
+       "openssl@3"
+       "gcc:lib"
+
+       "curl"
+       "wget"
+       "pkg-config"
+       "gsettings-desktop-schemas"))
+```
+  </TabItem>
   <TabItem value="void" label="Void">
 
 ```sh
@@ -353,4 +375,6 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
 [nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
 [direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[direnv's Guix shell support]: https://github.com/direnv/direnv/pull/1045/files
+[Guix shell]: https://guix.gnu.org/manual/en/html_node/Invoking-guix-shell.html
 [`trunk`]: https://trunkrs.dev
