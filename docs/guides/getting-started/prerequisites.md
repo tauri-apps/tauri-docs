@@ -148,6 +148,19 @@ sudo dnf group install "C Development Tools and Libraries"
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
 
   </TabItem>
+  <TabItem value="gentoo" label="Gentoo">
+
+```sh
+sudo emerge --ask \
+    net-libs/webkit-gtk:4 \
+    dev-libs/libappindicator \
+    net-misc/curl \
+    net-misc/wget
+```
+
+Note: A desktop profile is recommended to set the appropriate USE flags for webkit-gtk
+
+  </TabItem>
   <TabItem value="opensuse" label="openSUSE">
 
 ```sh
