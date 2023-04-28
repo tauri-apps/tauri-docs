@@ -26,7 +26,7 @@ export default function App(props) {
 
         setReleaseNotes(result)
       })
-  }, [])
+  }, [props.url])
 
   return (
     <BrowserOnly fallback={<div>Release notes not supported</div>}>

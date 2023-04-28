@@ -26,7 +26,7 @@ The following examples use [Vitest], but you can use any other frontend testing 
 import { beforeAll, expect, test } from "vitest";
 import { randomFillSync } from "crypto";
 
-import { mockIPC } from "@tauri-apps/api/mocks"
+import { mockIPC } from "@tauri-apps/api/mocks";
 import { invoke } from "@tauri-apps/api/tauri";
 
 // jsdom doesn't come with a WebCrypto implementation
@@ -44,12 +44,12 @@ test("invoke simple", async () => {
     mockIPC((cmd, args) => {
         // simulated rust command called "add" that just adds two numbers
         if(cmd === "add") {
-           return (args.a as number) + (args.b as number)
+           return (args.a as number) + (args.b as number);
         }
     })
 
-    expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27)
-})
+    expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
+});
 ```
 
 Sometimes you want to track more information about an IPC call; how many times was the command invoked? Was it invoked at all?
@@ -59,7 +59,7 @@ You can use [`mockIPC()`] with other spying and mocking tools to test this:
 import { beforeAll, expect, test, vi } from "vitest";
 import { randomFillSync } from "crypto";
 
-import { mockIPC } from "@tauri-apps/api/mocks"
+import { mockIPC } from "@tauri-apps/api/mocks";
 import { invoke } from "@tauri-apps/api/tauri";
 
 // jsdom doesn't come with a WebCrypto implementation
@@ -77,16 +77,16 @@ test("invoke", async () => {
     mockIPC((cmd, args) => {
         // simulated rust command called "add" that just adds two numbers
         if(cmd === "add") {
-           return (args.a as number) + (args.b as number)
+           return (args.a as number) + (args.b as number);
         }
-    })
+    });
 
     // we can use the spying tools provided by vitest to track the mocked function
-    const spy = vi.spyOn(window, "__TAURI_IPC__")
+    const spy = vi.spyOn(window, "__TAURI_IPC__");
 
-    expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27)
-    expect(spy).toHaveBeenCalled()
-})
+    expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
+    expect(spy).toHaveBeenCalled();
+});
 ```
 
 To mock IPC requests to a sidecar or shell command you need to grab the ID of the event handler when `spawn()` or `execute()` is called and use this ID to emit events the backend would send back:
@@ -127,29 +127,29 @@ You can use the [`mockWindows()`] method to create fake window labels. The first
 :::
 
 ```js
-import { beforeAll, expect, test } from 'vitest'
-import { randomFillSync } from 'crypto'
+import { beforeAll, expect, test } from 'vitest';
+import { randomFillSync } from 'crypto';
 
-import { mockWindows } from '@tauri-apps/api/mocks'
+import { mockWindows } from '@tauri-apps/api/mocks';
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
   //@ts-ignore
   window.crypto = {
     getRandomValues: function (buffer) {
-      return randomFillSync(buffer)
+      return randomFillSync(buffer);
     },
   }
-})
+});
 
 test('invoke', async () => {
-  mockWindows('main', 'second', 'third')
+  mockWindows('main', 'second', 'third');
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/window')
+  const { getCurrent, getAll } = await import('@tauri-apps/api/window');
 
-  expect(getCurrent()).toHaveProperty('label', 'main')
-  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third'])
-})
+  expect(getCurrent()).toHaveProperty('label', 'main');
+  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
+});
 ```
 
 [`@tauri-apps/api/mocks`]: ../../api/js/mocks.md

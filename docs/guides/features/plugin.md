@@ -1,3 +1,5 @@
+import Command from '@theme/Command'
+
 # Tauri Plugins
 
 Plugins allow you to hook into the Tauri application lifecycle and introduce new commands.
@@ -19,11 +21,9 @@ fn main() {
 
 Plugins are reusable extensions to the Tauri API that solve common problems. They are also a very convenient way to structure your code base!
 
-If you intend to share your plugin with others, we provide a ready-made template! With the tauri-cli installed just run:
+If you intend to share your plugin with others, we provide a ready-made template! With the Tauri's CLI installed just run:
 
-```shell
-tauri plugin init --name awesome
-```
+<Command name="plugin init --name awesome" />
 
 ### API package
 
@@ -39,11 +39,9 @@ where `awesome` will be replaced by your plugin name.
 This isn't very convenient, however, so it's common for plugins to provide a so-called _API package_, a JavaScript package that provides convenient access to your commands.
 
 > An example of this is the [tauri-plugin-store](https://github.com/tauri-apps/tauri-plugin-store), which provides a convenient class structure for accessing a store.
-> You can scaffold a tauri plugin with attached javascript API package like this:
+> You can scaffold a tauri plugin with an attached javascript API package like this:
 
-```shell
-tauri plugin init --name awesome --api
-```
+<Command name="plugin init --name awesome --api" />
 
 ## Writing a Plugin
 
@@ -73,7 +71,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 }
 ```
 
-Plugins can setup and maintain state, just like your app can:
+Plugins can set up and maintain state, just like your app can:
 
 ```rust
 use tauri::{

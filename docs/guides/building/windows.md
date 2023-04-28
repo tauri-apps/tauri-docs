@@ -30,7 +30,7 @@ If you need to build for **ARM64** you first need to install additional build to
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 ```powershell
-tauri build --target aarc64-pc-windows-msvc
+tauri build --target aarch64-pc-windows-msvc
 ```
 
 ## Supporting Windows 7
@@ -42,6 +42,14 @@ Additionally, to use the Notification API in Windows 7, you need to enable the `
 ```toml title="Cargo.toml"
 [dependencies]
 tauri = { version = "1", features = [ "windows7-compat" ] }
+```
+
+## FIPS Compliance
+
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true` before running `tauri build`. In PowerShell you can set it for the current terminal session like this:
+
+```powershell
+$env:TAURI_FIPS_COMPLIANT="true"
 ```
 
 ## Webview2 Installation Options
@@ -64,7 +72,7 @@ On Windows 10 (April 2018 release or later) and Windows 11, the Webview2 runtime
 
 ### Downloaded Bootstrapper
 
-This is the default setting for building the Windows Installer. It downloads the bootstrapper and run it. Requires internet connection but results in a smaller installer size. This is not recommended if you're going to be distributing to Windows 7.
+This is the default setting for building the Windows Installer. It downloads the bootstrapper and runs it. Requires an internet connection but results in a smaller installer size. This is not recommended if you're going to be distributing to Windows 7.
 
 ```json title="tauri.config.json"
 {

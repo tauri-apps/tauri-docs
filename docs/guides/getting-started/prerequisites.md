@@ -29,7 +29,7 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 :::note
 
-WebView2 is pre-installed in Windows 11
+On Windows 10 (Version 1803 and later with all updates applied) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
 
 :::
 
@@ -148,6 +148,19 @@ sudo dnf group install "C Development Tools and Libraries"
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
 
   </TabItem>
+  <TabItem value="gentoo" label="Gentoo">
+
+```sh
+sudo emerge --ask \
+    net-libs/webkit-gtk:4 \
+    dev-libs/libappindicator \
+    net-misc/curl \
+    net-misc/wget
+```
+
+Note: A desktop profile is recommended to set the appropriate USE flags for webkit-gtk
+
+  </TabItem>
   <TabItem value="opensuse" label="openSUSE">
 
 ```sh
@@ -189,6 +202,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           glib
           dbus
           openssl_3
+          librsvg
         ];
 
         packages = with pkgs; [
@@ -201,6 +215,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
           gtk3
           libsoup
           webkitgtk
+          librsvg
         ];
       in
       {
@@ -275,6 +290,23 @@ To create Tauri development environments using [Guix shell], copy the following 
        "pkg-config"
        "gsettings-desktop-schemas"))
 ```
+  </TabItem>
+  <TabItem value="void" label="Void">
+
+```sh
+sudo xbps-install -Syu
+sudo xbps-install -S \
+    webkit2gtk \
+    curl \
+    wget \
+    openssl \
+    gtk+3 \
+    libappindicator \
+    librsvg \
+    gcc \
+    pkg-config
+```
+
   </TabItem>
 </Tabs>
 

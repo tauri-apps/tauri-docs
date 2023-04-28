@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
 
 # Setup Example
@@ -15,8 +19,8 @@ can see https://github.com/chippers/hello_tauri.
 
 We want to create a new binary Cargo project to house this example application. We can easily do this from the command
 line with `cargo new hello-tauri-webdriver --bin`, which will scaffold a minimal binary Cargo project for us. This
-directory will serve as the working directory for the rest of this guide, so make sure commands you run are inside this
-new `hello-tauri-webdriver/` directory.
+directory will serve as the working directory for the rest of this guide, so make sure the commands you run are inside
+this new `hello-tauri-webdriver/` directory.
 
 ## Creating a Minimal Frontend
 
@@ -60,7 +64,7 @@ First, let's create our Tauri `distDir` that we know we will need once building 
 
 ## Adding Tauri to the Cargo Project
 
-Next, we will add necessary items to turn our Cargo project into a Tauri project. First, is adding the dependencies
+Next, we will add the necessary items to turn our Cargo project into a Tauri project. First, is adding the dependencies
 to the Cargo Manifest (`Cargo.toml`) so that Cargo knows to pull in our dependencies while building.
 
 `Cargo.toml`:

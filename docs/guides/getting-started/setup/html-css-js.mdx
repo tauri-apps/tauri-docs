@@ -10,6 +10,7 @@ sidebar_custom_props:
 import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
 import Command from '@theme/Command'
 
 # HTML, CSS, and JavaScript
@@ -17,11 +18,12 @@ import Command from '@theme/Command'
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
 <Intro />
+<CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
-![Preview of Application](./assets/html-css-js/html-css-js-light.png#gh-light-mode-only)
-![Preview of Application](./assets/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only)
+![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -72,8 +74,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 Preview of Application
 
-![Development Progress](./assets/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
-![Development Progress](./assets/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
+![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 
@@ -106,18 +108,20 @@ You can now modify your `index.html` file to call your Command:
     <title>Document</title>
   </head>
   <body>
-    <h1>Welcome from Tauri!</h1>
     // highlight-start
+    <h1 id="header">Welcome from Tauri!</h1>
     <script>
       // access the pre-bundled global API functions
       const { invoke } = window.__TAURI__.tauri
 
       // now we can call our Command!
-      // Right-click the application background and open the developer tools.
-      // You will see "Hello, World!" printed in the console!
+      // You will see "Welcome from Tauri" replaced
+      // by "Hello, World!"!
       invoke('greet', { name: 'World' })
         // `invoke` returns a Promise
-        .then((response) => console.log(response))
+        .then((response) => {
+          window.header.innerHTML = response
+        })
     </script>
     // highlight-end
   </body>

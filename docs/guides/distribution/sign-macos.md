@@ -34,7 +34,7 @@ The Tauri code signing and notarization process is configured through the follow
 
 ## Signing Tauri apps
 
-The first step to sign a macOS application is getting a signing certificate from the Apple Developer Program.
+The first step to signing a macOS application is getting a signing certificate from the Apple Developer Program.
 
 ### Creating a signing certificate
 
@@ -50,11 +50,11 @@ Only the Apple Developer `Account Holder` can create _Developer ID Application_ 
 
 ### Downloading a certificate
 
-On [Certificates, IDs & Profiles page], click on the certificate you want to use and click on the `Download` button. It saves a `.cer` file that installs the certificate on the keychain once opened. The name of the keychain entry represents the `signing identity`, which can also be found by executing `security find-identity -v -p codesigning`.
+On the [Certificates, IDs & Profiles page], click on the certificate you want to use and click on the `Download` button. It saves a `.cer` file that installs the certificate on the keychain once opened. The name of the keychain entry represents the `signing identity`, which can also be found by executing `security find-identity -v -p codesigning`.
 
 :::note
 
-A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output.
+A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output. If the certificate does not download to the correct location, make sure the "login" option is selected in <i>Keychain Access</i> under "Default Keychains" when downloading the .cer file. 
 
 :::
 
@@ -68,8 +68,8 @@ The signing configuration is provided to the Tauri bundler via environment varia
 
 Additionally, to simplify the code signing process on CI, Tauri can install the certificate on the keychain for you if you define the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables.
 
-1. Open the `Keychain Access` app and find your certificate's keychain entry.
-2. Expand the entry, double click on the key item, and select `Export "$KEYNAME"`.
+1. Open the `Keychain Access` app to <i>login > My Certificates</i> and find your certificate's keychain entry.
+2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the `.p12` file and define the exported certificate password.
 4. Convert the `.p12` file to base64 running the following script on the terminal: `openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt`.
 5. Set the contents of the `certificate-base64.txt` file to the `APPLE_CERTIFICATE` environment variable.
@@ -115,25 +115,38 @@ on:
 
 jobs:
   publish-tauri:
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
         platform: [macos-latest]
-
     runs-on: ${{ matrix.platform }}
+
     steps:
-      - uses: actions/checkout@v2
-      - name: setup node
-        uses: actions/setup-node@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
         with:
-          node-version: 12
-      - name: install Rust stable
-        uses: actions-rs/toolchain@v1
+          workspaces: './src-tauri -> target'
+
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v3
         with:
-          toolchain: stable
-      - name: install app dependencies and build it
-        run: yarn && yarn build
-      - uses: tauri-apps/tauri-action@v0
+          node-version: 'lts/*'
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
+
+      - name: Install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: yarn install # Change this to npm, yarn or pnpm.
+
+      - name: Build the app
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ENABLE_CODE_SIGNING: ${{ secrets.APPLE_CERTIFICATE }}

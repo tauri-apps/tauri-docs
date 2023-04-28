@@ -18,7 +18,7 @@ gpg2 --full-gen-key
 ```
 
 Please refer to the gpg or gpg2 documentation for additional information.
-You should take additional care to backup your private and public keys in a secure location.
+You should take additional care to back up your private and public keys in a secure location.
 
 ## Signing for AppImages
 

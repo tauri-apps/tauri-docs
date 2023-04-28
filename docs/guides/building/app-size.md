@@ -12,13 +12,13 @@ So if you are interested in learning how to improve your app size and performanc
 
 Before you can optimize your app, you need to figure out what takes up space in your app! Here are a couple of tools that can assist you with that:
 
-- **`cargo-bloat`** - A Rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant Rust functions.
+- **[`cargo-bloat`]** - A Rust utility to determine what takes the most space in your app. It gives you an excellent, sorted overview of the most significant Rust functions.
 
-- **`cargo-expand`** - [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use [`cargo-expand`][cargo-expand] to see what those macros generate under the hood.
+- **[`cargo-expand`]** - [Macros] make your rust code more concise and easier to read, but they are also hidden size traps! Use `cargo-expand` to see what those macros generate under the hood.
 
-- **`rollup-plugin-visualizer`** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
+- **[`rollup-plugin-visualizer`]** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
 
-- **`rollup-plugin-graph`** - You noticed a dependency included in your final frontend bundle, but you are unsure why? [`rollup-plugin-graph`][rollup-plugin-graph] generates Graphviz-compatible visualizations of your entire dependency graph.
+- **[`rollup-plugin-graph`]** - You noticed a dependency included in your final frontend bundle, but you are unsure why? `rollup-plugin-graph` generates Graphviz-compatible visualizations of your entire dependency graph.
 
 These are just a couple of tools that you might use. Make sure to check your frontend bundlers plugin list for more!
 
@@ -61,7 +61,7 @@ Most libraries you use depend on many libraries themselves, so a library that lo
 
 You can use [Bundlephobia] to find the cost of JavaScript dependencies. Inspecting the cost of Rust dependencies is generally harder since the compiler does many optimizations.
 
-If you find a library that seems excessively large, Google around, chances are someone else already had the same thought and created an alternative. A good example is [Moment.js] and it's [many alternatives][you-dont-need-momentjs].
+If you find a library that seems excessively large, Google around, chances are someone else already had the same thought and created an alternative. A good example is [Moment.js] and its [many alternatives][you-dont-need-momentjs].
 
 But keep in mind: **The best dependency is no dependency**, meaning that you should always prefer language builtins over 3rd party packages.
 
@@ -252,14 +252,14 @@ strip = true  # Automatically strip symbols from the binary.
 
 ### UPX
 
-UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This 23-year old, well-maintained piece of kit is GPL-v2 licensed with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license unless you modify the source code of UPX.
+UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This 23-year-old, well-maintained piece of kit is GPL-v2 licensed with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license unless you modify the source code of UPX.
 
 Maybe your target audience has very slow internet, or your app needs to fit on a tiny USB stick, and all the above steps haven't resulted in the savings you need. Fear not, as we have one last trick up our sleeves:
 
 [UPX] compresses your binary and creates a self-extracting executable that decompresses itself at runtime.
 
 :::caution
-You should know that this technique might flag your binary as a virus on Windows and macOS - so use at your own discretion, and as always, validate with [Frida] and do real distribution testing!
+You should know that this technique might flag your binary as a virus on Windows and macOS - so use it at your own discretion, and as always, validate with [Frida] and do real distribution testing!
 :::
 
 #### Usage on macOS
@@ -280,11 +280,11 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
     963140 ->    274448   28.50%   macho/amd64   app
 ```
 
-[cargo-bloat]: https://github.com/RazrFalcon/cargo-bloat
+[`cargo-bloat`]: https://github.com/RazrFalcon/cargo-bloat
 [macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
-[cargo-expand]: https://github.com/dtolnay/cargo-expand
-[rollup-plugin-visualizer]: https://github.com/btd/rollup-plugin-visualizer
-[rollup-plugin-graph]: https://github.com/ondras/rollup-plugin-graph
+[`cargo-expand`]: https://github.com/dtolnay/cargo-expand
+[`rollup-plugin-visualizer`]: https://github.com/btd/rollup-plugin-visualizer
+[`rollup-plugin-graph`]: https://github.com/ondras/rollup-plugin-graph
 [vite]: https://vitejs.dev
 [webpack]: https://webpack.js.org
 [rollup]: https://rollupjs.org/guide/en/

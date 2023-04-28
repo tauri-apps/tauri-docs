@@ -9,6 +9,7 @@ sidebar_custom_props:
 import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -18,17 +19,18 @@ import Command, { InstallTauriApi } from '@theme/Command'
 This guide will walk you through creating your first Tauri app using the frontend build tool [Vite].
 
 <Intro />
+<CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
-![Application Preview](./assets/vite/vite-light.png#gh-light-mode-only)
-![Application Preview](./assets/vite/vite-dark.png#gh-dark-mode-only)
+![Application Preview](/img/guides/getting-started/setup/vite/vite-light.png#gh-light-mode-only)
+![Application Preview](/img/guides/getting-started/setup/vite/vite-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
 [Vite] is a frontend bundler and build tool meaning it provides various quality-of-life features such as _Hot Module Reloading_ (HMR) during development, but it also converts your source code into optimized HTML, CSS and JavaScript when building for production. We recommend Vite for its speed, easy configurability and [large ecosystem of plugins][awesome-vite].
 
-Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly setup a new project from many pre-defined templates. You can choose from many frontend frameworks like React, Svelte or Vue. For this guide, we will select the `vanilla-ts` template to create a simple project _without_ any frontend framework.
+Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly set up a new project from many pre-defined templates. You can choose from many frontend frameworks like React, Svelte or Vue. For this guide, we will select the `vanilla-ts` template to create a simple project _without_ any frontend framework.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -137,8 +139,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 <Command name="dev" />
 
-![Application Window](./assets/vite/vite-dev-light.png#gh-light-mode-only)
-![Application Window](./assets/vite/vite-dev-dark.png#gh-dark-mode-only)
+![Application Window](/img/guides/getting-started/setup/vite/vite-dev-light.png#gh-light-mode-only)
+![Application Window](/img/guides/getting-started/setup/vite/vite-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 
