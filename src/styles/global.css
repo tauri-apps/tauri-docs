@@ -302,7 +302,8 @@
     @apply border-l-2 border-l-border pl-4;
   }
 
-  .light-mode-only {
+  .light-mode-only,
+  .gh-light-mode-only {
     @apply hidden;
   }
 }

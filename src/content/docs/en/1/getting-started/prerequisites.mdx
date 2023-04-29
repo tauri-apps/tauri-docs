@@ -2,8 +2,7 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Callout from '@src/components/Callout.astro'
 
 # Prerequisites
 
@@ -19,19 +18,17 @@ You will need to install Microsoft Visual Studio C++ build tools. The easiest wa
 
 <figure>
 
-![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
+![Microsoft Visual Studio Installer](/img/guides/1/getting-started/prerequisites/vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](/img/guides/1/getting-started/prerequisites/vs-installer-dark.png#gh-dark-mode-only)
 
 <figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
 </figure>
 
 #### 2. WebView2
 
-:::note
-
+<Callout kind="note">
 On Windows 10 (Version 1803 and later with all updates applied) and Windows 11, the Webview2 runtime is distributed as part of the operating system.
-
-:::
+</Callout>
 
 Tauri heavily depends on WebView2 to render web content on Windows, therefore you must have WebView2 installed. The easiest way is to download and run the Evergreen Bootstrapper from [Microsoft's website][download webview2].
 
@@ -47,8 +44,7 @@ Alternatively, you could use `winget` to install rustup using the following comm
 winget install --id Rustlang.Rustup
 ```
 
-:::caution MSVC toolchain as default
-
+<Callout kind="caution" title="MSVC toolchain as default">
 For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
 
 If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
@@ -57,7 +53,7 @@ If you already have Rust installed, you can make sure the correct toolchain is i
 rustup default stable-msvc
 ```
 
-:::
+</Callout>
 
 ### Setting Up macOS
 
@@ -77,11 +73,9 @@ To install Rust on macOS, open a terminal and enter the following command:
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-:::note
-
+<Callout kind="note">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a plain script: [rustup.sh]
-
-:::
+</Callout>
 
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was
 successful, the following line will appear:
@@ -98,8 +92,8 @@ Make sure to restart your terminal for the changes to take effect.
 
 You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions:
 
-<Tabs>
-  <TabItem value="debian" label="Debian" default>
+
+**Debian**
 
 ```sh
 sudo apt update
@@ -113,8 +107,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
     librsvg2-dev
 ```
 
-  </TabItem>
-  <TabItem value="arch" label="Arch">
+**Arch**
 
 ```sh
 sudo pacman -Syu
@@ -131,9 +124,7 @@ sudo pacman -S --needed \
     libvips
 ```
 
-  </TabItem>
-  <TabItem value="fedora" label="Fedora">
-
+**Fedora**
 ```sh
 sudo dnf check-update
 sudo dnf install webkit2gtk4.0-devel \
@@ -147,8 +138,7 @@ sudo dnf group install "C Development Tools and Libraries"
 
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
 
-  </TabItem>
-  <TabItem value="opensuse" label="openSUSE">
+**openSUSE**
 
 ```sh
 sudo zypper up
@@ -161,8 +151,7 @@ sudo zypper in webkit2gtk3-soup2-devel \
 sudo zypper in -t pattern devel_basis
 ```
 
-  </TabItem>
-  <TabItem value="nixos" label="NixOS">
+**NixOS**
 
 Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
 dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
@@ -253,8 +242,7 @@ pkgs.mkShell {
 }
 ```
 
-  </TabItem>
-</Tabs>
+
 
 #### 2. Rust
 
@@ -264,11 +252,9 @@ To install Rust on Linux, open a terminal and enter the following command:
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-:::note
-
+<Callout kind="note">
 We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first. Here is the file as a plain script: [rustup.sh]
-
-:::
+</Callout>
 
 The command downloads a script and starts the installation of the `rustup` tool, which installs the latest stable version of Rust. You might be prompted for your password. If the installation was successful, the following line will appear:
 
