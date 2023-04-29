@@ -1,0 +1,79 @@
+---
+interface Props {
+  tabTitles: string[]
+}
+
+const { tabTitles } = Astro.props
+if (!tabTitles.every((title) => Astro.slots.has(title))) {
+  throw Error('Not all tabs listed are in the Tabs body')
+}
+
+const slots = await Promise.all(
+  tabTitles.map(async (title) => await Astro.slots.render(title))
+)
+// TODO: URI encode the title
+// TODO: Local storage for remembering selected tab
+// TODO: Styling for content
+---
+
+<div class="card">
+  {
+    tabTitles.map((title, index) => (
+      <>
+        <input type="radio" name="tabs" id={title} checked={index === 0} />
+        <label for={title} class="btn-normal">
+          {title}
+        </label>
+      </>
+    ))
+  }
+
+  {
+    slots.map((html) => (
+      <div class="tab">
+        <Fragment set:html={html} />
+      </div>
+    ))
+  }
+</div>
+<style>
+  input {
+    display: none;
+  }
+  input + label {
+    display: inline-block;
+  }
+  input ~ .tab {
+    display: none;
+  }
+  input:nth-of-type(1):checked ~ .tab:nth-of-type(1) {
+    display: block;
+  }
+  input:nth-of-type(2):checked ~ .tab:nth-of-type(2) {
+    display: block;
+  }
+  input:nth-of-type(3):checked ~ .tab:nth-of-type(3) {
+    display: block;
+  }
+  input:nth-of-type(4):checked ~ .tab:nth-of-type(4) {
+    display: block;
+  }
+  input:nth-of-type(5):checked ~ .tab:nth-of-type(5) {
+    display: block;
+  }
+  input:nth-of-type(6):checked ~ .tab:nth-of-type(6) {
+    display: block;
+  }
+  input:nth-of-type(7):checked ~ .tab:nth-of-type(7) {
+    display: block;
+  }
+  input:nth-of-type(8):checked ~ .tab:nth-of-type(8) {
+    display: block;
+  }
+  input:nth-of-type(9):checked ~ .tab:nth-of-type(9) {
+    display: block;
+  }
+  input:nth-of-type(10):checked ~ .tab:nth-of-type(10) {
+    display: block;
+  }
+</style>

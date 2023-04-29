@@ -3,6 +3,8 @@ sidebar_position: 1
 ---
 
 import Callout from '@src/components/Callout.astro'
+import Tabs from '@src/components/Tabs.astro'
+import TabItem from '@src/components/TabItem.astro'
 
 # Prerequisites
 
@@ -92,12 +94,11 @@ Make sure to restart your terminal for the changes to take effect.
 
 You will need to install a couple of system dependencies, such as a C compiler and `webkit2gtk`. Below are commands for a few popular distributions:
 
-
-**Debian**
-
-```sh
-sudo apt update
-sudo apt install libwebkit2gtk-4.0-dev \
+<Tabs tabTitles={["Debian", "Arch", "Fedora", "openSUSE", "NixOS"]}>
+  <div slot="Debian">
+  ```sh
+    sudo apt update
+    sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     wget \
@@ -106,10 +107,9 @@ sudo apt install libwebkit2gtk-4.0-dev \
     libayatana-appindicator3-dev \
     librsvg2-dev
 ```
-
-**Arch**
-
-```sh
+  </div>
+  <div slot="Arch">
+  ```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
     webkit2gtk \
@@ -123,9 +123,9 @@ sudo pacman -S --needed \
     librsvg \
     libvips
 ```
-
-**Fedora**
-```sh
+  </div>
+  <div slot="Fedora">
+  ```sh
 sudo dnf check-update
 sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
@@ -137,10 +137,9 @@ sudo dnf group install "C Development Tools and Libraries"
 ```
 
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
-
-**openSUSE**
-
-```sh
+  </div>
+  <div slot="openSUSE">
+  ```sh
 sudo zypper up
 sudo zypper in webkit2gtk3-soup2-devel \
     libopenssl-devel \
@@ -150,10 +149,9 @@ sudo zypper in webkit2gtk3-soup2-devel \
     librsvg-devel
 sudo zypper in -t pattern devel_basis
 ```
-
-**NixOS**
-
-Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
+  </div>
+  <div slot="NixOS">
+  Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
 dynamically at runtime. To make them available to Tauri the `LD_LIBRARY_PATH` environment variable needs to be populated with the correct paths.
 
 When using [Nix Flakes], copy the following code into `flake.nix` on your repository, then run `nix develop` to activate the development environment. You can also use [direnv's Flakes integration] to automatically start the dev shell when entering the project folder.
@@ -241,6 +239,10 @@ pkgs.mkShell {
     '';
 }
 ```
+  </div>
+</Tabs>
+
+
 
 
 
