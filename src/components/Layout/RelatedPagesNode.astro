@@ -37,4 +37,13 @@ function trimSlash(url: string) {
   >
     {title}
   </a>
+  {
+    entry.children && (
+      <ul class="pl-2">
+        {entry.children.map((child: any) => (
+          <Astro.self entry={child} baseUrl={baseUrl} />
+        ))}
+      </ul>
+    )
+  }
 </li>
