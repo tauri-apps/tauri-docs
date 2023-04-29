@@ -1,6 +1,5 @@
 ---
 title: Cross-Platform Compilation
-sidebar_position: 5
 ---
 
 # Cross-Platform Compilation

@@ -1,6 +1,5 @@
 ---
 title: Windows Installer
-sidebar_position: 2
 ---
 
 import Command from '@theme/Command'

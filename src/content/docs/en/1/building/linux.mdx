@@ -1,6 +1,5 @@
 ---
 title: Linux Bundle
-sidebar_position: 4
 ---
 
 import TauriBuild from './_tauri-build.md'
@@ -11,7 +10,9 @@ import Callout from '@src/components/Callout.astro'
 Tauri applications for Linux are distributed either with a Debian bundle (`.deb` file) or an AppImage (`.AppImage` file). The Tauri CLI automatically bundles your application code in these formats by default. Please note that `.deb` and `.AppImage` bundles can **only be created on Linux** as cross-compilation doesn't work yet.
 
 <Callout kind="note">
-GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs] crate to fix this issue.
+  GUI apps on macOS and Linux do not inherit the `$PATH` from your shell
+  dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's
+  [fix-path-env-rs] crate to fix this issue.
 </Callout>
 
 <TauriBuild />
@@ -58,7 +59,10 @@ AppImage is a distribution format that does not rely on the system installed pac
 AppImages are convenient, simplifying the distribution process if you cannot make a package targeting the distribution's package manager. Still, you should carefully use it as the file size grows from the 2-6MBs range to 70+MBs.
 
 <Callout kind="caution">
-If your app plays audio/video you need to enable `tauri.conf.json > tauri > bundle > appimage > bundleMediaFramework`. This will increase the size of the AppImage bundle to include addition `gstreamer` files needed for media playback. This flag is currently only supported on Ubuntu build systems.
+  If your app plays audio/video you need to enable `tauri.conf.json > tauri >
+  bundle > appimage > bundleMediaFramework`. This will increase the size of the
+  AppImage bundle to include addition `gstreamer` files needed for media
+  playback. This flag is currently only supported on Ubuntu build systems.
 </Callout>
 
 [resource]: resources.md
