@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1
+title: Building
+sidebar_position: 7
 ---
 
 # Introduction

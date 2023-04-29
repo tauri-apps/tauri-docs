@@ -1,4 +1,5 @@
 ---
+title: macOS Bundle
 sidebar_position: 3
 ---
 

@@ -1,4 +1,5 @@
 ---
+title: Embedding Additional Files
 sidebar_position: 8
 ---
 

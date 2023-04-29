@@ -1,4 +1,5 @@
 ---
+title: Reducing App Size
 sidebar_position: 6
 ---
 
