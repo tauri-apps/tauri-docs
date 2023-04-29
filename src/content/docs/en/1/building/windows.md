@@ -1,5 +1,6 @@
 ---
 title: Windows Installer
+position: 1
 ---
 
 import Command from '@theme/Command'

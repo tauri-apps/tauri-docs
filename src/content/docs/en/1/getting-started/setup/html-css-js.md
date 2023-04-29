@@ -1,16 +1,15 @@
 ---
-description: Build a Tauri app using HTML, CSS, and JavaScript using either Node or Cargo
-pagination_next: guides/development/development-cycle
-sidebar_position: 1
+title: HTML, CSS and JavaScript
+position: 1
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/html5-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
-import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
+import CreateTauriAppGuide from './\_fragments/\_create-tauri-app-guide.mdx'
 import Command from '@theme/Command'
 
 # HTML, CSS, and JavaScript
@@ -54,16 +53,16 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{
+destDirExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-  devPathExplination={{
+devPathExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
 />

@@ -1,3 +1,7 @@
+---
+title: Window Customization
+---
+
 # Window Customization
 
 Tauri provides lots of options for customizing the look and feel of your app's window. You can create custom titlebars, have transparent windows, enforce size constraints, and more.
@@ -88,6 +92,7 @@ document
 ### tauri.conf.json
 
 To make calls to `appWindow` work don't forget to add [window](../../api/js/window.md) permissions in `tauri.conf.json` file:
+
 ```json
 "tauri": {
   "allowList": {
@@ -105,7 +110,7 @@ To make calls to `appWindow` work don't forget to add [window](../../api/js/wind
       }
   }
   ...
-  
+
   "windows": [
     {
       "decorations": false,

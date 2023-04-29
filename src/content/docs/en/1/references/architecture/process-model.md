@@ -1,5 +1,6 @@
 ---
-sidebar_position: 2
+title: Process Model
+position: 1
 ---
 
 # Process Model

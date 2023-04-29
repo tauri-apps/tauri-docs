@@ -16,31 +16,47 @@ let { entries, baseUrl, dropdown } = Astro.props
 // Sort entries
 // Pass to related pages node somehow
 
-let result: any[] = []
-let level = { result }
+let tree: any[] = []
+let initialValue: { [key: string]: any } = { tree }
 
 entries.forEach((entry: CollectionEntry<'docs'>) => {
-  entry.slug.split('/').reduce((r, name) => {
-    if (!r[name]) {
-      r[name] = { result: [] }
-      r.result.push({ ...entry, children: r[name].result })
+  entry.slug.split('/').reduce((acc, value) => {
+    if (!acc[value]) {
+      acc[value] = { tree: [] }
+      acc.tree.push({ ...entry, children: acc[value].tree })
+      // acc.tree.sort(function (
+      //   a: CollectionEntry<'docs'>,
+      //   b: CollectionEntry<'docs'>
+      // ) {
+      //   // Sort by position
+      //   if (a.data.position) {
+      //     return a.data.position - (b.data.position || 100)
+      //   }
+      //   // Sort by title
+      //   if (a.data.title) {
+      //     return a.data.title.localeCompare(b.data.title || b.slug)
+      //   }
+      //   // Sort by slug
+      //   return a.slug.localeCompare(b.data.title || b.slug)
+      // })
     }
 
-    return r[name]
-  }, level)
+    return acc[value]
+  }, initialValue)
 })
 
-// entries = entries.sort(function (
-//   a: CollectionEntry<'docs'>,
-//   b: CollectionEntry<'docs'>
-// ) {
-//   if (a.data.title) {
-//     return a.data.title.localeCompare(b.data.title || b.slug)
-//   }
-//   return a.slug.localeCompare(b.data.title || b.slug)
-// })
-
-// if children, then render self again
+tree.sort(function (a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) {
+  // Sort by position
+  if (a.data.position) {
+    return a.data.position - (b.data.position || 100)
+  }
+  // Sort by title
+  if (a.data.title) {
+    return a.data.title.localeCompare(b.data.title || b.slug)
+  }
+  // Sort by slug
+  return a.slug.localeCompare(b.data.title || b.slug)
+})
 ---
 
 {
@@ -52,7 +68,7 @@ entries.forEach((entry: CollectionEntry<'docs'>) => {
         class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
       >
         <ul>
-          {result.map((entry) => (
+          {tree.map((entry) => (
             <RelatedPagesNode entry={entry} baseUrl={baseUrl} />
           ))}
         </ul>
@@ -65,7 +81,7 @@ entries.forEach((entry: CollectionEntry<'docs'>) => {
     <ul>
       <li class="small-caps">{t('layout.related-pages')}</li>
       {/* @ts-ignore */}
-      {result.map((entry) => (
+      {tree.map((entry) => (
         <RelatedPagesNode entry={entry} baseUrl={baseUrl} />
       ))}
     </ul>

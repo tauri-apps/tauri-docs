@@ -1,3 +1,7 @@
+---
+title: Isolation
+---
+
 # Isolation Pattern
 
 The Isolation pattern is a way to intercept and modify Tauri API messages sent by the frontend before they get to Tauri Core, all with JavaScript. The secure JavaScript code that is injected by the Isolation pattern is referred to as the Isolation application.

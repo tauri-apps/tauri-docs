@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+title: WebdriverIO
+position: 3
 ---
 
 import Tabs from '@theme/Tabs'

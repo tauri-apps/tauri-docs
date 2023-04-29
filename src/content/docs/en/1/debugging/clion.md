@@ -1,3 +1,8 @@
+---
+title: Debugging in CLion
+position: 2
+---
+
 # Debugging in CLion
 
 In this guide, we’ll be setting up IntelliJ CLion for debugging the [Core Process of your Tauri app].
@@ -8,7 +13,7 @@ You need to install the [IntelliJ Rust Plugin](https://plugins.jetbrains.com/plu
 
 ## Top-level Cargo Workspace
 
-By default Tauri places the Rust project in a subdirectory called `src-tauri`. CLion may not recognize Cargo projects that are not at the top-level, in which case you should be able to attach it by using `Cargo -> Attach Cargo project`. If this option does not work, you will need to create a top-level Workspace that just points to the main `Cargo.toml` file: 
+By default Tauri places the Rust project in a subdirectory called `src-tauri`. CLion may not recognize Cargo projects that are not at the top-level, in which case you should be able to attach it by using `Cargo -> Attach Cargo project`. If this option does not work, you will need to create a top-level Workspace that just points to the main `Cargo.toml` file:
 
 ```toml title=Cargo.toml
 [workspace]

@@ -1,4 +1,8 @@
-# Multiwindow
+---
+title: Multi-Window
+---
+
+# Multi-Window
 
 Manage multiple windows on a single application.
 

@@ -1,3 +1,7 @@
+---
+title: Commands
+---
+
 # Calling Rust from the frontend
 
 Tauri provides a simple yet powerful `command` system for calling Rust functions from your web app.

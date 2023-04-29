@@ -1,6 +1,6 @@
 ---
-sidebar_position: 1
 title: Introduction
+position: 1
 ---
 
 :::caution Currently in pre-alpha

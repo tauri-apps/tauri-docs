@@ -1,5 +1,6 @@
 ---
-sidebar_position: 5
+title: Updater
+position: 5
 ---
 
 import Tabs from '@theme/Tabs'

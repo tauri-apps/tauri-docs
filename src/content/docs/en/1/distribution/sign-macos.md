@@ -1,6 +1,6 @@
 ---
-sidebar_label: macOS Code Signing
-sidebar_position: 4
+title: macOS Code Signing
+position: 3
 ---
 
 # Code Signing macOS Applications

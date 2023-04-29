@@ -1,5 +1,6 @@
 ---
-title: Architecture
+title: Tauri Architecture
+position: 1
 ---
 
 import { colors } from '@theme/Mermaid'

@@ -1,3 +1,7 @@
+---
+title: Brownfield
+---
+
 # Brownfield Pattern
 
 _**This is the default pattern.**_

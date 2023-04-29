@@ -1,3 +1,8 @@
+---
+title: Continuous Integration
+position: 3
+---
+
 # Continuous Integration
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with

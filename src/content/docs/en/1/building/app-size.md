@@ -1,5 +1,6 @@
 ---
 title: Reducing App Size
+position: 5
 ---
 
 # Reducing App Size

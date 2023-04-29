@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+title: Updating Dependencies
+position: 2
 ---
 
 import Tabs from '@theme/Tabs'

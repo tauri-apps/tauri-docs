@@ -1,5 +1,6 @@
 ---
-sidebar_position: 2
+title: Development Cycle
+position: 2
 ---
 
 import Command from '@theme/Command'

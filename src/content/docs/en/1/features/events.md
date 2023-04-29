@@ -1,3 +1,7 @@
+---
+title: Events
+---
+
 # Events
 
 The Tauri event system is a multi-producer multi-consumer communication primitive that allows message passing between the frontend and the backend.

@@ -1,3 +1,7 @@
+---
+title: Window Menu
+---
+
 # Window Menu
 
 Native application menus can be attached to a window.

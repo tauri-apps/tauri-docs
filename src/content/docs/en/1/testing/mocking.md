@@ -1,3 +1,7 @@
+---
+title: Mocking Tauri APIs
+---
+
 # Mocking Tauri APIs
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
@@ -94,14 +98,14 @@ To mock IPC requests to a sidecar or shell command you need to grab the ID of th
 ```js
 mockIPC(async (cmd, args) => {
   if (args.message.cmd === 'execute') {
-    const eventCallbackId = `_${args.message.onEventFn}`;
-    const eventEmitter = window[eventCallbackId];
+    const eventCallbackId = `_${args.message.onEventFn}`
+    const eventEmitter = window[eventCallbackId]
 
     // 'Stdout' event can be called multiple times
     eventEmitter({
       event: 'Stdout',
       payload: 'some data sent from the process',
-    });
+    })
 
     // 'Terminated' event must be called at the end to resolve the promise
     eventEmitter({
@@ -110,9 +114,9 @@ mockIPC(async (cmd, args) => {
         code: 0,
         signal: 'kill',
       },
-    });
+    })
   }
-});
+})
 ```
 
 ## Windows
@@ -127,29 +131,29 @@ You can use the [`mockWindows()`] method to create fake window labels. The first
 :::
 
 ```js
-import { beforeAll, expect, test } from 'vitest';
-import { randomFillSync } from 'crypto';
+import { beforeAll, expect, test } from 'vitest'
+import { randomFillSync } from 'crypto'
 
-import { mockWindows } from '@tauri-apps/api/mocks';
+import { mockWindows } from '@tauri-apps/api/mocks'
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
   //@ts-ignore
   window.crypto = {
     getRandomValues: function (buffer) {
-      return randomFillSync(buffer);
+      return randomFillSync(buffer)
     },
   }
-});
+})
 
 test('invoke', async () => {
-  mockWindows('main', 'second', 'third');
+  mockWindows('main', 'second', 'third')
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/window');
+  const { getCurrent, getAll } = await import('@tauri-apps/api/window')
 
-  expect(getCurrent()).toHaveProperty('label', 'main');
-  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
-});
+  expect(getCurrent()).toHaveProperty('label', 'main')
+  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third'])
+})
 ```
 
 [`@tauri-apps/api/mocks`]: ../../api/js/mocks.md

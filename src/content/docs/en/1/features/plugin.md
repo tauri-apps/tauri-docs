@@ -1,3 +1,7 @@
+---
+title: Tauri Plugins
+---
+
 import Command from '@theme/Command'
 
 # Tauri Plugins

@@ -1,3 +1,8 @@
+---
+title: Debugging in VS Code
+position: 3
+---
+
 # Debugging in VS Code
 
 This guide will walk you through setting up VS Code for debugging the [Core Process of your Tauri app].

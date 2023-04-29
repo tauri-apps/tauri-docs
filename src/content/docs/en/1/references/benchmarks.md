@@ -1,5 +1,6 @@
 ---
-description: View the current benchmarks of Tauri for binary size, memory usage, and other metrics.
+title: Benchmarks
+position: 5
 ---
 
 # Benchmarks

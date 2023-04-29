@@ -1,5 +1,6 @@
 ---
 title: Embedding External Binaries
+position: 6
 ---
 
 # Embedding External Binaries

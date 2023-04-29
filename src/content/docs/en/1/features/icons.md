@@ -1,3 +1,7 @@
+---
+title: Icons
+---
+
 import Command from '@theme/Command'
 
 # Icons

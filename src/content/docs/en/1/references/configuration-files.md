@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+title: Configuration Files
+position: 3
 ---
 
 # Configuration Files

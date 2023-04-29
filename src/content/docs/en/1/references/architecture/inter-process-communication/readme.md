@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+title: Inter-Process Communication
+position: 3
 ---
 
 # Inter-Process Communication

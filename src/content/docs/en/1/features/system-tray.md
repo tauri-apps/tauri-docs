@@ -1,3 +1,7 @@
+---
+title: System Tray
+---
+
 # System Tray
 
 Native application system tray.

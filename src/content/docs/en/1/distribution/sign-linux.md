@@ -1,6 +1,6 @@
 ---
-sidebar_label: Linux Code Signing
-sidebar_position: 3
+title: Linux Code Signing
+position: 2
 ---
 
 # Code Signing Linux packages

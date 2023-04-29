@@ -2,7 +2,11 @@ import { astroI18n } from 'astro-i18n'
 import { getCollection, getEntryBySlug } from 'astro:content'
 import type { CollectionKey } from './content/config'
 
-export async function getI18nCollection(collection: CollectionKey, lang: LangCode, slugStartsWith?: string) {
+export async function getI18nCollection(
+  collection: CollectionKey,
+  lang: LangCode,
+  slugStartsWith?: string
+) {
   // Get entries from a collection for the default lang
   const defaultLangCollection = await getCollection(
     collection,
@@ -10,7 +14,7 @@ export async function getI18nCollection(collection: CollectionKey, lang: LangCod
       // @ts-ignore
       slug.startsWith(
         `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
-      )
+      ) && !slug.split('/').pop().startsWith('_')
   )
 
   // Iterate through each of the entries for the default lang
@@ -23,10 +27,10 @@ export async function getI18nCollection(collection: CollectionKey, lang: LangCod
       // If we're getting for the default lang then return the entry
       if (lang === astroI18n.defaultLangCode) {
         return {
-            // @ts-ignore
-            ...entry,
-            slug: baseSlug
-          }
+          // @ts-ignore
+          ...entry,
+          slug: baseSlug,
+        }
       }
 
       // Attempt to load the localized entry

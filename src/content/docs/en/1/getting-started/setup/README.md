@@ -1,5 +1,6 @@
 ---
 title: Quick Start
+position: 2
 ---
 
 import DocCardList from '@theme/DocCardList'

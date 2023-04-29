@@ -1,15 +1,14 @@
 ---
-description: Build a Tauri app using Next.js as the frontend build tool
-pagination_next: guides/development/development-cycle
-sidebar_position: 2
+title: Next.js
+position: 2
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/nextjs-light.svg
   doc_card_image_dark: /img/guides/getting-started/setup/nextjs-dark.svg
 ---
 
-import TauriInit from './_fragments/_tauri-init.mdx'
-import Commands from './_fragments/_commands.mdx'
-import Intro from './_fragments/_intro.mdx'
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import Command, { InstallTauriApi } from '@theme/Command'
@@ -115,14 +114,14 @@ You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Si
 ## Create the Rust Project
 
 <TauriInit
-  destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }}
-  devPathExplination={{
+destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }}
+devPathExplination={{
     __html: 'Use <code>http://localhost:3000</code> for this value.',
   }}
-  beforeBuildCommandExplination={{
+beforeBuildCommandExplination={{
     __html: 'Use <code>npm run build && npm run export</code> for this value.',
   }}
-  beforeDevCommandExplination={{
+beforeDevCommandExplination={{
     __html: 'Use <code>npm run dev</code> for this value.',
   }}
 />

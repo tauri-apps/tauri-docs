@@ -1,4 +1,8 @@
-# Splashscreen
+---
+title: Splash Screen
+---
+
+# Splash Screen
 
 If your webpage could take some time to load, or if you need to run an initialization procedure in Rust before displaying your main window, a splashscreen could improve the loading experience for the user.
 

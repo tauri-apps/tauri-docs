@@ -1,5 +1,6 @@
 ---
 title: Embedding Additional Files
+position: 7
 ---
 
 # Embedding Additional Files

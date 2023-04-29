@@ -1,3 +1,8 @@
+---
+title: Application Debugging
+position: 1
+---
+
 import Command from '@theme/Command'
 
 # Application Debugging
