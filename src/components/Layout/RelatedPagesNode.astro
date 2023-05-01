@@ -3,47 +3,59 @@ import type { CollectionEntry, getCollection } from 'astro:content'
 import { l } from 'astro-i18n'
 
 interface Props<C extends Parameters<typeof getCollection>[0]> {
-  entry: CollectionEntry<C>
+  entries: CollectionEntry<C>[]
   baseUrl?: string
 }
 
-const { entry, baseUrl } = Astro.props
+const { entries, baseUrl } = Astro.props
 
-let title = entry.slug
-if (entry.data.title) {
-  title = entry.data.title
-}
+// TODO: Sort the entries
+// TODO: Add back in formatting for currently selected page
 
-let url = entry.slug
-if (baseUrl) {
-  url = `${baseUrl}/${url}`
-}
-if (!url.startsWith('/')) {
-  url = '/' + url
-}
+// entries.forEach((entry) => console.log(entry.slug))
 
-function trimSlash(url: string) {
-  return url.replace(/^\/+|\/+$/g, '')
-}
+// let title = entry.slug
+// if (entry.data.title) {
+//   title = entry.data.title
+// }
+
+// let url = entry.slug
+// if (baseUrl) {
+//   url = `${baseUrl}/${url}`
+// }
+// if (!url.startsWith('/')) {
+//   url = '/' + url
+// }
+
+// function trimSlash(url: string) {
+//   return url.replace(/^\/+|\/+$/g, '')
+// }
+
+// function parseUrl(url: string) {
+//   return string
+// }
 ---
 
-<li>
-  <a
-    href={l(url)}
-    class:list={[
-      'list-item',
-      { 'list-item-active': trimSlash(url) === trimSlash(Astro.url.pathname) },
-    ]}
-  >
-    {title}
-  </a>
-  {
-    entry.children && (
-      <ul class="pl-2">
-        {entry.children.map((child: any) => (
-          <Astro.self entry={child} baseUrl={baseUrl} />
-        ))}
-      </ul>
-    )
-  }
-</li>
+{
+  entries.map((entry) => (
+    <li>
+      <a
+        href={l(entry.slug)}
+        class:list={[
+          'list-item',
+          // {
+          //   'list-item-active':
+          //     trimSlash(url) === trimSlash(Astro.url.pathname),
+          // },
+        ]}
+      >
+        {entry.data.title || entry.slug}
+      </a>
+      {entry._children && (
+        <ul class="pl-2">
+          <Astro.self entries={entry._children} baseUrl={baseUrl} />
+        </ul>
+      )}
+    </li>
+  ))
+}
