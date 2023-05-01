@@ -1,6 +1,6 @@
 ---
 title: Frequently Asked Questions
-position: 10
+position: 9
 ---
 
 ## How can I use unpublished Tauri changes?

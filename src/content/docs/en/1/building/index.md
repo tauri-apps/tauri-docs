@@ -1,5 +1,6 @@
 ---
 title: Building
+position: 5
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Grand Title
+title: Docs
 position: 1
 ---
 

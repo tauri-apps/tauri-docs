@@ -9,44 +9,48 @@ interface Props<C extends Parameters<typeof getCollection>[0]> {
 
 const { entries, baseUrl } = Astro.props
 
-// TODO: Sort the entries
-// TODO: Add back in formatting for currently selected page
+entries.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
+  if (a.data.position) {
+    if (b.data.position) {
+      return a.data.position - b.data.position
+    }
+    // Sort A first
+    return -1
+  }
 
-// entries.forEach((entry) => console.log(entry.slug))
+  // Sort on title
+  if (a.data.title) {
+    return a.data.title.localeCompare(b.data.title || b.slug)
+  }
 
-// let title = entry.slug
-// if (entry.data.title) {
-//   title = entry.data.title
-// }
+  // Sort on slug
+  return a.slug.localeCompare(b.data.title || b.slug)
+})
 
-// let url = entry.slug
-// if (baseUrl) {
-//   url = `${baseUrl}/${url}`
-// }
-// if (!url.startsWith('/')) {
-//   url = '/' + url
-// }
+function addBaseUrl(url: string) {
+  if (baseUrl) {
+    return `/${baseUrl}/${url.replace(/^\\+$/g, '')}`
+  }
+  return url
+}
 
-// function trimSlash(url: string) {
-//   return url.replace(/^\/+|\/+$/g, '')
-// }
-
-// function parseUrl(url: string) {
-//   return string
-// }
+function trimSlashes(url: string) {
+  return url.replace(/^\/+|\/+$/g, '')
+}
 ---
 
 {
-  entries.map((entry) => (
+  entries.map((entry: any) => (
     <li>
       <a
-        href={l(entry.slug)}
+        href={addBaseUrl(entry.slug)}
         class:list={[
           'list-item',
-          // {
-          //   'list-item-active':
-          //     trimSlash(url) === trimSlash(Astro.url.pathname),
-          // },
+          {
+            'list-item-active':
+              trimSlashes(addBaseUrl(entry.slug)) ===
+              trimSlashes(Astro.url.pathname),
+          },
         ]}
       >
         {entry.data.title || entry.slug}

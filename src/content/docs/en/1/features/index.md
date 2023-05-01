@@ -1,5 +1,6 @@
 ---
 title: Features
+position: 7
 ---
 
 # Features
