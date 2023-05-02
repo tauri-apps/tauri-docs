@@ -264,7 +264,7 @@ Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` e
 
 ## Internationalization
 
-The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations. You can specify which versions to include using the [`tauri.bundle.windows.nsis.languages`](../../api/config.md#nsisconfig.languages) property.
+The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations. You can specify which versions to include using the [`tauri.bundle.windows.nsis.languages`](../../api/config.md#nsisconfig.languages) property. A list of languages supported by NSIS is available in [the NSIS GitHub project]. There are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo].
 
 The WiX Installer is built using the `en-US` language by default. Internationalization (i18n) can be configured using the [`tauri.bundle.windows.wix.language`] property, defining the languages Tauri should build an installer against. You can find the language names to use in the Language-Culture column on [Microsoft's website][localizing the error and actiontext tables].
 
@@ -369,3 +369,6 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 [`tauri.bundle.windows.wix.language`]: ../../api/config.md#wixconfig.language
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
+[the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files
+[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages
+[tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
