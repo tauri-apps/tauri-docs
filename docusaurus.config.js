@@ -270,12 +270,12 @@ async function siteConfig() {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      // announcementBar: {
-      //   content:
-      //     "<b>Give your feedback in the <a id='announcement-link' href='https://tripetto.app/run/7NCT3QTC00'>Tauri 2022 Community Survey</a>!</b>",
-      //   backgroundColor: 'var(--ifm-color-primary)',
-      //   textColor: 'var(--ifm-button-color)',
-      // },
+      announcementBar: {
+        content:
+          "<b>🚀 <a id='announcement-link' href='/blog/2023/05/03/tauri-1-3'>Tauri 1.3</a> has launched!</b>",
+        backgroundColor: 'var(--ifm-color-primary)',
+        textColor: 'var(--ifm-button-color)',
+      },
       navbar: {
         hideOnScroll: false,
         logo: {
