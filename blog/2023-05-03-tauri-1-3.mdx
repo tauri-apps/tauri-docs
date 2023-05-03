@@ -70,7 +70,7 @@ The Tauri CLI can now create Windows application installers using NSIS. This new
 
 The internal audit was performed by [@tweidinger](https://github.com/tweidinger) and [@chippers](https://github.com/chippers), who are involved in most security topics at the Tauri project. It was performed during paid time at [CrabNebula](https://crabnebula.dev/?utm_campaign=tauri-1-3&utm_source=tauri) and we are grateful to be able to spend parts of our work time contributing to the open source project and making it a more secure environment :heart:.
 
-We manually audited over 45 [PRs](https://github.com/tauri-apps/tauri/pull/5815). Some PRs (eg. [#5544](https://github.com/tauri-apps/tauri/pull/5544)) lead us to diving into very old RFCs ([RFC6068] and [RFC3966]), [NSIS documentation] (eg. [#6039](https://github.com/tauri-apps/tauri/pull/6039)) and many other external resources. We documented questions, notes and findings in markdown files and shared these notes with the responsible developers to ensure appropriate fixes.
+We manually audited over 45 [PRs](https://github.com/tauri-apps/tauri/pull/5815). Some PRs (e.g. [#5544](https://github.com/tauri-apps/tauri/pull/5544)) lead us to diving into very old RFCs ([RFC6068] and [RFC3966]), [NSIS documentation] (e.g. [#6039](https://github.com/tauri-apps/tauri/pull/6039)) and many other external resources. We documented questions, notes and findings in markdown files and shared these notes with the responsible developers to ensure appropriate fixes.
 
 The changes from a security perspective and findings of the audit are summarized in the following sub-sections.
 
@@ -80,15 +80,15 @@ The changes from a security perspective and findings of the audit are summarized
 
 ### External API Access [#5918](https://github.com/tauri-apps/tauri/pull/5918)
 
-This was by far the most impactful and time consuming PR we investigated. This PR introduces a streamlined way for applications to allow external domains access to the Tauri IPC layer[^1] and usage majorly impacts the security model of a Tauri application. Security impact[^4] depends on exposure[^2] of the feature, enabled Tauri commands and the capabilities of an adversary[^3].
+This was by far the most impactful and time consuming PR we investigated. This PR introduces a streamlined way for applications to allow external domains access to the Tauri IPC layer[^1] and usage majorly impacts the security model of a Tauri application. Security impact[^2] depends on exposure[^3] of the feature, enabled Tauri commands and the capabilities of an adversary[^4].
 
 We consider this new feature similar to driving a very fast race car without any safety features enabled and urge developers to _very very carefully_ consider if they really need this exposure.
 
-Before this addition was merged, a semi-known vulnerability was (ab)used by application developers to achieve the same functionality. To make the whole community aware of this risk we published a [security advisory](https://github.com/tauri-apps/tauri/security/advisories/GHSA-4wm2-cwcf-wwvp) to give a heads up. Applications are affected if they allow users to navigate to arbitrary domains or have an open redirect vulnerability[^5]. If you implement such a feature you should update to the 1.3 Release as fast as possible.
+Before this addition was merged, a semi-known vulnerability was (ab)used by application developers to achieve the same functionality. To make the whole community aware of this risk we published a [security advisory](https://github.com/tauri-apps/tauri/security/advisories/GHSA-4wm2-cwcf-wwvp) to give a heads up. Applications are affected if they allow users to navigate to arbitrary domains or have an open redirect vulnerability[^5]. If you implement such a feature you should update to the 1.3 release as fast as possible.
 
 The initial PR changes allowed wildcards (`https://*`) and glob patterns, which we believe are helpful but shouldn't be exposed to all Tauri developers. We concluded that the risk of over-exposure, like the allow list toggle to enable all Tauri API endpoints, does not justify this permissive exposure. The final implementation allows to configure specified _(sub)domains_[^6] (eg: `example.com`) to gain remote access to the Tauri IPC.
 
-The few edge use cases, which require wildcards or even further exposure can be implemented by custom rust code which is able to dynamically modify the IPC access. We now expose this remote IPC scope in a similar fashion as the `fs` or `http` scope.
+The few edge use cases, which require wildcards or even further exposure can be implemented by custom Rust code which is able to dynamically modify the IPC access. We now expose this remote IPC scope in a similar fashion as the `fs` or `http` scope.
 
 Assuming a **fully trusted** web service on `https://trusted.example` it is now possible to configure the security scope to allow certain windows or even plugins access to custom implemented commands and optionally the inbuilt Tauri API:
 
@@ -108,9 +108,10 @@ Assuming a **fully trusted** web service on `https://trusted.example` it is now 
 Shared domains **MUST NOT** be used for this in any circumstances. We do not limit access to paths or specific files. You can only scope with **trusted** _(sub)domains_[^6]. Another very risky catch is that developers must be sure that the domain ownership does not change over the lifetime of the application. Domain takeover could lead to compromised user devices.
 
 [^1]: _Inter-Process Communication_, in this instance the communication between the Tauri core and the frontend code run inside the webview.
-[^2]: _Exposure_: Describes the exposed scope items of this feature to either an user or adversary. It is possible to restrict exposure to only certain domains, windows or only to custom implemented commands.
-[^3]: _Adversary Capabilities_: Which kind of privileges has the adversary? Can range from tricking user into entering malicious input to code execution in the frontend via cross-site-scripting (which is the highest privilege for frontend code in our case). Common capabilities are described in the [OWASP documentation](https://owasp.org/www-community/attacks/).
-[^4]: _impact_: What is the theoretical biggest impact of this threat combination? This highly depends on correct scoping of Tauri API endpoints and hardening of custom implemented Tauri commands.
+[^2]: _Security Impact_: What is the theoretical biggest impact of this threat combination? This highly depends on correct scoping of Tauri API endpoints and hardening of custom implemented Tauri commands.
+[^3]: _Exposure_: Describes the exposed scope items of this feature to either an user or adversary. It is possible to restrict exposure to only certain domains, windows or only to custom implemented commands.
+[^4]: _Adversary Capabilities_: Which kind of privileges has the adversary? Can range from tricking user into entering malicious input to code execution in the frontend via cross-site-scripting (which is the highest privilege for frontend code in our case). Common capabilities are described in the [OWASP documentation](https://owasp.org/www-community/attacks/).
+
 [^5]: _An application can be exploited if it parses user input for making an URL redirection decision, which is then not properly validated._ [Wikipedia Source](https://en.wikipedia.org/wiki/Open_redirect)
 [^6]: see the [Reqwest reference](https://docs.rs/reqwest/latest/reqwest/struct.Url.html#method.domain)
 
