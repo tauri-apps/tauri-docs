@@ -13,9 +13,10 @@ import Command from '@theme/Command'
 Usage: cargo-tauri info [OPTIONS]
 
 Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help information
-  -V, --version     Print version information
+      --interactive  Interactive mode to apply automatic fixes
+  -v, --verbose...   Enables verbose logging
+  -h, --help         Print help information
+  -V, --version      Print version information
 ```
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
@@ -100,6 +101,7 @@ Options:
       --release                   Run the code in release mode
       --no-watch                  Disable the file watcher
       --no-dev-server             Disable the dev server for static files
+      --port <PORT>               Specify port for the dev server for static files. Defaults to 1430 Can also be set using `TAURI_DEV_SERVER_PORT` env var
   -h, --help                      Print help information
   -V, --version                   Print version information
 ```
@@ -155,6 +157,9 @@ Options:
   -c, --config <CONFIG>
           JSON string or path to JSON file to merge with tauri.conf.json
 
+      --ci
+          Skip prompting for values
+
   -h, --help
           Print help information (use `-h` for a summary)
 
@@ -181,6 +186,7 @@ Arguments:
 Options:
   -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
   -v, --verbose...       Enables verbose logging
+  -p, --png <PNG>        Custom PNG icon sizes to generate. When set, the default icons are not generated
   -h, --help             Print help information
   -V, --version          Print version information
 ```
