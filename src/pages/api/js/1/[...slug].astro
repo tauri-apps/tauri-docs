@@ -4,7 +4,8 @@ import { getI18nCollection } from '@src/utils'
 import { astroI18n } from 'astro-i18n'
 
 export async function getStaticPaths() {
-  const collection = await getI18nCollection('api', astroI18n.langCode)
+  const collection = await getI18nCollection('api-js-1', astroI18n.langCode)
+  collection.forEach((entry) => console.log(entry.slug))
 
   return collection.map((entry) => ({
     params: {
@@ -24,7 +25,7 @@ const { Content, headings } = await entry.render()
 <Layout
   title="test docs post"
   sidebarEntries={collection}
-  baseUrl="api"
+  baseUrl="api/js/1"
   headings={headings}
 >
   <div class="prose">
