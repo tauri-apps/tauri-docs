@@ -1,4 +1,4 @@
-import Command from '@theme/Command'
+import Command from '@src/components/Command.astro'
 
 To build and bundle your Tauri application into a single executable simply run the following command:
 

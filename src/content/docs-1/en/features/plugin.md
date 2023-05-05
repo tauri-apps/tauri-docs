@@ -2,7 +2,7 @@
 title: Tauri Plugins
 ---
 
-import Command from '@theme/Command'
+import Command from '@src/components/Command.astro'
 
 # Tauri Plugins
 

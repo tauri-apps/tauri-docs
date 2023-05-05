@@ -4,8 +4,13 @@ interface Props {
 }
 
 const { tabTitles } = Astro.props
+
+if (!tabTitles) {
+  throw Error(`'tabTitles' prop not passed for ${Astro.url.pathname}`)
+}
+
 if (!tabTitles.every((title) => Astro.slots.has(title))) {
-  throw Error('Not all tabs listed are in the Tabs body')
+  throw Error(`Not all tabs listed are in the Tabs body for ${Astro.url.pathname}`)
 }
 
 const slots = await Promise.all(

@@ -1,0 +1,22 @@
+---
+import Tabs from './Tabs.astro'
+const types = [
+  { value: 'npm', content: 'npm run tauri ' },
+  { value: 'Yarn', content: 'yarn tauri ' },
+  { value: 'pnpm', content: 'pnpm tauri ' },
+  { value: 'Cargo', content: 'cargo tauri ' },
+]
+---
+<div>WIP</div>
+
+<!-- <Tabs groupId="package-manager" values={types}>
+      {types.map((type) => (
+        <TabItem value={type.value}>
+          <CodeBlock className="language-shell" language="shell">
+            {type.value !== 'npm'
+              ? type.content + name
+              : insertDashDashBeforeOption(type.content, name)}
+          </CodeBlock>
+        </TabItem>
+      ))}
+    </Tabs> -->
