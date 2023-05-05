@@ -5,11 +5,10 @@ import { astroI18n } from 'astro-i18n'
 
 export async function getStaticPaths() {
   const collection = await getI18nCollection('api-js-1', astroI18n.langCode)
-  collection.forEach((entry) => console.log(entry.slug))
 
   return collection.map((entry) => ({
     params: {
-      slug: entry.slug,
+      slug: entry.slug === '' ? undefined : entry.slug,
     },
     props: {
       entry,

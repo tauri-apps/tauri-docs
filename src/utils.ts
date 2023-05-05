@@ -13,7 +13,7 @@ export async function getI18nCollection(
     ({ slug }) =>
       // @ts-ignore
       slug.startsWith(
-        `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
+        `${astroI18n.defaultLangCode}${slugStartsWith ? ('/' + slugStartsWith) : ''}`
       ) && !slug.split('/').some((element) => element.startsWith('_'))
   )
 
