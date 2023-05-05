@@ -14,7 +14,7 @@ export async function getI18nCollection(
       // @ts-ignore
       slug.startsWith(
         `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
-      ) && !slug.split('/').pop().startsWith('_')
+      ) && !slug.split('/').some((element) => element.startsWith('_'))
   )
 
   // Iterate through each of the entries for the default lang

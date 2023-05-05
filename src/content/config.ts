@@ -7,7 +7,7 @@ const metadataSchema = {
   i18n_ready: z.boolean().optional(),
 }
 
-const docs = defineCollection({
+const docsV1 = defineCollection({
   schema: z.object({
     ...metadataSchema,
   }),
@@ -17,7 +17,7 @@ const api = defineCollection({})
 
 export const collections = {
   api,
-  docs,
+  "docs-v1": docsV1,
 }
 
 export type CollectionKey = keyof typeof collections
