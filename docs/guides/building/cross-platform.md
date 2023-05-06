@@ -161,13 +161,13 @@ First, make sure all your Tauri dependencies are at least version 1.3, check out
 
 #### Install NSIS
 
-Some Linux distributions have nsis available in their repositories, for example on Ubuntu you can install NSIS by running this command:
+Some Linux distributions have NSIS available in their repositories, for example on Ubuntu you can install NSIS by running this command:
 
 ```sh title=Ubuntu
 sudo apt install nsis
 ```
 
-But on many other distributions you have to compile nsis yourself or download Stubs and Plugins manually that weren't included in the distro's binary package. Fedora for example only provides the binary but not the Stubs and Plugins:
+But on many other distributions you have to compile NSIS yourself or download Stubs and Plugins manually that weren't included in the distro's binary package. Fedora for example only provides the binary but not the Stubs and Plugins:
 
 ```sh title=Fedora
 sudo dnf in mingw64-nsis
@@ -177,7 +177,7 @@ sudo cp nsis-3.08/Stubs/* /usr/share/nsis/Stubs/
 sudo cp -r nsis-3.08/Stubs/** /usr/share/nsis/Plugins/
 ```
 
-On macOS you will need [Homebrew] to install nsis:
+On macOS you will need [Homebrew] to install NSIS:
 
 ```sh title=macOS
 brew install nsis
