@@ -1,9 +1,9 @@
-const http = require('https')
+import { get } from 'https'
 
 ;(async () => {
   for (let i = 0; i < 5; i++) {
     const res = await new Promise((resolve, reject) =>
-      http.get(
+      get(
         `${process.env.MEILISEARCH_HOST_URL}/tasks?statuses=enqueued,processing`,
         {
           headers: {
