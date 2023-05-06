@@ -174,7 +174,7 @@ sudo dnf in mingw64-nsis
 wget https://github.com/tauri-apps/binary-releases/releases/download/nsis-3/nsis-3.zip
 unzip nsis-3.zip
 sudo cp nsis-3.08/Stubs/* /usr/share/nsis/Stubs/
-sudo cp -r nsis-3.08/Stubs/** /usr/share/nsis/Plugins/
+sudo cp -r nsis-3.08/Plugins/** /usr/share/nsis/Plugins/
 ```
 
 On macOS you will need [Homebrew] to install NSIS:
