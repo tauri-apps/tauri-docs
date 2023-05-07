@@ -213,13 +213,11 @@ To get the Windows SDKs required by the msvc target we will use the [xwin] proje
 cargo install xwin
 ```
 
-Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `xwin` directory in the Home directory.
+Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `.xwin` directory in the Home directory.
 
 ```sh
-xwin --accept-license splat --disable-symlinks --output ~/xwin
+xwin splat --disable-symlinks --output ~/.xwin
 ```
-
-If you want to read Microsoft's license upon installation, you can run the same command without the `--accept-license` flag.
 
 Now, to make the Rust compiler use these files, you first have to create a `.cargo` directory in your project and create a `config.toml` file in it with the following content. Make sure to change the paths accordingly.
 
@@ -227,9 +225,9 @@ Now, to make the Rust compiler use these files, you first have to create a `.car
 [target.x86_64-pc-windows-msvc]
 linker = "lld"
 rustflags = [
-  "-Lnative=/home/username/xwin/crt/lib/x86_64",
-  "-Lnative=/home/username/xwin/sdk/lib/um/x86_64",
-  "-Lnative=/home/username/xwin/sdk/lib/ucrt/x86_64"
+  "-Lnative=/home/username/.xwin/crt/lib/x86_64",
+  "-Lnative=/home/username/.xwin/sdk/lib/um/x86_64",
+  "-Lnative=/home/username/.xwin/sdk/lib/ucrt/x86_64"
 ]
 ```
 
