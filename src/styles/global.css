@@ -19,10 +19,10 @@
     --color-primary: 36 200 219;
     --color-accent: 255 194 49;
 
-    --color-info: 46 138 149;
-    --color-success: 42 111 57;
-    --color-caution: 167 130 43;
-    --color-danger: 178 54 37;
+    --color-info: 36 200 219;
+    --color-success: 36 219 76;
+    --color-caution: 255 194 49;
+    --color-danger: 255 49 49;
 
     --nav-height: 80px;
     --sidebar-width: 18rem;
