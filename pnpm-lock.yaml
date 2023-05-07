@@ -38,8 +38,8 @@ dependencies:
     specifier: ^4.3.0
     version: 4.3.0
   meilisearch-docsearch:
-    specifier: 0.4.5
-    version: 0.4.5
+    specifier: ^0.4.7
+    version: 0.4.7
   solid-js:
     specifier: ^1.7.5
     version: 1.7.5
@@ -2748,8 +2748,8 @@ packages:
       '@types/mdast': 3.0.11
     dev: false
 
-  /meilisearch-docsearch@0.4.5:
-    resolution: {integrity: sha512-mo7m2FIMPUIGqHGHd/zTk3uqdnxUmGuRrto0Ba1EE8Bv8WwluwTq2pH20BxbgHdONjHf1k9wnXbzINPWBfsRJQ==}
+  /meilisearch-docsearch@0.4.7:
+    resolution: {integrity: sha512-zZWekKibcWIQ+6F/eK4kr2C2seZcQtS4aDrceerqsj+Qh6luzZSnMwjKAUuYm1xO7KZHDlUrHlutq5py+1OAjw==}
     dependencies:
       meilisearch: 0.31.1
       solid-js: 1.7.5
