@@ -10,4 +10,4 @@ It will detect your operating system and build a bundle accordingly. It currentl
 
 - [Windows](./windows.md): .msi
 - [macOS](./macos.md): .app, .dmg
-- [Linux](./linux.md): .deb, .appimage
+- [Linux](./linux.md): .deb, .appimage, .snap
