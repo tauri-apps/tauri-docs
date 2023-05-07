@@ -16,21 +16,21 @@
     "generate:config": "node .scripts/generate-config-doc.cjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^0.18.2",
+    "@astrojs/mdx": "^0.18.4",
     "@astrojs/prefetch": "^0.1.2",
-    "@astrojs/sitemap": "^1.2.1",
-    "@astrojs/solid-js": "^2.1.0",
-    "@astrojs/tailwind": "^3.1.1",
+    "@astrojs/sitemap": "^1.3.0",
+    "@astrojs/solid-js": "^2.1.1",
+    "@astrojs/tailwind": "^3.1.2",
     "@fontsource/ibm-plex-mono": "^4.5.13",
     "@fontsource/rubik": "^4.5.14",
-    "@iconify/json": "^2.2.39",
-    "astro": "^2.1.7",
-    "astro-i18n": "^1.6.8",
+    "@iconify/json": "^2.2.61",
+    "astro": "^2.4.2",
+    "astro-i18n": "^1.6.10",
     "docs-searchbar.js": "^2.5.0",
     "marked": "^4.3.0",
     "meilisearch-docsearch": "0.4.5",
-    "solid-js": "^1.6.15",
-    "tailwindcss": "^3.2.7",
+    "solid-js": "^1.7.5",
+    "tailwindcss": "^3.3.2",
     "unplugin-icons": "^0.15.3"
   },
   "browserslist": {
@@ -47,9 +47,9 @@
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.11",
-    "@types/marked": "^4.0.8",
+    "@types/marked": "^4.3.0",
     "@types/unist": "^2.0.6",
-    "shiki": "^0.14.1",
+    "shiki": "^0.14.2",
     "unist-util-visit": "^4.1.2"
   },
   "engines": {
