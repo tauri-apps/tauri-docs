@@ -1,18 +1,17 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
-import { convertCollectionToTree } from '@src/utils.js'
 import { l, t, astroI18n } from 'astro-i18n'
-import Toc from '@src/components/Toc.astro'
+import TableOfContents from '@src/components/TableOfContents.astro'
 ---
 
 <Layout title={t('api.title')}>
-  <main>
-    <h1 class="h1">{t('api.title')}</h1>
-    <ul>
-      <li>This is where the stuff should go</li>
-    </ul>
-    <Toc collection="api" lang={astroI18n.langCode} path="js/1" />
-    <Toc collection="api" lang={astroI18n.langCode} path="cli/1" />
-    <Toc collection="api" lang={astroI18n.langCode} path="config/1" />
+  <main class="prose">
+    <h1>{t('api.title')}</h1>
+    <h2>JavaScript API</h2>
+    <TableOfContents path="api/js/1" />
+    <h2>Tauri CLI</h2>
+    <TableOfContents path="api/cli/1" />
+    <h2>Tauri Config</h2>
+    <TableOfContents path="api/config/1" />
   </main>
 </Layout>

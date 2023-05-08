@@ -9,7 +9,7 @@ interface Props<C extends Parameters<typeof getCollection>[0]> {
 
 const { entries, baseUrl } = Astro.props
 
-entries.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
+entries.sort((a: CollectionEntry<'docs-1'>, b: CollectionEntry<'docs-1'>) => {
   if (a.data.position) {
     if (b.data.position) {
       return a.data.position - b.data.position

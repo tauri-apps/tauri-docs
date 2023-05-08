@@ -1,7 +1,6 @@
 ---
 import Layout from '@src/layouts/Layout.astro'
 import { t, astroI18n } from 'astro-i18n'
-import Toc from '@src/components/Toc.astro'
 ---
 
 <Layout title={t('docs.title')}>
@@ -24,6 +23,5 @@ import Toc from '@src/components/Toc.astro'
       existing project, are ready to get your app into the hands of users, or
       want to learn how to use a common Tauri feature, we have the help for you.
     </p>
-    <Toc collection="docs" lang={astroI18n.langCode} />
   </main>
 </Layout>
