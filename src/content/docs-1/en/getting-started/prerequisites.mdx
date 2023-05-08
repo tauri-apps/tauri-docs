@@ -100,8 +100,8 @@ You will need to install a couple of system dependencies, such as a C compiler a
 <Tabs tabTitles={["Debian", "Arch", "Fedora", "openSUSE", "NixOS"]}>
   <div slot="Debian">
   ```sh
-    sudo apt update
-    sudo apt install libwebkit2gtk-4.0-dev \
+  sudo apt update
+  sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     wget \
@@ -113,8 +113,8 @@ You will need to install a couple of system dependencies, such as a C compiler a
   </div>
   <div slot="Arch">
   ```sh
-sudo pacman -Syu
-sudo pacman -S --needed \
+  sudo pacman -Syu
+  sudo pacman -S --needed \
     webkit2gtk \
     base-devel \
     curl \
@@ -129,14 +129,14 @@ sudo pacman -S --needed \
   </div>
   <div slot="Fedora">
   ```sh
-sudo dnf check-update
-sudo dnf install webkit2gtk4.0-devel \
+  sudo dnf check-update
+  sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
     curl \
     wget \
     libappindicator-gtk3 \
     librsvg2-devel
-sudo dnf group install "C Development Tools and Libraries"
+  sudo dnf group install "C Development Tools and Libraries"
 ```
 
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
@@ -144,14 +144,14 @@ Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `w
   </div>
   <div slot="openSUSE">
   ```sh
-sudo zypper up
-sudo zypper in webkit2gtk3-soup2-devel \
+  sudo zypper up
+  sudo zypper in webkit2gtk3-soup2-devel \
     libopenssl-devel \
     curl \
     wget \
     libappindicator3-1 \
     librsvg-devel
-sudo zypper in -t pattern devel_basis
+  sudo zypper in -t pattern devel_basis
 ```
   </div>
   <div slot="NixOS">
