@@ -15,8 +15,8 @@ Usage: cargo-tauri info [OPTIONS]
 Options:
       --interactive  Interactive mode to apply automatic fixes
   -v, --verbose...   Enables verbose logging
-  -h, --help         Print help information
-  -V, --version      Print version information
+  -h, --help         Print help
+  -V, --version      Print version
 ```
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
@@ -58,9 +58,9 @@ Options:
       --before-build-command <BEFORE_BUILD_COMMAND>
           A shell command to run before `tauri build` kicks in
   -h, --help
-          Print help information
+          Print help
   -V, --version
-          Print version information
+          Print version
 ```
 
 ## `plugin init`
@@ -77,8 +77,8 @@ Options:
   -d, --directory <DIRECTORY>    Set target directory for init [default: /home/runner/work/tauri-docs/tauri-docs]
   -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
   -a, --author <AUTHOR>          Author name
-  -h, --help                     Print help information
-  -V, --version                  Print version information
+  -h, --help                     Print help
+  -V, --version                  Print version
 ```
 
 ## `dev`
@@ -102,8 +102,8 @@ Options:
       --no-watch                  Disable the file watcher
       --no-dev-server             Disable the dev server for static files
       --port <PORT>               Specify port for the dev server for static files. Defaults to 1430 Can also be set using `TAURI_DEV_SERVER_PORT` env var
-  -h, --help                      Print help information
-  -V, --version                   Print version information
+  -h, --help                      Print help
+  -V, --version                   Print version
 ```
 
 This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
@@ -161,10 +161,10 @@ Options:
           Skip prompting for values
 
   -h, --help
-          Print help information (use `-h` for a summary)
+          Print help (see a summary with '-h')
 
   -V, --version
-          Print version information
+          Print version
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.
@@ -187,8 +187,8 @@ Options:
   -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
   -v, --verbose...       Enables verbose logging
   -p, --png <PNG>        Custom PNG icon sizes to generate. When set, the default icons are not generated
-  -h, --help             Print help information
-  -V, --version          Print version information
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 [Tauri Icon Guide](../guides/features/icons.md)
