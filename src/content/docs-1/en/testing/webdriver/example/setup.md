@@ -3,8 +3,6 @@ title: Setup Example
 position: 1
 ---
 
-import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
-
 # Setup Example
 
 This example application solely focuses on adding WebDriver testing to an already existing project. To have a
@@ -182,7 +180,7 @@ will also run our WebDriver tests with a release profile. Run `cargo run --relea
 see the following application pop up.
 
 <div style={{textAlign: 'center'}}>
-  <img src={HelloTauriWebdriver}/>
+  <img src='@site/static/img/webdriver/hello-tauri-webdriver.png'/>
 </div>
 
 _Note: If you are modifying the application and want to use the Devtools, then run it without `--release` and "Inspect

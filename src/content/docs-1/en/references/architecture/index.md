@@ -3,9 +3,6 @@ title: Tauri Architecture
 position: 1
 ---
 
-import { colors } from '@theme/Mermaid'
-import { Mermaid } from 'mdx-mermaid/Mermaid';
-
 # Tauri Architecture
 
 ## Introduction
@@ -24,31 +21,32 @@ Tauri is not a VM or virtualized environment. Instead, it is an application tool
 
 <!-- prettier-ignore-start -->
 
-<Mermaid chart={`graph TB;
-    subgraph Core
-    direction LR
-    subgraph tauri
-    direction TB
-    tauri-runtime
-    tauri-macros
-    tauri-utils
-    end
-    %% This section should be organized from top to bottom
-    tauri-build
-    tauri-codegen
-    tauri-runtime-wry
-    end
-    tauri-runtime-wry -.-> WRY
-    subgraph Upstream
-    direction LR
-    WRY
-    TAO
-    WRY -.-> TAO
-    end
-    style Core fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-    style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
-    style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
-`} />
+```mermaid
+graph TB;
+subgraph Core
+direction LR
+subgraph tauri
+direction TB
+tauri-runtime
+tauri-macros
+tauri-utils
+end
+%% This section should be organized from top to bottom
+tauri-build
+tauri-codegen
+tauri-runtime-wry
+end
+tauri-runtime-wry -.-> WRY
+subgraph Upstream
+direction LR
+WRY
+TAO
+WRY -.-> TAO
+end
+style Core fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+style Upstream fill:${colors.blue.light},stroke:${colors.blue.dark},stroke-width:4px
+style tauri fill:${colors.orange.light},stroke:${colors.orange.dark},stroke-width:4px
+```
 
 <!-- prettier-ignore-end -->
 
