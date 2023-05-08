@@ -8,6 +8,7 @@ import { extractImageClass } from './src/plugins/remark-extract-image-class'
 import { nonDefaultLocales } from './astro.i18n.config'
 import solidJs from '@astrojs/solid-js'
 import mdx from '@astrojs/mdx'
+import tauriCodeThemeDark from './src/styles/code-theme.json'
 
 // https://astro.build/config
 export default defineConfig({
@@ -44,5 +45,6 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [extractImageClass],
+    shikiConfig: { theme: tauriCodeThemeDark },
   },
 })
