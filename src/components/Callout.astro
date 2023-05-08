@@ -18,12 +18,12 @@ const { kind, title } = Astro.props
 
 <div
   class:list={[
-    { 'bg-info/25 border-info': kind === 'info' },
-    { 'bg-success/25 border-success': kind === 'tip' },
-    { 'bg-caution/25 border-caution': kind === 'caution' },
-    { 'bg-danger/25 border-danger': kind === 'danger' },
+    { 'bg-info/10 border-info': kind === 'info' },
+    { 'bg-success/10 border-success': kind === 'tip' },
+    { 'bg-caution/10 border-caution': kind === 'caution' },
+    { 'bg-danger/10 border-danger': kind === 'danger' },
     {
-      'bg-base-content/25 border-base-content':
+      'bg-base-content/10 border-base-content':
         kind === 'note' || kind === undefined,
     },
     'border-l-4 rounded-lg p-4',
