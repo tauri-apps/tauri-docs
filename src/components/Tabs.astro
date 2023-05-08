@@ -11,7 +11,7 @@ if (!tabTitles) {
 
 if (!tabTitles.every((title) => Astro.slots.has(title))) {
   throw Error(
-    `Not all tabs listed are in the Tabs body for ${Astro.url.pathname}`
+    `The tab ${title} is not included in the Tabs body for ${Astro.url.pathname}`
   )
 }
 
