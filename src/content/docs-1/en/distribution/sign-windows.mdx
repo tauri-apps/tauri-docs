@@ -24,6 +24,7 @@ This guide assumes that you have a standard code signing certificate> If you hav
 If you sign the app with an EV Certificate, it'll receive an immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
 
 If you opt for an OV Certificate, which is generally cheaper and available to individuals, Microsoft SmartScreen will still show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app] to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant additional reputation and potentially remove the warning for that specific uploaded file.
+
 </Callout>
 
 ## Getting Started
@@ -124,7 +125,7 @@ The secrets we used are as follows
 
 2. We will be using the [`tauri-action` publish template].
 
-```yml
+```yaml
 name: 'publish'
 on:
   push:
@@ -169,7 +170,7 @@ jobs:
 
 3. Right above `-name: install app dependencies and build it` you will want to add the following step
 
-```yml
+```yaml
 - name: import windows certificate
   if: matrix.platform == 'windows-latest'
   env:
