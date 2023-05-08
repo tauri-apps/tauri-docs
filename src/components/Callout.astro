@@ -18,10 +18,10 @@ const { kind, title } = Astro.props
 
 <div
   class:list={[
-    { 'bg-info/25 border-info text-info': kind === 'info' },
-    { 'bg-success/25 border-success text-success': kind === 'tip' },
-    { 'bg-caution/25 border-caution text-caution': kind === 'caution' },
-    { 'bg-danger/25 border-danger text-danger': kind === 'danger' },
+    { 'bg-info/25 border-info': kind === 'info' },
+    { 'bg-success/25 border-success': kind === 'tip' },
+    { 'bg-caution/25 border-caution': kind === 'caution' },
+    { 'bg-danger/25 border-danger': kind === 'danger' },
     {
       'bg-base-content/25 border-base-content':
         kind === 'note' || kind === undefined,
@@ -29,14 +29,14 @@ const { kind, title } = Astro.props
     'border-l-4 rounded-lg p-4',
   ]}
 >
-  <div class="small-caps flex items-center gap-2 pb-2">
+  <div class="small-caps flex items-center gap-2">
     {kind === 'note' && <IconNote />}
     {kind === 'info' && <IconInfo />}
     {kind === 'tip' && <IconTip />}
     {kind === 'caution' && <IconCaution />}
     {kind === 'danger' && <IconDanger />}
     {kind === undefined && <IconQuote />}
-    <div class="text-base-content">
+    <div>
       {
         !title && (
           <>
@@ -51,7 +51,5 @@ const { kind, title } = Astro.props
       {title}
     </div>
   </div>
-  <div class="text-base-content">
-    <slot />
-  </div>
+  <slot />
 </div>
