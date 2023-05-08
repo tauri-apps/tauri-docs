@@ -1,4 +1,6 @@
 ---
+import crypto from 'crypto'
+
 interface Props {
   tabTitles: string[]
 }
@@ -8,87 +10,57 @@ const { tabTitles } = Astro.props
 if (!tabTitles) {
   throw Error(`'tabTitles' prop not passed for ${Astro.url.pathname}`)
 }
-
 if (!tabTitles.every((title) => Astro.slots.has(title))) {
   throw Error(
     `The tab ${title} is not included in the Tabs body for ${Astro.url.pathname}`
   )
 }
 
+const uuid = crypto.randomUUID()
+
 const slots = await Promise.all(
   tabTitles.map(async (title) => await Astro.slots.render(title))
 )
-// TODO: URI encode the title
+
 // TODO: Local storage for remembering selected tab
-// TODO: Styling for content
 // TODO: Make each tab have a unique selector on the page
 ---
 
 <div class="card">
   {
     tabTitles.map((title, index) => (
-      <>
+      <div>
         <input
-          class="tab-input"
           type="radio"
-          name="tabs"
-          id={title}
-          checked={index === 0}
+          name={`tabs-${uuid}`}
+          id={`tab${index}${uuid}`}
+          checked={index == 0}
         />
-        <label for={title} class="tab-label btn-normal">
+        <label for={`tab${index}${uuid}`} class="btn-normal">
           {title}
         </label>
-      </>
-    ))
-  }
-
-  {
-    slots.map((html) => (
-      <div class="tab">
-        <Fragment set:html={html} />
+        <div id="tab-content" class="tab-content">
+          <Fragment set:html={slots[index]} />
+        </div>
       </div>
     ))
   }
 </div>
 
 <style>
-  .tab-input {
+  input {
     display: none;
   }
-  .tab-input + .tab-label {
+  input + label {
     display: inline-block;
   }
-  .tab-input ~ .tab {
+  .tab-content {
     display: none;
   }
-  .tab-input:nth-of-type(1):checked ~ .tab:nth-of-type(1) {
-    display: block;
+  [id^='tab']:checked + label {
+    @apply btn-active;
   }
-  .tab-input:nth-of-type(2):checked ~ .tab:nth-of-type(2) {
-    display: block;
-  }
-  .tab-input:nth-of-type(3):checked ~ .tab:nth-of-type(3) {
-    display: block;
-  }
-  .tab-input:nth-of-type(4):checked ~ .tab:nth-of-type(4) {
-    display: block;
-  }
-  .tab-input:nth-of-type(5):checked ~ .tab:nth-of-type(5) {
-    display: block;
-  }
-  .tab-input:nth-of-type(6):checked ~ .tab:nth-of-type(6) {
-    display: block;
-  }
-  .tab-input:nth-of-type(7):checked ~ .tab:nth-of-type(7) {
-    display: block;
-  }
-  .tab-input:nth-of-type(8):checked ~ .tab:nth-of-type(8) {
-    display: block;
-  }
-  .tab-input:nth-of-type(9):checked ~ .tab:nth-of-type(9) {
-    display: block;
-  }
-  .tab-input:nth-of-type(10):checked ~ .tab:nth-of-type(10) {
+  [id^='tab']:checked ~ [id^='tab-content'] {
     display: block;
   }
 </style>
