@@ -1,10 +1,11 @@
 ---
-id: cli
-title: CLI
+title: Tauri CLI
 ---
 
 import Callout from '@src/components/Callout.astro'
 import Command from '@src/components/Command.astro'
+
+# Tauri CLI
 
 ## `info`
 
@@ -22,7 +23,9 @@ Options:
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
 
 <Callout kind="info">
-This command is pretty helpful when you need to have a quick overview of your application. When requesting some help, it can be useful that you share this report with us.
+  This command is pretty helpful when you need to have a quick overview of your
+  application. When requesting some help, it can be useful that you share this
+  report with us.
 </Callout>
 
 ## `init`
@@ -112,7 +115,9 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 **[See more about the configuration.](./config.md#build)**
 
 <Callout kind="caution" title="Troubleshooting">
-If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
+  If you're not using `build.beforeDevCommand`, make sure your `build.devPath`
+  is correct and, if using a development server, that it's started before using
+  this command.
 </Callout>
 
 ## `build`
@@ -138,9 +143,9 @@ Options:
 
   -t, --target <TARGET>
           Target triple to build against.
-          
+
           It must be one of the values outputted by `$rustc --print target-list` or `universal-apple-darwin` for an universal macOS application.
-          
+
           Note that compiling an universal macOS application requires both `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be installed.
 
   -f, --features [<FEATURES>...]
@@ -148,9 +153,9 @@ Options:
 
   -b, --bundles [<BUNDLES>...]
           Space or comma separated list of bundles to package.
-          
+
           Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and `updater` on all platforms. If `none` is specified, the bundler will be skipped.
-          
+
           Note that the `updater` bundle is not automatically added so you must specify it if the updater is enabled.
 
   -c, --config <CONFIG>

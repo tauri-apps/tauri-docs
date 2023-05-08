@@ -1,9 +1,11 @@
 ---
-id: cli
-title: CLI
+title: Tauri CLI
 ---
 
 import Callout from '@src/components/Callout.astro'
+import Command from '@src/components/Command.astro'
+
+# Tauri CLI
 
 ## `info`
 
@@ -12,7 +14,9 @@ import Callout from '@src/components/Callout.astro'
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
 
 <Callout kind="info">
-This command is pretty helpful when you need to have a quick overview of your application. When requesting some help, it can be useful that you share this report with us.
+  This command is pretty helpful when you need to have a quick overview of your
+  application. When requesting some help, it can be useful that you share this
+  report with us.
 </Callout>
 
 ## `init`
@@ -34,7 +38,9 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 **[See more about the configuration.](./config.md#build)**
 
 <Callout kind="caution">
-If you're not using `build.beforeDevCommand`, make sure your `build.devPath` is correct and, if using a development server, that it's started before using this command.
+  If you're not using `build.beforeDevCommand`, make sure your `build.devPath`
+  is correct and, if using a development server, that it's started before using
+  this command.
 </Callout>
 
 ## `build`
