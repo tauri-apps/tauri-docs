@@ -6,106 +6,102 @@ At the heart of every Tauri app is a Rust binary that manages windows, the webvi
 Our Tauri CLI uses Cargo under the hood so you rarely need to interact with it directly. Cargo has many more useful features that are not exposed through our CLI, such as testing, linting, and formatting, so please refer to their [official docs][cargo commands] for more.
 
 <Callout kind="info" title="Install Tauri CLI">
+
 If you haven't installed the Tauri CLI yet you can do so with one of the below commands. Aren't sure which to use? Check out the [FAQ entry].
 
-{/* <InstallTauriCli /> */}
+<Tabs tabTitles={['npm', 'Yarn', 'pnpm', 'Cargo']}>
+  <div slot="npm">
+    ```
+    npm install --save-dev @tauri-apps/cli
+    ```
+
+    For npm to detect Tauri correctly you need to add it to the "scripts" section in your `package.json` file:
+
+    ```json
+    "scripts": {
+      "tauri": "tauri"
+    }
+    ```
+
+  </div>
+  <div slot="Yarn">
+    ```
+    yarn add -D @tauri-apps/cli
+    ```
+  </div>
+  <div slot="pnpm">
+    ```
+    pnpm add -D @tauri-apps/cli
+    ```
+  </div>
+  <div slot="Cargo">
+    ```
+    cargo install tauri-cli
+    ```
+  </div>
+</Tabs>
+
 </Callout>
 
 To scaffold a minimal Rust project that is pre-configured to use Tauri, open a terminal and run the following command:
 
-{/* <Tabs groupId="package-manager">
-<div slot="npm">
+<Tabs tabTitles={["npm", "Yarn", "pnpm", "Cargo"]}>
+  <div slot="npm">
 
 ```shell
 npm run tauri init
 ```
 
-</div>
-<div slot="Yarn">
+  </div>
+  <div slot="Yarn">
 
 ```shell
 yarn tauri init
 ```
 
-</div>
-<div slot="pnpm">
+  </div>
+  <div slot="pnpm">
 
 ```shell
 pnpm tauri init
 ```
 
-</div>
-<div slot="Cargo">
+  </div>
+  <div slot="Cargo">
 
 ```shell
 cargo tauri init
 ```
 
-</div>
-</Tabs> */}
+  </div>
+</Tabs>
+
+{/* TODO: The below props are left over from React and don't work in Astro */}
 
 It will walk you through a series of questions:
 
-<ol>
-  <li>
-    <i>What is your app name?</i>
-    <br />
-    This will be the name of your final bundle and what the OS will call your
-    app. You can use any name you want here.
-  </li>
-  <br />
-  <li>
-    <i>What should the window title be?</i>
-    <br />
-    This will be the title of the default main window. You can use any title you
-    want here.
-  </li>
-  <br />
-  <li>
-    <i>
-      Where are your web assets (HTML/CSS/JS) located relative to the{' '}
-      <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> file that will
-      be created?
-    </i>
-    <br />
-    This is the path that Tauri will load your frontend assets from when
-    building for <b>production</b>.{' '}
-    {props.destDirExplination && (
-      <div dangerouslySetInnerHTML={props.destDirExplination} />
-    )}
-  </li>
-  <br />
-  <li>
-    <i>What is the URL of your dev server?</i>
-    <br />
-    This can be either a URL or a file path that Tauri will load during{' '}
-    <b>development</b>.{' '}
-    {props.devPathExplination && (
-      <div dangerouslySetInnerHTML={props.devPathExplination} />
-    )}
-  </li>
-  <br />
-  <li>
-    <i>What is your frontend dev command?</i>
-    <br />
-    This is the command used to start your frontend dev server.{' '}
-    {props.beforeDevCommandExplination && (
-      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
-    )}
-  </li>
-  <br />
-  <li>
-    <i>What is your frontend build command?</i>
-    <br />
-    This is the command to build your frontend files.{' '}
-    {props.beforeBuildCommandExplination && (
-      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
-    )}
-  </li>
-</ol>
+1. _What is your app name?_  
+   This will be the name of your final bundle and what the OS will call your app. You can use any name you want here.
+2. _What should the window title be?_  
+   This will be the title of the default main window. You can use any title you
+   want here.
+3. _Where are your web assets (HTML/CSS/JS) located relative to the `<current dir>/src-tauri/tauri.conf.json` file that will be created?_  
+   This is the path that Tauri will load your frontend assets from when
+   building for **production**.
+   {props.destDirExplination && ( <div dangerouslySetInnerHTML={props.destDirExplination} />)}
+4. _What is the URL of your dev server?_  
+   This can be either a URL or a file path that Tauri will load during **development**. {props.devPathExplination && <div dangerouslySetInnerHTML={props.devPathExplination} />}
+5. _What is your frontend dev command?_  
+    This is the command used to start your frontend dev server.
+   {props.beforeDevCommandExplination && (<div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />)}
+6. _What is your frontend build command?_  
+   This is the command to build your frontend files.
+   {props.beforeBuildCommandExplination && ( <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />)}
 
 <Callout kind="info">
-If you're familiar with Rust, you will notice that `tauri init` looks and works a lot like `cargo init`. You can just use `cargo init` and add the necessary Tauri dependencies if you prefer a fully manual setup.
+  If you're familiar with Rust, you will notice that `tauri init` looks and
+  works a lot like `cargo init`. You can just use `cargo init` and add the
+  necessary Tauri dependencies if you prefer a fully manual setup.
 </Callout>
 
 The `tauri init` command generates a folder called `src-tauri`. It's a convention for Tauri apps to place all core-related files into this folder. Let's quickly run through the contents of this folder:

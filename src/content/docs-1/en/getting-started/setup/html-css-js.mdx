@@ -1,9 +1,6 @@
 ---
 title: HTML, CSS and JavaScript
 position: 1
-sidebar_custom_props:
-  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
-  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
 ---
 
 import Callout from '@src/components/Callout.astro'
@@ -18,12 +15,13 @@ import Command from '@src/components/Command.astro'
 This guide will walk you through creating your first Tauri app using just HTML, CSS, and JavaScript. This is probably the best place to start if you are new to web development.
 
 <Intro />
+
 <CreateTauriAppGuide />
 
 Here's a preview of what we will be building:
 
-![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only)
-![Preview of Application](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+![Preview of Application](/img/docs/1/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only)
+![Preview of Application](/img/docs/1/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
 
 ## Create the Frontend
 
@@ -54,16 +52,16 @@ We will keep the UI minimal for this guide, but feel free to play around with mo
 ## Create the Rust Project
 
 <TauriInit
-destDirExplination={{
+  destDirExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-devPathExplination={{
+  devPathExplination={{
     __html: 'Use <code>../ui</code> for this value.',
   }}
-beforeDevCommandExplination={{
+  beforeDevCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
-beforeBuildCommandExplination={{
+  beforeBuildCommandExplination={{
     __html: 'You can leave this blank since nothing needs to be compiled.',
   }}
 />
@@ -74,8 +72,8 @@ And that's it! Now you can run the following command in your terminal to start a
 
 Preview of Application
 
-![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
-![Development Progress](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+![Development Progress](/img/docs/1/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only)
+![Development Progress](/img/docs/1/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
 
 ## Invoke Commands
 
@@ -92,7 +90,8 @@ We would normally be recommending the [`@tauri-apps/api`] package here, but sinc
     "distDir": "../ui",
     // highlight-next-line
     "withGlobalTauri": true
-  },
+  }
+}
 ```
 
 This will inject a pre-bundled version of the API functions into your frontend.
@@ -129,7 +128,9 @@ You can now modify your `index.html` file to call your Command:
 ```
 
 <Callout kind="tip">
-If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+  If you want to know more about the communication between Rust and JavaScript,
+  please read the Tauri [Inter-Process
+  Communication][inter-process-communication] guide.
 </Callout>
 
 [inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
