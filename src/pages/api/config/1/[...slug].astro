@@ -12,21 +12,15 @@ export async function getStaticPaths() {
     },
     props: {
       entry,
-      collection,
     },
   }))
 }
 
-const { entry, collection } = Astro.props
+const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<Layout
-  title="test docs post"
-  sidebarEntries={collection}
-  baseUrl="api/config/1"
-  headings={headings}
->
+<Layout title="test docs post" baseUrl="api/config/1" headings={headings}>
   <div class="prose">
     <Content />
   </div>

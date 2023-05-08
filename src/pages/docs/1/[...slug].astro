@@ -19,11 +19,14 @@ export async function getStaticPaths() {
 
 const { entry, collection } = Astro.props
 const { Content, headings } = await entry.render()
+
+// This removes the root index item from the sidebar
+const filteredCollection = collection.filter((entry) => entry.slug !== '')
 ---
 
 <Layout
   title="test docs post"
-  sidebarEntries={collection}
+  sidebarEntries={filteredCollection}
   baseUrl="docs/1"
   headings={headings}
 >

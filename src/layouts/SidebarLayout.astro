@@ -9,7 +9,7 @@ import Contribute from '@src/components/Layout/Contribute.astro'
 interface Props {
   title: string
   baseUrl: string
-  sidebarEntries: any
+  sidebarEntries?: any
   headings: MarkdownHeading[]
 }
 
@@ -23,17 +23,27 @@ const { title, baseUrl, sidebarEntries, headings } = Astro.props
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
-      <RelatedPages entries={sidebarEntries} baseUrl={baseUrl} />
+      {
+        sidebarEntries && (
+          <RelatedPages entries={sidebarEntries} baseUrl={baseUrl} />
+        )
+      }
     </div>
+
     <div class="overflow-y-auto xl:py-4 px-8 flex-1">
       <div class="max-w-[150ch] mx-auto">
         <div class="-ml-3 -mr-3 sticky top-0 bg-base-200">
           <div class="lg:hidden flex justify-between">
-            <RelatedPages
-              entries={sidebarEntries}
-              baseUrl={baseUrl}
-              dropdown={true}
-            />
+            {
+              sidebarEntries && (
+                <RelatedPages
+                  entries={sidebarEntries}
+                  baseUrl={baseUrl}
+                  dropdown={true}
+                />
+              )
+            }
+
             <OnThisPage
               headings={headings}
               dropdown={true}
