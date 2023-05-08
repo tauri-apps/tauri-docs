@@ -10,7 +10,8 @@ sidebar_custom_props:
 import TauriInit from './_fragments/_tauri-init.mdx'
 import Commands from './_fragments/_commands.mdx'
 import Intro from './_fragments/_intro.mdx'
-import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 import Command from '@theme/Command'
 
 # Qwik
@@ -48,7 +49,7 @@ pnpm create qwik@latest
 </Tabs>
 
 1. _Project name_  
-   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here. For this guide, we assume you named it `ui`.
+   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here. For this guide, we assume you named it `project-name`.
 
 2. _App starter_  
    We will select the `Basic App (QwikCity)` for a example template.
@@ -57,6 +58,10 @@ pnpm create qwik@latest
    Yes, if you like to install the dependencies.
 
 ## Qwik in SSG mode
+
+```shell
+cd project-name
+```
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -101,7 +106,7 @@ pnpm build
 
 <TauriInit
   destDirExplination={{
-    __html: 'Use <code>../ui/dist</code> for this value.',
+    __html: 'Use <code>../dist</code> for this value.',
   }}
   devPathExplination={{
     __html: 'Use <code>http://localhost:5173</code> for this value.',
