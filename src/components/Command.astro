@@ -1,22 +1,26 @@
 ---
 import Tabs from './Tabs.astro'
-const types = [
-  { value: 'npm', content: 'npm run tauri ' },
-  { value: 'Yarn', content: 'yarn tauri ' },
-  { value: 'pnpm', content: 'pnpm tauri ' },
-  { value: 'Cargo', content: 'cargo tauri ' },
-]
----
-<div>WIP</div>
+import { Code } from 'astro/components'
+import codeTheme from '@src/styles/code-theme.json'
 
-<!-- <Tabs groupId="package-manager" values={types}>
-      {types.map((type) => (
-        <TabItem value={type.value}>
-          <CodeBlock className="language-shell" language="shell">
-            {type.value !== 'npm'
-              ? type.content + name
-              : insertDashDashBeforeOption(type.content, name)}
-          </CodeBlock>
-        </TabItem>
-      ))}
-    </Tabs> -->
+interface Props {
+  name: string
+}
+
+const { name } = Astro.props
+---
+
+<Tabs tabTitles={['npm', 'Yarn', 'pnpm', 'Cargo']}>
+  <div slot="npm">
+    <Code code={`npm run tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="Yarn">
+    <Code code={`yarn tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="pnpm">
+    <Code code={`pnpm tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="Cargo">
+    <Code code={`cargo tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+</Tabs>
