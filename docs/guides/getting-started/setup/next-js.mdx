@@ -156,7 +156,7 @@ To call our newly created command we will use the [`@tauri-apps/api`] JavaScript
 
 With the library installed, you can modify your `pages/index.tsx` file to call the Command:
 
-```typescript title=pages/index.tsx
+```typescript title=src/pages/index.tsx
 import { invoke } from '@tauri-apps/api/tauri'
 
 // Note: When working with Next.js in development you have 2 execution contexts:
@@ -176,15 +176,20 @@ A better approach would be to use Tauri calls in `componentDidMount` or `useEffe
 
 So to make it cleaner we should rewrite it like this:
 
-```typescript title=pages/index.tsx
-import { invoke } from "@tauri-apps/api/tauri"
+```tsx title=src/pages/index.tsx
+// ...
+import { invoke } from '@tauri-apps/api/tauri'
 
-const Home: NextPage = () => {
+const Greet = () => {
   useEffect(() => {
-    invoke('greet', { name: 'World' })
-    .then(console.log)
-    .catch(console.error)
-  }, []);
+    invoke('greet', { name: 'World' }).then(console.log).catch(console.error)
+  }, [])
+}
+
+export default function Home() {
+  Greet()
+  // ...
+}
 ```
 
 :::tip
