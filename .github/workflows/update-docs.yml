@@ -93,7 +93,7 @@ jobs:
         working-directory: ./tauri-docs
         run: |
           pnpm generate:cli
-        #  pnpm generate:config
+          pnpm generate:config
 
       # tauri-docs PR
       - name: Git config

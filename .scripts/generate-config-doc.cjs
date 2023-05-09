@@ -12,7 +12,7 @@ const schema = JSON.parse(schemaString)
 // TODO: get the actual version
 const targetPath = path.join(
   __dirname,
-  '../src/content/api/en/config/1/index.md'
+  '../src/content/api-config-1/en/index.md'
 )
 
 const output = []
@@ -22,7 +22,7 @@ buildObject(null, schema, 1)
 function buildObject(key, value) {
   var headerTitle, headerLevel
   if (value.title) {
-    headerTitle = 'Configuration'
+    headerTitle = 'Tauri Config'
     headerLevel = 1
   } else {
     headerTitle = key
@@ -83,6 +83,12 @@ function buildProperties(parentName, object) {
 
 function descriptionConstructor(description, fixNewlines = false) {
   if (!description) return
+
+  // Remove links to current page
+  description = description.replaceAll(
+    /\n\nSee more: https:\/\/tauri\.app\/v[0-9]\/api\/config.*$/g,
+    ''
+  )
 
   // fix Rust doc style links
   description = description.replaceAll(/\[`Self::(\S+)`\]/g, '`$1`')
