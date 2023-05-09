@@ -125,10 +125,7 @@ The `tauri init` command generates a folder called `src-tauri`. It's a conventio
   This is the entry point to your Rust program and the place where we bootstrap into Tauri. You will find two sections in it:
 
   ```rust title=src/main.rs
-   #![cfg_attr(
-      all(not(debug_assertions), target_os = "windows"),
-      windows_subsystem = "windows"
-   )]
+   #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
   fn main() {
   tauri::Builder::default()
@@ -137,7 +134,7 @@ The `tauri init` command generates a folder called `src-tauri`. It's a conventio
   }
   ```
 
-  The line beginning with [`cfg! macro`][cfg macro] serves just one purpose: it disables the command prompt window that would normally pop up on Windows if you run a bundled app. If you're on Windows, try to comment it out and see what happens.
+  The line beginning with the [`cfg! macro`][cfg macro] serves just one purpose: it disables the command prompt window that would normally pop up on Windows if you run a bundled app. If you're on Windows, try to comment it out and see what happens.
 
   The `main` function is the entry point and the first function that gets invoked when your program runs.
 

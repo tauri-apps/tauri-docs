@@ -26,7 +26,7 @@ Here's a preview of what we will be building:
 
 ## Create the Frontend
 
-[Qwik] is primarily designed for Server-Side Rendering (SSR). To make Qwik work with Tauri we are going to use "Static Site" adapter to create a frontend based on Static-Site Generation (SSG).
+[Qwik] is primarily designed for Server-Side Rendering (SSR). To make Qwik work with Tauri we are going to use a "Static Site" adapter to create a frontend based on Static-Site Generation (SSG).
 
 Qwik comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript] template.
 
@@ -38,7 +38,13 @@ npm create qwik@latest
 ```
 
   </TabItem>
+  <TabItem value="Yarn">
 
+```shell
+yarn create qwik@latest
+```
+
+  </TabItem>
   <TabItem value="pnpm">
 
 ```shell
@@ -49,19 +55,15 @@ pnpm create qwik@latest
 </Tabs>
 
 1. _Project name_  
-   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here. For this guide, we assume you named it `project-name`.
+   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
 2. _App starter_  
-   We will select the `Basic App (QwikCity)` for a example template.
+   We will select the `Basic App (QwikCity)` option for an example template.
 
 3. _Install dependencies_  
-   Yes, if you like to install the dependencies.
+   Yes, if you want it to install the dependencies automatically.
 
 ## Qwik in SSG mode
-
-```shell
-cd project-name
-```
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -71,7 +73,13 @@ npm run qwik add
 ```
 
   </TabItem>
+  <TabItem value="Yarn">
 
+```shell
+yarn create qwik add
+```
+
+  </TabItem>
   <TabItem value="pnpm">
 
 ```shell
@@ -81,7 +89,7 @@ pnpm qwik add
   </TabItem>
 </Tabs>
 
-Select `Static site (.html files)` adapter then build the static pages:
+Select `Static site (.html files)` adapter. Then you can build static pages via:
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -91,7 +99,13 @@ npm run build
 ```
 
   </TabItem>
+  <TabItem value="Yarn">
 
+```shell
+yarn build
+```
+
+  </TabItem>
   <TabItem value="pnpm">
 
 ```shell
@@ -100,7 +114,6 @@ pnpm build
 
   </TabItem>
 </Tabs>
-
 
 ## Create the Rust Project
 
@@ -112,10 +125,12 @@ pnpm build
     __html: 'Use <code>http://localhost:5173</code> for this value.',
   }}
   beforeDevCommandExplination={{
-    __html: 'Use <code>npm run dev</code> (be sure to adapt to use your package manager of choice).',
+    __html:
+      'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).',
   }}
   beforeBuildCommandExplination={{
-    __html: 'Use <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
+    __html:
+      'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).',
   }}
 />
 
@@ -133,60 +148,41 @@ To call our newly created command we will use the [`@tauri-apps/api`] JavaScript
 
 With the library installed, we can now create a new Qwik component. We'll create it in `src/components/greet/greet.tsx`:
 
-```html title=src/components/greet/greet.tsx
-import { $, component$, useSignal } from '@builder.io/qwik';
-import { invoke } from '@tauri-apps/api/tauri';
+```tsx title=src/components/greet/greet.tsx
+import { $, component$, useSignal } from '@builder.io/qwik'
+import { invoke } from '@tauri-apps/api/tauri'
 
 export default component$(() => {
-  const greetMsg = useSignal("");
+  const greetMsg = useSignal('')
 
-  const greet = $(async(name: string) => {
+  const greet = $(async (name: string) => {
     greetMsg.value = await invoke('greet', { name })
-  });
+  })
 
   return (
     <div>
-      <button onClick$={() => greet("Qwik")}>
-        Greet
-      </button>
+      <button onClick$={() => greet('Qwik')}>Greet</button>
       <p>{greetMsg.value}</p>
     </div>
-  );
-});
+  )
+})
 ```
 
 You can now add this component into `src/routes/index.tsx`:
 
-```html title=src/routes/index.tsx
-<script>
-  import Greet from '~/components/greet/greet';
-</script>
+```tsx title=src/routes/index.tsx
+// ...
+import Greet from '~/components/greet/greet'
 
 export default component$(() => {
   return (
     <>
       <Greet />
+      ...
+    </>
+  )
+})
 ```
-
-You can now run tauri and see the result:
-
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
-
-```shell
-npm run tauri dev
-```
-
-  </TabItem>
-
-  <TabItem value="pnpm">
-
-```shell
-pnpm tauri dev
-```
-
-  </TabItem>
-</Tabs>
 
 :::tip
 
