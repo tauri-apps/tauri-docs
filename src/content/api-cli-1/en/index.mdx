@@ -12,12 +12,13 @@ import Command from '@src/components/Command.astro'
 <Command name="info" />
 
 ```
-Usage: cargo-tauri info [OPTIONS]
+Usage: tauri info [OPTIONS]
 
 Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help information
-  -V, --version     Print version information
+      --interactive  Interactive mode to apply automatic fixes
+  -v, --verbose...   Enables verbose logging
+  -h, --help         Print help
+  -V, --version      Print version
 ```
 
 It shows a concise list of information about the environment, Rust, Node.js and their versions as well as some relevant configurations.
@@ -33,7 +34,7 @@ It shows a concise list of information about the environment, Rust, Node.js and 
 <Command name="init" />
 
 ```
-Usage: cargo-tauri init [OPTIONS]
+Usage: tauri init [OPTIONS]
 
 Options:
       --ci
@@ -45,7 +46,7 @@ Options:
   -l, --log
           Enables logging
   -d, --directory <DIRECTORY>
-          Set target directory for init [default: /home/runner/work/tauri-docs/tauri-docs]
+          Set target directory for init
   -t, --tauri-path <TAURI_PATH>
           Path of the Tauri project to use (relative to the cwd)
   -A, --app-name <APP_NAME>
@@ -61,9 +62,9 @@ Options:
       --before-build-command <BEFORE_BUILD_COMMAND>
           A shell command to run before `tauri build` kicks in
   -h, --help
-          Print help information
+          Print help
   -V, --version
-          Print version information
+          Print version
 ```
 
 ## `plugin init`
@@ -71,17 +72,17 @@ Options:
 <Command name="plugin init" />
 
 ```
-Usage: cargo-tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+Usage: tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
 
 Options:
   -n, --name <PLUGIN_NAME>       Name of your Tauri plugin
   -v, --verbose...               Enables verbose logging
       --api                      Initializes a Tauri plugin with TypeScript API
-  -d, --directory <DIRECTORY>    Set target directory for init [default: /home/runner/work/tauri-docs/tauri-docs]
+  -d, --directory <DIRECTORY>    Set target directory for init
   -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
   -a, --author <AUTHOR>          Author name
-  -h, --help                     Print help information
-  -V, --version                  Print version information
+  -h, --help                     Print help
+  -V, --version                  Print version
 ```
 
 ## `dev`
@@ -89,7 +90,7 @@ Options:
 <Command name="dev" />
 
 ```
-Usage: cargo-tauri dev [OPTIONS] [ARGS]...
+Usage: tauri dev [OPTIONS] [ARGS]...
 
 Arguments:
   [ARGS]...  Command line arguments passed to the runner. Arguments after `--` are passed to the application
@@ -104,8 +105,9 @@ Options:
       --release                   Run the code in release mode
       --no-watch                  Disable the file watcher
       --no-dev-server             Disable the dev server for static files
-  -h, --help                      Print help information
-  -V, --version                   Print version information
+      --port <PORT>               Specify port for the dev server for static files. Defaults to 1430 Can also be set using `TAURI_DEV_SERVER_PORT` env var
+  -h, --help                      Print help
+  -V, --version                   Print version
 ```
 
 This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `src-tauri/tauri.conf.json` file.
@@ -125,7 +127,7 @@ If you have entered a command to the `build.beforeDevCommand` property, this one
 <Command name="build" />
 
 ```
-Usage: cargo-tauri build [OPTIONS] [ARGS]...
+Usage: tauri build [OPTIONS] [ARGS]...
 
 Arguments:
   [ARGS]...
@@ -143,9 +145,9 @@ Options:
 
   -t, --target <TARGET>
           Target triple to build against.
-
+          
           It must be one of the values outputted by `$rustc --print target-list` or `universal-apple-darwin` for an universal macOS application.
-
+          
           Note that compiling an universal macOS application requires both `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be installed.
 
   -f, --features [<FEATURES>...]
@@ -153,19 +155,22 @@ Options:
 
   -b, --bundles [<BUNDLES>...]
           Space or comma separated list of bundles to package.
-
+          
           Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and `updater` on all platforms. If `none` is specified, the bundler will be skipped.
-
+          
           Note that the `updater` bundle is not automatically added so you must specify it if the updater is enabled.
 
   -c, --config <CONFIG>
           JSON string or path to JSON file to merge with tauri.conf.json
 
+      --ci
+          Skip prompting for values
+
   -h, --help
-          Print help information (use `-h` for a summary)
+          Print help (see a summary with '-h')
 
   -V, --version
-          Print version information
+          Print version
 ```
 
 This command will bundle your application, either in production mode or debug mode if you used the `--debug` flag. It makes use of the `build.distDir` property from your `src-tauri/tauri.conf.json` file.
@@ -179,7 +184,7 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 <Command name="icon" />
 
 ```
-Usage: cargo-tauri icon [OPTIONS] [INPUT]
+Usage: tauri icon [OPTIONS] [INPUT]
 
 Arguments:
   [INPUT]  Path to the source icon (png, 1240x1240px with transparency) [default: ./app-icon.png]
@@ -187,8 +192,9 @@ Arguments:
 Options:
   -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
   -v, --verbose...       Enables verbose logging
-  -h, --help             Print help information
-  -V, --version          Print version information
+  -p, --png <PNG>        Custom PNG icon sizes to generate. When set, the default icons are not generated
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 [Tauri Icon Guide](../guides/features/icons.md)
@@ -199,10 +205,10 @@ Options:
 
 ```
   Description
-    Returns the current version of tauri
+    Returns the current version of the Tauri CLI
 ```
 
-This command will show the current version of Tauri.
+This command will show the current version of the Tauri CLI.
 
 ## CLI usage
 

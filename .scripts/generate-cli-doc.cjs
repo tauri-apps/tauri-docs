@@ -1,10 +1,10 @@
 const childProcess = require('child_process')
 const path = require('path')
 const fs = require('fs')
-const templatePath = path.join(__dirname, './cli-template.md')
+const templatePath = path.join(__dirname, './cli-template.mdx')
 
 // TODO: get the actual version
-const targetPath = path.join(__dirname, '../src/content/api/en/cli/1/index.md')
+const targetPath = path.join(__dirname, '../src/content/api-cli-1/en/index.mdx')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 const commands = ['info', 'init', 'plugin init', 'dev', 'build', 'icon']
@@ -24,7 +24,8 @@ for (const cmd of commands) {
       output
         .join('\n')
         .replace(' [default: /home/runner/work/tauri-docs/tauri-docs]', '')
-        .replace('cargo-tauri', 'tauri') +
+        .replace('cargo-tauri', 'tauri')
+        .replace('cargo tauri', 'tauri') +
       '\n```'
   )
 }

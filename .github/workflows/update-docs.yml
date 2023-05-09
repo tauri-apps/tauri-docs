@@ -7,10 +7,10 @@ name: update-docs
 on:
   push:
     branches:
-      - dev
+      - beta
   pull_request:
     branches:
-      - dev
+      - beta
   repository_dispatch:
     types: [update-docs, test-update-docs]
   workflow_dispatch:
@@ -83,12 +83,13 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./tauri-docs
-        run: yarn
+        run: pnpm install
 
       - name: Generate cli and config docs
+        working-directory: ./tauri-docs
         run: |
-          node tauri-docs/.scripts/generate-config-doc.cjs
-        # node tauri-docs/.scripts/generate-cli-doc.cjs
+          pnpm generate:cli
+        #  pnpm generate:config
 
       # tauri-docs PR
       - name: Git config
@@ -103,9 +104,9 @@ jobs:
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
-          branch: docs/release
+          branch: docs/release-beta
           path: tauri-docs
-          title: Update Docs
+          title: Update Docs (beta)
           labels: 'new release'
           body: |
             These are the updated docs from the most recent release.
