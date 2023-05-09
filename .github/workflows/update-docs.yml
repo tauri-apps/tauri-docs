@@ -81,6 +81,10 @@ jobs:
       - name: Build tauri-cli
         run: cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.x.x
+
       - name: Install dependencies
         working-directory: ./tauri-docs
         run: pnpm install
