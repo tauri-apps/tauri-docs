@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
-name: update-docs
+name: update-docs (beta)
 
 on:
   push:
