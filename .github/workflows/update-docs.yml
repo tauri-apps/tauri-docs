@@ -79,7 +79,9 @@ jobs:
           workspaces: tauri/tooling/cli
 
       - name: Build tauri-cli
-        run: cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
+        run: |
+          cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
+          mv ./tauri/tooling/cli/target/debug/cargo-tauri ~/.cargo/bin/cargo-tauri
 
       - uses: pnpm/action-setup@v2
         with:
