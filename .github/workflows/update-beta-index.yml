@@ -8,6 +8,8 @@ on:
   workflow_dispatch:
   push:
     branches: [beta]
+    paths:
+      - 'src/content/**'
 
 jobs:
   update-search-index:
