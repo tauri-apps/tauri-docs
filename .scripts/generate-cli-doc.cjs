@@ -23,7 +23,10 @@ for (const cmd of commands) {
     '```\n' +
       output
         .join('\n')
-        .replace(' [default: /home/runner/work/tauri-docs/tauri-docs]', '')
+        .replace(
+          '[default: /home/runner/work/tauri-docs/tauri-docs/tauri-docs]',
+          ''
+        )
         .replace('cargo-tauri', 'tauri')
         .replace('cargo tauri', 'tauri') +
       '\n```'
