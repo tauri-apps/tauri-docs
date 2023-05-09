@@ -153,7 +153,7 @@ Make sure to check the [documentation for GitHub Actions][github actions] to und
 
 ## Experimental: Build Windows apps on Linux and macOS
 
-Tauri v1.3 added a new Windows installer type based on the [NSIS] installer framework. In contrast to WiX, NSIS itself can also work on Linux and macOS which makes it possible to build many Tauri apps on non-Windows hosts. Note that this is currently considered highly experimental and may not work on every system or for every project. Therefore it is only recommended if CI solutions like GitHub Actions or local VMs don't work for you.
+Tauri v1.3 added a new Windows installer type based on the [NSIS] installer framework. In contrast to WiX, NSIS itself can also work on Linux and macOS which makes it possible to build many Tauri apps on non-Windows hosts. Note that this is currently considered highly experimental and may not work on every system or for every project. Therefore it should only be used as a last resort if CI solutions like GitHub Actions or local VMs don't work for you.
 
 Since Tauri officially only supports the msvc Windows target and not the gnu one, the setup is a bit more involved.
 
