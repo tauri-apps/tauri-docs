@@ -231,6 +231,8 @@ rustflags = [
 ]
 ```
 
+Keep in mind that this file is specific to your machine so we don't recommend checking it into git if your project is public or will be shared with anyone.
+
 #### Building the App
 
 Now it should be as simple as adding the target to the `tauri build` command:
