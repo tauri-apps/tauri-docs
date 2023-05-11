@@ -1,7 +1,7 @@
 ---
 description: Build a Tauri app using SvelteKit as the frontend build tool
 pagination_next: guides/development/development-cycle
-sidebar_position: 3
+sidebar_position: 4
 sidebar_custom_props:
   doc_card_image: /img/guides/getting-started/setup/svelte.svg
 ---
@@ -215,11 +215,11 @@ Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you ca
   }}
   beforeDevCommandExplination={{
     __html:
-      'Use <code>PUBLIC_TAURI_DEV=true npm run dev</code> (be sure to adapt to use your package manager of choice).',
+      'Use <code>PUBLIC_TAURI_DEV=true npm run dev</code> (make sure to adapt this to use the package manager of your choice).',
   }}
   beforeBuildCommandExplination={{
     __html:
-      'Use <code>npm run build</code> (be sure to adapt to use your package manager of choice).',
+      'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).',
   }}
 />
 
@@ -281,7 +281,7 @@ You can now add this component into `src/routes/+page.svelte`:
 <Greet />
 ```
 
-You can now run this with `npm run dev` and see the result:
+You can now run this with `npm run tauri dev` and see the result:
 
 <Tabs groupId="platform">
   <TabItem value="desktop" label="Desktop" default>

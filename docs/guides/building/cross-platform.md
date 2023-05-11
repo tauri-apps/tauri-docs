@@ -2,6 +2,8 @@
 sidebar_position: 5
 ---
 
+import Command from '@theme/Command'
+
 # Cross-Platform Compilation
 
 Tauri relies heavily on native libraries and toolchains, so meaningful cross-compilation is **not possible** at the current moment. The next best option is to compile utilizing a CI/CD pipeline hosted on something like [GitHub Actions], Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier.
@@ -149,6 +151,96 @@ env:
 
 Make sure to check the [documentation for GitHub Actions][github actions] to understand better how this workflow works. Take care to read the [Usage limits, billing, and administration][usage limits billing and administration] documentation for GitHub Actions. Some project templates may already implement this GitHub action workflow, such as [tauri-svelte-template]. You can use this action on a repo that doesn't have Tauri configured. Tauri automatically initializes before building and configuring it to use your web artifacts.
 
+## Experimental: Build Windows apps on Linux and macOS
+
+Tauri v1.3 added a new Windows installer type based on the [NSIS] installer framework. In contrast to WiX, NSIS itself can also work on Linux and macOS which makes it possible to build many Tauri apps on non-Windows hosts. Note that this is currently considered highly experimental and may not work on every system or for every project. Therefore it should only be used as a last resort if local VMs or CI solutions like GitHub Actions don't work for you.
+
+Since Tauri officially only supports the MSVC Windows target, the setup is a bit more involved.
+
+First, make sure all your Tauri dependencies are at least version 1.3, check out the [dependency update guide] if you're not sure how.
+
+#### Install NSIS
+
+Some Linux distributions have NSIS available in their repositories, for example on Ubuntu you can install NSIS by running this command:
+
+```sh title=Ubuntu
+sudo apt install nsis
+```
+
+But on many other distributions you have to compile NSIS yourself or download Stubs and Plugins manually that weren't included in the distro's binary package. Fedora for example only provides the binary but not the Stubs and Plugins:
+
+```sh title=Fedora
+sudo dnf in mingw64-nsis
+wget https://github.com/tauri-apps/binary-releases/releases/download/nsis-3/nsis-3.zip
+unzip nsis-3.zip
+sudo cp nsis-3.08/Stubs/* /usr/share/nsis/Stubs/
+sudo cp -r nsis-3.08/Plugins/** /usr/share/nsis/Plugins/
+```
+
+On macOS you will need [Homebrew] to install NSIS:
+
+```sh title=macOS
+brew install nsis
+```
+
+#### Install LLVM and the LLD Linker
+
+Since the default Microsoft linker only works on Windows we will also need to install a new linker. To compile the Windows Resource file which is used for setting the app icon among other things we will also need the `llvm-rc` binary which is part of the LLVM project.
+
+```sh title="Ubuntu"
+sudo apt install lld llvm
+```
+
+```sh title=macOS
+brew install llvm
+```
+
+On macOS you also have to add `/opt/homebrew/opt/llvm/bin` to your `$PATH` as suggested in the install output.
+
+#### Install the Windows Rust target
+
+Assuming you're building for 64-bit Windows systems:
+
+```sh
+rustup target add x86_64-pc-windows-msvc
+```
+
+#### Install the Windows SDKs
+
+To get the Windows SDKs required by the msvc target we will use the [xwin] project:
+
+```sh
+cargo install xwin
+```
+
+Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `.xwin` directory in the Home directory.
+
+```sh
+xwin splat --disable-symlinks --output ~/.xwin
+```
+
+Now, to make the Rust compiler use these files, you first have to create a `.cargo` directory in your project and create a `config.toml` file in it with the following content. Make sure to change the paths accordingly.
+
+```toml title=.cargo/config.toml
+[target.x86_64-pc-windows-msvc]
+linker = "lld"
+rustflags = [
+  "-Lnative=/home/username/.xwin/crt/lib/x86_64",
+  "-Lnative=/home/username/.xwin/sdk/lib/um/x86_64",
+  "-Lnative=/home/username/.xwin/sdk/lib/ucrt/x86_64"
+]
+```
+
+Keep in mind that this file is specific to your machine so we don't recommend checking it into git if your project is public or will be shared with anyone.
+
+#### Building the App
+
+Now it should be as simple as adding the target to the `tauri build` command:
+
+<Command name="build --target x86_64-pc-windows-msvc" />
+
+The build output will then be in `target/x86_64-pc-windows-msvc/release/bundle/nsis/`.
+
 [tauri action]: https://github.com/tauri-apps/tauri-action
 [tauri action production build workflow example]: https://github.com/tauri-apps/tauri-action#creating-a-release-and-uploading-the-tauri-bundles
 [github actions]: https://docs.github.com/en/actions
@@ -156,3 +248,7 @@ Make sure to check the [documentation for GitHub Actions][github actions] to und
 [tauri-svelte-template]: https://github.com/probablykasper/tauri-svelte-template
 [windows code signing with github actions]: ../distribution/sign-windows.md#bonus-sign-your-application-with-github-actions
 [macos code signing with github actions]: ../distribution/sign-macos.md#example
+[nsis]: https://nsis.sourceforge.io/Main_Page
+[dependency update guide]: ../development/updating-dependencies
+[homebrew]: https://brew.sh/
+[xwin]: https://github.com/Jake-Shadle/xwin

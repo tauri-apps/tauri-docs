@@ -1,0 +1,46 @@
+# Copyright 2019-2022 Tauri Programme within The Commons Conservancy
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
+
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [beta]
+
+jobs:
+  update-search-index:
+    concurrency:
+      group: search-indexing-beta
+      cancel-in-progress: true
+    if: (github.event_name == 'push' && github.ref_name == 'beta')
+    runs-on: ubuntu-latest
+    env:
+      MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL_BETA }}
+      MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY_BETA }}
+      CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Wait for Meilisearch
+        run: node ./.scripts/wait-for-search.js
+
+      - name: Wait for netlify # This is just a workaround for now
+        run: sleep 180s
+        shell: bash
+
+      - name: Run scraper
+        run: |
+          docker run -t --rm \
+            -e MEILISEARCH_HOST_URL=$MEILISEARCH_HOST_URL \
+            -e MEILISEARCH_API_KEY=$MEILISEARCH_API_KEY \
+            -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
+            getmeili/docs-scraper:v0.12.8 pipenv run ./docs_scraper ./scraper.json
+
+      - name: Wait for Meilisearch
+        run: node ./.scripts/wait-for-search.js
+
+      - name: Swap index
+        run: |
+          curl -X POST "$MEILISEARCH_HOST_URL/swap-indexes" -H "Authorization: Bearer $MEILISEARCH_API_KEY" -H "Content-Type: application/json" --data-binary '[ { "indexes": ["docs-v1", "docs-v1-staging"] } ]'

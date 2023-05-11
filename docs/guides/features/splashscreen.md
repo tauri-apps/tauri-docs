@@ -57,15 +57,20 @@ fn main() {
 }
 
 ```
-
-Then, you can call it from your JS:
+You can then import it to your project in one of two ways:
 
 ```js
 // With the Tauri API npm package:
 import { invoke } from '@tauri-apps/api/tauri'
+```
+or
+```js
 // With the Tauri global script:
 const invoke = window.__TAURI__.invoke
+```
 
+And finally, add an Event Listener (or just call `invoke()` whenever you want):
+```js
 document.addEventListener('DOMContentLoaded', () => {
   // This will wait for the window to load, but you could
   // run this function on whatever trigger you want

@@ -163,7 +163,7 @@ jobs:
             -e MEILISEARCH_HOST_URL=$MEILISEARCH_HOST_URL \
             -e MEILISEARCH_API_KEY=$MEILISEARCH_API_KEY \
             -v $CONFIG_FILE_PATH:/docs-scraper/scraper.json \
-            getmeili/docs-scraper:v0.12.7 pipenv run ./docs_scraper ./scraper.json
+            getmeili/docs-scraper:v0.12.8 pipenv run ./docs_scraper ./scraper.json
 
       - name: Wait for Meilisearch
         run: node ./.scripts/wait-for-search.js
