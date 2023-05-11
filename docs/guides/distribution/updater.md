@@ -81,7 +81,7 @@ On Windows there is an additional optional config [`"installMode"`](../../api/co
 ```
 
 - `"passive"`: There will be a small window with a progress bar. The update will be installed without requiring any user interaction. Generally recommended and the default mode.
-- `"basicUI"`: There will be a basic user interface shown which requires user interaction to finish the installation.
+- `"basicUi"`: There will be a basic user interface shown which requires user interaction to finish the installation.
 - `"quiet"`: There will be no progress feedback to the user. With this mode the installer cannot request admin privileges by itself so it only works in user-wide installations or when your app itself already runs with admin privileges. Generally not recommended.
 
 ## Update Artifacts
