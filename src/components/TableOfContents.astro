@@ -63,12 +63,14 @@ const filteredEntries = entries
   })
 ---
 
-<ul class="grid grid-cols-2 gap-4 not-prose">
-  {
-    filteredEntries.map((entry) => (
-      <li class="card">
-        <a href={entry.slug}>{entry.data.title || entry.slug}</a>
-      </li>
-    ))
-  }
-</ul>
+<div class="not-prose">
+  <ul class="grid grid-cols-2 gap-4 not-prose">
+    {
+      filteredEntries.map((entry) => (
+        <li class="card">
+          <a href={entry.slug}>{entry.data.title || entry.slug}</a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
