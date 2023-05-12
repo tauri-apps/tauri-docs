@@ -1,0 +1,79 @@
+---
+import crypto from 'crypto'
+
+interface Props {
+  tabTitles: string[]
+}
+
+const { tabTitles } = Astro.props
+
+if (!tabTitles) {
+  throw Error(`'tabTitles' prop not passed for ${Astro.url.pathname}`)
+}
+if (!tabTitles.every((title) => Astro.slots.has(title))) {
+  throw Error(
+    `A tab is not included in the Tabs body for ${Astro.url.pathname}`
+  )
+}
+
+const uuid = crypto.randomUUID()
+
+const slots = await Promise.all(
+  tabTitles.map(async (title) => await Astro.slots.render(title))
+)
+
+// Magical CSS to make the tab selection work without JS while preserving layout
+// Uses a index for the selected tab conbined with a unique UUID to make it
+// unique on a given page
+// Then checks if in input with given ID is checked and then show tab content if so
+const css = tabTitles
+  .map(
+    (_, index) =>
+      `input[id^='tab${index}${uuid}']:checked ~ [id^='tab-content${index}${uuid}'] {display: block;}`
+  )
+  .join('\n')
+
+// TODO: Local storage for remembering selected tab
+// TODO: Sync tabs
+---
+
+<div class="card">
+  <style is:inline set:html={css}></style>
+  {
+    tabTitles.map((title, index) => (
+      <>
+        <input
+          type="radio"
+          name={`tabs-${uuid}`}
+          id={`tab${index}${uuid}`}
+          checked={index == 0}
+        />
+        <label for={`tab${index}${uuid}`} class="btn-normal">
+          {title}
+        </label>
+      </>
+    ))
+  }
+  {
+    slots.map((slot, index) => (
+      <div id={`tab-content${index}${uuid}`} class="tab-content">
+        <Fragment set:html={slot} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  input {
+    display: none;
+  }
+  input + label {
+    display: inline-block;
+  }
+  .tab-content {
+    display: none;
+  }
+  [id^='tab']:checked + label {
+    @apply btn-active;
+  }
+</style>

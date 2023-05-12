@@ -1,0 +1,26 @@
+---
+import Tabs from './Tabs.astro'
+import { Code } from 'astro/components'
+import codeTheme from '@src/styles/code-theme.json'
+
+interface Props {
+  name: string
+}
+
+const { name } = Astro.props
+---
+
+<Tabs tabTitles={['npm', 'Yarn', 'pnpm', 'Cargo']}>
+  <div slot="npm">
+    <Code code={`npm run tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="Yarn">
+    <Code code={`yarn tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="pnpm">
+    <Code code={`pnpm tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+  <div slot="Cargo">
+    <Code code={`cargo tauri ${name}`} lang="console" theme={codeTheme} />
+  </div>
+</Tabs>

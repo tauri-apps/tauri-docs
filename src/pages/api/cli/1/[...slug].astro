@@ -1,0 +1,27 @@
+---
+import Layout from '@src/layouts/SidebarLayout.astro'
+import { getI18nCollection } from '@src/utils'
+import { astroI18n } from 'astro-i18n'
+
+export async function getStaticPaths() {
+  const collection = await getI18nCollection('api-cli-1', astroI18n.langCode)
+
+  return collection.map((entry) => ({
+    params: {
+      slug: entry.slug === '' ? undefined : entry.slug,
+    },
+    props: {
+      entry,
+    },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content, headings } = await entry.render()
+---
+
+<Layout title="test docs post" baseUrl="api/cli/1" headings={headings}>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>

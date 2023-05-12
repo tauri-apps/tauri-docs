@@ -2,9 +2,9 @@
 import IconList from '~icons/bi/list'
 import IconClose from '~icons/bi/x-lg'
 import NavBarLinks from './NavBarLinks.astro'
-import NavBarLocaleTheme from './NavBarLocaleTheme.astro'
+import NavBarLocale from './NavBarLocale.astro'
 import Social from './NavBarSocial.astro'
-import Search from './NavBarSearch.astro'
+import Search from './NavBarSearch/index.astro'
 import { l, t } from 'astro-i18n'
 ---
 
@@ -23,7 +23,7 @@ import { l, t } from 'astro-i18n'
 <nav class="bg-base-100 sticky top-0 py-4 px-8 z-nav nav-drawer">
   <input type="checkbox" id="nav-drawer" class="hidden" />
   <ul class="flex items-center">
-    <li>
+    <li class="shrink-0">
       <a href={l('/')}>
         <img
           src="/meta/tauri_logo_dark.svg"
@@ -44,18 +44,18 @@ import { l, t } from 'astro-i18n'
       </ul>
     </li>
     <li class="max-lg:hidden border-x border-border rounded m-2 h-8"></li>
-    <li class="content">
+    <li class="content shrink-0 z-nav-dropdown">
       <ul>
-        <NavBarLocaleTheme />
+        <NavBarLocale />
       </ul>
     </li>
-    <li class="pl-4">
+    <li class="lg:pl-4">
       <Search />
     </li>
     <li>
       <label
         for="nav-drawer"
-        class="lg:hidden icon-closed btn"
+        class="lg:hidden icon-closed btn-normal"
         tabindex="0"
         aria-label={t('global.nav.open-navigation')}
       >
@@ -65,7 +65,7 @@ import { l, t } from 'astro-i18n'
     <li>
       <label
         for="nav-drawer"
-        class="lg:hidden icon-open btn"
+        class="lg:hidden icon-open btn-normal"
         tabindex="0"
         aria-label={t('global.nav.close-navigation')}
       >
@@ -73,7 +73,9 @@ import { l, t } from 'astro-i18n'
       </label>
     </li>
   </ul>
-  <ul class="lg:hidden content h-screen">
+  <ul
+    class="lg:hidden fixed top-[var(--nav-height)] inset-0 p-4 bg-base-100 content"
+  >
     <NavBarLinks inlineMenu={true} />
     <li></li>
     <li>

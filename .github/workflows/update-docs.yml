@@ -2,15 +2,15 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
-name: update-docs
+name: update-docs (beta)
 
 on:
   push:
     branches:
-      - dev
+      - beta
   pull_request:
     branches:
-      - dev
+      - beta
   repository_dispatch:
     types: [update-docs, test-update-docs]
   workflow_dispatch:
@@ -55,40 +55,20 @@ jobs:
         working-directory: ./tauri-docs
         run: git submodule update --remote
 
-      - name: Build typedoc-plugin-markdown
-        working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
-        run: yarn && yarn build
+      # - name: Build typedoc-plugin-markdown
+      #   working-directory: ./tauri-docs/packages/typedoc-plugin-markdown/packages/typedoc-plugin-markdown
+      #   run: yarn && yarn build
 
       - name: Prep for JS doc generation
         working-directory: ./tauri/tooling/api
         run: yarn
 
-      - name: Cleanup JS Docs
-        run: rm -rf tauri-docs/docs/api/js/*
+      # - name: Cleanup JS Docs
+      #   run: rm -rf tauri-docs/src/content/api/en/js/1/*
 
-      - name: Build JS docs
-        working-directory: ./tauri-docs/packages/js-doc-generator
-        run: yarn && yarn generate-docs
-
-      # Any Rust documentation is currently disabled while we're falling back to docs.rs
-
-      #- name: install webkit2gtk
-      #  run: |
-      #    sudo apt-get update
-      #    sudo apt-get install -y webkit2gtk-4.0 libappindicator3-dev
-
-      # # Rust
-      # - name: generate rust docs
-      #   working-directory: ./tauri/core/tauri
-      #   run: cargo doc --no-deps
-      # - name: run rustdocusaurus
-      #   uses: tauri-apps/rustdocusaurus/github-action@v1
-      #   with:
-      #     originPath: ./tauri/target/doc/
-      #     targetPath: ./tauri-docs/docs/en/api/rust/
-      #     sidebarPath: "${{ github.workspace }}/tauri-docs/sidebars/rustdoc.json"
-      #     linksRoot: ""
-      #     cratesToProcess: "tauri"
+      # - name: Build JS docs
+      #   working-directory: ./tauri-docs/packages/js-doc-generator
+      #   run: yarn && yarn generate-docs
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -99,26 +79,23 @@ jobs:
           workspaces: tauri/tooling/cli
 
       - name: Build tauri-cli
-        run: cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
+        run: |
+          cargo build --manifest-path ./tauri/tooling/cli/Cargo.toml
+          mv ./tauri/tooling/cli/target/debug/cargo-tauri ~/.cargo/bin/cargo-tauri
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.x.x
 
       - name: Install dependencies
         working-directory: ./tauri-docs
-        run: yarn
+        run: pnpm install
 
       - name: Generate cli and config docs
+        working-directory: ./tauri-docs
         run: |
-          node tauri-docs/.scripts/generate-cli-doc.js
-          node tauri-docs/.scripts/generate-config-doc.js
-
-      #- name: Generate tauri AST
-      #  uses: actions-rs/cargo@v1
-      #  with:
-      #    command: doc
-      #    args: --no-deps --manifest-path ./tauri/core/tauri/Cargo.toml --no-default-features --features "wry __isolation-docs custom-protocol api-all cli __updater-docs system-tray devtools dox"
-      #  env:
-      #    RUSTDOCFLAGS: '-Z unstable-options --output-format json'
-      #- name: Copy tauri.json
-      #  run: cp tauri/target/doc/tauri.json tauri-docs/docs/api/rust/
+          pnpm generate:cli
+          pnpm generate:config
 
       # tauri-docs PR
       - name: Git config
@@ -133,9 +110,9 @@ jobs:
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
-          branch: docs/release
+          branch: docs/release-beta
           path: tauri-docs
-          title: Update Docs
+          title: Update Docs (beta)
           labels: 'new release'
           body: |
             These are the updated docs from the most recent release.

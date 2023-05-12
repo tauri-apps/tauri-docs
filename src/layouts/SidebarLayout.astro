@@ -1,32 +1,78 @@
 ---
-import type { TreeNode } from '@src/utils.js'
+import type { MarkdownHeading } from 'astro'
+import OnThisPage from '@src/components/Layout/OnThisPage.astro'
+import RelatedPages from '@src/components/Layout/RelatedPages.astro'
 import Footer from '../components/Layout/Footer.astro'
 import Layout from './BaseLayout.astro'
+import Contribute from '@src/components/Layout/Contribute.astro'
 
 interface Props {
   title: string
+  baseUrl: string
+  sidebarEntries?: any
+  headings: MarkdownHeading[]
 }
 
-const { title } = Astro.props
+const { title, baseUrl, sidebarEntries, headings } = Astro.props
 ---
 
 <Layout title={title}>
-  <div class="absolute inset-0 top-[var(--nav-height)] flex bg-base-200">
+  <div
+    class="absolute inset-0 top-[var(--nav-height)] flex justify-between bg-base-200"
+  >
     <div
-      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto"
+      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
-      <slot name="leading-sidebar" />
+      {
+        sidebarEntries && (
+          <RelatedPages entries={sidebarEntries} baseUrl={baseUrl} />
+        )
+      }
     </div>
-    <div class="max-w-[150ch] overflow-y-auto">
-      <article>
-        <slot />
-      </article>
-      <Footer />
+
+    <div class="overflow-y-auto xl:py-4 px-8 flex-1">
+      <div class="max-w-[150ch] mx-auto">
+        <div class="-ml-3 -mr-3 sticky top-0 bg-base-200">
+          <div class="lg:hidden flex justify-between">
+            {
+              sidebarEntries && (
+                <RelatedPages
+                  entries={sidebarEntries}
+                  baseUrl={baseUrl}
+                  dropdown={true}
+                />
+              )
+            }
+
+            <OnThisPage
+              headings={headings}
+              dropdown={true}
+              alignment="trailing"
+            />
+          </div>
+          <div class="hidden lg:max-xl:block">
+            <OnThisPage headings={headings} dropdown={true} />
+          </div>
+        </div>
+        <main>
+          <slot />
+        </main>
+        <div class="xl:hidden mt-8"><Contribute /></div>
+        <Footer />
+      </div>
     </div>
     <div
-      class="hidden lg:block flex-none w-[var(--sidebar-width)] overflow-y-auto"
+      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
-      <slot name="trailing-sidebar" />
+      <ul>
+        <li>
+          <OnThisPage headings={headings} />
+        </li>
+        <li class="list-base"></li>
+        <li>
+          <Contribute />
+        </li>
+      </ul>
     </div>
   </div>
 </Layout>

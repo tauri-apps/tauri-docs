@@ -1,35 +1,27 @@
 import { z, defineCollection } from 'astro:content'
 
 const metadataSchema = {
-  meta_title: z.string().optional(),
-  meta_description: z.string().optional(),
-  meta_position: z.number().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  position: z.number().optional(),
   i18n_ready: z.boolean().optional(),
 }
 
-const blog = defineCollection({
+const docs1 = defineCollection({
   schema: z.object({
     ...metadataSchema,
-    date: z.date(),
-    imageSrc: z.string().optional(),
-    imageDarkSrc: z.string().optional(),
-    authors: z.array(z.string()),
   }),
 })
 
-const api = defineCollection({
-  schema: z.object({
-    ...metadataSchema,
-  }),
-})
-const docs = defineCollection({
-  schema: z.object({
-    ...metadataSchema,
-  }),
-})
+const apiCli1 = defineCollection({})
+const apiConfig1 = defineCollection({})
+const apiJs1 = defineCollection({})
 
 export const collections = {
-  api,
-  blog,
-  docs,
+  "api-cli-1": apiCli1,
+  "api-config-1": apiConfig1,
+  "api-js-1": apiJs1,
+  "docs-1": docs1,
 }
+
+export type CollectionKey = keyof typeof collections

@@ -1,9 +1,9 @@
 ---
-import { l, t } from 'astro-i18n'
-import NavBarSocial from './NavBarSocial.astro'
-import Feedback from './Feedback.astro'
-const year = new Date().getFullYear()
-import logo from '@src/images/tauri_logo_dark.svg'
+import { l, t } from "astro-i18n";
+import NavBarSocial from "./NavBarSocial.astro";
+import logo from "@src/images/tauri_logo_dark.svg";
+
+const year = new Date().getFullYear();
 ---
 
 <style>
@@ -13,11 +13,13 @@ import logo from '@src/images/tauri_logo_dark.svg'
 </style>
 
 <footer class="py-4 flex flex-col gap-8">
-  <hr />
-  <div class="grid lg:grid-cols-4 gap-8 justify-items-start">
-    <div class="flex flex-col gap-6">
+  <hr class="border-border" />
+  <div
+    class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 justify-items-start"
+  >
+    <div class="md:max-lg:col-span-3 flex flex-col gap-6">
       <div>
-        <a href={l('/')}>
+        <a href={l("/")}>
           <img src={logo} alt="Tauri logo" class="h-10" />
         </a>
       </div>
@@ -29,50 +31,62 @@ import logo from '@src/images/tauri_logo_dark.svg'
       </div>
     </div>
     <ul>
+      <li class="small-caps">{t("global.nav.documentation")}</li>
       <li>
-        <a href={l('/docs')} class="text-base-content">{t('global.nav.docs')}</a
-        >
-      </li>
-      <li>
-        <a href={l('/api')} class="text-base-content"
-          >{t('global.nav.references')}</a
-        >
-      </li>
-      <li>
-        <a href={l('/about')} class="text-base-content"
-          >{t('global.nav.about')}</a
-        >
-      </li>
-      <li>
-        <a href={l('/blog')} class="text-base-content">{t('global.nav.blog')}</a
-        >
+        <a href={l("/docs/1")} class="btn-link">
+          {t("global.nav.documentation")}
+        </a>
       </li>
     </ul>
-
     <ul>
+      <li class="small-caps">{t("global.nav.references")}</li>
       <li>
-        <a href="mailto:contact@tauri.app" class="text-base-content"
-          >{t('global.nav.email')}</a
+        <a href={l("/api/js/1/")} class="btn-link">
+          {t("global.nav.javascript-api")}
+        </a>
+      </li>
+      <li>
+        <a href="https://docs.rs/tauri/1/" class="btn-link" target="_blank">
+          {t("global.nav.rust-api")}
+        </a>
+      </li>
+      <li>
+        <a href={l("/api/config/1/")} class="btn-link">
+          {t("global.nav.tauri-config")}
+        </a>
+      </li>
+      <li>
+        <a href={l("/api/cli/1/")} class="btn-link">
+          {t("global.nav.tauri-cli")}
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li class="small-caps">{t("global.nav.more")}</li>
+      <!-- TODO: Add back in once about section is built in new site -->
+      <!-- <li>
+        <a href={l('/about/')} class="btn-link">{t('global.nav.about')}</a>
+      </li> -->
+      <li>
+        <a href="https://tauri.app/blog" class="btn-link"
+          >{t("global.nav.blog")}</a
+        >
+      </li>
+      <li>
+        <a href="mailto:contact@tauri.app" class="btn-link"
+          >{t("global.nav.email")}</a
         >
       </li>
       <li>
         <a
           href="https://opencollective.com/tauri"
           target="_blank"
-          class="text-base-content">{t('global.nav.open-collective')}</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/tauri-apps/awesome-tauri"
-          target="_blank"
-          class="text-base-content">{t('global.nav.awesome-tauri')}</a
+          class="btn-link">{t("global.nav.open-collective")}</a
         >
       </li>
     </ul>
-    <Feedback />
   </div>
   <div>
-    {t('global.footer-copyright', { year: String(year) })}
+    {t("global.footer-copyright", { year: String(year) })}
   </div>
 </footer>

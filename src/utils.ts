@@ -1,33 +1,35 @@
 import { astroI18n } from 'astro-i18n'
-import { CollectionEntry, getCollection, getEntryBySlug } from 'astro:content'
-import type { getCollection as CollectionType } from 'astro:content'
+import { getCollection, getEntryBySlug } from 'astro:content'
+import type { CollectionKey } from './content/config'
 
-export async function geti18nCollection<
-  C extends Parameters<typeof CollectionType>[0]
->(collection: C, lang: LangCode, slugStartsWith?: string) {
+export async function getI18nCollection(
+  collection: CollectionKey,
+  lang: LangCode,
+  slugStartsWith?: string
+) {
   // Get entries from a collection for the default lang
-  const defaultLangCollection: CollectionEntry<'docs'>[] = await getCollection(
+  const defaultLangCollection = await getCollection(
     collection,
     ({ slug }) =>
+      // @ts-ignore
       slug.startsWith(
-        `${astroI18n.defaultLangCode}/${slugStartsWith ? slugStartsWith : ''}`
-      )
+        `${astroI18n.defaultLangCode}${slugStartsWith ? ('/' + slugStartsWith) : ''}`
+      ) && !slug.split('/').some((element) => element.startsWith('_'))
   )
 
   // Iterate through each of the entries for the default lang
-  const allEntries = await Promise.all(
+  return await Promise.all(
     defaultLangCollection.map(async (entry) => {
-      const baseSlug = entry.slug.slice(astroI18n.defaultLangCode.length + 1)
+      // @ts-ignore
+      const [_, ...baseSlugArray] = entry.slug.split('/')
+      let baseSlug = baseSlugArray.join('/')
 
       // If we're getting for the default lang then return the entry
       if (lang === astroI18n.defaultLangCode) {
-        if (!astroI18n.showDefaultLangCode) {
-          return {
-            ...entry,
-            slug: baseSlug,
-          }
-        } else {
-          return entry
+        return {
+          // @ts-ignore
+          ...entry,
+          slug: baseSlug,
         }
       }
 
@@ -38,6 +40,7 @@ export async function geti18nCollection<
       // Fall back to the default lang entry
       if (!localizedEntry) {
         return {
+          // @ts-ignore
           ...entry,
           slug: baseSlug,
         }
@@ -45,43 +48,5 @@ export async function geti18nCollection<
 
       return localizedEntry
     })
-  ).then((result) => result.flat())
-
-  // Sort first on meta_position, then meta_title, then slug
-  allEntries.sort((a, b) => {
-    if (a.data.meta_position) {
-      if (b.data.meta_position) {
-        return a.data.meta_position - b.data.meta_position
-      }
-      // Use meta position
-      return -1
-    }
-
-    return a.slug.localeCompare(b.slug)
-  })
-
-  return allEntries
-}
-
-export interface TreeNode<C extends Parameters<typeof CollectionType>> {
-  slug: string
-  children?: TreeNode<C>[]
-  entry?: CollectionEntry<C>
-}
-
-export function convertCollectionToTree<
-  C extends Parameters<typeof CollectionType>
->(entries: CollectionEntry<C>[]): TreeNode<C> {
-  var result: TreeNode<C> = { slug: '' }
-
-  entries.forEach((entry) =>
-    entry.slug
-      .split('/')
-      .reduce(
-        (o, slug) => (o[slug] = o[slug] || { _metadata: { ...entry } }),
-        result
-      )
   )
-
-  return result
 }

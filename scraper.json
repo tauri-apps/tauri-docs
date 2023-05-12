@@ -1,21 +1,121 @@
 {
-  "index_uid": "docs-dev",
+  "index_uid": "docs-v1-staging",
   "start_urls": [
+    {
+      "url": "https://tauri-dev.netlify.app/it/docs/1/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/it/api/config/1/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/it/api/js/1/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/it/v1/references/",
+      "extra_attributes": { "lang": ["it"] },
+      "selectors_key": "references"
+    },
     {
       "url": "https://tauri-dev.netlify.app/it/",
       "extra_attributes": { "lang": ["it"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/fr/docs/1/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/fr/api/config/1/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/fr/api/js/1/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/fr/v1/references/",
+      "extra_attributes": { "lang": ["fr"] },
+      "selectors_key": "references"
     },
     {
       "url": "https://tauri-dev.netlify.app/fr/",
       "extra_attributes": { "lang": ["fr"] }
     },
     {
+      "url": "https://tauri-dev.netlify.app/ko/docs/1/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/ko/api/config/1/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/ko/api/js/1/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/ko/v1/references/",
+      "extra_attributes": { "lang": ["ko"] },
+      "selectors_key": "references"
+    },
+    {
       "url": "https://tauri-dev.netlify.app/ko/",
       "extra_attributes": { "lang": ["ko"] }
     },
     {
+      "url": "https://tauri-dev.netlify.app/zh-cn/docs/1/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/zh-cn/api/config/1/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/zh-cn/api/js/1/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/zh-cn/v1/references/",
+      "extra_attributes": { "lang": ["zh-cn"] },
+      "selectors_key": "references"
+    },
+    {
       "url": "https://tauri-dev.netlify.app/zh-cn/",
-      "extra_attributes": { "lang": ["zn-cn"] }
+      "extra_attributes": { "lang": ["zh-cn"] }
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/docs/1/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "guides"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/api/config/1/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "config"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/api/js/1/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "api-js"
+    },
+    {
+      "url": "https://tauri-dev.netlify.app/v1/references/",
+      "extra_attributes": { "lang": ["en"] },
+      "selectors_key": "references"
     },
     {
       "url": "https://tauri-dev.netlify.app/",
@@ -47,6 +147,17 @@
       "lvl4": "main h4",
       "lvl5": "main h5",
       "text": "main p, main li"
+    },
+    "config": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Configuration"
+      },
+      "lvl1": "main h2",
+      "lvl2": "main h3",
+      "lvl3": "main h4",
+      "lvl4": "main table td:first-child",
+      "text": "main :not(blockquote) > p, main li, main table td:last-child"
     },
     "api-js": {
       "lvl0": {

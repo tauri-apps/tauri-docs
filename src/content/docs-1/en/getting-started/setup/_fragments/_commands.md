@@ -1,0 +1,28 @@
+Tauri lets you enhance your frontend with native capabilities. We call these [Commands][command], essentially Rust functions that you can call from your frontend JavaScript. This enables you to handle heavy processing or calls to the OS in much more performant Rust code.
+
+Let's make a simple example:
+
+```rust title=src-tauri/src/main.rs
+#[tauri::command]
+fn greet(name: &str) -> String {
+   format!("Hello, {}!", name)
+}
+```
+
+A Command is just like any regular Rust function, with the addition of the `#[tauri::command]` attribute macro that allows your function to communicate with the JavaScript context.
+
+Lastly, we also need to tell Tauri about our newly created command so that it can route calls accordingly. This is done with the combination of the `.invoke_handler()` function and the `generate_handler![]` macro you can see below:
+
+```rust title=src-tauri/src/main.rs
+fn main() {
+  tauri::Builder::default()
+  // highlight-next-line
+    .invoke_handler(tauri::generate_handler![greet])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+Now you're ready to call your Command from the frontend!
+
+[command]: ../../../features/command.md

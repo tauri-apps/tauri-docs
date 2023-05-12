@@ -9,10 +9,12 @@ import { rewriteMarkdownLinks } from './src/plugins/remark-rewrite-markdown-link
 import { nonDefaultLocales } from './astro.i18n.config'
 import solidJs from '@astrojs/solid-js'
 import mdx from '@astrojs/mdx'
+import tauriCodeThemeDark from './src/styles/code-theme.json'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tauri-dev.netlify.app',
+  // trailingSlash: 'always',
   integrations: [
     i18n(),
     prefetch(),
@@ -44,5 +46,6 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
+    shikiConfig: { theme: tauriCodeThemeDark },
   },
 })

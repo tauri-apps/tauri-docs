@@ -1,0 +1,54 @@
+---
+import IconExclamation from '~icons/bi/exclamation-triangle-fill'
+import IconTranslate from '~icons/bi/translate'
+import IconGithub from '~icons/bi/github'
+import IconOpenCollective from '~icons/gg/open-collective'
+import config from '@src/config'
+import { t } from 'astro-i18n'
+---
+
+<ul>
+  <li class="small-caps">Contribute</li>
+  <li>
+    <ul class="max-xl:pt-2 max-xl:flex max-sm:flex-col gap-4">
+      <li>
+        <a
+          class="max-xl:btn-link xl:list-item"
+          href={config.gitHubTranslateUrl}
+          target="_blank"
+        >
+          <IconTranslate />
+          {t('layout.translate')}
+        </a>
+      </li>
+      <li>
+        <a
+          class="max-xl:btn-link xl:list-item"
+          href={`https://github.com/`}
+          target="_blank"
+        >
+          <IconGithub /> Edit on GitHub
+        </a>
+      </li>
+      <li>
+        <a
+          class="max-xl:btn-link xl:list-item"
+          href={config.gitHubTranslateUrl}
+          target="_blank"
+        >
+          <IconExclamation />
+          {t('layout.report-issue')}
+        </a>
+      </li>
+      <li>
+        <a
+          class="max-xl:btn-link xl:list-item"
+          href="https://opencollective.com/tauri"
+          target="_blank"
+        >
+          <IconOpenCollective /> Open Collective
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
