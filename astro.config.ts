@@ -13,7 +13,7 @@ import tauriCodeThemeDark from './src/styles/code-theme.json'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tauri-dev.netlify.app',
+  site: 'https://beta.tauri.app',
   integrations: [
     i18n(),
     prefetch(),
