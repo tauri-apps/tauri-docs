@@ -57,12 +57,6 @@ module.exports = {
             '--tw-prose-th-borders': theme('colors.base-content/25'),
             '--tw-prose-td-borders': theme('colors.base-content/25'),
             maxWidth: 'unset',
-            // 'code::before': {
-            //   content: 'none',
-            // },
-            // 'code::after': {
-            //   content: 'none',
-            // },
           },
         },
       }),
