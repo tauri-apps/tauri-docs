@@ -14,6 +14,8 @@ import tauriCodeThemeDark from './src/styles/code-theme.json'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tauri-dev.netlify.app',
+  // TODO: Pending https://github.com/Alexandre-Fernandez/astro-i18n/pull/28
+  // In the meantime any markdown files named index.md with relevant links won't work
   // trailingSlash: 'always',
   integrations: [
     i18n(),
