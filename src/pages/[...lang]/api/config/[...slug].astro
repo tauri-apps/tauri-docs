@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const mappedCollection = collection.flatMap((entry) => {
     return langs.map((lang) => ({
       params: {
-        slug: entry.slug === "" ? undefined : entry.slug,
+        slug: entry.slug,
         lang: lang.route,
       },
       props: {
@@ -23,7 +23,7 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 ---
 
-<Layout title="test docs post" baseUrl="api/config/1" headings={headings}>
+<Layout title="test docs post" headings={headings}>
   <div class="prose">
     <Content />
   </div>

@@ -8,12 +8,11 @@ export async function getStaticPaths() {
   const mappedCollection = collection.flatMap((entry) => {
     return langs.map((lang) => ({
       params: {
-        slug: entry.slug === "" ? undefined : entry.slug,
+        slug: entry.slug,
         lang: lang.route,
       },
       props: {
         entry,
-        collection,
       },
     }));
   });
@@ -24,12 +23,7 @@ const { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
 ---
 
-<Layout
-  title="test docs post"
-  sidebarEntries={collection}
-  baseUrl="api/js/1"
-  headings={headings}
->
+<Layout title="test docs post" sidebarEntries={collection} headings={headings}>
   <div class="prose">
     <Content />
   </div>
