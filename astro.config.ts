@@ -14,6 +14,7 @@ import tauriCodeThemeDark from './src/styles/code-theme.json'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://beta.tauri.app',
+  trailingSlash: 'always',
   integrations: [
     i18n(),
     prefetch(),

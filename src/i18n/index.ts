@@ -1,4 +1,4 @@
-import { langs } from 'astro.i18n.config'
+import { langs, defaultLang, nonDefaultLangs } from 'astro.i18n.config'
 
 export const buildI18nStaticRoutes = () => {
   return langs.map((lang) => ({
@@ -28,4 +28,20 @@ export const buildLocalizedCollection = (collection: any[]) => {
       lang: localizedSlug.lang,
     }
   })
+}
+
+export const normalizeSlug = (slug: string | undefined) => {
+  if (!slug) {
+    return slug
+  }
+  // Check if the first part of the slug is a known lang route
+  const langCode = nonDefaultLangs.find(
+    (lang) => slug.split('/')[0] === lang.route
+  )
+  // If so, return the full slug
+  if (langCode) {
+    return slug
+  }
+  // Else, add the default lang code
+  return `${defaultLang.code}/${slug}`
 }
