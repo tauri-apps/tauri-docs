@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import { buildLocalizedCollection } from "@src/i18n";
 
 export async function getStaticPaths() {
-  let collection = await getCollection("docs-1");
+  let collection = await getCollection("docs");
   let localizedCollection = buildLocalizedCollection(collection);
   const paths = localizedCollection.map((entry) => {
     return {

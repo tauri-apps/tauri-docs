@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import { langs } from "astro.i18n.config";
 
 export async function getStaticPaths() {
-  const collection = await getCollection("api-cli-1");
+  const collection = await getCollection("api-cli");
   const mappedCollection = collection.flatMap((entry) => {
     return langs.map((lang) => ({
       params: {

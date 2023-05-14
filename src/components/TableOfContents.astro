@@ -8,7 +8,7 @@ const normalizedSlug = normalizeSlug(slug) || "";
 const depth = normalizedSlug.split("/").length + 1;
 
 let collection = await getCollection(
-  "docs-1",
+  "docs",
   ({ slug }) =>
     slug.startsWith(normalizedSlug) && slug.split("/").length == depth
 );

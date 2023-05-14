@@ -1,6 +1,4 @@
-import type { CollectionEntry } from 'astro:content'
-
-export const sortCollection = (collection: CollectionEntry<'docs-1'>[]) => {
+export const sortCollection = (collection: any[]) => {
   collection.sort((a, b) => {
     // Arrange on position
     if (a.data.position) {
