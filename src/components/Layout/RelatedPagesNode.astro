@@ -28,7 +28,7 @@ function trimSlashes(url: string) {
       >
         {entry.data.title || entry.slug}
       </a>
-      {entry._children.length > 0 && (
+      {entry._children && (
         <ul class="pl-2">
           <Astro.self entries={entry._children} />
         </ul>

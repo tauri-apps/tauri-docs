@@ -10,32 +10,38 @@ interface Props {
 
 let { entries, dropdown } = Astro.props;
 
-// Sort the entries for nesting
-entries.sort((a, b) => a.slug.localeCompare(b.slug));
+export const buildSidebarObject = (collection: any[]) => {
+  collection.sort((a, b) => a.slug.localeCompare(b.slug));
 
-let result: any[] = [];
-let initialValue = { result };
+  let result: any[] = [];
+  let initialValue = { result };
 
-// Nest the entries
-entries.forEach((entry) => {
-  entry.slug
-    .split("/")
-    .reduce(
-      (accumulator: { [x: string]: any; result: any[] }, _slugPart: string) => {
-        if (!accumulator[_slugPart]) {
-          accumulator[_slugPart] = { result: [] };
-          accumulator.result.push({
-            ...entry,
-            _slugPart,
-            _children: accumulator[_slugPart].result,
-          });
-        }
+  // Nest the entries
+  collection.forEach((entry) => {
+    entry.slug
+      .split("/")
+      .reduce(
+        (
+          accumulator: { [x: string]: any; result: any[] },
+          _slugPart: string
+        ) => {
+          if (!accumulator[_slugPart]) {
+            accumulator[_slugPart] = { result: [] };
+            accumulator.result.push({
+              ...entry,
+              _slugPart,
+              _children: accumulator[_slugPart].result,
+            });
+          }
 
-        return accumulator[_slugPart];
-      },
-      initialValue
-    );
-});
+          return accumulator[_slugPart];
+        },
+        initialValue
+      );
+  });
+
+  return result;
+};
 ---
 
 {
@@ -47,7 +53,7 @@ entries.forEach((entry) => {
         class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
       >
         <ul>
-          <RelatedPagesNode entries={result} />
+          <RelatedPagesNode entries={entries} />
         </ul>
       </div>
     </Dropdown>
@@ -57,7 +63,7 @@ entries.forEach((entry) => {
   !dropdown && (
     <ul>
       <li class="small-caps">{t("layout.related-pages")}</li>
-      <RelatedPagesNode entries={result} />
+      <RelatedPagesNode entries={entries} />
     </ul>
   )
 }

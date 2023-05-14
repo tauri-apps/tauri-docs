@@ -1,5 +1,6 @@
 ---
 import Layout from "@src/layouts/SidebarLayout.astro";
+import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 import { getApiCollection } from "@src/utils";
 
 export async function getStaticPaths() {
@@ -19,16 +20,21 @@ export async function getStaticPaths() {
 
 const { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
-const entries = entry.slug.startsWith("js")
-  ? collection
-      .filter((entry) => entry.slug.startsWith("js"))
-      .map((entry) => ({
-        ...entry,
-        data: {
-          title: entry.slug.split("/").pop(),
-        },
-      }))
-  : undefined;
+let entries;
+if (entry.slug.startsWith("js")) {
+  entries = collection
+    .filter((entry) => entry.slug.startsWith("js"))
+    // Derive the title of the module
+    .map((entry) => ({
+      ...entry,
+      data: {
+        title: entry.slug.split("/").pop(),
+      },
+    }));
+  entries = buildSidebarObject(entries);
+  // Goes down two folders to start sidebar
+  entries = entries[0]["_children"][0]["_children"];
+}
 ---
 
 <Layout title="test docs post" sidebarEntries={entries} headings={headings}>
