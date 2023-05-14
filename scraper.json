@@ -2,130 +2,234 @@
   "index_uid": "docs-v1-staging",
   "start_urls": [
     {
-      "url": "https://tauri-dev.netlify.app/it/docs/1/",
-      "extra_attributes": { "lang": ["it"] },
+      "url": "https://beta.tauri.app/it/docs/1/",
+      "extra_attributes": {
+        "lang": [
+          "it"
+        ]
+      },
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri-dev.netlify.app/it/api/config/1/",
-      "extra_attributes": { "lang": ["it"] },
+      "url": "https://beta.tauri.app/it/api/config/1/",
+      "extra_attributes": {
+        "lang": [
+          "it"
+        ]
+      },
       "selectors_key": "config"
     },
     {
-      "url": "https://tauri-dev.netlify.app/it/api/js/1/",
-      "extra_attributes": { "lang": ["it"] },
+      "url": "https://beta.tauri.app/it/api/js/1/",
+      "extra_attributes": {
+        "lang": [
+          "it"
+        ]
+      },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri-dev.netlify.app/it/v1/references/",
-      "extra_attributes": { "lang": ["it"] },
+      "url": "https://beta.tauri.app/it/v1/references/",
+      "extra_attributes": {
+        "lang": [
+          "it"
+        ]
+      },
       "selectors_key": "references"
     },
     {
-      "url": "https://tauri-dev.netlify.app/it/",
-      "extra_attributes": { "lang": ["it"] }
+      "url": "https://beta.tauri.app/it/",
+      "extra_attributes": {
+        "lang": [
+          "it"
+        ]
+      }
     },
     {
-      "url": "https://tauri-dev.netlify.app/fr/docs/1/",
-      "extra_attributes": { "lang": ["fr"] },
+      "url": "https://beta.tauri.app/fr/docs/1/",
+      "extra_attributes": {
+        "lang": [
+          "fr"
+        ]
+      },
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri-dev.netlify.app/fr/api/config/1/",
-      "extra_attributes": { "lang": ["fr"] },
+      "url": "https://beta.tauri.app/fr/api/config/1/",
+      "extra_attributes": {
+        "lang": [
+          "fr"
+        ]
+      },
       "selectors_key": "config"
     },
     {
-      "url": "https://tauri-dev.netlify.app/fr/api/js/1/",
-      "extra_attributes": { "lang": ["fr"] },
+      "url": "https://beta.tauri.app/fr/api/js/1/",
+      "extra_attributes": {
+        "lang": [
+          "fr"
+        ]
+      },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri-dev.netlify.app/fr/v1/references/",
-      "extra_attributes": { "lang": ["fr"] },
+      "url": "https://beta.tauri.app/fr/v1/references/",
+      "extra_attributes": {
+        "lang": [
+          "fr"
+        ]
+      },
       "selectors_key": "references"
     },
     {
-      "url": "https://tauri-dev.netlify.app/fr/",
-      "extra_attributes": { "lang": ["fr"] }
+      "url": "https://beta.tauri.app/fr/",
+      "extra_attributes": {
+        "lang": [
+          "fr"
+        ]
+      }
     },
     {
-      "url": "https://tauri-dev.netlify.app/ko/docs/1/",
-      "extra_attributes": { "lang": ["ko"] },
+      "url": "https://beta.tauri.app/ko/docs/1/",
+      "extra_attributes": {
+        "lang": [
+          "ko"
+        ]
+      },
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri-dev.netlify.app/ko/api/config/1/",
-      "extra_attributes": { "lang": ["ko"] },
+      "url": "https://beta.tauri.app/ko/api/config/1/",
+      "extra_attributes": {
+        "lang": [
+          "ko"
+        ]
+      },
       "selectors_key": "config"
     },
     {
-      "url": "https://tauri-dev.netlify.app/ko/api/js/1/",
-      "extra_attributes": { "lang": ["ko"] },
+      "url": "https://beta.tauri.app/ko/api/js/1/",
+      "extra_attributes": {
+        "lang": [
+          "ko"
+        ]
+      },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri-dev.netlify.app/ko/v1/references/",
-      "extra_attributes": { "lang": ["ko"] },
+      "url": "https://beta.tauri.app/ko/v1/references/",
+      "extra_attributes": {
+        "lang": [
+          "ko"
+        ]
+      },
       "selectors_key": "references"
     },
     {
-      "url": "https://tauri-dev.netlify.app/ko/",
-      "extra_attributes": { "lang": ["ko"] }
+      "url": "https://beta.tauri.app/ko/",
+      "extra_attributes": {
+        "lang": [
+          "ko"
+        ]
+      }
     },
     {
-      "url": "https://tauri-dev.netlify.app/zh-cn/docs/1/",
-      "extra_attributes": { "lang": ["zh-cn"] },
+      "url": "https://beta.tauri.app/zh-cn/docs/1/",
+      "extra_attributes": {
+        "lang": [
+          "zh-cn"
+        ]
+      },
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri-dev.netlify.app/zh-cn/api/config/1/",
-      "extra_attributes": { "lang": ["zh-cn"] },
+      "url": "https://beta.tauri.app/zh-cn/api/config/1/",
+      "extra_attributes": {
+        "lang": [
+          "zh-cn"
+        ]
+      },
       "selectors_key": "config"
     },
     {
-      "url": "https://tauri-dev.netlify.app/zh-cn/api/js/1/",
-      "extra_attributes": { "lang": ["zh-cn"] },
+      "url": "https://beta.tauri.app/zh-cn/api/js/1/",
+      "extra_attributes": {
+        "lang": [
+          "zh-cn"
+        ]
+      },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri-dev.netlify.app/zh-cn/v1/references/",
-      "extra_attributes": { "lang": ["zh-cn"] },
+      "url": "https://beta.tauri.app/zh-cn/v1/references/",
+      "extra_attributes": {
+        "lang": [
+          "zh-cn"
+        ]
+      },
       "selectors_key": "references"
     },
     {
-      "url": "https://tauri-dev.netlify.app/zh-cn/",
-      "extra_attributes": { "lang": ["zh-cn"] }
+      "url": "https://beta.tauri.app/zh-cn/",
+      "extra_attributes": {
+        "lang": [
+          "zh-cn"
+        ]
+      }
     },
     {
-      "url": "https://tauri-dev.netlify.app/docs/1/",
-      "extra_attributes": { "lang": ["en"] },
+      "url": "https://beta.tauri.app/docs/1/",
+      "extra_attributes": {
+        "lang": [
+          "en"
+        ]
+      },
       "selectors_key": "guides"
     },
     {
-      "url": "https://tauri-dev.netlify.app/api/config/1/",
-      "extra_attributes": { "lang": ["en"] },
+      "url": "https://beta.tauri.app/api/config/1/",
+      "extra_attributes": {
+        "lang": [
+          "en"
+        ]
+      },
       "selectors_key": "config"
     },
     {
-      "url": "https://tauri-dev.netlify.app/api/js/1/",
-      "extra_attributes": { "lang": ["en"] },
+      "url": "https://beta.tauri.app/api/js/1/",
+      "extra_attributes": {
+        "lang": [
+          "en"
+        ]
+      },
       "selectors_key": "api-js"
     },
     {
-      "url": "https://tauri-dev.netlify.app/v1/references/",
-      "extra_attributes": { "lang": ["en"] },
+      "url": "https://beta.tauri.app/v1/references/",
+      "extra_attributes": {
+        "lang": [
+          "en"
+        ]
+      },
       "selectors_key": "references"
     },
     {
-      "url": "https://tauri-dev.netlify.app/",
-      "extra_attributes": { "lang": ["en"] }
+      "url": "https://beta.tauri.app/",
+      "extra_attributes": {
+        "lang": [
+          "en"
+        ]
+      }
     }
   ],
   "stop_urls": [],
-  "sitemap_urls": ["https://tauri-dev.netlify.app/sitemap-index.xml"],
+  "sitemap_urls": [
+    "https://beta.tauri.app/sitemap-index.xml"
+  ],
   "custom_settings": {
-    "filterableAttributes": ["lang"]
+    "filterableAttributes": [
+      "lang"
+    ]
   },
   "selectors": {
     "default": {
