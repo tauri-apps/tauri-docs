@@ -1,0 +1,38 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import { getApiCollection } from "@src/utils";
+
+export async function getStaticPaths() {
+  const collection = await getApiCollection();
+
+  return collection.map((entry) => ({
+    params: {
+      lang: entry.lang,
+      slug: entry.slug,
+    },
+    props: {
+      entry,
+      collection,
+    },
+  }));
+}
+
+const { entry, collection } = Astro.props;
+const { Content, headings } = await entry.render();
+const entries = entry.slug.startsWith("js")
+  ? collection
+      .filter((entry) => entry.slug.startsWith("js"))
+      .map((entry) => ({
+        ...entry,
+        data: {
+          title: entry.slug.split("/").pop(),
+        },
+      }))
+  : undefined;
+---
+
+<Layout title="test docs post" sidebarEntries={entries} headings={headings}>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>

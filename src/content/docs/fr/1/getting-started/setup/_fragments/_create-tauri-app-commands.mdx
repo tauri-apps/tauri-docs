@@ -1,0 +1,35 @@
+import Tabs from '@src/components/Tabs.astro'
+
+<Tabs tabTitles={['Bash', 'PowerShell', 'Cargo', 'npm', 'Yarn', 'pnpm']}>
+  <div slot="Bash">
+    ```shell
+    sh <(curl https://create.tauri.app/sh)
+    ```
+  </div>
+  <div slot="PowerShell">
+    ```powershell
+    iwr -useb https://create.tauri.app/ps | iex
+    ```
+  </div>
+  <div slot="Cargo">
+    ```shell
+    cargo install create-tauri-app
+    cargo create-tauri-app
+    ```
+  </div>
+  <div slot="npm">
+    ```shell
+    npm create tauri-app@latest
+    ```
+  </div>
+  <div slot="Yarn">
+    ```shell
+    yarn create tauri-app
+    ```
+  </div>
+  <div slot="pnpm">
+    ```shell
+    pnpm create tauri-app
+    ```
+  </div>
+</Tabs>

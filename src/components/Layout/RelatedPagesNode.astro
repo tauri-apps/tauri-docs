@@ -17,7 +17,7 @@ function trimSlashes(url: string) {
   sortedEntries.map((entry: any) => (
     <li>
       <a
-        href={l(`/${entry.collection}/${entry.slug}`)}
+        href={l(entry.path)}
         class:list={[
           "list-item",
           {
