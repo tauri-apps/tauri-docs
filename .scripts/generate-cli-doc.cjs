@@ -4,7 +4,7 @@ const fs = require('fs')
 const templatePath = path.join(__dirname, './cli-template.mdx')
 
 // TODO: get the actual version
-const targetPath = path.join(__dirname, '../src/content/api-cli-1/en/index.mdx')
+const targetPath = path.join(__dirname, '../src/content/api/cli/1/en/index.mdx')
 const template = fs.readFileSync(templatePath, 'utf8')
 
 const commands = ['info', 'init', 'plugin init', 'dev', 'build', 'icon']
