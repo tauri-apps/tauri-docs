@@ -6,7 +6,7 @@ import i18n from 'astro-i18n'
 import Icons from 'unplugin-icons/vite'
 import { extractImageClass } from './src/plugins/remark-extract-image-class'
 import { rewriteMarkdownLinks } from './src/plugins/remark-rewrite-markdown-links'
-import { nonDefaultLangs } from './astro.i18n.config'
+import { defaultLang, langs } from './astro.i18n.config'
 import solidJs from '@astrojs/solid-js'
 import mdx from '@astrojs/mdx'
 import tauriCodeThemeDark from './src/styles/code-theme.json'
@@ -21,14 +21,12 @@ export default defineConfig({
     tailwind(),
     sitemap({
       i18n: {
-        // TODO: Currently broken
-        defaultLocale: 'en',
+        defaultLocale: defaultLang.code,
         locales: {
-          en: 'en',
-          ...nonDefaultLangs.reduce(
+          ...langs.reduce(
             (a, v) => ({
               ...a,
-              [v]: v,
+              [v.code]: v.code,
             }),
             {}
           ),
