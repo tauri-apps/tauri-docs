@@ -21,6 +21,7 @@ export default defineConfig({
     tailwind(),
     sitemap({
       i18n: {
+        // TODO: Currently broken
         defaultLocale: 'en',
         locales: {
           en: 'en',
