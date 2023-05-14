@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
 const { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
-const entries = buildSidebarObject(collection);
+const entries = buildSidebarObject(collection)[0]["_children"];
 ---
 
 <Layout title="test docs post" sidebarEntries={entries} headings={headings}>
