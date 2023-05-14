@@ -1,9 +1,15 @@
 ---
-import Layout from '@src/layouts/Layout.astro'
-import { t, astroI18n } from 'astro-i18n'
+import Layout from "@src/layouts/Layout.astro";
+import { t, astroI18n } from "astro-i18n";
+
+import { buildI18nStaticRoutes } from "@src/i18n";
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes();
+}
 ---
 
-<Layout title={t('docs.title')}>
+<Layout title={t("docs.title")}>
   <main>
     <span class="prose">
       <h1>Docs</h1>

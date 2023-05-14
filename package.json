@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "pnpm i18n:extract:keys && pnpm i18n:sync && astro dev",
     "build": "pnpm i18n:extract:keys && pnpm i18n:sync && astro build",
-    "preview": "pnpm i18n:extract:keys && pnpm i18n:sync && astro preview",
+    "preview": "astro preview",
     "astro": "astro",
     "i18n:sync": "astro-i18n sync:types",
     "i18n:extract:keys": "astro-i18n extract:keys",

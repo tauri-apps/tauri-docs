@@ -1,0 +1,40 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import { getCollection } from "astro:content";
+import { buildLocalizedCollection } from "@src/i18n";
+
+export async function getStaticPaths() {
+  let collection = await getCollection("docs-1");
+  let localizedCollection = buildLocalizedCollection(collection);
+  const paths = localizedCollection.map((entry) => {
+    return {
+      params: {
+        lang: entry.lang,
+        slug: entry.slug === "" ? undefined : entry.slug,
+      },
+      props: {
+        entry,
+        collection,
+      },
+    };
+  });
+  return paths.flat();
+}
+
+const { entry, collection } = Astro.props;
+const { Content, headings } = await entry.render();
+
+// This removes the root index item from the sidebar
+const filteredCollection = collection.filter((entry) => entry.slug !== "");
+---
+
+<Layout
+  title="test docs post"
+  sidebarEntries={filteredCollection}
+  baseUrl="docs/1"
+  headings={headings}
+>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>

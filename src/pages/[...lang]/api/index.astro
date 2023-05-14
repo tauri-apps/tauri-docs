@@ -1,12 +1,18 @@
 ---
-import Layout from '@src/layouts/Layout.astro'
-import { l, t, astroI18n } from 'astro-i18n'
-import TableOfContents from '@src/components/TableOfContents.astro'
+import Layout from "@src/layouts/Layout.astro";
+import { l, t, astroI18n } from "astro-i18n";
+import TableOfContents from "@src/components/TableOfContents.astro";
+
+import { buildI18nStaticRoutes } from "@src/i18n";
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes();
+}
 ---
 
-<Layout title={t('api.title')}>
+<Layout title={t("api.title")}>
   <main class="prose">
-    <h1>{t('api.title')}</h1>
+    <h1>{t("api.title")}</h1>
     <h2>JavaScript API</h2>
     <TableOfContents path="api/js/1" />
     <h2>Tauri CLI</h2>

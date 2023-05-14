@@ -1,12 +1,20 @@
 ---
-import Layout from '@src/layouts/BaseLayout.astro'
-import { t, l } from 'astro-i18n'
-import Footer from '@src/components/Layout/Footer.astro'
+import Layout from "@src/layouts/BaseLayout.astro";
+import { t, l } from "astro-i18n";
+import Footer from "@src/components/Layout/Footer.astro";
+import { buildI18nStaticRoutes } from "@src/i18n";
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes();
+}
+
+const { lang } = Astro.params;
 ---
 
-<Layout title={t('index.title')}>
+<Layout title={t("index.title")}>
   <div class="flex flex-col justify-between h-full">
     <main class="prose p-8 max-w-[150ch] mx-auto">
+      <h1>{lang}</h1>
       <h1>Welcome to <span class="text-accent">beta.tauri.app</span></h1>
       <p>Thank you for using the beta version of the Tauri website!</p>
       <p>
