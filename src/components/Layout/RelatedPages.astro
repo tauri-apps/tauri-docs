@@ -1,43 +1,43 @@
 ---
-import RelatedPagesNode from './RelatedPagesNode.astro'
-import Dropdown from '@src/components/Dropdown.astro'
-import { t } from 'astro-i18n'
-import type { CollectionEntry, getCollection } from 'astro:content'
+import RelatedPagesNode from "./RelatedPagesNode.astro";
+import Dropdown from "@src/components/Dropdown.astro";
+import { t } from "astro-i18n";
+import type { CollectionEntry, getCollection } from "astro:content";
 
 interface Props<C extends Parameters<typeof getCollection>[0]> {
-  entries: CollectionEntry<C>[]
-  baseUrl?: string
-  dropdown?: boolean
+  entries: CollectionEntry<C>[];
+  baseUrl?: string;
+  dropdown?: boolean;
 }
 
-let { entries, baseUrl, dropdown } = Astro.props
+let { entries, baseUrl, dropdown } = Astro.props;
 
 // Sort the entries so the tree is created in the right order
-const sortedEntries = entries.sort((a, b) => a.slug.localeCompare(b.slug))
+const sortedEntries = entries.sort((a, b) => a.slug.localeCompare(b.slug));
 
-let result = []
-let initialValue = { result }
+let result = [];
+let initialValue = { result };
 
 sortedEntries.forEach((entry) => {
-  entry.slug.split('/').reduce((accumulator, _slugPart) => {
+  entry.slug.split("/").reduce((accumulator, _slugPart) => {
     if (!accumulator[_slugPart]) {
-      accumulator[_slugPart] = { result: [] }
+      accumulator[_slugPart] = { result: [] };
       accumulator.result.push({
         ...entry,
         _slugPart,
         _children: accumulator[_slugPart].result,
-      })
+      });
     }
 
-    return accumulator[_slugPart]
-  }, initialValue)
-})
+    return accumulator[_slugPart];
+  }, initialValue);
+});
 ---
 
 {
   dropdown && (
     <Dropdown btnClass="btn-compact">
-      <Fragment slot="toggle">{t('layout.related-pages')}</Fragment>
+      <Fragment slot="toggle">{t("layout.related-pages")}</Fragment>
       <div
         slot="content"
         class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
@@ -52,7 +52,7 @@ sortedEntries.forEach((entry) => {
 {
   !dropdown && (
     <ul>
-      <li class="small-caps">{t('layout.related-pages')}</li>
+      <li class="small-caps">{t("layout.related-pages")}</li>
       <RelatedPagesNode entries={result} baseUrl={baseUrl} />
     </ul>
   )
