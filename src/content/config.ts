@@ -13,14 +13,10 @@ const docs = defineCollection({
   }),
 })
 
-const apiCli = defineCollection({})
-const apiConfig = defineCollection({})
-const apiJs = defineCollection({})
+const api = defineCollection({})
 
 export const collections = {
-  'api-cli': apiCli,
-  'api-config': apiConfig,
-  'api-js': apiJs,
+  api: api,
   docs: docs,
 }
 

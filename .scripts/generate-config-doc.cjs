@@ -10,7 +10,7 @@ const schemaString = fs
 const schema = JSON.parse(schemaString)
 
 // TODO: get the actual version
-const targetPath = path.join(__dirname, '../src/content/api-config/1/index.md')
+const targetPath = path.join(__dirname, '../src/content/api/config/1/index.md')
 
 const output = []
 

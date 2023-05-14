@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 ---
 
-<Layout title={t("index.title")}>
+<Layout>
   <div class="flex flex-col justify-between h-full">
     <main class="prose p-8 max-w-[150ch] mx-auto">
       <h1>{lang}</h1>

@@ -1,15 +1,15 @@
 ---
-import { astroI18n, l } from 'astro-i18n'
-import NavBar from '../components/Layout/NavBar.astro'
-import '../styles/global.css'
+import { astroI18n, l } from "astro-i18n";
+import NavBar from "../components/Layout/NavBar.astro";
+import "../styles/global.css";
 
 export interface Props {
-  title: string
+  title?: string;
 }
 
-const { title } = Astro.props
+const { title } = Astro.props;
 
-astroI18n.init(Astro)
+astroI18n.init(Astro);
 ---
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ astroI18n.init(Astro)
     <meta name="msapplication-config" content="/meta/browserconfig.xml" />
     <meta name="theme-color" content="#141414" />
     <meta name="generator" content={Astro.generator} />
-    <title>{`${title} | Tauri.app`}</title>
+    <title>{`${title ? `${title} | ` : ""}Tauri.app`}</title>
   </head>
   <body class="bg-base-100 text-base-content h-[calc(100vh-var(--nav-height))]">
     <NavBar />

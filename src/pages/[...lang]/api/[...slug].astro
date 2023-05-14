@@ -1,0 +1,57 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import { getCollection } from "astro:content";
+import { langs } from "astro.i18n.config";
+
+export async function getStaticPaths() {
+  const cliCollection = await getCollection("api", ({ slug }) =>
+    slug.startsWith("cli")
+  );
+  const configCollection = await getCollection("api", ({ slug }) =>
+    slug.startsWith("config")
+  );
+  const jsCollection = await getCollection("api", ({ slug }) =>
+    slug.startsWith("js")
+  );
+
+  return langs.flatMap((lang) => [
+    ...cliCollection.map((entry) => ({
+      params: {
+        slug: entry.slug,
+        lang: lang.route,
+      },
+      props: {
+        entry,
+      },
+    })),
+    configCollection.map((entry) => ({
+      params: {
+        slug: entry.slug,
+        lang: lang.route,
+      },
+      props: {
+        entry,
+      },
+    })),
+    jsCollection.map((entry) => ({
+      params: {
+        slug: entry.slug,
+        lang: lang.route,
+      },
+      props: {
+        entry,
+        collection: jsCollection,
+      },
+    })),
+  ]);
+}
+
+const { entry, collection } = Astro.props;
+const { Content, headings } = await entry.render();
+---
+
+<Layout sidebarEntries={collection} headings={headings}>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>
