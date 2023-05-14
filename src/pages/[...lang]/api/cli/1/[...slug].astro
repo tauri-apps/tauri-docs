@@ -1,0 +1,29 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import { buildLocalizedCollection } from "@src/i18n";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const collection = await getCollection("api-cli-1");
+  const localizedCollection = buildLocalizedCollection(collection);
+
+  return localizedCollection.map((entry) => ({
+    params: {
+      lang: entry.lang,
+      slug: entry.slug === "" ? undefined : entry.slug,
+    },
+    props: {
+      entry,
+    },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+---
+
+<Layout title="test docs post" headings={headings}>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>

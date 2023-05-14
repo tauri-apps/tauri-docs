@@ -1,0 +1,15 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import { t } from "astro-i18n";
+
+import { buildI18nStaticRoutes } from "@src/i18n";
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes();
+}
+---
+
+<Layout title={t("404.title")}>
+  <h1>{t("404.title")}</h1>
+  <h2>The page you're looking for couldn't be found</h2>
+</Layout>

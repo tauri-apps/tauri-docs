@@ -1,0 +1,18 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import { t } from "astro-i18n";
+
+import { buildI18nStaticRoutes } from "@src/i18n";
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes();
+}
+---
+
+<Layout title={t("about.title")}>
+  <h1 class="h1">{t("about.title")}</h1>
+  <ul>
+    <li>Tauri Organization</li>
+    <li>Trademark Guidelines</li>
+  </ul>
+</Layout>

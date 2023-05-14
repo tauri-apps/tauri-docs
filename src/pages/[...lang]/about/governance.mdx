@@ -2,6 +2,12 @@
 layout: '@src/layouts/Layout.astro'
 ---
 
+import { buildI18nStaticRoutes } from '@src/i18n'
+
+export async function getStaticPaths() {
+  return buildI18nStaticRoutes()
+}
+
 # Tauri Governance
 
 ## Sustainability

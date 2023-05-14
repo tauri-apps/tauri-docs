@@ -1,19 +1,18 @@
 ---
-import type { MarkdownHeading } from 'astro'
-import OnThisPage from '@src/components/Layout/OnThisPage.astro'
-import RelatedPages from '@src/components/Layout/RelatedPages.astro'
-import Footer from '../components/Layout/Footer.astro'
-import Layout from './BaseLayout.astro'
-import Contribute from '@src/components/Layout/Contribute.astro'
+import type { MarkdownHeading } from "astro";
+import OnThisPage from "@src/components/Layout/OnThisPage.astro";
+import RelatedPages from "@src/components/Layout/RelatedPages.astro";
+import Footer from "../components/Layout/Footer.astro";
+import Layout from "./BaseLayout.astro";
+import Contribute from "@src/components/Layout/Contribute.astro";
 
 interface Props {
-  title: string
-  baseUrl: string
-  sidebarEntries?: any
-  headings: MarkdownHeading[]
+  title?: string;
+  sidebarEntries?: any;
+  headings: MarkdownHeading[];
 }
 
-const { title, baseUrl, sidebarEntries, headings } = Astro.props
+const { title, sidebarEntries, headings } = Astro.props;
 ---
 
 <Layout title={title}>
@@ -23,11 +22,7 @@ const { title, baseUrl, sidebarEntries, headings } = Astro.props
     <div
       class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
     >
-      {
-        sidebarEntries && (
-          <RelatedPages entries={sidebarEntries} baseUrl={baseUrl} />
-        )
-      }
+      {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
     </div>
 
     <div class="overflow-y-auto xl:py-4 px-8 flex-1">
@@ -36,11 +31,7 @@ const { title, baseUrl, sidebarEntries, headings } = Astro.props
           <div class="lg:hidden flex justify-between">
             {
               sidebarEntries && (
-                <RelatedPages
-                  entries={sidebarEntries}
-                  baseUrl={baseUrl}
-                  dropdown={true}
-                />
+                <RelatedPages entries={sidebarEntries} dropdown={true} />
               )
             }
 
