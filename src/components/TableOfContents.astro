@@ -1,72 +1,30 @@
 ---
-import { getI18nCollection } from '@src/utils'
+import { getCollection } from "astro:content";
+import { normalizeSlug, buildLocalizedCollection } from "@src/i18n";
+import { sortCollection } from "@src/utils";
 
-interface Props {
-  path: string
-}
+const { slug } = Astro.params;
+const normalizedSlug = normalizeSlug(slug) || "";
+const depth = normalizedSlug.split("/").length + 1;
 
-let { path } = Astro.props
-let collection = undefined
-let pathArray = []
+let collection = await getCollection(
+  "docs",
+  ({ slug }) =>
+    slug.startsWith(normalizedSlug) && slug.split("/").length == depth
+);
 
-if (path.startsWith('docs/1')) {
-  collection = 'docs-1'
-  pathArray = path.split('/').slice(2)
-  path = path.split('/').slice(2).join('/')
-}
-
-if (path.startsWith('api/js/1')) {
-  collection = 'api-js-1'
-  pathArray = path.split('/').slice(3)
-  path = path.split('/').slice(3).join('/')
-}
-
-if (path.startsWith('api/cli/1')) {
-  collection = 'api-cli-1'
-  pathArray = path.split('/').slice(3)
-  path = path.split('/').slice(3).join('/')
-}
-
-if (path.startsWith('api/config/1')) {
-  collection = 'api-config-1'
-  pathArray = path.split('/').slice(3)
-  path = path.split('/').slice(3).join('/')
-}
-
-if (!collection) {
-  throw Error(`Can't generate a TOC for ${path}`)
-}
-
-const entries = await getI18nCollection(collection)
-const filteredEntries = entries
-  .filter(
-    (entry) =>
-      entry.slug.split('/').length == pathArray.length + 1 &&
-      entry.slug.startsWith(path)
-  )
-  .sort((a, b) => {
-    if (a.data.position) {
-      if (b.data.position) {
-        return a.data.position - b.data.position
-      }
-      // Sort A first
-      return -1
-    }
-
-    // Sort on title
-    if (a.data.title) {
-      return a.data.title.localeCompare(b.data.title || b.slug)
-    }
-
-    // Sort on slug
-    return a.slug.localeCompare(b.data.title || b.slug)
-  })
+collection = buildLocalizedCollection(collection);
+collection = sortCollection(collection);
+const relativeCollection = collection.map((entry) => ({
+  ...entry,
+  slug: entry.slug.replace(slug || "", "").replace(/^\//, ""),
+}));
 ---
 
 <div class="not-prose">
   <ul class="grid grid-cols-2 gap-4 not-prose">
     {
-      filteredEntries.map((entry) => (
+      relativeCollection.map((entry) => (
         <li class="card">
           <a href={entry.slug}>{entry.data.title || entry.slug}</a>
         </li>

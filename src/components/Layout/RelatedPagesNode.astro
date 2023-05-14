@@ -1,55 +1,28 @@
 ---
-import type { CollectionEntry, getCollection } from 'astro:content'
-import { l } from 'astro-i18n'
-
-interface Props<C extends Parameters<typeof getCollection>[0]> {
-  entries: CollectionEntry<C>[]
-  baseUrl?: string
+import { sortCollection } from "@src/utils";
+import { l } from "astro-i18n";
+interface Props {
+  entries: any[];
 }
 
-const { entries, baseUrl } = Astro.props
-
-entries.sort((a: CollectionEntry<'docs-1'>, b: CollectionEntry<'docs-1'>) => {
-  if (a.data.position) {
-    if (b.data.position) {
-      return a.data.position - b.data.position
-    }
-    // Sort A first
-    return -1
-  }
-
-  // Sort on title
-  if (a.data.title) {
-    return a.data.title.localeCompare(b.data.title || b.slug)
-  }
-
-  // Sort on slug
-  return a.slug.localeCompare(b.data.title || b.slug)
-})
-
-function addBaseUrl(url: string) {
-  if (baseUrl) {
-    return `/${baseUrl}/${url.replace(/^\\+$/g, '')}`
-  }
-  return url
-}
+const { entries } = Astro.props;
+const sortedEntries = sortCollection(entries);
 
 function trimSlashes(url: string) {
-  return url.replace(/^\/+|\/+$/g, '')
+  return url.replace(/^\/+|\/+$/g, "");
 }
 ---
 
 {
-  entries.map((entry: any) => (
+  sortedEntries.map((entry: any) => (
     <li>
       <a
-        href={addBaseUrl(entry.slug)}
+        href={l(entry.path)}
         class:list={[
-          'list-item',
+          "list-item",
           {
-            'list-item-active':
-              trimSlashes(addBaseUrl(entry.slug)) ===
-              trimSlashes(Astro.url.pathname),
+            "list-item-active":
+              trimSlashes(entry.slug) === trimSlashes(Astro.url.pathname),
           },
         ]}
       >
@@ -57,7 +30,7 @@ function trimSlashes(url: string) {
       </a>
       {entry._children && (
         <ul class="pl-2">
-          <Astro.self entries={entry._children} baseUrl={baseUrl} />
+          <Astro.self entries={entry._children} />
         </ul>
       )}
     </li>

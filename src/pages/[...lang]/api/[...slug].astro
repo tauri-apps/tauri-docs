@@ -1,0 +1,44 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
+import { getApiCollection } from "@src/utils";
+
+export async function getStaticPaths() {
+  const collection = await getApiCollection();
+
+  return collection.map((entry) => ({
+    params: {
+      lang: entry.lang,
+      slug: entry.slug,
+    },
+    props: {
+      entry,
+      collection,
+    },
+  }));
+}
+
+const { entry, collection } = Astro.props;
+const { Content, headings } = await entry.render();
+let entries;
+if (entry.slug.startsWith("js")) {
+  entries = collection
+    .filter((entry) => entry.slug.startsWith("js"))
+    // Derive the title of the module
+    .map((entry) => ({
+      ...entry,
+      data: {
+        title: entry.slug.split("/").pop(),
+      },
+    }));
+  entries = buildSidebarObject(entries);
+  // Goes down two folders to start sidebar
+  entries = entries[0]["_children"][0]["_children"];
+}
+---
+
+<Layout title="test docs post" sidebarEntries={entries} headings={headings}>
+  <div class="prose">
+    <Content />
+  </div>
+</Layout>
