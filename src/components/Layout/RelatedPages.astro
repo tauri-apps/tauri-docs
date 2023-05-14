@@ -4,6 +4,8 @@ import Dropdown from "@src/components/Dropdown.astro";
 import { t } from "astro-i18n";
 import type { CollectionEntry, getCollection } from "astro:content";
 
+// TODO: Update slug logic
+
 interface Props<C extends Parameters<typeof getCollection>[0]> {
   entries: CollectionEntry<C>[];
   baseUrl?: string;
