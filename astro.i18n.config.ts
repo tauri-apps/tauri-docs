@@ -17,5 +17,6 @@ export default defineAstroI18nConfig({
   defaultLangCode: defaultLang.code,
   supportedLangCodes: nonDefaultLangs.map((lang) => lang.code),
   showDefaultLangCode: false,
+  trailingSlash: 'always',
   translations,
 })
