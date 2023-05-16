@@ -8,62 +8,81 @@ import Contribute from "@src/components/Layout/Contribute.astro";
 
 interface Props {
   title?: string;
-  sidebarEntries?: any;
   headings: MarkdownHeading[];
+  sidebarEntries?: any;
+  enableContribute?: boolean;
+  enableTranslate?: boolean;
 }
 
-const { title, sidebarEntries, headings } = Astro.props;
+const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
+  Astro.props;
 ---
 
 <Layout title={title}>
   <div
-    class="absolute inset-0 top-[var(--nav-height)] flex justify-between bg-base-200"
+    class="grid grid-cols-[auto_auto_auto] justify-evenly gap-4 bg-base-200 px-6"
   >
     <div
-      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
+      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-lg:hidden"
     >
       {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
     </div>
-
-    <div class="overflow-y-auto xl:py-4 px-8 flex-1">
-      <div class="max-w-[150ch] mx-auto">
-        <div class="-ml-3 -mr-3 sticky top-0 bg-base-200">
-          <div class="lg:hidden flex justify-between">
-            {
-              sidebarEntries && (
-                <RelatedPages entries={sidebarEntries} dropdown={true} />
-              )
-            }
-
-            <OnThisPage
-              headings={headings}
-              dropdown={true}
-              alignment="trailing"
-            />
-          </div>
-          <div class="hidden lg:max-xl:block">
-            <OnThisPage headings={headings} dropdown={true} />
-          </div>
-        </div>
-        <main>
-          <slot />
-        </main>
-        <div class="xl:hidden mt-8"><Contribute /></div>
-        <Footer />
-      </div>
+    <!-- TODO: Button styling & logic -->
+    <div class="mx-auto max-w-[1024px] pt-6">
+      <ul class="flex flex-row pb-4 justify-between">
+        <li class="max-lg:hidden">
+          <ul class="flex flex-row">
+            <!-- TODO: Labeling and versioning system -->
+            <!-- <li class="btn-compact">Tauri V1 (Latest)</li> -->
+            {enableContribute && <li class="btn-compact">Contribute</li>}
+            {enableTranslate && <li class="btn-compact">Translate</li>}
+          </ul>
+        </li>
+        {
+          sidebarEntries && (
+            <li class="lg:hidden">
+              <RelatedPages entries={sidebarEntries} dropdown={true} />
+            </li>
+          )
+        }
+        <li class="xl:hidden">
+          <OnThisPage headings={headings} dropdown={true} />
+        </li>
+      </ul>
+      <main>
+        <slot />
+      </main>
+      <ul class="lg:hidden flex flex-row gap-6 small-caps">
+        {enableContribute && <li class="btn-compact">Contribute</li>}
+        {enableTranslate && <li class="btn-compact">Translate</li>}
+      </ul>
+      <Footer />
     </div>
     <div
-      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
+      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-xl:hidden"
     >
       <ul>
         <li>
           <OnThisPage headings={headings} />
         </li>
         <li class="list-base"></li>
-        <li>
-          <Contribute />
-        </li>
+        <li></li>
       </ul>
     </div>
   </div>
 </Layout>
+
+<style>
+  .styled-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .styled-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-base-content) / 0.15);
+    border-radius: 100vh;
+    @apply transition;
+  }
+  .styled-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-base-content) / 0.25);
+  }
+</style>
