@@ -1221,10 +1221,10 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@crowdin/cli@3.11.0":
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-3.11.0.tgz#a170312619b3c8322fb94211b6ec692fd1183230"
-  integrity sha512-RxnjZuaI8Gqm+iSe0GK/3f6D1tHzsJUAxSDC+YpwfXHX+7n1JL0KM5EQCXhTKv21Zlx9k+BS59VhTpa65omv3Q==
+"@crowdin/cli@3.11.1":
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-3.11.1.tgz#e35cfb50f9307d7ab5c43850ea4acccab9880ece"
+  integrity sha512-dkCTrfZxxAW7u7AfKHGVcQLSPyV/m3e3PL2eSivEcvwgZTKUGj3mDdJwjazbFNL/2c1OnKFblEYHvAP6Ik9NCA==
   dependencies:
     command-exists-promise "^2.0.2"
     node-fetch "2.6.7"
