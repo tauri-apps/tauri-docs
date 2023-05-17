@@ -30,7 +30,7 @@ Here's a preview of what we will be building:
 [Next.js] is a React Framework that comes with both Server-Side Rendering (SSR) and Static-Site Generation (SSG) capabilities. To make Next.js work with Tauri we are going to use the SSG mode since it generates only static files that can be included in the final binary.
 
 Next.js comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project from many pre-defined templates.
-For this guide, we will use the suggested default for all questions, including TypeScript support and the new `App Router` feature. In case you use the the old `routes/` directory instead or on top of the `app/` directory, you still need to change the config as explained in the [Next.js Static Exports](#nextjs-static-exports) section but the way you use Tauri specific JS APIs will be different than described below.
+For this guide, we will use the suggested default for all questions, including TypeScript support and the new `App Router` feature stabilized in v13.4. In case you use the the old `routes/` directory instead or on top of the `app/` directory, you still need to change the config as explained in the [Next.js Static Exports](#nextjs-static-exports) section but the way you use Tauri specific JS APIs will be different than described below.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
