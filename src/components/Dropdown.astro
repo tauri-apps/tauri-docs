@@ -8,6 +8,9 @@ interface Props {
   alignment?: "leading" | "trailing";
 }
 
+// TODO: Dismiss when clicking outside dropdown
+// TODO: Handle inline (might just do at callsights and not in this component)
+
 const uuid = crypto.randomUUID();
 
 let {
@@ -26,14 +29,19 @@ let {
   <dialog
     class:list={[
       `dialog-${uuid}`,
-      "bg-base-300 rounded absolute w-max max-w-[100vw]",
-      // Can't seem to get the alignment for trailing edges working, they go off screen
+      "bg-base-300 rounded absolute w-max max-w-[90vw]",
       alignment === "trailing" ? "right-0" : "left-0",
     ]}
   >
     <slot name="content" />
   </dialog>
 </div>
+<style>
+  dialog {
+    inset-inline-start: unset;
+    inset-inline-end: unset;
+  }
+</style>
 
 <script define:vars={{ uuid }}>
 const button = document.querySelector(`.button-${uuid}`);
@@ -47,95 +55,3 @@ button?.addEventListener("click", () => {
   }
 });
 </script>
-
-<!-- <script>
-  let toCloseOnOutsideClick: { menu: HTMLElement; toggle: HTMLElement }[] = [];
-  for (let navMenu of document.querySelectorAll(".js-dropdown")) {
-    if ((navMenu as HTMLElement).dataset.trigger === "hover") {
-      continue;
-    }
-    let navMenuToggle = navMenu.querySelector(
-      ".js-dropdown-toggle"
-    ) as HTMLElement;
-    let navMenuBody = document.getElementById(
-      navMenuToggle.getAttribute("aria-controls")!
-    )!;
-
-    // This aria doesn't make sense if there's no JS
-    navMenuToggle.setAttribute("aria-expanded", "false");
-
-    navMenuToggle.addEventListener("click", function (e) {
-      let target = e.currentTarget as HTMLElement;
-      navMenuToggle.setAttribute(
-        "aria-expanded",
-        target.getAttribute("aria-expanded") === "true" ? "false" : "true"
-      );
-    });
-
-    // If something's displayed inline (mobile view)
-    // It looks more like a disclosure since it takes up space.
-    // Given that there is very little current content
-    // It seems better to keep the disclosure open
-    if (!(navMenu as HTMLElement).matches(".js-dropdown-inline")) {
-      toCloseOnOutsideClick.push({
-        menu: navMenu as HTMLElement,
-        toggle: navMenuToggle,
-      });
-
-      navMenuToggle.addEventListener("focusout", function (e) {
-        if (
-          !e.relatedTarget ||
-          !navMenu.contains(e.relatedTarget as HTMLElement)
-        ) {
-          navMenuToggle.setAttribute("aria-expanded", "false");
-        }
-      });
-      navMenuBody.addEventListener("focusout", function (e) {
-        if (
-          !e.relatedTarget ||
-          !navMenu.contains(e.relatedTarget as HTMLElement)
-        ) {
-          navMenuToggle.setAttribute("aria-expanded", "false");
-        }
-      });
-      let escapeListener = function (e: KeyboardEvent) {
-        if (e.key === "Escape") {
-          navMenuToggle.setAttribute("aria-expanded", "false");
-          navMenuToggle.focus();
-        }
-      };
-      navMenuToggle.addEventListener("keydown", escapeListener);
-      navMenuBody.addEventListener("keydown", escapeListener);
-    }
-  }
-
-  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/shared/utils/is.ts#L25
-  const isIOS =
-    window?.navigator?.userAgent &&
-    /iP(ad|hone|od)/.test(window.navigator.userAgent);
-
-  // Older iOS Safari does not allow bubbling unless there's a listener on the body elements
-  // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-  if (isIOS) {
-    Array.from(window.document.body.children).forEach((el) =>
-      el.addEventListener("click", () => {})
-    );
-  }
-  // this is a fix for macOS focus behaviour not allowing outside clicks to close the menu.
-  // If we find that we need an onClickOutside function in other places, we can try extracting this
-  // into an onClickOutside utility
-  // https://github.com/vueuse/vueuse/blob/809fc9873262787433239bf284ec824f4e10892e/packages/core/onClickOutside/index.ts#L38
-  window.addEventListener(
-    "click",
-    function (e) {
-      let target = e.currentTarget;
-      let elements = e.composedPath();
-      for (let { menu, toggle } of toCloseOnOutsideClick) {
-        if (menu !== target && !elements.includes(menu)) {
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      }
-    },
-    { passive: true, capture: true }
-  );
-</script> -->
