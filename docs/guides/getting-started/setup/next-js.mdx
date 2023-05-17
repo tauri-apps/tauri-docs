@@ -30,27 +30,27 @@ Here's a preview of what we will be building:
 [Next.js] is a React Framework that comes with both Server-Side Rendering (SSR) and Static-Site Generation (SSG) capabilities. To make Next.js work with Tauri we are going to use the SSG mode since it generates only static files that can be included in the final binary.
 
 Next.js comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly setup a new project from many pre-defined templates.
-For this guide, we will use the TypeScript template to create a simple project.
+For this guide, we will use the suggested default for all questions, including TypeScript support and the new `App Router` feature stabilized in v13.4. In case you use the the old `routes/` directory instead or on top of the `app/` directory, you still need to change the config as explained in the [Next.js Static Exports](#nextjs-static-exports) section but the way you use Tauri specific JS APIs will be different than described below.
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
 
 ```shell
-npx create-next-app@latest --use-npm --typescript
+npx create-next-app@latest --use-npm
 ```
 
   </TabItem>
   <TabItem value="Yarn">
 
 ```shell
-yarn create next-app --typescript
+yarn create next-app --use-yarn
 ```
 
   </TabItem>
   <TabItem value="pnpm">
 
 ```shell
-pnpm create next-app --use-pnpm --typescript
+pnpm create next-app --use-pnpm
 ```
 
   </TabItem>
@@ -59,58 +59,24 @@ pnpm create next-app --use-pnpm --typescript
 1. _Project name_  
    This will be the name of your project. It corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
-2. _Experimental `app/` directory_  
-   Next.js will ask you if you want to try the new and experimental `app/` directory. You must select `No` because it does not yet support the `next export` command.
+## Next.js Static Exports
 
-When starting or building the frontend, Next.js will look for a config file named `next.config.js` inside the project root.
-We want to customize this file to get the best compatibility with Tauri.
+Because Tauri does not have a Node.js runtime you must set Next.js to SSG/SPA mode. This will typically result in faster page loads but also has a few caveats to be aware of, therefore we recommend to carefully read through Next.js' official docs on [Static Exports].
 
-Update the file with the following content:
+These docs also show one required configuration change we will always have to change for a Tauri + Next.js app. To do this, edit the `next.config.js` file in the project's root directory and add the following:
 
-```typescript title=next.config.js
+```js title=next.config.js
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
-  reactStrictMode: true,
-  // Note: This feature is required to use NextJS Image in SSG mode.
-  // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-  images: {
-    unoptimized: true,
-  },
+  output: 'export',
 }
 
 module.exports = nextConfig
 ```
 
-To be able to build in production we must add a `next export` command in `package.json`.
-This will produce a static HTML/JavaScript version of your Next.js application in the `out` folder.
-We'll also add the `tauri` command to `package.json`.
+This will change the behavior of the `next build` to produce an `out/` folder containing the HTML/CSS/JS assets for your application instead of writing them to a `.next/` directory specific to Next.js' runtime.
 
-Your `package.json` should look like this:
-
-```json title=package.json
-{
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start",
-    "tauri": "tauri",
-    "lint": "next lint"
-  },
-```
-
-## Next.js in SSG mode
-
-The "benefit" of using SSG mode is pre-rendered React code in static HTML/JavaScript. This means your page can load faster.
-React doesn't have to render the HTML on the client-side but will hydrate it on the first load if needed.
-The "downside" is that we cannot use `getServerSideProps` or use any type of "data fetching" for rendering our page for a request.
-
-:::tip
-
-You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Since it is executed in the Node.js context, calling the Tauri api won't work. You can learn more about Next.js SSG in the [official documentation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended).
-
-:::
+There are a few more possible configuration options, so make sure to read through the [Static Exports] docs as mentioned above and adapt the configuration file according to the needs of your project.
 
 ## Create the Rust Project
 
@@ -120,10 +86,12 @@ You can use `getStaticProps` to generate HTML/JavaScript pages at build time. Si
     __html: 'Use <code>http://localhost:3000</code> for this value.',
   }}
   beforeBuildCommandExplination={{
-    __html: 'Use <code>npm run build && npm run export</code> for this value.',
+    __html:
+      'Use <code>npm run build</code> for this value (make sure to adapt this to use the package manager of your choice).',
   }}
   beforeDevCommandExplination={{
-    __html: 'Use <code>npm run dev</code> for this value.',
+    __html:
+      'Use <code>npm run dev</code> for this value (make sure to adapt this to use the package manager of your choice).',
   }}
 />
 
@@ -132,7 +100,7 @@ Now that we have scaffolded our frontend and initialized the Rust project you're
 ```json title=src-tauri/tauri.conf.json
 {
   "build": {
-    "beforeBuildCommand": "npm run build && npm run export",
+    "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:3000",
     "distDir": "../out"
@@ -154,41 +122,40 @@ To call our newly created command we will use the [`@tauri-apps/api`] JavaScript
 
 <InstallTauriApi />
 
-With the library installed, you can modify your `pages/index.tsx` file to call the Command:
+One important thing to note is that all of Tauri's JS APIs require access to browser-only APIs which means they can only be used in [Client Components]. If you don't need Server Components you can add `'use client'` at the very top of the `app/page.tsx` file, in this guide however, we will create a separate component so that we don't have to convert the whole app.
 
-```typescript title=src/pages/index.tsx
+```tsx title=app/greet.tsx
+'use client'
+
+import { useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
 
-// Note: When working with Next.js in development you have 2 execution contexts:
-// - The server (nodejs), where Tauri cannot be reached, because the current context is inside of nodejs.
-// - The client (webview), where it is possible to interact with the Tauri rust backend.
-// To check if we are currently executing in the client context, we can check the type of the window object;
-const isClient = typeof window !== 'undefined'
+export default function Greet() {
+  useEffect(() => {
+    invoke<string>('greet', { name: 'Next.js' })
+      .then(console.log)
+      .catch(console.error)
+  }, [])
 
-// Now we can call our Command!
-// Right-click on the application background and open the developer tools.
-// You will see "Hello, World!" printed in the console.
-isClient &&
-  invoke('greet', { name: 'World' }).then(console.log).catch(console.error)
+  // Necessary because we will have to use Greet as a component later.
+  return <></>
+}
 ```
 
-A better approach would be to use Tauri calls in `componentDidMount` or `useEffect` that are only run on the client-side by [Next.js].
+Now we will use this component in the default `Home` component in `app/page.tsx`. Note that it must be in the actual component tree and can't be a simple function call as long as the parent (in this case the `Home` component) is a Server Component.
 
-So to make it cleaner we should rewrite it like this:
-
-```tsx title=src/pages/index.tsx
+```tsx title=app/page.tsx
 // ...
-import { invoke } from '@tauri-apps/api/tauri'
-
-const Greet = () => {
-  useEffect(() => {
-    invoke('greet', { name: 'World' }).then(console.log).catch(console.error)
-  }, [])
-}
+import Greet from './greet'
 
 export default function Home() {
-  Greet()
-  // ...
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      // highlight-next-line
+      <Greet />
+      ...
+    </main>
+  )
 }
 ```
 
@@ -207,3 +174,5 @@ If you want to know more about the communication between Rust and JavaScript, pl
 [`@tauri-apps/api`]: ../../../api/js/
 [inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
 [`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[static exports]: https://nextjs.org/docs/app/building-your-application/deploying/static-exports
+[client components]: https://nextjs.org/docs/getting-started/react-essentials#client-components
