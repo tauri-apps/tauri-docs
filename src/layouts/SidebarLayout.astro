@@ -5,6 +5,7 @@ import RelatedPages from "@src/components/Layout/RelatedPages.astro";
 import Footer from "../components/Layout/Footer.astro";
 import Layout from "./BaseLayout.astro";
 import Contribute from "@src/components/Layout/Contribute.astro";
+import Dropdown from "@src/components/Dropdown.astro";
 
 interface Props {
   title?: string;
@@ -46,7 +47,11 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
           )
         }
         <li class="xl:hidden">
-          <OnThisPage headings={headings} dropdown={true} />
+          <OnThisPage
+            headings={headings}
+            dropdown={true}
+            alignment="trailing"
+          />
         </li>
       </ul>
       <main>

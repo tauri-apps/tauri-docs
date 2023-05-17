@@ -1,26 +1,22 @@
 ---
-import type { MarkdownHeading } from 'astro'
-import Dropdown from '@src/components/Dropdown.astro'
-import { t } from 'astro-i18n'
+import type { MarkdownHeading } from "astro";
+import Dropdown from "@src/components/Dropdown.astro";
+import { t } from "astro-i18n";
 interface Props {
-  headings: MarkdownHeading[]
-  dropdown?: boolean
-  alignment?: 'leading' | 'trailing'
+  headings: MarkdownHeading[];
+  dropdown?: boolean;
+  alignment?: "leading" | "trailing";
 }
 
-const { headings, dropdown, alignment } = Astro.props
+const { headings, dropdown, alignment } = Astro.props;
 ---
 
 <div>
   {
     dropdown && (
       <Dropdown btnClass="btn-compact" alignment={alignment}>
-        <Fragment slot="toggle">{t('layout.on-this-page')}</Fragment>
-        <ul
-          slot="content"
-          class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
-          id="toc"
-        >
+        <Fragment slot="toggle">{t("layout.on-this-page")}</Fragment>
+        <ul slot="content" id="toc">
           {headings.map((heading) => (
             <li>
               <a href={`#${heading.slug}`} class={`list-item`}>
@@ -35,7 +31,7 @@ const { headings, dropdown, alignment } = Astro.props
   {
     !dropdown && (
       <ul id="toc">
-        <li class="small-caps">{t('layout.on-this-page')}</li>
+        <li class="small-caps">{t("layout.on-this-page")}</li>
         {headings.map((heading) => (
           <li>
             <a href={`#${heading.slug}`} class={`list-item`}>
@@ -51,25 +47,25 @@ const { headings, dropdown, alignment } = Astro.props
 <script>
   const setCurrentHeading: IntersectionObserverCallback = (entries) => {
     for (let entry of entries) {
-      const { id } = entry.target
-      const tocLinkEl = document.querySelectorAll(`#toc a[href='#${id}']`)
-      if (!tocLinkEl) return
+      const { id } = entry.target;
+      const tocLinkEl = document.querySelectorAll(`#toc a[href='#${id}']`);
+      if (!tocLinkEl) return;
 
       if (entry.isIntersecting) {
         document
-          .querySelectorAll('#toc a')
-          .forEach((e) => e.classList.remove('list-item-active'))
-        tocLinkEl.forEach((e) => e.classList.add('list-item-active'))
+          .querySelectorAll("#toc a")
+          .forEach((e) => e.classList.remove("list-item-active"));
+        tocLinkEl.forEach((e) => e.classList.add("list-item-active"));
       }
     }
-  }
+  };
 
   const observerOptions = {
     threshold: 1,
-    rootMargin: '-79px 0px -50%',
-  }
+    rootMargin: "-79px 0px -50%",
+  };
 
-  const observer = new IntersectionObserver(setCurrentHeading, observerOptions)
-  const elToObserve = document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6')
-  elToObserve.forEach((el) => observer.observe(el))
+  const observer = new IntersectionObserver(setCurrentHeading, observerOptions);
+  const elToObserve = document.querySelectorAll("main :is(h1,h2,h3,h4,h5,h6");
+  elToObserve.forEach((el) => observer.observe(el));
 </script>
