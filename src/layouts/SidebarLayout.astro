@@ -1,38 +1,37 @@
 ---
-import type { MarkdownHeading } from "astro";
-import OnThisPage from "@src/components/Layout/OnThisPage.astro";
-import RelatedPages from "@src/components/Layout/RelatedPages.astro";
-import Footer from "../components/Layout/Footer.astro";
-import Layout from "./BaseLayout.astro";
-import IconTag from "~icons/bi/tag-fill";
-import IconGithub from "~icons/bi/github";
-import IconTranslate from "~icons/bi/translate";
+import type { MarkdownHeading } from 'astro'
+import OnThisPage from '@src/components/Layout/OnThisPage.astro'
+import RelatedPages from '@src/components/Layout/RelatedPages.astro'
+import Footer from '../components/Layout/Footer.astro'
+import Layout from './BaseLayout.astro'
+import IconTag from '~icons/bi/tag-fill'
+import IconGithub from '~icons/bi/github'
+import IconTranslate from '~icons/bi/translate'
 
 interface Props {
-  title?: string;
-  headings: MarkdownHeading[];
-  sidebarEntries?: any;
-  enableContribute?: boolean;
-  enableTranslate?: boolean;
+  title?: string
+  headings: MarkdownHeading[]
+  sidebarEntries?: any
+  enableContribute?: boolean
+  enableTranslate?: boolean
 }
 
 const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
-  Astro.props;
+  Astro.props
 ---
 
 <Layout title={title}>
   <div
-    class="grid grid-cols-[auto_minmax(0,1fr)_auto] justify-evenly gap-4 bg-base-200 px-6 min-h-0 min-w-0"
+    class="grid grid-cols-[auto_minmax(0,1fr)_auto] justify-evenly bg-base-200 pt-6 px-6 min-h-0 min-w-0"
   >
-  {sidebarEntries && (
-    <div
-      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-lg:hidden pl-2 text-base-content/75"
-    >
-      <RelatedPages entries={sidebarEntries} />
-    </div>
-    )
+    {
+      sidebarEntries && (
+        <div class="sticky w-[250px] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-lg:hidden pr-2 mr-4 text-base-content/75">
+          <RelatedPages entries={sidebarEntries} />
+        </div>
+      )
     }
-    <div class="mx-auto max-w-[1024px] pt-6 min-h-0 w-full">
+    <div class="mx-auto max-w-[1024px] min-h-0 w-full">
       <ul class="flex flex-row gap-2 pb-4 justify-between -mt-2 -mx-2">
         <li class="max-lg:hidden">
           <a class="btn-compact flex gap-2 items-center">
@@ -94,9 +93,15 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
       <Footer />
     </div>
     <div
-      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-xl:hidden pl-2 text-base-content/75"
+      class="sticky w-[250px] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-xl:hidden pl-2 ml-4  text-base-content/75"
     >
       <OnThisPage headings={headings} />
     </div>
   </div>
 </Layout>
+
+<style>
+  :root {
+    --top-padding: calc(100vh-var(--nav-height)-24px)
+  }
+</style>
