@@ -4,7 +4,9 @@ import OnThisPage from "@src/components/Layout/OnThisPage.astro";
 import RelatedPages from "@src/components/Layout/RelatedPages.astro";
 import Footer from "../components/Layout/Footer.astro";
 import Layout from "./BaseLayout.astro";
-import Contribute from "@src/components/Layout/Contribute.astro";
+import IconTag from "~icons/bi/tag-fill";
+import IconGithub from "~icons/bi/github";
+import IconTranslate from "~icons/bi/translate";
 import Dropdown from "@src/components/Dropdown.astro";
 
 interface Props {
@@ -28,17 +30,42 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
     >
       {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
     </div>
-    <!-- TODO: Button styling & logic -->
     <div class="mx-auto max-w-[1024px] pt-6">
-      <ul class="flex flex-row pb-4 justify-between">
+      <ul class="flex flex-row gap-2 pb-4 justify-between -mt-2 -mx-2">
         <li class="max-lg:hidden">
-          <ul class="flex flex-row">
-            <!-- TODO: Labeling and versioning system -->
-            <!-- <li class="btn-compact">Tauri V1 (Latest)</li> -->
-            {enableContribute && <li class="btn-compact">Contribute</li>}
-            {enableTranslate && <li class="btn-compact">Translate</li>}
-          </ul>
+          <a class="btn-compact flex gap-2 items-center">
+            <IconTag />
+            Tauri V1 (Latest)
+          </a>
         </li>
+        {
+          // TODO: Link logic
+          enableContribute && (
+            <li class="max-lg:hidden">
+              <a
+                href="https://github.com/tauri-apps/tauri-docs"
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconGithub />
+                Contribute
+              </a>
+            </li>
+          )
+        }
+        {
+          // TODO: Link logic
+          enableTranslate && (
+            <li class="max-lg:hidden">
+              <a
+                href="https://github.com/tauri-apps/tauri-docs"
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconTranslate />
+                Translate
+              </a>
+            </li>
+          )
+        }
         {
           sidebarEntries && (
             <li class="lg:hidden">
@@ -46,6 +73,7 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
             </li>
           )
         }
+        <li class="grow"></li>
         <li class="xl:hidden">
           <OnThisPage
             headings={headings}
@@ -76,18 +104,3 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
     </div>
   </div>
 </Layout>
-
-<style>
-  .styled-scrollbar::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  .styled-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgb(var(--color-base-content) / 0.15);
-    border-radius: 100vh;
-    @apply transition;
-  }
-  .styled-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(var(--color-base-content) / 0.25);
-  }
-</style>
