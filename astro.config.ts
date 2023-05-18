@@ -45,6 +45,6 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
-    shikiConfig: { theme: tauriCodeThemeDark },
+    shikiConfig: { theme: tauriCodeThemeDark, wrap: true },
   },
 })
