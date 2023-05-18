@@ -57,11 +57,11 @@ module.exports = {
             '--tw-prose-th-borders': theme('colors.base-content/25'),
             '--tw-prose-td-borders': theme('colors.base-content/25'),
             maxWidth: 'unset',
-            overflowWrap: 'anywhere',
-            pre: {
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-word',
-            },
+            // overflowWrap: 'anywhere',
+            // pre: {
+            //   whiteSpace: 'pre-wrap',
+            //   wordBreak: 'break-word',
+            // },
           },
         },
       }),
