@@ -26,7 +26,7 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
     class="grid grid-cols-[auto_auto_auto] justify-evenly gap-4 bg-base-200 px-6"
   >
     <div
-      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-lg:hidden pl-2"
+      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-lg:hidden pl-2 text-base-content/75"
     >
       {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
     </div>
@@ -92,15 +92,9 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
       <Footer />
     </div>
     <div
-      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-xl:hidden pl-2"
+      class="sticky w-[250px] top-[var(--nav-height)] h-[calc(100vh-var(--nav-height))] overflow-y-auto styled-scrollbar pt-6 max-xl:hidden pl-2 text-base-content/75"
     >
-      <ul>
-        <li>
-          <OnThisPage headings={headings} />
-        </li>
-        <li class="list-base"></li>
-        <li></li>
-      </ul>
+      <OnThisPage headings={headings} />
     </div>
   </div>
 </Layout>
