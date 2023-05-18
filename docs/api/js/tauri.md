@@ -4,6 +4,116 @@ Invoke your custom commands.
 
 This package is also accessible with `window.__TAURI__.tauri` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
+## Classes
+
+### `Channel<T>`
+
+**Type parameters**
+
+- `T` = `unknown`
+
+#### Constructors
+
+##### `constructor`
+
+> **new Channel**<`T`\>(): [`Channel`](tauri.md#channel)<`T`\>
+
+**Type parameters**
+
+- `T` = `unknown`
+
+**Defined in:** [tauri.ts:66](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L66)
+
+#### Properties
+
+##### `id`
+
+>  **id**: `number`
+
+**Defined in:** [tauri.ts:59](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L59)
+
+#### Accessors
+
+##### `onmessage`
+
+> **onmessage**(): (`response`: `T`) => `void`
+
+**Returns: **`fn`
+
+> (`response`: `T`): `void`
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `response` | `T` |
+
+**Returns: **`void`
+
+> **onmessage**(`handler`: `fn`): `void`
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `handler` | (`response`: `T`) => `void` |
+
+**Returns: **`void`
+
+#### Methods
+
+##### `toJSON`
+
+> **toJSON**(): `string`
+
+**Returns: **`string`
+
+### `PluginListener`
+
+#### Constructors
+
+##### `constructor`
+
+> **new PluginListener**(`plugin`: `string`, `event`: `string`, `channelId`: `number`): [`PluginListener`](tauri.md#pluginlistener)
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `plugin` | `string` |
+| `event` | `string` |
+| `channelId` | `number` |
+
+**Defined in:** [tauri.ts:90](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L90)
+
+#### Properties
+
+##### `channelId`
+
+>  **channelId**: `number`
+
+**Defined in:** [tauri.ts:88](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L88)
+
+##### `event`
+
+>  **event**: `string`
+
+**Defined in:** [tauri.ts:87](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L87)
+
+##### `plugin`
+
+>  **plugin**: `string`
+
+**Defined in:** [tauri.ts:86](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L86)
+
+#### Methods
+
+##### `unregister`
+
+> **unregister**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+
 ## Type Aliases
 
 ### `InvokeArgs`
@@ -14,9 +124,33 @@ Command arguments.
 
 **Since**: 1.0.0
 
-**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/tauri.ts#L63)
+**Defined in:** [tauri.ts:128](https://github.com/tauri-apps/tauri/blob/d1304ff/tooling/api/src/tauri.ts#L128)
 
 ## Functions
+
+### `addPluginListener`
+
+> **addPluginListener**<`T`\>(`plugin`: `string`, `event`: `string`, `cb`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PluginListener`](tauri.md#pluginlistener)\>
+
+Adds a listener to a plugin event.
+
+**Since**: 2.0.0
+
+**Type parameters**
+
+- `T`
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `plugin` | `string` |
+| `event` | `string` |
+| `cb` | (`payload`: `T`) => `void` |
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`PluginListener`](tauri.md#pluginlistener)\>
+
+The listener object to stop listening to the events.
 
 ### `convertFileSrc`
 
