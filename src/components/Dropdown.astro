@@ -1,17 +1,16 @@
 ---
-import crypto from "crypto";
+import crypto from 'crypto'
 interface Props {
-  inlineMenu?: boolean;
-  ariaLabel?: string;
-  class?: string;
-  btnClass?: string;
-  alignment?: "leading" | "trailing";
+  inlineMenu?: boolean
+  ariaLabel?: string
+  class?: string
+  btnClass?: string
+  alignment?: 'leading' | 'trailing'
 }
 
-// TODO: Dismiss when clicking outside dropdown
 // TODO: Handle inline (might just do at callsights and not in this component)
 
-const uuid = crypto.randomUUID();
+const uuid = crypto.randomUUID()
 
 let {
   inlineMenu,
@@ -19,7 +18,7 @@ let {
   class: className,
   btnClass,
   alignment,
-} = Astro.props;
+} = Astro.props
 ---
 
 <div class="relative">
@@ -29,8 +28,8 @@ let {
   <dialog
     class:list={[
       `dialog-${uuid}`,
-      "bg-base-300 rounded absolute w-max max-w-[90vw] overflow-y-auto max-h-[calc(100svh-(var(--nav-height)+32px))] styled-scrollbar",
-      alignment === "trailing" ? "right-0" : "left-0",
+      'bg-base-300 rounded absolute w-max max-w-[90vw] overflow-y-auto max-h-[calc(100svh-(var(--nav-height)+32px))] styled-scrollbar',
+      alignment === 'trailing' ? 'right-0' : 'left-0',
     ]}
   >
     <slot name="content" />
@@ -44,14 +43,23 @@ let {
 </style>
 
 <script define:vars={{ uuid }}>
-const button = document.querySelector(`.button-${uuid}`);
-const dialog = document.querySelector(`.dialog-${uuid}`);
+  const button = document.querySelector(`.button-${uuid}`)
+  const dialog = document.querySelector(`.dialog-${uuid}`)
 
-button?.addEventListener("click", () => {
-  if (dialog.open) {
-    dialog.close();
-  } else {
-    dialog.show();
-  }
-});
+  button?.addEventListener('mousedown', () => {
+    if (dialog.open) {
+      dialog.close()
+    } else {
+      dialog.show()
+    }
+  })
+  button.addEventListener('mouseup', () => {
+    document.addEventListener(
+      'mousedown',
+      () => {
+        dialog.close()
+      },
+      { once: true }
+    )
+  })
 </script>
