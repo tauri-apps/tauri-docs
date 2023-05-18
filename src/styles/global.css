@@ -185,3 +185,8 @@
     background-color: rgb(var(--color-base-content) / 0.25);
   }
 }
+
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+}
