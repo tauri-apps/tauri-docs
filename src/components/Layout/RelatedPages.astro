@@ -48,10 +48,7 @@ export const buildSidebarObject = (collection: any[]) => {
   dropdown && (
     <Dropdown btnClass="btn-compact">
       <Fragment slot="toggle">{t("layout.related-pages")}</Fragment>
-      <div
-        slot="content"
-        class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
-      >
+      <div slot="content">
         <ul>
           <RelatedPagesNode entries={entries} />
         </ul>

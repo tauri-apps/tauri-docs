@@ -29,7 +29,7 @@ let {
   <dialog
     class:list={[
       `dialog-${uuid}`,
-      "bg-base-300 rounded absolute w-max max-w-[90vw]",
+      "bg-base-300 rounded absolute w-max max-w-[90vw] overflow-y-auto max-h-[calc(100svh-(var(--nav-height)+32px))] styled-scrollbar",
       alignment === "trailing" ? "right-0" : "left-0",
     ]}
   >

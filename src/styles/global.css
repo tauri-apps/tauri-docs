@@ -58,7 +58,7 @@
   /* .btn-active: Modifier,  style for when the element is being interacted with */
 
   .base-btn {
-    @apply text-base-content transition inline-block text-center whitespace-nowrap;
+    @apply text-base-content transition inline-block text-center whitespace-nowrap cursor-pointer;
   }
   .base-btn * {
     @apply inline-block;
@@ -66,10 +66,10 @@
 
   /* Styles */
   .btn-normal {
-    @apply base-btn px-3 py-3 rounded h-12 min-w-[48px] cursor-pointer;
+    @apply base-btn px-3 py-3 rounded min-w-[48px];
   }
   .btn-compact {
-    @apply base-btn px-3 h-8 rounded small-caps;
+    @apply base-btn px-2 py-2 rounded small-caps;
   }
   .btn-link {
     @apply base-btn hover:text-primary;
@@ -170,5 +170,18 @@
   .light-mode-only,
   .gh-light-mode-only {
     @apply hidden;
+  }
+
+  .styled-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .styled-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-base-content) / 0.15);
+    border-radius: 100vh;
+    @apply transition;
+  }
+  .styled-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-base-content) / 0.25);
   }
 }
