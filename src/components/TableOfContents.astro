@@ -25,9 +25,9 @@ const relativeCollection = collection.map((entry) => ({
   <ul class="grid grid-cols-2 gap-4 not-prose">
     {
       relativeCollection.map((entry) => (
-        <li class="card">
-          <a href={entry.slug}>{entry.data.title || entry.slug}</a>
-        </li>
+        <a href={entry.slug}>
+          <li class="card">{entry.data.title || entry.slug}</li>
+        </a>
       ))
     }
   </ul>
