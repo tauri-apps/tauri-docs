@@ -70,7 +70,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="packageconfig.productname">`productName`<a class="hash-link" href="#packageconfig.productname"></a></div> | `string`? | _null_ | App name. |
-| <div className="anchor-with-padding" id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file containing the `version` field. |
+| <div className="anchor-with-padding" id="packageconfig.version">`version`<a class="hash-link" href="#packageconfig.version"></a></div> | `string`? | _null_ | App version. It is a semver version number or a path to a `package.json` file containing the `version` field. If removed the version number from `Cargo.toml` is used. |
 
 
 ### TauriConfig
@@ -399,12 +399,14 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="nsisconfig.template">`template`<a class="hash-link" href="#nsisconfig.template"></a></div> | `string`? | _null_ | A custom .nsi template to use. |
 | <div className="anchor-with-padding" id="nsisconfig.license">`license`<a class="hash-link" href="#nsisconfig.license"></a></div> | `string`? | _null_ | The path to the license file to render on the installer. |
 | <div className="anchor-with-padding" id="nsisconfig.headerimage">`headerImage`<a class="hash-link" href="#nsisconfig.headerimage"></a></div> | `string`? | _null_ | The path to a bitmap file to display on the header of installers pages.<br /><br />The recommended dimensions are 150px x 57px. |
 | <div className="anchor-with-padding" id="nsisconfig.sidebarimage">`sidebarImage`<a class="hash-link" href="#nsisconfig.sidebarimage"></a></div> | `string`? | _null_ | The path to a bitmap file for the Welcome page and the Finish page.<br /><br />The recommended dimensions are 164px x 314px. |
 | <div className="anchor-with-padding" id="nsisconfig.installericon">`installerIcon`<a class="hash-link" href="#nsisconfig.installericon"></a></div> | `string`? | _null_ | The path to an icon file used as the installer icon. |
 | <div className="anchor-with-padding" id="nsisconfig.installmode">`installMode`<a class="hash-link" href="#nsisconfig.installmode"></a></div> | [`NSISInstallerMode`](#nsisinstallermode) | [view](#nsisinstallermode) | Whether the installation will be for all users or just the current user. |
 | <div className="anchor-with-padding" id="nsisconfig.languages">`languages`<a class="hash-link" href="#nsisconfig.languages"></a></div> | `array`? | _null_ | A list of installer languages. By default the OS language is used. If the OS language is not in the list of languages, the first language will be used. To allow the user to select the language, set `display_language_selector` to `true`.<br /><br />See <https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files> for the complete list of languages. |
+| <div className="anchor-with-padding" id="nsisconfig.customlanguagefiles">`customLanguageFiles`<a class="hash-link" href="#nsisconfig.customlanguagefiles"></a></div> | `object`? | _null_ | A key-value pair where the key is the language and the value is the path to a custom `.nsh` file that holds the translated text for tauri's custom messages.<br /><br />See <https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages/English.nsh> for an example `.nsh` file.<br /><br />**Note**: the key must be a valid NSIS language and it must be added to [`NsisConfig`] languages array, |
 | <div className="anchor-with-padding" id="nsisconfig.displaylanguageselector">`displayLanguageSelector`<a class="hash-link" href="#nsisconfig.displaylanguageselector"></a></div> | `boolean` | `false` | Whether to display a language selector dialog before the installer and uninstaller windows are rendered or not. By default the OS language is selected, with a fallback to the first language in the `languages` array. |
 
 
@@ -634,7 +636,7 @@ Type: `object`
 HTTP API scope definition. It is a list of URLs that can be accessed by the webview when using the HTTP APIs. The scoped URL is matched against the request URL using a glob pattern.
 
 Examples:
-- "https://**": allows all HTTPS urls
+- "https://*": allows all HTTPS urls
 - "https://*.github.com/tauri-apps/tauri": allows any subdomain of "github.com" with the "tauri-apps/api" path
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
