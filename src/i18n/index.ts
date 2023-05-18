@@ -10,11 +10,11 @@ export const buildI18nStaticRoutes = () => {
 
 export const buildLocalizedSlug = (slug: string) => {
   const [langBase, ...rest] = slug.split('/')
-  const route = langs.find((lang) => langBase === lang.code)
-  if (!route) {
+  const lang = langs.find((lang) => langBase === lang.code)
+  if (!lang) {
     throw Error(`Invalid lang for slug ${slug}`)
   }
-  let localizedLang = route.route
+  let localizedLang = lang.route
   let localizedRoute = rest.join('/')
   return { lang: localizedLang, route: localizedRoute }
 }
@@ -26,6 +26,9 @@ export const buildLocalizedCollection = (collection: any[]) => {
       ...entry,
       slug: localizedSlug.route,
       lang: localizedSlug.lang,
+      path: `/${localizedSlug.lang ? `${localizedSlug.lang}/` : ''}${
+        entry.collection
+      }/${localizedSlug.route}`,
     }
   })
 }

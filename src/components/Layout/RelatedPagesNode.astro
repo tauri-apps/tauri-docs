@@ -22,7 +22,7 @@ function trimSlashes(url: string) {
           "list-item",
           {
             "list-item-active":
-              trimSlashes(entry.slug) === trimSlashes(Astro.url.pathname),
+              trimSlashes(entry.path) === trimSlashes(Astro.url.pathname),
           },
         ]}
       >
