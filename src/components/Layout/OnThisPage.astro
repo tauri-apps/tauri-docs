@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import Dropdown from "@src/components/Dropdown.astro";
 import { t } from "astro-i18n";
+import IconCaretDown from "~icons/bi/caret-down-fill";
 interface Props {
   headings: MarkdownHeading[];
   dropdown?: boolean;
@@ -14,8 +15,11 @@ const { headings, dropdown, alignment } = Astro.props;
 <div>
   {
     dropdown && (
-      <Dropdown btnClass="btn-compact" alignment={alignment}>
-        <Fragment slot="toggle">{t("layout.on-this-page")}</Fragment>
+      <Dropdown btnClass="btn-compact flex gap-2 items-center" alignment={alignment}>
+        <Fragment slot="toggle">
+          {t("layout.on-this-page")}
+          <IconCaretDown />
+          </Fragment>
         <ul slot="content" id="toc">
           {headings.map((heading) => (
             <li>

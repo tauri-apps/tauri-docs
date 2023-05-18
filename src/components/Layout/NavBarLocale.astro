@@ -2,6 +2,7 @@
 import IconTranslate from '~icons/bi/translate'
 import { astroI18n, l, t } from 'astro-i18n'
 import Dropdown from '../Dropdown.astro'
+import IconCaretDown from "~icons/bi/caret-down-fill";
 ---
 
 <li>
@@ -12,6 +13,8 @@ import Dropdown from '../Dropdown.astro'
   >
     <Fragment slot="toggle">
       <IconTranslate />
+      <IconCaretDown />
+      
     </Fragment>
     <ul slot="content">
       <li><a class="btn-normal">Translations coming soon</a></li>

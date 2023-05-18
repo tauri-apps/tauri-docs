@@ -7,7 +7,7 @@ import Layout from "./BaseLayout.astro";
 import IconTag from "~icons/bi/tag-fill";
 import IconGithub from "~icons/bi/github";
 import IconTranslate from "~icons/bi/translate";
-import Dropdown from "@src/components/Dropdown.astro";
+import IconCaretDown from "~icons/bi/caret-down-fill";
 
 interface Props {
   title?: string;
@@ -39,6 +39,7 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
           <a class="btn-compact flex gap-2 items-center">
             <IconTag />
             Tauri V1 (Latest)
+            <IconCaretDown />
           </a>
         </li>
         {

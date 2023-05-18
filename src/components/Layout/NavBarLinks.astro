@@ -1,67 +1,67 @@
 ---
-import { t, l } from "astro-i18n";
-import Dropdown from "../Dropdown.astro";
+import { t, l } from 'astro-i18n'
+import Dropdown from '../Dropdown.astro'
 
 type navbarItem = {
-  title: string;
-  href?: string;
-  target?: "_blank";
-  children?: navbarItem[];
-};
+  title: string
+  href?: string
+  target?: '_blank'
+  children?: navbarItem[]
+}
 
 const navbar: navbarItem[] = [
   {
-    title: t("global.nav.documentation"),
-    href: l("/docs/1"),
+    title: t('global.nav.documentation'),
+    href: l('/docs/1'),
   },
   {
-    title: t("global.nav.references"),
+    title: t('global.nav.references'),
     children: [
       {
-        title: t("global.nav.javascript-api"),
-        href: l("/api/js/1"),
+        title: t('global.nav.javascript-api'),
+        href: l('/api/js/1'),
       },
       {
-        title: t("global.nav.rust-api"),
-        href: "https://docs.rs/tauri/1/",
-        target: "_blank",
+        title: t('global.nav.rust-api'),
+        href: 'https://docs.rs/tauri/1/',
+        target: '_blank',
       },
       {
-        title: t("global.nav.tauri-config"),
-        href: l("/api/config/1"),
+        title: t('global.nav.tauri-config'),
+        href: l('/api/config/1'),
       },
       {
-        title: t("global.nav.tauri-cli"),
-        href: l("/api/cli/1"),
+        title: t('global.nav.tauri-cli'),
+        href: l('/api/cli/1'),
       },
     ],
   },
   {
-    title: t("global.nav.blog"),
-    href: "https://tauri.app/blog",
+    title: t('global.nav.blog'),
+    href: 'https://tauri.app/blog',
   },
   {
-    title: t("global.nav.about"),
+    title: t('global.nav.about'),
     children: [
       {
-        title: "What is Tauri?",
-        href: "https://tauri.app/about/intro",
+        title: 'What is Tauri?',
+        href: 'https://tauri.app/about/intro',
       },
       {
-        title: "Governance",
-        href: "https://tauri.app/about/governance",
+        title: 'Governance',
+        href: 'https://tauri.app/about/governance',
       },
       {
-        title: "Trademark Guidelines",
-        href: "https://tauri.app/about/trademark",
+        title: 'Trademark Guidelines',
+        href: 'https://tauri.app/about/trademark',
       },
       {
-        title: "Tauri Book",
-        href: "https://tauri.app/about/book",
+        title: 'Tauri Book',
+        href: 'https://tauri.app/about/book',
       },
     ],
   },
-];
+]
 ---
 
 {
