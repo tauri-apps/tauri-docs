@@ -45,10 +45,21 @@ let {
 <script define:vars={{ uuid }}>
   const button = document.querySelector(`.button-${uuid}`)
   const dialog = document.querySelector(`.dialog-${uuid}`)
-
-  button?.addEventListener('mousedown', () => {
-    if (dialog.open) {
+  const closeButton = (e) => {
+    const dimentions = dialog.getBoundingClientRect()
+    if (
+      e.clientX < dimentions.left ||
+      e.clientX > dimentions.right ||
+      e.clientY < dimentions.top ||
+      e.clientY > dimentions.bottom
+    ) {
       dialog.close()
+    }
+  }
+
+  button?.addEventListener('mousedown', (e) => {
+    if (dialog.open) {
+      closeButton(e)
     } else {
       dialog.show()
     }
@@ -56,8 +67,8 @@ let {
   button.addEventListener('mouseup', () => {
     document.addEventListener(
       'mousedown',
-      () => {
-        dialog.close()
+      (e) => {
+        closeButton(e)
       },
       { once: true }
     )
