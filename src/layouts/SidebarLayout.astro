@@ -21,15 +21,14 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
 ---
 
 <Layout title={title}>
-  <div class="flex bg-base-200 pt-6 px-6">
-    {
-      sidebarEntries && (
-        <div class="sticky flex-none w-[250px] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-lg:hidden pl-2 mr-4 text-base-content/75">
-          <RelatedPages entries={sidebarEntries} />
-        </div>
-      )
-    }
-    <div class="mx-auto max-w-[min(100%,1024px)]">
+  <div class="flex justify-around bg-base-200 pt-6 px-6 gap-4">
+    <div
+      class="sticky flex-none w-[var(--sidebar-width)] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-lg:hidden pl-2 text-base-content/75"
+    >
+      {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
+    </div>
+
+    <div class="max-w-[1024px]">
       <ul class="flex flex-row gap-2 pb-4 justify-between -mt-2 -mx-2">
         <li class="max-lg:hidden">
           <a class="btn-compact flex gap-2 items-center">
@@ -91,7 +90,7 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
       <Footer />
     </div>
     <div
-      class="sticky flex-none w-[250px] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-xl:hidden pl-2 ml-4 text-base-content/75"
+      class="sticky flex-none w-[var(--sidebar-width)] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-24px)] overflow-y-auto styled-scrollbar max-xl:hidden pl-2 text-base-content/75"
     >
       <OnThisPage headings={headings} />
     </div>
