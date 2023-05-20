@@ -1,0 +1,30 @@
+---
+import crypto from "crypto";
+const uuid = crypto.randomUUID();
+// TODO: Groupings?
+---
+
+<div class="collapse-container">
+    <input type="checkbox" id=`collapse-${uuid}` />
+    <label for=`collapse-${uuid}` class="collapse-title">
+        <slot name="toggle" />
+    </label>
+    <div class="collapse-content">
+        <slot name="content" />
+    </div>
+</div>
+
+<style>
+    .collapse-container {
+        @apply overflow-hidden;
+    }
+    .collapse-container > input {
+        @apply hidden;
+    }
+    .collapse-content {
+        max-height: 0px;
+    }
+    .collapse-container > input[type="checkbox"]:checked ~ .collapse-content {
+        max-height: none;
+    }
+</style>

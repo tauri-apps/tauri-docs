@@ -1,24 +1,13 @@
 ---
-import crypto from 'crypto'
+import crypto from "crypto";
 interface Props {
-  inlineMenu?: boolean
-  ariaLabel?: string
-  class?: string
-  btnClass?: string
-  alignment?: 'leading' | 'trailing'
+  btnClass?: string;
+  alignment?: "leading" | "trailing";
 }
 
-// TODO: Handle inline (might just do at callsights and not in this component)
+const uuid = crypto.randomUUID();
 
-const uuid = crypto.randomUUID()
-
-let {
-  inlineMenu,
-  ariaLabel,
-  class: className,
-  btnClass,
-  alignment,
-} = Astro.props
+const { btnClass, alignment } = Astro.props;
 ---
 
 <div class="relative">
@@ -28,8 +17,8 @@ let {
   <dialog
     class:list={[
       `dialog-${uuid}`,
-      'bg-base-300 rounded absolute w-max max-w-[90vw] overflow-y-auto max-h-[calc(100svh-(var(--nav-height)+32px))] styled-scrollbar',
-      alignment === 'trailing' ? 'right-0' : 'left-0',
+      "bg-base-300 rounded absolute w-max max-w-[90vw] overflow-y-auto max-h-[calc(100svh-(var(--nav-height)+32px))] styled-scrollbar",
+      alignment === "trailing" ? "right-0" : "left-0",
     ]}
   >
     <slot name="content" />
@@ -43,34 +32,34 @@ let {
 </style>
 
 <script define:vars={{ uuid }}>
-  const button = document.querySelector(`.button-${uuid}`)
-  const dialog = document.querySelector(`.dialog-${uuid}`)
-  const closeButton = (e) => {
-    const dimentions = dialog.getBoundingClientRect()
-    if (
-      e.clientX < dimentions.left ||
-      e.clientX > dimentions.right ||
-      e.clientY < dimentions.top ||
-      e.clientY > dimentions.bottom
-    ) {
-      dialog.close()
-    }
+const button = document.querySelector(`.button-${uuid}`);
+const dialog = document.querySelector(`.dialog-${uuid}`);
+const closeButton = (e) => {
+  const dimentions = dialog.getBoundingClientRect();
+  if (
+    e.clientX < dimentions.left ||
+    e.clientX > dimentions.right ||
+    e.clientY < dimentions.top ||
+    e.clientY > dimentions.bottom
+  ) {
+    dialog.close();
   }
+};
 
-  button?.addEventListener('mousedown', (e) => {
-    if (dialog.open) {
-      closeButton(e)
-    } else {
-      dialog.show()
-    }
-  })
-  button.addEventListener('mouseup', () => {
-    document.addEventListener(
-      'mousedown',
-      (e) => {
-        closeButton(e)
-      },
-      { once: true }
-    )
-  })
+button?.addEventListener("mousedown", (e) => {
+  if (dialog.open) {
+    closeButton(e);
+  } else {
+    dialog.show();
+  }
+});
+button.addEventListener("mouseup", () => {
+  document.addEventListener(
+    "mousedown",
+    (e) => {
+      closeButton(e);
+    },
+    { once: true }
+  );
+});
 </script>
