@@ -87,9 +87,11 @@ A flag argument is a standalone key whose presence or absence provides informati
 ```json tauri.conf.json
 {
   "args": [
-    "name": "verbose",
-    "short": "v",
-    "multipleOccurrences": true
+    {
+      "name": "verbose",
+      "short": "v",
+      "multipleOccurrences": true
+    }
   ]
 }
 ```
