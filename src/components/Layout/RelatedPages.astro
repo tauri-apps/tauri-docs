@@ -51,12 +51,10 @@ export const buildSidebarObject = (collection: any[]) => {
       <Fragment slot="toggle">
         {t("layout.related-pages")}
         <IconCaretDown />
-        </Fragment>
-      <div slot="content">
-        <ul>
-          <RelatedPagesNode entries={entries} />
-        </ul>
-      </div>
+      </Fragment>
+      <ul slot="content" class="p-4">
+        <RelatedPagesNode entries={entries} />
+      </ul>
     </Dropdown>
   )
 }

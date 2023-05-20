@@ -15,12 +15,15 @@ const { headings, dropdown, alignment } = Astro.props;
 <div>
   {
     dropdown && (
-      <Dropdown btnClass="btn-compact flex gap-2 items-center" alignment={alignment}>
+      <Dropdown
+        btnClass="btn-compact flex gap-2 items-center"
+        alignment={alignment}
+      >
         <Fragment slot="toggle">
           {t("layout.on-this-page")}
           <IconCaretDown />
-          </Fragment>
-        <ul slot="content" id="toc">
+        </Fragment>
+        <ul slot="content" id="toc" class="p-4">
           {headings.map((heading) => (
             <li>
               <a href={`#${heading.slug}`} class={`list-item`}>
