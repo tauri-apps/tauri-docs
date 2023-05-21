@@ -16,6 +16,7 @@ import tauriCodeThemeDark from './src/styles/code-theme.json'
 export default defineConfig({
   site: 'https://beta.tauri.app',
   trailingSlash: 'always',
+  compressHTML: true,
   integrations: [
     i18n(),
     prefetch(),
