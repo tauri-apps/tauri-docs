@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 import i18n from 'astro-i18n'
 import Icons from 'unplugin-icons/vite'
+import rehypeWrapAll from 'rehype-wrap-all'
 import { extractImageClass } from './src/plugins/remark-extract-image-class'
 import { rewriteMarkdownLinks } from './src/plugins/remark-rewrite-markdown-links'
 import { defaultLang, langs } from './astro.i18n.config'
@@ -45,6 +46,9 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
-    shikiConfig: { theme: tauriCodeThemeDark },
+    rehypePlugins: [
+      [rehypeWrapAll, { selector: 'table', wrapper: 'div.responsive-table' }],
+    ],
+    shikiConfig: { theme: tauriCodeThemeDark, wrap: true },
   },
 })

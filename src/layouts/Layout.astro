@@ -1,19 +1,19 @@
 ---
-import BaseLayout from './BaseLayout.astro'
-import Footer from '../components/Layout/Footer.astro'
+import BaseLayout from "./BaseLayout.astro";
+import Footer from "../components/Layout/Footer.astro";
 
 export interface Props {
-  title: string
+  title: string;
 }
 
-const { title } = Astro.props
+const { title } = Astro.props;
 ---
 
 <BaseLayout title={title}>
-  <main class="px-8 max-w-[150ch] mx-auto">
+  <main class="px-6 max-w-[150ch] mx-auto">
     <slot />
   </main>
-  <div class="p-8">
+  <div class="p-6">
     <Footer />
   </div>
 </BaseLayout>

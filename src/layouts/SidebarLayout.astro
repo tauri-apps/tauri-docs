@@ -4,66 +4,125 @@ import OnThisPage from "@src/components/Layout/OnThisPage.astro";
 import RelatedPages from "@src/components/Layout/RelatedPages.astro";
 import Footer from "../components/Layout/Footer.astro";
 import Layout from "./BaseLayout.astro";
-import Contribute from "@src/components/Layout/Contribute.astro";
+import IconTag from "~icons/bi/tag-fill";
+import IconGithub from "~icons/bi/github";
+import IconTranslate from "~icons/bi/translate";
 
 interface Props {
   title?: string;
-  sidebarEntries?: any;
   headings: MarkdownHeading[];
+  sidebarEntries?: any;
+  contributeUrl?: string;
+  enableTranslate?: boolean;
 }
 
-const { title, sidebarEntries, headings } = Astro.props;
+const { title, sidebarEntries, headings, contributeUrl, enableTranslate } =
+  Astro.props;
 ---
 
 <Layout title={title}>
   <div
-    class="absolute inset-0 top-[var(--nav-height)] flex justify-between bg-base-200"
+    class="inline-flex justify-around bg-base-200 pt-6 px-6 gap-4 min-w-full w-full"
   >
     <div
-      class="hidden flex-none lg:block w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
+      class=`sticky flex-none ${!sidebarEntries ? 'max-xl:hidden' : 'max-lg:hidden'} w-[var(--sidebar-width)] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-48px)] overflow-y-auto styled-scrollbar pl-2 text-base-content/75`
     >
       {sidebarEntries && <RelatedPages entries={sidebarEntries} />}
     </div>
 
-    <div class="overflow-y-auto xl:py-4 px-8 flex-1">
-      <div class="max-w-[150ch] mx-auto">
-        <div class="-ml-3 -mr-3 sticky top-0 bg-base-200">
-          <div class="lg:hidden flex justify-between">
-            {
-              sidebarEntries && (
-                <RelatedPages entries={sidebarEntries} dropdown={true} />
-              )
-            }
-
-            <OnThisPage
-              headings={headings}
-              dropdown={true}
-              alignment="trailing"
-            />
-          </div>
-          <div class="hidden lg:max-xl:block">
-            <OnThisPage headings={headings} dropdown={true} />
-          </div>
-        </div>
-        <main>
-          <slot />
-        </main>
-        <div class="xl:hidden mt-8"><Contribute /></div>
-        <Footer />
-      </div>
-    </div>
-    <div
-      class="hidden xl:block flex-none w-[var(--sidebar-width)] overflow-y-auto break-words p-4"
-    >
-      <ul>
-        <li>
-          <OnThisPage headings={headings} />
+    <div class="max-w-[1024px] min-w-[1px]">
+      <ul class="flex flex-row gap-2 pb-4 justify-between -mt-2 -mx-2">
+        <li class="max-lg:hidden">
+          <a class="btn-compact flex gap-2 items-center">
+            <IconTag />
+            Tauri V1 (Latest)
+          </a>
         </li>
-        <li class="list-base"></li>
-        <li>
-          <Contribute />
+        {
+          contributeUrl && (
+            <li class="max-lg:hidden">
+              <a
+                href=`https://github.com/tauri-apps/tauri-docs/tree/beta/src/content/docs/${contributeUrl}`
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconGithub />
+                Contribute
+              </a>
+            </li>
+          )
+        }
+        {
+          enableTranslate && (
+            <li class="max-lg:hidden">
+              <a
+                href="https://github.com/tauri-apps/tauri-docs/blob/beta/CONTRIBUTING.md#internationalization-i18n"
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconTranslate />
+                Translate
+              </a>
+            </li>
+          )
+        }
+        {
+          sidebarEntries && (
+            <li class="lg:hidden">
+              <RelatedPages entries={sidebarEntries} dropdown={true} />
+            </li>
+          )
+        }
+        <li class="grow"></li>
+        <li class="xl:hidden">
+          <OnThisPage
+            headings={headings}
+            dropdown={true}
+            alignment="trailing"
+          />
         </li>
       </ul>
+      <main>
+        <slot />
+      </main>
+      <ul class="lg:hidden flex flex-row gap-6 small-caps -mx-2 mt-2">
+        {
+          contributeUrl && (
+            <li>
+              <a
+                href=`https://github.com/tauri-apps/tauri-docs/tree/beta/src/content/docs/${contributeUrl}`
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconGithub />
+                Contribute
+              </a>
+            </li>
+          )
+        }
+        {
+          enableTranslate && (
+            <li>
+              <a
+                href="https://github.com/tauri-apps/tauri-docs/blob/beta/CONTRIBUTING.md#internationalization-i18n"
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconTranslate />
+                Translate
+              </a>
+            </li>
+          )
+        }
+      </ul>
+      <Footer />
+    </div>
+    <div
+      class="sticky flex-none w-[var(--sidebar-width)] top-[calc(var(--nav-height)+24px)] h-[calc(100vh-var(--nav-height)-48px)] overflow-y-auto styled-scrollbar max-xl:hidden pl-2 text-base-content/75"
+    >
+      <OnThisPage headings={headings} />
     </div>
   </div>
 </Layout>
+
+<style>
+  :root {
+    --top-padding: calc(100vh-var(--nav-height)-24px);
+  }
+</style>

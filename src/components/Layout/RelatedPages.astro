@@ -2,6 +2,7 @@
 import RelatedPagesNode from "./RelatedPagesNode.astro";
 import Dropdown from "@src/components/Dropdown.astro";
 import { t } from "astro-i18n";
+import IconCaretDown from "~icons/bi/caret-down-fill";
 
 interface Props {
   entries: any[];
@@ -46,16 +47,14 @@ export const buildSidebarObject = (collection: any[]) => {
 
 {
   dropdown && (
-    <Dropdown btnClass="btn-compact">
-      <Fragment slot="toggle">{t("layout.related-pages")}</Fragment>
-      <div
-        slot="content"
-        class="py-2 px-4 max-h-[calc(100svh-(var(--nav-height)+32px))] overflow-y-auto"
-      >
-        <ul>
-          <RelatedPagesNode entries={entries} />
-        </ul>
-      </div>
+    <Dropdown btnClass="btn-compact flex gap-2 items-center">
+      <Fragment slot="toggle">
+        {t("layout.related-pages")}
+        <IconCaretDown />
+      </Fragment>
+      <ul slot="content" class="p-4">
+        <RelatedPagesNode entries={entries} />
+      </ul>
     </Dropdown>
   )
 }

@@ -1,15 +1,17 @@
 ---
 import { t, l } from "astro-i18n";
 import Dropdown from "../Dropdown.astro";
+import NavBarLink from "./NavBarLink.astro";
+import type { NavbarItem } from "./NavBarLink.astro";
+import Collapse from "../Collapse.astro";
 
-type navbarItem = {
-  title: string;
-  href?: string;
-  target?: "_blank";
-  children?: navbarItem[];
-};
+interface Props {
+  inlineMenu?: boolean;
+}
 
-const navbar: navbarItem[] = [
+const { inlineMenu } = Astro.props;
+
+const navbar: NavbarItem[] = [
   {
     title: t("global.nav.documentation"),
     href: l("/docs/1"),
@@ -68,36 +70,30 @@ const navbar: navbarItem[] = [
   navbar.map((item) =>
     item.children ? (
       <li class="shrink-0">
-        <Dropdown
-          inlineMenu={Astro.props.inlineMenu}
-          btnClass="btn-normal btn-inline text-left"
-        >
-          <Fragment slot="toggle">{item.title}</Fragment>
-          <ul slot="content">
-            {item.children.map((child) => (
-              <li>
-                <a
-                  href={child.href}
-                  class="btn-normal btn-inline text-left"
-                  target={child.target}
-                >
-                  {child.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Dropdown>
+        {inlineMenu ? (
+          <Collapse>
+            <div class="btn-normal btn-inline text-left" slot="toggle">
+              {item.title}
+            </div>
+            <ul class="px-2 bg-base-200 rounded" slot="content">
+              {item.children.map((child) => (
+                <NavBarLink item={child} />
+              ))}
+            </ul>
+          </Collapse>
+        ) : (
+          <Dropdown btnClass="btn-normal btn-inline text-left">
+            <Fragment slot="toggle">{item.title}</Fragment>
+            <ul slot="content">
+              {item.children.map((child) => (
+                <NavBarLink item={child} />
+              ))}
+            </ul>
+          </Dropdown>
+        )}
       </li>
     ) : (
-      <li>
-        <a
-          href={item.href}
-          class="btn-normal btn-inline text-left"
-          target={item.target}
-        >
-          {item.title}
-        </a>
-      </li>
+      <NavBarLink item={item} />
     )
   )
 }

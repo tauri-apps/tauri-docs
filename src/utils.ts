@@ -1,32 +1,13 @@
 import { langs } from 'astro.i18n.config'
 import { getCollection } from 'astro:content'
+import { buildLocalizedCollection } from './i18n'
 
 export const getDocsCollection = async () => {
   const collection = await getCollection(
     'docs',
     ({ slug }) => !slug.split('/').some((part) => part.startsWith('_'))
   )
-  return collection.map((entry) => {
-    const [baseLang, ...rest] = entry.slug.split('/')
-    const lang = langs.find((lang) => baseLang === lang.code)
-
-    if (!lang) {
-      throw Error(`Invalid lang for file ${entry.id}`)
-    }
-
-    const slug = rest.join('/')
-
-    const path = `/${lang.route ? `${lang.route}/` : ''}${
-      entry.collection
-    }/${slug}`
-
-    return {
-      ...entry,
-      slug,
-      lang: lang.route,
-      path,
-    }
-  })
+  return buildLocalizedCollection(collection)
 }
 
 export const getApiCollection = async () => {

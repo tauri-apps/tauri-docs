@@ -1,0 +1,23 @@
+---
+export type NavbarItem = {
+    title: string;
+    href?: string;
+    target?: "_blank";
+    children?: NavbarItem[];
+};
+
+interface Props {
+    item: NavbarItem;
+}
+const { item } = Astro.props;
+---
+
+<li>
+    <a
+        href={item.href}
+        class="btn-normal btn-inline text-left"
+        target={item.target}
+    >
+        {item.title}
+    </a>
+</li>
