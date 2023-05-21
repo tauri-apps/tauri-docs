@@ -12,11 +12,11 @@ interface Props {
   title?: string;
   headings: MarkdownHeading[];
   sidebarEntries?: any;
-  enableContribute?: boolean;
+  contributeUrl?: string;
   enableTranslate?: boolean;
 }
 
-const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
+const { title, sidebarEntries, headings, contributeUrl, enableTranslate } =
   Astro.props;
 ---
 
@@ -39,11 +39,10 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
           </a>
         </li>
         {
-          // TODO: Link logic
-          enableContribute && (
+          contributeUrl && (
             <li class="max-lg:hidden">
               <a
-                href="https://github.com/tauri-apps/tauri-docs"
+                href=`https://github.com/tauri-apps/tauri-docs/tree/beta/src/content/docs/${contributeUrl}`
                 class="btn-compact flex gap-2 items-center"
               >
                 <IconGithub />
@@ -53,11 +52,10 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
           )
         }
         {
-          // TODO: Link logic
           enableTranslate && (
             <li class="max-lg:hidden">
               <a
-                href="https://github.com/tauri-apps/tauri-docs"
+                href="https://github.com/tauri-apps/tauri-docs/blob/beta/CONTRIBUTING.md#internationalization-i18n"
                 class="btn-compact flex gap-2 items-center"
               >
                 <IconTranslate />
@@ -85,9 +83,33 @@ const { title, sidebarEntries, headings, enableContribute, enableTranslate } =
       <main>
         <slot />
       </main>
-      <ul class="lg:hidden flex flex-row gap-6 small-caps">
-        {enableContribute && <li class="btn-compact">Contribute</li>}
-        {enableTranslate && <li class="btn-compact">Translate</li>}
+      <ul class="lg:hidden flex flex-row gap-6 small-caps -mx-2 mt-2">
+        {
+          contributeUrl && (
+            <li>
+              <a
+                href=`https://github.com/tauri-apps/tauri-docs/tree/beta/src/content/docs/${contributeUrl}`
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconGithub />
+                Contribute
+              </a>
+            </li>
+          )
+        }
+        {
+          enableTranslate && (
+            <li>
+              <a
+                href="https://github.com/tauri-apps/tauri-docs/blob/beta/CONTRIBUTING.md#internationalization-i18n"
+                class="btn-compact flex gap-2 items-center"
+              >
+                <IconTranslate />
+                Translate
+              </a>
+            </li>
+          )
+        }
       </ul>
       <Footer />
     </div>
