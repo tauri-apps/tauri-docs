@@ -130,7 +130,7 @@ fn my_custom_command() -> Result<(), String> {
 }
 ```
 
-Since this is not very idiomatic you may want to create your own error type which implements `serde::Serialize`. In the following example, we use the [thiserror] crate to help create the error type. It allows you to turn enums into error types by deriving the `thiserror::Error` trait. You can consult its documentation for more details.
+Since this is not very idiomatic you may want to create your own error type which implements `serde::Serialize`. In the following example, we use the [`thiserror`] crate to help create the error type. It allows you to turn enums into error types by deriving the `thiserror::Error` trait. You can consult its documentation for more details.
 
 ```rust
 // create the error type that represents all errors possible in our program
