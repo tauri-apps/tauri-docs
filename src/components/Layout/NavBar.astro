@@ -1,11 +1,12 @@
 ---
-import IconList from '~icons/bi/list'
-import IconClose from '~icons/bi/x-lg'
-import NavBarLinks from './NavBarLinks.astro'
-import NavBarLocale from './NavBarLocale.astro'
-import Social from './NavBarSocial.astro'
-import Search from './NavBarSearch/index.astro'
-import { l, t } from 'astro-i18n'
+import IconList from "~icons/bi/list";
+import IconClose from "~icons/bi/x-lg";
+import NavBarLinks from "./NavBarLinks.astro";
+import NavBarLocale from "./NavBarLocale.astro";
+import Social from "./NavBarSocial.astro";
+import Search from "./NavBarSearch/index.astro";
+import { l, t } from "astro-i18n";
+import tauriLogo from "../../assets/tauri_logo_dark.svg";
 ---
 
 <style>
@@ -24,10 +25,10 @@ import { l, t } from 'astro-i18n'
   <input type="checkbox" id="nav-drawer" class="hidden" />
   <ul class="flex items-center">
     <li class="shrink-0">
-      <a href={l('/')}>
+      <a href={l("/")}>
         <img
-          src="/meta/tauri_logo_dark.svg"
-          alt={t('global.tauri-logo')}
+          src={tauriLogo.src}
+          alt={t("global.tauri-logo")}
           class="h-10 pr-8"
         />
       </a>
@@ -57,7 +58,7 @@ import { l, t } from 'astro-i18n'
         for="nav-drawer"
         class="lg:hidden icon-closed btn-normal"
         tabindex="0"
-        aria-label={t('global.nav.open-navigation')}
+        aria-label={t("global.nav.open-navigation")}
       >
         <IconList />
       </label>
@@ -67,7 +68,7 @@ import { l, t } from 'astro-i18n'
         for="nav-drawer"
         class="lg:hidden icon-open btn-normal"
         tabindex="0"
-        aria-label={t('global.nav.close-navigation')}
+        aria-label={t("global.nav.close-navigation")}
       >
         <IconClose />
       </label>
