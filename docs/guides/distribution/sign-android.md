@@ -47,7 +47,7 @@ If you have an existing keystore, skip to the next step. If not, create one by e
 
 ## Reference the Keystore from the App
 
-Create a file named `[project]/src-tauri/gen/android/[your-app]/key.properties` that contains a reference to your keystore:
+Create a file named `[project]/src-tauri/gen/android/key.properties` that contains a reference to your keystore:
 
 ```
 storePassword=<password from previous step>
@@ -62,7 +62,7 @@ Keep the `key.properties` file private; don't check it into public source contro
 
 ## Configure Signing in Gradle
 
-Configure gradle to use your upload key when building your app in release mode by editing the `[project]/src-tauri/gen/android/[your-app]/app/build.gradle.kts` file.
+Configure gradle to use your upload key when building your app in release mode by editing the `[project]/src-tauri/gen/android/app/build.gradle.kts` file.
 
 1. Add the needed imports at the beginning of the file
 
