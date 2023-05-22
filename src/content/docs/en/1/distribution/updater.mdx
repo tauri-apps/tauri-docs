@@ -207,7 +207,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/dialog.md#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
-<img src="/img/guides/distribution/updater/update-available.png" alt="Default updater dialog" style={{maxHeight: "200px", textAlign: 'center'}} />
+![Default updater dialog](./assets/updater/update-available.png)
 
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
@@ -215,7 +215,9 @@ If the user accepts, the update is downloaded and installed. Afterwards, the use
 ### Custom Dialog
 
 <Callout kind="caution">
-You need to disable the built-in dialog in your [Tauri configuration](#tauri-configuration) to enable the JavaScript APIs and updater events!
+  You need to disable the built-in dialog in your [Tauri
+  configuration](#tauri-configuration) to enable the JavaScript APIs and updater
+  events!
 </Callout>
 
 #### Rust
