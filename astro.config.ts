@@ -46,10 +46,13 @@ export default defineConfig({
     ],
   },
   markdown: {
-    remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
-    rehypePlugins: [
-      [rehypeWrapAll, { selector: 'table', wrapper: 'div.responsive-table' }],
-    ],
+    // remarkPlugins: [extractImageClass, rewriteMarkdownLinks],
+    // rehypePlugins: [
+    //   [rehypeWrapAll, { selector: 'table', wrapper: 'div.responsive-table' }],
+    // ],
     shikiConfig: { theme: tauriCodeThemeDark, wrap: true },
+  },
+  experimental: {
+    assets: true,
   },
 })
