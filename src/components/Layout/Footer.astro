@@ -1,7 +1,7 @@
 ---
 import { l, t } from "astro-i18n";
 import NavBarSocial from "./NavBarSocial.astro";
-import logo from "@src/images/tauri_logo_dark.svg";
+import tauriLogo from "../../assets/tauri_logo_dark.svg";
 
 const year = new Date().getFullYear();
 ---
@@ -20,7 +20,7 @@ const year = new Date().getFullYear();
     <div class="md:max-lg:col-span-3 flex flex-col gap-6">
       <div>
         <a href={l("/")}>
-          <img src={logo} alt="Tauri logo" class="h-10" />
+          <img src={tauriLogo.src} alt="Tauri logo" class="h-10" />
         </a>
       </div>
 

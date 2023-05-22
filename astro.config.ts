@@ -52,4 +52,7 @@ export default defineConfig({
     ],
     shikiConfig: { theme: tauriCodeThemeDark, wrap: true },
   },
+  experimental: {
+    assets: true,
+  },
 })
