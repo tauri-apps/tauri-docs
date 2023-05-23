@@ -2,6 +2,10 @@
 layout: '@src/layouts/Layout.astro'
 ---
 
+import { createLocalizedPaths } from '@src/utils'
+
+export const getStaticPaths = createLocalizedPaths()
+
 import Callout from '@src/components/Callout.astro'
 
 # The Tauri Book

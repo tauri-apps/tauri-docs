@@ -2,6 +2,10 @@
 layout: '@src/layouts/Layout.astro'
 ---
 
+import { createLocalizedPaths } from '@src/utils'
+
+export const getStaticPaths = createLocalizedPaths()
+
 # What is Tauri?
 
 Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.

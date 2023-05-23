@@ -4,6 +4,10 @@ import Icon from "~icons/bi/fire";
 import { Code } from "astro/components";
 import Callout from "@src/components/Callout.astro";
 // import Carousel from '@src/components/Blog/Carousel.astro'
+
+import { createLocalizedPaths } from "@src/utils";
+
+export const getStaticPaths = createLocalizedPaths();
 ---
 
 <Layout title="Components">
