@@ -1,26 +1,68 @@
 ---
 import Layout from "@src/layouts/SidebarLayout.astro";
-import { getDocsCollection } from "@src/utils";
+import { createStaticPaths } from "astro-i18n";
+import { astroI18n, l } from "astro-i18n";
+import { getCollection, getEntry } from "astro:content";
 import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 
-export async function getStaticPaths() {
-  const collection = await getDocsCollection();
+export const getStaticPaths = createStaticPaths(async ({ langCode }) => {
+  console.log(langCode);
+  let collection = await getCollection("docs", ({ slug }) => {
+    return (
+      // Filter to only default locale
+      slug.split("/")[0] == astroI18n.defaultLangCode &&
+      // Filter out any fragments
+      !slug.split("/").some((part) => part.startsWith("_"))
+    );
+  });
 
-  return collection.map((entry) => ({
-    params: {
-      lang: entry.lang,
-      slug: entry.slug === "" ? undefined : entry.slug,
-    },
-    props: {
-      entry,
-      collection,
-    },
-  }));
-}
+  if (astroI18n.defaultLangCode != langCode) {
+    collection = await Promise.all(
+      collection.map(async (entry) => {
+        const [_, ...slugParts] = entry.slug.split("/");
+        const slug = `${langCode}/${slugParts.join("/")}`;
+        // Attempt to retrieve a localized Entry
+        const localizedEntry = await getEntry("docs", slug);
+        // Return it if found
+        if (localizedEntry) {
+          return localizedEntry;
+        }
+        // Otherwise provide a fallback
+        return { ...entry, fallback: true };
+      })
+    );
+  }
 
-const { entry, collection } = Astro.props;
+  collection = collection.map((entry) => {
+    const [_, version, ...slugParts] = entry.slug.split("/");
+    // Build a localized path
+    const path = `${version}/docs/${slugParts.join("/")}`;
+    return {
+      ...entry,
+      path: l(path, undefined, langCode),
+    };
+  });
+
+  return collection.map((entry) => {
+    const [_, version, ...slugParts] = entry.slug.split("/");
+    const slug = slugParts.join("/");
+    return {
+      params: {
+        version,
+        slug: slug === "" ? undefined : slug,
+      },
+      props: {
+        entry,
+        collection,
+      },
+    };
+  });
+}, import.meta.url);
+
+let { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
-const entries = buildSidebarObject(collection)[0]["_children"];
+let entries = undefined;
+entries = buildSidebarObject(collection)[0]["_children"];
 ---
 
 <Layout
@@ -30,6 +72,7 @@ const entries = buildSidebarObject(collection)[0]["_children"];
   contributeUrl={entry.id}
   enableTranslate={true}
 >
+  {entry.fallback && <div>Using a fallback page</div>}
   <div class="prose">
     <Content />
   </div>

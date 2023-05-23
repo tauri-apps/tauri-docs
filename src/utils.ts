@@ -1,15 +1,3 @@
-import { langs } from 'astro.i18n.config'
-import { getCollection } from 'astro:content'
-import { buildLocalizedCollection } from './i18n'
-
-export const getDocsCollection = async () => {
-  const collection = await getCollection(
-    'docs',
-    ({ slug }) => !slug.split('/').some((part) => part.startsWith('_'))
-  )
-  return buildLocalizedCollection(collection)
-}
-
 export const sortCollection = (collection: any[]) => {
   collection.sort((a, b) => {
     // Sort on position
