@@ -10,22 +10,6 @@ export const getDocsCollection = async () => {
   return buildLocalizedCollection(collection)
 }
 
-export const getApiCollection = async () => {
-  const collection = await getCollection('api')
-  return langs.flatMap((lang) => {
-    return collection.map((entry) => {
-      const path = `/${lang.route ? `${lang.route}/` : ''}${entry.collection}/${
-        entry.slug
-      }`
-      return {
-        ...entry,
-        lang: lang.route,
-        path,
-      }
-    })
-  })
-}
-
 export const sortCollection = (collection: any[]) => {
   collection.sort((a, b) => {
     // Sort on position
