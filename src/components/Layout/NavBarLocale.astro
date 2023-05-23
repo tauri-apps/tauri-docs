@@ -1,35 +1,34 @@
 ---
-import IconTranslate from '~icons/bi/translate'
-import { astroI18n, l, t } from 'astro-i18n'
-import Dropdown from '../Dropdown.astro'
+import IconTranslate from "~icons/bi/translate";
+import { astroI18n, l, t } from "astro-i18n";
+import Dropdown from "../Dropdown.astro";
 import IconCaretDown from "~icons/bi/caret-down-fill";
 ---
 
 <li>
   <Dropdown
-    ariaLabel={t('global.nav.locale-dropdown')}
+    ariaLabel={t("global.nav.locale-dropdown")}
     btnClass="btn-normal"
-    alignment={'trailing'}
+    alignment={"trailing"}
   >
     <Fragment slot="toggle">
       <IconTranslate />
       <IconCaretDown />
-      
     </Fragment>
     <ul slot="content">
       <li><a class="btn-normal">Translations coming soon</a></li>
-      <!-- {
+      {
         astroI18n.langCodes.map((lang) => (
           <li>
             <a
-              href={l(String(Astro.url.pathname), undefined, lang)}
-              class:list={astroI18n.langCode === lang ? '!text-primary' : ''}
+              href={l(Astro.url.pathname, undefined, lang)}
+              class:list={astroI18n.langCode === lang ? "!text-primary" : ""}
             >
               {t(`global.locale.${lang}`)}
             </a>
           </li>
         ))
-      } -->
+      }
     </ul>
   </Dropdown>
 </li>
