@@ -1,6 +1,22 @@
 ---
 import Layout from "@src/layouts/BaseLayout.astro";
+import { createLocalizedPaths } from "@src/utils";
 import Footer from "@src/components/Layout/Footer.astro";
+
+export const getStaticPaths = createLocalizedPaths((lang) => {
+  return {
+    props: {
+      test: "Test",
+    },
+  };
+});
+
+// export function getStaticPaths() {
+//   astroI18n.langCodes.flatMap((lang) => {
+
+//   })
+//   return [];
+// }
 
 const { lang } = Astro.params;
 ---
