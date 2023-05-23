@@ -26,7 +26,7 @@ export const getStaticPaths = createLocalizedPaths(async () => {
 let { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
 
-collection = collection.map((entry) => {
+collection = collection.map((entry: { slug: string }) => {
   const [version, ...slug] = entry.slug.split("/");
   return { ...entry, path: l(`${version}/api/${slug.join("/")}`) };
 });
@@ -34,9 +34,9 @@ collection = collection.map((entry) => {
 let entries;
 if (entry.slug.startsWith("1/js")) {
   entries = collection
-    .filter((entry) => entry.slug.startsWith("1/js"))
+    .filter((entry: { slug: string }) => entry.slug.startsWith("1/js"))
     // Derive the title of the module
-    .map((entry) => ({
+    .map((entry: { slug: string }) => ({
       ...entry,
       data: {
         title: entry.slug.split("/").pop(),
