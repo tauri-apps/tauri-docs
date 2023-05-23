@@ -6,7 +6,6 @@ import { getCollection, getEntry } from "astro:content";
 import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 
 export const getStaticPaths = createStaticPaths(async ({ langCode }) => {
-  console.log(langCode);
   let collection = await getCollection("docs", ({ slug }) => {
     return (
       // Filter to only default locale
