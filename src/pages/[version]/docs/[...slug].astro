@@ -7,7 +7,7 @@ import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 
 export const getStaticPaths = createStaticPaths(async ({ langCode }) => {
   // TODO: Currently the lang can't be extracted using this approach
-  console.log(import.meta.url);
+  // TODO: Go back to the original approach of letting Astro handle routing itself?
   let collection = await getCollection("docs", ({ slug }) => {
     return (
       // Filter to only default locale
