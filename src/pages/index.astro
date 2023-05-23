@@ -1,11 +1,6 @@
 ---
 import Layout from "@src/layouts/BaseLayout.astro";
 import Footer from "@src/components/Layout/Footer.astro";
-import { buildI18nStaticRoutes } from "@src/i18n";
-
-export async function getStaticPaths() {
-  return buildI18nStaticRoutes();
-}
 
 const { lang } = Astro.params;
 ---

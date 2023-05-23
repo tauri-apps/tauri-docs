@@ -2,12 +2,6 @@
 layout: '@src/layouts/Layout.astro'
 ---
 
-import { buildI18nStaticRoutes } from '@src/i18n'
-
-export async function getStaticPaths() {
-  return buildI18nStaticRoutes()
-}
-
 # What is Tauri?
 
 Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
