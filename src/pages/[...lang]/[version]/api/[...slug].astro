@@ -1,10 +1,11 @@
 ---
+import { createLocalizedPaths } from "@src/utils";
 import Layout from "@src/layouts/SidebarLayout.astro";
 import { l } from "astro-i18n";
 import { getCollection } from "astro:content";
 import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 
-export async function getStaticPaths() {
+export const getStaticPaths = createLocalizedPaths(async () => {
   let collection = await getCollection("api");
 
   return collection.map((entry) => {
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
       },
     };
   });
-}
+});
 
 let { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
