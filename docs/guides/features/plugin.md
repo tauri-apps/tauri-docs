@@ -21,7 +21,7 @@ fn main() {
 
 Plugins are reusable extensions to the Tauri API that solve common problems. They are also a very convenient way to structure your code base!
 
-If you intend to share your plugin with others, we provide a ready-made template! With the Tauri's CLI installed just run:
+If you intend to share your plugin with others, we provide a ready-made template! With the Tauri's [CLI](https://tauri.app/v1/api/cli/) installed just run:
 
 <Command name="plugin init --name awesome" />
 
