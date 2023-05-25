@@ -1232,10 +1232,10 @@
     tar "^4.4.8"
     yauzl "^2.10.0"
 
-"@crowdin/crowdin-api-client@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.22.1.tgz#30b42be256b8667158feda67b718d319dc8e35eb"
-  integrity sha512-2T4JWuatKBpdb8zYUd0HmXjOD3HCCd7I6LKWG7ZEVid9+JAXItjB8+xLL+AupYJM8iHflnZjggs/wadQZovOuA==
+"@crowdin/crowdin-api-client@1.22.2":
+  version "1.22.2"
+  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.22.2.tgz#f984a87ea25bdcdc66722377925f645fc2dbee20"
+  integrity sha512-Ar1/tA3uc7YKQ5jkwXha62AWVX1K5Ypu0HaOAit1YFuwzNRYL00nnecWUr/RvNKyWRubj8IbvNhR/LL90NT7tA==
   dependencies:
     axios "^1"
 
