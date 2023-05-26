@@ -1,4 +1,5 @@
-import { astroI18n } from 'astro-i18n'
+import { astroI18n, l } from 'astro-i18n'
+import { getCollection, getEntry } from 'astro:content'
 
 export const sortCollection = (collection: any[]) => {
   collection.sort((a, b) => {
@@ -90,4 +91,57 @@ const merge = (...props: any) => {
   }
 
   return target
+}
+
+export const buildLocalizedDocsCollection = async (lang: string) => {
+  let collection = await getCollection('docs', ({ slug }) => {
+    return (
+      // Filter to only default locale
+      slug.split('/')[0] == astroI18n.defaultLangCode &&
+      // Filter out any fragments
+      !slug.split('/').some((part) => part.startsWith('_'))
+    )
+  })
+
+  if (astroI18n.defaultLangCode != lang) {
+    collection = await Promise.all(
+      collection.map(async (entry) => {
+        const [_, ...slugParts] = entry.slug.split('/')
+        const slug = `${lang}/${slugParts.join('/')}`
+        // Attempt to retrieve a localized Entry
+        const localizedEntry = await getEntry('docs', slug)
+        // Return it if found
+        if (localizedEntry) {
+          return localizedEntry
+        }
+        // Otherwise provide a fallback
+        return { ...entry, fallback: true }
+      })
+    )
+  }
+
+  collection = collection.map((entry) => {
+    const [_, version, ...slugParts] = entry.slug.split('/')
+    // Build a localized path
+    const path = `${version}/docs/${slugParts.join('/')}`
+    return {
+      ...entry,
+      path: l(path, undefined, lang),
+    }
+  })
+
+  return collection.map((entry) => {
+    const [_, version, ...slugParts] = entry.slug.split('/')
+    const slug = slugParts.join('/')
+    return {
+      params: {
+        version,
+        slug: slug === '' ? undefined : slug,
+      },
+      props: {
+        entry,
+        collection,
+      },
+    }
+  })
 }

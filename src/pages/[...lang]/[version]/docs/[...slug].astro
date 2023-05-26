@@ -1,68 +1,18 @@
 ---
 import Layout from "@src/layouts/SidebarLayout.astro";
 import Callout from "@src/components/Callout.astro";
-import { createLocalizedPaths } from "@src/utils";
-import { astroI18n, l } from "astro-i18n";
-import { getCollection, getEntry } from "astro:content";
+import { createLocalizedPaths, buildLocalizedDocsCollection } from "@src/utils";
 import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
 
 export const getStaticPaths = createLocalizedPaths(async (lang) => {
-  let collection = await getCollection("docs", ({ slug }) => {
-    return (
-      // Filter to only default locale
-      slug.split("/")[0] == astroI18n.defaultLangCode &&
-      // Filter out any fragments
-      !slug.split("/").some((part) => part.startsWith("_"))
-    );
-  });
-
-  if (astroI18n.defaultLangCode != lang) {
-    collection = await Promise.all(
-      collection.map(async (entry) => {
-        const [_, ...slugParts] = entry.slug.split("/");
-        const slug = `${lang}/${slugParts.join("/")}`;
-        // Attempt to retrieve a localized Entry
-        const localizedEntry = await getEntry("docs", slug);
-        // Return it if found
-        if (localizedEntry) {
-          return localizedEntry;
-        }
-        // Otherwise provide a fallback
-        return { ...entry, fallback: true };
-      })
-    );
-  }
-
-  collection = collection.map((entry) => {
-    const [_, version, ...slugParts] = entry.slug.split("/");
-    // Build a localized path
-    const path = `${version}/docs/${slugParts.join("/")}`;
-    return {
-      ...entry,
-      path: l(path, undefined, lang),
-    };
-  });
-
-  return collection.map((entry) => {
-    const [_, version, ...slugParts] = entry.slug.split("/");
-    const slug = slugParts.join("/");
-    return {
-      params: {
-        version,
-        slug: slug === "" ? undefined : slug,
-      },
-      props: {
-        entry,
-        collection,
-      },
-    };
-  });
+  return buildLocalizedDocsCollection(lang);
 });
 
 let { entry, collection } = Astro.props;
 const { Content, headings } = await entry.render();
 let entries = undefined;
 entries = buildSidebarObject(collection)[0]["_children"];
+// TODO: Fix title
 ---
 
 <Layout
