@@ -2,11 +2,9 @@
 layout: '@src/layouts/Layout.astro'
 ---
 
-import { buildI18nStaticRoutes } from '@src/i18n'
+import { createLocalizedPaths } from '@src/utils'
 
-export async function getStaticPaths() {
-  return buildI18nStaticRoutes()
-}
+export const getStaticPaths = createLocalizedPaths()
 
 # Trademark Guidelines
 

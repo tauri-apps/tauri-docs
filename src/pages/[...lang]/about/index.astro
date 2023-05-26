@@ -1,12 +1,9 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
 import { t } from "astro-i18n";
+import { createLocalizedPaths } from "@src/utils";
 
-import { buildI18nStaticRoutes } from "@src/i18n";
-
-export async function getStaticPaths() {
-  return buildI18nStaticRoutes();
-}
+export const getStaticPaths = createLocalizedPaths();
 ---
 
 <Layout title={t("about.title")}>

@@ -5,11 +5,9 @@ import { Code } from "astro/components";
 import Callout from "@src/components/Callout.astro";
 // import Carousel from '@src/components/Blog/Carousel.astro'
 
-import { buildI18nStaticRoutes } from "@src/i18n";
+import { createLocalizedPaths } from "@src/utils";
 
-export async function getStaticPaths() {
-  return buildI18nStaticRoutes();
-}
+export const getStaticPaths = createLocalizedPaths();
 ---
 
 <Layout title="Components">

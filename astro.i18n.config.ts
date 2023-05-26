@@ -5,7 +5,12 @@ export const defaultLang = {
   route: undefined,
 }
 
-export const nonDefaultLangs = [{ code: 'fr', route: 'fr' }]
+export const nonDefaultLangs = [
+  { code: 'fr', route: 'fr' },
+  { code: 'it', route: 'it' },
+  { code: 'ko', route: 'ko' },
+  { code: 'zh-cn', route: 'zh-cn' },
+]
 
 export const langs = [defaultLang, ...nonDefaultLangs]
 

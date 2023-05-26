@@ -14,14 +14,14 @@ const { inlineMenu } = Astro.props;
 const navbar: NavbarItem[] = [
   {
     title: t("global.nav.documentation"),
-    href: l("/docs/1"),
+    href: l("/1/docs"),
   },
   {
     title: t("global.nav.references"),
     children: [
       {
         title: t("global.nav.javascript-api"),
-        href: l("/api/js/1"),
+        href: l("/1/api/js"),
       },
       {
         title: t("global.nav.rust-api"),
@@ -30,11 +30,11 @@ const navbar: NavbarItem[] = [
       },
       {
         title: t("global.nav.tauri-config"),
-        href: l("/api/config/1"),
+        href: l("/1/api/config"),
       },
       {
         title: t("global.nav.tauri-cli"),
-        href: l("/api/cli/1"),
+        href: l("/1/api/cli"),
       },
     ],
   },

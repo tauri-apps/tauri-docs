@@ -1,0 +1,35 @@
+---
+import Layout from "@src/layouts/SidebarLayout.astro";
+import Callout from "@src/components/Callout.astro";
+import { createLocalizedPaths, buildLocalizedDocsCollection } from "@src/utils";
+import { buildSidebarObject } from "@src/components/Layout/RelatedPages.astro";
+
+export const getStaticPaths = createLocalizedPaths(async (lang) => {
+  return buildLocalizedDocsCollection(lang);
+});
+
+let { entry, collection } = Astro.props;
+const { Content, headings } = await entry.render();
+let entries = undefined;
+entries = buildSidebarObject(collection)[0]["_children"];
+// TODO: Fix title
+---
+
+<Layout
+  title="test docs post"
+  sidebarEntries={entries}
+  headings={headings}
+  contributeUrl={entry.id}
+  enableTranslate={true}
+>
+  <div class="prose">
+    {
+      entry.fallback && (
+        <Callout kind="info">
+          <div>This page is not yet converted for your language.</div>
+        </Callout>
+      )
+    }
+    <Content />
+  </div>
+</Layout>

@@ -1,6 +1,5 @@
 ---
 import { sortCollection } from "@src/utils";
-import { l } from "astro-i18n";
 interface Props {
   entries: any[];
 }
@@ -17,7 +16,7 @@ function trimSlashes(url: string) {
   sortedEntries.map((entry: any) => (
     <li>
       <a
-        href={l(entry.path)}
+        href={entry.path}
         class:list={[
           "list-item",
           {

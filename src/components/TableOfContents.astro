@@ -1,32 +1,35 @@
 ---
-import { getCollection } from "astro:content";
-import { normalizeSlug, buildLocalizedCollection } from "@src/i18n";
-import { sortCollection } from "@src/utils";
+import { buildLocalizedDocsCollection } from "@src/utils";
+import { extractRouteLangCode, l } from "astro-i18n";
 
-const { slug } = Astro.params;
-const normalizedSlug = normalizeSlug(slug) || "";
-const depth = normalizedSlug.split("/").length + 1;
+const lang = extractRouteLangCode(Astro.url.pathname);
 
-let collection = await getCollection(
-  "docs",
-  ({ slug }) =>
-    slug.startsWith(normalizedSlug) && slug.split("/").length == depth
-);
+if (!lang) {
+  throw Error(
+    "Not able to determine the locale in order to build Table of Contents"
+  );
+}
 
-collection = buildLocalizedCollection(collection);
-collection = sortCollection(collection);
-const relativeCollection = collection.map((entry) => ({
-  ...entry,
-  slug: entry.slug.replace(slug || "", "").replace(/^\//, ""),
-}));
+let collection = await buildLocalizedDocsCollection(lang);
+
+collection = collection.filter((entry) => {
+  const entryPath = entry.props.entry.path;
+  const currentPath = Astro.url.pathname;
+  return (
+    entryPath.startsWith(currentPath) &&
+    currentPath.split("/").length + 1 == entryPath.split("/").length
+  );
+});
 ---
 
 <div class="not-prose">
   <ul class="grid grid-cols-2 gap-4 not-prose">
     {
-      relativeCollection.map((entry) => (
-        <a href={entry.slug}>
-          <li class="card">{entry.data.title || entry.slug}</li>
+      collection.map((entry) => (
+        <a href={entry.props.entry.path}>
+          <li class="card">
+            {entry.props.entry.data.title || entry.props.entry.slug}
+          </li>
         </a>
       ))
     }
