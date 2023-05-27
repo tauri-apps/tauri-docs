@@ -216,7 +216,13 @@ cargo install xwin
 Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `.xwin` directory in the Home directory.
 
 ```sh
-xwin splat --disable-symlinks --output ~/.xwin
+xwin splat --output ~/.xwin
+```
+
+If that fails, you can try adding `--disable-symlinks` to the end.
+
+```sh
+xwin splat --output ~/.xwin --disable-symlinks
 ```
 
 Now, to make the Rust compiler use these files, you first have to create a `.cargo` directory in your project and create a `config.toml` file in it with the following content. Make sure to change the paths accordingly.
