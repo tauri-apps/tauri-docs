@@ -219,7 +219,17 @@ Then you can use the `xwin` CLI to install the needed files to a location of you
 xwin splat --output ~/.xwin
 ```
 
-If that fails, you can try adding `--disable-symlinks` to the end.
+If that fails with an error message like this:
+
+```
+Error: failed to splat Microsoft.VC.14.29.16.10.CRT.x64.Desktop.base.vsix
+
+Caused by:
+    0: unable to symlink from .xwin/crt/lib/x86_64/LIBCMT.lib to libcmt.lib
+    1: File exists (os error 17)
+```
+
+Note that this might be a bug of `xwin` CLI. A workaround is to add `--disable-symlinks` to the command:
 
 ```sh
 xwin splat --output ~/.xwin --disable-symlinks
