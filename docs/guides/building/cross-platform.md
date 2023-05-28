@@ -229,7 +229,7 @@ Caused by:
     1: File exists (os error 17)
 ```
 
-Note that this might be a bug of `xwin` CLI. A workaround is to add `--disable-symlinks` to the command:
+you can try adding the `--disable-symlinks` flag to the command:
 
 ```sh
 xwin splat --output ~/.xwin --disable-symlinks
