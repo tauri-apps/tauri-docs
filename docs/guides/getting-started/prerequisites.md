@@ -297,13 +297,13 @@ To create Tauri development environments using [Guix shell], copy the following 
 ```sh
 sudo xbps-install -Syu
 sudo xbps-install -S \
-    webkit2gtk \
+    webkit2gtk-devel \
     curl \
     wget \
     openssl \
-    gtk+3 \
+    gtk+3-devel \
     libappindicator \
-    librsvg \
+    librsvg-devel \
     gcc \
     pkg-config
 ```
