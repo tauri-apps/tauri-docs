@@ -216,7 +216,23 @@ cargo install xwin
 Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `.xwin` directory in the Home directory.
 
 ```sh
-xwin splat --disable-symlinks --output ~/.xwin
+xwin splat --output ~/.xwin
+```
+
+If that fails with an error message like this:
+
+```
+Error: failed to splat Microsoft.VC.14.29.16.10.CRT.x64.Desktop.base.vsix
+
+Caused by:
+    0: unable to symlink from .xwin/crt/lib/x86_64/LIBCMT.lib to libcmt.lib
+    1: File exists (os error 17)
+```
+
+you can try adding the `--disable-symlinks` flag to the command:
+
+```sh
+xwin splat --output ~/.xwin --disable-symlinks
 ```
 
 Now, to make the Rust compiler use these files, you first have to create a `.cargo` directory in your project and create a `config.toml` file in it with the following content. Make sure to change the paths accordingly.
