@@ -89,7 +89,7 @@ Trying to execute any API with a program not configured on the scope results in 
 | :------ | :------ |
 | `pid` | `number` |
 
-**Defined in:** [shell.ts:346](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L346)
+**Defined in:** [shell.ts:346](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L346)
 
 #### Properties
 
@@ -99,7 +99,7 @@ Trying to execute any API with a program not configured on the scope results in 
 
 The child process `pid`.
 
-**Defined in:** [shell.ts:344](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L344)
+**Defined in:** [shell.ts:344](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L344)
 
 #### Methods
 
@@ -179,7 +179,7 @@ console.log('pid:', child.pid);
 
 Event emitter for the `stderr`. Emits the `data` event.
 
-**Defined in:** [shell.ts:433](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L433)
+**Defined in:** [shell.ts:433](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L433)
 
 ##### `stdout`
 
@@ -187,7 +187,7 @@ Event emitter for the `stderr`. Emits the `data` event.
 
 Event emitter for the `stdout`. Emits the `data` event.
 
-**Defined in:** [shell.ts:431](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L431)
+**Defined in:** [shell.ts:431](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L431)
 
 #### Methods
 
@@ -811,7 +811,7 @@ Alias for `emitter.off(eventName, listener)`.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L109)
+**Defined in:** [shell.ts:109](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L109)
 
 ##### `signal`
 
@@ -819,7 +819,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L111)
+**Defined in:** [shell.ts:111](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L111)
 
 ##### `stderr`
 
@@ -827,7 +827,7 @@ If the process was terminated by a signal, represents that signal.
 
 The data that the process wrote to `stderr`.
 
-**Defined in:** [shell.ts:115](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L115)
+**Defined in:** [shell.ts:115](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L115)
 
 ##### `stdout`
 
@@ -835,7 +835,7 @@ The data that the process wrote to `stderr`.
 
 The data that the process wrote to `stdout`.
 
-**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L113)
+**Defined in:** [shell.ts:113](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L113)
 
 ### `CommandEvents`
 
@@ -845,13 +845,13 @@ The data that the process wrote to `stdout`.
 
 >  **close**: [`TerminatedPayload`](shell.md#terminatedpayload)
 
-**Defined in:** [shell.ts:394](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L394)
+**Defined in:** [shell.ts:394](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L394)
 
 ##### `error`
 
 >  **error**: `string`
 
-**Defined in:** [shell.ts:395](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L395)
+**Defined in:** [shell.ts:395](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L395)
 
 ### `OutputEvents<O>`
 
@@ -865,7 +865,7 @@ The data that the process wrote to `stdout`.
 
 >  **data**: `O`
 
-**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L399)
+**Defined in:** [shell.ts:399](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L399)
 
 ### `SpawnOptions`
 
@@ -879,7 +879,7 @@ The data that the process wrote to `stdout`.
 
 Current working directory.
 
-**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L88)
+**Defined in:** [shell.ts:88](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L88)
 
 ##### `encoding`
 
@@ -889,7 +889,7 @@ Character encoding for stdout/stderr
 
 **Since**: 1.1.0
 
-**Defined in:** [shell.ts:96](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L96)
+**Defined in:** [shell.ts:96](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L96)
 
 ##### `env`
 
@@ -897,7 +897,7 @@ Character encoding for stdout/stderr
 
 Environment variables. set to `null` to clear the process env.
 
-**Defined in:** [shell.ts:90](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L90)
+**Defined in:** [shell.ts:90](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L90)
 
 ### `TerminatedPayload`
 
@@ -911,7 +911,7 @@ Payload for the `Terminated` command event.
 
 Exit code of the process. `null` if the process was terminated by a signal on Unix.
 
-**Defined in:** [shell.ts:615](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L615)
+**Defined in:** [shell.ts:615](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L615)
 
 ##### `signal`
 
@@ -919,7 +919,7 @@ Exit code of the process. `null` if the process was terminated by a signal on Un
 
 If the process was terminated by a signal, represents that signal.
 
-**Defined in:** [shell.ts:617](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L617)
+**Defined in:** [shell.ts:617](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L617)
 
 ## Type Aliases
 
@@ -929,7 +929,7 @@ If the process was terminated by a signal, represents that signal.
 
 Event payload type
 
-**Defined in:** [shell.ts:621](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/shell.ts#L621)
+**Defined in:** [shell.ts:621](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/shell.ts#L621)
 
 ## Functions
 

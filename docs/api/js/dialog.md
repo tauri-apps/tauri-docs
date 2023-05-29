@@ -35,7 +35,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 The label of the cancel button.
 
-**Defined in:** [dialog.ts:112](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L112)
+**Defined in:** [dialog.ts:112](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L112)
 
 ##### `okLabel`
 
@@ -43,7 +43,7 @@ The label of the cancel button.
 
 The label of the confirm button.
 
-**Defined in:** [dialog.ts:110](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L110)
+**Defined in:** [dialog.ts:110](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L110)
 
 ##### `title`
 
@@ -51,7 +51,7 @@ The label of the confirm button.
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in:** [dialog.ts:106](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L106)
+**Defined in:** [dialog.ts:106](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L106)
 
 ##### `type`
 
@@ -59,7 +59,7 @@ The title of the dialog. Defaults to the app name.
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in:** [dialog.ts:108](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L108)
+**Defined in:** [dialog.ts:108](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L108)
 
 ### `DialogFilter`
 
@@ -81,7 +81,7 @@ Extensions to filter, without a `.` prefix.
 extensions: ['svg', 'png']
 ```
 
-**Defined in:** [dialog.ts:48](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L48)
+**Defined in:** [dialog.ts:48](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L48)
 
 ##### `name`
 
@@ -89,7 +89,7 @@ extensions: ['svg', 'png']
 
 Filter name.
 
-**Defined in:** [dialog.ts:40](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L40)
+**Defined in:** [dialog.ts:40](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L40)
 
 ### `MessageDialogOptions`
 
@@ -103,7 +103,7 @@ Filter name.
 
 The label of the confirm button.
 
-**Defined in:** [dialog.ts:101](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L101)
+**Defined in:** [dialog.ts:101](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L101)
 
 ##### `title`
 
@@ -111,7 +111,7 @@ The label of the confirm button.
 
 The title of the dialog. Defaults to the app name.
 
-**Defined in:** [dialog.ts:97](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L97)
+**Defined in:** [dialog.ts:97](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L97)
 
 ##### `type`
 
@@ -119,7 +119,7 @@ The title of the dialog. Defaults to the app name.
 
 The type of the dialog. Defaults to `info`.
 
-**Defined in:** [dialog.ts:99](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L99)
+**Defined in:** [dialog.ts:99](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L99)
 
 ### `OpenDialogOptions`
 
@@ -135,7 +135,7 @@ Options for the open dialog.
 
 Initial directory or file path.
 
-**Defined in:** [dialog.ts:62](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L62)
+**Defined in:** [dialog.ts:62](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L62)
 
 ##### `directory`
 
@@ -143,7 +143,7 @@ Initial directory or file path.
 
 Whether the dialog is a directory selection or not.
 
-**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L66)
+**Defined in:** [dialog.ts:66](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L66)
 
 ##### `filters`
 
@@ -151,7 +151,7 @@ Whether the dialog is a directory selection or not.
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L60)
+**Defined in:** [dialog.ts:60](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L60)
 
 ##### `multiple`
 
@@ -159,7 +159,7 @@ The filters of the dialog.
 
 Whether the dialog allows multiple selection or not.
 
-**Defined in:** [dialog.ts:64](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L64)
+**Defined in:** [dialog.ts:64](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L64)
 
 ##### `recursive`
 
@@ -168,7 +168,7 @@ Whether the dialog allows multiple selection or not.
 If `directory` is true, indicates that it will be read recursively later.
 Defines whether subdirectories will be allowed on the scope or not.
 
-**Defined in:** [dialog.ts:71](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L71)
+**Defined in:** [dialog.ts:71](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L71)
 
 ##### `title`
 
@@ -176,7 +176,7 @@ Defines whether subdirectories will be allowed on the scope or not.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:58](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L58)
+**Defined in:** [dialog.ts:58](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L58)
 
 ### `SaveDialogOptions`
 
@@ -194,7 +194,7 @@ Initial directory or file path.
 If it's a directory path, the dialog interface will change to that folder.
 If it's not an existing directory, the file name will be set to the dialog's file name input and the dialog will be set to the parent folder.
 
-**Defined in:** [dialog.ts:89](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L89)
+**Defined in:** [dialog.ts:89](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L89)
 
 ##### `filters`
 
@@ -202,7 +202,7 @@ If it's not an existing directory, the file name will be set to the dialog's fil
 
 The filters of the dialog.
 
-**Defined in:** [dialog.ts:83](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L83)
+**Defined in:** [dialog.ts:83](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L83)
 
 ##### `title`
 
@@ -210,7 +210,7 @@ The filters of the dialog.
 
 The title of the dialog window.
 
-**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/dialog.ts#L81)
+**Defined in:** [dialog.ts:81](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/dialog.ts#L81)
 
 ## Functions
 
@@ -297,7 +297,7 @@ A promise indicating the success or failure of the operation.
 
 ### `open`
 
-> **open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
+> **open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions) & { `multiple?`: `false`  }): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`\>
 
 Open a file/directory selection dialog.
 
@@ -320,34 +320,10 @@ const selected = await open({
     extensions: ['png', 'jpeg']
   }]
 });
-if (Array.isArray(selected)) {
-  // user selected multiple files
-} else if (selected === null) {
-  // user cancelled the selection
-} else {
-  // user selected a single file
-}
 ```
-
-**Example**
-
-```typescript
-import { open } from '@tauri-apps/api/dialog';
-import { appDir } from '@tauri-apps/api/path';
-// Open a selection dialog for directories
-const selected = await open({
-  directory: true,
-  multiple: true,
-  defaultPath: await appDir(),
-});
-if (Array.isArray(selected)) {
-  // user selected multiple directories
-} else if (selected === null) {
-  // user cancelled the selection
-} else {
-  // user selected a single directory
-}
-```
+Note that the `open` function returns a conditional type depending on the `multiple` option:
+- false (default) -> `Promise<string | null>`
+- true -> `Promise<string[] | null>`
 
 **Since**: 1.0.0
 
@@ -355,11 +331,31 @@ if (Array.isArray(selected)) {
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`OpenDialogOptions`](dialog.md#opendialogoptions) |
+| `options?` | [`OpenDialogOptions`](dialog.md#opendialogoptions) & { `multiple?`: `false`  } |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string` \| `string`[]\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`\>
 
 A promise resolving to the selected path(s)
+
+> **open**(`options?`: [`OpenDialogOptions`](dialog.md#opendialogoptions) & { `multiple?`: `true`  }): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`[]\>
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`OpenDialogOptions`](dialog.md#opendialogoptions) & { `multiple?`: `true`  } |
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`[]\>
+
+> **open**(`options`: [`OpenDialogOptions`](dialog.md#opendialogoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`[] \| `string`\>
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `options` | [`OpenDialogOptions`](dialog.md#opendialogoptions) |
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`null` \| `string`[] \| `string`\>
 
 ### `save`
 

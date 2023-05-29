@@ -250,6 +250,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.externalbin">`externalBin`<a class="hash-link" href="#bundleconfig.externalbin"></a></div> | `array`? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows<br />- "my-binary-x86_64-apple-darwin" for macOS<br />- "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
 | <div className="anchor-with-padding" id="bundleconfig.windows">`windows`<a class="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig) | [view](#windowsconfig) | Configuration for the Windows bundle. |
 | <div className="anchor-with-padding" id="bundleconfig.ios">`iOS`<a class="hash-link" href="#bundleconfig.ios"></a></div> | [`IosConfig`](#iosconfig) | [view](#iosconfig) | iOS configuration. |
+| <div className="anchor-with-padding" id="bundleconfig.android">`android`<a class="hash-link" href="#bundleconfig.android"></a></div> | [`AndroidConfig`](#androidconfig) | [view](#androidconfig) | Android configuration. |
 
 
 #### BundleTarget
@@ -437,6 +438,17 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="iosconfig.developmentteam">`developmentTeam`<a class="hash-link" href="#iosconfig.developmentteam"></a></div> | `string`? | _null_ | The development team. This value is required for iOS development because code signing is enforced. The `TAURI_APPLE_DEVELOPMENT_TEAM` environment variable can be set to overwrite it. |
+
+
+### AndroidConfig
+
+General configuration for the iOS target.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="androidconfig.minsdkversion">`minSdkVersion`<a class="hash-link" href="#androidconfig.minsdkversion"></a></div> | {"description":"The minimum API level required for the application to run. The Android system will prevent the user from installing the application if the system's API level is lower than the value specified.","default":24,"type":"integer","format":"uint32","minimum":0} | `24` | The minimum API level required for the application to run. The Android system will prevent the user from installing the application if the system's API level is lower than the value specified. |
 
 
 ### AllowlistConfig

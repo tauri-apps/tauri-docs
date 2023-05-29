@@ -36,7 +36,7 @@ Provides the platform-specific path segment delimiter:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/path.ts#L660)
+**Defined in:** [path.ts:526](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/path.ts#L526)
 
 ### `sep`
 
@@ -48,7 +48,7 @@ Provides the platform-specific path segment separator:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/29ee623/tooling/api/src/path.ts#L651)
+**Defined in:** [path.ts:517](https://github.com/tauri-apps/tauri/blob/06fdcc0/tooling/api/src/path.ts#L517)
 
 ## Functions
 
@@ -103,20 +103,6 @@ const appDataDirPath = await appDataDir();
 ```
 
 **Since**: 1.2.0
-
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-### `appDir`
-
-> **appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-Returns the path to the suggested directory for your app config files.
-
-**Deprecated**
-
-since 1.2.0: Will be removed in 2.0.0. Use [appConfigDir](path.md#appconfigdir) or [appDataDir](path.md#appdatadir) instead.
-
-**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -531,20 +517,6 @@ Returns the path to the user's local data directory.
 import { localDataDir } from '@tauri-apps/api/path';
 const localDataDirPath = await localDataDir();
 ```
-
-**Since**: 1.0.0
-
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-### `logDir`
-
-> **logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-Returns the path to the suggested log directory.
-
-**Deprecated**
-
-since 1.2.0: Will be removed in 2.0.0. Use [appLogDir](path.md#applogdir) instead.
 
 **Since**: 1.0.0
 
