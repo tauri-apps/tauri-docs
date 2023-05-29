@@ -2,23 +2,23 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
-name: build
+name: Update Search Index
 
 on:
   workflow_dispatch:
   push:
-    branches: [beta]
+    branches: [dev]
 
 jobs:
   update-search-index:
     concurrency:
-      group: search-indexing-beta
+      group: search-indexing
       cancel-in-progress: true
-    if: (github.event_name == 'push' && github.ref_name == 'beta')
+    if: (github.event_name == 'push' && github.ref_name == 'dev')
     runs-on: ubuntu-latest
     env:
-      MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL_BETA }}
-      MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY_BETA }}
+      MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+      MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
       CONFIG_FILE_PATH: ${{ github.workspace }}/scraper.json
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
         run: node ./.scripts/wait-for-search.js
 
       - name: Wait for netlify # This is just a workaround for now
-        run: sleep 180s
+        run: sleep 600s
         shell: bash
 
       - name: Run scraper
