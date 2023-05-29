@@ -1,0 +1,150 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriCli } from '@theme/Command'
+
+At the heart of every Tauri app is a Rust binary that manages windows, the webview, and calls to the operating system through a Rust crate called `tauri`. Questo progetto è gestito da [Cargo][], il gestore ufficiale di pacchetti e lo strumento di costruzione tuttofare per Rust.
+
+Tauri CLI utilizza Cargo dietro le quinte quindi raramente è necessario interagire con esso direttamente. Cargo ha molte caratteristiche utili che non sono esposte attraverso la CLI, come testing, linting, e formattazione, quindi invitiamo a riferirsi alla loro [documentazione ufficiale][cargo commands] per saperne di più.
+
+:::info Installa Tauri CLI
+
+If you haven't installed the Tauri CLI yet you can do so with one of the below commands. Non sei sicuro quale usare? Dai un'occhiata alla voce [FAQ][].
+
+<InstallTauriCli />
+
+:::
+
+Per strutturare un progetto Rust minimale preconfigurato per utilizzare Tauri, apri un terminale ed esegui il seguente comando:
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```shell
+npm run tauri init
+```
+
+</TabItem>
+<TabItem value="Yarn">
+
+```shell
+yarn tauri init
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```shell
+pnpm tauri init
+```
+
+</TabItem>
+<TabItem value="Cargo">
+
+```shell
+cargo tauri init
+```
+
+</TabItem>
+</Tabs>
+
+Vi guiderà attraverso una serie di domande:
+
+<ol>
+  <li>
+    <i>What is your app name?</i>
+    <br />
+    This will be the name of your final bundle and what the OS will call your
+    app. È possibile utilizzare il nome che si desidera.
+  </li>
+  <br />
+  <li>
+    <i>What should the window title be?</i>
+    <br />
+    This will be the title of the default main window. You can use any title you
+    want here.
+  </li>
+  <br />
+  <li>
+    <i>
+      Where are your web assets (HTML/CSS/JS) located relative to the{' '}
+      <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> file that will
+      be created?
+    </i>
+    <br />
+    This is the path that Tauri will load your frontend assets from when
+    building for <b>production</b>.{' '}
+    {props.destDirExplination && (
+      <div dangerouslySetInnerHTML={props.destDirExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is the URL of your dev server?</i>
+    <br />
+    This can be either a URL or a file path that Tauri will load during{' '}
+    <b>development</b>.{' '}
+    {props.devPathExplination && (
+      <div dangerouslySetInnerHTML={props.devPathExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is your frontend dev command?</i>
+    <br />
+    This is the command used to start your frontend dev server.{' '}
+    {props.beforeDevCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is your frontend build command?</i>
+    <br />
+    This is the command to build your frontend files.{' '}
+    {props.beforeBuildCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
+    )}
+  </li>
+</ol>
+
+:::info
+
+Se hai familiarità con Rust, noterai che `tauri init` sembra e funziona molto come `cargo init`. È possibile utilizzare `cargo init` e aggiungere le dipendenze Tauri necessarie se si preferisce una configurazione completamente manuale.
+
+:::
+
+Il comando `tauri init` genera una cartella chiamata `src-tauri`. È una convenzione per le applicazioni Tauri dove inserire tutti i file correlati al nucleo in questa cartella. Attraversiamo rapidamente i contenuti della cartella:
+
+- **`Cargo.toml`**  
+  Cargo's manifest file. È possibile dichiarare crates Rust da cui la tua app dipende, metadati sulla tua app, e molto altro. Per il riferimento completo vedi [Formato Manifesto di Cargo][manifest-format].
+
+- **`tauri.conf.json`**  
+  This file lets you configure and customize aspects of your Tauri application from the name of your app to the list of allowed APIs. Vedere [Configurazione API di Tauri][api config] per l'elenco completo delle opzioni supportate e le spiegazioni approfondite per ciascuno.
+
+- **`src/main.rs`**  
+  This is the entry point to your Rust program and the place where we bootstrap into Tauri. Troverete due sezioni in esso:
+
+  ```rust title=src/main.rs
+   #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+  fn main() {
+  tauri::Builder::default()
+     .run(tauri::generate_context!())
+     .expect("error while running tauri application");
+  }
+  ```
+
+  The line beginning with the [`cfg! `][cfg macro] ha un solo scopo: disattiva la finestra del prompt dei comandi che normalmente apparirebbe su Windows se si eseguisse un app impacchettata. Se sei su Windows, prova a commentarlo e vedi cosa succede.
+
+  La funzione `main` è il punto di entrata e la prima funzione che viene invocata quando il programma viene eseguito.
+
+- **`icons`**  
+  Chances are you want a snazzy icon for your app! Per farti andare velocemente, abbiamo incluso un set di icone predefinite. Dovresti cambiarli prima di pubblicare la tua applicazione. Scopri di più sui vari formati di icone nella [guida delle icone di Tauri][icons].
+
+[manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html
+[api config]: ../../../../api/config.md
+[icons]: ../../../features/icons.md
+[Cargo]: https://doc.rust-lang.org/cargo/
+[cargo commands]: https://doc.rust-lang.org/cargo/commands/index.html
+[FAQ]: ../../../faq.md#node-or-cargo

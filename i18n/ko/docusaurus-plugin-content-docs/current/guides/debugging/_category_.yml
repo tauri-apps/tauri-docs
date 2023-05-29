@@ -1,0 +1,4 @@
+label: '디버깅'
+position: 5
+customProps:
+  description: 디버깅 작업 흐름을 위한 팁과 요령

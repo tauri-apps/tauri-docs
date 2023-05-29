@@ -1,0 +1,2 @@
+customProps:
+  description: Vue d'ensemble de la façon dont Tauri est conçu en interne et de divers composants qui composent l'écosystème Tauri.

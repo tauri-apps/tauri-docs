@@ -1,0 +1,36 @@
+---
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+import DocCardList from '@theme/DocCardList'
+import { useCurrentSidebarCategory } from '@docusaurus/theme-common'
+import { CreateTauriApp } from '@theme/Command'
+
+# 빠른 시작
+
+Tauri는 **거의 모든 프론트엔드 스택**과 호환됩니다. 원하는 걸 골라 시작해보세요!
+
+:::tip `create-tauri-app`
+
+프로젝트를 스캐폴딩하는 가장 쉬운 방법은 [`create-tauri-app`][] 유틸리티를 쓰는 것입니다. 이 도구는 바닐라 HTML/CSS/JavaScript나 React, Svelte, Yew 등의 다양한 프레임워크로 만든 주관적인 템플릿을 제공합니다.
+
+<CreateTauriApp />
+
+`create-tauri-app`를 사용한다면 아래 안내서를 따를 필요는 없습니다. 하지만 설정 사항을 이해하기 위해 ([HTML/CSS/JavaScript][] 등의) 안내서를 읽는 편이 좋습니다.
+
+:::
+
+만약 웹 개발과 친숙하지 않고 좋아하는 프론트엔드 스택이 없다면 아마 [HTML/CSS/JavaScript][] 안내서가 가장 도움될 것입니다. Node나 Cargo를 사용해 최대한 간결히 프론트엔드 설정을 시작할 수 있도록 안내해줍니다.
+
+<DocCardList items={useCurrentSidebarCategory().items} />
+
+:::info 좋아하시는 프레임워크가 없나요?
+
+만약 좋아하는 프론트엔드 프레임워크나 빌드 도구가 없다면, 저희는 언제나 시작하기 안내서를 구하고 있으니 [기여][] 지침을 읽고 도움을 주세요!
+
+:::
+
+[HTML/CSS/JavaScript]: ./html-css-js.mdx
+[기여]: https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app

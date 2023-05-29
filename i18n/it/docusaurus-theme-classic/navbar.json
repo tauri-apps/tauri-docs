@@ -1,0 +1,86 @@
+{
+  "logo.alt": {
+    "message": "Tauri Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Guides": {
+    "message": "Guide",
+    "description": "Navbar item with label Guides"
+  },
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item with label API"
+  },
+  "item.label.References": {
+    "message": "Riferimenti",
+    "description": "Navbar item with label References"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Community": {
+    "message": "Comunità",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.About": {
+    "message": "Scopri",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Release Notes": {
+    "message": "Release Notes",
+    "description": "Navbar item with label Release Notes"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Configuration": {
+    "message": "Configurazione",
+    "description": "Navbar item with label Configuration"
+  },
+  "item.label.CLI": {
+    "message": "CLI",
+    "description": "Navbar item with label CLI"
+  },
+  "item.label.JavaScript / TypeScript": {
+    "message": "JavaScript / TypeScript",
+    "description": "Navbar item with label JavaScript / TypeScript"
+  },
+  "item.label.Rust (via Docs.rs)": {
+    "message": "Rust (via Docs.rs)",
+    "description": "Navbar item with label Rust (via Docs.rs)"
+  },
+  "item.label.Get Involved": {
+    "message": "Partecipa",
+    "description": "Navbar item with label Get Involved"
+  },
+  "item.label.Sponsors": {
+    "message": "Sponsor",
+    "description": "Navbar item with label Sponsors"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.Awesome Tauri": {
+    "message": "Awesome Tauri",
+    "description": "Navbar item with label Awesome Tauri"
+  },
+  "item.label.What is Tauri?": {
+    "message": "Cos'è Tauri?",
+    "description": "Navbar item with label What is Tauri?"
+  },
+  "item.label.Governance": {
+    "message": "Amministrazione",
+    "description": "Navbar item with label Governance"
+  },
+  "item.label.Trademark Guidelines": {
+    "message": "Linee guida sui marchi registrati",
+    "description": "Navbar item with label Trademark Guidelines"
+  },
+  "item.label.Tauri Book": {
+    "message": "Tauri Book",
+    "description": "Navbar item with label Tauri Book"
+  }
+}

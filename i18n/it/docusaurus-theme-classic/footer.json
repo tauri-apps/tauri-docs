@@ -1,0 +1,70 @@
+{
+  "link.title.Repositories": {
+    "message": "Repositories",
+    "description": "The title of the footer links column with title=Repositories in the footer"
+  },
+  "link.title.Contact": {
+    "message": "Contatto",
+    "description": "The title of the footer links column with title=Contact in the footer"
+  },
+  "link.title.Network": {
+    "message": "Rete",
+    "description": "The title of the footer links column with title=Network in the footer"
+  },
+  "link.title.Community": {
+    "message": "Comunità",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.item.label.Tauri": {
+    "message": "Tauri",
+    "description": "The label of footer link with label=Tauri linking to https://github.com/tauri-apps/tauri"
+  },
+  "link.item.label.TAO": {
+    "message": "TAO",
+    "description": "The label of footer link with label=TAO linking to https://github.com/tauri-apps/tao"
+  },
+  "link.item.label.WRY": {
+    "message": "WRY",
+    "description": "The label of footer link with label=WRY linking to https://github.com/tauri-apps/wry"
+  },
+  "link.item.label.Mail": {
+    "message": "Mail",
+    "description": "The label of footer link with label=Mail linking to mailto:contact@tauri.app"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/TauriApps"
+  },
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://fosstodon.org/@TauriApps"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to blog"
+  },
+  "link.item.label.OpenCollective": {
+    "message": "OpenCollective",
+    "description": "The label of footer link with label=OpenCollective linking to https://opencollective.com/tauri"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/tauri-apps"
+  },
+  "link.item.label.Sponsors": {
+    "message": "Sponsor",
+    "description": "The label of footer link with label=Sponsors linking to /#sponsors"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.com/invite/tauri"
+  },
+  "link.item.label.Awesome Tauri": {
+    "message": "Awesome Tauri",
+    "description": "The label of footer link with label=Awesome Tauri linking to https://github.com/tauri-apps/awesome-tauri"
+  },
+  "copyright": {
+    "message": "Copyright © 2023 Tauri Contributors. CC-BY / MIT",
+    "description": "The footer copyright"
+  }
+}

@@ -1,0 +1,4 @@
+label: 'Tests'
+position: 6
+customProps:
+  description: Techniques de test à l'intérieur et à l'extérieur de l'environnement d'exécution Tauri

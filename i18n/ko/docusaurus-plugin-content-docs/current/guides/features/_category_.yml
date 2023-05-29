@@ -1,0 +1,4 @@
+label: 기능
+position: 9
+customProps:
+  description: 공통 Tauri 기능 사용법 알아보기

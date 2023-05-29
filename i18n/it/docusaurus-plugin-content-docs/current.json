@@ -1,0 +1,66 @@
+{
+  "version.label": {
+    "message": "v1",
+    "description": "The label for version current"
+  },
+  "sidebar.guides.category.Guides": {
+    "message": "Guide",
+    "description": "The label for category Guides in sidebar guides"
+  },
+  "sidebar.guides.category.Getting Started": {
+    "message": "Per Iniziare",
+    "description": "The label for category Getting Started in sidebar guides"
+  },
+  "sidebar.guides.category.Quick Start": {
+    "message": "Inizio Rapido",
+    "description": "The label for category Quick Start in sidebar guides"
+  },
+  "sidebar.guides.category.Development": {
+    "message": "Sviluppo",
+    "description": "The label for category Development in sidebar guides"
+  },
+  "sidebar.guides.category.Debugging": {
+    "message": "Debugging",
+    "description": "The label for category Debugging in sidebar guides"
+  },
+  "sidebar.guides.category.Testing": {
+    "message": "Collaudo",
+    "description": "The label for category Testing in sidebar guides"
+  },
+  "sidebar.guides.category.WebDriver Testing": {
+    "message": "Collaudo WebDriver",
+    "description": "The label for category WebDriver Testing in sidebar guides"
+  },
+  "sidebar.guides.category.Example Application": {
+    "message": "Applicazione di esempio",
+    "description": "The label for category Example Application in sidebar guides"
+  },
+  "sidebar.guides.category.Building": {
+    "message": "Compilazione",
+    "description": "The label for category Building in sidebar guides"
+  },
+  "sidebar.guides.category.Distribution": {
+    "message": "Distribuzione",
+    "description": "The label for category Distribution in sidebar guides"
+  },
+  "sidebar.guides.category.Features": {
+    "message": "Caratteristiche",
+    "description": "The label for category Features in sidebar guides"
+  },
+  "sidebar.references.category.References": {
+    "message": "Riferimenti",
+    "description": "The label for category References in sidebar references"
+  },
+  "sidebar.references.category.Tauri Architecture": {
+    "message": "Architettura di Tauri",
+    "description": "The label for category Tauri Architecture in sidebar references"
+  },
+  "sidebar.references.category.Inter-Process Communication": {
+    "message": "Comunicazione Inter-Processo (IPC)",
+    "description": "The label for category Inter-Process Communication in sidebar references"
+  },
+  "sidebar.references.category.Recipes": {
+    "message": "Ricette",
+    "description": "The label for category Recipes in sidebar references"
+  }
+}

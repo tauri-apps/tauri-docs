@@ -1,0 +1,426 @@
+{
+  "Brownfield": {
+    "message": "브라운필드"
+  },
+  "Compatibility with any front-end framework means you don't have to change your stack.": {
+    "message": "모든 프론트엔드 프레임워크와의 호환성은 스택을 변경할 필요가 없다는 것을 의미합니다."
+  },
+  "Learn More": {
+    "message": "더 알아보기"
+  },
+  "Security": {
+    "message": "보안"
+  },
+  "Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.": {
+    "message": "최우선으로 큰 혁신을 주도할 Tauri 팀의 중요 과제"
+  },
+  "FLOSS": {
+    "message": "FLOSS"
+  },
+  "Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable.": {
+    "message": "MIT 혹은 MIT/Apache 2.0 허가서를 사용하고 있으므로, 허가서 변경 및 재배포가 가능합니다."
+  },
+  "Bundle Size": {
+    "message": "번들 크기"
+  },
+  "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.": {
+    "message": "운영체제의 기본 웹 렌더러를 사용하여 Tauri 앱의 크기는 600KB보다 작아질 수 있습니다."
+  },
+  "Cross Platform": {
+    "message": "크로스 플랫폼"
+  },
+  "Bundle binaries for all major desktop platforms (mobile coming soon).": {
+    "message": "모든 주요 데스크톱 플랫폼을 위한 바이너리 번들하기 (모바일 출시 예정)."
+  },
+  "Built on Rust": {
+    "message": "Rust로 구축"
+  },
+  "With performance and security at the center, Rust is the language for the next generation of apps.": {
+    "message": "Rust는 성능과 보안을 중요시하는 차세대 앱을 위한 언어입니다."
+  },
+  "Desktop Bundler": {
+    "message": "데스크톱 번들러"
+  },
+  "Bundle for all major desktops from native systems": {
+    "message": "네이티브 시스템의 모든 주요 데스크톱용 번들"
+  },
+  "Self Updater": {
+    "message": "자동 업데이트 도구"
+  },
+  "Update Tauri Apps from within themselves": {
+    "message": "Tauri 앱 스스로 자동 업데이트"
+  },
+  "Core Plugin System": {
+    "message": "코어 플러그인 시스템"
+  },
+  "Build reusable plugins to extend Tauri core": {
+    "message": "Tauri 코어를 확장하는 재사용 가능한 플러그인 구축"
+  },
+  "Scoped Filesystem": {
+    "message": "범위 지정 파일시스템"
+  },
+  "Improved security of file interactions": {
+    "message": "파일 상호 작용에 적용되는 더 나은 보안"
+  },
+  "App Tray": {
+    "message": "앱 트레이"
+  },
+  "Cross-platform desktop icon tray": {
+    "message": "크로스 플랫폼 데스크톱 아이콘 트레이"
+  },
+  "GitHub Action": {
+    "message": "GitHub Action"
+  },
+  "Build your Tauri binary for macOS, Linux, and Windows": {
+    "message": "macOS, Linux, Windows를 위한 Tauri 바이너리 빌드"
+  },
+  "Native Notifications": {
+    "message": "네이티브 알림"
+  },
+  "Cross-platform notifications using polyfilled web API": {
+    "message": "폴리필한 웹 API를 사용한 크로스 플랫폼 알림"
+  },
+  "Sidecar": {
+    "message": "사이드카"
+  },
+  "Integrate and instrument other binaries": {
+    "message": "다른 바이너리 통합 및 도구화"
+  },
+  "App Storage": {
+    "message": "앱 저장소"
+  },
+  "Use a canonical location to store user data": {
+    "message": "사용자 정보 저장에 상대 경로 사용"
+  },
+  "Mobile Bundler": {
+    "message": "모바일 번들러"
+  },
+  "Bundle to all major mobile device operating systems": {
+    "message": "모든 주요 모바일 기기 운영체제용 번들"
+  },
+  "Cross Compiler": {
+    "message": "크로스 컴파일러"
+  },
+  "Generate bundled binaries from select operating system environments": {
+    "message": "선택한 운영 체제 환경에서 번들된 바이너리 생성"
+  },
+  "Other Bindings": {
+    "message": "다른 바인딩"
+  },
+  "Go, Nim, Python, C++ and other bindings are possible with the stable API": {
+    "message": "안정적 API가 제공되는 Go, Nim, Python, C++ 등의 다른 언어 바인딩"
+  },
+  "One-Time Commands": {
+    "message": "일회용 명령어"
+  },
+  "Run a command that is no longer available after first run": {
+    "message": "첫 실행 이후 더이상 존재하지 않는 명령어 실행"
+  },
+  "Alternative Renderers": {
+    "message": "대체 가능 렌더러"
+  },
+  "Candidate presentation for Webview alternatives, including GL windowing": {
+    "message": "GL 윈도우를 포함하는 Webview 대체 후보"
+  },
+  "Channel API": {
+    "message": "채널 API"
+  },
+  "Send messages through a channel": {
+    "message": "채널로 메시지 전송"
+  },
+  "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.": {
+    "message": "Tauri는 주요 데스크톱 플랫폼을 위한 작고 불티나게 빠른 바이너리를 만드는 프레임워크입니다. 개발자는 사용자 인터페이스를 위해 HTML, JS, CSS로 컴파일되는 그 어떤 프론트엔드 프레임워크라도 사용할 수 있습니다."
+  },
+  "Announcing the release of": {
+    "message": "출시 발표"
+  },
+  "Build an optimized, secure, and frontend-independent application for multi-platform deployment.": {
+    "message": "다중 플랫폼 배포를 위한 최적화되어 있고, 안전하며, 프론트엔드 독립적인 앱을 구축해보세요."
+  },
+  "Quick Start": {
+    "message": "빠른 시작"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "페이지에 충돌이 발생했습니다.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.NotFound.title": {
+    "message": "페이지를 찾을 수 없습니다",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "찾고 계신 것을 찾을 수 없었습니다.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "링크를 건 사이트 주인에게 URL이 더 이상 작동하지 않는다고 연락해주세요.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.admonition.note": {
+    "message": "노트",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "팁",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "위험",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "정보",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "주의",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "맨 위로 돌아가기",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "아카이브",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "아카이브",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "블로그 목록 페이지 탐색",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "새로운 항목",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "오래된 항목",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "블로그 게시글 페이지 탐색",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "새로운 게시글",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "이전 게시글",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.post.plurals": {
+    "message": "글 1개|글 {count}개",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "\"{tagName}\"으로 태그된 {nPosts}",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "모든 태그 보기",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "어두운 화면과 밝은 화면 사이 전환 (현재 {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "어둡게",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "밝게",
+    "description": "The name for the light color mode"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "탐색 경로",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "아이템 {count} 개",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Docs pages",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "이전",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "다음",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "1개 문서가|{count}개 문서가",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} \"{tagName}\" 태그로 분류되었습니다",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "버전: {versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "{siteTitle} {versionLabel} 버전의 출시되지 않은 문서입니다.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "더는 적극적으로 관리하지 않는 {siteTitle} {versionLabel}의 문서입니다.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "최신 문서는 {latestVersionLink} ({versionLabel})에서 찾아볼 수 있습니다.",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "최신 버전",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "이 페이지 편집",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Direct link to {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": "{date}에",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": "{user}가",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "{atDate} {byUser} 마지막으로 갱신함",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "버전",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "태그:",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "닫기",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "블로그 최근 게시물 탐색",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "복사됨",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "클립보드에 코드 복사하기",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "복사",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "단어 줄 바꿈 전환",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "접을 수 있는 사이드바 범주 '{label}' 전환",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Main",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "언어",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "이 페이지",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "더 읽어보기",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "{title}에 대해 더 알아보기",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "읽는 데에 1분 필요|읽는 데에 {readingTime}분 필요",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "홈 페이지",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "사이드바 접기",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "사이드바 접기",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "탐색 바 닫기",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 메인 메뉴로 돌아가기",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "탐색 바 토글",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "사이드바 펼치기",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "사이드바 펼치기",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.PwaReloadPopup.info": {
+    "message": "새 버전이 있습니다",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "새로고침",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "닫기",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "다시 시도하기",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "본문으로 건너뛰기",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "태그",
+    "description": "The title of the tag list page"
+  }
+}

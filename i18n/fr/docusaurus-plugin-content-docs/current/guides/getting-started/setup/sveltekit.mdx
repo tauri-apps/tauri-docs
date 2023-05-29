@@ -1,0 +1,219 @@
+---
+description: Construire une application Tauri en utilisant SvelteKit comme outil de construction frontend
+pagination_next: guides/development/development-cycle
+sidebar_position: 4
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/svelte.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# SvelteKit
+
+Ce guide vous guidera à travers la création de votre première application Tauri en utilisant le framework frontend [SvelteKit][].
+
+<Intro />
+
+Voici un aperçu de ce que nous allons construire :
+
+![Aperçu de l'application](/img/guides/getting-started/setup/sveltekit/result.png)
+
+## Créer le Frontend
+
+[SvelteKit][] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). Pour faire fonctionner SvelteKit avec Tauri, nous allons désactiver SSR et utiliser [`@sveltejs/adapter-static`][] pour créer un frontend basé sur Static-Site Generation (SSG).
+
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`][] that can quickly set up a new project with many customization options. Pour ce guide, nous sélectionnerons le modèle [TypeScript][] , avec ESLint et Prettier activés.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create svelte@latest
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn create svelte
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm create svelte
+```
+
+  </TabItem>
+</Tabs>
+
+1. _Project name:_   
+   Ce sera le nom du projet. Il correspond au nom du dossier créé par l'utilitaire mais n'aura aucune importance pour notre application. Vous pouvez utiliser n'importe quel nom que vous voulez ici.
+
+2. _App template_  
+   Nous sélectionnons le `Skeleton project` pour une structure minimale. Si vous voulez jouer avec un exemple plus complet de SvelteKit, vous pouvez sélectionner `l'application de démonstration SvelteKit`.
+
+3. _Type checking_  
+   Si vous voulez une vérification de type via JSDoc ou TypeScript dans votre projet. Pour ce guide, nous supposons que vous choisissez TypeScript.
+
+4. _Code linting and formatting_  
+   Si vous voulez commencer votre project avec ESLint pour le code linting et Prettier pour le formatage du code. Il n'y aura pas d'autres mentions à ce sujet dans ce guide, mais nous vous recommandons d'activer ces 2 options.
+
+5. _Browser testing_  
+   SvelteKit offre une prise en charge intégrée de Playwright pour les tests du navigateur. Puisque les API Tauri ne fonctionnent pas dans Playwright, nous vous recommandons de ne pas l'ajouter. Consultez notre documentation [WebDriver][] pour trouver des alternatives en utilisant Selenium ou WebdriverIO au lieu de Playwright.
+
+## SvelteKit en mode SSG
+
+<!-- TODO: section intro -->
+
+Tous d'abord nous devons installer [`@sveltejs/adapter-static`][]:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install --save-dev @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+</Tabs>
+
+Puis mettez à jour l'importation de l'`adapter` dans le fichier `svelte.config.js`:
+
+```javascript title=svelte.config.js
+// highlight-next-line
+import adapter from '@sveltejs/adapter-static' // change l' adaptateur depuis adapter-auto
+import preprocess from 'svelte-preprocess'
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // Consulter https://github.com/sveltejs/svelte-preprocess
+  // pour plus d'informations sur le préprocesseur
+  preprocess: preprocess(),
+
+  kit: {
+    adapter: adapter(),
+  },
+}
+
+export default config
+```
+
+Enfin, nous devons désactiver SSR et activer le prérendu en à la racine `+layout.ts` fichier (ou `+layout.js` si vous n'utilisez pas TypeScript) avec ce contenu:
+
+```typescript title=src/routes/+layout.ts
+export const prerender = true
+export const ssr = false
+```
+
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks][].
+
+De plus, si vous préférez un mode d'application à page unique (SPA) plutôt que SSG, vous pouvez modifier les configurations de l'adaptateur et `+layout.ts` selon la [documentation de l'adaptateur][].
+
+## Créer le projet Rust
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../build</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+Maintenant que nous avons préparé notre frontend et initialisé le projet Rust le fichier `tauri.conf.json` créé devrait ressembler à ceci :
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // Cette commande s'exécutera lorsque vous exécuterez `tauri build`.
+    "beforeBuildCommand": "npm run build",
+    // This command will execute when you run `tauri dev`
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../build"
+  },
+```
+
+Et c'est tout! Maintenant, vous pouvez exécuter la commande suivante dans votre terminal pour lancer de votre application en mode développement:
+
+<Command name="dev" />
+
+![Fenêtre d'application](/img/guides/getting-started/setup/sveltekit/init.png)
+
+## Invoquer des commandes
+
+<Commands />
+
+Pour appeler notre commande nouvellement créée, nous utiliserons la bibliothèque JavaScript [`@tauri-apps/api`][]. Il offre des moyens d'accéder à des fonctionnalités natives telles que le système de fenêtrage, de fichiers, etc., à travers des abstractions JavaScript. Vous pourrez l'installer à l'aide du gestionnaire de paquets de votre choix:
+
+<InstallTauriApi />
+
+Avec la bibliothèque installée, nous pouvons maintenant créer un nouveau composant Svelte. Nous allons le créer dans `src/lib/Greet.svelte`:
+
+```html title=src/lib/Greet.svelte
+<script>
+  import { invoke } from '@tauri-apps/api/tauri'
+
+  let name = ''
+  let greetMsg = ''
+
+  async function greet() {
+    greetMsg = await invoke('greet', { name })
+  }
+</script>
+
+<div>
+  <input id="greet-input" placeholder="Enter a name..." bind:value="{name}" />
+  <button on:click="{greet}">Greet</button>
+  <p>{greetMsg}</p>
+</div>
+```
+
+Vous pouvez maintenant ajouter ce composant dans `src/routes/+page.svelte`:
+
+```html title=src/routes/+page.svelte
+<script>
+  import Greet from '../lib/Greet.svelte'
+</script>
+
+<h1>Welcome to SvelteKit</h1>
+<Greet />
+```
+
+You can now run this with `npm run tauri dev` and see the result:
+
+![Aperçu de l'application](/img/guides/getting-started/setup/sveltekit/result.png)
+
+:::astuce
+
+Si vous voulez en savoir plus sur la communication entre Rust et JavaScript, veuillez lire le Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[SvelteKit]: https://kit.svelte.dev
+[`@sveltejs/adapter-static`]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[WebDriver]: ../../testing/webdriver/introduction.md
+[Client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
+[documentation de l'adaptateur]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
+[TypeScript]: https://www.typescriptlang.org
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md

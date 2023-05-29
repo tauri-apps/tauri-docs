@@ -7,11 +7,6 @@ const unreleasedTauriVersion = 'next'
   fs.readFileSync('versions.json', 'utf-8')
 )[0] */
 
-var baseUrl =
-  process.env.LOCALE === 'en' || process.env.LOCALE == undefined
-    ? '/'
-    : `/${process.env.LOCALE}/`
-
 const repoUrl = 'https://github.com/tauri-apps/tauri'
 const discordUrl = 'https://discord.com/invite/tauri'
 const awesomeTauriUrl = 'https://github.com/tauri-apps/awesome-tauri'
@@ -250,7 +245,7 @@ async function siteConfig() {
       'Build smaller, faster, and more secure desktop applications with a web frontend',
     organizationName: 'Tauri Apps',
     projectName: 'tauri',
-    baseUrl: baseUrl,
+    baseUrl: '/',
     favicon: '/meta/favicon-32x32.png',
     url: 'https://tauri.app',
     i18n: {

@@ -1,0 +1,38 @@
+---
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+import DocCardList from '@theme/DocCardList'
+import { useCurrentSidebarCategory } from '@docusaurus/theme-common'
+import { CreateTauriApp } from '@theme/Command'
+
+# Démarrage rapide
+
+Tauri est compatible avec **presque toutes les stack frontend**. Sélectionnez votre stack et commencez à coder !
+
+:::tip `create-tauri-app`
+
+La façon la plus simple de créer un nouveau projet est l'outil [`create-tauri-app`][]. Il fournit des modèles pour HTML/CSS/JavaScript vanilla et de nombreux frameworks frontend comme React, Svelte et Yew.
+
+<CreateTauriApp />
+
+Notez que vous n'avez pas besoin de suivre les guides ci-dessous si vous utilisez `create-tauri-app`, mais nous vous recommandons quand même d'en lire un (comme le guide [HTML/CSS/JavaScript][] ) pour comprendre l'installation.
+
+:::
+
+Si vous n'êtes pas familier avec le développement web ou si vous n'avez pas de stack frontend préférée, vous pourrez trouver le guide [HTML/CSS/JS][] pour vous aider. Il vous guide tout en vous lançant avec la configuration frontend la plus minimale possible en utilisant Node ou Cargo.
+
+<DocCardList items={useCurrentSidebarCategory().items} />
+
+:::info Il manque votre framework favori ?
+
+Si votre framework ou outil de build favori est manquant, nous sommes toujours à la recherche de guides spécifiques ! N'hésitez pas à lire nos règles de [contribution][] et envoyez vos propositions !
+
+:::
+
+[HTML/CSS/JavaScript]: ./html-css-js.mdx
+
+[HTML/CSS/JS]: ./html-css-js.mdx
+[contribution]: https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app

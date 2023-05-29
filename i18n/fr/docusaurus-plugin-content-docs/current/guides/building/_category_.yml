@@ -1,0 +1,4 @@
+label: 'Build pour la production'
+position: 7
+customProps:
+  description: Préparez et empaquetez votre application pour les utilisateurs

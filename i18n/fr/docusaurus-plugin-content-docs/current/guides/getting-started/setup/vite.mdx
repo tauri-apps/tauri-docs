@@ -1,0 +1,159 @@
+---
+description: Construire une application Tauri en utilisant Vite comme outil de build frontend
+pagination_next: guides/development/development-cycle
+sidebar_position: 5
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/vite.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# Vite
+
+Ce guide vous accompagnera à travers la création de votre première application Tauri en utilisant l'outil de construction frontend [Vite][].
+
+<Intro />
+<CreateTauriAppGuide />
+
+Voici un aperçu de ce que nous allons construire :
+
+![Aperçu de l'application](/img/guides/getting-started/setup/vite/vite-light.png#gh-light-mode-only) ![Aperçu de l'application](/img/guides/getting-started/setup/vite/vite-dark.png#gh-dark-mode-only)
+
+## Créer le Frontend
+
+[Vite][] est un bundler en frontend et un outil de construction, ce qui signifie qu'il fournit diverses fonctionnalités telles que _Hot Module Reloading_ (HMR) pendant le développement, mais il convertit également votre code source en HTML, CSS et JavaScript optimisés lors de la compilation pour la production. Nous recommandons Vite pour sa vitesse, sa facilité de configuration et [son grand écosystème de plugins][awesome-vite].
+
+Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly set up a new project from many pre-defined templates. Vous pouvez choisir parmi de nombreux frameworks frontend comme React, Svelte ou Vue. Pour ce guide, nous choisirons le modèle `vanilla-ts` pour créer un petit projet _sans_ aucun framework frontend.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create vite@latest
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn create vite
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm create vite
+```
+
+  </TabItem>
+</Tabs>
+
+1. _Project name:_   
+   Ce sera le nom du projet. Il correspond au nom du dossier créé par l'utilitaire mais n'aura aucune importance pour notre application. Vous pouvez utiliser n'importe quel nom que vous voulez ici.
+
+2. _Select a framework: _   
+   Si vous prévoyez d'utiliser un framework frontend, vous pouvez le choisir ici. Pour ce tutoriel, nous assumerons que vous avez choisi du `vanilla`.
+
+3. _ Select a variant:_   
+   Vite offre une variante [Typescript][] et vanilla JavaScript pour chaque template, que vous pourrez sélectionner ici. Nous recommandons **fortement** TypeScript car cela aide à écrire du code plus sécurisé, augmente la maintenabilité ainsi que l'efficacité. Pour ce tutoriel, nous assumerons que vous avez choisi du `vanilla`.
+
+Lors du démarrage du frontend via la commande `vite` , Vite recherche un fichier de configuration nommé `vite.config.ts` à l'intérieur de la racine du projet. Nous voulons personnaliser ce fichier pour obtenir la meilleure compatibilité avec Tauri. Si elle n'est pas créée par l'échafaudage ci-dessus (comme si vous utilisez du JavaScript vanilla), vous devrez créer le fichier `vite.config.ts` fichier à la racine du projet.
+
+Mettre à jour le fichier avec le contenu suivant :
+
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  // prevent vite from obscuring rust errors
+  clearScreen: false,
+  // Tauri expects a fixed port, fail if that port is not available
+  server: {
+    strictPort: true,
+  },
+  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
+  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
+  // env variables
+  envPrefix: ['VITE_', 'TAURI_'],
+  build: {
+    // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+    target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
+    // don't minify for debug builds
+    minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+    // produce sourcemaps for debug builds
+    sourcemap: !!process.env.TAURI_DEBUG,
+  },
+})
+```
+
+:::info
+
+Notez que si vous n'utilisez pas JavaScript vanilla, vous devez conserver les plugins spécifiques au framework qui étaient déjà dans ce fichier.
+
+:::
+
+## Créer le projet Rust
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../dist</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+Maintenant que nous avons préparé notre frontend et initialisé le projet Rust le fichier `tauri.conf.json` créé devrait ressembler à ceci :
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // Cette commande s'exécutera lorsque vous exécuterez `tauri build`.
+    "beforeBuildCommand": "npm run build",
+    // Cette commande s'exécutera lorsque vous exécuterez `tauri dev`
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../dist"
+  },
+```
+
+Et c'est tout! Maintenant, vous pouvez exécuter la commande suivante dans votre terminal pour lancer de votre application en mode développement:
+
+<Command name="dev" />
+
+![Fenêtre d'application](/img/guides/getting-started/setup/vite/vite-dev-light.png#gh-light-mode-only) ![Fenêtre d'application](/img/guides/getting-started/setup/vite/vite-dev-dark.png#gh-dark-mode-only)
+
+## Invoquer des commandes
+
+<Commands />
+
+Pour appeler notre commande nouvellement créée, nous utiliserons la bibliothèque JavaScript [`@tauri-apps/api`][]. Il offre des moyens d'accéder à des fonctionnalités natives telles que le système de fenêtrage, de fichiers, etc., à travers des abstractions JavaScript. Vous pourrez l'installer à l'aide du gestionnaire de paquets de votre choix:
+
+<InstallTauriApi />
+
+Avec la bibliothèque installée, vous pourrez ajouter ceci à votre fichier `main.ts` pour appeler la commande:
+
+```typescript title=src/main.ts
+import { invoke } from '@tauri-apps/api'
+
+// à présent, nous pouvons appeler notre commande !
+// Clique droite sur l'arrière-plan de l'application et ouvre les outils de développement.
+// Vous devriez apercevoir "Hello, World !" dans la console !
+invoke('greet', { name: 'World' })
+  // `invoke` renvoie une promesse (Promise)
+  .then((response) => console.log(response))
+```
+
+:::astuce
+
+Si vous voulez en savoir plus sur la communication entre Rust et JavaScript, veuillez lire le Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[Vite]: https://vitejs.dev
+[Typescript]: https://www.typescriptlang.org
+[awesome-vite]: https://github.com/vitejs/awesome-vite#plugins
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md

@@ -1,0 +1,4 @@
+label: 'Débogage'
+position: 5
+customProps:
+  description: Conseils et astuces pour votre débogage

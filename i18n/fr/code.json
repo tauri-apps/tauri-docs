@@ -1,0 +1,426 @@
+{
+  "Brownfield": {
+    "message": "Brownfield"
+  },
+  "Compatibility with any front-end framework means you don't have to change your stack.": {
+    "message": "La compatibilité avec n'importe quel framework frontend signifie que vous n'avez pas à changer votre stack."
+  },
+  "Learn More": {
+    "message": "En savoir plus"
+  },
+  "Security": {
+    "message": "Sécurité"
+  },
+  "Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.": {
+    "message": "Le credo de l'équipe de Tauri est d'accomplir nos plus grandes priorités et innovations."
+  },
+  "FLOSS": {
+    "message": "FLOSS"
+  },
+  "Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable.": {
+    "message": "La redistribuiton est possible grâce aux licences MIT ou MIT/Apache 2.0 dans les cas applicables."
+  },
+  "Bundle Size": {
+    "message": "Taille de bundle"
+  },
+  "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.": {
+    "message": "En utilisant le moteur de rendu web natif à l'OS, la taille d'une application Tauri peut être inférieure à 600 Ko."
+  },
+  "Cross Platform": {
+    "message": "Cross-Plateforme"
+  },
+  "Bundle binaries for all major desktop platforms (mobile coming soon).": {
+    "message": "Bundler de binaires pour toutes les principales plateformes de bureau (et bientôt sur mobile)."
+  },
+  "Built on Rust": {
+    "message": "Fait en Rust"
+  },
+  "With performance and security at the center, Rust is the language for the next generation of apps.": {
+    "message": "Avec ses performances et sa sécurité comme priorité, Rust est le language de la prochaine génération d'applications."
+  },
+  "Desktop Bundler": {
+    "message": "Bundler d'applications de bureau"
+  },
+  "Bundle for all major desktops from native systems": {
+    "message": "Bundle pour tous les principaux ordinateurs de bureau et systèmes natifs"
+  },
+  "Self Updater": {
+    "message": "Mise à jour automatique"
+  },
+  "Update Tauri Apps from within themselves": {
+    "message": "Mettre à jour les applications Tauri à partir d'elles-mêmes"
+  },
+  "Core Plugin System": {
+    "message": "Système de Plugins"
+  },
+  "Build reusable plugins to extend Tauri core": {
+    "message": "Construire des plugins réutilisables pour étendre le noyau de Tauri"
+  },
+  "Scoped Filesystem": {
+    "message": "Système de fichiers étendu"
+  },
+  "Improved security of file interactions": {
+    "message": "Amélioration de la sécurité de gestion de fichiers"
+  },
+  "App Tray": {
+    "message": "App Tray"
+  },
+  "Cross-platform desktop icon tray": {
+    "message": "Icônes d'app multiplateformes"
+  },
+  "GitHub Action": {
+    "message": "GitHub Action"
+  },
+  "Build your Tauri binary for macOS, Linux, and Windows": {
+    "message": "Créez votre binaire Tauri pour macOS, Linux et Windows"
+  },
+  "Native Notifications": {
+    "message": "Notifications natives"
+  },
+  "Cross-platform notifications using polyfilled web API": {
+    "message": "Notifications multi-plateformes en utilisant un polyfill de l'API web"
+  },
+  "Sidecar": {
+    "message": "Sidecar"
+  },
+  "Integrate and instrument other binaries": {
+    "message": "Intégrer et utiliser d'autres binaires"
+  },
+  "App Storage": {
+    "message": "Stockage des apps"
+  },
+  "Use a canonical location to store user data": {
+    "message": "Utiliser un emplacement canonique pour stocker les données de l'utilisateur"
+  },
+  "Mobile Bundler": {
+    "message": "Bundler Mobile"
+  },
+  "Bundle to all major mobile device operating systems": {
+    "message": "Bundler pour tous les principaux systèmes d'exploitation de périphériques mobiles"
+  },
+  "Cross Compiler": {
+    "message": "Cross Compiler"
+  },
+  "Generate bundled binaries from select operating system environments": {
+    "message": "Générez des binaires pour un environnement d'OS spécifique"
+  },
+  "Other Bindings": {
+    "message": "Autres Bindings"
+  },
+  "Go, Nim, Python, C++ and other bindings are possible with the stable API": {
+    "message": "Go, Nim, Python, C++ et d'autres bindings sont possibles avec l'API stable"
+  },
+  "One-Time Commands": {
+    "message": "Commandes à usage unique"
+  },
+  "Run a command that is no longer available after first run": {
+    "message": "Exécuter une commande qui n'est plus disponible après le premier lancement"
+  },
+  "Alternative Renderers": {
+    "message": "Moteurs de rendu alternatifs"
+  },
+  "Candidate presentation for Webview alternatives, including GL windowing": {
+    "message": "Présentation des candidats pour les alternatives WebView, incluant \"GL windowing\""
+  },
+  "Channel API": {
+    "message": "Channel API"
+  },
+  "Send messages through a channel": {
+    "message": "Envoyer des messages via un canal"
+  },
+  "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.": {
+    "message": "Tauri est un framework pour la construction de petits binaires rapides pour les principales plateformes. Les développeurs peuvent intégrer n'importe quel framework front-end qui se compile en HTML, JS and CSS pour construire leur interface utilisateur."
+  },
+  "Announcing the release of": {
+    "message": "Annonce de la publication de"
+  },
+  "Build an optimized, secure, and frontend-independent application for multi-platform deployment.": {
+    "message": "Construire une application optimisée, sécurisée et indépendante du site pour le déploiement multiplateforme."
+  },
+  "Quick Start": {
+    "message": "Démarrage rapide"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "Cette page a planté.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.NotFound.title": {
+    "message": "Page introuvable",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "Nous n'avons pas trouvé ce que vous cherchiez.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "Veuillez contacter le propriétaire du site qui vous a lié à l'URL d'origine et leur faire savoir que leur lien est cassé.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.admonition.note": {
+    "message": "note",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "danger",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "info",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "caution",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "Retourner en haut",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "Archive",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "Archive",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "Navigation des pages de la liste des blogs",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "Nouvelles entrées",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "Anciennes entrées",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "Navigation de la page de publication du blog",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Nouvelle publication",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Ancienne publication",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.post.plurals": {
+    "message": "Un message |{count} messages",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} taggé(s) avec \"{tagName}\"",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Voir tous les tags",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Basculer entre le mode sombre et le mode clair (actuellement {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "Mode sombre",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "Mode clair",
+    "description": "The name for the light color mode"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Fil conducteur",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} éléments",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Docs pages",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Précédent",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Prochain",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "Un doc taggé |{count} docs taggés",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} taggé(s) avec \"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version : {versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "Ceci est une documentation non publiée pour la version de {siteTitle} {versionLabel}.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "Il s'agit de la documentation pour {siteTitle} {versionLabel}, qui n'est plus activement maintenue.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "Pour une documentation à jour, consultez la {latestVersionLink} ({versionLabel}).",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "dernière version",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "Modifier cette page",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Direct link to {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " le {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " par {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "Dernière mise à jour{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "Versions",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "Tags :",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Fermer",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Navigation des articles récents dans le blog",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Copié",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Copier le code dans le presse-papiers",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Copier",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Activer/Désactiver le retour à la ligne",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "Activer/désactiver la catégorie de barre latérale pliable '{label}'",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Main",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Langues",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "Sur cette page",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "En savoir plus",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "En savoir plus sur {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Lecture d'une minute |{readingTime} min de lecture",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "Page d'accueil",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Réduire la barre latérale",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Réduire la barre latérale",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Fermer la barre de navigation",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Retourner au menu principal",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Activé ou désactiver la barre de navigation",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Déplier la barre latérale",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Déplier la barre latérale",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.PwaReloadPopup.info": {
+    "message": "Nouvelle version disponible",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "Rafraîchir",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "Fermer",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Réessayez",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Passer au contenu principal",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Tags",
+    "description": "The title of the tag list page"
+  }
+}

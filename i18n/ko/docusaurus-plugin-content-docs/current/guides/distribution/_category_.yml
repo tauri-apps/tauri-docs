@@ -1,0 +1,4 @@
+label: '배포'
+position: 8
+customProps:
+  description: 앱을 사용자들에게 제공

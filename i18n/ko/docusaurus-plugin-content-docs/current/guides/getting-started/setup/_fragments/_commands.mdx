@@ -1,0 +1,28 @@
+Tauri는 네이티브 기능과 함께 프론트엔드를 향상시킬 수 있습니다. [명령][command]이라고 불리는 이 기능은, 기본적으로 프론트엔드 JavaScript에서 호출할 수 있는 Rust 함수입니다. 이를 통해 성능이 뛰어난 Rust 코드로 오래 걸리는 작업이나 OS 기능 호출 등을 처리할 수 있습니다.
+
+간단한 예제를 만들어봅시다:
+
+```rust title=src-tauri/src/main.rs
+#[tauri::command]
+fn greet(name: &str) -> String {
+   format!("Hello, {}!", name)
+}
+```
+
+명령은 일반적인 Rust 함수와 같지만, JavaScript 맥락과 통신하게 해주는 `#[tauri::command` 속성 매크로가 붙어 있습니다.
+
+마지막으로, Tauri가 적절히 호출을 전달하도록 새로 만든 명령을 알려줘야 합니다. 아래와 같이, `invoke_handler()` 함수와 `generate_handler![]` 매크로를 조합해 줍니다.
+
+```rust title=src-tauri/src/main.rs
+fn main() {
+  tauri::Builder::default()
+  // highlight-next-line
+    .invoke_handler(tauri::generate_handler![greet])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+이제 프론트엔드에서 명령을 호출할 준비가 되었습니다!
+
+[command]: ../../../features/command.md

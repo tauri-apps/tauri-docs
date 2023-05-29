@@ -1,0 +1,66 @@
+{
+  "version.label": {
+    "message": "v1",
+    "description": "The label for version current"
+  },
+  "sidebar.guides.category.Guides": {
+    "message": "안내서",
+    "description": "The label for category Guides in sidebar guides"
+  },
+  "sidebar.guides.category.Getting Started": {
+    "message": "시작하기",
+    "description": "The label for category Getting Started in sidebar guides"
+  },
+  "sidebar.guides.category.Quick Start": {
+    "message": "빠른 시작",
+    "description": "The label for category Quick Start in sidebar guides"
+  },
+  "sidebar.guides.category.Development": {
+    "message": "개발",
+    "description": "The label for category Development in sidebar guides"
+  },
+  "sidebar.guides.category.Debugging": {
+    "message": "디버깅",
+    "description": "The label for category Debugging in sidebar guides"
+  },
+  "sidebar.guides.category.Testing": {
+    "message": "테스트",
+    "description": "The label for category Testing in sidebar guides"
+  },
+  "sidebar.guides.category.WebDriver Testing": {
+    "message": "웹 드라이버 테스트",
+    "description": "The label for category WebDriver Testing in sidebar guides"
+  },
+  "sidebar.guides.category.Example Application": {
+    "message": "예제 앱",
+    "description": "The label for category Example Application in sidebar guides"
+  },
+  "sidebar.guides.category.Building": {
+    "message": "빌드",
+    "description": "The label for category Building in sidebar guides"
+  },
+  "sidebar.guides.category.Distribution": {
+    "message": "배포",
+    "description": "The label for category Distribution in sidebar guides"
+  },
+  "sidebar.guides.category.Features": {
+    "message": "기능",
+    "description": "The label for category Features in sidebar guides"
+  },
+  "sidebar.references.category.References": {
+    "message": "참조 문서",
+    "description": "The label for category References in sidebar references"
+  },
+  "sidebar.references.category.Tauri Architecture": {
+    "message": "Tauri 구조",
+    "description": "The label for category Tauri Architecture in sidebar references"
+  },
+  "sidebar.references.category.Inter-Process Communication": {
+    "message": "프로세스 간 통신",
+    "description": "The label for category Inter-Process Communication in sidebar references"
+  },
+  "sidebar.references.category.Recipes": {
+    "message": "레시피",
+    "description": "The label for category Recipes in sidebar references"
+  }
+}

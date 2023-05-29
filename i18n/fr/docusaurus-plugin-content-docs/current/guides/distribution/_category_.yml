@@ -1,0 +1,4 @@
+label: 'Distribution'
+position: 8
+customProps:
+  description: Mettez votre application entre les mains des utilisateurs
