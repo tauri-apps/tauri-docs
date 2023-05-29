@@ -1,0 +1,207 @@
+---
+description: Build a Tauri app using Qwik as the frontend build tool
+pagination_next: guides/development/development-cycle
+sidebar_position: 3
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command from '@theme/Command'
+
+# Qwik
+
+This guide will walk you through creating your first Tauri app using the [Qwik] web framework.
+
+<Intro />
+
+다음은 빌드하게 될 내용의 미리보기 입니다:
+
+![Preview of Application](/img/guides/getting-started/setup/qwik/result.png)
+
+## 프론트엔드 만들기
+
+[Qwik] is primarily designed for Server-Side Rendering (SSR). To make Qwik work with Tauri we are going to use a "Static Site" adapter to create a frontend based on Static-Site Generation (SSG).
+
+Qwik comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript] template.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create qwik@latest
+```
+
+</TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn create qwik@latest
+```
+
+</TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm create qwik@latest
+```
+
+</TabItem>
+</Tabs>
+
+1.  _Project name_\
+    This will be the name of your JavaScript project. 유틸리티가 만드는 폴더의 이름이 되지만 그 외 다른 이름에는 영향이 없습니다. 원하는 이름이라면 무엇이든 적을 수 있습니다.
+
+2.  _App starter_\
+    We will select the `Basic App (QwikCity)` option for an example template.
+
+3.  _Install dependencies_\
+    Yes, if you want it to install the dependencies automatically.
+
+## Qwik in SSG mode
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm run qwik add
+```
+
+</TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn create qwik add
+```
+
+</TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm qwik add
+```
+
+</TabItem>
+</Tabs>
+
+Select `Static site (.html files)` adapter. Then you can build static pages via:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm run build
+```
+
+</TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn build
+```
+
+</TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm build
+```
+
+</TabItem>
+</Tabs>
+
+## Rust 프로젝트 생성하기
+
+<TauriInit
+  destDirExplination={{
+    __html: 'Use <code>../dist</code> for this value.',
+  }}
+  devPathExplination={{
+    __html: 'Use <code>http://localhost:5173</code> for this value.',
+  }}
+  beforeDevCommandExplination={{
+    __html:
+      'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).',
+  }}
+  beforeBuildCommandExplination={{
+    __html:
+      'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).',
+  }}
+/>
+
+이걸로 끝입니다! 이제 터미널에서 다음 명령어를 실행해 앱의 개발 빌드를 시작할 수 있습니다.
+
+<Command name="dev" />
+
+## 명령 호출
+
+<Commands />
+
+To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. 이 라이브러리는 편리한 JavaScript 추상화를 통해 창, 파일시스템 등 핵심 기능으로 가는 진입로를 제공합니다. 좋아하는 JavaScript 패키지 관리자로 설치할 수 있습니다.
+
+<InstallTauriApi />
+
+With the library installed, we can now create a new Qwik component. We'll create it in `src/components/greet/greet.tsx`:
+
+```tsx title=src/components/greet/greet.tsx
+import { $, component$, useSignal } from '@builder.io/qwik'
+import { invoke } from '@tauri-apps/api/tauri'
+
+export default component$(() => {
+  const greetMsg = useSignal('')
+
+  const greet = $(async (name: string) => {
+    greetMsg.value = await invoke('greet', { name })
+  })
+
+  return (
+    <div>
+      <button onClick$={() => greet('Qwik')}>Greet</button>
+      <p>{greetMsg.value}</p>
+    </div>
+  )
+})
+```
+
+You can now add this component into `src/routes/index.tsx`:
+
+```tsx title=src/routes/index.tsx
+// ...
+import Greet from '~/components/greet/greet'
+
+export default component$(() => {
+  return (
+    <>
+      <Greet />
+      ...
+    </>
+  )
+})
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[cargo]: https://doc.rust-lang.org/cargo/
+
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+
+[prerequisites]: ../prerequisites.md
+
+[qwik]: https://qwik.builder.io
+
+[typescript]: https://www.typescriptlang.org
+
+[`@tauri-apps/api`]: ../../../api/js/
+
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+
+[`withglobaltauri`]: ../../../api/config.md#buildconfig.withglobaltauri

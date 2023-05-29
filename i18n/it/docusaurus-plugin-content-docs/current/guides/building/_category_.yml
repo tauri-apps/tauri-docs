@@ -1,0 +1,4 @@
+label: 'Compilazione'
+position: 7
+customProps:
+  description: Prepara e impacchetta la tua app per gli utenti

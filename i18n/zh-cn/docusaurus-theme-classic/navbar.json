@@ -1,0 +1,86 @@
+{
+  "logo.alt": {
+    "message": "Tauri Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Guides": {
+    "message": "指南",
+    "description": "Navbar item with label Guides"
+  },
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item with label API"
+  },
+  "item.label.References": {
+    "message": "参考",
+    "description": "Navbar item with label References"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Community": {
+    "message": "社区",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.About": {
+    "message": "关于",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Release Notes": {
+    "message": "发布日志",
+    "description": "Navbar item with label Release Notes"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Configuration": {
+    "message": "配置",
+    "description": "Navbar item with label Configuration"
+  },
+  "item.label.CLI": {
+    "message": "CLI",
+    "description": "Navbar item with label CLI"
+  },
+  "item.label.JavaScript / TypeScript": {
+    "message": "JavaScript / TypeScript",
+    "description": "Navbar item with label JavaScript / TypeScript"
+  },
+  "item.label.Rust (via Docs.rs)": {
+    "message": "Rust (Docs.rs 文档)",
+    "description": "Navbar item with label Rust (via Docs.rs)"
+  },
+  "item.label.Get Involved": {
+    "message": "加入我们",
+    "description": "Navbar item with label Get Involved"
+  },
+  "item.label.Sponsors": {
+    "message": "赞助商",
+    "description": "Navbar item with label Sponsors"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.Awesome Tauri": {
+    "message": "Awesome Tauri",
+    "description": "Navbar item with label Awesome Tauri"
+  },
+  "item.label.What is Tauri?": {
+    "message": "Tauri 是什么？",
+    "description": "Navbar item with label What is Tauri?"
+  },
+  "item.label.Governance": {
+    "message": "管理",
+    "description": "Navbar item with label Governance"
+  },
+  "item.label.Trademark Guidelines": {
+    "message": "商标准则",
+    "description": "Navbar item with label Trademark Guidelines"
+  },
+  "item.label.Tauri Book": {
+    "message": "Tauri Book",
+    "description": "Navbar item with label Tauri Book"
+  }
+}

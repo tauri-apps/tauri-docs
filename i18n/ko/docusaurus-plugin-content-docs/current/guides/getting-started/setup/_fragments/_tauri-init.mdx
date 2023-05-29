@@ -1,0 +1,146 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriCli } from '@theme/Command'
+
+모든 Tauri 앱의 중심에는 `tauri`라는 Rust crate를 통해 창, 웹뷰, 운영 체제의 호출을 관리하는 Rust 바이너리가 있습니다. 프로젝트는 Rust의 공식 패키지 관리자이자 범용 빌드 도구인 [Cargo][]로 관리합니다.
+
+Tauri CLI가 내부적으로 Cargo를 사용해, 직접 만져야 할 일은 적습니다. Cargo에는 CLI로는 접근할 수 없지만 유용한 기능이 많습니다. 예를 들어, 테스트나 린트, 포매팅 등이 있습니다. Cargo [공식 문서][cargo commands]를 참조하시면 더 많이 알아보실 수 있습니다.
+
+:::info Tauri CLI 설치
+
+Tauri CLI 미설치시 아래 중 하나의 명령어로 설치가능합니다. 무엇을 써야 하는지 잘 모르시겠나요? [자주 물어보는 질문 항목][]을 살펴보세요.
+
+<InstallTauriCli />
+
+:::
+
+Tauri와의 사용을 위해 미리 설정된 작은 Rust 프로젝트를 만드시려면, 터미널을 열어 다음 명령어를 입력하세요:
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```shell
+npm run tauri init
+```
+
+</TabItem>
+<TabItem value="Yarn">
+
+```shell
+yarn tauri init
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```shell
+pnpm tauri init
+```
+
+</TabItem>
+<TabItem value="Cargo">
+
+```shell
+cargo tauri init
+```
+
+</TabItem>
+</Tabs>
+
+일련의 질문을 통해 프로젝트 구성을 진행해나갈 것입니다:
+
+<ol>
+  <li>
+    <i>What is your app name?</i>
+     <br />
+    최종 번들의 이름이자, 운영 체제가 부를 앱의 이름입니다. 원하는 이름이라면 무엇이든 적을 수 있습니다.
+  </li>
+  <br />
+  <li>
+    <i>What should the window title be?</i>
+    <br />
+    기본 메인 창의 제목입니다. 원하는 제목을 적으시면 됩니다.
+  </li>
+  <br />
+  <li>
+    <i>
+      Where are your web assets (HTML/CSS/JS) located relative to the{' '}
+      <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> file that will
+      be created?
+    </i>
+    <br />
+    Tauri가 <b>프로덕션</b>으로 빌드할 때 프론트엔드 애셋을 불러올 경로입니다.{' '}
+    {props.destDirExplination && (
+      <div dangerouslySetInnerHTML={props.destDirExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is the URL of your dev server?</i>
+    <br />
+    <b>개발</b> 과정에서 Tauri가 불러올 URL이나 파일 경로입니다.{' '}
+    {props.devPathExplination && (
+      <div dangerouslySetInnerHTML={props.devPathExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is your frontend dev command?</i>
+    <br />
+    프론트엔드 개발 서버 실행에 쓰이는 명령어입니다.{' '}
+    {props.beforeDevCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>What is your frontend build command?</i>
+    <br />
+    프론트엔드 빌드에 쓰이는 명령어입니다.{' '}
+    {props.beforeBuildCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
+    )}
+  </li>
+</ol>
+
+:::info
+
+만약 Rust에 익숙하시다면, `tauri init`이 `cargo init`과 매우 비슷하게 동작한다는 것을 눈치채셨을 것입니다. 만약 손수 설정하는 것을 선호하신다면 그냥 `cargo init`을 수행하고, 필요한 Tauri 의존성을 받으셔도 좋습니다.
+
+:::
+
+`tauri init` 명령어는 `src-tauri` 폴더를 만듭니다. 그 폴더에 코어와 관련된 파일을 두는 것이 Tauri 앱의 규칙입니다. 이 폴더의 내용물을 빠르게 살펴봅시다:
+
+- **`Cargo.toml`**  
+  Cargo의 매니페스트 파일입니다. 앱에서 어떤 Rust crate에 의존하는지 정의하고, 앱에 대한 부가 정보를 기록하고, 그 외 다양한 일을 할 수 있습니다. 완전한 참고 자료로써 [Cargo 매니페스트 형식][manifest-format] 문서를 살펴보실 수 있습니다.
+
+- **`tauri.conf.json`**  
+  이름부터 허용된 API 목록까지, 이 파일을 통해 Tauri 앱의 다양한 부분을 맞춤 설정합니다. [Tauri API 설정][api config] 문서에서 지원하는 옵션의 전체 목록과 각 옵션의 자세한 설명을 확인하실 수 있습니다.
+
+- **`src/main.rs`**  
+  이 부분은 Rust 프로그램의 시작점이자, Tauri를 구동하는 위치입니다. 두 부분으로 나누어 볼 수 있습니다:
+
+  ```rust title=src/main.rs
+   #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+  fn main() {
+  tauri::Builder::default()
+     .run(tauri::generate_context!())
+     .expect("error while running tauri application");
+  }
+  ```
+
+  The line beginning with the [`cfg! 매크로`][cfg macro]로 시작합니다: 일반적으로 번들 앱을 실행할 때, Windows에서 나오는 명령 프롬프트 창을 비활성화합니다. 만약 Windows를 사용 중이시라면, 해당 줄을 주석 처리한 후 어떤 일이 일어나는지 살펴보세요.
+
+  `main` 함수는 진입점으로 프로그램을 실행할 때 가장 먼저 불리는 함수입니다.
+
+- **`icons`**  
+  앱에 멋진 아이콘을 추가할 기회가 바로 여기에 있습니다! 빠른 시작을 위해, 기본 아이콘 묶음을 미리 포함시켜 두었습니다. 앱을 공개하기 전, 기본 아이콘을 교체하셔야 합니다. Tauri [아이콘 기능 안내서][icons]에서 다양한 아이콘 형식에 대해 알아보실 수 있습니다.
+
+[manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html
+[api config]: ../../../../api/config.md
+[icons]: ../../../features/icons.md
+[Cargo]: https://doc.rust-lang.org/cargo/
+[cargo commands]: https://doc.rust-lang.org/cargo/commands/index.html
+[자주 물어보는 질문 항목]: ../../../faq.md#node-or-cargo

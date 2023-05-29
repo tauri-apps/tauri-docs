@@ -1,0 +1,5 @@
+---
+label: 'Commencer'
+position: 2
+customProps:
+  description: Commencez à développer votre première application Tauri

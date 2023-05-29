@@ -1,0 +1,426 @@
+{
+  "Brownfield": {
+    "message": "Brownfield"
+  },
+  "Compatibility with any front-end framework means you don't have to change your stack.": {
+    "message": "兼容所有前端框架，而您无需做出任何改变。"
+  },
+  "Learn More": {
+    "message": "了解更多"
+  },
+  "Security": {
+    "message": "安全"
+  },
+  "Front-of-mind for the Tauri Team driving our highest priorities and biggest innovations.": {
+    "message": "这是 Tauri 团队的首要目标和最大创新。"
+  },
+  "FLOSS": {
+    "message": "FLOSS"
+  },
+  "Relicensing and redistribution is possible thanks to MIT or MIT/Apache 2.0 licensing where applicable.": {
+    "message": "得益于 MIT/Apache 2.0 协议，您可以自由分发您的 Tauri 软件。"
+  },
+  "Bundle Size": {
+    "message": "打包大小"
+  },
+  "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.": {
+    "message": " 使用系统自带的网页渲染器，Tauri 应用的大小可打包到 600 KB 以下！"
+  },
+  "Cross Platform": {
+    "message": "跨平台"
+  },
+  "Bundle binaries for all major desktop platforms (mobile coming soon).": {
+    "message": "构建支持所有主流桌面平台（移动端即将推出）的二进制打包文件。"
+  },
+  "Built on Rust": {
+    "message": "基于 Rust 开发"
+  },
+  "With performance and security at the center, Rust is the language for the next generation of apps.": {
+    "message": "性能及安全至上的 Rust 是次时代应用开发首选。"
+  },
+  "Desktop Bundler": {
+    "message": "桌面打包器"
+  },
+  "Bundle for all major desktops from native systems": {
+    "message": "为主流操作系统提供原生软件包"
+  },
+  "Self Updater": {
+    "message": "自动更新"
+  },
+  "Update Tauri Apps from within themselves": {
+    "message": "Tauri 应用可以自己更新"
+  },
+  "Core Plugin System": {
+    "message": "插件系统"
+  },
+  "Build reusable plugins to extend Tauri core": {
+    "message": "构建可复用的插件以扩展 Tauri 核心"
+  },
+  "Scoped Filesystem": {
+    "message": "受限的文件系统"
+  },
+  "Improved security of file interactions": {
+    "message": "提高操作文件的安全性"
+  },
+  "App Tray": {
+    "message": "应用托盘"
+  },
+  "Cross-platform desktop icon tray": {
+    "message": "支持多平台显示的托盘图标"
+  },
+  "GitHub Action": {
+    "message": "GitHub Action"
+  },
+  "Build your Tauri binary for macOS, Linux, and Windows": {
+    "message": "为 macOS、Linux 和 Windows 构建 Tauri 二进制文件"
+  },
+  "Native Notifications": {
+    "message": "原生系统通知"
+  },
+  "Cross-platform notifications using polyfilled web API": {
+    "message": "使用 Polyfill Web API 来调用原生系统通知"
+  },
+  "Sidecar": {
+    "message": "边车"
+  },
+  "Integrate and instrument other binaries": {
+    "message": "集成和插入其他二进制文件"
+  },
+  "App Storage": {
+    "message": "应用存储"
+  },
+  "Use a canonical location to store user data": {
+    "message": "使用规范位置存储用户数据"
+  },
+  "Mobile Bundler": {
+    "message": "为移动设备打包"
+  },
+  "Bundle to all major mobile device operating systems": {
+    "message": "打包支持所有主流移动设备操作系统"
+  },
+  "Cross Compiler": {
+    "message": "交叉编译器"
+  },
+  "Generate bundled binaries from select operating system environments": {
+    "message": "选择目标操作系统环境来生成打包后的二进制文件"
+  },
+  "Other Bindings": {
+    "message": "其他绑定"
+  },
+  "Go, Nim, Python, C++ and other bindings are possible with the stable API": {
+    "message": "基于稳定的 API，实现与 Go、Nim、Python、C++ 和其他语言的绑定"
+  },
+  "One-Time Commands": {
+    "message": "单发指令"
+  },
+  "Run a command that is no longer available after first run": {
+    "message": "运行一个只能执行一次的指令"
+  },
+  "Alternative Renderers": {
+    "message": "替代渲染器"
+  },
+  "Candidate presentation for Webview alternatives, including GL windowing": {
+    "message": "WebView 的备选呈现方案，如 GL windowing"
+  },
+  "Channel API": {
+    "message": "频道 API"
+  },
+  "Send messages through a channel": {
+    "message": "通过频道发送消息"
+  },
+  "Tauri is a framework for building tiny, blazing fast binaries for all major desktop platforms. Developers can integrate any front-end framework that compiles to HTML, JS and CSS for building their user interface.": {
+    "message": "Tauri 是一个可用于为所有主要桌面平台构建微小的、极速的二进制文件的框架，开发人员使用任何可编译为前端代码的框架来构建他们的用户界面。"
+  },
+  "Announcing the release of": {
+    "message": "宣布发布"
+  },
+  "Build an optimized, secure, and frontend-independent application for multi-platform deployment.": {
+    "message": "构建跨平台的快速、安全、前端隔离应用"
+  },
+  "Quick Start": {
+    "message": "快速开始"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "此页面已崩溃。",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.NotFound.title": {
+    "message": "找不到页面",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "我们无法找到您所寻找的页面。",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "请联系将您链接到原始 URL 的站点所有者，并让他们知道他们的链接已损坏。",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.admonition.note": {
+    "message": "备注",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "提示",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "警告",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "信息",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "注意",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "返回顶部",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "档案",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "档案",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "博客页面导航",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "新条目",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "旧条目",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "博客页面导航",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "较新帖文",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "较旧帖文",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.post.plurals": {
+    "message": "一篇文章|{count} 篇文章",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "标记为 \"{tagName}\" 的 {nPosts} 篇文章",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "查看所有标签",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "切换暗色模式和亮色模式 (当前为 {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "暗色模式",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "亮色模式",
+    "description": "The name for the light color mode"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "面包屑导航",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} 项",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Docs pages",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "上一页",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "下一页",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "标记一个文档|{count} 个标记了文档",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} 带有\"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version: {versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "这是 {siteTitle} {versionLabel} 版本的未发布文档。",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "这是 {siteTitle} {versionLabel} 的文档，不再维护。",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "最新文档，请参阅 {latestVersionLink} ({versionLabel})。",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "最新版本",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "编辑此页面",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Direct link to {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " 在 {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " 由 {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "上次更新{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "版本",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "标签：",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "关闭",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "博客最新的帖子导航",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "已复制",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "复制代码到剪切板",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "复制",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "切换自动换行",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "切换可折叠侧边栏类别“{label}”",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Main",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "语言",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "在本页",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "了解更多",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "阅读更多关于{title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "一分钟阅读|{readingTime} 分钟阅读",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "主页",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "折叠侧边栏",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "折叠侧边栏",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "关闭导航栏",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 返回主菜单",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "切换导航栏",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "展开侧边栏",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "展开侧边栏",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.PwaReloadPopup.info": {
+    "message": "新版本可用",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "刷新",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "关闭",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "再试一次",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "跳到主要内容",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "标签",
+    "description": "The title of the tag list page"
+  }
+}

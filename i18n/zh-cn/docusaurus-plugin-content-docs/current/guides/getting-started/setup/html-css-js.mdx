@@ -1,0 +1,124 @@
+---
+description: 使用 HTML、CSS 或 JavaScript 与 Node 或 Cargo 构建一款 Tauri 应用
+pagination_next: guides/development/development-cycle
+sidebar_position: 1
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import Command from '@theme/Command'
+
+# HTML、CSS 和 JavaScript
+
+此教程将手把手教您如何使用 HTML、CSS 和 JavaScript 构建您的第一款 Tauri 应用。 如果您是网页开发初学者的话，这或许是您最需要的教程。
+
+<Intro />
+<CreateTauriAppGuide />
+
+这是我们将要构建的内容的预览：
+
+![应用预览](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only) ![应用预览](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+
+## 创建前端
+
+我们将使用一个 HTML 文件打造一个极为简单的界面。 为了让项目结构整洁，我们来为它创建一个单独的文件夹：
+
+```shell
+mkdir ui
+```
+
+随后，在刚刚创建的文件夹中新建一个 `index.html` 文件，并写入如下内容：
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文档</title>
+  </head>
+  <body>
+    <h1>这是来自 Tauri 的欢迎！</h1>
+  </body>
+</html>
+```
+
+我们的界面就此写好了，但您也可以添加更多内容，或者使用 CSS 为其提供样式。
+
+## 创建 Rust 项目
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../ui</code> for this value.', }} devPathExplination={{ __html: 'Use <code>../ui</code> for this value.', }} beforeDevCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} beforeBuildCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} />
+
+就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
+
+<Command name="dev" />
+
+应用预览
+
+![开发进度](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only) ![开发进度](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+
+## 调用指令
+
+<Commands />
+
+我们通常会推荐使用 [`@tauri-apps/api`][] 包，但由于本指南至此还没有使用打包工具，所以您需要在 `tauri.conf.json` 文件中启用 [`withGlobalTauri`][] 选项。
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../ui",
+    "distDir": "../ui",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+此选项会将已打包版本的 API 函数注入到您的前端中。
+
+您现在可以修改您的 `index.html` 文件来调用您的指令：
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    // highlight-start
+    <h1 id="header">Welcome from Tauri!</h1>
+    <script>
+      // access the pre-bundled global API functions
+      const { invoke } = window.__TAURI__.tauri
+
+      // now we can call our Command!
+      // You will see "Welcome from Tauri" replaced
+      // by "Hello, World!"!
+      invoke('greet', { name: 'World' })
+        // `invoke` returns a Promise
+        .then((response) => {
+          window.header.innerHTML = response
+        })
+    </script>
+    // highlight-end
+  </body>
+</html>
+```
+
+:::tip
+
+若您想要了解更多有关 Rust 和 JavaScript 之间通信的信息，请参阅 Tauri [进程间通信][inter-process-communication]指南。
+
+:::
+
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withGlobalTauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/

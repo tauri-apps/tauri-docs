@@ -1,0 +1,219 @@
+---
+description: 프론트 엔드 빌드 도구인 SvelteKit를 사용하여 Tauri 앱 만들기
+pagination_next: guides/development/development-cycle
+sidebar_position: 4
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/svelte.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# SvelteKit
+
+이 안내서는 [SvelteKit][] 프론트 엔드 프레임워크로 당신의 첫 Tauri 앱을 만드는 과정을 설명할 것입니다.
+
+<Intro />
+
+다음은 빌드하게 될 내용의 미리보기 입니다:
+
+![앱 미리 보기](/img/guides/getting-started/setup/sveltekit/result.png)
+
+## 프론트엔드 만들기
+
+[SvelteKit][] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). To make SvelteKit가 Tauri와 함께 동작할 수 있도록 서버측 렌더링을 비활성화하고 [`@sveltejs/adapter-static`][]를 사용하여 정적 사이트 생성기(SSG) 기반 프론트 앤드를 생성 해줍니다.
+
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`][] that can quickly set up a new project with many customization options. 이 안내서에서는 ESLint와 Prettier가 활성화된 [TypeScript][] 템플릿을 선택할 것입니다.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create svelte@latest
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn create svelte
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm create svelte
+```
+
+  </TabItem>
+</Tabs>
+
+1. _Project name_  
+   이것은 당신의 JavaScript 프로젝트의 이름이 될 것입니다. 유틸리티가 만드는 폴더의 이름이 되지만 그 외 다른 이름에는 영향이 없습니다. 원하는 이름이라면 무엇이든 적을 수 있습니다.
+
+2. _App template_  
+   기본 템플릿인 `Skeleton project`를 선택할 것입니다. 좀 더 완성도 높은 SvelteKit 예제로 해보고 싶은 경우 `SvelteKit 데모 앱`을 선택할 수 있습니다.
+
+3. _Type checking_  
+   당신의 프로젝트에서 JSDoc이나 TypeScript를 통해 타입 체크를 원하는 지 확인하는 것입니다. 이 안내서에서는, TypeScript를 선택했다고 가정합니다.
+
+4. _Code linting and formatting_  
+   당신의 프로젝트에 코드린팅을 위한 ESLint와 코드 서식설정을  위한 Prettier를 같이 사용할 것을 원하는 여부를 확인합니다. 이 안내서에는 이것들에 대한 다른 설명은 하지 않겠지만, 이 두 가지 옵션을 활성화하는 것이 좋습니다.
+
+5. _Browser testing_  
+   SvelteKit는 브라우저 테스팅을 지원하기 위해 Playwright 포함되어 제공됩니다. Tauri API는 Playwright에서 작동하지 않으므로, 추가하지 않는 것을 권장합니다. Playwright 대신에 Selenium 혹은 WebdriverIO를 대안으로 사용하기 위해선 [웹드라이버 문서][] 확인하십시오.
+
+## SvelteKit SSG 모드
+
+<!-- TODO: section intro -->
+
+먼저, [`@sveltejs/adapter-static`][]설치 해야 합니다:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install --save-dev @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+</Tabs>
+
+그리고, `svelte.config.js` 파일에 임포트된 `adapter`를 판올림 합니다:
+
+```javascript title=svelte.config.js
+// highlight-next-line
+import adapter from '@sveltejs/adapter-static' // 이것은 adapter-auto에 의해 변경됨
+import preprocess from 'svelte-preprocess'
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // preprocessors에 관한 더 많은 정보를 위해 
+  // https://github.com/sveltejs/svelte-preprocess 참고
+  preprocess: preprocess(),
+
+  kit: {
+    adapter: adapter(),
+  },
+}
+
+export default config
+```
+
+마지막으로, 우리는 서버측 렌더링(SSR)을 비활성화하고, 다음 내용을 루트 `+layout.ts` 파일(또는 TypeScript를 사용하지 않는 경우 `+layout.js`)에 추가하여 사전 렌더링을 활성화해야 합니다.
+
+```typescript title=src/routes/+layout.ts
+export const prerender = true
+export const ssr = false
+```
+
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks][].
+
+뿐만 아니라, SSG보다 단일 페이지 응용 프로그램(SPA) 모드를 선호하는 경우 [어댑터 문서][]에 따라 어댑터 설정과 `+layout.ts`를 수정할 수 있습니다.
+
+## Rust 프로젝트 생성하기
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../build</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+이제 프론트엔드를 스캐폴드했고, Rust 프로젝트도 초기화했으니, 생성된 `tauri.conf.json` 파일엔 이런 내용이 있을 것입니다:
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // `tauri build`를 돌릴 때 이 명령어가 실행될 것입니다.
+    "beforeBuildCommand": "npm run build",
+    // `tauri dev`를 실행될 때 이 명령이 실행될 것입니다.
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../build"
+  },
+```
+
+이걸로 끝입니다! 이제 터미널에서 다음 명령어를 실행해 앱의 개발 빌드를 시작할 수 있습니다.
+
+<Command name="dev" />
+
+![응용 프로그램 창](/img/guides/getting-started/setup/sveltekit/init.png)
+
+## 명령 호출
+
+<Commands />
+
+새로 만든 명령을 호출하기 위해서 [`@tauri-apps/api`][] JavaScript 라이브러리를 사용할 것입니다. 이 라이브러리는 편리한 JavaScript 추상화를 통해 창, 파일시스템 등 핵심 기능으로 가는 진입로를 제공합니다. 좋아하는 JavaScript 패키지 관리자로 설치할 수 있습니다.
+
+<InstallTauriApi />
+
+라이브러리들이 설치가 되었다면, 우리는 새로운 Svelte 컴포넌트를 만들 수 있습니다. 우리는 이를 `src/lib/Greet.svelte`에 만들어줄 것입니다:
+
+```html title=src/lib/Greet.svelte
+<script>
+  import { invoke } from '@tauri-apps/api/tauri'
+
+  let name = ''
+  let greetMsg = ''
+
+  async function greet() {
+    greetMsg = await invoke('greet', { name })
+  }
+</script>
+
+<div>
+  <input id="greet-input" placeholder="Enter a name..." bind:value="{name}" />
+  <button on:click="{greet}">Greet</button>
+  <p>{greetMsg}</p>
+</div>
+```
+
+이제 이 컴포넌트를 `src/routes/+page.svelte`에 추가할 수 있습니다:
+
+```html title=src/routes/+page.svelte
+<script>
+  import Greet from '../lib/Greet.svelte'
+</script>
+
+<h1>Welcome to SvelteKit</h1>
+<Greet />
+```
+
+You can now run this with `npm run tauri dev` and see the result:
+
+![앱 미리 보기](/img/guides/getting-started/setup/sveltekit/result.png)
+
+:::tip
+
+만약 Rust와 JavaScript 사이의 통신에 대해 더 알아보고 싶으시다면 Tauri [프로세스 간 통신][inter-process-communication] 안내서를 읽어보세요.
+
+:::
+
+[SvelteKit]: https://kit.svelte.dev
+[`@sveltejs/adapter-static`]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[웹드라이버 문서]: ../../testing/webdriver/introduction.md
+[Client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
+[어댑터 문서]: https://github.com /sveltejs/kit/tree/master/packages/adapter-static#spa-mode
+[TypeScript]: https://www.typescriptlang.org
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md

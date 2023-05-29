@@ -1,0 +1,163 @@
+---
+description: Si vous avez déjà un projet web existant, vous pouvez y intégrer Tauri
+pagination_next: guides/development/development-cycle
+sidebar_position: 6
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/integrate-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/integrate-dark.svg
+---
+
+import Commands from './_fragments/_commands.mdx'
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Command, { InstallTauriCli, InstallTauriApi } from '@theme/Command'
+
+# Intégrer au projet existant
+
+Si vous avez déjà un projet web existant, ce guide vous guidera à travers l'intégration de Tauri dans votre projet, qu'il s'agisse de Node. s (comme [Svelte][], [React][], [Vue][], ou [Angular][]) ou Rust-based (comme [Yew][] ou [Dominator][]).
+
+:::info
+
+Avant de continuer, assurez-vous que vous avez rempli les [prérequis][] pour avoir un environnement de développement fonctionnel.
+
+:::
+
+Bien que Tauri soit compatible avec presque n'importe quel framework frontend, nous utiliserons un projet [React][] à travers ce guide créé en utilisant [create-react-app][]. Nous supposerons que vous commencez par une structure de projet similaire à ceci :
+
+```
+.
+│── package.json
+│── public
+│   ╰── index.html
+╰── src
+    │── App.css
+    │── App.jsx
+    │── index.css
+    ╰── index.js
+```
+
+## Créer le projet Rust
+
+<TauriInit destDirExplination={{ __html: "For the project example in this guide, is <code x-bt =1>../build</code>. Notez que cela peut être quelque chose de différent comme <code>../dist</code> si vous utilisez un framework différent.", }} devPathExplination={{ __html: "Pour l'exemple du projet dans ce guide, ceci est <code>http://localhost:3000</code>. Note that it may be something different (or even a directory) if you're using a different framework.", }} beforeDevCommandExplination={{ __html: 'For the project example in this guide, this is <code>npm run start</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'For the project example in this guide, this is <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+Et voilà, vous avez maintenant ajouté Tauri à votre projet existant et vous devriez voir un répertoire `src-tauri` qui ressemble à ceci:
+
+```diff {9-14}
+│── package.json
+│── public
+│   ╰── index.html
+│── src
+│   │── App.css
+│   │── App.jsx
+│   │── index.css
+│   ╰── index.js
+╰── src-tauri
+    │── Cargo.toml
+    │── build.rs
+    │── icons
+    │── src
+    ╰── tauri.conf.json
+```
+
+## Invoquer des commandes
+
+<Commands />
+
+Il y a deux façons différentes d'appeler des commandes depuis votre projet frontend :
+
+1. Utilisation de la bibliothèque JavaScript [`@tauri-apps/api`][] (préféré)
+2. Utiliser [`withGlobalTauri`][] pour utiliser une version pré-groupée de l'API Tauri
+
+Nous allons passer en revue les deux ci-dessous.
+
+### Utilisation de la bibliothèque JavaScript
+
+Pour appeler notre commande nouvellement créée, nous utiliserons la bibliothèque JavaScript [`@tauri-apps/api`][]. Il offre des moyens d'accéder à des fonctionnalités natives telles que le système de fenêtrage, de fichiers, etc., à travers des abstractions JavaScript. Vous pourrez l'installer à l'aide du gestionnaire de paquets de votre choix:
+
+<InstallTauriApi />
+
+Vous pouvez maintenant importer la fonction `invoke` de la bibliothèque et l'utiliser pour appeler notre commande :
+
+```jsx title=src/App.jsx {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+import { invoke } from '@tauri-apps/api'
+
+function App() {
+  // maintenant  vous pouvez exécuter notre commande !
+  // Clique droite sur l'arrière-plan de l'application et ouvre les outils de développement.
+  // Vous devriez apercevoir "Hello, World !" dans la console !
+  invoke('greet', { name: 'World' })
+  // `invoke` retourne une promesse
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+### Utilisation de `withGlobalTauri`
+
+Pour interagir avec Tauri depuis votre interface sans utiliser le package JavaScript `@tauri-apps/api` vous devrez activer [`withGlobalTauri`][] dans votre fichier `tauri.conf.json`:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:3000",
+    "distDir": "../build",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+Cela injectera une version pré-compilée des fonctions API dans votre frontend.
+
+Vous pouvez maintenant modifier le fichier `App.jsx` pour appeler votre commande :
+
+```jsx title=src/App.js {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+// accède a la fonction invoke depuis tauri 
+const { invoke } = window.__TAURI__.tauri
+
+fonction App() {
+  // maintenant nous pouvons appeler notre Commande!
+  // Clique droite sur l'arrière-plan de l'application et ouvre les outils de développement.
+  // Vous devriez apercevoir "Hello, World !" dans la console !
+  invoke('greet', { name: 'World' })
+  // `invoke` retourne une promesse
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+## Exécuter votre application
+
+Maintenant, vous pouvez exécuter la commande suivante dans votre terminal pour lancer de votre application en mode développement:
+
+<Command name="dev" />
+
+:::astuce
+
+Si vous voulez en savoir plus sur la communication entre Rust et JavaScript, veuillez lire le Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[prérequis]: ../prerequisites.md
+[create-react-app]: https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+[Svelte]: https://svelte.dev
+[React]: https://reactjs.org
+[Vue]: https://vuejs.org
+[Angular]: https://angular.io
+[Yew]: https://yew.rs
+[Dominator]: https://github.com/Pauan/rust-dominator
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withGlobalTauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/

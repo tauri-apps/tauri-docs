@@ -1,0 +1,124 @@
+---
+description: Node나 Cargo를 사용해, HTML, CSS, JavaScript를 활용하는 Tauri 앱 구축하기
+pagination_next: guides/development/development-cycle
+sidebar_position: 1
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import Command from '@theme/Command'
+
+# HTML, CSS, JavaScript
+
+이 안내서는 HTML, CSS, JavaScript만 사용해 첫 Tauri 앱을 만드는 과정을 설명합니다. 웹 개발이 처음이라면 아마 가장 좋은 시작점이 될 것입니다.
+
+<Intro />
+<CreateTauriAppGuide />
+
+다음은 빌드하게 될 내용의 미리보기 입니다:
+
+![앱 미리 보기](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only) ![앱 미리 보기](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+
+## 프론트엔드 만들기
+
+HTML을 사용해 최소한의 UI를 만들 것입니다. 구조를 깔끔하게 유지하기 위해, 분리된 폴더를 만듭시다.
+
+```shell
+mkdir ui
+```
+
+다음으로, `index.html` 파일을 그 폴더 안에 만들고 다음 내용을 채웁니다:
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome from Tauri!</h1>
+  </body>
+</html>
+```
+
+이 안내서에서는 UI를 간결히 놔두겠지만, 내용을 추가하거나 CSS로 스타일을 추가하는 등 자유롭게 고치셔도 좋습니다.
+
+## Rust 프로젝트 생성하기
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../ui</code>를 사용합니다.', }} devPathExplination={{ __html: '<code>../ui</code>를 사용합니다.', }} beforeDevCommandExplination={{ __html: '아무 것도 번역할 필요가 없으므로 비워두셔도 좋습니다.', }} beforeBuildCommandExplination={{ __html: '아무 것도 번역할 필요가 없으므로 비워두셔도 좋습니다.', }} />
+
+이걸로 끝입니다! 이제 터미널에서 다음 명령어를 실행해 앱의 개발 빌드를 시작할 수 있습니다.
+
+<Command name="dev" />
+
+앱 미리 보기
+
+![개발 과정](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only) ![개발 과정](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+
+## 명령 호출
+
+<Commands />
+
+일반적으로 [`@tauri-apps/api`][] 패키지 사용이 권장됩니다. 하지만 이 안내서에서는 번들러를 사용하지 않으므로, `tauri.conf.json` 파일에서 [`withGlobalTauri`][]를 활성화하세요.
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../ui",
+    "distDir": "../ui",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+사전 번들된 API 함수들이 프론트엔드에 주입될 것입니다.
+
+이제 `index.html` 파일을 수정해 명령을 호출할 수 있습니다.
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    // highlight-start
+    <h1 id="header">Welcome from Tauri!</h1>
+    <script>
+      // access the pre-bundled global API functions
+      const { invoke } = window.__TAURI__.tauri
+
+      // now we can call our Command!
+      // You will see "Welcome from Tauri" replaced
+      // by "Hello, World!"!
+      invoke('greet', { name: 'World' })
+        // `invoke` returns a Promise
+        .then((response) => {
+          window.header.innerHTML = response
+        })
+    </script>
+    // highlight-end
+  </body>
+</html>
+```
+
+:::tip
+
+만약 Rust와 JavaScript 사이의 통신에 대해 더 알아보고 싶으시다면 Tauri [프로세스 간 통신][inter-process-communication] 안내서를 읽어보세요.
+
+:::
+
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withGlobalTauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/

@@ -1,0 +1,4 @@
+label: '构建'
+position: 7
+customProps:
+  description: 为用户准备和打包您的应用

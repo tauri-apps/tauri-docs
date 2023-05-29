@@ -1,0 +1,4 @@
+label: Fonctionnalités
+position: 9
+customProps:
+  description: Apprenez à utiliser les fonctionnalités courantes de Tauri
