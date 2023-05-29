@@ -1,0 +1,142 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriCli } from '@theme/Command'
+
+每款 Tauri 应用的核心都是由一个管理窗口的 Rust 二进制文件、WebView 和进行系统调用的 `tauri` Rust 包构成。 此项目使用官方的软件包管理器及 Rust 通用构建工具 [Cargo][] 来管理。
+
+我们的 Tauri CLI 工具会在底层自动调用 Cargo，所以您大部分情况下无需和其交互。 Cargo 有诸多我们的 CLI 工具所未提供的有用功能，包括测试、分析及格式化工具。请参阅其[官方文档][cargo commands]来了解更多。
+
+:::info 安装 Tauri CLI
+
+如果你还没有安装Tauri CLI，你可以使用下面的一个命令进行安装。 不确定该用哪个？ 请参阅[常见问题][]。
+
+<InstallTauriCli />
+
+:::
+
+要搭建一个使用 Tauri 的简单 Rust 项目，请打开终端并运行如下命令：
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```shell
+npm run tauri init
+```
+
+</TabItem>
+<TabItem value="Yarn">
+
+```shell
+yarn tauri init
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```shell
+pnpm tauri init
+```
+
+</TabItem>
+<TabItem value="Cargo">
+
+```shell
+cargo tauri init
+```
+
+</TabItem>
+</Tabs>
+
+它会向您询问几个问题：
+
+<ol>
+  <li>
+    <i>您应用的名字是什么？</i><br />
+这将会是您打包后和操作系统会调用的应用名称。 您可以在此处填写任何您想要的名称。
+  </li>
+  <br />
+  <li>
+    <i>窗口标题叫什么？</i><br />
+这将会是您主窗口的默认标题。 您可以在此处填写任何您想要的名称。
+  </li>
+  <br />
+  <li>
+    <i>前端页面资源 (HTML/CSS/JS) 相对于 <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> 文件将被创建的位置？
+    </i>
+    <br />
+    这是 <b>production</b>环境时tauri加载web前端资源的目录.{' '}
+    {props.destDirExplination && (
+      <div dangerouslySetInnerHTML={props.destDirExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>开发环境时的加载路径?</i>
+    <br />
+  可以是一个网络地址也可以是一个文件路径{' '}
+    <b>development</b>.{' '}
+    {props.devPathExplination && (
+      <div dangerouslySetInnerHTML={props.devPathExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>你将使用什么命令来开发前端页面？</i>
+    <br />
+    这是启动前端开发服务器的命令。{' '}
+    {props.beforeDevCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>你将使用什么命令来构建前端页面？</i>
+    <br />
+    这是构建前端文件的命令。{' '}
+    {props. eforeBuildCommandExplication && (
+      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
+)}
+  </li>
+</ol>
+
+:::info
+
+若您已熟悉 Rust，您会发现 `tauri init` 看起来很像 `cargo init` 命令。 若您想自己设置，您完全可以使用 `cargo init` 替代此命令，并手动添加 Tauri 依赖。
+
+:::
+
+`tauri init` 命令将生成 `src-tauri` 文件夹。 传统上，Tauri 应用会将其核心相关的文件放置于此文件夹中。 让我们快速过一下此文件夹中的内容：
+
+- **`Cargo.toml`**  
+  Cargo 的清单文件。 您可以声明您应用所依赖的 Rust 包和应用的元数据等等。 要查看所有可修改的值，请参阅 [Cargo 清单格式][manifest-format]。
+
+- **`tauri.conf.json`**  
+  此文件可让您自定义 Tauri 应用的各方各面，包括应用名称到允许的 API 列表。 请参阅 [Tauri 的 API 配置][api config]来深入了解每个支持的选项。
+
+- **`src/main.rs`**  
+  这是你的 Rust 程序的入口，也是我们启动 Tauri 的地方。 您可以发现它由两个部分组成：
+
+  ```rust title=src/main.rs
+   #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+  fn main() {
+  tauri::Builder::default()
+     .run(tauri::generate_context!())
+     .expect("error while running tauri application");
+  }
+  ```
+
+  The line beginning with the [`cfg! 宏`][cfg macro]所开始的一行仅有一个目的：关闭构建好的应用在 Windows 上运行时一般会出现的控制台窗口。 若您是 Windows 用户，您可以试试去掉这行看看会发生什么。
+
+  `main` 函数是您程序的入口点，也是运行时调用的第一个函数。
+
+- **`图标`**  
+  您可能想为自己的应用整一个漂亮的图标！ 为了帮助您快速开发，我们为您提供了一套默认图标。 您应该在发布前把这些图标换成您自己的图标。 您可以在 Tauri 的[图标功能指南][icons]中了解有关多种图标格式的信息。
+
+[manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html
+[api config]: ../../../../api/config.md
+[icons]: ../../../features/icons.md
+[Cargo]: https://doc.rust-lang.org/cargo/
+[cargo commands]: https://doc.rust-lang.org/cargo/commands/index.html
+[常见问题]: ../../../faq.md#node-or-cargo

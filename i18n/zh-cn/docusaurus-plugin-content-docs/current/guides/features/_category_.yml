@@ -1,0 +1,4 @@
+label: 特性
+position: 9
+customProps:
+  description: 学习如何使用常见的 Tauri 功能

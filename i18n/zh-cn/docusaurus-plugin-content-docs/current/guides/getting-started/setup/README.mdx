@@ -1,0 +1,36 @@
+---
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+import DocCardList from '@theme/DocCardList'
+import { useCurrentSidebarCategory } from '@docusaurus/theme-common'
+import { CreateTauriApp } from '@theme/Command'
+
+# 快速开始
+
+Tauri 兼容**绝大多数前端工具栈**。 选择您最喜欢的框架，然后开始吧！
+
+:::tip `create-tauri-app`
+
+我们推荐您使用 [`create-tauri-app`][] 来轻松快速地创建一个新 Tauri 项目。 它为原生 HTML/CSS/JavaScript 及如 React、Svelte 和 Yew 一类的框架提供了脚手架模板。
+
+<CreateTauriApp />
+
+注意，若您使用 `create-tauri-app` 的话则无需遵循下列教程中的指引。但我们仍建议您阅读 (如 [HTML/CSS/JavaScript][] 指南) 来理解配置流程。
+
+:::
+
+若您不熟悉网页开发，或没有偏好的前端框架，您可参阅 [HTML/CSS/JavaScript][] 指南。 该教程指导您使用 Node 或 Cargo 进行最小化的前端环境配置。
+
+<DocCardList items={useCurrentSidebarCategory().items} />
+
+:::info 没有您所用框架的教程？
+
+若您发现本文档缺少您所用的前端框架或构建工具的教程，欢迎帮助我们添加！ 但在此之前，请务必先阅读我们的[贡献守则][]！十分感谢！
+
+:::
+
+[HTML/CSS/JavaScript]: ./html-css-js.mdx
+[贡献守则]: https://github.com/tauri-apps/tauri/blob/dev/.github/CONTRIBUTING.md
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app

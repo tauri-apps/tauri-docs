@@ -1,0 +1,144 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriCli } from '@theme/Command'
+
+Au cœur de chaque application Tauri se trouve un binaire Rust qui gère les fenêtres, la webview et les appels au système d'exploitation par le biais d'une crate Rust appelé `tauri`. Ce projet est géré par [Cargo][], le gestionnaire de paquets officiel et l'outil de construction propulsé par Rust.
+
+Notre CLI Tauri utilise Cargo sous le capot, de sorte que vous avez rarement besoin d'interagir directement avec lui. Cargo dispose de nombreuses autres fonctionnalités utiles qui ne sont pas exposées par notre CLI, comme les tests, le linting et le formatage, alors veuillez vous référer à leur [documentation officielle][cargo commands] pour en savoir plus.
+
+:::info Installer Tauri CLI
+
+Si vous n'avez pas encore installé le CLI Tauri, vous pouvez le faire avec l'une des commandes ci-dessous. Vous n'êtes pas sûr de savoir quoi utiliser ? Consultez la section dédiée [dans la FAQ][].
+
+<InstallTauriCli />
+
+:::
+
+Pour échafauder un projet Rust minimal qui est pré-configuré pour utiliser Tauri, ouvrez un terminal et exécutez la commande suivante :
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```shell
+npm run tauri init
+```
+
+</TabItem>
+<TabItem value="Yarn">
+
+```shell
+yarn tauri init
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```shell
+pnpm tauri init
+```
+
+</TabItem>
+<TabItem value="Cargo">
+
+```shell
+cargo tauri init
+```
+
+</TabItem>
+</Tabs>
+
+Il vous guidera à travers une série de questions :
+
+<ol>
+  <li>
+    <i>Quel est le nom de votre application ?</i><br />
+Ce sera le nom de votre paquet final et le nom du programme dans votre  OS. Vous pouvez utiliser n'importe quel nom que vous voulez ici.
+  </li>
+  <br />
+  <li>
+    <i>Quel doit être le nom de la fenêtre ?</i><br />
+Ce sera le nom de la fenêtre principale par défaut. Vous pouvez utiliser n'importe quel nom que vous voulez ici.
+  </li>
+  <br />
+  <li>
+    <i>
+      Où sont vos ressources web (HTML/CSS/JS) situés par rapport au fichier <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> qui sera créé ?
+    </i>
+    <br />
+    Ce chemin est celui que Tauri chargera votre resources frontend  quand
+    vous compiler en mode <b>production</b>.{' '}
+    {props.destDirExplination && (
+      <div dangerouslySetInnerHTML={props.destDirExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>Quelle est l'URL de votre serveur de développement </i>
+    <br />
+    Celle - ci peut être soit une URL où est chemin fichier que Tauri chargera pendant le {' '}
+    <b>development</b>.{' '}
+    {props.devPathExplination && (
+      <div dangerouslySetInnerHTML={props.devPathExplination} />
+    )}
+  </li>
+  <br />
+  <li>
+    <i>Quelle est votre commande de développement frontend ?</i>
+    <br />
+    Celle ci est la commande utilisée pour démarrer votre serveur de développement frontend. {' '}
+    {props.beforeDevCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeDevCommandExplination} />
+   )}
+  </li>
+  <br />
+  <li>
+    <i>Quelle est votre commande de build frontend ?</i>
+    <br />
+    Celle ci est la commande utilisée pour construire vos fichiers frontend pour la production. {' '}
+    {props.beforeBuildCommandExplination && (
+      <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
+   )}
+  </li>
+</ol>
+
+:::info
+
+Si vous êtes familier avec Rust, vous remarquerez que `tauri init` ressemble beaucoup à `init cargo`. Vous pouvez simplement utiliser `cargo init` et ajouter les dépendances Tauri nécessaires si vous préférez une installation entièrement manuelle.
+
+:::
+
+La commande `tauri init` génère un dossier appelé `src-tauri`. C'est une convention pour les applications Tauri de placer tous les fichiers liés au cœur de l'application dans ce dossier. Passons rapidement à travers le contenu de ce dossier :
+
+- **`cargo.toml`**  
+  Fichier manifeste de Cargo. Vous pouvez déclarer les crates Rust dont votre application dépend, les métadonnées de votre application, et bien plus encore. Pour la référence complète, voir [Format de manifeste de Cargo][manifest-format].
+
+- **`tauri.conf.json`**  
+  Ce fichier vous permet de configurer et de personnaliser des aspects de votre application Tauri du nom de votre application à la liste des API autorisées. Voir la [configuration de l'API de Tauri][api config] pour la liste complète des options supportées et des explications approfondies pour chacune d'entre elles.
+
+- **`src/main.rs`**  
+  C'est le point d'entrée de votre programme Rust et l'endroit où nous démarrons Tauri. Vous y trouverez deux sections :
+
+  ```rust title=src/main.rs
+   #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+  fn main() {
+  tauri::Builder::default()
+     .run(tauri::generate_context!())
+     .expect("error while running tauri application");
+  }
+  ```
+
+  The line beginning with the [`cfg! `][cfg macro] ayant qu'un seul but : elle désactive la fenêtre d'invite de commande qui s'afficherait normalement sur Windows si vous exécutez une application groupée. Si vous êtes sous Windows, essayez de le commenter et de voir ce qui se passe.
+
+  La fonction `main` est le point d'entrée et la première fonction qui est appelée lorsque votre programme s'exécute.
+
+- **`icônes`**  
+  Il y a de fortes chances que vous souhaitiez une icône élégante pour votre application ! Pour vous permettre de démarrer rapidement, nous avons inclus un ensemble d'icônes par défaut. Vous devez les changer avant de publier votre application. Pour en savoir plus sur les différents formats d'icônes, consultez le [tutoriels sur les icônes][icons] de Tauri.
+
+[manifest-format]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[cfg macro]: https://doc.rust-lang.org/rust-by-example/attribute/cfg.html
+[api config]: ../../../../api/config.md
+[icons]: ../../../features/icons.md
+[Cargo]: https://doc.rust-lang.org/cargo/
+[cargo commands]: https://doc.rust-lang.org/cargo/commands/index.html
+[dans la FAQ]: ../../../faq.md#node-or-cargo

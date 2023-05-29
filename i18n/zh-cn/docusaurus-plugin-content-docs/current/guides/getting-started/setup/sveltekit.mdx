@@ -1,0 +1,219 @@
+---
+description: 使用 SvelteKit 作为前端构建工具来构建一款 Tauri 应用
+pagination_next: guides/development/development-cycle
+sidebar_position: 4
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/svelte.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# SvelteKit
+
+本指南将引导您使用 [SvelteKit][] 框架创建您的第一款 Tauri 应用程序。
+
+<Intro />
+
+这是我们将要构建的内容的预览：
+
+![应用预览](/img/guides/getting-started/setup/sveltekit/result.png)
+
+## 创建前端
+
+[SvelteKit][] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). 为了使 SvelteKit 和 Tauri 正常工作，需要关闭 SSR 并且使用 [`@sveltejs/adapter-static`][] 创建基于前端的静态页面生成 (SSG).
+
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`][] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript][] template, with ESLint and Prettier enabled.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create svelte@latest
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn create svelte
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm create svelte
+```
+
+  </TabItem>
+</Tabs>
+
+1. _项目名称_  
+   这将是您的 JavaScript 项目的名称。 对应此工具将创建的文件夹的名称，但在其他方面对你的应用没有影响。 您可以在此处填写任何您想要的名称。
+
+2. _App template_  
+   We will select the `Skeleton project` for a barebones template. 如果你想要使用一个更完整的 SwelteKit 示例体验，你可以选择 `SwelteKit 演示应用程序`。
+
+3. _输入检查_  
+   您是否想要在您的项目中通过 JSDoc 或 TypeScript 进行类型检查。 对于本指南，我们假设您选择 TypeScript。
+
+4. _Code linting and formatting_  
+   Whether you want to start your project with ESLint for code linting and Prettier for code formatting. 在本指南中不会有关于这个问题的其他提及，但我们建议启用这两个选项。
+
+5. _浏览器测试_  
+   SwelteKit 为浏览器测试提供内置的 Playwright 支持。 既然 Tauri API 不适用于 Playwright，我们建议不要添加它。 Check out our [WebDriver documentation][] for alternatives using Selenium or WebdriverIO instead of Playwright.
+
+## 在 SvelteKit 使用 SSG 模式
+
+<!-- TODO: section intro -->
+
+First, we need to install [`@sveltejs/adapter-static`][]:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install --save-dev @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+</Tabs>
+
+然后更新 `适配器` 导入到 `svelte.config.js` 文件：
+
+```javascript title=svelte.config.js
+// highlight-next-line
+import adapter from '@sveltejs/adapter-static' // 这将会通过 adapter-auto 更改
+import preprocess from 'svelte-preprocess'
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // 查询 https://github.com/sveltejs/svelte-preprocess
+  // 以了解更多关于预处理器的信息
+  preprocess: preprocess(),
+
+  kit: {
+    adapter: adapter(),
+  },
+}
+
+export default config
+```
+
+Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
+
+```typescript title=src/routes/+layout.ts
+export const prerender = true
+export const ssr = false
+```
+
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks][].
+
+此外，如果您喜欢单页应用程序模式（SPA）而不是 SSG，您可以根据 [适配器文档][] 更改适配器配置和 `+layout.ts`。
+
+## 创建 Rust 项目
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../build</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+现在我们已经搭建好了前端并初始化了Rust项目，创建的 `tauri.conf.json` 文件应该如下所示：
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // 当你运行 `tauri build` 时，将会执行这个命令。
+    "beforeBuildCommand": "npm run build",
+    // This command will execute when you run `tauri dev`
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../build"
+  },
+```
+
+就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
+
+<Command name="dev" />
+
+![应用窗口](/img/guides/getting-started/setup/sveltekit/init.png)
+
+## 调用指令
+
+<Commands />
+
+使用 [`@tauri-apps/api`][] JavaScript 库来调用新创建的命令， 通过 JavaScript 访问诸如窗口、文件系统等核心功能， 您可以使用自己喜欢的 JavaScript 包管理器来安装。
+
+<InstallTauriApi />
+
+安装依赖库后，我们现在可以创建一个新的 Svelte 组件。 我们将在 `src/lib/Greet.svelte` 中创建它：
+
+```html title=src/lib/Greet.svelte
+<script>
+  import { invoke } from '@tauri-apps/api/tauri'
+
+  let name = ''
+  let greetMsg = ''
+
+  async function greet() {
+    greetMsg = await invoke('greet', { name })
+  }
+</script>
+
+<div>
+  <input id="greet-input" placeholder="Enter a name..." bind:value="{name}" />
+  <button on:click="{greet}">Greet</button>
+  <p>{greetMsg}</p>
+</div>
+```
+
+您现在可以将此组件添加到 `src/routes/+page.svelte`:
+
+```html title=src/routes/+page.svelte
+<script>
+  import Greet from '../lib/Greet.svelte'
+</script>
+
+<h1>Welcome to SvelteKit</h1>
+<Greet />
+```
+
+You can now run this with `npm run tauri dev` and see the result:
+
+![应用预览](/img/guides/getting-started/setup/sveltekit/result.png)
+
+:::tip
+
+若您想要了解更多有关 Rust 和 JavaScript 之间通信的信息，请参阅 Tauri [进程间通信][inter-process-communication]指南。
+
+:::
+
+[SvelteKit]: https://kit.svelte.dev
+[`@sveltejs/adapter-static`]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[WebDriver documentation]: ../../testing/webdriver/introduction.md
+[Client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
+[适配器文档]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
+[TypeScript]: https://www.typescriptlang.org
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md

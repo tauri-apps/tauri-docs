@@ -1,0 +1,5 @@
+---
+label: '시작하기'
+position: 2
+customProps:
+  description: 첫 Tauri 앱 개발 시작하기

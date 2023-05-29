@@ -1,0 +1,163 @@
+---
+description: 您可以将 Tauri 集成到已有的 Web 项目
+pagination_next: guides/development/development-cycle
+sidebar_position: 6
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/integrate-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/integrate-dark.svg
+---
+
+import Commands from './_fragments/_commands.mdx'
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Command, { InstallTauriCli, InstallTauriApi } from '@theme/Command'
+
+# 集成到已有项目
+
+如果你已经有存在的 Web 项目，本指南将引导你将 Tauri 集成到你的项目中，无论项目是基于 Node.js（比如 [Svelte][]、[React][]、[Vue][] 或 [Angular][]）或基于 Rust（例如 [Yew][] 或 [Dominator][]）。
+
+:::info
+
+在此之前，请确保您已完成[前置准备工作][]，且开发环境已能正常使用。
+
+:::
+
+虽然 Tauri 与几乎任何前端框架兼容，但我们将在本指南创建的整个过程中使用通过 [create-react-app][] 创建的 [React][] 项目。 我们假设你将从一个类似于这样的项目结构开始。
+
+```
+.
+│── package.json
+│── public
+│   ╰── index.html
+╰── src
+    │── App.css
+    │── App.jsx
+    │── index.css
+    ╰── index.js
+```
+
+## 创建 Rust 项目
+
+<TauriInit destDirExplination={{ __html: "For the project example in this guide, is <code x-bt =1>../build</code>. Note that it may be something different like <code>../dist</code> if you're using a different framework.", }} devPathExplination={{ __html: "For the project example in this guide, this is <code>http://localhost:3000</code>. Note that it may be something different (or even a directory) if you're using a different framework.", }} beforeDevCommandExplination={{ __html: 'For the project example in this guide, this is <code>npm run start</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'For the project example in this guide, this is <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+
+And that's it, you have now added Tauri to your existing project and you should see a `src-tauri` directory that looks something like this:
+
+```diff {9-14}
+│── package.json
+│── public
+│   ╰── index.html
+│── src
+│   │── App.css
+│   │── App.jsx
+│   │── index.css
+│   ╰── index.js
+╰── src-tauri
+    │── Cargo.toml
+    │── build.rs
+    │── icons
+    │── src
+    ╰── tauri.conf.json
+```
+
+## 调用指令
+
+<Commands />
+
+There are two different ways you can invoke commands from your frontend project:
+
+1. Using the [`@tauri-apps/api`][] JavaScript library (preferred)
+2. 使用 [`withGlobalTauri`][] 以构建出预构建的 Tauri API 版本
+
+我们将在下面两次访问。
+
+### 使用 JavaScript 库
+
+使用 [`@tauri-apps/api`][] JavaScript 库来调用新创建的命令， 通过 JavaScript 访问诸如窗口、文件系统等核心功能， 您可以使用自己喜欢的 JavaScript 包管理器来安装。
+
+<InstallTauriApi />
+
+您现在可以从库中导入 `invoke` 函数并使用它来调用命令：
+
+```jsx title=src/App.jsx {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+import { invoke } from '@tauri-apps/api'
+
+function App() {
+  // now we can call our Command!
+  // 在应用窗口中右键，打开开发者工具
+  // 你会看到控制台上输出了 "Hello, World!"！
+  invoke('greet', { name: 'World' })
+  // `invoke` 返回异步函数
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+### 使用 `withGlobalTauri`
+
+To interact with Tauri from your frontend without using the `@tauri-apps/api` JavaScript package you will need to enable [`withGlobalTauri`][] in your `tauri.conf.json` file:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:3000",
+    "distDir": "../build",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+此选项会将已打包版本的 API 函数注入到您的前端中。
+
+You can now modify the `App.jsx` file to call your command:
+
+```jsx title=src/App.js {4,7-12}
+import logo from './logo.svg';
+import './App.css';
+
+// access the pre-bundled global API functions
+const { invoke } = window.__TAURI__.tauri
+
+function App() {
+  // now we can call our Command!
+  // 在应用窗口中右键，打开开发者工具
+  // 你会看到控制台上输出了 "Hello, World!"！
+  invoke('greet', { name: 'World' })
+  // `invoke` 返回异步函数
+  .then((response) => console.log(response))
+
+  return (
+    // -- snip --
+  )
+}
+```
+
+## 运行您的应用程序
+
+现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
+
+<Command name="dev" />
+
+:::tip
+
+若您想要了解更多有关 Rust 和 JavaScript 之间通信的信息，请参阅 Tauri [进程间通信][inter-process-communication]指南。
+
+:::
+
+[前置准备工作]: ../prerequisites.md
+[create-react-app]: https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+[Svelte]: https://svelte.dev
+[React]: https://reactjs.org
+[Vue]: https://vuejs.org
+[Angular]: https://angular.io
+[Yew]: https://yew.rs
+[Dominator]: https://github.com/Pauan/rust-dominator
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withGlobalTauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/

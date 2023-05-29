@@ -1,0 +1,4 @@
+label: '빌드'
+position: 7
+customProps:
+  description: 사용자를 위한 앱 준비하고 패키징하기

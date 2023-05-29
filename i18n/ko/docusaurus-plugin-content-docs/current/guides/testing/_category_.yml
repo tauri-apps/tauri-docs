@@ -1,0 +1,4 @@
+label: '테스트'
+position: 6
+customProps:
+  description: Tauri 런타임 내, 외부 테스트 기술

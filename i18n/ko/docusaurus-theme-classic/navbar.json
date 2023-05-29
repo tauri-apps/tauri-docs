@@ -1,0 +1,86 @@
+{
+  "logo.alt": {
+    "message": "Tauri Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Guides": {
+    "message": "안내서",
+    "description": "Navbar item with label Guides"
+  },
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item with label API"
+  },
+  "item.label.References": {
+    "message": "참조 문서",
+    "description": "Navbar item with label References"
+  },
+  "item.label.Blog": {
+    "message": "블로그",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Community": {
+    "message": "커뮤니티",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.About": {
+    "message": "Tauri에 대해",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Release Notes": {
+    "message": "릴리즈 노트",
+    "description": "Navbar item with label Release Notes"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Configuration": {
+    "message": "설정",
+    "description": "Navbar item with label Configuration"
+  },
+  "item.label.CLI": {
+    "message": "CLI",
+    "description": "Navbar item with label CLI"
+  },
+  "item.label.JavaScript / TypeScript": {
+    "message": "JavaScript / TypeScript",
+    "description": "Navbar item with label JavaScript / TypeScript"
+  },
+  "item.label.Rust (via Docs.rs)": {
+    "message": "Rust (Docs.rs 이동)",
+    "description": "Navbar item with label Rust (via Docs.rs)"
+  },
+  "item.label.Get Involved": {
+    "message": "참여하기",
+    "description": "Navbar item with label Get Involved"
+  },
+  "item.label.Sponsors": {
+    "message": "스폰서",
+    "description": "Navbar item with label Sponsors"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.Awesome Tauri": {
+    "message": "Awesome Tauri",
+    "description": "Navbar item with label Awesome Tauri"
+  },
+  "item.label.What is Tauri?": {
+    "message": "Tauri란?",
+    "description": "Navbar item with label What is Tauri?"
+  },
+  "item.label.Governance": {
+    "message": "조직",
+    "description": "Navbar item with label Governance"
+  },
+  "item.label.Trademark Guidelines": {
+    "message": "상표 활용 지침",
+    "description": "Navbar item with label Trademark Guidelines"
+  },
+  "item.label.Tauri Book": {
+    "message": "Tauri Book",
+    "description": "Navbar item with label Tauri Book"
+  }
+}

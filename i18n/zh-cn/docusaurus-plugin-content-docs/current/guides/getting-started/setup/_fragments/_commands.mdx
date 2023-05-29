@@ -1,0 +1,28 @@
+Tauri 为您的前端开发提供了其他系统原生功能。 我们将其称作[指令][command]，这使得您可以从 JavaScript 前端调用由 Rust 编写的函数。 由此，您可以使用性能飞快的 Rust 代码处理繁重的任务或系统调用。
+
+以下是一个简单示例：
+
+```rust title=src-tauri/src/main.rs
+#[tauri::command]
+fn greet(name: &str) -> String {
+   format!("Hello, {}!", name)
+}
+```
+
+一个指令等于一个普通的 Rust 函数，只是还加上了 `#[tauri::command]` 宏来让其与您的 JavaScript 环境交互。
+
+最后，我们需要让 Tauri 知悉您刚创建的指令才能让其调用。 我们需要使用 `.invoke_handler()` 函数及 `Generate_handler![]` 宏来注册指令：
+
+```rust title=src-tauri/src/main.rs
+fn main() {
+  tauri::Builder::default()
+  // highlight-next-line
+    .invoke_handler(tauri::generate_handler![greet])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+现在您的前端可以调用刚注册的指令了！
+
+[command]: ../../../features/command.md

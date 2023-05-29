@@ -1,0 +1,124 @@
+---
+description: Costruisci un'app Tauri usando HTML, CSS, e JavaScript tramite Node o Cargo
+pagination_next: guides/development/development-cycle
+sidebar_position: 1
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/html5-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/html5-dark.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import CreateTauriAppGuide from './_fragments/_create-tauri-app-guide.mdx'
+import Command from '@theme/Command'
+
+# HTML, CSS, e JavaScript
+
+Questa guida ti guiderà attraverso la creazione della tua prima app Tauri utilizzando solo HTML, CSS, e JavaScript. Questo è probabilmente il posto migliore per iniziare se siete neofiti allo sviluppo web.
+
+<Intro />
+<CreateTauriAppGuide />
+
+Ecco un'anteprima di quello che costruiremo:
+
+![Anteprima dell'applicazione](/img/guides/getting-started/setup/html-css-js/html-css-js-light.png#gh-light-mode-only) ![Anteprima dell'applicazione](/img/guides/getting-started/setup/html-css-js/html-css-js-dark.png#gh-dark-mode-only)
+
+## Crea il Frontend
+
+Creeremo un'interfaccia utente minimale usando un file HTML. Per mantenere le cose ordinate però, creiamo una cartella separata per esso:
+
+```shell
+mkdir ui
+```
+
+Successivamente, crea un file `index.html` all'interno di quella cartella con i seguenti contenuti:
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome from Tauri!</h1>
+  </body>
+</html>
+```
+
+Manterremo l'interfaccia utente minimale per questa guida, ma sentitevi liberi di giocare con più contenuti o aggiungere styling attraverso CSS.
+
+## Crea il progetto Rust
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../ui</code> for this value.', }} devPathExplination={{ __html: 'Use <code>../ui</code> for this value.', }} beforeDevCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} beforeBuildCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} />
+
+E questo è tutto! Ora puoi eseguire il seguente comando nel terminale per avviare una build di sviluppo della tua app:
+
+<Command name="dev" />
+
+Anteprima dell'applicazione
+
+![Progresso dello Sviluppo](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-light.png#gh-light-mode-only) ![Progresso dello Sviluppo](/img/guides/getting-started/setup/html-css-js/html-css-js-dev-dark.png#gh-dark-mode-only)
+
+## Invoca Comandi
+
+<Commands />
+
+Normalmente consiglieremmo il pacchetto [`@tauri-apps/api`][], ma visto che non stiamo usando un impacchettatore per questa guida, suggeriamo di abilitare l'opzione [`withGlobalTauri`][] nel proprio file `tauri.config.json`:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../ui",
+    "distDir": "../ui",
+    // highlight-next-line
+    "withGlobalTauri": true
+  },
+```
+
+In questo modo verrà iniettata una versione pre-impacchettata delle funzioni API nel frontend.
+
+Ora puoi modificare il tuo file `index.html` per chiamare il tuo comando:
+
+```html title=index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    // highlight-start
+    <h1 id="header">Welcome from Tauri!</h1>
+    <script>
+      // access the pre-bundled global API functions
+      const { invoke } = window.__TAURI__.tauri
+
+      // now we can call our Command!
+      // You will see "Welcome from Tauri" replaced
+      // by "Hello, World!"!
+      invoke('greet', { name: 'World' })
+        // `invoke` returns a Promise
+        .then((response) => {
+          window.header.innerHTML = response
+        })
+    </script>
+    // highlight-end
+  </body>
+</html>
+```
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`withGlobalTauri`]: ../../../api/config.md#buildconfig.withglobaltauri
+[`@tauri-apps/api`]: ../../../api/js/

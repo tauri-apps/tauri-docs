@@ -1,0 +1,4 @@
+label: 'Développement'
+position: 4
+customProps:
+  description: Concepts de base pour le développement avec Tauri

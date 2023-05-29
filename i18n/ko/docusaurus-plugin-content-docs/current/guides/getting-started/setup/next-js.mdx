@@ -1,0 +1,159 @@
+---
+description: Next.js를 프론트엔드 빌드 도구로 Tauri 앱을 빌드하는 방법
+pagination_next: guides/development/development-cycle
+sidebar_position: 2
+sidebar_custom_props:
+  doc_card_image: /img/guides/getting-started/setup/nextjs-light.svg
+  doc_card_image_dark: /img/guides/getting-started/setup/nextjs-dark.svg
+---
+
+import TauriInit from './_fragments/_tauri-init.mdx'
+import Commands from './_fragments/_commands.mdx'
+import Intro from './_fragments/_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# Next.js
+
+이 안내서는 [Next.js][]를 프론트엔드 빌드 도구로 사용해 첫 Tauri 앱을 만드는 과정을 설명합니다.
+
+<Intro />
+
+다음은 빌드하게 될 내용의 미리보기 입니다:
+
+![앱 미리 보기](/img/guides/getting-started/setup/next-js/next-js-light.png#gh-light-mode-only) ![앱 미리 보기](/img/guides/getting-started/setup/next-js/next-js-dark.png#gh-dark-mode-only)
+
+## 프론트엔드 만들기
+
+[Next.js][]는 서버 측 렌더링 (SSR)과 정적 사이트 생성 (SSG) 기능을 제공하는 React 프레임워크입니다. Next.js가 Tauri와 함께 잘 작동하도록 만들기 위해 SSG 모드를 사용해 최종 바이너리에 정적 파일만 생성해 포함시킵니다.
+
+Next.js는 여러 정의된 템플릿에서 새 프로젝트를 빠르게 설정할 수 있는, [`create-tauri-app`][]과 비슷한 스캐폴딩 유틸리티를 제공합니다. For this guide, we will use the suggested default for all questions, including TypeScript support and the new `App Router` feature stabilized in v13.4. In case you use the the old `routes/` directory instead or on top of the `app/` directory, you still need to change the config as explained in the [Next.js Static Exports](#nextjs-static-exports) section but the way you use Tauri specific JS APIs will be different than described below.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npx create-next-app@latest --use-npm
+```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn create next-app --use-yarn
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm create next-app --use-pnpm
+```
+
+  </TabItem>
+</Tabs>
+
+1. _Project name_  
+   This will be the name of your project. It corresponds to the name of the folder this utility will create but has otherwise no effect on your app. 원하는 이름이라면 무엇이든 적을 수 있습니다.
+
+## Next.js Static Exports
+
+Because Tauri does not have a Node.js runtime you must set Next.js to SSG/SPA mode. This will typically result in faster page loads but also has a few caveats to be aware of, therefore we recommend to carefully read through Next.js' official docs on [Static Exports][].
+
+These docs also show one required configuration change we will always have to change for a Tauri + Next.js app. To do this, edit the `next.config.js` file in the project's root directory and add the following:
+
+```js title=next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+}
+
+module.exports = nextConfig
+```
+
+This will change the behavior of the `next build` to produce an `out/` folder containing the HTML/CSS/JS assets for your application instead of writing them to a `.next/` directory specific to Next.js' runtime.
+
+There are a few more possible configuration options, so make sure to read through the [Static Exports][] docs as mentioned above and adapt the configuration file according to the needs of your project.
+
+## Rust 프로젝트 생성하기
+
+<TauriInit destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }} devPathExplination={{ __html: 'Use <code>http://localhost:3000</code> for this value.', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> for this value (make sure to adapt this to use the package manager of your choice).', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> for this value (make sure to adapt this to use the package manager of your choice).', }} />
+
+이제 프론트엔드를 스캐폴드했고 Rust 프로젝트도 초기화했으니 앱을 실행할 준비가 거의 끝났습니다. `tauri.conf.json` 파일 내용은 아래 내용처럼 만들어질 겁니다:
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:3000",
+    "distDir": "../out"
+  },
+```
+
+이걸로 끝입니다! 이제 터미널에서 다음 명령어를 실행해 앱의 개발 빌드를 시작할 수 있습니다.
+
+<Command name="dev" />
+
+![응용 프로그램 창](/img/guides/getting-started/setup/next-js/next-js-dev-light.png#gh-light-mode-only) ![응용 프로그램 창](/img/guides/getting-started/setup/next-js/next-js-dev-dark.png#gh-dark-mode-only)
+
+## 명령 호출
+
+<Commands />
+
+새로 만든 명령을 호출하기 위해서 JavaScript 라이브러리 [`@tauri-apps/api`][]를 사용할 것입니다. 이 라이브러리는 편리한 JavaScript 추상화를 통해 창, 파일시스템 등 핵심 기능으로 가는 진입로를 제공합니다. 좋아하는 JavaScript 패키지 관리자로 설치할 수 있습니다.
+
+<InstallTauriApi />
+
+One important thing to note is that all of Tauri's JS APIs require access to browser-only APIs which means they can only be used in [Client Components][]. If you don't need Server Components you can add `'use client'` at the very top of the `app/page.tsx` file, in this guide however, we will create a separate component so that we don't have to convert the whole app.
+
+```tsx title=app/greet.tsx
+'use client'
+
+import { useEffect } from 'react'
+import { invoke } from '@tauri-apps/api/tauri'
+
+export default function Greet() {
+  useEffect(() => {
+    invoke<string>('greet', { name: 'Next.js' })
+      .then(console.log)
+      .catch(console.error)
+  }, [])
+
+  // Necessary because we will have to use Greet as a component later.
+  return <></>
+}
+```
+
+Now we will use this component in the default `Home` component in `app/page.tsx`. Note that it must be in the actual component tree and can't be a simple function call as long as the parent (in this case the `Home` component) is a Server Component.
+
+```tsx title=app/page.tsx
+// ...
+import Greet from './greet'
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      // highlight-next-line
+      <Greet />
+      ...
+    </main>
+  )
+}
+```
+
+:::tip
+
+만약 Rust와 JavaScript 사이의 통신에 대해 더 알아보고 싶으시다면 Tauri [프로세스 간 통신][inter-process-communication] 안내서를 읽어보세요.
+
+:::
+
+<!-- TODO: Show how you can add this and screenshots of what it looks like -->
+
+[Next.js]: https://nextjs.org
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[Static Exports]: https://nextjs.org/docs/app/building-your-application/deploying/static-exports
+[Client Components]: https://nextjs.org/docs/getting-started/react-essentials#client-components
