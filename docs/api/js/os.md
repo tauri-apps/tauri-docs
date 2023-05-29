@@ -24,19 +24,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 >  **Arch**: `"x86"` \| `"x86_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
-**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/os.ts#L43)
+**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/3303041/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
 >  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows_NT"`
 
-**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/os.ts#L41)
+**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/3303041/tooling/api/src/os.ts#L41)
 
 ### `Platform`
 
 >  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
-**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/os.ts#L29)
+**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/3303041/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -50,7 +50,7 @@ The operating system-specific end-of-line marker.
 
 **Since**: 1.0.0
 
-**Defined in:** [os.ts:63](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/os.ts#L63)
+**Defined in:** [os.ts:63](https://github.com/tauri-apps/tauri/blob/3303041/tooling/api/src/os.ts#L63)
 
 ## Functions
 
@@ -71,6 +71,26 @@ const archName = await arch();
 **Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
+
+### `locale`
+
+> **locale**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+
+Returns a String with a `BCP-47` language tag inside. If the locale couldn’t be obtained, `null` is returned instead.
+
+**Example**
+
+```typescript
+import { locale } from '@tauri-apps/api/os';
+const locale = await locale();
+if (locale) {
+   // use the locale string here
+}
+```
+
+**Since**: 1.3.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 ### `platform`
 
