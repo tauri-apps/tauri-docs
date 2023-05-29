@@ -6,9 +6,7 @@
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "serve": "docusaurus serve",
-    "i18n:sync": "docusaurus write-translations && crowdin upload && crowdin download",
-    "i18n:sync:dryrun": "docusaurus write-translations && crowdin upload --dryrun && crowdin download"
+    "serve": "docusaurus serve"
   },
   "dependencies": {
     "@docusaurus/core": "=2.4.1",
@@ -40,10 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@actions/core": "1.10.0",
-    "@actions/github": "5.1.1",
-    "@crowdin/cli": "3.11.1",
-    "@crowdin/crowdin-api-client": "1.23.1",
     "esbuild-loader": "3.0.1"
   }
 }
