@@ -7,7 +7,7 @@
     "generate-docs": "typedoc"
   },
   "devDependencies": {
-    "typedoc": "0.23.28",
+    "typedoc": "0.24.8",
     "typedoc-plugin-markdown": "../typedoc-plugin-markdown/packages/typedoc-plugin-markdown",
     "typedoc-plugin-mdn-links": "3.0.3",
     "typescript": "5.1.3"
