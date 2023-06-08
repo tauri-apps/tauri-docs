@@ -119,7 +119,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
 ```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
-    webkit2gtk \
+    webkit2gtk-4.1 \
     base-devel \
     curl \
     wget \
