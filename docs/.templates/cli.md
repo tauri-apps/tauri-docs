@@ -176,24 +176,24 @@ Get the PowerShell completions and add it to the `$profile` file to execute it o
   <TabItem value="npm">
 
 ```powershell
+npm run tauri completions -- --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
 Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
-npm run tauri completions -- --shell powershell > ((get-item $profile).Directory.FullName+"\_tauri.ps1")
 ```
 
   </TabItem>
   <TabItem value="Yarn">
 
 ```powershell
+yarn tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
 Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
-yarn tauri completions --shell powershell > ((get-item $profile).Directory.FullName+"\_tauri.ps1")
 ```
 
   </TabItem>
   <TabItem value="pnpm">
 
 ```powershell
+pnpm tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
 Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
-pnpm tauri completions --shell powershell > ((get-item $profile).Directory.FullName+"\_tauri.ps1")
 ```
 
   </TabItem>
