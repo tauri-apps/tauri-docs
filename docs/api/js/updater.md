@@ -16,19 +16,19 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 >  **body**: `string`
 
-**Defined in:** [updater.ts:34](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L34)
+**Defined in:** [updater.ts:34](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L34)
 
 ##### `date`
 
 >  **date**: `string`
 
-**Defined in:** [updater.ts:33](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L33)
+**Defined in:** [updater.ts:33](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L33)
 
 ##### `version`
 
 >  **version**: `string`
 
-**Defined in:** [updater.ts:32](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L32)
+**Defined in:** [updater.ts:32](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L32)
 
 ### `UpdateResult`
 
@@ -40,13 +40,13 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 > `Optional` **manifest**: [`UpdateManifest`](updater.md#updatemanifest)
 
-**Defined in:** [updater.ts:41](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L41)
+**Defined in:** [updater.ts:41](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L41)
 
 ##### `shouldUpdate`
 
 >  **shouldUpdate**: `boolean`
 
-**Defined in:** [updater.ts:42](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L42)
+**Defined in:** [updater.ts:42](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L42)
 
 ### `UpdateStatusResult`
 
@@ -58,13 +58,13 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 > `Optional` **error**: `string`
 
-**Defined in:** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L24)
+**Defined in:** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L24)
 
 ##### `status`
 
 >  **status**: [`UpdateStatus`](updater.md#updatestatus)
 
-**Defined in:** [updater.ts:25](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L25)
+**Defined in:** [updater.ts:25](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L25)
 
 ## Type Aliases
 
@@ -74,7 +74,7 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 **Since**: 1.0.0
 
-**Defined in:** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/73a0ad4/tooling/api/src/updater.ts#L18)
+**Defined in:** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/076e1a8/tooling/api/src/updater.ts#L18)
 
 ## Functions
 
