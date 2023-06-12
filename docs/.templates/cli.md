@@ -197,7 +197,7 @@ Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
 ```
 
   </TabItem>
-    <TabItem value="cargo">
+  <TabItem value="cargo">
 
 ```powershell
 cargo tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
