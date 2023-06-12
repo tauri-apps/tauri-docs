@@ -38,6 +38,7 @@ Here is what the `SYSTEM_VERSION_PREFIX` values map to:
 | macOS version | `SYSTEM_VERSION_PREFIX` |
 | ------------- | ----------------------- |
 | sdk=iphone\*  | 8                       |
+| 14.0          | 19                      |
 | 13.0          | 18                      |
 | 12.0          | 17                      |
 | 11.0          | 16                      |
@@ -63,6 +64,7 @@ The table below maps an OS version to the corresponding WebKit Safari versions s
 
 | OS Name     | OS Version                       | WebKit Version   | Safari Version | Notes                                                         |
 | ----------- | -------------------------------- | ---------------- | -------------- | ------------------------------------------------------------- |
+| Sonoma      | 14.0 (Beta)                      | 616.1.14.11.11   | 17.0           | Verified on a 2023 M2 14" MacBook Pro                         |
 | Ventura     | 13.3.1                           | 615.1.26.11.23   |                | Verified on a 2023 M2 14" MacBook Pro                         |
 |             | 13.3                             | 615.1.26.11.22   | 16.4           | Verified on a 2023 M2 14" MacBook Pro                         |
 |             | 13.2.1                           | 614.4.6.1.6      |                |                                                               |
