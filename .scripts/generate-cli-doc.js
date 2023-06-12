@@ -9,7 +9,15 @@ const templatePath = path.join(__dirname, '../docs/.templates/cli.md')
 const targetPath = path.join(__dirname, '../docs/api/cli.md')
 const template = fs.readFileSync(templatePath, 'utf8')
 
-const commands = ['info', 'init', 'plugin init', 'dev', 'build', 'icon']
+const commands = [
+  'info',
+  'init',
+  'plugin init',
+  'dev',
+  'build',
+  'icon',
+  'completions',
+]
 
 let doc = template
 
