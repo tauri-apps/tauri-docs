@@ -1,44 +1,51 @@
----
-id: governance
----
-
 # Tauri Governance
 
-## Sustainability
+One of the main goals of the organizational structure of Tauri is to guarantee the sustainability, health and well-being of its contributors. [The Tauri Programme within the Commons Conservancy](https://dracc.commonsconservancy.org/0035/) was established to facilitate an open, transparent and efficient governance process throughout the future development of the Tauri and its auxiliary materials.
 
-One of the main goals of the organizational structure of Tauri is to guarantee the sustainability of Tauri and the health and well-being of its contributors. The world of Open Source is fraught with peril and discord, and we have taken measures to ensure the longevity of Tauri. This document explains how we go about doing so.
+## Tauri Working Group
 
-## Organizational Structure
+The Tauri Working Group is the collective framework created to enable this governance process. It's composed of the following components:
 
-Tauri apps is governed by the community and work is done in the context of public working groups. Each working group has a dedicated channel on the Discord server as well as a Team on GitHub. Other than that, each WG is free to use whatever type of organizational model it chooses.
+- Working Group Members
+- Tauri Board & Board Directors
+- Domains & Domain Leads
+- Teams
 
-The current working groups are:
+![Tauri governance diagram](./governance-diagram.svg)
 
-- WG Governance & Guidance
-- WG Tech
-- WG Education
-- WG Media
-- WG Security
-- WG Devops
 
-With the exception of the security working group, which is by invite only and convenes privately, all other working groups are public and open to any and all participants.
+### Working Group Members
 
-Visit the [Governance and Guideance repository](https://github.com/tauri-apps/governance-and-guidance) to get more information.
+All of the individuals that make up the Tauri Working Group.
 
-## Code of Conduct
+### Tauri Board & Board Directors
+
+The collective Board is the central decision making body for the Tauri Programme. Although the Tauri Board is ultimately responsible for decisions, they may delegate to Domain Leads as they see fit.
+
+Individual Board Directors may not be directly involved in all areas and aspects of but they are responsible for performing Board duties to the best of their abilities.
+
+### Domains & Domain Leads
+
+Domains are organizational units that represent an area of interest within Tauri.
+
+Domain Leads are trusted contributors within the Tauri community with expertise in the Domain they are leading. They are responsible for setting direction, overseeing and supporting the activities within that Domain.
+
+The current Domains and Domain leads are outlined in the [Governance and Guidance repo on GitHub](https://github.com/tauri-apps/governance-and-guidance).
+
+### Teams
+
+Teams are small groups of contributors that support or maintain specific areas of the Tauri Programme. They are a means for Tauri to execute its longer-term tasks and goals, especially when ad-hoc contributions cannot achieve the same results.
+
+
+## Get Involved
+
+Anyone is welcome to request joining the Tauri Working Group. You can reach out on the [Tauri Discord](https://discord.com/invite/tauri) or send an email to [board@tauri.app](mailto:board@tauri.app).
+
+If you're interested in becoming a Tauri Board Director or a Domain Lead, elections for those positions are run throughout the year. For Domain Leads those take place in both the spring and fall and for Board Directors in the summer. Instructions for how to apply are posted to the [Tauri Blog](https://tauri.app/blog) leading up to the respective election.
+
+
+## Code of Conduct & Social Contract
 
 Everyone participating in the Tauri community is expected to follow the [Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/main/CODE_OF_CONDUCT.md).
 
-## Social Contract
-
-We have a [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/main/SOCIAL_CONTRACT.md) that informs our decision making and organization.
-
-## Licensing
-
-We, the contributors to Tauri Apps, use the MIT and Apache licenses for all code content. Images and bodies of text, unless otherwise noted are CC-BY-ND-NC.
-
-## Trademark
-
-It is a permissible use of the name "Tauri App" or the Tauri logo to show that a project uses Tauri. "Tauri Studio" is reserved for use by the organization.
-
-Any language that gives the impression that the Tauri organization approves, authorizes or otherwise supports a project, person or company is not permissible without written authorization from the Guidance and Governance Working Group.
+Tauri also has a [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/main/SOCIAL_CONTRACT.md) that informs our decision making and organization.
