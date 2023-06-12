@@ -200,8 +200,8 @@ pnpm tauri completions --shell powershell > ((get-item $profile).Directory.FullN
     <TabItem value="cargo">
 
 ```powershell
+cargo tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
 Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
-cargo tauri completions --shell powershell > ((get-item $profile).Directory.FullName+"\_tauri.ps1")
 ```
 
   </TabItem>
