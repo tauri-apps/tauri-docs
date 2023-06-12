@@ -65,7 +65,7 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 
 {icon}
 
-[Tauri Icon Guide](../guides/features/icons.md)
+For more information, check out the complete [Tauri Icon Guide](../guides/features/icons.md).
 
 ## `completions`
 
