@@ -73,7 +73,7 @@ For more information, check out the complete [Tauri Icon Guide](../guides/featur
 
 {completions}
 
-The Tauri CLI can generate shell completions for Bash, Zsh, PowerShell and Fish. To write the completions script to a file, run tauri completions --shell [bash|zsh|powershell|fish] > outputFile.
+The Tauri CLI can generate shell completions for Bash, Zsh, PowerShell and Fish.
 
 Here are some instructions to configure Bash, Zsh and PowerShell. If you face an issue, please follow your shell's instructions instead. Note that it is recommended to check the generated completions script before executing it for security reasons.
 
