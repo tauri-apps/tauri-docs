@@ -85,7 +85,7 @@ Get the Bash completions and move to a known folder:
   <TabItem value="npm">
 
 ```sh
-tauri completions --shell bash > tauri.sh
+npm run tauri completions -- --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
@@ -93,7 +93,7 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
   <TabItem value="Yarn">
 
 ```sh
-tauri completions --shell bash > tauri.sh
+yarn tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
@@ -101,15 +101,15 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
   <TabItem value="pnpm">
 
 ```sh
-tauri completions --shell bash > tauri.sh
+pnpm tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
   </TabItem>
-    <TabItem value="cargo">
+    <TabItem value="Cargo">
 
 ```sh
-tauri completions --shell bash > tauri.sh
+cargo tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
@@ -130,7 +130,7 @@ Get the Zsh completions and move to a known folder:
   <TabItem value="npm">
 
 ```sh
-tauri completions -s zsh > completions.zsh
+npm run tauri completions -- --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
 
@@ -138,7 +138,7 @@ mv completions.zsh $HOME/.completions/_tauri
   <TabItem value="Yarn">
 
 ```sh
-tauri completions -s zsh > completions.zsh
+yarn tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
 
@@ -146,15 +146,15 @@ mv completions.zsh $HOME/.completions/_tauri
   <TabItem value="pnpm">
 
 ```sh
-tauri completions -s zsh > completions.zsh
+pnpm tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
 
   </TabItem>
-    <TabItem value="cargo">
+    <TabItem value="Cargo">
 
 ```sh
-tauri completions -s zsh > completions.zsh
+cargo tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
 
@@ -197,7 +197,7 @@ Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
 ```
 
   </TabItem>
-  <TabItem value="cargo">
+  <TabItem value="Cargo">
 
 ```powershell
 cargo tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
