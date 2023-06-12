@@ -84,7 +84,7 @@ Get the Bash completions and move to a known folder:
 <Tabs groupId="package-manager">
   <TabItem value="npm">
 
-```sh
+```shell
 npm run tauri completions -- --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
@@ -92,7 +92,7 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
   </TabItem>
   <TabItem value="Yarn">
 
-```sh
+```shell
 yarn tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
@@ -100,7 +100,7 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
   </TabItem>
   <TabItem value="pnpm">
 
-```sh
+```shell
 pnpm tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
@@ -108,7 +108,7 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
   </TabItem>
     <TabItem value="Cargo">
 
-```sh
+```shell
 cargo tauri completions --shell bash > tauri.sh
 mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
@@ -118,7 +118,7 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 
 Load the completions script by adding the following to `.bashrc`:
 
-```sh
+```shell
 source /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
@@ -129,7 +129,7 @@ Get the Zsh completions and move to a known folder:
 <Tabs groupId="package-manager">
   <TabItem value="npm">
 
-```sh
+```shell
 npm run tauri completions -- --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
@@ -137,7 +137,7 @@ mv completions.zsh $HOME/.completions/_tauri
   </TabItem>
   <TabItem value="Yarn">
 
-```sh
+```shell
 yarn tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
@@ -145,7 +145,7 @@ mv completions.zsh $HOME/.completions/_tauri
   </TabItem>
   <TabItem value="pnpm">
 
-```sh
+```shell
 pnpm tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
@@ -153,7 +153,7 @@ mv completions.zsh $HOME/.completions/_tauri
   </TabItem>
     <TabItem value="Cargo">
 
-```sh
+```shell
 cargo tauri completions --shell zsh > completions.zsh
 mv completions.zsh $HOME/.completions/_tauri
 ```
@@ -163,7 +163,7 @@ mv completions.zsh $HOME/.completions/_tauri
 
 Load the completions folder using fpath adding the following to `.zshrc`:
 
-```sh
+```shell
 fpath=(~/.completions $fpath)
 autoload -U compinit
 ```
