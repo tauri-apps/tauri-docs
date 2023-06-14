@@ -4,6 +4,8 @@ title: CLI
 ---
 
 import Command from '@theme/Command'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## `info`
 
@@ -191,7 +193,156 @@ Options:
   -V, --version          Print version
 ```
 
-[Tauri Icon Guide](../guides/features/icons.md)
+For more information, check out the complete [Tauri Icon Guide](../guides/features/icons.md).
+
+## `completions`
+
+<Command name="completions" />
+
+```
+Usage: cargo-tauri completions [OPTIONS] --shell <SHELL>
+
+Options:
+  -s, --shell <SHELL>    Shell to generate a completion script for. [possible values: bash, elvish, fish, powershell, zsh]
+  -v, --verbose...       Enables verbose logging
+  -o, --output <OUTPUT>  Output file for the shell completions. By default the completions are printed to stdout
+  -h, --help             Print help
+  -V, --version          Print version
+```
+
+The Tauri CLI can generate shell completions for Bash, Zsh, PowerShell and Fish.
+
+Here are some instructions to configure Bash, Zsh and PowerShell. If you face an issue, please follow your shell's instructions instead. Note that it is recommended to check the generated completions script before executing it for security reasons.
+
+### Bash
+
+Get the Bash completions and move to a known folder:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm run tauri completions -- --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+    <TabItem value="Cargo">
+
+```shell
+cargo tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+</Tabs>
+
+Load the completions script by adding the following to `.bashrc`:
+
+```shell
+source /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+### Zsh
+
+Get the Zsh completions and move to a known folder:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm run tauri completions -- --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```shell
+yarn tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+    <TabItem value="Cargo">
+
+```shell
+cargo tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+</Tabs>
+
+Load the completions folder using fpath adding the following to `.zshrc`:
+
+```shell
+fpath=(~/.completions $fpath)
+autoload -U compinit
+```
+
+### PowerShell
+
+Get the PowerShell completions and add it to the `$profile` file to execute it on all sessions:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```powershell
+npm run tauri completions -- --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem value="Yarn">
+
+```powershell
+yarn tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```powershell
+pnpm tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem value="Cargo">
+
+```powershell
+cargo tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+</Tabs>
 
 ## `version`
 
