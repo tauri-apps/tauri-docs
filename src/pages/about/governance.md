@@ -22,7 +22,7 @@ All of the individuals that make up the Tauri Working Group.
 
 The Tauri Board is the central decision making body for the Tauri Programme and is responsible for the overall health and stability of the Tauri Programme. The Board votes on major decisions within the Programme and issues raised by the Working Group.
 
-Individual Board Directors may not be directly involved in all areas but they are responsible for performing Board duties to the best of their abilities.
+An individual Board Director may be a technical contributor, be a stakeholder in Tauri's future, share experience from the industry, or have a passion for regulatory and legal aspects within Open Source.
 
 ### Domains & Domain Leads
 
