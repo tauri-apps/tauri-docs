@@ -9,6 +9,12 @@ sidebar_position: 2
 
 Code signing your application lets users know that they downloaded the official executable of your app and not some 3rd party malware that poses as your app. While it is not required, it improves users' confidence in your app.
 
+:::danger
+
+This guide only applies to OV code signing certificates acquired before June 1st 2023! For code signing with EV certificates and OV certificates received after that date please consult the documentation of your certificate issuer instead.
+
+:::
+
 ## Prerequisites
 
 - Windows - you can likely use other platforms, but this tutorial uses Powershell native features.
