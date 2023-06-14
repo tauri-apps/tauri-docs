@@ -20,9 +20,9 @@ All of the individuals that make up the Tauri Working Group.
 
 ### Tauri Board & Board Directors
 
-The collective Board is the central decision making body for the Tauri Programme. Although the Tauri Board is ultimately responsible for decisions, they may delegate to Domain Leads as they see fit.
+The Tauri Board is the central decision making body for the Tauri Programme and is responsible for the overall health and stability of the Tauri Programme. The Board votes on major decisions within the Programme and issues raised by the Working Group.
 
-Individual Board Directors may not be directly involved in all areas and aspects of but they are responsible for performing Board duties to the best of their abilities.
+Individual Board Directors may not be directly involved in all areas but they are responsible for performing Board duties to the best of their abilities.
 
 ### Domains & Domain Leads
 
@@ -42,8 +42,9 @@ Teams are small groups of contributors that support or maintain specific areas o
 If you're interested in becoming a Tauri Board Director or a Domain Lead, elections for those positions are run throughout the year. For Domain Leads those take place in both the spring and fall and for Board Directors in the summer. Instructions for how to apply are posted to the [Tauri Blog](https://tauri.app/blog) leading up to the respective election.
 
 
-## Code of Conduct & Social Contract
+## Additional Resources
 
-Everyone participating in the Tauri community is expected to follow the [Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/main/CODE_OF_CONDUCT.md).
-
-Tauri also has a [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/main/SOCIAL_CONTRACT.md) that informs our decision making and organization.
+- [Governance and Guidance Repository](https://github.com/tauri-apps/governance-and-guidance): More detailed information about Tauri's Governance and the current Domains and Domain Leads
+- [Social Contract](https://github.com/tauri-apps/governance-and-guidance/blob/main/SOCIAL_CONTRACT.md): The social contract informs our decision making and organization
+- [Code of Conduct](https://github.com/tauri-apps/governance-and-guidance/blob/main/CODE_OF_CONDUCT.md)
+- [Tauri Programme Statutes](https://dracc.commonsconservancy.org/0035/)
