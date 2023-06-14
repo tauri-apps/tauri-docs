@@ -1,0 +1,100 @@
+---
+authors: [lucasfernog]
+image: ./tauri_1_4_images/header.png
+description: The Tauri team is happy to announce the 1.4.0 release.
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Announcing Tauri 1.4.0
+
+![Tauri 1.4 Launch Hero Image](./tauri_1_4_images/header.png)
+
+The Tauri team is excited to announce the 1.4 release. This version includes several new features and important bug fixes such as CLI completions, unit testing capabilities and Windows installer improvements.
+
+<!--truncate-->
+
+## Upgrading
+
+Make sure to update both NPM and Cargo dependencies to the 1.4.0 release. You can update the NPM dependencies with:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+```
+
+  </TabItem>
+  <TabItem value="Yarn Classic">
+
+```shell
+yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
+```
+
+  </TabItem>
+  <TabItem value="Yarn Berry">
+
+```shell
+yarn up @tauri-apps/cli @tauri-apps/api
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm update @tauri-apps/cli @tauri-apps/api --latest
+```
+
+  </TabItem>
+</Tabs>
+
+To update the Cargo dependencies, run the following in the `src-tauri` folder:
+
+```shell
+cargo update
+```
+
+## What's in 1.4.0
+
+### CLI completions
+
+The Tauri CLI now can generate shell completions for Bash, Zsh, PowerShell and Fish. See the [documentation](/v1/api/cli#completions) for more information.
+
+### Disabling window controls
+
+The window's maximize, minimize and close buttons now can be disabled via configuration or API calls. Check out [`set_maximizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_maximizable), [`set_minimizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_minimizable) and [`set_closable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_closable) for the Rust APIs and [`setMaximizable`](/v1/api/js/window#setmaximizable), [`setMinimizable`](/v1/api/js/window#setminimizable) and [`setClosable`](/v1/api/js/window#setclosable) for the JavaScript APIs.
+
+### NSIS improvements
+
+The 1.4.0 release includes several NSIS bundle enhancements:
+
+- Custom language files
+- Custom installer template (.nsi file)
+- Support for the dutch, japanese, korean, persian, swedish and turkish languages
+- If your application is installed via WiX, the installer will prompt the user to uninstall it
+- Improved support to updater install modes
+
+See the [installer customization guide](/v1/guides/building/windows#customizing-the-nsis-installer-template) and [installer internationalization](/v1/guides/building/windows#internationalization) for more information.
+
+### MSRV change
+
+Tauri 1.4 still has a minimum supported Rust version of 1.60, but due to some dependency incompatibility issues we are no longer pinning the patch version of the `time`, `ignore`, and `winnow` crates. If you are still using Rust 1.60, you will need to pin these versions manually with [cargo update](https://github.com/tauri-apps/tauri/blob/076e1a81a50468e3dfb34ae9ca7e77c5e1758daa/.github/workflows/test-core.yml#L88).
+
+### Unit tests
+
+The `tauri` crate now exposes the `test` module under the `test` Cargo feature. This module is still unstable but allows you to unit test your application by creating a `tauri::App` instance that can execute without spawning windows. See the [documentation](https://docs.rs/tauri/1/tauri/test/index.html) for more information and examples.
+
+### Other changes
+
+Starting on v1.4.0, our changelog format has been improved. Check out the entire list of changes:
+
+- [tauri](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.4.0)
+- [tauri-cli](https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.4.0)
+- [tauri-bundler](https://github.com/tauri-apps/tauri/releases/tag/tauri-bundler-v1.4.0)
+- [tauri-runtime](https://github.com/tauri-apps/tauri/releases/tag/tauri-runtime-v1.4.0)
+- [tauri-runtime-wry](https://github.com/tauri-apps/tauri/releases/tag/tauri-runtime-wry-v1.4.0)
+- [tauri-codegen](https://github.com/tauri-apps/tauri/releases/tag/tauri-codegen-v1.4.0)
+- [tauri-macros](https://github.com/tauri-apps/tauri/releases/tag/tauri-macros-v1.4.0)
+- [tauri-build](https://github.com/tauri-apps/tauri/releases/tag/tauri-build-v1.4.0)
