@@ -1,6 +1,6 @@
 # Tauri Governance
 
-One of the main goals of the organizational structure of Tauri is to guarantee the sustainability, health and well-being of its contributors. [The Tauri Programme within the Commons Conservancy](https://dracc.commonsconservancy.org/0035/) was established to facilitate an open, transparent and efficient governance process throughout the future development of the Tauri and its auxiliary materials.
+One of the main goals of the organizational structure of Tauri is to guarantee we stay true to our open source values and do so sustainably while respecting the health and well-being of contributors. [The Tauri Programme within the Commons Conservancy](https://dracc.commonsconservancy.org/0035/) was established to commit to those values, and facilitate an open, transparent and efficient governance process throughout the future development of the Tauri and its auxiliary materials.
 
 ## Tauri Working Group
 
