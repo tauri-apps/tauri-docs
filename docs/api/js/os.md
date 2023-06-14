@@ -88,7 +88,7 @@ if (locale) {
 }
 ```
 
-**Since**: 1.3.0
+**Since**: 1.4.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
