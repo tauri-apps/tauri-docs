@@ -45,3 +45,9 @@ tweidinger:
   title: Tauri Security
   url: https://github.com/tweidinger
   image_url: ./author_images/tweidinger.png
+
+jbolda:
+  name: Jacob Bolda
+  title: Tauri Board Director
+  url: https://github.com/jbolda
+  image_url: ./author_images/jbolda.jpeg
