@@ -14,7 +14,7 @@ Command arguments.
 
 **Since**: 1.0.0
 
-**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/tauri.ts#L63)
+**Defined in:** [tauri.ts:63](https://github.com/tauri-apps/tauri/blob/2acc474/tooling/api/src/tauri.ts#L63)
 
 ## Functions
 
