@@ -30,8 +30,8 @@ function buildObject(key, value) {
   output.push(`${descriptionConstructor(value.description)}\n`)
 
   if (headerLevel > 1) {
-    output.push(`${longFormTypeConstructor(value)}\n`)
-    buildProperties(headerTitle, value)
+    output.push(`${longFormTypeConstructor(key, value)}\n`)
+    output.push(buildProperties(headerTitle, value).join('\n'))
   } else {
     Object.entries(value.definitions).forEach(([innerKey, innerValue]) => {
       buildObject(innerKey, innerValue)
@@ -39,8 +39,9 @@ function buildObject(key, value) {
   }
 }
 
-function buildProperties(parentName, object) {
-  if (!object.properties) return
+function buildProperties(parentName, object, describeInnerObjects = false) {
+  const out = []
+  if (!object.properties) return out
 
   var required = []
 
@@ -49,23 +50,23 @@ function buildProperties(parentName, object) {
   }
 
   // Build table header
-  output.push('| Name | Type | Default | Description |')
-  output.push('| ---- | ---- | ------- | ----------- |')
+  out.push('| Name | Type | Default | Description |')
+  out.push('| ---- | ---- | ------- | ----------- |')
 
   // Populate table
   Object.entries(object.properties).forEach(([key, value]) => {
     if (key == '$schema') return
 
-    var propertyType = typeConstructor(value)
+    var propertyType = typeConstructor(value, describeInnerObjects)
 
     if (required.includes(key)) {
-      propertyType += '(required)'
+      propertyType += ' (required)'
     }
     const propertyDefault = defaultConstructor(value)
 
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div className="anchor-with-padding" id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
-    output.push(
+    out.push(
       `| ${name} | ${propertyType} | ${propertyDefault} | ${descriptionConstructor(
         value.description,
         true
@@ -73,7 +74,9 @@ function buildProperties(parentName, object) {
     )
   })
 
-  output.push('\n')
+  out.push('\n')
+
+  return out
 }
 
 function descriptionConstructor(description, fixNewlines = false) {
@@ -295,7 +298,7 @@ function listDescription(description) {
   return description.replace('\n\n', '\n\n\t')
 }
 
-function longFormTypeConstructor(object) {
+function longFormTypeConstructor(key, object) {
   if (object.enum) {
     var buffer = []
     buffer.push(`Can be any of the following \`${object.type}\` values:`)
@@ -312,7 +315,20 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description)}`
       }
-      buffer.push(`- ${typeConstructor(item)}${listDescription(description)}`)
+      const hasProperties = 'properties' in item
+      let typeDef = typeConstructor(item, hasProperties)
+      if (hasProperties) {
+        typeDef = '`' + typeDef + '`'
+      }
+      buffer.push(`- ${typeDef}${listDescription(description)}`)
+      if (hasProperties) {
+        buffer.push('\n\t')
+        buffer.push(
+          buildProperties(key, item, true)
+            .map((line) => `\t${line}`)
+            .join('\n')
+        )
+      }
     })
 
     return buffer.join(`\n`)
@@ -326,9 +342,20 @@ function longFormTypeConstructor(object) {
       if (item.description) {
         description = `: ${descriptionConstructor(item.description)}`
       }
-      buffer.push(
-        `- ${typeConstructor(item, true)}${listDescription(description)}`
-      )
+      const hasProperties = 'properties' in item
+      let typeDef = typeConstructor(item, hasProperties)
+      if (hasProperties) {
+        typeDef = '`' + typeDef + '`'
+      }
+      buffer.push(`- ${typeDef}${listDescription(description)}`)
+      if ('properties' in item) {
+        buffer.push('\n\t')
+        buffer.push(
+          buildProperties(key, item, true)
+            .map((line) => `\t${line}`)
+            .join('\n')
+        )
+      }
     })
 
     return buffer.join(`\n`)

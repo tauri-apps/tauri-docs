@@ -98,8 +98,24 @@ The application pattern.
 
 Can be any **ONE** of the following types:
 
-- { "use": "brownfield" }: Brownfield pattern.
-- { "use": "isolation", "options": { "dir": string } }: Isolation pattern. Recommended for security purposes.
+- `{ "use": "brownfield" }`: Brownfield pattern.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "brownfield" (required) | _null_ | undefined |
+	
+
+- `{ "use": "isolation", "options": { "dir": string } }`: Isolation pattern. Recommended for security purposes.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "isolation" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="patternkind.options">`options`<a class="hash-link" href="#patternkind.options"></a></div> | { "dir": string } (required) | _null_ | undefined |
+	
+
+
 
 ### WindowConfig
 
@@ -153,6 +169,7 @@ Can be any of the following types:
 - `string` _(format: `uri`)_: An external URL.
 - `string`: The path portion of an app URL. For instance, to load `tauri://localhost/users/john`, you can simply provide `users/john` in this configuration.
 
+
 #### Theme
 
 System theme.
@@ -161,6 +178,7 @@ Can be any **ONE** of the following types:
 
 - "Light": Light theme.
 - "Dark": Dark theme.
+
 
 #### TitleBarStyle
 
@@ -178,6 +196,7 @@ Can be any **ONE** of the following types:
 - The height of the title bar is different on different OS versions, which can lead to window the controls and title not being where you don't expect.
 - You need to define a custom drag region to make your window draggable, however due to a limitation you can't drag the window when it's not in focus <https://github.com/tauri-apps/tauri/issues/4316>.
 - The color of the window title depends on the system theme.
+
 
 ### CliConfig
 
@@ -204,7 +223,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="cliarg.short">`short`<a class="hash-link" href="#cliarg.short"></a></div> | `string`? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading `-` characters will be stripped, and only the first non-character will be used as the short version. |
-| <div className="anchor-with-padding" id="cliarg.name">`name`<a class="hash-link" href="#cliarg.name"></a></div> | `string`(required) | _null_ | The unique argument name |
+| <div className="anchor-with-padding" id="cliarg.name">`name`<a class="hash-link" href="#cliarg.name"></a></div> | `string` (required) | _null_ | The unique argument name |
 | <div className="anchor-with-padding" id="cliarg.description">`description`<a class="hash-link" href="#cliarg.description"></a></div> | `string`? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
 | <div className="anchor-with-padding" id="cliarg.longdescription">`longDescription`<a class="hash-link" href="#cliarg.longdescription"></a></div> | `string`? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
 | <div className="anchor-with-padding" id="cliarg.takesvalue">`takesValue`<a class="hash-link" href="#cliarg.takesvalue"></a></div> | `boolean` | `false` | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods<br />- Using a space such as -o value or --option value<br />- Using an equals and no space such as -o=value or --option=value<br />- Use a short and no space such as -ovalue |
@@ -238,7 +257,7 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | `boolean` | `false` | Whether Tauri should bundle your application or just output the executable. |
 | <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "nsis", "msi", "app", "dmg", "updater"] or "all". |
-| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string`(required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
+| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | `string` (required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | `string`? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | `string[]` | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | `array`? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
@@ -263,6 +282,7 @@ Can be any of the following types:
 - [`BundleType[]`](#bundletype): A list of bundle targets.
 - [`BundleType`](#bundletype): A single bundle target.
 
+
 #### BundleType
 
 A bundle referenced by tauri-bundler.
@@ -276,6 +296,7 @@ Can be any **ONE** of the following types:
 - "app": The macOS application bundle (.app).
 - "dmg": The Apple Disk Image bundle (.dmg).
 - "updater": The Tauri updater bundle.
+
 
 ### AppImageConfig
 
@@ -345,11 +366,51 @@ For more information see <https://tauri.app/v1/guides/building/windows>.
 
 Can be any **ONE** of the following types:
 
-- { "type": "skip" }: Do not install the Webview2 as part of the Windows Installer.
-- { "type": "downloadBootstrapper", "silent": boolean }: Download the bootstrapper and run it. Requires an internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
-- { "type": "embedBootstrapper", "silent": boolean }: Embed the bootstrapper and run it. Requires an internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
-- { "type": "offlineInstaller", "silent": boolean }: Embed the offline installer and run it. Does not require an internet connection. Increases the installer size by around 127MB.
-- { "type": "fixedRuntime", "path": string }: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
+- `{ "type": "skip" }`: Do not install the Webview2 as part of the Windows Installer.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "skip" (required) | _null_ | undefined |
+	
+
+- `{ "type": "downloadBootstrapper", "silent": boolean }`: Download the bootstrapper and run it. Requires an internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "downloadBootstrapper" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
+	
+
+- `{ "type": "embedBootstrapper", "silent": boolean }`: Embed the bootstrapper and run it. Requires an internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "embedBootstrapper" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
+	
+
+- `{ "type": "offlineInstaller", "silent": boolean }`: Embed the offline installer and run it. Does not require an internet connection. Increases the installer size by around 127MB.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "offlineInstaller" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the installer in silent mode. Defaults to `true`. |
+	
+
+- `{ "type": "fixedRuntime", "path": string }`: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "fixedRuntime" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.path">`path`<a class="hash-link" href="#webviewinstallmode.path"></a></div> | string (required) | _null_ | The path to the fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+	
+
+
 
 ### WixConfig
 
@@ -383,6 +444,7 @@ Can be any of the following types:
 - `string`: A single language to build, without configuration.
 - `string[]`: A list of languages to build, without configuration.
 - `object`: A map of languages and its configuration.
+
 
 ### WixLanguageConfig
 
@@ -431,6 +493,7 @@ Installer metadata will be saved under the `HKCU` registry path.
 - "both": Combines both modes and allows the user to choose at install time whether to install for the current user or per machine. Note that this mode will require Administrator access even if the user wants to install it for the current user only.
 
 	Installer metadata will be saved under the `HKLM` or `HKCU` registry path based on the user's choice.
+
 
 ### AllowlistConfig
 
@@ -495,7 +558,17 @@ Each pattern can start with a variable that resolves to a system base directory.
 Can be any of the following types:
 
 - `string[]`: A list of paths that are allowed by this scope.
-- `object`: A complete scope configuration.
+- `{ "allow": [string], "deny": [string], "requireLiteralLeadingDot": boolean? }`: A complete scope configuration.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="fsallowlistscope.allow">`allow`<a class="hash-link" href="#fsallowlistscope.allow"></a></div> | [string] | [] | A list of paths that are allowed by this scope. |
+	| <div className="anchor-with-padding" id="fsallowlistscope.deny">`deny`<a class="hash-link" href="#fsallowlistscope.deny"></a></div> | [string] | [] | A list of paths that are not allowed by this scope. This gets precedence over the `Scope::allow` list. |
+	| <div className="anchor-with-padding" id="fsallowlistscope.requireliteralleadingdot">`requireLiteralLeadingDot`<a class="hash-link" href="#fsallowlistscope.requireliteralleadingdot"></a></div> | boolean? | _null_ | Whether or not paths that contain components that start with a `.` will require that `.` appears literally in the pattern; `*`, `?`, `**`, or `[...]` will not match. This is useful because such files are conventionally considered hidden on Unix systems and it might be desirable to skip them when listing files.<br /><br />Defaults to `true` on Unix systems and `false` on Windows |
+	
+
+
 
 ### WindowAllowlistConfig
 
@@ -562,6 +635,7 @@ Shell scope definition. It is a list of command names and associated CLI argumen
 
 Type: [`ShellAllowedCommand[]`](#shellallowedcommand)
 
+
 #### ShellAllowedCommand
 
 A command allowed to be executed by the webview API.
@@ -570,7 +644,7 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="shellallowedcommand.name">`name`<a class="hash-link" href="#shellallowedcommand.name"></a></div> | `string`(required) | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
+| <div className="anchor-with-padding" id="shellallowedcommand.name">`name`<a class="hash-link" href="#shellallowedcommand.name"></a></div> | `string` (required) | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
 | <div className="anchor-with-padding" id="shellallowedcommand.cmd">`cmd`<a class="hash-link" href="#shellallowedcommand.cmd"></a></div> | `string` | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`, `$APPCONFIG`, `$APPDATA`, `$APPLOCALDATA`, `$APPCACHE`, `$APPLOG`. |
 | <div className="anchor-with-padding" id="shellallowedcommand.args">`args`<a class="hash-link" href="#shellallowedcommand.args"></a></div> | [`ShellAllowedArgs`](#shellallowedargs) | `false` | The allowed arguments for the command execution. |
 | <div className="anchor-with-padding" id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | `boolean` | `false` | If this command is a sidecar command. |
@@ -587,6 +661,7 @@ Can be any of the following types:
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
 - [`ShellAllowedArg[]`](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
+
 #### ShellAllowedArg
 
 A command argument allowed to be executed by the webview API.
@@ -594,7 +669,15 @@ A command argument allowed to be executed by the webview API.
 Can be any of the following types:
 
 - `string`: A non-configurable argument that is passed to the command in the order it was specified.
-- `object`: A variable that is set while calling the command from the webview API.
+- `{ "validator": string }`: A variable that is set while calling the command from the webview API.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) | _null_ | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
+	
+
+
 
 #### ShellAllowlistOpen
 
@@ -608,6 +691,7 @@ Can be any of the following types:
 - `string`: Enable the shell open API, with a custom regex that the opened path must match against.
 
 	If using a custom regex to support a non-http(s) schema, care should be used to prevent values that allow flag-like strings to pass validation. e.g. `--enable-debugging`, `-i`, `/R`.
+
 
 ### DialogAllowlistConfig
 
@@ -648,6 +732,7 @@ Examples:
 - "https://myapi.service.com/users/*": allows access to any URLs that begins with "https://myapi.service.com/users/"
 
 Type: `string _(format: `uri`)_[]`
+
 
 ### NotificationAllowlistConfig
 
@@ -770,6 +855,7 @@ Can be any of the following types:
 - `string`: The entire CSP policy in a single text string.
 - `object`: An object mapping a directive with its sources values as a list of strings.
 
+
 #### CspDirectiveSources
 
 A Content-Security-Policy directive source list. See <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources>.
@@ -778,6 +864,7 @@ Can be any of the following types:
 
 - `string`: An inline list of CSP sources. Same as `List`, but concatenated with a space separator.
 - `string[]`: A list of CSP sources. The collection will be concatenated with a space separator for the CSP string.
+
 
 #### DisabledCspModificationKind
 
@@ -788,6 +875,7 @@ Can be any of the following types:
 - `boolean`: If `true`, disables all CSP modification. `false` is the default value and it configures Tauri to control the CSP.
 - `string[]`: Disables the given list of CSP directives modifications.
 
+
 #### RemoteDomainAccessScope
 
 External command access definition.
@@ -797,8 +885,8 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.scheme">`scheme`<a class="hash-link" href="#remotedomainaccessscope.scheme"></a></div> | `string`? | _null_ | The URL scheme to allow. By default, all schemas are allowed. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | `string`(required) | _null_ | The domain to allow. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | `string[]`(required) | _null_ | The list of window labels this scope applies to. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | `string` (required) | _null_ | The domain to allow. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | `string[]` (required) | _null_ | The list of window labels this scope applies to. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.plugins">`plugins`<a class="hash-link" href="#remotedomainaccessscope.plugins"></a></div> | `string[]` | [] | The list of plugins that are allowed in this scope. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.enabletauriapi">`enableTauriAPI`<a class="hash-link" href="#remotedomainaccessscope.enabletauriapi"></a></div> | `boolean` | `false` | Enables access to the Tauri API. |
 
@@ -826,6 +914,7 @@ The URL must use the `https` scheme on production.
 
 Type: `string` _(format: `uri`)_
 
+
 ### UpdaterWindowsConfig
 
 The updater configuration for Windows.
@@ -848,6 +937,7 @@ Can be any **ONE** of the following types:
 - "quiet": The quiet mode means there's no user interaction required. Requires admin privileges if the installer does.
 - "passive": Specifies unattended mode, which means the installation only shows a progress bar.
 
+
 ### SystemTrayConfig
 
 Configuration for application system tray icon.
@@ -856,7 +946,7 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | `string`(required) | _null_ | Path to the default icon to use on the system tray. |
+| <div className="anchor-with-padding" id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | `string` (required) | _null_ | Path to the default icon to use on the system tray. |
 | <div className="anchor-with-padding" id="systemtrayconfig.iconastemplate">`iconAsTemplate`<a class="hash-link" href="#systemtrayconfig.iconastemplate"></a></div> | `boolean` | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.menuonleftclick">`menuOnLeftClick`<a class="hash-link" href="#systemtrayconfig.menuonleftclick"></a></div> | `boolean` | `true` | A Boolean value that determines whether the menu should appear when the tray icon receives a left click on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.title">`title`<a class="hash-link" href="#systemtrayconfig.title"></a></div> | `string`? | _null_ | Title for MacOS tray |
@@ -889,6 +979,7 @@ Can be any of the following types:
 - [`WindowUrl`](#windowurl): The app's external URL, or the path to the directory containing the app assets.
 - `string[]`: An array of files to embed on the app.
 
+
 #### BeforeDevCommand
 
 Describes the shell command to run before `tauri dev`.
@@ -896,7 +987,17 @@ Describes the shell command to run before `tauri dev`.
 Can be any of the following types:
 
 - `string`: Run the given script with the default options.
-- `object`: Run the given script with custom options.
+- `{ "script": string, "cwd": string?, "wait": boolean }`: Run the given script with custom options.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="beforedevcommand.script">`script`<a class="hash-link" href="#beforedevcommand.script"></a></div> | string (required) | _null_ | The script to execute. |
+	| <div className="anchor-with-padding" id="beforedevcommand.cwd">`cwd`<a class="hash-link" href="#beforedevcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
+	| <div className="anchor-with-padding" id="beforedevcommand.wait">`wait`<a class="hash-link" href="#beforedevcommand.wait"></a></div> | boolean | `false` | Whether `tauri dev` should wait for the command to finish or not. Defaults to `false`. |
+	
+
+
 
 #### HookCommand
 
@@ -905,10 +1006,20 @@ Describes a shell command to be executed when a CLI hook is triggered.
 Can be any of the following types:
 
 - `string`: Run the given script with the default options.
-- `object`: Run the given script with custom options.
+- `{ "script": string, "cwd": string? }`: Run the given script with custom options.
+
+	
+	| Name | Type | Default | Description |
+	| ---- | ---- | ------- | ----------- |
+	| <div className="anchor-with-padding" id="hookcommand.script">`script`<a class="hash-link" href="#hookcommand.script"></a></div> | string (required) | _null_ | The script to execute. |
+	| <div className="anchor-with-padding" id="hookcommand.cwd">`cwd`<a class="hash-link" href="#hookcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
+	
+
+
 
 ### PluginConfig
 
 The plugin configs holds a HashMap mapping a plugin name to its configuration object.
 
 Type: `object`
+
