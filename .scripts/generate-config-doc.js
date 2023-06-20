@@ -39,7 +39,7 @@ function buildObject(key, value) {
   }
 }
 
-function buildProperties(parentName, object, describeInnerObjects = false) {
+function buildProperties(parentName, object) {
   const out = []
   if (!object.properties) return out
 
@@ -57,8 +57,7 @@ function buildProperties(parentName, object, describeInnerObjects = false) {
   Object.entries(object.properties).forEach(([key, value]) => {
     if (key == '$schema') return
 
-    var propertyType = typeConstructor(value, describeInnerObjects)
-
+    var propertyType = typeConstructor(value, true)
     if (required.includes(key)) {
       propertyType += ' (required)'
     }
@@ -136,21 +135,27 @@ function descriptionConstructor(description, fixNewlines = false) {
 }
 
 function typeConstructor(object, describeObject = false) {
+  const canBeNull =
+    (object.type && object.type.includes('null')) ||
+    (object.anyOf && object.anyOf.some((item) => item.type === 'null'))
+
   if (object.$ref) {
-    return refLinkConstructor(object.$ref)
+    return refLinkConstructor(object.$ref, canBeNull)
+  }
+
+  if (object.additionalProperties && object.additionalProperties.$ref) {
+    return refLinkConstructor(object.additionalProperties.$ref, canBeNull)
+  }
+
+  if (object.items && object.items.$ref) {
+    return refLinkConstructor(object.items.$ref, canBeNull)
   }
 
   if (object.anyOf) {
     // Removes any null values
-    var canBeNull = false
-    const items = object.anyOf.filter((item) => {
-      if (item.type && item.type == 'null') {
-        canBeNull = true
-        return false
-      } else {
-        return true
-      }
-    })
+    const items = object.anyOf.filter(
+      (item) => !(item.type && item.type == 'null')
+    )
 
     if (canBeNull && items.length == 1) {
       return `${items.map((t) => typeConstructor(t, describeObject))}?`
@@ -324,7 +329,7 @@ function longFormTypeConstructor(key, object) {
       if (hasProperties) {
         buffer.push('\n\t')
         buffer.push(
-          buildProperties(key, item, true)
+          buildProperties(key, item)
             .map((line) => `\t${line}`)
             .join('\n')
         )
@@ -351,7 +356,7 @@ function longFormTypeConstructor(key, object) {
       if ('properties' in item) {
         buffer.push('\n\t')
         buffer.push(
-          buildProperties(key, item, true)
+          buildProperties(key, item)
             .map((line) => `\t${line}`)
             .join('\n')
         )
@@ -402,9 +407,9 @@ function defaultConstructor(object) {
   return '_null_'
 }
 
-function refLinkConstructor(string) {
+function refLinkConstructor(string, nullable = false) {
   const name = string.replace('#/definitions/', '')
-  return `[\`${name}\`](#${name.toLowerCase()})`
+  return `[\`${name}\`](#${name.toLowerCase()})${nullable ? '?' : ''}`
 }
 
 fs.writeFileSync(targetPath, output.join('\n'))
