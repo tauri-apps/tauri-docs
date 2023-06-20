@@ -215,10 +215,10 @@ function typeConstructor(object, describeObject = false) {
           case 'array':
             if (object.items) {
               if (describeObject) {
-                typeString = `[${typeConstructor(
+                typeString = `${typeConstructor(
                   object.items,
                   describeObject
-                )}]`
+                )}[]`
               } else {
                 const type = typeConstructor(object.items, true)
                 const hasLink = type.includes('(#')
