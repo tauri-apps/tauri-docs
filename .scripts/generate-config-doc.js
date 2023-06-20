@@ -9,6 +9,7 @@ const schemaString = fs
   .replaceAll('(?!\\)>', '>')
 const schema = JSON.parse(schemaString)
 const targetPath = path.join(__dirname, '../docs/api/config.md')
+const nullMarkdown = '_null_'
 
 const output = []
 
@@ -43,11 +44,7 @@ function buildProperties(parentName, object) {
   const out = []
   if (!object.properties) return out
 
-  var required = []
-
-  if (object.required) {
-    required = object.required
-  }
+  const required = object.required || []
 
   // Build table header
   out.push('| Name | Type | Default | Description |')
@@ -57,11 +54,15 @@ function buildProperties(parentName, object) {
   Object.entries(object.properties).forEach(([key, value]) => {
     if (key == '$schema') return
 
-    var propertyType = typeConstructor(value, true)
+    let propertyType = typeConstructor(value, true)
+    let propertyDefault = defaultConstructor(value)
+
     if (required.includes(key)) {
       propertyType += ' (required)'
+      if (propertyDefault === nullMarkdown) {
+        propertyDefault = ''
+      }
     }
-    const propertyDefault = defaultConstructor(value)
 
     const url = `${parentName.toLowerCase()}.${key.toLowerCase()}`
     const name = `<div className="anchor-with-padding" id="${url}">\`${key}\`<a class="hash-link" href="#${url}"></a></div>`
@@ -232,7 +233,7 @@ function typeConstructor(object, describeObject = false) {
         }
         break
       case 'undefined':
-        typeString = '_null_'
+        typeString = nullMarkdown
         break
       case 'object':
         if (Array.isArray(object.type)) {
@@ -278,13 +279,10 @@ function typeConstructor(object, describeObject = false) {
       )
     }
 
-    if (additionalProperties != '') {
-      additionalProperties = `_(${additionalProperties.join(', ')})_`
-    }
-
     if (typeString != '') {
       if (additionalProperties.length > 0) {
-        return `${typeString} ${additionalProperties}`
+        const props = `_(${additionalProperties.join(', ')})_`
+        return `${typeString} ${props}`
       }
       return typeString
     }
@@ -404,7 +402,7 @@ function defaultConstructor(object) {
     console.error('Found oneOf default:', object.oneOf)
   }
 
-  return '_null_'
+  return nullMarkdown
 }
 
 function refLinkConstructor(string, nullable = false) {

@@ -103,7 +103,7 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "brownfield" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "brownfield" (required) |  | undefined |
 	
 
 - `{ "use": "isolation", "options": { "dir": string } }`: Isolation pattern. Recommended for security purposes.
@@ -111,8 +111,8 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "isolation" (required) | _null_ | undefined |
-	| <div className="anchor-with-padding" id="patternkind.options">`options`<a class="hash-link" href="#patternkind.options"></a></div> | { "dir": string } (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "isolation" (required) |  | undefined |
+	| <div className="anchor-with-padding" id="patternkind.options">`options`<a class="hash-link" href="#patternkind.options"></a></div> | { "dir": string } (required) |  | undefined |
 	
 
 
@@ -223,7 +223,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="cliarg.short">`short`<a class="hash-link" href="#cliarg.short"></a></div> | string? | _null_ | The short version of the argument, without the preceding -.<br /><br />NOTE: Any leading `-` characters will be stripped, and only the first non-character will be used as the short version. |
-| <div className="anchor-with-padding" id="cliarg.name">`name`<a class="hash-link" href="#cliarg.name"></a></div> | string (required) | _null_ | The unique argument name |
+| <div className="anchor-with-padding" id="cliarg.name">`name`<a class="hash-link" href="#cliarg.name"></a></div> | string (required) |  | The unique argument name |
 | <div className="anchor-with-padding" id="cliarg.description">`description`<a class="hash-link" href="#cliarg.description"></a></div> | string? | _null_ | The argument description which will be shown on the help information. Typically, this is a short (one line) description of the arg. |
 | <div className="anchor-with-padding" id="cliarg.longdescription">`longDescription`<a class="hash-link" href="#cliarg.longdescription"></a></div> | string? | _null_ | The argument long description which will be shown on the help information. Typically this a more detailed (multi-line) message that describes the argument. |
 | <div className="anchor-with-padding" id="cliarg.takesvalue">`takesValue`<a class="hash-link" href="#cliarg.takesvalue"></a></div> | boolean | `false` | Specifies that the argument takes a value at run time.<br /><br />NOTE: values for arguments may be specified in any of the following methods<br />- Using a space such as -o value or --option value<br />- Using an equals and no space such as -o=value or --option=value<br />- Use a short and no space such as -ovalue |
@@ -257,7 +257,7 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | boolean | `false` | Whether Tauri should bundle your application or just output the executable. |
 | <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "nsis", "msi", "app", "dmg", "updater"] or "all". |
-| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | string (required) | _null_ | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
+| <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | string (required) |  | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | string? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | [string] | [] | The app's icons |
 | <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | array? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
@@ -371,7 +371,7 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "skip" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "skip" (required) |  | undefined |
 	
 
 - `{ "type": "downloadBootstrapper", "silent": boolean }`: Download the bootstrapper and run it. Requires an internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
@@ -379,7 +379,7 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "downloadBootstrapper" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "downloadBootstrapper" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
 	
 
@@ -388,7 +388,7 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "embedBootstrapper" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "embedBootstrapper" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
 	
 
@@ -397,7 +397,7 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "offlineInstaller" (required) | _null_ | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "offlineInstaller" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the installer in silent mode. Defaults to `true`. |
 	
 
@@ -406,8 +406,8 @@ Can be any **ONE** of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "fixedRuntime" (required) | _null_ | undefined |
-	| <div className="anchor-with-padding" id="webviewinstallmode.path">`path`<a class="hash-link" href="#webviewinstallmode.path"></a></div> | string (required) | _null_ | The path to the fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
+	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "fixedRuntime" (required) |  | undefined |
+	| <div className="anchor-with-padding" id="webviewinstallmode.path">`path`<a class="hash-link" href="#webviewinstallmode.path"></a></div> | string (required) |  | The path to the fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
 	
 
 
@@ -644,7 +644,7 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="shellallowedcommand.name">`name`<a class="hash-link" href="#shellallowedcommand.name"></a></div> | string (required) | _null_ | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
+| <div className="anchor-with-padding" id="shellallowedcommand.name">`name`<a class="hash-link" href="#shellallowedcommand.name"></a></div> | string (required) |  | The name for this allowed shell command configuration.<br /><br />This name will be used inside of the webview API to call this command along with any specified arguments. |
 | <div className="anchor-with-padding" id="shellallowedcommand.cmd">`cmd`<a class="hash-link" href="#shellallowedcommand.cmd"></a></div> | string | _null_ | The command name. It can start with a variable that resolves to a system base directory. The variables are: `$AUDIO`, `$CACHE`, `$CONFIG`, `$DATA`, `$LOCALDATA`, `$DESKTOP`, `$DOCUMENT`, `$DOWNLOAD`, `$EXE`, `$FONT`, `$HOME`, `$PICTURE`, `$PUBLIC`, `$RUNTIME`, `$TEMPLATE`, `$VIDEO`, `$RESOURCE`, `$APP`, `$LOG`, `$TEMP`, `$APPCONFIG`, `$APPDATA`, `$APPLOCALDATA`, `$APPCACHE`, `$APPLOG`. |
 | <div className="anchor-with-padding" id="shellallowedcommand.args">`args`<a class="hash-link" href="#shellallowedcommand.args"></a></div> | [`ShellAllowedArgs`](#shellallowedargs) | `false` | The allowed arguments for the command execution. |
 | <div className="anchor-with-padding" id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | boolean | `false` | If this command is a sidecar command. |
@@ -674,7 +674,7 @@ Can be any of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) | _null_ | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
+	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) |  | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
 	
 
 
@@ -885,8 +885,8 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.scheme">`scheme`<a class="hash-link" href="#remotedomainaccessscope.scheme"></a></div> | string? | _null_ | The URL scheme to allow. By default, all schemas are allowed. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | string (required) | _null_ | The domain to allow. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | [string] (required) | _null_ | The list of window labels this scope applies to. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | string (required) |  | The domain to allow. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | [string] (required) |  | The list of window labels this scope applies to. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.plugins">`plugins`<a class="hash-link" href="#remotedomainaccessscope.plugins"></a></div> | [string] | [] | The list of plugins that are allowed in this scope. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.enabletauriapi">`enableTauriAPI`<a class="hash-link" href="#remotedomainaccessscope.enabletauriapi"></a></div> | boolean | `false` | Enables access to the Tauri API. |
 
@@ -946,7 +946,7 @@ Type: `object`
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| <div className="anchor-with-padding" id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | string (required) | _null_ | Path to the default icon to use on the system tray. |
+| <div className="anchor-with-padding" id="systemtrayconfig.iconpath">`iconPath`<a class="hash-link" href="#systemtrayconfig.iconpath"></a></div> | string (required) |  | Path to the default icon to use on the system tray. |
 | <div className="anchor-with-padding" id="systemtrayconfig.iconastemplate">`iconAsTemplate`<a class="hash-link" href="#systemtrayconfig.iconastemplate"></a></div> | boolean | `false` | A Boolean value that determines whether the image represents a [template](https://developer.apple.com/documentation/appkit/nsimage/1520017-template?language=objc) image on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.menuonleftclick">`menuOnLeftClick`<a class="hash-link" href="#systemtrayconfig.menuonleftclick"></a></div> | boolean | `true` | A Boolean value that determines whether the menu should appear when the tray icon receives a left click on macOS. |
 | <div className="anchor-with-padding" id="systemtrayconfig.title">`title`<a class="hash-link" href="#systemtrayconfig.title"></a></div> | string? | _null_ | Title for MacOS tray |
@@ -992,7 +992,7 @@ Can be any of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="beforedevcommand.script">`script`<a class="hash-link" href="#beforedevcommand.script"></a></div> | string (required) | _null_ | The script to execute. |
+	| <div className="anchor-with-padding" id="beforedevcommand.script">`script`<a class="hash-link" href="#beforedevcommand.script"></a></div> | string (required) |  | The script to execute. |
 	| <div className="anchor-with-padding" id="beforedevcommand.cwd">`cwd`<a class="hash-link" href="#beforedevcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
 	| <div className="anchor-with-padding" id="beforedevcommand.wait">`wait`<a class="hash-link" href="#beforedevcommand.wait"></a></div> | boolean | `false` | Whether `tauri dev` should wait for the command to finish or not. Defaults to `false`. |
 	
@@ -1011,7 +1011,7 @@ Can be any of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="hookcommand.script">`script`<a class="hash-link" href="#hookcommand.script"></a></div> | string (required) | _null_ | The script to execute. |
+	| <div className="anchor-with-padding" id="hookcommand.script">`script`<a class="hash-link" href="#hookcommand.script"></a></div> | string (required) |  | The script to execute. |
 	| <div className="anchor-with-padding" id="hookcommand.cwd">`cwd`<a class="hash-link" href="#hookcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
 	
 
