@@ -11,36 +11,73 @@ const schema = JSON.parse(schemaString)
 const targetPath = path.join(__dirname, '../docs/api/config.md')
 const nullMarkdown = '_null_'
 
-const output = []
+const header = `---
+toc_max_heading_level: 5
+---
 
-buildObject(null, schema, 1)
+`
 
-function buildObject(key, value) {
-  var headerTitle, headerLevel
-  if (value.title) {
-    headerTitle = 'Configuration'
-    headerLevel = 1
-  } else {
-    headerTitle = key
-    headerLevel = headerTitle.endsWith('Config') ? 3 : 4
-  }
+const builtDefinitions = []
+
+function buildObject(key, value, headerLevel) {
+  let out = []
+
+  var headerTitle = value.title ? 'Configuration' : key
 
   var header = `${'#'.repeat(headerLevel)} ${headerTitle}\n`
 
-  output.push(header)
-  output.push(`${descriptionConstructor(value.description)}\n`)
-
-  if (headerLevel > 1) {
-    output.push(`${longFormTypeConstructor(key, value)}\n`)
-    output.push(buildProperties(headerTitle, value).join('\n'))
-  } else {
-    Object.entries(value.definitions).forEach(([innerKey, innerValue]) => {
-      buildObject(innerKey, innerValue)
-    })
+  if (headerLevel === 1) {
+    headerLevel = 2
   }
+
+  out.push(header)
+  out.push(`${descriptionConstructor(value.description)}\n`)
+
+  out.push(`${longFormTypeConstructor(key, value, headerLevel)}\n`)
+  out = out.concat(buildProperties(headerTitle, value, headerLevel))
+
+  out = out.concat(inspectRef(value, headerLevel + 1))
+
+  return out
 }
 
-function buildProperties(parentName, object) {
+function buildDef(name, headerLevel) {
+  const def = name.replace('#/definitions/', '')
+  if (!builtDefinitions.includes(def)) {
+    builtDefinitions.push(def)
+    const obj = schema.definitions[def]
+    return buildObject(def, obj, headerLevel)
+  }
+  return []
+}
+
+function inspectRef(object, headerLevel) {
+  let out = []
+
+  if (object.$ref) {
+    out = out.concat(buildDef(object.$ref, headerLevel))
+  }
+
+  if (object.additionalProperties && object.additionalProperties.$ref) {
+    out = out.concat(buildDef(object.additionalProperties.$ref, headerLevel))
+  }
+
+  if (object.items && object.items.$ref) {
+    out = out.concat(buildDef(object.items.$ref, headerLevel))
+  }
+
+  for (const opt of object.allOf || []) {
+    out = out.concat(inspectRef(opt, headerLevel))
+  }
+
+  for (const opt of object.anyOf || []) {
+    out = out.concat(inspectRef(opt, headerLevel))
+  }
+
+  return out
+}
+
+function buildProperties(parentName, object, headerLevel) {
   const out = []
   if (!object.properties) return out
 
@@ -49,6 +86,8 @@ function buildProperties(parentName, object) {
   // Build table header
   out.push('| Name | Type | Default | Description |')
   out.push('| ---- | ---- | ------- | ----------- |')
+
+  let definitions = []
 
   // Populate table
   Object.entries(object.properties).forEach(([key, value]) => {
@@ -72,11 +111,13 @@ function buildProperties(parentName, object) {
         true
       )} |`
     )
+
+    definitions = definitions.concat(inspectRef(value, headerLevel + 1))
   })
 
   out.push('\n')
 
-  return out
+  return out.concat(definitions)
 }
 
 function descriptionConstructor(description, fixNewlines = false) {
@@ -301,7 +342,7 @@ function listDescription(description) {
   return description.replace('\n\n', '\n\n\t')
 }
 
-function longFormTypeConstructor(key, object) {
+function longFormTypeConstructor(key, object, headerLevel) {
   if (object.enum) {
     var buffer = []
     buffer.push(`Can be any of the following \`${object.type}\` values:`)
@@ -327,7 +368,7 @@ function longFormTypeConstructor(key, object) {
       if (hasProperties) {
         buffer.push('\n\t')
         buffer.push(
-          buildProperties(key, item)
+          buildProperties(key, item, headerLevel)
             .map((line) => `\t${line}`)
             .join('\n')
         )
@@ -354,7 +395,7 @@ function longFormTypeConstructor(key, object) {
       if ('properties' in item) {
         buffer.push('\n\t')
         buffer.push(
-          buildProperties(key, item)
+          buildProperties(key, item, headerLevel)
             .map((line) => `\t${line}`)
             .join('\n')
         )
@@ -410,4 +451,5 @@ function refLinkConstructor(string, nullable = false) {
   return `[\`${name}\`](#${name.toLowerCase()})${nullable ? '?' : ''}`
 }
 
-fs.writeFileSync(targetPath, output.join('\n'))
+const config = buildObject(null, schema, 1).join('\n')
+fs.writeFileSync(targetPath, `${header}${config}`)
