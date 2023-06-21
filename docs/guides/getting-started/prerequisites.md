@@ -292,6 +292,7 @@ To create Tauri development environments using [Guix shell], copy the following 
 
        "curl"
        "wget"
+       "file"
        "pkg-config"
        "gsettings-desktop-schemas"))
 ```
@@ -305,6 +306,7 @@ sudo xbps-install -S \
     webkit2gtk-devel \
     curl \
     wget \
+    file \
     openssl \
     gtk+3-devel \
     libappindicator \
