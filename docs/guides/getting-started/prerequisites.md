@@ -140,7 +140,7 @@ sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
     curl \
     wget \
-    libappindicator-gtk3 \
+    libappindicator-gtk3-devel \
     librsvg2-devel
 sudo dnf group install "C Development Tools and Libraries"
 ```
