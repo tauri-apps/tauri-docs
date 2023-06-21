@@ -37,7 +37,7 @@ tauri build --target aarch64-pc-windows-msvc
 
 :::info
 
-Only the NSIS target supports ARM64 targets, so if you configured tauri to compile all bundle types you may want to change the above command to `tauri build --target aarch64-pc-windows-msvc --bundle nsis` to only build the NSIS installer.
+Only the NSIS target supports ARM64 targets, so if you configured tauri to compile all bundle types you may want to change the above command to `tauri build --target aarch64-pc-windows-msvc --bundles nsis` to only build the NSIS installer.
 
 Note that the installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
 
