@@ -4,51 +4,41 @@ The path module provides utilities for working with file and directory paths.
 
 This package is also accessible with `window.__TAURI__.path` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
 
-The APIs must be added to [`tauri.allowlist.path`](https://tauri.app/v1/api/config/#allowlistconfig.path) in `tauri.conf.json`:
-```json
-{
-  "tauri": {
-    "allowlist": {
-      "path": {
-        "all": true, // enable all Path APIs
-      }
-    }
-  }
-}
-```
 It is recommended to allowlist only the APIs you use for optimal bundle size and security.
 
-## References
+## Enumerations
 
 ### `BaseDirectory`
 
-Re-exports [BaseDirectory](fs.md#basedirectory)
+**Since**: 2.0.0
 
-## Variables
+#### Enumeration Members
 
-### `delimiter`
-
-> `Const` **delimiter**: `";"` \| `":"`
-
-Provides the platform-specific path segment delimiter:
-- `;` on Windows
-- `:` on POSIX
-
-**Since**: 1.0.0
-
-**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/path.ts#L660)
-
-### `sep`
-
-> `Const` **sep**: `"\\"` \| `"/"`
-
-Provides the platform-specific path segment separator:
-- `\` on Windows
-- `/` on POSIX
-
-**Since**: 1.0.0
-
-**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/path.ts#L651)
+| Name | Type | Defined in |
+| :------ | :------ | :------ |
+| <div class="anchor-with-padding" id="path.BaseDirectory.AppCache"><a href="#path.BaseDirectory.AppCache">`AppCache`</a></div> | `16` | [path.ts:35](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L35) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.AppConfig"><a href="#path.BaseDirectory.AppConfig">`AppConfig`</a></div> | `13` | [path.ts:32](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L32) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.AppData"><a href="#path.BaseDirectory.AppData">`AppData`</a></div> | `14` | [path.ts:33](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L33) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.AppLocalData"><a href="#path.BaseDirectory.AppLocalData">`AppLocalData`</a></div> | `15` | [path.ts:34](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L34) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.AppLog"><a href="#path.BaseDirectory.AppLog">`AppLog`</a></div> | `17` | [path.ts:36](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L36) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Audio"><a href="#path.BaseDirectory.Audio">`Audio`</a></div> | `1` | [path.ts:20](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L20) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Cache"><a href="#path.BaseDirectory.Cache">`Cache`</a></div> | `2` | [path.ts:21](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L21) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Config"><a href="#path.BaseDirectory.Config">`Config`</a></div> | `3` | [path.ts:22](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L22) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Data"><a href="#path.BaseDirectory.Data">`Data`</a></div> | `4` | [path.ts:23](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L23) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Desktop"><a href="#path.BaseDirectory.Desktop">`Desktop`</a></div> | `18` | [path.ts:38](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L38) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Document"><a href="#path.BaseDirectory.Document">`Document`</a></div> | `6` | [path.ts:25](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L25) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Download"><a href="#path.BaseDirectory.Download">`Download`</a></div> | `7` | [path.ts:26](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L26) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Executable"><a href="#path.BaseDirectory.Executable">`Executable`</a></div> | `19` | [path.ts:39](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L39) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Font"><a href="#path.BaseDirectory.Font">`Font`</a></div> | `20` | [path.ts:40](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L40) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Home"><a href="#path.BaseDirectory.Home">`Home`</a></div> | `21` | [path.ts:41](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L41) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.LocalData"><a href="#path.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [path.ts:24](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L24) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Picture"><a href="#path.BaseDirectory.Picture">`Picture`</a></div> | `8` | [path.ts:27](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L27) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Public"><a href="#path.BaseDirectory.Public">`Public`</a></div> | `9` | [path.ts:28](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L28) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Resource"><a href="#path.BaseDirectory.Resource">`Resource`</a></div> | `11` | [path.ts:30](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L30) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Runtime"><a href="#path.BaseDirectory.Runtime">`Runtime`</a></div> | `22` | [path.ts:42](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L42) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Temp"><a href="#path.BaseDirectory.Temp">`Temp`</a></div> | `12` | [path.ts:31](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L31) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Template"><a href="#path.BaseDirectory.Template">`Template`</a></div> | `23` | [path.ts:43](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L43) |
+| <div class="anchor-with-padding" id="path.BaseDirectory.Video"><a href="#path.BaseDirectory.Video">`Video`</a></div> | `10` | [path.ts:29](https://github.com/tauri-apps/tauri/blob/0ef9c6b/tooling/api/src/path.ts#L29) |
 
 ## Functions
 
@@ -103,20 +93,6 @@ const appDataDirPath = await appDataDir();
 ```
 
 **Since**: 1.2.0
-
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-### `appDir`
-
-> **appDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-Returns the path to the suggested directory for your app config files.
-
-**Deprecated**
-
-since 1.2.0: Will be removed in 2.0.0. Use [appConfigDir](path.md#appconfigdir) or [appDataDir](path.md#appdatadir) instead.
-
-**Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
@@ -278,6 +254,18 @@ const dataDirPath = await dataDir();
 **Since**: 1.0.0
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `delimiter`
+
+> **delimiter**(): `string`
+
+Returns the platform-specific path segment delimiter:
+- `;` on Windows
+- `:` on POSIX
+
+**Since**: 2.0.0
+
+**Returns: **`string`
 
 ### `desktopDir`
 
@@ -536,20 +524,6 @@ const localDataDirPath = await localDataDir();
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
-### `logDir`
-
-> **logDir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
-Returns the path to the suggested log directory.
-
-**Deprecated**
-
-since 1.2.0: Will be removed in 2.0.0. Use [appLogDir](path.md#applogdir) instead.
-
-**Since**: 1.0.0
-
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
-
 ### `normalize`
 
 > **normalize**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
@@ -707,6 +681,41 @@ const runtimeDirPath = await runtimeDir();
 ```
 
 **Since**: 1.0.0
+
+**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+### `sep`
+
+> **sep**(): `string`
+
+Returns the platform-specific path segment separator:
+- `\` on Windows
+- `/` on POSIX
+
+**Since**: 2.0.0
+
+**Returns: **`string`
+
+### `tempDir`
+
+> **tempDir**(`path`: `string`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+
+Returns a temporary directory.
+
+**Example**
+
+```typescript
+import { tempDir } from '@tauri-apps/api/path';
+const temp = await tempDir();
+```
+
+**Since**: 2.0.0
+
+**Parameters**
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
 
 **Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
