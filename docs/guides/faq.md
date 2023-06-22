@@ -15,8 +15,8 @@ Append this to your `Cargo.toml` file:
 
 ```toml title=Cargo.toml
 [patch.crates-io]
-tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
-tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
+tauri = { git = "https://github.com/tauri-apps/tauri", branch = "1.x" }
+tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "1.x" }
 ```
 
 This will force all your dependencies to use `tauri` and `tauri-build` from Git instead of crates.io.
@@ -29,14 +29,15 @@ This will force all your dependencies to use `tauri` and `tauri-build` from Git 
 If you are using the Cargo CLI, you can install it directly from GitHub:
 
 ```shell
-cargo install --git https://github.com/tauri-apps/tauri --branch dev tauri-cli
+cargo install --git https://github.com/tauri-apps/tauri --branch 1.x tauri-cli
 ```
 
 If you are using the `@tauri-apps/cli` package, you will need to clone the repo and build it:
 
 ```shell
 git clone https://github.com/tauri-apps/tauri
-git checkout dev
+cd tauri
+git checkout 1.x
 cd tauri/tooling/cli/node
 yarn
 yarn build
@@ -67,7 +68,8 @@ To build it from source, run the following script:
 
 ```shell
 git clone https://github.com/tauri-apps/tauri
-git checkout dev
+cd tauri
+git checkout 1.x
 cd tauri/tooling/api
 yarn
 yarn build
