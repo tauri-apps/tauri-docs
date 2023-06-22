@@ -65,7 +65,8 @@ The table below maps an OS version to the corresponding WebKit Safari versions s
 | OS Name     | OS Version                       | WebKit Version   | Safari Version | Notes                                                         |
 | ----------- | -------------------------------- | ---------------- | -------------- | ------------------------------------------------------------- |
 | Sonoma      | 14.0 (Beta)                      | 616.1.14.11.11   | 17.0           | Verified on a 2023 M2 14" MacBook Pro                         |
-| Ventura     | 13.3.1                           | 615.1.26.11.23   |                | Verified on a 2023 M2 14" MacBook Pro                         |
+| Ventura     | 13.4.1                           | 615.2.9.11.7     | 16.5.1         | Verified on a 2023 M2 14" MacBook Pro                         |
+|             | 13.3.1                           | 615.1.26.11.23   |                | Verified on a 2023 M2 14" MacBook Pro                         |
 |             | 13.3                             | 615.1.26.11.22   | 16.4           | Verified on a 2023 M2 14" MacBook Pro                         |
 |             | 13.2.1                           | 614.4.6.1.6      |                |                                                               |
 |             | 13.2                             | ?                | 16.3           |                                                               |
