@@ -232,6 +232,7 @@ function typeConstructor(object, describeObject = false) {
               : `${m}${object.type}${m}`
             break
           case 'number':
+          case 'integer':
           case 'boolean':
             typeString = `${m}${object.type}${m}`
             break
@@ -331,6 +332,21 @@ function typeConstructor(object, describeObject = false) {
 
   if (object.enum) {
     return `${m}${object.enum.map((e) => `"${e}"`).join(', ')}${m}`
+  }
+
+  if (Array.isArray(object)) {
+    if (describeObject) {
+      const type = []
+      for (const obj of object) {
+        type.push(typeConstructor(obj))
+      }
+      if (type.every((t) => t === type[0])) {
+        return `${m}${type[0]}${m}`
+      }
+      return `${m}[${type.join(', ')}]${m}`
+    } else {
+      return `${m}array${m}`
+    }
   }
 
   console.log('A type was not able to be parsed:', object)
