@@ -107,6 +107,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
     build-essential \
     curl \
     wget \
+    file \
     libssl-dev \
     libgtk-3-dev \
     libayatana-appindicator3-dev \
@@ -123,6 +124,7 @@ sudo pacman -S --needed \
     base-devel \
     curl \
     wget \
+    file \
     openssl \
     appmenu-gtk-module \
     gtk3 \
@@ -140,6 +142,7 @@ sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
     curl \
     wget \
+    file \
     libappindicator-gtk3-devel \
     librsvg2-devel
 sudo dnf group install "C Development Tools and Libraries"
@@ -155,7 +158,8 @@ sudo emerge --ask \
     net-libs/webkit-gtk:4 \
     dev-libs/libappindicator \
     net-misc/curl \
-    net-misc/wget
+    net-misc/wget \
+    sys-apps/file
 ```
 
 Note: A desktop profile is recommended to set the appropriate USE flags for webkit-gtk
@@ -169,6 +173,7 @@ sudo zypper in webkit2gtk3-soup2-devel \
     libopenssl-devel \
     curl \
     wget \
+    file \
     libappindicator3-1 \
     librsvg-devel
 sudo zypper in -t pattern devel_basis
@@ -287,6 +292,7 @@ To create Tauri development environments using [Guix shell], copy the following 
 
        "curl"
        "wget"
+       "file"
        "pkg-config"
        "gsettings-desktop-schemas"))
 ```
@@ -300,6 +306,7 @@ sudo xbps-install -S \
     webkit2gtk-devel \
     curl \
     wget \
+    file \
     openssl \
     gtk+3-devel \
     libappindicator \
