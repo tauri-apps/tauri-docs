@@ -156,6 +156,23 @@ function descriptionConstructor(description, fixNewlines = false) {
     description = newDescription
   }
 
+  const referenceStyleLinksRegex = /(\[[A-Za-z0-9 ]+\]): (.+)/g
+  const referenceStyleLinksMatches = referenceStyleLinksRegex.exec(description)
+  if (referenceStyleLinksMatches) {
+    let link = referenceStyleLinksMatches[2]
+    // strip `<` and `>` from `<$url>`
+    if (link.startsWith('<')) {
+      link = link.substring(1, link.length - 1)
+    }
+    description = description
+      .replace(referenceStyleLinksMatches[0], '')
+      .replace(
+        referenceStyleLinksMatches[1],
+        `${referenceStyleLinksMatches[1]}(${link})`
+      )
+      .trim()
+  }
+
   // Fix any embedded new lines
   if (fixNewlines) {
     description = description.replaceAll('\n', '<br />')
