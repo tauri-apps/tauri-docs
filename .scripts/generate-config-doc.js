@@ -21,6 +21,7 @@ const builtDefinitions = []
 
 function buildObject(key, value, headerLevel) {
   let out = []
+  headerLevel = Math.min(headerLevel, 6)
 
   var headerTitle = value.title ? 'Configuration' : key
 
