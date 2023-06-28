@@ -442,7 +442,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="wixconfig.dialogimagepath">`dialogImagePath`<a class="hash-link" href="#wixconfig.dialogimagepath"></a></div> | string? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
 
 
-####### WixLanguage
+###### WixLanguage
 
 The languages to build using WiX.
 
@@ -452,7 +452,7 @@ Can be any of the following types:
 - `string[]`: A list of languages to build, without configuration.
 - [`WixLanguageConfig`](#wixlanguageconfig): A map of languages and its configuration.
 
-######## WixLanguageConfig
+###### WixLanguageConfig
 
 Configuration for a target language for the WiX build.
 
@@ -482,7 +482,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="nsisconfig.displaylanguageselector">`displayLanguageSelector`<a class="hash-link" href="#nsisconfig.displaylanguageselector"></a></div> | boolean | `false` | Whether to display a language selector dialog before the installer and uninstaller windows are rendered or not. By default the OS language is selected, with a fallback to the first language in the `languages` array. |
 
 
-####### NSISInstallerMode
+###### NSISInstallerMode
 
 Install Modes for the NSIS installer.
 
@@ -639,7 +639,7 @@ Shell scope definition. It is a list of command names and associated CLI argumen
 
 Type: [`ShellAllowedCommand`](#shellallowedcommand)
 
-####### ShellAllowedCommand
+###### ShellAllowedCommand
 
 A command allowed to be executed by the webview API.
 
@@ -653,7 +653,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="shellallowedcommand.sidecar">`sidecar`<a class="hash-link" href="#shellallowedcommand.sidecar"></a></div> | boolean | `false` | If this command is a sidecar command. |
 
 
-######## ShellAllowedArgs
+###### ShellAllowedArgs
 
 A set of command arguments allowed to be executed by the webview API.
 
@@ -664,7 +664,7 @@ Can be any of the following types:
 - `boolean`: Use a simple boolean to allow all or disable all arguments to this command configuration.
 - [`ShellAllowedArg`](#shellallowedarg): A specific set of [`ShellAllowedArg`] that are valid to call for the command configuration.
 
-######### ShellAllowedArg
+###### ShellAllowedArg
 
 A command argument allowed to be executed by the webview API.
 
