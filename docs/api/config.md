@@ -169,7 +169,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.titlebarstyle">`titleBarStyle`<a class="hash-link" href="#windowconfig.titlebarstyle"></a></div> | [`TitleBarStyle`](#titlebarstyle) | [view](#titlebarstyle) | The style of the macOS title bar. |
 | <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | boolean | `false` | If `true`, sets the window title to be hidden on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.acceptfirstmouse">`acceptFirstMouse`<a class="hash-link" href="#windowconfig.acceptfirstmouse"></a></div> | boolean | `false` | Whether clicking an inactive window also clicks through to the webview on macOS. |
-| <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | string? | _null_ | Defines the window [tabbing identifier] for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled.<br /><br />[tabbing identifier]: <https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier> |
+| <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | string? | _null_ | Defines the window [tabbing identifier](https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier) for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled. |
 | <div className="anchor-with-padding" id="windowconfig.additionalbrowserargs">`additionalBrowserArgs`<a class="hash-link" href="#windowconfig.additionalbrowserargs"></a></div> | string? | _null_ | Defines additional browser arguments on Windows. By default wry passes `--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection` so if you use this method, you also need to disable these components by yourself if you want. |
 
 
@@ -676,7 +676,7 @@ Can be any of the following types:
 	
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
-	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) |  | [regex] validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed.<br /><br />[regex]: https://docs.rs/regex/latest/regex/#syntax |
+	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) |  | [regex](https://docs.rs/regex/latest/regex/#syntax) validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed. |
 	
 
 
