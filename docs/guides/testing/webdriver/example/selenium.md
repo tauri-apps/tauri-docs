@@ -156,7 +156,7 @@ before(async function () {
   // start the webdriver client
   driver = await new Builder()
     .withCapabilities(capabilities)
-    .usingServer('http://localhost:4444/')
+    .usingServer('http://127.0.0.1:4444/')
     .build()
 })
 
