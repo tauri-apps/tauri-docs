@@ -201,7 +201,7 @@ Depending on your needs you can use one of the two following options:
 
 **Keep the Backend Running in the Background**
 
-If your backend should run in the background, you can call `api.prevent_close()` like so:
+If your backend should run in the background, you can call `api.prevent_exit()` like so:
 
 ```rust
 tauri::Builder::default()
