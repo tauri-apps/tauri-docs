@@ -37,7 +37,7 @@ export const CreateTauriApp = () => {
       </TabItem>
       <TabItem value="Cargo">
         <CodeBlock className="language-shell" language="shell">
-          {`cargo install create-tauri-app
+          {`cargo install create-tauri-app --locked
 cargo create-tauri-app`}
         </CodeBlock>
       </TabItem>
