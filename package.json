@@ -12,7 +12,7 @@
     "@docusaurus/core": "=2.4.1",
     "@docusaurus/plugin-pwa": "=2.4.1",
     "@docusaurus/preset-classic": "=2.4.1",
-    "@fontsource/rubik": "5.0.3",
+    "@fontsource/rubik": "5.0.4",
     "@mdx-js/react": "1.6.22",
     "apexcharts": "3.41.0",
     "bootstrap-icons": "1.10.5",
