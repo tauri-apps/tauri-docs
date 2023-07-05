@@ -13,51 +13,44 @@ The first step is to install [Rust] and system dependencies. Keep in mind that t
 
 ### Setting Up Windows
 
-#### 1. Microsoft Visual Studio C++ Build Tools
+### 1. Download and install this https://aka.ms/vs/17/release/vs_BuildTools.exe
 
-You will need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/ada7f8ef-86ed-4443-9e4f-3b84e42a9687)
 
-<figure>
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/a7e7d966-562a-4d4e-a69f-7a172da4589e)
 
-![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
+### 2. Download Evergreen Bootstrapper driver https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 
-<figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
-</figure>
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/cff372bc-8335-452d-8b4b-f5f0780782f7)
 
-#### 2. WebView2
+### 3.Install rust on your system https://www.rust-lang.org/tools/install
 
-:::note
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/81ce5dde-c8cf-4697-a0d0-c792a0d85654)
 
-On Windows 10 (Version 1803 and later with all updates applied) and Windows 11, the WebView2 runtime is distributed as part of the operating system.
+### 4.Open download file and inside the terminal insert 1 and press enter.
 
-:::
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/b7a7f3a9-3fb9-4865-8046-836db2dc2598)
 
-Tauri heavily depends on WebView2 to render web content on Windows, therefore you must have WebView2 installed. The easiest way is to download and run the Evergreen Bootstrapper from [Microsoft's website][download webview2].
+### 5. You should get this message after the installing
 
-The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues (especially with Windows on ARM) you can select the correct standalone installer.
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/f337d1d2-4e90-4b08-ba60-9944b5dba82f)
 
-#### 3. Rust
+### 6.Open terminal using commanand proport.
 
-Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases, Windows itself, for the changes to take effect.
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/dda4a6c2-dd18-481c-8808-1dc2c5919936)
 
-Alternatively, you could use `winget` to install rustup using the following command in PowerShell:
+### 7. Make sure you have latest Rust version on your system. Type in the command prompt:
 
-```powershell
-winget install --id Rustlang.Rustup
-```
+ ```rustup update```
 
-:::caution MSVC toolchain as default
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/b4a6aee2-f264-488b-83d7-105448dd4e04)
 
-For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+### 8. To check whether you have Rust installed correctly, open a shell and enter this command:
+   ``` rustc --version ```
+    
+![image](https://github.com/AlphaOmegaGithub/Neuro-Omega-React/assets/127298010/ec2142ba-3fcb-4c99-80a7-411cead3f702)
 
-If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
-
-```powershell
-rustup default stable-msvc
-```
-
-:::
+### 9. Restart your computer, and Done!
 
 ### Setting Up macOS
 
