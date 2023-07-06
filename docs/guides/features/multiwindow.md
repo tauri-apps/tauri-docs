@@ -62,7 +62,7 @@ tauri::Builder::default()
     ).build()?;
     Ok(())
   })
-  .run(tauri::generate_default!())
+  .run(tauri::generate_context!())
   .expect("error while running app");
 ```
 
