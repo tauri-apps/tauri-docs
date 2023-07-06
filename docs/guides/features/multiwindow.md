@@ -62,6 +62,8 @@ tauri::Builder::default()
     ).build()?;
     Ok(())
   })
+  .run(tauri::generate_context!())
+  .expect("error while running app");
 ```
 
 Using the setup hook ensures static windows and Tauri plugins are initialized.
@@ -83,6 +85,9 @@ let local_window = tauri::WindowBuilder::new(
   "local",
   tauri::WindowUrl::App("index.html".into())
 ).build()?;
+
+// This will start the app and no other code below this will run.
+app.run(|_, _| {});
 ```
 
 This method is useful when you cannot move ownership of values to the setup closure.
