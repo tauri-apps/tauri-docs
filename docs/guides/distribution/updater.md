@@ -9,7 +9,7 @@ import updaterDialogImage from '/img/guides/distribution/updater/update-availabl
 
 # Updater
 
-Tauri offers a built-in updater for the MSI (Windows), AppImage (Linux) and App bundle (macOS) distribution formats.
+Tauri offers a built-in updater for the NSIS (Windows), MSI (Windows), AppImage (Linux) and App bundle (macOS) distribution formats.
 
 Once your Tauri project is ready, you can configure Tauri's updater to enable auto updating for your users.
 
@@ -128,7 +128,10 @@ After that, you can run `tauri build` as usual and Tauri will generate the updat
   - `myapp.app.tar.gz` - the updater bundle.
   - `myapp.app.tar.gz.sig` - the signature of the update bundle.
 
-- **Window**: On Windows, Tauri will create a `.zip` archive from the MSI installer inside the `target/release/bundle/msi/` folder:
+- **Windows**: On Windows, Tauri will create `.zip` archives from the MSI and NSIS installers inside the `target/release/bundle/msi/` and `target/release/bundle/nsis` folders:
+  - `myapp-setup.exe` - the standard app bundle.
+  - `myapp-setup.nsis.zip` - the updater bundle.
+  - `myapp-setup.nsis.zip.sig` - the signature of the update bundle.
   - `myapp.msi` - the standard app bundle.
   - `myapp.msi.zip` - the updater bundle.
   - `myapp.msi.zip.sig` - the signature of the update bundle.
@@ -167,8 +170,8 @@ With this approach, Tauri will always request the same JSON file and determine i
       "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "Content of app.msi.sig",
-      "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-x64.msi.zip"
+      "signature": "Content of app-setup.nsis.sig or app.msi.sig, depending on the chosen format",
+      "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-x64-setup.nsis.zip"
     }
   }
 }
