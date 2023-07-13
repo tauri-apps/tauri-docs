@@ -13,19 +13,7 @@ The first step is to install [Rust] and system dependencies. Keep in mind that t
 
 ### Setting Up Windows
 
-#### 1. Microsoft Visual Studio C++ Build Tools
-
-You will need to install Microsoft Visual Studio C++ build tools. The easiest way is to install [Build Tools for Visual Studio 2022]. When asked which workloads to install, ensure "C++ build tools" and the Windows 10 SDK are selected.
-
-<figure>
-
-![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
-![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
-
-<figcaption>Listing 1-1: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
-</figure>
-
-#### 2. WebView2
+Tauri requires `Rust`, `Microsoft Visual Studio C++ Build Tools` and `WebView2` to be present on the system. Since `rustup` version 1.25.0 (2022-07-11) the Rust installer can install a minimum installation of the C++ Build Tools automatically if Visual Studio is _not_ already on the system.
 
 :::note
 
@@ -37,7 +25,44 @@ Tauri heavily depends on WebView2 to render web content on Windows, therefore yo
 
 The bootstrapper script will try to determine the correct architecture and version for your system. Still, if you run into issues (especially with Windows on ARM) you can select the correct standalone installer.
 
-#### 3. Rust
+#### Automatic Installation
+
+**If you already have an existing Visual Studio installation, please go to [Manual Installation].**
+
+First, go to [https://www.rust-lang.org/tools/install][install rust] to download `rustup` (the Rust installer). Once you run the downloaded `rustup-init.exe` file it will open the following dialog.
+
+<figure>
+
+![Rustup install Visual Studio components](/img/guides/getting-started/prerequisites/rustup-vs.png)
+
+</figure>
+
+Type `1` and press enter to start the Visual Studio installer. In the new Visual Studio dialog, click on "install" and while it is downloading the files, make sure to de-select the "start after installation" checkbox. Once the download is complete, close the VS installer and return to the rustup window.
+
+<figure>
+
+![Rustup main installation dialog](/img/guides/getting-started/prerequisites/rustup-main.png)
+
+</figure>
+
+For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple`. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`. Then, type `1` and press enter to install Rust. Lastly, restart the terminal (sometimes a full system restart is required instead).
+
+#### Manual Installation
+
+If you don't already have Visual Studio installed, you can download the Microsoft Visual Studio C++ build tools here: [Build Tools for Visual Studio 2022]. Note that Tauri requires at least version 2019. **2017 and below do not work!**
+
+<!-- <figure>
+
+![Microsoft Visual Studio Installer](./vs-installer-light.png#gh-light-mode-only)
+![Microsoft Visual Studio Installer](./vs-installer-dark.png#gh-dark-mode-only)
+
+<figcaption>Listing 1-3: Selecting "C++ build tools" and "Windows 10 SDK" using the Visual Studio Build Tools 2022 installer.</figcaption>
+</figure> -->
+
+In the Visual Installer window you can now select the components to install. To do that, click on "[Individual components]". Tauri needs the MSVC C++ build tools and a Windows SDK. We recommend using the latest for both unless you also compile C++ projects as part of your app that require a different version. At the time of writing the exact names of the components are:
+
+- `MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)`
+- `Windows 11 SDK (10.0.22621.0)`
 
 Lastly, go to [https://www.rust-lang.org/tools/install][install rust] to install `rustup` (the Rust installer). Note that you have to restart your terminal, and in some cases, Windows itself, for the changes to take effect.
 
@@ -51,7 +76,7 @@ winget install --id Rustlang.Rustup
 
 For full support for Tauri and tools like [`trunk`] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
 
-If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+If you already have Rust installed, you can make sure the correct toolchain is installed and used by running this command:
 
 ```powershell
 rustup default stable-msvc
@@ -386,3 +411,4 @@ If you don't see this information, your Rust installation might be broken. Pleas
 [direnv's Guix shell support]: https://github.com/direnv/direnv/pull/1045/files
 [Guix shell]: https://guix.gnu.org/manual/en/html_node/Invoking-guix-shell.html
 [`trunk`]: https://trunkrs.dev
+[individual components]: https://rust-lang.github.io/rustup/installation/windows-msvc.html#installing-only-the-required-components-optional
