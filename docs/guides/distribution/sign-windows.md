@@ -59,7 +59,7 @@ We now need to import our `.pfx` file.
 
 ### C. Prepare Variables
    
-1. Start -> `certmgr.msc` to open Personal Certificate Management.
+1. Start ➡️ `certmgr.msc` to open Personal Certificate Management, then open Personal/Certificates.
 
 2. Find the certificate we just imported and double-click on it, then click on the Details tab.
 
