@@ -107,13 +107,13 @@ Then update the `adapter` import in the `svelte.config.js` file:
 ```javascript title=svelte.config.js
 // highlight-next-line
 import adapter from '@sveltejs/adapter-static' // This was changed from adapter-auto
-import preprocess from 'svelte-preprocess'
+import { vitePreprocess } from '@sveltejs/kit/vite'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // Consult https://github.com/sveltejs/svelte-preprocess
+  // Consult https://kit.svelte.dev/docs/integrations#preprocessors
   // for more information about preprocessors
-  preprocess: preprocess(),
+  preprocess: vitePreprocess(),
 
   kit: {
     adapter: adapter(),
@@ -141,7 +141,7 @@ Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you ca
     __html: 'Use <code>../build</code> for this value.',
   }}
   devPathExplination={{
-    __html: 'Use <code>http://localhost:5173</code> for this value.',
+    __html: 'Use <code>http://localhost:5175</code> for this value.',
   }}
   beforeDevCommandExplination={{
     __html:
@@ -162,7 +162,7 @@ Now that we have scaffolded our frontend and initialized the Rust project the cr
     "beforeBuildCommand": "npm run build",
     // This command will execute when you run `tauri dev`
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:5173",
+    "devPath": "http://localhost:5175",
     "distDir": "../build"
   },
 ```
