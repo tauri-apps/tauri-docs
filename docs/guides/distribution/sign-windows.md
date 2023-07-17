@@ -58,19 +58,16 @@ We now need to import our `.pfx` file.
 2. Now Import the certificate using `Import-PfxCertificate -FilePath Certs/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_PFX_PASSWORD -Force -AsPlainText)`
 
 ### C. Prepare Variables
+   
+1. Start -> `certmgr.msc` to open Personal Certificate Management.
 
-1. We need the SHA-1 thumbprint of the certificate; you can get this using `openssl pkcs12 -info -in certificate.pfx` and look under for following
+2. Find the certificate we just imported and double-click on it, then click on the Details tab.
 
-```
-Bag Attributes
-    localKeyID: A1 B1 A2 B2 A3 B3 A4 B4 A5 B5 A6 B6 A7 B7 A8 B8 A9 B9 A0 B0
-```
+3. The Signature hash algorithm will be our `digestAlgorithm`. (Hint: this is likely `sha256`)
 
-2. You will capture the `localKeyID` but with no spaces, in this example, it would be `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. This is our `certificateThumbprint`.
+4. Scroll down to Thumbprint. There should be a value like `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. This is our `certificateThumbprint`.
 
-3. We need the SHA digest algorithm used for your certificate (Hint: this is likely `sha256`
-
-4. We also need a timestamp URL; this is a time server used to verify the time of the certificate signing. I'm using `http://timestamp.comodoca.com`, but whoever you got your certificate from likely has one as well.
+6. We also need a timestamp URL; this is a time server used to verify the time of the certificate signing. I'm using `http://timestamp.comodoca.com`, but whoever you got your certificate from likely has one as well.
 
 ## Prepare `tauri.conf.json` file
 
