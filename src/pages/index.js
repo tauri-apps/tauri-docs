@@ -370,6 +370,12 @@ function Sponsors() {
       logoColorDark: 'dimension_color_dark.svg',
       logoColorLight: 'dimension_color_light.svg',
     },
+    {
+      name: 'Lightfinder',
+      link: 'https://lightfinder.com/',
+      logoColorDark: 'lightfinder_color_dark.svg',
+      logoColorLight: 'lightfinder_color_light.svg',
+    },
   ]
 
   return (
