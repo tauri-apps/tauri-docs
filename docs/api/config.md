@@ -882,7 +882,7 @@ Type: `object`
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.scheme">`scheme`<a class="hash-link" href="#remotedomainaccessscope.scheme"></a></div> | string? | _null_ | The URL scheme to allow. By default, all schemas are allowed. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | string (required) |  | The domain to allow. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | string[] (required) |  | The list of window labels this scope applies to. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | string[] (required) |  | The list of window label glob patterns this scope applies to. `**` is not allowed and therefore ignored. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.plugins">`plugins`<a class="hash-link" href="#remotedomainaccessscope.plugins"></a></div> | string[] | [] | The list of plugins that are allowed in this scope. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.enabletauriapi">`enableTauriAPI`<a class="hash-link" href="#remotedomainaccessscope.enabletauriapi"></a></div> | boolean | `false` | Enables access to the Tauri API. |
 
