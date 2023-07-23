@@ -1,0 +1,16 @@
+---
+import { Card } from "@astrojs/starlight/components";
+---
+
+<div class="card">
+  <Card title="Next Steps" icon="rocket">
+    <slot />
+  </Card>
+</div>
+
+<style>
+  .card :global(ul) {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+</style>
