@@ -1,0 +1,47 @@
+---
+title: Create a Project
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+One of the things that makes Tauri so flexible is it's ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you a new Tauri project using any of the officially supported frameworks.
+
+To get started using `create-tauri-app` run one of the following commands:
+
+<Tabs>
+<TabItem label="Bash">
+```sh
+sh <(curl https://create.tauri.app/sh)
+```
+</TabItem>
+<TabItem label="PowerShell">
+```powershell
+irm https://create.tauri.app/ps | iex
+```
+</TabItem>
+<TabItem label="Cargo">
+```sh
+cargo install create-tauri-app
+cargo create-tauri-app
+```
+</TabItem>
+<TabItem label="npm">
+```sh
+npm create tauri-app@latest
+```
+</TabItem>
+<TabItem label="yarn">
+```sh
+yarn create tauri-app
+```
+</TabItem>
+<TabItem label="pnpm">
+```sh
+pnpm create tauri-app
+```
+</TabItem>
+</Tabs>
+
+:::tip[Not sure which to choose?]
+If you're not sure which of the above to choose we recommend getting started using Bash on Linux and macOS or PowerShell on Windows.
+:::
