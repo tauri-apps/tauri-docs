@@ -33,14 +33,26 @@ export default defineConfig({
           ],
         },
         {
+          label: "Concepts",
+          items: [
+            // Each item here is one entry in the navigation menu.
+            { label: "Tauri Architecture", link: "/guides/example/" },
+            {
+              label: "Inter-Process Communication (IPC)",
+              link: "/guides/example/",
+            },
+          ],
+        },
+        {
           label: "Guides",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Development", link: "/guides/example/" },
-            { label: "Debugging", link: "/guides/example/" },
-            { label: "Testing", link: "/guides/example/" },
-            { label: "Building", link: "/guides/example/" },
-            { label: "Distribution", link: "/guides/example/" },
+            { label: "Commands", link: "/guides/example/" },
+            { label: "Customization", link: "/guides/customize/" },
+            // { label: "Debugging", link: "/guides/example/" },
+            // { label: "Testing", link: "/guides/example/" },
+            { label: "Building & Distributing", link: "/guides/build" },
+            // { label: "Distribution", link: "/guides/example/" },
             { label: "Troubleshooting", link: "/guides/example/" },
           ],
         },
@@ -60,6 +72,11 @@ export default defineConfig({
       ],
     }),
   ],
+  markdown: {
+    shikiConfig: {
+      langs: ["powershell"],
+    },
+  },
 
   // Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
   image: { service: { entrypoint: "astro/assets/services/sharp" } },

@@ -3,10 +3,17 @@ title: Create a Project
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
+import NextSteps from "../../../../components/NextSteps.astro";
 
-One of the things that makes Tauri so flexible is it's ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you a new Tauri project using any of the officially supported frameworks.
+One thing that makes Tauri so flexible is it's ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
 
-To get started using `create-tauri-app` run one of the following commands:
+[`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore-rs.netlify.app/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](#).
+
+Additionally, you can [add Tauri to an existing project](./existing-project) to quickly turn your existing codebase into a Tauri app.
+
+## Using `create-tauri-app`
+
+To get started using [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) run one of the below commands in the folder you'd like to setup your project. If you're not sure which command to use we recommend the Bash command on Linux and macOS and the PowerShell command on Windows.
 
 <Tabs>
 <TabItem label="Bash">
@@ -15,14 +22,8 @@ sh <(curl https://create.tauri.app/sh)
 ```
 </TabItem>
 <TabItem label="PowerShell">
-```powershell
+```ps
 irm https://create.tauri.app/ps | iex
-```
-</TabItem>
-<TabItem label="Cargo">
-```sh
-cargo install create-tauri-app
-cargo create-tauri-app
 ```
 </TabItem>
 <TabItem label="npm">
@@ -30,7 +31,7 @@ cargo create-tauri-app
 npm create tauri-app@latest
 ```
 </TabItem>
-<TabItem label="yarn">
+<TabItem label="Yarn">
 ```sh
 yarn create tauri-app
 ```
@@ -40,8 +41,76 @@ yarn create tauri-app
 pnpm create tauri-app
 ```
 </TabItem>
+<TabItem label="Cargo">
+```sh
+cargo install create-tauri-app
+cargo create-tauri-app
+```
+</TabItem>
 </Tabs>
 
-:::tip[Not sure which to choose?]
-If you're not sure which of the above to choose we recommend using Bash on Linux and macOS or PowerShell on Windows.
+Follow along with the prompts to choose your project name, frontend language, package manager, and frontend framework, and frontend framework options if applicable.
+
+:::note[Not sure what to pick?]
+
+We use [SolidJS](https://www.solidjs.com) throughout the Tauri documentation and examples. For the easiest way to follow along we recommend the following:
+
+- Choose which language to use for your frontend: `TypeScript / JavaScript`
+- Choose your package manager: `pnpm`
+  {/* TODO: Change phrasing in CTA from UI to frontend and Solid to SolidJS */}
+- Choose your UI template: `Solid`
+- Choose your UI flavor: `TypeScript`
+
 :::
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/reference/cli) to start the development server:
+
+{/* prettier-ignore-start */}
+
+<Tabs>
+  <TabItem label="npm">
+    ```sh
+    cd my-tauri-app
+    npm install
+    npm run tauri dev
+    ```
+  </TabItem>
+  <TabItem label="Yarn">
+    ```sh
+    cd my-tauri-app
+    yarn install
+    yarn tauri dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```sh
+    cd my-tauri-app
+    pnpm install
+    pnpm tauri dev
+    ```
+  </TabItem>
+  <TabItem label="Cargo">
+    ```sh
+    cd my-tauri-app
+    cargo tauri dev
+    ```
+  </TabItem>
+</Tabs>
+
+{/* prettier-ignore-end */}
+
+You'll now see a new window open with your app running:
+
+TODO: Image of app here
+
+**Congratulations!** You've made your Tauri app! 🚀
+
+<NextSteps>
+
+- [Tauri Command Line Interface (CLI) Reference](/reference/cli)
+- [Learn how to build your Tauri app](/guides/build)
+- [Discover plugins to extend Tauri's functionality](/plugins)
+
+</NextSteps>
