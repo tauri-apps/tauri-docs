@@ -22,10 +22,34 @@ export default defineConfig({
       customCss: ["./src/styles/custom.css"],
       sidebar: [
         {
+          label: "Getting Started",
+          items: [
+            { label: "What is Tauri?", link: "/getting-started" },
+            { label: "Prerequisites", link: "/getting-started/prerequisites" },
+            {
+              label: "Create a Project",
+              link: "/getting-started/create-a-project",
+            },
+          ],
+        },
+        {
           label: "Guides",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", link: "/guides/example/" },
+            { label: "Development", link: "/guides/example/" },
+            { label: "Debugging", link: "/guides/example/" },
+            { label: "Testing", link: "/guides/example/" },
+            { label: "Building", link: "/guides/example/" },
+            { label: "Distribution", link: "/guides/example/" },
+          ],
+        },
+        {
+          label: "Plugins",
+          items: [
+            // Each item here is one entry in the navigation menu.
+            { label: "What are Plugins?", link: "/guides/example/" },
+            { label: "Plugin List", link: "/guides/example/" },
+            { label: "Create a Plugin", link: "/guides/example/" },
           ],
         },
         {
