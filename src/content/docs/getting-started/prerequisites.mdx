@@ -4,19 +4,22 @@ title: Prerequisites
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-In order to get started building your project with Tauri you'll first need to install a few dependencies. Follow the link below to get started for your respective operating system:
+In order to get started building your project with Tauri you'll first need to install a few dependencies.
+
+Follow the link below to get started for your respective operating system:
 
 - [Linux (see the section below for specific distributions)](#linux)
 - [macOS Catalina (10.15) and later](#macos)
 - [Windows 7 and later](#windows)
 
-After installing the respective dependencies you'll be ready to begin your Tauri project!
-
 ## System Dependencies
 
 ### Linux
 
-Tauri requires various system dependencies for development. These may be different depending on your distribution but we've included some popular distributions below to help you get setup:
+Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup. If your distribution isn't included here then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
+
+{/* Note: These are the officially supported linux distributions. */}
+{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
 {/* prettier-ignore-start */}
 
@@ -25,14 +28,14 @@ Tauri requires various system dependencies for development. These may be differe
   ```sh
   sudo apt update
   sudo apt install libwebkit2gtk-4.0-dev \
-        build-essential \
-        curl \
-        wget \
-        file \
-        libssl-dev \
-        libgtk-3-dev \
-        libayatana-appindicator3-dev \
-        librsvg2-dev
+    build-essential \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    libgtk-3-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev
   ```
   </TabItem>
   <TabItem label="Arch">
@@ -55,15 +58,45 @@ Tauri requires various system dependencies for development. These may be differe
   <TabItem label="Fedora">
   ```sh
   sudo dnf check-update
-sudo dnf install webkit2gtk4.0-devel \
+  sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
     curl \
     wget \
     file \
     libappindicator-gtk3-devel \
     librsvg2-devel
-sudo dnf group install "C Development Tools and Libraries"
+  sudo dnf group install "C Development Tools and Libraries"
   ```
+  </TabItem>
+  <TabItem label="Gentoo">
+  ```sh
+  sudo emerge --ask \
+    net-libs/webkit-gtk:4 \
+    dev-libs/libappindicator \
+    net-misc/curl \
+    net-misc/wget \
+    sys-apps/file
+  ```
+  </TabItem>
+  <TabItem label="openSUSE">
+  ```sh
+  sudo zypper up
+  sudo zypper in webkit2gtk3-soup2-devel \
+    libopenssl-devel \
+    curl \
+    wget \
+    file \
+    libappindicator3-1 \
+    librsvg-devel
+  sudo zypper in -t pattern devel_basis
+  ```
+  </TabItem>
+  <TabItem label="NixOS">
+  {/* TODO: */}
+  :::caution
+  Is there a way we can make this nicer than the current site?
+  :::
+
   </TabItem>
 </Tabs>
 
@@ -118,7 +151,7 @@ Tauri is built with [Rust](https://www.rust-lang.org) and requires it for develo
 
 <Tabs>
   <TabItem label="Linux and macOS" class="content">
-  Install using [`rustup`](https://github.com/rust-lang/rustup):
+  Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
   
   ```sh
   curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -140,4 +173,4 @@ Now that you've installed all of the prerequisistes you're ready to [create your
 
 ## Troubleshooting
 
-If you run into any issues during installation be sure to check the [Troubleshooting Guide](/guides/troubleshooting) or reach out on Discord.
+If you run into any issues during installation be sure to check the [Troubleshooting Guide](/guides/troubleshooting) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
