@@ -1,0 +1,143 @@
+---
+title: Prerequisites
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+In order to get started building your project with Tauri you'll first need to install a few dependencies. Follow the link below to get started for your respective operating system:
+
+- [Linux (see the section below for specific distributions)](#linux)
+- [macOS Catalina (10.15) and later](#macos)
+- [Windows 7 and later](#windows)
+
+After installing the respective dependencies you'll be ready to begin your Tauri project!
+
+## System Dependencies
+
+### Linux
+
+Tauri requires various system dependencies for development. These may be different depending on your distribution but we've included some popular distributions below to help you get setup:
+
+{/* prettier-ignore-start */}
+
+<Tabs>
+  <TabItem label="Debian">
+  ```sh
+  sudo apt update
+  sudo apt install libwebkit2gtk-4.0-dev \
+        build-essential \
+        curl \
+        wget \
+        file \
+        libssl-dev \
+        libgtk-3-dev \
+        libayatana-appindicator3-dev \
+        librsvg2-dev
+  ```
+  </TabItem>
+  <TabItem label="Arch">
+  ```sh
+  sudo pacman -Syu
+  sudo pacman -S --needed \
+    webkit2gtk \
+    base-devel \
+    curl \
+    wget \
+    file \
+    openssl \
+    appmenu-gtk-module \
+    gtk3 \
+    libappindicator-gtk3 \
+    librsvg \
+    libvips
+  ```
+  </TabItem>
+  <TabItem label="Fedora">
+  ```sh
+  sudo dnf check-update
+sudo dnf install webkit2gtk4.0-devel \
+    openssl-devel \
+    curl \
+    wget \
+    file \
+    libappindicator-gtk3-devel \
+    librsvg2-devel
+sudo dnf group install "C Development Tools and Libraries"
+  ```
+  </TabItem>
+</Tabs>
+
+{/* prettier-ignore-end */}
+
+Next: [Install Rust](#rust)
+
+### macOS
+
+Tauri uses [Xcode Command Line Tools](https://developer.apple.com/xcode/resources/) for Clang and various macOS development dependencies. These are automatically included if you've installed Xcode before, but you can install them using the following command:
+
+```sh
+xcode-select --install
+```
+
+Next: [Install Rust](#rust)
+
+### Windows
+
+Tauri uses the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) for development as well as [Microsoft Edge WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). These are both required for development on Windows.
+
+Install the following system dependencies:
+
+1. [Microsoft C++ Build Tools](#microsoft-c-build-tools)
+2. [WebView2](#webview2)
+
+#### Microsoft C++ Build Tools
+
+Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation. Select the following options during installation (screenshot below):
+
+- Desktop Development with C++
+- MSVC foo bar
+- Windows 10 SDK
+
+TODO: Insert screenshot
+
+#### WebView2
+
+:::tip
+WebView 2 is already installed on Windows 10 (from version 1803 onward) and later versions of Windows. If you are developing on one of these versions then you can skip this step and go directly to [installing Rust](#rust).
+:::
+
+Tauri uses [Microsoft Edge WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) to render content on Windows. We recommend installing this by downloading and running the [evergreen bootstrapper for the WebView2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section).
+
+Next: [Install Rust](#rust)
+
+## Rust
+
+Tauri is built with [Rust](https://www.rust-lang.org) and requires it for development. Install Rust using one of following methods. You can view more installation methods at https://www.rust-lang.org/tools/install.
+
+{/* prettier-ignore-start */}
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+  Install using [`rustup`](https://github.com/rust-lang/rustup):
+  
+  ```sh
+  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+  ```
+  :::tip[Security Tip]
+  We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first.
+  
+  Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
+  :::
+  </TabItem>
+  <TabItem label="Windows">TODO: Windows install instructions here</TabItem>
+</Tabs>
+
+{/* prettier-ignore-end */}
+
+## Next Steps
+
+Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/getting-started/create-a-project)!
+
+## Troubleshooting
+
+If you run into any issues during installation be sure to check the [Troubleshooting Guide](/guides/troubleshooting) or reach out on Discord.
