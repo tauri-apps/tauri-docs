@@ -41,6 +41,7 @@ export default defineConfig({
             { label: "Testing", link: "/guides/example/" },
             { label: "Building", link: "/guides/example/" },
             { label: "Distribution", link: "/guides/example/" },
+            { label: "Troubleshooting", link: "/guides/example/" },
           ],
         },
         {
