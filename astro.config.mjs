@@ -24,22 +24,15 @@ export default defineConfig({
         {
           label: "Getting Started",
           items: [
-            { label: "What is Tauri?", link: "/getting-started" },
-            { label: "Prerequisites", link: "/getting-started/prerequisites" },
+            { label: "What is Tauri?", link: "/v2/tutorials" },
+            { label: "Prerequisites", link: "/v2/tutorials/prerequisites" },
             {
               label: "Create a Project",
-              link: "/getting-started/create-project/",
+              link: "/v2/tutorials/create-project/",
             },
-          ],
-        },
-        {
-          label: "Concepts",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Tauri Architecture", link: "/guides/example/" },
             {
-              label: "Inter-Process Communication (IPC)",
-              link: "/guides/example/",
+              label: "Project Structure",
+              link: "/v2/tutorials/architecture/",
             },
           ],
         },
@@ -47,12 +40,12 @@ export default defineConfig({
           label: "Guides",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Commands", link: "/guides/example/" },
+            {
+              label: "Inter-Process Communication (IPC)",
+              link: "/guides/example/",
+            },
             { label: "Customization", link: "/guides/customize/" },
-            // { label: "Debugging", link: "/guides/example/" },
-            // { label: "Testing", link: "/guides/example/" },
             { label: "Building & Distributing", link: "/guides/build" },
-            // { label: "Distribution", link: "/guides/example/" },
             { label: "Troubleshooting", link: "/guides/example/" },
           ],
         },
@@ -67,7 +60,11 @@ export default defineConfig({
         },
         {
           label: "Reference",
-          autogenerate: { directory: "reference" },
+          autogenerate: { directory: "v2/reference" },
+        },
+        {
+          label: "Pending Revision",
+          autogenerate: { directory: "v2/todo" },
         },
       ],
     }),
