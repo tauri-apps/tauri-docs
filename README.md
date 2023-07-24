@@ -1,5 +1,12 @@
 # Starlight Starter Kit: Basics
 
+https://diataxis.fr
+
+- Tutorials: Blog post
+- How-to Guides: `/src/content/docs/v2/guides`
+- Explanation: Blog post
+- Reference: `/src/content/docs/v2/reference`
+
 ```
 npm create astro@latest -- --template starlight
 ```
