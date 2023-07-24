@@ -1,0 +1,230 @@
+---
+title: TODO
+---
+
+import TauriInit from './\_fragments/\_tauri-init.mdx'
+import Commands from './\_fragments/\_commands.mdx'
+import Intro from './\_fragments/\_intro.mdx'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Command, { InstallTauriApi } from '@theme/Command'
+
+# SvelteKit
+
+This guide will walk you through creating your first Tauri app using the [SvelteKit] frontend framework.
+
+<Intro />
+
+Here's a preview of what we will be building:
+
+![Application Preview](/img/guides/getting-started/setup/sveltekit/result.png)
+
+## Create the Frontend
+
+[SvelteKit] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). To make SvelteKit work with Tauri we are going to disable SSR and use [`@sveltejs/adapter-static`] to create a frontend based on Static-Site Generation (SSG).
+
+SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript] template, with ESLint and Prettier enabled.
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm create svelte@latest
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn create svelte
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm create svelte
+```
+
+  </TabItem>
+</Tabs>
+
+1. _Project name_  
+   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
+
+2. _App template_  
+   We will select the `Skeleton project` for a barebones template. If you want to play around with a more complete SvelteKit example you can select `SvelteKit demo app`.
+
+3. _Type checking_  
+   Whether you want type checking via JSDoc or TypeScript in your project. For this guide, we assume you choose TypeScript.
+
+4. _Code linting and formatting_  
+   Whether you want to start your project with ESLint for code linting and Prettier for code formatting. There won't be other mentions about this in this guide, but we recommend enabling these 2 options.
+
+5. _Browser testing_  
+   SvelteKit offers built-in Playwright support for browser testing. Since Tauri APIs don't work in Playwright, we recommend not adding it. Check out our [WebDriver documentation] for alternatives using Selenium or WebdriverIO instead of Playwright.
+
+## SvelteKit in SSG mode
+
+<!-- TODO: section intro -->
+
+First, we need to install [`@sveltejs/adapter-static`]:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm">
+
+```shell
+npm install --save-dev @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="Yarn">
+
+```shell
+yarn add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm">
+
+```shell
+pnpm add -D @sveltejs/adapter-static@next
+```
+
+  </TabItem>
+</Tabs>
+
+Then update the `adapter` import in the `svelte.config.js` file:
+
+```javascript title=svelte.config.js
+// highlight-next-line
+import adapter from "@sveltejs/adapter-static"; // This was changed from adapter-auto
+import { vitePreprocess } from "@sveltejs/kit/vite";
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // Consult https://kit.svelte.dev/docs/integrations#preprocessors
+  // for more information about preprocessors
+  preprocess: vitePreprocess(),
+
+  kit: {
+    adapter: adapter(),
+  },
+};
+
+export default config;
+```
+
+Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
+
+```typescript title=src/routes/+layout.ts
+export const prerender = true;
+export const ssr = false;
+```
+
+Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks].
+
+Furthermore, if you prefer a Single-Page Application (SPA) mode over SSG, you can change the adapter configurations and `+layout.ts` according to the [adapter docs].
+
+## Create the Rust Project
+
+<TauriInit
+destDirExplination={{
+    __html: 'Use <code>../build</code> for this value.',
+  }}
+devPathExplination={{
+    __html: 'Use <code>http://localhost:5173</code> for this value.',
+  }}
+beforeDevCommandExplination={{
+    __html:
+      'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).',
+  }}
+beforeBuildCommandExplination={{
+    __html:
+      'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).',
+  }}
+/>
+
+Now that we have scaffolded our frontend and initialized the Rust project the created `tauri.conf.json` file should look like this:
+
+```json title=src-tauri/tauri.conf.json
+{
+  "build": {
+    // This command will execute when you run `tauri build`.
+    "beforeBuildCommand": "npm run build",
+    // This command will execute when you run `tauri dev`
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../build"
+  },
+```
+
+And that's it! Now you can run the following command in your terminal to start a development build of your app:
+
+<Command name="dev" />
+
+![Application Window](/img/guides/getting-started/setup/sveltekit/init.png)
+
+## Invoke Commands
+
+<Commands />
+
+To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. It provides access to core functionality such as windows, the filesystem, and more through convenient JavaScript abstractions. You can install it using your favorite JavaScript package manager:
+
+<InstallTauriApi />
+
+With the library installed, we can now create a new Svelte component. We'll create it in `src/lib/Greet.svelte`:
+
+```html title=src/lib/Greet.svelte
+<script>
+  import { invoke } from "@tauri-apps/api/tauri";
+
+  let name = "";
+  let greetMsg = "";
+
+  async function greet() {
+    greetMsg = await invoke("greet", { name });
+  }
+</script>
+
+<div>
+  <input id="greet-input" placeholder="Enter a name..." bind:value="{name}" />
+  <button on:click="{greet}">Greet</button>
+  <p>{greetMsg}</p>
+</div>
+```
+
+You can now add this component into `src/routes/+page.svelte`:
+
+```html title=src/routes/+page.svelte
+<script>
+  import Greet from "../lib/Greet.svelte";
+</script>
+
+<h1>Welcome to SvelteKit</h1>
+<Greet />
+```
+
+You can now run this with `npm run tauri dev` and see the result:
+
+![Application Preview](/img/guides/getting-started/setup/sveltekit/result.png)
+
+:::tip
+
+If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+
+:::
+
+[sveltekit]: https://kit.svelte.dev
+[`@sveltejs/adapter-static`]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static
+[`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
+[webdriver documentation]: ../../testing/webdriver/introduction.md
+[client-side checks]: https://kit.svelte.dev/faq#integrations-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window
+[adapter docs]: https://github.com/sveltejs/kit/tree/master/packages/adapter-static#spa-mode
+[typescript]: https://www.typescriptlang.org
+[`@tauri-apps/api`]: ../../../api/js/
+[inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
