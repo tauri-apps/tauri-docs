@@ -24,15 +24,15 @@ export default defineConfig({
         {
           label: "Quick Start",
           items: [
-            { label: "Why Tauri?", link: "/v2/tutorials" },
-            { label: "Prerequisites", link: "/v2/tutorials/prerequisites" },
+            { label: "Why Tauri?", link: "/2/tutorials" },
+            { label: "Prerequisites", link: "/2/tutorials/prerequisites" },
             {
               label: "Create a Project",
-              link: "/v2/tutorials/create-project/",
+              link: "/2/tutorials/create-project/",
             },
             {
               label: "Plugins",
-              link: "/v2/plugins/",
+              link: "/2/plugins/",
             },
           ],
         },
@@ -41,24 +41,24 @@ export default defineConfig({
           items: [
             {
               label: "Build & Distribute",
-              link: "/v2/guides/build-distribute",
+              link: "/2/guides/build-distribute",
             },
-            { label: "Customize", link: "/v2/guides/customize/" },
+            { label: "Customize", link: "/2/guides/customize/" },
             {
               label: "Inter-Process Communication",
               link: "#",
             },
             {
               label: "Create a Plugin",
-              link: "/v2/guides/build-distribute",
+              link: "/2/guides/build-distribute",
             },
             {
               label: "Troubleshoot",
-              link: "/v2/guides/troubleshoot",
+              link: "/2/guides/troubleshoot",
             },
             {
               label: "More Guides",
-              link: "/v2/guides/",
+              link: "/2/guides/",
             },
           ],
         },
@@ -67,27 +67,27 @@ export default defineConfig({
           items: [
             {
               label: "Project Structure",
-              link: "/v2/reference/customize/",
+              link: "/2/reference/customize/",
             },
             {
               label: "Command Line Interface (CLI)",
-              link: "/v2/reference/customize/",
+              link: "/2/reference/customize/",
             },
             {
               label: "Tauri Config",
-              link: "/v2/guides/troubleshoot",
+              link: "/2/guides/troubleshoot",
             },
             {
               label: "JavaScript API",
-              link: "/v2/guides/build-distribute",
+              link: "/2/guides/build-distribute",
             },
             {
               label: "Rust API",
-              link: "/v2/guides/build-distribute",
+              link: "/2/guides/build-distribute",
             },
             {
               label: "Error Reference",
-              link: "/v2/guides/build-distribute",
+              link: "/2/guides/build-distribute",
             },
           ],
           // autogenerate: { directory: "v2/reference" },
