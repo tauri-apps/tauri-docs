@@ -39,14 +39,19 @@ export default defineConfig({
         {
           label: "Guides",
           items: [
-            // Each item here is one entry in the navigation menu.
+            // {
+            //   label: "Inter-Process Communication (IPC)",
+            //   link: "/guides/example/",
+            // },
+            { label: "Customize", link: "/v2/guides/customize/" },
             {
-              label: "Inter-Process Communication (IPC)",
-              link: "/guides/example/",
+              label: "Build & Distribute",
+              link: "/v2/guides/build-distribute",
             },
-            { label: "Customization", link: "/guides/customize/" },
-            { label: "Building & Distributing", link: "/guides/build" },
-            { label: "Troubleshooting", link: "/guides/example/" },
+            {
+              label: "Troubleshoot",
+              link: "/v2/guides/troubleshoot",
+            },
           ],
         },
         {
@@ -54,8 +59,8 @@ export default defineConfig({
           items: [
             // Each item here is one entry in the navigation menu.
             { label: "What are Plugins?", link: "/guides/example/" },
-            { label: "Plugin List", link: "/guides/example/" },
-            { label: "Create a Plugin", link: "/guides/example/" },
+            { label: "Plugin Directory", link: "/guides/example/" },
+            { label: "Develop a Plugin", link: "/guides/example/" },
           ],
         },
         {
@@ -63,7 +68,7 @@ export default defineConfig({
           autogenerate: { directory: "v2/reference" },
         },
         {
-          label: "Pending Revision",
+          label: "TODO",
           autogenerate: { directory: "v2/todo" },
         },
       ],
