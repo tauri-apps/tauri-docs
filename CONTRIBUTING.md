@@ -17,13 +17,20 @@ We follow the [diátaxis](https://diataxis.fr) technical documentation approach.
 
 ### [Explanation](https://diataxis.fr/explanation.html)
 
-
 ## Translating
 
-We're currently building out a translation dashboard. 
+We're currently building out a translation dashboard.
 
 TODO
 
 ## Writing Style
 
-TODO
+**Operating System Order**
+
+Referring to or listing multiple operating systems in the following order:
+
+- Linux
+- macOS
+- Windows
+- Android
+- iOS
