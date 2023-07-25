@@ -1,0 +1,63 @@
+---
+import { Card } from '@astrojs/starlight/components';
+---
+
+<Card>
+  <h4>Prerequisistes Helper</h4>
+  <form>
+    <p>What operating system do you develop on?</p>
+    <input type="radio" />
+    <label>Linux</label>
+    <br />
+    <input type="radio" />
+    <label>macOS</label>
+    <br />
+    <input type="radio" />
+    <label>Windows</label>
+
+    <!-- TODO: If Windows ask which OS for WebView2 question -->
+    <p>Which version of Windows?</p>
+    <input type="radio" />
+    <label>Windows 7 or 8</label>
+    <br />
+    <input type="radio" />
+    <label>Windows 10</label>
+    <br />
+    <input type="radio" />
+    <label>Windows 11 or later</label>
+
+    <!-- TODO: Say can only develop for Android if OS is not macOS-->
+    <p>Would you like to develop for mobile?</p>
+    <input type="radio" />
+    <label>Yes</label>
+    <br />
+    <input type="radio" />
+    <label>No</label>
+  </form>
+  <!-- Show the progress through helper -->
+  <p>Current progress</p>
+  <progress></progress>
+  <br />
+  <input type="checkbox" checked disabled />
+  <label>System Dependencies</label>
+  <br />
+  <input type="checkbox" />
+  <label>Xcode</label>
+  <br />
+  <input type="checkbox" />
+  <label>Microsoft C++ Build Tools</label>
+  <br />
+  <input type="checkbox" />
+  <label>WebView2</label>
+  <br />
+  <input type="checkbox" />
+  <label>Rust</label>
+  <br />
+  <input type="checkbox" />
+  <label>Configure for Mobile Targets</label>
+  <br />
+  <input type="checkbox" />
+  <label>Start building!</label>
+  <br />
+  <button class="action primary">Next step</button>
+</Card>
