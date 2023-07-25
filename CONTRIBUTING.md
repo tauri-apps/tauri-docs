@@ -25,12 +25,12 @@ TODO
 
 ## Writing Style
 
-**Operating System Order**
+**Operating System Order and Capitalization**
 
 Referring to or listing multiple operating systems in the following order:
 
 - Linux
-- macOS
+- macOS (pay special attention to the capitalization)
 - Windows
 - Android
-- iOS
+- iOS (pay special attention to the capitalization)
