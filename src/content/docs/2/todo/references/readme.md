@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: architecture
 ---
 
 import DocCardList from "@theme/DocCardList";

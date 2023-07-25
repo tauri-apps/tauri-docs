@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: qwik
 ---
 
 import TauriInit from './\_fragments/\_tauri-init.mdx'

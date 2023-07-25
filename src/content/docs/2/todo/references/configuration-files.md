@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: configuration files
 ---
 
 # Configuration Files

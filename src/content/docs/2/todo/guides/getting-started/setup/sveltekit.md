@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: svelte
 ---
 
 import TauriInit from './\_fragments/\_tauri-init.mdx'

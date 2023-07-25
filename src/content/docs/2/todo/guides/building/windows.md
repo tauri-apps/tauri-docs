@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: windows installer
 ---
 
 import Command from '@theme/Command'

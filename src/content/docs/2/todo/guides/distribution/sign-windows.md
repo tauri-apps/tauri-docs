@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: code sign windows
 ---
 
 # Windows - Code signing guide locally & with GitHub Actions

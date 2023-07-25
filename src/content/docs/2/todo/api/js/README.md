@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: JS API
 ---
 
 # @tauri-apps/api

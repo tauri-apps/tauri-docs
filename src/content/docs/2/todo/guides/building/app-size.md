@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: reducing app size
 ---
 
 # Reducing App Size

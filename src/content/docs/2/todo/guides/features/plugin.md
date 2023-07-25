@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: plugin
 ---
 
 import Command from '@theme/Command'

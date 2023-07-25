@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: tauri architecture
 ---
 
 import { colors } from '@theme/Mermaid'

@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: vite
 ---
 
 import TauriInit from './\_fragments/\_tauri-init.mdx'

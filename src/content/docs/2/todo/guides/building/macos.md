@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: macOS bundle
 ---
 
 import TauriBuild from './\_tauri-build.md'

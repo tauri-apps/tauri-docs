@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: command
 ---
 
 # Calling Rust from the frontend

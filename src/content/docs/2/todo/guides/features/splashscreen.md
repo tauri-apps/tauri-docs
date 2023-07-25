@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: splashscreen
 ---
 
 # Splashscreen

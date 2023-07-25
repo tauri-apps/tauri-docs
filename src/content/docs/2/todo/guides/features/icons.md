@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: icons
 ---
 
 import Command from '@theme/Command'

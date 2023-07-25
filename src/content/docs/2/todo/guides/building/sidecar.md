@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: embedding external binaries
 ---
 
 # Embedding External Binaries

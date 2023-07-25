@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: cli
 ---
 
 # Making Your Own CLI
