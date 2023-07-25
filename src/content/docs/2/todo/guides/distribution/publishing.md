@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: app publishing
 ---
 
 import Command from '@theme/Command'

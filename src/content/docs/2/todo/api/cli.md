@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: cli
 ---
 
 import Command from '@theme/Command'

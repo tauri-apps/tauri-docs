@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: clion
 ---
 
 # Debugging in CLion

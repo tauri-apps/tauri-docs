@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: _tauri-build
 ---
 
 import Command from '@theme/Command'

@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: linux bundle
 ---
 
 import TauriBuild from './\_tauri-build.md'

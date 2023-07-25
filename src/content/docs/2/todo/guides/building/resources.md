@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: embedding additional resources
 ---
 
 # Embedding Additional Files

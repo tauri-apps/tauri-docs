@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: setup
 ---
 
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'

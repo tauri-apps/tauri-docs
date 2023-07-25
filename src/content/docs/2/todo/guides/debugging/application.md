@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: application debugging
 ---
 
 import Command from '@theme/Command'

@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: events
 ---
 
 # Events

@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: setup
 ---
 
 import DocCardList from "@theme/DocCardList";

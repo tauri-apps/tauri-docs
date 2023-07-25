@@ -94,7 +94,7 @@ export default defineConfig({
         },
         {
           label: "TODO",
-          autogenerate: { directory: "v2/todo" },
+          autogenerate: { directory: "2/todo" },
         },
       ],
     }),

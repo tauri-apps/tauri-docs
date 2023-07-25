@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: html css and js
 ---
 
 import TauriInit from './\_fragments/\_tauri-init.mdx'
