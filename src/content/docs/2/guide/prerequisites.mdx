@@ -2,8 +2,8 @@
 title: Prerequisites
 ---
 
-import { Tabs, TabItem } from "@astrojs/starlight/components";
-import NextSteps from "../../../../components/NextSteps.astro";
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import NextSteps from '../../../../components/NextSteps.astro';
 
 In order to get started building your project with Tauri you'll first need to install a few dependencies.
 
@@ -117,6 +117,7 @@ Download and install Xcode from one of the following places:
 {/* TODO: Do you need to launch Xcode for everything to get set up correctly before continuing? */}
 
 {/* TODO: Styling for details element */}
+
 <details>
 <summary>Only developing for desktop targets?</summary>
 If you're only planning to develop desktop apps and not targetting iOS then you can install Xcode Command Line Tools instead:
@@ -124,6 +125,7 @@ If you're only planning to develop desktop apps and not targetting iOS then you 
 ```sh
 xcode-select --install
 ```
+
 </details>
 
 Next: [Install Rust](#rust)
@@ -183,39 +185,107 @@ Tauri is built with [Rust](https://www.rust-lang.org) and requires it for develo
 
 ## Configure for Mobile Targets
 
+If you'd like to target your app for Android or iOS then there are a few additional dependencies that you need to install:
+
+- [Android](#android)
+- [iOS](#ios)
+
 ### Android
 
-{/* prettier-ignore-start */}
+1. Download and install [Android Studio from the Android Developers website](https://developer.android.com/studio)
+2. Set the `JAVA_HOME` environment variable:
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs>
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. Use the SDK Manager in Android Studio to install the following:
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+4. Set `ANDROID_HOME` and `NDK_HOME` environment variables
+
+{/* TODO: Does the version number change below? */}
+
+<Tabs>
+<TabItem label="Linux and macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+{/* TODO: Do we need a note about this version? */}
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\25.0.8775105", "User")
+```
+
+</TabItem>
+
+</Tabs>
+
+5. Add the Android targets with `rustup`:
 
 <Tabs>
   <TabItem label="Linux and macOS" class="content">
-  Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
-  
-  ```sh
-  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-  ```
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
   </TabItem>
   <TabItem label="Windows">
   
   ```ps
   rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
   ```
+
   </TabItem>
 </Tabs>
 
 ### iOS
 
 :::caution[macOS Only]
-iOS development is only available on macOS as it requires Xcode.
+iOS development requires Xcode and is only available on macOS.
 :::
 
-Add the iOS targets with `rustup`:
+Add the iOS targets with `rustup` in Terminal:
 
 ```sh
 rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 ```
 
-{/* prettier-ignore-end */}
+Be sure that you've installed Xcode and not Xcode Command Line Tools in the [macOS system dependencies section](#macos).
 
 ## Troubleshooting
 
