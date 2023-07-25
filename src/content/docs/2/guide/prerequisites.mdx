@@ -107,11 +107,24 @@ Next: [Install Rust](#rust)
 
 ### macOS
 
-Tauri uses [Xcode Command Line Tools](https://developer.apple.com/xcode/resources/) for Clang and various macOS development dependencies. These are automatically included if you've installed Xcode before, but you can install them using the following command:
+Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) various macOS and iOS development dependencies.
+
+Download and install Xcode from one of the following places:
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Apple Developer website](https://developer.apple.com/xcode/resources/).
+
+{/* TODO: Do you need to launch Xcode for everything to get set up correctly before continuing? */}
+
+{/* TODO: Styling for details element */}
+<details>
+<summary>Only developing for desktop targets?</summary>
+If you're only planning to develop desktop apps and not targetting iOS then you can install Xcode Command Line Tools instead:
 
 ```sh
 xcode-select --install
 ```
+</details>
 
 Next: [Install Rust](#rust)
 
@@ -168,12 +181,48 @@ Tauri is built with [Rust](https://www.rust-lang.org) and requires it for develo
 
 {/* prettier-ignore-end */}
 
+## Configure for Mobile Targets
+
+### Android
+
+{/* prettier-ignore-start */}
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+  Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
+  
+  ```sh
+  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+  ```
+  </TabItem>
+  <TabItem label="Windows">
+  
+  ```ps
+  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+  ```
+  </TabItem>
+</Tabs>
+
+### iOS
+
+:::caution[macOS Only]
+iOS development is only available on macOS as it requires Xcode.
+:::
+
+Add the iOS targets with `rustup`:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+{/* prettier-ignore-end */}
+
 ## Troubleshooting
 
 If you run into any issues during installation be sure to check the [Troubleshooting Guide](/guides/troubleshooting) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
 
 <NextSteps>
 
-Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/getting-started/create-project/)!
+Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/2/guide/create-project/)!
 
 </NextSteps>
