@@ -24,15 +24,15 @@ export default defineConfig({
         {
           label: "Quick Start",
           items: [
-            { label: "Why Tauri?", link: "/2/tutorials" },
-            { label: "Prerequisites", link: "/2/tutorials/prerequisites" },
+            { label: "Why Tauri?", link: "/2/guide/" },
+            { label: "Prerequisites", link: "/2/guide/prerequisites" },
             {
               label: "Create a Project",
-              link: "/2/tutorials/create-project/",
+              link: "/2/guide/create-project/",
             },
             {
               label: "Plugins",
-              link: "/2/plugins/",
+              link: "/2/plugin/",
             },
           ],
         },
@@ -83,10 +83,6 @@ export default defineConfig({
             },
             {
               label: "Rust API",
-              link: "/2/guides/build-distribute",
-            },
-            {
-              label: "Error Reference",
               link: "/2/guides/build-distribute",
             },
           ],
