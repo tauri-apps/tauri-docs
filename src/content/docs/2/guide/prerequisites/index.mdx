@@ -148,7 +148,7 @@ Next: [Install Rust](#rust)
 
 ### Windows
 
-Tauri uses the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) for development as well as [Microsoft Edge WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). These are both required for development on Windows.
+Tauri uses the Microsoft C++ Build Tools for development as well as Microsoft Edge WebView2. These are both required for development on Windows.
 
 Install the following system dependencies:
 
@@ -158,9 +158,11 @@ Install the following system dependencies:
 #### Microsoft C++ Build Tools
 
 1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
-2. During installation check the "Desktop development with C++" option. This should automatically select the first two items in the optional details that Tauri requires (MSVC build tools and the Windows SDK).
+2. During installation check the "Desktop development with C++" option.
 
 ![Visual Studio C++ Build Tools installer screenshot](./visual-studio-build-tools-installer.png)
+
+Next: [Install WebView2](#webview2).
 
 #### WebView2
 
@@ -168,7 +170,9 @@ Install the following system dependencies:
 WebView 2 is already installed on Windows 10 (from version 1803 onward) and later versions of Windows. If you are developing on one of these versions then you can skip this step and go directly to [installing Rust](#rust).
 :::
 
-Tauri uses [Microsoft Edge WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) to render content on Windows. We recommend installing this by downloading and running the [evergreen bootstrapper for the WebView2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section).
+Tauri uses Microsoft Edge WebView2 to render content on Windows.
+
+Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Boostrapper" and install it.
 
 Next: [Install Rust](#rust)
 
