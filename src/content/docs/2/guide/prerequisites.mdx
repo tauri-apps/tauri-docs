@@ -2,8 +2,7 @@
 title: Prerequisites
 ---
 
-import { Tabs, TabItem } from "@astrojs/starlight/components";
-import NextSteps from "@components/NextSteps.astro";
+import { Tabs, TabItem, Card } from "@astrojs/starlight/components";
 import PrerequisitesHelper from "@components/PrerequisitesHelper.astro";
 
 In order to get started building your project with Tauri you'll first need to install a few dependencies:
@@ -176,25 +175,30 @@ Next: [Install Rust](#rust)
 
 Tauri is built with [Rust](https://www.rust-lang.org) and requires it for development. Install Rust using one of following methods. You can view more installation methods at https://www.rust-lang.org/tools/install.
 
-{/* prettier-ignore-start */}
-
 <Tabs>
   <TabItem label="Linux and macOS" class="content">
-  Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
-  
-  ```sh
-  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-  ```
-  :::tip[Security Tip]
-  We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first.
-  
-  Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
-  :::
+
+Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[Security Tip]
+We have audited this bash script, and it does what it says it is supposed to do. Nevertheless, before blindly curl-bashing a script, it is always wise to look at it first.
+
+Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
+:::
+
   </TabItem>
-  <TabItem label="Windows">TODO: Windows install instructions here</TabItem>
+  <TabItem label="Windows">
+  
+  Visit https://www.rust-lang.org/tools/install to install `rustup`.
+
+  </TabItem>
 </Tabs>
 
-{/* prettier-ignore-end */}
+Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
 
 ## Configure for Mobile Targets
 
@@ -304,8 +308,8 @@ Be sure that you've installed Xcode and not Xcode Command Line Tools in the [mac
 
 If you run into any issues during installation be sure to check the [Troubleshooting Guide](/guides/troubleshooting) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
 
-<NextSteps>
+<Card title="Next Steps" icon="rocket">
 
-Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/2/guide/create-project/)!
+Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/2/guide/create/)!
 
-</NextSteps>
+</Card>
