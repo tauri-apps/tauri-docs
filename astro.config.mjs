@@ -28,7 +28,7 @@ export default defineConfig({
             { label: "Prerequisites", link: "/2/guide/prerequisites" },
             {
               label: "Create a Project",
-              link: "/2/guide/create-project/",
+              link: "/2/guide/create/",
             },
             {
               label: "Plugins",
