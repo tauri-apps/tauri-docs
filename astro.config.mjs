@@ -90,7 +90,7 @@ export default defineConfig({
         },
         {
           label: "TODO",
-          autogenerate: { directory: "2/todo" },
+          autogenerate: { directory: "2/todo", collapsed: true },
         },
       ],
     }),
