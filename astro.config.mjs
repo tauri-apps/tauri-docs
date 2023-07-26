@@ -100,6 +100,9 @@ export default defineConfig({
       langs: ["powershell"],
     },
   },
+  experimental: {
+    assets: true
+  },
   // Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
   image: { service: { entrypoint: "astro/assets/services/sharp" } },
 });
