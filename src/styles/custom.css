@@ -48,3 +48,17 @@
   --sl-hue-blue: 186;
   --sl-hue-orange: 42;
 }
+
+.content details {
+  padding: 0 1rem;
+}
+
+.content details[open] {
+  background-color: var(--sl-color-gray-6);
+  padding-bottom: 1rem;
+
+}
+.content summary {
+  cursor: pointer;
+  padding: 1rem 0;
+}
