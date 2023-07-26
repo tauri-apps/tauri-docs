@@ -41,24 +41,24 @@ export default defineConfig({
           items: [
             {
               label: "Build & Distribute",
-              link: "/2/guides/build-distribute",
+              link: "/2/guide/build-distribute",
             },
-            { label: "Customize", link: "/2/guides/customize/" },
+            { label: "Customize", link: "/2/guide/customize/" },
             {
               label: "Inter-Process Communication",
               link: "#",
             },
             {
               label: "Create a Plugin",
-              link: "/2/guides/build-distribute",
+              link: "/2/guide/create-plugin",
             },
             {
               label: "Troubleshoot",
-              link: "/2/guides/troubleshoot",
+              link: "/2/guide/troubleshoot",
             },
             {
               label: "More Guides",
-              link: "/2/guides/",
+              link: "/2/guide/list",
             },
           ],
         },
@@ -67,26 +67,25 @@ export default defineConfig({
           items: [
             {
               label: "Project Structure",
-              link: "/2/reference/customize/",
+              link: "#",
             },
             {
               label: "Command Line Interface (CLI)",
-              link: "/2/reference/customize/",
+              link: "#",
             },
             {
               label: "Tauri Config",
-              link: "/2/guides/troubleshoot",
+              link: "#",
             },
             {
               label: "JavaScript API",
-              link: "/2/guides/build-distribute",
+              link: "#",
             },
             {
               label: "Rust API",
-              link: "/2/guides/build-distribute",
+              link: "#",
             },
           ],
-          // autogenerate: { directory: "v2/reference" },
         },
         {
           label: "TODO",
