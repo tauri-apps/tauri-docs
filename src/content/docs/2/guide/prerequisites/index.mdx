@@ -7,9 +7,9 @@ import PrerequisitesHelper from "@components/PrerequisitesHelper.astro";
 
 In order to get started building your project with Tauri you'll first need to install a few dependencies:
 
-- [System Dependencies](#system-dependencies)
-- [Rust](#rust)
-- [Configure for Mobile Targets](#configure-for-mobile-targets) (only required if developing for mobile)
+1. [System Dependencies](#system-dependencies)
+2. [Rust](#rust)
+3. [Configure for Mobile Targets](#configure-for-mobile-targets) (only required if developing for mobile)
 
 {/* <PrerequisitesHelper /> */}
 
@@ -23,7 +23,9 @@ Follow the link to get started for your respective operating system:
 
 ### Linux
 
-Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup. If your distribution isn't included here then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
+Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup.
+
+TODO: How should we handle all the billion linux distros so we don't have to necessarily maintain them all?
 
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
@@ -115,6 +117,8 @@ sudo zypper in -t pattern devel_basis
   </TabItem>
 </Tabs>
 
+If your distribution isn't included above then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
+
 Next: [Install Rust](#rust)
 
 ### macOS
@@ -153,13 +157,10 @@ Install the following system dependencies:
 
 #### Microsoft C++ Build Tools
 
-Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation. Select the following options during installation (screenshot below):
+1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
+2. During installation check the "Desktop development with C++" option. This should automatically select the first two items in the optional details that Tauri requires (MSVC build tools and the Windows SDK).
 
-- Desktop Development with C++
-- MSVC foo bar
-- Windows 10 SDK
-
-TODO: Insert screenshot
+![Visual Studio C++ Build Tools installer screenshot](./visual-studio-build-tools-installer.png)
 
 #### WebView2
 
