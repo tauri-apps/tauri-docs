@@ -34,6 +34,7 @@ export default defineConfig({
               label: "Plugins",
               link: "/2/plugin/",
             },
+            { label: "Blog (temporary)", link: "/blog/" },
           ],
         },
         {
