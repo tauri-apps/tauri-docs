@@ -2,21 +2,25 @@
 title: Prerequisites
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import NextSteps from '@components/NextSteps.astro';
-import PrerequisitesHelper from '@components/PrerequisitesHelper.astro';
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import NextSteps from "@components/NextSteps.astro";
+import PrerequisitesHelper from "@components/PrerequisitesHelper.astro";
 
-In order to get started building your project with Tauri you'll first need to install a few dependencies.
+In order to get started building your project with Tauri you'll first need to install a few dependencies:
 
-<PrerequisitesHelper />
+- [System Dependencies](#system-dependencies)
+- [Rust](#rust)
+- [Configure for Mobile Targets](#configure-for-mobile-targets) (only required if developing for mobile)
 
-Follow the link below to get started for your respective operating system:
-
-- [Linux](#linux) (see the section below for specific distributions)
-- [macOS Catalina (10.15) and later](#macos)
-- [Windows 7 and later](#windows)
+{/* <PrerequisitesHelper /> */}
 
 ## System Dependencies
+
+Follow the link to get started for your respective operating system:
+
+- [Linux](#linux) (see below for specific distributions)
+- [macOS Catalina (10.15) and later](#macos)
+- [Windows 7 and later](#windows)
 
 ### Linux
 
@@ -25,86 +29,92 @@ Tauri requires various system dependencies for development on Linux. These may b
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
-{/* prettier-ignore-start */}
-
 <Tabs>
   <TabItem label="Debian">
-  ```sh
-  sudo apt update
-  sudo apt install libwebkit2gtk-4.0-dev \
-    build-essential \
-    curl \
-    wget \
-    file \
-    libssl-dev \
-    libgtk-3-dev \
-    libayatana-appindicator3-dev \
-    librsvg2-dev
-  ```
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.0-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libssl-dev \
+  libgtk-3-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
   </TabItem>
   <TabItem label="Arch">
-  ```sh
-  sudo pacman -Syu
-  sudo pacman -S --needed \
-    webkit2gtk \
-    base-devel \
-    curl \
-    wget \
-    file \
-    openssl \
-    appmenu-gtk-module \
-    gtk3 \
-    libappindicator-gtk3 \
-    librsvg \
-    libvips
-  ```
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  gtk3 \
+  libappindicator-gtk3 \
+  librsvg \
+  libvips
+```
+
   </TabItem>
   <TabItem label="Fedora">
-  ```sh
-  sudo dnf check-update
-  sudo dnf install webkit2gtk4.0-devel \
-    openssl-devel \
-    curl \
-    wget \
-    file \
-    libappindicator-gtk3-devel \
-    librsvg2-devel
-  sudo dnf group install "C Development Tools and Libraries"
-  ```
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.0-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel
+sudo dnf group install "C Development Tools and Libraries"
+```
+
   </TabItem>
   <TabItem label="Gentoo">
-  ```sh
-  sudo emerge --ask \
-    net-libs/webkit-gtk:4 \
-    dev-libs/libappindicator \
-    net-misc/curl \
-    net-misc/wget \
-    sys-apps/file
-  ```
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4 \
+  dev-libs/libappindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
   </TabItem>
   <TabItem label="openSUSE">
-  ```sh
-  sudo zypper up
-  sudo zypper in webkit2gtk3-soup2-devel \
-    libopenssl-devel \
-    curl \
-    wget \
-    file \
-    libappindicator3-1 \
-    librsvg-devel
-  sudo zypper in -t pattern devel_basis
-  ```
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-soup2-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
   </TabItem>
   <TabItem label="NixOS">
-  {/* TODO: */}
-  :::caution
-  Is there a way we can make this nicer than the current site?
+  
+  :::danger
+  TODO: Need to build this out
   :::
-
+  
   </TabItem>
 </Tabs>
-
-{/* prettier-ignore-end */}
 
 Next: [Install Rust](#rust)
 
