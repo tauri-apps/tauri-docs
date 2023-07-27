@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight';
 import { generateTypeDoc } from 'starlight-typedoc';
 // import { entryPoints } from 'packages/tauri/tooling/api/typedoc.json';
 
-const typeDocSidebarGroup = await generateTypeDoc({
+await generateTypeDoc({
   entryPoints: [
     './packages/tauri/tooling/api/src/event.ts',
     './packages/tauri/tooling/api/src/mocks.ts',
@@ -11,6 +11,7 @@ const typeDocSidebarGroup = await generateTypeDoc({
     './packages/tauri/tooling/api/src/tauri.ts',
   ],
   tsconfig: './packages/tauri/tooling/api/tsconfig.json',
+  output: '/2/reference/js',
 });
 
 export const locales = {
@@ -164,8 +165,19 @@ export default defineConfig({
         },
         {
           label: 'Reference',
-          items: [typeDocSidebarGroup],
+          items: [
+            {
+              label: 'JavaScript',
+              items: [{ label: 'event', link: '/2/reference/js/event/readme' }],
+            },
+          ],
+          // autogenerate: { directory: '2/reference', collapsed: true },
         },
+        // typeDocSidebarGroup,
+        // {
+        //   label: 'Reference',
+        //   items: [typeDocSidebarGroup],
+        // },
         {
           label: 'Tauri v1 (temporary)',
           collapsed: true,
