@@ -48,6 +48,10 @@ export default defineConfig({
               link: '/2/guide/build-distribute',
             },
             {
+              label: 'Develop a Plugin',
+              link: '/2/guide/build-distribute',
+            },
+            {
               label: 'Troubleshooting',
               link: '/2/guide/troubleshoot',
             },
