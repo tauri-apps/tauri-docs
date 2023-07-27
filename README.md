@@ -1,4 +1,4 @@
-![docs2](https://github.com/tauri-apps/tauri-docs/assets/61861940/899eb988-b332-4686-9fbb-4df4871d3cc8)
+![docs2 (2)](https://github.com/tauri-apps/tauri-docs/assets/61861940/ab6fd2f5-07b7-46b2-9125-77cba0064c1b)
 
 - Tutorials: Blog post
 - How-to Guides: `/src/content/docs/v2/guides`
