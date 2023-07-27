@@ -31,30 +31,24 @@ export default defineConfig({
               link: '/2/guide/create/',
             },
             {
-              label: 'Plugins',
-              link: '/2/plugin/',
+              label: 'Concepts & Best Practices',
+              link: '#',
             },
-            { label: 'Blog (temporary)', link: '/blog/' },
           ],
         },
         {
           label: 'Guides',
           items: [
             {
-              label: 'Build & Distribute',
-              link: '/2/guide/build-distribute',
-            },
-            { label: 'Customize', link: '/2/guide/customize/' },
-            {
-              label: 'Inter-Process Communication',
+              label: 'Develop & Debug',
               link: '#',
             },
             {
-              label: 'Create a Plugin',
-              link: '/2/guide/create-plugin',
+              label: 'Build & Distribute',
+              link: '/2/guide/build-distribute',
             },
             {
-              label: 'Troubleshoot',
+              label: 'Troubleshooting',
               link: '/2/guide/troubleshoot',
             },
             {
@@ -64,12 +58,37 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Reference',
+          label: 'Features & Recipes',
           items: [
             {
-              label: 'Project Structure',
+              label: 'App Storage',
               link: '#',
             },
+            {
+              label: 'Commands',
+              link: '#',
+            },
+            {
+              label: 'Multi-Window',
+              link: '#',
+            },
+            {
+              label: 'Updater',
+              link: '#',
+            },
+            {
+              label: 'Window Customization',
+              link: '#',
+            },
+            {
+              label: 'More Features & Recipes',
+              link: '/2/guide/list',
+            },
+          ],
+        },
+        {
+          label: 'Reference',
+          items: [
             {
               label: 'Command Line Interface (CLI)',
               link: '#',
