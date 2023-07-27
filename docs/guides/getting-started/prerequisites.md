@@ -356,7 +356,7 @@ rustup self uninstall
 
 ## Troubleshooting
 
-To check whether you have Rust installed correctly, open a shell and enter this command:
+To check whether you have Rust installed correctly, close your shell and open new one for the `.rustup` to be taken in consideration. Then enter this command:
 
 ```shell
 rustc --version
