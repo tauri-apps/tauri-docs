@@ -108,7 +108,7 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Tauri v1',
+          label: 'Tauri v1 (temporary)',
           autogenerate: { directory: '1', collapsed: true },
         },
       ],
