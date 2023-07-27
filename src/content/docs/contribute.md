@@ -1,5 +1,6 @@
 ---
 title: Contribute
+i18nReady: true
 ---
 
 So, you want to write a doc? You've come to the right place!
