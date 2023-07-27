@@ -27,7 +27,7 @@ The bootstrapper script will try to determine the correct architecture and versi
 
 #### Automatic Installation
 
-**If you already have an existing Visual Studio installation, please go to [Manual Installation].**
+**If you already have an existing Visual Studio installation, please go to [Manual Installation](#manual-installation).**
 
 First, go to [https://www.rust-lang.org/tools/install][install rust] to download `rustup` (the Rust installer). Once you run the downloaded `rustup-init.exe` file it will open the following dialog.
 
