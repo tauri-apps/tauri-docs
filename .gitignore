@@ -2,7 +2,6 @@
 dist/
 # generated types
 .astro/
-src/content/docs/2/reference/js
 
 # dependencies
 node_modules/
