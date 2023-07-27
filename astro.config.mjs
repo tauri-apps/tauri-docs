@@ -1,19 +1,23 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { generateTypeDoc } from 'starlight-typedoc';
+import { existsSync } from 'node:fs';
 
-// TODO: Need to check if project is initialized
-// Make sure that the submodule repo in 'packages/tauri/tooling/api' is initialized
-// await generateTypeDoc({
-//   entryPoints: [
-//     'packages/tauri/tooling/api/src/event.ts',
-//     'packages/tauri/tooling/api/src/mocks.ts',
-//     'packages/tauri/tooling/api/src/path.ts',
-//     'packages/tauri/tooling/api/src/tauri.ts',
-//   ],
-//   tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
-//   output: '2/reference/js',
-// });
+// Generates the JS API routes, check CONTRIBUTING.md for instructions
+if (existsSync('packages/tauri/tooling/api/node_modules')) {
+  await generateTypeDoc({
+    entryPoints: [
+      'packages/tauri/tooling/api/src/event.ts',
+      'packages/tauri/tooling/api/src/mocks.ts',
+      'packages/tauri/tooling/api/src/path.ts',
+      'packages/tauri/tooling/api/src/tauri.ts',
+    ],
+    tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
+    output: '2/reference/js',
+  });
+} else {
+  console.log('JS API is not initialized. JS API routes will not be rendered.');
+}
 
 export const locales = {
   root: {
@@ -182,7 +186,7 @@ export default defineConfig({
             },
             {
               label: 'JavaScript API',
-              link: '#',
+              autogenerate: { directory: '2/reference/js', collapsed: true },
             },
             {
               label: 'Rust API',
