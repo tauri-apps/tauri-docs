@@ -3,7 +3,7 @@ import { locales } from '../../astro.config.mjs';
 
 const translationStatusBuilder = new TranslationStatusBuilder({
   pageSourceDir: '../../src/content/docs',
-  htmlOutputFilePath: './dist/index.html',
+  htmlOutputFilePath: '../../dist/translation-status.html',
   sourceLanguage: 'en',
   targetLanguages: Object.values(locales)
     .map((el) => el.lang)
