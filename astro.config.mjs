@@ -37,19 +37,27 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Guides',
+          label: 'Workflows',
           items: [
             {
-              label: 'Develop & Debug',
+              label: 'Develop',
               link: '#',
             },
             {
-              label: 'Build & Distribute',
-              link: '/2/guide/build-distribute',
+              label: 'Debug',
+              link: '#',
             },
             {
-              label: 'Develop a Plugin',
-              link: '/2/guide/build-distribute',
+              label: 'Test',
+              link: '#',
+            },
+            {
+              label: 'Build',
+              link: '#',
+            },
+            {
+              label: 'Distribute',
+              link: '#',
             },
             {
               label: 'Troubleshooting',
@@ -58,7 +66,8 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Features & Recipes',
+          label: 'Features',
+          collapsed: true,
           items: [
             {
               label: 'App Storage',
@@ -81,13 +90,44 @@ export default defineConfig({
               link: '#',
             },
             {
-              label: 'More Features & Recipes',
+              label: 'More Features',
               link: '/2/guide/list',
             },
           ],
         },
         {
-          label: 'Reference',
+          label: 'Recipes',
+          collapsed: true,
+          items: [
+            {
+              label: 'App Storage',
+              link: '#',
+            },
+            {
+              label: 'Commands',
+              link: '#',
+            },
+            {
+              label: 'Multi-Window',
+              link: '#',
+            },
+            {
+              label: 'Updater',
+              link: '#',
+            },
+            {
+              label: 'Window Customization',
+              link: '#',
+            },
+            {
+              label: 'More Features',
+              link: '/2/guide/list',
+            },
+          ],
+        },
+        {
+          label: 'References',
+          collapsed: true,
           items: [
             {
               label: 'Command Line Interface (CLI)',
@@ -109,7 +149,8 @@ export default defineConfig({
         },
         {
           label: 'Tauri v1 (temporary)',
-          autogenerate: { directory: '1', collapsed: true },
+          collapsed: true,
+          autogenerate: { directory: '1' },
         },
       ],
     }),
