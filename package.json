@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build:astro": "astro build",
+    "build:i18n": "pnpm --filter docs-i18n-tracker run build",
+    "build": "pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview",
     "astro": "astro"
   },
