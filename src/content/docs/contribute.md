@@ -10,6 +10,8 @@ So, you want to write a doc? You've come to the right place!
 
 - In copy refer to Tauri 2.0 in the present tense so that it is still accurate upon release
 - Use code that works with Tauri 2.0 now so that readers can still test out features (this will be especially useful during the beta and RC phases)
+- Do we want to do a branding update?
+- Favicon
 
 ## Types of Documentation
 

@@ -6,8 +6,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Tauri',
+      description: 'The cross-platform app building toolkit',
       logo: {
-        src: './src/assets/logo.svg',
+        dark: './src/assets/logo.svg',
+        light: './src/assets/logo_light.svg',
         replacesTitle: true,
       },
       social: {
@@ -153,6 +155,25 @@ export default defineConfig({
           autogenerate: { directory: '1' },
         },
       ],
+      locales: {
+        root: {
+          label: 'English',
+          lang: 'en',
+        },
+        fr: {
+          label: 'Français',
+        },
+        it: {
+          label: 'Italiano',
+        },
+        ko: {
+          label: '한국어',
+        },
+        zh: {
+          label: '中文',
+        },
+      },
+      lastUpdated: true,
     }),
   ],
   markdown: {
@@ -160,6 +181,7 @@ export default defineConfig({
       langs: ['powershell'],
     },
   },
+  // Required until https://github.com/withastro/starlight/issues/421 is addressed
   experimental: {
     assets: true,
   },
