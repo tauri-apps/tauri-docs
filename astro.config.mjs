@@ -1,17 +1,5 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { generateTypeDoc } from 'starlight-typedoc';
-// import { entryPoints } from 'packages/tauri/tooling/api/typedoc.json';
-
-const typeDocSidebarGroup = await generateTypeDoc({
-  entryPoints: [
-    './packages/tauri/tooling/api/src/event.ts',
-    './packages/tauri/tooling/api/src/mocks.ts',
-    './packages/tauri/tooling/api/src/path.ts',
-    './packages/tauri/tooling/api/src/tauri.ts',
-  ],
-  tsconfig: './packages/tauri/tooling/api/tsconfig.json',
-});
 
 export const locales = {
   root: {
@@ -163,8 +151,26 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Reference',
-          items: [typeDocSidebarGroup],
+          label: 'References',
+          collapsed: true,
+          items: [
+            {
+              label: 'Command Line Interface (CLI)',
+              link: '#',
+            },
+            {
+              label: 'Tauri Config',
+              link: '#',
+            },
+            {
+              label: 'JavaScript API',
+              link: '#',
+            },
+            {
+              label: 'Rust API',
+              link: '#',
+            },
+          ],
         },
         {
           label: 'Tauri v1 (temporary)',
