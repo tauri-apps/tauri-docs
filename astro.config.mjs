@@ -49,6 +49,7 @@ export const locales = {
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://beta.tauri.app',
   compressHTML: true,
   build: {
     inlineStylesheets: 'always',
