@@ -12,12 +12,12 @@ export default defineConfig({
       },
       social: {
         github: 'https://github.com/tauri-apps/tauri',
-        discord: 'https://github.com/tauri-apps/tauri',
-        mastodon: 'https://github.com/tauri-apps/tauri',
-        twitter: 'https://github.com/tauri-apps/tauri',
+        discord: 'https://discord.com/invite/tauri',
+        mastodon: 'https://fosstodon.org/@TauriApps',
+        twitter: 'https://twitter.com/TauriApps',
       },
       editLink: {
-        baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev',
+        baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/starlight',
       },
       customCss: ['./src/styles/custom.css'],
       sidebar: [
