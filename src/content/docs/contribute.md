@@ -72,3 +72,5 @@ We'd like to keep the sidebar flexible as we gather feedback from the community.
 ## Translations (i18n)
 
 While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
+
+Once translations are enabled you can check the [translation status page](/translation-status).
