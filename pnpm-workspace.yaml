@@ -1,2 +1,3 @@
 packages:
-  - 'packages/*'
+  - 'packages/i18n-tracker'
+  - 'packages/tauri/tooling/api'
