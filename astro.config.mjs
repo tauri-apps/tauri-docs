@@ -1,6 +1,25 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+export const locales = {
+  root: {
+    label: 'English',
+    lang: 'en',
+  },
+  fr: {
+    label: 'Français',
+  },
+  it: {
+    label: 'Italiano',
+  },
+  ko: {
+    label: '한국어',
+  },
+  zh: {
+    label: '中文',
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -155,24 +174,7 @@ export default defineConfig({
           autogenerate: { directory: '1' },
         },
       ],
-      locales: {
-        root: {
-          label: 'English',
-          lang: 'en',
-        },
-        fr: {
-          label: 'Français',
-        },
-        it: {
-          label: 'Italiano',
-        },
-        ko: {
-          label: '한국어',
-        },
-        zh: {
-          label: '中文',
-        },
-      },
+      locales,
       lastUpdated: true,
     }),
   ],
