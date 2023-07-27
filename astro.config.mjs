@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { generateTypeDoc } from 'starlight-typedoc';
 
+// TODO: Need to check if project is initialized
 // Make sure that the submodule repo in 'packages/tauri/tooling/api' is initialized
 await generateTypeDoc({
   entryPoints: [
