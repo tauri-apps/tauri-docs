@@ -4,16 +4,16 @@ import { generateTypeDoc } from 'starlight-typedoc';
 
 // TODO: Need to check if project is initialized
 // Make sure that the submodule repo in 'packages/tauri/tooling/api' is initialized
-await generateTypeDoc({
-  entryPoints: [
-    'packages/tauri/tooling/api/src/event.ts',
-    'packages/tauri/tooling/api/src/mocks.ts',
-    'packages/tauri/tooling/api/src/path.ts',
-    'packages/tauri/tooling/api/src/tauri.ts',
-  ],
-  tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
-  output: '2/reference/js',
-});
+// await generateTypeDoc({
+//   entryPoints: [
+//     'packages/tauri/tooling/api/src/event.ts',
+//     'packages/tauri/tooling/api/src/mocks.ts',
+//     'packages/tauri/tooling/api/src/path.ts',
+//     'packages/tauri/tooling/api/src/tauri.ts',
+//   ],
+//   tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
+//   output: '2/reference/js',
+// });
 
 export const locales = {
   root: {
