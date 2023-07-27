@@ -157,6 +157,7 @@ export class TranslationStatusBuilder {
     updatedPages.forEach((page) => {
       if (!page) return;
       const { lang, subpath, pageData } = page;
+      if (!pageData) return;
       pages[lang!]![subpath] = pageData;
     });
 
@@ -167,11 +168,13 @@ export class TranslationStatusBuilder {
    * Processes the markdown page located in the pageSourceDir subpath `pagePath`
    * and creates a new page data object based on its frontmatter and git history.
    */
-  async getSinglePageData(pagePath: string): Promise<PageData> {
+  async getSinglePageData(pagePath: string): Promise<PageData | undefined> {
     const fullFilePath = `${this.pageSourceDir}/${pagePath}`;
 
     // Retrieve git history for the current page
     const gitHistory = await this.getGitHistory(fullFilePath);
+
+    if (!gitHistory) return;
 
     // Retrieve i18nReady flag from frontmatter
     const frontMatterBlock = tryGetFrontMatterBlock(fullFilePath);
@@ -194,9 +197,11 @@ export class TranslationStatusBuilder {
 
     const lastCommit = gitLog.latest;
     if (!lastCommit) {
-      throw new Error(dedent`Failed to retrieve last commit information for file
-				"${filePath}". Your working copy should not contain uncommitted new pages
-				when running this script.`);
+      return;
+      // Disabled since we have generated reference files
+      // throw new Error(dedent`Failed to retrieve last commit information for file
+      // 	"${filePath}". Your working copy should not contain uncommitted new pages
+      // 	when running this script.`);
     }
 
     // Attempt to find the last "major" commit, ignoring any commits that
