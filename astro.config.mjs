@@ -18,6 +18,7 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
       hideGenerator: true,
       outputFileStrategy: 'modules',
       entryFileName: 'index.md',
+      plugin: ['typedoc-plugin-mdn-links'],
     },
   });
 } else {
