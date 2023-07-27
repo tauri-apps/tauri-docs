@@ -3,6 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "setup:js-api": "yarn --cwd packages/tauri/tooling/api",
+    "setup": "pnpm setup:js-api",
     "dev": "astro dev",
     "start": "astro dev",
     "build:astro": "astro build",
