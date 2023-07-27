@@ -366,8 +366,8 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 [webviewinstallmode]: ../../api/config.md#webviewinstallmode
 [download-webview2-runtime]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
-[default wix template]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/main.wxs
-[default nsis template]: https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/installer.nsi
+[default wix template]: https://github.com/tauri-apps/tauri/blob/1.x/tooling/bundler/src/bundle/windows/templates/main.wxs
+[default nsis template]: https://github.com/tauri-apps/tauri/blob/1.x/tooling/bundler/src/bundle/windows/templates/installer.nsi
 [handlebars]: https://docs.rs/handlebars/latest/handlebars/
 [`tauri.bundle.windows.wix.template`]: ../../api/config.md#wixconfig.template
 [`tauri.bundle.windows.nsis.template`]: ../../api/config.md#nsisconfig.template
@@ -376,5 +376,5 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
 [the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files
-[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages
+[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/1.x/tooling/bundler/src/bundle/windows/templates/nsis-languages
 [tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
