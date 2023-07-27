@@ -14,6 +14,11 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
     ],
     tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
     output: '2/reference/js',
+    typeDoc: {
+      hideGenerator: true,
+      outputFileStrategy: 'modules',
+      entryFileName: 'index.md',
+    },
   });
 } else {
   console.log('JS API is not initialized. JS API routes will not be rendered.');
