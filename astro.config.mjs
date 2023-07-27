@@ -1,5 +1,18 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { generateTypeDoc } from 'starlight-typedoc';
+
+// TODO: Figure out how to only run this if repo is initialized
+// await generateTypeDoc({
+//   entryPoints: [
+//     'packages/tauri/tooling/api/src/event.ts',
+//     'packages/tauri/tooling/api/src/mocks.ts',
+//     'packages/tauri/tooling/api/src/path.ts',
+//     'packages/tauri/tooling/api/src/tauri.ts',
+//   ],
+//   tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
+//   output: '2/reference/js',
+// });
 
 export const locales = {
   root: {
