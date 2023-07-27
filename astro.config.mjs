@@ -1,108 +1,108 @@
-import { defineConfig } from "astro/config";
-import starlight from "@astrojs/starlight";
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Tauri",
+      title: 'Tauri',
       logo: {
-        src: "./src/assets/logo.svg",
+        src: './src/assets/logo.svg',
         replacesTitle: true,
       },
       social: {
-        github: "https://github.com/tauri-apps/tauri",
-        discord: "https://github.com/tauri-apps/tauri",
-        mastodon: "https://github.com/tauri-apps/tauri",
-        twitter: "https://github.com/tauri-apps/tauri",
+        github: 'https://github.com/tauri-apps/tauri',
+        discord: 'https://github.com/tauri-apps/tauri',
+        mastodon: 'https://github.com/tauri-apps/tauri',
+        twitter: 'https://github.com/tauri-apps/tauri',
       },
       editLink: {
-        baseUrl: "https://github.com/tauri-apps/tauri-docs/edit/dev",
+        baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/dev',
       },
-      customCss: ["./src/styles/custom.css"],
+      customCss: ['./src/styles/custom.css'],
       sidebar: [
         {
-          label: "Quick Start",
+          label: 'Quick Start',
           items: [
-            { label: "Why Tauri?", link: "/2/guide/" },
-            { label: "Prerequisites", link: "/2/guide/prerequisites" },
+            { label: 'Why Tauri?', link: '/2/guide/' },
+            { label: 'Prerequisites', link: '/2/guide/prerequisites' },
             {
-              label: "Create a Project",
-              link: "/2/guide/create/",
+              label: 'Create a Project',
+              link: '/2/guide/create/',
             },
             {
-              label: "Plugins",
-              link: "/2/plugin/",
+              label: 'Plugins',
+              link: '/2/plugin/',
             },
-            { label: "Blog (temporary)", link: "/blog/" },
+            { label: 'Blog (temporary)', link: '/blog/' },
           ],
         },
         {
-          label: "Guides",
+          label: 'Guides',
           items: [
             {
-              label: "Build & Distribute",
-              link: "/2/guide/build-distribute",
+              label: 'Build & Distribute',
+              link: '/2/guide/build-distribute',
             },
-            { label: "Customize", link: "/2/guide/customize/" },
+            { label: 'Customize', link: '/2/guide/customize/' },
             {
-              label: "Inter-Process Communication",
-              link: "#",
-            },
-            {
-              label: "Create a Plugin",
-              link: "/2/guide/create-plugin",
+              label: 'Inter-Process Communication',
+              link: '#',
             },
             {
-              label: "Troubleshoot",
-              link: "/2/guide/troubleshoot",
+              label: 'Create a Plugin',
+              link: '/2/guide/create-plugin',
             },
             {
-              label: "More Guides",
-              link: "/2/guide/list",
-            },
-          ],
-        },
-        {
-          label: "Reference",
-          items: [
-            {
-              label: "Project Structure",
-              link: "#",
+              label: 'Troubleshoot',
+              link: '/2/guide/troubleshoot',
             },
             {
-              label: "Command Line Interface (CLI)",
-              link: "#",
-            },
-            {
-              label: "Tauri Config",
-              link: "#",
-            },
-            {
-              label: "JavaScript API",
-              link: "#",
-            },
-            {
-              label: "Rust API",
-              link: "#",
+              label: 'More Guides',
+              link: '/2/guide/list',
             },
           ],
         },
         {
-          label: "TODO",
-          autogenerate: { directory: "2/todo", },
+          label: 'Reference',
+          items: [
+            {
+              label: 'Project Structure',
+              link: '#',
+            },
+            {
+              label: 'Command Line Interface (CLI)',
+              link: '#',
+            },
+            {
+              label: 'Tauri Config',
+              link: '#',
+            },
+            {
+              label: 'JavaScript API',
+              link: '#',
+            },
+            {
+              label: 'Rust API',
+              link: '#',
+            },
+          ],
+        },
+        {
+          label: 'Tauri v1',
+          autogenerate: { directory: '1', collapsed: true },
         },
       ],
     }),
   ],
   markdown: {
     shikiConfig: {
-      langs: ["powershell"],
+      langs: ['powershell'],
     },
   },
   experimental: {
-    assets: true
+    assets: true,
   },
   // Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
-  image: { service: { entrypoint: "astro/assets/services/sharp" } },
+  image: { service: { entrypoint: 'astro/assets/services/sharp' } },
 });
