@@ -26,6 +26,10 @@ export const locales = {
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [
     starlight({
       title: 'Tauri',
