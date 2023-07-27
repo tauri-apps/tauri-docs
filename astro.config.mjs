@@ -51,10 +51,6 @@ export default defineConfig({
               label: 'Troubleshooting',
               link: '/2/guide/troubleshoot',
             },
-            {
-              label: 'More Guides',
-              link: '/2/guide/list',
-            },
           ],
         },
         {
