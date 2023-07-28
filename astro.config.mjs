@@ -7,7 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 
 const typeDocOptions = {
-  // Index page is currently not generated, pending merge of PR:
+  // TODO: Index page is currently not generated, pending merge of PR:
   // https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md#indexfilename
   // In testing it still didn't seem to respect the filename being set so there might be a secondary bug
   // Could be fixed with https://github.com/lorenzolewis/typedoc-plugin-markdown/commit/a19ae18a60cef00f9c0f91e28563c486dde9cb49
@@ -39,7 +39,7 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
   console.log('JS API is not initialized. JS API routes will not be rendered.');
 }
 
-// Note: the following plugins don't have a JS API:
+// TODO: the following plugins don't have a JS API:
 // 'localhost',
 // 'persisted-scope',
 // 'single-instance',
@@ -80,8 +80,8 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
       tsconfig: `packages/plugins-workspace/plugins/${plugin}/tsconfig.json`,
       output: `2/reference/plugin/${plugin}`,
       typeDoc: {
-        // Pending https://github.com/tauri-apps/plugins-workspace/pull/523 to be merged
-        // readme: `packages/plugins-workspace/plugins/${plugin}/README.md`,
+        // TODO: Pending https://github.com/tauri-apps/plugins-workspace/pull/523 to be merged, then update submodule
+        readme: `packages/plugins-workspace/plugins/${plugin}/README.md`,
         ...typeDocOptions,
       },
     });
@@ -226,17 +226,18 @@ export default defineConfig({
         },
         {
           label: 'References',
-          collapsed: true,
+          // collapsed: true,
           items: [
             {
               label: 'Core JavaScript',
               autogenerate: { directory: '2/reference/core/js' },
             },
+            ...plugins.map((plugin) => ({label: plugin, link: `2/reference/plugin/${plugin}`}))
           ],
         },
         {
           label: 'References auto',
-          // collapsed: true,
+          collapsed: true,
           autogenerate: { directory: '2/reference/plugin' },
         },
         {
