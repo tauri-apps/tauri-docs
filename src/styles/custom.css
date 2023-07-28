@@ -47,6 +47,9 @@
 
   --sl-hue-blue: 186;
   --sl-hue-orange: 42;
+
+  /* Custom */
+  --tauri-transition-speed: 200ms;
 }
 
 .content details {
@@ -56,9 +59,27 @@
 .content details[open] {
   background-color: var(--sl-color-gray-6);
   padding-bottom: 1rem;
-
 }
 .content summary {
   cursor: pointer;
   padding: 1rem 0;
+}
+
+/* Heading link styling */
+.heading-link::before {
+  content: '#';
+}
+
+.heading-link {
+  text-decoration-color: transparent;
+  opacity: 0;
+  padding-inline-start: 0.25em;
+  transition: var(--tauri-transition-speed);
+}
+.heading-link:hover {
+  text-decoration-color: unset;
+}
+
+:is(h1, h2, h3, h4, h5, h6):hover > .heading-link {
+  opacity: 1;
 }

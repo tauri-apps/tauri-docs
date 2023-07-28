@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { generateTypeDoc } from 'starlight-typedoc';
 import { existsSync } from 'node:fs';
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 const typeDocOptions = {
   entryFileName: 'index.md',
@@ -271,6 +273,17 @@ export default defineConfig({
     shikiConfig: {
       langs: ['powershell'],
     },
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
+          content: {},
+        },
+      ],
+    ],
   },
   // Required until https://github.com/withastro/starlight/issues/421 is addressed
   experimental: {
