@@ -3,6 +3,17 @@ import starlight from '@astrojs/starlight';
 import { generateTypeDoc } from 'starlight-typedoc';
 import { existsSync } from 'node:fs';
 
+const typeDocOptions = {
+  entryFileName: 'index.md',
+  flattenOutputFiles: true,
+  hideGenerator: true,
+  identifiersAsCodeBlocks: true,
+  enumMembersFormat: 'table',
+  propertiesFormat: 'table',
+  typeDeclarationFormat: 'table',
+  plugin: ['typedoc-plugin-mdn-links'],
+};
+
 // Generates the JS API routes, check CONTRIBUTING.md for instructions
 if (existsSync('packages/tauri/tooling/api/node_modules')) {
   await generateTypeDoc({
@@ -10,17 +21,10 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
     tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
     output: '2/reference/js',
     typeDoc: {
-      hideGenerator: true,
       outputFileStrategy: 'modules',
-      flattenOutputFiles: true,
-      identifiersAsCodeBlocks: true,
-      enumMembersFormat: 'table',
-      propertiesFormat: 'table',
-      typeDeclarationFormat: 'table',
       // Don't enable until https://github.com/HiDeoo/starlight-typedoc/pull/7 is merged
       // readme: 'packages/tauri/tooling/api/README.md',
-      entryFileName: 'index.md',
-      plugin: ['typedoc-plugin-mdn-links'],
+      ...typeDocOptions,
     },
   });
 } else {
@@ -36,10 +40,8 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
     tsconfig: 'packages/plugins-workspace/plugins/authenticator/tsconfig.json',
     output: '2/reference/plugin',
     typeDoc: {
-      hideGenerator: true,
       // outputFileStrategy: 'modules',
-      entryFileName: 'index.md',
-      plugin: ['typedoc-plugin-mdn-links'],
+      ...typeDocOptions,
     },
   });
 } else {
@@ -216,7 +218,7 @@ export default defineConfig({
             },
             {
               label: 'JavaScript API',
-              autogenerate: { directory: '2/reference/js', collapsed: true },
+              autogenerate: { directory: '2/reference', collapsed: true },
             },
             {
               label: 'Rust API',
