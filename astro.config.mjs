@@ -30,7 +30,7 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
     },
   });
 } else {
-  console.log('JS API is not initialized. JS API routes will not be rendered.');
+  // console.log('JS API is not initialized. JS API routes will not be rendered.');
 }
 
 const plugins = [
@@ -77,9 +77,10 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
     });
   });
 } else {
-  console.log(
-    'Plugins workspace is not initialized. Respective API routes will not be rendered.'
-  );
+  console
+    .log
+    // 'Plugins workspace is not initialized. Respective API routes will not be rendered.'
+    ();
 }
 
 export const locales = {
