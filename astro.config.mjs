@@ -4,7 +4,7 @@ import { generateTypeDoc } from 'starlight-typedoc';
 import { existsSync } from 'node:fs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import locales from 'locales.json';
+import locales from './locales.json';
 
 const typeDocOptions = {
   entryFileName: 'index.md',
