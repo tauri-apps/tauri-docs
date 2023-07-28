@@ -31,18 +31,48 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
   console.log('JS API is not initialized. JS API routes will not be rendered.');
 }
 
+const plugins = [
+  'app',
+  'authenticator',
+  'autostart',
+  'cli',
+  'clipboard-manager',
+  'dialog',
+  // 'fs',
+  // 'fs-extra',
+  // 'fs-watch',
+  'global-shortcut',
+  'http',
+  // 'localhost',
+  'log',
+  // 'notification',
+  'os',
+  // 'persisted-scope',
+  'positioner',
+  'process',
+  'shell',
+  // 'single-instance',
+  'sql',
+  'store',
+  'stronghold',
+  // 'updater',
+  // 'upload',
+  'websocket',
+  // 'window',
+  'window-state',
+];
+
 // Generates the plugins JS API routes
 if (existsSync('packages/plugins-workspace/node_modules')) {
-  await generateTypeDoc({
-    entryPoints: [
-      'packages/plugins-workspace/plugins/authenticator/guest-js/index.ts',
-    ],
-    tsconfig: 'packages/plugins-workspace/plugins/authenticator/tsconfig.json',
-    output: '2/reference/plugin',
-    typeDoc: {
-      // outputFileStrategy: 'modules',
-      ...typeDocOptions,
-    },
+  plugins.forEach(async (plugin) => {
+    await generateTypeDoc({
+      entryPoints: [
+        `packages/plugins-workspace/plugins/${plugin}/guest-js/index.ts`,
+      ],
+      tsconfig: `packages/plugins-workspace/plugins/${plugin}/tsconfig.json`,
+      output: `2/reference/plugin/${plugin}`,
+      typeDoc: typeDocOptions,
+    });
   });
 } else {
   console.log(
@@ -117,6 +147,7 @@ export default defineConfig({
         },
         {
           label: 'Workflows',
+          collapsed: true,
           items: [
             {
               label: 'Develop',
@@ -206,7 +237,7 @@ export default defineConfig({
         },
         {
           label: 'References',
-          collapsed: true,
+          collapsed: false,
           items: [
             {
               label: 'Command Line Interface (CLI)',
@@ -218,7 +249,7 @@ export default defineConfig({
             },
             {
               label: 'JavaScript API',
-              autogenerate: { directory: '2/reference', collapsed: true },
+              autogenerate: { directory: '2/reference', collapsed: false },
             },
             {
               label: 'Rust API',
