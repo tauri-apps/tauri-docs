@@ -6,17 +6,19 @@ import { existsSync } from 'node:fs';
 // Generates the JS API routes, check CONTRIBUTING.md for instructions
 if (existsSync('packages/tauri/tooling/api/node_modules')) {
   await generateTypeDoc({
-    entryPoints: [
-      'packages/tauri/tooling/api/src/event.ts',
-      'packages/tauri/tooling/api/src/mocks.ts',
-      'packages/tauri/tooling/api/src/path.ts',
-      'packages/tauri/tooling/api/src/tauri.ts',
-    ],
+    entryPoints: ['packages/tauri/tooling/api/src/index.ts'],
     tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
     output: '2/reference/js',
     typeDoc: {
       hideGenerator: true,
       outputFileStrategy: 'modules',
+      flattenOutputFiles: true,
+      identifiersAsCodeBlocks: true,
+      enumMembersFormat: 'table',
+      propertiesFormat: 'table',
+      typeDeclarationFormat: 'table',
+      // Don't enable until https://github.com/HiDeoo/starlight-typedoc/pull/7 is merged
+      // readme: 'packages/tauri/tooling/api/README.md',
       entryFileName: 'index.md',
       plugin: ['typedoc-plugin-mdn-links'],
     },
