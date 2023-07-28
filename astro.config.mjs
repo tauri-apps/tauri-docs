@@ -4,6 +4,7 @@ import { generateTypeDoc } from 'starlight-typedoc';
 import { existsSync } from 'node:fs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import locales from 'locales.json';
 
 const typeDocOptions = {
   entryFileName: 'index.md',
@@ -82,29 +83,6 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
     // 'Plugins workspace is not initialized. Respective API routes will not be rendered.'
     ();
 }
-
-export const locales = {
-  root: {
-    label: 'English',
-    lang: 'en',
-  },
-  fr: {
-    label: 'Français',
-    lang: 'fr',
-  },
-  it: {
-    label: 'Italiano',
-    lang: 'it',
-  },
-  ko: {
-    label: '한국어',
-    lang: 'ko',
-  },
-  zh: {
-    label: '中文',
-    lang: 'zh',
-  },
-};
 
 // https://astro.build/config
 export default defineConfig({

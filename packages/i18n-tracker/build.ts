@@ -1,5 +1,5 @@
 import { TranslationStatusBuilder } from './lib/translation-status/builder';
-import { locales } from '../../astro.config.mjs';
+import  locales  from '../../locales.json';
 
 const translationStatusBuilder = new TranslationStatusBuilder({
   pageSourceDir: '../../src/content/docs',
