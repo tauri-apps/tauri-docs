@@ -284,10 +284,6 @@ export default defineConfig({
       ],
     ],
   },
-  // Required until https://github.com/withastro/starlight/issues/421 is addressed
-  experimental: {
-    assets: true,
-  },
   // Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
   image: { service: { entrypoint: 'astro/assets/services/sharp' } },
 });
