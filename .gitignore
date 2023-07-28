@@ -1,6 +1,7 @@
 # build output
 dist/
 src/content/docs/2/reference/js
+src/content/docs/2/reference/plugin
 
 # generated types
 .astro/

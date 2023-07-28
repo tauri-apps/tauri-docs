@@ -25,6 +25,27 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
   console.log('JS API is not initialized. JS API routes will not be rendered.');
 }
 
+// Generates the plugins JS API routes
+if (existsSync('packages/plugins-workspace/node_modules')) {
+  await generateTypeDoc({
+    entryPoints: [
+      'packages/plugins-workspace/plugins/authenticator/guest-js/index.ts',
+    ],
+    tsconfig: 'packages/plugins-workspace/plugins/authenticator/tsconfig.json',
+    output: '2/reference/plugin',
+    typeDoc: {
+      hideGenerator: true,
+      // outputFileStrategy: 'modules',
+      entryFileName: 'index.md',
+      plugin: ['typedoc-plugin-mdn-links'],
+    },
+  });
+} else {
+  console.log(
+    'Plugins workspace is not initialized. Respective API routes will not be rendered.'
+  );
+}
+
 export const locales = {
   root: {
     label: 'English',
