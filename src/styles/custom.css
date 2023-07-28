@@ -66,20 +66,20 @@
 }
 
 /* Heading link styling */
-.heading-link::before {
+.heading-link::after {
   content: '#';
-}
-
-.heading-link {
+  padding-inline-start: 0.25em;
+  text-decoration: underline;
   text-decoration-color: transparent;
   opacity: 0;
-  padding-inline-start: 0.25em;
   transition: var(--tauri-transition-speed);
 }
-.heading-link:hover {
+.heading-link:hover::after {
+  color: var(--sl-color-text-accent);
   text-decoration-color: unset;
-}
-
-:is(h1, h2, h3, h4, h5, h6):hover > .heading-link {
   opacity: 1;
+}
+.heading-link {
+  text-decoration: none;
+  color: var(--sl-color-white) !important;
 }

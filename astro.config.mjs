@@ -278,9 +278,8 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings,
         {
-          behavior: 'append',
+          behavior: 'wrap',
           properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-          content: undefined,
         },
       ],
     ],
