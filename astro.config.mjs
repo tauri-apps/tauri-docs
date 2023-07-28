@@ -39,6 +39,11 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
   console.log('JS API is not initialized. JS API routes will not be rendered.');
 }
 
+// Note: the following plugins don't have a JS API:
+// 'localhost',
+// 'persisted-scope',
+// 'single-instance',
+
 const plugins = [
   'app',
   'authenticator',
@@ -46,27 +51,22 @@ const plugins = [
   'cli',
   'clipboard-manager',
   'dialog',
-  // // 'fs',
-  // // 'fs-extra',
-  // // 'fs-watch',
+  'fs',
   'global-shortcut',
   'http',
-  // // 'localhost',
   'log',
-  // // 'notification',
+  'notification',
   'os',
-  // // 'persisted-scope',
   'positioner',
   'process',
   'shell',
-  // // 'single-instance',
   'sql',
   'store',
   'stronghold',
-  // // 'updater',
-  // // 'upload',
+  'updater',
+  'upload',
   'websocket',
-  // // 'window',
+  'window',
   'window-state',
 ];
 
@@ -79,7 +79,11 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
       ],
       tsconfig: `packages/plugins-workspace/plugins/${plugin}/tsconfig.json`,
       output: `2/reference/plugin/${plugin}`,
-      typeDoc: typeDocOptions,
+      typeDoc: {
+        // Pending https://github.com/tauri-apps/plugins-workspace/pull/523 to be merged
+        // readme: `packages/plugins-workspace/plugins/${plugin}/README.md`,
+        ...typeDocOptions,
+      },
     });
   });
 } else {
