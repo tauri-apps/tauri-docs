@@ -8,9 +8,6 @@ patchedDependencies:
   starlight-typedoc@0.3.1:
     hash: r4wskenm44nl7upxxuwi6sseqi
     path: patches/starlight-typedoc@0.3.1.patch
-  typedoc-plugin-markdown@4.0.0-next.17:
-    hash: 334afumt5lpnclt662wcpwaffe
-    path: patches/typedoc-plugin-markdown@4.0.0-next.17.patch
 
 importers:
 
@@ -39,7 +36,7 @@ importers:
         version: 0.24.8(typescript@5.1.6)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=334afumt5lpnclt662wcpwaffe)(prettier@3.0.0)(typedoc@0.24.8)
+        version: 4.0.0-next.17(prettier@3.0.0)(typedoc@0.24.8)
       typedoc-plugin-mdn-links:
         specifier: ^3.0.3
         version: 3.0.3(typedoc@0.24.8)
@@ -4115,7 +4112,7 @@ packages:
       github-slugger: 2.0.0
       kleur: 4.1.5
       typedoc: 0.24.8(typescript@5.1.6)
-      typedoc-plugin-markdown: 4.0.0-next.17(patch_hash=334afumt5lpnclt662wcpwaffe)(prettier@3.0.0)(typedoc@0.24.8)
+      typedoc-plugin-markdown: 4.0.0-next.17(prettier@3.0.0)(typedoc@0.24.8)
     dev: false
     patched: true
 
@@ -4351,7 +4348,7 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=334afumt5lpnclt662wcpwaffe)(prettier@3.0.0)(typedoc@0.24.8):
+  /typedoc-plugin-markdown@4.0.0-next.17(prettier@3.0.0)(typedoc@0.24.8):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'
@@ -4360,7 +4357,6 @@ packages:
       prettier: 3.0.0
       typedoc: 0.24.8(typescript@5.1.6)
     dev: false
-    patched: true
 
   /typedoc-plugin-mdn-links@3.0.3(typedoc@0.24.8):
     resolution: {integrity: sha512-NXhIpwQnsg7BcyMCHVqj3tUK+DL4g3Bt96JbFl4APzTGFkA+iM6GfZ/fn3TAqJ8O0CXG5R9BfWxolw1m1omNuQ==}
