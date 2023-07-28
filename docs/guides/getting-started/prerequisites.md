@@ -103,7 +103,7 @@ You will need to install a couple of system dependencies, such as a C compiler a
 
 ```sh
 sudo apt update
-sudo apt install libwebkit2gtk-4.0-dev \
+sudo apt install libwebkit2gtk-4.1-dev \
     build-essential \
     curl \
     wget \
@@ -111,7 +111,9 @@ sudo apt install libwebkit2gtk-4.0-dev \
     libssl-dev \
     libgtk-3-dev \
     libayatana-appindicator3-dev \
-    librsvg2-dev
+    librsvg2-dev \
+    libjavascriptcoregtk-4.1-dev \
+    libsoup-3.0-dev
 ```
 
   </TabItem>
