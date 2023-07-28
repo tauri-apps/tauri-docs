@@ -1,0 +1,359 @@
+diff --git a/dist/plugin/options/config.d.ts b/dist/plugin/options/config.d.ts
+index ebe9f64bc5fc979dc4108eea9206441bc67052ea..077d88c973a9b475e53a8b21959f28d912ee9010 100644
+--- a/dist/plugin/options/config.d.ts
++++ b/dist/plugin/options/config.d.ts
+@@ -100,7 +100,6 @@ export declare const skipIndexPage: DeclarationOption;
+ export declare const excludeGroups: DeclarationOption;
+ export declare const hidePageHeader: DeclarationOption;
+ export declare const hidePageTitle: DeclarationOption;
+-export declare const hideKindPrefix: DeclarationOption;
+ export declare const hideBreadcrumbs: DeclarationOption;
+ export declare const hideInPageTOC: DeclarationOption;
+ export declare const hideHierarchy: DeclarationOption;
+@@ -115,13 +114,21 @@ export declare const tocFormat: DeclarationOption;
+ export declare const baseUrl: DeclarationOption;
+ export declare const anchorFormat: DeclarationOption;
+ /**
+- * e.g customprefix-{{anchor}}
++ * Supports {anchor} placeholders.
+  *
+  * An example use-case is for bitbucket cloud that would use the option
+  *
+  * ```
+- * anchorPattern: 'markdown-header-{{anchor}}'
++ * anchorTemplate: 'markdown-header-{anchor}'
+  * ```
+  */
+-export declare const anchorPattern: DeclarationOption;
++export declare const anchorTemplate: DeclarationOption;
++/**
++ * Supports {kind} and {title} placeholders.
++ *
++ * ```
++ * titleTemplate: "{kind}: {title}"
++ * ```
++ */
++export declare const titleTemplate: DeclarationOption;
+ export declare const namedAnchors: DeclarationOption;
+diff --git a/dist/plugin/options/config.js b/dist/plugin/options/config.js
+index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24bfb1e7b4 100644
+--- a/dist/plugin/options/config.js
++++ b/dist/plugin/options/config.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.namedAnchors = exports.anchorPattern = exports.anchorFormat = exports.baseUrl = exports.tocFormat = exports.typeDeclarationFormat = exports.enumMembersFormat = exports.propertiesFormat = exports.identifiersAsCodeBlocks = exports.hideHierarchy = exports.hideInPageTOC = exports.hideBreadcrumbs = exports.hideKindPrefix = exports.hidePageTitle = exports.hidePageHeader = exports.excludeGroups = exports.skipIndexPage = exports.indexPageTitle = exports.indexFileName = exports.entryFileName = exports.flattenOutputFiles = exports.includeFileNumberPrefixes = exports.outputFileStrategy = void 0;
++exports.namedAnchors = exports.titleTemplate = exports.anchorTemplate = exports.anchorFormat = exports.baseUrl = exports.tocFormat = exports.typeDeclarationFormat = exports.enumMembersFormat = exports.propertiesFormat = exports.identifiersAsCodeBlocks = exports.hideHierarchy = exports.hideInPageTOC = exports.hideBreadcrumbs = exports.hidePageTitle = exports.hidePageHeader = exports.excludeGroups = exports.skipIndexPage = exports.indexPageTitle = exports.indexFileName = exports.entryFileName = exports.flattenOutputFiles = exports.includeFileNumberPrefixes = exports.outputFileStrategy = void 0;
+ const typedoc_1 = require("typedoc");
+ const custom_maps_1 = require("./custom-maps");
+ /**
+@@ -154,12 +154,6 @@ exports.hidePageTitle = {
+     type: typedoc_1.ParameterType.Boolean,
+     defaultValue: false,
+ };
+-exports.hideKindPrefix = {
+-    name: 'hideKindPrefix',
+-    help: 'Do not print the kind label as a title prefix.',
+-    type: typedoc_1.ParameterType.Boolean,
+-    defaultValue: false,
+-};
+ exports.hideBreadcrumbs = {
+     name: 'hideBreadcrumbs',
+     help: 'Do not print breadcrumbs.',
+@@ -228,18 +222,31 @@ exports.anchorFormat = {
+     defaultValue: custom_maps_1.AnchorFormat.Lowercase,
+ };
+ /**
+- * e.g customprefix-{{anchor}}
++ * Supports {anchor} placeholders.
+  *
+  * An example use-case is for bitbucket cloud that would use the option
+  *
+  * ```
+- * anchorPattern: 'markdown-header-{{anchor}}'
++ * anchorTemplate: 'markdown-header-{anchor}'
++ * ```
++ */
++exports.anchorTemplate = {
++    name: 'anchorTemplate',
++    help: 'The anchor template to use when linking to internal symbols.',
++    type: typedoc_1.ParameterType.String,
++};
++/**
++ * Supports {kind} and {title} placeholders.
++ *
++ * ```
++ * titleTemplate: "{kind}: {title}"
+  * ```
+  */
+-exports.anchorPattern = {
+-    name: 'anchorPattern',
+-    help: 'The anchor pattern to use when linking to internal symbols.',
++exports.titleTemplate = {
++    name: 'titleTemplate',
++    help: 'Specify a template for displaying page titles.',
+     type: typedoc_1.ParameterType.String,
++    defaultValue: '{title}',
+ };
+ exports.namedAnchors = {
+     name: 'namedAnchors',
+diff --git a/dist/plugin/options/models.d.ts b/dist/plugin/options/models.d.ts
+index b4477311bfdc34bb9dbb3b6bea5076276b8dff80..96697093ec6dfef27de7d61b8ef7ec6d611a4376 100644
+--- a/dist/plugin/options/models.d.ts
++++ b/dist/plugin/options/models.d.ts
+@@ -10,7 +10,6 @@ declare module 'typedoc' {
+         excludeGroups: boolean;
+         hidePageHeader: boolean;
+         hidePageTitle: boolean;
+-        hideKindPrefix: boolean;
+         hideBreadcrumbs: boolean;
+         hideInPageTOC: boolean;
+         hideHierarchy: boolean;
+@@ -21,7 +20,8 @@ declare module 'typedoc' {
+         tocFormat: 'list' | 'table';
+         baseUrl: string;
+         anchorFormat: 'lowercase' | 'slug' | 'none';
+-        anchorPattern: string;
++        anchorTemplate: string;
++        titleTemplate: string;
+         namedAnchors: boolean;
+     }
+ }
+@@ -36,7 +36,6 @@ export interface PluginOptions {
+     excludeGroups: boolean;
+     hidePageHeader: boolean;
+     hidePageTitle: boolean;
+-    hideKindPrefix: boolean;
+     hideBreadcrumbs: boolean;
+     hideInPageTOC: boolean;
+     hideHierarchy: boolean;
+@@ -47,6 +46,7 @@ export interface PluginOptions {
+     tocFormat: 'list' | 'table';
+     baseUrl: string;
+     anchorFormat: 'lowercase' | 'slug' | 'none';
+-    anchorPattern: string;
++    anchorTemplate: string;
++    titleTemplate: string;
+     namedAnchors: boolean;
+ }
+diff --git a/dist/plugin/renderer.js b/dist/plugin/renderer.js
+index 3692e9db37cbf7f43f1ae544ea583b25ec2ae643..3b838c79839d5266dfcb291407e9d33cf61c3842 100644
+--- a/dist/plugin/renderer.js
++++ b/dist/plugin/renderer.js
+@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.normalizePath = exports.writeFileSync = exports.renderMarkdown = exports.generateMarkdown = exports.MarkdownRendererEvent = void 0;
+ const fs = __importStar(require("fs"));
+ const path = __importStar(require("path"));
+-const prettier = __importStar(require("prettier"));
++const prettier_1 = require("prettier");
+ const typedoc_1 = require("typedoc");
+ /**
+  * Extends the RendererEvent from TypeDoc to expose navigation property.
+@@ -99,9 +99,9 @@ async function renderMarkdown(project, outputDirectory) {
+     this.preRenderAsyncJobs = [];
+     this.application.logger.verbose(`There are ${(_a = output.urls) === null || _a === void 0 ? void 0 : _a.length} pages to write.`);
+     // Resolve prettier config options
+-    const prettierConfigFile = await prettier.resolveConfigFile();
++    const prettierConfigFile = await (0, prettier_1.resolveConfigFile)();
+     const prettierOptions = prettierConfigFile
+-        ? await prettier.resolveConfig(prettierConfigFile)
++        ? await (0, prettier_1.resolveConfig)(prettierConfigFile)
+         : {};
+     (_b = output.urls) === null || _b === void 0 ? void 0 : _b.filter((urlMapping) => urlMapping.model instanceof typedoc_1.ProjectReflection ||
+         urlMapping.model instanceof typedoc_1.DeclarationReflection).forEach(async (urlMapping) => {
+@@ -121,7 +121,10 @@ async function renderMarkdown(project, outputDirectory) {
+             return false;
+         }
+         try {
+-            const formattedContents = await prettier.format(page.contents, { parser: 'markdown', ...(prettierOptions && prettierOptions) });
++            const formattedContents = await (0, prettier_1.format)(page.contents, {
++                parser: 'markdown',
++                ...(prettierOptions && prettierOptions),
++            });
+             writeFileSync(page.filename, formattedContents);
+         }
+         catch (error) {
+diff --git a/dist/theme/resources/partials/header.js b/dist/theme/resources/partials/header.js
+index d8532c1d646c0fd5e2ef6f8c77d41acf1f8a0ec4..468065e028299f3ed16f37eef11bd87a53942b1a 100644
+--- a/dist/theme/resources/partials/header.js
++++ b/dist/theme/resources/partials/header.js
+@@ -101,7 +101,9 @@ function packageHeader(context, page) {
+     return `${md.join(' ')}\n***\n`;
+ }
+ function findPackage(model) {
+-    if (model.kindOf(typedoc_1.ReflectionKind.Module)) {
++    var _a;
++    if (model.kindOf(typedoc_1.ReflectionKind.Module) &&
++        ((_a = model.parent) === null || _a === void 0 ? void 0 : _a.kindOf(typedoc_1.ReflectionKind.Project))) {
+         return model;
+     }
+     if (model.parent) {
+diff --git a/dist/theme/resources/partials/member.js b/dist/theme/resources/partials/member.js
+index 93a6932f57cc56f30293cbe9e94a65d018467559..3ebe69c7f338df736a9bcc79eb776717c733a209 100644
+--- a/dist/theme/resources/partials/member.js
++++ b/dist/theme/resources/partials/member.js
+@@ -11,7 +11,8 @@ function member(context, reflection, headingLevel) {
+     if (context.options.getValue('namedAnchors')) {
+         md.push(`<a id="${reflection.anchor}" name="${reflection.anchor}"></a>`);
+     }
+-    if (!reflection.hasOwnDocument) {
++    if (!reflection.kindOf(typedoc_1.ReflectionKind.Constructor) &&
++        !reflection.hasOwnDocument) {
+         md.push((0, elements_1.heading)(headingLevel, context.memberTitle(reflection)));
+     }
+     if ([
+diff --git a/dist/theme/resources/partials/member.reflection.js b/dist/theme/resources/partials/member.reflection.js
+index 8aff8efa9c6d5b8710b4212fab5cfa0202d6a15b..f5927bc2346401b38a3a1aea5aa9549f434921b3 100644
+--- a/dist/theme/resources/partials/member.reflection.js
++++ b/dist/theme/resources/partials/member.reflection.js
+@@ -16,7 +16,7 @@ function reflectionMember(context, reflection, headingLevel) {
+         ((_a = reflection.typeHierarchy) === null || _a === void 0 ? void 0 : _a.next)) {
+         md.push(context.memberHierarchy(reflection.typeHierarchy, headingLevel));
+     }
+-    if (reflection.typeParameters) {
++    if (!reflection.kindOf(typedoc_1.ReflectionKind.Class) && reflection.typeParameters) {
+         md.push((0, elements_1.heading)(headingLevel, 'Type parameters'));
+         md.push(context.typeParametersTable(reflection.typeParameters));
+     }
+diff --git a/dist/theme/resources/partials/member.signature.js b/dist/theme/resources/partials/member.signature.js
+index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..71668c1f55d28a5516bbc01ed0d4376a4ed6bbf7 100644
+--- a/dist/theme/resources/partials/member.signature.js
++++ b/dist/theme/resources/partials/member.signature.js
+@@ -7,8 +7,11 @@ const elements_1 = require("../../../support/elements");
+  * @category Partials
+  */
+ function signatureMember(context, signature, headingLevel, showSources = true) {
+-    var _a, _b, _c, _d, _e;
++    var _a, _b, _c, _d, _e, _f;
+     const md = [];
++    if ((_a = signature.parent) === null || _a === void 0 ? void 0 : _a.kindOf(typedoc_1.ReflectionKind.Constructor)) {
++        md.push((0, elements_1.heading)(headingLevel - 1, `${signature.name}()`));
++    }
+     if (showSources) {
+         if (context.options.getValue('identifiersAsCodeBlocks')) {
+             md.push((0, elements_1.codeBlock)(context.signatureMemberIdentifier(signature)));
+@@ -20,12 +23,12 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+     if (signature.comment) {
+         md.push(context.comment(signature.comment, headingLevel));
+     }
+-    const typeDeclaration = (_a = signature.type) === null || _a === void 0 ? void 0 : _a.declaration;
+-    if ((_b = signature.typeParameters) === null || _b === void 0 ? void 0 : _b.length) {
++    const typeDeclaration = (_b = signature.type) === null || _b === void 0 ? void 0 : _b.declaration;
++    if ((_c = signature.typeParameters) === null || _c === void 0 ? void 0 : _c.length) {
+         md.push((0, elements_1.heading)(headingLevel, 'Type parameters'));
+         md.push(context.typeParametersTable(signature.typeParameters));
+     }
+-    if ((_c = signature.parameters) === null || _c === void 0 ? void 0 : _c.length) {
++    if ((_d = signature.parameters) === null || _d === void 0 ? void 0 : _d.length) {
+         md.push((0, elements_1.heading)(headingLevel, 'Parameters'));
+         md.push(context.parametersTable(signature.parameters));
+     }
+@@ -34,7 +37,7 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+         if (!(typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.signatures) && !(typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.children)) {
+             md.push(context.someType(signature.type, true));
+         }
+-        if ((_d = signature.comment) === null || _d === void 0 ? void 0 : _d.blockTags.length) {
++        if ((_e = signature.comment) === null || _e === void 0 ? void 0 : _e.blockTags.length) {
+             const tags = signature.comment.blockTags
+                 .filter((tag) => tag.tag === '@returns')
+                 .map((tag) => context.commentParts(tag.content));
+@@ -45,7 +48,7 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+                 md.push((0, elements_1.blockQuoteBlock)(context.signatureMember(signature, headingLevel + 1)));
+             });
+         }
+-        const hasParent = (_e = typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.parent) === null || _e === void 0 ? void 0 : _e.kindOf(typedoc_1.ReflectionKind.Property);
++        const hasParent = (_f = typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.parent) === null || _f === void 0 ? void 0 : _f.kindOf(typedoc_1.ReflectionKind.Property);
+         if (typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.children) {
+             md.push(context.typeDeclarationMember(typeDeclaration, headingLevel + 1, hasParent ? signature.name : undefined, false));
+         }
+diff --git a/dist/theme/resources/partials/member.title.js b/dist/theme/resources/partials/member.title.js
+index c1bfe86f6b864c3dd07b33e81557647da802f41b..d0dba91a0ca7420dd548a0aaf9abe850fae24bd4 100644
+--- a/dist/theme/resources/partials/member.title.js
++++ b/dist/theme/resources/partials/member.title.js
+@@ -1,7 +1,6 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.memberTitle = void 0;
+-const typedoc_1 = require("typedoc");
+ const elements_1 = require("../../../support/elements");
+ const utils_1 = require("../../../support/utils");
+ /**
+@@ -10,9 +9,6 @@ const utils_1 = require("../../../support/utils");
+ function memberTitle(context, reflection, typeParams = false) {
+     var _a;
+     const md = [];
+-    if (hasKindTag(context, reflection)) {
+-        md.push(`${typedoc_1.ReflectionKind.singularString(reflection.kind)}: `);
+-    }
+     md.push(`${(0, utils_1.escapeChars)(reflection.name)}`);
+     if ((_a = reflection.signatures) === null || _a === void 0 ? void 0 : _a.length) {
+         md.push('()');
+@@ -26,10 +22,3 @@ function memberTitle(context, reflection, typeParams = false) {
+     return md.join('');
+ }
+ exports.memberTitle = memberTitle;
+-function hasKindTag(context, reflection) {
+-    if (reflection.hasOwnDocument &&
+-        !context.options.getValue('hideKindPrefix')) {
+-        return true;
+-    }
+-    return false;
+-}
+diff --git a/dist/theme/resources/partials/page.title.js b/dist/theme/resources/partials/page.title.js
+index d330846f3cd041172156ec464d30e198e732ed41..8d857261420f79e0c070f1edeeba0b2edbb7a619 100644
+--- a/dist/theme/resources/partials/page.title.js
++++ b/dist/theme/resources/partials/page.title.js
+@@ -1,6 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.pageTitle = void 0;
++const typedoc_1 = require("typedoc");
+ const helpers_1 = require("../../helpers");
+ /**
+  * @category Partials
+@@ -8,12 +9,16 @@ const helpers_1 = require("../../helpers");
+ function pageTitle(context, page) {
+     var _a;
+     const md = [];
++    const titleTemplate = context.options.getValue('titleTemplate');
+     if (((_a = page.model) === null || _a === void 0 ? void 0 : _a.url) === page.project.url) {
+         md.push(context.options.getValue('indexPageTitle') ||
+             (0, helpers_1.getProjectDisplayName)(page.project, context.options.getValue('includeVersion')));
+     }
+     else {
+-        md.push(context.memberTitle(page.model, true));
++        const title = context.memberTitle(page.model, true);
++        md.push(titleTemplate
++            .replace('{title}', title)
++            .replace('{kind}', typedoc_1.ReflectionKind.singularString(page.model.kind)));
+     }
+     return md.join(' ');
+ }
+diff --git a/dist/theme/url-builder.js b/dist/theme/url-builder.js
+index dea04ef2259b55a0ccb9acc26b054cdc34d16054..668265ebd4e8355389e02be891bec11c11e8eff3 100644
+--- a/dist/theme/url-builder.js
++++ b/dist/theme/url-builder.js
+@@ -43,8 +43,9 @@ class UrlBuilder {
+      */
+     getUrls(project) {
+         var _a;
++        console.log(this.options.getValue('indexFileName'));
+         const entryFileName = this.options.getValue('entryFileName');
+-        const indexFileName = 'API.md';
++        const indexFileName = this.options.getValue('indexFileName');
+         const hasReadme = !this.options.getValue('readme').endsWith('none');
+         if (hasReadme) {
+             this.urls.push(new typedoc_1.UrlMapping(entryFileName, project, this.theme.readmeTemplate));
+@@ -248,9 +249,9 @@ class UrlBuilder {
+         var _a, _b;
+         if (container.url && !reflection.url) {
+             if (!reflection.kindOf(typedoc_1.ReflectionKind.TypeLiteral)) {
+-                const anchorPattern = this.options.getValue('anchorPattern');
+-                const anchorId = anchorPattern
+-                    ? anchorPattern.replace('{{anchor}}', this.getAnchorId(reflection))
++                const anchorTemplate = this.options.getValue('anchorTemplate');
++                const anchorId = anchorTemplate
++                    ? anchorTemplate.replace('{anchor}', this.getAnchorId(reflection))
+                     : this.getAnchorId(reflection);
+                 const count = (_b = (_a = this.anchors[container.url]) === null || _a === void 0 ? void 0 : _a.filter((id) => id === anchorId)) === null || _b === void 0 ? void 0 : _b.length;
+                 const anchor = anchorId + (count > 1 ? '-' + (count - 1).toString() : '');
