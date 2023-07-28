@@ -78,7 +78,7 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
         `packages/plugins-workspace/plugins/${plugin}/guest-js/index.ts`,
       ],
       tsconfig: `packages/plugins-workspace/plugins/${plugin}/tsconfig.json`,
-      output: `2/reference/plugin/${plugin}`,
+      output: `2/reference/plugin/${plugin}/js`,
       typeDoc: {
         // TODO: Pending https://github.com/tauri-apps/plugins-workspace/pull/523 to be merged, then update submodule
         readme: `packages/plugins-workspace/plugins/${plugin}/README.md`,
@@ -232,7 +232,7 @@ export default defineConfig({
               label: 'Core JavaScript',
               autogenerate: { directory: '2/reference/core/js' },
             },
-            ...plugins.map((plugin) => ({label: plugin, link: `2/reference/plugin/${plugin}`}))
+            ...plugins.map((plugin) => ({label: plugin, link: `2/reference/plugin/${plugin}/js`}))
           ],
         },
         {
