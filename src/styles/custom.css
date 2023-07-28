@@ -69,14 +69,11 @@
 .heading-link::after {
   content: '#';
   padding-inline-start: 0.25em;
-  text-decoration: underline;
-  text-decoration-color: transparent;
   opacity: 0;
   transition: var(--tauri-transition-speed);
 }
 .heading-link:hover::after {
   color: var(--sl-color-text-accent);
-  text-decoration-color: unset;
   opacity: 1;
 }
 .heading-link {
