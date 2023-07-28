@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build:setup": "yarn --cwd packages/tauri/tooling/api",
+    "build:setup:tauri": "yarn --cwd packages/tauri/tooling/api",
+    "build:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
+    "build:setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
     "build": "pnpm build:setup && pnpm build:astro && pnpm build:i18n",
