@@ -273,17 +273,17 @@ export default defineConfig({
     shikiConfig: {
       langs: ['powershell'],
     },
-    // rehypePlugins: [
-    //   rehypeHeadingIds,
-    //   [
-    //     rehypeAutolinkHeadings,
-    //     {
-    //       behavior: 'append',
-    //       properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-    //       content: {},
-    //     },
-    //   ],
-    // ],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
+          content: undefined,
+        },
+      ],
+    ],
   },
   // Required until https://github.com/withastro/starlight/issues/421 is addressed
   experimental: {
