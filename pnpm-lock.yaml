@@ -17,8 +17,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(astro@2.9.6)
       '@astrojs/starlight':
-        specifier: ^0.5.6
-        version: 0.5.6(astro@2.9.6)
+        specifier: ^0.6.0
+        version: 0.6.0(astro@2.9.6)
       astro:
         specifier: ^2.9.6
         version: 2.9.6(sharp@0.32.4)
@@ -30,7 +30,7 @@ importers:
         version: 0.32.4
       starlight-typedoc:
         specifier: ^0.3.1
-        version: 0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8)
+        version: 0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.6.0)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8)
       typedoc:
         specifier: ^0.24.8
         version: 0.24.8(typescript@5.1.6)
@@ -172,8 +172,8 @@ packages:
       zod: 3.21.4
     dev: false
 
-  /@astrojs/starlight@0.5.6(astro@2.9.6):
-    resolution: {integrity: sha512-gOM67MjKV8JJlhZSWj63C/hKLJs+k9DCL3k/n5jQ1pL3ZZYLpLk/dWFx03m0wBPvq1WwjI/WzvUL9r4j2lAYAg==}
+  /@astrojs/starlight@0.6.0(astro@2.9.6):
+    resolution: {integrity: sha512-LBxmhNSTNzoiZZE6lK1HEFKz5AgiZVHZ4nhAm7tz7qHSxDChD/zLS917Vi6sneolPy+Eu7AAZY3lGV9lneA/9A==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
@@ -4100,7 +4100,7 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-typedoc@0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8):
+  /starlight-typedoc@0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.6.0)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8):
     resolution: {integrity: sha512-3A6Hf3SOG4U9DfT/aZ6C4fAsI1WJeH/7b3X0Z8a+33wOfPcxkY6VYRH2RWpaeLA3BionDaq+KeNrVLVL2gPw3Q==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -4108,7 +4108,7 @@ packages:
       typedoc: '>=0.24.0'
       typedoc-plugin-markdown: '>=4.0.0-next.14'
     dependencies:
-      '@astrojs/starlight': 0.5.6(astro@2.9.6)
+      '@astrojs/starlight': 0.6.0(astro@2.9.6)
       github-slugger: 2.0.0
       kleur: 4.1.5
       typedoc: 0.24.8(typescript@5.1.6)
