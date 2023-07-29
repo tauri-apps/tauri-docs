@@ -7,12 +7,13 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 
 const typeDocOptions = {
-  // TODO: Index page is currently not generated, pending merge of PR:
+  // TODO: Currently not respecting set name, will need to PR/fix after
+  // https://github.com/HiDeoo/starlight-typedoc/pull/10 is merged with
   // https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md#indexfilename
   indexFileName: 'reference.md',
-  // In testing it still didn't seem to respect the filename being set so there might be a secondary bug
-  // Could be fixed with https://github.com/lorenzolewis/typedoc-plugin-markdown/commit/a19ae18a60cef00f9c0f91e28563c486dde9cb49
   entryFileName: 'index.md',
+  readme: undefined,
+  skipIndexPage: false,
   // TODO: This isn't being set in the frontmatter or anywhere else, will raise issue after above are resolved.
   // indexPageTitle: 'foobar',
   outputFileStrategy: 'modules',
@@ -33,7 +34,6 @@ if (existsSync('packages/tauri/tooling/api/node_modules')) {
     output: '2/reference/core/js',
     typeDoc: {
       gitRevision: 'dev',
-      readme: 'packages/tauri/tooling/api/README.md',
       ...typeDocOptions,
     },
   });
@@ -83,7 +83,6 @@ if (existsSync('packages/plugins-workspace/node_modules')) {
       output: `2/reference/plugin/${plugin}`,
       typeDoc: {
         gitRevision: 'v2',
-        readme: `packages/plugins-workspace/plugins/${plugin}/README.md`,
         ...typeDocOptions,
       },
     });
