@@ -71,6 +71,19 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
 
+  packages/tauri-typedoc-theme:
+    dependencies:
+      typedoc:
+        specifier: ^0.24.8
+        version: 0.24.8(typescript@5.1.6)
+      typedoc-plugin-markdown:
+        specifier: 4.0.0-next.17
+        version: 4.0.0-next.17(prettier@3.0.0)(typedoc@0.24.8)
+    devDependencies:
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+
 packages:
 
   /@ampproject/remapping@2.2.1:
@@ -4384,7 +4397,6 @@ packages:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: false
 
   /undici@5.22.1:
     resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}

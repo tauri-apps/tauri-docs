@@ -24,7 +24,11 @@ const typeDocOptions = {
   enumMembersFormat: 'table',
   propertiesFormat: 'table',
   typeDeclarationFormat: 'table',
-  plugin: ['typedoc-plugin-mdn-links'],
+  plugin: [
+    'typedoc-plugin-mdn-links',
+    './packages/tauri-typedoc-theme/dist/index',
+  ],
+  theme: 'tauri-typedoc-theme',
 };
 
 // Generates the JS API routes, check CONTRIBUTING.md for instructions
