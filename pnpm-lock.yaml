@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   starlight-typedoc@0.3.1:
-    hash: dxvluu5npxmetffvqz7utyzedm
+    hash: pqo4ghavzn32h5blxao2fhlwy4
     path: patches/starlight-typedoc@0.3.1.patch
 
 importers:
@@ -30,7 +30,7 @@ importers:
         version: 0.32.4
       starlight-typedoc:
         specifier: ^0.3.1
-        version: 0.3.1(patch_hash=dxvluu5npxmetffvqz7utyzedm)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8)
+        version: 0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8)
       typedoc:
         specifier: ^0.24.8
         version: 0.24.8(typescript@5.1.6)
@@ -4100,7 +4100,7 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-typedoc@0.3.1(patch_hash=dxvluu5npxmetffvqz7utyzedm)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8):
+  /starlight-typedoc@0.3.1(patch_hash=pqo4ghavzn32h5blxao2fhlwy4)(@astrojs/starlight@0.5.6)(typedoc-plugin-markdown@4.0.0-next.17)(typedoc@0.24.8):
     resolution: {integrity: sha512-3A6Hf3SOG4U9DfT/aZ6C4fAsI1WJeH/7b3X0Z8a+33wOfPcxkY6VYRH2RWpaeLA3BionDaq+KeNrVLVL2gPw3Q==}
     engines: {node: '>=18'}
     peerDependencies:
