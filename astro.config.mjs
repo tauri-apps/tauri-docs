@@ -9,9 +9,9 @@ import locales from './locales.json';
 const typeDocOptions = {
   // TODO: Index page is currently not generated, pending merge of PR:
   // https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md#indexfilename
+  indexFileName: 'reference.md',
   // In testing it still didn't seem to respect the filename being set so there might be a secondary bug
   // Could be fixed with https://github.com/lorenzolewis/typedoc-plugin-markdown/commit/a19ae18a60cef00f9c0f91e28563c486dde9cb49
-  indexFileName: 'reference.md',
   entryFileName: 'index.md',
   // TODO: This isn't being set in the frontmatter or anywhere else, will raise issue after above are resolved.
   // indexPageTitle: 'foobar',
