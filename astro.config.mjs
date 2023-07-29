@@ -10,6 +10,7 @@ const typeDocOptions = {
   // TODO: Currently not respecting set name, will need to PR/fix after
   // https://github.com/HiDeoo/starlight-typedoc/pull/10 is merged with
   // https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md#indexfilename
+  // TODO: Pending API.md link fix in https://github.com/HiDeoo/starlight-typedoc/pull/12
   indexFileName: 'reference.md',
   entryFileName: 'index.md',
   readme: undefined,
