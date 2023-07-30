@@ -19,6 +19,9 @@ importers:
       '@astrojs/starlight':
         specifier: ^0.6.0
         version: 0.6.0(astro@2.9.6)
+      '@types/json-schema':
+        specifier: ^7.0.12
+        version: 7.0.12
       astro:
         specifier: ^2.9.6
         version: 2.9.6(sharp@0.32.4)
@@ -1086,6 +1089,10 @@ packages:
   /@types/html-escaper@3.0.0:
     resolution: {integrity: sha512-OcJcvP3Yk8mjYwf/IdXZtTE1tb/u0WF0qa29ER07ZHCYUBZXSN29Z1mBS+/96+kNMGTFUAbSz9X+pHmHpZrTCw==}
     dev: true
+
+  /@types/json-schema@7.0.12:
+    resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
+    dev: false
 
   /@types/json5@0.0.30:
     resolution: {integrity: sha512-sqm9g7mHlPY/43fcSNrCYfOeX9zkTTK+euO5E6+CVijSMm5tTjkVdwdqRkY3ljjIAf8679vps5jKUoJBCLsMDA==}
