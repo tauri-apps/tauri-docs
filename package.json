@@ -3,13 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "setup:tauri": "yarn --cwd packages/tauri/tooling/api",
-    "setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
-    "setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
+    "build:setup:tauri": "yarn --cwd packages/tauri/tooling/api",
+    "build:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
+    "build:setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
     "dev": "astro dev",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm setup && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm build:setup && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -22,10 +22,5 @@
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "4.0.0-next.17",
     "typedoc-plugin-mdn-links": "^3.0.3"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "typedoc-plugin-markdown@4.0.0-next.17": "patches/typedoc-plugin-markdown@4.0.0-next.17.patch"
-    }
   }
 }
