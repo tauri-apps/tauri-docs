@@ -12,6 +12,8 @@ import {
   MarkdownThemeRenderContext,
 } from 'typedoc-plugin-markdown';
 
+// TODO: Somehow relative links are now broken and not handled by typedoc-starlight
+
 export class TauriThemeContext extends MarkdownThemeRenderContext {
   #markdownThemeRenderContext: MarkdownThemeRenderContext;
 
