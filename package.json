@@ -3,13 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build:setup:tauri": "yarn --cwd packages/tauri/tooling/api",
-    "build:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
-    "build:setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
+    "dev:setup:tauri": "yarn --cwd packages/tauri/tooling/api",
+    "dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
+    "dev:setup": "pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm build:setup && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
