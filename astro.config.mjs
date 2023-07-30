@@ -26,9 +26,9 @@ const typeDocOptions = {
   typeDeclarationFormat: 'table',
   plugin: [
     'typedoc-plugin-mdn-links',
-    './packages/tauri-typedoc-theme/dist/index',
+    // './packages/tauri-typedoc-theme/dist/index',
   ],
-  theme: 'tauri-typedoc-theme',
+  // theme: 'tauri-typedoc-theme',
 };
 
 // Generates the JS API routes, check CONTRIBUTING.md for instructions
