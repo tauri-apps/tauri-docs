@@ -489,6 +489,5 @@ title: Tauri Configuration
   }
 
   const config = buildObject(null, schema, 1).join('\n');
-  console.log(config);
   fs.writeFileSync(targetPath, `${header}${config}`);
 }
