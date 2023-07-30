@@ -24,6 +24,7 @@ export class TauriThemeContext extends MarkdownThemeRenderContext {
       options
     );
   }
+
   override sources: (
     reflection: DeclarationReflection | SignatureReflection,
     headingLevel: number
