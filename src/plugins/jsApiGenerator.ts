@@ -23,12 +23,13 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions> = {
   outputFileStrategy: 'modules',
   skipIndexPage: false,
   entryFileName: '../index.md',
-  // TODO: Not currently working
-  indexFileName: 'foobar.md',
+  // TODO: Pending https://github.com/tgreyuk/typedoc-plugin-markdown/pull/455 being released so that the patch can be removed
+  indexFileName: 'index.md',
   githubPages: false,
   readme: undefined,
   // Plugins
   plugin: ['typedoc-plugin-mdn-links'],
+  // Being removed in typedoc-plugin-markdown future release
   // typedoc-plugin-markdown
   flattenOutputFiles: true,
   hideGenerator: true,
@@ -38,7 +39,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions> = {
   typeDeclarationFormat: 'table',
   hideBreadcrumbs: true,
   hideInPageTOC: true,
-  hideKindPrefix: true,
+  // hideKindPrefix: true,
   hidePageHeader: true,
   hidePageTitle: true,
   theme: 'tauri-theme',
