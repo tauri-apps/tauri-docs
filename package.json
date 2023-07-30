@@ -3,30 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "setup:tauri": "yarn --cwd packages/tauri/tooling/api",
+    "setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
+    "setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
     "dev": "astro dev",
-    "start": "astro dev",
-    "build:setup:tauri": "yarn --cwd packages/tauri/tooling/api",
-    "build:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
-    "build:setup": "pnpm build:setup:tauri && pnpm build:setup:plugins-workspace",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm build:setup && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm setup && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^2.2.1",
     "@astrojs/starlight": "^0.6.0",
     "astro": "^2.9.6",
+    "github-slugger": "^2.0.0",
     "rehype-autolink-headings": "^6.1.1",
     "sharp": "^0.32.4",
-    "starlight-typedoc": "^0.3.1",
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "4.0.0-next.17",
     "typedoc-plugin-mdn-links": "^3.0.3"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "starlight-typedoc@0.3.1": "patches/starlight-typedoc@0.3.1.patch"
-    }
   }
 }
