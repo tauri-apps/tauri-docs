@@ -123,12 +123,6 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/starlight',
       },
-      head: [
-        {
-          tag: 'script',
-          attrs: { src: '/javascript/navigator.js' },
-        },
-      ],
       customCss: ['./src/styles/custom.css'],
       sidebar: [
         {
