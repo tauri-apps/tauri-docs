@@ -38,15 +38,17 @@ class TauriThemeContext extends typedoc_plugin_markdown_1.MarkdownThemeRenderCon
                     filteredComment.blockTags.push(blogTag);
                 }
             }
-            let markdown = __classPrivateFieldGet(this, _TauriThemeContext_markdownThemeRenderContext, "f").comment(filteredComment, headingLevel);
+            let markdown = [
+                __classPrivateFieldGet(this, _TauriThemeContext_markdownThemeRenderContext, "f").comment(filteredComment, headingLevel),
+            ];
             for (const customCommentTag of customTags) {
                 if (customCommentTag.content.length > 0) {
-                    markdown += `**Since**: ${customCommentTag.content
+                    markdown.push(`**Since**: ${customCommentTag.content
                         .map((content) => content.text)
-                        .join(', ')}\n`;
+                        .join(', ')}`);
                 }
             }
-            return markdown;
+            return markdown.join('\n');
         };
         __classPrivateFieldSet(this, _TauriThemeContext_markdownThemeRenderContext, new typedoc_plugin_markdown_1.MarkdownThemeRenderContext(event, options), "f");
     }
