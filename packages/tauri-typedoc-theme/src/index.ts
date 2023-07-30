@@ -55,20 +55,21 @@ export class TauriThemeContext extends MarkdownThemeRenderContext {
       }
     }
 
-    let markdown = this.#markdownThemeRenderContext.comment(
-      filteredComment,
-      headingLevel
-    );
+    let markdown = [
+      this.#markdownThemeRenderContext.comment(filteredComment, headingLevel),
+    ];
 
     for (const customCommentTag of customTags) {
       if (customCommentTag.content.length > 0) {
-        markdown += `**Since**: ${customCommentTag.content
-          .map((content) => content.text)
-          .join(', ')}\n`;
+        markdown.push(
+          `**Since**: ${customCommentTag.content
+            .map((content) => content.text)
+            .join(', ')}`
+        );
       }
     }
 
-    return markdown;
+    return markdown.join('\n');
   };
 }
 
