@@ -64,7 +64,7 @@ export class TauriThemeContext extends MarkdownThemeRenderContext {
       if (customCommentTag.content.length > 0) {
         markdown += `**Since**: ${customCommentTag.content
           .map((content) => content.text)
-          .join(', ')}`;
+          .join(', ')}\n`;
       }
     }
 

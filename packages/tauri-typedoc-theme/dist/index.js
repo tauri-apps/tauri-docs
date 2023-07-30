@@ -43,7 +43,7 @@ class TauriThemeContext extends typedoc_plugin_markdown_1.MarkdownThemeRenderCon
                 if (customCommentTag.content.length > 0) {
                     markdown += `**Since**: ${customCommentTag.content
                         .map((content) => content.text)
-                        .join(', ')}`;
+                        .join(', ')}\n`;
                 }
             }
             return markdown;
