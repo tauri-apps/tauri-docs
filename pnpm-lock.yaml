@@ -25,24 +25,12 @@ importers:
       astro:
         specifier: ^2.9.6
         version: 2.9.6(sharp@0.32.4)
-      github-slugger:
-        specifier: ^2.0.0
-        version: 2.0.0
       rehype-autolink-headings:
         specifier: ^6.1.1
         version: 6.1.1
       sharp:
         specifier: ^0.32.4
         version: 0.32.4
-      typedoc:
-        specifier: ^0.24.8
-        version: 0.24.8(typescript@5.1.6)
-      typedoc-plugin-markdown:
-        specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@3.0.0)(typedoc@0.24.8)
-      typedoc-plugin-mdn-links:
-        specifier: ^3.0.3
-        version: 3.0.3(typedoc@0.24.8)
 
   packages/i18n-tracker:
     devDependencies:
@@ -74,7 +62,20 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
 
-  packages/js-api-generator: {}
+  packages/js-api-generator:
+    dependencies:
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
+      typedoc:
+        specifier: ^0.24.8
+        version: 0.24.8(typescript@5.1.6)
+      typedoc-plugin-markdown:
+        specifier: 4.0.0-next.17
+        version: 4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@2.8.8)(typedoc@0.24.8)
+      typedoc-plugin-mdn-links:
+        specifier: ^3.0.3
+        version: 3.0.3(typedoc@0.24.8)
 
 packages:
 
@@ -3700,12 +3701,6 @@ packages:
     hasBin: true
     dev: false
 
-  /prettier@3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dev: false
-
   /prismjs@1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
     engines: {node: '>=6'}
@@ -4341,13 +4336,13 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@3.0.0)(typedoc@0.24.8):
+  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@2.8.8)(typedoc@0.24.8):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'
       typedoc: '>=0.24.0'
     dependencies:
-      prettier: 3.0.0
+      prettier: 2.8.8
       typedoc: 0.24.8(typescript@5.1.6)
     dev: false
     patched: true
