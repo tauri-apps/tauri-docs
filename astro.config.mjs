@@ -3,11 +3,9 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import jsDocGenerator from './src/plugins/jsApiGenerator';
 import configGenerator from './src/plugins/configGenerator';
 
 await configGenerator();
-await jsDocGenerator();
 
 // https://astro.build/config
 export default defineConfig({
