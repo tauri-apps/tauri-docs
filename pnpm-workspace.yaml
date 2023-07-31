@@ -1,3 +1,4 @@
 packages:
   - 'packages/i18n-tracker'
+  - 'packages/js-api-generator'
   - 'packages/tauri-typedoc-theme'
