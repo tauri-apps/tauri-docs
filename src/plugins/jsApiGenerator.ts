@@ -43,7 +43,6 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
   typeDeclarationFormat: 'table',
 };
 
-// Adapted from https://github.com/HiDeoo/starlight-typedoc
 export default async function generator() {
   if (existsSync('packages/tauri/tooling/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
@@ -113,6 +112,7 @@ export default async function generator() {
   }
 }
 
+// Adapted from https://github.com/HiDeoo/starlight-typedoc
 async function generateDocs(options: Partial<TypeDocOptions>) {
   const outputDir = `src/content/docs${options.baseUrl}`;
 
@@ -134,6 +134,7 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
 }
 
 // Adds frontmatter to the top of the file
+// Adapted from https://github.com/HiDeoo/starlight-typedoc
 function pageEventEnd(event: PageEvent<DeclarationReflection>) {
   if (!event.contents) {
     return;
