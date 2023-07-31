@@ -43,11 +43,11 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
   typeDeclarationFormat: 'table',
 };
 
-export default async function generator() {
-  if (existsSync('packages/tauri/tooling/api/node_modules')) {
+async function generator() {
+  if (existsSync('../tauri/tooling/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
-      entryPoints: ['packages/tauri/tooling/api/src/index.ts'],
-      tsconfig: 'packages/tauri/tooling/api/tsconfig.json',
+      entryPoints: ['../tauri/tooling/api/src/index.ts'],
+      tsconfig: '../tauri/tooling/api/tsconfig.json',
       gitRevision: 'dev',
       baseUrl: '/2/reference/core/js/',
       ...typeDocConfigBaseOptions,
@@ -91,13 +91,13 @@ export default async function generator() {
     'window-state',
   ];
 
-  if (existsSync('packages/plugins-workspace/node_modules')) {
+  if (existsSync('../plugins-workspace/node_modules')) {
     plugins.forEach(async (plugin) => {
       const pluginJsOptions: Partial<TypeDocOptions> = {
         entryPoints: [
-          `packages/plugins-workspace/plugins/${plugin}/guest-js/index.ts`,
+          `../plugins-workspace/plugins/${plugin}/guest-js/index.ts`,
         ],
-        tsconfig: `packages/plugins-workspace/plugins/${plugin}/tsconfig.json`,
+        tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
         gitRevision: 'v2',
         baseUrl: `/2/reference/plugin/${plugin}/js`,
         ...typeDocConfigBaseOptions,
@@ -114,7 +114,7 @@ export default async function generator() {
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
 async function generateDocs(options: Partial<TypeDocOptions>) {
-  const outputDir = `src/content/docs${options.baseUrl}`;
+  const outputDir = `../../src/content/docs${options.baseUrl}`;
 
   const app = new Application();
   app.options.addReader(new TSConfigReader());
@@ -253,3 +253,5 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
     return constructedUrl;
   };
 }
+
+generator()
