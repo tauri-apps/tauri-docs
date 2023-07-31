@@ -12,37 +12,35 @@ import {
 import {
   MarkdownTheme,
   MarkdownThemeRenderContext,
+  type PluginOptions,
   load as loadMarkdownPlugin,
 } from 'typedoc-plugin-markdown';
 import path from 'node:path';
 import { slug } from 'github-slugger';
 import { existsSync } from 'node:fs';
 
-const typeDocConfigBaseOptions: Partial<TypeDocOptions> = {
-  // Structure
+const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
+  // TypeDoc options
+  // https://typedoc.org/options/
+  githubPages: false,
+  hideGenerator: true,
+  theme: 'tauri-theme',
+  plugin: ['typedoc-plugin-mdn-links'],
+  // typedoc-plugin-markdown options
+  // https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
   outputFileStrategy: 'modules',
-  skipIndexPage: false,
+  flattenOutputFiles: true,
   entryFileName: '../index.md',
   // TODO: Pending https://github.com/tgreyuk/typedoc-plugin-markdown/pull/455 being released so that the patch can be removed
   indexFileName: 'index.md',
-  githubPages: false,
-  readme: undefined,
-  // Plugins
-  plugin: ['typedoc-plugin-mdn-links'],
-  // Being removed in typedoc-plugin-markdown future release
-  // typedoc-plugin-markdown
-  flattenOutputFiles: true,
-  hideGenerator: true,
-  identifiersAsCodeBlocks: true,
-  enumMembersFormat: 'table',
-  propertiesFormat: 'table',
-  typeDeclarationFormat: 'table',
-  hideBreadcrumbs: true,
-  hideInPageTOC: true,
-  // hideKindPrefix: true,
   hidePageHeader: true,
   hidePageTitle: true,
-  theme: 'tauri-theme',
+  hideBreadcrumbs: true,
+  hideInPageTOC: true,
+  identifiersAsCodeBlocks: true,
+  propertiesFormat: 'table',
+  enumMembersFormat: 'table',
+  typeDeclarationFormat: 'table',
 };
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
@@ -120,10 +118,14 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
 
   const app = new Application();
   app.options.addReader(new TSConfigReader());
-  loadTauriThemePlugin(app);
+  app.renderer.defineTheme('tauri-theme', TauriTheme);
+  loadMarkdownPlugin(app);
+
+  app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
+    pageEventEnd(event);
+  });
 
   await app.bootstrapWithPlugins(options);
-
   const project = app.convert();
 
   if (project) {
@@ -131,29 +133,25 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
   }
 }
 
-function loadTauriThemePlugin(app: Application) {
-  app.renderer.defineTheme('tauri-theme', TauriTheme);
-  loadMarkdownPlugin(app);
-
-  // Add frontmatter
-  app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
-    if (!event.contents) {
-      return;
-    }
-    const frontmatter = [
-      '---',
-      `title: "${event.model.name}"`,
-      'editUrl: false',
-      'prev: false',
-      'next: false',
-      '---',
-      '',
-      event.contents,
-    ];
-    event.contents = frontmatter.join('\n');
-  });
+// Adds frontmatter to the top of the file
+function pageEventEnd(event: PageEvent<DeclarationReflection>) {
+  if (!event.contents) {
+    return;
+  }
+  const frontmatter = [
+    '---',
+    `title: "${event.model.name}"`,
+    'editUrl: false',
+    'prev: false',
+    'next: false',
+    '---',
+    '',
+    event.contents,
+  ];
+  event.contents = frontmatter.join('\n');
 }
 
+// Overrides and extensions based on https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/customizing.md
 class TauriTheme extends MarkdownTheme {
   override getRenderContext(
     pageEvent: PageEvent<Reflection>
@@ -173,6 +171,7 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
     );
   }
 
+  // Formats `@since` to be a single line
   override comment: (
     comment: Comment,
     headingLevel?: number | undefined
@@ -204,6 +203,7 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
     return markdown;
   };
 
+  // Formats `@source` to be a single line
   override sources: (
     reflection: DeclarationReflection | SignatureReflection,
     headingLevel: number
@@ -220,6 +220,7 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
     return label + sources.join(', ');
   };
 
+  // Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
   override relativeURL = (url: string | undefined) => {
     if (!url) {
       return null;
