@@ -14,6 +14,7 @@ So, you want to write a doc? You've come to the right place!
 - [ ] Do we want to do a branding update?
 - [ ] Favicon
 - [ ] Do some testing around the dev & CI workflows with the JS API submodules
+- [ ] https://www.feelback.dev/blog/new-astro-starlight-integration/
 
 ## Types of Documentation
 
@@ -23,6 +24,15 @@ We have the following types of documents that roughly follow the types defined b
 - **[Recipe](#recipe)**: Task-oriented
 - **[Reference](#recipe)**: Information-oriented
 - **[Blog Post](#blog-post)**: Understanding-oriented
+
+Use this chart to help you figure out where the right place for your content is:
+
+| If the content describes… | …and serves the user’s… | …then it must belong to…  |
+| ------------------------- | ----------------------- | ------------------------- |
+| practical steps           | study                   | [a guide](#guide)         |
+| practical steps           | work                    | [a recipe](#recipe)       |
+| theoretical knowledge     | work                    | [a reference](#reference) |
+| theoretical knowledge     | study                   | [a blog post](#blog-post) |
 
 :::tip[What is Diátaxis?]
 
@@ -69,6 +79,11 @@ TODO:
 ## Sidebar Structure
 
 We'd like to keep the sidebar flexible as we gather feedback from the community. Right now we prefer a minimal approach so that it isn't overwhelming to new readers but we understand there's also a balance to making information discoverable.
+
+- Guides
+- Recipes
+- References
+- Max 7 entries each
 
 ## Translations (i18n)
 
