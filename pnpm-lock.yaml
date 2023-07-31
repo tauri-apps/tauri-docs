@@ -74,6 +74,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
 
+  packages/js-api-generator: {}
+
 packages:
 
   /@ampproject/remapping@2.2.1:
