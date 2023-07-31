@@ -1,3 +1,0 @@
----
-title: Command Line Interface
----
