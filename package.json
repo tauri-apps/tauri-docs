@@ -9,10 +9,10 @@
     "dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
     "dev:setup": "pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
-    "build:reference": "",
+    "build:reference": "pnpm --filter js-api-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:reference && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
