@@ -1,0 +1,15 @@
+---
+import FeelbackReaction from "astro-feelback/components/FeelbackReaction.astro";
+import "astro-feelback/styles/feelback.css";
+
+// Waiting for https://discord.com/channels/830184174198718474/1134090586052378624 to be build out to dynamically insert
+
+const CONTENT_SET_ID = import.meta.env.FEELBACK_CONTENT_SET_ID
+---
+
+<FeelbackReaction
+    contentSetId={CONTENT_SET_ID}
+    key={Astro.url.pathname}
+        layout="list"
+        preset="feeling"
+/>
