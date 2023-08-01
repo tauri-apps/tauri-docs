@@ -2,22 +2,30 @@
 title: Contribute
 i18nReady: true
 ---
-import Feedback from '@components/Feedback.astro'
 
-<Feedback />
+import Stub from '@components/Stub.astro';
 
 So, you want to write a doc? You've come to the right place!
 
 ![Join us gif](https://media.giphy.com/media/3ohhwznAY9PN08m0H6/giphy.mp4)
 
-## Open Items
+## Prerelease Writing Guidelines
 
-- [ ] In copy refer to Tauri 2.0 in the present tense so that it is still accurate upon release
-- [ ] Use code that works with Tauri 2.0 now so that readers can still test out features (this will be especially useful during the beta and RC phases)
-- [ ] Do we want to do a branding update?
-- [ ] Favicon
-- [ ] Do some testing around the dev & CI workflows with the JS API submodules
-- [ ] https://www.feelback.dev/blog/new-astro-starlight-integration/
+- Refer to Tauri 2.0 like it's released now (so that copy doesn't need to be updated upon release)
+- Write any code so that it works **now** but...
+- Annotate any 2.0 code with `{/* FIXME: 2.0 */}` (.mdx files) or `<!-- FIXME: 2.0 -->` (.md files) so that we can easily find and fix any of those upon release (feel free to add in what the code would be upon release in additional comments)
+
+## Writing Style
+
+We're not quite there yet and are still finding our voice...
+
+<Stub />
+
+## Translations (i18n)
+
+While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
+
+Once translations are enabled you can check the [translation status page](/contribute/translate-status).
 
 ## Types of Documentation
 
@@ -30,7 +38,7 @@ We have the following types of documents that roughly follow the types defined b
 
 Use this chart to help you figure out where the right place for your content is:
 
-| If the content describes… | …and serves the user’s… | …then it must belong to…  |
+| If the content describes… | …and serves the user's… | …then it must belong to…  |
 | ------------------------- | ----------------------- | ------------------------- |
 | practical steps           | study                   | [a guide](#guide)         |
 | practical steps           | work                    | [a recipe](#recipe)       |
@@ -63,7 +71,7 @@ The prerequisites for a recipe should be clearly stated. If there are a lot of s
 
 ### Reference
 
-Located in [`/src/content/docs/2/reference/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/reference), although they should be auto-generated when possible
+Located in [`/src/content/docs/2/reference/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/reference), although they should be auto-generated when possible.
 
 References are where all the nuts and bolts of Tauri's API are documented. These should be generated from upstream repos when possible and written following the best practices described by [references in Diátaxix](https://diataxis.fr/reference.html).
 
@@ -74,22 +82,3 @@ These should be as succinct and to the point as possible so that the reader can 
 Not yet created, will be added in the future.
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation.html), but not all blog posts necessarily fit this specific format.
-
-## Writing Style
-
-TODO:
-
-## Sidebar Structure
-
-We'd like to keep the sidebar flexible as we gather feedback from the community. Right now we prefer a minimal approach so that it isn't overwhelming to new readers but we understand there's also a balance to making information discoverable.
-
-- Guides
-- Recipes
-- References
-- Max 7 entries each
-
-## Translations (i18n)
-
-While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
-
-Once translations are enabled you can check the [translation status page](/translation-status).

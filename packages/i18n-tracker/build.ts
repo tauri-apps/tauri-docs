@@ -1,9 +1,9 @@
 import { TranslationStatusBuilder } from './lib/translation-status/builder';
-import  locales  from '../../locales.json';
+import locales from '../../locales.json';
 
 const translationStatusBuilder = new TranslationStatusBuilder({
   pageSourceDir: '../../src/content/docs',
-  htmlOutputFilePath: '../../dist/translation-status.html',
+  htmlOutputFilePath: '../../dist/contribute/translate-status.html',
   sourceLanguage: 'en',
   targetLanguages: Object.values(locales)
     .map((el) => el.lang)
