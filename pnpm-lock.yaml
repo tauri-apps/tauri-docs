@@ -26,8 +26,8 @@ importers:
         specifier: ^2.9.6
         version: 2.9.6(sharp@0.32.4)
       astro-feelback:
-        specifier: ^0.3.3
-        version: 0.3.3
+        specifier: ^0.3.4
+        version: 0.3.4
       rehype-autolink-headings:
         specifier: ^6.1.1
         version: 6.1.1
@@ -888,8 +888,8 @@ packages:
     dev: false
     optional: true
 
-  /@feelback/js@0.3.2:
-    resolution: {integrity: sha512-NeyRiC3WL/fwMPyPet6SuF9W34TKMLUmcrIgd5ToTjZ7vIwx/DKBv/8aJgvb1pK2XU8HrolyOVwgInAf9R8kyA==}
+  /@feelback/js@0.3.4:
+    resolution: {integrity: sha512-xr7gTqSJcVUYQlELs1TntYovCBjMcYUr/hGKTnDoF64/lig5CbX4bOmqLoF50IImCy5q3oIwg9w+TSFvtBwsIA==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -1257,10 +1257,10 @@ packages:
     hasBin: true
     dev: false
 
-  /astro-feelback@0.3.3:
-    resolution: {integrity: sha512-jcZKh+bYB1cCaB+hWzVZqK8h5QBFJ5jj3naEUOF6RA8E9wMknvOQ3EllkROm5Jpp6yKMmEFHSJea0JPa2dAoCQ==}
+  /astro-feelback@0.3.4:
+    resolution: {integrity: sha512-ra69QTsdyjzQKdYeu+qngNcPOgspaWOFJLDFdpA/JryGo55uruw76455UVt2rf3NsZulBnYHS6+upPIO5O7t7A==}
     dependencies:
-      '@feelback/js': 0.3.2
+      '@feelback/js': 0.3.4
     dev: false
 
   /astro@2.9.6(sharp@0.32.4):
