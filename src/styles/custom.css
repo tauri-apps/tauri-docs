@@ -71,7 +71,7 @@ header,
 }
 
 .sidebar li a,
-.sidebar .summary,
+.sidebar summary,
 .starlight__on-this-page li {
   transition: 0.07s ease;
   border-radius: 0px;
@@ -79,8 +79,23 @@ header,
   padding: 0.5rem;
 }
 
+.sidebar details ul {
+  padding-left: 1em;
+}
+
+.sidebar summary {
+  padding-left: 1rem;
+}
+
+.sidebar summary:hover {
+  background-color: #ffffff13;
+}
+
+.sidebar ul li {
+  margin: 0px;
+}
+
 .sidebar li a[aria-current="page"]:hover,
-.sidebar .summary:hover,
 .starlight__on-this-page li:hover {
   padding-left: .7rem;
   background-color: #fff;
