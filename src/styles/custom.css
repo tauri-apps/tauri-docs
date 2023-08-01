@@ -5,8 +5,8 @@
   --sl-color-gray-3: hsl(221, 8%, 56%);
   --sl-color-gray-4: hsl(225, 9%, 36%);
   --sl-color-gray-5: hsl(222, 11%, 23%);
-  --sl-color-gray-6: hsl(222, 13%, 16%);
-  --sl-color-black: hsl(223, 13%, 10%);
+  --sl-color-gray-6: hsl(180, 2%, 10%);
+  --sl-color-black: hsl(0, 0%, 7%);
 
   --sl-hue-orange: 41;
   --sl-color-orange-low: hsl(var(--sl-hue-orange), 39%, 22%);
@@ -52,13 +52,38 @@
   --tauri-transition-speed: 200ms;
 }
 
+.sidebar li a {
+  transition: 0.07s ease;
+  border-radius: 0px;
+  margin: 0px;
+  padding: 0.5rem;
+}
+
+.sidebar li a[aria-current="page"] {
+  animation: fade 0.6s;
+}
+
+.sidebar li a:hover {
+  padding-left: .7rem;
+  background-color: #ffffff13;
+}
+
+.sidebar li {
+  margin-left: 1rem;
+  border-bottom: 1px solid #ffffff0e;
+}
+
+.sidebar {
+  padding: 0px;
+}
+
 .content details {
   padding: 0 1rem;
 }
 
 .content details[open] {
   background-color: var(--sl-color-gray-6);
-  padding-bottom: 1rem;
+  padding-bottom: rem;
 }
 
 .content summary {
@@ -127,6 +152,17 @@ textarea:focus {
   -webkit-box-shadow: var(--f-focus-box-shadow, 0 0 0 2px #00000000, 0 0 0 4px #1b1e23, 0 0 0 5px #fff);
   box-shadow: var(--f-focus-box-shadow, 0 0 0 2px #00000000, 0 0 0 4px #1b1e23, 0 0 0 5px #fff);
   outline: none
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateX(.7rem);
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion) {
