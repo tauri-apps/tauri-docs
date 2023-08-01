@@ -20,7 +20,7 @@
     "@astrojs/markdown-remark": "^2.2.1",
     "@astrojs/starlight": "^0.6.0",
     "@types/json-schema": "^7.0.12",
-    "astro": "^2.9.6",
+    "astro": "^2.9.7",
     "astro-feelback": "^0.3.4",
     "rehype-autolink-headings": "^6.1.1",
     "sharp": "^0.32.4"
