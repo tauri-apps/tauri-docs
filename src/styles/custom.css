@@ -87,6 +87,10 @@ header,
   padding-left: 1rem;
 }
 
+details[open] summary {
+  border-bottom: 1px solid #ffffff1c;
+}
+
 .sidebar summary:hover {
   background-color: #ffffff13;
 }
@@ -183,6 +187,10 @@ header,
 .link:hover {
   text-decoration-thickness: 3px;
   text-underline-offset: .4rem;
+}
+
+site-search button {
+  border-radius: 0px;
 }
 
 .link:focus,
