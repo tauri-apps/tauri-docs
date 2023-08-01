@@ -49,7 +49,7 @@ export default defineConfig({
             },
             {
               label: 'Core Concepts',
-              link: '2/guide/upgrade',
+              link: '2/guide/core-concepts',
             },
             {
               label: 'Plugins',
@@ -62,33 +62,29 @@ export default defineConfig({
           items: [
             {
               label: 'Develop',
-              link: '#',
+              link: '2/guide/develop',
             },
             {
               label: 'Debug',
-              link: '#',
+              link: '2/guide/debug',
             },
             {
               label: 'Test',
-              link: '#',
+              link: '2/guide/test',
             },
             {
-              label: 'Build',
-              link: '#',
+              label: 'Build & Distribute',
+              link: '2/guide/build-distribute',
             },
             {
-              label: 'Distribute',
-              link: '#',
-            },
-            {
-              label: 'Troubleshooting',
-              link: '/2/guide/troubleshoot',
+              label: 'Troubleshoot',
+              link: '2/guide/troubleshoot',
             },
           ],
         },
         {
           label: 'Features & Recipes',
-          link: '#',
+          link: '2/recipe',
         },
         {
           label: 'References',
