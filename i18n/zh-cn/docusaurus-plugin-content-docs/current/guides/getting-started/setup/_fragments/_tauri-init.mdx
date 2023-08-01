@@ -8,7 +8,7 @@ import Command, { InstallTauriCli } from '@theme/Command'
 
 :::info 安装 Tauri CLI
 
-如果你还没有安装Tauri CLI，你可以使用下面的一个命令进行安装。 不确定该用哪个？ 请参阅[常见问题][]。
+如果您还没有安装 Tauri CLI，您可以使用下面的一个命令进行安装。 不确定该用哪个？ 请参阅[常见问题][]。
 
 <InstallTauriCli />
 
@@ -51,20 +51,26 @@ cargo tauri init
 
 <ol>
   <li>
-    <i>您应用的名字是什么？</i><br />
-这将会是您打包后和操作系统会调用的应用名称。 您可以在此处填写任何您想要的名称。
+    <i>您应用的名字是什么？</i>
+    <br />
+    这将会是您打包后和操作系统会调用的应用名称。
+    您可以在此处填写任何您想要的名称。
   </li>
   <br />
   <li>
-    <i>窗口标题叫什么？</i><br />
-这将会是您主窗口的默认标题。 您可以在此处填写任何您想要的名称。
+    <i>窗口标题叫什么？</i>
+    <br />
+    这将会是您主窗口的默认标题。 您可以在此处填写任何您想要的名称。
   </li>
   <br />
   <li>
-    <i>前端页面资源 (HTML/CSS/JS) 相对于 <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code> 文件将被创建的位置？
+    <i>
+      前端页面资源 (HTML/CSS/JS) 相对于{' '}
+      <code>&lt;current dir&gt;/src-tauri/tauri.conf.json</code>{' '}
+      文件将被创建的位置？
     </i>
     <br />
-    这是 <b>production</b>环境时tauri加载web前端资源的目录.{' '}
+    这是 <b>production</b> 环境时tauri加载web前端资源的目录.{' '}
     {props.destDirExplination && (
       <div dangerouslySetInnerHTML={props.destDirExplination} />
     )}
@@ -73,15 +79,14 @@ cargo tauri init
   <li>
     <i>开发环境时的加载路径?</i>
     <br />
-  可以是一个网络地址也可以是一个文件路径{' '}
-    <b>development</b>.{' '}
+    可以是一个网络地址也可以是一个文件路径 <b>development</b>.{' '}
     {props.devPathExplination && (
       <div dangerouslySetInnerHTML={props.devPathExplination} />
     )}
   </li>
   <br />
   <li>
-    <i>你将使用什么命令来开发前端页面？</i>
+    <i>您将使用什么命令来开发前端页面？</i>
     <br />
     这是启动前端开发服务器的命令。{' '}
     {props.beforeDevCommandExplination && (
@@ -90,12 +95,12 @@ cargo tauri init
   </li>
   <br />
   <li>
-    <i>你将使用什么命令来构建前端页面？</i>
+    <i>您将使用什么命令来构建前端页面？</i>
     <br />
     这是构建前端文件的命令。{' '}
-    {props. eforeBuildCommandExplication && (
+    {props.eforeBuildCommandExplication && (
       <div dangerouslySetInnerHTML={props.beforeBuildCommandExplination} />
-)}
+    )}
   </li>
 </ol>
 
@@ -114,19 +119,19 @@ cargo tauri init
   此文件可让您自定义 Tauri 应用的各方各面，包括应用名称到允许的 API 列表。 请参阅 [Tauri 的 API 配置][api config]来深入了解每个支持的选项。
 
 - **`src/main.rs`**  
-  这是你的 Rust 程序的入口，也是我们启动 Tauri 的地方。 您可以发现它由两个部分组成：
+  这是您的 Rust 程序的入口，也是我们启动 Tauri 的地方。 您可以发现它由两个部分组成：
 
   ```rust title=src/main.rs
    #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
   fn main() {
-  tauri::Builder::default()
-     .run(tauri::generate_context!())
-     .expect("error while running tauri application");
+    tauri::Builder::default()
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
   }
   ```
 
-  The line beginning with the [`cfg! 宏`][cfg macro]所开始的一行仅有一个目的：关闭构建好的应用在 Windows 上运行时一般会出现的控制台窗口。 若您是 Windows 用户，您可以试试去掉这行看看会发生什么。
+  [`cfg! 宏`][cfg macro]所开始的一行仅有一个目的：关闭构建好的应用在 Windows 上运行时一般会出现的控制台窗口。 若您是 Windows 用户，您可以试试去掉这行看看会发生什么。
 
   `main` 函数是您程序的入口点，也是运行时调用的第一个函数。
 

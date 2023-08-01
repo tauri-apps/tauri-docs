@@ -29,7 +29,7 @@ import TabItem from '@theme/TabItem';
 
 :::note
 
-On Windows 10 (Version 1803 and later with all updates applied) and Windows 11, the WebView2 runtime is distributed as part of the operating system.
+在 Windows 10 （完整更新的1803 版本及更高）和 Windows 11 中，WebView2 运行时被作为操作系统的一部分进行分发。
 
 :::
 
@@ -47,11 +47,11 @@ Tauri 需要 WebView2 才能在 Windows 上呈现网页内容，所以您必须�
 winget install --id Rustlang.Rustup
 ```
 
-:::caution MSVC toolchain as default
+:::caution 使用 MSVC 工具链作为默认选项
 
-For full support for Tauri and tools like [`trunk`][] make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+为了获取对于 Tauri 和例如 [`trunk`][] 等工具，请确保在安装器的对话窗口中选择 MSVC Rust 工具链作为 `default host triple`。具体名称应为 `x86_64-pc-windows-msvc`，`i686-pc-windows-msvc` 或 `aarch64-pc-windows-msvc`，取决于您的操作系统。
 
-If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+如果您已经安装了 Rust 工具链，您可以通过运行如下代码以确保正确的工具链已经被安装：
 
 ```powershell
 rustup default stable-msvc
@@ -144,7 +144,7 @@ sudo dnf install webkit2gtk4.0-devel \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
+注意：在 Fedora 36 及更早的版本中，`webkit2gtk4.0-devel` 包被称为 `webkit2gtk3-devel`。
 
   </TabItem>
   <TabItem value="gentoo" label="Gentoo">
@@ -157,7 +157,7 @@ sudo emerge --ask \
     net-misc/wget
 ```
 
-Note: A desktop profile is recommended to set the appropriate USE flags for webkit-gtk
+注意：推荐使用一个桌面配置文件以为 webkit-gtk 设置恰当的 USE 标识。
 
   </TabItem>
   <TabItem value="opensuse" label="openSUSE">
@@ -176,10 +176,9 @@ sudo zypper in -t pattern devel_basis
   </TabItem>
   <TabItem value="nixos" label="NixOS">
 
-Working on NixOS requires a slightly different setup, as Tauri needs to find the required system libraries both at compile time and
-dynamically at runtime. 为了 Tauri 正常运作，环境变量 `LD_LIBRARY_PATH` 必须用正确的路径填充。
+在 NixOS 中使用 Tauri 需要一个略有不同的初始化设置，因为 Tauri 需要在编译期和动态运行期均找到所需的系统库。为了 Tauri 正常运作，环境变量 `LD_LIBRARY_PATH` 必须用正确的路径填充。
 
-When using [Nix Flakes], copy the following code into `flake.nix` on your repository, then run `nix develop` to activate the development environment. You can also use [direnv's Flakes integration] to automatically start the dev shell when entering the project folder.
+在使用[Nix Flake]时，请将以下代码复制到您的仓库的 `flake.nix` 文件中，然后运行 `nix develop` 以激活开发环境。您也可以使用 [direnv's Flakes intergration] 从而在进入项目文件夹时自动启动 dev shell。
 
 ```nix
 {
@@ -230,7 +229,7 @@ When using [Nix Flakes], copy the following code into `flake.nix` on your reposi
 }
 ```
 
-If you don't use Nix Flakes, the [Nix Shell] can be configured using the following `shell.nix` script. Run `nix-shell` to activate the development environment, or use [direnv's Shell integration] to automatically start the dev shell when entering the project folder.
+如果您不使用 Nix Flake，您可以使用如下 `shell.nix` 脚本以配置 [Nix Shell]。运行 `nix-shell` 以激活开发环境，或者使用 [direnv's Flakes intergration] 从而在进入项目文件夹时自动启动 dev shell。
 
 ```nix
 let
@@ -270,7 +269,7 @@ pkgs.mkShell {
   </TabItem>
   <TabItem value="gnu_guix" label="GNU Guix">
 
-To create Tauri development environments using [Guix shell], copy the following code into `manifest.scm` on your repository, then run `guix shell` to activate. You can also use [direnv's Guix shell support] to automatically start the Guix shell when entering the project folder.
+如果您想要使用 [Guix shell] 创建 Tauri 开发环境，请将以下代码复制到您的仓库中的 `manifest.scm` 文件，然后运行 `guix shell` 以激活。您也可以使用 [direnv's Guix shell support] 从而在进入项目文件夹时自动启动 Guix shell。
 
 ```scheme
 (specifications->manifest
@@ -334,7 +333,7 @@ Rust is installed now. Great!
 
 ## 管理 Rust 安装
 
-你应该保持更新你的 Rust 版本，以便使用最新改进。 若要更新 Rust，请打开终端并运行以下命令：
+您应该保持更新您的 Rust 版本，以便使用最新改进。 若要更新 Rust，请打开终端并运行以下命令：
 
 ```shell
 rustup update

@@ -1,6 +1,6 @@
 # 在 VS Code 中调试
 
-This guide will walk you through setting up VS Code for debugging the [Core Process of your Tauri app][].
+这个指南会帮助您配置 VS Code 以检查 [您的 Tauri 应用的核心进程][Core Process of your Tauri app]。
 
 ## 预先准备
 
@@ -28,7 +28,7 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
           "--no-default-features"
         ]
       },
-      // task for the `beforeDevCommand` if used, must be configured in `.vscode/tasks.json`
+      // `beforeDevCommand` 的任务（如果使用）必须在 `.vscode/tasks.json` 中配置
       "preLaunchTask": "ui:dev"
     },
     {
@@ -38,14 +38,14 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
       "cargo": {
         "args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
       },
-      // task for the `beforeBuildCommand` if used, must be configured in `.vscode/tasks.json`
+      // `beforeBuildCommand` 的任务（如果使用）必须在 `.vscode/tasks.json` 中配置
       "preLaunchTask": "ui:build"
     }
   ]
 }
 ```
 
-这直接使用 `cargo` 来构建Rust 应用程序，并在开发和生产模式中加载它。
+这直接使用 `cargo` 来构建 Rust 应用程序，并在开发和生产模式中加载它。
 
 请注意，它不使用 Tauri CLI，因此不会执行独占的 CLI 功能。 `before DevCommand` 和 `preambular Build` 脚本必须事先执行或配置为 `LaunchTask` 任务。 下面的 `.vscode/missions. son` 示例文件包含两个任务。 一个是 `beforeDevCommand` 用于生成开发服务器的，另一个是 `beforeBuildCommand`:
 
@@ -57,18 +57,18 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
     {
       "label": "ui:dev",
       "type": "shell",
-      // `dev` keeps running in the background
-      // ideally you should also configure a `problemMatcher`
-      // see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+      // `dev` 会在前台保持运行
+      // 一般来说，您还应该配置 `problemMatcher`
+      // 查阅 https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
       "isBackground": true,
-      // change this to your `beforeDevCommand`:
+      // 将以下配置改变为您的 `beforeDevCommand`:
       "command": "yarn",
       "args": ["dev"]
     },
     {
       "label": "ui:build",
       "type": "shell",
-      // change this to your `beforeBuildCommand`:
+      // 将以下配置改变为您的 `beforeBuildCommand`:
       "command": "yarn",
       "args": ["build"]
     }
@@ -79,5 +79,4 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
 现在您可以在 `src-tauri/src/main.rs` 或任何其他 Rust 文件中设置断点，然后按 `F5` 开始调试.
 
 [`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
-
 [Core Process of your Tauri app]: ../../references/architecture/process-model.md#the-core-process

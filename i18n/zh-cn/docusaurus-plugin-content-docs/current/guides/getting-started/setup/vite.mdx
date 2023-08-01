@@ -27,9 +27,11 @@ import Command, { InstallTauriApi } from '@theme/Command'
 
 ## 创建前端
 
-[Vite][] 是一个前端构建包，它在开发过程中提供了各种“生活质量”功能，例如 _热模块重载_ (HMR)。 在构建生产环境时，它也会将你的源代码转换成最优化的 HTML、CSS 和 JavaScript。 我们推荐使用快速、易配置、拥有 [丰富插件生态][awesome-vite]的Vite。
+[Vite][] 是一个前端构建包，它在开发过程中提供了各种“生活质量”功能，例如 _热模块重载_ (HMR)。
+在构建生产环境时，它也会将您的源代码转换成最优化的 HTML、CSS 和 JavaScript。 我们推荐使用快速、易配置、拥有 [丰富插件生态][awesome-vite] 的 Vite。
 
-Vite comes with a scaffolding utility similar to `create-tauri-app` that can quickly set up a new project from many pre-defined templates. 您可以从许多前端框架中选择，如 React、Svelte 或 Vue。 在本指南中，我们将选择 `vanilla-ts` 模板来创建一个 _没有_ 任何前端框架的简单项目。
+Vite 具有一个类似 `create-tauri-app` 的脚手架工具，可以根据许多预定义的模板创建一个新项目。
+您可以从许多前端框架中选择，如 React、Svelte 或 Vue。 在本指南中，我们将选择 `vanilla-ts` 模板来创建一个 _没有_ 任何前端框架的简单项目。
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -58,15 +60,15 @@ pnpm create vite
 </Tabs>
 
 1. _项目名称_  
-   这将是您的 JavaScript 项目的名称。 对应此工具将创建的文件夹的名称，但在其他方面对你的应用没有影响。 您可以在此处填写任何您想要的名称。
+   这将是您的 JavaScript 项目的名称。 对应此工具将创建的文件夹的名称，但在其他方面对您的应用没有影响。 您可以在此处填写任何您想要的名称。
 
 2. _选择一个框架_  
    如果您计划之后使用一个前端框架，您可以在这儿选择它。 对于本指南，我们假设您选择 `原生`。
 
 3. _选择一个语言_  
-   Vite 为所有模版提供了 [TypeScript][] 和原生JavaScript两种语言，你可以在这里进行选择。 我们**强烈**推荐TypeScript ，因为它有助于您编写更安全、更快和更有效的代码。 对于本指南，我们假设您选择 `原生typescript`。
+   Vite 为所有模版提供了 [TypeScript][] 和原生 JavaScript 两种语言，您可以在这里进行选择。 我们**强烈**推荐 TypeScript ，因为它有助于您编写更安全、更快和更有效的代码。 对于本指南，我们假设您选择 `原生typescript`。
 
-当通过 `vite` 命令启动前端时，Vite 将在项目根目录中寻找名为 `vite.config.ts` 的配置文件。 我们想要自定义此文件以获得与 Tauri的最佳兼容性。 如果它不是由上面的脚手架创建的(例如如果你正在使用原版的 JavaScript)，你可能需要创建 `vite.config.ts` 文件。
+当通过 `vite` 命令启动前端时，Vite 将在项目根目录中寻找名为 `vite.config.ts` 的配置文件。 我们想要自定义此文件以获得与 Tauri 的最佳兼容性。 如果它不是由上面的脚手架创建的（例如如果您正在使用原版的 JavaScript），您可能需要创建 `vite.config.ts` 文件。
 
 用以下内容更新文件：
 
@@ -74,22 +76,21 @@ pnpm create vite
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  // prevent vite from obscuring rust errors
+  // 防止 Vite 覆盖 Rust 错误
   clearScreen: false,
-  // Tauri expects a fixed port, fail if that port is not available
+  // Tauri 需要一个确定的端口，如果端口不可用，运行将会失败
   server: {
     strictPort: true,
   },
-  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
-  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
-  // env variables
+  // 使用 `TAURI_PLATFORM`，`TAURI_ARCH`，`TAURI_FAMILY`，
+  // `TAURI_PLATFORM_VERSION`，`TAURI_PLATFORM_TYPE` 和 `TAURI_DEBUG` 环境变量
   envPrefix: ['VITE_', 'TAURI_'],
   build: {
-    // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+    // Tauri 在 Windows 上使用 Chromium，而在 macOS 和 Linux 上使用 WebKit。
     target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
-    // don't minify for debug builds
+    // Debug模式不压缩代码
     minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-    // 为调试构建生成源代码映射 (sourcemap)
+    // 为调试构建生成源代码映射（sourcemap）
     sourcemap: !!process.env.TAURI_DEBUG,
   },
 })
@@ -103,20 +104,35 @@ export default defineConfig({
 
 ## 创建 Rust 项目
 
-<TauriInit destDirExplination={{ __html: 'Use <code>../dist</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+<TauriInit
+  destDirExplination={{ __html: '使用 <code>../build</code> 作为该项的值。' }}
+  devPathExplination={{
+    __html: '使用 <code>http://localhost:5173</code> 作为该项的值。',
+  }}
+  beforeDevCommandExplination={{
+    __html:
+      '使用 <code>npm run dev</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+  beforeBuildCommandExplination={{
+    __html:
+      '使用 <code>npm run build</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+/>
 
-现在我们已经搭建好了前端并初始化了Rust项目，创建的 `tauri.conf.json` 文件应该如下所示：
+现在我们已经搭建好了前端并初始化了 Rust 项目，创建的 `tauri.conf.json` 文件应该如下所示：
 
 ```json title=src-tauri/tauri.conf.json
 {
   "build": {
-    // 当你运行 `tauri build` 时，将会执行这个命令。
+    // 当您运行 `tauri build` 时，将会执行这个命令。
     "beforeBuildCommand": "npm run build",
-    // 当你运行 `tauri dev`时，将会执行这个命令。
+    // 当您运行 `tauri dev`时，将会执行这个命令。
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
   },
+  ...
+}
 ```
 
 就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
@@ -140,9 +156,9 @@ import { invoke } from '@tauri-apps/api'
 
 // 调用命令
 // 在应用窗口中右键，打开开发者工具
-// 你会看到控制台上输出了 "Hello, World!"！
+// 您会看到控制台上输出了 "Hello, World!"！
 invoke('greet', { name: 'World' })
-  // `invoke` 返回的是一个 Promise
+  // `invoke` 返回的是一个 Promise 对象
   .then((response) => console.log(response))
 ```
 

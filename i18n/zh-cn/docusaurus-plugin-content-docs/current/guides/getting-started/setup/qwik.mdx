@@ -1,5 +1,5 @@
 ---
-description: Build a Tauri app using Qwik as the frontend build tool
+description: 使用 Qwik 作为前端构建工具创建一个 Tauri 应用
 pagination_next: guides/development/development-cycle
 sidebar_position: 3
 sidebar_custom_props:
@@ -16,19 +16,21 @@ import Command from '@theme/Command'
 
 # Qwik
 
-This guide will walk you through creating your first Tauri app using the [Qwik] web framework.
+这个指南会帮助您使用 [Qwik] 框架创建您的首个 Tauri 应用。
 
 <Intro />
 
 这是我们将要构建的内容的预览：
 
-![Preview of Application](/img/guides/getting-started/setup/qwik/result.png)
+![应用预览](/img/guides/getting-started/setup/qwik/result.png)
 
 ## 创建前端
 
-[Qwik] is primarily designed for Server-Side Rendering (SSR). To make Qwik work with Tauri we are going to use a "Static Site" adapter to create a frontend based on Static-Site Generation (SSG).
+[Qwik] 被主要设计为服务器端渲染（SSR）。
+为了使 Qwik 与 Tauri 一起工作，我们将使用 "Static Site" （静态站点）适配器来创建基于静态站点生成（SSG）的前端。
 
-Qwik comes with a scaffolding utility similar to [`create-tauri-app`] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript] template.
+Qwik 有一个与 [`create-tauri-app`] 类似脚手架工具，可以使用一些自定义选项来创建一个新项目。
+对于这个指南，我们会选择 [TypeScript] 模板。
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -54,16 +56,16 @@ pnpm create qwik@latest
 </TabItem>
 </Tabs>
 
-1.  _Project name_\
-    This will be the name of your JavaScript project. 对应此工具将创建的文件夹的名称，但在其他方面对你的应用没有影响。 您可以在此处填写任何您想要的名称。
+1.  _项目名称_<br />
+    这会成为您的 Javascript 项目的名称，对应此工具将创建的文件夹的名称，但在其他方面对您的应用没有影响。您可以在此处填写任何您想要的名称。
 
-2.  _App starter_\
-    We will select the `Basic App (QwikCity)` option for an example template.
+2.  _应用程序模板_<br />
+    我们会选择 `Basic App (QwikCity)` 选项作为示例模板。
 
-3.  _Install dependencies_\
-    Yes, if you want it to install the dependencies automatically.
+3.  _安装依赖_<br />
+    选择“是”，如果您想要自动安装依赖项。
 
-## Qwik in SSG mode
+## Qwik - SSG 模式
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -89,7 +91,7 @@ pnpm qwik add
 </TabItem>
 </Tabs>
 
-Select `Static site (.html files)` adapter. Then you can build static pages via:
+选择 `Static site (.html files)` 适配器。然后您可以通过如下方式构建静态页面：
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -119,18 +121,18 @@ pnpm build
 
 <TauriInit
   destDirExplination={{
-    __html: 'Use <code>../dist</code> for this value.',
+    __html: '使用 <code>../dist</code> 作为当前项的值。',
   }}
   devPathExplination={{
-    __html: 'Use <code>http://localhost:5173</code> for this value.',
+    __html: '使用 <code>http://localhost:5173</code> 作为当前项的值。',
   }}
   beforeDevCommandExplination={{
     __html:
-      'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).',
+      '使用 <code>npm run dev</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
   }}
   beforeBuildCommandExplination={{
     __html:
-      'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).',
+      '使用 <code>npm run build</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
   }}
 />
 
@@ -142,11 +144,12 @@ pnpm build
 
 <Commands />
 
-To call our newly created command we will use the [`@tauri-apps/api`] JavaScript library. 通过 JavaScript 访问诸如窗口、文件系统等核心功能， 您可以使用自己喜欢的 JavaScript 包管理器来安装。
+为了调用我们刚刚创建的命令，我们会使用 [`@tauri-apps/api`] JavaScript 库，以通过 JavaScript 访问诸如窗口、文件系统等核心功能。您可以使用自己喜欢的 JavaScript 包管理器来安装。
 
 <InstallTauriApi />
 
-With the library installed, we can now create a new Qwik component. We'll create it in `src/components/greet/greet.tsx`:
+在 JS 库安装完成后，我们现在可以创建一个新的 Qwik 组件。
+我们会在 `src/components/greet/greet.tsx` 中创建：
 
 ```tsx title=src/components/greet/greet.tsx
 import { $, component$, useSignal } from '@builder.io/qwik'
@@ -168,7 +171,7 @@ export default component$(() => {
 })
 ```
 
-You can now add this component into `src/routes/index.tsx`:
+现在您可以把这个组件添加到 `src/routes/index.tsx` 中：
 
 ```tsx title=src/routes/index.tsx
 // ...
@@ -186,22 +189,15 @@ export default component$(() => {
 
 :::tip
 
-If you want to know more about the communication between Rust and JavaScript, please read the Tauri [Inter-Process Communication][inter-process-communication] guide.
+如果您想要了解更多关于 Rust 和 JavaScript 之间的交互，请阅读 Tauri 的 [进程间通信][inter-process-communication] 指南.
 
 :::
 
 [cargo]: https://doc.rust-lang.org/cargo/
-
 [inter-process-communication]: ../../../references/architecture/inter-process-communication/readme.md
-
 [prerequisites]: ../prerequisites.md
-
 [qwik]: https://qwik.builder.io
-
 [typescript]: https://www.typescriptlang.org
-
 [`@tauri-apps/api`]: ../../../api/js/
-
 [`create-tauri-app`]: https://github.com/tauri-apps/create-tauri-app
-
 [`withglobaltauri`]: ../../../api/config.md#buildconfig.withglobaltauri

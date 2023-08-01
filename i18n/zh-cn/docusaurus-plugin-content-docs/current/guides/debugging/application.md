@@ -2,7 +2,7 @@ import Command from '@theme/Command'
 
 # 应用程序调试
 
-当所有移动的片段都在 Tauri 中，你可能会遇到一个需要调试的问题。 有许多位置打印错误详细信息，Tauri 包含一些工具，使调试过程更加简单。
+当所有移动的片段都在 Tauri 中，您可能会遇到一个需要调试的问题。 有许多位置打印错误详细信息，Tauri 包含一些工具，使调试过程更加简单。
 
 ## Rust 控制台
 
@@ -12,7 +12,7 @@ import Command from '@theme/Command'
 println!("Message from Rust: {}", msg);
 ```
 
-有时你的 Rust 代码中可能会有错误，而 Rust 编译器可以给你很多信息。 例如，如果 `tauri dev` 崩溃，您可以在 Linux 和 macOS 上像这样重新运行它：
+有时您的 Rust 代码中可能会有错误，而 Rust 编译器可以给您很多信息。 例如，如果 `tauri dev` 崩溃，您可以在 Linux 和 macOS 上像这样重新运行它：
 
 ```shell
 RUST_BACKTRACE=1 tauri dev
@@ -53,7 +53,7 @@ For more information about this error, try `rustc --explain E0425`.
 use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
-    #[cfg(debug_assertions)] // only include this code on debug builds
+    #[cfg(debug_assertions)] // 只有在 Debug 模式下运行这些代码
     {
       let window = app.get_window("main").unwrap();
       window.open_devtools();

@@ -52,7 +52,16 @@ mkdir ui
 
 ## 创建 Rust 项目
 
-<TauriInit destDirExplination={{ __html: 'Use <code>../ui</code> for this value.', }} devPathExplination={{ __html: 'Use <code>../ui</code> for this value.', }} beforeDevCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} beforeBuildCommandExplination={{ __html: 'You can leave this blank since nothing needs to be compiled.', }} />
+<TauriInit
+  destDirExplination={{ __html: '使用 <code>../ui</code> 作为这一项的值。' }}
+  devPathExplination={{ __html: '使用 <code>../ui</code> 作为这一项的值。' }}
+  beforeDevCommandExplination={{
+    __html: '可以留空，因为没有东西需要被编译。',
+  }}
+  beforeBuildCommandExplination={{
+    __html: '可以留空，因为没有东西需要被编译。',
+  }}
+/>
 
 就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
 
@@ -78,6 +87,8 @@ mkdir ui
     // highlight-next-line
     "withGlobalTauri": true
   },
+  ...
+}
 ```
 
 此选项会将已打包版本的 API 函数注入到您的前端中。
@@ -96,12 +107,11 @@ mkdir ui
     // highlight-start
     <h1 id="header">Welcome from Tauri!</h1>
     <script>
-      // access the pre-bundled global API functions
+      // 访问预先绑定的全局API函数
       const { invoke } = window.__TAURI__.tauri
 
-      // now we can call our Command!
-      // You will see "Welcome from Tauri" replaced
-      // by "Hello, World!"!
+      // 现在我们可以调用我们的命令！
+      // 您会看到 “Welcome from Tauri” 被 “Hello, World!” 替换。
       invoke('greet', { name: 'World' })
         // `invoke` returns a Promise
         .then((response) => {

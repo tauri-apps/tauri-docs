@@ -28,7 +28,9 @@ import Command, { InstallTauriApi } from '@theme/Command'
 
 [Next.js][] 是一款支持服务端渲染 (SSR) 和静态网站生成 (SSG) 的 React 框架。 由于 Tauri 仅能接受 Next.js 所生成的静态文件，我们将使用 Next.js 的静态网站生成模式。
 
-Next.js comes with a scaffolding utility similar to [`create-tauri-app`][] that can quickly setup a new project from many pre-defined templates. For this guide, we will use the suggested default for all questions, including TypeScript support and the new `App Router` feature stabilized in v13.4. In case you use the the old `routes/` directory instead or on top of the `app/` directory, you still need to change the config as explained in the [Next.js Static Exports](#nextjs-static-exports) section but the way you use Tauri specific JS APIs will be different than described below.
+Next.js 提供了一个类似于 [`create-tauri-app`][] 的脚手架工具，可以从许多预配置的模板中快速创建新项目。
+在这个指南中，我们会使用所有问题中推荐的默认值，包括 TypeScript 支持和新近在 v13.4 中稳定化的 `App Router` 特性。
+如果您想要使用以前的 `routes/` 目录或者在 `app/` 目录的上层，您仍然需要参考 [Next.js Static Exports](#nextjs-static-exports) 章节中提及并解释的配置进行修改，同时您使用 Tauri 的特殊 JS API 时会与下文存在一定的区别。
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -54,14 +56,16 @@ pnpm create next-app --use-pnpm
   </TabItem>
 </Tabs>
 
-1. _Project name_  
-   This will be the name of your project. It corresponds to the name of the folder this utility will create but has otherwise no effect on your app. 您可以在此处填写任何您想要的名称。
+1. _项目名称_  
+   这将是您项目的名称。它对应该工具将创建的文件夹的名称，但对您的应用程序没有任何影响。您可以在此处填写任何您想要的名称。
 
-## Next.js Static Exports
+## Next.js 静态导出
 
-Because Tauri does not have a Node.js runtime you must set Next.js to SSG/SPA mode. This will typically result in faster page loads but also has a few caveats to be aware of, therefore we recommend to carefully read through Next.js' official docs on [Static Exports][].
+因为 Tauri 没有一个 Node.js 运行时，因此您必须将 Next.js 设置为 SSG/SPA 模式。
+这通常会让页面加载更快，但也需要注意一些注意事项，因此我们建议仔细阅读 Next.js 官方文档中关于[Static Exports][]的部分。
 
-These docs also show one required configuration change we will always have to change for a Tauri + Next.js app. To do this, edit the `next.config.js` file in the project's root directory and add the following:
+这些文档还显示了 Tauri + Next.js 应用程序所必须的一项配置更改。
+为了更改这一配置，请修改项目根文件夹中的 `next.config.js` 文件，并添加如下内容：
 
 ```js title=next.config.js
 /** @type {import('next').NextConfig} */
@@ -72,13 +76,26 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-This will change the behavior of the `next build` to produce an `out/` folder containing the HTML/CSS/JS assets for your application instead of writing them to a `.next/` directory specific to Next.js' runtime.
+这会改变 `next build` 命令的行为，使之生成一个 `out/` 文件夹以容纳您的应用程序的 HTML/CSS/JS 资产，而不是将它们写入一个针对于 Next.js 的运行时的 `.next/` 文件夹。
 
-There are a few more possible configuration options, so make sure to read through the [Static Exports][] docs as mentioned above and adapt the configuration file according to the needs of your project.
+除此之外还有一些可选的配置选项，所以请确保您已经阅读了上文提及的 [Static Exports][] 文档，并根据您项目的需要予以更改。
 
 ## 创建 Rust 项目
 
-<TauriInit destDirExplination={{ __html: 'Use <code>../out</code> for this value.' }} devPathExplination={{ __html: 'Use <code>http://localhost:3000</code> for this value.', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> for this value (make sure to adapt this to use the package manager of your choice).', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> for this value (make sure to adapt this to use the package manager of your choice).', }} />
+<TauriInit
+  destDirExplination={{ __html: '使用 <code>../out</code> 作为这一项的值' }}
+  devPathExplination={{
+    __html: '使用 <code>http://localhost:3000</code> 作为这一项的值',
+  }}
+  beforeBuildCommandExplination={{
+    __html:
+      '使用 <code>npm run build</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+  beforeDevCommandExplination={{
+    __html:
+      '使用 <code>npm run dev</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+/>
 
 现在我们的前端已经构建完成，Rust 项目也已初始化完毕。您马上就可以运行您的应用了！ 您的 `tauri.conf.json` 文件看起来像这样：
 
@@ -90,6 +107,8 @@ There are a few more possible configuration options, so make sure to read throug
     "devPath": "http://localhost:3000",
     "distDir": "../out"
   },
+  ...
+}
 ```
 
 就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
@@ -106,7 +125,8 @@ There are a few more possible configuration options, so make sure to read throug
 
 <InstallTauriApi />
 
-One important thing to note is that all of Tauri's JS APIs require access to browser-only APIs which means they can only be used in [Client Components][]. If you don't need Server Components you can add `'use client'` at the very top of the `app/page.tsx` file, in this guide however, we will create a separate component so that we don't have to convert the whole app.
+一个需要提及的重点是，所有 Tauri 的 JS API 都需要访问仅限浏览器的 API，意味着它们只能被用于 [用户端组件][Client Components]。
+如果您不需要服务端组件，您可以在 `app.page.tsx` 文件的最开始添加 `'use client'`，而在这个指南中，我们会创建一个独立的组件，因此我们不需要转换整个应用程序。
 
 ```tsx title=app/greet.tsx
 'use client'
@@ -121,12 +141,12 @@ export default function Greet() {
       .catch(console.error)
   }, [])
 
-  // Necessary because we will have to use Greet as a component later.
+  // 必须。因为我们以后会使用Greet作为一个组件。
   return <></>
 }
 ```
-
-Now we will use this component in the default `Home` component in `app/page.tsx`. Note that it must be in the actual component tree and can't be a simple function call as long as the parent (in this case the `Home` component) is a Server Component.
+现在，我们将在 `app/page.tsx` 中的默认 `Home` 组件中使用此组件。
+请注意，它必须在实际的组件树中且不能是简单的函数调用，只要父组件（在本例中为 `Home` ）是服务器组件即可。
 
 ```tsx title=app/page.tsx
 // ...

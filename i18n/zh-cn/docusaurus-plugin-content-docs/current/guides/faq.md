@@ -112,7 +112,7 @@ yarn link @tauri-apps/api
 
 ## 在 Linux 上使用 Homebrew 时的构建冲突
 
-Linux上的 Homebrew 包含它自己的 `pkg-config` (一个在系统上查找库的工具)。 这可能会导致在为 Tauri 安装相同的 `pkg-config` 软件包时发生冲突(通常通过软件包管理器安装，如 `apt`)。 当你尝试构建 Tauri 应用程序时，会尝试调用 `pkg-config` ，并且最终调用了 Homebrew 中的 `pkg-config`。 如果不使用 Homebrew 来安装 Tauri 的依赖项，则可能会导致错误。
+Linux上的 Homebrew 包含它自己的 `pkg-config` (一个在系统上查找库的工具)。 这可能会导致在为 Tauri 安装相同的 `pkg-config` 软件包时发生冲突(通常通过软件包管理器安装，如 `apt`)。 当您尝试构建 Tauri 应用程序时，会尝试调用 `pkg-config` ，并且最终调用了 Homebrew 中的 `pkg-config`。 如果不使用 Homebrew 来安装 Tauri 的依赖项，则可能会导致错误。
 
 错误信息 _通常_ 包含 `error: failed to run custom build command for X` - `error: failed to run custom build command for X.` 请注意，如果需要的依赖关系根本没有安装，您可能会看到类似的错误。
 

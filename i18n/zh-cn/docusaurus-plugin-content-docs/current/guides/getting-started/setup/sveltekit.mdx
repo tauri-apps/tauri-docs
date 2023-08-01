@@ -25,9 +25,11 @@ import Command, { InstallTauriApi } from '@theme/Command'
 
 ## 创建前端
 
-[SvelteKit][] is a Svelte Frontend that is primarily designed for Server-Side Rendering (SSR). 为了使 SvelteKit 和 Tauri 正常工作，需要关闭 SSR 并且使用 [`@sveltejs/adapter-static`][] 创建基于前端的静态页面生成 (SSG).
+[SvelteKit][]是一款主要为服务器端渲染（SSR）设计的 Svelte 前端。
+为了使 SvelteKit 和 Tauri 正常工作，需要关闭 SSR 并且使用 [`@sveltejs/adapter-static`][] 创建基于前端的静态页面生成 (SSG).
 
-SvelteKit comes with a scaffolding utility similar to [`create-tauri-app`][] that can quickly set up a new project with many customization options. For this guide, we will select the [TypeScript][] template, with ESLint and Prettier enabled.
+SvelteKit 具有一个与 [`create-tauri-app`][] 类似的脚手架工具，可以根据一些自定义配置快速创建一个新的项目。
+对于这个指南，我们会选择 [TypeScript][] 模板，启用 ESLint 和 Prettier。
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -55,26 +57,26 @@ pnpm create svelte
   </TabItem>
 </Tabs>
 
-1. _项目名称_  
-   这将是您的 JavaScript 项目的名称。 对应此工具将创建的文件夹的名称，但在其他方面对你的应用没有影响。 您可以在此处填写任何您想要的名称。
+1. _项目名称_ <br />
+   这将是您的 JavaScript 项目的名称，对应此工具将创建的文件夹的名称，但在其他方面对您的应用没有影响。您可以在此处填写任何您想要的名称。
 
-2. _App template_  
-   We will select the `Skeleton project` for a barebones template. 如果你想要使用一个更完整的 SwelteKit 示例体验，你可以选择 `SwelteKit 演示应用程序`。
+2. _应用模板_ <br />
+   我们会选择 `Skeleton project` 以创建一个裸露的模板。如果您想要使用一个更完整的 SwelteKit 示例体验，您可以选择 `SwelteKit 演示应用程序`。
 
-3. _输入检查_  
+3. _输入检查_ <br />
    您是否想要在您的项目中通过 JSDoc 或 TypeScript 进行类型检查。 对于本指南，我们假设您选择 TypeScript。
 
-4. _Code linting and formatting_  
-   Whether you want to start your project with ESLint for code linting and Prettier for code formatting. 在本指南中不会有关于这个问题的其他提及，但我们建议启用这两个选项。
+4. _代码检查和格式化_ <br />
+   您是否是想在项目启动时使用 ESLint 进行代码检查和使用 Prettier 进行代码格式化。在本指南中不会有关于这个问题的其他提及，但我们建议启用这两个选项。
 
-5. _浏览器测试_  
-   SwelteKit 为浏览器测试提供内置的 Playwright 支持。 既然 Tauri API 不适用于 Playwright，我们建议不要添加它。 Check out our [WebDriver documentation][] for alternatives using Selenium or WebdriverIO instead of Playwright.
+5. _浏览器测试_ <br />
+   SwelteKit 为浏览器测试提供内置的 Playwright 支持。既然 Tauri API 不适用于 Playwright，我们建议不要添加它。查阅我们的 [WebDriver 文档][WebDriver documentation] 以获取对于 Selenium 或 WebdriverIO 而非 Playwright 的替代方案。
 
-## 在 SvelteKit 使用 SSG 模式
+## SvelteKit - SSG 模式
 
 <!-- TODO: section intro -->
 
-First, we need to install [`@sveltejs/adapter-static`][]:
+首先，我们需要下载 [`@sveltejs/adapter-static`][]：
 
 <Tabs groupId="package-manager">
   <TabItem value="npm">
@@ -102,7 +104,7 @@ pnpm add -D @sveltejs/adapter-static@next
   </TabItem>
 </Tabs>
 
-然后更新 `适配器` 导入到 `svelte.config.js` 文件：
+然后更新 `adapter` 并导入到 `svelte.config.js` 文件：
 
 ```javascript title=svelte.config.js
 // highlight-next-line
@@ -111,8 +113,7 @@ import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // 查询 https://github.com/sveltejs/svelte-preprocess
-  // 以了解更多关于预处理器的信息
+  // 查阅 https://github.com/sveltejs/svelte-preprocess 以了解更多关于预处理器的信息
   preprocess: preprocess(),
 
   kit: {
@@ -123,36 +124,51 @@ const config = {
 export default config
 ```
 
-Lastly, we need to disable SSR and enable prerendering by adding a root `+layout.ts` file (or `+layout.js` if you are not using TypeScript) with these contents:
+最后，我们需要禁用 SSR 并通过添加包含以下内容的根 `+layout.ts` 文件（如果您不使用 TypeScript，则为 `+layout.js`）来启用预渲染：
 
 ```typescript title=src/routes/+layout.ts
 export const prerender = true
 export const ssr = false
 ```
 
-Note that static-adapter doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global `window` object (like Tauri's API) without [Client-side checks][].
+请注意，static-adapter 不要求您对整个应用程序禁用 SSR，但它可以使用依赖于全局 `window` 对象的 API（如 Tauri 的 API），而无需[客户端检查][Client-side checks]。
 
 此外，如果您喜欢单页应用程序模式（SPA）而不是 SSG，您可以根据 [适配器文档][] 更改适配器配置和 `+layout.ts`。
 
 ## 创建 Rust 项目
 
-<TauriInit destDirExplination={{ __html: 'Use <code>../build</code> for this value.', }} devPathExplination={{ __html: 'Use <code>http://localhost:5173</code> for this value.', }} beforeDevCommandExplination={{ __html: 'Use <code>npm run dev</code> (make sure to adapt this to use the package manager of your choice).', }} beforeBuildCommandExplination={{ __html: 'Use <code>npm run build</code> (make sure to adapt this to use the package manager of your choice).', }} />
+<TauriInit
+  destDirExplination={{ __html: '使用 <code>../build</code> 作为该项的值。' }}
+  devPathExplination={{
+    __html: '使用 <code>http://localhost:5173</code> 作为该项的值。',
+  }}
+  beforeDevCommandExplination={{
+    __html:
+      '使用 <code>npm run dev</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+  beforeBuildCommandExplination={{
+    __html:
+      '使用 <code>npm run build</code> 作为这一项的值（如果您选择自己的包管理器，请确保已经对此作出调整）。',
+  }}
+/>
 
-现在我们已经搭建好了前端并初始化了Rust项目，创建的 `tauri.conf.json` 文件应该如下所示：
+现在我们已经搭建好了前端并初始化了 Rust 项目，创建的 `tauri.conf.json` 文件应该如下所示：
 
 ```json title=src-tauri/tauri.conf.json
 {
   "build": {
-    // 当你运行 `tauri build` 时，将会执行这个命令。
+    // 当您运行 `tauri build` 时，将会执行这个命令。
     "beforeBuildCommand": "npm run build",
-    // This command will execute when you run `tauri dev`
+    // 当您运行 `tauri dev` 时，将会执行这个命令。
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../build"
   },
+  ...
+}
 ```
 
-就是这样！ 现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
+就是这样！现在您可以在您的终端中运行接下来的命令来开始您的应用程序的开发构建：
 
 <Command name="dev" />
 
@@ -198,7 +214,7 @@ Note that static-adapter doesn't require you to disable SSR for the whole app bu
 <Greet />
 ```
 
-You can now run this with `npm run tauri dev` and see the result:
+现在您可以运行 `npm run tauri dev` 并查看结果：
 
 ![应用预览](/img/guides/getting-started/setup/sveltekit/result.png)
 
