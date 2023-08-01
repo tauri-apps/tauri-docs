@@ -71,6 +71,7 @@ header,
 }
 
 .sidebar li a,
+starlight-toc li a,
 .sidebar summary,
 .starlight__on-this-page li {
   transition: 0.07s ease;
@@ -105,7 +106,13 @@ details[open] summary {
   background-color: #fff;
 }
 
+starlight-toc li a:hover {
+  padding-left: .7rem;
+  background-color: #ffffff13;
+}
+
 .sidebar li a[aria-current="page"],
+.starlight-toc li a[aria-current="page"],
 .starlight__on-this-page li {
   animation: menu 0.6s;
 }
