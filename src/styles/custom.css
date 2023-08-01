@@ -60,6 +60,7 @@
   background-color: var(--sl-color-gray-6);
   padding-bottom: 1rem;
 }
+
 .content summary {
   cursor: pointer;
   padding: 1rem 0;
@@ -72,11 +73,64 @@
   opacity: 0;
   transition: var(--tauri-transition-speed);
 }
+
 .heading-link:hover::after {
   color: var(--sl-color-text-accent);
   opacity: 1;
 }
+
 .heading-link {
   text-decoration: none;
   color: var(--sl-color-white) !important;
+}
+
+::selection {
+  background: #fffb00;
+  color: #3f2900;
+}
+
+.heading-link {
+  text-decoration: none !important;
+}
+
+.content a,
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2rem;
+  transition: all .15s ease;
+}
+
+.content a:hover,
+.link:hover {
+  text-decoration-thickness: 3px;
+  text-underline-offset: .4rem;
+}
+
+.link:focus,
+a.button:focus,
+.content a:focus,
+button:focus,
+img:focus,
+input[type=email]:focus,
+input[type=image]:focus,
+input[type=search]:focus,
+input[type=submit]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+select:focus,
+textarea:focus {
+  transition: all .15s ease;
+  border-radius: 0;
+  -webkit-box-shadow: 0 0 0 2px #00000000, 0 0 0 4px #00000000, 0 0 0 5px #fff;
+  box-shadow: 0 0 0 2px #00000000, 0 0 0 4px #00000000, 0 0 0 5px #fff;
+  -webkit-box-shadow: var(--f-focus-box-shadow, 0 0 0 2px #00000000, 0 0 0 4px #1b1e23, 0 0 0 5px #fff);
+  box-shadow: var(--f-focus-box-shadow, 0 0 0 2px #00000000, 0 0 0 4px #1b1e23, 0 0 0 5px #fff);
+  outline: none
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important
+  }
 }
