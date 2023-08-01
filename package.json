@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "esbuild-loader": "3.0.1"
+    "esbuild-loader": "3.1.0"
   }
 }
