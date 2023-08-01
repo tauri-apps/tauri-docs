@@ -11,9 +11,6 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the `#dev-docu
 
 ## Previewing API References
 
-If you'd like to view the API references locally then there are a few extra steps:
-
-1. Initialize the submodules with `git submodule update --init`
-2. Prepare the submodules by running `pnpm dev:setup`
+If you'd like to view the API references locally then you must run `pnpm dev:setup` before `pnpm dev` to initialize all of the submodules.
 
 Now you should have the `http://localhost:3000/2/reference/` routes available for preview.

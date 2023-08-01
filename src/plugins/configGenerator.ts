@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 
 export default async function configGenerator() {
-  if (fs.existsSync('../tauri/tooling/api/node_modules')) {
+  if (fs.existsSync('packages/tauri/tooling/api/node_modules')) {
     const schemaPath = 'packages/tauri/core/tauri-config-schema/schema.json';
     const schemaString = fs
       .readFileSync(schemaPath)
