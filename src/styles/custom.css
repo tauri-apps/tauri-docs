@@ -269,23 +269,23 @@ textarea:focus {
 
 .bg-grad {
   position: absolute;
-  top: -30%;
-  left: 40%;
-  width: 130vh;
-  height: 130vh;
+  top: -50%;
+  left: 50%;
+  width: 150vh;
+  height: 150vh;
   opacity: .3;
-  background: radial-gradient(circle, rgba(2, 87, 247, 1) 0%, rgba(0, 0, 0, 0) 90%);
+  background: radial-gradient(circle, rgba(2, 87, 247, 1) 0%, rgba(0, 0, 0, 0) 70%);
   animation: 6s intro;
 }
 
 .bg-grad-red {
   position: absolute;
   top: 0%;
-  left: -5%;
-  width: 130vh;
-  height: 130vh;
+  left: -50%;
+  width: 150vh;
+  height: 150vh;
   opacity: .3;
-  background: radial-gradient(circle, rgb(247, 92, 2) 0%, rgba(0, 0, 0, 0) 90%);
+  background: radial-gradient(circle, rgb(247, 169, 2) 0%, rgba(0, 0, 0, 0) 70%);
   animation: 14s intro;
 }
 
