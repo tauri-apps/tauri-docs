@@ -90,14 +90,26 @@ Furthermore, AppImage is not supported on ARM devices. To avoid Tauri from build
 
 Now, let's cross-compile the Tauri application for ARM:
 
-1. Install Rust target for ARM: `rustup target add armv7-unknown-linux-gnueabihf`.
-2. Install the linker for ARM version: `sudo apt install gcc-arm-linux-gnueabihf`.
-3. Open or create the file `<project-root>/.cargo/config.toml` and add the following:
+1. Install Rust targets for your desired architecture:
+   - For ARMv7 (32-bit): `rustup target add armv7-unknown-linux-gnueabihf`
+   - For ARMv8 (ARM64, 64-bit): `rustup target add aarch64-unknown-linux-gnu`
+
+2. Install the corresponding linker for your chosen architecture:
+   - For ARMv7: `sudo apt install gcc-arm-linux-gnueabihf`
+   - For ARMv8 (ARM64): `sudo apt install gcc-aarch64-linux-gnu`
+
+3. Open or create the file `<project-root>/.cargo/config.toml` and add the following configurations accordingly:
    ```toml
    [target.armv7-unknown-linux-gnueabihf]
    linker = "arm-linux-gnueabihf-gcc"
+   
+   [target.aarch64-unknown-linux-gnu]
+   linker = "aarch64-linux-gnu-gcc"
    ```
-4. Enable armhf in the package manager: `sudo dpkg --add-architecture armhf`.
+
+4. Enable the respective architecture in the package manager (only for non-Debian distributions):
+   - For ARMv7: `sudo dpkg --add-architecture armhf`
+   - For ARMv8 (ARM64): `sudo dpkg --add-architecture arm64`
 
 :::info Adjusting Package Sources
 
@@ -118,10 +130,21 @@ After making changes, verify if the armhf architecture is still enabled in the p
 
 :::
 
-5. Update the package info: `sudo apt-get update && sudo apt-get upgrade -y`.
-6. Install webkitgtk for ARM: `sudo apt install libwebkit2gtk-4.0-dev:armhf`.
-7. Set the PKG_CONFIG_SYSROOT_DIR for the appropriate arch: `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`.
-8. Build the app by specifying the desired ARM version: `cargo tauri build --target armv7-unknown-linux-gnueabihf`.
+5. Update the package information: `sudo apt-get update && sudo apt-get upgrade -y`.
+
+6. Install the required webkitgtk library for your chosen architecture:
+   - For ARMv7: `sudo apt install libwebkit2gtk-4.0-dev:armhf`
+   - For ARMv8 (ARM64): `sudo apt install libwebkit2gtk-4.0-dev:arm64`
+
+7. Set the `PKG_CONFIG_SYSROOT_DIR` to the appropriate directory based on your chosen architecture:
+   - For ARMv7: `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
+   - For ARMv8 (ARM64): `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
+
+8. Build the app for your desired ARM version:
+   - For ARMv7: `cargo tauri build --target armv7-unknown-linux-gnueabihf`
+   - For ARMv8 (ARM64): `cargo tauri build --target aarch64-unknown-linux-gnu`
+
+Choose the appropriate set of instructions based on whether you want to cross-compile your Tauri application for ARMv7 or ARMv8 (ARM64). Please note that the specific steps may vary depending on your Linux distribution and setup.
 
 ### Automatic Cross-Compilation using a GitHub Action
 
