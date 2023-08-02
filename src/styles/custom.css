@@ -254,8 +254,8 @@ textarea:focus {
 }
 
 .bg-logo {
-  width: 60%;
-  height: 60%;
+  width: 60vh;
+  height: 60vh;
   position: absolute;
   top: 7%;
   left: 45%;
