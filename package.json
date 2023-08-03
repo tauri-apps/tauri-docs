@@ -23,7 +23,8 @@
     "astro": "^2.10.0",
     "astro-feelback": "^0.3.4",
     "rehype-autolink-headings": "^6.1.1",
-    "sharp": "^0.32.4"
+    "sharp": "^0.32.4",
+    "starlight-blog": "^0.1.1"
   },
   "pnpm": {
     "patchedDependencies": {
