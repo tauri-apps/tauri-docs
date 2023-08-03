@@ -4,7 +4,6 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import configGenerator from './src/plugins/configGenerator';
-import componentOverrideIntegration from './src/plugins/componentOverrideIntegration.mjs';
 
 await configGenerator();
 
@@ -16,7 +15,6 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   integrations: [
-    componentOverrideIntegration(),
     starlight({
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
