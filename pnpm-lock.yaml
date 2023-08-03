@@ -59,8 +59,8 @@ importers:
         specifier: ^5.1.2
         version: 5.1.2
       simple-git:
-        specifier: ^3.19.0
-        version: 3.19.0
+        specifier: ^3.19.1
+        version: 3.19.1
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -4036,8 +4036,8 @@ packages:
       simple-concat: 1.0.1
     dev: false
 
-  /simple-git@3.19.0:
-    resolution: {integrity: sha512-hyH2p9Ptxjf/xPuL7HfXbpYt9gKhC1yWDh3KYIAYJJePAKV7AEjLN4xhp7lozOdNiaJ9jlVvAbBymVlcS2jRiA==}
+  /simple-git@3.19.1:
+    resolution: {integrity: sha512-Ck+rcjVaE1HotraRAS8u/+xgTvToTuoMkT9/l9lvuP5jftwnYUp6DwuJzsKErHgfyRk8IB8pqGHWEbM3tLgV1w==}
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
