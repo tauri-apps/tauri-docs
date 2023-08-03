@@ -9,6 +9,41 @@ import starlightBlog from 'starlight-blog';
 
 await configGenerator();
 
+const authors = {
+	nothingismagick: {
+		name: 'Daniel Thompson-Yvetot',
+		picture: 'https://github.com/nothingismagick.png',
+	},
+	lucasfernog: {
+		name: 'Lucas Nogueira',
+		picture: 'https://github.com/lucasfernog.png',
+	},
+	beanow: {
+		name: 'Robin van Boven',
+		picture: 'https://github.com/Beanow.png',
+	},
+	jbolda: {
+		name: 'Jacob Bolda',
+		picture: 'https://github.com/jbolda.png',
+	},
+	lorenzolewis: {
+		name: 'Lorenzo Lewis',
+		picture: 'https://github.com/lorenzolewis.png',
+	},
+	tweidinger: {
+		name: 'Tillmann Weidinger',
+		picture: 'https://github.com/tweidinger.png',
+	},
+	amrbashir: {
+		name: 'Amr Bashir',
+		picture: 'https://github.com/amrbashir.png',
+	},
+	wusyong: {
+		name: 'Wu Yu Wei',
+		picture: 'https://github.com/wusyong.png',
+	},
+};
+
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://beta.tauri.app',

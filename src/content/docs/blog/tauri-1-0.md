@@ -159,7 +159,12 @@ Tauri is one of the top 200 projects on GitHub in all programming languages.
 
 <figure>
 
-![github](./tauri_1_0_images/github_stars_dark.png)
+# <<<<<<< HEAD
+
+![github](./tauri_1_0_images/github_stars_light.png)
+
+> > > > > > > 44a0abe (initial blog post transfer)
+> > > > > > > ![github](./tauri_1_0_images/github_stars_dark.png)
 
 <figcaption>
 </figcaption>
