@@ -38,6 +38,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       sharp:
+<<<<<<< HEAD
         specifier: ^0.32.5
         version: 0.32.5
       shiki:
@@ -46,6 +47,13 @@ importers:
       starlight-links-validator:
         specifier: ^0.2.0
         version: 0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14)
+=======
+        specifier: ^0.32.4
+        version: 0.32.4
+      starlight-blog:
+        specifier: ^0.1.1
+        version: 0.1.1(@astrojs/starlight@0.6.1)(astro@2.10.0)
+>>>>>>> aafda52 (add blog integration)
 
   packages/i18n-tracker:
     devDependencies:
@@ -4184,6 +4192,7 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
+<<<<<<< HEAD
   /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
     resolution: {integrity: sha512-169G2RXyFiaaAqPQB4gpV/5a1nx/44LXIEjlWYC7QIcLFOn/UYsturjTcAAjoKn0imn6SBquXgd/t524tx8WVQ==}
     engines: {node: '>=18'}
@@ -4199,6 +4208,18 @@ packages:
       kleur: 4.1.5
       mdast-util-to-string: 3.2.0
       unist-util-visit: 4.1.2
+=======
+  /starlight-blog@0.1.1(@astrojs/starlight@0.6.1)(astro@2.10.0):
+    resolution: {integrity: sha512-RrMbTV0rWyI1IKBNvruo0oINAYbvAQJIjMmZCy1hwkLZF7RxZoiEdLhFmLjnP+mZDiPpPH9h9jYqEZpZ9hS//Q==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.5.0'
+      astro: '>=2.5.0'
+    dependencies:
+      '@astrojs/starlight': 0.6.1(astro@2.10.0)
+      astro: 2.10.0(sharp@0.32.4)
+      github-slugger: 2.0.0
+>>>>>>> aafda52 (add blog integration)
     dev: false
 
   /stdin-discarder@0.1.0:

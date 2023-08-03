@@ -5,6 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
+import starlightBlog from 'starlight-blog';
 
 await configGenerator();
 
@@ -17,6 +18,7 @@ export default defineConfig({
 	},
 	integrations: [
 		starlightLinksValidator(),
+		starlightBlog(),
 		starlight({
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
