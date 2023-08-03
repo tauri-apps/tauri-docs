@@ -11,7 +11,7 @@
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
     "build:reference": "pnpm --filter js-api-generator run build",
-    "build:astro": "astro build",
+    "build:astro": "astro build && rm -rf ./dist/node_modules",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
     "build": "pnpm dev:setup && pnpm build:reference && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
@@ -19,6 +19,8 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^2.2.1",
     "@astrojs/starlight": "^0.6.1",
+    "@tauri-apps/api": "2.0.0-alpha.5",
+    "@tauri-apps/cli": "2.0.0-alpha.10",
     "@types/json-schema": "^7.0.12",
     "astro": "^2.10.0",
     "astro-feelback": "^0.3.4",
