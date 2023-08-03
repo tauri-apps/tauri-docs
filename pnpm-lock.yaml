@@ -17,8 +17,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(astro@2.10.0)
       '@astrojs/starlight':
-        specifier: ^0.6.0
-        version: 0.6.0(astro@2.10.0)
+        specifier: ^0.6.1
+        version: 0.6.1(astro@2.10.0)
       '@types/json-schema':
         specifier: ^7.0.12
         version: 7.0.12
@@ -184,8 +184,8 @@ packages:
       zod: 3.21.4
     dev: false
 
-  /@astrojs/starlight@0.6.0(astro@2.10.0):
-    resolution: {integrity: sha512-LBxmhNSTNzoiZZE6lK1HEFKz5AgiZVHZ4nhAm7tz7qHSxDChD/zLS917Vi6sneolPy+Eu7AAZY3lGV9lneA/9A==}
+  /@astrojs/starlight@0.6.1(astro@2.10.0):
+    resolution: {integrity: sha512-8BOdtRo32hvnzAfhJtOioy63etlqhAanEg4TJrs/3Xz+p4yKcA1q7dM3/5Dq9BSus36W2nSts9GHq/BkBG5DTg==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
