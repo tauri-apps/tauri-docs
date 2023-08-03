@@ -115,7 +115,6 @@ const navbarItems = [
     position: 'right',
   },
   {
-    label: 'GitHub',
     href: repoUrl,
     'aria-label': 'GitHub',
     position: 'right',
@@ -136,20 +135,10 @@ const navbarItems = [
     type: 'docsVersionDropdown',
     position: 'right',
     className: 'navbarIcon versionIcon',
-    dropdownItemsBefore: [
-      {
-        type: 'html',
-        value: '<b>Stable</b>',
-      },
-    ],
     dropdownItemsAfter: [
       {
-        type: 'html',
-        value: '<b>Alpha</b>',
-      },
-      {
-        href: 'https://next--tauri.netlify.app/',
-        label: 'v2',
+        href: 'https://beta.tauri.app/',
+        label: 'v2 (Alpha)',
         target: '_self',
       },
     ],
