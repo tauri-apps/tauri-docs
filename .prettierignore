@@ -5,5 +5,9 @@
 **/dist
 **/.astro
 
+# Git Modules
+packages/tauri
+packages/plugins-workspace
+
 # Files
 pnpm-lock.yaml
