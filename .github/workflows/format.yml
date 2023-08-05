@@ -5,7 +5,7 @@ name: Format
 on:
   push:
     branches:
-      - next
+      - feat/prettier
 
 jobs:
   format:
