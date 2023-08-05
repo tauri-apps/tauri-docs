@@ -34,4 +34,3 @@ jobs:
           branch: ${{ github.head_ref }}
           commit_user_name: tauri-bot
           commit_user_email: tauri-bot@tauri.app
-
