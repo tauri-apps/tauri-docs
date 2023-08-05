@@ -1,5 +1,5 @@
 ---
-title: "@tauri-apps/api"
+title: '@tauri-apps/api'
 editUrl: false
 prev: false
 next: false
