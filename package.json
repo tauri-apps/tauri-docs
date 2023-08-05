@@ -10,7 +10,6 @@
     "dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
-    "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "build:reference": "pnpm --filter js-api-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
@@ -23,12 +22,9 @@
     "@types/json-schema": "^7.0.12",
     "astro": "^2.10.1",
     "astro-feelback": "^0.3.4",
-    "prettier": "^3.0.1",
-    "prettier-plugin-astro": "^0.11.0",
     "rehype-autolink-headings": "^6.1.1",
     "sharp": "^0.32.4"
   },
-  "packageManager": "pnpm@8.2.0",
   "pnpm": {
     "patchedDependencies": {
       "typedoc-plugin-markdown@4.0.0-next.17": "patches/typedoc-plugin-markdown@4.0.0-next.17.patch"

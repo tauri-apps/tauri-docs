@@ -117,23 +117,23 @@ import { internalIpV4 } from 'internal-ip';
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => {
-	const host = await internalIpV4();
+  const host = await internalIpV4();
 
-	/** @type {import('vite').UserConfig} */
-	const config = {
-		server: {
-			host: '0.0.0.0', // listen on all addresses
-			port: 5173,
-			strictPort: true,
-			hmr: {
-				protocol: 'ws',
-				host,
-				port: 5183,
-			},
-		},
-	};
+  /** @type {import('vite').UserConfig} */
+  const config = {
+    server: {
+      host: '0.0.0.0', // listen on all addresses
+      port: 5173,
+      strictPort: true,
+      hmr: {
+        protocol: 'ws',
+        host,
+        port: 5183,
+      },
+    },
+  };
 
-	return config;
+  return config;
 });
 ```
 
@@ -144,25 +144,25 @@ For Next.js, you need to configure the [assetPrefix] to use the internal IP so t
 ```typescript title=next.config.js
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
-	let internalHost = null;
-	if (!isProd) {
-		const { internalIpV4 } = await import('internal-ip');
-		internalHost = await internalIpV4();
-	}
-	/**
-	 * @type {import('next').NextConfig}
-	 */
-	const nextConfig = {
-		reactStrictMode: true,
-		swcMinify: true,
-		// Note: This experimental feature is required to use NextJS Image in SSG mode.
-		// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-		images: {
-			unoptimized: true,
-		},
-		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-	};
-	return nextConfig;
+  let internalHost = null;
+  if (!isProd) {
+    const { internalIpV4 } = await import('internal-ip');
+    internalHost = await internalIpV4();
+  }
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    // Note: This experimental feature is required to use NextJS Image in SSG mode.
+    // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+    images: {
+      unoptimized: true,
+    },
+    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  };
+  return nextConfig;
 };
 ```
 
@@ -175,9 +175,9 @@ Webpack has a built-in option to use the local IP address as the host for the de
 
 ```typescript title=webpack.config.js
 export default {
-	devServer: {
-		host: 'local-ipv4',
-	},
+  devServer: {
+    host: 'local-ipv4',
+  },
 };
 ```
 
