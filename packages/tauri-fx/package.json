@@ -1,0 +1,16 @@
+{
+  "name": "tauri-fx",
+  "version": "0.1.0",
+  "description": "Three js effects for Tauri site",
+  "main": "index.js",
+  "author": "Alve Larsson <alve@alve.io>",
+  "scripts": {
+    "dev": "esbuild src/app.ts --bundle --minify --outfile=../../public/js/tfx.js --watch",
+    "prod_build": "esbuild src/app.ts --bundle --minify --outfile=../../public/js/tfx.js"
+  },
+  "dependencies": {
+    "@types/three": "^0.155.0",
+    "esbuild": "^0.18.17",
+    "three": "^0.155.0"
+  }
+}
