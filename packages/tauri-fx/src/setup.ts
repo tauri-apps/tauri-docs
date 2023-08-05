@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 
-export let delta, renderer, scene, camera, loader, clock;
+export let delta, renderer, scene, camera, loader, mtlLoader, clock;
 
 let cube;
 
@@ -26,7 +27,7 @@ export function init() {
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    renderer.setClearColor(0x000000, 0);
+    //renderer.setClearColor(0x000000, 0);
 
     clock = new THREE.Clock();
 
@@ -35,27 +36,40 @@ export function init() {
     camera.position.z = 2;
 
     loader = new OBJLoader();
-
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    cube = new THREE.Mesh(geometry, material);
-    cube.position.y = -6;
-    scene.add(cube);
-
-    cube = new THREE.Mesh(geometry, material);
-    cube.position.y = -4;
-    scene.add(cube);
-
-    cube = new THREE.Mesh(geometry, material);
-    cube.position.y = -2;
-    scene.add(cube);
+    mtlLoader = new MTLLoader();
 
     const light = new THREE.PointLight(0xffffff, 1, 100);
     light.position.set(1, 0, 0);
     scene.add(light);
+
+    mtlLoader.load(
+        'fxassets/apptest.mtl',
+        (materials) => {
+            materials.preload()
+
+            for (const material of Object.values(materials.materials)) {
+                if (material.name.includes('[EM]')) {
+                    material.emissiveMap = material.map
+                    material.emissive = new THREE.Color(0xffffff)
+                }
+            }
+
+            const objLoader = new OBJLoader()
+            objLoader.setMaterials(materials)
+            objLoader.load(
+                'fxassets/apptest.obj',
+                (object) => {
+                    scene.add(object)
+                    object.position.z = 0;
+                    object.position.y = -3;
+                },
+                (xhr) => { },
+                (error) => { }
+            )
+        },
+        (xhr) => { },
+        (error) => { }
+    )
 }
 
 // The update loop
@@ -66,9 +80,6 @@ export function update(dt) {
 
     // Offset camera position from scroll
     camera.position.y = window.scrollY * -0.002;
-
-    cube.rotation.x += 1 * delta;
-    cube.rotation.y += 1 * delta;
 
     renderer.render(scene, camera);
 
