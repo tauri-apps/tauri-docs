@@ -1,0 +1,769 @@
+---
+title: Migrate from Tauri 1.0
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+This guide walks you through migrating your Tauri 1.0 application to Tauri 2.0.
+
+## Automated Migration
+
+The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
+
+<Tabs>
+  <TabItem label="npm">
+
+    ```sh
+    npm install @tauri-apps/cli@latest
+    npm run tauri migrate
+    ```
+
+  </TabItem>
+  <TabItem label="Yarn">
+
+    ```sh
+    yarn upgrade @tauri-apps/cli --latest
+    yarn tauri migrate
+    ```
+
+  </TabItem>
+  <TabItem label="pnpm">
+
+    ```sh
+    pnpm update @tauri-apps/cli --latest
+    pnpm tauri migrate
+    ```
+
+  </TabItem>
+  <TabItem label="Cargo">
+
+    ```sh
+    cargo install tauri-cli
+    cargo tauri migrate
+    ```
+
+  </TabItem>
+</Tabs>
+
+## Summary of Changes
+
+Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
+
+### Tauri Configuration
+
+- `tauri > allowlist` removed.
+- `tauri > allowlist > protocol > assetScope` moved to `tauri > security > assetProtocol > scope`.
+- `tauri > cli` moved to `plugins > cli`.
+- `tauri > updater` moved to `tauri > bundle > updater`.
+- `tauri > updater > dialog` removed.
+- `tauri > updater > endpoints` moved to `plugins > updater`.
+
+### New Cargo Features
+
+- linux-protocol-body: Enables custom protocol request body parsing, allowing the IPC to use it. Requires webkit2gtk 2.40.
+
+### Removed Cargo Features
+
+- reqwest-client: reqwest is now the only supported client.
+- reqwest-native-tls-vendored: use `native-tls-vendored` instead.
+- process-command-api: use the `shell` plugin instead (see instructions in the following section).
+- shell-open-api: use the `shell` plugin instead (see instructions in the following section).
+- windows7-compat: moved to the `notification` plugin.
+- updater: Updater is now a plugin.
+- linux-protocol-headers: Now enabled by default since we upgraded our minimum webkit2gtk version.
+
+### Rust Crate Changes
+
+- `api` module removed. Each API module can be found in a Tauri plugin.
+- `api::dialog` module removed. Use `tauri-plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
+- `api::file` module removed. Use Rust's [`std::fs`](https://doc.rust-lang.org/std/fs/) instead.
+- `api::http` module removed. Use `tauri-plugin-http` instead. [Migration](#migrate-to-http-plugin)
+- `api::ip` module rewritten and moved to `tauri::ipc`. Check out the new APIs, specially `tauri::ipc::Channel`.
+- `api::path` module functions and `tauri::PathResolved` moved to `tauri::Manager::path`. [Migration](#migrate-path-to-tauri-manager)
+- `api::process::Command`, `tauri::api::shell` and `tauri::Manager::shell_scope` APIs removed. Use `tauri-plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
+- `api::process::current_binary` and `tauri::api::process::restart` moved to `tauri::process`.
+- `api::version` module has been removed. Use the [semver crate](https://docs.rs/semver/latest/semver/) instead.
+- `App::clipboard_manager` and `AppHandle::clipboard_manager` removed. Use `tauri-plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
+- `App::get_cli_matches` removed. Use `tauri-plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
+- `App::global_shortcut_manager` and `AppHandle::global_shortcut_manager` removed. Use `tauri-plugin-global-shortcut` instead. [Migration](#migrate-to-global-shortcut-plugin)
+- `Manager::fs_scope` removed. The file system scope can be accessed via `tauri_plugin_fs::FsExt`.
+- `Plugin::PluginApi` now receives a plugin configuration as a second argument.
+- `Plugin::setup_with_config` removed. Use the updated `tauri::Plugin::PluginApi` instead.
+- `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` and `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` removed. Enable each core plugin individually via `scope::ipc::RemoteDomainAccessScope::add_plugin` instead.
+- `updater` module removed. Use `tauri-plugin-updater` instead. [Migration](#migrate-to-updater-plugin)
+
+### JavaScript API Changes
+
+The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
+
+- `@tauri-apps/api/app` module removed. Use `@tauri-apps/plugin-app` instead. [Migration](#migrate-to-app-plugin)
+- `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
+- `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
+- `@tauri-apps/api/dialog` module removed. Use `@tauri-apps/plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
+- `@tauri-apps/api/fs` module removed. Use `@tauri-apps/plugin-fs` instead. [Migration](#migrate-to-filesystem-plugin)
+- `@tauri-apps/api/global-shortcut` module removed. Use `@tauri-apps/plugin-global-shortcut` instead. [Migration](#migrate-to-global-shortcut-plugin)
+- `@tauri-apps/api/http` module removed. Use `@tauri-apps/plugin-http` instead. [Migration](#migrate-to-http-plugin)
+- `@tauri-apps/api/os` module removed. Use `@tauri-apps/plugin-os` instead. [Migration](#migrate-to-os-plugin)
+- `@tauri-apps/api/notification` module removed. Use `@tauri-apps/plugin-notification` instead. [Migration](#migrate-to-notification-plugin)
+- `@tauri-apps/api/process` module removed. Use `@tauri-apps/plugin-process` instead. [Migration](#migrate-to-process-plugin)
+- `@tauri-apps/api/shell` module removed. Use `@tauri-apps/plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
+- `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
+- `@tauri-apps/api/window` module removed. Use `@tauri-apps/plugin-window` instead [Migration](#migrate-to-window-plugin)
+
+## Detailed Migration Steps
+
+### Migrate to CLI Plugin
+
+The Rust `App::get_cli_matches` function and JavaScript `@tauri-apps/api/cli` module have been removed. Use the `cli` plugin instead:
+
+1. Add to cargo dependencies:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-cli = "2"
+```
+
+2. Use in JavaScript or Rust project:
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-cli": "^2.0.0"
+	}
+}
+```
+
+```js
+import { getMatches } from '@tauri-apps/plugin-cli';
+const matches = await getMatches();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    use tauri_plugin_cli::CliExt;
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+        .setup(|app| {
+            let cli_matches = app.cli().matches()?;
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Migrate to Clipboard Plugin
+
+`App::clipboard_manager` and `AppHandle::clipboard_manager` APIs have been moved to the clipboard plugin:
+
+```toml
+[dependencies]
+tauri-plugin-clipboard = "2"
+```
+
+```rust
+use tauri_plugin_clipboard::{ClipboardExt, ClipKind};
+tauri::Builder::default()
+    .plugin(tauri_plugin_clipboard::init())
+    .setup(|app| {
+        app.clipboard().write(ClipKind::PlainText {
+            label: None,
+            text: "Tauri is awesome!".into(),
+        })?;
+        Ok(())
+    })
+```
+
+### Migrate to Clipboard Plugin
+
+The `@tauri-apps/api/clipboard` module has been removed. Use the `@tauri-apps/plugin-clipboard-manager` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-clipboard = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+	}
+}
+```
+
+```js
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+await writeText('Tauri is awesome!');
+assert(await readText(), 'Tauri is awesome!');
+```
+
+### Migrate to Dialog Plugin
+
+The `@tauri-apps/api/dialog` module has been removed. Use the `@tauri-apps/plugin-dialog` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-dialog = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-dialog": "^2.0.0"
+	}
+}
+```
+
+```js
+import { save } from '@tauri-apps/plugin-dialog';
+const filePath = await save({
+	filters: [
+		{
+			name: 'Image',
+			extensions: ['png', 'jpeg'],
+		},
+	],
+});
+```
+
+### Migrate to Dialog Plugin
+
+```toml
+[dependencies]
+tauri-plugin-dialog = "2"
+```
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
+    .setup(|app| {
+        app.dialog().file().pick_file(|file_path| {
+            // do something with the optional file path here
+            // the file path is `None` if the user closed the dialog
+        });
+
+        app.dialog().message("Tauri is Awesome!").show();
+        Ok(())
+     })
+```
+
+### Migrate to File System Plugin
+
+The `@tauri-apps/api/fs` module has been removed. Use the `@tauri-apps/plugin-fs` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-fs = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-fs": "^2.0.0"
+	}
+}
+```
+
+```js
+import { createDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await createDir('db', { dir: BaseDirectory.AppLocalData });
+```
+
+### Migrate to Global Shortcut Plugin
+
+`App::global_shortcut_manager` and `AppHandle::global_shortcut_manager` APIs have been moved to the global shortcut plugin:
+
+```toml
+[dependencies]
+tauri-plugin-global-shortcut = "2"
+```
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_shortcut::init())
+    .setup(|app| {
+        app.global_shortcut().register("CmdOrCtrl+Y")?;
+        Ok(())
+    })
+```
+
+### Migrate to Global Shortcut Plugin
+
+The `@tauri-apps/api/global-shortcut` module has been removed. Use the `@tauri-apps/plugin-global-shortcut` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-global-shortcut = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-global-shortcut": "^2.0.0"
+	}
+}
+```
+
+```js
+import { register } from '@tauri-apps/plugin-global-shortcut';
+await register('CommandOrControl+Shift+C', () => {
+	console.log('Shortcut triggered');
+});
+```
+
+### Migrate to HTTP Plugin
+
+The `tauri::api::http` module has been removed. Use the `http` plugin instead:
+
+```toml
+[dependencies]
+tauri-plugin-http = "2"
+```
+
+```rust
+use tauri_plugin_dialog::{DialogExt, client};
+// `client` is a re-export of `reqwest`. APIs will be available in the future as DialogExt::http
+tauri::Builder::default()
+    .plugin(tauri_plugin_http::init())
+```
+
+### Migrate to HTTP Plugin
+
+The `@tauri-apps/api/http` module has been removed. Use the `@tauri-apps/plugin-http` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-http = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-http": "^2.0.0"
+	}
+}
+```
+
+```js
+import { fetch } from '@tauri-apps/plugin-http';
+const response = await fetch(
+	'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+);
+```
+
+### Migrate to Notification Plugin
+
+The `@tauri-apps/api/notification` module has been removed. Use the `@tauri-apps/plugin-notification` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-notification = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-notification": "^2.0.0"
+	}
+}
+```
+
+```js
+import { sendNotification } from '@tauri-apps/plugin-notification';
+sendNotification('Tauri is awesome!');
+```
+
+### Migrate to OS Plugin
+
+The `@tauri-apps/api/os` module has been removed. Use the `@tauri-apps/plugin-os` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-os = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-os": "^2.0.0"
+	}
+}
+```
+
+```js
+import { arch } from '@tauri-apps/plugin-os';
+const architecture = await arch();
+```
+
+### Migrate to Process Plugin
+
+The `@tauri-apps/api/process` module has been removed. Use the `@tauri-apps/plugin-process` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-process = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-process": "^2.0.0"
+	}
+}
+```
+
+```js
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+await exit(0);
+await relaunch();
+```
+
+### Migrate to Shell Plugin
+
+The `@tauri-apps/api/shell` module has been removed. Use the `@tauri-apps/plugin-shell` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-shell = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-shell": "^2.0.0"
+	}
+}
+```
+
+```js
+import { Command, open } from '@tauri-apps/plugin-shell';
+const output = await Command.create('echo', 'message').execute();
+
+await open('https://github.com/tauri-apps/tauri');
+```
+
+### Migrate to Shell Plugin
+
+```toml
+[dependencies]
+tauri-plugin-shell = "2"
+```
+
+```rust
+use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            // open
+            app.shell().open("https://github.com/tauri-apps/tauri", None)?;
+
+            // status()
+            let status = tauri::async_runtime::block_on(async move { app.shell().command("which").args(["ls"]).status().await.unwrap() });
+            println!("`which` finished with status: {:?}", status.code());
+
+            // output()
+            let output = tauri::async_runtime::block_on(async move { app.shell().command("echo").args(["TAURI"]).output().await.unwrap() });
+            assert!(output.status.success());
+            assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
+
+            // async
+            let handle = app.handle();
+            tauri::async_runtime::spawn(async move {
+                let (mut rx, mut child) = handle.shell().command("cargo")
+                    .args(["tauri", "dev"])
+                    .spawn()
+                    .expect("Failed to spawn cargo");
+
+                let mut i = 0;
+                while let Some(event) = rx.recv().await {
+                    if let CommandEvent::Stdout(line) = event {
+                        println!("got: {}", String::from_utf8(line).unwrap());
+                       i += 1;
+                       if i == 4 {
+                           child.write("message from Rust\n".as_bytes()).unwrap();
+                           i = 0;
+                       }
+                   }
+                }
+            });
+            Ok(())
+        })
+}
+```
+
+### Migrate to Updater Plugin
+
+```toml
+[dependencies]
+tauri-plugin-updater = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+}
+```
+
+### Migrate to Updater Plugin
+
+The `@tauri-apps/api/updater` module has been removed. Use the `@tauri-apps/plugin-updater` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-updater = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-updater": "^2.0.0"
+	}
+}
+```
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update.response.available) {
+	console.log(
+		`Update to ${update.response.latestVersion} available! Date: ${update.response.date}`
+	);
+	console.log(`Release notes: ${update.response.body}`);
+	await update.downloadAndInstall();
+	// requires the `process` plugin
+	await relaunch();
+}
+```
+
+#### Custom Updater Target
+
+The `tauri::Builder` `updater_target` function has been removed. To set a custom updater target:
+
+```rust
+fn main() {
+    let mut updater = tauri_plugin_updater::Builder::new();
+    #[cfg(target_os = "macos")]
+    {
+        updater = updater.target("darwin-universal");
+    }
+    tauri::Builder::default()
+        .plugin(updater.build())
+}
+```
+
+#### Check for Updates
+
+- `tauri::updater` module removed. Use `tauri-plugin-updater` instead.
+- `tauri::Builder` `updater_target` function removed. [Migration](#custom-updater-target)
+- `App` and `AppHandle` `updater` function removed. [Migration](#check-for-updates)
+- `tauri::RunEvent::Updater` removed. The updater state can now be handled in the `app.updater().check().await` return value itself.
+
+To check for updates use the `updater` method from `tauri_plugin_updater::UpdaterExt`:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let handle = app.handle();
+            tauri::async_runtime::spawn(async move {
+                let response = handle.updater().check().await;
+            });
+            Ok(())
+        })
+}
+```
+
+### Migrate to Window Plugin
+
+The `@tauri-apps/api/window` module has been removed. Use the `@tauri-apps/plugin-window` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-window = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_window::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-window": "^2.0.0"
+	}
+}
+```
+
+```js
+import { appWindow } from '@tauri-apps/plugin-window';
+await appWindow.setTitle('Tauri');
+```
+
+### Migrate Path to Tauri Manager
+
+The `tauri::api::path` module functions and `tauri::PathResolver` have been moved to `tauri::Manager::path`:
+
+```rust
+use tauri::{path::BaseDirectory, Manager};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let home_dir_path = app.path().home_dir().expect("failed to get home dir");
+
+        let path = app.path().resolve("path/to/something", BaseDirectory::Config)?;
+
+        Ok(())
+  })
+```
+
+#### Migrate to App Plugin
+
+The `@tauri-apps/api/app` module has been removed. Use the `@tauri-apps/plugin-app` plugin instead:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-app = "2"
+```
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_app::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-app": "^2.0.0"
+	}
+}
+```
+
+```js
+import { show, hide } from '@tauri-apps/plugin-app';
+await hide();
+await show();
+```
