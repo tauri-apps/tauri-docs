@@ -1,0 +1,14 @@
+# Deep Directories
+**/node_modules
+
+# Generated Directories
+**/dist
+**/.astro
+src/content/docs/2/reference
+
+# Git Modules
+packages/tauri
+packages/plugins-workspace
+
+# Files
+pnpm-lock.yaml
