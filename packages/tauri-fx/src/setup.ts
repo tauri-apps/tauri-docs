@@ -9,12 +9,12 @@ let cube;
 export function init() {
 
     const canvas = document.querySelector('#c');
-    canvas.style.position = 'absolute';
+    canvas.style.position = 'fixed';
     canvas.style.top = '0px';
     canvas.style.left = '0px';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    canvas.style.zIndex = '1';
+    canvas.style.zIndex = '-1';
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -41,6 +41,18 @@ export function init() {
     cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
+    cube = new THREE.Mesh(geometry, material);
+    cube.position.y = -6;
+    scene.add(cube);
+
+    cube = new THREE.Mesh(geometry, material);
+    cube.position.y = -4;
+    scene.add(cube);
+
+    cube = new THREE.Mesh(geometry, material);
+    cube.position.y = -2;
+    scene.add(cube);
+
     const light = new THREE.PointLight(0xffffff, 1, 100);
     light.position.set(1, 0, 0);
     scene.add(light);
@@ -51,6 +63,9 @@ export function update(dt) {
 
     requestAnimationFrame(update);
     delta = clock.getDelta();
+
+    // Offset camera position from scroll
+    camera.position.y = window.scrollY * -0.002;
 
     cube.rotation.x += 1 * delta;
     cube.rotation.y += 1 * delta;
