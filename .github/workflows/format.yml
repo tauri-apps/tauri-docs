@@ -33,4 +33,4 @@ jobs:
           commit_message: '[ci] format'
           branch: ${{ github.head_ref }}
           commit_user_name: tauri-bot
-          commit_user_email: tauri-bot@tauri.studio
+          commit_user_email: tauri-bot@users.noreply.github.com
