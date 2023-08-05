@@ -4,6 +4,7 @@
 # Generated Directories
 **/dist
 **/.astro
+src/content/docs/2/reference
 
 # Git Modules
 packages/tauri
