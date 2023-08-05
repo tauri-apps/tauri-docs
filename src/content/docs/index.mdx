@@ -1,11 +1,10 @@
 ---
-title: Tauri 2.0 Docs 🚀
+title: Hardend foundation for your web apps.
 description: The cross-platform app building toolkit
 template: splash
 hero:
-  tagline: Documentation for the prerelease version of Tauri 2.0
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/logo-outline.svg
   actions:
     - text: Get Started
       link: /2/guide/
@@ -23,27 +22,36 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
+<div class="hero-bg">
+	<div class="bg-logo"></div>
+	<div class="bg-grad"></div>
+	<div class="bg-grad-red"></div>
+</div>
+
 <CardGrid stagger>
-  <Card title="Frontend Independent" icon="rocket">
-    Bring your existing web stack to Tauri or start that new dream project.
-    Tauri supports any frontend framework so you don't need to change your
-    stack.
-  </Card>
-  <Card title="Cross Platform" icon="rocket">
-    Build your app for Linux, macOS, Windows, Android and iOS - all from a
-    single codebase.
-  </Card>
-  <Card title="Inter-Process Communication" icon="rocket">
-    Write your frontend in JavaScript, application logic in Rust, and integrate
-    deep into the system with Swift and Kotlin.
-  </Card>
-  <Card title="Maximum Security" icon="rocket">
-    Feature
-  </Card>
-  <Card title="Minimal Size" icon="rocket">
-    Feature
-  </Card>
-  <Card title="Powered by Rust" icon="rocket">
-    Feature
-  </Card>
+	<Card title="Frontend Independent" icon="rocket">
+		Bring your existing web stack to Tauri or start that new dream project.
+		Tauri supports any frontend framework so you don't need to change your
+		stack.
+	</Card>
+	<Card title="Cross Platform" icon="rocket">
+		Build your app for Linux, macOS, Windows, Android and iOS - all from a
+		single codebase.
+	</Card>
+	<Card title="Inter-Process Communication" icon="rocket">
+		Write your frontend in JavaScript, application logic in Rust, and integrate
+		deep into the system with Swift and Kotlin.
+	</Card>
+	<Card title="Maximum Security" icon="rocket">
+		Front-of-mind for the Tauri Team driving our highest priorities and biggest
+		innovations.
+	</Card>
+	<Card title="Minimal Size" icon="rocket">
+		By using the OS's native web renderer, the size of a Tauri app can be less
+		than 600KB.
+	</Card>
+	<Card title="Powered by Rust" icon="rocket">
+		With performance and security at the center, Rust is the language for the
+		next generation of apps.
+	</Card>
 </CardGrid>

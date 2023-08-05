@@ -1,0 +1,27 @@
+---
+title: Plugin Reference
+---
+
+- [app](app): [JavaScript API](app/js)
+- [authenticator](authenticator): [JavaScript API](authenticator/js)
+- [autostart](autostart): [JavaScript API](autostart/js)
+- [cli](cli): [JavaScript API](cli/js)
+- [clipboard-manager](clipboard-manager): [JavaScript API](clipboard-manager/js)
+- [dialog](dialog): [JavaScript API](dialog/js)
+- [fs](fs): [JavaScript API](fs/js)
+- [global-shortcut](global-shortcut): [JavaScript API](global-shortcut/js)
+- [http](http): [JavaScript API](http/js)
+- [log](log): [JavaScript API](log/js)
+- [notification](notification): [JavaScript API](notification/js)
+- [os](os): [JavaScript API](os/js)
+- [positioner](positioner): [JavaScript API](positioner/js)
+- [process](process): [JavaScript API](process/js)
+- [shell](shell): [JavaScript API](shell/js)
+- [sql](sql): [JavaScript API](sql/js)
+- [store](store): [JavaScript API](store/js)
+- [stronghold](stronghold): [JavaScript API](stronghold/js)
+- [updater](updater): [JavaScript API](updater/js)
+- [upload](upload): [JavaScript API](upload/js)
+- [websocket](websocket): [JavaScript API](websocket/js)
+- [window](window): [JavaScript API](window/js)
+- [window-state](window-state): [JavaScript API](window-state/js)
