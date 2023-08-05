@@ -3,16 +3,36 @@ import { Card } from '@astrojs/starlight/components';
 ---
 
 <Card title="Prerequisites">
-  <ol>
-    <li>
-      Which operating system do you develop on?
-      <ul>
-        <li>Linux</li>
-        <li>macOS</li>
-        <li>Windows</li>
-      </ul>
-    </li>
-    <li>Would you like to develop for iOS?</li>
-    <li>Would you like to develop for Android?</li>
-  </ol>
+  <p>Which operating system do you develop with?</p>
+
+  <div>
+    <input type="radio" name="os" id="linux" value="Linux" />
+    <label for="linux">Linux</label>
+  </div>
+  <div>
+    <input type="radio" name="os" id="macos" value="macOS" />
+    <label for="macos">macOS</label>
+  </div>
+  <div>
+    <input type="radio" name="os" id="windows" value="Windows" />
+    <label for="windows">Windows</label>
+  </div>
+
+  <div>
+    <input type="checkbox" name="android" id="android" disabled />
+    <label for="android">Setup for Android development</label>
+  </div>
+  <div>
+    <input type="checkbox" name="ios" id="ios" disabled />
+    <label for="ios">Setup for iOS development</label>
+  </div>
 </Card>
+
+<style>
+  div:has(input[name='os']) {
+    border: 1px solid var(--sl-color-accent);
+    background-color: var(--sl-color-accent-low);
+    padding: 0.2em;
+    border-radius: 0.25rem;
+  }
+</style>
