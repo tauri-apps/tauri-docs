@@ -1,8 +1,18 @@
 diff --git a/dist/plugin/options/config.d.ts b/dist/plugin/options/config.d.ts
-index ebe9f64bc5fc979dc4108eea9206441bc67052ea..077d88c973a9b475e53a8b21959f28d912ee9010 100644
+index ebe9f64bc5fc979dc4108eea9206441bc67052ea..f0d9a816160a136f1fed169c2ce22ccc618319ba 100644
 --- a/dist/plugin/options/config.d.ts
 +++ b/dist/plugin/options/config.d.ts
-@@ -100,7 +100,6 @@ export declare const skipIndexPage: DeclarationOption;
+@@ -58,9 +58,6 @@ export declare const entryFileName: DeclarationOption;
+  * This option is ignored if `readme=none` or `skipIndexPage=true`.
+  */
+ export declare const indexFileName: DeclarationOption;
+-/**
+- * If not defined then the project name / version will be printed.
+- */
+ export declare const indexPageTitle: DeclarationOption;
+ /**
+  * This option skips the generation of the index page if it is not required.
+@@ -100,7 +97,6 @@ export declare const skipIndexPage: DeclarationOption;
  export declare const excludeGroups: DeclarationOption;
  export declare const hidePageHeader: DeclarationOption;
  export declare const hidePageTitle: DeclarationOption;
@@ -10,7 +20,7 @@ index ebe9f64bc5fc979dc4108eea9206441bc67052ea..077d88c973a9b475e53a8b21959f28d9
  export declare const hideBreadcrumbs: DeclarationOption;
  export declare const hideInPageTOC: DeclarationOption;
  export declare const hideHierarchy: DeclarationOption;
-@@ -115,13 +114,21 @@ export declare const tocFormat: DeclarationOption;
+@@ -115,13 +111,21 @@ export declare const tocFormat: DeclarationOption;
  export declare const baseUrl: DeclarationOption;
  export declare const anchorFormat: DeclarationOption;
  /**
@@ -22,21 +32,21 @@ index ebe9f64bc5fc979dc4108eea9206441bc67052ea..077d88c973a9b475e53a8b21959f28d9
   * ```
 - * anchorPattern: 'markdown-header-{{anchor}}'
 + * anchorTemplate: 'markdown-header-{anchor}'
++ * ```
++ */
++export declare const anchorTemplate: DeclarationOption;
++/**
++ * Supports {kind} and {name} placeholders.
++ *
++ * ```
++ * titleTemplate: "{kind}: {name}"
   * ```
   */
 -export declare const anchorPattern: DeclarationOption;
-+export declare const anchorTemplate: DeclarationOption;
-+/**
-+ * Supports {kind} and {title} placeholders.
-+ *
-+ * ```
-+ * titleTemplate: "{kind}: {title}"
-+ * ```
-+ */
 +export declare const titleTemplate: DeclarationOption;
  export declare const namedAnchors: DeclarationOption;
 diff --git a/dist/plugin/options/config.js b/dist/plugin/options/config.js
-index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24bfb1e7b4 100644
+index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..8bfbb93984770b37d7acbe155be35f93447cc914 100644
 --- a/dist/plugin/options/config.js
 +++ b/dist/plugin/options/config.js
 @@ -1,6 +1,6 @@
@@ -47,7 +57,22 @@ index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24
  const typedoc_1 = require("typedoc");
  const custom_maps_1 = require("./custom-maps");
  /**
-@@ -154,12 +154,6 @@ exports.hidePageTitle = {
+@@ -88,13 +88,11 @@ exports.indexFileName = {
+     type: typedoc_1.ParameterType.String,
+     defaultValue: 'API.md',
+ };
+-/**
+- * If not defined then the project name / version will be printed.
+- */
+ exports.indexPageTitle = {
+     name: 'indexPageTitle',
+     help: 'The title of API index page.',
+     type: typedoc_1.ParameterType.String,
++    defaultValue: 'Index',
+ };
+ /**
+  * This option skips the generation of the index page if it is not required.
+@@ -154,12 +152,6 @@ exports.hidePageTitle = {
      type: typedoc_1.ParameterType.Boolean,
      defaultValue: false,
  };
@@ -60,7 +85,7 @@ index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24
  exports.hideBreadcrumbs = {
      name: 'hideBreadcrumbs',
      help: 'Do not print breadcrumbs.',
-@@ -228,18 +222,31 @@ exports.anchorFormat = {
+@@ -228,18 +220,31 @@ exports.anchorFormat = {
      defaultValue: custom_maps_1.AnchorFormat.Lowercase,
  };
  /**
@@ -80,10 +105,10 @@ index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24
 +    type: typedoc_1.ParameterType.String,
 +};
 +/**
-+ * Supports {kind} and {title} placeholders.
++ * Supports {kind} and {name} placeholders.
 + *
 + * ```
-+ * titleTemplate: "{kind}: {title}"
++ * titleTemplate: "{kind}: {name}"
   * ```
   */
 -exports.anchorPattern = {
@@ -93,7 +118,7 @@ index e8bf6ceb2a61a8a3024faece57a4f0784b8e1b51..feea1350368a67ab59dfd9efc1f8dd24
 +    name: 'titleTemplate',
 +    help: 'Specify a template for displaying page titles.',
      type: typedoc_1.ParameterType.String,
-+    defaultValue: '{title}',
++    defaultValue: '{kind}: {name}',
  };
  exports.namedAnchors = {
      name: 'namedAnchors',
@@ -173,11 +198,157 @@ index 3692e9db37cbf7f43f1ae544ea583b25ec2ae643..3b838c79839d5266dfcb291407e9d33c
              writeFileSync(page.filename, formattedContents);
          }
          catch (error) {
+diff --git a/dist/theme/markdown-theme-render-context.d.ts b/dist/theme/markdown-theme-render-context.d.ts
+index 6c8f6b2bdf23bcd64b2bda1915b1f1a655ef6dcc..16123c8a95babf0d16817de1a12097c6ed182cec 100644
+--- a/dist/theme/markdown-theme-render-context.d.ts
++++ b/dist/theme/markdown-theme-render-context.d.ts
+@@ -23,7 +23,7 @@ export declare class MarkdownThemeRenderContext {
+     /** @hidden */
+     commentParts: (parts: import("typedoc").CommentDisplayPart[]) => string;
+     /** @hidden */
+-    comment: (comment: import("typedoc").Comment, headingLevel?: number | undefined) => string;
++    comment: (comment: import("typedoc").Comment, headingLevel?: number | undefined, showSummary?: boolean | undefined, showTags?: boolean | undefined) => string;
+     /** @hidden */
+     footer: () => string;
+     /** @hidden */
+diff --git a/dist/theme/resources/partials/breadcrumbs.js b/dist/theme/resources/partials/breadcrumbs.js
+index d9522aa91d0d07216d928fe04a250b451b328b8c..29cb4811f8ca8103c31366533272edebbd54edb1 100644
+--- a/dist/theme/resources/partials/breadcrumbs.js
++++ b/dist/theme/resources/partials/breadcrumbs.js
+@@ -14,7 +14,7 @@ function breadcrumbs(context, page) {
+         page.url === context.options.getValue('entryFileName')) {
+         return '';
+     }
+-    md.push((0, elements_1.link)(page.project.name, context.relativeURL(page.project.url)));
++    md.push((0, elements_1.link)('Index', context.relativeURL(page.project.url)));
+     const breadcrumb = (model) => {
+         var _a;
+         if ((_a = model === null || model === void 0 ? void 0 : model.parent) === null || _a === void 0 ? void 0 : _a.parent) {
+diff --git a/dist/theme/resources/partials/comment.d.ts b/dist/theme/resources/partials/comment.d.ts
+index 914dd0a73ee790107e59a1976057cd24a7ad917e..fc70023fd64acadce06df03ac883d7ffacde3594 100644
+--- a/dist/theme/resources/partials/comment.d.ts
++++ b/dist/theme/resources/partials/comment.d.ts
+@@ -3,4 +3,4 @@ import { MarkdownThemeRenderContext } from '../..';
+ /**
+  * @category Partials
+  */
+-export declare function comment(context: MarkdownThemeRenderContext, comment: Comment, headingLevel?: number): string;
++export declare function comment(context: MarkdownThemeRenderContext, comment: Comment, headingLevel?: number, showSummary?: boolean, showTags?: boolean): string;
+diff --git a/dist/theme/resources/partials/comment.js b/dist/theme/resources/partials/comment.js
+index 381a01176fbd8ef7de8c11057312a73cd260e017..a776e925cc0e672fd0852ac365d196bd2c256fff 100644
+--- a/dist/theme/resources/partials/comment.js
++++ b/dist/theme/resources/partials/comment.js
+@@ -6,13 +6,13 @@ const utils_1 = require("../../../support/utils");
+ /**
+  * @category Partials
+  */
+-function comment(context, comment, headingLevel) {
++function comment(context, comment, headingLevel, showSummary = true, showTags = true) {
+     var _a, _b;
+     const md = [];
+-    if (((_a = comment.summary) === null || _a === void 0 ? void 0 : _a.length) > 0) {
++    if (showSummary && ((_a = comment.summary) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+         md.push(context.commentParts(comment.summary));
+     }
+-    if ((_b = comment.blockTags) === null || _b === void 0 ? void 0 : _b.length) {
++    if (showTags && ((_b = comment.blockTags) === null || _b === void 0 ? void 0 : _b.length)) {
+         const tags = comment.blockTags
+             .filter((tag) => tag.tag !== '@returns')
+             .map((tag) => {
 diff --git a/dist/theme/resources/partials/header.js b/dist/theme/resources/partials/header.js
-index d8532c1d646c0fd5e2ef6f8c77d41acf1f8a0ec4..468065e028299f3ed16f37eef11bd87a53942b1a 100644
+index d8532c1d646c0fd5e2ef6f8c77d41acf1f8a0ec4..14140fad987ae288b92dc1ac6f92a138d1833436 100644
 --- a/dist/theme/resources/partials/header.js
 +++ b/dist/theme/resources/partials/header.js
-@@ -101,7 +101,9 @@ function packageHeader(context, page) {
+@@ -1,30 +1,6 @@
+ "use strict";
+-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+-    if (k2 === undefined) k2 = k;
+-    var desc = Object.getOwnPropertyDescriptor(m, k);
+-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+-      desc = { enumerable: true, get: function() { return m[k]; } };
+-    }
+-    Object.defineProperty(o, k2, desc);
+-}) : (function(o, m, k, k2) {
+-    if (k2 === undefined) k2 = k;
+-    o[k2] = m[k];
+-}));
+-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+-    Object.defineProperty(o, "default", { enumerable: true, value: v });
+-}) : function(o, v) {
+-    o["default"] = v;
+-});
+-var __importStar = (this && this.__importStar) || function (mod) {
+-    if (mod && mod.__esModule) return mod;
+-    var result = {};
+-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+-    __setModuleDefault(result, mod);
+-    return result;
+-};
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.header = void 0;
+-const path = __importStar(require("path"));
+ const typedoc_1 = require("typedoc");
+ const elements_1 = require("../../../support/elements");
+ const helpers_1 = require("../../helpers");
+@@ -43,32 +19,10 @@ function header(context, page) {
+ }
+ exports.header = header;
+ function projectHeader(context, page) {
+-    var _a;
+     const entryFileName = context.options.getValue('entryFileName');
+     const projectName = (0, helpers_1.getProjectDisplayName)(page.project, context.options.getValue('includeVersion'));
+-    const hasReadme = !context.options.getValue('readme').endsWith('none');
+     const md = [];
+     md.push((0, elements_1.link)((0, elements_1.bold)(projectName), context.relativeURL(entryFileName)));
+-    const links = [];
+-    if (!((_a = context.options.getValue('readme')) === null || _a === void 0 ? void 0 : _a.endsWith('none'))) {
+-        if (page.url === entryFileName) {
+-            links.push('Readme');
+-        }
+-        else {
+-            links.push((0, elements_1.link)('Readme', context.relativeURL(entryFileName)));
+-        }
+-    }
+-    if (hasReadme && page.project.url !== entryFileName) {
+-        if (page.url === page.project.url) {
+-            links.push('API');
+-        }
+-        else {
+-            links.push((0, elements_1.link)('API', context.relativeURL(page.project.url)));
+-        }
+-    }
+-    if (links.length > 1) {
+-        md.push(`( ${links.join(' \\| ')} )`);
+-    }
+     return `${md.join(' ')}\n***\n`;
+ }
+ function packageHeader(context, page) {
+@@ -76,32 +30,14 @@ function packageHeader(context, page) {
+     if (!packageItem) {
+         return '';
+     }
+-    const hasReadme = Boolean(packageItem.readme);
+-    const readmeUrl = `${path.dirname(packageItem.url || '')}/${context.options.getValue('entryFileName')}`;
+     const md = [];
+     md.push((0, elements_1.link)((0, elements_1.bold)(packageItem.name), context.relativeURL(packageItem.url)));
+-    const links = [];
+-    if (hasReadme) {
+-        if (page.url === readmeUrl) {
+-            links.push('Readme');
+-        }
+-        else {
+-            links.push(`${(0, elements_1.link)('Readme', context.relativeURL(hasReadme ? readmeUrl : packageItem.url))}`);
+-        }
+-        if (page.url === packageItem.url) {
+-            links.push('API');
+-        }
+-        else {
+-            links.push(`${(0, elements_1.link)('API', context.relativeURL(packageItem.url))}`);
+-        }
+-    }
+-    if (links.length) {
+-        md.push(`( ${links.join(' \\| ')} )`);
+-    }
      return `${md.join(' ')}\n***\n`;
  }
  function findPackage(model) {
@@ -216,7 +387,7 @@ index 8aff8efa9c6d5b8710b4212fab5cfa0202d6a15b..f5927bc2346401b38a3a1aea5aa9549f
          md.push(context.typeParametersTable(reflection.typeParameters));
      }
 diff --git a/dist/theme/resources/partials/member.signature.js b/dist/theme/resources/partials/member.signature.js
-index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..71668c1f55d28a5516bbc01ed0d4376a4ed6bbf7 100644
+index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..4555e0b5e42a39031e5f6dd6534438522139db86 100644
 --- a/dist/theme/resources/partials/member.signature.js
 +++ b/dist/theme/resources/partials/member.signature.js
 @@ -7,8 +7,11 @@ const elements_1 = require("../../../support/elements");
@@ -232,9 +403,12 @@ index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..71668c1f55d28a5516bbc01ed0d4376a
      if (showSources) {
          if (context.options.getValue('identifiersAsCodeBlocks')) {
              md.push((0, elements_1.codeBlock)(context.signatureMemberIdentifier(signature)));
-@@ -20,12 +23,12 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+@@ -18,14 +21,14 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+         }
+     }
      if (signature.comment) {
-         md.push(context.comment(signature.comment, headingLevel));
+-        md.push(context.comment(signature.comment, headingLevel));
++        md.push(context.comment(signature.comment, headingLevel, true, false));
      }
 -    const typeDeclaration = (_a = signature.type) === null || _a === void 0 ? void 0 : _a.declaration;
 -    if ((_b = signature.typeParameters) === null || _b === void 0 ? void 0 : _b.length) {
@@ -257,7 +431,7 @@ index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..71668c1f55d28a5516bbc01ed0d4376a
              const tags = signature.comment.blockTags
                  .filter((tag) => tag.tag === '@returns')
                  .map((tag) => context.commentParts(tag.content));
-@@ -45,7 +48,7 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
+@@ -45,12 +48,15 @@ function signatureMember(context, signature, headingLevel, showSources = true) {
                  md.push((0, elements_1.blockQuoteBlock)(context.signatureMember(signature, headingLevel + 1)));
              });
          }
@@ -266,6 +440,14 @@ index 92b81854a5ec42dc7dfd267f22cffc161e6f7331..71668c1f55d28a5516bbc01ed0d4376a
          if (typeDeclaration === null || typeDeclaration === void 0 ? void 0 : typeDeclaration.children) {
              md.push(context.typeDeclarationMember(typeDeclaration, headingLevel + 1, hasParent ? signature.name : undefined, false));
          }
+     }
+     md.push(context.inheritance(signature, headingLevel));
++    if (signature.comment) {
++        md.push(context.comment(signature.comment, headingLevel, false, true));
++    }
+     if (showSources && signature.sources) {
+         md.push(context.sources(signature, headingLevel));
+     }
 diff --git a/dist/theme/resources/partials/member.title.js b/dist/theme/resources/partials/member.title.js
 index c1bfe86f6b864c3dd07b33e81557647da802f41b..d0dba91a0ca7420dd548a0aaf9abe850fae24bd4 100644
 --- a/dist/theme/resources/partials/member.title.js
@@ -300,35 +482,83 @@ index c1bfe86f6b864c3dd07b33e81557647da802f41b..d0dba91a0ca7420dd548a0aaf9abe850
 -    return false;
 -}
 diff --git a/dist/theme/resources/partials/page.title.js b/dist/theme/resources/partials/page.title.js
-index d330846f3cd041172156ec464d30e198e732ed41..8d857261420f79e0c070f1edeeba0b2edbb7a619 100644
+index d330846f3cd041172156ec464d30e198e732ed41..0664bca11b0a732fd94022be8a2b724bf93394ae 100644
 --- a/dist/theme/resources/partials/page.title.js
 +++ b/dist/theme/resources/partials/page.title.js
-@@ -1,6 +1,7 @@
+@@ -1,19 +1,22 @@
  "use strict";
  Object.defineProperty(exports, "__esModule", { value: true });
  exports.pageTitle = void 0;
+-const helpers_1 = require("../../helpers");
 +const typedoc_1 = require("typedoc");
- const helpers_1 = require("../../helpers");
  /**
   * @category Partials
-@@ -8,12 +9,16 @@ const helpers_1 = require("../../helpers");
+  */
  function pageTitle(context, page) {
      var _a;
      const md = [];
 +    const titleTemplate = context.options.getValue('titleTemplate');
      if (((_a = page.model) === null || _a === void 0 ? void 0 : _a.url) === page.project.url) {
-         md.push(context.options.getValue('indexPageTitle') ||
-             (0, helpers_1.getProjectDisplayName)(page.project, context.options.getValue('includeVersion')));
+-        md.push(context.options.getValue('indexPageTitle') ||
+-            (0, helpers_1.getProjectDisplayName)(page.project, context.options.getValue('includeVersion')));
++        md.push(context.options.getValue('indexPageTitle'));
      }
      else {
 -        md.push(context.memberTitle(page.model, true));
-+        const title = context.memberTitle(page.model, true);
++        const name = context.memberTitle(page.model, true);
 +        md.push(titleTemplate
-+            .replace('{title}', title)
++            .replace('{name}', name)
 +            .replace('{kind}', typedoc_1.ReflectionKind.singularString(page.model.kind)));
      }
      return md.join(' ');
  }
+diff --git a/dist/theme/resources/partials/page.toc.js b/dist/theme/resources/partials/page.toc.js
+index def50403e19cfa6670bd4779ac622227a396322e..bf75ea497a4009b28702292d2583a966408b176f 100644
+--- a/dist/theme/resources/partials/page.toc.js
++++ b/dist/theme/resources/partials/page.toc.js
+@@ -32,7 +32,7 @@ const utils_1 = require("../../../support/utils");
+  * @category Partials
+  */
+ function pageTOC(context, page, headingLevel) {
+-    var _a;
++    var _a, _b;
+     const md = [];
+     if (!page.model.groups) {
+         md.push((0, elements_1.heading)(headingLevel, 'Packages'));
+@@ -45,7 +45,7 @@ function pageTOC(context, page, headingLevel) {
+         return md.join('\n\n');
+     }
+     if (page.model.groups &&
+-        context.options.getValue('entryPoints').length === 1) {
++        ((_b = page.model.children) === null || _b === void 0 ? void 0 : _b.some((child) => !child.kindOf(typedoc_1.ReflectionKind.Module)))) {
+         md.push(context.memberTOC(page.model, headingLevel));
+         return md.join('\n\n');
+     }
+diff --git a/dist/theme/resources/templates/read-me.js b/dist/theme/resources/templates/read-me.js
+index 1844dfb321652d9f8881575822809700d129c29e..824fac9a68fe4ccb5c40f2a36322df97e079f8a0 100644
+--- a/dist/theme/resources/templates/read-me.js
++++ b/dist/theme/resources/templates/read-me.js
+@@ -7,15 +7,16 @@ const elements_1 = require("../../../support/elements");
+  */
+ function readmeTemplate(context, page) {
+     const md = [];
+-    const INDEX_PLACEHOLDER_KEY = '$TYPEDOC_INDEX';
++    const INDEX_URL_PLACEHOLDER_KEY = '{indexUrl}';
++    const INDEX_PAGE_PLACEHOLDER = '{indexPage}';
+     if (!context.options.getValue('hidePageHeader')) {
+         md.push(context.header(page));
+     }
+     if (page.model.readme) {
+         const readmeContent = context.commentParts(page.model.readme);
+-        md.push(readmeContent.includes(INDEX_PLACEHOLDER_KEY)
+-            ? readmeContent.replace(INDEX_PLACEHOLDER_KEY, getIndexReplacer(context, page) || '')
+-            : readmeContent);
++        md.push(readmeContent
++            .replace(INDEX_PAGE_PLACEHOLDER, getIndexReplacer(context, page) || '')
++            .replace(INDEX_URL_PLACEHOLDER_KEY, `./${context.options.getValue('indexFileName')}`));
+     }
+     md.push(context.footer());
+     return md.join('\n\n');
 diff --git a/dist/theme/url-builder.js b/dist/theme/url-builder.js
 index dea04ef2259b55a0ccb9acc26b054cdc34d16054..4bf3d82308780247068fc6b49bd0573326d612aa 100644
 --- a/dist/theme/url-builder.js
