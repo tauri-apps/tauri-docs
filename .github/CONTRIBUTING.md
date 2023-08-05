@@ -1,9 +1,5 @@
 # Contributing
 
-> **Warning**
-> We're currently shifting focus to Tauri 2.0 documentation.  
-> [Check out the `next` branch](https://github.com/tauri-apps/tauri-docs/tree/next) if you're interested in getting involved and contributing.
-
 ## Writing/Fixing Docs
 
 Feel free to open an issue/a PR if you find something wrong in the docs.
