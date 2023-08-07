@@ -1,3 +1,375 @@
 ---
 title: Command Line Interface (CLI)
 ---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<!-- TODO: Use tabs for commands -->
+
+## `--help`
+
+```sh
+cargo tauri --help
+```
+
+```
+Command line interface for building Tauri apps
+
+Usage: cargo tauri [OPTIONS] <COMMAND>
+
+Commands:
+  build        Tauri build
+  dev          Tauri dev
+  icon         Generates various icons for all major platforms
+  info         Shows information about Tauri dependencies and project configuration
+  init         Initializes a Tauri project
+  plugin       Manage Tauri plugins
+  signer       Tauri updater signer
+  completions  Shell completions
+  android      Android commands
+  migrate      Migrate from v1 to v2
+  help         Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `build`
+
+```sh
+cargo tauri build
+```
+
+```
+Tauri build
+
+Usage: cargo tauri build [OPTIONS] [ARGS]...
+
+Arguments:
+  [ARGS]...
+          Command line arguments passed to the runner
+
+Options:
+  -r, --runner <RUNNER>
+          Binary to use to build the application, defaults to `cargo`
+  -v, --verbose...
+          Enables verbose logging
+  -d, --debug
+          Builds with the debug flag
+  -t, --target <TARGET>
+          Target triple to build against.
+          It must be one of the values outputted by `$rustc --print target-list` or `universal-apple-darwin` for an universal macOS application.
+          Note that compiling an universal macOS application requires both `aarch64-apple-darwin` and `x86_64-apple-darwin` targets to be installed.
+  -f, --features [<FEATURES>...]
+          Space or comma separated list of features to activate
+  -b, --bundles [<BUNDLES>...]
+          Space or comma separated list of bundles to package.
+          Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and `updater` on all platforms. If `none` is specified, the bundler will be skipped.
+          Note that the `updater` bundle is not automatically added so you must specify it if the updater is enabled.
+  -c, --config <CONFIG>
+          JSON string or path to JSON file to merge with tauri.conf.json
+  --ci
+          Skip prompting for values
+  -h, --help
+          Print help (see a summary with '-h')
+  -V, --version
+          Print version
+```
+
+## `dev`
+
+```sh
+cargo tauri dev
+```
+
+```
+Tauri dev
+
+Usage: cargo tauri dev [OPTIONS] [ARGS]...
+
+Arguments:
+  [ARGS]...  Command line arguments passed to the runner. Arguments after `--` are passed to the application
+
+Options:
+  -r, --runner <RUNNER>           Binary to use to run the application
+  -v, --verbose...                Enables verbose logging
+  -t, --target <TARGET>           Target triple to build against
+  -f, --features [<FEATURES>...]  List of cargo features to activate
+  -e, --exit-on-panic             Exit on panic
+  -c, --config <CONFIG>           JSON string or path to JSON file to merge with tauri.conf.json
+      --release                   Run the code in release mode
+      --no-watch                  Disable the file watcher
+      --no-dev-server             Disable the dev server for static files
+      --port <PORT>               Specify port for the dev server for static files. Defaults to 1430 Can also be set using `TAURI_DEV_SERVER_PORT` env var
+      --force-ip-prompt           Force prompting for an IP to use to connect to the dev server on mobile
+  -h, --help                      Print help
+  -V, --version                   Print version
+```
+
+## `icon`
+
+```sh
+cargo tauri icon
+```
+
+```
+Generates various icons for all major platforms
+
+Usage: cargo tauri icon [OPTIONS] [INPUT]
+
+Arguments:
+  [INPUT]  Path to the source icon (png, 1240x1240px with transparency) [default: ./app-icon.png]
+
+Options:
+  -o, --output <OUTPUT>        Output directory. Default: 'icons' directory next to the tauri.conf.json file
+  -v, --verbose...             Enables verbose logging
+  -p, --png <PNG>              Custom PNG icon sizes to generate. When set, the default icons are not generated
+      --ios-color <IOS_COLOR>  The background color of the iOS icon - string as defined in the W3C's CSS Color Module Level 4 <https://www.w3.org/TR/css-color-4/> [default: #fff]
+  -h, --help                   Print help
+  -V, --version                Print version
+```
+
+## `info`
+
+```sh
+cargo tauri info
+```
+
+```
+Shows information about Tauri dependencies and project configuration
+
+Usage: cargo tauri info [OPTIONS]
+
+Options:
+      --interactive  Interactive mode to apply automatic fixes
+  -v, --verbose...   Enables verbose logging
+  -h, --help         Print help
+  -V, --version      Print version
+```
+
+## `init`
+
+```sh
+cargo tauri init
+```
+
+```
+Initializes a Tauri project
+
+Usage: cargo tauri init [OPTIONS]
+
+Options:
+      --ci
+          Skip prompting for values
+  -v, --verbose...
+          Enables verbose logging
+  -f, --force
+          Force init to overwrite the src-tauri folder
+  -l, --log
+          Enables logging
+  -d, --directory <DIRECTORY>
+          Set target directory for init [default: C:\Users\Fabian-Lars]
+  -t, --tauri-path <TAURI_PATH>
+          Path of the Tauri project to use (relative to the cwd)
+  -A, --app-name <APP_NAME>
+          Name of your Tauri application
+  -W, --window-title <WINDOW_TITLE>
+          Window title of your Tauri application
+  -D, --dist-dir <DIST_DIR>
+          Web assets location, relative to <project-dir>/src-tauri
+  -P, --dev-path <DEV_PATH>
+          Url of your dev server
+      --before-dev-command <BEFORE_DEV_COMMAND>
+          A shell command to run before `tauri dev` kicks in
+      --before-build-command <BEFORE_BUILD_COMMAND>
+          A shell command to run before `tauri build` kicks in
+  -h, --help
+          Print help
+  -V, --version
+          Print version
+```
+
+## `plugin init`
+
+```sh
+cargo tauri plugin init
+```
+
+```
+Initializes a Tauri plugin project
+
+Usage: cargo tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+
+Options:
+  -n, --name <PLUGIN_NAME>       Name of your Tauri plugin
+  -v, --verbose...               Enables verbose logging
+      --no-api                   Initializes a Tauri plugin without the TypeScript API
+  -d, --directory <DIRECTORY>    Set target directory for init [default: C:\Users\Fabian-Lars]
+  -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
+  -a, --author <AUTHOR>          Author name
+  -h, --help                     Print help
+  -V, --version                  Print version
+```
+
+## `plugin add`
+
+```sh
+cargo tauri plugin add
+```
+
+```
+Installs a plugin on the project
+
+Usage: cargo tauri plugin add [OPTIONS] <PLUGIN>
+
+Arguments:
+  <PLUGIN>  The plugin to add
+
+Options:
+  -t, --tag <TAG>        Git tag to use
+  -v, --verbose...       Enables verbose logging
+  -r, --rev <REV>        Git rev to use
+  -b, --branch <BRANCH>  Git branch to use
+  -h, --help             Print help
+  -V, --version          Print version
+```
+
+## `plugin android`
+
+```sh
+cargo tauri plugin android
+```
+
+```
+Manage the Android project for Tauri plugins
+
+Usage: cargo tauri plugin android [OPTIONS] <COMMAND>
+
+Commands:
+  add   Adds the Android project to an existing Tauri plugin
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `plugin ios`
+
+```sh
+cargo tauri plugin ios
+```
+
+```
+Manage the iOS project for Tauri plugins
+
+Usage: cargo tauri plugin ios [OPTIONS] <COMMAND>
+
+Commands:
+  add   Adds the iOS project to an existing Tauri plugin
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `signer`
+
+```sh
+cargo tauri signer
+```
+
+```
+Tauri updater signer
+
+Usage: cargo tauri signer [OPTIONS] <COMMAND>
+
+Commands:
+  sign      Sign a file
+  generate  Generate keypair to sign files
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `completions`
+
+```sh
+cargo tauri completions
+```
+
+```
+Shell completions
+
+Usage: cargo tauri completions [OPTIONS] --shell <SHELL>
+
+Options:
+  -s, --shell <SHELL>    Shell to generate a completion script for. [possible values: bash, elvish, fish, powershell, zsh]
+  -v, --verbose...       Enables verbose logging
+  -o, --output <OUTPUT>  Output file for the shell completions. By default the completions are printed to stdout
+  -h, --help             Print help
+  -V, --version          Print version
+```
+
+## `android`
+
+```sh
+cargo tauri android
+```
+
+```
+Android commands
+
+Usage: cargo tauri android [OPTIONS] <COMMAND>
+
+Commands:
+  init   Initializes a Tauri Android project
+  open   Open project in Android Studio
+  dev    Android dev
+  build  Android build
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `ios`
+
+```sh
+cargo tauri ios
+```
+
+```
+iOS commands
+
+Usage: cargo tauri ios [OPTIONS] <COMMAND>
+
+macos user needed here :))
+```
+
+## `migrate`
+
+```sh
+cargo tauri migrate
+```
+
+```
+Migrate from v1 to v2
+
+Usage: cargo tauri migrate [OPTIONS]
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
