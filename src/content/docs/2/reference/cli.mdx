@@ -4,9 +4,7 @@ title: Command Line Interface (CLI)
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<!-- TODO: Use tabs for commands -->
-
-## `--help`
+{/* TODO: Use tabs for commands */}
 
 ```sh
 cargo tauri --help
@@ -108,6 +106,10 @@ Options:
   -V, --version                   Print version
 ```
 
+This command will open the WebView in development mode. It makes use of the `build.devPath` property from your `tauri.conf.json` file.
+
+If you have entered a command to the `build.beforeDevCommand` property, this one will be executed before the dev command.
+
 ## `icon`
 
 ```sh
@@ -148,6 +150,8 @@ Options:
   -h, --help         Print help
   -V, --version      Print version
 ```
+
+`tauri info` shows a concise list of information about the environment, Rust, Node.js and their versions as well as a few relevant project configurations.
 
 ## `init`
 
@@ -318,6 +322,140 @@ Options:
   -h, --help             Print help
   -V, --version          Print version
 ```
+
+The Tauri CLI can generate shell completions for Bash, Zsh, PowerShell and Fish.
+
+Here are some instructions to configure Bash, Zsh and PowerShell. If you face an issue, please follow your shell's instructions instead. Note that it is recommended to check the generated completions script before executing it for security reasons.
+
+### Bash
+
+Get the Bash completions and move to a known folder:
+
+<Tabs>
+  <TabItem label="npm">
+
+```shell
+npm run tauri completions -- --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+  <TabItem label="Yarn">
+
+```shell
+yarn tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+  <TabItem label="pnpm">
+
+```shell
+pnpm tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+    <TabItem label="Cargo">
+
+```shell
+cargo tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+</Tabs>
+
+Load the completions script by adding the following to `.bashrc`:
+
+```shell
+source /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+### Zsh
+
+Get the Zsh completions and move to a known folder:
+
+<Tabs>
+  <TabItem label="npm">
+
+```shell
+npm run tauri completions -- --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+  <TabItem label="Yarn">
+
+```shell
+yarn tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+  <TabItem label="pnpm">
+
+```shell
+pnpm tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+    <TabItem label="Cargo">
+
+```shell
+cargo tauri completions --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+</Tabs>
+
+Load the completions folder using fpath adding the following to `.zshrc`:
+
+```shell
+fpath=(~/.completions $fpath)
+autoload -U compinit
+```
+
+### PowerShell
+
+Get the PowerShell completions and add it to the `$profile` file to execute it on all sessions:
+
+<Tabs>
+  <TabItem label="npm">
+
+```powershell
+npm run tauri completions -- --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem label="Yarn">
+
+```powershell
+yarn tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem label="pnpm">
+
+```powershell
+pnpm tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem label="Cargo">
+
+```powershell
+cargo tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+</Tabs>
 
 ## `android`
 
