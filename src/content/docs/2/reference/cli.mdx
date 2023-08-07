@@ -4,7 +4,48 @@ title: Command Line Interface (CLI)
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-List of Tauri CLI commands
+The Tauri command line interface (CLI) is the way to interact with Tauri throughout the development lifecycle.
+
+You can add the Tauri CLI to your current project using your package manager of choice:
+
+<Tabs>
+	<TabItem label="npm">
+
+```sh
+npm install --save-dev @tauri-apps/cli@next
+```
+
+  </TabItem>
+  	<TabItem label="Yarn">
+
+```sh
+yarn add -D @tauri-apps/cli@next
+```
+
+  </TabItem>
+  	<TabItem label="pnpm">
+
+```sh
+pnpm add -D @tauri-apps/cli@next
+```
+
+  </TabItem>
+  	<TabItem label="Cargo">
+
+```sh
+cargo install tauri-cli@next
+```
+
+  </TabItem>
+</Tabs>
+
+:::tip[Developing a Plugin]
+
+For CLI commands related to developing plugins visit the [Develop a Tauri Plugin](/2/guide/plugins/develop-plugin) guide.
+
+:::
+
+## List of Commands
 
 | Command                       | Description                                                          |
 | ----------------------------- | -------------------------------------------------------------------- |
@@ -19,42 +60,6 @@ List of Tauri CLI commands
 | [`android`](#android)         | Android commands                                                     |
 | [`migrate`](#migrate)         | Migrate from v1 to v2                                                |
 | [`help`](#help)               | Print this message or the help of the given subcommand(s)            |
-
-:::tip[Developing a Plugin]
-
-For CLI commands related to developing plugins visit the [Develop a Tauri Plugin](/2/guide/plugins/develop-plugin) guide.
-
-:::
-
-{/* TODO: Use tabs for commands */}
-
-```sh
-cargo tauri --help
-```
-
-```
-Command line interface for building Tauri apps
-
-Usage: cargo tauri [OPTIONS] <COMMAND>
-
-Commands:
-  build        Tauri build
-  dev          Tauri dev
-  icon         Generates various icons for all major platforms
-  info         Shows information about Tauri dependencies and project configuration
-  init         Initializes a Tauri project
-  plugin       Manage Tauri plugins
-  signer       Tauri updater signer
-  completions  Shell completions
-  android      Android commands
-  migrate      Migrate from v1 to v2
-  help         Print this message or the help of the given subcommand(s)
-
-Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help
-  -V, --version     Print version
-```
 
 ## `build`
 
@@ -463,6 +468,38 @@ cargo tauri migrate
 Migrate from v1 to v2
 
 Usage: cargo tauri migrate [OPTIONS]
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `help`
+
+{/* TODO: Use tabs for commands */}
+
+```sh
+cargo tauri --help
+```
+
+```
+Command line interface for building Tauri apps
+
+Usage: cargo tauri [OPTIONS] <COMMAND>
+
+Commands:
+  build        Tauri build
+  dev          Tauri dev
+  icon         Generates various icons for all major platforms
+  info         Shows information about Tauri dependencies and project configuration
+  init         Initializes a Tauri project
+  plugin       Manage Tauri plugins
+  signer       Tauri updater signer
+  completions  Shell completions
+  android      Android commands
+  migrate      Migrate from v1 to v2
+  help         Print this message or the help of the given subcommand(s)
 
 Options:
   -v, --verbose...  Enables verbose logging
