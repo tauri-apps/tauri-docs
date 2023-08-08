@@ -49,3 +49,5 @@ RUN apt update \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     # Remove some bloat
     && apt clean 
+
+EXPOSE 3000
