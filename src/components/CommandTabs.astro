@@ -3,42 +3,42 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Code } from 'astro/components';
 
 interface Props {
-  npm?: string;
-  yarn?: string;
-  pnpm?: string;
-  cargo?: string;
+	npm?: string;
+	yarn?: string;
+	pnpm?: string;
+	cargo?: string;
 }
 
 const { npm, yarn, pnpm, cargo } = Astro.props;
 ---
 
 <Tabs>
-  {
-    npm && (
-      <TabItem label="npm">
-        <Code code={npm} lang="sh" theme="css-variables" />
-      </TabItem>
-    )
-  }
-  {
-    yarn && (
-      <TabItem label="Yarn">
-        <Code code={yarn} lang="sh" theme="css-variables" />
-      </TabItem>
-    )
-  }
-  {
-    pnpm && (
-      <TabItem label="pnpm">
-        <Code code={pnpm} lang="sh" theme="css-variables" />
-      </TabItem>
-    )
-  }
-  {
-    cargo && (
-      <TabItem label="Cargo">
-        <Code code={cargo} lang="sh" theme="css-variables" />
-      </TabItem>
-    )
-  }
+	{
+		npm && (
+			<TabItem label="npm">
+				<Code code={npm} lang="sh" theme="css-variables" />
+			</TabItem>
+		)
+	}
+	{
+		yarn && (
+			<TabItem label="Yarn">
+				<Code code={yarn} lang="sh" theme="css-variables" />
+			</TabItem>
+		)
+	}
+	{
+		pnpm && (
+			<TabItem label="pnpm">
+				<Code code={pnpm} lang="sh" theme="css-variables" />
+			</TabItem>
+		)
+	}
+	{
+		cargo && (
+			<TabItem label="Cargo">
+				<Code code={cargo} lang="sh" theme="css-variables" />
+			</TabItem>
+		)
+	}
 </Tabs>
