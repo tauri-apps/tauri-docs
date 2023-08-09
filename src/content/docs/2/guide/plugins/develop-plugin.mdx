@@ -1,0 +1,71 @@
+---
+title: Develop a Tauri Plugin
+---
+
+import Stub from '@components/Stub.astro';
+
+<Stub />
+
+## `plugin init`
+
+```sh
+cargo tauri plugin init
+```
+
+```
+Initializes a Tauri plugin project
+
+Usage: cargo tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+
+Options:
+  -n, --name <PLUGIN_NAME>       Name of your Tauri plugin
+  -v, --verbose...               Enables verbose logging
+      --no-api                   Initializes a Tauri plugin without the TypeScript API
+  -d, --directory <DIRECTORY>    Set target directory for init [default: C:\Users\Fabian-Lars]
+  -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
+  -a, --author <AUTHOR>          Author name
+  -h, --help                     Print help
+  -V, --version                  Print version
+```
+
+## `plugin android`
+
+```sh
+cargo tauri plugin android
+```
+
+```
+Manage the Android project for Tauri plugins
+
+Usage: cargo tauri plugin android [OPTIONS] <COMMAND>
+
+Commands:
+  add   Adds the Android project to an existing Tauri plugin
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
+
+## `plugin ios`
+
+```sh
+cargo tauri plugin ios
+```
+
+```
+Manage the iOS project for Tauri plugins
+
+Usage: cargo tauri plugin ios [OPTIONS] <COMMAND>
+
+Commands:
+  add   Adds the iOS project to an existing Tauri plugin
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+```
