@@ -40,6 +40,9 @@ importers:
       sharp:
         specifier: ^0.32.4
         version: 0.32.4
+      shiki:
+        specifier: ^0.14.3
+        version: 0.14.3
 
   packages/i18n-tracker:
     devDependencies:
