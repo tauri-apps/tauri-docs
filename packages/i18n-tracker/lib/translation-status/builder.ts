@@ -38,6 +38,7 @@ export class TranslationStatusBuilder {
 		targetLanguages: string[];
 		languageLabels: { [key: string]: string };
 		githubRepo: string;
+		gitHubRef: string;
 		githubToken?: string | undefined;
 	}) {
 		this.pageSourceDir = config.pageSourceDir;
@@ -46,6 +47,7 @@ export class TranslationStatusBuilder {
 		this.targetLanguages = config.targetLanguages;
 		this.languageLabels = config.languageLabels;
 		this.githubRepo = config.githubRepo;
+		this.githubRef = config.gitHubRef;
 		this.githubToken = config.githubToken ?? '';
 		this.git = simpleGit({
 			maxConcurrentProcesses: Math.max(2, Math.min(32, os.cpus().length)),
@@ -58,6 +60,7 @@ export class TranslationStatusBuilder {
 	readonly targetLanguages;
 	readonly languageLabels;
 	readonly githubRepo;
+	readonly githubRef;
 	readonly githubToken;
 	readonly git;
 
@@ -252,7 +255,6 @@ export class TranslationStatusBuilder {
 
 	getPageUrl({
 		type = 'blob',
-		refName = 'main',
 		lang,
 		subpath,
 		query = '',
@@ -263,9 +265,9 @@ export class TranslationStatusBuilder {
 		subpath: string;
 		query?: string;
 	}) {
-		const noDotSrcDir = this.pageSourceDir.replace(/^\.+\//, '');
+		const noDotSrcDir = this.pageSourceDir.replaceAll(/\.+\//g, '');
 		const isSrcLang = lang === this.sourceLanguage;
-		return `https://github.com/${this.githubRepo}/${type}/${refName}/${noDotSrcDir}${
+		return `https://github.com/${this.githubRepo}/${type}/${this.githubRef}/${noDotSrcDir}${
 			isSrcLang ? '' : `/${lang}`
 		}/${subpath}${query}`;
 	}
@@ -427,7 +429,9 @@ export class TranslationStatusBuilder {
 	 */
 	renderCreatePageButton(lang: string, filename: string): string {
 		// We include `lang` twice because GitHub eats the last path segment when setting filename.
-		const createUrl = new URL(`https://github.com/${this.githubRepo}/new/main/src/content/docs`);
+		const createUrl = new URL(
+			`https://github.com/${this.githubRepo}/new/${this.githubRef}/src/content/docs`
+		);
 		createUrl.searchParams.set('filename', lang + '/' + filename);
 		createUrl.searchParams.set('value', '---\ntitle:\ndescription:\n---\n');
 		return this.renderLink(createUrl.href, `Create\xa0page\xa0+`, 'create-button');
