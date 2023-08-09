@@ -146,7 +146,7 @@ After making changes, verify if the armhf architecture is still enabled in the p
 
 Choose the appropriate set of instructions based on whether you want to cross-compile your Tauri application for ARMv7 or ARMv8 (ARM64). Please note that the specific steps may vary depending on your Linux distribution and setup.
 
-### Automatic Cross-Compilation using a GitHub Action
+### Experimental: Automatic Cross-Compilation using a GitHub Action
 
 For automated ARM executable builds on GitHub, we'll use the [arm-runner-action] created by [Paul Guyot].
 
