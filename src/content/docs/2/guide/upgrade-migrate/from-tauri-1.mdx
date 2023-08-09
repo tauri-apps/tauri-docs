@@ -99,8 +99,6 @@ Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.
 
 ### Migrate to App Plugin
 
-{/* TODO: Is the Tauri 1.0 Rust equivalent something like tauri::window::Window::hide? */}
-
 The JavaScript `@tauri-apps/api/app` APIs have been removed. Use the `@tauri-apps/plugin-app` plugin instead:
 
 1. Add to cargo dependencies:
@@ -141,15 +139,16 @@ await show();
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Rust example */}
-
 ```rust
 fn main() {
-    use tauri_plugin_cli::CliExt;
     tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_app::init())
         .setup(|app| {
-            let cli_matches = app.cli().matches()?;
+            #[cfg(target_os = "macos")]
+            {
+                app.hide()?;
+                app.show()?;
+            }
             Ok(())
         })
 }
@@ -424,6 +423,7 @@ await register('CommandOrControl+Shift+C', () => {
 
 ```rust
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
 tauri::Builder::default()
     .plugin(tauri_plugin_shortcut::init())
     .setup(|app| {
@@ -478,14 +478,25 @@ const response = await fetch(
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Code example of this one? */}
-
 ```rust
-use tauri_plugin_dialog::{DialogExt, client};
-// `client` is a re-export of `reqwest`. APIs will be available in the future as DialogExt::http
+use tauri_plugin_dialog::reqwest;
+
 tauri::Builder::default()
     .plugin(tauri_plugin_http::init())
+    .setup(|app| {
+        let response_data = tauri::async_runtime::block_on(async {
+            let response = reqwest::get(
+                "https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json",
+            )
+            .await
+            .unwrap();
+            response.text().await
+        })?;
+        Ok(())
+    })
 ```
+
+The HTTP plugin re-exports [reqwest](https://docs.rs/reqwest/latest/reqwest/) so you can check out their documentation for more information.
 
 </TabItem>
 </Tabs>
@@ -531,15 +542,22 @@ sendNotification('Tauri is awesome!');
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Code example on the Rust side */}
-
 ```rust
+use tauri_plugin_notification::{NotificationExt, PermissionState};
+
 fn main() {
-    use tauri_plugin_cli::CliExt;
     tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_notification::init())
         .setup(|app| {
-            let cli_matches = app.cli().matches()?;
+            if app.notification().permission_state()? == PermissionState::Unknown {
+                app.notification().request_permission()?;
+            }
+            if app.notification().permission_state()? == PermissionState::Granted {
+                app.notification()
+                    .builder()
+                    .body("Tauri is awesome!")
+                    .show()?;
+            }
             Ok(())
         })
 }
@@ -589,15 +607,12 @@ const architecture = await arch();
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Rust example */}
-
 ```rust
 fn main() {
-    use tauri_plugin_cli::CliExt;
     tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_os::init())
         .setup(|app| {
-            let cli_matches = app.cli().matches()?;
+            let os_arch = tauri_plugin_os::arch();
             Ok(())
         })
 }
@@ -648,15 +663,15 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Rust example */}
-
 ```rust
 fn main() {
-    use tauri_plugin_cli::CliExt;
     tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_process::init())
         .setup(|app| {
-            let cli_matches = app.cli().matches()?;
+            // exit the app with a status code
+            app.handle().exit(1);
+            // restart the app
+            app.handle().restart();
             Ok(())
         })
 }
@@ -708,28 +723,64 @@ await open('https://github.com/tauri-apps/tauri');
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Does this one need to be this complicated or could we simplify it to be similar to the other Rust code blocks? */}
+- Open an URL
 
 ```rust
-use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+use tauri_plugin_shell::ShellExt;
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .setup(|app| {
-            // open
             app.shell().open("https://github.com/tauri-apps/tauri", None)?;
+            Ok(())
+        })
+}
+```
 
-            // status()
+- Spawn a child process and retrieve the status code
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
             let status = tauri::async_runtime::block_on(async move { app.shell().command("which").args(["ls"]).status().await.unwrap() });
             println!("`which` finished with status: {:?}", status.code());
+            Ok(())
+        })
+}
+```
 
-            // output()
+- Spawn a child process and capture its output
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
             let output = tauri::async_runtime::block_on(async move { app.shell().command("echo").args(["TAURI"]).output().await.unwrap() });
             assert!(output.status.success());
             assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
+            Ok(())
+        })
+}
+```
 
-            // async
-            let handle = app.handle();
+- Spawn a child process and read its events asynchronously:
+
+```rust
+use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {
                 let (mut rx, mut child) = handle.shell().command("cargo")
                     .args(["tauri", "dev"])
@@ -883,15 +934,15 @@ await appWindow.setTitle('Tauri');
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: Rust example */}
-
 ```rust
+use tauri::Manager;
+
 fn main() {
-    use tauri_plugin_cli::CliExt;
     tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_window::init())
         .setup(|app| {
-            let cli_matches = app.cli().matches()?;
+            let window = app.get_window("main").unwrap();
+            window.set_title("Tauri")?;
             Ok(())
         })
 }
