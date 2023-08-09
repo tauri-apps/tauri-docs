@@ -30,7 +30,7 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/starlight',
+				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
 			},
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
