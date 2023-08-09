@@ -1,16 +1,12 @@
 # Argument for the pnpm version to install
-ARG PNPM_VERSION="8.6.12"
+ARG PNPM_VERSION="latest"
 # Which image to use as a base
-ARG IMAGE="mcr.microsoft.com/vscode/devcontainers/base"
+ARG IMAGE="mcr.microsoft.com/devcontainers/javascript-node"
 # Which tag to use for the image
-ARG VARIANT="1-ubuntu-22.04"
-# Argument for the Node.js version to install along with npm, yarn and pnpm
-ARG NODE_VERSION="20"
+ARG VARIANT="20-bookworm"
 
 # Arguments related to setting up a non-root user for the container
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+ARG USERNAME=node
 
 #########################
 # Final image
@@ -19,10 +15,7 @@ FROM ${IMAGE}:${VARIANT}
 
 # Make sure arguments are available
 ARG PNPM_VERSION
-ARG NODE_VERSION
 ARG USERNAME
-ARG USER_UID
-ARG USER_GID
 
 RUN apt update \
     # Upgrade the system
@@ -32,10 +25,7 @@ RUN apt update \
     git git-lfs bash-completion curl wget \
     # Update ca-certificates
     && update-ca-certificates \
-    # Install Node.js
-    && curl -sL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" | bash -E - \
-    && apt update \
-    && apt install -yq nodejs \
+    # Install package managers
     && npm i -g npm \
     && npm i -g yarn \
     && npm i -g pnpm@${PNPM_VERSION} \

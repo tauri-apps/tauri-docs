@@ -23,6 +23,5 @@
       "astro-build.astro-vscode" // Astro
     ]
   },
-  "remoteUser": "vscode", // The name of the non-root user in the container
   "features": {}
 }
