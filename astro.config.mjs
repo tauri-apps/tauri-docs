@@ -10,6 +10,7 @@ await configGenerator();
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://beta.tauri.app',
+	output: 'static',
 	compressHTML: true,
 	build: {
 		inlineStylesheets: 'always',
@@ -84,7 +85,124 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
-					link: '2/recipe',
+					items: [
+						/*
+						{
+						  label: 'Admin access',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Asset protocol',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Authentication',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Autostart',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Clipboard',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'Commands',
+						  link: '2/recipe/commands',
+						},
+						/*
+						{
+						  label: 'Dialogs',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Errors',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'Events',
+						  link: '2/recipe/events',
+						},
+						/*
+						{
+						  label: 'Filesystem',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Logging',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'Multiwindow',
+						  link: '2/recipe/multiwindow',
+						},
+						{
+						  label: 'Notifications',
+						  link: '2/recipe/notifications',
+						},
+						/*
+						{
+						  label: 'Process',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'SQL',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Scopes',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Shell',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Shortcuts',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'Splashscreen',
+						  link: '2/recipe/splashscreen',
+						},
+						{
+						  label: 'States',
+						  link: '2/recipe/states',
+						},
+						/*
+						{
+						  label: 'Store',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Stronghold',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'System Tray',
+						  link: '2/recipe/system-tray',
+						},
+						/*
+						{
+						  label: 'Updater',
+						  link: '2/recipe/window-customization',
+						},
+						{
+						  label: 'Websocket',
+						  link: '2/recipe/window-customization',
+						},
+						*/
+						{
+						  label: 'Window Menu',
+						  link: '2/recipe/window-menu',
+						},
+					  ],					  
 				},
 				{
 					label: 'References',

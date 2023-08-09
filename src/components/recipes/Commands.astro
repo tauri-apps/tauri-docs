@@ -1,0 +1,18 @@
+<input data-commands-input placeholder="Your name" />
+<button data-commands-button>Greet</button>
+<p data-commands-output></p>
+
+<script>
+  import { invoke } from '@tauri-apps/api/tauri';
+
+  const buttons = document.querySelectorAll('[data-commands-button]');
+  const input: HTMLInputElement | null = document.querySelector('[data-commands-input]');
+  const output: HTMLElement | null = document.querySelector('[data-commands-output]');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', async () => {
+      const ret: string = await invoke('greet', { name: input?.value });
+      if (output) output.innerHTML = ret;
+    });
+  });
+</script>

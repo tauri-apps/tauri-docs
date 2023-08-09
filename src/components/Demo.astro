@@ -1,0 +1,49 @@
+---
+import { Card } from '@astrojs/starlight/components';
+---
+
+<style>
+  div[data-tauri-enabled] {
+    display: none;
+  }
+</style>
+
+<div data-tauri-enabled>
+  <Card title="Demo" icon="document">
+    {
+      Astro.slots.has('default') && (
+        <>
+          <slot />
+        </>
+      )
+    }
+  </Card>
+</div>
+<div data-tauri-disabled>
+  <Card title="Demo" icon="document">
+    <p>You can download the Tauri Documentation app here: <a href="#">INSERT LINK</a></p>
+  </Card>
+</div>
+
+<script>
+  const isTauri = window.hasOwnProperty('__TAURI__');
+  console.log(isTauri);
+
+  const enabled = document.querySelectorAll('[data-tauri-enabled]');
+  const disabled = document.querySelectorAll('[data-tauri-disabled]');
+
+  enabled.forEach((button) => {
+    if (isTauri) {
+      button.setAttribute('style', 'display: block');
+    } else {
+      button.setAttribute('style', 'display: none');
+    }
+  });
+  disabled.forEach((button) => {
+    if (!isTauri) {
+      button.setAttribute('style', 'display: block');
+    } else {
+      button.setAttribute('style', 'display: none');
+    }
+  });
+</script>

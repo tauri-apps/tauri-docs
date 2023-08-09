@@ -1,0 +1,170 @@
+---
+title: Commands
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Demo from '@components/Demo.astro';
+import Command from '@components/recipes/Commands.astro';
+
+In this recipe we'll take a look at creating Tauri commands. Commands can be invoked by your frontend or
+called directly in your backend as regular functions and are your main entrypoint to running native Rust code.
+
+<Demo>
+If you enter your name and press the button you'll be greeted from Rust!
+<Command></Command>
+</Demo>
+
+## Setup
+
+Before you can use a command you'll need to register it.
+
+<Tabs>
+    <TabItem label="lib.rs">
+    ```rust
+    #[tauri::command]
+    fn greet() {
+        // Code executing on the main thread
+    }
+
+    #[tauri::command]
+    async fn greet_async() -> Result<(), ()> {
+        // Code executing on a Tokio managed non-main thread
+        Ok(())
+    }
+
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // You have to add all your commands one by one
+            .invoke_handler(tauri::generate_handler![greet, greet_async])
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+    </TabItem>
+</Tabs>
+
+
+## Usage
+
+Now that you've registered your command you can invoke it from your frontend. Note that commands are a frontend feature,
+meaning it has little to no effect as far as the backend is concerned. In the backend your commands are simply functions
+to be ran like anything else.
+
+### Frontend
+
+If you use a bundler you should install the `@tauri-apps/api` package using your favorite package manager. While it's technically
+possible to develop a frontend for Tauri without a bundler it is recommended you use one.
+
+<Tabs>
+    <TabItem label="Vanilla">
+    ```js
+    // WITH a bundler such as Vite or Webpack
+    import { invoke } from '@tauri-apps/api/tauri'
+    const value = await invoke('greet', { name: '' })
+
+    // WITHOUT a bundler
+    const value = await window.__TAURI_INVOKE__('greet', { name: '' });
+    ```
+    </TabItem>
+    <TabItem label="Astro">
+    ```html
+    ```
+    </TabItem>
+</Tabs>
+
+### Backend
+
+As far as the backend is concerned Tauri commands are just regular functions and don't need to be "invoked",
+they are simply ran like regular functions.
+
+<Tabs>
+    <TabItem label="Rust">
+    ```rust
+    #[tauri::command]
+    fn greet() {
+        println!("Hello!");
+    }
+
+    fn somewhere_else() {
+        // You can simply run the command like a regular function
+        // Just note that arguments like AppHandle will need to be
+        // handled by you manually
+        greet();
+    }
+    ```
+    </TabItem>
+</Tabs>
+
+## Deep dive
+
+### How it works
+
+A message gets sent from the frontend to the backend telling it what function to run and with which arguments.
+
+#### Passing arguments
+
+Arguments in Rust use `snake_case`. Arguments in Javascript use `camelCase` by default. Positioning of arguments doesn't matter.
+Only argument names are converted betwen `snake_case` and `camelCase`, the command name remains the same. The reason behind this
+conversion is because in general Javascript prefers `camelCase` for object properties, so it's done to satisfy linters. You can
+disable the conversion by specifying the command macro like so: `#[tauri::command(rename_all = "snake_case")]`.
+
+`AppHandle`, `Window` and `State` gets injected automatically. You **do not** need to pass them from Javascript to invoke the command.
+You **do** need to pass them if you run it as a function in Rust.
+
+```rust
+#[tauri::command]
+fn greet_me(app: AppHandle, window: Window, state: State<Mutex<MyState>>, your_name: String) {
+    // app: General purpose reference to your Tauri app
+    // window: A handle to the window that invoked the command
+    // state: A state Tauri is managing
+    // your_name: An argument to the command
+}
+```
+This command can then be invoked from Javascript like so:
+```js
+// The command name stays the same
+await invoke('greet_me', {
+    // The argument to the function as camelCase instead of snake_case
+    yourName: ''
+})
+```
+
+#### Returning values
+
+Anything that gets passed from the backend to the frontend needs to implement Serialize.
+
+Anything that gets passed from the frontend to the backend needs to implement Deserialize.
+
+All base Rust and Javascript types have standard implementations of both, as well as some additional extras in
+Rust from the `std` library.
+
+#### Async commands and the main thread
+
+When you invoke a command marked simply with `fn` it's a synchronous function which gets executed on the main thread.
+While Tauri manages several processes and threads, if the main thread gets stuck handling your command because you
+execute something heavy on it you may end up freezing your frontend.
+
+In general it's better to use an `async fn` as this will get ran on a Tokio managed thread instead and won't ever
+result in your frontend freezing.
+
+### Security
+
+#### Sanitize inputs
+
+Never trust what you get from teh frontend, **ever!** Treat every single message you receive in the backend as
+if it was sent by the most malicious hacker you can think of. If you get inputs from the user and need to execute
+some SQL queries for example you really do need to make sure the value you receive doesn't result in any side
+effects on the query.
+
+When you use official Tauri provided functions sanitization is handled for you. When you develop your own commands
+you need to set up sanitization yourself.
+
+#### Use the isolation pattern
+
+The isolation pattern is essentially an added layer between the frontend and the backend that receives all
+messages you send over the IPC before they are actually received by the backend and vice versa. Thanks to this
+you can set up customized sanitization of all the messages that are passed between the two.
+
+Note however that if you don't actually set up sanitization in your isolation scripts then the pattern doesn't
+inherently offer any security benefits, so don't set it up unless you intend to use it.

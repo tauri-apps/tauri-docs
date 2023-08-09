@@ -1,0 +1,149 @@
+---
+title: States
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Demo from '@components/Demo.astro';
+import Notification from '@components/recipes/Notifications.astro';
+
+In this recipe we'll take a look at the Tauri State feature. Whenever you need to persist data throughout the entire run
+of your application the most appropriate place to put it in is in a state.
+
+<Demo>
+Sends a native notification to the system.
+<Notification></Notification>
+</Demo>
+
+## Setup
+
+In order to use states you first have to tell Tauri to manage them.
+
+<Tabs>
+    <TabItem label="lib.rs">
+    ```rust
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Manage your state
+            .manage(MyState::default())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+
+    ```
+    </TabItem>
+</Tabs>
+
+
+## Usage
+
+Once you've registered a state to be managed by Tauri you're free to access it in the backend wherever you can get a hold of an `AppHandle`.
+The frontend can't directly access a state, but you can set up synchronization between the backend and the frontend in order to handle it
+almost as if it were.
+
+### Frontend
+
+States managed by Tauri are a backend feature so there's not really any options for direct access and handling of them in the frontend. However,
+we can still develop functions that both get and set values in a state by communicating with the backend.
+
+<Tabs>
+    <TabItem label="Vanilla">
+    ```html
+    ```
+    </TabItem>
+    <TabItem label="Pinia">
+    ```html
+    ```
+    </TabItem>
+</Tabs>
+
+### Backend
+
+You can also create notifications straight from the backend. All you need to do is create an instance of `Notification` and `.show()` it.
+
+<Tabs>
+    <TabItem label="Command">
+    ```rust
+    #[tauri::command]
+    fn greet(state: State<Mutex<MyState>>) {
+        let mut lock = state.lock().unwrap();
+        lock.some_value = "".to_string();
+    }
+    ```
+    </TabItem>
+    <TabItem label="AppHandle">
+    ```rust
+    #[tauri::command]
+    fn greet(app: AppHandle) {
+        let state = app.state::<Mutex<MyState>>();
+        let mut lock = state.lock().unwrap();
+        lock.some_value = "".to_string();
+    }
+    ```
+    </TabItem>
+    <TabItem label="Window event">
+    ```rust
+    ```
+    </TabItem>
+    <TabItem label="Setup function">
+    ```rust
+    ```
+    </TabItem>
+</Tabs>
+
+## Deep dive
+
+### How it works
+
+Tauri makes use of the `state` crate, which you can in simplified terms think of as a globally accessible `HashMap`
+where the values kept within are accessible based on what type you specify you want to fetch from it. That's essentially
+why when you register the same state multiple times only the first one registered will actually be used, because each key
+in a `HashMap` has to be unique, and why `Mutex<MyState>` is not the same as `MyState`.
+
+#### Mutex vs RwLock
+
+`Mutex` (Mutually Exclusive) and `RwLock` (Read Write Lock) perform the same functionality in Rust with a slight difference,
+namely that `RwLock` has the concept of `read` and `write` locks while `Mutex` only has the concept of `lock`. Performance
+wise the difference is that using an `RwLock` you can have many readers accessing the same value at the same time while only
+being able to have a single `write` lock. What `Mutex` does instead is effectively the same just that it only has a `write` lock.
+
+So why do we so often use `Mutex` instead of `RwLock`?
+
+The main reason for it is simply because `Mutex` is more user friendly. Or to be more precise, it's more `async` friendly. In
+order to create a `RwLock` that functions properly you have to use the Tokio version of a `RwLock`, and that means whenever
+you need to create a read or write lock on your state you'll need to `.await` the lock, meaning you can only retrieve the lock
+inside an `async fn`.
+
+There are ways to work with `RwLock` of course and in some cases where parallel access to a state is necessary it can certainly
+avoid porential deadlocks. However, because it can be harder to deal with we tend to recommend users to simply stick to using `Mutex`
+and following the best practise of dropping the lock as soon as possible, even cloning values out of the state in order to drop the
+lock sooner.
+
+If you know what you're doing by all means use a Tokio `RwLock`. Do not use the `std` version however as it does not play nicely
+with `async`.
+
+#### Async Mutex
+
+Contrary to popular belief it's actually not recommended to use the Tokio provided version of `Mutex`. That's not just something
+we say here at Tauri, it's almost verbatim what Tokio say themselves about their `Mutex`. The reason for this is because the issues
+that the async `Mutex` solves are issues that are better handled in other ways, e.g. using channels, and that the async version
+doesn't raise the same kind of `PoisonError` in case something has gone wrong.
+
+In short, use the `std` version of Mutex. If you run into issues you are probably better off switching approach rather than using
+an async `Mutex`.
+
+### Security
+
+#### Keep sentitive fields in the backend
+
+When developing a state it's recommended that you don't expose any sensitive information to the frontend.
+To best achieve this with a state you can make use of the serde macro to skip serializing specific fields.
+
+```rust
+#[derive(Serialize, Deserialize)]
+struct MyState {
+    public_value: String,
+    #[serde(skip_serializing)]
+    secret_value: String,
+}
+```

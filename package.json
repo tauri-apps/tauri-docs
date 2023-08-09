@@ -20,6 +20,9 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^2.2.1",
     "@astrojs/starlight": "^0.6.1",
+    "@tauri-apps/api": "2.0.0-alpha.5",
+    "@tauri-apps/cli": "2.0.0-alpha.10",
+    "@tauri-apps/plugin-notification": "2.0.0-alpha.0",
     "@types/json-schema": "^7.0.12",
     "astro": "^2.10.1",
     "astro-feelback": "^0.3.4",

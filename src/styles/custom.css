@@ -206,3 +206,7 @@
 		transition: none !important;
 	}
 }
+
+p {
+	text-align: justify;
+}

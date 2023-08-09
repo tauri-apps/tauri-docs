@@ -1,0 +1,26 @@
+<input data-notification-input placeholder="Your name" />
+<button data-notification-button>Send notification</button>
+
+<script>
+  import {
+    isPermissionGranted,
+    requestPermission,
+    sendNotification,
+  } from '@tauri-apps/plugin-notification';
+
+  const buttons = document.querySelectorAll('[data-notification-button]');
+  const input: HTMLInputElement | null = document.querySelector('[data-notification-input]');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', async () => {
+      let permissionGranted = await isPermissionGranted();
+      if (!permissionGranted) {
+        const permission = await requestPermission();
+        permissionGranted = permission === 'granted';
+      }
+      if (permissionGranted) {
+        sendNotification({ title: 'Tauri', body: `Greetings ${input?.value}!` });
+      }
+    });
+  });
+</script>
