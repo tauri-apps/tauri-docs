@@ -29,6 +29,7 @@ export default defineConfig({
 				twitter: 'https://twitter.com/TauriApps',
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
+			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
 			},
