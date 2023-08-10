@@ -4,7 +4,7 @@ description: The cross-platform app building toolkit
 template: splash
 hero:
   image:
-    file: ../../assets/logo-outline.svg
+    html: '<hero-icon />'
   actions:
     - text: Get Started
       link: /2/guide/
@@ -21,6 +21,7 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import Hero from '../../components/Hero.astro'
 
 <div class="hero-bg">
 	<div class="bg-logo"></div>
