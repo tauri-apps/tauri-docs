@@ -10,103 +10,147 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    filter: blur(2px); /* Adjust as per your need */
-    transition: all 2s ease-out;
+    filter: blur(3px);
+    transition: all 1s ease-out;
   }
 </style>
 
 <script>
+  // Define a vertex
   interface Vertex {
     x: number;
     y: number;
     z: number;
   }
-
   class HeroIcon extends HTMLElement {
+    // Reference to the canvas
     private canvas: HTMLCanvasElement;
+    // The 2D drawing context
     private ctx: CanvasRenderingContext2D;
+    // The current angle of the object
     private angle: number = 0;
+    // Whether we're dragging or not
     private dragging: boolean = false;
+    // Last known X coordinate
     private lastX: number = 0;
+    // Last known Y coordinate
     private lastY: number = 0;
+    // X angle
     private angleX: number = 0;
+    // Momentum around Z
     private momentum: number = 0;
+    // X center of the object
     private centerX: number = 0;
+    // Y center of the object
     private centerY: number = 0;
-    private centerZ: number = 0;
+    // Scaling factor of the object based canvas size vs its bounding box
     private scale: number = 0;
-    private obj: { vertices: Vertex[]; faces: number[][]; edges: Set<string> } = {
+    // The raw object
+    private rawObj: string = '';
+    // The loaded object
+    private obj: { vertices: Vertex[]; faces: number[][]; edges: number[][] } = {
       vertices: [],
       faces: [],
       edges: [],
     };
-
+    // Construct a hero-icon
+    constructor() {
+      super();
+      // Commence loading the object
+      this.loadObj();
+      // Add the canvas
+      this.innerHTML = '<canvas />';
+      // Get the canvas (without relying on querying)
+      this.canvas = this.children[0]! as HTMLCanvasElement;
+      // Get a rendering context
+      this.ctx = this.canvas.getContext('2d')!;
+      // Set a base canvas size
+      this.canvas.width = this.offsetWidth;
+      this.canvas.height = this.canvas.width;
+      // Event listeners
+      this.handleMouseDown = this.handleMouseDown.bind(this);
+      this.handleMouseMove = this.handleMouseMove.bind(this);
+      this.handleMouseUp = this.handleMouseUp.bind(this);
+      this.resize = this.resize.bind(this);
+      // After the canvas is appended, update its styles to trigger transitions
+      this.canvas.style.opacity = '1';
+      this.canvas.style.filter = 'blur(0px)';
+    }
+    // When the element is added to the DOM, add listeners
     connectedCallback() {
-      // Use `window` if you want the events to be captured outside of the canvas.
-      // For `mousedown`, it might be better to keep it on the canvas if you only want
-      // to initiate dragging from the canvas itself.
       this.addEventListener('mousedown', this.handleMouseDown);
       window.addEventListener('mousemove', this.handleMouseMove);
       window.addEventListener('mouseup', this.handleMouseUp);
+      window.addEventListener('resize', this.resize);
     }
-
+    // When the element is unloaded, rempove listeners
     disconnectedCallback() {
       this.removeEventListener('mousedown', this.handleMouseDown);
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('mouseup', this.handleMouseUp);
+      window.removeEventListener('resize', this.resize);
     }
-
+    // Draw a frame
+    private draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // Rotate the vertices based on current angles
+      const rotatedVertices = this.obj.vertices.map((v) => {
+        let tempVertex = this.rotateY(v, this.angle);
+        return this.rotateX(tempVertex, this.angleX);
+      });
+      const projectedVertices = rotatedVertices.map((v) => this.project(v));
+      // Edge color
+      this.ctx.strokeStyle = 'white';
+      // Edge width
+      this.ctx.lineWidth = 1;
+      // Draw edges
+      for (const [startIdx, endIdx] of this.obj.edges) {
+        const startVertex = projectedVertices[startIdx];
+        const endVertex = projectedVertices[endIdx];
+        this.ctx.beginPath();
+        this.ctx.moveTo(startVertex.x, startVertex.y);
+        this.ctx.lineTo(endVertex.x, endVertex.y);
+        this.ctx.stroke();
+      }
+      // Rotate angle
+      this.angle += 0.005;
+      if (this.dragging) {
+        this.angle += this.momentum;
+      } else {
+        this.momentum *= 0.97;
+      }
+      // Keep the angle between 0 and 2π for a continuous rotation
+      this.angle %= 2 * Math.PI;
+      if (!this.dragging) {
+        // Gradually reset angleX to zero when not dragging
+        this.angleX *= 0.95;
+        if (Math.abs(this.angleX) < 0.01) {
+          this.angleX = 0;
+        }
+      }
+      // Rendering loop
+      requestAnimationFrame(() => this.draw());
+    }
+    // Fetch the logo and parse it
     private async loadObj() {
       try {
         const response = await fetch('/logo.obj');
-        this.obj = this.parseOBJ(await response.text());
+        this.rawObj = await response.text();
+        this.obj = this.parseOBJ(this.rawObj);
+        // Initiate rendering loop
         this.draw();
-        console.log(this.obj);
       } catch (e) {
         console.error('Error loading hero obj file: ', e);
       }
     }
-
-    constructor() {
-      super();
-
-      this.loadObj();
-
-      this.innerHTML = '<canvas />';
-      this.canvas = this.querySelector('canvas')!;
-      this.ctx = this.canvas.getContext('2d')!;
-
-      this.canvas.width = 300;
-      this.canvas.height = 300;
-
-      // Mouse interaction event listeners
-      this.handleMouseDown = this.handleMouseDown.bind(this);
-      this.handleMouseMove = this.handleMouseMove.bind(this);
-      this.handleMouseUp = this.handleMouseUp.bind(this);
-
-      this.draw();
-
-      const canvas = this.canvas;
-      // After the canvas is appended, update its styles to trigger transitions
-      setTimeout(() => {
-        canvas.style.opacity = '1';
-        canvas.style.filter = 'blur(0px)';
-      }, 0);
-    }
-
-    private projectx(p: { x: number; y: number; z: number }) {
-      return {
-        x: p.x + this.canvas.width / 2,
-        y: -p.y + this.canvas.height / 2,
-      };
-    }
+    // Handle projection
     private project(p: { x: number; y: number; z: number }) {
       return {
         x: (p.x - this.centerX) * this.scale + this.canvas.width / 2,
         y: -(p.y - this.centerY) * this.scale + this.canvas.height / 2,
       };
     }
-
+    // Rotate the object around Y
     private rotateY(p: { x: number; y: number; z: number }, angle: number) {
       return {
         x: p.x * Math.cos(angle) + p.z * Math.sin(angle),
@@ -114,17 +158,17 @@
         z: -p.x * Math.sin(angle) + p.z * Math.cos(angle),
       };
     }
+    // Rotate the object around X
     private rotateX(vertex: Vertex, angle: number): Vertex {
       const cosTheta = Math.cos(angle);
       const sinTheta = Math.sin(angle);
-
       return {
         x: vertex.x,
         y: vertex.y * cosTheta - vertex.z * sinTheta,
         z: vertex.y * sinTheta + vertex.z * cosTheta,
       };
     }
-
+    // Parse a .obj file, so we don't need to rely on third party libraries just to this one function
     private parseOBJ(data: string) {
       const vertices: Vertex[] = [];
       const faces: number[][] = [];
@@ -135,11 +179,11 @@
       let maxX = -Infinity,
         maxY = -Infinity,
         maxZ = -Infinity;
-
       const lines = data.split('\n');
       for (const line of lines) {
         const parts = line.trim().split(/\s+/);
         if (parts[0] === 'v') {
+          // Handle vertices
           vertices.push({
             x: parseFloat(parts[1]),
             y: parseFloat(parts[2]),
@@ -152,6 +196,7 @@
           maxY = Math.max(maxY, vertices[vertices.length - 1].y);
           maxZ = Math.max(maxZ, vertices[vertices.length - 1].z);
         } else if (parts[0] === 'f') {
+          // Handle faces
           const face: number[] = [];
           for (let i = 1; i < parts.length; i++) {
             // Extract only the vertex index, considering complex formats
@@ -159,8 +204,7 @@
             face.push(vertexIndex);
           }
           faces.push(face);
-
-          // Add edges from the face to the set
+          // Handle edges
           for (let i = 0; i < face.length; i++) {
             const start = face[i];
             const end = face[(i + 1) % face.length];
@@ -168,128 +212,58 @@
             edges.add(edgeKey);
           }
         } else if (parts[0] === 'l') {
-          // Directly extract edges from 'l' lines
+          // Handle lines/edges
           const start = parseInt(parts[1]) - 1;
           const end = parseInt(parts[2]) - 1;
           const edgeKey = start < end ? `${start},${end}` : `${end},${start}`;
           edges.add(edgeKey);
         }
       }
-
       // Convert edges from set to array
       const edgeArray = Array.from(edges).map((e) => e.split(',').map(Number));
       const scaleX = maxX - minX !== 0 ? this.canvas.width / (maxX - minX) : 1;
       const scaleY = maxY - minY !== 0 ? this.canvas.height / (maxY - minY) : 1;
-      this.scale = Math.min(scaleX, scaleY) * 0.8; // 0.8 to leave some margin, adjust as needed
+      // Set a margin
+      this.scale = Math.min(scaleX, scaleY) * 0.95;
       this.centerX = (maxX + minX) / 2;
       this.centerY = (maxY + minY) / 2;
-      this.centerZ = (maxZ + minZ) / 2;
-
       return { vertices, faces, edges: edgeArray };
     }
-
-    private draw() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      // Rotate the vertices based on current angles
-      const rotatedVertices = this.obj.vertices.map((v) => {
-        let tempVertex = this.rotateY(v, this.angle);
-        return this.rotateX(tempVertex, this.angleX);
-      });
-      const projectedVertices = rotatedVertices.map((v) => this.project(v));
-
-      // Draw edges
-      this.ctx.strokeStyle = 'white'; // Or whatever color you desire for the glowing effect
-      this.ctx.lineWidth = 2; // Adjust as needed
-      for (const [startIdx, endIdx] of this.obj.edges) {
-        const startVertex = projectedVertices[startIdx];
-        const endVertex = projectedVertices[endIdx];
-        this.ctx.beginPath();
-        this.ctx.moveTo(startVertex.x, startVertex.y);
-        this.ctx.lineTo(endVertex.x, endVertex.y);
-        this.ctx.stroke();
-      }
-
-      // Use the loaded obj vertices and faces
-      const loadedVertices = this.obj.vertices;
-      const loadedFaces = this.obj.faces.map((face) => ({ vertices: face }));
-
-      // Sort faces by average depth (similar to your pyramid)
-      loadedFaces.sort((a, b) => {
-        const zA =
-          a.vertices.reduce((sum, idx) => sum + rotatedVertices[idx].z, 0) / a.vertices.length;
-        const zB =
-          b.vertices.reduce((sum, idx) => sum + rotatedVertices[idx].z, 0) / b.vertices.length;
-        return zB - zA;
-      });
-
-      for (const face of loadedFaces) {
-        // Using a generic color for illustration. You can adjust this
-        // or even derive colors from other properties if needed.
-        this.ctx.fillStyle = 'grey';
-        this.ctx.beginPath();
-        this.ctx.moveTo(
-          projectedVertices[face.vertices[0]].x,
-          projectedVertices[face.vertices[0]].y
-        );
-        for (let i = 1; i < face.vertices.length; i++) {
-          this.ctx.lineTo(
-            projectedVertices[face.vertices[i]].x,
-            projectedVertices[face.vertices[i]].y
-          );
-        }
-        this.ctx.closePath();
-        this.ctx.fill();
-      }
-
-      // Rotate angle
-      this.angle += 0.005;
-      if (this.dragging) {
-        this.angle += this.momentum;
-      } else {
-        this.momentum *= 0.97;
-      }
-
-      // Keep the angle between 0 and 2π for a continuous rotation
-      this.angle %= 2 * Math.PI;
-
-      if (!this.dragging) {
-        // Gradually reset angleX to zero when not dragging
-        this.angleX *= 0.95;
-        if (Math.abs(this.angleX) < 0.01) {
-          this.angleX = 0;
-        }
-      }
-
-      requestAnimationFrame(() => this.draw());
-    }
-
+    // Handle mouse down
     private handleMouseDown(event: MouseEvent) {
       this.dragging = true;
+      // Update last known coordinates
       this.lastX = event.clientX;
-      this.lastY = event.clientY; // Set initial Y position
+      this.lastY = event.clientY;
+      // Don't trigger selecting text when the mouse is outside the canvas
       event.preventDefault();
     }
-
+    // Handle mouse move
     private handleMouseMove(e: MouseEvent) {
       if (!this.dragging) return;
-
+      // Get change in mouse movement
       const deltaX = e.clientX - this.lastX;
       const deltaY = e.clientY - this.lastY;
-
+      // Update last known coordinates
       this.lastX = e.clientX;
       this.lastY = e.clientY;
-
-      this.momentum = deltaX * 0.005; // Adjust the factor for sensitivity
-
-      // Apply a tilt on the X-axis based on vertical mouse movement
+      // Set momentum, adjust the factor for sensitivity
+      this.momentum = deltaX * 0.005;
+      // Apply a tilt on the X-axis based on the change in vertical mouse movement
       this.angleX += deltaY * 0.005;
     }
-
+    // Handle mouse up
     private handleMouseUp() {
       this.dragging = false;
     }
+    // Handle resizing
+    private resize() {
+      this.canvas.width = this.offsetWidth;
+      this.canvas.height = this.canvas.width;
+      // Re-parse the object to make sure it's resized properly
+      this.obj = this.parseOBJ(this.rawObj);
+    }
   }
-
+  // Register our custom element
   customElements.define('hero-icon', HeroIcon);
 </script>
