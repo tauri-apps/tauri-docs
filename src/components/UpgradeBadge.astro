@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Icon } from '@astrojs/starlight/components';
+
+// Use the `href` prop to link to the respective page
+interface Props extends HTMLAttributes<'a'> {}
+---
+
+<div>
+  <a class="not-content" {...Astro.props}>Tauri 1.0 Upgrade Guide <Icon name="rocket" /></a>
+</div>
+
+<style>
+  div {
+    display: inline-block;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--sl-color-orange-low);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    box-shadow: var(--sl-shadow-sm);
+    color: var(--sl-color-gray-1) !important;
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+  }
+
+  a:hover {
+    background: var(--sl-color-orange-low);
+    border-color: var(--sl-color-orange-high);
+  }
+</style>
