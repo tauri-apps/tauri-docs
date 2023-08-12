@@ -219,7 +219,9 @@ The Rust `App::clipboard_manager` and `AppHandle::clipboard_manager` and JavaScr
 
 ```toml
 [dependencies]
-tauri-plugin-clipboard = "2"
+tauri-plugin-clipboard-manager = "2.0.0-alpha"
+# alternatively with Git:
+tauri-plugin-clipboard-manager = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
 <Tabs>
@@ -228,7 +230,7 @@ tauri-plugin-clipboard = "2"
 ```rust
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_clipboard::init())
+        .plugin(tauri_plugin_clipboard_manager::init())
 }
 ```
 
