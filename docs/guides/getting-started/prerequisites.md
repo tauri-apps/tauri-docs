@@ -151,7 +151,7 @@ sudo dnf group install "C Development Tools and Libraries"
 Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
 
   </TabItem>
-    <TabItem value="rhel" label="Enterprise Linux (Redhat, Alma, Rocky, CentOS)">
+    <TabItem value="rhel" label="Enterprise Linux">
 
 ```sh
 sudo dnf check-update
@@ -164,7 +164,7 @@ sudo dnf install webkit2gtk3-devel \
     librsvg2-devel
 sudo dnf group install "Development Tools"
 ```
-
+This includes Redhat Enterprise Linux, and all its downstreams such as Alma Linux, Rocky Linux, and a few others.
   </TabItem>
   <TabItem value="gentoo" label="Gentoo">
 
