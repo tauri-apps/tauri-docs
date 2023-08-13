@@ -134,7 +134,7 @@ sudo pacman -S --needed \
 ```
 
   </TabItem>
-  <TabItem value="fedora" label="Fedora">
+  <TabItem value="fedora" label="Fedora/Redhat">
 
 ```sh
 sudo dnf check-update
@@ -148,11 +148,8 @@ sudo dnf install webkit2gtk4.0-devel \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `webkit2gtk3-devel`.
-
-  </TabItem>
-    <TabItem value="rhel" label="Enterprise Linux">
-
+Note that for Fedora 36 and below, and all Enterprise Linux Distributions, use a older package called `webkit2gtk3-devel` instead of `webkit2gtk4.0-devel`.
+For Enterprise Linux, use "Development Tools" instead of "C Development Tools and Libraries. For example:
 ```sh
 sudo dnf check-update
 sudo dnf install webkit2gtk3-devel \
@@ -164,7 +161,7 @@ sudo dnf install webkit2gtk3-devel \
     librsvg2-devel
 sudo dnf group install "Development Tools"
 ```
-This includes Redhat Enterprise Linux, and all its downstreams such as Alma Linux, Rocky Linux, and a few others.
+
   </TabItem>
   <TabItem value="gentoo" label="Gentoo">
 
