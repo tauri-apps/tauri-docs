@@ -155,7 +155,7 @@ Note that on Fedora 36 and below the `webkit2gtk4.0-devel` package was called `w
 
 ```sh
 sudo emerge --ask \
-    net-libs/webkit-gtk:4 \
+    net-libs/webkit-gtk:4.1 \
     dev-libs/libappindicator \
     net-misc/curl \
     net-misc/wget \
