@@ -136,7 +136,7 @@ sudo pacman -S --needed \
   </TabItem>
   <TabItem value="fedora" label="Fedora/Redhat">
 
-```sh
+```sh title=Fedora
 sudo dnf check-update
 sudo dnf install webkit2gtk4.0-devel \
     openssl-devel \
@@ -148,9 +148,9 @@ sudo dnf install webkit2gtk4.0-devel \
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
-Note that for Fedora 36 and below, and all Enterprise Linux Distributions, use a older package called `webkit2gtk3-devel` instead of `webkit2gtk4.0-devel`.
-For Enterprise Linux, use "Development Tools" instead of "C Development Tools and Libraries. For example:
-```sh
+Note that for Fedora 36 and below, and all Enterprise Linux Distributions, you need to install `webkit2gtk3-devel` instead of `webkit2gtk4.0-devel`.
+For Enterprise Linux, you also need `"Development Tools"` instead of `"C Development Tools and Libraries"`. For example:
+```sh title="Enterprise Linux"
 sudo dnf check-update
 sudo dnf install webkit2gtk3-devel \
     openssl-devel \
