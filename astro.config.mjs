@@ -39,7 +39,7 @@ export default defineConfig({
 					label: 'Quick Start',
 					items: [
 						{ label: 'Why Tauri?', link: '/2/guide/' },
-						{ label: 'Prerequisites', link: '/2/guide/prerequisites' },
+						// { label: 'Prerequisites', link: '/2/guide/prerequisites' },
 						{
 							label: 'Create a Project',
 							link: '/2/guide/create/',
@@ -107,7 +107,21 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
-					link: '2/recipe',
+					items: [
+						{ label: 'All Features and Recipes', link: '2/guide/list' },
+						{ label: 'Authenticator', link: '#' },
+						{ label: 'Autostart', link: '#' },
+						{ label: 'Localhost', link: '#' },
+						{ label: 'Persisted Scope', link: '#' },
+						{ label: 'Positioner', link: '#' },
+						{ label: 'Single Instance', link: '#' },
+						{ label: 'SQL', link: '#' },
+						{ label: 'Store', link: '#' },
+						{ label: 'Stronghold', link: '#' },
+						{ label: 'Upload', link: '#' },
+						{ label: 'Websocket', link: '#' },
+						{ label: 'Window State', link: '#' },
+					],
 				},
 			],
 			locales,
