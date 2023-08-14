@@ -85,7 +85,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
-					link: '2/recipe',
+					link: '2/guide/list',
 				},
 				{
 					label: 'References',
