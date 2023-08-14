@@ -134,7 +134,7 @@ sudo pacman -S --needed \
 ```
 
   </TabItem>
-  <TabItem value="fedora" label="Fedora/Redhat">
+  <TabItem value="fedora" label="Fedora/REHL">
 
 ```sh title=Fedora
 sudo dnf check-update
