@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^2.2.1",
-    "@astrojs/starlight": "^0.7.0",
+    "@astrojs/starlight": "^0.7.1",
     "@types/json-schema": "^7.0.12",
     "astro": "^2.10.7",
     "astro-feelback": "^0.3.4",
