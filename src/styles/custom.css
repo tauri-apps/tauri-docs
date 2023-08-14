@@ -165,6 +165,14 @@
 		256px 256px;
 }
 
+/* Transition hero background grid smoothly to page background color. */
+.hero-bg::after {
+	content: '';
+	position: absolute;
+	inset: 70% 0 0;
+	background: linear-gradient(transparent, var(--sl-color-bg));
+}
+
 .hero > img {
 	opacity: 0.3;
 	animation: 3s intro;
