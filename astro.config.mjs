@@ -53,13 +53,13 @@ export default defineConfig({
 							link: '2/guide/core-concepts',
 						},
 						{
-							label: 'Plugins',
-							link: '2/guide/plugins',
+							label: 'Troubleshooting',
+							link: '2/guide/troubleshoot',
 						},
 					],
 				},
 				{
-					label: 'Guides',
+					label: 'Workflow',
 					items: [
 						{
 							label: 'Develop',
@@ -74,24 +74,20 @@ export default defineConfig({
 							link: '2/guide/test',
 						},
 						{
-							label: 'Build & Distribute',
-							link: '2/guide/build-distribute',
+							label: 'Build',
+							link: '2/guide/build',
 						},
 						{
-							label: 'Troubleshoot',
-							link: '2/guide/troubleshoot',
+							label: 'Distribute',
+							link: '2/guide/distribute',
 						},
 					],
-				},
-				{
-					label: 'Features & Recipes',
-					link: '2/guide/list',
 				},
 				{
 					label: 'References',
 					items: [
 						{
-							label: 'Configuration',
+							label: 'Tauri Configuration',
 							link: '2/reference/config',
 						},
 						{
@@ -99,23 +95,33 @@ export default defineConfig({
 							link: '2/reference/cli',
 						},
 						{
-							label: 'Core JavaScript API',
-							link: '2/reference/core/js',
+							label: 'JavaScript API',
+							link: '2/reference/js',
 						},
 						{
-							label: 'Core Rust API (via Docs.rs)',
+							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
 							link: 'https://docs.rs/tauri/~2.0.0-alpha',
-						},
-						{
-							label: 'Plugin References',
-							link: '2/reference/plugin',
 						},
 					],
 				},
 				{
-					label: 'Tauri v1',
-					link: 'https://tauri.app',
+					label: 'Features & Recipes',
+					items: [
+						{ label: 'All Features and Recipes', link: '2/guide/list' },
+						{ label: 'Authenticator', link: '#' },
+						{ label: 'Autostart', link: '#' },
+						{ label: 'Localhost', link: '#' },
+						{ label: 'Persisted Scope', link: '#' },
+						{ label: 'Positioner', link: '#' },
+						{ label: 'Single Instance', link: '#' },
+						{ label: 'SQL', link: '#' },
+						{ label: 'Store', link: '#' },
+						{ label: 'Stronghold', link: '#' },
+						{ label: 'Upload', link: '#' },
+						{ label: 'Websocket', link: '#' },
+						{ label: 'Window State', link: '#' },
+					],
 				},
 			],
 			locales,

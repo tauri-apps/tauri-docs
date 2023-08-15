@@ -26,13 +26,14 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	hideGenerator: true,
 	theme: 'tauri-theme',
 	plugin: ['typedoc-plugin-mdn-links'],
+	readme: 'none',
 	// typedoc-plugin-markdown options
 	// https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
 	outputFileStrategy: 'modules',
 	flattenOutputFiles: true,
-	entryFileName: '../index.md',
+	entryFileName: 'index.md',
 	// TODO: Pending https://github.com/tgreyuk/typedoc-plugin-markdown/pull/455 being released so that the patch can be removed
-	indexFileName: 'index.md',
+	// indexFileName: 'index.md',
 	hidePageHeader: true,
 	hidePageTitle: true,
 	hideBreadcrumbs: true,
@@ -49,7 +50,7 @@ async function generator() {
 			entryPoints: ['../tauri/tooling/api/src/index.ts'],
 			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/2/reference/core/js/',
+			baseUrl: '/2/reference/js/core/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -95,7 +96,7 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/2/reference/plugin/${plugin}/js`,
+				baseUrl: `/2/reference/js/${plugin}`,
 				...typeDocConfigBaseOptions,
 			};
 
