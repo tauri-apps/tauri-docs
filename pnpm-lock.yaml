@@ -43,6 +43,9 @@ importers:
       shiki:
         specifier: ^0.14.3
         version: 0.14.3
+      starlight-links-validator:
+        specifier: ^0.1.1
+        version: 0.1.1(@astrojs/starlight@0.7.2)(astro@2.10.7)
 
   packages/i18n-tracker:
     devDependencies:
@@ -4107,6 +4110,21 @@ packages:
 
   /sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+    dev: false
+
+  /starlight-links-validator@0.1.1(@astrojs/starlight@0.7.2)(astro@2.10.7):
+    resolution: {integrity: sha512-QAbqWtT4P445oyBjItYmfgK4zOJ+RV8+O3Q0K/VTl44jeLDEzjE9MwewE/DV7GOTWykx3CVyRNZtGXuVcqfUZg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.0.1'
+      astro: '>=2.5.0'
+    dependencies:
+      '@astrojs/starlight': 0.7.2(astro@2.10.7)
+      astro: 2.10.7(sharp@0.32.4)
+      github-slugger: 2.0.0
+      kleur: 4.1.5
+      mdast-util-to-string: 3.2.0
+      unist-util-visit: 4.1.2
     dev: false
 
   /stdin-discarder@0.1.0:
