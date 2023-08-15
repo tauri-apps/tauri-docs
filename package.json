@@ -11,7 +11,7 @@
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
-    "build:reference": "pnpm --filter js-api-generator run build",
+    "build:reference": "pnpm --filter js-api-generator run build && pnpm --filter rust-api-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
     "build": "pnpm dev:setup && pnpm build:reference && pnpm build:astro && pnpm build:i18n",

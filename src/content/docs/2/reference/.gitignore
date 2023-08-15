@@ -1,3 +1,8 @@
 config.md
 js/*
 !js/index.mdx
+core/js/
+core/rust/*
+!core/rust/*.md
+plugin/**/
+config.md
