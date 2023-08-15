@@ -2,7 +2,7 @@
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { type CollectionEntry, getEntry } from 'astro:content';
 
-const entries = ['2/guide/recipe/stub'];
+const entries = ['2/guide/recipe/notifications'];
 
 const list = (await Promise.all(
 	entries.flatMap((entry) => getEntry('docs', entry))
