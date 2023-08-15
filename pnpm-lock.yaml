@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   typedoc-plugin-markdown@4.0.0-next.17:
-    hash: ichbvwt7dvr2wpagb2ciftx2wy
+    hash: zw7cev5vnushtpzgtbcctv2ksa
     path: patches/typedoc-plugin-markdown@4.0.0-next.17.patch
 
 importers:
@@ -15,25 +15,34 @@ importers:
     dependencies:
       '@astrojs/markdown-remark':
         specifier: ^2.2.1
-        version: 2.2.1(astro@2.10.1)
+        version: 2.2.1(astro@2.10.7)
       '@astrojs/starlight':
-        specifier: ^0.6.1
-        version: 0.6.1(astro@2.10.1)
+        specifier: ^0.7.1
+        version: 0.7.1(astro@2.10.7)
       '@types/json-schema':
         specifier: ^7.0.12
         version: 7.0.12
       astro:
-        specifier: ^2.10.1
-        version: 2.10.1(sharp@0.32.4)
+        specifier: ^2.10.7
+        version: 2.10.7(sharp@0.32.4)
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
+      prettier:
+        specifier: ^3.0.1
+        version: 3.0.1
+      prettier-plugin-astro:
+        specifier: ^0.11.0
+        version: 0.11.0
       rehype-autolink-headings:
         specifier: ^6.1.1
         version: 6.1.1
       sharp:
         specifier: ^0.32.4
         version: 0.32.4
+      shiki:
+        specifier: ^0.14.3
+        version: 0.14.3
 
   packages/i18n-tracker:
     devDependencies:
@@ -78,7 +87,7 @@ importers:
         version: 0.24.8(typescript@5.1.6)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@2.8.8)(typedoc@0.24.8)
+        version: 4.0.0-next.17(patch_hash=zw7cev5vnushtpzgtbcctv2ksa)(prettier@3.0.1)(typedoc@0.24.8)
       typedoc-plugin-mdn-links:
         specifier: ^3.0.3
         version: 3.0.3(typedoc@0.24.8)
@@ -120,13 +129,13 @@ packages:
       vscode-uri: 3.0.7
     dev: false
 
-  /@astrojs/markdown-remark@2.2.1(astro@2.10.1):
+  /@astrojs/markdown-remark@2.2.1(astro@2.10.7):
     resolution: {integrity: sha512-VF0HRv4GpC1XEMLnsKf6jth7JSmlt9qpqP0josQgA2eSpCIAC/Et+y94mgdBIZVBYH/yFnMoIxgKVe93xfO2GA==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.10.1(sharp@0.32.4)
+      astro: 2.10.7(sharp@0.32.4)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -143,11 +152,11 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@0.19.7(astro@2.10.1):
+  /@astrojs/mdx@0.19.7(astro@2.10.7):
     resolution: {integrity: sha512-mfEbBD7oi8yBHhcJucEjnrquREkJ3os+jioURP8BR2B8tOV2rV2j8trvmLUgfS+P/+HevGObxCTjcRYxn6T7eg==}
     engines: {node: '>=16.12.0'}
     dependencies:
-      '@astrojs/markdown-remark': 2.2.1(astro@2.10.1)
+      '@astrojs/markdown-remark': 2.2.1(astro@2.10.7)
       '@astrojs/prism': 2.1.2
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
@@ -184,16 +193,16 @@ packages:
       zod: 3.21.4
     dev: false
 
-  /@astrojs/starlight@0.6.1(astro@2.10.1):
-    resolution: {integrity: sha512-8BOdtRo32hvnzAfhJtOioy63etlqhAanEg4TJrs/3Xz+p4yKcA1q7dM3/5Dq9BSus36W2nSts9GHq/BkBG5DTg==}
+  /@astrojs/starlight@0.7.1(astro@2.10.7):
+    resolution: {integrity: sha512-sJG8AYQWUREbAfm9yzLPJ2m8PwXTjha60sW4ozuKoSFaIXOSl9fn7PkSfRly/f4A5hhzYXa2hBxj4AiHYU1E2g==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
-      '@astrojs/mdx': 0.19.7(astro@2.10.1)
+      '@astrojs/mdx': 0.19.7(astro@2.10.7)
       '@astrojs/sitemap': 1.4.0
       '@pagefind/default-ui': 1.0.0-alpha.9
       '@types/mdast': 3.0.12
-      astro: 2.10.1(sharp@0.32.4)
+      astro: 2.10.7(sharp@0.32.4)
       bcp-47: 2.1.0
       execa: 7.2.0
       hast-util-select: 5.0.5
@@ -1263,8 +1272,8 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro@2.10.1(sharp@0.32.4):
-    resolution: {integrity: sha512-t3y9laRaOZTAu6omVpI5x/wE80t2yTCWO/UTCPJYAYy2Aoi+snupwk8ZFBLgVd0lwO7KhjRKA0pUScfkn3bnXw==}
+  /astro@2.10.7(sharp@0.32.4):
+    resolution: {integrity: sha512-R8aF4yphrsbhxW2UxHZ1DslBn8e8vPQ23+Z/OnajNE1Q4HEZCOZ4CAbHJx2PDwq2p+CRWArNalpr3+rTqyOYBQ==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     peerDependencies:
@@ -1276,7 +1285,7 @@ packages:
       '@astrojs/compiler': 1.8.0
       '@astrojs/internal-helpers': 0.1.2
       '@astrojs/language-server': 1.0.8
-      '@astrojs/markdown-remark': 2.2.1(astro@2.10.1)
+      '@astrojs/markdown-remark': 2.2.1(astro@2.10.7)
       '@astrojs/telemetry': 2.1.1
       '@astrojs/webapi': 2.2.0
       '@babel/core': 7.22.9
@@ -3666,6 +3675,15 @@ packages:
       which-pm: 2.0.0
     dev: false
 
+  /prettier-plugin-astro@0.11.0:
+    resolution: {integrity: sha512-rl2hJ4Kty/aEfGjk3i4JS+bpng9MjgvwqLRNzeb9NqYhqKoWNwOR39cIJXFjU1vR3zYOPnwWNRMelKb0orunYA==}
+    engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
+    dependencies:
+      '@astrojs/compiler': 1.8.0
+      prettier: 3.0.1
+      sass-formatter: 0.7.6
+    dev: false
+
   /prettier-plugin-astro@0.9.1:
     resolution: {integrity: sha512-pYZXSbdq0eElvzoIMArzv1SBn1NUXzopjlcnt6Ql8VW32PjC12NovwBjXJ6rh8qQLi7vF8jNqAbraKW03UPfag==}
     engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
@@ -3679,6 +3697,12 @@ packages:
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
+
+  /prettier@3.0.1:
+    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: false
 
@@ -4316,13 +4340,13 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=ichbvwt7dvr2wpagb2ciftx2wy)(prettier@2.8.8)(typedoc@0.24.8):
+  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=zw7cev5vnushtpzgtbcctv2ksa)(prettier@3.0.1)(typedoc@0.24.8):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'
       typedoc: '>=0.24.0'
     dependencies:
-      prettier: 2.8.8
+      prettier: 3.0.1
       typedoc: 0.24.8(typescript@5.1.6)
     dev: false
     patched: true

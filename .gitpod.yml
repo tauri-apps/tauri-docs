@@ -1,0 +1,6 @@
+tasks:
+  - init: pnpm install && pnpm dev:setup
+    command: pnpm run dev
+ports:
+  - port: 3000
+    onOpen: open-browser

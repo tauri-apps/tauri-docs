@@ -1,33 +1,26 @@
----
-title: Contribute
-i18nReady: true
----
+# Contributing
 
-import Stub from '@components/Stub.astro';
+Welcome to Tauri Docs! We're excited to have you 🥳
 
-So, you want to write a doc? You've come to the right place!
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/next)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/next)
 
-![Join us gif](https://media.giphy.com/media/3ohhwznAY9PN08m0H6/giphy.mp4)
+There are a number of ways to get involved:
 
-## Prerelease Writing Guidelines
+- See if there are any [good first issues](https://github.com/tauri-apps/tauri-docs/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) that catch your eye
+- [Write a guide or recipe](#write-documentation)
+- [Translating existing documentation](#translations-i18n)
+- [Documenting API references](#updating-api-references)
 
-- Refer to Tauri 2.0 like it's released now (so that copy doesn't need to be updated upon release)
-- Write any code so that it works **now** but...
-- Annotate any 2.0 code with `{/* FIXME: 2.0 */}` (.mdx files) or `<!-- FIXME: 2.0 -->` (.md files) so that we can easily find and fix any of those upon release (feel free to add in what the code would be upon release in additional comments)
+Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` channel](https://discord.com/channels/616186924390023171/662624589037436928) if you have any questions!
 
-## Writing Style
+## Getting Started
 
-We're not quite there yet and are still finding our voice...
+1. Clone this repo
+2. Run `pnpm i`
+3. Run `pnpm dev` to start the local server
 
-<Stub />
-
-## Translations (i18n)
-
-While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
-
-Once translations are enabled you can check the [translation status page](/contribute/translate-status).
-
-## Types of Documentation
+## Write Documentation
 
 We have the following types of documents that roughly follow the types defined by [Diátaxis](https://diataxis.fr/index.html):
 
@@ -45,13 +38,17 @@ Use this chart to help you figure out where the right place for your content is:
 | theoretical knowledge     | work                    | [a reference](#reference) |
 | theoretical knowledge     | study                   | [a blog post](#blog-post) |
 
-:::tip[What is Diátaxis?]
+### Writing for Prerelease
 
-[Diátaxis](https://diataxis.fr/index.html#) is a technical documentation system that helps with documentation quality and information hierarchy. Since Tauri is such a large project we do our best to organize information as best as possible.
+While Tauri 2.0 is still in the prerelease stage people follow these guidelines for writing documentation:
 
-You can dive into the Diátaxis system if you'd like or feel free to start writing and we can guide you along the way.
+- Refer to Tauri 2.0 as if it's released now (so that copy doesn't need to be updated upon release)
+- Write any code so that it works **now** but...
+- Annotate 2.0 code with `{/* FIXME: 2.0 */}` (.mdx files) or `<!-- FIXME: 2.0 -->` (.md files) so that we can easily find and fix any of those upon release (feel free to add in what the code should be upon release in additional comments)
 
-:::
+### Writing Style
+
+Any ideas? Put them here!
 
 ### Guide
 
@@ -77,8 +74,16 @@ References are where all the nuts and bolts of Tauri's API are documented. These
 
 These should be as succinct and to the point as possible so that the reader can quickly find the relevant information.
 
+If you'd like to view the API references locally then you must run `pnpm dev:setup` before `pnpm dev` to initialize all of the submodules. Now the `http://localhost:3000/2/reference/` routes are available to preview.
+
 ### Blog Post
 
 Not yet created, will be added in the future.
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation.html), but not all blog posts necessarily fit this specific format.
+
+## Translations (i18n)
+
+While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
+
+Once translations are enabled you can check the [translation status page](https://beta.tauri.app/contribute/translate-status).
