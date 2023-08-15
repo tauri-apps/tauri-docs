@@ -989,9 +989,9 @@ tauri::Builder::default()
             .separator()
             .undo()
             .redo()
-            .text("Open URL")
-            .check("Toggle")
-            .icon("Show App", app.default_window_icon().cloned().unwrap())
+            .text("open-url", "Open URL")
+            .check("toggle", "Toggle")
+            .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
             .build()?;
         Ok(())
     })
@@ -1025,7 +1025,7 @@ tauri::Builder::default()
     })
 ```
 
-- Use `tauri::menu::Submenu` instead of `tauri::Submenu`:
+- Use `tauri::menu::SubmenuBuilder` instead of `tauri::Submenu`:
 
 ```rust
 use tauri::menu::{MenuBuilder, SubmenuBuilder};
@@ -1063,7 +1063,7 @@ tauri::Builder::default()
         app.on_menu_event(move |app, event| {
             if event.id() == check.id() {
                 println!("`check` triggered, do something! is checked? {}", check.is_checked().unwrap());
-            } else if event.id().clone() == "toggle" {
+            } else if event.id() == "toggle" {
                 println!("toggle triggered!");
             }
         });
@@ -1076,7 +1076,7 @@ or define a custom id for the item through the `with_id` constructor and use tha
 
 :::tip
 Menu items can be shared across menus, and the menu event is bound to a menu item instead of a menu or window.
-If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead.
+If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::Window/WindowBuilder::on_menu_event` closure.
 :::
 
 ### Migrate to Tray Icon
