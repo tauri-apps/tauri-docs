@@ -1,0 +1,36 @@
+---
+import { join, dirname } from 'node:path';
+import { readdirSync, writeFileSync, readFileSync, mkdir } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+type Entry = {
+	name: string;
+	description: string;
+	href: string;
+};
+
+const list: Entry[] = [];
+
+const rootPath = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+const examplesOutputPath = join(rootPath, 'content', 'docs', '2', 'example');
+
+for (const example of readdirSync(examplesOutputPath)) {
+	const contents = readFileSync(join(examplesOutputPath,example), 'utf8')
+	const headlines = contents.split('---')[1].split('\n')
+	const title = headlines[1].replace('title: ', '').trim()
+	const description = headlines[2].replace('description: ', '').trim()
+	list.push({
+		name: title,
+		description: description,
+		href: '/2/example/' + example.split('.').slice(0, -1).join('.'),
+	})	
+}
+---
+
+<CardGrid>
+	{
+		list
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.map((item) => <LinkCard title={item.name} href={item.href} description={item.description} />)
+	}
+</CardGrid>

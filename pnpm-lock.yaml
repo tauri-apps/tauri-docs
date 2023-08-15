@@ -44,6 +44,12 @@ importers:
         specifier: ^0.14.3
         version: 0.14.3
 
+  packages/examples-generator:
+    dependencies:
+      tsm:
+        specifier: ^2.3.0
+        version: 2.3.0
+
   packages/i18n-tracker:
     devDependencies:
       '@types/html-escaper':
