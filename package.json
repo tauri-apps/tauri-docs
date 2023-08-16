@@ -28,7 +28,7 @@
     "rehype-autolink-headings": "^6.1.1",
     "sharp": "^0.32.4",
     "shiki": "^0.14.3",
-    "starlight-links-validator": "^0.1.1"
+    "starlight-links-validator": "^0.2.0"
   },
   "pnpm": {
     "patchedDependencies": {
