@@ -100,7 +100,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Rust API',
-							link: '2/reference/core/rust',
+							link: '2/reference/rust',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',

@@ -14,5 +14,3 @@ next: false
 - **[tauri-runtime](tauri-runtime)**: Runtime crate, internal
 - **[tauri-runtime-wry](tauri-runtime-wry)**: Wry runtime crate, internal
 - **[tauri-utils](tauri-utils)**: Utilities crate, internal
-- **[tao](tao)**: Window handler
-- **[wry](wry)**: Webview handler
