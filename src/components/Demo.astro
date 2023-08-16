@@ -1,22 +1,8 @@
 ---
 import { Card } from '@astrojs/starlight/components';
-const isTauri = process.env.TAURI_DEBUG
+const enabled = process.env.TAURI_DEBUG && Astro.slots.has('default');
 ---
 
-{
-  isTauri ? (
-  <Card title="Demo" icon="document">
-    {
-      Astro.slots.has('default') && (
-        <>
-          <slot />
-        </>
-      )
-    }
-  </Card>
-  ) : (
-  <Card title="Demo" icon="document">
-    <p>You can download the Tauri Documentation app here: <a href="#">INSERT LINK</a></p>
-  </Card>
-  )
-}
+<Card title="Demo" icon="document">
+  {enabled ? <slot /> : <p>Try it in the Tauri Docs app (coming soon)</p>}
+</Card>
