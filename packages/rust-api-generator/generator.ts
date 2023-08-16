@@ -29,6 +29,13 @@ export async function generateContent(type: PageType, content: PageContent): Pro
 	}
 }
 
+/**
+ * Generates a page header
+ * @date 8/17/2023 - 12:23:19 AM
+ *
+ * @param {string} title
+ * @returns {string}
+ */
 function header(title: string): string {
 	return `---
 title: '${title}'
@@ -39,6 +46,13 @@ next: false
 `;
 }
 
+/**
+ * Empty string if docs is null, only use first line
+ * @date 8/17/2023 - 12:23:46 AM
+ *
+ * @param {(undefined | null | string)} docs
+ * @returns {string}
+ */
 function fixDocs(docs: undefined | null | string): string {
 	if (!docs) return '';
 	return docs.split('\n')[0];
