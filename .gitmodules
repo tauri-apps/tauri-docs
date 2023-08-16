@@ -4,3 +4,4 @@
 [submodule "packages/plugins-workspace"]
 	path = packages/plugins-workspace
 	url = https://github.com/tauri-apps/plugins-workspace.git
+	branch = v2
