@@ -572,7 +572,9 @@ fn main() {
 
 ### Migrate to Menu Module
 
-The menu APIs were moved to the `menu` module and refactored to use the [muda crate](https://github.com/tauri-apps/muda).
+The Rust `Menu` APIs were moved to the `tauri::menu` module and refactored to use the [muda crate](https://github.com/tauri-apps/muda).
+
+The JavaScript `@tauri-apps/api/window` `onMenuClicked()` API will be migrated in a future release.
 
 #### Use `tauri::menu::MenuBuilder`
 
@@ -652,7 +654,7 @@ tauri::Builder::default()
 
 #### Menu Events
 
-The `tauri::Builder::on_menu_event` API was removed. Use `tauri::App::on_menu_event` or `tauri::AppHandle::on_menu_event` instead:
+The Rust `tauri::Builder::on_menu_event` API was removed. Use `tauri::App::on_menu_event` or `tauri::AppHandle::on_menu_event` instead:
 
 ```rust
 use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
@@ -926,7 +928,7 @@ fn main() {
 
 ### Migrate to Tray Icon Module
 
-The v1 system tray APIs were renamed to tray icon for consistency. The new APIs can be found on the `tray` module.
+The Rust `SystemTray` APIs were renamed to `TrayIcon` for consistency. The new APIs can be found in the Rust `tray` module.
 
 #### Use `tauri::tray::TrayIconBuilder`
 
