@@ -8,6 +8,8 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    env:
+      NETLIFY_BUILD_KEY: ${{ secrets.NETLIFY_BUILD_KEY }}
     steps:
       - id: label-pr
         uses: actions/labeler@v4
@@ -16,7 +18,5 @@ jobs:
       # Trigger prod netlify re-build to refresh i18n dashboard
       - name: Rebuild i18n Dashboard
         if: contains(steps.label-pr.outputs.all-labels, 'i18n')
-        env:
-          BUILD_KEY: ${{ secrets.NETLIFY_BUILD_KEY }}
-        run: curl -X POST -d {} https://api.netlify.com/build_hooks/$env:BUILD_KEY
+        run: curl -X POST -d {} https://api.netlify.com/build_hooks/$env:NETLIFY_BUILD_KEY
           
