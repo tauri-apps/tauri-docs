@@ -53,6 +53,10 @@ export default defineConfig({
 							link: '2/guide/core-concepts',
 						},
 						{
+							label: 'Plugins',
+							link: '2/guide/plugins',
+						},
+						{
 							label: 'Troubleshooting',
 							link: '2/guide/troubleshoot',
 						},

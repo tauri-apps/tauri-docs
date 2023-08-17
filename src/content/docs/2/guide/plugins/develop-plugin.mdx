@@ -2,70 +2,423 @@
 title: Develop a Tauri Plugin
 ---
 
-import Stub from '@components/Stub.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Stub />
+## Naming Convention
 
-## `plugin init`
+By default we prefix your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but it's not a requirement.
+When you initialize a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-${name}`
+and the JavaScript NPM package name will be `tauri-plugin-${name}-api`, though we also recommend using an NPM scope if possible (the Tauri naming convention for NPM packages is `@your-scope/plugin-${name}`).
 
-```sh
-cargo tauri plugin init
-```
+## Getting Started
 
-```
-Initializes a Tauri plugin project
+A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events.
+Additionally, a plugin project includes an Android library project and a Swift package for iOS, but you can delete those if your plugin does not target mobile.
 
-Usage: cargo tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+To bootstrap a new plugin project, run [`plugin init`](/2/reference/cli/#plugin-init) command. If you do not need the NPM package, use the `--no-api` CLI flag.
 
-Options:
-  -n, --name <PLUGIN_NAME>       Name of your Tauri plugin
-  -v, --verbose...               Enables verbose logging
-      --no-api                   Initializes a Tauri plugin without the TypeScript API
-  -d, --directory <DIRECTORY>    Set target directory for init [default: C:\Users\Fabian-Lars]
-  -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
-  -a, --author <AUTHOR>          Author name
-  -h, --help                     Print help
-  -V, --version                  Print version
-```
+<Tabs>
+  <TabItem label="npm">
 
-## `plugin android`
+    ```sh
+    npm run tauri plugin init
+    ```
 
-```sh
-cargo tauri plugin android
-```
+  </TabItem>
+  <TabItem label="Yarn">
 
-```
-Manage the Android project for Tauri plugins
+    ```sh
+    yarn tauri plugin init
+    ```
 
-Usage: cargo tauri plugin android [OPTIONS] <COMMAND>
+  </TabItem>
+  <TabItem label="pnpm">
 
-Commands:
-  add   Adds the Android project to an existing Tauri plugin
-  help  Print this message or the help of the given subcommand(s)
+    ```sh
+    pnpm tauri plugin init
+    ```
 
-Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help
-  -V, --version     Print version
-```
+  </TabItem>
+  <TabItem label="Cargo">
 
-## `plugin ios`
+    ```sh
+    cargo tauri plugin init
+    ```
 
-```sh
-cargo tauri plugin ios
-```
+  </TabItem>
+</Tabs>
+
+### Folder Structure
+
+Your plugin folder structure should look like this:
 
 ```
-Manage the iOS project for Tauri plugins
+├── ${name}
+│ ├── src                 - the Rust code
+│ │ ├── lib.rs            - re-exports appropriate implementation, setup state...
+│ │ ├── commands.rs       - defines the commands the webview can use
+│ │ ├── desktop.rs        - desktop implementation
+│ │ ├── mobile.rs         - mobile implementation
+│ ├── android             - Android library
+│ ├── ios                 - Swift package
+| |-- webview-src         - source code of the JavaScript API bindings
+| |-- webview-dist        - Transpiled assets from webview-src
+│ ├── Cargo.toml          - Cargo crate metadata
+│ ├── package.json        - NPM package metadata
+```
 
-Usage: cargo tauri plugin ios [OPTIONS] <COMMAND>
+## Plugin Configuration
 
-Commands:
-  add   Adds the iOS project to an existing Tauri plugin
-  help  Print this message or the help of the given subcommand(s)
+Plugins can take a configuration object the Tauri configuration in the `plugins > ${name}` object.
+The configuration is parsed at runtime:
 
-Options:
-  -v, --verbose...  Enables verbose logging
-  -h, --help        Print help
-  -V, --version     Print version
+```rust
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  // the turbofish here defines the configuration to be optional
+  Builder::<R, Option<Config>>::new("<your-plugin-name-here>")
+    .setup(|app, api| {
+      if let Some(config) = api.config() {
+        let timeout = config.timeout;
+      }
+
+      Ok(())
+    })
+    .build()
+}
+```
+
+In the actual Tauri application, the configuration is set on `tauri.conf.json`:
+
+```json
+{
+  "build": { ... },
+  "tauri: { ... },
+  "plugins": {
+    "$name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+Where `$name` is your actual plugin name.
+
+## Lifecycle Events
+
+Plugins can hook into several lifecycle events,
+
+### setup
+
+The setup closure is called when the plugin is being initialized:
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<your-plugin-name-here>")
+  .setup(|app, api| {
+    // plugin is being initialized
+    // this is a good place to register your iOS and Android plugins (done automatically by the template),
+    // manage state, run background tasks...
+
+    Ok(())
+  })
+```
+
+### on_navigation
+
+The `on_navigation` hook is triggered when a webview is trying to perform a navigation. Returning `false` cancels it.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<your-plugin-name-here>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    url.scheme() != "forbidden"
+  })
+```
+
+### on_webview_ready
+
+The plugin receives a `on_webview_ready` call when a new window is being created:
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<your-plugin-name-here>")
+  .on_webview_ready(|window| {
+    println!("window {} created", window.label());
+  })
+```
+
+### on_event
+
+With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-alpha/tauri/enum.RunEvent.html).
+
+```rust
+use tauri::{plugin::Builder, RunEvent};
+
+Builder::new("<your-plugin-name-here>")
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // user requested a window to be closed
+      }
+      RunEvent::Exit => {
+        // app is going to exit, you can cleanup here
+      }
+      _ => {}
+    }
+  })
+```
+
+### on_drop
+
+Hooks into the plugin destructor.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<your-plugin-name-here>")
+  .on_drop(|app| {
+    // plugin has been destroyed...
+  })
+```
+
+See [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) for more information.
+
+## Adding Commands
+
+Commands are defined in the `commands.rs` file. They are regular Tauri applications commands, so they can access the AppHandle and Window instances,
+directly access state and take input the same way as application commands.
+
+This command shows how to get access to the AppHandle and Window instance via dependency injection, and take two input parameters `on_progress` and `url`:
+
+```rust
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implement your command logic here
+  on_progress.send(100).unwrap();
+}
+```
+
+To actually expose the command to the webview, you must hook it on the `invoke_handler()` call on `lib.rs`:
+
+```rust
+Builder::new("<your-plugin-name-here>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Now let's define a binding function on `webview-src/index.ts` so the plugin users can easily call that command:
+
+```js
+import { invoke, Channel } from '@tauri-apps/api/tauri'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<your-plugin-name-here>|upload', { url, onProgress })
+}
+```
+
+Note that you must replace `<your-plugin-name-here>` with your actual plugin name so Tauri can reach your command.
+
+When you are done implementing the command and want to test it out, don't forget to transpile the TypeScript code:
+
+<Tabs>
+  <TabItem label="npm">
+
+    ```sh
+    npm install
+    npm run build
+    ```
+
+  </TabItem>
+  <TabItem label="Yarn">
+
+    ```sh
+    yarn install
+    yarn build
+    ```
+
+  </TabItem>
+  <TabItem label="pnpm">
+
+    ```sh
+    pnpm install
+    pnpm build
+    ```
+
+  </TabItem>
+</Tabs>
+
+## Managing State
+
+A plugin can manage state the same way a Tauri application does.
+
+- Define a state struct and let Tauri manage it:
+
+```rust
+use std::{collections::HashMap, sync::Mutex};
+use tauri::{Manager, plugin::Builder};
+
+#[derive(Default)]
+struct Store(Mutex<HashMap<usize, String>>);
+
+Builder::new("<your-plugin-name-here>")
+  .setup(|app, api| {
+    app.manage(Store::default());
+
+    // retrieve the store later
+    let store = app.state::<Store>();
+    Ok(())
+  })
+```
+
+- Access state inside a command
+
+```rust
+use tauri::{command, AppHandle, Runtime};
+use crate::Store;
+
+#[command]
+fn do_something<R: Runtime>(app: AppHandle<R>, store: State<'_, Store>) {}
+```
+
+{/* TODO: link to state guide */}
+
+## Exposing Rust APIs
+
+The plugin APIs defined in your project's `desktop.rs` and `mobile.rs` are exported to the users as a struct with the same name as your plugin, in pascal case.
+When the plugin is setup, an instance of this struct is created and managed as a state so users can retrieve it at any point of time with a Manager instance (an AppHandle, App or Window instance)
+through the extension trait defined in the plugin.
+
+For instance, the global-shortcut plugin defines a GlobalShortcut struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+### Desktop vs Mobile Implementations
+
+The default template splits the plugin's implementation into two separate modules, `desktop.rs` and `mobile.rs`.
+
+The desktop implementation uses Rust code to implement a functionality, while the mobile one sends a message to the native mobile code to execute a function and get a result back.
+If you need to share logic across both implementations, you can define shared functions on `lib.rs`:
+
+```rust
+use tauri::Runtime;
+
+impl<R: Runtime> <your-plugin-name-here;pascal-case><R> {
+  pub fn do_something(&self) {
+    // do something that is a shared implementation between desktop and mobile
+  }
+}
+```
+
+This implementation simplifies the process of sharing an API that can be used both by commands and Rust code.
+
+## Mobile
+
+Plugins can run native mobile code written in Kotlin (or Java) and Swift.
+The default plugin template includes an Android library project using Kotlin and a Swift package
+including an example mobile command and how to trigger its execution from Rust code.
+
+### Adding Mobile Support to an Existing Plugin
+
+If you have an existing plugin and would like to add Android or iOS capabilities to it,
+you can use the [`plugin android add`](/2/reference/cli#plugin-android-add) and [`plugin ios add`](/2/reference/cli#plugin-ios-add) commands
+to bootstrap the mobile library projects and guide you through the changes needed.
+
+Alternatively, consider bootstrapping a new plugin template with the v2 CLI which by default includes all code required to run native mobile code on a plugin.
+
+### Android
+
+For the complete documentation on writing Android plugins, see [the guide](./develop-plugin-android).
+
+### iOS
+
+For the complete documentation on writing iOS plugins, see [the guide](./develop-plugin-ios).
+
+### Adding Commands on Mobile
+
+Inside the respective mobile projects, you will find a plugin class where you can define commands that can be called by the Rust code.
+
+- Android
+
+```java
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val allowEdit = invoke.getBoolean("allowEdit", false)
+    val quality = invoke.getInt("quality", 100)
+
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+- iOS
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) {
+    let allowEdit = invoke.getBool("allowEdit", false)
+    let quality = invoke.getInt("quality", 100)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+### Calling Mobile Commands
+
+Your plugin API struct stores a [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-alpha/tauri/plugin/struct.PluginHandle.html) that can be used to call a mobile command:
+
+```
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <your-plugin-name-here;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
 ```

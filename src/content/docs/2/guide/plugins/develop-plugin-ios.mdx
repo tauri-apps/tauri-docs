@@ -1,0 +1,95 @@
+---
+title: Developing an iOS plugin
+---
+
+## Plugin Configuration
+
+The plugin instance has a getter for the plugin configuration:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+## Lifecycle Events
+
+- load
+
+The load event is triggered when the plugin is loaded on the webview.
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+## Commands
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public func openCamera(_ invoke: Invoke) {
+    let allowEdit = invoke.getBool("allowEdit", false)
+    let quality = invoke.getInt("quality", 100)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+  }
+}
+```
+
+## Permissions
+
+To manage permissions on iOS, you need to override the `checkPermissions` and `requestPermissions` functions.
+We recommend following the same API as the [Android implementation](./develop-plugin-android#permissions).
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // request permissions here
+    // then resolve the request
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+## Plugin Events
+
+Plugin can emit events at any point of time using the `trigger` function:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+You can add helper functions on your NPM package by using the addPluginListener helper function:
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+
+export async function onRequest(
+	handler: (url: string) => void
+): Promise<PluginListener> {
+	return await addPluginListener(
+		'<your-plugin-name-here>',
+		'event-name',
+		handler
+	);
+}
+```
+
+{/* TODO: add link for addPluginListener */}
