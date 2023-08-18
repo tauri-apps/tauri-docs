@@ -111,7 +111,7 @@ We also compile the CLI as a native Node.js addon and distribute it [via npm]. T
 
 ## Recommended Browserlist
 
-We recommend using `es2021`, `last 3 Chrome versions`, and `safari13` for your browserlist and build targets. Tauri leverages the OS's native rendering engine (WebKit on macOS, WebView2 on Windows and WebKitGTK on Linux).
+We recommend using `es2021`, `last 3 Chrome versions`, and `safari 13` for your browserlist and build targets. Tauri leverages the OS's native rendering engine (WebKit on macOS, WebView2 on Windows and WebKitGTK on Linux).
 
 ## Build Conflict with Homebrew on Linux
 
