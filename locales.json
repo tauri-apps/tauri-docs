@@ -4,7 +4,12 @@
     "lang": "en"
   },
   "fr": {
-    "label": "Français",
-    "lang": "fr"
+    "label": "Français"
+  },
+  "es": {
+    "label": "Español"
+  },
+  "zh-cn": {
+    "label": "中文（中国）"
   }
 }
