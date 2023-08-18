@@ -27,6 +27,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	theme: 'tauri-theme',
 	plugin: ['typedoc-plugin-mdn-links'],
 	readme: 'none',
+	logLevel: 'Warn',
 	// typedoc-plugin-markdown options
 	// https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
 	outputFileStrategy: 'modules',
@@ -232,10 +233,11 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 			baseUrl = `${baseUrl}/`;
 		}
 
+		const filePathName = filePath.name === 'index' ? undefined : filePath.name;
+
 		let constructedUrl = typeof baseUrl === 'string' ? baseUrl : '';
 		constructedUrl += segments.length > 0 ? `${segments.join('/')}/` : '';
-		constructedUrl += slug(filePath.name);
-		constructedUrl += '/';
+		constructedUrl += filePathName ? `${slug(filePathName)}/` : '';
 		constructedUrl += anchor && anchor.length > 0 ? `#${anchor}` : '';
 
 		return constructedUrl;
