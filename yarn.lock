@@ -4194,13 +4194,13 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild-loader@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/esbuild-loader/-/esbuild-loader-4.0.0.tgz#0ed47ed44183dad6f9be5037aa954486b28f6112"
-  integrity sha512-J7TJWyHV2YHmflZaXLZ0Vf4wYmixDyGTw26bt4Ok+XOqSyYA4VWAVt2zJGqIfCA7TwZRDKN8hvus4akN2yAbmA==
+esbuild-loader@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/esbuild-loader/-/esbuild-loader-4.0.1.tgz#6ac1eb1bcde886bc15055d31ef78ed29fce6951e"
+  integrity sha512-y65bkn+qJX+FEXQESLL3cv8c1KSjVRXE0+TDT4bBBYxqaOcq4AidQL03bgHqnDgS+HZBhqtEPdM9tWk36/cWjQ==
   dependencies:
     esbuild "^0.19.0"
-    get-tsconfig "^4.6.2"
+    get-tsconfig "^4.7.0"
     loader-utils "^2.0.4"
     webpack-sources "^1.4.3"
 
@@ -4682,10 +4682,10 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
-get-tsconfig@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.6.2.tgz#831879a5e6c2aa24fe79b60340e2233a1e0f472e"
-  integrity sha512-E5XrT4CbbXcXWy+1jChlZmrmCwd5KGx502kDCXJJ7y898TtWW9FwoG5HfOLVRKmlmDGkWN2HM9Ho+/Y8F0sJDg==
+get-tsconfig@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.7.0.tgz#06ce112a1463e93196aa90320c35df5039147e34"
+  integrity sha512-pmjiZ7xtB8URYm74PlGJozDNyhvsVLUcpBa8DZBG3bWHwaHa9bPiRpiSfovw+fjhwONSCWKRyk+JQHEGZmMrzw==
   dependencies:
     resolve-pkg-maps "^1.0.0"
 
