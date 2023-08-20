@@ -24,7 +24,7 @@ importers:
         version: 7.0.12
       astro:
         specifier: ^2.10.12
-        version: 2.10.12(sharp@0.32.4)
+        version: 2.10.12(sharp@0.32.5)
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -38,8 +38,8 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       sharp:
-        specifier: ^0.32.4
-        version: 0.32.4
+        specifier: ^0.32.5
+        version: 0.32.5
       shiki:
         specifier: ^0.14.3
         version: 0.14.3
@@ -135,7 +135,7 @@ packages:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.10.12(sharp@0.32.4)
+      astro: 2.10.12(sharp@0.32.5)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -202,7 +202,7 @@ packages:
       '@astrojs/sitemap': 1.4.0
       '@pagefind/default-ui': 1.0.0-alpha.9
       '@types/mdast': 3.0.12
-      astro: 2.10.12(sharp@0.32.4)
+      astro: 2.10.12(sharp@0.32.5)
       bcp-47: 2.1.0
       execa: 7.2.0
       hast-util-select: 5.0.5
@@ -1272,7 +1272,7 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro@2.10.12(sharp@0.32.4):
+  /astro@2.10.12(sharp@0.32.5):
     resolution: {integrity: sha512-JbD+hLCbXhpDofuzWQxojmjXwoqD0bR2BGqIByZ7B5Cj6dKQXHIr1HsrDdWcmjM+O4NXKV2TCfeXv1ZTtjqX3Q==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1328,7 +1328,7 @@ packages:
       rehype: 12.0.1
       semver: 7.5.4
       server-destroy: 1.0.1
-      sharp: 0.32.4
+      sharp: 0.32.5
       shiki: 0.14.3
       string-width: 5.1.2
       strip-ansi: 7.1.0
@@ -4007,8 +4007,8 @@ packages:
     resolution: {integrity: sha512-rb+9B5YBIEzYcD6x2VKidaa+cqYBJQKnU4oe4E3ANwRRN56yk/ua1YCJT1n21NTS8w6CcOclAKNP3PhdCXKYtQ==}
     dev: false
 
-  /sharp@0.32.4:
-    resolution: {integrity: sha512-exUnZewqVZC6UXqXuQ8fyJJv0M968feBi04jb9GcUHrWtkRoAKnbJt8IfwT4NJs7FskArbJ14JAFGVuooszoGg==}
+  /sharp@0.32.5:
+    resolution: {integrity: sha512-0dap3iysgDkNaPOaOL4X/0akdu0ma62GcdC2NBQ+93eqpePdDdr2/LM0sFdDSMmN7yS+odyZtPsb7tx/cYBKnQ==}
     engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
