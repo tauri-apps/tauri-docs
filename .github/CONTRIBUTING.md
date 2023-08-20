@@ -20,6 +20,10 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 2. Run `pnpm i`
 3. Run `pnpm dev` to start the local server
 
+### Gitpod
+
+[Allow Gitpod to open new tabs](https://www.gitpod.io/docs/configure/user-settings/browser-settings) so you immediately when the environment is done loading get a new tab popping up with the documentation.
+
 ## Write Documentation
 
 We have the following types of documents that roughly follow the types defined by [Diátaxis](https://diataxis.fr/index.html):
@@ -84,6 +88,8 @@ Topics that are around understanding something can be written as a blog post (we
 
 ## Translations (i18n)
 
-While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
+Thanks for your interest in helping to translate the documents! While we plan to accept translations in the future, **we are not currently accepting them until Tauri 2.0 is a bit more stable**.
 
 Once translations are enabled you can check the [translation status page](https://beta.tauri.app/contribute/translate-status).
+
+See the [Translating Guide](./TRANSLATING.md) for more information.

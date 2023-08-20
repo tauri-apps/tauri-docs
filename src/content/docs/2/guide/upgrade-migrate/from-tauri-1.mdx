@@ -1,5 +1,6 @@
 ---
 title: Upgrade from Tauri 1.0
+i18nReady: true
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -38,6 +39,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > updater` moved to `tauri > bundle > updater`.
 - `tauri > updater > dialog` removed.
 - `tauri > updater > endpoints` moved to `plugins > updater`.
+- `tauri > systemTray` renamed to `tauri > trayIcon`.
 
 [Tauri 2.0 Configuration API reference](/2/reference/config)
 
@@ -54,6 +56,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - windows7-compat: moved to the `notification` plugin.
 - updater: Updater is now a plugin.
 - linux-protocol-headers: Now enabled by default since we upgraded our minimum webkit2gtk version.
+- system-tray: renamed to `tray-icon`.
 
 ### Rust Crate Changes
 
@@ -74,6 +77,8 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `Plugin::setup_with_config` removed. Use the updated `tauri::Plugin::PluginApi` instead.
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` and `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` removed. Enable each core plugin individually via `scope::ipc::RemoteDomainAccessScope::add_plugin` instead.
 - `updater` module removed. Use `tauri-plugin-updater` instead. [Migration](#migrate-to-updater-plugin)
+- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` and `Builder::on_menu_event` APIs removed. [Migration](#migrate-menu)
+- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` and `SystemTrayMenuItem` APIs removed. [Migration](#migrate-to-tray-icon)
 
 ### JavaScript API Changes
 
@@ -566,6 +571,121 @@ fn main() {
 </TabItem>
 </Tabs>
 
+### Migrate to Menu Module
+
+The Rust `Menu` APIs were moved to the `tauri::menu` module and refactored to use the [muda crate](https://github.com/tauri-apps/muda).
+
+The JavaScript `@tauri-apps/api/window` `onMenuClicked()` API will be migrated in a future release.
+
+#### Use `tauri::menu::MenuBuilder`
+
+Use `tauri::menu::MenuBuilder` instead of `tauri::Menu`. Note that its constructor takes a Manager instance (one of `App`, `AppHandle` or `Window`) as an argument:
+
+```rust
+use tauri::menu::MenuBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app)
+            .copy()
+            .paste()
+            .separator()
+            .undo()
+            .redo()
+            .text("open-url", "Open URL")
+            .check("toggle", "Toggle")
+            .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
+            .build()?;
+        Ok(())
+    })
+```
+
+#### Use `tauri::menu::PredefinedMenuItem`
+
+Use `tauri::menu::PredefinedMenuItem` instead of `tauri::MenuItem`:
+
+```rust
+use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)).build()?;
+        Ok(())
+    })
+```
+
+:::tip
+The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None))`.
+:::
+
+#### Use `tauri::menu::MenuItemBuilder`
+
+Use `tauri::menu::MenuItemBuilder` instead of `tauri::CustomMenuItem`:
+
+```rust
+use tauri::menu::MenuItemBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app);
+        Ok(())
+    })
+```
+
+#### Use `tauri::menu::SubmenuBuilder`
+
+Use `tauri::menu::SubmenuBuilder` instead of `tauri::Submenu`:
+
+```rust
+use tauri::menu::{MenuBuilder, SubmenuBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let submenu = SubmenuBuilder::new(app, "Sub")
+            .text("Tauri")
+            .separator()
+            .check("Is Awesome")
+            .build()?;
+        let menu = MenuBuilder::new(app).item(&submenu).build()?;
+        Ok(())
+    })
+```
+
+`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-alpha/tauri/struct.Builder.html#method.menu) for more information.
+
+#### Menu Events
+
+The Rust `tauri::Builder::on_menu_event` API was removed. Use `tauri::App::on_menu_event` or `tauri::AppHandle::on_menu_event` instead:
+
+```rust
+use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
+        let check = CheckMenuItemBuilder::new("Mark").build(app);
+        let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
+
+        app.set_menu(menu)?;
+
+        app.on_menu_event(move |app, event| {
+            if event.id() == check.id() {
+                println!("`check` triggered, do something! is checked? {}", check.is_checked().unwrap());
+            } else if event.id() == "toggle" {
+                println!("toggle triggered!");
+            }
+        });
+        Ok(())
+    })
+```
+
+Note that there are two ways to check which menu item was selected: move the item to the event handler closure and compare IDs, or define a custom ID for the item through the `with_id` constructor and use that ID string to compare.
+
+:::tip
+Menu items can be shared across menus, and the menu event is bound to a menu item instead of a menu or window.
+If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::Window/WindowBuilder::on_menu_event` closure.
+:::
+
 ### Migrate to OS Plugin
 
 The Rust `tauri::api::os` JavaScript `@tauri-apps/api/os` APIs have been removed. Use the `@tauri-apps/plugin-os` plugin instead:
@@ -806,6 +926,61 @@ fn main() {
 
 </TabItem>
 </Tabs>
+
+### Migrate to Tray Icon Module
+
+The Rust `SystemTray` APIs were renamed to `TrayIcon` for consistency. The new APIs can be found in the Rust `tray` module.
+
+#### Use `tauri::tray::TrayIconBuilder`
+
+Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
+
+```rust
+let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
+```
+
+See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html) for more information.
+
+#### Migrate to Menu
+
+Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submenu` instead of `tauri::SystemTraySubmenu` and `tauri::menu::PredefinedMenuItem` instead of `tauri::SystemTrayMenuItem`. [Migration](#migrate-menu)
+
+#### Tray Events
+
+`tauri::SystemTray::on_event` have been split into `tauri::tray::TrayIconBuilder::on_menu_event` and `tauri::tray::TrayIconBuilder::on_tray_event`:
+
+```rust
+use tauri::{
+    menu::{MenuBuilder, MenuItemBuilder},
+    tray::{ClickType, TrayIconBuilder},
+};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
+        let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
+        let tray = TrayIconBuilder::new()
+            .menu(&menu)
+            .on_menu_event(move |app, event| match event.id().as_ref() {
+                "toggle" => {
+                    println!("toggle clicked");
+                }
+                _ => (),
+            })
+            .on_tray_event(|tray, event| {
+                if event.click_type == ClickType::Left {
+                    let app = tray.app_handle();
+                    if let Some(window) = app.get_window("main") {
+                    let _ = window.show();
+                    let _ = window.set_focus();
+                    }
+                }
+            })
+            .build(app)?;
+
+        Ok(())
+    })
+```
 
 ### Migrate to Updater Plugin
 
