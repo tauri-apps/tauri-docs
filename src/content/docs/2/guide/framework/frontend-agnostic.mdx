@@ -1,0 +1,21 @@
+---
+title: Frontend agnostic
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Tauri has no opinion on what frontend framework you pick or what languages you use. However, that doesn't mean that
+Tauri doesn't have any demands on it.
+
+Within web development the concept of frontend agnosticism is more commonly referred to as static web hosting. That is,
+you compile your website once and can then put it into any http framework capable of serving a folder. Examples of this
+is for example Apache and Nginx.
+
+For all intents and purposes you can think of Tauri as a static web host, and you have to provide Tauri with a folder
+containing some mix of HTML, CSS, Javascript and possibly WASM that can be served to the webview Tauri provides.
+
+## Checklist
+
+- Use static site generation (SSG). Tauri doesn't officially support any server based alternatives (SSR).
+- For mobile development a development server of some kind is necessary that can host the frontend on your internal IP.
+- Use a proper client-server relationship between your app and your API's. So no hybrid solutions with SSR.
