@@ -2,22 +2,22 @@
 title: Qwik
 ---
 
-import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-In order for your mobile device to connect to your frontend you will need
-to configure it to be hosted on your internal IP. This is your IP on the network, something
-along the lines of `192.168.1.123`.
+Next.js is a meta framework for React. To set up a Next.js project as a frontend for Tauri make sure you go through the checklist below.
 
-## Node.js
+## Checklist
 
-For Node.js based frameworks you can use the `internal-ip` package to automatically detect
-your internal IP. Note that some frameworks support this functionality out of the box, so you
-might not need to add the package.
+- Use static exports, Tauri doesn't officially support server based solutions.
+- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix` so that the server properly resolves your assets.
+- Use `out/` as `distDir` in `tauri.conf.json`.
+
+## Example configuration
 
 <Tabs>
 <TabItem label="npm">
 ```sh
-npm install -D internal-ip
+npm install --save-dev internal-ip
 ```
 </TabItem>
 <TabItem label="yarn">
@@ -34,103 +34,30 @@ pnpm add -D internal-ip
 </TabItem>
 </Tabs>
 
-### Vite
-
-For Vite, you need to change your configuration to be defined using the defineConfig helper with an async closure. Then, resolve the internal IP address and set it to the server object.
-
-```ts
-import { defineConfig } from 'vite';
-import { internalIpV4 } from 'internal-ip';
-
-// https://vitejs.dev/config/
-export default defineConfig(async () => {
-	const host = await internalIpV4();
-
-	/** @type {import('vite').UserConfig} */
-	const config = {
-		server: {
-			host: '0.0.0.0', // listen on all addresses
-			port: 5173,
-			strictPort: true,
-			hmr: {
-				protocol: 'ws',
-				host,
-				port: 5183,
-			},
-		},
-	};
-
-	return config;
-});
-```
-
-### Next.js
-
-For Next.js, you need to configure the assetPrefix to use the internal IP so the server properly resolves your assets.
-
 ```ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
 	let internalHost = null;
+	// In dev mode we use the internal-ip to serve the assets
 	if (!isProd) {
 		const { internalIpV4 } = await import('internal-ip');
 		internalHost = await internalIpV4();
 	}
-	/**
-	 * @type {import('next').NextConfig}
-	 */
 	const nextConfig = {
+		// Ensure Next.js uses SSG instead of SSR
+		output: 'export',
+		// Helps you identify issues
 		reactStrictMode: true,
+		// Faster minification
 		swcMinify: true,
 		// Note: This experimental feature is required to use NextJS Image in SSG mode.
 		// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
 		images: {
 			unoptimized: true,
 		},
+		// Configure assetPrefix or else the server won't properly resolve your assets.
 		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 	};
 	return nextConfig;
 };
 ```
-
-Currently, there is no configuration option to configure Next.js to use the internal IP address, only the CLI allows changing it. So you need to append --hostname $HOST to the beforeDevCommand.
-
-### Webpack
-
-Webpack has a built-in option to use the local IP address as the host for the development server.
-
-```ts
-export default {
-	devServer: {
-		host: 'local-ipv4',
-	},
-};
-```
-
-## Rust
-
-### Trunk
-
-The official version of Trunk unfortunately doesn't work very well for mobile development.
-The good news however is that one of the core Tauri members have created a fork of Trunk
-with some fixes.
-
-<Tabs>
-	<TabItem label="cargo">
-
-```sh
-cargo install --git https://github.com/amrbashir/trunk
-```
-
-    </TabItem>
-    <TabItem label="binstall">
-
-```sh
-# TODO: Is there a binstall option for this?
-```
-
-    </TabItem>
-
-</Tabs>
-
-TODO: You also need to configure Trunk but I forgot the options for it.

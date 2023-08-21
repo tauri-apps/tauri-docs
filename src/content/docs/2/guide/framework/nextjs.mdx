@@ -8,7 +8,7 @@ Next.js is a meta framework for React. To set up a Next.js project as a frontend
 
 ## Checklist
 
-- Use static exports, Tauri doesn't officially support server based solutions.
+- Use static exports by setting `output: 'export'`, Tauri doesn't officially support server based solutions.
 - Use `internal-ip` for mobile compatibility so you can configure `assetPrefix` so that the server properly resolves your assets.
 - Use `out/` as `distDir` in `tauri.conf.json`.
 
@@ -16,14 +16,42 @@ Next.js is a meta framework for React. To set up a Next.js project as a frontend
 
 <Tabs>
 <TabItem label="npm">
+
 ```sh
 npm install --save-dev internal-ip
 ```
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run build",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
 </TabItem>
 <TabItem label="yarn">
+
 ```sh
 yarn add -D internal-ip
 ```
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "yarn dev",
+		"beforeBuildCommand": "yarn generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
 </TabItem>
 <TabItem label="pnpm">
 
@@ -31,10 +59,23 @@ yarn add -D internal-ip
 pnpm add -D internal-ip
 ```
 
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
 </TabItem>
 </Tabs>
 
 ```ts
+// next.conf.ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
 	let internalHost = null;
