@@ -45,7 +45,7 @@ importers:
         version: 0.14.3
       starlight-links-validator:
         specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.7)
+        version: 0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.12)
 
   packages/i18n-tracker:
     devDependencies:
@@ -4190,15 +4190,15 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.7):
+  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.12):
     resolution: {integrity: sha512-169G2RXyFiaaAqPQB4gpV/5a1nx/44LXIEjlWYC7QIcLFOn/UYsturjTcAAjoKn0imn6SBquXgd/t524tx8WVQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
       astro: '>=2.5.0'
     dependencies:
-      '@astrojs/starlight': 0.7.2(astro@2.10.7)
-      astro: 2.10.7(sharp@0.32.4)
+      '@astrojs/starlight': 0.7.2(astro@2.10.12)
+      astro: 2.10.12(sharp@0.32.5)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
