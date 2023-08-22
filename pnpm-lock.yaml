@@ -17,8 +17,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(astro@2.10.12)
       '@astrojs/starlight':
-        specifier: ^0.7.2
-        version: 0.7.2(astro@2.10.12)
+        specifier: ^0.7.3
+        version: 0.7.3(astro@2.10.12)
       '@types/json-schema':
         specifier: ^7.0.12
         version: 7.0.12
@@ -45,7 +45,7 @@ importers:
         version: 0.14.3
       starlight-links-validator:
         specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.12)
+        version: 0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.12)
 
   packages/i18n-tracker:
     devDependencies:
@@ -196,8 +196,8 @@ packages:
       zod: 3.21.4
     dev: false
 
-  /@astrojs/starlight@0.7.2(astro@2.10.12):
-    resolution: {integrity: sha512-scNam4e1XXmPc3uO02nyJXONo2SP8gwUFNiYxn3iwf04CjBn1OEsF2NNE/BNjecmCN2PEw71Dw2PlmLTO0fURw==}
+  /@astrojs/starlight@0.7.3(astro@2.10.12):
+    resolution: {integrity: sha512-Er3MkdHkdxPhwk/JD34MKrz9q19ZSgXFNJacZRGDCaOVUwFiC/S6uAr4bOe29v2WKhJ4/uWVA2PUKOdxTotL9g==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
@@ -4190,14 +4190,14 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.2)(astro@2.10.12):
+  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.12):
     resolution: {integrity: sha512-169G2RXyFiaaAqPQB4gpV/5a1nx/44LXIEjlWYC7QIcLFOn/UYsturjTcAAjoKn0imn6SBquXgd/t524tx8WVQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
       astro: '>=2.5.0'
     dependencies:
-      '@astrojs/starlight': 0.7.2(astro@2.10.12)
+      '@astrojs/starlight': 0.7.3(astro@2.10.12)
       astro: 2.10.12(sharp@0.32.5)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
