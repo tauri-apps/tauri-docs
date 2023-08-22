@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   typedoc-plugin-markdown@4.0.0-next.17:
-    hash: n62x2azfbomxa5m2dtwa4bylru
+    hash: kpxroq2vap5a4oc32rphk2cev4
     path: patches/typedoc-plugin-markdown@4.0.0-next.17.patch
 
 importers:
@@ -90,7 +90,7 @@ importers:
         version: 0.24.8(typescript@5.1.6)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=n62x2azfbomxa5m2dtwa4bylru)(prettier@3.0.2)(typedoc@0.24.8)
+        version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.24.8)
       typedoc-plugin-mdn-links:
         specifier: ^3.0.3
         version: 3.0.3(typedoc@0.24.8)
@@ -4439,7 +4439,7 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=n62x2azfbomxa5m2dtwa4bylru)(prettier@3.0.2)(typedoc@0.24.8):
+  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.24.8):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'

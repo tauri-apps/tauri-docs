@@ -1,15 +1,14 @@
-diff --git a/dist/theme/resources/partials/table.parameters.js b/dist/theme/resources/partials/table.parameters.js
-index b4aeb089bf3a36cbea74c048d6f1701f63564c1e..2793547f61d52e52997ac07b8264be080a4e14d7 100644
---- a/dist/theme/resources/partials/table.parameters.js
-+++ b/dist/theme/resources/partials/table.parameters.js
-@@ -44,7 +44,7 @@ function parametersTable(context, parameters) {
-             (firstOptionalParamIndex !== -1 && i > firstOptionalParamIndex);
-         const rest = parameter.flags.isRest ? '...' : '';
-         const optional = isOptional ? '?' : '';
--        row.push(`${rest}${(0, elements_1.backTicks)(parameter.name)}${optional}`);
-+        row.push(`<a id="${parameter.anchor}" name="${parameter.anchor}"></a>${rest}${(0, elements_1.backTicks)(parameter.name)}${optional}`);
-         if (parameter.type) {
-             row.push((0, utils_1.stripLineBreaks)(context.someType(parameter.type, true)));
+diff --git a/dist/theme/resources/partials/table.properties.js b/dist/theme/resources/partials/table.properties.js
+index 128ffeac571c2c0f1c3e4143965c201e90ccad8d..19477e03157bfc7a610d0d7718a5c3e95801a398 100644
+--- a/dist/theme/resources/partials/table.properties.js
++++ b/dist/theme/resources/partials/table.properties.js
+@@ -42,6 +42,7 @@ function propertiesTable(context, props, nameCol = 'Property') {
+         if (property.flags.length && !property.flags.isOptional) {
+             nameColumn.push(property.flags.map((flag) => (0, elements_1.backTicks)(flag.toLowerCase())).join(' '));
+         }
++        nameColumn.push(`<a id="${property.anchor}" name="${property.anchor}"></a>`);
+         if (Boolean(property.getSignature || Boolean(property.setSignature))) {
+             nameColumn.push(context.declarationMemberAccessor(property));
          }
 diff --git a/dist/theme/url-builder.js b/dist/theme/url-builder.js
 index dea04ef2259b55a0ccb9acc26b054cdc34d16054..466e9fd32b4354c2c314d8dfd081c3db61773f49 100644
