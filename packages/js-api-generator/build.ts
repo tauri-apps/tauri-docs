@@ -27,6 +27,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	theme: 'tauri-theme',
 	plugin: ['typedoc-plugin-mdn-links'],
 	readme: 'none',
+	logLevel: 'Warn',
 	// typedoc-plugin-markdown options
 	// https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
 	outputFileStrategy: 'modules',
@@ -182,6 +183,23 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 			}
 		}
 
+		// Adapted from https://github.com/HiDeoo/starlight-typedoc/pull/15/files for link resolution within summaries
+		filteredComment.summary = comment.summary.map((part) => {
+			if (
+			  part.kind === 'inline-tag' &&
+			  (part.tag === '@link' || part.tag === '@linkcode' || part.tag === '@linkplain') &&
+			  part.target instanceof Reflection
+			) {
+			  const partURL = this.relativeURL(part.target.url)
+	  
+			  if (partURL) {
+				return { ...part, target: partURL }
+			  }
+			}
+	  
+			return part
+		  })
+
 		let markdown = this.#markdownThemeRenderContext.comment(filteredComment, headingLevel);
 
 		for (const customCommentTag of customBlockTags) {
@@ -232,10 +250,11 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 			baseUrl = `${baseUrl}/`;
 		}
 
+		const filePathName = filePath.name === 'index' ? undefined : filePath.name;
+
 		let constructedUrl = typeof baseUrl === 'string' ? baseUrl : '';
 		constructedUrl += segments.length > 0 ? `${segments.join('/')}/` : '';
-		constructedUrl += slug(filePath.name);
-		constructedUrl += '/';
+		constructedUrl += filePathName ? `${slug(filePathName)}/` : '';
 		constructedUrl += anchor && anchor.length > 0 ? `#${anchor}` : '';
 
 		return constructedUrl;

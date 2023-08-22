@@ -180,7 +180,7 @@ title: Tauri Configuration
 			if (markdownLinkMatches) {
 				const url = markdownLinkMatches[2];
 				if (!url.startsWith('http')) {
-					description = description.replace(url, `#${url.toLowerCase().replaceAll('_', '')}`);
+					description = description.replace(url, url.toLowerCase().replaceAll('_', ''));
 				}
 			}
 			return description;
