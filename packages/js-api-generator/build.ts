@@ -186,19 +186,19 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 		// Adapted from https://github.com/HiDeoo/starlight-typedoc/pull/15/files for link resolution within summaries
 		filteredComment.summary = comment.summary.map((part) => {
 			if (
-			  part.kind === 'inline-tag' &&
-			  (part.tag === '@link' || part.tag === '@linkcode' || part.tag === '@linkplain') &&
-			  part.target instanceof Reflection
+				part.kind === 'inline-tag' &&
+				(part.tag === '@link' || part.tag === '@linkcode' || part.tag === '@linkplain') &&
+				part.target instanceof Reflection
 			) {
-			  const partURL = this.relativeURL(part.target.url)
-	  
-			  if (partURL) {
-				return { ...part, target: partURL }
-			  }
+				const partURL = this.relativeURL(part.target.url);
+
+				if (partURL) {
+					return { ...part, target: partURL };
+				}
 			}
-	  
-			return part
-		  })
+
+			return part;
+		});
 
 		let markdown = this.#markdownThemeRenderContext.comment(filteredComment, headingLevel);
 
