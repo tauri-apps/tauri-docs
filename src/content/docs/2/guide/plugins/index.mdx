@@ -2,73 +2,38 @@
 title: Plugins
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
-Tauri offers at its core a windowing system with webview functionality, a way to send messages between the Rust process and the webview,
-and an event system along with several tooling to enhance the development experience. By design, Tauri does not fill its core crate with features not needed by everyone,
-offering a mechanism to add external functionalities into a Tauri application instead. Plugins are able to hook into the Tauri lifecycle, expose Rust code that relies on the webview APIs,
-handle new commands with Rust, Kotlin or Swift code and much more.
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
 
-## Naming Convention
-
-Tauri plugins have a `tauri-plugin-` prefix for the crate name and a `@tauri-apps/plugin-` prefix for the NPM package containing the API bindings for the plugin commands.
-What comes after the prefix is the plugin name, which you need to reference when adding a new plugin, on the plugin configuration under `tauri.conf.json` and on the allowlist configuration.
-
-{/* TODO: add link to tauri plugins configuration? */}
-{/* TODO: link to allowlist documentation when it is available */}
-
-## Adding a Plugin to Your Project
-
-To add a plugin to your Tauri application, you can use the [`plugin add`](/2/reference/cli/#plugin-add) command.
-For example, to install the `notification` plugin, simply run:
-
-<Tabs>
-  <TabItem label="npm">
-
-    ```sh
-    npm run tauri plugin add notification
-    ```
-
-  </TabItem>
-  <TabItem label="Yarn">
-
-    ```sh
-    yarn tauri plugin add notification
-    ```
-
-  </TabItem>
-  <TabItem label="pnpm">
-
-    ```sh
-    pnpm tauri plugin add notification
-    ```
-
-  </TabItem>
-  <TabItem label="Cargo">
-
-    ```sh
-    cargo tauri plugin add notification
-    ```
-
-  </TabItem>
-</Tabs>
-
-{/* TODO: `plugin add` is going to be renamed to `add` */}
+Tauri offers a windowing system with web view functionality, a way to send messages between the Rust process and the web view, and an event system along with several tooling to enhance the development experience. By design, the Tauri core does not contain features not needed by everyone. Instead it offers a mechanism to add external functionalities into a Tauri application called plugins. Plugins are able to hook into the Tauri lifecycle, expose Rust code that relies on the web view APIs, handle commands with Rust, Kotlin or Swift code, and much more.
 
 ## Available Plugins
 
-### Official Tauri Plugins
+The official Tauri plugins can be found on the [features and recipes page](/2/guide/list/). Recipes explaining how to combine plugins for common use cases as well as community plugins can also be found on that page.
 
-The official Tauri plugins can be found in the plugin workspace [repository](hhttps://github.com/tauri-apps/plugins-workspace/tree/v2/plugins).
+## Add to a Project
 
-{/* TODO: list plugins automatically */}
+To add a plugin to a Tauri app, you can use the [`plugin add`](/2/reference/cli/#plugin-add) command.
+For example, to install the [notification plugin](/2/guide/notification) run:
 
-### Community Plugins
+{/* TODO: `plugin add` is going to be renamed to `add` */}
 
-Plugins usually have a `tauri-plugin-` prefix on its crates name so they are easy to discover: https://crates.io/search?q=tauri-plugin-
+<CommandTabs
+	npm="npm run tauri plugin add notification"
+	yarn="yarn tauri plugin add notification"
+	pnpm="pnpm tauri plugin add notification"
+	cargo="cargo tauri plugin add notification"
+/>
 
-{/* TODO: we could also write a plugin explorer here where the user can type something and we show the results */}
+Be sure to read the plugin's documentation to understand if any additional setup is required.
 
-## Developing a Tauri Plugin
+## Developing a Plugin
 
 Need a Tauri functionality that is not covered by the available plugins? Check out how to [develop a Tauri plugin](./develop-plugin).
+
+### Naming Convention
+
+{/* TODO: Add link to allowlist */}
+
+Tauri plugins have a `tauri-plugin-` prefix for the Rust crate name and a `@tauri-apps/plugin-` prefix for the NPM package. What comes after the prefix is the plugin name (specified on the plugin configuration under [`tauri.conf.json > plugin`](/2/reference/config/#pluginconfig) and on the allowlist configuration).
