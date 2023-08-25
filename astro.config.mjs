@@ -159,4 +159,10 @@ export default defineConfig({
 	},
 	// Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
 	image: { service: { entrypoint: 'astro/assets/services/sharp' } },
+	redirects: {
+		'/blog/2022-06-19-tauri-1-0': '/blog/tauri-1-0',
+		'/blog/2022-07-12-tauri-programme-turns-1-and-board-elections':
+			'/blog/tauri-programme-turns-1-and-board-elections',
+		'/blog/2022-09-15-tauri-1-1': '/blog/tauri-1-1',
+	},
 });
