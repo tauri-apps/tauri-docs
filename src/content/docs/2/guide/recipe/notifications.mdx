@@ -18,27 +18,27 @@ First you have to install the notification plugin in your backend.
     ```
     </TabItem>
     <TabItem label="Manual">
-        <Tabs>
-            <TabItem label="Cargo.toml">
-            ```toml
-            [dependencies]
-            tauri-plugin-notification = "2.0.0-alpha"
-            ```
-            </TabItem>
-            <TabItem label="lib.rs">
-            ```rust
-            #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            pub fn run() {
-                tauri::Builder::default()
-                    // Initialize the plugin
-                    .plugin(tauri_plugin_notification::init())
-                    .run(tauri::generate_context!())
-                    .expect("error while running tauri application");
-            }
-            ```
-            </TabItem>
-        </Tabs>
+
+    ```toml
+    # Cargo.toml
+    [dependencies]
+    tauri-plugin-notification = "2.0.0-alpha"
+    ```
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_notification::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
     </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -91,22 +91,17 @@ You can also create notifications straight from the backend. All you need to do 
     </TabItem>
     <TabItem label="Window event">
     ```rust
+    // TODO: Write an example
     ```
     </TabItem>
     <TabItem label="Setup function">
     ```rust
+    // TODO: Write an example
     ```
     </TabItem>
 
 </Tabs>
 
-## Deep dive
+## Security
 
-### How it works
-
-The API sends a signal over the IPC to the backend. After that either the `notify-rust` or `win7-notifications` crate
-takes care of sending a notification to the users system.
-
-### Security
-
-Aside from normal sanitization procedures of user input there are currently no known security notes for this recipe.
+Aside from normal [sanitization procedures](#TODO) of user input there are currently no known security notes for this recipe.
