@@ -1,0 +1,185 @@
+---
+title: Notifications
+description: Send native notifications to the user.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import Stub from '@components/Stub.astro';
+
+Send native notifications to your user using the notification plugin.
+
+{/* TODO: Demo component */}
+
+### Security Considerations
+
+Aside from normal sanitization procedures of user input there are currently no known security considerations.
+
+## Setup
+
+First you have to install the notification plugin in the backend.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use the [add command](/2/reference/cli/#plugin-add) in the Tauri CLI to add the plugin:
+
+    ```bash
+    tauri plugin add notification
+    ```
+
+    {/* TODO: Does this also add it in `lib.rs`? Or does a step need to be added to cover that? */}
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Run `cargo add tauri-plugin-notification` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+    2. Modify `lib.rs` to initialize the plugin:
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_notification::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    </TabItem>
+
+</Tabs>
+
+If you'd like to use notifications in JavaScript then install the npm package as well:
+
+{/* TODO: Tbh this should be automated as part of `tauri plugin add`, maybe need an upstream issue? */}
+
+<CommandTabs
+	npm="npm install @tauri-apps/plugin-notification"
+	yarn="yarn add @tauri-apps/plugin-notification"
+	pnpm="pnpm add @tauri-apps/plugin-notification"
+/>
+
+## Usage
+
+The notification plugin is available in both JavaScript and Rust. [Learn when to use which language](#).
+
+{/* TODO: Link to which language guide when it's made */}
+
+### Send Notification
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import {
+	isPermissionGranted,
+	requestPermission,
+	sendNotification,
+} from '@tauri-apps/plugin-notification';
+
+// Do you have permission to send a notification?
+let permissionGranted = await isPermissionGranted();
+
+// If not we need to request it
+if (!permissionGranted) {
+	const permission = await requestPermission();
+	permissionGranted = permission === 'granted';
+}
+
+// Once permission has been granted we can send the notification
+if (permissionGranted) {
+	sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+Create an instance of `Notification` and then call `.show()` on it:
+
+```rust
+use tauri_plugin_notification::Notification;
+
+#[tauri::command]
+async fn notify(app: AppHandle) -> Result<(), ()> {
+    Notification::new(&app.config().tauri.bundle.identifier)
+        .title("Tauri")
+        .body("Tauri is awesome!")
+        .show()
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Actions
+
+{/* TODO: */}
+
+<Stub />
+
+### Attachments
+
+{/* TODO: */}
+
+<Stub />
+
+### Channels
+
+{/* TODO: */}
+
+<Stub />
+
+### Options
+
+{/* TODO: */}
+
+<Stub />
+
+---
+
+Keeping the stuff below in case Simon doesn't like this idea at all :)
+
+### Frontend
+
+```js
+import {
+	isPermissionGranted,
+	requestPermission,
+	sendNotification,
+} from '@tauri-apps/plugin-notification';
+
+// Do you have permission to send a notification?
+let permissionGranted = await isPermissionGranted();
+
+// If not we need to request it
+if (!permissionGranted) {
+	const permission = await requestPermission();
+	permissionGranted = permission === 'granted';
+}
+
+// Once permission has been granted we can send the notification
+if (permissionGranted) {
+	sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+### Backend
+
+You can also create notifications straight from the backend. All you need to do is create an instance of `Notification` and `.show()` it.
+
+```rust
+use tauri_plugin_notification::Notification;
+
+#[tauri::command]
+async fn notify(app: AppHandle) -> Result<(), ()> {
+    Notification::new(&app.config().tauri.bundle.identifier)
+        .title("Tauri")
+        .body("Tauri is awesome!")
+        .show()
+}
+```
