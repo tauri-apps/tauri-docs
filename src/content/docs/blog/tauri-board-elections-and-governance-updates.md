@@ -23,7 +23,7 @@ This year we'd like to focus on diversifying the Tauri Board. We're looking for 
 
 There are 3 steps to express interest and apply for candidacy:
 
-1. Learn about the role of a Tauri Board Director on the [Governance page](/about/governance#tauri-board--board-directors).
+1. Learn about the role of a Tauri Board Director on the [Governance page](https://tauri.app/about/governance#tauri-board--board-directors).
 2. Prepare a written introduction about yourself that covers who you are, your history and relevance for Tauri, and what you would like to bring to the Board.
 3. **Apply prior to July 2nd, 2023** by emailing [board@tauri.app](mailto:board@tauri.app), messaging the `@board` role on the [Tauri Discord](https://discord.com/invite/tauri), or by directly messaging Daniel Thompson-Yvetot on Discord (`@Denjell`) or email ([denjell@tauri.app](mailto:denjell@tauri.app)).
 

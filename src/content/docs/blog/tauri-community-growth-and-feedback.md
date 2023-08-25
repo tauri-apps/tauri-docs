@@ -12,7 +12,7 @@ Tauri has had an amazing past year. We [launched Tauri 1.0](https://tauri.app/bl
 
 ## Tauri Community Survey Results
 
-This year, we had over 600 responses to the Tauri Community Survey (over 3x more than the previous survey's responses). We'd like to extend a very special thank you to [Wu Yu Wei](https://github.com/wusyong) and [DK Liao](https://github.com/dklassic) for translating the survey from English into Simplified and Traditional Chinese so that we could include more people from the community and their feedback in the survey. You can download the public data for the survey [here](/tauri-community-survey-2022-data.csv).
+This year, we had over 600 responses to the Tauri Community Survey (over 3x more than the previous survey's responses). We'd like to extend a very special thank you to [Wu Yu Wei](https://github.com/wusyong) and [DK Liao](https://github.com/dklassic) for translating the survey from English into Simplified and Traditional Chinese so that we could include more people from the community and their feedback in the survey. You can download the public data for the survey [here](https://tauri.app/tauri-community-survey-2022-data.csv).
 
 We've heard your feedback and have started a couple of projects to directly address it. The first one we'd like to talk about is search.
 
