@@ -5,13 +5,13 @@ authors: [beanow, jbolda, lorenzolewis]
 excerpt: The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within The Commons Conservancy as well as the one year milestone of the Tauri 1.0 release. This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
 ---
 
-The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) as well as the one year milestone of the [Tauri 1.0 release](/blog/2022/06/19/tauri-1-0). This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
+The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) as well as the one year milestone of the [Tauri 1.0 release](/blog/tauri-1-0). This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
 
 We wanted to celebrate these milestones but also use this as a chance to reflect on how we've grown since the Tauri 1.0 launch and how to continue evolving Tauri. The Tauri Working Group has been building the next iteration of the governance model for the past several months to make it more accessible for new and existing contributors, and ultimately sustainable for the future of Tauri.
 
 ## Board Elections
 
-The Tauri Board of Directors is the central decision-making body for the Tauri Programme and is responsible for the overall health and stability of the Tauri Programme. Additional details can be found on the [Tauri Governance page](/about/governance).
+The Tauri Board of Directors is the central decision-making body for the Tauri Programme and is responsible for the overall health and stability of the Tauri Programme. Additional details can be found on the [Tauri Governance page](https://tauri.app/about/governance).
 
 In order to provide continuity from one year to another, the elections of seats are staggered over the course of 2 years. This means that one year a portion of the seats are elected, and the following year the remaining seats are elected. A Tauri Director seat is an elected position with a term of 2 years. The Board has a minimum of 3 Directors and a maximum of 7. This year there are 5 seats open for election.
 

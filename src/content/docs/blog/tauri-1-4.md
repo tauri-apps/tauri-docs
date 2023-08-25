@@ -39,11 +39,11 @@ cargo update
 
 ### CLI completions
 
-The Tauri CLI now can generate shell completions for Bash, Zsh, PowerShell and Fish. See the [documentation](/v1/api/cli#completions) for more information.
+The Tauri CLI now can generate shell completions for Bash, Zsh, PowerShell and Fish. See the [documentation](https://tauri.app/v1/api/cli#completions) for more information.
 
 ### Disabling window controls
 
-The window's maximize, minimize and close buttons now can be disabled via configuration or API calls. Check out [`set_maximizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_maximizable), [`set_minimizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_minimizable) and [`set_closable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_closable) for the Rust APIs and [`setMaximizable`](/v1/api/js/window#setmaximizable), [`setMinimizable`](/v1/api/js/window#setminimizable) and [`setClosable`](/v1/api/js/window#setclosable) for the JavaScript APIs.
+The window's maximize, minimize and close buttons now can be disabled via configuration or API calls. Check out [`set_maximizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_maximizable), [`set_minimizable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_minimizable) and [`set_closable`](https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.set_closable) for the Rust APIs and [`setMaximizable`](https://tauri.app/v1/api/js/window#setmaximizable), [`setMinimizable`](https://tauri.app/v1/api/js/window#setminimizable) and [`setClosable`](https://tauri.app/v1/api/js/window#setclosable) for the JavaScript APIs.
 
 ### NSIS improvements
 
@@ -55,7 +55,7 @@ The 1.4.0 release includes several NSIS bundle enhancements:
 - If your application is installed via WiX, the installer will prompt the user to uninstall it
 - Improved support to updater install modes
 
-See the [installer customization guide](/v1/guides/building/windows#customizing-the-nsis-installer-template) and [installer internationalization](/v1/guides/building/windows#internationalization) for more information.
+See the [installer customization guide](https://tauri.app/v1/guides/building/windows#customizing-the-nsis-installer-template) and [installer internationalization](https://tauri.app/v1/guides/building/windows#internationalization) for more information.
 
 ### MSRV change
 
