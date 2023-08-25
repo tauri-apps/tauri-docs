@@ -13,7 +13,7 @@
     "html-escaper": "^3.0.3",
     "kleur": "^4.1.5",
     "node-fetch": "^3.3.2",
-    "p-retry": "^5.1.2",
+    "p-retry": "^6.0.0",
     "simple-git": "^3.19.1",
     "tsm": "^2.3.0"
   }
