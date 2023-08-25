@@ -43,7 +43,8 @@ The onNewIntent hook is triggered when the activity is re-launched.
 See [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) for more information.
 
 ```java
-import android.content.Intent
+// TODO: For some reason the line below is messing up syntax highlighting
+// import android.content.Intent
 
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
@@ -135,7 +136,7 @@ interface Permissions {
 }
 
 // check permission state
-const permission = await invoke<Permissions>('plugin:<your-plugin-name-here>|checkPermissions)
+const permission = await invoke<Permissions>('plugin:<your-plugin-name-here>|checkPermissions')
 
 if (permission.postNotification === 'prompt-with-rationale') {
   // show some information to the user about why you need the permission

@@ -39,15 +39,11 @@ This implementation simplifies the process of sharing an API that can be used bo
 
 ## Mobile
 
-Plugins can run native mobile code written in Kotlin (or Java) and Swift.
-The default plugin template includes an Android library project using Kotlin and a Swift package
-including an example mobile command and how to trigger its execution from Rust code.
+Plugins can run native mobile code written in Kotlin (or Java) and Swift. The default plugin template includes an Android library project using Kotlin and a Swift package including an example mobile command and how to trigger its execution from Rust code.
 
 ### Adding Mobile Support to an Existing Plugin
 
-If you have an existing plugin and would like to add Android or iOS capabilities to it,
-you can use the [`plugin android add`](/2/reference/cli#plugin-android-add) and [`plugin ios add`](/2/reference/cli#plugin-ios-add) commands
-to bootstrap the mobile library projects and guide you through the changes needed.
+If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use the [`plugin android add`](/2/reference/cli#plugin-android-add) and [`plugin ios add`](/2/reference/cli#plugin-ios-add) commands to bootstrap the mobile library projects and guide you through the changes needed.
 
 Alternatively, consider bootstrapping a new plugin template with the v2 CLI which by default includes all code required to run native mobile code on a plugin.
 
@@ -97,7 +93,7 @@ class ExamplePlugin: Plugin {
 
 Your plugin API struct stores a [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-alpha/tauri/plugin/struct.PluginHandle.html) that can be used to call a mobile command:
 
-```
+```rust
 use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 use tauri::Runtime;
