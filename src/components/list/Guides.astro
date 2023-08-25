@@ -3,35 +3,47 @@ import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { type CollectionEntry, getEntry } from 'astro:content';
 
 const entries = [
-	'2/guide/authenticator',
-	'2/guide/autostart',
-	'2/guide/localhost',
-	'2/guide/persisted-scope',
-	'2/guide/positioner',
-	'2/guide/single-instance',
-	'2/guide/sql',
-	'2/guide/store',
-	'2/guide/stronghold',
-	'2/guide/upload',
-	'2/guide/websocket',
-	'2/guide/window-state',
+  '2/guide/authenticator',
+  '2/guide/autostart',
+  '2/guide/cli',
+  '2/guide/clipboard',
+  '2/guide/dialog',
+  '2/guide/file-system',
+  '2/guide/global-shortcut',
+  '2/guide/http-client',
+  '2/guide/localhost',
+  '2/guide/logging',
+  '2/guide/notification',
+  '2/guide/os-info',
+  '2/guide/persisted-scope',
+  '2/guide/positioner',
+  '2/guide/process',
+  '2/guide/shell',
+  '2/guide/single-instance',
+  '2/guide/sql',
+  '2/guide/store',
+  '2/guide/stronghold',
+  '2/guide/updater',
+  '2/guide/upload',
+  '2/guide/websocket',
+  '2/guide/window-state',
 ];
 
 const list = (await Promise.all(
-	entries.flatMap((entry) => getEntry('docs', entry))
+  entries.flatMap((entry) => getEntry('docs', entry))
 )) as CollectionEntry<'docs'>[];
 ---
 
 <CardGrid>
-	{
-		list
-			.sort((a, b) => a.data.title.localeCompare(b.data.title))
-			.map((item) => (
-				<LinkCard
-					title={item.data.title}
-					href={`/${item.slug}`}
-					description={item.data.description}
-				/>
-			))
-	}
+  {
+    list
+      .sort((a, b) => a.data.title.localeCompare(b.data.title))
+      .map((item) => (
+        <LinkCard
+          title={item.data.title}
+          href={`/${item.slug}`}
+          description={item.data.description}
+        />
+      ))
+  }
 </CardGrid>
