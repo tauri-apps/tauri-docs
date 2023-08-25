@@ -1,8 +1,10 @@
 ---
-title: Hardend foundation for your web apps.
+title: Hardened foundation for your web apps.
 description: The cross-platform app building toolkit
 template: splash
 hero:
+  image:
+    file: ../../assets/logo-outline.svg
   actions:
     - text: Get Started
       link: /2/guide/
@@ -21,63 +23,35 @@ hero:
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <div class="hero-bg">
-<div class="bg-logo"></div>
-  <div class="bg-grad"></div>
-  <div class="bg-grad-red"></div>
+	<div class="bg-logo"></div>
+	<div class="bg-grad"></div>
+	<div class="bg-grad-red"></div>
 </div>
-
-<div style="margin-top:10rem;background-color:#101010;border:1px solid;border-radius:16px;padding:2rem;display:flex;justify-content:center;scale:0.7;margin-bottom:5rem;overflow:hidden;">
-## npm create tauri-app@latest
-</div>
-
-<br/>
-# Ship tiny, fast, secure, cross-platform apps.
-#### Tauri only ships the code needed for your app to run, no need to ship a whole browser with your app. Tauri apps are tiny, fast and secure by deafult.
-
-<div style="display:flex;justify-content:center;scale:0.7;margin-bottom:5rem;overflow:hidden;">
-<img src="smol.svg" />
-I think we can do some 3D here, just got to sit down and write some webgl - alve
-</div>
-
-<br/>
-<br/>
-# Build it the way you know, once.
-#### copy about this
-<br/>
-
-<div style="display:flex;justify-content:center;scale:2;opacity:0.4;z-index:-10;margin-bottom:30rem;overflow:hidden;">
-<img src="frameworks.svg" />
-</div>
-
-# Seamless native code without the headackes.
-#### Tauri has a built in event passing system allowing you painless communication from javascript to your native rust code that runs directly on your device.
-
-<div style="display:flex;justify-content:center;scale:1.5;margin-bottom:30rem;overflow:hidden;">
-<img src="tauwry.svg" />
-</div>
-<br/>
 
 <CardGrid stagger>
-  <Card title="Frontend Independent" icon="rocket">
-    Bring your existing web stack to Tauri or start that new dream project.
-    Tauri supports any frontend framework so you don't need to change your
-    stack.
-  </Card>
-  <Card title="Cross Platform" icon="rocket">
-    Build your app for Linux, macOS, Windows, Android and iOS - all from a
-    single codebase.
-  </Card>
-  <Card title="Inter-Process Communication" icon="rocket">
-    Write your frontend in JavaScript, application logic in Rust, and integrate
-    deep into the system with Swift and Kotlin.
-  </Card>
-  <Card title="Maximum Security" icon="rocket">
-    Feature
-  </Card>
-  <Card title="Minimal Size" icon="rocket">
-    Feature
-  </Card>
-  <Card title="Powered by Rust" icon="rocket">
-    Feature
-  </Card>
+	<Card title="Frontend Independent" icon="rocket">
+		Bring your existing web stack to Tauri or start that new dream project.
+		Tauri supports any frontend framework so you don't need to change your
+		stack.
+	</Card>
+	<Card title="Cross Platform" icon="rocket">
+		Build your app for Linux, macOS, Windows, Android and iOS - all from a
+		single codebase.
+	</Card>
+	<Card title="Inter-Process Communication" icon="rocket">
+		Write your frontend in JavaScript, application logic in Rust, and integrate
+		deep into the system with Swift and Kotlin.
+	</Card>
+	<Card title="Maximum Security" icon="rocket">
+		Front-of-mind for the Tauri Team driving our highest priorities and biggest
+		innovations.
+	</Card>
+	<Card title="Minimal Size" icon="rocket">
+		By using the OS's native web renderer, the size of a Tauri app can be less
+		than 600KB.
+	</Card>
+	<Card title="Powered by Rust" icon="rocket">
+		With performance and security at the center, Rust is the language for the
+		next generation of apps.
+	</Card>
 </CardGrid>

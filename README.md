@@ -2,26 +2,21 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6dc81a5e-32ac-46f4-80c5-198f4a536e26/deploy-status)](https://app.netlify.com/sites/tauri-docs-starlight/deploys)
 
-- Tutorials: Blog post
-- How-to Guides: `/src/content/docs/v2/guides`
-- Explanation: Blog post
-- Reference: `/src/content/docs/v2/reference`
+Welcome to the home for Tauri 2.0 documentation - we're excited to have you! ✨
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+This repo is used to build the docs for the **prerelease** version of Tauri 2.0 at https://beta.tauri.app.
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/next)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/next)
 
-Static assets, like favicons, can be placed in the `public/` directory.
+## Get Involved
 
-## 🧞 Commands
+- [Join us on Discord](https://discord.com/invite/tauri) in the [`#docs` channel](https://discord.com/channels/616186924390023171/662624589037436928) to ask any questions or give feedback
+- Check out the [Tauri 2.0 Documentation Roadmap](https://github.com/tauri-apps/tauri-docs/issues/1344) and see if there's anything you'd like to get involved in
+- Read the [contributing guidelines](.github/CONTRIBUTING.md) to learn how to get up and running
 
-All commands are run from the root of the project, from a terminal:
+## License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:3000`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+MIT License
+
+Copyright (c) 2020-2023 Tauri Programme within The Commons Conservancy
