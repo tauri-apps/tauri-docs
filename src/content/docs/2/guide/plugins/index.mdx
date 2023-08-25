@@ -224,3 +224,79 @@ Builder::new("<plugin-name>")
     // plugin has been destroyed...
   })
 ```
+
+### Adding Commands
+
+{/* TODO: Could this be linked to a more generic commands guide and only cover plugin-specific things here? */}
+{/* What here is plugin-development specific vs. more general? */}
+
+Commands are defined in the `commands.rs` file. They are regular Tauri applications commands. They can access the AppHandle and Window instances directly, access state, and take input the same way as application commands.
+
+This command shows how to get access to the AppHandle and Window instance via dependency injection, and take two input parameters `on_progress` and `url`:
+
+```rust
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implement your command logic here
+  on_progress.send(100).unwrap();
+}
+```
+
+To actually expose the command to the webview, you must hook it on the `invoke_handler()` call on `lib.rs`:
+
+```rust
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Now let's define a binding function on `webview-src/index.ts` so the plugin users can easily call that command:
+
+```js
+import { invoke, Channel } from '@tauri-apps/api/tauri'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+Note that you must replace `<plugin-name>` with your actual plugin name so Tauri can reach your command.
+
+When you are done implementing the command and want to test it out, don't forget to transpile the TypeScript code:
+
+<CommandTabs
+	npm="npm install
+    npm run build"
+	yarn="yarn install
+    yarn build"
+	pnpm="pnpm install
+    pnpm build"
+/>
+
+## Managing State
+
+{/* TODO: Link to a generic state management guide? */}
+
+A plugin can manage state the same way a Tauri application does.
+
+- Define a state struct and let Tauri manage it:
+
+```rust
+use std::{collections::HashMap, sync::Mutex};
+use tauri::{Manager, plugin::Builder};
+
+#[derive(Default)]
+struct Store(Mutex<HashMap<usize, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(Store::default());
+
+    // retrieve the store later
+    let store = app.state::<Store>();
+    Ok(())
+  })
+```
