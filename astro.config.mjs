@@ -114,6 +114,7 @@ export default defineConfig({
 						{ label: 'Authenticator', link: '#' },
 						{ label: 'Autostart', link: '#' },
 						{ label: 'Localhost', link: '#' },
+						{ label: 'Notification', link: '2/guide/notification' },
 						{ label: 'Persisted Scope', link: '#' },
 						{ label: 'Positioner', link: '#' },
 						{ label: 'Single Instance', link: '#' },
