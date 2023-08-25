@@ -12,7 +12,7 @@ Tauri offers a windowing system with web view functionality, a way to send messa
 
 The official Tauri plugins can be found on the [features and recipes page](/2/guide/list/). Recipes explaining how to combine plugins for common use cases as well as community plugins can also be found on that page.
 
-## Add to a Project
+## Add Plugin to Project
 
 To add a plugin to a Tauri app, you can use the [`plugin add`](/2/reference/cli/#plugin-add) command.
 For example, to install the [notification plugin](/2/guide/notification) run:
@@ -28,12 +28,199 @@ For example, to install the [notification plugin](/2/guide/notification) run:
 
 Be sure to read the plugin's documentation to understand if any additional setup is required.
 
-## Developing a Plugin
+## Develop a Plugin
 
-Need a Tauri functionality that is not covered by the available plugins? Check out how to [develop a Tauri plugin](./develop-plugin).
+A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events.
+Additionally, a plugin project includes an Android library project and a Swift package for iOS, but you can delete those if your plugin does not target mobile.
+
+{/* TODO: Should there be a CLI option to not include kotlin and swift? */}
 
 ### Naming Convention
 
 {/* TODO: Add link to allowlist */}
 
 Tauri plugins have a `tauri-plugin-` prefix for the Rust crate name and a `@tauri-apps/plugin-` prefix for the NPM package. What comes after the prefix is the plugin name (specified on the plugin configuration under [`tauri.conf.json > plugin`](/2/reference/config/#pluginconfig) and on the allowlist configuration).
+
+By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but is not not a requirement. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api`, although we recommend using an NPM scope if possible. The Tauri naming convention for NPM packages is `@your-scope/plugin-{plugin-name}`.
+
+### Initialize Plugin Project
+
+To bootstrap a new plugin project, run [`plugin init`](/2/reference/cli/#plugin-init) command. If you do not need the NPM package, use the `--no-api` CLI flag.
+
+<CommandTabs
+	npm="npm run tauri plugin init"
+	yarn="yarn tauri plugin init"
+	pnpm="pnpm tauri plugin init"
+	cargo="cargo tauri plugin init"
+/>
+
+This will initialize the plugin and the resulting code will look like this:
+
+```
+. plugin-name/
+├── src/                - Rust code
+│ ├── commands.rs       - defines the commands the webview can use
+| ├── desktop.rs        - desktop implementation
+│ ├── lib.rs            - re-exports appropriate implementation, setup state...
+│ └── mobile.rs         - mobile implementation
+├── android             - Android library
+├── ios                 - Swift package
+├── webview-src         - source code of the JavaScript API bindings
+├── webview-dist        - Transpiled assets from webview-src
+├── Cargo.toml          - Cargo crate metadata
+└── package.json        - NPM package metadata
+```
+
+### Plugin Configuration
+
+Plugins can read a configuration object from the Tauri configuration in the `plugins > {plugin-name}` object. The configuration is parsed at runtime:
+
+{/* TODO: Which file is this in? */}
+
+```rust
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// Define the plugin config
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  // You can make the plugin config optional
+  // by using `Builder::<R, Option<Config>>` instead
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config.timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+In the Tauri application where the plugin is used, the configuration is set on `tauri.conf.json`:
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+Where `plugin-name` is your actual plugin name.
+
+### Lifecycle Events
+
+Plugins can hook into several lifecycle events:
+
+- [setup](#setup): Plugin is being initialized
+- [on_navigation](#on_navigation): Webview is attempting to perform a navigation
+- [on_webview_ready](#on_webview_ready): New window is being created
+- [on_event](#on_event): Event loop events
+- [on_drop](#on_drop): Plugin deconstruction
+
+#### setup
+
+- **When**: Plugin is being initialized
+- **Why**: Register mobile plugins, manage state, run background tasks
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+
+    // TODO: some nice example code here?
+
+    Ok(())
+  })
+```
+
+#### on_navigation
+
+- **When**: Webview is attempting to perform a navigation
+- **Why**: TODO:
+
+{/* TODO: Why */}
+
+Returning `false` cancels the navigation.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // Cancels the navigation if forbidden
+    url.scheme() != "forbidden"
+  })
+```
+
+#### on_webview_ready
+
+- **When**: New window is being created
+- **Why**: TODO:
+
+{/* TODO: Why */}
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    // TODO: Maybe a more practical example?
+    println!("window {} created", window.label());
+  })
+```
+
+#### on_event
+
+- **When**: Event loop events
+- **Why**: TODO:
+
+{/* TODO: Why */}
+
+With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-alpha/tauri/enum.RunEvent.html).
+
+```rust
+use tauri::{plugin::Builder, RunEvent};
+
+Builder::new("<plugin-name>")
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // TODO: Fill out examples
+        // user requested a window to be closed
+      }
+      RunEvent::Exit => {
+        // app is going to exit, you can cleanup here
+      }
+      _ => {}
+    }
+  })
+```
+
+#### on_drop
+
+- **When**: Plugin deconstruction
+- **Why**: TODO:
+
+{/* TODO: Why */}
+
+See [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) for more information.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // TODO: Code example
+    // plugin has been destroyed...
+  })
+```
