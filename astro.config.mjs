@@ -160,9 +160,23 @@ export default defineConfig({
 	// Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
 	image: { service: { entrypoint: 'astro/assets/services/sharp' } },
 	redirects: {
+		// Old blog url schema redirects
 		'/blog/2022-06-19-tauri-1-0': '/blog/tauri-1-0',
 		'/blog/2022-07-12-tauri-programme-turns-1-and-board-elections':
 			'/blog/tauri-programme-turns-1-and-board-elections',
 		'/blog/2022-09-15-tauri-1-1': '/blog/tauri-1-1',
+		'/blog/2022-09-19-tauri-egui-0-1': '/blog/tauri-egui-0-1',
+		'/blog/2022-11-18-tauri-1-2': '/blog/tauri-1-2',
+		'/blog/2022-12-09-tauri-mobile-alpha': '/blog/tauri-mobile-alpha',
+		'/blog/2023-02-03-tauri-2-0-0-alpha-3': '/blog/tauri-2-0-0-alpha-3',
+		'/blog/2023-02-09-tauri-community-growth-and-feedback':
+			'/blog/tauri-community-growth-and-feedback',
+		'/blog/2023-03-01-create-tauri-app-version-3-released':
+			'/blog/create-tauri-app-version-3-released',
+		'/blog/2023-03-20-tauri-2-0-0-alpha-4': '/blog/tauri-2-0-0-alpha-4',
+		'/blog/2023-05-03-tauri-1-3': '/blog/tauri-1-3',
+		'/blog/2023-06-14-tauri-1-4': '/blog/tauri-1-4',
+		'/blog/2023-06-15-tauri-board-elections-and-governance-updates':
+			'/blog/tauri-board-elections-and-governance-updates',
 	},
 });
