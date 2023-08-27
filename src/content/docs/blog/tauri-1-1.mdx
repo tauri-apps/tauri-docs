@@ -5,33 +5,20 @@ authors: [lucasfernog]
 excerpt: After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the 1.1.0 release.
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 ![Tauri 1.1 Launch Hero Image](./tauri_1_1_images/header.png)
 
 After 113 pull requests and nearly two months of work, the Tauri team is pleased to announce the [1.1.0 release](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.1.0). The changes were internally audited and no security issues were found.
 
-You can update the NPM dependencies with:
+You can update the dependencies with:
 
-```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
-```
-
-```shell
-yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
-```
-
-```shell
-yarn up @tauri-apps/cli @tauri-apps/api
-```
-
-```shell
-pnpm update @tauri-apps/cli @tauri-apps/api --latest
-```
-
-To update the Cargo dependencies, run the following in the `src-tauri` folder:
-
-```shell
-cargo update
-```
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+	yarn="yarn upgrade @tauri-apps/cli @tauri-apps/api --latest"
+	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+	cargo="cargo update"
+/>
 
 ## What's New in 1.1.0
 
@@ -88,20 +75,20 @@ In the 1.0 releases Tauri supports the `JSON` configuration format by default, a
 
 ```json title=tauri.conf.json
 {
-  "build": {
-    "devPath": "http://localhost:8000",
-    "distDir": "../dist"
-  }
+	"build": {
+		"devPath": "http://localhost:8000",
+		"distDir": "../dist"
+	}
 }
 ```
 
 ```json5
 {
-  build: {
-    // devServer URL (comments are allowed!)
-    devPath: 'http://localhost:8000',
-    distDir: '../dist',
-  },
+	build: {
+		// devServer URL (comments are allowed!)
+		devPath: 'http://localhost:8000',
+		distDir: '../dist',
+	},
 }
 ```
 

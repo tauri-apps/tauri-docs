@@ -5,35 +5,22 @@ authors: lucasfernog
 excerpt: The Tauri team is happy to announce the 1.4.0 release.
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 ![Tauri 1.4 Launch Hero Image](./tauri_1_4_images/header.png)
 
 The Tauri team is excited to announce the 1.4 release. This version includes several new features and important bug fixes such as CLI completions, unit testing capabilities and Windows installer improvements.
 
 ## Upgrading
 
-Make sure to update both NPM and Cargo dependencies to the 1.4.0 release. You can update the NPM dependencies with:
+Make sure to update both NPM and Cargo dependencies to the 1.4.0 release. You can update the dependencies with:
 
-```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
-```
-
-```shell
-yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
-```
-
-```shell
-yarn up @tauri-apps/cli @tauri-apps/api
-```
-
-```shell
-pnpm update @tauri-apps/cli @tauri-apps/api --latest
-```
-
-To update the Cargo dependencies, run the following in the `src-tauri` folder:
-
-```shell
-cargo update
-```
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+	yarn="yarn upgrade @tauri-apps/cli @tauri-apps/api --latest"
+	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+	cargo="cargo update"
+/>
 
 ## What's in 1.4.0
 
