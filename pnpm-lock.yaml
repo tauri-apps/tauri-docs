@@ -47,8 +47,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(@astrojs/starlight@0.7.3)(astro@2.10.14)
       starlight-links-validator:
-        specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14)
+        specifier: ^0.3.0
+        version: 0.3.0(@astrojs/starlight@0.7.3)(astro@2.10.14)
 
   packages/i18n-tracker:
     devDependencies:
@@ -4199,8 +4199,8 @@ packages:
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
-    resolution: {integrity: sha512-169G2RXyFiaaAqPQB4gpV/5a1nx/44LXIEjlWYC7QIcLFOn/UYsturjTcAAjoKn0imn6SBquXgd/t524tx8WVQ==}
+  /starlight-links-validator@0.3.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
+    resolution: {integrity: sha512-nQ0fq1yuo8LAGZGD7J7ntKkVht1Qe2djaw544DuOeBxV5JSHNTkAs3c+UxgG3JRZcbNHSb7e+N/cUjxCNOUR6w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
