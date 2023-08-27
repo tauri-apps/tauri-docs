@@ -53,7 +53,7 @@ export default defineConfig({
 	},
 	integrations: [
 		starlightLinksValidator(),
-		starlightBlog(),
+		starlightBlog({ authors }),
 		starlight({
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
