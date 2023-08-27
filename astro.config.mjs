@@ -12,34 +12,42 @@ await configGenerator();
 const authors = {
 	nothingismagick: {
 		name: 'Daniel Thompson-Yvetot',
+		title: 'Tauri Co-Founder',
 		picture: 'https://github.com/nothingismagick.png',
 	},
 	lucasfernog: {
 		name: 'Lucas Nogueira',
+		title: 'Tauri Co-Founder',
 		picture: 'https://github.com/lucasfernog.png',
 	},
 	beanow: {
 		name: 'Robin van Boven',
+		title: 'Tauri Board Director',
 		picture: 'https://github.com/Beanow.png',
 	},
 	jbolda: {
 		name: 'Jacob Bolda',
+		title: 'Tauri Board Director',
 		picture: 'https://github.com/jbolda.png',
 	},
 	lorenzolewis: {
 		name: 'Lorenzo Lewis',
+		title: 'Tauri Community Lead',
 		picture: 'https://github.com/lorenzolewis.png',
 	},
 	tweidinger: {
 		name: 'Tillmann Weidinger',
+		title: 'Tauri Security',
 		picture: 'https://github.com/tweidinger.png',
 	},
 	amrbashir: {
 		name: 'Amr Bashir',
+		title: 'Tauri Development',
 		picture: 'https://github.com/amrbashir.png',
 	},
 	wusyong: {
 		name: 'Wu Yu Wei',
+		title: 'Tauri Development Lead',
 		picture: 'https://github.com/wusyong.png',
 	},
 };
