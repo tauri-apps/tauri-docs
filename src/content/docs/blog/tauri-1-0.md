@@ -159,15 +159,8 @@ Tauri is one of the top 200 projects on GitHub in all programming languages.
 
 <figure>
 
-# <<<<<<< HEAD
+![github](./tauri_1_0_images/github_stars_dark.png)
 
-![github](./tauri_1_0_images/github_stars_light.png)
-
-> > > > > > > 44a0abe (initial blog post transfer)
-> > > > > > > ![github](./tauri_1_0_images/github_stars_dark.png)
-
-<figcaption>
-</figcaption>
 </figure>
 
 People love to discuss what is great and terrible about Tauri on orange websites:
@@ -176,8 +169,6 @@ People love to discuss what is great and terrible about Tauri on orange websites
 
 ![hackernews](./tauri_1_0_images/hackernews.jpg)
 
-<figcaption>
-</figcaption>
 </figure>
 
 Tauri entered at the top of the charts for the [2021 edition of State of JS](https://2021.stateofjs.com/en-US/libraries/mobile-desktop):
@@ -189,8 +180,6 @@ Tauri entered at the top of the charts for the [2021 edition of State of JS](htt
 
 ![State of JS 2021](./tauri_1_0_images/state_of_js.png)
 
-<figcaption>
-</figcaption>
 </figure>
 
 Engineers at big companies seem to be eying up Tauri for future projects.
