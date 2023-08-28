@@ -43,9 +43,12 @@ importers:
       shiki:
         specifier: ^0.14.3
         version: 0.14.3
-      starlight-links-validator:
+      starlight-blog:
         specifier: ^0.2.0
         version: 0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14)
+      starlight-links-validator:
+        specifier: ^0.3.0
+        version: 0.3.0(@astrojs/starlight@0.7.3)(astro@2.10.14)
 
   packages/i18n-tracker:
     devDependencies:
@@ -86,14 +89,14 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       typedoc:
-        specifier: ^0.24.8
-        version: 0.24.8(typescript@5.1.6)
+        specifier: ^0.25.0
+        version: 0.25.0(typescript@5.2.2)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.24.8)
+        version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.25.0)
       typedoc-plugin-mdn-links:
-        specifier: ^3.0.3
-        version: 3.0.3(typedoc@0.24.8)
+        specifier: ^3.1.0
+        version: 3.1.0(typedoc@0.25.0)
 
 packages:
 
@@ -1558,7 +1561,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /chownr@1.1.4:
@@ -2259,8 +2262,8 @@ packages:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
     dev: false
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -4018,7 +4021,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /run-applescript@5.0.0:
@@ -4184,8 +4187,20 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-links-validator@0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
-    resolution: {integrity: sha512-169G2RXyFiaaAqPQB4gpV/5a1nx/44LXIEjlWYC7QIcLFOn/UYsturjTcAAjoKn0imn6SBquXgd/t524tx8WVQ==}
+  /starlight-blog@0.2.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
+    resolution: {integrity: sha512-1BQTEiQq5C+9f6RW1lXaj4qOGSUaOBDnxEGQjn4FxDU7iqudFREVw0BLwSQLIubIkkO1LYtVKX+wsGrrDFPHdw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.5.0'
+      astro: '>=2.5.0'
+    dependencies:
+      '@astrojs/starlight': 0.7.3(astro@2.10.14)
+      astro: 2.10.14(sharp@0.32.5)
+      github-slugger: 2.0.0
+    dev: false
+
+  /starlight-links-validator@0.3.0(@astrojs/starlight@0.7.3)(astro@2.10.14):
+    resolution: {integrity: sha512-nQ0fq1yuo8LAGZGD7J7ntKkVht1Qe2djaw544DuOeBxV5JSHNTkAs3c+UxgG3JRZcbNHSb7e+N/cUjxCNOUR6w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
@@ -4432,41 +4447,47 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.24.8):
+  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.0.2)(typedoc@0.25.0):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'
       typedoc: '>=0.24.0'
     dependencies:
       prettier: 3.0.2
-      typedoc: 0.24.8(typescript@5.1.6)
+      typedoc: 0.25.0(typescript@5.2.2)
     dev: false
     patched: true
 
-  /typedoc-plugin-mdn-links@3.0.3(typedoc@0.24.8):
-    resolution: {integrity: sha512-NXhIpwQnsg7BcyMCHVqj3tUK+DL4g3Bt96JbFl4APzTGFkA+iM6GfZ/fn3TAqJ8O0CXG5R9BfWxolw1m1omNuQ==}
+  /typedoc-plugin-mdn-links@3.1.0(typedoc@0.25.0):
+    resolution: {integrity: sha512-4uwnkvywPFV3UVx7WXpIWTHJdXH1rlE2e4a1WsSwCFYKqJxgTmyapv3ZxJtbSl1dvnb6jmuMNSqKEPz77Gs2OA==}
     peerDependencies:
-      typedoc: '>= 0.23.14 || 0.24.x'
+      typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
-      typedoc: 0.24.8(typescript@5.1.6)
+      typedoc: 0.25.0(typescript@5.2.2)
     dev: false
 
-  /typedoc@0.24.8(typescript@5.1.6):
-    resolution: {integrity: sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==}
-    engines: {node: '>= 14.14'}
+  /typedoc@0.25.0(typescript@5.2.2):
+    resolution: {integrity: sha512-FvCYWhO1n5jACE0C32qg6b3dSfQ8f2VzExnnRboowHtqUD6ARzM2r8YJeZFYXhcm2hI4C2oCRDgNPk/yaQUN9g==}
+    engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
       minimatch: 9.0.3
       shiki: 0.14.3
-      typescript: 5.1.6
+      typescript: 5.2.2
     dev: false
 
   /typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false
+
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: false
@@ -4679,7 +4700,7 @@ packages:
       postcss: 8.4.27
       rollup: 3.27.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /vitefu@0.2.4(vite@4.4.7):

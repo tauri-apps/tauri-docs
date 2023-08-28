@@ -25,7 +25,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	githubPages: false,
 	hideGenerator: true,
 	theme: 'tauri-theme',
-	plugin: ['typedoc-plugin-mdn-links'],
+	plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-markdown'],
 	readme: 'none',
 	logLevel: 'Warn',
 	// typedoc-plugin-markdown options
@@ -114,17 +114,15 @@ async function generator() {
 async function generateDocs(options: Partial<TypeDocOptions>) {
 	const outputDir = `../../src/content/docs${options.baseUrl}`;
 
-	const app = new Application();
+	const app = await Application.bootstrapWithPlugins(options);
 	app.options.addReader(new TSConfigReader());
 	app.renderer.defineTheme('tauri-theme', TauriTheme);
-	loadMarkdownPlugin(app);
 
 	app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
 		pageEventEnd(event);
 	});
 
-	await app.bootstrapWithPlugins(options);
-	const project = app.convert();
+	const project = await app.convert();
 
 	if (project) {
 		await app.generateDocs(project, outputDir);
