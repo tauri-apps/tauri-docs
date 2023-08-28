@@ -5,20 +5,20 @@ import { type CollectionEntry, getEntry } from 'astro:content';
 const entries = ['2/guide/recipe/stub'];
 
 const list = (await Promise.all(
-  entries.flatMap((entry) => getEntry('docs', entry))
+	entries.flatMap((entry) => getEntry('docs', entry))
 )) as CollectionEntry<'docs'>[];
 ---
 
 <CardGrid>
-  {
-    list
-      .sort((a, b) => a.data.title.localeCompare(b.data.title))
-      .map((item) => (
-        <LinkCard
-          title={item.data.title}
-          href={`/${item.slug}`}
-          description={item.data.description}
-        />
-      ))
-  }
+	{
+		list
+			.sort((a, b) => a.data.title.localeCompare(b.data.title))
+			.map((item) => (
+				<LinkCard
+					title={item.data.title}
+					href={`/${item.slug}`}
+					description={item.data.description}
+				/>
+			))
+	}
 </CardGrid>
