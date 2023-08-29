@@ -66,8 +66,8 @@ export default defineConfig({
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
-				src: './src/assets/logo.svg',
-				// light: './src/assets/logo_light.svg',
+				dark: './src/assets/logo.svg',
+				light: './src/assets/logo_light.svg',
 				replacesTitle: true,
 			},
 			social: {
