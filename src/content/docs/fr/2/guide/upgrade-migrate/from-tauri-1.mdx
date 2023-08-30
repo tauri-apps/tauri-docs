@@ -67,17 +67,17 @@ Voici ci-dessous un sommaire des changement entre Tauri 1.0 et Tauri 2.0:
 - `api::http` module enlevé. Utilisez `tauri-plugin-http` à la place. [Migration](#migrer-vers-un-plugin-http)
 - `api::ip` module réécrit et déplacé vers `tauri::ipc`. Jetez un œil aux nouvelles APIs, particulièrement `tauri::ipc::Channel`.
 - fonctions du module `api::path` et `tauri::PathResolved` déplacées vers `tauri::Manager::path`. [Migration](#migrer-de-path-vers-tauri-manager)
-- `api::process::Command`, `tauri::api::shell` et `tauri::Manager::shell_scope` APIs enlevées. Utilisez `tauri-plugin-shell` à la place. [Migration](#migrer-vers-un-Shell-Plugin)
+- `api::process::Command`, `tauri::api::shell` et `tauri::Manager::shell_scope` APIs enlevées. Utilisez `tauri-plugin-shell` à la place. [Migration](#migrer-vers-un-shell-plugin)
 - `api::process::current_binary` et `tauri::api::process::restart` déplacés vers `tauri::process`.
 - `api::version` module a été retiré. Utilisez la [crate semver](https://docs.rs/semver/latest/semver/) à la place.
-- `App::clipboard_manager` et `AppHandle::clipboard_manager` enlevés. Utilisez `tauri-plugin-clipboard` à la place. [Migration](#migrate-to-clipboard-plugin)
-- `App::get_cli_matches` enlevé. Utilisez `tauri-plugin-cli` à la place. [Migration](#migrate-to-cli-plugin)
+- `App::clipboard_manager` et `AppHandle::clipboard_manager` enlevés. Utilisez `tauri-plugin-clipboard` à la place. [Migration](#migrer-vers-un-clipboard-plugin)
+- `App::get_cli_matches` enlevé. Utilisez `tauri-plugin-cli` à la place. [Migration](#migrer-vers-un-cli-plugin)
 - `App::global_shortcut_manager` et `AppHandle::global_shortcut_manager` enlevés. Utilisez `tauri-plugin-global-shortcut` à la place. [Migration](#migrer-vers-un-global-shortcut-plugin)
 - `Manager::fs_scope` enlevé. Le "scope" du fichier système est accessible via `tauri_plugin_fs::FsExt`.
 - `Plugin::PluginApi` reçoit maintenant une configuration de plugin en tant que deuxième argument.
 - `Plugin::setup_with_config` enlevé. Utilisez `tauri::Plugin::PluginApi` mis à jour à la place.
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` et `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` enlevés. Activer chaque plugin "core" individuellement via `scope::ipc::RemoteDomainAccessScope::add_plugin` à la place.
-- `updater` module enlevé. Utilisez `tauri-plugin-updater` à la place. [Migration](#migrate-to-updater-plugin)
+- `updater` module enlevé. Utilisez `tauri-plugin-updater` à la place. [Migration](#migrer-vers-un-updater-plugin)
 - `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` et `Builder::on_menu_event` APIs enlevés. [Migration](#migrer-vers-un-menu)
 - `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` et `SystemTrayMenuItem` APIs enlevées. [Migration](#migrer-vers-un-tray-icon-module)
 
@@ -941,9 +941,9 @@ let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 
 Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
 
-#### Migrervers un Menu 
+#### Migrer vers un Menu 
 
-Utilisez `tauri::menu::Menu` à la place de `tauri::SystemTrayMenu`, `tauri::menu::Submenu` à la place de `tauri::SystemTraySubmenu` et `tauri::menu::PredefinedMenuItem` à la place de `tauri::SystemTrayMenuItem`. [Migration](#migrate-to-menu)
+Utilisez `tauri::menu::Menu` à la place de `tauri::SystemTrayMenu`, `tauri::menu::Submenu` à la place de `tauri::SystemTraySubmenu` et `tauri::menu::PredefinedMenuItem` à la place de `tauri::SystemTrayMenuItem`. [Migration](#migrer-vers-un-menu)
 
 #### Les évenements de "Tray"
 
