@@ -63,7 +63,7 @@ Let's add the [WebdriverIO] CLI to this npm project.
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -80,6 +80,13 @@ yarn add @wdio/cli
 ```
 
 </TabItem>
+<TabItem value="bun">
+
+```shell
+bun add @wdio/cli
+```
+
+</TabItem>
 </Tabs>
 
 To then run the interactive config command to set up a [WebdriverIO] test suite, you can then run:
@@ -87,7 +94,7 @@ To then run the interactive config command to set up a [WebdriverIO] test suite,
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -101,6 +108,13 @@ npx wdio config
 
 ```shell
 yarn wdio config
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```shell
+bunx wdio config
 ```
 
 </TabItem>
@@ -215,7 +229,7 @@ Now that we are all set up with config and a spec let's run it!
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -229,6 +243,13 @@ npm test
 
 ```shell
 yarn test
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```shell
+bun run test
 ```
 
 </TabItem>
