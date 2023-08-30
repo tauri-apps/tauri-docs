@@ -80,7 +80,7 @@ yarn add @wdio/cli
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bun add @wdio/cli
@@ -111,7 +111,7 @@ yarn wdio config
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bunx wdio config
@@ -246,7 +246,7 @@ yarn test
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bun run test

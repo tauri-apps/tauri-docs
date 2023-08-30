@@ -56,7 +56,7 @@ cargo create-tauri-app`}
           pnpm create tauri-app
         </CodeBlock>
       </TabItem>
-      <TabItem value="bun">
+      <TabItem value="Bun">
         <CodeBlock className="language-shell" language="shell">
           bunx create-tauri-app
         </CodeBlock>

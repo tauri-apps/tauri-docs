@@ -74,7 +74,7 @@ yarn add mocha chai selenium-webdriver
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bun add mocha chai selenium-webdriver
@@ -106,7 +106,7 @@ yarn test
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bun run test
@@ -238,7 +238,7 @@ yarn test
 ```
 
 </TabItem>
-<TabItem value="bun">
+<TabItem value="Bun">
 
 ```shell
 bun run test

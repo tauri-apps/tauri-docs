@@ -40,7 +40,7 @@ pnpm update @tauri-apps/cli @tauri-apps/api --latest
 ```
 
   </TabItem>
-  <TabItem value="bun">
+  <TabItem value="Bun">
 
 ```shell
 bun update @tauri-apps/cli @tauri-apps/api
@@ -106,7 +106,7 @@ pnpm update vue-cli-plugin-tauri --latest
 ```
 
   </TabItem>
-  <TabItem value="bun">
+  <TabItem value="Bun">
 
 ```shell
 bun update vue-cli-plugin-tauri
