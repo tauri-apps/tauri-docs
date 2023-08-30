@@ -62,48 +62,48 @@ Voici ci-dessous un sommaire des changement entre Tauri 1.0 et Tauri 2.0:
 ### Changement de Crate Rust
 
 - `api` module enlevé. Chaque module d'API peut être trouvé dans un plugin Tauri.
-- `api::dialog` module enlevé. Utilisez `tauri-plugin-dialog` à la place. [Migration](#migrate-to-dialog-plugin)
+- `api::dialog` module enlevé. Utilisez `tauri-plugin-dialog` à la place. [Migration](#migrer-vers-un-dialog-plugin)
 - `api::file` module enlevé. Utilisez Rust's [`std::fs`](https://doc.rust-lang.org/std/fs/) à la place.
-- `api::http` module enlevé. Utilisez `tauri-plugin-http` à la place. [Migration](#migrate-to-http-plugin)
+- `api::http` module enlevé. Utilisez `tauri-plugin-http` à la place. [Migration](#migrer-vers-un-plugin-http)
 - `api::ip` module réécrit et déplacé vers `tauri::ipc`. Jetez un œil aux nouvelles APIs, particulièrement `tauri::ipc::Channel`.
-- fonctions du module `api::path` et `tauri::PathResolved` déplacées vers `tauri::Manager::path`. [Migration](#migrate-path-to-tauri-manager)
-- `api::process::Command`, `tauri::api::shell` et `tauri::Manager::shell_scope` APIs enlevées. Utilisez `tauri-plugin-shell` à la place. [Migration](#migrate-to-shell-plugin)
+- fonctions du module `api::path` et `tauri::PathResolved` déplacées vers `tauri::Manager::path`. [Migration](#migrer-de-path-vers-tauri-manager)
+- `api::process::Command`, `tauri::api::shell` et `tauri::Manager::shell_scope` APIs enlevées. Utilisez `tauri-plugin-shell` à la place. [Migration](#migrer-vers-un-Shell-Plugin)
 - `api::process::current_binary` et `tauri::api::process::restart` déplacés vers `tauri::process`.
 - `api::version` module a été retiré. Utilisez la [crate semver](https://docs.rs/semver/latest/semver/) à la place.
 - `App::clipboard_manager` et `AppHandle::clipboard_manager` enlevés. Utilisez `tauri-plugin-clipboard` à la place. [Migration](#migrate-to-clipboard-plugin)
 - `App::get_cli_matches` enlevé. Utilisez `tauri-plugin-cli` à la place. [Migration](#migrate-to-cli-plugin)
-- `App::global_shortcut_manager` et `AppHandle::global_shortcut_manager` enlevés. Utilisez `tauri-plugin-global-shortcut` à la place. [Migration](#migrate-to-global-shortcut-plugin)
+- `App::global_shortcut_manager` et `AppHandle::global_shortcut_manager` enlevés. Utilisez `tauri-plugin-global-shortcut` à la place. [Migration](#migrer-vers-un-global-shortcut-plugin)
 - `Manager::fs_scope` enlevé. Le "scope" du fichier système est accessible via `tauri_plugin_fs::FsExt`.
 - `Plugin::PluginApi` reçoit maintenant une configuration de plugin en tant que deuxième argument.
 - `Plugin::setup_with_config` enlevé. Utilisez `tauri::Plugin::PluginApi` mis à jour à la place.
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` et `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` enlevés. Activer chaque plugin "core" individuellement via `scope::ipc::RemoteDomainAccessScope::add_plugin` à la place.
 - `updater` module enlevé. Utilisez `tauri-plugin-updater` à la place. [Migration](#migrate-to-updater-plugin)
-- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` et `Builder::on_menu_event` APIs enlevés. [Migration](#migrate-to-menu)
-- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` et `SystemTrayMenuItem` APIs enlevées. [Migration](#migrate-to-tray-icon-module)
+- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` et `Builder::on_menu_event` APIs enlevés. [Migration](#migrer-vers-un-menu)
+- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` et `SystemTrayMenuItem` APIs enlevées. [Migration](#migrer-vers-un-tray-icon-module)
 
 ### Changements de l'API JavaScript
 
 Le package `@tauri-apps/api` ne fournis plus de modules "non-core". Seul les modules `tauri`, `path` et `event` sont exportés. Tous les autres ont été déplacés vers des plugins.
 
-- `@tauri-apps/api/app` module enlevé. Utilisez `@tauri-apps/plugin-app` à la place. [Migration](#migrate-to-app-plugin)
-- `@tauri-apps/api/cli` module enlevé. Utilisez `@tauri-apps/plugin-cli` à la place. [Migration](#migrate-to-cli-plugin)
-- `@tauri-apps/api/clipboard` module enlevé. Utilisez `@tauri-apps/plugin-clipboard` à la place. [Migration](#migrate-to-clipboard-plugin)
-- `@tauri-apps/api/dialog` module enlevé. Utilisez `@tauri-apps/plugin-dialog` à la place. [Migration](#migrate-to-dialog-plugin)
-- `@tauri-apps/api/fs` module enlevé. Utilisez `@tauri-apps/plugin-fs` à la place. [Migration](#migrate-to-file-system-plugin)
-- `@tauri-apps/api/global-shortcut` module enlevé. Utilisez `@tauri-apps/plugin-global-shortcut` à la place. [Migration](#migrate-to-global-shortcut-plugin)
-- `@tauri-apps/api/http` module enlevé. Utilisez `@tauri-apps/plugin-http` à la place. [Migration](#migrate-to-http-plugin)
-- `@tauri-apps/api/os` module enlevé. Utilisez `@tauri-apps/plugin-os` à la place. [Migration](#migrate-to-os-plugin)
-- `@tauri-apps/api/notification` module enlevé. Utilisez `@tauri-apps/plugin-notification` à la place. [Migration](#migrate-to-notification-plugin)
-- `@tauri-apps/api/process` module enlevé. Utilisez `@tauri-apps/plugin-process` à la place. [Migration](#migrate-to-process-plugin)
-- `@tauri-apps/api/shell` module enlevé. Utilisez `@tauri-apps/plugin-shell` à la place. [Migration](#migrate-to-shell-plugin)
-- `@tauri-apps/api/updater` module enlevé. Utilisez `@tauri-apps/plugin-updater` à la place [Migration](#migrate-to-updater-plugin)
-- `@tauri-apps/api/window` module enlevé. Utilisez `@tauri-apps/plugin-window` à la place [Migration](#migrate-to-window-plugin)
+- `@tauri-apps/api/app` module enlevé. Utilisez `@tauri-apps/plugin-app` à la place. [Migration](#migrer-votre-app-plugin)
+- `@tauri-apps/api/cli` module enlevé. Utilisez `@tauri-apps/plugin-cli` à la place. [Migration](#migrer-vers-un-cli-plugin)
+- `@tauri-apps/api/clipboard` module enlevé. Utilisez `@tauri-apps/plugin-clipboard` à la place. [Migration](#migrer-vers-un-clipboard-plugin)
+- `@tauri-apps/api/dialog` module enlevé. Utilisez `@tauri-apps/plugin-dialog` à la place. [Migration](#migrer-vers-un-dialog-plugin)
+- `@tauri-apps/api/fs` module enlevé. Utilisez `@tauri-apps/plugin-fs` à la place. [Migration](#migrer-vers-un-file-system-plugin)
+- `@tauri-apps/api/global-shortcut` module enlevé. Utilisez `@tauri-apps/plugin-global-shortcut` à la place. [Migration](#migrer-vers-un-global-shortcut-plugin)
+- `@tauri-apps/api/http` module enlevé. Utilisez `@tauri-apps/plugin-http` à la place. [Migration](#migrer-vers-un-plugin-http)
+- `@tauri-apps/api/os` module enlevé. Utilisez `@tauri-apps/plugin-os` à la place. [Migration](#migrer-vers-un-os-plugin)
+- `@tauri-apps/api/notification` module enlevé. Utilisez `@tauri-apps/plugin-notification` à la place. [Migration](#migrer-vers-un-notification-plugin)
+- `@tauri-apps/api/process` module enlevé. Utilisez `@tauri-apps/plugin-process` à la place. [Migration](#migrer-vers-un-process-plugin)
+- `@tauri-apps/api/shell` module enlevé. Utilisez `@tauri-apps/plugin-shell` à la place. [Migration](#migrer-vers-un-shell-plugin)
+- `@tauri-apps/api/updater` module enlevé. Utilisez `@tauri-apps/plugin-updater` à la place [Migration](#migrer-vers-un-updater-plugin)
+- `@tauri-apps/api/window` module enlevé. Utilisez `@tauri-apps/plugin-window` à la place [Migration](#migrer-vers-un-window-plugin)
 
 ## Etapes de Migration Détaillées
 
 Les scénarios communs que vous pouvez rencontrer lors de votre migration de Tauri 1.0 vers Tauri 2.0.
 
-### Migrer votre "App Plugin" (Plugin d'Application)
+### Migrer votre "App Plugin"
 
 les APIs JavaScript `@tauri-apps/api/app` ont été enlevées. Utilisez le plugin `@tauri-apps/plugin-app` à la place:
 
@@ -219,7 +219,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### Migrate to Clipboard Plugin
+### Migrer vers un "Clipboard Plugin"
 
 Les APIs Rust `App::clipboard_manager` et `AppHandle::clipboard_manager` ainsi que l'API JavaScript `@tauri-apps/api/clipboard` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-clipboard-manager` à la place:
 
@@ -272,7 +272,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### Migrer vers un "Dialog Plugin" (Plugin de Dialogue)
+### Migrer vers un "Dialog Plugin"
 
 les APIs Rust `tauri::api::dialog` et JavaScript `@tauri-apps/api/dialog` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-dialog` à la place:
 
@@ -338,7 +338,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### Migrate to File System Plugin
+### Migrer vers un "File System Plugin"
 
 Les APIs Rust `App::get_cli_matches` et JavaScript `@tauri-apps/api/fs` ont été retirées. Utilisez le plugin [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust et `@tauri-apps/plugin-fs` for JavaScript à la place:
 
@@ -384,7 +384,7 @@ Utilisez les fonctions Rust [`std::fs`](https://doc.rust-lang.org/std/fs/).
 </TabItem>
 </Tabs>
 
-### Migrer vers un "Global Shortcut Plugin" (Plugin de Raccourcis Global)
+### Migrer vers un "Global Shortcut Plugin"
 
 Les APIs Rust `App::global_shortcut_manager` et `AppHandle::global_shortcut_manager` ainsi que l'API JavaScript `@tauri-apps/api/global-shortcut` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-global-shortcut` à la place:
 
@@ -441,7 +441,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### Migrate to HTTP Plugin
+### Migrer vers un plugin HTTP
 
 Les APIs Rust `tauri::api::http` et JavaScript `@tauri-apps/api/http` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-http` à la place:
 
@@ -507,7 +507,7 @@ Le plugin HTTP est "re-exports" (ré-exporté) [reqwest](https://docs.rs/reqwest
 </TabItem>
 </Tabs>
 
-### Migrer vers un "Notification Plugin" (Plugin de Notification)
+### Migrer vers un "Notification Plugin"
 
 Les APIs Rust `tauri::api::notification` et JavaScript `@tauri-apps/api/notification` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-notification` à la place:
 
@@ -686,7 +686,7 @@ Les "items" de menu peuvent être partagés entre les menus, et l'évenement de 
 Si vous ne voulez pas que tous les "listeners" soient déclenchés (triggered) lorsqu'un "item" de menu est séléctioné, ne partagez pas les "items" de menu et utilisez des instances dédiés à la place, que vous pouvez "move" dans une closure passée à `tauri::Window/WindowBuilder::on_menu_event`
 :::
 
-### Migrer vers un "OS Plugin" (Plugin de système d'exploitation)
+### Migrer vers un "OS Plugin"
 
 Les APIs Rust `tauri::api::os` et JavaScript `@tauri-apps/api/os` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-os` à la place:
 
@@ -800,7 +800,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### Migrate to Shell Plugin
+### Migrer vers un "Shell Plugin"
 
 Les APIs Rust `tauri::api::shell` et JavaScript `@tauri-apps/api/shell` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-shell` à la place:
 
@@ -941,7 +941,7 @@ let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 
 Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
 
-#### Migrer vers un Menu
+#### Migrervers un Menu 
 
 Utilisez `tauri::menu::Menu` à la place de `tauri::SystemTrayMenu`, `tauri::menu::Submenu` à la place de `tauri::SystemTraySubmenu` et `tauri::menu::PredefinedMenuItem` à la place de `tauri::SystemTrayMenuItem`. [Migration](#migrate-to-menu)
 
@@ -1068,7 +1068,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### Migrate to Window Plugin
+### Migrer vers un "Window Plugin"
 
 Les API Rust `tauri::window` et JavaScript `@tauri-apps/api/window` ont été retirées. Utilisez le plugin `@tauri-apps/plugin-window` à la place:
 
