@@ -62,12 +62,11 @@ Follow along with the prompts to choose your project name, frontend language, pa
 
 :::tip[Not sure what to choose?]
 
-We use [SolidJS](https://www.solidjs.com) throughout the Tauri documentation and examples. For the easiest way to follow along we recommend the following:
+We recommend starting with the vanilla template (HTML, CSS, and JavaScript without a frontend framework) to get started. You can always [integrate a frontend framework](/2/guide/create/existing-project) later.
 
 - Choose which language to use for your frontend: `TypeScript / JavaScript`
 - Choose your package manager: `pnpm`
-  {/* TODO: Change phrasing in CTA from UI to frontend and Solid to SolidJS */}
-- Choose your UI template: `Solid`
+- Choose your UI template: `Vanilla`
 - Choose your UI flavor: `TypeScript`
 
 :::
@@ -76,57 +75,32 @@ We use [SolidJS](https://www.solidjs.com) throughout the Tauri documentation and
 
 After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/2/reference/cli) to start the development server:
 
-<Tabs>
-  <TabItem label="npm">
+import CommandTabs from '@components/CommandTabs.astro';
 
-    ```sh
-    cd my-tauri-app
+<CommandTabs
+	npm="cd my-tauri-app
     npm install
-    npm run tauri dev
-    ```
-
-  </TabItem>
-  <TabItem label="Yarn">
-
-    ```sh
-    cd my-tauri-app
+    npm run tauri dev"
+	yarn="cd my-tauri-app
     yarn install
-    yarn tauri dev
-    ```
-
-  </TabItem>
-  <TabItem label="pnpm">
-
-    ```sh
-    cd my-tauri-app
+    yarn tauri dev"
+	pnpm="cd my-tauri-app
     pnpm install
-    pnpm tauri dev
-    ```
+    pnpm tauri dev"
+	cargo="cd my-tauri-app
+    cargo tauri dev"
+/>
 
-  </TabItem>
-  <TabItem label="Cargo">
-
-    ```sh
-    cd my-tauri-app
-    cargo tauri dev
-    ```
-
-  </TabItem>
-</Tabs>
-
-You'll now see a new window open with your app running:
-
-TODO: Image of app here
+You'll now see a new window open with your app running.
 
 **Congratulations!** You've made your Tauri app! 🚀
 
-<Card title="Next Steps" icon="rocket">
+## Next Steps
 
+- [Add a Frontend Framework](/2/guide/create/frontend-configuration)
 - [Tauri Command Line Interface (CLI) Reference](/2/reference/cli)
 - [Learn how to build your Tauri app](/2/guide/build)
 - [Discover additional features and recipes to extend Tauri](/2/guide/list)
-
-</Card>
 
 <Card title="Additional Resources" icon="document">
 
