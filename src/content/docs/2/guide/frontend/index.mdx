@@ -4,9 +4,9 @@ title: Frontend Configuration
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-Tauri is frontend agnostic and supports most frontend frameworks out of the box. But sometimes frameworks need a bit of extra configuration to integrate with Tauri. Below is a list of frameworks with recommended configurations.
+Tauri is frontend agnostic and supports most frontend frameworks out of the box. However, sometimes a framework need a bit of extra configuration to integrate with Tauri. Below is a list of frameworks with recommended configurations.
 
-If a framework is not listed then it could either work with Tauri with no additional configuration needed or it could have not been documented yet. Any contributions to add a framework that may require additional configuration is welcome to help others in the Tauri community integrate with that framework.
+If a framework is not listed then it may work with Tauri with no additional configuration needed or it could have not been documented yet. Any contributions to add a framework that may require additional configuration are welcome to help others in the Tauri community.
 
 :::tip[Framework Not Listed?]
 
@@ -36,13 +36,14 @@ Don't see a framework listed? It may work with Tauri without any additional conf
 
 ## Configuration Checklist
 
-For all intents and purposes you can think of Tauri as a static web host, and you have to provide Tauri with a folder
-containing some mix of HTML, CSS, Javascript and possibly WASM that can be served to the webview Tauri provides.
+Conceptually Tauri acts as a static web host. You need to provide Tauri with a folder containing some mix of HTML, CSS, Javascript and possibly WASM that can be served to the webview Tauri provides.
+
+Below is a checklist of common scenarios needed to integrate a frontend with Tauri:
 
 {/* TODO: Link to core concept of SSG/SSR, etc. */}
 {/* TODO: Link to mobile development server guide */}
 {/* TODO: Concept of how to do a client-server relationship? */}
 
-- Use static site generation (SSG). Tauri doesn't officially support any server based alternatives (SSR).
+- Use static site generation (SSG). Tauri doesn't officially support server based alternatives (such as SSR).
 - For mobile development, a development server of some kind is necessary that can host the frontend on your internal IP.
 - Use a proper client-server relationship between your app and your API's (no hybrid solutions with SSR).
