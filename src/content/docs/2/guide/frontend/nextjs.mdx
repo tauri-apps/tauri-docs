@@ -4,7 +4,7 @@ title: Next.js
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Next.js is a meta-framework for React.
+Next.js is a React framework. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 13.4.19.
 
 ## Checklist
 
@@ -86,6 +86,7 @@ module.exports = async (phase, { defaultConfig }) => {
 	}
 	const nextConfig = {
 		// Ensure Next.js uses SSG instead of SSR
+		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
 		output: 'export',
 		// Helps you identify issues
 		reactStrictMode: true,

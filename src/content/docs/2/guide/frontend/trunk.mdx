@@ -9,10 +9,10 @@ Trunk is a WASM web application bundler for Rust. Learn more about Trunk at http
 ## Checklist
 
 - Use SSG, Tauri doesn't officially support server based solutions.
-- Use `0.0.0.0` so that your device can detect your frontend.
+- Use `address = "0.0.0.0"` so that the webserver is available on the network for mobile development.
 - Use the fork of Trunk made by one of the Tauri core member which contains a couple of fixes to it. Hopefully we can get these merged upstream eventually.
 
-## Example configuration
+## Example Configuration
 
 <Tabs>
 <TabItem label="Cargo">
