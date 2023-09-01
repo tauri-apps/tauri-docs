@@ -73,6 +73,14 @@ pnpm outdated @tauri-apps/cli
 ```
 
   </TabItem>
+  <TabItem value="Bun">
+
+```shell
+# Bun does not implement `outdated`
+npm outdated @tauri-apps/cli
+```
+
+  </TabItem>
 </Tabs>
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
