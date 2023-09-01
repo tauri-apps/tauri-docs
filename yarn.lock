@@ -4200,10 +4200,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild-loader@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/esbuild-loader/-/esbuild-loader-4.0.1.tgz#6ac1eb1bcde886bc15055d31ef78ed29fce6951e"
-  integrity sha512-y65bkn+qJX+FEXQESLL3cv8c1KSjVRXE0+TDT4bBBYxqaOcq4AidQL03bgHqnDgS+HZBhqtEPdM9tWk36/cWjQ==
+esbuild-loader@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/esbuild-loader/-/esbuild-loader-4.0.2.tgz#5452fb40919d9a0959655522cd2732dc4c383e13"
+  integrity sha512-kj88m0yrtTEJDeUEF+3TZsq7t9VPzQQj7UmXAzUbIaipoYSrd0UxKAcg4l9CBgP8uVoploiw+nKr8DIv6Y9gXw==
   dependencies:
     esbuild "^0.19.0"
     get-tsconfig "^4.7.0"
