@@ -9,7 +9,7 @@ description: 常见问题的解决方法
 要使用 GitHub（前沿版本）的 Tauri，您需要更改项目中的 `Cargo.toml` 文件，并更新 CLI 和 API。
 
 <details>
-  <summary>从源仓库拉取 Rust create</summary>
+  <summary>从源仓库拉取 Rust crate</summary>
 
 将此附加到您的 `Cargo.toml` 文件：
 
@@ -19,7 +19,7 @@ tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 ```
 
-这将强制所有依赖使用 `tauri` 和 `tauri-build` 时从 Git 拉取 ，而不是 create.io。
+这将强制所有依赖使用 `tauri` 和 `tauri-build` 时从 Git 拉取 ，而不是 crates.io。
 
 </details>
 
