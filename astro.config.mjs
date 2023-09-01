@@ -179,6 +179,7 @@ export default defineConfig({
 						{ label: 'Updater', link: '2/guide/updater' },
 						{ label: 'Upload', link: '2/guide/upload' },
 						{ label: 'Websocket', link: '2/guide/websocket' },
+						{ label: 'Window Customization', link: '2/guide/window-customization' },
 						{ label: 'Window State', link: '2/guide/window-state' },
 					],
 				},
