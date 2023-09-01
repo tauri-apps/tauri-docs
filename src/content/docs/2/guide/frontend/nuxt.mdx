@@ -4,7 +4,7 @@ title: Nuxt
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Nuxt is a meta-framework for Vue.
+Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7.
 
 ## Checklist
 
@@ -85,9 +85,9 @@ export default defineNuxtConfig({
 			sourcemap: !!process.env.TAURI_DEBUG,
 		},
 		server: {
-			// Tauri expects a specific port, panic if it can't be bound
+			// Tauri requires a consistent port
 			strictPort: true,
-			// Make sure your mobile device can find you
+			// Enables the development server to be discoverable by other devices for mobile development
 			host: '0.0.0.0',
 			hmr: {
 				// Use websocket for mobile hot reloading
