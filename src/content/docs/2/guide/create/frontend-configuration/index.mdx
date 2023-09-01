@@ -1,0 +1,35 @@
+---
+title: Frontend Configuration
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri is frontend agnostic and supports most frontend frameworks out of the box. But sometimes frameworks need a bit of extra configuration to integrate with Tauri. Below is a list of frameworks with recommended configurations.
+
+If a framework is not listed then it could either work with Tauri with no additional configuration needed or it could have not been documented yet. Any contributions to add a framework that may require additional configuration is welcome to help others in the Tauri community integrate with that framework.
+
+:::tip[Framework Not Listed?]
+
+Don't see a framework listed? It may work with Tauri without any additional configuration required. Read the [frontend configuration guide](/2/guide/create/frontend-configuration) for any common configurations to look out for.
+
+:::
+
+## JavaScript
+
+<CardGrid>
+	<LinkCard title="Next.js" href="/2/guide/framework/nextjs" />
+	<LinkCard title="Nuxt" href="/2/guide/framework/nuxt" />
+	<LinkCard title="Qwik" href="/2/guide/framework/qwik" />
+	<LinkCard title="SvelteKit" href="/2/guide/framework/sveltekit" />
+	<LinkCard title="Vite" href="/2/guide/framework/vite" />
+	<LinkCard title="Webpack" href="/2/guide/framework/webpack" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+	<LinkCard title="Leptos" href="/2/guide/framework/leptos" />
+	<LinkCard title="Sycamore" href="/2/guide/framework/sycamore" />
+	<LinkCard title="Trunk" href="/2/guide/framework/trunk" />
+	<LinkCard title="Yew" href="/2/guide/framework/yew" />
+</CardGrid>
