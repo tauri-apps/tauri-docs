@@ -4,16 +4,16 @@ title: Nuxt
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Nuxt is a meta framework for Vue. To set up a Nuxt project as a frontend for Tauri make sure you go through the checklist below.
+Nuxt is a meta-framework for Vue.
 
 ## Checklist
 
-- Use SSG by setting `ssr: false`, Tauri doesn't officially support server based solutions.
+- Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
 - Set host to `0.0.0.0`.
 - Use `dist/` as `distDir` in `tauri.conf.json`.
-- Compile using `nuxi generate`
+- Compile using `nuxi generate`.
 
-## Example configuration
+## Example Configuration
 
 <Tabs>
 	<TabItem label="npm">

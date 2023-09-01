@@ -4,15 +4,15 @@ title: Next.js
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Next.js is a meta framework for React. To set up a Next.js project as a frontend for Tauri make sure you go through the checklist below.
+Next.js is a meta-framework for React.
 
 ## Checklist
 
-- Use static exports by setting `output: 'export'`, Tauri doesn't officially support server based solutions.
-- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix` so that the server properly resolves your assets.
+- Use static exports by setting `output: 'export'`. Tauri doesn't support server-based solutions.
+- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix`. This is required so that the server properly resolves assets.
 - Use `out/` as `distDir` in `tauri.conf.json`.
 
-## Example configuration
+## Example Configuration
 
 <Tabs>
 <TabItem label="npm">

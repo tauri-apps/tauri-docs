@@ -8,11 +8,11 @@ Next.js is a meta framework for React. To set up a Next.js project as a frontend
 
 ## Checklist
 
-- Use static exports, Tauri doesn't officially support server based solutions.
-- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix` so that the server properly resolves your assets.
+- Use static exports, Tauri doesn't support server based solutions.
+- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix`. This is required so that the server properly resolves assets.
 - Use `out/` as `distDir` in `tauri.conf.json`.
 
-## Example configuration
+## Example Configuration
 
 <Tabs>
 <TabItem label="npm">
