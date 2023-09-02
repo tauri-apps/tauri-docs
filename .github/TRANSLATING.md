@@ -46,6 +46,7 @@ Here are some guidelines to help with the translation.
 
 - [ ] Preserve the Markdown formatting. This includes headers (#, ##, etc.), lists (*, -, 1.), and inline styles like bold, italic, and code.
 - [ ] Ensure that links ([link text](URL)) remain functional and direct to the correct locations.
+- [ ] Append the locale to any internal links (for example `/index` -> `/fr/index`).
 - [ ] Ensure code blocks (triple backticks ```) are unchanged in terms of their syntax and content.
 - [ ] Double-check tables, making sure their structure remains intact. Using the Prettier formatter is a great way to do this.
 
