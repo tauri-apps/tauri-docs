@@ -55,10 +55,6 @@ const authors = {
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://beta.tauri.app',
-	compressHTML: true,
-	build: {
-		inlineStylesheets: 'always',
-	},
 	integrations: [
 		starlightLinksValidator(),
 		starlightBlog({ authors }),
@@ -90,6 +86,10 @@ export default defineConfig({
 						{
 							label: 'Create a Project',
 							link: '/2/guide/create/',
+						},
+						{
+							label: 'Frontend Configuration',
+							link: '/2/guide/frontend/',
 						},
 						{
 							label: 'Upgrade & Migrate',
@@ -179,6 +179,7 @@ export default defineConfig({
 						{ label: 'Updater', link: '2/guide/updater' },
 						{ label: 'Upload', link: '2/guide/upload' },
 						{ label: 'Websocket', link: '2/guide/websocket' },
+						{ label: 'Window Customization', link: '2/guide/window-customization' },
 						{ label: 'Window State', link: '2/guide/window-state' },
 					],
 				},
@@ -202,8 +203,6 @@ export default defineConfig({
 			],
 		],
 	},
-	// Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
-	image: { service: { entrypoint: 'astro/assets/services/sharp' } },
 	redirects: {
 		// Old blog url schema redirects
 		'/blog/2022-06-19-tauri-1-0': '/blog/tauri-1-0',

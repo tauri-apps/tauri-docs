@@ -1,8 +1,6 @@
 # Translations (i18n)
 
-Thanks for your interest in helping translate the Tauri docs! While we plan to accept translations in the future, **we are not currently accepting them until Tauri 2.0 is a bit more stable**.
-
-Once translations are enabled you can check the [translation status page](https://beta.tauri.app/contribute/translate-status).
+Thanks for your interest in helping translate the Tauri docs! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
 To ensure a translation is consistent across multiple contributions, be sure to [communicate with others contributors in the `#docs` channel on Discord](https://discord.com/invite/tauri) and consult with reliable external resources such as [Microsoft terminology search](https://msit.powerbi.com/view?r=eyJrIjoiODJmYjU4Y2YtM2M0ZC00YzYxLWE1YTktNzFjYmYxNTAxNjQ0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9) during translation.
 
@@ -48,6 +46,7 @@ Here are some guidelines to help with the translation.
 
 - [ ] Preserve the Markdown formatting. This includes headers (#, ##, etc.), lists (*, -, 1.), and inline styles like bold, italic, and code.
 - [ ] Ensure that links ([link text](URL)) remain functional and direct to the correct locations.
+- [ ] Append the locale to any internal links (for example `/index` -> `/fr/index`).
 - [ ] Ensure code blocks (triple backticks ```) are unchanged in terms of their syntax and content.
 - [ ] Double-check tables, making sure their structure remains intact. Using the Prettier formatter is a great way to do this.
 
