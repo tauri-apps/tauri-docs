@@ -6,5 +6,13 @@
   "fr": {
     "label": "Français",
     "lang": "fr"
+  },
+  "es": {
+    "label": "Español",
+    "lang": "es"
+  },
+  "zh-cn": {
+    "label": "中文（中国）",
+    "lang": "zh-CN"
   }
 }
