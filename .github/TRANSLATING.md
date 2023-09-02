@@ -1,8 +1,6 @@
 # Translations (i18n)
 
-Thanks for your interest in helping translate the Tauri docs! While we plan to accept translations in the future, **we are not currently accepting them until Tauri 2.0 is a bit more stable**.
-
-Once translations are enabled you can check the [translation status page](https://beta.tauri.app/contribute/translate-status).
+Thanks for your interest in helping translate the Tauri docs! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
 To ensure a translation is consistent across multiple contributions, be sure to [communicate with others contributors in the `#docs` channel on Discord](https://discord.com/invite/tauri) and consult with reliable external resources such as [Microsoft terminology search](https://msit.powerbi.com/view?r=eyJrIjoiODJmYjU4Y2YtM2M0ZC00YzYxLWE1YTktNzFjYmYxNTAxNjQ0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9) during translation.
 
