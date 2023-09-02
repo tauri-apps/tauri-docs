@@ -88,10 +88,6 @@ module.exports = async (phase, { defaultConfig }) => {
 		// Ensure Next.js uses SSG instead of SSR
 		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
 		output: 'export',
-		// Helps you identify issues
-		reactStrictMode: true,
-		// Faster minification
-		swcMinify: true,
 		// Note: This experimental feature is required to use NextJS Image in SSG mode.
 		// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
 		images: {
