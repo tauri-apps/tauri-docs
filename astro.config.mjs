@@ -88,6 +88,10 @@ export default defineConfig({
 							link: '/2/guide/create/',
 						},
 						{
+							label: 'Frontend Configuration',
+							link: '/2/guide/frontend/',
+						},
+						{
 							label: 'Upgrade & Migrate',
 							link: '2/guide/upgrade-migrate',
 						},
