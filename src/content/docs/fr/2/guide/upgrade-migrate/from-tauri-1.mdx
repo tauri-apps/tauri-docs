@@ -12,7 +12,7 @@ Ce guide vous explique comment mettre à niveau votre application basée sur Tau
 ## Migration Automatisée
 
 
-Tauri v2 contient une commande `migrate` qui automatise la plupart des processus et vous aide à finir votre migration:
+Tauri v2 contient la commande `migrate` qui simplifie votre migration:
 
 <CommandTabs
 	npm="npm install @tauri-apps/cli@latest
@@ -27,8 +27,10 @@ Tauri v2 contient une commande `migrate` qui automatise la plupart des processus
 
 {/* TODO: 2.0 */}
 
-Apprenez-en plus à-propos de la commande `migrate` dans l'[interface de référence des commandes](/2/reference/cli#migrate) 
-Learn more about the `migrate` command in the [Command Line Interface reference](/2/reference/cli#migrate)
+Apprenez-en plus à-propos de la commande `migrate` dans l'[interface de référence des commandes](/fr/2/reference/cli#migrate) 
+
+Learn more about the `migrate` command in the [Command Line Interface reference](/fr/2/reference/cli#migrate)
+
 
 ## Sommaire des Changements
 
@@ -45,13 +47,14 @@ Voici ci-dessous un sommaire des changement entre Tauri 1.0 et Tauri 2.0:
 - `tauri > updater > endpoints` déplacé vers `plugins > updater`.
 - `tauri > systemTray` renomé en `tauri > trayIcon`.
 
-[Référence de l'API de configuration de Tauri 2.0](/2/reference/config)
+[Référence de l'API de configuration de Tauri 2.0](/fr/2/reference/config)
+
 
 ### Nouvelles Fonctionnalités de Cargo
 
 - linux-protocol-body: Permet les protocols de requêtes "body parsing", autorisant l'IPC à l'utiliser. Nécéssite webkit2gtk 2.40.
 
-### Fonctionnalités de Cargo Retirées
+### Fonctionnalités Cargo Retirées
 
 - reqwest-client: reqwest est maintenant le seul client supporté.
 - reqwest-native-tls-vendored: utilisez `native-tls-vendored` à la place.
@@ -584,7 +587,7 @@ L'API JavaScript `@tauri-apps/api/window` `onMenuClicked()` va être migrée dan
 
 #### Utilisez `tauri::menu::MenuBuilder`
 
-Utilisez `tauri::menu::MenuBuilder` à la place de `tauri::Menu`. Notez que sont constructeur prend en argumen une instance de "Manager" (parmis `App`, `AppHandle` ou `Window`):
+Utilisez `tauri::menu::MenuBuilder` à la place de `tauri::Menu`. Notez que son constructeur prend en argument une instance de "Manager" (parmis `App`, `AppHandle` ou `Window`):
 
 ```rust
 use tauri::menu::MenuBuilder;
@@ -683,11 +686,11 @@ tauri::Builder::default()
         Ok(())
     })
 ```
-Notez qu'il y a deux manières de vérifier que "item" de menu est séléctionné: on peut "move" (la fonctionnalités rust des closure) l'"item" vers un gestionnaire d'événement (event handler) sous forme de closure et comparer les IDs, ou définir une ID personnalisée via le constructeur `with_id` et utiliser cette ID (chaine de caractère) pour la comparer.
+Notez qu'il y a deux manières de vérifier qu'un "item" de menu est sélectionné: on peut "move" (la fonctionnalités rust des closure) l'"item" vers un gestionnaire d'événement (event handler) sous forme de closure et comparer les IDs, ou définir une ID personnalisée via le constructeur `with_id` et utiliser cette ID (chaine de caractère) pour la comparer
 
 :::tip
-Les "items" de menu peuvent être partagés entre les menus, et l'évenement de menu est lié à un "item" de menu plutôt qu'à un menu ou une "window" 
-Si vous ne voulez pas que tous les "listeners" soient déclenchés (triggered) lorsqu'un "item" de menu est séléctioné, ne partagez pas les "items" de menu et utilisez des instances dédiés à la place, que vous pouvez "move" dans une closure passée à `tauri::Window/WindowBuilder::on_menu_event`
+Les "items" de menu peuvent être partagés entre les menus, et l'événement de menu est lié à un "item" de menu plutôt qu'à un menu ou une "window".
+Si vous ne voulez pas que tous les "listeners" soient déclenchés (triggered) lorsqu'un "item" de menu est sélectionné, ne partagez pas les "items" de menu et utilisez des instances dédiés à la place, que vous pouvez "move" dans une closure passée à `tauri::Window/WindowBuilder::on_menu_event`
 :::
 
 ### Migrer vers un "OS Plugin"
