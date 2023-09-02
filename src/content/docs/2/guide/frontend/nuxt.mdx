@@ -77,14 +77,6 @@ export default defineNuxtConfig({
 		clearScreen: false,
 		// Enable environment variables
 		envPrefix: ['VITE_', 'TAURI_'],
-		build: {
-			// (optional) Support modern browsers
-			target: 'es2022',
-			// (optional) Don't minify for debug builds
-			minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-			// (optional) Produce sourcemaps for debug builds
-			sourcemap: !!process.env.TAURI_DEBUG,
-		},
 		server: {
 			// Tauri requires a consistent port
 			strictPort: true,
