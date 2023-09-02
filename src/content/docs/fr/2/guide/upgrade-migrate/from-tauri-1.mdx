@@ -506,7 +506,7 @@ tauri::Builder::default()
     })
 ```
 
-Le plugin HTTP est "re-exports" (ré-exporté) [reqwest](https://docs.rs/reqwest/latest/reqwest/) pour que vous puissiez avoir accès à la documentation pour plus d'informations.
+Le plugin HTTP "re-exports" (expose) [reqwest](https://docs.rs/reqwest/latest/reqwest/) pour que vous puissiez avoir accès à la documentation pour plus d'informations.
 
 </TabItem>
 </Tabs>
@@ -683,7 +683,7 @@ tauri::Builder::default()
         Ok(())
     })
 ```
-Notez qu'il y a deux manières de vérifier que "item" de menu est séléctioné: on peut "move" (la fonctionnalités rust des closure) l'"item" vers un gestionnaire d'événement (event handler) sous forme de closure et comparer les IDs, ou d"finir une ID personnalisée via le constructeur `with_id` et utiliser cette ID (chaine de caractère) pour la comparer
+Notez qu'il y a deux manières de vérifier que "item" de menu est séléctionné: on peut "move" (la fonctionnalités rust des closure) l'"item" vers un gestionnaire d'événement (event handler) sous forme de closure et comparer les IDs, ou définir une ID personnalisée via le constructeur `with_id` et utiliser cette ID (chaine de caractère) pour la comparer.
 
 :::tip
 Les "items" de menu peuvent être partagés entre les menus, et l'évenement de menu est lié à un "item" de menu plutôt qu'à un menu ou une "window" 
