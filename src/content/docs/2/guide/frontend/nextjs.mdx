@@ -3,6 +3,7 @@ title: Next.js
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
 Next.js is a React framework. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 13.4.19.
 
@@ -14,12 +15,18 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 
 ## Example Configuration
 
-<Tabs>
-<TabItem label="npm">
+1. Install `internal-ip` for mobile development:
 
-```sh
-npm install --save-dev internal-ip
-```
+<CommandTabs
+	npm="npm install --save-dev internal-ip"
+	yarn="yarn add -D internal-ip"
+	pnpm="pnpm add -D internal-ip"
+/>
+
+2. Update Tauri configuration:
+
+<Tabs>
+	<TabItem label="npm">
 
 ```json
 // tauri.conf.json
@@ -36,10 +43,6 @@ npm install --save-dev internal-ip
 </TabItem>
 <TabItem label="yarn">
 
-```sh
-yarn add -D internal-ip
-```
-
 ```json
 // tauri.conf.json
 {
@@ -55,10 +58,6 @@ yarn add -D internal-ip
 </TabItem>
 <TabItem label="pnpm">
 
-```sh
-pnpm add -D internal-ip
-```
-
 ```json
 // tauri.conf.json
 {
@@ -73,6 +72,8 @@ pnpm add -D internal-ip
 
 </TabItem>
 </Tabs>
+
+3. Update Next.js configuration:
 
 ```ts
 // next.conf.ts
