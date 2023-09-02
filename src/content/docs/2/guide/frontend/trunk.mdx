@@ -6,11 +6,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Trunk is a WASM web application bundler for Rust. Learn more about Trunk at https://trunkrs.dev. This guide is accurate as of Trunk 0.17.5.
 
+:::caution[Note on Mobile Support]
+
+Tauri mobile development is not currently possible with Trunk. If developing for mobile you will need to use https://github.com/amrbashir/trunk until https://github.com/thedodd/trunk/pull/494 and https://github.com/thedodd/trunk/pull/500 are merged and released.
+
+You will need to use `cargo install --git https://github.com/amrbashir/trunk` or `cargo binstall --git https://github.com/amrbashir/trunk` when installing Trunk and then set `serve.ws_protocol = "ws"` in `Trunk.toml`.
+
+:::
+
 ## Checklist
 
 - Use SSG, Tauri doesn't officially support server based solutions.
 - Use `address = "0.0.0.0"` so that the webserver is available on the network for mobile development.
-- Use the fork of Trunk made by one of the Tauri core member which contains a couple of fixes to it. Hopefully we can get these merged upstream eventually.
 
 ## Example Configuration
 
@@ -18,14 +25,14 @@ Trunk is a WASM web application bundler for Rust. Learn more about Trunk at http
 <TabItem label="Cargo">
 
 ```sh
-cargo install --git https://github.com/amrbashir/trunk
+cargo install --locked trunk
 ```
 
 </TabItem>
 <TabItem label="Binstall">
 
 ```sh
-cargo binstall --git https://github.com/amrbashir/trunk
+cargo binstall trunk
 ```
 
 </TabItem>
@@ -56,5 +63,4 @@ ignore = ["./src-tauri"]
 address = "0.0.0.0"
 port = 1420
 open = false
-ws_protocol = "ws"
 ```
