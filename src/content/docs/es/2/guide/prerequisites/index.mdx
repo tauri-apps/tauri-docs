@@ -9,11 +9,11 @@ Para empezar a construir tu proyecto con Tauri primero deberás instalar algunas
 
 1. [Dependencias del Sistema](#dependencias-del-sistema)
 2. [Rust](#rust)
-3. [Configurar para Objetivos Móviles](#configurar-para-objetivos-móviles) (solo se requiere si se desarrolla para móviles)
+3. [Configurar para Móvil](#configurar-para-móvil) (solo se requiere si se desarrolla para móviles)
 
 ## Dependencias del Sistema
 
-Sigue el enlace para comenzar para tu sistema operativo respectivo:
+Sigue el enlace para comenzar según tu sistema operativo:
 
 - [Linux](#linux) (ver más abajo para distribuciones específicas)
 - [macOS Catalina (10.15) y versiones posteriores](#macos)
@@ -111,13 +111,13 @@ TODO: Need to build out NixOS instructions
   </TabItem>
 </Tabs>
 
-Si tu distribución no está incluida arriba, es posible que desees consultar [Awesome Tauri en GitHub](https://github.com/tauri-apps/awesome-tauri#guides) para ver si se ha creado una guía.
+Si tu distribución no está incluida arriba, puedes consultar [Awesome Tauri en GitHub](https://github.com/tauri-apps/awesome-tauri#guides) para ver si se ha creado una guía.
 
 Siguiente: [Instalar Rust](#rust)
 
 ### macOS
 
-Tauri usa [Xcode](https://developer.apple.com/xcode/resources/) varias dependencias de desarrollo de macOS e iOS.
+Tauri usa [Xcode](https://developer.apple.com/xcode/resources/) y varias dependencias de desarrollo de macOS e iOS.
 
 Descarga e instala Xcode desde uno de los siguientes lugares:
 
@@ -127,7 +127,7 @@ Descarga e instala Xcode desde uno de los siguientes lugares:
 Asegúrate de iniciar Xcode después de instalarlo para que pueda terminar de configurarse.
 
 <details>
-<summary>¿Solo desarrollo para objetivos de escritorio?</summary>
+<summary>¿Solo desarrollando para escritorio?</summary>
 Si estás planeando desarrollar aplicaciones de escritorio y no apuntar a iOS, puedes instalar Xcode Command Line Tools en su lugar:
 
 ```sh
@@ -194,11 +194,11 @@ Aquí está el archivo como un script plano: [rustup.sh](https://sh.rustup.rs/)
 
 Asegúrate de reiniciar tu Terminal (y en algunos casos tu sistema) para que los cambios surtan efecto.
 
-Siguiente: [Configurar para Objetivos Móviles](#configurar-para-objetivos-móviles) si deseas construir para Android e iOS. De lo contrario, [Crea un Proyecto](/2/guide/create/).
+Siguiente: [Configurar para Móvil](#configurar-para-móvil) si deseas construir para Android e iOS. De lo contrario, [Crea un Proyecto](/2/guide/create/).
 
-## Configurar para Objetivos Móviles
+## Configurar para Objetivos Móvil
 
-Si deseas apuntar tu aplicación para Android o iOS, entonces hay algunas dependencias adicionales que necesitas instalar:
+Si deseas compilar tu aplicación para Android o iOS, entonces hay algunas dependencias adicionales que necesitas instalar:
 
 - [Android](#android)
 - [iOS](#ios)
@@ -267,7 +267,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 
 </Tabs>
 
-5. Agrega los objetivos de Android con `rustup`:
+5. Agrega los destinos de compilación de Android con `rustup`:
 
 <Tabs>
   <TabItem label="Linux and macOS" class="content">
@@ -294,7 +294,7 @@ Siguiente: [Configurar para iOS](#ios) o [Crear un proyecto](/2/guide/create/).
 El desarrollo de iOS requiere Xcode y solo está disponible en macOS.
 :::
 
-Agrega los objetivos de iOS con `rustup` en Terminal:
+Agrega los destinos de compilación de iOS con `rustup` en Terminal:
 
 ```sh
 rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
