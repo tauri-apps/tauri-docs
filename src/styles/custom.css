@@ -137,3 +137,8 @@
 		transition: none !important;
 	}
 }
+
+/* Required until https://github.com/HiDeoo/starlight-blog/pull/4 is released */
+.flex {
+	display: flex;
+}

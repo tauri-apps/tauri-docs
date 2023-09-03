@@ -3,6 +3,10 @@ title: Tauri Programme Turns 1 and Board Elections
 date: 2022-07-12
 authors: [beanow]
 excerpt: The one year anniversary for Tauri becoming a programme within The Commons Conservancy is upcoming on the 16th of July!
+banner:
+  content: |
+    You're reading the blog on the prerelease site for Tauri 2.0 -
+    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 The one year anniversary for Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) is upcoming on the 16th of July! On that anniversary, two of our Directors on the Tauri Board will be at the end of their first half-term. The Board will hold an election on the 15th of July to decide the Directors for the next two year term.
