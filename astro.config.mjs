@@ -206,6 +206,7 @@ export default defineConfig({
 	redirects: {
 		// Old blog url schema redirects
 		'/blog/2022-06-19-tauri-1-0': '/blog/tauri-1-0',
+		'/blog/tauri_1_0': '/blog/tauri-1-0',
 		'/blog/2022-07-12-tauri-programme-turns-1-and-board-elections':
 			'/blog/tauri-programme-turns-1-and-board-elections',
 		'/blog/2022-09-15-tauri-1-1': '/blog/tauri-1-1',
