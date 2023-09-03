@@ -51,10 +51,6 @@ from = "/v1/guides/getting-started/tauri-cli"
 to = "/v1/guides/getting-started/setup/html-css-js"
 
 [[redirects]]
-from = "/blog/tauri_1_0"
-to = "/blog/2022/06/19/tauri-1-0"
-
-[[redirects]]
 from = "/release-notes"
 to = "/releases"
 
@@ -122,3 +118,7 @@ to = "/zh-cn/:splat"
 [[redirects]]
 from = "/2/*"
 to = "https://beta.tauri.app/2/:splat"
+
+[[redirects]]
+from = "/blog/*"
+to = "https://beta.tauri.app/blog/:splat"
