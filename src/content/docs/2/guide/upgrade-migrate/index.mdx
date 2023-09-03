@@ -2,13 +2,21 @@
 title: Upgrade & Migrate
 ---
 
-import Stub from '@components/Stub.astro';
+Learn about common scenarios and steps to upgrade from Tauri 1.0 or migrate from another framework.
 
-<Stub>
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-- Electron to Tauri
-- Flutter to Tauri
-
-</Stub>
-
-[Upgrade from Tauri 1](./from-tauri-1)
+<CardGrid>
+	<LinkCard
+		title="Upgrade from Tauri 1.0"
+		href="/2/guide/upgrade-migrate/from-tauri-1"
+	/>
+	<LinkCard
+		title="Migrate from Electron"
+		href="/2/guide/upgrade-migrate/from-electron"
+	/>
+	<LinkCard
+		title="Migrate from Flutter"
+		href="/2/guide/upgrade-migrate/from-flutter"
+	/>
+</CardGrid>
