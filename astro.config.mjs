@@ -13,42 +13,42 @@ const authors = {
 	nothingismagick: {
 		name: 'Daniel Thompson-Yvetot',
 		title: 'Tauri Co-Founder',
-		picture: 'https://github.com/nothingismagick.png',
+		picture: '/authors/nothingismagick.jpeg',
 	},
 	lucasfernog: {
 		name: 'Lucas Nogueira',
 		title: 'Tauri Co-Founder',
-		picture: 'https://github.com/lucasfernog.png',
+		picture: '/authors/lucasfernog.jpeg',
 	},
 	beanow: {
 		name: 'Robin van Boven',
 		title: 'Tauri Board Director',
-		picture: 'https://github.com/Beanow.png',
+		picture: '/authors/Beanow.png',
 	},
 	jbolda: {
 		name: 'Jacob Bolda',
 		title: 'Tauri Board Director',
-		picture: 'https://github.com/jbolda.png',
+		picture: '/authors/jbolda.jpeg',
 	},
 	lorenzolewis: {
 		name: 'Lorenzo Lewis',
 		title: 'Tauri Community Lead',
-		picture: 'https://github.com/lorenzolewis.png',
+		picture: '/authors/lorenzolewis.png',
 	},
 	tweidinger: {
 		name: 'Tillmann Weidinger',
 		title: 'Tauri Security',
-		picture: 'https://github.com/tweidinger.png',
+		picture: '/authors/tweidinger.png',
 	},
 	amrbashir: {
 		name: 'Amr Bashir',
 		title: 'Tauri Development',
-		picture: 'https://github.com/amrbashir.png',
+		picture: '/authors/amrbashir.png',
 	},
 	wusyong: {
 		name: 'Wu Yu Wei',
 		title: 'Tauri Development Lead',
-		picture: 'https://github.com/wusyong.png',
+		picture: '/authors/wusyong.png',
 	},
 };
 
