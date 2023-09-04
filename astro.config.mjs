@@ -87,7 +87,7 @@ export default defineConfig({
 							translations: {
 								es: 'Prerrequisitos',
 							},
-							link: '/2/guide/prerequisites'
+							link: '/2/guide/prerequisites',
 						},
 						{
 							label: 'Create a Project',
