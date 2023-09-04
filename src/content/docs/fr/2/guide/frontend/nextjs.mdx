@@ -1,0 +1,103 @@
+---
+title: Next.js
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Next.js est un framework de React. Apprenez-en plus au sujet de Next.js sur https://nextjs.org. Ce guide est valable à partir de Next.js 13.4.19.
+
+## Liste des Vérifications
+
+- Utilisez des exports statiques en définissant `output: 'export'`. Tauri ne supporte pas les solutions basées sur serveur.
+- Utilisez `internal-ip` pour une compatibilité sur mobile pour pouvoir configurer `assetPrefix`. Ceci est requis pour que le serveur résolve correctement les assets.
+- Utilisez `out/` en tant que `distDir` dans `tauri.conf.json`.
+
+## Configuration d'Example
+
+1. Installez `internal-ip` pour le développement mobile:
+
+<CommandTabs
+	npm="npm install --save-dev internal-ip"
+	yarn="yarn add -D internal-ip"
+	pnpm="pnpm add -D internal-ip"
+/>
+
+2. Mettez à jour la configuration Tauri:
+
+<Tabs>
+	<TabItem label="npm">
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run build",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
+</TabItem>
+<TabItem label="yarn">
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "yarn dev",
+		"beforeBuildCommand": "yarn generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
+</TabItem>
+<TabItem label="pnpm">
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+3. Mettez à jour la configuration Next.js:
+
+```ts
+// next.conf.ts
+const isProd = process.env.NODE_ENV === 'production';
+module.exports = async (phase, { defaultConfig }) => {
+	let internalHost = null;
+	// Dans le mode développeur on utilise "internal-ip" pour se servir des assets.
+	if (!isProd) {
+		const { internalIpV4 } = await import('internal-ip');
+		internalHost = await internalIpV4();
+	}
+	const nextConfig = {
+		// Assurez-vous que Next.js utilise SSG au lieu de SSR
+		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+		output: 'export',
+		// Note: Cette fonctionnalité expérimentale est requise pour utiliser NextJS Image en mode SSG.
+		// Voir https://nextjs.org/docs/messages/export-image-api pour des solutions différentes.
+		images: {
+			unoptimized: true,
+		},
+		// Configurez assetPrefix sinon le server ne résoudra pas correctement vos assets.
+		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+	};
+	return nextConfig;
+};
+```
