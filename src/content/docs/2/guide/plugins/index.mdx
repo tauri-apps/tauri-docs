@@ -75,9 +75,9 @@ This will initialize the plugin and the resulting code will look like this:
 
 Plugins can read a configuration object from the Tauri configuration in the `plugins > {plugin-name}` object. The configuration is parsed at runtime:
 
-{/* TODO: Which file is this in? */}
-
 ```rust
+// on the lib.rs file:
+
 use tauri::plugin::{Builder, Runtime, TauriPlugin};
 use serde::Deserialize;
 
@@ -131,12 +131,22 @@ Plugins can hook into several lifecycle events:
 - **Why**: Register mobile plugins, manage state, run background tasks
 
 ```rust
-use tauri::plugin::Builder;
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
 
 Builder::new("<plugin-name>")
   .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
 
-    // TODO: some nice example code here?
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
 
     Ok(())
   })
@@ -145,9 +155,7 @@ Builder::new("<plugin-name>")
 #### on_navigation
 
 - **When**: Webview is attempting to perform a navigation
-- **Why**: TODO:
-
-{/* TODO: Why */}
+- **Why**: Validate the navigation or track URL changes
 
 Returning `false` cancels the navigation.
 
@@ -164,42 +172,55 @@ Builder::new("<plugin-name>")
 
 #### on_webview_ready
 
-- **When**: New window is being created
-- **Why**: TODO:
-
-{/* TODO: Why */}
+- **When**: New window has been created
+- **Why**: Execute an initialization script for every window
 
 ```rust
 use tauri::plugin::Builder;
 
 Builder::new("<plugin-name>")
   .on_webview_ready(|window| {
-    // TODO: Maybe a more practical example?
-    println!("window {} created", window.label());
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
   })
 ```
 
 #### on_event
 
 - **When**: Event loop events
-- **Why**: TODO:
-
-{/* TODO: Why */}
+- **Why**: Handle core events such as window events, menu events and application exit requested (possibly denying the app to be exited to keep it on the tray for instance).
 
 With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-alpha/tauri/enum.RunEvent.html).
 
 ```rust
-use tauri::{plugin::Builder, RunEvent};
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
 
 Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
   .on_event(|app, event| {
     match event {
       RunEvent::ExitRequested { api, .. } => {
-        // TODO: Fill out examples
-        // user requested a window to be closed
+        // user requested a window to be closed and there's no windows left
+
+        // we can prevent the app from exiting:
+        api.prevent_exit();
       }
       RunEvent::Exit => {
         // app is going to exit, you can cleanup here
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
       }
       _ => {}
     }
@@ -209,9 +230,7 @@ Builder::new("<plugin-name>")
 #### on_drop
 
 - **When**: Plugin deconstruction
-- **Why**: TODO:
-
-{/* TODO: Why */}
+- **Why**: Execute code when the plugin has been destroyed
 
 See [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) for more information.
 
@@ -220,7 +239,6 @@ use tauri::plugin::Builder;
 
 Builder::new("<plugin-name>")
   .on_drop(|app| {
-    // TODO: Code example
     // plugin has been destroyed...
   })
 ```
