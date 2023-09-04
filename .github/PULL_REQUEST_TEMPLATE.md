@@ -28,4 +28,7 @@ Here’s what will happen next:
 
 3. One or more of our maintainers will take a look and may ask you to make changes.
    We try to be responsive, but don’t worry if this takes a day or two.
+
+4. Reach out to us on Discord with any questions along the way: 
+   https://discord.com/invite/tauri
 -->
