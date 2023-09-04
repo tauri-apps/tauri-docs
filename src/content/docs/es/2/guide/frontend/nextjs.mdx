@@ -6,12 +6,12 @@ i18nReady: true
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-Next.js es un framework de React. Aprende más sobre Next.js en https://nextjs.org. Esta guía es precisa a partir de Next.js 13.4.19.
+Next.js es un framework para React. Aprende más sobre Next.js en https://nextjs.org. Esta guía es precisa a partir de Next.js 13.4.19.
 
 ## Checklist
 
 - Usa exports estáticos estableciendo `output: 'export'`. Tauri no soporta soluciones basadas en el servidor.
-- Usa `internal-ip` para compatibilidad con móviles para que puedas configurar `assetPrefix`. Esto es necesario para que el servidor resuelva correctamente los activos.
+- Usa `internal-ip` para compatibilidad con móviles para que puedas configurar `assetPrefix`. Esto es necesario para que el servidor resuelva correctamente los archivos.
 - Usa `out/` como `distDir` en `tauri.conf.json`.
 
 ## Configuración de ejemplo
@@ -81,7 +81,7 @@ Next.js es un framework de React. Aprende más sobre Next.js en https://nextjs.o
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
 	let internalHost = null;
-	// En modo de desarrollo usamos internal-ip para servir los activos
+	// En modo de desarrollo usamos internal-ip para servir los archivos
 	if (!isProd) {
 		const { internalIpV4 } = await import('internal-ip');
 		internalHost = await internalIpV4();
@@ -95,7 +95,7 @@ module.exports = async (phase, { defaultConfig }) => {
 		images: {
 			unoptimized: true,
 		},
-		// Configura assetPrefix o el servidor no resolverá correctamente tus activos.
+		// Configura assetPrefix o el servidor no resolverá correctamente tus archivos.
 		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 	};
 	return nextConfig;
