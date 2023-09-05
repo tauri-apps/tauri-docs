@@ -95,6 +95,9 @@ export default defineConfig({
 						},
 						{
 							label: 'Frontend Configuration',
+							translations: {
+								es: 'Configuración del Frontend',
+							},
 							link: '/2/guide/frontend/',
 						},
 						{
