@@ -83,7 +83,8 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
 	let internalHost = null;
-	// Dans le mode développeur on utilise "internal-ip" pour se servir des assets.
+	// En mode développement, on utilise "internal-ip" pour se servir des assets.
+
 	if (!isProd) {
 		const { internalIpV4 } = await import('internal-ip');
 		internalHost = await internalIpV4();
