@@ -2,6 +2,8 @@
 title: Plugin Development
 ---
 
+{/* TODO: Add a CLI section */}
+
 import CommandTabs from '@components/CommandTabs.astro';
 
 {/* TODO: Link to windowing system, commands for sending messages, and event system */}
@@ -28,7 +30,7 @@ By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps you
 
 ## Initialize Plugin Project
 
-To bootstrap a new plugin project, run [`plugin init`](/2/reference/cli/#plugin-init) command. If you do not need the NPM package, use the `--no-api` CLI flag.
+To bootstrap a new plugin project, run `plugin init` command. If you do not need the NPM package, use the `--no-api` CLI flag.
 
 <CommandTabs
 	npm="npm run tauri plugin init"
@@ -56,7 +58,7 @@ This will initialize the plugin and the resulting code will look like this:
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
-If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use the [`plugin android add`](/2/reference/cli#plugin-android-add) and [`plugin ios add`](/2/reference/cli#plugin-ios-add) commands to bootstrap the mobile library projects and guide you through the changes needed.
+If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use the `plugin android add` and `plugin ios add` commands to bootstrap the mobile library projects and guide you through the changes needed.
 
 ## Mobile Plugin Development
 
