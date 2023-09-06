@@ -109,17 +109,13 @@ export default defineConfig({
 							link: '2/guide/core-concepts',
 						},
 						{
-							label: 'Plugins',
-							link: '2/guide/plugins',
-						},
-						{
 							label: 'Troubleshooting',
 							link: '2/guide/troubleshoot',
 						},
 					],
 				},
 				{
-					label: 'Workflow',
+					label: 'Guides',
 					items: [
 						{
 							label: 'Develop',
@@ -140,6 +136,10 @@ export default defineConfig({
 						{
 							label: 'Distribute',
 							link: '2/guide/distribute',
+						},
+						{
+							label: 'Plugin Development',
+							link: '2/guide/plugins',
 						},
 					],
 				},
