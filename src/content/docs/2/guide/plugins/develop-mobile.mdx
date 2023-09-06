@@ -210,9 +210,6 @@ impl<R: Runtime> <plugin-name;pascal-case><R> {
   }
 }
 ```
-
-{/* TODO: Do we want to also cover calling it from JS or linking the the respective part in the `plugins/index.mdx` guide? */}
-
 ## Permissions
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
@@ -375,7 +372,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-The helper functionss can then be called from the NPM package by using the `addPluginListener` helper function:
+The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/2/reference/js/core/namespacetauri/#addpluginlistener) helper function:
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
@@ -390,5 +387,3 @@ export async function onRequest(
 	);
 }
 ```
-
-{/* TODO: add link for addPluginListener */}
