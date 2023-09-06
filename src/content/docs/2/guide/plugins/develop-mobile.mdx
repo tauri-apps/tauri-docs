@@ -41,8 +41,7 @@ Tauri uses Kotlin by default for the Android plugin implementation, but you can 
 
 ### Develop an iOS Plugin
 
-TODO: 
-
+TODO:
 
 ## Plugin Configuration
 
@@ -61,6 +60,7 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
   }
 }
 ```
+
 </TabItem>
 <TabItem label="iOS">
 
@@ -87,7 +87,7 @@ There are also the additional [lifecycle events for plugins](/2/guide/plugins#li
 ### load
 
 - **When**: When the plugin is loaded into the web view
-- **Why**: TODO:
+- **Why**: Execute an initialization code for your plugin
 
 {/* TODO: above */}
 
@@ -122,7 +122,7 @@ class ExamplePlugin: Plugin {
 **Note**: This is only available on Android.
 
 - **When**: When the activity is re-launched. See [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) for more information.
-- **Why**: TODO:
+- **Why**: Handle application re-launch such as when a notification is clicked or a deep link is accessed.
 
 {/* TODO: above */}
 
@@ -163,7 +163,6 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 
 </TabItem>
 <TabItem label="iOS">
-
 
 ```swift
 class ExamplePlugin: Plugin {
@@ -210,6 +209,7 @@ impl<R: Runtime> <plugin-name;pascal-case><R> {
   }
 }
 ```
+
 ## Permissions
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
@@ -317,7 +317,6 @@ impl<R: Runtime> Notification<R> {
 
 </TabItem>
 </Tabs>
-
 
 ## Plugin Events
 
