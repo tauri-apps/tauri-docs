@@ -19,7 +19,7 @@ The Tauri v2 CLI includes a `migrate` command that automates most of the process
     yarn tauri migrate"
 	pnpm="pnpm update @tauri-apps/cli --latest
     pnpm tauri migrate"
-	cargo='cargo install tauri-cli version "^2.0.0-alpha"
+	cargo='cargo install tauri-cli --version "^2.0.0-alpha"
     cargo tauri migrate'
 />
 
@@ -77,8 +77,8 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `Plugin::setup_with_config` removed. Use the updated `tauri::Plugin::PluginApi` instead.
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` and `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` removed. Enable each core plugin individually via `scope::ipc::RemoteDomainAccessScope::add_plugin` instead.
 - `updater` module removed. Use `tauri-plugin-updater` instead. [Migration](#migrate-to-updater-plugin)
-- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` and `Builder::on_menu_event` APIs removed. [Migration](#migrate-menu)
-- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` and `SystemTrayMenuItem` APIs removed. [Migration](#migrate-to-tray-icon)
+- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` and `Builder::on_menu_event` APIs removed. [Migration](#migrate-to-menu)
+- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` and `SystemTrayMenuItem` APIs removed. [Migration](#migrate-to-tray-icon-module)
 
 ### JavaScript API Changes
 
@@ -943,7 +943,7 @@ See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIc
 
 #### Migrate to Menu
 
-Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submenu` instead of `tauri::SystemTraySubmenu` and `tauri::menu::PredefinedMenuItem` instead of `tauri::SystemTrayMenuItem`. [Migration](#migrate-menu)
+Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submenu` instead of `tauri::SystemTraySubmenu` and `tauri::menu::PredefinedMenuItem` instead of `tauri::SystemTrayMenuItem`. [Migration](#migrate-to-menu)
 
 #### Tray Events
 
