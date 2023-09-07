@@ -15,16 +15,16 @@ importers:
     dependencies:
       '@astrojs/markdown-remark':
         specifier: ^3.0.0
-        version: 3.0.0(astro@3.0.8)
+        version: 3.0.0(astro@3.0.10)
       '@astrojs/starlight':
         specifier: ^0.9.0
-        version: 0.9.0(astro@3.0.8)
+        version: 0.9.0(astro@3.0.10)
       '@types/json-schema':
         specifier: ^7.0.12
         version: 7.0.12
       astro:
-        specifier: ^3.0.8
-        version: 3.0.8
+        specifier: ^3.0.10
+        version: 3.0.10
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -45,10 +45,10 @@ importers:
         version: 0.14.4
       starlight-blog:
         specifier: ^0.3.0
-        version: 0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.8)
+        version: 0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.10)
       starlight-links-validator:
         specifier: ^0.3.0
-        version: 0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.8)
+        version: 0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.10)
 
   packages/i18n-tracker:
     devDependencies:
@@ -120,13 +120,13 @@ packages:
     resolution: {integrity: sha512-NQ4ppp1CM0HNkKbJNM4saVSfmUYzGlRalF6wx7F6T/MYHYSWGuojY89/oFTy4t8VlOGUCUijlsVNNeziWaUo5g==}
     dev: false
 
-  /@astrojs/markdown-remark@3.0.0(astro@3.0.8):
+  /@astrojs/markdown-remark@3.0.0(astro@3.0.10):
     resolution: {integrity: sha512-s8I49Je4++ImgYAgwL32HgN8m6we2qz3RtBpN4AjObMODPwDylmzUHZksD8Toy31q/P59ED3MuwphqOGm9l03w==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.0.8
+      astro: 3.0.10
       github-slugger: 2.0.0
       import-meta-resolve: 3.0.0
       rehype-raw: 6.1.1
@@ -143,17 +143,17 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@1.0.0(astro@3.0.8):
+  /@astrojs/mdx@1.0.0(astro@3.0.10):
     resolution: {integrity: sha512-Gmeleci8o4X7dST9E85c1+k273zcKW8cSFgZLTwU5K4dC0qHfY/EaDKHWrtzOB2wjZlT1JDRzTJ68LJYGrF2OA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
-      '@astrojs/markdown-remark': 3.0.0(astro@3.0.8)
+      '@astrojs/markdown-remark': 3.0.0(astro@3.0.10)
       '@astrojs/prism': 3.0.0
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
-      astro: 3.0.8
+      astro: 3.0.10
       es-module-lexer: 1.3.0
       estree-util-visit: 1.2.1
       github-slugger: 2.0.0
@@ -186,16 +186,16 @@ packages:
       zod: 3.21.1
     dev: false
 
-  /@astrojs/starlight@0.9.0(astro@3.0.8):
+  /@astrojs/starlight@0.9.0(astro@3.0.10):
     resolution: {integrity: sha512-RK1QGfcU7bCxiOaGhVwJiA2NojswFq39v675IqS1/P97S0uHHQEtPHyiOd3vS2N/fAhwE78Vru9ykeB29BQlxw==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
-      '@astrojs/mdx': 1.0.0(astro@3.0.8)
+      '@astrojs/mdx': 1.0.0(astro@3.0.10)
       '@astrojs/sitemap': 3.0.0
       '@pagefind/default-ui': 1.0.0-alpha.10
       '@types/mdast': 3.0.12
-      astro: 3.0.8
+      astro: 3.0.10
       bcp-47: 2.1.0
       execa: 7.2.0
       hast-util-select: 5.0.5
@@ -1210,14 +1210,14 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro@3.0.8:
-    resolution: {integrity: sha512-behNlLMlT8yWLlVvKKB2ufbSwxiqYUKqw31LSQx+lNQ8/lBvxemyjSBDMlBbGVCWEfg67B2bqWIrCweHSWb01Q==}
+  /astro@3.0.10:
+    resolution: {integrity: sha512-LxLlFksTUn3B3Xi3KBirRBg1QI8t2lvOijfODor1OSpAnlEZUzToyLxbdzR2dBVLF5reAoi7LJNKsQouPnMXlg==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
       '@astrojs/compiler': 2.0.1
       '@astrojs/internal-helpers': 0.2.0
-      '@astrojs/markdown-remark': 3.0.0(astro@3.0.8)
+      '@astrojs/markdown-remark': 3.0.0(astro@3.0.10)
       '@astrojs/telemetry': 3.0.1
       '@babel/core': 7.22.11
       '@babel/generator': 7.22.10
@@ -1252,13 +1252,12 @@ packages:
       ora: 7.0.1
       p-limit: 4.0.0
       path-to-regexp: 6.2.1
-      preferred-pm: 3.1.1
+      preferred-pm: 3.1.2
       prompts: 2.4.2
       rehype: 12.0.1
       resolve: 1.22.4
       semver: 7.5.4
       server-destroy: 1.0.1
-      sharp: 0.32.5
       shiki: 0.14.4
       string-width: 6.1.0
       strip-ansi: 7.1.0
@@ -1271,6 +1270,8 @@ packages:
       which-pm: 2.1.1
       yargs-parser: 21.1.1
       zod: 3.21.1
+    optionalDependencies:
+      sharp: 0.32.5
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3516,8 +3517,8 @@ packages:
       tunnel-agent: 0.6.0
     dev: false
 
-  /preferred-pm@3.1.1:
-    resolution: {integrity: sha512-CsZgOVLKHifdoRu2y66P1s6oLb2WfT5Njkcgi80I/52FWTTVkWG6z0Z13vPkXC4hsT0nMrYXqX30buH8+D2eRQ==}
+  /preferred-pm@3.1.2:
+    resolution: {integrity: sha512-nk7dKrcW8hfCZ4H6klWcdRknBOXWzNQByJ0oJyX97BOupsYD+FzLS4hflgEu/uPUEHZCuRfMxzCBsuWd7OzT8Q==}
     engines: {node: '>=10'}
     dependencies:
       find-up: 5.0.0
@@ -3950,27 +3951,27 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.8):
+  /starlight-blog@0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.10):
     resolution: {integrity: sha512-SrjG+v34k/2asONnBdRv5oTMVOgbJtVD19z7TRMwKzRuZw4cZbaFq3kPO/UMrAm35Rj1iKFlZNq7YpTfqxQzoQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       astro: '>=3.0.0'
     dependencies:
-      '@astrojs/starlight': 0.9.0(astro@3.0.8)
-      astro: 3.0.8
+      '@astrojs/starlight': 0.9.0(astro@3.0.10)
+      astro: 3.0.10
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.8):
+  /starlight-links-validator@0.3.0(@astrojs/starlight@0.9.0)(astro@3.0.10):
     resolution: {integrity: sha512-nQ0fq1yuo8LAGZGD7J7ntKkVht1Qe2djaw544DuOeBxV5JSHNTkAs3c+UxgG3JRZcbNHSb7e+N/cUjxCNOUR6w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
       astro: '>=2.5.0'
     dependencies:
-      '@astrojs/starlight': 0.9.0(astro@3.0.8)
-      astro: 3.0.8
+      '@astrojs/starlight': 0.9.0(astro@3.0.10)
+      astro: 3.0.10
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
