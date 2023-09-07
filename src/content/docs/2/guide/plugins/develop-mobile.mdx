@@ -44,7 +44,7 @@ Tauri uses Kotlin by default for the Android plugin implementation, but you can 
 
 A Tauri plugin for iOS is defined as a Swift class that extends the `Plugin` class from the `Tauri` package. Each function with the `@objc` attribute and the `(_ invoke: Invoke)` parameter (for example `@objc private func download(_ invoke: Invoke) { }`) can be called by Rust or JavaScript.
 
-The plugin is defined as a [Swift package](https://www.swift.org/package-manager/) so you can use its package manager to manage dependencies.
+The plugin is defined as a [Swift package](https://www.swift.org/package-manager/) so that you can use its package manager to manage dependencies.
 
 ## Plugin Configuration
 
