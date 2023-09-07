@@ -12,7 +12,7 @@
   "dependencies": {
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
-    "typedoc": "^0.25.0",
+    "typedoc": "^0.25.1",
     "typedoc-plugin-markdown": "4.0.0-next.17",
     "typedoc-plugin-mdn-links": "^3.1.0"
   }
