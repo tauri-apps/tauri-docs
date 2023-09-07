@@ -1,0 +1,28 @@
+---
+title: State Management
+---
+
+import Stub from '@components/Stub.astro';
+
+<Stub>
+
+Define a state struct and let Tauri manage it:
+
+```rust
+use std::{collections::HashMap, sync::Mutex};
+use tauri::{Manager, plugin::Builder};
+
+#[derive(Default)]
+struct Store(Mutex<HashMap<usize, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(Store::default());
+
+    // retrieve the store later
+    let store = app.state::<Store>();
+    Ok(())
+  })
+```
+
+</Stub>

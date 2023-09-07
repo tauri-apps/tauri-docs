@@ -115,7 +115,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Workflow',
+					label: 'Guides',
 					items: [
 						{
 							label: 'Develop',
@@ -136,6 +136,10 @@ export default defineConfig({
 						{
 							label: 'Distribute',
 							link: '2/guide/distribute',
+						},
+						{
+							label: 'Plugin Development',
+							link: '2/guide/plugins',
 						},
 					],
 				},
