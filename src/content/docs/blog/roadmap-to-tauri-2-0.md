@@ -2,7 +2,7 @@
 title: Roadmap to Tauri 2.0
 date: 2023-09-07
 authors: [lorenzolewis]
-excerpt: "Tauri 1.0 was released in June 2022 and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust."
+excerpt: 'Tauri 1.0 was released in June 2022 and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust.'
 banner:
   content: |
     You're reading the blog on the prerelease site for Tauri 2.0 -
@@ -65,7 +65,7 @@ There are a lot of moving parts in moving towards a stable release. The two main
 
 Because of those priorities we don't yet have hard timelines for a Tauri 2.0 stable release. We have internal targets that we're aiming for to keep us on track, but we want to be sure that we're flexible to accommodate feedback.
 
-What we can share right now is that we're roughly targeting the stable release of Tauri 2.0 in early 2024. We're driving sharply ahead to enter the beta phase as soon as possible. 
+What we can share right now is that we're roughly targeting the stable release of Tauri 2.0 in early 2024. We're driving sharply ahead to enter the beta phase as soon as possible.
 
 As we make progress towards Tauri 2.0 we'll be sure to share updates to the community. The primary way to keep up to date is to watch for the Tauri releases as they move through the beta, release candidate, and lastly stable phases. You can also keep an eye on [Twitter](https://twitter.com/TauriApps), [Mastodon](https://fosstodon.org/@TauriApps), and [Discord](https://discord.com/invite/tauri).
 
