@@ -89,9 +89,8 @@ There are also the additional [lifecycle events for plugins](/2/guide/plugins#li
 ### load
 
 - **When**: When the plugin is loaded into the web view
-- **Why**: Execute an initialization code for your plugin
+- **Why**: Execute plugin initialization code
 
-{/* TODO: above */}
 
 <Tabs>
 <TabItem label="Android">
@@ -126,7 +125,6 @@ class ExamplePlugin: Plugin {
 - **When**: When the activity is re-launched. See [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) for more information.
 - **Why**: Handle application re-launch such as when a notification is clicked or a deep link is accessed.
 
-{/* TODO: above */}
 
 ```java
 // import android.content.Intent
@@ -181,9 +179,6 @@ class ExamplePlugin: Plugin {
 </Tabs>
 
 Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-alpha/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
-
-{/* TODO: Can this Rust code example be condensed down? */}
-
 ```rust
 use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
@@ -236,7 +231,6 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
 First override the `checkPermissions` and `requestPermissions` functions:
 
 ```swift
-// TODO: Filename
 class ExamplePlugin: Plugin {
   @objc open func checkPermissions(_ invoke: Invoke) {
     invoke.resolve(["postNotification": "prompt"])
