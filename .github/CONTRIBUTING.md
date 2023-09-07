@@ -52,7 +52,17 @@ While Tauri 2.0 is still in the prerelease stage people follow these guidelines 
 
 ### Writing Style
 
-Any ideas? Put them here!
+**Dictionary**
+
+| Word     | Description                          |
+| -------- | ------------------------------------ |
+| app      | A Tauri app, prefer over application |
+| web view | Where the UI is rendered             |
+
+- Use an [oxford comma](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/) in paragraphs, but not in headings and titles
+- Use [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case) for headings and titles
+- Make headings as succinct as possible to help the reader quickly find the content they need
+- Use [simple present tense](https://www.grammarly.com/blog/simple-present/) for verbs
 
 ### Guide
 
