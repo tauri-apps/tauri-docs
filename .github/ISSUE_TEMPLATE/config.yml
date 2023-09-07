@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discord Chat
+    url: https://discord.com/invite/tauri
+    about: Ask questions and talk to other Tauri users and the maintainers
+  - name: Tauri Bug Report
+    url: https://github.com/tauri-apps/tauri/issues/new/choose
+    about: Found a bug in Tauri? Let us know over on the Tauri repo

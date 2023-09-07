@@ -1,0 +1,23 @@
+name: 'Content Issue 📄'
+description: Report an issue, a possible bug or anything that is confusing with Tauri docs.
+labels: ['improve documentation']
+body:
+  - type: markdown
+    attributes:
+      value: "# Reminder: If you're reporting a minor correction, feel free to submit a PR directly!"
+  - type: textarea
+    id: page
+    attributes:
+      label: '📋 Page(s) affected (or suggested, for new content)'
+      description: Please provide the URL of the page(s) affected (or suggested, for new content).
+      placeholder: https://tauri.app/v1/guides/getting-started/setup
+    validations:
+      required: true
+  - type: textarea
+    id: general_desc
+    attributes:
+      label: '📋 Description or bullet point outline (if proposing new content)'
+      description: If you are proposing new content please provide a general description or bullet points about what should be added.
+      placeholder: '...'
+    validations:
+      required: true
