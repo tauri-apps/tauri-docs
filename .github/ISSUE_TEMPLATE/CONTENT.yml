@@ -1,18 +1,10 @@
-name: "Content Report 📄"
+name: "Content Issue 📄"
 description: Report an issue, a possible bug or anything that is confusing with Tauri docs.
 labels: ["improve documentation"]
 body:
   - type: markdown
     attributes:
       value: "# Reminder: If you're reporting a minor correction, feel free to submit a PR directly!"
-  - type: input
-    id: subject
-    attributes:
-      label: 📚 Subject area/topic
-      description: Documentation area/topic (e.g. Authenticator, File System, CLI)
-      placeholder: "..."
-    validations:
-      required: true
   - type: textarea
     id: page
     attributes:
@@ -24,16 +16,8 @@ body:
   - type: textarea
     id: general_desc
     attributes:
-      label: "📋 General description or bullet points (if proposing new content)"
+      label: "📋 Description or bullet point outline (if proposing new content)"
       description: If you are proposing new content please provide a general description or bullet points about what should be added.
       placeholder: "..."
     validations:
         required: true
-  - type: textarea
-    id: incorrect_content
-    attributes:
-      label: "🖥️ Reproduction in StackBlitz (if reporting incorrect content or code samples)"
-      description: If you are reporting incorrect content or code samples please attach a reproduction.
-      placeholder: "..."
-    validations:
-        required: false
