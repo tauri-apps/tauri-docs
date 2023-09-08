@@ -52,7 +52,7 @@ const authors = {
 	},
 };
 
-const site = 'https://beta.tauri.app'
+const site = 'https://beta.tauri.app';
 
 // https://astro.build/config
 export default defineConfig({
