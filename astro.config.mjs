@@ -52,9 +52,11 @@ const authors = {
 	},
 };
 
+const site = 'https://beta.tauri.app'
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://beta.tauri.app',
+	site,
 	integrations: [
 		starlightLinksValidator(),
 		starlightBlog({ authors }),
@@ -72,6 +74,16 @@ export default defineConfig({
 				twitter: 'https://twitter.com/TauriApps',
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
+			head: [
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image', content: site + 'og.png' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'twitter:image', content: site + 'og.png' },
+				},
+			],
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
