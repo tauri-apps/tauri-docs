@@ -20,6 +20,10 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 2. Run `pnpm i`
 3. Run `pnpm dev` to start the local server
 
+### Gitpod
+
+[Allow Gitpod to open new tabs](https://www.gitpod.io/docs/configure/user-settings/browser-settings) so you immediately when the environment is done loading get a new tab popping up with the documentation.
+
 ## Write Documentation
 
 We have the following types of documents that roughly follow the types defined by [Diátaxis](https://diataxis.fr/index.html):
@@ -48,7 +52,17 @@ While Tauri 2.0 is still in the prerelease stage people follow these guidelines 
 
 ### Writing Style
 
-Any ideas? Put them here!
+**Dictionary**
+
+| Word     | Description                          |
+| -------- | ------------------------------------ |
+| app      | A Tauri app, prefer over application |
+| web view | Where the UI is rendered             |
+
+- Use an [oxford comma](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/) in paragraphs, but not in headings and titles
+- Use [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case) for headings and titles
+- Make headings as succinct as possible to help the reader quickly find the content they need
+- Use [simple present tense](https://www.grammarly.com/blog/simple-present/) for verbs
 
 ### Guide
 
@@ -84,6 +98,6 @@ Topics that are around understanding something can be written as a blog post (we
 
 ## Translations (i18n)
 
-While we plan to support translations in the future, we are not currently accepting them until Tauri 2.0 is a bit more stable.
+Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
-Once translations are enabled you can check the [translation status page](https://beta.tauri.app/contribute/translate-status).
+Read the [Translating Guide](./TRANSLATING.md) for more information.

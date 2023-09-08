@@ -11,3 +11,7 @@ packages/plugins-workspace
 
 # Files
 pnpm-lock.yaml
+
+# Configs
+.github
+!.github/**.md
