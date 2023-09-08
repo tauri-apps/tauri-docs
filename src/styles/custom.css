@@ -95,19 +95,6 @@
 	background: linear-gradient(transparent, var(--sl-color-bg));
 }
 
-.hero .hero-html {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	
-	opacity: 0.4;
-}
-
-.hero-html > svg {
-	width: min(70%,20rem);
-	height: auto;
-}
-
 .bg-grad {
 	position: absolute;
 	top: -50%;
@@ -130,38 +117,25 @@
 	animation: 14s intro;
 }
 
+/* Tauri logo on index page */
+.hero-html > svg {
+	opacity: 0.4;
+	width: 100%;
+}
+
 @media (min-width: 786px) {
 	.hero-html > svg {
-		width: 32.5vw !important;
-		height: auto;
-
-		animation: 3s intro forwards, 3s loop infinite;
+		animation: 3s intro forwards;
 	}
 }
 
 @keyframes intro {
 	0% {
-		scale: 1.5;
+		scale: 1.2;
 		opacity: 0;
 	}
 
-	100% {}
-}
-
-@keyframes loop {
-	0% {
-		scale: 1;
-		opacity: 0.75;
-	}
-
-	50% {
-		scale: 0.925;
-		opacity: 0.5;
-	}
-
 	100% {
-		scale: 1;
-		opacity: 0.75;
 	}
 }
 
