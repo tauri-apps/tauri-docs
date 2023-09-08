@@ -119,14 +119,9 @@
 
 /* Tauri logo on index page */
 .hero-html > svg {
+	animation: 3s intro forwards;
 	opacity: 0.4;
 	width: 100%;
-}
-
-@media (min-width: 786px) {
-	.hero-html > svg {
-		animation: 3s intro forwards;
-	}
 }
 
 @keyframes intro {
