@@ -1,0 +1,101 @@
+---
+title: Nuxt
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7.
+
+## Checklist
+
+- Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
+- Set host to `0.0.0.0`.
+- Use `dist/` as `distDir` in `tauri.conf.json`.
+- Compile using `nuxi generate`.
+- (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
+
+## Example Configuration
+
+1. Update Tauri configuration:
+
+<Tabs>
+	<TabItem label="npm">
+	
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+	
+	</TabItem>
+	<TabItem label="yarn">
+	
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "yarn dev",
+		"beforeBuildCommand": "yarn generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+	
+	</TabItem>
+	<TabItem label="pnpm">
+	
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
+}
+```
+	
+	</TabItem>
+</Tabs>
+
+2. Update Nuxt configuration:
+
+```ts
+export default defineNuxtConfig({
+	// (optional) Enable the Nuxt devtools
+	devtools: { enabled: true },
+	// Enable SSG
+	ssr: false,
+	vite: {
+		// Better support for Tauri CLI output
+		clearScreen: false,
+		// Enable environment variables
+		// Additional environment variables can be found at
+		// https://tauri.app/2/reference/environment-variables/
+		envPrefix: ['VITE_', 'TAURI_'],
+		server: {
+			// Tauri requires a consistent port
+			strictPort: true,
+			// Enables the development server to be discoverable by other devices for mobile development
+			host: '0.0.0.0',
+			hmr: {
+				// Use websocket for mobile hot reloading
+				protocol: 'ws',
+				// Make sure it's available on the network
+				host: '0.0.0.0',
+				// Use a specific port for hmr
+				port: 5183,
+			},
+		},
+	},
+});
+```
