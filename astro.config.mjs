@@ -77,11 +77,11 @@ export default defineConfig({
 			head: [
 				{
 					tag: 'meta',
-					attrs: { property: 'og:image', content: site + 'og.png' },
+					attrs: { property: 'og:image', content: site + '/og.png' },
 				},
 				{
 					tag: 'meta',
-					attrs: { property: 'twitter:image', content: site + 'og.png' },
+					attrs: { property: 'twitter:image', content: site + '/og.png' },
 				},
 			],
 			// TODO: Be sure this is updated when the branch is switched
