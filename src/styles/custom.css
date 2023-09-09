@@ -118,19 +118,28 @@
 }
 
 /* Tauri logo on index page */
-.hero-html > hero-icon > svg {
+.hero > img {
 	animation: 3s intro;
 	opacity: 0.4;
 	width: 100%;
 }
 
+html[data-theme='light'] .hero > img {
+	filter: invert(1);
+}
+
 @keyframes intro {
 	0% {
-		scale: 1.2;
+		scale: 1.5;
 		opacity: 0;
 	}
 
+	80% {
+		scale: 0.9;
+	}
+
 	100% {
+		scake: 1.4;
 	}
 }
 
