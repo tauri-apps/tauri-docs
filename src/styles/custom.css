@@ -137,7 +137,8 @@ html[data-theme='light'] .hero > img {
 		scale: 0.9;
 	}
 
-	100% {}
+	100% {
+	}
 }
 
 @media (prefers-reduced-motion) {
