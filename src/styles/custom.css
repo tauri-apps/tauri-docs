@@ -118,7 +118,7 @@
 }
 
 /* Tauri logo on index page */
-.hero-html > svg {
+.hero-html > hero-icon > svg {
 	animation: 3s intro;
 	opacity: 0.4;
 	width: 100%;
