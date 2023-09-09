@@ -1,12 +1,10 @@
 ---
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { type CollectionEntry, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-const entries = ['2/guide/recipe/stub'];
-
-const list = (await Promise.all(
-	entries.flatMap((entry) => getEntry('docs', entry))
-)) as CollectionEntry<'docs'>[];
+const list = await getCollection('docs', ({ slug }) => {
+	return slug.startsWith('features') && slug !== 'features';
+});
 ---
 
 <CardGrid>
