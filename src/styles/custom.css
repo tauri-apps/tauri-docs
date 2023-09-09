@@ -121,7 +121,6 @@
 .hero > img {
 	animation: 3s intro;
 	opacity: 0.4;
-	width: 100%;
 }
 
 html[data-theme='light'] .hero > img {
