@@ -95,11 +95,6 @@
 	background: linear-gradient(transparent, var(--sl-color-bg));
 }
 
-.hero > img {
-	opacity: 0.3;
-	animation: 3s intro;
-}
-
 .bg-grad {
 	position: absolute;
 	top: -50%;
@@ -122,14 +117,27 @@
 	animation: 14s intro;
 }
 
+/* Tauri logo on index page */
+.hero > img {
+	animation: 3s intro;
+	opacity: 0.4;
+}
+
+html[data-theme='light'] .hero > img {
+	filter: invert(1);
+}
+
 @keyframes intro {
 	0% {
-		scale: 1.2;
-		opacity: 0%;
+		scale: 1.4;
+		opacity: 0;
 	}
 
-	100% {
+	80% {
+		scale: 0.9;
 	}
+
+	100% {}
 }
 
 @media (prefers-reduced-motion) {
