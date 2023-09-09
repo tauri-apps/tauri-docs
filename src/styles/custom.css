@@ -130,7 +130,7 @@ html[data-theme='light'] .hero > img {
 
 @keyframes intro {
 	0% {
-		scale: 1.5;
+		scale: 1.4;
 		opacity: 0;
 	}
 
@@ -138,9 +138,7 @@ html[data-theme='light'] .hero > img {
 		scale: 0.9;
 	}
 
-	100% {
-		scale: 1.4;
-	}
+	100% {}
 }
 
 @media (prefers-reduced-motion) {
