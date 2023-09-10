@@ -4,21 +4,12 @@ description: Envoie une notification native à l'utilisateur.
 i18nReady: true
 ---
 
-import PluginBreadcrumb from '@components/PluginBreadcrumb.astro';
+import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
 
-<PluginBreadcrumb
-	version="v2.0.0-alpha.2"
-	github="https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/notification"
-	npm="https://www.npmjs.com/package/@tauri-apps/plugin-notification"
-	cratesio="https://crates.io/crates/tauri-plugin-notification"
-	jsApi="/fr/2/reference/js/notification"
-
-    docsrs="https://docs.rs/tauri-plugin-notification/2.0.0-alpha.2/tauri_plugin_notification/"
-
-/>
+<PluginLinks plugin="notification" version="2.0.0-alpha.2" />
 
 Envoie une notification native à votre utilisateur via le plugin de notification.
 
