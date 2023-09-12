@@ -93,36 +93,36 @@ export default defineConfig({
 				{
 					label: 'Quick Start',
 					items: [
-						{ label: 'Why Tauri?', link: '/2/guide/' },
+						{ label: 'Why Tauri?', link: 'guides' },
 						{
 							label: 'Prerequisites',
 							translations: {
 								es: 'Prerrequisitos',
 							},
-							link: '/2/guide/prerequisites',
+							link: 'guides/prerequisites',
 						},
 						{
 							label: 'Create a Project',
-							link: '/2/guide/create/',
+							link: 'guides/create',
 						},
 						{
 							label: 'Frontend Configuration',
 							translations: {
 								es: 'Configuración del Frontend',
 							},
-							link: '/2/guide/frontend/',
+							link: 'guides/frontend',
 						},
 						{
 							label: 'Upgrade & Migrate',
-							link: '2/guide/upgrade-migrate',
+							link: 'guides/upgrade-migrate',
 						},
 						{
 							label: 'Core Concepts',
-							link: '2/guide/core-concepts',
+							link: 'guides/core-concepts',
 						},
 						{
 							label: 'Troubleshooting',
-							link: '2/guide/troubleshoot',
+							link: 'guides/troubleshoot',
 						},
 					],
 				},
@@ -131,27 +131,27 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: '2/guide/develop',
+							link: 'guides/develop',
 						},
 						{
 							label: 'Debug',
-							link: '2/guide/debug',
+							link: 'guides/debug',
 						},
 						{
 							label: 'Test',
-							link: '2/guide/test',
+							link: 'guides/test',
 						},
 						{
 							label: 'Build',
-							link: '2/guide/build',
+							link: 'guides/build',
 						},
 						{
 							label: 'Distribute',
-							link: '2/guide/distribute',
+							link: 'guides/distribute',
 						},
 						{
 							label: 'Plugin Development',
-							link: '2/guide/plugins',
+							link: 'guides/plugins',
 						},
 					],
 				},
@@ -179,34 +179,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
-					items: [
-						{ label: 'All Features and Recipes', link: '2/guide/list' },
-						{ label: 'Authenticator', link: '2/guide/authenticator' },
-						{ label: 'Autostart', link: '2/guide/autostart' },
-						{ label: 'CLI', link: '2/guide/cli' },
-						{ label: 'Clipboard', link: '2/guide/clipboard' },
-						{ label: 'Dialog', link: '2/guide/dialog' },
-						{ label: 'File System', link: '2/guide/file-system' },
-						{ label: 'Global Shortcut', link: '2/guide/global-shortcut' },
-						{ label: 'HTTP Client', link: '2/guide/http-client' },
-						{ label: 'Localhost', link: '2/guide/localhost' },
-						{ label: 'Logging', link: '2/guide/logging' },
-						{ label: 'Notification', link: '2/guide/notification' },
-						{ label: 'OS Info', link: '2/guide/os-info' },
-						{ label: 'Persisted Scope', link: '2/guide/persisted-scope' },
-						{ label: 'Positioner', link: '2/guide/positioner' },
-						{ label: 'Process', link: '2/guide/process' },
-						{ label: 'Shell', link: '2/guide/shell' },
-						{ label: 'Single Instance', link: '2/guide/single-instance' },
-						{ label: 'SQL', link: '2/guide/sql' },
-						{ label: 'Store', link: '2/guide/store' },
-						{ label: 'Stronghold', link: '2/guide/stronghold' },
-						{ label: 'Updater', link: '2/guide/updater' },
-						{ label: 'Upload', link: '2/guide/upload' },
-						{ label: 'Websocket', link: '2/guide/websocket' },
-						{ label: 'Window Customization', link: '2/guide/window-customization' },
-						{ label: 'Window State', link: '2/guide/window-state' },
-					],
+					autogenerate: { directory: 'features' },
 				},
 			],
 			locales,
