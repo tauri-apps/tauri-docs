@@ -3,19 +3,17 @@ type Plugin = 'notification';
 
 interface Props {
 	plugin: Plugin;
-	version: string;
 }
-const { plugin, version } = Astro.props;
+const { plugin } = Astro.props;
 const github = `https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/${plugin}`;
 const npm = `https://www.npmjs.com/package/@tauri-apps/plugin-${plugin}`;
 const cratesio = `https://crates.io/crates/tauri-plugin-${plugin}`;
 const jsApi = `/2/reference/js/${plugin}`;
-const docsrs = `https://docs.rs/tauri-plugin-${plugin}/${version}`;
+const docsrs = `https://docs.rs/tauri-plugin-${plugin}`;
 const hasApiLinks = jsApi || docsrs;
 ---
 
 <div class="flex row not-content">
-	<div>v{version}</div>
 	<a href={github} class="flex" target="_blank">
 		<svg viewBox="0 0 24 24" fill="currentColor">
 			<path
