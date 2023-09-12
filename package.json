@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^3.1.0",
-    "@astrojs/starlight": "^0.9.0",
+    "@astrojs/starlight": "^0.9.1",
     "@types/json-schema": "^7.0.12",
     "astro": "^3.0.12",
     "astro-feelback": "^0.3.4",
@@ -28,7 +28,7 @@
     "rehype-autolink-headings": "^7.0.0",
     "sharp": "^0.32.5",
     "shiki": "^0.14.4",
-    "starlight-blog": "^0.3.0",
+    "starlight-blog": "^0.3.2",
     "starlight-links-validator": "^0.3.0"
   },
   "pnpm": {
