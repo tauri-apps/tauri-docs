@@ -44,8 +44,8 @@ importers:
         specifier: ^0.14.4
         version: 0.14.4
       starlight-blog:
-        specifier: ^0.3.0
-        version: 0.3.0(@astrojs/starlight@0.9.1)(astro@3.0.12)
+        specifier: ^0.3.2
+        version: 0.3.2(@astrojs/starlight@0.9.1)(astro@3.0.12)
       starlight-links-validator:
         specifier: ^0.3.0
         version: 0.3.0(@astrojs/starlight@0.9.1)(astro@3.0.12)
@@ -3965,8 +3965,8 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.3.0(@astrojs/starlight@0.9.1)(astro@3.0.12):
-    resolution: {integrity: sha512-SrjG+v34k/2asONnBdRv5oTMVOgbJtVD19z7TRMwKzRuZw4cZbaFq3kPO/UMrAm35Rj1iKFlZNq7YpTfqxQzoQ==}
+  /starlight-blog@0.3.2(@astrojs/starlight@0.9.1)(astro@3.0.12):
+    resolution: {integrity: sha512-WwI8hknFwiRTEDgtE917liB2evXATQlJF/SyQdPLctqhrHM91EmDzwCtFhOPKuEqJnCDMOM3MUsGlmwlEMtBCQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
