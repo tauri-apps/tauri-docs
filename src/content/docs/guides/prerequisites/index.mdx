@@ -291,16 +291,26 @@ Next: [Setup for iOS](#ios) or [Create a project](/guides/create/).
 ### iOS
 
 :::caution[macOS Only]
-iOS development requires Xcode and is only available on macOS.
+iOS development requires Xcode and is only available on macOS. Be sure that you've installed Xcode and not Xcode Command Line Tools in the [macOS system dependencies section](#macos).
 :::
 
-Add the iOS targets with `rustup` in Terminal:
+1. Add the iOS targets with `rustup` in Terminal:
 
 ```sh
 rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 ```
 
-Be sure that you've installed Xcode and not Xcode Command Line Tools in the [macOS system dependencies section](#macos).
+2. Install [Homebrew](https://brew.sh):
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+3. Install [Cocoapods](https://cocoapods.org) using Homebrew:
+
+```sh
+brew install cocoapods
+```
 
 Next: [Create a project](/guides/create/).
 
