@@ -3,12 +3,13 @@ type Plugin = 'notification';
 
 interface Props {
 	plugin: Plugin;
+	showJsLinks?: boolean;
 }
-const { plugin } = Astro.props;
+const { plugin, showJsLinks = true } = Astro.props;
 const github = `https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/${plugin}`;
-const npm = `https://www.npmjs.com/package/@tauri-apps/plugin-${plugin}`;
+const npm = showJsLinks ? `https://www.npmjs.com/package/@tauri-apps/plugin-${plugin}` : undefined;
 const cratesio = `https://crates.io/crates/tauri-plugin-${plugin}`;
-const jsApi = `/2/reference/js/${plugin}`;
+const jsApi = showJsLinks ? `/2/reference/js/${plugin}` : undefined;
 const docsrs = `https://docs.rs/tauri-plugin-${plugin}`;
 const hasApiLinks = jsApi || docsrs;
 ---
