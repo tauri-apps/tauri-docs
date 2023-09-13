@@ -38,13 +38,11 @@ use tauri::Manager;
 // Create the command:
 // This command must be async so that it doesn't run on the main thread.
 #[tauri::command]
-async fn close_splashscreen(window: tauri::Window) {
+async fn close_splashscreen() {
   // Close splashscreen
-  if let Some(splashscreen) = window.get_window("splashscreen") {
-    splashscreen.close().unwrap();
-  }
+  window.get_window("splashscreen").expect("no window labeled 'splashscreen' found").close().unwrap()
   // Show main window
-  window.get_window("main").unwrap().show().unwrap();
+  window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
 }
 
 // Register the command:
