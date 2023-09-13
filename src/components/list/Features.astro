@@ -1,0 +1,22 @@
+---
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { getCollection } from 'astro:content';
+
+const list = await getCollection('docs', ({ slug }) => {
+	return slug.startsWith('features') && slug !== 'features';
+});
+---
+
+<CardGrid>
+	{
+		list
+			.sort((a, b) => a.data.title.localeCompare(b.data.title))
+			.map((item) => (
+				<LinkCard
+					title={item.data.title}
+					href={`/${item.slug}`}
+					description={item.data.description}
+				/>
+			))
+	}
+</CardGrid>
