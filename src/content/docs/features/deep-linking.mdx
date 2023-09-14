@@ -1,5 +1,6 @@
 ---
 title: Deep Linking
+description: Set your Tauri application as the default handler for an URL.
 sidebar:
   badge:
     text: New
@@ -7,5 +8,11 @@ sidebar:
 ---
 
 import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
 
-<Stub />
+<PluginLinks plugin="deep-link" />
+
+<Stub>
+	Based on
+	https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/deep-link
+</Stub>
