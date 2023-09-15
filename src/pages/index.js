@@ -307,12 +307,6 @@ function PremiumSponsors() {
       logoColorDark: 'meilisearch_color_dark.svg',
       logoColorLight: 'meilisearch_color_light.svg',
     },
-    {
-      name: 'CrabNebula',
-      link: 'https://www.crabnebula.dev',
-      logoColorDark: 'crabnebula_color_dark.svg',
-      logoColorLight: 'crabnebula_color_light.svg',
-    },
   ]
 
   return (
