@@ -53,6 +53,11 @@ const authors = {
 		title: 'Tauri Security',
 		picture: '/authors/chip.png',
 	},
+	simonhyll: {
+		name: 'Simon Hyll',
+		title: 'Tauri Working Group',
+		picture: '/authors/simonhyll.png',
+	},
 };
 
 const site = 'https://v2.tauri.app';
