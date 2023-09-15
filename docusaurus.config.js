@@ -57,7 +57,7 @@ const navbarItems = [
 
   {
     label: 'Blog',
-    to: 'blog',
+    href: 'https://beta.tauri.app/blog',
     position: 'left',
   },
   {
@@ -193,7 +193,7 @@ const footerLinks = [
     items: [
       {
         label: 'Blog',
-        to: 'blog',
+        href: 'https://beta.tauri.app/blog',
       },
       {
         label: 'OpenCollective',
@@ -340,14 +340,6 @@ async function siteConfig() {
 
           theme: {
             customCss: require.resolve('./src/css/custom.css'),
-          },
-
-          blog: {
-            blogSidebarCount: 0,
-            feedOptions: {
-              type: 'all',
-              copyright: `Copyright © ${new Date().getFullYear()} Tauri Programme within The Commons Conservancy`,
-            },
           },
         },
       ],

@@ -1756,10 +1756,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.19.0.tgz#fa5f12c96811cec3233a53bdbf61d1a05ba9018f"
   integrity sha512-jl+NXUjK2StMgqnZnqgNjZuerFG8zQqWXMBZdMMv4W/aO1ZKQaYWZBxTrtWKphkCBVEMh0wMVfGgOd2BjOZqUQ==
 
-"@fontsource/rubik@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-5.0.11.tgz#53a283b38ef27da4a1c3b48451b308f940a9954d"
-  integrity sha512-/aaDe4YfptSRC8xMj+xiurZu9108IFv9tcmk2o4xyM5vZcCLl6J+kehq7BvIZ4wmu3iaTiD4tqVbv8vGV+9OSQ==
+"@fontsource/rubik@5.0.12":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-5.0.12.tgz#88d5cf35c6246a2ff0548e310cdc7e39a2261786"
+  integrity sha512-R1Yad0eQ8p0WCuuhRn14Jy5h3/lY1ZUQYxs9f2dzJ7NbfBFWUvBRyAVoxcQu/umWnAUzhuVy9VX8uZfOfVFpGQ==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
@@ -2842,10 +2842,10 @@ boolbase@^1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootstrap-icons@1.10.5:
-  version "1.10.5"
-  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.10.5.tgz#5a1bbb1bb2212397d416587db1d422cc9501847c"
-  integrity sha512-oSX26F37V7QV7NCE53PPEL45d7EGXmBgHG3pDpZvcRaKVzWMqIRL9wcqJUyEha1esFtM3NJzvmxFXDxjJYD0jQ==
+bootstrap-icons@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.11.0.tgz#34902091e8ed6ac830f4e9fbc998b47d7a0fe8a6"
+  integrity sha512-bLTbtACfUqwZf6f/xUYUb7bTRZC68QaQwwy9h1b96NPKfnwqzSatHqDypW6R2CBW7zUE7lP+O93GdZuPY3RIHA==
 
 boxen@^5.0.0:
   version "5.1.2"
