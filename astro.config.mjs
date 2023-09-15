@@ -50,6 +50,11 @@ const authors = {
 		title: 'Tauri Development Lead',
 		picture: '/authors/wusyong.png',
 	},
+	simonhyll: {
+		name: 'Simon Hyll',
+		title: 'Tauri Working Group',
+		picture: '/authors/simonhyll.png',
+	},
 };
 
 const site = 'https://beta.tauri.app';
