@@ -92,16 +92,23 @@ pub fn main() {
 To develop mobile Tauri applications, your frontend must serve the assets listening on your public network address.
 The network address can be found using the `internal-ip` NPM:
 
+:::note
+
+At the time of this writing, there is a [serious bug](https://github.com/sindresorhus/internal-ip/issues/48) in `8.0.0`. This is why `7.0.0` is specified explicitly.
+
+:::
+
+
 ```shell
-npm install --save-dev internal-ip
+npm install --save-dev internal-ip@7.0.0
 ```
 
 ```shell
-yarn add -D internal-ip
+yarn add -D internal-ip@7.0.0
 ```
 
 ```shell
-pnpm add -D internal-ip
+pnpm add -D internal-ip@7.0.0
 ```
 
 Then you need to configure your framework to use the internal IP.
