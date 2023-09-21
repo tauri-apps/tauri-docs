@@ -93,36 +93,36 @@ export default defineConfig({
 				{
 					label: 'Quick Start',
 					items: [
-						{ label: 'Why Tauri?', link: '/2/guide/' },
+						{ label: 'Why Tauri?', link: 'guides' },
 						{
 							label: 'Prerequisites',
 							translations: {
 								es: 'Prerrequisitos',
 							},
-							link: '/2/guide/prerequisites',
+							link: 'guides/prerequisites',
 						},
 						{
 							label: 'Create a Project',
-							link: '/2/guide/create/',
+							link: 'guides/create',
 						},
 						{
 							label: 'Frontend Configuration',
 							translations: {
 								es: 'Configuración del Frontend',
 							},
-							link: '/2/guide/frontend/',
+							link: 'guides/frontend',
 						},
 						{
 							label: 'Upgrade & Migrate',
-							link: '2/guide/upgrade-migrate',
+							link: 'guides/upgrade-migrate',
 						},
 						{
 							label: 'Core Concepts',
-							link: '2/guide/core-concepts',
+							link: 'guides/core-concepts',
 						},
 						{
 							label: 'Troubleshooting',
-							link: '2/guide/troubleshoot',
+							link: 'guides/troubleshoot',
 						},
 					],
 				},
@@ -131,27 +131,27 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: '2/guide/develop',
+							link: 'guides/develop',
 						},
 						{
 							label: 'Debug',
-							link: '2/guide/debug',
+							link: 'guides/debug',
 						},
 						{
 							label: 'Test',
-							link: '2/guide/test',
+							link: 'guides/test',
 						},
 						{
 							label: 'Build',
-							link: '2/guide/build',
+							link: 'guides/build',
 						},
 						{
 							label: 'Distribute',
-							link: '2/guide/distribute',
+							link: 'guides/distribute',
 						},
 						{
 							label: 'Plugin Development',
-							link: '2/guide/plugins',
+							link: 'guides/plugins',
 						},
 					],
 				},
@@ -179,34 +179,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
-					items: [
-						{ label: 'All Features and Recipes', link: '2/guide/list' },
-						{ label: 'Authenticator', link: '2/guide/authenticator' },
-						{ label: 'Autostart', link: '2/guide/autostart' },
-						{ label: 'CLI', link: '2/guide/cli' },
-						{ label: 'Clipboard', link: '2/guide/clipboard' },
-						{ label: 'Dialog', link: '2/guide/dialog' },
-						{ label: 'File System', link: '2/guide/file-system' },
-						{ label: 'Global Shortcut', link: '2/guide/global-shortcut' },
-						{ label: 'HTTP Client', link: '2/guide/http-client' },
-						{ label: 'Localhost', link: '2/guide/localhost' },
-						{ label: 'Logging', link: '2/guide/logging' },
-						{ label: 'Notification', link: '2/guide/notification' },
-						{ label: 'OS Info', link: '2/guide/os-info' },
-						{ label: 'Persisted Scope', link: '2/guide/persisted-scope' },
-						{ label: 'Positioner', link: '2/guide/positioner' },
-						{ label: 'Process', link: '2/guide/process' },
-						{ label: 'Shell', link: '2/guide/shell' },
-						{ label: 'Single Instance', link: '2/guide/single-instance' },
-						{ label: 'SQL', link: '2/guide/sql' },
-						{ label: 'Store', link: '2/guide/store' },
-						{ label: 'Stronghold', link: '2/guide/stronghold' },
-						{ label: 'Updater', link: '2/guide/updater' },
-						{ label: 'Upload', link: '2/guide/upload' },
-						{ label: 'Websocket', link: '2/guide/websocket' },
-						{ label: 'Window Customization', link: '2/guide/window-customization' },
-						{ label: 'Window State', link: '2/guide/window-state' },
-					],
+					autogenerate: { directory: 'features' },
 				},
 			],
 			locales,
@@ -230,23 +203,23 @@ export default defineConfig({
 	},
 	redirects: {
 		// Old blog url schema redirects
-		'/blog/2022-06-19-tauri-1-0': '/blog/tauri-1-0',
+		'/blog/2022/06/19/tauri-1-0': '/blog/tauri-1-0',
 		'/blog/tauri_1_0': '/blog/tauri-1-0',
-		'/blog/2022-07-12-tauri-programme-turns-1-and-board-elections':
+		'/blog/2022/07/12/tauri-programme-turns-1-and-board-elections':
 			'/blog/tauri-programme-turns-1-and-board-elections',
-		'/blog/2022-09-15-tauri-1-1': '/blog/tauri-1-1',
-		'/blog/2022-09-19-tauri-egui-0-1': '/blog/tauri-egui-0-1',
-		'/blog/2022-11-18-tauri-1-2': '/blog/tauri-1-2',
-		'/blog/2022-12-09-tauri-mobile-alpha': '/blog/tauri-mobile-alpha',
-		'/blog/2023-02-03-tauri-2-0-0-alpha-3': '/blog/tauri-2-0-0-alpha-3',
-		'/blog/2023-02-09-tauri-community-growth-and-feedback':
+		'/blog/2022/09/15/tauri-1-1': '/blog/tauri-1-1',
+		'/blog/2022/09/19/tauri-egui-0-1': '/blog/tauri-egui-0-1',
+		'/blog/2022/11/18/tauri-1-2': '/blog/tauri-1-2',
+		'/blog/2022/12/09/tauri-mobile-alpha': '/blog/tauri-mobile-alpha',
+		'/blog/2023/02/03/tauri-2-0-0-alpha-3': '/blog/tauri-2-0-0-alpha-3',
+		'/blog/2023/02/09/tauri-community-growth-and-feedback':
 			'/blog/tauri-community-growth-and-feedback',
-		'/blog/2023-03-01-create-tauri-app-version-3-released':
+		'/blog/2023/03/01/create-tauri-app-version-3-released':
 			'/blog/create-tauri-app-version-3-released',
-		'/blog/2023-03-20-tauri-2-0-0-alpha-4': '/blog/tauri-2-0-0-alpha-4',
-		'/blog/2023-05-03-tauri-1-3': '/blog/tauri-1-3',
-		'/blog/2023-06-14-tauri-1-4': '/blog/tauri-1-4',
-		'/blog/2023-06-15-tauri-board-elections-and-governance-updates':
+		'/blog/2023/03/20/tauri-2-0-0-alpha-4': '/blog/tauri-2-0-0-alpha-4',
+		'/blog/2023/05/03/tauri-1-3': '/blog/tauri-1-3',
+		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
+		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
 	},
 });
