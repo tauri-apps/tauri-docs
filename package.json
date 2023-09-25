@@ -9,9 +9,9 @@
     "serve": "docusaurus serve"
   },
   "dependencies": {
-    "@docusaurus/core": "=2.4.1",
-    "@docusaurus/plugin-pwa": "=2.4.1",
-    "@docusaurus/preset-classic": "=2.4.1",
+    "@docusaurus/core": "=2.4.3",
+    "@docusaurus/plugin-pwa": "=2.4.3",
+    "@docusaurus/preset-classic": "=2.4.3",
     "@fontsource/rubik": "5.0.12",
     "@mdx-js/react": "1.6.22",
     "apexcharts": "3.42.0",
