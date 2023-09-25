@@ -17,8 +17,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(astro@3.1.3)
       '@astrojs/starlight':
-        specifier: ^0.9.1
-        version: 0.9.1(astro@3.1.3)
+        specifier: ^0.10.1
+        version: 0.10.1(astro@3.1.3)
       '@types/json-schema':
         specifier: ^7.0.13
         version: 7.0.13
@@ -45,10 +45,10 @@ importers:
         version: 0.14.4
       starlight-blog:
         specifier: ^0.3.2
-        version: 0.3.2(@astrojs/starlight@0.9.1)(astro@3.1.3)
+        version: 0.3.2(@astrojs/starlight@0.10.1)(astro@3.1.3)
       starlight-links-validator:
         specifier: ^0.3.0
-        version: 0.3.0(@astrojs/starlight@0.9.1)(astro@3.1.3)
+        version: 0.3.0(@astrojs/starlight@0.10.1)(astro@3.1.3)
 
   packages/i18n-tracker:
     devDependencies:
@@ -233,21 +233,21 @@ packages:
       zod: 3.21.1
     dev: false
 
-  /@astrojs/starlight@0.9.1(astro@3.1.3):
-    resolution: {integrity: sha512-sIybbPRICz1pfChT9MXq9m3SE18WayaSnWQ1tJqZso1rwZzGHAbKnGOfjZD7+snVNjD7AG74OK2NjgHm0O8s5w==}
+  /@astrojs/starlight@0.10.1(astro@3.1.3):
+    resolution: {integrity: sha512-2Li88ysd2ZD5p6MzmhGuL8JDd5tEWylUNGgTIWFqWhov64KmBKB2JrS07GQ1zkpV3FXF6IXm34v+lKU3sxe/Rg==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
       '@astrojs/mdx': 1.0.0(astro@3.1.3)
       '@astrojs/sitemap': 3.0.0
-      '@pagefind/default-ui': 1.0.0-beta.2
+      '@pagefind/default-ui': 1.0.3
       '@types/mdast': 3.0.12
       astro: 3.1.3
       bcp-47: 2.1.0
       execa: 7.2.0
       hast-util-select: 5.0.5
       hastscript: 7.2.0
-      pagefind: 1.0.0-beta.2
+      pagefind: 1.0.3
       rehype: 12.0.1
       remark-directive: 2.0.1
       unified: 10.1.2
@@ -1001,44 +1001,44 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@pagefind/darwin-arm64@1.0.0-beta.2:
-    resolution: {integrity: sha512-r9aSd1PreWJeGwrdK92udvySHfJSSvKyV6T+4YONh9lGKS3K2+YbX8K584IotFKB/60XLkdzmFIFLoK3CjOZ7w==}
+  /@pagefind/darwin-arm64@1.0.3:
+    resolution: {integrity: sha512-vsHDtvao3W4iFCxVc4S0BVhpj3E2MAoIVM7RmuQfGp1Ng22nGLRaMP6FguLO8TMabRJdvp4SVr227hL4WGKOHA==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/darwin-x64@1.0.0-beta.2:
-    resolution: {integrity: sha512-1YjlJu75oScva4PPDH2Q/FWAzfvP15XAxCmfqsMl6dtwfaZ4oqZ0Vx2jQ5CAxX2/FeDzqGQg7xkdngLekGiQwA==}
+  /@pagefind/darwin-x64@1.0.3:
+    resolution: {integrity: sha512-NhEXHHYmB/hT6lx5rCcmnVTxH+uIkMAd43bzEqMwHQosqTZEIQfwihmV39H+m8yo7jFvz3zRbJNzhAh7G4PiwA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/default-ui@1.0.0-beta.2:
-    resolution: {integrity: sha512-x75qS7ywD8iG95CLyCTmfn07tMIfAhWTuu6mT56WGpl9Ci3Z4PTfqMRhzhRDTinHEAIKO3aAtQ5TrXuCCnXVoQ==}
+  /@pagefind/default-ui@1.0.3:
+    resolution: {integrity: sha512-WieFJXvezyvjZh49I8j7a7Kz3LsXYY2Uep3IWvG5NG05mmiurURXjXc+KyrpIp/iAycSnjrC1TDJ8CdES/ee3A==}
     dev: false
 
-  /@pagefind/linux-arm64@1.0.0-beta.2:
-    resolution: {integrity: sha512-vPBFjWsmI9CBsZctmXSGc2qT7O8OPv9iLoXlQcmUrXSirwY4kESmi2W/t2Cpq6Theatyb+D7zMd0KZc6u0bX3w==}
+  /@pagefind/linux-arm64@1.0.3:
+    resolution: {integrity: sha512-RGsMt4AmGT8WxCSeP09arU7Za6Vf/We4TWHVSbY7vDMuwWql9Ngoib/q1cP9dIAIMdkXh9ePG/S3mGnJYsdzuQ==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/linux-x64@1.0.0-beta.2:
-    resolution: {integrity: sha512-jUyS6+OH8x8q8Sn4OPi1Br7DkTlUqeaiDBAqGmfcQARonD5lf/JpNidTSM+YYa/1cRgTijOyX1RbrwQE749LUg==}
+  /@pagefind/linux-x64@1.0.3:
+    resolution: {integrity: sha512-o+VCKaqImL42scSH1n5gUfppYSNyu3BuGTvtKKgWHmycbL+A3fkFH+ZOFbaLeN7LVTvJqJIOYbk4j2yaq9784Q==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/windows-x64@1.0.0-beta.2:
-    resolution: {integrity: sha512-I7vrQQswID6+9MdjSwnugqY9xBrSaCDdVJ9YCQMobsv5PONzdVXRjDUwDR72MAli0y/KxDYWGzBpDfKMSsvz6g==}
+  /@pagefind/windows-x64@1.0.3:
+    resolution: {integrity: sha512-S+Yq4FyvXJm4F+iN/wRiLvEEF8Xs9lTKGtQGaRHXJslQyl65dytDDPIULXJXIadrDbnMrnTt4C2YHmEUIyUIHg==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -3507,15 +3507,15 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /pagefind@1.0.0-beta.2:
-    resolution: {integrity: sha512-YwtoH63JRdh4ZoEeo4aPEKXyUyNR8l/wgH9up4HVB0xaGEz4R0BgefHC2MAvkIAX1sq4TgITgInqunL0wQWumA==}
+  /pagefind@1.0.3:
+    resolution: {integrity: sha512-ws7kmMxW6OuxzsOjj3YAx6TYq/54MiE3wfyBM3J5CInbZyBBvM2Z8c8IYvnMkBcb5v2EoB9DewXEekOEiDRu5g==}
     hasBin: true
     optionalDependencies:
-      '@pagefind/darwin-arm64': 1.0.0-beta.2
-      '@pagefind/darwin-x64': 1.0.0-beta.2
-      '@pagefind/linux-arm64': 1.0.0-beta.2
-      '@pagefind/linux-x64': 1.0.0-beta.2
-      '@pagefind/windows-x64': 1.0.0-beta.2
+      '@pagefind/darwin-arm64': 1.0.3
+      '@pagefind/darwin-x64': 1.0.3
+      '@pagefind/linux-arm64': 1.0.3
+      '@pagefind/linux-x64': 1.0.3
+      '@pagefind/windows-x64': 1.0.3
     dev: false
 
   /parse-entities@4.0.1:
@@ -4067,26 +4067,26 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.3.2(@astrojs/starlight@0.9.1)(astro@3.1.3):
+  /starlight-blog@0.3.2(@astrojs/starlight@0.10.1)(astro@3.1.3):
     resolution: {integrity: sha512-WwI8hknFwiRTEDgtE917liB2evXATQlJF/SyQdPLctqhrHM91EmDzwCtFhOPKuEqJnCDMOM3MUsGlmwlEMtBCQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       astro: '>=3.0.0'
     dependencies:
-      '@astrojs/starlight': 0.9.1(astro@3.1.3)
+      '@astrojs/starlight': 0.10.1(astro@3.1.3)
       astro: 3.1.3
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.3.0(@astrojs/starlight@0.9.1)(astro@3.1.3):
+  /starlight-links-validator@0.3.0(@astrojs/starlight@0.10.1)(astro@3.1.3):
     resolution: {integrity: sha512-nQ0fq1yuo8LAGZGD7J7ntKkVht1Qe2djaw544DuOeBxV5JSHNTkAs3c+UxgG3JRZcbNHSb7e+N/cUjxCNOUR6w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@astrojs/starlight': '>=0.0.1'
       astro: '>=2.5.0'
     dependencies:
-      '@astrojs/starlight': 0.9.1(astro@3.1.3)
+      '@astrojs/starlight': 0.10.1(astro@3.1.3)
       astro: 3.1.3
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
