@@ -75,8 +75,7 @@ Manual compilation is suitable when you don't need to compile your application f
 
 :::warning
 
-Ubuntu 20.04 WSL has issues with webkit dependencies. It's recommended to use Debian instead.
-Furthermore, AppImage is not supported on ARM devices. To avoid Tauri from building it, you need to customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
+AppImage is not supported on ARM devices. To avoid Tauri from building it, you need to customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
 
@@ -91,29 +90,33 @@ Furthermore, AppImage is not supported on ARM devices. To avoid Tauri from build
 Now, let's cross-compile the Tauri application for ARM:
 
 1. Install Rust targets for your desired architecture:
+
    - For ARMv7 (32-bit): `rustup target add armv7-unknown-linux-gnueabihf`
    - For ARMv8 (ARM64, 64-bit): `rustup target add aarch64-unknown-linux-gnu`
 
 2. Install the corresponding linker for your chosen architecture:
+
    - For ARMv7: `sudo apt install gcc-arm-linux-gnueabihf`
    - For ARMv8 (ARM64): `sudo apt install gcc-aarch64-linux-gnu`
 
 3. Open or create the file `<project-root>/.cargo/config.toml` and add the following configurations accordingly:
+
    ```toml
    [target.armv7-unknown-linux-gnueabihf]
    linker = "arm-linux-gnueabihf-gcc"
-   
+
    [target.aarch64-unknown-linux-gnu]
    linker = "aarch64-linux-gnu-gcc"
    ```
 
-4. Enable the respective architecture in the package manager (only for non-Debian distributions):
+4. Enable the respective architecture in the package manager:
    - For ARMv7: `sudo dpkg --add-architecture armhf`
    - For ARMv8 (ARM64): `sudo dpkg --add-architecture arm64`
 
 :::info Adjusting Package Sources
 
-On Debian, this step isn't necessary, but on other distributions, you might need to edit `/etc/apt/sources.list` to include the ARM architecture variant. For example, add these lines:
+On Debian, this step should not be necessary, but on other distributions, you might need to edit `/etc/apt/sources.list` to include the ARM architecture variant. For example, add these on Ubuntu 22.04 lines:
+
 ```bash
 deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
 deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
@@ -126,6 +129,9 @@ deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security main restri
 deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
 deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
 ```
+
+Remember to replace `jammy` with the codename of the build system's Ubuntu version.
+
 After making changes, verify if the armhf architecture is still enabled in the package manager by re-running the command from Step 4.
 
 :::
@@ -133,14 +139,30 @@ After making changes, verify if the armhf architecture is still enabled in the p
 5. Update the package information: `sudo apt-get update && sudo apt-get upgrade -y`.
 
 6. Install the required webkitgtk library for your chosen architecture:
+
    - For ARMv7: `sudo apt install libwebkit2gtk-4.0-dev:armhf`
    - For ARMv8 (ARM64): `sudo apt install libwebkit2gtk-4.0-dev:arm64`
 
+6b. Install OpenSSL or use a vendored version:
+
+This is not always required so you may want to proceed first and check if you see errors like `Failed to find OpenSSL development headers`.
+
+- Either install the development headers system-wide:
+  - For ARMv7: `sudo apt install libssl-dev-dev:armhf`
+  - For ARMv8 (ARM64): `sudo apt install libssl-dev-dev:arm64`
+- Or enable the `vendor` feature for the OpenSSL Rust crate which will affect all other Rust dependencies using the same minor version. You can do so by adding this to the dependencies section in your `Cargo.toml` file:
+
+```toml
+openssl-sys = {version = "0.9", features = ["vendored"]}
+```
+
 7. Set the `PKG_CONFIG_SYSROOT_DIR` to the appropriate directory based on your chosen architecture:
+
    - For ARMv7: `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
    - For ARMv8 (ARM64): `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
 
 8. Build the app for your desired ARM version:
+
    - For ARMv7: `cargo tauri build --target armv7-unknown-linux-gnueabihf`
    - For ARMv8 (ARM64): `cargo tauri build --target aarch64-unknown-linux-gnu`
 
@@ -153,6 +175,7 @@ For automated ARM executable builds on GitHub, we'll use the [arm-runner-action]
 :::warning
 
 AppImage is not supported on ARM devices. To avoid Tauri building it, you need to customize `tauri.conf.json` in the `src-tauri` folder. Adjust the `"targets"` array to include only the desired platforms for your ARM-based device. For instance:
+
 ```json
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
 ```
@@ -223,7 +246,6 @@ Adjust the `path` variable to match your application's version and name:
 [rust-lang/rust#57497]: https://github.com/rust-lang/rust/issues/57497
 [appimage guide]: https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
 [fix-path-env-rs]: https://github.com/tauri-apps/fix-path-env-rs
-
 [wsl setup guide]: https://www.linuxfordevices.com/tutorials/linux/install-debian-on-windows-wsl
 [system requirements]: https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-linux
 [Tauri using Cargo]: https://tauri.app/v1/guides/getting-started/setup/next-js/#create-the-rust-project
