@@ -110,40 +110,98 @@ Now, let's cross-compile the Tauri application for ARM:
    ```
 
 4. Enable the respective architecture in the package manager:
+
    - For ARMv7: `sudo dpkg --add-architecture armhf`
    - For ARMv8 (ARM64): `sudo dpkg --add-architecture arm64`
 
-:::info Adjusting Package Sources
+5. Adjusting Package Sources
 
-On Debian, this step should not be necessary, but on other distributions, you might need to edit `/etc/apt/sources.list` to include the ARM architecture variant. For example, add these on Ubuntu 22.04 lines:
+On Debian, this step should not be necessary, but on other distributions, you might need to edit `/etc/apt/sources.list` to include the ARM architecture variant. For example on Ubuntu 22.04 add these lines to the bottom of the file (Remember to replace `jammy` with the codename of your Ubuntu version):
 
 ```bash
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy universe
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
-deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
 ```
 
-Remember to replace `jammy` with the codename of the build system's Ubuntu version.
+Then, to prevent issues with the main packages, you have to add the correct main architecture to all other lines the file contained beforehand. For standard 64-bit systems you need to add `[arch=amd64]`, the full file on Ubuntu 22.04 then looks similar to this:
 
-After making changes, verify if the armhf architecture is still enabled in the package manager by re-running the command from Step 4.
+<details><summary>Click to see the full example file for Ubuntu 22.04</summary>
 
-:::
+```bash
+# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+# newer versions of the distribution.
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy main restricted
 
-5. Update the package information: `sudo apt-get update && sudo apt-get upgrade -y`.
+## Major bug fix updates produced after the final release of the
+## distribution.
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
 
-6. Install the required webkitgtk library for your chosen architecture:
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team. Also, please note that software in universe WILL NOT receive any
+## review or updates from the Ubuntu security team.
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy universe
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy universe
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team, and may not be under a free licence. Please satisfy yourself as to
+## your rights to use the software. Also, please note that software in
+## multiverse WILL NOT receive any review or updates from the Ubuntu
+## security team.
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy multiverse
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy multiverse
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+
+## N.B. software from this repository may not have been tested as
+## extensively as that contained in the main release, although it includes
+## newer versions of some applications which may provide useful features.
+## Also, please note that software in backports WILL NOT receive any review
+## or updates from the Ubuntu security team.
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+
+deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+# deb-src http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security universe
+# deb-src http://security.ubuntu.com/ubuntu/ jammy-security universe
+deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+# deb-src http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+```
+
+</details>
+
+After making these changes, verify that the armhf/arm64 architecture is still enabled in the package manager by re-running the command from Step 4.
+
+6. Update the package information: `sudo apt-get update && sudo apt-get upgrade -y`.
+
+7. Install the required webkitgtk library for your chosen architecture:
 
    - For ARMv7: `sudo apt install libwebkit2gtk-4.0-dev:armhf`
    - For ARMv8 (ARM64): `sudo apt install libwebkit2gtk-4.0-dev:arm64`
 
-6b. Install OpenSSL or use a vendored version:
+8. Install OpenSSL or use a vendored version:
 
 This is not always required so you may want to proceed first and check if you see errors like `Failed to find OpenSSL development headers`.
 
@@ -156,15 +214,15 @@ This is not always required so you may want to proceed first and check if you se
 openssl-sys = {version = "0.9", features = ["vendored"]}
 ```
 
-7. Set the `PKG_CONFIG_SYSROOT_DIR` to the appropriate directory based on your chosen architecture:
+9. Set the `PKG_CONFIG_SYSROOT_DIR` to the appropriate directory based on your chosen architecture:
 
    - For ARMv7: `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
    - For ARMv8 (ARM64): `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
 
-8. Build the app for your desired ARM version:
+10. Build the app for your desired ARM version:
 
-   - For ARMv7: `cargo tauri build --target armv7-unknown-linux-gnueabihf`
-   - For ARMv8 (ARM64): `cargo tauri build --target aarch64-unknown-linux-gnu`
+- For ARMv7: `cargo tauri build --target armv7-unknown-linux-gnueabihf`
+- For ARMv8 (ARM64): `cargo tauri build --target aarch64-unknown-linux-gnu`
 
 Choose the appropriate set of instructions based on whether you want to cross-compile your Tauri application for ARMv7 or ARMv8 (ARM64). Please note that the specific steps may vary depending on your Linux distribution and setup.
 
