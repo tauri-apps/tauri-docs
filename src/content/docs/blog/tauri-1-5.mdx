@@ -45,7 +45,13 @@ We also improved our notarization algorithm adding support to the `APPLE_TEAM_ID
 
 ### macOS frameworks
 
-This release comes with enhanced macOS frameworks support by code signing all custom frameworks you inject via `tauri.conf.json > tauri > bundle > macOS > frameworks` and defining the `@rpath` value fixing a crash when updating your app. 
+This release comes with enhanced macOS frameworks support by code signing all custom frameworks you inject via `tauri.conf.json > tauri > bundle > macOS > frameworks` and defining the `@rpath` value fixing a crash when updating your app.
+
+### Mixed content on Windows
+
+We now offer a configuration option to switch our custom protocol on Windows to use the `http` scheme instead of `https`.
+This reduces the security of your application on Windows since it allows connecting to insecure endpoints such as `ws://url`,
+but it matches the behavior on Linux and macOS custom protocols. To enable it, set the `tauri.conf.json > tauri > security > dangerousUseHttpScheme` to true.
 
 ### Other changes
 
