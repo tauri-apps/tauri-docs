@@ -420,9 +420,9 @@ function Logo(props) {
       <img
         src={useBaseUrl(
           logoDir +
-            (isDarkMode
-              ? props.brand.logoColorDark
-              : props.brand.logoColorLight)
+          (isDarkMode
+            ? props.brand.logoColorDark
+            : props.brand.logoColorLight)
         )}
         alt={props.brand.name}
       />
@@ -474,25 +474,12 @@ export default function App() {
       })}
     >
       <header className={classNames('hero', styles.hero)}>
-        <div className={classNames(styles.heroBefore)}>
-          <div className={classNames(styles.loopsContainer)}>
-            <img
-              className={classNames(styles.heroLoops)}
-              src="/img/index/blue_loops.svg"
-            />
-          </div>
-          <img
-            className={classNames(styles.heroPackage)}
-            src="/img/index/orange_package.svg"
-          />
-        </div>
+
         <div className={classNames(styles.heroContainer)}>
-          <p className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
-            <Translate>Announcing the release of</Translate>
-          </p>
           <span className={classNames(styles.heroImage)}>
             <DynamicHeaderImage />
           </span>
+          <br />
           <div className={classNames(styles.heroSubtitle, 'hero__subtitle')}>
             <Translate>
               Build an optimized, secure, and frontend-independent application
@@ -510,18 +497,6 @@ export default function App() {
           >
             <Translate>Quick Start</Translate>
           </Link>
-        </div>
-        <div className={classNames(styles.heroAfter)}>
-          <img
-            className={classNames(styles.heroPackage)}
-            src="/img/index/blue_package.svg"
-          />
-          <div className={classNames(styles.loopsContainer)}>
-            <img
-              className={classNames(styles.heroLoops)}
-              src="/img/index/orange_loops.svg"
-            />
-          </div>
         </div>
       </header>
 
