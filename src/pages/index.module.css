@@ -244,3 +244,22 @@
     text-align: center;
   }
 }
+
+.hero {
+  animation: hero-intro 2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+  background:
+    linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(#6d6d6d25 1px, transparent 1px), linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(#6d6d6d25 1px, transparent 1px), linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px), linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(-90deg, transparent 6px, transparent 6px, transparent 156px, transparent 156px), linear-gradient(#6d6d6d25 1px, transparent 1px), transparent;
+  background-size: 32px 32px, 32px 32px, 256px 256px, 256px 256px, 256px 256px, 256px 256px, 256px 256px, 256px 256px
+}
+
+@keyframes hero-intro {
+  0% {
+    background-position: 0px 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    animation: none;
+  }
+}
