@@ -13,7 +13,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ![Tauri 1.5 Launch Hero Image](./tauri_1_5_images/header.png)
 
-The Tauri team is excited to announce the 1.5 release. This version includes several new features and important bug fixes such as improved resources bundling, code signing enhancements and `notarytool` migration on macOS.
+The Tauri team is excited to announce the 1.5 release. This version includes several new features and important bug fixes such as improved resources bundling, code signing enhancements, `notarytool` migration on macOS and Bun support.
 
 ## Upgrading
 
@@ -37,6 +37,10 @@ You **must** upgrade your Tauri CLI to 1.5 before that.
 If you are using API keys for authentication with the notary service, notarytool no longer automatically searches for your APi key `.p8` file.
 We recommend users to define its path via the `APPLE_API_KEY_PATH` environment variable, though to avoid breaking changes we perform the same lookup done by altool to find your key file in case you did not set the environment variable.
 In the future, this might change, so please adjust your publish pipelines accordingly.
+
+### Bun support
+
+The Tauri CLI now supports the [Bun](https://bun.sh/) runtime and package manager.
 
 ### Code signing improvements
 
