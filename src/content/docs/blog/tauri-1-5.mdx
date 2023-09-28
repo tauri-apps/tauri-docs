@@ -42,14 +42,20 @@ In the future, this might change, so please adjust your publish pipelines accord
 
 The Tauri CLI now supports the [Bun](https://bun.sh/) runtime and package manager.
 
+We would like to thank [@colinhacks](https://github.com/colinhacks) for submitting the pull requests for this feature!
+
 ### Code signing improvements
 
 Starting on Tauri 1.5, our bundler now signs all executables (including sidecars, app executables and NSIS uninstaller) and macOS frameworks.
 We also improved our notarization algorithm adding support to the `APPLE_TEAM_ID` environment variable to properly define the team ID associated with your account in case you belong to multiple teams.
 
+We would like to thank [@tr3ysmith](https://github.com/tr3ysmith) for submitting the pull requests for this feature!
+
 ### macOS frameworks
 
 This release comes with enhanced macOS frameworks support by code signing all custom frameworks you inject via `tauri.conf.json > tauri > bundle > macOS > frameworks` and defining the `@rpath` value fixing a crash when updating your app.
+
+We would like to thank [@tr3ysmith](https://github.com/tr3ysmith) for submitting the pull requests for this feature!
 
 ### Mixed content on Windows
 
@@ -64,9 +70,3 @@ Check out the entire list of changes:
 - [tauri](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.5.0)
 - [tauri-cli](https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.5.0)
 - [tauri-bundler](https://github.com/tauri-apps/tauri/releases/tag/tauri-bundler-v1.4.0)
-
-### Contributors to 1.5.0
-
-Many people contributed to the 1.5.0 release, we would like to thank everyone that filled issues and pull requests!
-Huge thanks to [@tr3ysmith](https://github.com/tr3ysmith) for submitting pull requests to enhance macOS code signing and frameworks and
-[@colinhacks](https://github.com/colinhacks) for getting the Tauri CLI to support Bun!
