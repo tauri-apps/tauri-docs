@@ -12,7 +12,7 @@ export default function App(props) {
       .then((response) => response.text())
       .then((result) => {
         result = result
-          .split('## ')
+          .split('## \\[')
           .filter((item) => !item.includes('# Changelog'))
           .map((version) => {
             var [number, ...contents] = version.split('\n')
