@@ -35,7 +35,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L38)
 
 ##### `icon`
 
@@ -43,7 +43,36 @@ Optional notification body.
 
 Optional notification icon.
 
-**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/notification.ts#L40)
+**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L40)
+
+##### `sound`
+
+> `Optional` **sound**: `string`
+
+Optional notification sound.
+
+#### Platform-specific
+
+Each OS has a different sound name so you will need to conditionally specify an appropriate sound
+based on the OS in use, 'default' represents the default system sound. For a list of sounds see:
+- **Linux**: can be one of the sounds listed in [https://0pointer.de/public/sound-naming-spec.html](https://0pointer.de/public/sound-naming-spec.html)
+- **Windows**: can be one of the sounds listed in [https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/element-audio](https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/element-audio)
+  but without the prefix, for example, if `ms-winsoundevent:Notification.Default` you would use `Default` and
+  if `ms-winsoundevent:Notification.Looping.Alarm2`, you would use `Alarm2`.
+  Windows 7 is not supported, if a sound is provided, it will play the default sound, otherwise it will be silent.
+- **macOS**: you can specify the name of the sound you'd like to play when the notification is shown.
+Any of the default sounds (under System Preferences > Sound) can be used, in addition to custom sound files.
+Be sure that the sound file is copied under the app bundle (e.g., `YourApp.app/Contents/Resources`), or one of the following locations:
+  - `~/Library/Sounds`
+  - `/Library/Sounds`
+  - `/Network/Library/Sounds`
+  - `/System/Library/Sounds`
+
+  See the [NSSound](https://developer.apple.com/documentation/appkit/nssound) docs for more information.
+
+**Since**: 1.5.0
+
+**Defined in:** [notification.ts:65](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L65)
 
 ##### `title`
 
@@ -51,7 +80,7 @@ Optional notification icon.
 
 Notification title.
 
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L36)
 
 ## Type Aliases
 
@@ -61,7 +90,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:44](https://github.com/tauri-apps/tauri/blob/b7ae725/tooling/api/src/notification.ts#L44)
+**Defined in:** [notification.ts:69](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L69)
 
 ## Functions
 
