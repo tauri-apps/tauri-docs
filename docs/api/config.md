@@ -270,7 +270,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | string (required) |  | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | string? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | string[] | [] | The app's icons |
-| <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | array? | _null_ | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
+| <div className="anchor-with-padding" id="bundleconfig.resources">`resources`<a class="hash-link" href="#bundleconfig.resources"></a></div> | [`BundleResources`](#bundleresources)? | [view](#bundleresources) | App resources to bundle. Each resource is a path to a file or directory. Glob patterns are supported. |
 | <div className="anchor-with-padding" id="bundleconfig.copyright">`copyright`<a class="hash-link" href="#bundleconfig.copyright"></a></div> | string? | _null_ | A copyright string associated with your application. |
 | <div className="anchor-with-padding" id="bundleconfig.category">`category`<a class="hash-link" href="#bundleconfig.category"></a></div> | string? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
 | <div className="anchor-with-padding" id="bundleconfig.shortdescription">`shortDescription`<a class="hash-link" href="#bundleconfig.shortdescription"></a></div> | string? | _null_ | A short description of your application. |
@@ -305,6 +305,15 @@ Can be any **ONE** of the following types:
 - "app": The macOS application bundle (.app).
 - "dmg": The Apple Disk Image bundle (.dmg).
 - "updater": The Tauri updater bundle.
+
+##### BundleResources
+
+Definition for bundle resources. Can be either a list of paths to include or a map of source to target paths.
+
+Can be any of the following types:
+
+- `string[]`: A list of paths to include.
+- `object`: A map of source to target paths.
 
 ##### AppImageConfig
 
@@ -480,6 +489,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="nsisconfig.languages">`languages`<a class="hash-link" href="#nsisconfig.languages"></a></div> | array? | _null_ | A list of installer languages. By default the OS language is used. If the OS language is not in the list of languages, the first language will be used. To allow the user to select the language, set `display_language_selector` to `true`.<br /><br />See <https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files> for the complete list of languages. |
 | <div className="anchor-with-padding" id="nsisconfig.customlanguagefiles">`customLanguageFiles`<a class="hash-link" href="#nsisconfig.customlanguagefiles"></a></div> | object? | _null_ | A key-value pair where the key is the language and the value is the path to a custom `.nsh` file that holds the translated text for tauri's custom messages.<br /><br />See <https://github.com/tauri-apps/tauri/blob/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages/English.nsh> for an example `.nsh` file.<br /><br />**Note**: the key must be a valid NSIS language and it must be added to [`NsisConfig`] languages array, |
 | <div className="anchor-with-padding" id="nsisconfig.displaylanguageselector">`displayLanguageSelector`<a class="hash-link" href="#nsisconfig.displaylanguageselector"></a></div> | boolean | `false` | Whether to display a language selector dialog before the installer and uninstaller windows are rendered or not. By default the OS language is selected, with a fallback to the first language in the `languages` array. |
+| <div className="anchor-with-padding" id="nsisconfig.compression">`compression`<a class="hash-link" href="#nsisconfig.compression"></a></div> | [`NsisCompression`](#nsiscompression)? | [view](#nsiscompression) | Set the compression algorithm used to compress files in the installer.<br /><br />See <https://nsis.sourceforge.io/Reference/SetCompressor> |
 
 
 ###### NSISInstallerMode
@@ -499,6 +509,18 @@ Installer metadata will be saved under the `HKCU` registry path.
 - "both": Combines both modes and allows the user to choose at install time whether to install for the current user or per machine. Note that this mode will require Administrator access even if the user wants to install it for the current user only.
 
 	Installer metadata will be saved under the `HKLM` or `HKCU` registry path based on the user's choice.
+
+###### NsisCompression
+
+Compression algorithms used in the NSIS installer.
+
+See <https://nsis.sourceforge.io/Reference/SetCompressor>
+
+Can be any **ONE** of the following types:
+
+- "zlib": ZLIB uses the deflate algorithm, it is a quick and simple method. With the default compression level it uses about 300 KB of memory.
+- "bzip2": BZIP2 usually gives better compression ratios than ZLIB, but it is a bit slower and uses more memory. With the default compression level it uses about 4 MB of memory.
+- "lzma": LZMA (default) is a new compression method that gives very good compression ratios. The decompression speed is high (10-20 MB/s on a 2 GHz CPU), the compression speed is lower. The memory size that will be used for decompression is the dictionary size plus a few KBs, the default is 8 MB.
 
 #### AllowlistConfig
 
@@ -843,6 +865,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="securityconfig.freezeprototype">`freezePrototype`<a class="hash-link" href="#securityconfig.freezeprototype"></a></div> | boolean | `false` | Freeze the `Object.prototype` when using the custom protocol. |
 | <div className="anchor-with-padding" id="securityconfig.dangerousdisableassetcspmodification">`dangerousDisableAssetCspModification`<a class="hash-link" href="#securityconfig.dangerousdisableassetcspmodification"></a></div> | [`DisabledCspModificationKind`](#disabledcspmodificationkind) | `false` | Disables the Tauri-injected CSP sources.<br /><br />At compile time, Tauri parses all the frontend assets and changes the Content-Security-Policy to only allow loading of your own scripts and styles by injecting nonce and hash sources. This stricts your CSP, which may introduce issues when using along with other flexing sources.<br /><br />This configuration option allows both a boolean and a list of strings as value. A boolean instructs Tauri to disable the injection for all CSP injections, and a list of strings indicates the CSP directives that Tauri cannot inject.<br /><br />**WARNING:** Only disable this if you know what you are doing and have properly configured the CSP. Your application might be vulnerable to XSS attacks without this Tauri protection. |
 | <div className="anchor-with-padding" id="securityconfig.dangerousremotedomainipcaccess">`dangerousRemoteDomainIpcAccess`<a class="hash-link" href="#securityconfig.dangerousremotedomainipcaccess"></a></div> | [`RemoteDomainAccessScope`](#remotedomainaccessscope) | [] | Allow external domains to send command to Tauri.<br /><br />By default, external domains do not have access to `window.__TAURI__`, which means they cannot communicate with the commands defined in Rust. This prevents attacks where an externally loaded malicious or compromised sites could start executing commands on the user's device.<br /><br />This configuration allows a set of external domains to have access to the Tauri commands. When you configure a domain to be allowed to access the IPC, all subpaths are allowed. Subdomains are not allowed.<br /><br />**WARNING:** Only use this option if you either have internal checks against malicious external sites or you can trust the allowed external sites. You application might be vulnerable to dangerous Tauri command related attacks otherwise. |
+| <div className="anchor-with-padding" id="securityconfig.dangeroususehttpscheme">`dangerousUseHttpScheme`<a class="hash-link" href="#securityconfig.dangeroususehttpscheme"></a></div> | boolean | `false` | Sets whether the custom protocols should use `http://<scheme>.localhost` instead of the default `https://<scheme>.localhost` on Windows.<br /><br />**WARNING:** Using a `http` scheme will allow mixed content when trying to fetch `http` endpoints and is therefore less secure but will match the behavior of the `<scheme>://localhost` protocols used on macOS and Linux. |
 
 
 ##### Csp
@@ -883,7 +906,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="remotedomainaccessscope.scheme">`scheme`<a class="hash-link" href="#remotedomainaccessscope.scheme"></a></div> | string? | _null_ | The URL scheme to allow. By default, all schemas are allowed. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.domain">`domain`<a class="hash-link" href="#remotedomainaccessscope.domain"></a></div> | string (required) |  | The domain to allow. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.windows">`windows`<a class="hash-link" href="#remotedomainaccessscope.windows"></a></div> | string[] (required) |  | The list of window labels this scope applies to. |
-| <div className="anchor-with-padding" id="remotedomainaccessscope.plugins">`plugins`<a class="hash-link" href="#remotedomainaccessscope.plugins"></a></div> | string[] | [] | The list of plugins that are allowed in this scope. |
+| <div className="anchor-with-padding" id="remotedomainaccessscope.plugins">`plugins`<a class="hash-link" href="#remotedomainaccessscope.plugins"></a></div> | string[] | [] | The list of plugins that are allowed in this scope. The names should be without the `tauri-plugin-` prefix, for example `"store"` for `tauri-plugin-store`. |
 | <div className="anchor-with-padding" id="remotedomainaccessscope.enabletauriapi">`enableTauriAPI`<a class="hash-link" href="#remotedomainaccessscope.enabletauriapi"></a></div> | boolean | `false` | Enables access to the Tauri API. |
 
 

@@ -183,7 +183,7 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 Usage: cargo-tauri icon [OPTIONS] [INPUT]
 
 Arguments:
-  [INPUT]  Path to the source icon (png, 1240x1240px with transparency) [default: ./app-icon.png]
+  [INPUT]  Path to the source icon (png, 1024x1024px with transparency) [default: ./app-icon.png]
 
 Options:
   -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
