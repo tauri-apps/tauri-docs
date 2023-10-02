@@ -22,10 +22,22 @@
 
 /* Hero */
 .hero {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: stretch;
   padding: 4rem 0;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 70% 0 0;
+  background: linear-gradient(transparent, var(--ifm-background-color));
+}
+
+html[data-theme='light'] .hero::after {
+  background: linear-gradient(transparent, var(--ifm-background-surface-color));
 }
 
 @media (max-width: 700px) {
@@ -246,10 +258,28 @@
 }
 
 .hero {
-  animation: hero-intro 2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-  background:
-    linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(#6d6d6d25 1px, transparent 1px), linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(#6d6d6d25 1px, transparent 1px), linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px), linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px), linear-gradient(-90deg, transparent 6px, transparent 6px, transparent 156px, transparent 156px), linear-gradient(#6d6d6d25 1px, transparent 1px), transparent;
-  background-size: 32px 32px, 32px 32px, 256px 256px, 256px 256px, 256px 256px, 256px 256px, 256px 256px, 256px 256px
+  animation: hero-intro 2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  background: linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px),
+    linear-gradient(#6d6d6d25 1px, transparent 1px),
+    linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px),
+    linear-gradient(#6d6d6d25 1px, transparent 1px),
+    linear-gradient(
+      transparent 6px,
+      transparent 6px,
+      transparent 156px,
+      transparent 156px
+    ),
+    linear-gradient(-90deg, #6d6d6d25 1px, transparent 1px),
+    linear-gradient(
+      -90deg,
+      transparent 6px,
+      transparent 6px,
+      transparent 156px,
+      transparent 156px
+    ),
+    linear-gradient(#6d6d6d25 1px, transparent 1px), transparent;
+  background-size: 32px 32px, 32px 32px, 256px 256px, 256px 256px, 256px 256px,
+    256px 256px, 256px 256px, 256px 256px;
 }
 
 @keyframes hero-intro {
