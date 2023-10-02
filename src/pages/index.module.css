@@ -52,6 +52,7 @@ html[data-theme='light'] .hero::after {
   align-items: center;
   flex-shrink: 0;
   max-width: min(50rem, 100%);
+  z-index: 1;
 }
 
 .heroBefore,
