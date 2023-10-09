@@ -18,7 +18,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^3.2.0",
+    "@astrojs/markdown-remark": "^3.2.1",
     "@astrojs/starlight": "^0.10.3",
     "@types/json-schema": "^7.0.13",
     "astro": "^3.2.3",
