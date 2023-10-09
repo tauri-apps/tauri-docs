@@ -17,8 +17,8 @@ importers:
         specifier: ^3.2.1
         version: 3.2.1(astro@3.2.3)
       '@astrojs/starlight':
-        specifier: ^0.10.3
-        version: 0.10.3(astro@3.2.3)
+        specifier: ^0.11.0
+        version: 0.11.0(astro@3.2.3)
       '@types/json-schema':
         specifier: ^7.0.13
         version: 7.0.13
@@ -45,10 +45,10 @@ importers:
         version: 0.14.4
       starlight-blog:
         specifier: ^0.3.2
-        version: 0.3.2(@astrojs/starlight@0.10.3)(astro@3.2.3)
+        version: 0.3.2(@astrojs/starlight@0.11.0)(astro@3.2.3)
       starlight-links-validator:
         specifier: ^0.4.0
-        version: 0.4.0(@astrojs/starlight@0.10.3)(astro@3.2.3)
+        version: 0.4.0(@astrojs/starlight@0.11.0)(astro@3.2.3)
 
   packages/i18n-tracker:
     devDependencies:
@@ -120,29 +120,6 @@ packages:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
     dev: false
 
-  /@astrojs/markdown-remark@3.0.0(astro@3.2.3):
-    resolution: {integrity: sha512-s8I49Je4++ImgYAgwL32HgN8m6we2qz3RtBpN4AjObMODPwDylmzUHZksD8Toy31q/P59ED3MuwphqOGm9l03w==}
-    peerDependencies:
-      astro: ^3.0.0
-    dependencies:
-      '@astrojs/prism': 3.0.0
-      astro: 3.2.3
-      github-slugger: 2.0.0
-      import-meta-resolve: 3.0.0
-      rehype-raw: 6.1.1
-      rehype-stringify: 9.0.4
-      remark-gfm: 3.0.1
-      remark-parse: 10.0.2
-      remark-rehype: 10.1.0
-      remark-smartypants: 2.0.0
-      shiki: 0.14.4
-      unified: 10.1.2
-      unist-util-visit: 4.1.2
-      vfile: 5.3.7
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /@astrojs/markdown-remark@3.2.1(astro@3.2.3):
     resolution: {integrity: sha512-Z4YNMRtgFZeHhB29uCZl0B9MbMZddW9ZKCNucapoysbvygbDFF1gGtqpVnf+Lyv3rUBHwM/J5qWB2MSZuTuz1g==}
     peerDependencies:
@@ -167,14 +144,13 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@1.0.0(astro@3.2.3):
-    resolution: {integrity: sha512-Gmeleci8o4X7dST9E85c1+k273zcKW8cSFgZLTwU5K4dC0qHfY/EaDKHWrtzOB2wjZlT1JDRzTJ68LJYGrF2OA==}
+  /@astrojs/mdx@1.1.1(astro@3.2.3):
+    resolution: {integrity: sha512-3dfL12ZqI6NCjx0iVOYVSyljlVgsxds5mOhe78xoCVjyqSpZZsxzz4Dt5WfGxDon2nc2bD6XGiZ2PIy8fmX6NQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
-      astro: ^3.0.0
+      astro: ^3.2.3
     dependencies:
-      '@astrojs/markdown-remark': 3.0.0(astro@3.2.3)
-      '@astrojs/prism': 3.0.0
+      '@astrojs/markdown-remark': 3.2.1(astro@3.2.3)
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
       astro: 3.2.3
@@ -185,10 +161,8 @@ packages:
       hast-util-to-html: 8.0.4
       kleur: 4.1.5
       rehype-raw: 6.1.1
-      remark-frontmatter: 4.0.1
       remark-gfm: 3.0.1
       remark-smartypants: 2.0.0
-      shiki: 0.14.4
       source-map: 0.7.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
@@ -210,12 +184,12 @@ packages:
       zod: 3.21.1
     dev: false
 
-  /@astrojs/starlight@0.10.3(astro@3.2.3):
-    resolution: {integrity: sha512-a/iHqP2nqtMOVClfCL/pndWBkTJUCGjwMZaKZDIGszmiOUtyBV4ypRe1VSQlB8N1xBZuSoj6Yg17p/c1muJnsg==}
+  /@astrojs/starlight@0.11.0(astro@3.2.3):
+    resolution: {integrity: sha512-ZnYB1AHetRujy25fSW4uvJTn2ry8nFspMCySWkeB1VT7QzTTgol9y19o1HTWVessViJhlavayHAjd42Pru1rww==}
     peerDependencies:
-      astro: ^3.0.0
+      astro: ^3.2.0
     dependencies:
-      '@astrojs/mdx': 1.0.0(astro@3.2.3)
+      '@astrojs/mdx': 1.1.1(astro@3.2.3)
       '@astrojs/sitemap': 3.0.0
       '@pagefind/default-ui': 1.0.3
       '@types/mdast': 3.0.12
@@ -2079,12 +2053,6 @@ packages:
     dependencies:
       reusify: 1.0.4
 
-  /fault@2.0.1:
-    resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
-    dependencies:
-      format: 0.2.2
-    dev: false
-
   /fetch-blob@3.2.0:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
@@ -2120,11 +2088,6 @@ packages:
     dependencies:
       micromatch: 4.0.5
       pkg-dir: 4.2.0
-    dev: false
-
-  /format@0.2.2:
-    resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
-    engines: {node: '>=0.4.x'}
     dev: false
 
   /formdata-polyfill@4.0.10:
@@ -2742,14 +2705,6 @@ packages:
       - supports-color
     dev: false
 
-  /mdast-util-frontmatter@1.0.1:
-    resolution: {integrity: sha512-JjA2OjxRqAa8wEG8hloD0uTU0kdn8kbtOWpPP94NBkfAlbxn4S8gCGf/9DwFtEeGPXrDcNXdiDjVaRdUFqYokw==}
-    dependencies:
-      '@types/mdast': 3.0.12
-      mdast-util-to-markdown: 1.5.0
-      micromark-extension-frontmatter: 1.1.1
-    dev: false
-
   /mdast-util-gfm-autolink-literal@1.0.3:
     resolution: {integrity: sha512-My8KJ57FYEy2W2LyNom4n3E7hKTuQk/0SES0u16tjA9Z3oFkF4RrC/hPAPgjlSpezsOvI8ObcXcElo92wn5IGA==}
     dependencies:
@@ -2945,15 +2900,6 @@ packages:
       micromark-util-types: 1.1.0
       parse-entities: 4.0.1
       uvu: 0.5.6
-    dev: false
-
-  /micromark-extension-frontmatter@1.1.1:
-    resolution: {integrity: sha512-m2UH9a7n3W8VAH9JO9y01APpPKmNNNs71P0RbknEmYSaZU5Ghogv38BYO94AI5Xw6OYfxZRdHZZ2nYjs/Z+SZQ==}
-    dependencies:
-      fault: 2.0.1
-      micromark-util-character: 1.2.0
-      micromark-util-symbol: 1.1.0
-      micromark-util-types: 1.1.0
     dev: false
 
   /micromark-extension-gfm-autolink-literal@1.0.5:
@@ -3756,15 +3702,6 @@ packages:
       - supports-color
     dev: false
 
-  /remark-frontmatter@4.0.1:
-    resolution: {integrity: sha512-38fJrB0KnmD3E33a5jZC/5+gGAC2WKNiPw1/fdXJvijBlhA7RCsvJklrYJakS0HedninvaCYW8lQGf9C918GfA==}
-    dependencies:
-      '@types/mdast': 3.0.12
-      mdast-util-frontmatter: 1.0.1
-      micromark-extension-frontmatter: 1.1.1
-      unified: 10.1.2
-    dev: false
-
   /remark-gfm@3.0.1:
     resolution: {integrity: sha512-lEFDoi2PICJyNrACFOfDD3JlLkuSbOa5Wd8EPt06HUdptv8Gn0bxYTdbU/XXQ3swAPkEaGxxPN9cbnMHvVu1Ig==}
     dependencies:
@@ -4047,26 +3984,26 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.3.2(@astrojs/starlight@0.10.3)(astro@3.2.3):
+  /starlight-blog@0.3.2(@astrojs/starlight@0.11.0)(astro@3.2.3):
     resolution: {integrity: sha512-WwI8hknFwiRTEDgtE917liB2evXATQlJF/SyQdPLctqhrHM91EmDzwCtFhOPKuEqJnCDMOM3MUsGlmwlEMtBCQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       astro: '>=3.0.0'
     dependencies:
-      '@astrojs/starlight': 0.10.3(astro@3.2.3)
+      '@astrojs/starlight': 0.11.0(astro@3.2.3)
       astro: 3.2.3
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.4.0(@astrojs/starlight@0.10.3)(astro@3.2.3):
+  /starlight-links-validator@0.4.0(@astrojs/starlight@0.11.0)(astro@3.2.3):
     resolution: {integrity: sha512-2QjDl2nfjpc+B+zKNL/ifUkN9KYMXJ1WG8pfzBsfIer23v/RpIn37H/DyDfFwAw4XvTkh4Y/bnCvTGblhrcq3g==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       astro: '>=3.0.0'
     dependencies:
-      '@astrojs/starlight': 0.10.3(astro@3.2.3)
+      '@astrojs/starlight': 0.11.0(astro@3.2.3)
       astro: 3.2.3
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
