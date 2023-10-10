@@ -88,7 +88,9 @@ import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 await writeText('Tauri is awesome!');
 
 // Read text from the clipboard
-assert(await readText(), 'Tauri is awesome!');
+const content = await readText()
+console.log(content)
+// Prints "Tauri is awesome!" to the console
 ```
 
 </TabItem>
