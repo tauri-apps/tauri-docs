@@ -184,6 +184,12 @@ export default defineConfig({
 			],
 			locales,
 			lastUpdated: true,
+			components: {
+				// starlight-blog overrides
+				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
+				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
+				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
+			},
 		}),
 	],
 	markdown: {
