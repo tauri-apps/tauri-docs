@@ -28,9 +28,8 @@ The Tauri code signing and notarization process is configured through the follow
 - `APPLE_SIGNING_IDENTITY`: the name of the keychain entry that contains the signing certificate.
 - `APPLE_CERTIFICATE`: base64 string of the `.p12` certificate, exported from the keychain. Useful if you don't have the certificate on the keychain (e.g., CI machines).
 - `APPLE_CERTIFICATE_PASSWORD`: the password for the `.p12` certificate.
-- `APPLE_ID` and `APPLE_PASSWORD`: your Apple account email and an [app-specific password]. Only required to notarize the app.
-- `APPLE_API_ISSUER` and `APPLE_API_KEY`: authentication with an App Store Connect API key instead of the Apple ID. Only required if you notarize the app.
-- `APPLE_PROVIDER_SHORT_NAME`: Team provider short name. If your Apple ID is connected to multiple teams, you have to specify the provider short name of the team you want to use to notarize your app. You can list your account providers using `xcrun altool --list-providers -u "AC_USERNAME" -p "AC_PASSWORD"` as explained in the notarization [workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow).
+- `APPLE_ID`, `APPLE_PASSWORD` and `APPLE_TEAM_ID`: your Apple account email, an [app-specific password] and your [team ID]. Only required to notarize the app.
+- `APPLE_API_ISSUER`, `APPLE_API_KEY` and `APPLE_API_KEY_PATH`: authentication with an App Store Connect API key instead of the Apple ID. Only required if you notarize the app.
 
 ## Signing Tauri apps
 
@@ -85,8 +84,8 @@ Notarization is required when using a <i>Developer ID Application</i> certificat
 
 :::
 
-- `APPLE_ID` and `APPLE_PASSWORD`: to authenticate with your Apple ID, set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password] for the Apple account.
-- `APPLE_API_ISSUER` and `APPLE_API_KEY`: alternatively, you can authenticate using an App Store Connect API key. Open the App Store Connect's [Users and Access page], select the `Keys` tab, click on the `Add` button and select a name and the `Developer` access. The `APPLE_API_ISSUER` (`Issuer ID`) is presented above the keys table, and the `APPLE_API_KEY` is the value on the `Key ID` column on that table. You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key). The private key file must be saved on `./private_keys`, `~/private_keys`, `~/.private_keys` or `~/.appstoreconnect/private_keys`, as stated on the `xcrun altool --help` command.
+- `APPLE_ID`, `APPLE_PASSWORD` and `APPLE_TEAM_ID`: to authenticate with your Apple ID, set the `APPLE_ID` to your Apple account email (example: `export APPLE_ID=tauri@icloud.com`) and the `APPLE_PASSWORD` to an [app-specific password] for the Apple account.
+- `APPLE_API_ISSUER`, `APPLE_API_KEY` and `APPLE_API_KEY_PATH`: alternatively, you can authenticate using an App Store Connect API key. Open the App Store Connect's [Users and Access page], select the `Keys` tab, click on the `Add` button and select a name and the `Developer` access. The `APPLE_API_ISSUER` (`Issuer ID`) is presented above the keys table, and the `APPLE_API_KEY` is the value on the `Key ID` column on that table. You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key). The private key file path must be set via the `APPLE_API_KEY_PATH` environment variable.
 
 ### Building the application
 
@@ -168,6 +167,7 @@ The workflow pulls the secrets from GitHub and defines them as environment varia
 [apple developer program]: https://developer.apple.com/programs/
 [notarizing macos software before distribution]: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
 [app-specific password]: https://support.apple.com/en-ca/HT204397
+[team ID]: https://developer.apple.com/account#MembershipDetailsCard
 [create a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [certificates, ids & profiles page]: https://developer.apple.com/account/resources/certificates/list
 [users and access page]: https://appstoreconnect.apple.com/access/users
