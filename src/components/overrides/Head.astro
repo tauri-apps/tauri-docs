@@ -1,0 +1,18 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Head.astro';
+
+const socialImage = new URL(
+	`/social-images/content/docs${
+		Astro.url.pathname == '/' ? '/index' : Astro.url.pathname.replace(/\/$/, '')
+	}.png`,
+	Astro.url
+);
+---
+
+<!-- /* TODO: - Check if is possible dynamic generate on astro.config head without overriding Head.astro
+              - Make sure the URL pattern matches every page and if default fallback is working.
+-->
+<Default {...Astro.props}></Default>
+<meta name="twitter:image" content={socialImage} />
+<meta property="og:image" content={socialImage} />
