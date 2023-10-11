@@ -70,15 +70,20 @@ Options:
 <Command name="plugin init" />
 
 ```
-Usage: cargo-tauri plugin init [OPTIONS] --name <PLUGIN_NAME>
+Usage: cargo-tauri plugin init [OPTIONS] [PLUGIN_NAME]
+
+Arguments:
+  [PLUGIN_NAME]  Name of your Tauri plugin. If not specified, it will be infered from the current directory
 
 Options:
-  -n, --name <PLUGIN_NAME>       Name of your Tauri plugin
+      --no-api                   Initializes a Tauri plugin without the TypeScript API
   -v, --verbose...               Enables verbose logging
-      --api                      Initializes a Tauri plugin with TypeScript API
   -d, --directory <DIRECTORY>    Set target directory for init [default: /home/runner/work/tauri-docs/tauri-docs]
   -t, --tauri-path <TAURI_PATH>  Path of the Tauri project to use (relative to the cwd)
   -a, --author <AUTHOR>          Author name
+      --android                  Whether to initialize an Android project for the plugin
+      --ios                      Whether to initialize an iOS project for the plugin
+      --mobile                   Whether to initialize Android and iOS projects for the plugin
   -h, --help                     Print help
   -V, --version                  Print version
 ```
@@ -104,6 +109,7 @@ Options:
       --no-watch                  Disable the file watcher
       --no-dev-server             Disable the dev server for static files
       --port <PORT>               Specify port for the dev server for static files. Defaults to 1430 Can also be set using `TAURI_DEV_SERVER_PORT` env var
+      --force-ip-prompt           Force prompting for an IP to use to connect to the dev server on mobile
   -h, --help                      Print help
   -V, --version                   Print version
 ```
@@ -183,14 +189,15 @@ If you have entered a command to the `build.beforeBuildCommand` property, this o
 Usage: cargo-tauri icon [OPTIONS] [INPUT]
 
 Arguments:
-  [INPUT]  Path to the source icon (png, 1024x1024px with transparency) [default: ./app-icon.png]
+  [INPUT]  Path to the source icon (png, 1240x1240px with transparency) [default: ./app-icon.png]
 
 Options:
-  -o, --output <OUTPUT>  Output directory. Default: 'icons' directory next to the tauri.conf.json file
-  -v, --verbose...       Enables verbose logging
-  -p, --png <PNG>        Custom PNG icon sizes to generate. When set, the default icons are not generated
-  -h, --help             Print help
-  -V, --version          Print version
+  -o, --output <OUTPUT>        Output directory. Default: 'icons' directory next to the tauri.conf.json file
+  -v, --verbose...             Enables verbose logging
+  -p, --png <PNG>              Custom PNG icon sizes to generate. When set, the default icons are not generated
+      --ios-color <IOS_COLOR>  The background color of the iOS icon - string as defined in the W3C's CSS Color Module Level 4 <https://www.w3.org/TR/css-color-4/> [default: #fff]
+  -h, --help                   Print help
+  -V, --version                Print version
 ```
 
 For more information, check out the complete [Tauri Icon Guide](../guides/features/icons.md).
