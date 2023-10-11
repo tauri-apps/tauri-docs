@@ -32,7 +32,7 @@ For CLI commands related to developing plugins visit the [Develop a Tauri Plugin
 | [`icon`](#icon)               | Generates various icons for all major platforms                      |
 | [`info`](#info)               | Shows information about Tauri dependencies and project configuration |
 | [`init`](#init)               | Initializes a Tauri project                                          |
-| [`plugin add`](#plugin-add)   | Manage Tauri plugins                                                 |
+| [`add`](#add)                 | Manage Tauri plugins                                                 |
 | [`signer`](#signer)           | Tauri updater signer                                                 |
 | [`completions`](#completions) | Shell completions                                                    |
 | [`ios`](#ios)                 | iOS commands                                                         |
@@ -216,19 +216,19 @@ Options:
           Print version
 ```
 
-## `plugin add`
+## `add`
 
 <CommandTabs
-	npm="npm tauri plugin add"
-	yarn="yarn tauri plugin add"
-	pnpm="pnpm tauri plugin add"
-	cargo="cargo tauri plugin add"
+	npm="npm tauri add"
+	yarn="yarn tauri add"
+	pnpm="pnpm tauri add"
+	cargo="cargo tauri add"
 />
 
 ```
 Installs a plugin on the project
 
-Usage: cargo tauri plugin add [OPTIONS] <PLUGIN>
+Usage: cargo tauri add [OPTIONS] <PLUGIN>
 
 Arguments:
   <PLUGIN>  The plugin to add
