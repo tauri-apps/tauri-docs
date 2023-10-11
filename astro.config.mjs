@@ -74,6 +74,11 @@ export default defineConfig({
 				twitter: 'https://twitter.com/TauriApps',
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
+			components: {
+				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
+				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
+				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
+			},
 			head: [
 				{
 					tag: 'meta',
