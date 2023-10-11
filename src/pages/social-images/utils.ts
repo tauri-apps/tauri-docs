@@ -1,3 +1,8 @@
+export function matchPath(path: string, match: string): boolean {
+	path = path.replace('content/docs', '');
+	return path.startsWith(match);
+}
+
 export function breakText(str: string, maxLines: number, maxLineLen: number) {
 	const segmenterTitle = new Intl.Segmenter('en-US', { granularity: 'word' });
 	const segments = segmenterTitle.segment(str);
