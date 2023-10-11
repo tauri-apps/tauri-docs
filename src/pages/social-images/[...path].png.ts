@@ -3,7 +3,7 @@
 // TODO: Define default or import from somewhere else
 const SITE_TITLE = 'Tauri';
 const SITE_DESCRIPTION = 'Tauri is awesome';
-
+import { breakText } from './utils';
 import { createRequire } from 'module';
 
 // We can't import sharp normally because it's a CJS thing and those don't seems to work well with Astro, Vite, everyone
@@ -52,31 +52,7 @@ export async function GET({ params, request }) {
 	return new Response(body);
 }
 
-// breaks a string into a set of strings with a maximum length.
-// This is used to prevent horizontal text overflow
-function breakText(str: string, maxLines: number, maxLineLen: number) {
-	const segmenterTitle = new Intl.Segmenter('en-US', { granularity: 'word' });
-	const segments = segmenterTitle.segment(str);
 
-	let linesOut = [''];
-	let lineNo = 0;
-	let offsetInLine = 0;
-	for (const word of Array.from(segments)) {
-		if (offsetInLine + word.segment.length >= maxLineLen) {
-			lineNo++;
-			offsetInLine = 0;
-			linesOut.push('');
-		}
-
-		if (lineNo >= maxLines) {
-			return linesOut.slice(0, maxLines);
-		}
-
-		linesOut[lineNo] += word.segment;
-		offsetInLine += word.segment.length;
-	}
-	return linesOut;
-}
 
 function createTemplate(title: string, description: string): string {
 	const [titleFirstLine, titleSecondLine] = breakText(title, 2, 30);
