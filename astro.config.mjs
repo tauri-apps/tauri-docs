@@ -79,17 +79,8 @@ export default defineConfig({
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
+				Head: '@components/overrides/Head.astro',
 			},
-			head: [
-				{
-					tag: 'meta',
-					attrs: { property: 'og:image', content: site + '/og.png?v=1' },
-				},
-				{
-					tag: 'meta',
-					attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
-				},
-			],
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
