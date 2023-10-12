@@ -1,13 +1,13 @@
 // ISSUE: Some pages don't have description field in the frontmatter, but have title. In those cases it is returning undefined written on the OG image. Example: /features/commands/
 
-// TODO: Fix breaking character '&' 
+// TODO: Fix breaking character '&'
 
 // TODO: Define default or import from somewhere else
 const SITE_TITLE = 'Tauri';
 const SITE_DESCRIPTION = 'Tauri is awesome';
 import { createRequire } from 'module';
 import { matchPath } from '@assets/dynamic-og/utils';
-import { createBlogTemplate, createShortTemplate, createLongTemplate } from '@assets/dynamic-og/templates';
+import { createBlogTemplate, createDefaultTemplate } from '@assets/dynamic-og/templates';
 
 // We can't import sharp normally because it's a CJS thing and those don't seems to work well with Astro, Vite, everyone
 const cjs = createRequire(import.meta.url);
@@ -55,12 +55,12 @@ export async function GET({ params, request }) {
 			template = createBlogTemplate(fm.title, fm.excerpt, postDate);
 		} else {
 			template = fm.description
-				? createLongTemplate(fm.title, fm.description)
-				: createShortTemplate(fm.title);
+				? createDefaultTemplate(fm.title, fm.description)
+				: createDefaultTemplate(fm.title);
 		}
 	} else {
 		// TODO: define default template text
-		template = createLongTemplate(SITE_TITLE, SITE_DESCRIPTION);
+		template = createDefaultTemplate(SITE_TITLE, SITE_DESCRIPTION);
 	}
 
 	// Generate our image
@@ -69,5 +69,3 @@ export async function GET({ params, request }) {
 
 	return new Response(body);
 }
-
-
