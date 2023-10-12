@@ -2,15 +2,18 @@ import { breakText } from '@assets/dynamic-og/utils';
 
 export function createBlogTemplate(
 	postTitle: string,
-	postExcerpt: string,
-	postDate: string
+	postDate: string,
+	postExcerpt?: string
 ): string {
 	const titleLines = breakText(postTitle, 2, 30);
-	const excerptsLines = breakText(postExcerpt, 2, 35);
-	return defineBlogTemplate(titleLines, excerptsLines, postDate);
+	if (postExcerpt) {
+		const excerptsLines = breakText(postExcerpt, 2, 35);
+		return defineBlogTemplate(titleLines, postDate, excerptsLines);
+	}
+	return defineBlogTemplate(titleLines, postDate);
 }
 
-// TODO: refactor
+// TODO: refactor this function
 export function createDefaultTemplate(title: string, description?: string): string {
 	const titleLines = breakText(title, 2, 20);
 	if (description) {
@@ -20,7 +23,19 @@ export function createDefaultTemplate(title: string, description?: string): stri
 	return defaultTemplate(titleLines);
 }
 
-function defineBlogTemplate(postTitle: string[], postExcerpt: string[], postDate: string): string {
+// TODO: Revise text position
+function defineBlogTemplate(postTitle: string[], postDate: string, postExcerpt?: string[]): string {
+	const titleContent = `<tspan x="86" y="251.625">${
+		postTitle[0] || ''
+	} </tspan><tspan x="86" y="323.625">${postTitle[1] || ''} 
+</tspan>`;
+	let descContent = '';
+	if (postExcerpt) {
+		descContent = `<tspan x="86" y="368.562">${
+			postExcerpt[0] || ''
+		}</tspan><tspan x="86" y="416.562">${postExcerpt[1] || ''}  </tspan>`;
+	}
+
 	return `<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
 <style>
 @font-face {
@@ -54,14 +69,8 @@ function defineBlogTemplate(postTitle: string[], postExcerpt: string[], postDate
     <path id="Vector_12" fill-rule="evenodd" clip-rule="evenodd" d="M802.235 500.494C806.414 497.758 811.077 495.844 815.973 494.856C814.484 498.936 813.952 503.303 814.417 507.621C810.853 508.873 807.583 510.84 804.808 513.404C802.033 515.967 799.812 519.071 798.283 522.525C796.085 527.479 795.345 532.956 796.148 538.315C796.952 543.674 799.265 548.694 802.819 552.786C806.352 556.825 810.981 559.753 816.146 561.214C821.31 562.674 826.787 562.605 831.913 561.015C837.729 559.188 842.784 555.499 846.298 550.518C851.547 549.934 856.666 548.379 861.461 546.047C859.556 552.211 856.194 557.826 851.66 562.417C847.126 567.007 841.552 570.438 835.412 572.419C828.126 574.74 820.319 574.872 812.959 572.799C805.599 570.725 799.009 566.538 794.006 560.756C790.205 556.423 787.378 551.325 785.714 545.807C784.051 540.288 783.591 534.477 784.365 528.765C785.139 523.054 787.129 517.575 790.2 512.698C793.272 507.82 797.354 503.659 802.171 500.494H802.235Z" fill="#24C8DB"/>
     </g>
     <g id="Frame 71">
-    <text id="Blog post title" fill="white" xml:space="preserve" style="white-space: pre" font-family="SFPro" font-size="96" letter-spacing="0em"><tspan x="86" y="251.625">${
-			postTitle[0] || ''
-		} </tspan><tspan x="86" y="323.625">${postTitle[1] || ''} 
-		</tspan></text>
-    <text id="Blog excerpt." fill="white" xml:space="preserve" style="white-space: pre" font-family="SFPro" font-size="48" letter-spacing="0em"><tspan x="86" y="368.562">${
-			postExcerpt[0] || ''
-		}</tspan>
-        <tspan x="86" y="416.562">${postExcerpt[1] || ''}  </tspan></text>
+    <text id="Blog post title" fill="white" xml:space="preserve" style="white-space: pre" font-family="SFPro" font-size="96" letter-spacing="0em">${titleContent}</text>
+    <text id="Blog excerpt." fill="white" xml:space="preserve" style="white-space: pre" font-family="SFPro" font-size="48" letter-spacing="0em">${descContent}</text>
     <text id="11 October 2023" fill="white" xml:space="preserve" style="white-space: pre" font-family="SFPro" font-size="36" letter-spacing="0em"><tspan x="86" y="510.297">${postDate}</tspan></text>
     </g>
     </g>
@@ -99,7 +108,7 @@ function defaultTemplate(title: string[], description?: string[]): string {
 		: `<tspan x="86" y="349.125">${title[0]}</tspan>`;
 
 	let descContent = '';
-  if (description) {
+	if (description) {
 		descContent = description[1]
 			? `<tspan x="86" y="419.062">${description[0]}</tspan><tspan x="86" y="476.062">${description[1]}</tspan>`
 			: `<tspan x="86" y="442.562">${description[0]}</tspan>`;
@@ -130,7 +139,7 @@ function defaultTemplate(title: string[], description?: string[]): string {
         <path id="Vector_12" fill-rule="evenodd" clip-rule="evenodd" d="M802.235 500.494C806.414 497.758 811.077 495.844 815.973 494.856C814.484 498.936 813.952 503.303 814.417 507.621C810.853 508.873 807.583 510.84 804.808 513.404C802.033 515.967 799.812 519.071 798.283 522.525C796.085 527.479 795.345 532.956 796.148 538.315C796.952 543.674 799.265 548.694 802.819 552.786C806.352 556.825 810.981 559.753 816.146 561.214C821.31 562.674 826.787 562.605 831.913 561.015C837.729 559.188 842.784 555.499 846.298 550.518C851.547 549.934 856.666 548.379 861.461 546.047C859.556 552.211 856.194 557.826 851.66 562.417C847.126 567.007 841.552 570.438 835.412 572.419C828.126 574.74 820.319 574.872 812.959 572.799C805.599 570.725 799.009 566.538 794.006 560.756C790.205 556.423 787.378 551.325 785.714 545.807C784.051 540.288 783.591 534.477 784.365 528.765C785.139 523.054 787.129 517.575 790.2 512.698C793.272 507.82 797.354 503.659 802.171 500.494H802.235Z" fill="#24C8DB"/>
         </g>
         <g id="Frame 71">
-        <text id="Title but with multiple lines" fill="white" xml:space="preserve" style="white-space: pre" font-family="SF Pro" font-size="${font.title}" letter-spacing="0em">     ${titleContent}</text><text id="Description but with multiple lines. If it gets really long then..." fill="white" xml:space="preserve" style="white-space: pre" font-family="SF Pro" font-size="${font.desc}" letter-spacing="0em">${descContent}</text>
+        <text id="Title" fill="white" xml:space="preserve" style="white-space: pre" font-family="SF Pro" font-size="${font.title}" letter-spacing="0em">${titleContent}</text><text id="Description" fill="white" xml:space="preserve" style="white-space: pre" font-family="SF Pro" font-size="${font.desc}" letter-spacing="0em">${descContent}</text>
         </g>
         </g>
         <defs>

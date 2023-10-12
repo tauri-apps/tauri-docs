@@ -52,7 +52,9 @@ export async function GET({ params, request }) {
 				month: 'long',
 				year: 'numeric',
 			});
-			template = createBlogTemplate(fm.title, fm.excerpt, postDate);
+			template = fm.excerpt
+				? createBlogTemplate(fm.title, postDate, fm.excerpt)
+				: createBlogTemplate(fm.title, postDate);
 		} else {
 			template = fm.description
 				? createDefaultTemplate(fm.title, fm.description)
