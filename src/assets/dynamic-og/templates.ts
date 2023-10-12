@@ -1,4 +1,4 @@
-import { breakText } from './utils';
+import { breakText } from '@assets/dynamic-og/utils';
 
 export function createBlogTemplate(
 	postTitle: string,
