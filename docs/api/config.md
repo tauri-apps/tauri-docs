@@ -308,12 +308,9 @@ Can be any **ONE** of the following types:
 
 ##### BundleResources
 
-Definition for bundle resources. Can be either a list of paths to include or a map of source to target paths.
+Definition for bundle resources. It is a map of source to target paths.
 
-Can be any of the following types:
-
-- `string[]`: A list of paths to include.
-- `object`: A map of source to target paths.
+Type: `string[]`
 
 ##### AppImageConfig
 
