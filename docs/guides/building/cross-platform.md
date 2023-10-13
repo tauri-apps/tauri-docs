@@ -153,7 +153,7 @@ Make sure to check the [documentation for GitHub Actions][github actions] to und
 
 ## Experimental: Build Windows apps on Linux and macOS
 
-Tauri v1.3 added a new Windows installer type based on the [NSIS] installer framework. In contrast to WiX, NSIS itself can also work on Linux and macOS which makes it possible to build many Tauri apps on non-Windows hosts. Note that this is currently considered highly experimental and may not work on every system or for every project. Therefore it should only be used as a last resort if local VMs or CI solutions like GitHub Actions don't work for you.
+Tauri v1.3 added a new Windows installer type based on the [NSIS] installer framework. In contrast to WiX, NSIS itself can also work on Linux and macOS which makes it possible to build many Tauri apps on non-Windows hosts. Note that this is currently considered highly experimental and may not work on every system or for every project. Therefore it should only be used as a last resort if local VMs or CI solutions like GitHub Actions don't work for you. **Note that, at this time, signing cross-platform builds is currently unsupported.**
 
 Since Tauri officially only supports the MSVC Windows target, the setup is a bit more involved.
 
@@ -250,6 +250,15 @@ rustflags = [
 Keep in mind that this file is specific to your machine so we don't recommend checking it into git if your project is public or will be shared with anyone.
 
 #### Building the App
+
+:::note
+
+If your application has dependencies to C libraries such as `ring` or `libsqlite3-sys`, building your application cross-platform gets a little trickier, 
+as you will also need to set up the appropriate environment variables and packages to cross-compile those C libraries on your system. These may include 
+setting the `CC`, `CXX`, `AR` and other environment variables, although this depends heavily on the set up of your build environment. Please refer to 
+the documentation of the libraries you are using for more information about any additional configuration for cross-compilation.
+
+:::
 
 Now it should be as simple as adding the target to the `tauri build` command:
 
