@@ -1,10 +1,11 @@
 // ISSUE: Some pages don't have description field in the frontmatter, but have title. In those cases it is returning undefined written on the OG image. Example: /features/commands/
 
-// TODO: Fix breaking character '&'
+// TODO: Define default text
+const og = {
+	title: 'Tauri',
+	description: 'The cross-platform app building toolkit',
+};
 
-// TODO: Define default or import from somewhere else
-const SITE_TITLE = 'Tauri';
-const SITE_DESCRIPTION = 'Tauri is awesome';
 import { createRequire } from 'module';
 import { matchPath } from '@assets/dynamic-og/utils';
 import { createBlogTemplate, createDefaultTemplate } from '@assets/dynamic-og/templates';
@@ -24,7 +25,7 @@ const blogPosts = Object.fromEntries(
 );
 
 export async function getStaticPaths() {
-	const paths = ['index', 'blog'];
+	const paths = ['index', 'blog', 'features/index'];
 
 	for (const [path, getInfo] of Object.entries(blogPosts)) {
 		const info = (await getInfo()) as Record<string, any>;
@@ -40,6 +41,7 @@ export async function getStaticPaths() {
 export async function GET({ params, request }) {
 	const getInfo = blogPosts[params.path];
 	let template;
+
 	if (getInfo) {
 		const info = (await getInfo()) as Record<string, any>;
 		const fm = info.frontmatter;
@@ -61,13 +63,16 @@ export async function GET({ params, request }) {
 				: createDefaultTemplate(fm.title);
 		}
 	} else {
-		// TODO: define default template text
-		template = createDefaultTemplate(SITE_TITLE, SITE_DESCRIPTION);
+		template = createDefaultTemplate(og.title, og.description);
 	}
 
 	// Generate our image
 	const svgBuffer = Buffer.from(template);
-	const body = await sharp(svgBuffer).resize(1200, 675).png().toBuffer();
 
-	return new Response(body);
+	try {
+		const body = await sharp(svgBuffer).resize(1200, 675).png().toBuffer();
+		return new Response(body);
+	} catch (error) {
+		throw new Error(`${error}\nFile path: "${params.path}" ${svgBuffer}`);
+	}
 }

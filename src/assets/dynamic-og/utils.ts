@@ -1,3 +1,15 @@
+// TODO: analyze what really needs escaping in frontmatter, it seems ' and " is not necessary https://developer.mozilla.org/en-US/docs/Glossary/Entity
+function escape(unsafe: string) {
+	if (unsafe) {
+		if (unsafe.includes('&amp;')) {
+			return unsafe;
+		} else {
+			// &, <, > are necessary
+			return unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+		}
+	}
+}
+
 export function matchPath(path: string, match: string): boolean {
 	path = path.replace('content/docs', '');
 	return path.startsWith(match);
@@ -21,8 +33,9 @@ export function breakText(str: string, maxLines: number, maxLineLen: number) {
 			return linesOut.slice(0, maxLines);
 		}
 
-		linesOut[lineNo] += word.segment;
+		linesOut[lineNo] += escape(word.segment);
 		offsetInLine += word.segment.length;
 	}
+
 	return linesOut;
 }
