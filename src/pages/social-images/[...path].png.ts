@@ -68,7 +68,7 @@ export async function GET({ params, request }) {
 	const svgBuffer = Buffer.from(template);
 
 	try {
-		const body = await sharp(svgBuffer).resize(1200, 675).png().toBuffer();
+		const body = await sharp(svgBuffer).resize(1200, 630).png().toBuffer();
 		return new Response(body);
 	} catch (error) {
 		throw new Error(`${error}\nFile path: "${params.path}" ${svgBuffer}`);
