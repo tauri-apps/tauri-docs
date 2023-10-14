@@ -75,7 +75,8 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			components: {
-				Footer: 'src/components/overrides/Footer.astro',
+				Footer: '@components/overrides/Footer.astro',
+				Head: '@components/overrides/Head.astro',
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
