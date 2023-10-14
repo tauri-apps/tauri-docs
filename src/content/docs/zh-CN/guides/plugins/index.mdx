@@ -124,7 +124,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 - [`on_event`](#on_event): 事件循环
 - [`on_drop`](#on_drop): 插件被析构时
 
-还有一些特定的[移动端插件生命周期事件](/zh-cn/guides/plugins/develop-mobile#lifecycle-events)。
+还有一些特定的[移动端插件生命周期事件](/zh-cn/guides/plugins/develop-mobile#生命周期事件)。
 
 ### `setup`
 
@@ -249,7 +249,7 @@ Builder::new("<plugin-name>")
 在项目的 `desktop.rs` 和 `mobile.rs` 中定义的插件 API 将作为与插件同名的结构体导出给用户（使用 Pascal 命名法）。
 设置插件时，会创建此结构体的实例并将其作为一种状态进行管理，以便用户可以通过插件中定义的扩展特性，在任何时间点使用 `Manager` 实例（如 `AppHandle`、`App` 或 `Window`）检索它。
 
-例如，[`global-shortcut` 插件](/zh-cn/features/global-shortcut) 定义了一个 `GlobalShortcut` 结构体，可以被 `GlobalShortcutExt` trait 的 `global_shortcut` 方法使用：
+例如，[`global-shortcut` 插件](/features/global-shortcut/) 定义了一个 `GlobalShortcut` 结构体，可以被 `GlobalShortcutExt` trait 的 `global_shortcut` 方法使用：
 
 ```rust
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -265,7 +265,7 @@ tauri::Builder::default()
 ## 添加命令
 
 命令在 `command.rs` 文件中定义。它们是常规的 Tauri 应用程序命令。它们可以直接访问 `AppHandle` 和 `Window` 实例，获取状态，并以与应用命令同样的方式获取输入。
-阅读[命令指南](/zh-cn/features/commands)以获取更多关于 Tauri 命令的信息。
+阅读[命令指南](/features/commands/)以获取更多关于 Tauri 命令的信息。
 
 这个命令展示了如何使用依赖注入访问 `AppHandle` 和 `Window` 实例，并接受两个输入参数（`on_progress` 和 `url`）：
 
@@ -304,4 +304,4 @@ export async function upload(url: string, onProgressHandler: (progress: number) 
 
 ## 管理状态
 
-插件可以像 Tauri 应用程序一样管理状态。阅读[状态管理指南](/zh-cn/guides/state-management)以获取更多信息。
+插件可以像 Tauri 应用程序一样管理状态。阅读[状态管理指南](/guides/state-management)以获取更多信息。
