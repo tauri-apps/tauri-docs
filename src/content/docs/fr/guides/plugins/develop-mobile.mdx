@@ -5,7 +5,7 @@ i18nReady: true
 
 :::tip[Développment de plugin]
 
-Assurez-vous de bien connaître les concepts abordés dans le [Guide de développement de plugins](/fr/guide/plugins) car de nombreuses notions de ce guide reposent sur les concepts qui y sont couverts.
+Assurez-vous de bien connaître les concepts abordés dans le [Guide de développement de plugins](/fr/guides/plugins) car de nombreuses notions de ce guide reposent sur les concepts qui y sont couverts.
 
 :::
 
@@ -13,7 +13,7 @@ Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et
 
 ## Initialiser le projet de plugin
 
-Suivez les étapes dans le [Guide de développment de plugin](/fr/guide/plugins#initialiser-un-projet-de-plugin) pour initialiser un nouveau plugin.
+Suivez les étapes dans le [Guide de développment de plugin](/fr/guides/plugins#initialiser-un-projet-de-plugin) pour initialiser un nouveau plugin.
 
 Si vous avez un plugin existant et souhaitez y ajouter des fonctionnalités Android ou iOS, vous pouvez utiliser `plugin android add` et `plugin ios add` pour démarrer les projets de librairies mobiles et vous guider durant les changements nécessaires.
 
@@ -48,7 +48,7 @@ Le plugin est défini comme un [package Swift](https://www.swift.org/package-man
 
 ## Configuration de plugins
 
-Référez-vous à la section de [configuration de plugin](/fr/guide/plugins#configuration-de-plugin) du guide de développement de plugins pour plus de détails à propos du développement de configurations de plugin.
+Référez-vous à la section de [configuration de plugin](/fr/guides/plugins#configuration-de-plugin) du guide de développement de plugins pour plus de détails à propos du développement de configurations de plugin.
 
 L'instance du plugin sur mobile possède un "getter" pour la configuration du plugin :
 
@@ -85,7 +85,7 @@ Les plugins peuvent se lier à plusieurs évènements du cycle de vie :
 - [load](#load): Lorsque le plugin est chargé dans la "web view"
 - [onNewIntent](#onnewintent): Seulement pour Android, lorsque l'activitée est relancée
 
-Il y a également les [évènements de cycle de vie supplémentaires pour les plugins](/fr/guide/plugins#évènements-du-cycle-de-vie) dans le guide de développement de plugins.
+Il y a également les [évènements de cycle de vie supplémentaires pour les plugins](/fr/guides/plugins#évènements-du-cycle-de-vie) dans le guide de développement de plugins.
 
 ### load
 

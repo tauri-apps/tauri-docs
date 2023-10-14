@@ -11,7 +11,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::tip[Développement de plugin]
 
-Ce guide couvre le développement de plugins pour Tauri. Si vous cherchez une liste des plugins actuellement disponibles et comment les utiliser, allez sur la [liste des fonctionnalitées et cas d'usages](/fr/guide/list).
+Ce guide couvre le développement de plugins pour Tauri. Si vous cherchez une liste des plugins actuellement disponibles et comment les utiliser, allez sur la [liste des fonctionnalitées et cas d'usages](/fr/guides/list).
 
 :::
 
@@ -19,7 +19,7 @@ Les plugins sont capables de se lier au cycle de vie de Tauri, expose le code Ru
 
 Tauri offre un système de fenêtrage avec sa fonctionnalité de web view, une manière d'envoyer des messages entre le processus Rust et la wab view, et un système d'évènement avec plusieurs outils pour améliorer l'expérience de développement. De par sa conception, le noyeau de Tauri ne contient pas de fonctionnalités dont tout le monde n'a pas besoin. au lieu de cela, il offre un méchanisme pour ajouter des fonctionnalités externes dans une application Tauri appelé plugin.
 
-Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel qui fournit des liaisons pour ses commandes et évènements. De plus, un plugin peut inclure un projet de librairie Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugin mobile](/fr/guide/plugins/develop-mobile).
+Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel qui fournit des liaisons pour ses commandes et évènements. De plus, un plugin peut inclure un projet de librairie Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugin mobile](/fr/guides/plugins/develop-mobile).
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
@@ -67,7 +67,7 @@ Si vous avez un plugin existant et voulez lui ajouter des fonctionnalitées Andr
 
 Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et Swift. Le modèle de plugin par défaut inclue une librairie Android utilisant Kotlin et un package Swift. Il inclus aussi un example montrant comment utiliser son exécution à partir du code Rust.
 
-Apprenez-en plus à propos du développement de plugins pour mobiles dans le [guide de développement de plugins mobiles](/fr/guide/plugins/develop-mobile)
+Apprenez-en plus à propos du développement de plugins pour mobiles dans le [guide de développement de plugins mobiles](/fr/guides/plugins/develop-mobile)
 
 ## Configuration de plugin
 
@@ -121,7 +121,7 @@ Les plugins peuvent capter plusieurs évènements du cycle de vie :
 - [on_event](#on_event): Évènements de la boucles d'évènements
 - [on_drop](#on_drop): Le plugin est en cours de déconstruction
 
-Il existe d'autres [évènements du cycle de vie pour des plugins mobiles](/fr/guide/plugins/develop-mobile#évènement-du-cycle-de-vie).
+Il existe d'autres [évènements du cycle de vie pour des plugins mobiles](/fr/guides/plugins/develop-mobile#évènement-du-cycle-de-vie).
 
 ### setup
 
@@ -245,7 +245,7 @@ Builder::new("<nom-du-plugin>")
 
 Les API de plugins définis dans `desktop.rs` et `mobile.rs` du projet sont exportés à l'utilisateur en tant que structure avec le même nom que le plugin (en pascal case). Lors de l'initialisation du plugin, une instance de cette structure est créée et gérée comme un état pour que les utilisateurs puissent la retrouver à tout instant avec une instance de `Manager` (comme `AppHandle`, `App`, ou ` Window`), via le trait d'extension défini dans le plugin.
 
-Par exemple, le [plugin `global-shortcut`](/fr/guide/global-shortcut) défini une structure `GlobalShortcut` qui peut être accédée en utilisant la méthode `global_shortcut` du trait `GlobalShortcutExt` :
+Par exemple, le [plugin `global-shortcut`](/fr/guides/global-shortcut) défini une structure `GlobalShortcut` qui peut être accédée en utilisant la méthode `global_shortcut` du trait `GlobalShortcutExt` :
 
 ```rust
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -299,4 +299,4 @@ Assurez-vous de compiler le code TypeScript avant de le tester.
 
 ## Gérer les états
 
-Un plugin peut gérer les états de la même manière qu'une application Tauri. Voir le [guide de gestion des états](/fr/guide/state-management) pour plus d'informations.
+Un plugin peut gérer les états de la même manière qu'une application Tauri. Voir le [guide de gestion des états](/fr/guides/state-management) pour plus d'informations.
