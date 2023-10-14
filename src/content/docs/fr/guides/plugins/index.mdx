@@ -11,7 +11,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::tip[Développement de plugin]
 
-Ce guide couvre le développement de plugins pour Tauri. Si vous cherchez une liste des plugins actuellement disponibles et comment les utiliser, allez sur la [liste des fonctionnalitées et cas d'usages](/fr/2/guide/list).
+Ce guide couvre le développement de plugins pour Tauri. Si vous cherchez une liste des plugins actuellement disponibles et comment les utiliser, allez sur la [liste des fonctionnalitées et cas d'usages](/fr/guide/list).
 
 :::
 
@@ -19,7 +19,7 @@ Les plugins sont capables de se lier au cycle de vie de Tauri, expose le code Ru
 
 Tauri offre un système de fenêtrage avec sa fonctionnalité de web view, une manière d'envoyer des messages entre le processus Rust et la wab view, et un système d'évènement avec plusieurs outils pour améliorer l'expérience de développement. De par sa conception, le noyeau de Tauri ne contient pas de fonctionnalités dont tout le monde n'a pas besoin. au lieu de cela, il offre un méchanisme pour ajouter des fonctionnalités externes dans une application Tauri appelé plugin.
 
-Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel qui fournit des liaisons pour ses commandes et évènements. De plus, un plugin peut inclure un projet de librairie Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugin mobile](/fr/2/guide/plugins/develop-mobile).
+Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel qui fournit des liaisons pour ses commandes et évènements. De plus, un plugin peut inclure un projet de librairie Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugin mobile](/fr/guide/plugins/develop-mobile).
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
@@ -27,11 +27,11 @@ Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel q
 
 {/* TODO: Add link to allowlist */}
 
-Les plugins Tauri ont un préfixe (`tauri-plugin-` pour le nom de la crate Rust et `@tauri-apps/plugin-` pour le package NPM) suivi par le nom du plugin. Le nom du plugin est spécifié dans la configuration du plugin dans [`tauri.conf.json > plugin`](/fr/2/reference/config/#pluginconfig) et sur la configuration de la liste d'autorisations.
+Les plugins Tauri ont un préfixe (`tauri-plugin-` pour le nom de la crate Rust et `@tauri-apps/plugin-` pour le package NPM) suivi par le nom du plugin. Le nom du plugin est spécifié dans la configuration du plugin dans [`tauri.conf.json > plugin`](/fr/reference/config/#pluginconfig) et sur la configuration de la liste d'autorisations.
 
 Tauri préfixe par défaut votre crate de plugin avec `tauri-plugin-`. Cela aide votre plugin à être découvert par la communauté de Tauri, mais ce n'est pas un impératif. Lors de l'initialisation d'un nouveau projet de plugin, vous devez lui donner son nom. Le nom de la crate générée sera `tauri-plugin-{nom-du-plugin}` et le nom du package NPM sera `tauri-plugin-{nom-du-plugin}-api` (bien que nous recommendons l'utilisation d'un [scope NPM](https://docs.npmjs.com/about-scopes) si possible). La convention de nommage de Tauri pour NPM est `@scope-name/plugin-{nom-du-plugin}`.
 
-## Initialiser projet de plugin
+## Initialiser un projet de plugin
 
 Pour commencer un nouveau projet de plugin, exécutez `plugin init`. Si vous n'avez pas besoin du package NPM, utilisez l'indicateur CLI `--no-api`. 
 
@@ -67,7 +67,7 @@ Si vous avez un plugin existant et voulez lui ajouter des fonctionnalitées Andr
 
 Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et Swift. Le modèle de plugin par défaut inclue une librairie Android utilisant Kotlin et un package Swift. Il inclus aussi un example montrant comment utiliser son exécution à partir du code Rust.
 
-Apprenez-en plus à propos du développement de plugins pour mobiles dans le [guide de développement de plugins mobiles](/fr/2/guide/plugins/develop-mobile)
+Apprenez-en plus à propos du développement de plugins pour mobiles dans le [guide de développement de plugins mobiles](/fr/guide/plugins/develop-mobile)
 
 ## Configuration de plugin
 
@@ -111,17 +111,17 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 }
 ```
 
-## Evènements du cycle de vie
+## Évènements du cycle de vie
 
 Les plugins peuvent capter plusieurs évènements du cycle de vie :
 
 - [setup](#setup): Le plugin est initialisé
 - [on_navigation](#on_navigation): "Web view" essaie d'utiliser la navigation
 - [on_webview_ready](#on_webview_ready): Une nouvelle fenêtre est créée
-- [on_event](#on_event): Evènements de la boucles d'évènements
+- [on_event](#on_event): Évènements de la boucles d'évènements
 - [on_drop](#on_drop): Le plugin est en cours de déconstruction
 
-Il existe d'autres [évènements du cycle de vie pour des plugins mobiles](/fr/2/guide/plugins/develop-mobile#lifecycle-events).
+Il existe d'autres [évènements du cycle de vie pour des plugins mobiles](/fr/guide/plugins/develop-mobile#évènement-du-cycle-de-vie).
 
 ### setup
 
@@ -186,7 +186,7 @@ Builder::new("<nom-du-plugin>")
 
 ### on_event
 
-- **Quand** : Evènements de la boucles d'évènements
+- **Quand** : Évènements de la boucles d'évènements
 - **Pourquoi** : Gère les évènements principaux, tels que les évènements de la fenêtre, ceux du menu et la demande d'arrêt de l'application
 
 Avec ce capteur du cycle de vie, vous pouvez être notifiés de chacun des évènements de boucle d'[évènements](https://docs.rs/tauri/2.0.0-alpha/tauri/enum.RunEvent.html).
@@ -245,7 +245,7 @@ Builder::new("<nom-du-plugin>")
 
 Les API de plugins définis dans `desktop.rs` et `mobile.rs` du projet sont exportés à l'utilisateur en tant que structure avec le même nom que le plugin (en pascal case). Lors de l'initialisation du plugin, une instance de cette structure est créée et gérée comme un état pour que les utilisateurs puissent la retrouver à tout instant avec une instance de `Manager` (comme `AppHandle`, `App`, ou ` Window`), via le trait d'extension défini dans le plugin.
 
-Par exemple, le [plugin `global-shortcut`](/2/fr/guide/global-shortcut) défini une structure `GlobalShortcut` qui peut être accédée en utilisant la méthode `global_shortcut` du trait `GlobalShortcutExt` :
+Par exemple, le [plugin `global-shortcut`](/fr/guide/global-shortcut) défini une structure `GlobalShortcut` qui peut être accédée en utilisant la méthode `global_shortcut` du trait `GlobalShortcutExt` :
 
 ```rust
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -260,7 +260,7 @@ tauri::Builder::default()
 
 ## Ajout de commandes
 
-Les commandes sont définies dans le fichier `commands.rs`. Ce sont des commandes régulières des applications Tauri. Elles peuvent accéder aux instances `AppHandle` et `Window` directement, accéder aux états, et prendre les entrées de la même manière que les commandes d'application. Pour plus de détails sur les commandes tauri, voir le [guide des commandes](/2/fr/guide/commands)
+Les commandes sont définies dans le fichier `commands.rs`. Ce sont des commandes régulières des applications Tauri. Elles peuvent accéder aux instances `AppHandle` et `Window` directement, accéder aux états, et prendre les entrées de la même manière que les commandes d'application. Pour plus de détails sur les commandes tauri, voir le [guide des commandes](/fr/features/commands)
 
 Cette commande montre comment accéder aux instances de `AppHandle` et `Window` via l'injection de dépendances, et prend deux paramètres d'entrés (`on_progress` et `url`)
 
@@ -274,7 +274,7 @@ async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: C
 }
 ```
 
-Pour exposer la commande à la "webview", vous devez capter les appells de `invoke_handler()` dans `lib.rs` :
+Pour exposer la commande à la "webview", vous devez capter les appels de `invoke_handler()` dans `lib.rs` :
 
 ```rust
 // lib.rs
@@ -283,7 +283,6 @@ Builder::new("<nom-du-plugin>")
 ```
 
 Définition d'une fonction de liaison dans `webview-src/index.ts` pour que l'utilisateur puisse facilement appeller la commande dans JavaScript :
-Define a binding function in  so that plugin users can easily call the command in JavaScript:
 
 ```js
 // webview-src/index.ts
@@ -300,4 +299,4 @@ Assurez-vous de compiler le code TypeScript avant de le tester.
 
 ## Gérer les états
 
-Un plugin peut gérer les états de la même manière qu'une application Tauri. Voir le [guide de gestion des états](/2/guide/state-management) pour plus d'informations.
+Un plugin peut gérer les états de la même manière qu'une application Tauri. Voir le [guide de gestion des états](/fr/guide/state-management) pour plus d'informations.

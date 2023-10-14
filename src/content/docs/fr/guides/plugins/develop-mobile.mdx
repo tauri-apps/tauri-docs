@@ -5,7 +5,7 @@ i18nReady: true
 
 :::tip[Développment de plugin]
 
-Assurez-vous de bien connaître les concepts abordés dans le [Guide de développement de plugins](/fr/2/guide/plugins) car de nombreuses notions de ce guide reposent sur les concepts qui y sont couverts.
+Assurez-vous de bien connaître les concepts abordés dans le [Guide de développement de plugins](/fr/guide/plugins) car de nombreuses notions de ce guide reposent sur les concepts qui y sont couverts.
 
 :::
 
@@ -13,8 +13,7 @@ Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et
 
 ## Initialiser le projet de plugin
 
-Suivez les étapes dans le [Guide de développment de plugin](/fr/2/guide/plugins#initialize-plugin-project) pour initialiser un nouveau plugin.
-                            {/* french translation TODO : replace by the french translation of the title in the file ↑ */}
+Suivez les étapes dans le [Guide de développment de plugin](/fr/guide/plugins#initialiser-un-projet-de-plugin) pour initialiser un nouveau plugin.
 
 Si vous avez un plugin existant et souhaitez y ajouter des fonctionnalités Android ou iOS, vous pouvez utiliser `plugin android add` et `plugin ios add` pour démarrer les projets de librairies mobiles et vous guider durant les changements nécessaires.
 
@@ -26,9 +25,9 @@ L'implémentation pour ordinateur utilise le code Rust pour implémenter une fon
 // lib.rs
 use tauri::Runtime;
 
-impl<R: Runtime> <plugin-name><R> {
+impl<R: Runtime> <nom-du-plugin><R> {
   pub fn do_something(&self) {
-    // faire quelque chose qui est une implémentation partagée entre l'ordinateur et le mobile
+    // faire une implémentation partagée entre l'ordinateur et le mobile
   }
 }
 ```
@@ -49,8 +48,7 @@ Le plugin est défini comme un [package Swift](https://www.swift.org/package-man
 
 ## Configuration de plugins
 
-Référez-vous à la section de [configuration de plugin](/fr/2/guide/plugins/#plugin-configuration) du guide de développement de plugins pour plus de détails à propos du développement de configurations de plugin.
-                        {/* french translation TODO : replace by the french translation of the title in the file ↑ */}
+Référez-vous à la section de [configuration de plugin](/fr/guide/plugins#configuration-de-plugin) du guide de développement de plugins pour plus de détails à propos du développement de configurations de plugin.
 
 L'instance du plugin sur mobile possède un "getter" pour la configuration du plugin :
 
@@ -87,8 +85,7 @@ Les plugins peuvent se lier à plusieurs évènements du cycle de vie :
 - [load](#load): Lorsque le plugin est chargé dans la "web view"
 - [onNewIntent](#onnewintent): Seulement pour Android, lorsque l'activitée est relancée
 
-Il y a également les [évènements de cycle de vie supplémentaires pour les plugins](/fr/2/guide/plugins#lifecycle-events) dans le guide de développement de plugins.
-                                {/* french translation TODO : replace by the french translation of the title in the file ↑ */}
+Il y a également les [évènements de cycle de vie supplémentaires pour les plugins](/fr/guide/plugins#évènements-du-cycle-de-vie) dans le guide de développement de plugins.
 
 ### load
 
@@ -200,7 +197,7 @@ pub struct Photo {
 }
 
 
-impl<R: Runtime> <plugin-name;pascal-case><R> {
+impl<R: Runtime> <nom-du-plugin;pascal-case><R> {
   pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
     self
       .0
@@ -212,7 +209,7 @@ impl<R: Runtime> <plugin-name;pascal-case><R> {
 
 ## Permissions
 
-Si un plugin requiert des permissions de l'utilisateur, Tauri simplifie le processus de verification et de demande d'autorisation.
+Si un plugin requiert des permissions de l'utilisateur, Tauri simplifie le processus de vérification et de demande d'autorisation.
 
 <Tabs>
 <TabItem label="Android">
@@ -241,7 +238,7 @@ class ExamplePlugin: Plugin {
 
   @objc public override func requestPermissions(_ invoke: Invoke) {
     // demander les permissions ici
-    // ensuite, résolvez la requête
+    // ensuite, puis résolvez la requête
     invoke.resolve(["postNotification": "granted"])
   }
 }
@@ -267,7 +264,7 @@ interface Permissions {
 }
 
 // vérifier l'état de la permission
-const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+const permission = await invoke<Permissions>('plugin:<nom-du-plugin>|checkPermissions')
 
 if (permission.postNotification === 'prompt-with-rationale') {
   // afficher les informations à l'utilisateur pour lesquelles cette permission est nécessaire
@@ -275,7 +272,7 @@ if (permission.postNotification === 'prompt-with-rationale') {
 
 // demander la permission
 if (permission.postNotification.startsWith('prompt')) {
-  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+  const state = await invoke<Permissions>('plugin:<nom-du-plugin>|requestPermissions', { permissions: ['postNotification'] })
 }
 ```
 
@@ -370,7 +367,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Les fonctions d'aide peuvent ensuite être appelées à partir du package NPM en utilisant la fonction d'aide [`addPluginListener`](/fr/2/reference/js/core/namespacetauri/#addpluginlistener) :
+Les fonctions d'aide peuvent ensuite être appelées à partir du package NPM en utilisant la fonction d'aide [`addPluginListener`](/fr/reference/js/core/namespacetauri/#addpluginlistener) :
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
