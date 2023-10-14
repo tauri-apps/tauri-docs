@@ -1,0 +1,303 @@
+---
+title: Développement de plugin
+i18nReady: true
+---
+
+{/* TODO: Add a CLI section */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[Développement de plugin]
+
+Ce guide couvre le développement de plugins pour Tauri. Si vous cherchez une liste des plugins actuellement disponibles et comment les utiliser, allez sur la [liste des fonctionnalitées et cas d'usages](/fr/2/guide/list).
+
+:::
+
+Les plugins sont capables de se lier au cycle de vie de Tauri, expose le code Rust qui repose sur les APIs de web view, gérer les commandes avec Rust, Kotlin ou Swift, et bien plus.
+
+Tauri offre un système de fenêtrage avec sa fonctionnalité de web view, une manière d'envoyer des messages entre le processus Rust et la wab view, et un système d'évènement avec plusieurs outils pour améliorer l'expérience de développement. De par sa conception, le noyeau de Tauri ne contient pas de fonctionnalités dont tout le monde n'a pas besoin. au lieu de cela, il offre un méchanisme pour ajouter des fonctionnalités externes dans une application Tauri appelé plugin.
+
+Un plugin Tauri est constitué d'une crate Cargo et d'un package NPM optionnel qui fournit des liaisons pour ses commandes et évènements. De plus, un plugin peut inclure un projet de librairie Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugin mobile](/fr/2/guide/plugins/develop-mobile).
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## Conventions de nommage
+
+{/* TODO: Add link to allowlist */}
+
+Les plugins Tauri ont un préfixe (`tauri-plugin-` pour le nom de la crate Rust et `@tauri-apps/plugin-` pour le package NPM) suivi par le nom du plugin. Le nom du plugin est spécifié dans la configuration du plugin dans [`tauri.conf.json > plugin`](/fr/2/reference/config/#pluginconfig) et sur la configuration de la liste d'autorisations.
+
+Tauri préfixe par défaut votre crate de plugin avec `tauri-plugin-`. Cela aide votre plugin à être découvert par la communauté de Tauri, mais ce n'est pas un impératif. Lors de l'initialisation d'un nouveau projet de plugin, vous devez lui donner son nom. Le nom de la crate générée sera `tauri-plugin-{nom-du-plugin}` et le nom du package NPM sera `tauri-plugin-{nom-du-plugin}-api` (bien que nous recommendons l'utilisation d'un [scope NPM](https://docs.npmjs.com/about-scopes) si possible). La convention de nommage de Tauri pour NPM est `@scope-name/plugin-{nom-du-plugin}`.
+
+## Initialiser projet de plugin
+
+Pour commencer un nouveau projet de plugin, exécutez `plugin init`. Si vous n'avez pas besoin du package NPM, utilisez l'indicateur CLI `--no-api`. 
+
+<CommandTabs
+	npm="npm run tauri plugin init"
+	yarn="yarn tauri plugin init"
+	pnpm="pnpm tauri plugin init"
+	cargo="cargo tauri plugin init"
+/>
+
+Ceci initialisera le plugin et le code résultant ressemblera à :
+
+```
+. nom-du-plugin/
+├── src/                - code Rust
+│ ├── commands.rs       - défini les commandes que "webview" peut utiliser
+| ├── desktop.rs        - implémentation de bureau
+│ ├── lib.rs            - implémentations appropriées rééxportées, état d'installation...
+│ └── mobile.rs         - implémentation pour mobile
+├── android             - librairie Android
+├── ios                 - package Swift
+├── webview-src         - code source des liaisons de l'API JavaScript
+├── webview-dist        - ressources transpilées depuis webview-src
+├── Cargo.toml          - métadonnées de la crate Cargo
+└── package.json        - métadonnées du package NPM
+```
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+Si vous avez un plugin existant et voulez lui ajouter des fonctionnalitées Android ou iOS, vous pouvez utiliser `plugin android add` et `plugin ios add` pour commencer le projet de librairie mobile et vous guider à travers les changements nécéssaires.
+
+## Déceloppment de plugins mobiles
+
+Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et Swift. Le modèle de plugin par défaut inclue une librairie Android utilisant Kotlin et un package Swift. Il inclus aussi un example montrant comment utiliser son exécution à partir du code Rust.
+
+Apprenez-en plus à propos du développement de plugins pour mobiles dans le [guide de développement de plugins mobiles](/fr/2/guide/plugins/develop-mobile)
+
+## Configuration de plugin
+
+Dans l'application Tauri où le plugin est utilisé, la configuration de ce dernier est spécifié dans `tauri.conf.json` où `nom-du-plugin` est le nom du plugin :
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "nom-du-plugin": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+La configuration du plugin est définie sur `Builder` et est analysée à l'éxécution. Voici un example de la structure `Config` utilisée pour spécifier la configuration du plugin :
+
+```rust
+// lib.rs
+
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// Définition de la config du plugin
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  // Rend la config du plugin optionnelle
+  // en utilisant `Builder::<R, Option<Config>>` à la place
+  Builder::<R, Config>::new("<nom-du-plugin>")
+    .setup(|app, api| {
+      let timeout = api.config.timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## Evènements du cycle de vie
+
+Les plugins peuvent capter plusieurs évènements du cycle de vie :
+
+- [setup](#setup): Le plugin est initialisé
+- [on_navigation](#on_navigation): "Web view" essaie d'utiliser la navigation
+- [on_webview_ready](#on_webview_ready): Une nouvelle fenêtre est créée
+- [on_event](#on_event): Evènements de la boucles d'évènements
+- [on_drop](#on_drop): Le plugin est en cours de déconstruction
+
+Il existe d'autres [évènements du cycle de vie pour des plugins mobiles](/fr/2/guide/plugins/develop-mobile#lifecycle-events).
+
+### setup
+
+- **Quand** : A l'initialisation du plugin
+- **Pourquoi** : Enregistrer les plugins mobiles, gérer l'état, exécuter des tâches en arrière-plan
+
+```rust
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<nom-du-plugin>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### on_navigation
+
+- **Quand** : "Web view" essaie d'utiliser la navigation
+- **Pourquoi**: Valider la navigation ou suivre les changements d'URL
+
+Retourner `false` annule la navigation.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<nom-du-plugin>")
+  .on_navigation(|window, url| {
+    println!("la fenêtre {} navigue vers {}", window.label(), url);
+    // Annule la navigation si interdite
+    url.scheme() != "forbidden"
+  })
+```
+
+### on_webview_ready
+
+- **Quand** : Une nouvelle fenêtre a été créée
+- **Pourquoi** : Exécute un script d'initialisation pour chaque fenêtre
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<nom-du-plugin>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("contenu de webview chargé");
+    });
+  })
+```
+
+### on_event
+
+- **Quand** : Evènements de la boucles d'évènements
+- **Pourquoi** : Gère les évènements principaux, tels que les évènements de la fenêtre, ceux du menu et la demande d'arrêt de l'application
+
+Avec ce capteur du cycle de vie, vous pouvez être notifiés de chacun des évènements de boucle d'[évènements](https://docs.rs/tauri/2.0.0-alpha/tauri/enum.RunEvent.html).
+
+```rust
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<nom-du-plugin>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // l'utilisateur a demandé la fermeture d'une fenêtre et il n'en reste plus
+
+        // on peut éviter la fermeture de l'application :
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // l'application va se fermer, nous pouvez nettoyer ici
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### on_drop
+
+- **Quand** : Le plugin est déconstruit
+- **Pourquoi**: Exécute le code lors de la destruction du plugin
+
+Voir [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) pour plus d'information.
+
+```rust
+use tauri::plugin::Builder;
+
+Builder::new("<nom-du-plugin>")
+  .on_drop(|app| {
+    // le plugin a été détruit...
+  })
+```
+
+## Exposer les API Rust
+
+Les API de plugins définis dans `desktop.rs` et `mobile.rs` du projet sont exportés à l'utilisateur en tant que structure avec le même nom que le plugin (en pascal case). Lors de l'initialisation du plugin, une instance de cette structure est créée et gérée comme un état pour que les utilisateurs puissent la retrouver à tout instant avec une instance de `Manager` (comme `AppHandle`, `App`, ou ` Window`), via le trait d'extension défini dans le plugin.
+
+Par exemple, le [plugin `global-shortcut`](/2/fr/guide/global-shortcut) défini une structure `GlobalShortcut` qui peut être accédée en utilisant la méthode `global_shortcut` du trait `GlobalShortcutExt` :
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## Ajout de commandes
+
+Les commandes sont définies dans le fichier `commands.rs`. Ce sont des commandes régulières des applications Tauri. Elles peuvent accéder aux instances `AppHandle` et `Window` directement, accéder aux états, et prendre les entrées de la même manière que les commandes d'application. Pour plus de détails sur les commandes tauri, voir le [guide des commandes](/2/fr/guide/commands)
+
+Cette commande montre comment accéder aux instances de `AppHandle` et `Window` via l'injection de dépendances, et prend deux paramètres d'entrés (`on_progress` et `url`)
+
+```rust
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implémenter la logique de la commande ici
+  on_progress.send(100).unwrap();
+}
+```
+
+Pour exposer la commande à la "webview", vous devez capter les appells de `invoke_handler()` dans `lib.rs` :
+
+```rust
+// lib.rs
+Builder::new("<nom-du-plugin>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Définition d'une fonction de liaison dans `webview-src/index.ts` pour que l'utilisateur puisse facilement appeller la commande dans JavaScript :
+Define a binding function in  so that plugin users can easily call the command in JavaScript:
+
+```js
+// webview-src/index.ts
+import { invoke, Channel } from '@tauri-apps/api/tauri'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<nom-du-plugin>|upload', { url, onProgress })
+}
+```
+
+Assurez-vous de compiler le code TypeScript avant de le tester.
+
+## Gérer les états
+
+Un plugin peut gérer les états de la même manière qu'une application Tauri. Voir le [guide de gestion des états](/2/guide/state-management) pour plus d'informations.
