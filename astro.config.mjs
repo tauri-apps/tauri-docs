@@ -80,7 +80,6 @@ export default defineConfig({
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
-				Head: '@components/overrides/Head.astro',
 			},
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {

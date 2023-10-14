@@ -1,5 +1,3 @@
-// ISSUE: Some pages don't have description field in the frontmatter, but have title. In those cases it is returning undefined written on the OG image. Example: /features/commands/
-
 // TODO: Define default text
 const og = {
 	title: 'Tauri',
