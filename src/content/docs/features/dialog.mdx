@@ -10,7 +10,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="dialog" />
 
-Native system dialogs for opening and saving files along with message dialogs
+Native system dialogs for opening and saving files along with message dialogs.
 
 ## Setup
 
@@ -75,8 +75,8 @@ Here's how you can use the dialog plugin:
 - [Dialog to open a file or directory](#open)
 - [Dialog to save a file](#save)
 - [Show a message dialog](#message)
-- [Confirmation dialogue Yes No](#ask)
-- [Action dialog Ok Cancel](#confirm)
+- [Confirmation dialogue ](#ask)
+- [Action dialog](#confirm)
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
@@ -101,7 +101,7 @@ console.log(file);
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -128,7 +128,7 @@ console.log(file);
 /// Prints file data to the console
 ```
 
-Select Multiple Files
+Select Multiple Files:
 
 ```js
 const files = await open({
@@ -144,7 +144,7 @@ selectedFiles.forEach((file) => {
 
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -186,7 +186,7 @@ directories.forEach((path) => {
 
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -201,14 +201,28 @@ directories.forEach((path) => {
 <Tabs>
 <TabItem label="JavaScript">
 
-{/* TODO: */}
+```js
+import { save } from '@tauri-apps/plugin-dialog';
+
+// Prompt to save a Image with extension .png or .jpeg
+const path = await save({
+	filters: [
+		{
+			name: 'Image',
+			extensions: ['png', 'jpeg'],
+		},
+	],
+});
+console.log(path);
+// Prints the path chosen
+```
 
 <Stub />
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -222,14 +236,19 @@ directories.forEach((path) => {
 <Tabs>
 <TabItem label="JavaScript">
 
-{/* TODO: */}
+```js
+import { message } from '@tauri-apps/plugin-dialog';
+
+// Shows message
+await message('File not found', { title: 'Tauri', type: 'error' });
+```
 
 <Stub />
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -243,14 +262,25 @@ directories.forEach((path) => {
 <Tabs>
 <TabItem label="JavaScript">
 
-{/* TODO: */}
+```js
+import { ask } from '@tauri-apps/plugin-dialog';
+
+// Create a Yes/No dialog
+const yes = await ask('This action cannot be reverted. Are you sure?', {
+	title: 'Tauri',
+	type: 'warning',
+});
+
+console.log(yes);
+// Prints boolean to the console
+```
 
 <Stub />
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* TODO RUST: */}
 
 <Stub />
 
@@ -264,7 +294,18 @@ directories.forEach((path) => {
 <Tabs>
 <TabItem label="JavaScript">
 
-{/* TODO: */}
+```js
+import { confirm } from '@tauri-apps/plugin-dialog';
+
+// Creates a confirmation Yes/No dialog
+const confirmed = await confirm(
+	'This action cannot be reverted. Are you sure?',
+	{ title: 'Tauri', type: 'warning' }
+);
+
+console.log(confirmed);
+// Prints boolean to the console
+```
 
 <Stub />
 
