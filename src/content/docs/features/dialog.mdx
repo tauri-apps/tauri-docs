@@ -5,10 +5,186 @@ description: Native system dialogs for opening and saving files along with messa
 
 import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="dialog" />
 
-<Stub>
-	Based on
-	https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/dialog
-</Stub>
+Native system dialogs for opening and saving files along with message dialogs
+
+## Setup
+
+Install the dialog plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    1. Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add dialog"
+    yarn="yarn run tauri add dialog"
+    pnpm="pnpm tauri add dialog"
+    cargo="cargo tauri add dialog" />
+
+    2. Modify `lib.rs` to initialize the plugin:
+
+    ```rust
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_dialog::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Run `cargo add tauri-plugin-dialog` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+    2. Modify `lib.rs` to initialize the plugin:
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_dialog::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. If you'd like create dialogs in JavaScript, install the npm package as well:
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-dialog"
+        yarn="yarn add @tauri-apps/plugin-dialog"
+        pnpm="pnpm add @tauri-apps/plugin-dialog"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+Here's how you can use the dialog plugin:
+
+- [Dialog to open a file or directory](#open)
+- [Dialog to save a file](#save)
+- [Show a message dialog](#message)
+- [Confirmation dialogue Yes No](#ask)
+- [Action dialog Ok Cancel](#confirm)
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+The dialog plugin is available in both JavaScript and Rust.
+
+### Open
+
+<Tabs>    
+<TabItem label="JavaScript">
+```js
+import { open } from '@tauri-apps/plugin-dialog';
+
+// Open a dialog
+const file = await open();
+console.log(file);
+// Prints file data to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+{/* TODO: */}
+
+<Stub />
+
+</TabItem>
+
+</Tabs>
+
+#### File
+
+<Tabs>
+
+<TabItem label="JavaScript">
+
+Select a single file:
+```js
+// Open a dialog
+const file = await open({
+    multiple: false,
+    directory: false,
+});
+console.log(file);
+// Prints file data to the console
+```
+
+Select Multiple Files
+
+```js
+const files = await open({
+    multiple: true,
+    directory: false,
+});
+selectedFiles.forEach((file) => {
+    console.log(file);
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+{/* TODO: */}
+
+<Stub />
+
+</TabItem>
+
+</Tabs>
+
+#### Directory
+
+<Tabs>
+
+<TabItem label="JavaScript">
+
+Select a directory:
+
+```js
+const dir = await open({
+    multiple: false,
+    directory: true,
+});
+console.log(dir);
+```
+
+Select multiple directories
+
+```js
+const directories = await open({
+    multiple: true,
+    directory: true,
+});
+directories.forEach((path) => {
+    console.log(path);
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+{/* TODO: */}
+
+<Stub />
+
+</TabItem>
+
+</Tabs>
