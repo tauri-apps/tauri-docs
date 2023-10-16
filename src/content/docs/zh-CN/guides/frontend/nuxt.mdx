@@ -71,31 +71,31 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ```ts
 export default defineNuxtConfig({
-    // （可选） 启用 Nuxt 调试工具
-    devtools: { enabled: true },
-    // 启用 SSG
-    ssr: false,
-    vite: {
-        // 为 Tauri 命令输出提供更好的支持
-        clearScreen: false,
-        // 启用环境变量
-        // 其他环境变量可以在如下网页中获知：
-        // https://tauri.app/2/reference/environment-variables/
-        envPrefix: ['VITE_', 'TAURI_'],
-        server: {
-            // Tauri需要一个确定的端口
-            strictPort: true,
-            // 使开发服务器能够被用于移动开发的其他设备发现
-            host: '0.0.0.0',
-            hmr: {
-                // 使用 websocket 以支持移动端热重载
-                protocol: 'ws',
-                // 确保它在网络上可用
-                host: '0.0.0.0',
-                // 使用 hmr 的特定端口
-                port: 5183,
-            },
-        },
-    },
+	// （可选） 启用 Nuxt 调试工具
+	devtools: { enabled: true },
+	// 启用 SSG
+	ssr: false,
+	vite: {
+		// 为 Tauri 命令输出提供更好的支持
+		clearScreen: false,
+		// 启用环境变量
+		// 其他环境变量可以在如下网页中获知：
+		// https://tauri.app/2/reference/environment-variables/
+		envPrefix: ['VITE_', 'TAURI_'],
+		server: {
+			// Tauri需要一个确定的端口
+			strictPort: true,
+			// 使开发服务器能够被用于移动开发的其他设备发现
+			host: '0.0.0.0',
+			hmr: {
+				// 使用 websocket 以支持移动端热重载
+				protocol: 'ws',
+				// 确保它在网络上可用
+				host: '0.0.0.0',
+				// 使用 hmr 的特定端口
+				port: 5183,
+			},
+		},
+	},
 });
 ```
