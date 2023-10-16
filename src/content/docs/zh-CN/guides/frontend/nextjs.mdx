@@ -16,7 +16,7 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 
 ## 示例配置
 
-1. 下载 `internal-ip` 以用于移动端开发：
+1. 安装 `internal-ip` 以用于移动端开发：
 
 <CommandTabs
     npm="npm install --save-dev internal-ip"
@@ -81,7 +81,7 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
     let internalHost = null;
-    // 在开发模式下，我们使用 internal-ip 为资产提供服务
+    // 在开发模式下，我们使用 internal-ip 提供资产
     if (!isProd) {
         const { internalIpV4 } = await import('internal-ip');
         internalHost = await internalIpV4();
@@ -95,7 +95,7 @@ module.exports = async (phase, { defaultConfig }) => {
         images: {
             unoptimized: true,
         },
-        // 配置 assetPrefix，否则服务器将无法正确解析您的资产。
+        // 配置 assetPrefix，否则服务器将无法正确解析你的资产。
         assetPrefix: isProd ? null : `http://${internalHost}:3000`,
     };
     return nextConfig;

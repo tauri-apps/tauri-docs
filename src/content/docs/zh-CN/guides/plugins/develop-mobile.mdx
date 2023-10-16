@@ -5,7 +5,7 @@ i18nReady: true
 
 :::tip[插件开发]
 
-确保您已经熟悉[插件开发](/zh-cn/guides/plugins)中的概念，因为本指南大量使用基于那篇文章的概念。
+确保你已经熟悉[插件开发](/zh-cn/guides/plugins)中的概念，因为本指南大量使用基于那篇文章的概念。
 
 :::
 
@@ -16,11 +16,11 @@ i18nReady: true
 
 按照[插件开发](/zh-cn/guides/plugins/#初始化插件项目)中的步骤初始化新的插件项目。
 
-如果你有一个现有的插件，并且想添加安卓或 iOS 的功能，你可以使用 `plugin android add`和`plugin ios add`来添加构建移动端插件项目，并指导您完成所需的更改。
+如果你有一个现有的插件，并且想添加安卓或 iOS 的功能，你可以使用 `plugin android add` 和 `plugin ios add`来添加构建移动端插件项目，并指导你完成所需的更改。
 
 默认的插件模板将插件的实现分为两个独立的模块：`desktop.rs` 和 `mobile.rs`。
 
-桌面实现使用 Rust 代码来实现功能，而移动端实现会向本地移动端代码库发送消息以执行功能并返回结果。如果两个实现存在共享逻辑，可以在`lib.rs`中定义：
+桌面实现使用 Rust 代码来实现功能，而移动端实现会向本地移动端代码库发送消息以执行功能并返回结果。如果两个实现存在共享逻辑，可以在 `lib.rs` 中定义：
 
 ```rust
 // lib.rs
@@ -37,15 +37,15 @@ impl<R: Runtime> <plugin-name><R> {
 
 ### 开发一个安卓插件
 
-一个安卓 Tauri 插件由一个扩展了 `app.tauri.plugin.Plugin` 的 Kotlin 类定义，并由 `app.tauri.annotation.TauriPlugin` 标注。 每个被标注为 `app.tauri.annotation.Command` 的方法都可以被 Rust 或 JavaScript 调用。
+一个安卓 Tauri 插件的定义为一个扩展了 `app.tauri.plugin.Plugin` 并标注 `app.tauri.annotation.TauriPlugin` 的 Kotlin 类。每个被标注为 `app.tauri.annotation.Command` 的方法都可以被 Rust 或 JavaScript 调用。
 
-Tauri 使用 Kotlin 作为默认的安卓插件实现，但是您也可以使用 Java 作为替代。在创建一个插件后，在 Android Studio 中右键 Kotlin 插件类并点击菜单中的”将 Kotlin 文件转换为 Java 文件“按钮。Anroid Studio 会指导您完成到 Java 项目的迁移。
+Tauri 使用 Kotlin 作为默认的安卓插件实现，但是你也可以使用 Java 作为替代。在创建一个插件后，在 Android Studio 中右键 Kotlin 插件类并点击菜单中的”将 Kotlin 文件转换为 Java 文件“按钮。Anroid Studio 会指导你完成到 Java 项目的迁移。
 
 ### 开发一个 iOS 插件
 
 一个 iOS Tauri 插件由一个扩展了 `Tauri` 包的 `Plugin` 类定义。每个具有 `@objc` 属性和 `(_ invode: Invoke)` 参数的函数（例如 `@objc private func download(_ invoke: Invoke) { }`）都可以被 Rust 或 JavaScript 调用。
 
-插件被定义为一个 [Swift 包](https://www.swift.org/package-manager/)，因此您可以使用它的包管理器以管理依赖
+插件被定义为一个 [Swift 包](https://www.swift.org/package-manager/)，因此你可以使用它的包管理器以管理依赖
 
 ## 插件配置
 
