@@ -96,9 +96,87 @@ console.log(content);
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+{/* WRITE TO CLIPBOARD RUST */}
 
-<Stub />
+#### Write text to the clipboard:
+
+1. Set up the function in `main.rs` (Tauri backend)
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+#[tauri::command]
+async fn write(content: String, app: tauri::AppHandle) {
+    // Copy content to the clipboard
+    let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
+        label: Some("Label".to_string()),
+        text: content,
+    };
+    let result = app.clipboard().write(clipboard_content);
+    match result {
+        Ok(_) => println!("Successfully copied to clipboard"),
+        Err(error) => eprintln!("Error copying to clipboard: {:?}", error),
+    };
+}
+```
+
+2. Register in the generate_handler array:
+
+```rust
+    tauri::Builder::default()
+        // Register fn write to the existing array
+        .invoke_handler(tauri::generate_handler![write])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+
+```
+
+3. Call it from your frontend
+
+```js
+import { invoke } from '@tauri-apps/api/tauri';
+
+// When called, the backend write function will write "Tauri is awesome" to the clipboard
+await invoke('write', { content: 'Tauri is awesome' });
+```
+
+{/* READ FROM CLIPBOARD RUST */}
+
+#### Read text from the clipboard:
+
+1. Set up the function in `main.rs` (Tauri backend)
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+#[tauri::command]
+async fn read(app: tauri::AppHandle) {
+    let content = app.clipboard().read();
+    // Print clipboard content once called from the front end
+    println!("{:?}", content.unwrap());
+}
+
+```
+
+2. Register in the generate_handler:
+
+```rust
+    tauri::Builder::default()
+        // Register fn read to the existing array
+        .invoke_handler(tauri::generate_handler![..., read])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+
+```
+
+3. Call it from your frontend
+
+```js
+import { invoke } from '@tauri-apps/api/tauri';
+
+await invoke('read');
+```
+
+{/* TODO: RUST FRONTEND */}
 
 </TabItem>
 </Tabs>
