@@ -72,166 +72,21 @@ Install the dialog plugin to get started.
 
 Here's how you can use the dialog plugin:
 
-- [Dialog to open a file or directory](#open)
-- [Dialog to save a file](#save)
-- [Show a message dialog](#message)
-- [Confirmation dialog](#ask)
-- [Action dialog](#confirm)
+- [Show a question dialog with `Yes` and `No` buttons](#ask)
+- [Show a question dialog with `Ok` and `Cancel` buttons](#confirm)
+- [Show a message dialog with an `Ok` button](#message)
+- [Open a file/directory selection dialog](#open)
+- [Open a file/directory save dialog](#save)
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
 The dialog plugin is available in both JavaScript and Rust.
 
-{/* OPEN */}
-
-### Open
-
-<Tabs>    
-<TabItem label="JavaScript">
-
-```js
-import { open } from '@tauri-apps/plugin-dialog';
-
-// Open a dialog
-const file = await open();
-console.log(file);
-// Prints file data to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-{/* TODO RUST: */}
-
-<Stub />
-
-</TabItem>
-</Tabs>
-
-{/* OPEN > FILE */}
-
-### File
-
-<Tabs>
-
-<TabItem label="JavaScript">
-
-Select a single file:
-
-```js
-/// Open a dialog
-const file = await open({
-	multiple: false,
-	directory: false,
-});
-console.log(file);
-/// Prints file data to the console
-```
-
-Select Multiple Files:
-
-```js
-const files = await open({
-	multiple: true,
-	directory: false,
-});
-selectedFiles.forEach((file) => {
-	console.log(file);
-});
-```
-
-</TabItem>
-
-<TabItem label="Rust">
-
-{/* TODO RUST: */}
-
-<Stub />
-
-</TabItem>
-
-</Tabs>
-
-{/* OPEN > DIRECTORY */}
-
-### Directory
-
-<Tabs>
-
-<TabItem label="JavaScript">
-
-Select a directory:
-
-```js
-const dir = await open({
-	multiple: false,
-	directory: true,
-});
-console.log(dir);
-```
-
-Select multiple directories:
-
-```js
-const directories = await open({
-	multiple: true,
-	directory: true,
-});
-directories.forEach((path) => {
-	console.log(path);
-});
-```
-
-</TabItem>
-
-<TabItem label="Rust">
-
-{/* TODO RUST: */}
-
-<Stub />
-
-</TabItem>
-
-</Tabs>
-
-{/* SAVE */}
-
-### Save
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { save } from '@tauri-apps/plugin-dialog';
-
-// Prompt to save a Image with extension .png or .jpeg
-const path = await save({
-	filters: [
-		{
-			name: 'Image',
-			extensions: ['png', 'jpeg'],
-		},
-	],
-});
-console.log(path);
-// Prints the path chosen
-```
-
-<Stub />
-
-</TabItem>
-<TabItem label="Rust">
-
-{/* TODO RUST: */}
-
-<Stub />
-
-</TabItem>
-</Tabs>
-
 {/* MESSAGE */}
 
 ### Message
+
+Show a question dialog with `Yes` and `No` buttons
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -243,14 +98,11 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', type: 'error' });
 ```
 
-<Stub />
-
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO RUST: */}
-
 <Stub />
+{/* TODO RUST: */}
 
 </TabItem>
 </Tabs>
@@ -258,6 +110,8 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 {/* ASK */}
 
 ### Ask
+
+Show a question dialog with `Ok` and `Cancel` buttons
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -275,14 +129,11 @@ console.log(yes);
 // Prints boolean to the console
 ```
 
-<Stub />
-
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO RUST: */}
-
 <Stub />
+{/* TODO RUST: */}
 
 </TabItem>
 </Tabs>
@@ -290,6 +141,8 @@ console.log(yes);
 {/* CONFIRM */}
 
 ### Confirm
+
+Shows a question dialog with Ok and Cancel buttons.
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -307,14 +160,160 @@ console.log(confirmed);
 // Prints boolean to the console
 ```
 
+</TabItem>
+<TabItem label="Rust">
+
 <Stub />
+{/* TODO RUST: */}
+
+</TabItem>
+</Tabs>
+
+{/* OPEN */}
+
+### Open
+
+Open a file/directory selection dialog.
+
+<Tabs>    
+<TabItem label="JavaScript">
+
+```js
+import { open } from '@tauri-apps/plugin-dialog';
+
+// Open a dialog
+const file = await open();
+console.log(file);
+// Prints file data to the console
+```
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+<Stub />
+{/* TODO RUST: */}
+
+</TabItem>
+</Tabs>
+
+{/* OPEN > FILE */}
+
+#### File
+
+<Tabs>
+
+Select single file:
+
+<TabItem label="JavaScript">
+
+```js
+// Open a dialog
+const file = await open({
+	multiple: false,
+	directory: false,
+});
+console.log(file);
+// Prints file data to the console
+```
+
+Select multiple files:
+
+```js
+// Open a dialog
+const files = await open({
+	multiple: true,
+	directory: false,
+});
+selectedFiles.forEach((file) => {
+	console.log(file);
+	// Prints each file data to the console
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
 
 <Stub />
+{/* TODO RUST: */}
+
+</TabItem>
+
+</Tabs>
+
+{/* OPEN > DIRECTORY */}
+
+#### Directory
+
+<Tabs>
+
+<TabItem label="JavaScript">
+
+Select directory:
+
+```js
+// Open a dialog
+const dir = await open({
+	multiple: false,
+	directory: true,
+});
+console.log(dir);
+// Prints directory path
+```
+
+Select multiple directories:
+
+```js
+// Open a dialog
+const directories = await open({
+	multiple: true,
+	directory: true,
+});
+directories.forEach((path) => {
+	console.log(path);
+	// Prints each directory path
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+<Stub />
+{/* TODO RUST: */}
+
+</TabItem>
+
+</Tabs>
+
+{/* SAVE */}
+
+### Save
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { save } from '@tauri-apps/plugin-dialog';
+
+// Prompt to save a 'Image' with extension .png or .jpeg
+const path = await save({
+	filters: [
+		{
+			name: 'Image',
+			extensions: ['png', 'jpeg'],
+		},
+	],
+});
+console.log(path);
+// Prints the chosen path
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+<Stub />
+{/* TODO RUST: */}
 
 </TabItem>
 </Tabs>
