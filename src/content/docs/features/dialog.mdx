@@ -82,31 +82,6 @@ Here's how you can use the dialog plugin:
 
 The dialog plugin is available in both JavaScript and Rust.
 
-{/* MESSAGE */}
-
-### Message
-
-Show a question dialog with `Yes` and `No` buttons
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { message } from '@tauri-apps/plugin-dialog';
-
-// Shows message
-await message('File not found', { title: 'Tauri', type: 'error' });
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-<Stub />
-{/* TODO RUST: */}
-
-</TabItem>
-</Tabs>
-
 {/* ASK */}
 
 ### Ask
@@ -158,6 +133,31 @@ const confirmed = await confirm(
 
 console.log(confirmed);
 // Prints boolean to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+<Stub />
+{/* TODO RUST: */}
+
+</TabItem>
+</Tabs>
+
+{/* MESSAGE */}
+
+### Message
+
+Show a question dialog with `Yes` and `No` buttons
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { message } from '@tauri-apps/plugin-dialog';
+
+// Shows message
+await message('File not found', { title: 'Tauri', type: 'error' });
 ```
 
 </TabItem>
