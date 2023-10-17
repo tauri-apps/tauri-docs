@@ -1,3 +1,5 @@
+process.env.FONTCONFIG_PATH = "/opt/build/repo/public/fonts/";
+
 // TODO: Define default text
 const og = {
 	title: 'Tauri',

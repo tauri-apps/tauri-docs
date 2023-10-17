@@ -40,12 +40,11 @@ function defineBlogTemplate(postTitle: string[], postDate: string, postExcerpt?:
 
 	return `<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
-  text {
-    font-family: "SF Pro", sans-serif;
-    font-weight: 500;
+text {
+  font-family:SF Pro Text;
   }
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   font-style: normal;
   font-weight: 500;
   src: url(/fonts/SF-Pro-Text.otf) format('truetype');
@@ -122,12 +121,11 @@ function defaultTemplate(title: string[], description?: string[]): string {
 	}
 	return `<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
-  text {
-    font-family: "SF Pro", sans-serif;
-    font-weight: 500;
+text {
+  font-family:SF Pro Text;
   }
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   font-style: normal;
   font-weight: 500;
   src: url(/fonts/SF-Pro-Text.otf) format('truetype');
