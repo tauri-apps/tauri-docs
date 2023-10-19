@@ -1758,10 +1758,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.19.0.tgz#fa5f12c96811cec3233a53bdbf61d1a05ba9018f"
   integrity sha512-jl+NXUjK2StMgqnZnqgNjZuerFG8zQqWXMBZdMMv4W/aO1ZKQaYWZBxTrtWKphkCBVEMh0wMVfGgOd2BjOZqUQ==
 
-"@fontsource/rubik@5.0.15":
-  version "5.0.15"
-  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-5.0.15.tgz#f9fa84018397236ef0bd054a1423e46f8b775f97"
-  integrity sha512-URwSaso72tKaS7V64gGUcqsVhqqFAYLP85+/qP/g8J0z23HswUpdmPxNpAIhxxbD2Ac5YpG33akm/h7Sm8J/Ug==
+"@fontsource/rubik@5.0.16":
+  version "5.0.16"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-5.0.16.tgz#0a6df8797a3e4c4dd7a5d94cd8be6251ce8021a2"
+  integrity sha512-42qWULo38pPpjjw7s0P6PYBrFFXz5EIjc7VvXguQ36380/SttknDkn01LEeXAMz+4/UNAVb59GZoDtJWnASm9g==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
