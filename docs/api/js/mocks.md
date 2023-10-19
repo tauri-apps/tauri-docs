@@ -21,11 +21,11 @@ afterEach(() => {
 test("mocked windows", () => {
    mockWindows("main", "second", "third");
 
-   expect(window).toHaveProperty("__TAURI_METADATA__")
+   expect(window.__TAURI_INTERNALS__).toHaveProperty("metadata")
 })
 
 test("no mocked windows", () => {
-   expect(window).not.toHaveProperty("__TAURI_METADATA__")
+   expect(window.__TAURI_INTERNALS__).not.toHaveProperty("metadata")
 })
 ```
 
@@ -46,17 +46,17 @@ This function can be used when testing tauri frontend applications or when runni
 Testing setup using vitest:
 ```js
 import { mockIPC, clearMocks } from "@tauri-apps/api/mocks"
-import { invoke } from "@tauri-apps/api/tauri"
+import { invoke } from "@tauri-apps/api/primitives"
 
 afterEach(() => {
    clearMocks()
 })
 
 test("mocked command", () => {
- mockIPC((cmd, args) => {
+ mockIPC((cmd, payload) => {
   switch (cmd) {
     case "add":
-      return (args.a as number) + (args.b as number);
+      return (payload.a as number) + (payload.b as number);
     default:
       break;
     }
@@ -69,14 +69,14 @@ test("mocked command", () => {
 The callback function can also return a Promise:
 ```js
 import { mockIPC, clearMocks } from "@tauri-apps/api/mocks"
-import { invoke } from "@tauri-apps/api/tauri"
+import { invoke } from "@tauri-apps/api/primitives"
 
 afterEach(() => {
    clearMocks()
 })
 
 test("mocked command", () => {
- mockIPC((cmd, args) => {
+ mockIPC((cmd, payload) => {
   if(cmd === "get_data") {
    return fetch("https://example.com/data.json")
      .then((response) => response.json())
@@ -93,7 +93,7 @@ test("mocked command", () => {
 
 | Name | Type |
 | :------ | :------ |
-| `cb` | (`cmd`: `string`, `args`: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `unknown`\>) => `any` |
+| `cb` | (`cmd`: `string`, `payload`: [`Record`]( https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type )<`string`, `unknown`\>) => `unknown` |
 
 **Returns: **`void`
 
@@ -126,21 +126,13 @@ import { mockWindows } from "@tauri-apps/api/mocks";
 mockWindows("main", "second", "third");
 
 mockIPC((cmd, args) => {
- if (cmd === "tauri") {
-   if (
-     args?.__tauriModule === "Window" &&
-     args?.message?.cmd === "manage" &&
-     args?.message?.data?.cmd?.type === "close"
-   ) {
-     console.log('closing window!');
-   }
+ if (cmd === "plugin:event|emit") {
+   console.log('emit event', args?.event, args?.payload);
  }
 });
 
-const { getCurrent } = await import("@tauri-apps/api/window");
-
-const win = getCurrent();
-await win.close(); // this will cause the mocked IPC handler to log to the console.
+const { emit } = await import("@tauri-apps/api/event");
+await emit('loaded'); // this will cause the mocked IPC handler to log to the console.
 ```
 
 **Since**: 1.0.0
