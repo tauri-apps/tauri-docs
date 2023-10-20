@@ -53,8 +53,8 @@ importers:
   packages/i18n-tracker:
     devDependencies:
       '@types/html-escaper':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       dedent-js:
         specifier: ^1.0.1
         version: 1.0.1
@@ -1082,8 +1082,8 @@ packages:
       '@types/unist': 3.0.0
     dev: false
 
-  /@types/html-escaper@3.0.0:
-    resolution: {integrity: sha512-OcJcvP3Yk8mjYwf/IdXZtTE1tb/u0WF0qa29ER07ZHCYUBZXSN29Z1mBS+/96+kNMGTFUAbSz9X+pHmHpZrTCw==}
+  /@types/html-escaper@3.0.1:
+    resolution: {integrity: sha512-lVnoTUR09iECkTInzCzFEasZKs11VuCTIdo8hnLXwCU40UUbSl8boPsy6MNJ9+HbJQ/jxju8nSZxSHPVIbmCbg==}
     dev: true
 
   /@types/json-schema@7.0.13:
