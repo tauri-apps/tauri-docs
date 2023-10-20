@@ -194,7 +194,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
