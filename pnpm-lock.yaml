@@ -20,8 +20,8 @@ importers:
         specifier: ^0.11.1
         version: 0.11.1(astro@3.3.2)
       '@types/json-schema':
-        specifier: ^7.0.13
-        version: 7.0.13
+        specifier: ^7.0.14
+        version: 7.0.14
       astro:
         specifier: ^3.3.2
         version: 3.3.2
@@ -1086,8 +1086,8 @@ packages:
     resolution: {integrity: sha512-lVnoTUR09iECkTInzCzFEasZKs11VuCTIdo8hnLXwCU40UUbSl8boPsy6MNJ9+HbJQ/jxju8nSZxSHPVIbmCbg==}
     dev: true
 
-  /@types/json-schema@7.0.13:
-    resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
+  /@types/json-schema@7.0.14:
+    resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==}
     dev: false
 
   /@types/mdast@3.0.12:
