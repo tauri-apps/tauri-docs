@@ -27,33 +27,33 @@ To get started using `create-tauri-app` run one of the below commands in the fol
 <Tabs>
 <TabItem label="Bash">
 ```sh
-sh <(curl https://create.tauri.app/sh)
+sh <(curl https://create.tauri.app/sh) tauri-app --alpha
 ```
 </TabItem>
 <TabItem label="PowerShell">
 ```ps
-irm https://create.tauri.app/ps | iex
+$env:CTA_ARGS="--alpha";irm https://create.tauri.app/ps | iex
 ```
 </TabItem>
 <TabItem label="npm">
 ```sh
-npm create tauri-app@latest
+npm create tauri-app@latest -- --alpha
 ```
 </TabItem>
 <TabItem label="Yarn">
 ```sh
-yarn create tauri-app
+yarn create tauri-app --alpha
 ```
 </TabItem>
 <TabItem label="pnpm">
 ```sh
-pnpm create tauri-app
+pnpm create tauri-app --alpha
 ```
 </TabItem>
 <TabItem label="Cargo">
 ```sh
 cargo install create-tauri-app
-cargo create-tauri-app
+cargo create-tauri-app --alpha
 ```
 </TabItem>
 </Tabs>
