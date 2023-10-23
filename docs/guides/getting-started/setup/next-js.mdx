@@ -74,8 +74,6 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-This will change the behavior of the `next build` to produce an `out/` folder containing the HTML/CSS/JS assets for your application instead of writing them to a `.next/` directory specific to Next.js' runtime.
-
 There are a few more possible configuration options, so make sure to read through the [Static Exports] docs as mentioned above and adapt the configuration file according to the needs of your project.
 
 ## Create the Rust Project
@@ -103,7 +101,7 @@ Now that we have scaffolded our frontend and initialized the Rust project you're
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:3000",
-    "distDir": "../out"
+    "distDir": "../.next"
   },
 ```
 
