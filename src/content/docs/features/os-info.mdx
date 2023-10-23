@@ -7,7 +7,6 @@ import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-
 <PluginLinks plugin="os" />
 
 Read information about the operating system using the OS Information plugin.
@@ -72,6 +71,8 @@ Install the clipboard plugin to get started.
 
 </Tabs>
 
+{/* TODO: ADD eol() usage guide */}
+
 ## Usage
 
 Here are the available data you can query with the OS Information plugin:
@@ -90,6 +91,7 @@ Here are the available data you can query with the OS Information plugin:
 The OS Information plugin is available in both JavaScript and Rust. For the examples below consider a machine running Windows 10 22H2.
 
 ### OS Platform
+
 Returns a string describing the specific operating system in use. The value is set at compile time. Possible values are 'linux', 'macos', 'ios', 'freebsd', 'dragonfly', 'netbsd', 'openbsd', 'solaris', 'android', 'windows'
 
 <Tabs>
@@ -107,12 +109,9 @@ console.log(platform);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_platform() {
-    let platform = tauri_plugin_os::platform();
-    println!("Platform: {:?}", platform);
-	// Prints "windows" to the terminal
-}
+let platform = tauri_plugin_os::platform();
+println!("Platform: {}", platform);
+// Prints "windows" to the terminal
 ```
 
 </TabItem>
@@ -137,12 +136,9 @@ console.log(family);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_family() {
-    let family = tauri_plugin_os::family();
-    println!("Family: {:?}", family);
-	// Prints "windows" to the terminal
-}
+let family = tauri_plugin_os::family();
+println!("Family: {}", family);
+//Prints "windows" to the terminal
 ```
 
 </TabItem>
@@ -167,12 +163,10 @@ console.log(version);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_version() {
-    let version = tauri_plugin_os::version();
-    println!("Version: {:?}", version);
-	// Prints "10.0.19045" to the terminal
-}
+let version = tauri_plugin_os::version();
+println!("Version: {}", version);
+// Prints "10.0.19045" to the terminal
+
 ```
 
 </TabItem>
@@ -197,12 +191,10 @@ console.log(type);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_type() {
-    let type = tauri_plugin_os::type_();
-    println!("Type: {:?}", type);
-	// Prints "windows" to the terminal
-}
+let os_type = tauri_plugin_os::type_();
+println!("Type: {}", os_type);
+// Prints "windows" to the terminal
+
 ```
 
 </TabItem>
@@ -227,12 +219,10 @@ console.log(arch);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_arch() {
-    let arch = tauri_plugin_os::arch();
-    println!("Architecture: {:?}", arch);
-	// Prints "x86_64" to the terminal
-}
+let arch = tauri_plugin_os::arch();
+println!("Architecture: {}", arch);
+// Prints "x86_64" to the terminal
+
 ```
 
 </TabItem>
@@ -257,12 +247,10 @@ console.log(locale);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_locale() {
-    let locale = tauri_plugin_os::locale();
-    println!("Locale: {:?}", locale);
-	// Prints "en-US" to the terminal
-}
+let locale = tauri_plugin_os::locale();
+println!("Locale: {:?}", locale);
+// Prints "en-US" to the terminal
+
 ```
 
 </TabItem>
@@ -287,12 +275,10 @@ console.log(exeExtension);
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_exe_extension() {
-    let exe_extension = tauri_plugin_os::exe_extension();
-    println!("Exe Extension: {:?}", exe_extension);
-	// Prints "exe" to the terminal
-}
+let exe_extension = tauri_plugin_os::exe_extension();
+println!("Exe Extension: {}", exe_extension);
+// Prints "exe" to the terminal
+
 ```
 
 </TabItem>
@@ -310,19 +296,17 @@ import { hostname } from '@tauri-apps/plugin-os';
 
 const hostname = await hostname();
 console.log(hostname);
-// Prints "TauriGroup" to the console
+// Prints the host name to the console
 ```
 
 </TabItem>
 <TabItem label="Rust">
 
 ```rust
-#[tauri::command]
-fn get_hostname() {
-    let hostname = tauri_plugin_os::hostname();
-    println!("Hostname: {:?}", hostname);
-	// Prints "TauriGroup" to the terminal
-}
+let hostname = tauri_plugin_os::hostname();
+println!("Hostname: {}", hostname);
+// Prints the host name to the terminal
+
 ```
 
 </TabItem>
