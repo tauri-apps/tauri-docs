@@ -114,6 +114,17 @@ And that's it! Now you can run the following command in your terminal to start a
 ![Application Window](/img/guides/getting-started/setup/next-js/next-js-dev-light.png#gh-light-mode-only)
 ![Application Window](/img/guides/getting-started/setup/next-js/next-js-dev-dark.png#gh-dark-mode-only)
 
+## Exclude src-tauri from `tsconfig.json`
+
+If you are using Typescript you might wanna exclude the `src-tauri` directory. It might prevent from type compilation error on build time.
+```json
+"exclude": [
+    "node_modules",
+    "src-tauri"
+  ]
+```
+In `tscongig.json`, append `"src-tauri"` to `"exclude" : [...]`. It should already be containing "node_modules".
+
 ## Invoke Commands
 
 <Commands />
