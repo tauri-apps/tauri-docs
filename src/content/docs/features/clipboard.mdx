@@ -134,7 +134,7 @@ async fn write(content: String, app: tauri::AppHandle) {
 3. Call it from your frontend
 
 ```js
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from "@tauri-apps/api/primitives";
 
 // When called, the backend write function will write "Tauri is awesome" to the clipboard
 await invoke('write', { content: 'Tauri is awesome' });
@@ -171,7 +171,7 @@ async fn read(app: tauri::AppHandle) {
 3. Call it from your frontend
 
 ```js
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from "@tauri-apps/api/primitives";
 
 await invoke('read');
 ```
