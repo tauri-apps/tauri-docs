@@ -1,0 +1,1150 @@
+---
+title: 从 Tauri 1.0 升级
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+本指南将引导您完成将 Tauri 1.0 应用程序升级到 Tauri 2.0 的过程。
+
+## 自动迁移
+
+Tauri v2 CLI 包含一个 `migrate` 命令，可以自动执行大部分过程并帮助您完成迁移：
+
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+	yarn="yarn upgrade @tauri-apps/cli --latest
+    yarn tauri migrate"
+	pnpm="pnpm update @tauri-apps/cli@next
+    pnpm tauri migrate"
+	cargo='cargo install tauri-cli --version "^2.0.0-alpha"
+    cargo tauri migrate'
+/>
+
+{/* TODO: 2.0 */}
+
+在[命令行界面参考](/2/reference/cli#migrate)中了解有关 `migrate` 命令的更多信息
+
+## 变化总结
+
+下面总结了 Tauri 1.0 到 Tauri 2.0 的变化：
+
+### Tauri 配置
+
+- `tauri > allowlist` 已被移除。
+- `tauri > allowlist > protocol > assetScope` 已被移至 `tauri > security > assetProtocol > scope`。
+- `tauri > cli` 已被移至 `plugins > cli`。
+- `tauri > updater` 已被移至 `tauri > bundle > updater`。
+- `tauri > updater > dialog` 已被移除。
+- `tauri > updater > endpoints` 已被移至 `plugins > updater`。
+- `tauri > systemTray` 已被重命名为 `tauri > trayIcon`。
+
+[Tauri 2.0 配置 API 参考](/2/reference/config)
+
+### 新 Cargo 功能
+
+- linux-protocol-body: 启用自定义协议主体请求解析，允许IPC使用它。 需要 webkit2gtk 2.40。
+
+### 已移除的 Cargo 功能
+
+- reqwest-client: reqwest 现是唯一受支持的 client 对象。
+- reqwest-native-tls-vendored: 使用 `native-tls-vendored` 代替。
+- process-command-api: 使用 `shell` 插件代替 （请参阅下一节中的说明）。
+- shell-open-api: 使用 `shell` 插件代替 （请参阅下一节中的说明）。
+- windows7-compat: 已移至 `notification` 插件。
+- updater: 升级器现为插件。
+- linux-protocol-headers: 自从我们升级了最低 webkit2gtk 版本以来，现在默认启用。
+- system-tray （系统任务栏托盘）: 重命名为 `tray-icon`（托盘图标）。
+
+### Rust Crate 箱 变更
+
+- 删除了 `api`模块。 每个 API 模块都可以在 Tauri 插件中找到。
+- 删除了 `api::dialog` 模块。 请改用`tauri-plugin-dialog`。 [迁移](#migrate-to-dialog-plugin)
+- 删除了 `api::file` 模块。 请改用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/)。
+- 删除了 `api::http` 模块。 请改用 `tauri-plugin-http`。 [迁移](#migrate-to-http-plugin)
+- `api::ip` 模块重写并移至 `tauri::ipc`。 查看新的 API，特别是 `tauri::ipc::Channel`。
+- `api::path` 模块函数和 `tauri::PathResolved` 移至 `tauri::Manager::path`。 [迁移](#migrate-path-to-tauri-manager)
+- 删除了 `api::process::Command`、`tauri::api::shell` 和 `tauri::Manager::shell_scope` API。 请改用 `tauri-plugin-shell`。 [迁移](#migrate-to-shell-plugin)
+- `api::process::current_binary` 和 `tauri::api::process::restart` 移至 `tauri::process`。
+- `api::version` 模块已被删除。 请改用 [semver crate 箱](https://docs.rs/semver/latest/semver/)。
+- 删除了 `App::clipboard_manager`和`AppHandle::clipboard_manager`。 请改用 `tauri-plugin-clipboard`。 [迁移](#migrate-to-clipboard-plugin)
+- 删除了 `App::get_cli_matches`。 请改用 `tauri-plugin-cli`。 [迁移](#migrate-to-cli-plugin)
+- 删除了 `App::global_shortcut_manager`和`AppHandle::global_shortcut_manager`。 请改用`tauri-plugin-global-shortcut`。 [迁移](#migrate-to-global-shortcut-plugin)
+- 删除了 `Manager::fs_scope`。 文件系统可以通过`tauri_plugin_fs::FsExt`访问。
+- `Plugin::PluginApi` 现在接收插件配置作为第二个参数。
+- 删除了 `Plugin::setup_with_config`。 请改用更新后的 `tauri::Plugin::PluginApi`。
+- 删除了 `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` 和 `scope::ipc::RemoteDomainAccessScope::enables_tauri_api`。 通过 `scope::ipc::RemoteDomainAccessScope::add_plugin` 单独启用每个核心插件。
+- `scope::IpcScope` 被删除，使用 `scope::ipc::Scope` 代替。
+- `scope::IpcScope` 被删除，使用 `scope::ipc::Scope` 代替。
+- 删除了 `scope::FsScope`、`scope::GlobPattern` 和 `scope::FsScopeEvent`，现请改用 `scope::fs::Scope`、`scope::fs::Pattern` 和 `scope::fs: : 事件`。
+- 删除了 `updater`模块。 请改用 `tauri-plugin-updater`。 [迁移](#migrate-to-updater-plugin)
+- `Env.args` 字段已被删除，请使用 `Env.args_os` 字段代替。
+- 删除了 `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API。 [迁移](#migrate-to-menu)
+- 删除了 `SystemTray`、`SystemTrayHandle`、`SystemTrayMenu`、`SystemTrayMenuItemHandle`、`SystemTraySubmenu`、`MenuEntry` 和 `SystemTrayMenuItem` API。 [迁移](#migrate-to-tray-icon-module)
+
+### JavaScript API 接口变更
+
+`@tauri-apps/api` 包不再提供非核心模块，现仅提供`tauri`、`path`和`event`模块。所有其他内容均已移至插件。
+
+- 删除了`@tauri-apps/api/app`模块。 请改用`@tauri-apps/plugin-app`。 [迁移](#migrate-to-app-plugin)
+- 删除了`@tauri-apps/api/cli`模块。 请改用`@tauri-apps/plugin-cli`。 [迁移](#migrate-to-cli-plugin)
+- 删除了`@tauri-apps/api/clipboard`模块。 请改用`@tauri-apps/plugin-clipboard`。 [迁移](#migrate-to-clipboard-plugin)
+- 删除了`@tauri-apps/api/dialog`模块。 请改用`@tauri-apps/plugin-dialog`。 [迁移](#migrate-to-dialog-plugin)
+- 删除了`@tauri-apps/api/fs`模块。 请改用`@tauri-apps/plugin-fs`。 [迁移](#migrate-to-file-system-plugin)
+- 删除了`@tauri-apps/api/global-shortcut`模块。 请改用`@tauri-apps/plugin-global-shortcut`。 [迁移](#migrate-to-global-shortcut-plugin)
+- 删除了`@tauri-apps/api/http`模块。 请改用`@tauri-apps/plugin-http`。 [迁移](#migrate-to-http-plugin)
+- 删除了`@tauri-apps/api/os`模块。 请改用`@tauri-apps/plugin-os`。 [迁移](#migrate-to-os-plugin)
+- 删除了`@tauri-apps/api/notification`模块。 请改用`@tauri-apps/plugin-notification`。 [迁移](#migrate-to-notification-plugin)
+- 删除了`@tauri-apps/api/process`模块。 请改用`@tauri-apps/plugin-process`。 [迁移](#migrate-to-process-plugin)
+- 删除了`@tauri-apps/api/shell`模块。 请改用`@tauri-apps/plugin-shell`。 [迁移](#migrate-to-shell-plugin)
+- 删除了`@tauri-apps/api/updater`模块。 使用 `@tauri-apps/plugin-updater` 代替。 [迁移](#migrate-to-updater-plugin)
+- 删除了`@tauri-apps/api/window`模块。 使用 `@tauri-apps/plugin-window` 代替。 [迁移](#migrate-to-window-plugin)
+
+## 详细的迁移步骤
+
+将 Tauri 1.0 应用程序迁移到 Tauri 2.0 时可能会遇到的常见场景。
+
+### 迁移至 App 应用插件
+
+JavaScript `@tauri-apps/api/app` API 已被删除。 请改用 `@tauri-apps/plugin-app` 插件：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-app = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_app::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-app": "^2.0.0"
+	}
+}
+```
+
+```js
+import { show, hide } from '@tauri-apps/plugin-app';
+await hide();
+await show();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_app::init())
+        .setup(|app| {
+            #[cfg(target_os = "macos")]
+            {
+                app.hide()?;
+                app.show()?;
+            }
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 CLI 命令行 插件
+
+Rust `App::get_cli_matches` 与 JavaScript `@tauri-apps/api/cli` API 已被移除。请用 `@tauri-apps/plugin-cli` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-cli = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-cli": "^2.0.0"
+	}
+}
+```
+
+```js
+import { getMatches } from '@tauri-apps/plugin-cli';
+const matches = await getMatches();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    use tauri_plugin_cli::CliExt;
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+        .setup(|app| {
+            let cli_matches = app.cli().matches()?;
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Clipboard 剪切板 插件
+
+Rust 的 `App::clipboard_manager` 和 `AppHandle::clipboard_manager` 与 JavaScript 的 `@tauri-apps/api/clipboard` API 已被移除。请用 `@tauri-apps/plugin-clipboard-manager` 插件代替：
+
+```toml
+[dependencies]
+tauri-plugin-clipboard-manager = "2"
+```
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard_manager::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+	}
+}
+```
+
+```js
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+await writeText('Tauri 很nb!');
+assert(await readText(), 'Tauri 很nb!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard::{ClipboardExt, ClipKind};
+tauri::Builder::default()
+    .plugin(tauri_plugin_clipboard::init())
+    .setup(|app| {
+        app.clipboard().write(ClipKind::PlainText {
+            label: None,
+            text: "Tauri 很nb!".into(),
+        })?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Dialog 对话框 插件
+
+Rust 的 `tauri::api::dialog` 与 JavaScript 的 `@tauri-apps/api/dialog` API 已被移除。请用 `@tauri-apps/plugin-dialog` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-dialog = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-dialog": "^2.0.0"
+	}
+}
+```
+
+```js
+import { save } from '@tauri-apps/plugin-dialog';
+const filePath = await save({
+	filters: [
+		{
+			name: '图片',
+			extensions: ['png', 'jpeg'],
+		},
+	],
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
+    .setup(|app| {
+        app.dialog().file().pick_file(|file_path| {
+            // 使用此处的可选文件路径执行某些操作
+            // 如果用户关闭对话框，文件路径为 `None`
+        });
+
+        app.dialog().message("Tauri 很nb!").show();
+        Ok(())
+     })
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 File System 文件系统 插件
+
+Rust 的 `App::get_cli_matches` 与 JavaScript 的 `@tauri-apps/api/fs` API 已被移除。请用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 与 JavaScript 的 `@tauri-apps/plugin-fs` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-fs = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-fs": "^2.0.0"
+	}
+}
+```
+
+```js
+import { createDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await createDir('db', { dir: BaseDirectory.AppLocalData });
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+使用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 函数。
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Global Shortcut 全局快捷键 插件
+
+Rust 的 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager` 与 JavaScript 的 `@tauri-apps/api/global-shortcut` API 已被移除。请用 `@tauri-apps/plugin-global-shortcut` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-global-shortcut = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-global-shortcut": "^2.0.0"
+	}
+}
+```
+
+```js
+import { register } from '@tauri-apps/plugin-global-shortcut';
+await register('CommandOrControl+Shift+C', () => {
+	console.log('快捷键已被触发！');
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+    .plugin(tauri_plugin_shortcut::init())
+    .setup(|app| {
+        app.global_shortcut().register("CmdOrCtrl+Y")?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 HTTP 插件
+
+Rust 的 `tauri::api::http` 与 JavaScript 的 `@tauri-apps/api/http` API 已被移除。请用 `@tauri-apps/plugin-http` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-http = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-http": "^2.0.0"
+	}
+}
+```
+
+```js
+import { fetch } from '@tauri-apps/plugin-http';
+const response = await fetch(
+	'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+);
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_dialog::reqwest;
+
+tauri::Builder::default()
+    .plugin(tauri_plugin_http::init())
+    .setup(|app| {
+        let response_data = tauri::async_runtime::block_on(async {
+            let response = reqwest::get(
+                "https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json",
+            )
+            .await
+            .unwrap();
+            response.text().await
+        })?;
+        Ok(())
+    })
+```
+
+HTTP 插件包装了 [reqwest](https://docs.rs/reqwest/latest/reqwest/) 所以您可以查看它们的开发文档以获得更多信息。
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Notification 通知 插件
+
+Rust 的 `tauri::api::notification` 与 JavaScript 的 `@tauri-apps/api/notification` API 已被移除。请用 `@tauri-apps/plugin-notification` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-notification = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-notification": "^2.0.0"
+	}
+}
+```
+
+```js
+import { sendNotification } from '@tauri-apps/plugin-notification';
+sendNotification('Tauri 很nb!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_notification::{NotificationExt, PermissionState};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+        .setup(|app| {
+            if app.notification().permission_state()? == PermissionState::Unknown {
+                app.notification().request_permission()?;
+            }
+            if app.notification().permission_state()? == PermissionState::Granted {
+                app.notification()
+                    .builder()
+                    .body("Tauri 很nb!")
+                    .show()?;
+            }
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Menu 菜单 模块
+
+Rust 的 `Menu` 菜单 API 已被移至 `tauri::menu` 模块并用 [muda crate](https://github.com/tauri-apps/muda) 箱 重构。
+
+JavaScript 中 `@tauri-apps/api/window` 的 `onMenuClicked()` API 将在未来发行中迁移。
+
+#### 使用 `tauri::menu::MenuBuilder`
+
+使用 `tauri::menu::MenuBuilder` 代替 `tauri::Menu`。请注意，它的构造函数采用 Manager 实例（`App`、`AppHandle`或`Window`之一）作为参数：
+
+```rust
+use tauri::menu::MenuBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app)
+            .copy()
+            .paste()
+            .separator()
+            .undo()
+            .redo()
+            .text("open-url", "打开 URL 链接")
+            .check("toggle", "切换")
+            .icon("show-app", "显示应用", app.default_window_icon().cloned().unwrap())
+            .build()?;
+        Ok(())
+    })
+```
+
+#### 使用 `tauri::menu::PredefinedMenuItem`
+
+使用 `tauri::menu::PredefinedMenuItem` 代替 `tauri::MenuItem`：
+
+```rust
+use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)).build()?;
+        Ok(())
+    })
+```
+
+:::tip
+菜单构建器有专用的方法来添加每个预定义的菜单项，所以您可以调用`.copy()`来代替`.item(&PredefinedMenuItem::copy(app, None))`。
+:::
+
+#### 使用 `tauri::menu::MenuItemBuilder`
+
+使用 `tauri::menu::MenuItemBuilder` 代替 `tauri::CustomMenuItem`：
+
+```rust
+use tauri::menu::MenuItemBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::new("切换").accelerator("Ctrl+Shift+T").build(app);
+        Ok(())
+    })
+```
+
+#### 使用 `tauri::menu::SubmenuBuilder`
+
+使用 `tauri::menu::SubmenuBuilder` 代替 `tauri::Submenu`：
+
+```rust
+use tauri::menu::{MenuBuilder, SubmenuBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let submenu = SubmenuBuilder::new(app, "二级菜单")
+            .text("Tauri")
+            .separator()
+            .check("很nb")
+            .build()?;
+        let menu = MenuBuilder::new(app).item(&submenu).build()?;
+        Ok(())
+    })
+```
+
+`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-alpha/tauri/struct.Builder.html#method.menu) for more information.
+
+`tauri::Builder::menu` 现在接受一个闭包，因为菜单需要构建一个 Manager 实例。 有关更多信息，请参阅[文档](https://docs.rs/tauri/2.0.0-alpha/tauri/struct.Builder.html#method.menu)。
+
+#### 菜单事件
+
+Rust 的 `tauri::Builder::on_menu_event` API 已被移除。请用 `tauri::App::on_menu_event` 或 `tauri::AppHandle::on_menu_event` 代替。
+
+```rust
+use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "切换").build(app);
+        let check = CheckMenuItemBuilder::new("开关").build(app);
+        let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
+
+        app.set_menu(menu)?;
+
+        app.on_menu_event(move |app, event| {
+            if event.id() == check.id() {
+                println!("`check` 已被触发，做点什么！ 开关已被开启？ {}", check.is_checked().unwrap());
+            } else if event.id() == "toggle" {
+                println!("toggle 已被触发!");
+            }
+        });
+        Ok(())
+    })
+```
+
+请注意，有两种方法可以检查选择了哪个菜单项：将项目移至事件处理程序闭包并比较 ID，或者通过`with_id`构造函数为该项目定义自定义 ID 并使用该 ID 字符串进行比较。
+
+:::tip
+菜单项可以跨菜单共享，而且菜单事件是绑定到菜单项而并非菜单或窗口。
+如果您不希望在选择菜单项时触发所有侦听器，请不要共享菜单项并使用专用实例，您可以将其移至 `tauri::Window/WindowBuilder::on_menu_event` 闭包中。
+:::
+
+### 迁移至 OS 系统 插件
+
+Rust 的 `tauri::api::os` 与 JavaScript 的 `@tauri-apps/api/os` API 已被移除。请用 `@tauri-apps/plugin-os` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-os = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-os": "^2.0.0"
+	}
+}
+```
+
+```js
+import { arch } from '@tauri-apps/plugin-os';
+const architecture = await arch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+        .setup(|app| {
+            let os_arch = tauri_plugin_os::arch();
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Process 进程 插件
+
+Rust 的 `tauri::api::process` 与 JavaScript 的 `@tauri-apps/api/process` API 已被移除。请用 `@tauri-apps/plugin-process` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-process = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-process": "^2.0.0"
+	}
+}
+```
+
+```js
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+await exit(0);
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            // 带着状态代码退出应用
+            app.handle().exit(1);
+            // 重启应用
+            app.handle().restart();
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Shell 插件
+
+Rust 的 `tauri::api::shell` 与 JavaScript 的 `@tauri-apps/api/shell` API 已被移除。请用 `@tauri-apps/plugin-shell` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-shell = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-shell": "^2.0.0"
+	}
+}
+```
+
+```js
+import { Command, open } from '@tauri-apps/plugin-shell';
+const output = await Command.create('echo', 'message').execute();
+
+await open('https://github.com/tauri-apps/tauri');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+- 打开 URL 链接
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            app.shell().open("https://github.com/tauri-apps/tauri", None)?;
+            Ok(())
+        })
+}
+```
+
+- 生成子进程并获取状态代码
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let status = tauri::async_runtime::block_on(async move { app.shell().command("which").args(["ls"]).status().await.unwrap() });
+            println!("`which` 已结束代码 {:?} 结束。", status.code());
+            Ok(())
+        })
+}
+```
+
+- 生成子进程并获取其输出
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let output = tauri::async_runtime::block_on(async move { app.shell().command("echo").args(["TAURI"]).output().await.unwrap() });
+            assert!(output.status.success());
+            assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
+            Ok(())
+        })
+}
+```
+
+- 生成一个子进程并异步读取其事件：
+
+```rust
+use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let (mut rx, mut child) = handle.shell().command("cargo")
+                    .args(["tauri", "dev"])
+                    .spawn()
+                    .expect("cargo 生成失败");
+
+                let mut i = 0;
+                while let Some(event) = rx.recv().await {
+                    if let CommandEvent::Stdout(line) = event {
+                        println!("已获取: {}", String::from_utf8(line).unwrap());
+                       i += 1;
+                       if i == 4 {
+                           child.write("来自 Rust 的消息\n".as_bytes()).unwrap();
+                           i = 0;
+                       }
+                   }
+                }
+            });
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Tray Icon 任务栏托盘图标 模块
+
+Rust 的 `SystemTray` API 为一致性已重命名为 `TrayIcon`。新的 API 现可在 Rust 中的 `tray` 模块找到。
+
+#### 使用 `tauri::tray::TrayIconBuilder`
+
+使用 `tauri::tray::TrayIconBuilder` 代替 `tauri::SystemTray`：
+
+```rust
+let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
+```
+
+更多信息请详阅 [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html)。
+
+#### 迁移至 Menu 菜单
+
+使用 `tauri::menu::Menu` 代替 `tauri::SystemTrayMenu`, `tauri::menu::Submenu` 来代替 `tauri::SystemTraySubmenu` 还有 `tauri::menu::PredefinedMenuItem` 来代替 `tauri::SystemTrayMenuItem`。 [迁移](#migrate-to-menu)
+
+#### 任务栏托盘事件
+
+`tauri::SystemTray::on_event` 已被分成 `tauri::tray::TrayIconBuilder::on_menu_event` a和nd `tauri::tray::TrayIconBuilder::on_tray_icon_event`：
+
+```rust
+use tauri::{
+    menu::{MenuBuilder, MenuItemBuilder},
+    tray::{ClickType, TrayIconBuilder},
+};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "切换").build(app);
+        let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
+        let tray = TrayIconBuilder::new()
+            .menu(&menu)
+            .on_menu_event(move |app, event| match event.id().as_ref() {
+                "toggle" => {
+                    println!("切换按钮已被点击");
+                }
+                _ => (),
+            })
+            .on_tray_icon_event(|tray, event| {
+                if event.click_type == ClickType::Left {
+                    let app = tray.app_handle();
+                    if let Some(window) = app.get_window("main") {
+                    let _ = window.show();
+                    let _ = window.set_focus();
+                    }
+                }
+            })
+            .build(app)?;
+
+        Ok(())
+    })
+```
+
+### 迁移至 Updater 升级器 插件
+
+Rust 的 `tauri::updater` 与 JavaScript 的 `@tauri-apps/api-updater` API 已被移除。 要使用`@tauri-apps/plugin-updater`设置自定义更新程序目标：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+[dependencies]
+tauri-plugin-updater = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-updater": "^2.0.0"
+	}
+}
+```
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update.response.available) {
+	console.log(
+		`新版本 ${update.response.latestVersion} 现可用！日期：${update.response.date}`
+	);
+	console.log(`发行日志：${update.response.body}`);
+	await update.downloadAndInstall();
+	// 需要 `process` 插件
+	await relaunch();
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+检查更新：
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let handle = app.handle();
+            tauri::async_runtime::spawn(async move {
+                let response = handle.updater().check().await;
+            });
+            Ok(())
+        })
+}
+```
+
+设置自定义更新程序目标：
+
+```rust
+fn main() {
+    let mut updater = tauri_plugin_updater::Builder::new();
+    #[cfg(target_os = "macos")]
+    {
+        updater = updater.target("darwin-universal");
+    }
+    tauri::Builder::default()
+        .plugin(updater.build())
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移至 Window 窗体 插件
+
+Rust 的 `tauri::window` 与 JavaScript 的 `@tauri-apps/api/window` API 已被移除。请用 `@tauri-apps/plugin-window` 插件代替：
+
+1. 往 cargo 依赖项中添加：
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-window = "2"
+```
+
+2. 在 JavaScript 或 Rust 项目中使用：
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_window::init())
+}
+```
+
+```json
+// package.json
+{
+	"dependencies": {
+		"@tauri-apps/plugin-window": "^2.0.0"
+	}
+}
+```
+
+```js
+import { appWindow } from '@tauri-apps/plugin-window';
+await appWindow.setTitle('Tauri');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri::Manager;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_window::init())
+        .setup(|app| {
+            let window = app.get_window("main").unwrap();
+            window.set_title("Tauri")?;
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 迁移 Path 路径 至 Tauri Manager 管理器
+
+Rust 的 `tauri::api::path` 模块函数和 `tauri::PathResolver` 已被移至 `tauri::Manager::path`：
+
+```rust
+use tauri::{path::BaseDirectory, Manager};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let home_dir_path = app.path().home_dir().expect("无法获取主目录");
+
+        let path = app.path().resolve("张三/文件/的位置.txt", BaseDirectory::Config)?;
+
+        Ok(())
+  })
+```
