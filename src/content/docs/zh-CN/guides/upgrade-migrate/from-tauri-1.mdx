@@ -61,17 +61,17 @@ Tauri v2 CLI 包含一个 `migrate` 命令，可以自动执行大部分过程�
 ### Rust Crate 箱 变更
 
 - 删除了 `api`模块。 每个 API 模块都可以在 Tauri 插件中找到。
-- 删除了 `api::dialog` 模块。 请改用`tauri-plugin-dialog`。 [迁移](#migrate-to-dialog-plugin)
+- 删除了 `api::dialog` 模块。 请改用`tauri-plugin-dialog`。 [迁移](#迁移至-dialog-对话框-插件)
 - 删除了 `api::file` 模块。 请改用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/)。
-- 删除了 `api::http` 模块。 请改用 `tauri-plugin-http`。 [迁移](#migrate-to-http-plugin)
+- 删除了 `api::http` 模块。 请改用 `tauri-plugin-http`。 [迁移](#迁移至-http-插件)
 - `api::ip` 模块重写并移至 `tauri::ipc`。 查看新的 API，特别是 `tauri::ipc::Channel`。
-- `api::path` 模块函数和 `tauri::PathResolved` 移至 `tauri::Manager::path`。 [迁移](#migrate-path-to-tauri-manager)
-- 删除了 `api::process::Command`、`tauri::api::shell` 和 `tauri::Manager::shell_scope` API。 请改用 `tauri-plugin-shell`。 [迁移](#migrate-to-shell-plugin)
+- `api::path` 模块函数和 `tauri::PathResolved` 移至 `tauri::Manager::path`。 [迁移](#迁移-path-路径-至-tauri-manager-管理器)
+- 删除了 `api::process::Command`、`tauri::api::shell` 和 `tauri::Manager::shell_scope` API。 请改用 `tauri-plugin-shell`。 [迁移](#迁移至-shell-插件)
 - `api::process::current_binary` 和 `tauri::api::process::restart` 移至 `tauri::process`。
 - `api::version` 模块已被删除。 请改用 [semver crate 箱](https://docs.rs/semver/latest/semver/)。
-- 删除了 `App::clipboard_manager`和`AppHandle::clipboard_manager`。 请改用 `tauri-plugin-clipboard`。 [迁移](#migrate-to-clipboard-plugin)
-- 删除了 `App::get_cli_matches`。 请改用 `tauri-plugin-cli`。 [迁移](#migrate-to-cli-plugin)
-- 删除了 `App::global_shortcut_manager`和`AppHandle::global_shortcut_manager`。 请改用`tauri-plugin-global-shortcut`。 [迁移](#migrate-to-global-shortcut-plugin)
+- 删除了 `App::clipboard_manager`和`AppHandle::clipboard_manager`。 请改用 `tauri-plugin-clipboard`。 [迁移](#迁移至-clipboard-剪贴板-插件)
+- 删除了 `App::get_cli_matches`。 请改用 `tauri-plugin-cli`。 [迁移](#迁移至-cli-命令行-插件)
+- 删除了 `App::global_shortcut_manager`和`AppHandle::global_shortcut_manager`。 请改用`tauri-plugin-global-shortcut`。 [迁移](#迁移至-global-shortcut-全局快捷键-插件)
 - 删除了 `Manager::fs_scope`。 文件系统可以通过`tauri_plugin_fs::FsExt`访问。
 - `Plugin::PluginApi` 现在接收插件配置作为第二个参数。
 - 删除了 `Plugin::setup_with_config`。 请改用更新后的 `tauri::Plugin::PluginApi`。
@@ -79,34 +79,34 @@ Tauri v2 CLI 包含一个 `migrate` 命令，可以自动执行大部分过程�
 - `scope::IpcScope` 被删除，使用 `scope::ipc::Scope` 代替。
 - `scope::IpcScope` 被删除，使用 `scope::ipc::Scope` 代替。
 - 删除了 `scope::FsScope`、`scope::GlobPattern` 和 `scope::FsScopeEvent`，现请改用 `scope::fs::Scope`、`scope::fs::Pattern` 和 `scope::fs: : 事件`。
-- 删除了 `updater`模块。 请改用 `tauri-plugin-updater`。 [迁移](#migrate-to-updater-plugin)
+- 删除了 `updater`模块。 请改用 `tauri-plugin-updater`。 [迁移](#迁移至-updater-升级器-插件)
 - `Env.args` 字段已被删除，请使用 `Env.args_os` 字段代替。
-- 删除了 `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API。 [迁移](#migrate-to-menu)
-- 删除了 `SystemTray`、`SystemTrayHandle`、`SystemTrayMenu`、`SystemTrayMenuItemHandle`、`SystemTraySubmenu`、`MenuEntry` 和 `SystemTrayMenuItem` API。 [迁移](#migrate-to-tray-icon-module)
+- 删除了 `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API。 [迁移](#迁移至-menu-菜单)
+- 删除了 `SystemTray`、`SystemTrayHandle`、`SystemTrayMenu`、`SystemTrayMenuItemHandle`、`SystemTraySubmenu`、`MenuEntry` 和 `SystemTrayMenuItem` API。 [迁移](#迁移至-tray-icon-任务栏托盘图标-模块)
 
 ### JavaScript API 接口变更
 
 `@tauri-apps/api` 包不再提供非核心模块，现仅提供`tauri`、`path`和`event`模块。所有其他内容均已移至插件。
 
-- 删除了`@tauri-apps/api/app`模块。 请改用`@tauri-apps/plugin-app`。 [迁移](#migrate-to-app-plugin)
-- 删除了`@tauri-apps/api/cli`模块。 请改用`@tauri-apps/plugin-cli`。 [迁移](#migrate-to-cli-plugin)
-- 删除了`@tauri-apps/api/clipboard`模块。 请改用`@tauri-apps/plugin-clipboard`。 [迁移](#migrate-to-clipboard-plugin)
-- 删除了`@tauri-apps/api/dialog`模块。 请改用`@tauri-apps/plugin-dialog`。 [迁移](#migrate-to-dialog-plugin)
-- 删除了`@tauri-apps/api/fs`模块。 请改用`@tauri-apps/plugin-fs`。 [迁移](#migrate-to-file-system-plugin)
-- 删除了`@tauri-apps/api/global-shortcut`模块。 请改用`@tauri-apps/plugin-global-shortcut`。 [迁移](#migrate-to-global-shortcut-plugin)
-- 删除了`@tauri-apps/api/http`模块。 请改用`@tauri-apps/plugin-http`。 [迁移](#migrate-to-http-plugin)
-- 删除了`@tauri-apps/api/os`模块。 请改用`@tauri-apps/plugin-os`。 [迁移](#migrate-to-os-plugin)
-- 删除了`@tauri-apps/api/notification`模块。 请改用`@tauri-apps/plugin-notification`。 [迁移](#migrate-to-notification-plugin)
-- 删除了`@tauri-apps/api/process`模块。 请改用`@tauri-apps/plugin-process`。 [迁移](#migrate-to-process-plugin)
-- 删除了`@tauri-apps/api/shell`模块。 请改用`@tauri-apps/plugin-shell`。 [迁移](#migrate-to-shell-plugin)
-- 删除了`@tauri-apps/api/updater`模块。 使用 `@tauri-apps/plugin-updater` 代替。 [迁移](#migrate-to-updater-plugin)
-- 删除了`@tauri-apps/api/window`模块。 使用 `@tauri-apps/plugin-window` 代替。 [迁移](#migrate-to-window-plugin)
+- 删除了`@tauri-apps/api/app`模块。 请改用`@tauri-apps/plugin-app`。 [迁移](#迁移至-app-应用-插件)
+- 删除了`@tauri-apps/api/cli`模块。 请改用`@tauri-apps/plugin-cli`。 [迁移](#迁移至-cli-命令行-插件)
+- 删除了`@tauri-apps/api/clipboard`模块。 请改用`@tauri-apps/plugin-clipboard`。 [迁移](#迁移至-clipboard-剪贴板-插件)
+- 删除了`@tauri-apps/api/dialog`模块。 请改用`@tauri-apps/plugin-dialog`。 [迁移](#迁移至-dialog-对话框-插件)
+- 删除了`@tauri-apps/api/fs`模块。 请改用`@tauri-apps/plugin-fs`。 [迁移](#迁移至-file-system-文件系统-插件)
+- 删除了`@tauri-apps/api/global-shortcut`模块。 请改用`@tauri-apps/plugin-global-shortcut`。 [迁移](#迁移至-global-shortcut-全局快捷键-插件)
+- 删除了`@tauri-apps/api/http`模块。 请改用`@tauri-apps/plugin-http`。 [迁移](#迁移至-http-插件)
+- 删除了`@tauri-apps/api/os`模块。 请改用`@tauri-apps/plugin-os`。 [迁移](#迁移至-os-系统-插件)
+- 删除了`@tauri-apps/api/notification`模块。 请改用`@tauri-apps/plugin-notification`。 [迁移](#迁移至-notification-通知-插件)
+- 删除了`@tauri-apps/api/process`模块。 请改用`@tauri-apps/plugin-process`。 [迁移](#迁移至-process-进程-插件)
+- 删除了`@tauri-apps/api/shell`模块。 请改用`@tauri-apps/plugin-shell`。 [迁移](#迁移至-shell-插件)
+- 删除了`@tauri-apps/api/updater`模块。 使用 `@tauri-apps/plugin-updater` 代替。 [迁移](#迁移至-updater-升级器-插件)
+- 删除了`@tauri-apps/api/window`模块。 使用 `@tauri-apps/plugin-window` 代替。 [迁移](#迁移至-window-窗体-插件)
 
 ## 详细的迁移步骤
 
 将 Tauri 1.0 应用程序迁移到 Tauri 2.0 时可能会遇到的常见场景。
 
-### 迁移至 App 应用插件
+### 迁移至 App 应用 插件
 
 JavaScript `@tauri-apps/api/app` API 已被删除。 请改用 `@tauri-apps/plugin-app` 插件：
 
@@ -222,7 +222,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Clipboard 剪切板 插件
+### 迁移至 Clipboard 剪贴板 插件
 
 Rust 的 `App::clipboard_manager` 和 `AppHandle::clipboard_manager` 与 JavaScript 的 `@tauri-apps/api/clipboard` API 已被移除。请用 `@tauri-apps/plugin-clipboard-manager` 插件代替：
 
