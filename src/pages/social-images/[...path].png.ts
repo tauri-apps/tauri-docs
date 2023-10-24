@@ -1,3 +1,6 @@
+// this OG-Gen code was based on https://github.com/JonasKruckenberg/JonasKruckenberg/blob/main/src/pages/social-image/[...path].png.ts
+
+
 process.env.FONTCONFIG_PATH = '/opt/build/repo/public/fonts/';
 
 // TODO: Define default text
