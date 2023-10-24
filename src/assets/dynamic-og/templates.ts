@@ -1,4 +1,5 @@
-// TODO: Fix font in production env
+// TODO: Clamp at 2 lines and add '...' in longs sub texts 
+// TODO: find a better solution in case of titles, maybe it's possible to match font-size to width.
 
 import { breakText } from '@assets/dynamic-og/utils';
 
