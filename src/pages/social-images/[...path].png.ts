@@ -10,26 +10,16 @@ const og = {
 };
 
 import { createRequire } from 'module';
-import { matchPath } from '@assets/dynamic-og/utils';
+import { matchPath, docsContent } from '@assets/dynamic-og/utils';
 import { createBlogTemplate, createDefaultTemplate } from '@assets/dynamic-og/templates';
 
 // We can't import sharp normally because it's a CJS thing and those don't seems to work well with Astro, Vite, everyone
 const cjs = createRequire(import.meta.url);
 const sharp = cjs('sharp');
 
-const docsContent = Object.fromEntries(
-	Object.entries(import.meta.glob('../../content/docs/**/*.{md,mdx}')).map(([path, getInfo]) => {
-		path = path.replaceAll('../', '');
-		path = path.replace('.mdx', '');
-		path = path.replace('.md', '');
-
-		return [path, getInfo];
-	})
-);
 // Reference: https://docs.astro.build/en/reference/api-reference/#getstaticpaths
 export async function getStaticPaths() {
-	const paths = ['index', 'blog', 'features/index'];
-
+	const paths = [];
 	for (const [path, getInfo] of Object.entries(docsContent)) {
 		const info = (await getInfo()) as Record<string, any>;
 

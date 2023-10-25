@@ -39,3 +39,25 @@ export function breakText(str: string, maxLines: number, maxLineLen: number) {
 
 	return linesOut;
 }
+
+// to the Head.astro
+export const imageURL = Object.fromEntries(
+	Object.entries(import.meta.glob('../../content/docs/**/index.{md,mdx}')).map(([path]) => {
+		path = path.replaceAll('../../content/docs', '');
+		path = path.replace('.mdx', '');
+		path = path.replace('.md', '');
+		path = path.replace(/\/$/, '');
+		const pageURL = path.replace('/index', '');
+		return [pageURL, path];
+	})
+);
+
+// to the [...path].png.ts
+export const docsContent = Object.fromEntries(
+	Object.entries(import.meta.glob('../../content/docs/**/*.{md,mdx}')).map(([path, getInfo]) => {
+		path = path.replaceAll('../', '');
+		path = path.replace('.mdx', '');
+		path = path.replace('.md', '');
+		return [path, getInfo];
+	})
+);
