@@ -2,39 +2,46 @@
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Head.astro';
 
+// Map the page url to the final image path, mostly to ensure the script handle /index pages
 const imageURL = Object.fromEntries(
 	Object.entries(import.meta.glob('../../content/docs/**/index.{md,mdx}')).map(([path]) => {
 		path = path.replaceAll('../../content/docs', '');
-		//path = path.replaceAll('../', '');
 		path = path.replace('.mdx', '');
 		path = path.replace('.md', '');
-		const page = path.replace('index', '');
-		return [page, path];
+		path = path.replace(/\/$/, '');
+		const pageURL = path.replace('/index', '');
+		return [pageURL, path];
 	})
 );
 
+// Handle edge cases and custom images
 const customImage: Record<string, string> = {
-	'/blog': '/og.png',
+	// homepage
 	'/': '/og.png',
+	// blog main pages
+	'/blog': '/og.png',
+	'/blog/2': '/og.png',
+	'/blog/3': '/og.png',
+	//
+	'/guides/template': '/og.png',
 };
 
 let socialImage: URL | null;
 
 function getSocialImage() {
-	let path = Astro.url.pathname;
+	let path = Astro.url.pathname.replace(/\/$/, '');
 
 	if (path.endsWith('.png')) {
 		return null;
 	}
 
 	if (customImage[path]) {
-		socialImage = new URL(customImage[path], Astro.url);
+		return new URL(customImage[path], Astro.url);
 	} else {
-		let imagePath = imageURL[path] || path.replace(/\/$/, '');
+		let imagePath = (imageURL[path] || path);
 		// TODO: Improve cache busting
-		socialImage = new URL(`/social-images/content/docs${imagePath}.png?v=1`, Astro.url);
+		return new URL(`/social-images/content/docs${imagePath}.png?v=1`, Astro.url);
 	}
-	return socialImage;
 }
 socialImage = getSocialImage();
 ---
