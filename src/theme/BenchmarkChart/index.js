@@ -154,7 +154,7 @@ function createOptions(columnName, colorMode) {
     },
     stroke: {
       width: 2,
-      curve: 'smooth',
+      curve: 'straight',
     },
     xaxis: {
       type: 'datetime',
