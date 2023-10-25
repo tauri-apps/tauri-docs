@@ -1,7 +1,19 @@
 ---
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Head.astro';
-import {imageURL} from '../../assets/dynamic-og/utils'
+
+// TODO: Find a way to generate this only once instead on every head
+// Map the page url to the final image path, mostly to ensure the script handle /index pages
+const imageURL = Object.fromEntries(
+	Object.entries(import.meta.glob('../../content/docs/**/index.{md,mdx}')).map(([path]) => {
+		path = path.replaceAll('../../content/docs', '');
+		path = path.replace('.mdx', '');
+		path = path.replace('.md', '');
+		path = path.replace(/\/$/, '');
+		const pageURL = path.replace('/index', '');
+		return [pageURL, path];
+	})
+);
 
 // Handle edge cases and custom images
 const customImage: Record<string, string> = {
