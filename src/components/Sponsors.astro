@@ -47,17 +47,12 @@ const gitHubSponsors: Sponsor[] = gitHubSponsorData.organization.sponsors.nodes.
 // TODO: Need to pull in all of the historical transactions, right now it's only the last 1000
 // Documentation at https://graphql-docs-v2.opencollective.com/welcome
 const openCollectiveQuery = `query account {
-  account(slug: "tauri") {
-    transactions(type: CREDIT, limit: 1000) {
+  collective(slug: "tauri") {
+    contributors(limit: 1000) {
       nodes {
-        fromAccount {
-          slug
-		  name
-          imageUrl
-        }
-        amount {
-          value
-        }
+        name
+		image
+		totalAmountDonated
       }
     }
   }
@@ -77,24 +72,12 @@ if (!openCollectiveResponse.ok)
 	);
 
 const openCollectiveData = (await openCollectiveResponse.json()).data
-const openCollectiveSponsors: Sponsor[] = openCollectiveData.account.transactions.nodes.map((node: any) => ({
-	login: node.fromAccount.slug,
-	id: node.fromAccount.name,
-	avatarUrl: node.fromAccount.imageUrl,
-	amount: node.amount.value
-})).reduce((acc: Sponsor[], currentValue: Sponsor) => {
-
-	const index = acc.findIndex(item => item.id == currentValue.id)
-	if (index > -1) {
-		acc[index] = {
-			amount: acc[index].amount! + currentValue.amount!,
-			...acc[index]
-		}
-	} else {
-		acc.push(currentValue)
-	}
-	return acc
-}, []).sort((a: Sponsor,b: Sponsor) => b.amount! - a.amount!)
+const openCollectiveSponsors: Sponsor[] = openCollectiveData.collective.contributors.nodes.map((node: any) => ({
+	login: node.name,
+	id: node.name,
+	avatarUrl: node.image,
+	amount: node.totalAmountDonated
+})).sort((a: Sponsor,b: Sponsor) => b.amount! - a.amount!)
 
 ---
 
