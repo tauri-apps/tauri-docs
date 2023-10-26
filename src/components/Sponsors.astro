@@ -1,6 +1,9 @@
 ---
 const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
 
+if (!GITHUB_TOKEN)
+  throw Error('GITHUB_TOKEN is invalid or not set')
+
 const gitHubQuery = `query {
   organization(login:"tauri-apps") {
     sponsors(first: 100) {
