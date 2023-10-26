@@ -1,0 +1,90 @@
+---
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+
+const gitHubQuery = `query {
+  organization(login:"tauri-apps") {
+    sponsors(first: 100) {
+      nodes {
+        ... on Actor {
+          login,
+          avatarUrl
+        }
+      }
+    }
+  }
+}`;
+
+type Sponsor = {
+	login: string;
+	avatarUrl: string;
+  amount?: number;
+};
+
+const gitHubSponsors: Sponsor[] = await fetch('https://api.github.com/graphql', {
+	method: 'POST',
+	body: JSON.stringify({ query: gitHubQuery }),
+	headers: {
+    "Authorization": `bearer ${GITHUB_TOKEN}`
+  },
+}).then(async (response) => {
+	if (response.ok) {
+		const data = await response.json();
+		return data.data.organization.sponsors.nodes;
+	}
+	throw Error(
+		`There was an issue with the GitHub sponsors query: ${response.status}: ${response.statusText}`
+	);
+});
+
+// Documentation at https://graphql-docs-v2.opencollective.com/welcome
+const openCollectiveQuery = `query account {
+  account(slug: "tauri") {
+    transactions(kind: CONTRIBUTION) {
+      nodes {
+        fromAccount {
+          name
+          imageUrl
+        }
+        amount {
+          value
+        }
+      }
+    }
+  }
+}`;
+
+const openCollectiveSponsors: Sponsor[] = await fetch('https://api.opencollective.com/graphql/v2', {
+	method: 'POST',
+	body: JSON.stringify({ query: openCollectiveQuery }),
+	headers: {
+		'Content-Type': 'application/json',
+	},
+}).then(async (response) => {
+	if (response.ok) {
+		const data = await response.json();
+		return data.data.account.transactions.nodes.map(
+			(node: any) => ({
+				login: node.fromAccount.name,
+				avatarUrl: node.fromAccount.imageUrl,
+        amount: node.amount.value
+			})
+		);
+	}
+	throw Error(
+		`There was an issue with the Open Collective sponsors query: ${response.status} ${response.statusText}`
+	);
+});
+
+// TODO: Need to loop over the Open Collective array to merge them based on the login and sum up the amount value (then sort by amount largest to smallest)
+---
+
+<h1>Sponsors</h1>
+<h2>Open Collective</h2>
+<ul>
+  {openCollectiveSponsors.map((sponsor) => <li>{sponsor.login}</li>)}
+</ul>
+<h2>GitHub</h2>
+<ul>
+	{gitHubSponsors.map((sponsor) => <li>{sponsor.login}</li>)}
+</ul>
+
