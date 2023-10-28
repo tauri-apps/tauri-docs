@@ -1,25 +1,5 @@
 # app
 
-Get application metadata.
-
-This package is also accessible with `window.__TAURI__.app` when [`build.withGlobalTauri`](https://tauri.app/v1/api/config/#buildconfig.withglobaltauri) in `tauri.conf.json` is set to `true`.
-
-The APIs must be added to [`tauri.allowlist.app`](https://tauri.app/v1/api/config/#allowlistconfig.app) in `tauri.conf.json`:
-```json
-{
-  "tauri": {
-    "allowlist": {
-      "app": {
-        "all": true, // enable all app APIs
-        "show": true,
-        "hide": true
-      }
-    }
-  }
-}
-```
-It is recommended to allowlist only the APIs you use for optimal bundle size and security.
-
 ## Functions
 
 ### `getName`
