@@ -99,7 +99,7 @@ export default defineConfig({
 				{
 					label: 'Quick Start',
 					items: [
-						{ label: 'Why Tauri?', link: 'guides' },
+						{ label: 'What is Tauri?', link: 'guides' },
 						{
 							label: 'Prerequisites',
 							translations: {
