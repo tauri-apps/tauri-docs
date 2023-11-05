@@ -13,7 +13,7 @@ Read information about the operating system using the OS Information plugin.
 
 ## Setup
 
-Install the clipboard plugin to get started.
+Install the OS Information plugin to get started.
 
 <Tabs>
     <TabItem label="Automatic">
@@ -71,28 +71,15 @@ Install the clipboard plugin to get started.
 
 </Tabs>
 
-{/* TODO: ADD eol() usage guide */}
-
 ## Usage
 
-Here are the available data you can query with the OS Information plugin:
-
-- [OS Platform](#os-platform)
-- [OS Family](#os-family)
-- [OS Version](#os-version)
-- [OS Type](#os-type)
-- [OS Architeture](#os-architecture)
-- [OS Locale](#os-locale)
-- [OS Executable extension](#os-executable-extension)
-- [OS Hostname](#os-hostname)
+With this plugin you can query multiple information from current operational system, here is how you can utilize the OS Information plugin:
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
-The OS Information plugin is available in both JavaScript and Rust. For the examples below consider a machine running Windows 10 22H2.
+#### Example: OS Platform
 
-### OS Platform
-
-Returns a string describing the specific operating system in use. The value is set at compile time. Possible values are 'linux', 'macos', 'ios', 'freebsd', 'dragonfly', 'netbsd', 'openbsd', 'solaris', 'android', 'windows'
+`platform` returns a string describing the specific operating system in use. The value is set at compile time. Possible values are `linux`, `macos`, `ios`, `freebsd`, `dragonfly`, `netbsd`, `openbsd`, `solaris`, `android`, `windows`.
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -117,197 +104,4 @@ println!("Platform: {}", platform);
 </TabItem>
 </Tabs>
 
-### OS Family
-
-Possible values are 'unix', 'windows'.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { family } from '@tauri-apps/plugin-os';
-
-const family = await family();
-console.log(family);
-// Prints "windows" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let family = tauri_plugin_os::family();
-println!("Family: {}", family);
-//Prints "windows" to the terminal
-```
-
-</TabItem>
-</Tabs>
-
-### OS Version
-
-Returns the current operating system version.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { version } from '@tauri-apps/plugin-os';
-
-const version = await version();
-console.log(version);
-// Prints "10.0.19045" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let version = tauri_plugin_os::version();
-println!("Version: {}", version);
-// Prints "10.0.19045" to the terminal
-
-```
-
-</TabItem>
-</Tabs>
-
-### OS Type
-
-Returns 'linux' on Linux, 'macos' on macOS, 'windows' on Windows, 'ios' on iOS and 'android' on Android
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { type } from '@tauri-apps/plugin-os';
-
-const type = await type();
-console.log(type);
-// Prints "windows" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let os_type = tauri_plugin_os::type_();
-println!("Type: {}", os_type);
-// Prints "windows" to the terminal
-
-```
-
-</TabItem>
-</Tabs>
-
-### OS Architecture
-
-Possible values are 'x86', 'x86_64', 'arm', 'aarch64', 'mips', 'mips64', 'powerpc', 'powerpc64', 'riscv64', 's390x', 'sparc64'.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { arch } from '@tauri-apps/plugin-os';
-
-const arch = await arch();
-console.log(arch);
-// Prints "x86_64" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let arch = tauri_plugin_os::arch();
-println!("Architecture: {}", arch);
-// Prints "x86_64" to the terminal
-
-```
-
-</TabItem>
-</Tabs>
-
-### OS Locale
-
-Returns a string with a BCP-47 language tag.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { locale } from '@tauri-apps/plugin-os';
-
-const locale = await locale();
-console.log(locale);
-// Prints "en-US" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let locale = tauri_plugin_os::locale();
-println!("Locale: {:?}", locale);
-// Prints "en-US" to the terminal
-
-```
-
-</TabItem>
-</Tabs>
-
-### OS Executable Extension
-
-Returns the file extension, if any, used for executable binaries on this platform. Possible values are 'exe' and '' (empty string).
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { exeExtension } from '@tauri-apps/plugin-os';
-
-const exeExtension = await exeExtension();
-console.log(exeExtension);
-// Prints "exe" to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let exe_extension = tauri_plugin_os::exe_extension();
-println!("Exe Extension: {}", exe_extension);
-// Prints "exe" to the terminal
-
-```
-
-</TabItem>
-</Tabs>
-
-### OS Hostname
-
-Returns the host name of the operating system.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { hostname } from '@tauri-apps/plugin-os';
-
-const hostname = await hostname();
-console.log(hostname);
-// Prints the host name to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-let hostname = tauri_plugin_os::hostname();
-println!("Hostname: {}", hostname);
-// Prints the host name to the terminal
-
-```
-
-</TabItem>
-</Tabs>
+See all available functions in the [JavaScript API](/2/reference/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/2.0.0-alpha.4/tauri_plugin_os/) references.
