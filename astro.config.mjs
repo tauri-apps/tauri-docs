@@ -124,7 +124,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Core Concepts',
-							link: 'guides/core-concepts',
+							link: 'concepts',
 						},
 						{
 							label: 'Troubleshooting',
