@@ -2,7 +2,7 @@
 title: Create a Project
 ---
 
-import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import { Card } from '@astrojs/starlight/components';
 import Stub from '@components/Stub.astro';
 
 <Stub>
@@ -24,39 +24,9 @@ Alternatively, you can [add Tauri to an existing project](/guides/create/existin
 
 To get started using `create-tauri-app` run one of the below commands in the folder you'd like to setup your project. If you're not sure which command to use we recommend the Bash command on Linux and macOS and the PowerShell command on Windows.
 
-<Tabs>
-<TabItem label="Bash">
-```sh
-sh <(curl https://create.tauri.app/sh) --alpha
-```
-</TabItem>
-<TabItem label="PowerShell">
-```ps
-$env:CTA_ARGS="--alpha"; irm https://create.tauri.app/ps | iex
-```
-</TabItem>
-<TabItem label="npm">
-```sh
-npm create tauri-app@latest -- --alpha
-```
-</TabItem>
-<TabItem label="Yarn">
-```sh
-yarn create tauri-app --alpha
-```
-</TabItem>
-<TabItem label="pnpm">
-```sh
-pnpm create tauri-app --alpha
-```
-</TabItem>
-<TabItem label="Cargo">
-```sh
-cargo install create-tauri-app
-cargo create-tauri-app --alpha
-```
-</TabItem>
-</Tabs>
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
 
 Follow along with the prompts to choose your project name, frontend language, package manager, and frontend framework, and frontend framework options if applicable.
 
