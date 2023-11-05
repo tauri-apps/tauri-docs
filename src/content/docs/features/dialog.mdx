@@ -86,7 +86,7 @@ The dialog plugin is available in both JavaScript and Rust.
 
 ### Ask
 
-Show a question dialog with `Ok` and `Cancel` buttons
+Shows a question dialog with `Yes` and `No` buttons
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -117,7 +117,7 @@ console.log(yes);
 
 ### Confirm
 
-Shows a question dialog with Ok and Cancel buttons.
+Shows a question dialog with `Ok` and `Cancel` buttons.
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -125,7 +125,7 @@ Shows a question dialog with Ok and Cancel buttons.
 ```js
 import { confirm } from '@tauri-apps/plugin-dialog';
 
-// Creates a confirmation Yes/No dialog
+// Creates a confirmation Ok/Cancel dialog
 const confirmed = await confirm(
 	'This action cannot be reverted. Are you sure?',
 	{ title: 'Tauri', type: 'warning' }
@@ -148,7 +148,7 @@ console.log(confirmed);
 
 ### Message
 
-Show a question dialog with `Yes` and `No` buttons
+Shows a message dialog with an `Ok` button.
 
 <Tabs>
 <TabItem label="JavaScript">
