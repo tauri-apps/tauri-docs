@@ -72,11 +72,11 @@ Install the dialog plugin to get started.
 
 Here's how you can use the dialog plugin:
 
-- [Show a question dialog with `Yes` and `No` buttons](#ask)
-- [Show a question dialog with `Ok` and `Cancel` buttons](#confirm)
-- [Show a message dialog with an `Ok` button](#message)
-- [Open a file/directory selection dialog](#open)
-- [Open a file/directory save dialog](#save)
+- [Show a question dialog with `Yes` and `No` buttons](#create-yesno-dialog)
+- [Show a question dialog with `Ok` and `Cancel` buttons](#create-okcancel-dialog)
+- [Show a message dialog with `Ok` button](#create-message-dialog)
+- [Open a file/directory selection dialog](#open-a-file-selector-dialog)
+- [Open a file/directory save dialog](#open-a-save-dialog)
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
@@ -84,7 +84,7 @@ The dialog plugin is available in both JavaScript and Rust.
 
 {/* ASK */}
 
-### Ask
+### Create Yes/No Dialog
 
 Shows a question dialog with `Yes` and `No` buttons
 
@@ -115,7 +115,7 @@ console.log(yes);
 
 {/* CONFIRM */}
 
-### Confirm
+### Create Ok/Cancel Dialog
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -146,7 +146,7 @@ console.log(confirmed);
 
 {/* MESSAGE */}
 
-### Message
+### Create Message Dialog
 
 Shows a message dialog with an `Ok` button.
 
@@ -171,7 +171,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 {/* OPEN */}
 
-### Open
+### Open a File Selector Dialog
 
 Open a file/directory selection dialog.
 
@@ -288,7 +288,7 @@ directories.forEach((path) => {
 
 {/* SAVE */}
 
-### Save
+### Open a Save Dialog
 
 <Tabs>
 <TabItem label="JavaScript">
