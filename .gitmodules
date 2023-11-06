@@ -1,4 +1,4 @@
-[submodule "packages/tauri"]
+[submodule "packages/tauri-v2"]
 	path = packages/tauri-v2
 	url = https://github.com/tauri-apps/tauri.git
 	branch = dev
