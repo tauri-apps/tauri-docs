@@ -1,0 +1,3 @@
+config.md
+js/*
+!js/index.mdx
