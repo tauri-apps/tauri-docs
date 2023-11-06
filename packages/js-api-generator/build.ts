@@ -46,10 +46,10 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-	if (existsSync('../tauri/tooling/api/node_modules')) {
+	if (existsSync('../tauri-v2/tooling/api/node_modules')) {
 		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri/tooling/api/src/index.ts'],
-			tsconfig: '../tauri/tooling/api/tsconfig.json',
+			entryPoints: ['../tauri-v2/tooling/api/src/index.ts'],
+			tsconfig: '../tauri-v2/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
 			baseUrl: '/2/reference/js/core/',
 			...typeDocConfigBaseOptions,
@@ -57,7 +57,9 @@ async function generator() {
 
 		await generateDocs(coreJsOptions);
 	} else {
-		console.log('Tauri submodule is not initialized, respective API routes will not be rendered.');
+		throw Error(
+			'Tauri submodule is not initialized, respective JavaScript API routes will not be rendered.'
+		);
 	}
 
 	// TODO: the following plugins don't have a JS API:
@@ -106,8 +108,8 @@ async function generator() {
 			await generateDocs(pluginJsOptions);
 		});
 	} else {
-		console.log(
-			'Plugins workspace submodule is not initialized, respective API routes will not be rendered.'
+		throw Error(
+			'Plugins workspace submodule is not initialized, respective JavaScript API routes will not be rendered.'
 		);
 	}
 }

@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 
 export default async function configGenerator() {
-	if (fs.existsSync('packages/tauri/tooling/api/node_modules')) {
-		const schemaPath = 'packages/tauri/core/tauri-config-schema/schema.json';
+	if (fs.existsSync('packages/tauri-v2/tooling/api/node_modules')) {
+		const schemaPath = 'packages/tauri-v2/core/tauri-config-schema/schema.json';
 		const schemaString = fs
 			.readFileSync(schemaPath)
 			.toString()
@@ -463,8 +463,8 @@ title: Tauri Configuration
 		const config = buildObject(null, schema, 1).join('\n');
 		fs.writeFileSync(targetPath, `${header}${config}`);
 	} else {
-		console.log(
-			'Tauri submodule is not initialized, respective core config routes will not be rendered.'
+		throw Error(
+			'Tauri V2 submodule is not initialized, respective core configuration routes will not be rendered.'
 		);
 	}
 }
