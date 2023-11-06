@@ -67,7 +67,7 @@ async function generator() {
 			entryPoints: ['../tauri-v1/tooling/api/src/index.ts'],
 			tsconfig: '../tauri-v1/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/1/reference/js/core/',
+			baseUrl: '/1/reference/js/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -183,51 +183,52 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 		this.#markdownThemeRenderContext = new MarkdownThemeRenderContext(event, options);
 	}
 
+	// FIXME: Links inside aren't using the URL function below
 	// Formats `@since` to be a single line
-	override comment: (comment: Comment, headingLevel?: number | undefined) => string = (
-		comment,
-		headingLevel
-	) => {
-		const filteredComment = { ...comment } as Comment;
-		filteredComment.blockTags = [];
+	// override comment: (comment: Comment, headingLevel?: number | undefined) => string = (
+	// 	comment,
+	// 	headingLevel
+	// ) => {
+	// 	const filteredComment = { ...comment } as Comment;
+	// 	filteredComment.blockTags = [];
 
-		const customBlockTags = [];
+	// 	const customBlockTags = [];
 
-		for (const blockTag of comment.blockTags) {
-			if (blockTag.tag === '@since') {
-				customBlockTags.push(blockTag);
-			} else {
-				filteredComment.blockTags.push(blockTag);
-			}
-		}
+	// 	for (const blockTag of comment.blockTags) {
+	// 		if (blockTag.tag === '@since') {
+	// 			customBlockTags.push(blockTag);
+	// 		} else {
+	// 			filteredComment.blockTags.push(blockTag);
+	// 		}
+	// 	}
 
-		// Adapted from https://github.com/HiDeoo/starlight-typedoc/pull/15/files for link resolution within summaries
-		filteredComment.summary = comment.summary.map((part) => {
-			if (
-				part.kind === 'inline-tag' &&
-				(part.tag === '@link' || part.tag === '@linkcode' || part.tag === '@linkplain') &&
-				part.target instanceof Reflection
-			) {
-				const partURL = this.relativeURL(part.target.url);
+	// 	// Adapted from https://github.com/HiDeoo/starlight-typedoc/pull/15/files for link resolution within summaries
+	// 	filteredComment.summary = comment.summary.map((part) => {
+	// 		if (
+	// 			part.kind === 'inline-tag' &&
+	// 			(part.tag === '@link' || part.tag === '@linkcode' || part.tag === '@linkplain') &&
+	// 			part.target instanceof Reflection
+	// 		) {
+	// 			const partURL = this.relativeURL(part.target.url);
 
-				if (partURL) {
-					return { ...part, target: partURL };
-				}
-			}
+	// 			if (partURL) {
+	// 				return { ...part, target: partURL };
+	// 			}
+	// 		}
 
-			return part;
-		});
+	// 		return part;
+	// 	});
 
-		let markdown = this.#markdownThemeRenderContext.comment(filteredComment, headingLevel);
+	// 	let markdown = this.#markdownThemeRenderContext.comment(filteredComment, headingLevel);
 
-		for (const customCommentTag of customBlockTags) {
-			markdown += `\n**Since**: ${customCommentTag.content
-				.map((content) => content.text)
-				.join(', ')}\n\n`;
-		}
+	// 	for (const customCommentTag of customBlockTags) {
+	// 		markdown += `\n**Since**: ${customCommentTag.content
+	// 			.map((content) => content.text)
+	// 			.join(', ')}\n\n`;
+	// 	}
 
-		return markdown;
-	};
+	// 	return markdown;
+	// };
 
 	// Formats `@source` to be a single line
 	override sources: (
