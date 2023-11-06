@@ -95,12 +95,12 @@ Shows a question dialog with `Yes` and `No` buttons
 import { ask } from '@tauri-apps/plugin-dialog';
 
 // Create a Yes/No dialog
-const yes = await ask('This action cannot be reverted. Are you sure?', {
+const answer = await ask('This action cannot be reverted. Are you sure?', {
 	title: 'Tauri',
 	type: 'warning',
 });
 
-console.log(yes);
+console.log(answer);
 // Prints boolean to the console
 ```
 
@@ -126,12 +126,12 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Creates a confirmation Ok/Cancel dialog
-const confirmed = await confirm(
+const confirmation = await confirm(
 	'This action cannot be reverted. Are you sure?',
 	{ title: 'Tauri', type: 'warning' }
 );
 
-console.log(confirmed);
+console.log(confirmation);
 // Prints boolean to the console
 ```
 
@@ -224,7 +224,7 @@ const files = await open({
 	multiple: true,
 	directory: false,
 });
-selectedFiles.forEach((file) => {
+files.forEach((file) => {
 	console.log(file);
 	// Prints each file data to the console
 });
