@@ -58,7 +58,23 @@ async function generator() {
 		await generateDocs(coreJsOptions);
 	} else {
 		throw Error(
-			'Tauri submodule is not initialized, respective JavaScript API routes will not be rendered.'
+			'Tauri V2 submodule is not initialized, respective JavaScript API routes will not be rendered.'
+		);
+	}
+
+	if (existsSync('../tauri-v1/tooling/api/node_modules')) {
+		const coreJsOptions: Partial<TypeDocOptions> = {
+			entryPoints: ['../tauri-v1/tooling/api/src/index.ts'],
+			tsconfig: '../tauri-v1/tooling/api/tsconfig.json',
+			gitRevision: 'dev',
+			baseUrl: '/1/reference/js/core/',
+			...typeDocConfigBaseOptions,
+		};
+
+		await generateDocs(coreJsOptions);
+	} else {
+		throw Error(
+			'Tauri V1 submodule is not initialized, respective JavaScript API routes will not be rendered.'
 		);
 	}
 
