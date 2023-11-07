@@ -23,7 +23,7 @@ import Command from '@theme/Command'
 
 Rust가 빌드를 완료하면 Webview가 열리고 웹 앱이 표시됩니다. 웹 앱을 변경할 수 있으며 도구에서 지원하는 경우, WebView는 브라우저처럼 자동으로 업데이트됩니다. Rust 파일을 변경하면 자동으로 다시 빌드되고 앱이 자동으로 다시 시작됩니다.
 
-:::정보 Cargo.toml 및 소스 제어 정보
+:::info Cargo.toml 및 소스 제어 정보
 
 프로젝트 저장소에서 "src-tauri/Cargo.toml"과 함께 "src-tauri/Cargo.lock"을 git에 커밋해야 합니다. 왜냐하면 Cargo는 결정된 빌드를 제공하기 위해 잠금 파일을 사용하기 때문입니다. 따라서, 모든 애플리케이션의 Cargo.lock을 체크인하는 것이 좋습니다. 단, "src-tauri/target" 폴더 또는 그 내용을 커밋하면 안 됩니다.
 
