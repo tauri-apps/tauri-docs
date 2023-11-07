@@ -208,17 +208,19 @@ console.log(file);
 
 ### Save to File Dialog
 
+Open a file/directory save dialog.
+
 <Tabs>
 <TabItem label="JavaScript">
 
 ```js
 import { save } from '@tauri-apps/plugin-dialog';
 
-// Prompt to save a 'Image' with extension .png or .jpeg
+// Prompt to save a 'My Filter Label' with extension .png or .jpeg
 const path = await save({
 	filters: [
 		{
-			name: 'Image',
+			name: 'My Filter Label',
 			extensions: ['png', 'jpeg'],
 		},
 	],
