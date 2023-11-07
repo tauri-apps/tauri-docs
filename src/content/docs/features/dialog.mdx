@@ -178,35 +178,13 @@ Open a file/directory selection dialog.
 <Tabs>    
 <TabItem label="JavaScript">
 
+The `multiple` option controls whether the dialog allows multiple selection or not, while the `directory`, whether is a directory selection or not.
+
+See all [Open Dialog Options](/2/reference/js/dialog/#opendialogoptions) at the JavaScript API reference.
+
 ```js
 import { open } from '@tauri-apps/plugin-dialog';
 
-// Open a dialog
-const file = await open();
-console.log(file);
-// Prints file data to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-<Stub />
-{/* TODO RUST: */}
-
-</TabItem>
-</Tabs>
-
-{/* OPEN > FILE */}
-
-#### File
-
-<Tabs>
-
-Select single file:
-
-<TabItem label="JavaScript">
-
-```js
 // Open a dialog
 const file = await open({
 	multiple: false,
@@ -216,74 +194,14 @@ console.log(file);
 // Prints file data to the console
 ```
 
-Select multiple files:
-
-```js
-// Open a dialog
-const files = await open({
-	multiple: true,
-	directory: false,
-});
-files.forEach((file) => {
-	console.log(file);
-	// Prints each file data to the console
-});
-```
-
 </TabItem>
-
 <TabItem label="Rust">
 
 <Stub />
+{/* https://docs.rs/tauri-plugin-dialog/ */}
 {/* TODO RUST: */}
 
 </TabItem>
-
-</Tabs>
-
-{/* OPEN > DIRECTORY */}
-
-#### Directory
-
-<Tabs>
-
-<TabItem label="JavaScript">
-
-Select directory:
-
-```js
-// Open a dialog
-const dir = await open({
-	multiple: false,
-	directory: true,
-});
-console.log(dir);
-// Prints directory path
-```
-
-Select multiple directories:
-
-```js
-// Open a dialog
-const directories = await open({
-	multiple: true,
-	directory: true,
-});
-directories.forEach((path) => {
-	console.log(path);
-	// Prints each directory path
-});
-```
-
-</TabItem>
-
-<TabItem label="Rust">
-
-<Stub />
-{/* TODO RUST: */}
-
-</TabItem>
-
 </Tabs>
 
 {/* SAVE */}
