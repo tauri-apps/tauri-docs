@@ -137,7 +137,7 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: 'guides/develop',
+							autogenerate: { directory: 'guides/develop' },
 						},
 						{
 							label: 'Debug',
