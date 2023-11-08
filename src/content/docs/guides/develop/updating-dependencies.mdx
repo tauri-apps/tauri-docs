@@ -1,105 +1,38 @@
 ---
-sidebar_position: 3
+title: Updating Dependencies
+description: Core concepts for developing with Tauri.
 ---
+{/*TODO: REVISE COPY TO V2 */}
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-# Updating Dependencies
+import CommandTabs from '@components/CommandTabs.astro';
 
 ## Update npm Packages
 
 If you are using the `tauri` package:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
-
-```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
-```
-
-  </TabItem>
-  <TabItem value="Yarn Classic">
-
-```shell
-yarn upgrade @tauri-apps/cli @tauri-apps/api --latest
-```
-
-  </TabItem>
-  <TabItem value="Yarn Berry">
-
-```shell
-yarn up @tauri-apps/cli @tauri-apps/api
-```
-
-  </TabItem>
-  <TabItem value="pnpm">
-
-```shell
-pnpm update @tauri-apps/cli @tauri-apps/api --latest
-```
-
-  </TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+	yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
 
 You can also detect what the latest version of Tauri is on the command line, using:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
 
-```shell
-npm outdated @tauri-apps/cli
-```
+<CommandTabs
+	npm="npm outdated @tauri-apps/cli"
+	yarn="yarn outdated @tauri-apps/cli"
+	pnpm="pnpm outdated @tauri-apps/cli"
+/>
 
-  </TabItem>
-  <TabItem value="Yarn">
-
-```shell
-yarn outdated @tauri-apps/cli
-```
-
-  </TabItem>
-  <TabItem value="pnpm">
-
-```shell
-pnpm outdated @tauri-apps/cli
-```
-
-  </TabItem>
-</Tabs>
 
 Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
 
-<Tabs groupId="package-manager">
-  <TabItem value="npm">
-
-```shell
-npm install vue-cli-plugin-tauri@latest
-```
-
-  </TabItem>
-  <TabItem value="Yarn Classic">
-
-```shell
-yarn upgrade vue-cli-plugin-tauri --latest
-```
-
-  </TabItem>
-  <TabItem value="Yarn Berry">
-
-```shell
-yarn up vue-cli-plugin-tauri
-```
-
-  </TabItem>
-  <TabItem value="pnpm">
-
-```shell
-pnpm update vue-cli-plugin-tauri --latest
-```
-
-  </TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm install vue-cli-plugin-tauri@latest"
+	yarn="yarn up vue-cli-plugin-tauri"
+	pnpm="pnpm update vue-cli-plugin-tauri --latest"
+/>
 
 ## Update Cargo Packages
 
@@ -114,8 +47,8 @@ tauri-build = "%version%"
 [dependencies]
 tauri = { version = "%version%" }
 ```
-
-where `%version%` is the corresponding version number from above. <!-- TODO: (You can just use the `MAJOR.MINOR`) version, like `0.9`. -->
+{/* _TODO MIGRATED FROM V1 ->*/}
+where `%version%` is the corresponding version number from above. {/* TODO: (You can just use the `MAJOR.MINOR`) version, like `0.9`.*/}
 
 Then do the following:
 
