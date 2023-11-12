@@ -141,7 +141,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug',
+							autogenerate: { directory: 'guides/debug' },
 						},
 						{
 							label: 'Test',
