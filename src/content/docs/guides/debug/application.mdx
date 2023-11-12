@@ -1,6 +1,12 @@
-import Command from '@theme/Command'
+---
+title: Application Debug
+description: Tips and tricks for your debugging workflow
+---
+{/*TODO: REVISE COPY TO V2 */}
+{/*TODO: Update links and internal navigation */}
+{/*TODO: Revise this change: Application Debugging > Application Debug */}
 
-# Application Debugging
+import CommandTabs from '@components/CommandTabs.astro';
 
 With all the moving pieces in Tauri, you may run into a problem that requires debugging. There are many locations where error details are printed, and Tauri includes some tools to make the debugging process more straightforward.
 
@@ -28,7 +34,7 @@ tauri dev
 This command gives you a granular stack trace. Generally speaking, the Rust compiler helps you by
 giving you detailed information about the issue, such as:
 
-```
+```bash
 error[E0425]: cannot find value `sun` in this scope
   --> src/main.rs:11:5
    |
@@ -73,7 +79,12 @@ By default, the inspector is only enabled in development and debug builds unless
 
 To create a debug build, run the `tauri build --debug` command.
 
-<Command name="build --debug" />
+<CommandTabs
+	npm="npm run tauri build -- --debug"
+	yarn="yarn tauri build --debug"
+	pnpm="pnpm tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
 
 Like the normal build and dev processes, building takes some time the first time you run this command but is significantly faster on subsequent runs.
 The final bundled app has the development console enabled and is placed in `src-tauri/target/debug/bundle`.
