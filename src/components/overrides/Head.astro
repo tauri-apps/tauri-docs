@@ -1,0 +1,32 @@
+---
+// TODO: Check how to override the current metatag 'content' instead..
+// .so that the settings on astro.config can be utilized along..
+// .without conflicts.
+
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Head.astro';
+
+import { getOgImageUrl } from './getOgImageUrl';
+
+
+const { isFallback, slug } = Astro.props;
+const ogImageUrl = getOgImageUrl(slug, !!isFallback);
+const imageSrc = ogImageUrl ?? 'og.png';
+
+let canonicalImageSrc = new URL(imageSrc, Astro.site);
+
+const isDev = import.meta.env.DEV;
+
+
+// Override URL for development environment
+if (isDev) {
+	canonicalImageSrc = new URL(imageSrc, 'http://localhost:4321/');
+}
+
+
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<meta property="og:image" content={canonicalImageSrc} />
+<meta name="twitter:image" content={canonicalImageSrc} />
