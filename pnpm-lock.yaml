@@ -35,8 +35,8 @@ importers:
         specifier: ^0.12.1
         version: 0.12.1
       rehype-autolink-headings:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^7.1.0
+        version: 7.1.0
       sharp:
         specifier: ^0.32.6
         version: 0.32.6
@@ -3759,8 +3759,8 @@ packages:
       picomatch: 2.3.1
     dev: false
 
-  /rehype-autolink-headings@7.0.0:
-    resolution: {integrity: sha512-DLskejGYHQP9v7vUW85BeYIclgfMQ1IwAMx+0lm8Sr3cME2NThgy2OdTfosmuBA68fqP5o4FK+dknpUMFvlxYQ==}
+  /rehype-autolink-headings@7.1.0:
+    resolution: {integrity: sha512-rItO/pSdvnvsP4QRB1pmPiNHUskikqtPojZKJPPPAVx9Hj8i8TwMBhofrrAYRhYOOBZH9tgmG5lPqDLuIWPWmw==}
     dependencies:
       '@types/hast': 3.0.0
       '@ungap/structured-clone': 1.2.0
