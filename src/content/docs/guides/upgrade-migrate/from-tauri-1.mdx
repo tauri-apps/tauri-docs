@@ -88,6 +88,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
 
+- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/primitives`. [Migration](#migrate-to-primitives-module)
 - `@tauri-apps/api/app` module removed. Use `@tauri-apps/plugin-app` instead. [Migration](#migrate-to-app-plugin)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
 - `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
@@ -102,9 +103,39 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the `tau
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
 - `@tauri-apps/api/window` module removed. Use `@tauri-apps/plugin-window` instead [Migration](#migrate-to-window-plugin)
 
+### Environment Variables Changes
+
+Most of the environment variables read and written by the Tauri CLI were renamed for consistency and prevention of mistakes:
+
+- `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
+- `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- `TAURI_SKIP_DEVSERVER_CHECK` -> `TAURI_CLI_NO_DEV_SERVER_WAIT`
+- `TAURI_DEV_SERVER_PORT` -> `TAURI_CLI_PORT`
+- `TAURI_PATH_DEPTH` -> `TAURI_CLI_CONFIG_DEPTH`
+- `TAURI_FIPS_COMPLIANT` -> `TAURI_BUNDLER_WIX_FIPS_COMPLIANT`
+- `TAURI_DEV_WATCHER_IGNORE_FILE` -> `TAURI_CLI_WATCHER_IGNORE_FILENAME`
+- `TAURI_TRAY` -> `TAURI_LINUX_AYATANA_APPINDICATOR`
+- `TAURI_APPLE_DEVELOPMENT_TEAM` -> `APPLE_DEVELOPMENT_TEAM`
+- `TAURI_PLATFORM` -> `TAURI_ENV_PLATFORM`
+- `TAURI_ARCH` -> `TAURI_ENV_ARCH`
+- `TAURI_FAMILY` -> `TAURI_ENV_FAMILY`
+- `TAURI_PLATFORM_VERSION` -> `TAURI_ENV_PLATFORM_VERSION`
+- `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
+- `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
+
 ## Detailed Migration Steps
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
+
+### Migrate to Primitives Module
+
+The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/primitives`.
+Simply rename the module import:
+
+```diff
+- import { invoke } from "@tauri-apps/api/tauri" 
++ import { invoke } from "@tauri-apps/api/primitives"
+```
 
 ### Migrate to App Plugin
 
