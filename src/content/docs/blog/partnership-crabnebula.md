@@ -15,9 +15,9 @@ As an open-source project, Tauri's primary mission has always been to provide a 
 
 ## CrabNebula's Contribution to Stability and Security
 
-CrabNebula's role in Tauri's journey over the past year has been pivotal. By dedicating full-time engineers to work explicitly on Tauri's development and maintenance, they are helping us enhance the framework's stability and security. They are literally being paid to resolve bugs and issues, pushing forward on the 2.0 release, and offering their support in the many Discord discussions. 
+CrabNebula's role in Tauri's journey over the past year has been pivotal. By dedicating full-time engineers to work explicitly on Tauri's development and maintenance, they are helping us enhance the framework's stability and security. They are literally being paid to resolve bugs and issues, pushing forward on the 2.0 release, and offering their support in the many Discord discussions.
 
-Specifically, we would like to call out some folks from CrabNebula for helping drive the community and the code forward: Daniel, Lucas, Elizabeth, Yu-Wei, Tillmann, Amr, Chip, Fabian-Lars, Alve, Atila, Eleftheria, Tejas, Lorenzo,  Robin, David, Jason, and Te-Kai.
+Specifically, we would like to call out some folks from CrabNebula for helping drive the community and the code forward: Daniel, Lucas, Elizabeth, Yu-Wei, Tillmann, Amr, Chip, Fabian-Lars, Alve, Atila, Eleftheria, Tejas, Lorenzo, Robin, David, Jason, and Te-Kai.
 
 Their efforts in conducting thorough security audits of minor releases are particularly crucial. These audits not only help us identify and fix vulnerabilities but also reinforce our commitment to delivering a secure framework for all users. Collaborative features developed with Impierce and Kino AI under this partnership further expand Tauri's capabilities, which will help it to remain cutting-edge and reliable.
 
@@ -39,13 +39,12 @@ To our developers, contributors, users, and donors - we invite you to engage wit
 
 If you like, go over to the CrabNebula blog and read [their perspective](https://crabnebula.dev/blog/tauri-partnership) on this partnership.
 
-* [Discord Tauri](https://discorg.gg/tauri)
-* [X Tauri](https://x.com/TauriApps)
-* [Mastadon Tauri](https://fosstodon.org/@TauriApps)
-* [GitHub Tauri](https://github.com/tauri-apps)
-* [Website Tauri](https://tauri.app)
-* [X CrabNebula](https://x.com/CrabNebulaDev)
-* [Mastadon CrabNebula](https://fosstodon.org/@crabnebula)
-* [GitHub CrabNebula](https://github.com/crabnebula-dev)
-* [Website Crabnebula](https://crabnebula.dev)
-
+- [Discord Tauri](https://discorg.gg/tauri)
+- [X Tauri](https://x.com/TauriApps)
+- [Mastadon Tauri](https://fosstodon.org/@TauriApps)
+- [GitHub Tauri](https://github.com/tauri-apps)
+- [Website Tauri](https://tauri.app)
+- [X CrabNebula](https://x.com/CrabNebulaDev)
+- [Mastadon CrabNebula](https://fosstodon.org/@crabnebula)
+- [GitHub CrabNebula](https://github.com/crabnebula-dev)
+- [Website Crabnebula](https://crabnebula.dev)
