@@ -248,11 +248,19 @@ html[data-theme='light'] .hero::after {
 
 /* Sponsors */
 .sponsor {
+  flex: 0 1 20%;
+}
+
+.premium {
   flex: 0 1 25%;
 }
 
+.partner {
+  flex: 0 1 30%;
+}
+
 @media (max-width: 700px) {
-  .sponsor {
+  .sponsor .premium .partner {
     flex: 0 1 100%;
     text-align: center;
   }

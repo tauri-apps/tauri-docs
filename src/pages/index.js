@@ -273,10 +273,37 @@ function FeatureRoadmapEntry(props) {
   )
 }
 
+function OfficialPartners() {
+  // All logos should be a svg with a 500x100 frame (content resized inside
+  // with padding to appear balanced).
+  const items = [
+    {
+      name: 'CrabNebula',
+      link: 'https://www.crabnebula.dev',
+      logoColorDark: 'crabnebula_color_dark.svg',
+      logoColorLight: 'crabnebula_color_light.svg',
+    },
+  ]
+
+  return (
+    <div className={styles.row}>
+      {items.map((item, index) => {
+        return <Logo className={styles.partner} brand={item} key={index} />
+      })}
+    </div>
+  )
+}
+
 function PremiumSponsors() {
   // All logos should be a svg with a 500x100 frame (content resized inside
   // with padding to appear balanced).
   const items = [
+    {
+      name: 'AWS',
+      link: 'https://aws.amazon.com',
+      logoColorDark: 'AWS_color_dark.svg',
+      logoColorLight: 'AWS_color_light.svg',
+    },
     {
       name: '1Password',
       link: 'https://1password.com',
@@ -307,18 +334,12 @@ function PremiumSponsors() {
       logoColorDark: 'meilisearch_color_dark.svg',
       logoColorLight: 'meilisearch_color_light.svg',
     },
-    {
-      name: 'CrabNebula',
-      link: 'https://www.crabnebula.dev',
-      logoColorDark: 'crabnebula_color_dark.svg',
-      logoColorLight: 'crabnebula_color_light.svg',
-    },
   ]
 
   return (
     <div className={styles.row}>
       {items.map((item, index) => {
-        return <Logo classNames={styles.sponsor} brand={item} key={index} />
+        return <Logo className={styles.premium} brand={item} key={index} />
       })}
     </div>
   )
@@ -387,7 +408,7 @@ function Sponsors() {
   return (
     <div className={styles.row}>
       {items.map((item, index) => {
-        return <Logo classNames={styles.sponsor} brand={item} key={index} />
+        return <Logo className={styles.sponsor} brand={item} key={index} />
       })}
     </div>
   )
@@ -416,13 +437,13 @@ function Logo(props) {
   }, [])
 
   return (
-    <Link href={props.brand.link} className={styles.sponsor}>
+    <Link href={props.brand.link} className={props.className}>
       <img
         src={useBaseUrl(
           logoDir +
-          (isDarkMode
-            ? props.brand.logoColorDark
-            : props.brand.logoColorLight)
+            (isDarkMode
+              ? props.brand.logoColorDark
+              : props.brand.logoColorLight)
         )}
         alt={props.brand.name}
       />
@@ -445,7 +466,7 @@ function DynamicHeaderImage() {
     images.push(lightTauriLogo)
   }, [])
 
-  // // Set dark mode correctly
+  // Set dark mode correctly
   useEffect(() => {
     setIsDarkMode(colorMode === 'dark')
   }, [colorMode])
@@ -474,7 +495,6 @@ export default function App() {
       })}
     >
       <header className={classNames('hero', styles.hero)}>
-
         <div className={classNames(styles.heroContainer)}>
           <span className={classNames(styles.heroImage)}>
             <DynamicHeaderImage />
@@ -526,6 +546,12 @@ export default function App() {
         <div className={styles.spacer} />
         <div className="container">
           <section id="sponsors">
+            <h1 className={styles.h1}>Official Partners</h1>
+            <OfficialPartners />
+          </section>
+
+          <div className={styles.spacer} />
+          <section>
             <h1 className={styles.h1}>Premium Sponsors</h1>
             <PremiumSponsors />
           </section>
