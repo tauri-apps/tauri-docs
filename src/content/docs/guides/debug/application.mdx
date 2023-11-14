@@ -91,9 +91,9 @@ The final bundled app has the development console enabled and is placed in `src-
 
 You can also run a built app from the terminal, giving you the Rust compiler notes (in case of errors) or your `println` messages. Browse to the file `src-tauri/target/(release|debug)/[app name]` and run it in directly in your console or double-click the executable itself in the filesystem (note: the console closes on errors with this method).
 
-#### Enable Devtools Feature
+##### Enable Devtools Feature
 
-:::warning
+:::danger
 
 The devtools API is private on macOS. Using private APIs on macOS prevents your application from being accepted to the App Store.
 
@@ -110,6 +110,6 @@ tauri = { version = "...", features = ["...", "devtools"] }
 
 The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] guide to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
-[debugging in vs code]: ./vs-code.md
+[debugging in vs code]: /guides/debug/vs-code
 [`window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
 [`window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
