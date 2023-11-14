@@ -5932,15 +5932,15 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meilisearch-docsearch@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.5.0.tgz#4a8638b6bd31bab655ddce1c369ff7ba0e39620c"
-  integrity sha512-r0dg5FSoTt5DUJwAdE5Wwun5pyvrPyGe4SWhL7bzsA3GoWDT2SXNiX14kVaRXC2HnLTU/fBYWC0wSDzQz2A7vQ==
+meilisearch-docsearch@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/meilisearch-docsearch/-/meilisearch-docsearch-0.6.0.tgz#e070a515f161fad5f84590dfda27fafa846721d5"
+  integrity sha512-Pq61rCNIrwxMZ2vGc7ZkPUJSv92hPz1xPqy/jbDXmmA5GLSje6n98dotiUC9TKGzeRrG7DYCNbCjjdrlyoi8Bg==
   dependencies:
-    meilisearch "^0.35.0"
-    solid-js "^1.8.1"
+    meilisearch "0.35.0"
+    solid-js "1.8.5"
 
-meilisearch@^0.35.0:
+meilisearch@0.35.0:
   version "0.35.0"
   resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.35.0.tgz#c94d5f266e39ad5ed5a666782e729805a4e8a956"
   integrity sha512-gF1I6K5/Wpe7BWfjBnG+o19y/FIpJ9HbN+byON6CB9U3uE7qc6GvwUbjKOllh7LKXQVVxH/kCu7Jn0ODCUwqbQ==
@@ -7829,10 +7829,10 @@ serialize-javascript@^6.0.0:
   dependencies:
     randombytes "^2.1.0"
 
-seroval@^0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/seroval/-/seroval-0.10.4.tgz#7c47761d7651b2471bcdb44906213df4114bb1d0"
-  integrity sha512-TdaE9JkoATjKu+vjwllieX8zWyBTUVxbgWDnOsDJFfmKbM7vLSukuCXuD3pO3kkCtX4daywOW8ps2VCdPhS8/w==
+seroval@^0.12.0:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/seroval/-/seroval-0.12.3.tgz#6dac3dacd603f28a5e6d3c4c6cb685af7bf2e885"
+  integrity sha512-5WDeMpv7rmEylsypRj1iwRVHE/QLsMLiZ+9savlNNQEVdgGia1iRMb7qyaAagY0wu/7+QTe6d2wldk/lgaLb6g==
 
 serve-handler@^6.1.3:
   version "6.1.3"
@@ -7981,13 +7981,13 @@ sockjs@^0.3.24:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-solid-js@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.8.1.tgz#0568041f6dfca099ae48b94b2de1711974d25694"
-  integrity sha512-HU4tB/vWY5/0P9GzbvePjK1aucNqUcF1XlAirZBjKkrkWG8XNIN9HSjscTC/nbl3A6JWjrW+OLcPEvWxsMhdng==
+solid-js@1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.8.5.tgz#60c68cb67feafa84c2c3f38dd2050adeef31cde1"
+  integrity sha512-xvtJvzJzWbsn35oKFhW9kNwaxG1Z/YLMsDp4tLVcYZTMPzvzQ8vEZuyDQ6nt7xDArVgZJ7TUFrJUwrui/oq53A==
   dependencies:
     csstype "^3.1.0"
-    seroval "^0.10.4"
+    seroval "^0.12.0"
 
 sort-css-media-queries@2.0.4:
   version "2.0.4"
