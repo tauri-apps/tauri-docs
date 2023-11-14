@@ -1,13 +1,15 @@
 ---
-sidebar_position: 2
+title: Selenium
+description: WebDriver Testing
+sidebar:
+  order: 2
 ---
+{/*TODO: REVISE COPY TO V2 */}
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import CommandTabs from '@components/CommandTabs.astro';
 
-# Selenium
 
-:::info Example Application
+:::info[Example Application]
 This [Selenium] guide expects you to have already gone through the [example Application setup] to follow
 step-by-step. The general information may still be helpful otherwise.
 :::
@@ -50,56 +52,23 @@ We have a script that runs [Mocha] as a test framework exposed as the `test` com
 that we will be using to run the tests. [Mocha] as the testing framework, [Chai] as the assertion library, and
 [`selenium-webdriver`] which is the Node.js [Selenium] package.
 
-<details><summary>Click me if you want to see how to set a project up from scratch</summary>
+<details>
+<summary>Click me if you want to see how to set a project up from scratch</summary>
 
 If you want to install the dependencies from scratch, just run the following command.
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
-
-```shell
-npm install mocha chai selenium-webdriver
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn add mocha chai selenium-webdriver
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm install mocha chai selenium-webdriver"
+	yarn="yarn add mocha chai selenium-webdriver"
+/>
 
 I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running Mocha can be called
 simply with
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
-
-```shell
-npm test
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn test
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm test"
+	yarn="yarn test"
+/>
 
 </details>
 
@@ -204,27 +173,11 @@ more WebDriver related items.
 
 Now that we are all set up with our dependencies and our test script, let's run it!
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
 
-```shell
-npm test
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn test
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm test"
+	yarn="yarn test"
+/>
 
 We should see output the following output:
 

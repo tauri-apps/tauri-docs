@@ -1,11 +1,12 @@
 ---
-sidebar_position: 3
+title: WebdriverIO
+description: WebDriver Testing
+sidebar:
+  order: 3
 ---
+{/*TODO: REVISE COPY TO V2 */}
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-# WebdriverIO
+import CommandTabs from '@components/CommandTabs.astro';
 
 :::info Example Application
 This [WebdriverIO] guide expects you to have already gone through the [example Application setup] to follow
@@ -53,58 +54,25 @@ We have a script that runs a [WebdriverIO] config as a test suite exposed as the
 dependencies added by the `@wdio/cli` command when we first set it up. In short, these dependencies are for
 the most simple setup using a local WebDriver runner, [Mocha] as the test framework, and a simple Spec Reporter.
 
-<details><summary>Click me if you want to see how to set a project up from scratch</summary>
+<details>
+<summary>Click me if you want to see how to set a project up from scratch</summary>
 
 The CLI is interactive, and you may choose the tools to work with yourself. Note that you will likely diverge from
 the rest of the guide, and you need to set up the differences yourself.
 
 Let's add the [WebdriverIO] CLI to this npm project.
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
-
-```shell
-npm install @wdio/cli
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn add @wdio/cli
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm install @wdio/cli"
+	yarn="yarn add @wdio/cli"
+/>
 
 To then run the interactive config command to set up a [WebdriverIO] test suite, you can then run:
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
-
-```shell
-npx wdio config
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn wdio config
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npx wdio config"
+	yarn="yarn wdio config"
+/>
 
 </details>
 
@@ -212,27 +180,11 @@ covered by the [WebdriverIO API docs].
 
 Now that we are all set up with config and a spec let's run it!
 
-<Tabs groupId="package-manager"
-defaultValue="yarn"
-values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
-]}>
-<TabItem value="npm">
 
-```shell
-npm test
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```shell
-yarn test
-```
-
-</TabItem>
-</Tabs>
+<CommandTabs
+	npm="npm test"
+	yarn="yarn test"
+/>
 
 We should see output the following output:
 

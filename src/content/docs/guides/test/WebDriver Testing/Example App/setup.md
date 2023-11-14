@@ -1,10 +1,12 @@
 ---
-sidebar_position: 1
+title: Setup Example
+description: WebDriver Testing
+sidebar:
+  order: 1
 ---
+<!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
-
-# Setup Example
 
 This example application solely focuses on adding WebDriver testing to an already existing project. To have a
 project to test in the following two sections, we will set up an extremely minimal Tauri application for use in
@@ -21,6 +23,8 @@ We want to create a new binary Cargo project to house this example application. 
 line with `cargo new hello-tauri-webdriver --bin`, which will scaffold a minimal binary Cargo project for us. This
 directory will serve as the working directory for the rest of this guide, so make sure the commands you run are inside
 this new `hello-tauri-webdriver/` directory.
+
+
 
 ## Creating a Minimal Frontend
 

@@ -1,4 +1,11 @@
-# Mocking Tauri APIs
+---
+title: Mock Tauri APIs
+description: Techniques for testing inside and outside the Tauri runtime
+sidebar:
+  order: 1
+---
+<!-- {/*TODO: REVISE COPY TO V2 */} -->
+<!-- {/*TODO: Update links and internal navigation */} -->
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
