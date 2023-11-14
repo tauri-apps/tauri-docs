@@ -299,6 +299,12 @@ function PremiumSponsors() {
   // with padding to appear balanced).
   const items = [
     {
+      name: 'AWS',
+      link: 'https://aws.amazon.com',
+      logoColorDark: 'AWS_color_dark.svg',
+      logoColorLight: 'AWS_color_light.svg',
+    },
+    {
       name: '1Password',
       link: 'https://1password.com',
       logoColorDark: '1Password_color_dark.svg',
