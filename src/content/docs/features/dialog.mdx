@@ -69,7 +69,7 @@ Install the dialog plugin to get started.
 
 ## Usage
 
-Here's how you can use the dialog plugin:
+The dialog plugin is available in both JavaScript and Rust. Here's how you can use it:
 
 - [Create Yes/No Dialog](#create-yesno-dialog)
 - [Create Ok/Cancel Dialog](#create-okcancel-dialog)
@@ -77,15 +77,11 @@ Here's how you can use the dialog plugin:
 - [Open a File Selector Dialog](#open-a-file-selector-dialog)
 - [Save to File Dialog](#save-to-file-dialog)
 
-{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
-
-The dialog plugin is available in both JavaScript and Rust.
-
 {/* ASK */}
 
 ### Create Yes/No Dialog
 
-Shows a question dialog with `Yes` and `No` buttons
+Shows a question dialog with `Yes` and `No` buttons.
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -108,6 +104,7 @@ console.log(answer);
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+
 let answer = app.dialog()
         .message("Tauri is Awesome")
         .title("Tauri is Awesome")
@@ -116,10 +113,11 @@ let answer = app.dialog()
         .blocking_show();
 ```
 
-or instead: 
+If you need a non blocking operation you can use `show()` instead:
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
@@ -127,7 +125,7 @@ app.dialog()
     .cancel_button_label("Totally")
     .show(|result| match result {
         true => // do something,
-        false => // do something,
+        false =>// do else,
     });
 ```
 
@@ -184,21 +182,24 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
 app.dialog()
-        .message("Tauri is Awesome")
-        .title("My Message")
-        .blocking_show();
+    .message("File not found")
+    .kind(MessageDialogKind::Error)
+    .title("Warning")
+    .blocking_show();
 ```
 
-or instead: 
+If you need a non blocking operation you can use `show()` instead:
 
-{/* TODO: Check what is the "result" supposed to be as the only return is true? or is it to check if "ok" was clicked and no closed/exited */}
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
 app.dialog()
     .message("Tauri is Awesome")
-    .title("My Message")
+    .kind(MessageDialogKind::Error)
+    .title("Warning")
     .show(|result| match result {
         true => // do something,
         false => // do something,
@@ -237,21 +238,21 @@ console.log(file);
 <TabItem label="Rust">
 
 ```rust
-    let file_path = app.dialog().file().blocking_pick_file();
-        // do something with the optional file path here
-        // the file path is `None` if the user closed the dialog
+use tauri_plugin_dialog::DialogExt;
+
+let file_path = app.dialog().file().blocking_pick_file();
+// return a file_path `Option`, or `None` if the user closes the dialog
 ```
 
-or, alternatively:
+If you need a non blocking operation you can use `show()` instead:
 
 ```rust
-    app.dialog().file().pick_file(|file_path| {
-        // do something with the optional file path here
-        // the file path is `None` if the user closed the dialog
-        })
-```
-{/* https://docs.rs/tauri-plugin-dialog/ */}
+use tauri_plugin_dialog::DialogExt;
 
+app.dialog().file().pick_file(|file_path| {
+    // return a file_path `Option`, or `None` if the user closes the dialog
+    })
+```
 
 </TabItem>
 </Tabs>
@@ -267,11 +268,11 @@ Open a file/directory save dialog.
 
 ```js
 import { save } from '@tauri-apps/plugin-dialog';
-// Prompt to save a 'My Filter Label' with extension .png or .jpeg
+// Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
 	filters: [
 		{
-			name: 'My Filter Label',
+			name: 'My Filter',
 			extensions: ['png', 'jpeg'],
 		},
 	],
@@ -285,7 +286,12 @@ console.log(path);
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
-    let file_path = app.dialog().file().blocking_save_file();
+
+let file_path = app
+    .dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .blocking_save_file();
     // do something with the optional file path here
     // the file path is `None` if the user closed the dialog
 ```
@@ -294,10 +300,14 @@ or, alternatively:
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
-    app.dialog().file().save_file(|file_path| {
-    // do something with the optional file path here
-    // the file path is `None` if the user closed the dialog
-        });
+
+app.dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .pick_file(|result| {
+        println!("{:?}", result);
+    });
 ```
+
 </TabItem>
 </Tabs>
