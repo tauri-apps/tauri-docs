@@ -66,13 +66,15 @@ sudo pacman -S --needed \
 
 ```sh
 sudo dnf check-update
-sudo dnf install webkit2gtk4.0-devel \
+sudo dnf install webkit2gtk4.1-devel \
   openssl-devel \
   curl \
   wget \
   file \
   libappindicator-gtk3-devel \
-  librsvg2-devel
+  librsvg2-devel \
+  libsoup3-devel \
+  javascriptcoregtk4.1-devel
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
