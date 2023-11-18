@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^3.4.0",
+    "@astrojs/solid-js": "^3.0.2",
     "@astrojs/starlight": "^0.12.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^3.5.3",
@@ -28,6 +29,8 @@
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.32.6",
     "shiki": "^0.14.5",
+    "solid-js": "^1.8.5",
+    "solid-markdown": "^2.0.0",
     "starlight-blog": "^0.4.0",
     "starlight-links-validator": "^0.4.2"
   },

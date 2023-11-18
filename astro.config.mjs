@@ -6,6 +6,7 @@ import locales from './locales.json';
 import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
+import solid from '@astrojs/solid-js';
 
 await configGenerator();
 
@@ -58,6 +59,7 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
+		solid(),
 		starlightLinksValidator(),
 		starlightBlog({ authors }),
 		starlight({
@@ -79,6 +81,7 @@ export default defineConfig({
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
+				Header: 'src/components/overrides/Header.astro',
 			},
 			head: [
 				{
