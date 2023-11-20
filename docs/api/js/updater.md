@@ -16,19 +16,19 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 >  **body**: `string`
 
-**Defined in:** [updater.ts:34](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L34)
+**Defined in:** [updater.ts:34](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L34)
 
 ##### `date`
 
 >  **date**: `string`
 
-**Defined in:** [updater.ts:33](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L33)
+**Defined in:** [updater.ts:33](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L33)
 
 ##### `version`
 
 >  **version**: `string`
 
-**Defined in:** [updater.ts:32](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L32)
+**Defined in:** [updater.ts:32](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L32)
 
 ### `UpdateResult`
 
@@ -40,13 +40,13 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 > `Optional` **manifest**: [`UpdateManifest`](updater.md#updatemanifest)
 
-**Defined in:** [updater.ts:41](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L41)
+**Defined in:** [updater.ts:41](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L41)
 
 ##### `shouldUpdate`
 
 >  **shouldUpdate**: `boolean`
 
-**Defined in:** [updater.ts:42](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L42)
+**Defined in:** [updater.ts:42](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L42)
 
 ### `UpdateStatusResult`
 
@@ -58,13 +58,13 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 > `Optional` **error**: `string`
 
-**Defined in:** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L24)
+**Defined in:** [updater.ts:24](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L24)
 
 ##### `status`
 
 >  **status**: [`UpdateStatus`](updater.md#updatestatus)
 
-**Defined in:** [updater.ts:25](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L25)
+**Defined in:** [updater.ts:25](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L25)
 
 ## Type Aliases
 
@@ -74,13 +74,13 @@ This package is also accessible with `window.__TAURI__.updater` when [`build.wit
 
 **Since**: 1.0.0
 
-**Defined in:** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/updater.ts#L18)
+**Defined in:** [updater.ts:18](https://github.com/tauri-apps/tauri/blob/f26d9f0/tooling/api/src/updater.ts#L18)
 
 ## Functions
 
 ### `checkUpdate`
 
-> **checkUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
+> **checkUpdate**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
 
 Checks if an update is available.
 
@@ -94,13 +94,13 @@ const update = await checkUpdate();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UpdateResult`](updater.md#updateresult)\>
 
 Promise resolving to the update status.
 
 ### `installUpdate`
 
-> **installUpdate**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **installUpdate**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Install the update if there's one available.
 
@@ -117,13 +117,13 @@ if (update.shouldUpdate) {
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `onUpdaterEvent`
 
-> **onUpdaterEvent**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+> **onUpdaterEvent**(`handler`: `fn`): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 Listen to an updater event.
 
@@ -147,7 +147,7 @@ unlisten();
 | :------ | :------ |
 | `handler` | (`status`: [`UpdateStatusResult`](updater.md#updatestatusresult)) => `void` |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`UnlistenFn`](event.md#unlistenfn)\>
 
 A promise resolving to a function to unlisten to the event.
 Note that removing the listener is required if your listener goes out of scope e.g. the component is unmounted.
