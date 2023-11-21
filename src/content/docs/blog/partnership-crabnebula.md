@@ -39,7 +39,7 @@ To our developers, contributors, users, and donors - we invite you to engage wit
 
 If you like, go over to the CrabNebula blog and read [their perspective](https://crabnebula.dev/blog/tauri-partnership) on this partnership.
 
-- [Discord Tauri](https://discorg.gg/tauri)
+- [Discord Tauri](https://discord.gg/tauri)
 - [X Tauri](https://x.com/TauriApps)
 - [Mastadon Tauri](https://fosstodon.org/@TauriApps)
 - [GitHub Tauri](https://github.com/tauri-apps)
