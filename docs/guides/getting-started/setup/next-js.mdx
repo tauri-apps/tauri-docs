@@ -134,7 +134,7 @@ export default function Greet() {
 const [greeting, setGreeting] = useState('');
   useEffect(() => {
     invoke<string>('greet', { name: 'Next.js' })
-      .then(console.log)
+      .then(result => setGreeting(result))
       .catch(console.error)
   }, [])
 
