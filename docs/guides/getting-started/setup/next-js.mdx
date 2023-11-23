@@ -127,18 +127,20 @@ One important thing to note is that all of Tauri's JS APIs require access to bro
 ```tsx title=app/greet.tsx
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
 
 export default function Greet() {
+  const [greeting, setGreeting] = useState('');
+
   useEffect(() => {
     invoke<string>('greet', { name: 'Next.js' })
-      .then(console.log)
+      .then(result => setGreeting(result))
       .catch(console.error)
   }, [])
 
   // Necessary because we will have to use Greet as a component later.
-  return <></>
+  return <div>{greeting}</div>;
 }
 ```
 
