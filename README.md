@@ -17,6 +17,22 @@ The **API docs** are generated from our [Rust] and [TypeScript] source code.
 
 See [Contributing Guide].
 
+## Partners
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://crabnebula.dev" target="_blank">
+          <img src=".github/sponsors/crabnebula.svg" alt="CrabNebula" width="283">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+For the complete list of sponsors please visit our [website](https://tauri.app#sponsors) and [Open Collective](https://opencollective.com/tauri).
+
 ## Trademark Usage
 
 If you are interested in using the Tauri trademarks, please read this page: https://tauri.app/about/trademark
