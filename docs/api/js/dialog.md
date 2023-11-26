@@ -305,7 +305,7 @@ The selected paths are added to the filesystem and asset protocol allowlist scop
 When security is more important than the easy of use of this API,
 prefer writing a dedicated command instead.
 
-Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
+Note that the allowlist scope change is not ed, so the values are cleared when the application is restarted.
 You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/persisted-scope).
 
 **Example**
@@ -372,7 +372,7 @@ When security is more important than the easy of use of this API,
 prefer writing a dedicated command instead.
 
 Note that the allowlist scope change is not persisted, so the values are cleared when the application is restarted.
-You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/tauri-plugin-persisted-scope).
+You can save it to the filesystem using [tauri-plugin-persisted-scope](https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/persisted-scope).
 
 **Example**
 
