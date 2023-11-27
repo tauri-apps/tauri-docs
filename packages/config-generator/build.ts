@@ -1,5 +1,8 @@
-import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-schema';
+import { JSONSchema7, JSONSchema7Definition } from 'json-schema';
 import { existsSync, writeFileSync } from 'node:fs';
+
+// TODO: Check AssetProtocolConfig > properties > scope, is it an array?
+// TODO: Add constraints directly after type
 
 const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
 const outputFile = '../../src/content/docs/2/reference/config.md';
@@ -13,7 +16,12 @@ let schema: JSONSchema7 = await import(schemaFile);
 const out = ['---', 'title: Configuration', '---'];
 
 out.push(
-	...buildSchemaDefinition(schema, { headingLevel: 2, renderDefault: false, renderTitle: false })
+	...buildSchemaDefinition(schema, {
+		headingLevel: 1,
+		renderDefault: false,
+		renderTitle: false,
+		renderLineBreak: true,
+	})
 );
 
 writeFileSync(outputFile, out.join('\n\n'));
@@ -22,6 +30,7 @@ interface Options {
 	headingLevel: number;
 	renderTitle: boolean;
 	renderDefault: boolean;
+	renderLineBreak: boolean;
 }
 
 function buildSchemaDefinition(
@@ -34,6 +43,7 @@ function buildSchemaDefinition(
 			headingLevel: 1,
 			renderTitle: true,
 			renderDefault: true,
+			renderLineBreak: false,
 		},
 		passedOptions
 	);
@@ -53,13 +63,11 @@ function buildSchemaDefinition(
 	const out = [];
 	const constraints = [];
 
-	// MARK: Formatted
-
 	// Schema Annotations
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10
 	schema.title && opts.renderTitle && out.push(`${'#'.repeat(opts.headingLevel)} ${schema.title}`);
 	// FIXME: Doing this as a way to temporarily escape MD formatting
-	schema.description && out.push(`${schema.description.substring(0, 20)}`);
+	schema.description && out.push(`${schema.description}`);
 
 	// Validation Keywords for Any Instance Type
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.1
@@ -96,21 +104,26 @@ function buildSchemaDefinition(
 			}).join('\n\n')}`
 		);
 	}
+	// TODO: Determine if there are multiple
+	// If so, list them out in a list or table
+	// Look at `BeforeDevCommand` and `AppUrl` for examples
 	if (schema.anyOf) {
 		out.push(
-			`**Type**: ${schema.anyOf.map((value) =>
+			`**AnyOf**: ${schema.anyOf.map((value) =>
 				buildSchemaDefinition(value, {
 					headingLevel: opts.headingLevel + 1,
-				}).join('\n')
+				}).join('\n\n')
 			)}`
 		);
 	}
+	// TODO: If multiple then render in a list or table.
+	// `WindowEffect` as an example
 	if (schema.oneOf) {
 		out.push(
-			`**Type**: ${schema.oneOf.map((value) =>
+			`**OneOf**: ${schema.oneOf.map((value) =>
 				buildSchemaDefinition(value, {
 					headingLevel: opts.headingLevel + 1,
-				}).join('\n')
+				}).join('\n\n')
 			)}`
 		);
 	}
@@ -152,40 +165,23 @@ function buildSchemaDefinition(
 
 	// Semantic Validation With "format"
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-7
-	schema.format && constraints.push(`format: ${schema.format}`);
+	schema.format && constraints.push(`formatted as \`${schema.format}\``);
 
 	// String-Encoding Non-JSON Data
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8
 	schema.contentMediaType && constraints.push(`content media type: \`${schema.contentMediaType}\``);
 	schema.contentEncoding && constraints.push(`content encoding: \`${schema.contentEncoding}\``);
 
-	// Schema Annotations
-	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10
-	if (schema.default && opts.renderDefault) {
-		if (typeof schema.default !== 'object') {
-			// Simple default
-			out.push(`**Default**: ${schema.default}`);
-		} else if (Object.keys(schema.default).length == 0) {
-			// Empty object
-			out.push(`**Default**: \`${JSON.stringify(schema.default)}\``);
-		} else {
-			// Object with properties
-			out.push(
-				`\`\`\`json title="Default"\n${JSON.stringify(schema.default, null, '\t')}\n\`\`\`\n`
-			);
-		}
-	}
-
 	// Validation Keywords for Objects
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.5
 	if (schema.properties) {
-		out.push(`${'#'.repeat(opts.headingLevel)} Properties`);
+		out.push(`${'#'.repeat(opts.headingLevel + 1)} Properties`);
 		Object.entries(schema.properties)
 			.filter(([key]) => key !== '$schema')
 			.sort(([a], [b]) => a.localeCompare(b))
 			.forEach(([key, value]) => {
-				out.push(`${'#'.repeat(opts.headingLevel + 1)} ${key}`);
-				out.push(...buildSchemaDefinition(value, { headingLevel: opts.headingLevel + 1 }));
+				out.push(`${'#'.repeat(opts.headingLevel + 2)} ${key}`);
+				out.push(...buildSchemaDefinition(value, { headingLevel: opts.headingLevel + 2 }));
 			});
 	}
 
@@ -213,6 +209,7 @@ function buildSchemaDefinition(
 
 	// Validation Keywords for Objects
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.5
+	// TODO:
 	schema.required && out.push(`**required**: ${schema.required}`);
 	schema.patternProperties && out.push(`**patternProperties**: ${schema.patternProperties}`);
 	schema.additionalProperties &&
@@ -230,19 +227,43 @@ function buildSchemaDefinition(
 		out.push(`**Constraints**: ${constraints.join(', ')}`);
 	}
 
+	// Schema Annotations
+	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10
+	if (schema.default && opts.renderDefault) {
+		if (typeof schema.default !== 'object') {
+			// Simple default
+			out.push(`**Default Value**: \`${schema.default}\``);
+		} else if (Object.keys(schema.default).length == 0) {
+			// Empty object
+			out.push(`**Default Value**: \`${JSON.stringify(schema.default)}\``);
+		} else {
+			// Object with properties
+			out.push(
+				`\`\`\`json title="Default Value"\n${JSON.stringify(schema.default, null, '\t')}\n\`\`\`\n`
+			);
+		}
+	}
+
 	// Schema Re-Use With "$defs"
 	// https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
 	const definitions = { ...schema.$defs, ...schema.definitions };
 	if (Object.keys(definitions).length > 0) {
-		out.push(`${'#'.repeat(opts.headingLevel)} Definitions`);
+		out.push(`${'#'.repeat(opts.headingLevel + 1)} Definitions`);
 		Object.entries(definitions)
 			.sort(([a], [b]) => a.localeCompare(b))
 			.forEach(([key, value]) => {
-				out.push(`${'#'.repeat(opts.headingLevel + 1)} ${key}`);
-				out.push(...buildSchemaDefinition(value, { headingLevel: opts.headingLevel + 1 }));
+				out.push(`${'#'.repeat(opts.headingLevel + 2)} ${key}`);
+				out.push(
+					...buildSchemaDefinition(value, {
+						headingLevel: opts.headingLevel + 2,
+						renderLineBreak: true,
+					})
+				);
 			});
 	}
+
+	opts.renderLineBreak && out.push('---');
 
 	return out;
 }
