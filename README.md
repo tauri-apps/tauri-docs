@@ -15,6 +15,22 @@ This repo is used to build the docs for the **prerelease** version of Tauri 2.0 
 - Check out the [Tauri 2.0 Documentation Roadmap](https://github.com/tauri-apps/tauri-docs/issues/1344) and see if there's anything you'd like to get involved in
 - Read the [contributing guidelines](.github/CONTRIBUTING.md) to learn how to get up and running
 
+## Partners
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://crabnebula.dev" target="_blank">
+          <img src=".github/sponsors/crabnebula.svg" alt="CrabNebula" width="283">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+For the complete list of sponsors please visit our [website](https://tauri.app#sponsors) and [Open Collective](https://opencollective.com/tauri).
+
 ## License
 
 MIT License
