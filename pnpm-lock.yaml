@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  typedoc-plugin-markdown@4.0.0-next.17:
-    hash: kpxroq2vap5a4oc32rphk2cev4
-    path: patches/typedoc-plugin-markdown@4.0.0-next.17.patch
-
 importers:
 
   .:
@@ -49,6 +44,21 @@ importers:
       starlight-links-validator:
         specifier: ^0.4.2
         version: 0.4.2(@astrojs/starlight@0.13.0)(astro@3.5.5)
+
+  packages/config-generator:
+    dependencies:
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.0
+      tsm:
+        specifier: ^2.3.0
+        version: 2.3.0
+      typescript:
+        specifier: ^5.3.2
+        version: 5.3.2
 
   packages/i18n-tracker:
     devDependencies:
@@ -1156,6 +1166,12 @@ packages:
 
   /@types/node@17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: false
+
+  /@types/node@20.10.0:
+    resolution: {integrity: sha512-D0WfRmU9TQ8I9PFx9Yc+EBHw+vSpIub4IDvQivcp26PtPrdMGAq5SDcpXEo/epqa/DXotVpekHiLNTg3iaKXBQ==}
+    dependencies:
+      undici-types: 5.26.5
     dev: false
 
   /@types/parse5@6.0.3:
@@ -4461,6 +4477,16 @@ packages:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: false
+
+  /typescript@5.3.2:
+    resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false
+
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: false
 
   /unherit@3.0.1:
