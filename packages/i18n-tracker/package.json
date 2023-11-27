@@ -7,7 +7,7 @@
     "build": "tsm ./build.ts"
   },
   "devDependencies": {
-    "@types/html-escaper": "^3.0.1",
+    "@types/html-escaper": "^3.0.2",
     "dedent-js": "^1.0.1",
     "fast-glob": "^3.3.2",
     "html-escaper": "^3.0.3",
