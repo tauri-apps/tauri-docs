@@ -123,6 +123,7 @@ There are two solutions to this issue:
 
 1. [Uninstall Homebrew]
 2. Set the `PKG_CONFIG_PATH` environment variable to point to the correct `pkg-config` before building a Tauri app
+    - Example: `export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig`
 
 [crates.io]: https://crates.io/crates/tauri-cli
 [via npm]: https://www.npmjs.com/package/@tauri-apps/cli
