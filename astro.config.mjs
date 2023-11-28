@@ -58,7 +58,7 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
+		//starlightLinksValidator(),
 		starlightBlog({ authors }),
 		starlight({
 			title: 'Tauri',
@@ -81,16 +81,17 @@ export default defineConfig({
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
 			},
-			head: [
-				{
-					tag: 'meta',
-					attrs: { property: 'og:image', content: site + '/og.png?v=1' },
-				},
-				{
-					tag: 'meta',
-					attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
-				},
-			],
+			// TODO: Find a way (if possible) to override these settings in the override
+			// head: [
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: { property: 'og:image', content: site + '/og.png?v=1' },
+			// 	},
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
+			// 	},
+			// ],
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',

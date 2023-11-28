@@ -1,7 +1,10 @@
 //99% from https://github.com/withastro/docs/blob/096295e306cd7b4973fb2be154e2bdbcba1df8fd/src/util/getOgImageUrl.ts
 
+
+//import { getStaticPaths } from '../pages/open-graph/[...path]';
+
 import type { GetStaticPathsOptions, GetStaticPathsResult } from 'astro';
-import { getStaticPaths } from 'src/pages/open-graph/[...docs]';
+import { getStaticPaths } from '../pages/open-graph/[...docs]';
 
 const routes = (await getStaticPaths({} as GetStaticPathsOptions)) as GetStaticPathsResult;
 

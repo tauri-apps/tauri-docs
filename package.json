@@ -24,6 +24,7 @@
     "astro": "^3.4.3",
     "astro-feelback": "^0.3.4",
     "astro-og-canvas": "^0.3.1",
+    "astro-og-canvas#feat-bg-crop-cover": "link:/vasfvitor/astro-og-canvas#feat-bg-crop-cover",
     "canvaskit-wasm": "^0.39.1",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.1",

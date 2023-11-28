@@ -1,15 +1,32 @@
 import { OGImageRoute } from 'astro-og-canvas';
-import { getCollection } from 'astro:content';
-
-const allPages = await getCollection('docs');
+import { allPages } from 'src/content/content';
 
 
-// Helper function to return either an empty string or to clamp a too big one.
-function clamp(txt: string | undefined): string {
+//const allPages = await getCollection('docs');
+
+//import { getPages } from 'src/content/test';
+//const pages = await getPages();
+
+// TODO: Setup the line below to skip on non production builds
+// const paths = process.env.SKIP_OG ? [] : allPages;
+const paths = allPages;
+const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
+
+
+/**
+* TODO: Make this function work for title or description (currently only description).
+* Helper function to clamp a string
+* This is coupled to the current description size.
+* @param txt text to process
+* @param singleLine to limit into a single line or not (default to)
+* @returns a string with "..." at the end if text is longer than set
+*/
+function clamp(txt: string | undefined, singleLine = false): string | undefined {
   if (!txt) {
-    return '';
+    return;
   }
-  const MAX_LEN = 53
+  // magic number that fits one or two lines
+  let MAX_LEN = singleLine ? 42 : 52;
   if (txt.length > MAX_LEN) {
     txt = txt.trim().substring(0, MAX_LEN);
     txt[txt.length - 1] === "." ? txt += ".." : txt += "..."
@@ -17,47 +34,60 @@ function clamp(txt: string | undefined): string {
   return txt;
 }
 
-// TODO: Setup the line below to skip on non production builds
-// const paths = process.env.SKIP_OG ? [] : allPages;
-const paths = allPages;
-
-const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
-
 // REFERENCE:
 // https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
 export const { getStaticPaths, GET } = OGImageRoute({
   param: 'docs',
   pages,
-  
+
   // TODO: Setup fonts locally, 
   // TODO: Tweak astro-og-canvas to add custom field: blog date
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
   // TODO: Setup background after https://github.com/delucis/astro-og-canvas/issues/32 is solved 
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
-    const title = data.title
-    const description = slug.startsWith("blog/") ? clamp(data.excerpt) : clamp(data.description);
+    const title = data.title;
+    let description = clamp(data.description);
+    let postDate = "";
+
+    if (slug.startsWith("blog/") && data.date) {
+      description = clamp(data.excerpt, true);
+      const date: Date = new Date(data.date);
+      // en-GB -> dd MM yy
+      postDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+    }
+
+    const fontFamily = ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto']
     return {
       title,
       description,
+      extraField: postDate,
+      padding: 66,
+      bgImage: { path: './src/assets/og-bg.png' },
+      logo: { path: './src/assets/og-logo.png' },
       font: {
         title: {
           size: 96,
-          families: [
-            'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto',
-          ],
+          lineHeight: 1.25,
+          families: fontFamily,
           weight: 'ExtraBold',
         },
         description: {
+          /** This size is coupled with @function clamp() */
           size: 48,
           lineHeight: 1.25,
-          families: [
-            'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto',
-          ],
-          weight: 'Normal',
+          families: fontFamily,
+        },
+        extraField: {
+          size: 36,
+          lineHeight: 1.25,
+          families: fontFamily,
         },
       },
-
     };
   },
 });
