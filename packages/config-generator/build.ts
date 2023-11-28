@@ -15,7 +15,6 @@ import { existsSync, writeFileSync } from 'node:fs';
  * - additionalProperties (DebConfig > files)
  * - AnyOf for nulls (SecurityConfig > [csp, devCsp], TauriConfig > trayIcon, WindowEffectsConfig > [color, state], WindowsConfig > [nsis, wix])
  * - Maximum height of codeblocks
- * - Cap markdown heading to 6
  */
 
 const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
@@ -87,7 +86,9 @@ function buildSchemaDefinition(
 	 * Metadata
 	 * Renders: title, readOnly, writeOnly, description, default, examples
 	 */
-	opts.renderTitle && schema.title && out.push(`${'#'.repeat(opts.headingLevel)} ${schema.title}`);
+	opts.renderTitle &&
+		schema.title &&
+		out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6))} ${schema.title}`);
 
 	if (schema.readOnly || schema.writeOnly) {
 		const line = [];
@@ -99,7 +100,10 @@ function buildSchemaDefinition(
 	schema.description &&
 		out.push(
 			// Sets headings to appropriate level
-			`${schema.description.replaceAll(/#{1,6}(?=.+[\n\\n])/g, '#'.repeat(opts.headingLevel))}`
+			`${schema.description.replaceAll(
+				/#{1,6}(?=.+[\n\\n])/g,
+				'#'.repeat(Math.min(opts.headingLevel, 6))
+			)}`
 		);
 
 	/**
@@ -218,7 +222,7 @@ function buildSchemaDefinition(
 	// 'dependencies',
 	// 'propertyNames',
 	if (schema.properties) {
-		out.push(`${'#'.repeat(opts.headingLevel)} Properties`);
+		out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6))} Properties`);
 		const sortedProperties = Object.entries(schema.properties)
 			.filter(([key]) => key !== '$schema')
 			.sort(([a], [b]) => a.localeCompare(b));
@@ -229,9 +233,12 @@ function buildSchemaDefinition(
 		);
 		// TODO: List out the properties with an anchor to each one
 		sortedProperties.forEach(([key, value]) => {
-			out.push(`${'#'.repeat(opts.headingLevel + 1)} ${key}`);
+			out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6) + 1)} ${key}`);
 			out.push(
-				buildSchemaDefinition(value, { ...opts, headingLevel: opts.headingLevel + 2 }).join('\n\n')
+				buildSchemaDefinition(value, {
+					...opts,
+					headingLevel: Math.min(opts.headingLevel, 6) + 2,
+				}).join('\n\n')
 			);
 		});
 	}
@@ -305,15 +312,15 @@ function buildSchemaDefinition(
 	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
 	const definitions = { ...schema.$defs, ...schema.definitions };
 	if (Object.keys(definitions).length > 0) {
-		out.push(`${'#'.repeat(opts.headingLevel)} Definitions`);
+		out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6))} Definitions`);
 		Object.entries(definitions)
 			.sort(([a], [b]) => a.localeCompare(b))
 			.forEach(([key, value]) => {
-				out.push(`${'#'.repeat(opts.headingLevel + 1)} ${key}`);
+				out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6) + 1)} ${key}`);
 				out.push(
 					...buildSchemaDefinition(value, {
 						...opts,
-						headingLevel: opts.headingLevel + 2,
+						headingLevel: Math.min(opts.headingLevel, 6) + 2,
 						renderLineBreak: true,
 					})
 				);
