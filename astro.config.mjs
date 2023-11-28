@@ -137,7 +137,7 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: 'guides/develop',
+							link: 'guides/develop/',
 						},
 						{
 							label: 'Debug',
