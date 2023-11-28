@@ -26,7 +26,7 @@ if (!existsSync(schemaFile)) {
 
 let schema: JSONSchema7 = await import(schemaFile);
 
-const output = ['---', 'title: Configuration', '---'];
+const output = ['---\ntitle: Configuration\n---'];
 
 output.push(
 	...buildSchemaDefinition(schema, {
