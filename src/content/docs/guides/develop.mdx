@@ -2,10 +2,11 @@
 title: Develop
 ---
 
-import Stub from '@components/Stub.astro';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-<Stub>
+<LinkCard title="Development Cycle" href="/guides/develop/development-cycle/" />
+<LinkCard title="Updating Dependencies"  href="/guides/develop/updating-dependencies" />
 
-- `pnpm tauri [android|ios] dev [--open]`
-
-</Stub>
+{/* </CardGrid> */}
+{/* description="Now that you have everything set up, you should start your application development server provided by your UI frame..." */}
+{/* description="See how to update to the latest version of Tauri with npm, pnpm, yarn or cargo"  */}
