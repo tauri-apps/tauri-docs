@@ -71,20 +71,25 @@ Install the dialog plugin to get started.
 
 The dialog plugin is available in both JavaScript and Rust. Here's how you can use it:
 
+in JavaScript:
 - [Create Yes/No Dialog](#create-yesno-dialog)
 - [Create Ok/Cancel Dialog](#create-okcancel-dialog)
 - [Create Message Dialog](#create-message-dialog)
 - [Open a File Selector Dialog](#open-a-file-selector-dialog)
 - [Save to File Dialog](#save-to-file-dialog)
 
-{/* ASK */}
+in Rust:
+- [Build an Ask Dialog](#build-an-ask-dialog)
+- [Build a Message Dialog](#build-a-message-dialog)
+- [Build a File Selector Dialog](#build-a-file-selector-dialog)
 
+***
+## JavaScript
+
+{/* ASK */}
 ### Create Yes/No Dialog
 
 Shows a question dialog with `Yes` and `No` buttons.
-
-<Tabs>
-<TabItem label="JavaScript">
 
 ```js
 import { ask } from '@tauri-apps/plugin-dialog';
@@ -99,8 +104,87 @@ console.log(answer);
 // Prints boolean to the console
 ```
 
-</TabItem>
-<TabItem label="Rust">
+{/* CONFIRM */}
+
+### Create Ok/Cancel Dialog
+
+Shows a question dialog with `Ok` and `Cancel` buttons.
+
+```js
+import { confirm } from '@tauri-apps/plugin-dialog';
+
+// Creates a confirmation Ok/Cancel dialog
+const confirmation = await confirm(
+	'This action cannot be reverted. Are you sure?',
+	{ title: 'Tauri', type: 'warning' }
+);
+
+console.log(confirmation);
+// Prints boolean to the console
+```
+{/* MESSAGE */}
+
+### Create Message Dialog
+
+Shows a message dialog with an `Ok` button.
+
+```js
+import { message } from '@tauri-apps/plugin-dialog';
+
+// Shows message
+await message('File not found', { title: 'Tauri', type: 'error' });
+```
+
+{/* OPEN */}
+
+### Open a File Selector Dialog
+
+Open a file/directory selection dialog.
+
+The `multiple` option controls whether the dialog allows multiple selection or not, while the `directory`, whether is a directory selection or not.
+
+See all [Open Dialog Options](/2/reference/js/dialog/#opendialogoptions) at the JavaScript API reference.
+
+```js
+import { open } from '@tauri-apps/plugin-dialog';
+
+// Open a dialog
+const file = await open({
+	multiple: false,
+	directory: false,
+});
+console.log(file);
+// Prints file path and name to the console
+```
+
+{/* SAVE */}
+
+### Save to File Dialog
+
+Open a file/directory save dialog.
+
+
+```js
+import { save } from '@tauri-apps/plugin-dialog';
+// Prompt to save a 'My Filter' with extension .png or .jpeg
+const path = await save({
+	filters: [
+		{
+			name: 'My Filter',
+			extensions: ['png', 'jpeg'],
+		},
+	],
+});
+console.log(path);
+// Prints the chosen path
+```
+
+***
+## Rust
+
+### Build an Ask Dialog
+
+Shows a question dialog with `Absolutely` and `Totally` buttons.
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -125,61 +209,13 @@ app.dialog()
     .cancel_button_label("Totally")
     .show(|result| match result {
         true => // do something,
-        false =>// do else,
+        false =>// do something,
     });
 ```
 
-</TabItem>
-</Tabs>
-
-{/* CONFIRM */}
-
-### Create Ok/Cancel Dialog
-
-Shows a question dialog with `Ok` and `Cancel` buttons.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { confirm } from '@tauri-apps/plugin-dialog';
-
-// Creates a confirmation Ok/Cancel dialog
-const confirmation = await confirm(
-	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', type: 'warning' }
-);
-
-console.log(confirmation);
-// Prints boolean to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-{/* Same as Ask since in Rust there's no distiction between ask and confirm, both are constructed */}
-
-</TabItem>
-</Tabs>
-
-{/* MESSAGE */}
-
-### Create Message Dialog
+### Build a Message Dialog
 
 Shows a message dialog with an `Ok` button.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { message } from '@tauri-apps/plugin-dialog';
-
-// Shows message
-await message('File not found', { title: 'Tauri', type: 'error' });
-```
-
-</TabItem>
-<TabItem label="Rust">
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
@@ -206,37 +242,11 @@ app.dialog()
     });
 ```
 
-</TabItem>
-</Tabs>
 
-{/* OPEN */}
+### Build a File Selector Dialog
 
-### Open a File Selector Dialog
 
-Open a file/directory selection dialog.
-
-<Tabs>    
-<TabItem label="JavaScript">
-
-The `multiple` option controls whether the dialog allows multiple selection or not, while the `directory`, whether is a directory selection or not.
-
-See all [Open Dialog Options](/2/reference/js/dialog/#opendialogoptions) at the JavaScript API reference.
-
-```js
-import { open } from '@tauri-apps/plugin-dialog';
-
-// Open a dialog
-const file = await open({
-	multiple: false,
-	directory: false,
-});
-console.log(file);
-// Prints file path and name to the console
-```
-
-</TabItem>
-<TabItem label="Rust">
-
+#### Pick files
 ```rust
 use tauri_plugin_dialog::DialogExt;
 
@@ -254,35 +264,7 @@ app.dialog().file().pick_file(|file_path| {
     })
 ```
 
-</TabItem>
-</Tabs>
-
-{/* SAVE */}
-
-### Save to File Dialog
-
-Open a file/directory save dialog.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```js
-import { save } from '@tauri-apps/plugin-dialog';
-// Prompt to save a 'My Filter' with extension .png or .jpeg
-const path = await save({
-	filters: [
-		{
-			name: 'My Filter',
-			extensions: ['png', 'jpeg'],
-		},
-	],
-});
-console.log(path);
-// Prints the chosen path
-```
-
-</TabItem>
-<TabItem label="Rust">
+#### Save files
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -308,6 +290,3 @@ app.dialog()
         println!("{:?}", result);
     });
 ```
-
-</TabItem>
-</Tabs>
