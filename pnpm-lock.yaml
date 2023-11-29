@@ -58,6 +58,9 @@ importers:
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.0
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
