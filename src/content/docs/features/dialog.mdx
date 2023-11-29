@@ -220,7 +220,7 @@ Shows a message dialog with an `Ok` button.
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 
-app.dialog()
+let ans = app.dialog()
     .message("File not found")
     .kind(MessageDialogKind::Error)
     .title("Warning")
@@ -234,8 +234,8 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 
 app.dialog()
     .message("Tauri is Awesome")
-    .kind(MessageDialogKind::Error)
-    .title("Warning")
+    .kind(MessageDialogKind::Info)
+    .title("Information")
     .show(|result| match result {
         true => // do something,
         false => // do something,
@@ -246,7 +246,7 @@ app.dialog()
 ### Build a File Selector Dialog
 
 
-#### Pick files
+#### Pick Files
 ```rust
 use tauri_plugin_dialog::DialogExt;
 
@@ -264,7 +264,7 @@ app.dialog().file().pick_file(|file_path| {
     })
 ```
 
-#### Save files
+#### Save Files
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -286,7 +286,7 @@ use tauri_plugin_dialog::DialogExt;
 app.dialog()
     .file()
     .add_filter("My Filter", &["png", "jpeg"])
-    .pick_file(|result| {
-        println!("{:?}", result);
+    .pick_file(|file_path| {
+        // return a file_path `Option`, or `None` if the user closes the dialog
     });
 ```
