@@ -2,12 +2,38 @@
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
-const list = await getCollection('docs', ({ slug }) => {
-	return slug.startsWith('features') && slug !== 'features';
+interface Props {
+	// absolute path to folder contents e.g "/fr/features"
+	path: string;
+	// locale e.g "fr"
+	locale: string;
+}
+let { path, locale } = Astro.props;
+locale = locale.toLowerCase()
+path = path.replace(/^\/+/g, '').replace(/\/$/, '');
+
+const pageLang = locale + '/';
+const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
+
+const rootList = await getCollection('docs', ({ slug }) => {
+	// the extra / is to ensure it excludes a index page if it exists at same path.
+	return slug.startsWith(`${rootUrl}/`);
 });
+
+const i18nList = await getCollection('docs', ({ slug }) => {
+	if (locale === 'en') return false;
+	// same as before
+	return slug.startsWith(`${path}/`);
+});
+
+const fallbackList = rootList.filter(
+	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
+);
+
+const list = locale === 'en' ? rootList : i18nList;
 ---
 
-<CardGrid>
+<CardGrid {...Astro.props}>
 	{
 		list
 			.sort((a, b) => a.data.title.localeCompare(b.data.title))
@@ -18,5 +44,18 @@ const list = await getCollection('docs', ({ slug }) => {
 					description={item.data.description}
 				/>
 			))
+	}
+	{
+		locale !== 'en' &&
+			fallbackList
+				.sort((a, b) => a.data.title.localeCompare(b.data.title))
+				.map((item) => (
+					// TODO: add a proper fallback badge and/or remove this current code
+					<LinkCard
+						title={'(en)'.concat(' ', item.data.title)}
+						href={`/${item.slug}`}
+						description={item.data.description}
+					/>
+				))
 	}
 </CardGrid>
