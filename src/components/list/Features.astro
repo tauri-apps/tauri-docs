@@ -33,7 +33,7 @@ const fallbackList = rootList.filter(
 const list = locale === 'en' ? rootList : i18nList;
 ---
 
-<CardGrid {...Astro.props}>
+<CardGrid>
 	{
 		list
 			.sort((a, b) => a.data.title.localeCompare(b.data.title))
