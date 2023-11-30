@@ -2,12 +2,6 @@
 title: Tauri Philosophy
 ---
 
-:::tip
-
-If you're looking for a quick technical overview and to start building an app then visit the [What is Tauri page](/guides). If you'd like to learn more about the project's philosophy then keep reading.
-
-:::
-
 Tauri is a toolkit that helps developers make applications for the major desktop platforms - using virtually any frontend framework in existence. The core is built with Rust, and the CLI leverages Node.js making Tauri a genuinely polyglot approach to creating and maintaining great apps.
 
 <iframe
