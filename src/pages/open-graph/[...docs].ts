@@ -1,15 +1,17 @@
 import { OGImageRoute } from 'astro-og-canvas';
-import { allPages } from 'src/content/content';
+import { allPages } from 'src/utils/content';
 
+// TODO: 
+//import { rtlLanguages } from '~/i18n/languages';
+//import { getLangFromSlug } from '~/util';
 
-//const allPages = await getCollection('docs');
-
-//import { getPages } from 'src/content/test';
-//const pages = await getPages();
 
 // TODO: Setup the line below to skip on non production builds
 // const paths = process.env.SKIP_OG ? [] : allPages;
+/** Paths for all of our Markdown content we want to generate OG images for. */
 const paths = allPages;
+
+/** An object mapping file paths to file metadata. */
 const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
 
 
@@ -17,9 +19,9 @@ const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, 
 * TODO: Make this function work for title or description (currently only description).
 * Helper function to clamp a string
 * This is coupled to the current description size.
-* @param txt text to process
-* @param singleLine to limit into a single line or not (default to)
-* @returns a string with "..." at the end if text is longer than set
+* @param txt Text to process
+* @param singleLine Limit into a single line or not (default to)
+* @returns A string with "..." at the end if text is longer than set
 */
 function clamp(txt: string | undefined, singleLine = false): string | undefined {
   if (!txt) {
@@ -49,7 +51,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
     const title = data.title;
     let description = clamp(data.description);
     let postDate = "";
-
+    
     if (slug.startsWith("blog/") && data.date) {
       description = clamp(data.excerpt, true);
       const date: Date = new Date(data.date);
