@@ -2,6 +2,13 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
+// TODO:
+// additionalProperties on Csp and PluginConfig
+// Formatting for multiple lines of xOf (description after type/value), WebviewInstallMode
+// Property list links
+// Add type label
+// Formatting for validators (throw on single line)
+
 const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
 const outputFile = '../../src/content/docs/2/reference/config.md';
 
@@ -31,7 +38,9 @@ function buildSchemaDefinition(
 	schema: JSONSchema7Definition,
 	passedOptions: Partial<Options> = {}
 ): string[] {
-	// Assign default values for missing options
+	// Note: $id, $schema, and $comment are explicitly not rendered
+
+	// Assign default values for any missing options
 	const opts = Object.assign(
 		{
 			headingLevel: 1,
@@ -42,6 +51,30 @@ function buildSchemaDefinition(
 
 	if (typeof schema === 'boolean') {
 		return [`\`${schema}\``];
+	}
+
+	const out: string[] = [];
+
+	out.push(...buildMetadata(schema, opts));
+	out.push(...buildType(schema, opts));
+	out.push(...buildExtendedItems(schema, opts));
+	out.push(...buildProperties(schema, opts));
+	out.push(...buildConditionalSubschemas(schema, opts));
+	out.push(...buildBooleanSubschemas(schema, opts));
+	out.push(...buildExtendedMetadata(schema, opts));
+	out.push(...buildDefinitions(schema, opts));
+
+	return out;
+}
+
+/**
+ * Builds: title, readOnly, writeOnly, description
+ *
+ * Also see: buildExtendedMetadata()
+ */
+function buildMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
 	}
 
 	const out: string[] = [];
@@ -57,110 +90,292 @@ function buildSchemaDefinition(
 		out.push(line.join(' & '));
 	}
 
-	schema.description && out.push(buildDescription(schema.description, opts));
+	schema.description &&
+		out.push(
+			schema.description
+				// Set headings to appropriate level
+				.replaceAll(/#{1,6}(?=.+[\n\\n])/g, '#'.repeat(Math.min(opts.headingLevel + 1, 6)))
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;')
+		);
 
-	/**
-	 * Summary of type information
-	 */
-	const typeInfo: string[] = [];
+	return out;
+}
 
-	if (schema.$ref) {
-		const ref = schema.$ref.split('/').pop();
-		if (!ref) {
-			throw Error(`Invalid ref: ${schema.$ref}`);
-		}
-		typeInfo.push(`[\`${ref}\`](#${slug(ref)})`);
+/**
+ * Builds: 						$ref, type, enum, const, items
+ * Number validation: 			multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum
+ * String validation: 			maxLength, minLength, pattern
+ * Array validation: 			maxItems, minItems, uniqueItems
+ * Object validation: 			maxProperties, minProperties
+ * Semantic validation: 		format
+ * Non-JSON data validation: 	contentMediaType, contentEncoding
+ */
+function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
+	// TODO: Validate that the right type is populated when building items and enums
+	if (typeof schema !== 'object') {
+		return [];
 	}
+
+	const out: string[] = [];
 
 	if (schema.type) {
 		if (Array.isArray(schema.type)) {
-			typeInfo.push(schema.type.map((value) => buildType(value, schema, opts)).join(' | '));
+			out.push(schema.type.map((value) => buildTypeName(value, schema, opts)).join(' | '));
 		} else {
-			const info = buildType(schema.type, schema, opts);
-			info && typeInfo.push(info);
+			out.push(buildTypeName(schema.type, schema, opts));
 		}
 	}
 
-	if (schema.enum) {
-		typeInfo.push(schema.enum.map((value) => `\`"${value}"\``).join(' | '));
+	if (schema.$ref) {
+		const reference = schema.$ref.split('/').pop();
+
+		if (!reference) {
+			throw Error(`Invalid reference: ${schema.$ref}`);
+		}
+
+		out.push(`[\`${reference}\`](#${slug(reference)})`);
 	}
 
-	// Need a way to indicate if this should be built out into a more complicated type
+	schema.const && out.push(`const: ${JSON.stringify(schema.const)}`);
+
+	const validation = [];
+
+	// Number validation
+	schema.multipleOf && validation.push(`multiple of \`${schema.multipleOf}\``);
+	schema.maximum && validation.push(`maximum of \`${schema.maximum}\``);
+	schema.exclusiveMaximum && validation.push(`exclusive maximum of \`${schema.exclusiveMaximum}\``);
+	schema.minimum && validation.push(`minimum of \`${schema.minimum}\``);
+	schema.exclusiveMinimum && validation.push(`exclusive minimum of \`${schema.exclusiveMinimum}\``);
+
+	// String validation
+	schema.maxLength && validation.push(`maximum length of \`${schema.maxLength}\``);
+	schema.minLength && validation.push(`minimum length of \`${schema.minLength}\``);
+	schema.pattern && validation.push(`pattern of \`${schema.pattern}\``);
+
+	// Array validation
+	schema.maxItems && validation.push(`maximum of \`${schema.maxItems}\` items`);
+	schema.minItems && validation.push(`minimum of \`${schema.minItems}\` items`);
+	schema.uniqueItems && validation.push(`each item must be unique`);
+
+	// Object validation
+	schema.maxProperties && validation.push(`maximum of \`${schema.maxProperties}\` properties`);
+	schema.minProperties && validation.push(`minimum of \`${schema.minProperties}\` properties`);
+
+	// Semantic validation
+	schema.format && validation.push(`formatted as \`${schema.format}\``);
+
+	// Non-JSON data validation
+	schema.contentMediaType &&
+		validation.push(`content media type of \`${schema.contentMediaType}\``);
+	schema.contentEncoding && validation.push(`content encoding of \`${schema.contentEncoding}\``);
+
+	// TODO: Adjust formatting
+	if (validation.length > 0) {
+		out.push(validation.join(', '));
+	}
+
+	return out;
+
+	function buildTypeName(
+		typeName: JSONSchema7TypeName,
+		parentSchema: JSONSchema7Definition,
+		opts: Options
+	): string {
+		let line = '';
+
+		if (typeof parentSchema === 'object' && parentSchema.enum) {
+			const enumValues: string[] = [];
+			parentSchema.enum.forEach((value) => {
+				switch (typeof value) {
+					case 'string':
+						enumValues.push(`\`"${value}"\``);
+						break;
+					default:
+						enumValues.push(`\`${value}\``);
+				}
+			});
+			return enumValues.join(' | ');
+		}
+		switch (typeName) {
+			case 'object':
+				line += `\`${typeName}\` (see properties below)`;
+				break;
+			case 'array':
+				if (typeof parentSchema !== 'object' || !parentSchema.items) {
+					throw Error('Invalid array');
+				}
+				line += '[';
+				if (Array.isArray(parentSchema.items)) {
+					line += parentSchema.items
+						.map((value) => {
+							const definition = buildSchemaDefinition(value, opts);
+							if (definition.length > 1) {
+								// Format additional information to be in parenthesis
+								const [first, ...rest] = definition;
+								// TODO: Need to check for extra whitespace, see Color
+								return [first, ' (', rest.join(', '), ')'];
+							} else {
+								return definition.join();
+							}
+						})
+						.join(' | ');
+				} else {
+					line += buildSchemaDefinition(parentSchema.items, opts);
+				}
+				line += ']';
+				break;
+			default:
+				line += '`' + typeName + '`';
+		}
+		return line;
+	}
+}
+
+/**
+ * Builds: additionalItems, contains
+ */
+function buildExtendedItems(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
+	}
+
+	const out: string[] = [];
+
+	schema.additionalItems && out.push(`additionalItems: ${JSON.stringify(schema.additionalItems)}`);
+	schema.contains && out.push(`contains: ${JSON.stringify(schema.contains)}`);
+
+	return out;
+}
+
+/**
+ * Builds: required, properties, patternProperties, additionalProperties, dependencies, propertyNames
+ */
+function buildProperties(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
+	}
+
+	const out: string[] = [];
+
+	if (schema.properties) {
+		out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Properties`);
+
+		const properties = Object.entries(schema.properties)
+			.filter(([key]) => key !== '$schema')
+			.sort(([a], [b]) => a.localeCompare(b));
+
+		out.push(
+			properties
+				.map(
+					([key]) =>
+						`- ${key} ${schema.required && schema.required.includes(key) ? '(required)' : ''}`
+				)
+				.join('\n')
+		);
+
+		properties.forEach(([key, value]) => {
+			out.push(`${'#'.repeat(Math.min(6, opts.headingLevel + 1))} ${key}`);
+			out.push(...buildSchemaDefinition(value, { ...opts, headingLevel: opts.headingLevel + 1 }));
+		});
+	}
+
+	schema.patternProperties &&
+		out.push(`patternProperties: ${JSON.stringify(schema.patternProperties)}`);
+	schema.additionalProperties &&
+		out.push(`additionalProperties: ${JSON.stringify(schema.additionalProperties)}`);
+	schema.dependencies && out.push(`dependencies: ${JSON.stringify(schema.dependencies)}`);
+	schema.propertyNames && out.push(`propertyNames: ${JSON.stringify(schema.propertyNames)}`);
+
+	return out;
+}
+
+/**
+ * Builds: if, then, else
+ */
+function buildConditionalSubschemas(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
+	}
+
+	const out: string[] = [];
+
+	schema.if && out.push(`if: ${JSON.stringify(schema.if)}`);
+	schema.then && out.push(`then: ${JSON.stringify(schema.then)}`);
+	schema.else && out.push(`else: ${JSON.stringify(schema.else)}`);
+
+	return out;
+}
+
+/**
+ * Builds: allOf, anyOf, oneOf, not
+ */
+function buildBooleanSubschemas(schema: JSONSchema7Definition, opts: Options): string[] {
+	// TODO: Formatting
+	if (typeof schema !== 'object') {
+		return [];
+	}
+
+	const out: string[] = [];
+
 	if (schema.allOf) {
-		const { output, multipleDefinitions, needSubDefinition } = buildXOf(schema.allOf, opts);
-		if (multipleDefinitions) {
-			typeInfo.push('**All of the following types**:');
-			typeInfo.push(output.map((value) => `- ${value.join(', ')}`).join('\n'));
-		} else {
-			typeInfo.push(...output.flat());
+		const xOf = buildXOf(schema.allOf, opts);
+		if (xOf.length > 1) {
+			out.push('**All of the following**:');
 		}
+		out.push(...xOf.flat());
 	}
 
 	if (schema.anyOf) {
-		const { output, multipleDefinitions, needSubDefinition } = buildXOf(schema.anyOf, opts);
-		if (multipleDefinitions) {
-			typeInfo.push('**Any of the following types**:');
-			typeInfo.push(output.map((value) => `- ${value.join(', ')}`).join('\n'));
-		} else {
-			typeInfo.push(...output.flat());
+		const xOf = buildXOf(schema.anyOf, opts);
+		if (xOf.length > 1) {
+			out.push('**Any of the following**:');
 		}
+		out.push(...xOf.flat());
 	}
 
 	if (schema.oneOf) {
-		const { output, multipleDefinitions, needSubDefinition } = buildXOf(schema.oneOf, opts);
-		if (multipleDefinitions) {
-			typeInfo.push('**One of the following types**:');
-			typeInfo.push(output.map((value) => `- ${value.join(', ')}`).join('\n'));
+		const xOf = buildXOf(schema.oneOf, opts);
+		if (xOf.length > 1) {
+			out.push('**One of the following**:');
+		}
+		out.push(...xOf.flat());
+	}
+
+	schema.not && out.push(`not: ${JSON.stringify(schema.not)}`);
+
+	return out;
+
+	function buildXOf(schemas: JSONSchema7Definition[], opts: Options): string[][] {
+		const out: string[][] = [];
+		out.push(...schemas.map((value) => buildSchemaDefinition(value, opts)));
+
+		if (out.every((value) => value.length == 1)) {
+			// Short definition, can be rendered on a single line
+			return [[out.join(' | ')]];
 		} else {
-			typeInfo.push(...output.flat());
+			return out;
 		}
 	}
+}
 
-	/**
-	 * Constraints
-	 */
-
-	const constraints = [];
-	// String
-	schema.maxLength && constraints.push(`maximum length of \`${schema.maxLength}\``);
-	schema.minLength && constraints.push(`minimum length of \`${schema.minLength}\``);
-	schema.pattern && constraints.push(`pattern of \`${schema.pattern}\``);
-	schema.format && constraints.push(`formatted as \`${schema.format}\``);
-	schema.contentMediaType &&
-		constraints.push(`content media type of \`${schema.contentMediaType}\``);
-	schema.contentEncoding && constraints.push(`content encoding of \`${schema.contentEncoding}\``);
-	// Number
-	schema.multipleOf && constraints.push(`multiple of \`${schema.multipleOf}\``);
-	schema.maximum && constraints.push(`maximum of \`${schema.maximum}\``);
-	schema.exclusiveMaximum &&
-		constraints.push(`exclusive maximum of \`${schema.exclusiveMaximum}\``);
-	schema.minimum && constraints.push(`minimum of \`${schema.minimum}\``);
-	schema.exclusiveMinimum &&
-		constraints.push(`exclusive minimum of \`${schema.exclusiveMinimum}\``);
-	// Object
-	schema.maxProperties && constraints.push(`maximum of \`${schema.maxProperties}\` properties`);
-	schema.minProperties && constraints.push(`minimum of \`${schema.minProperties}\` properties`);
-	// Array
-	schema.maxItems && constraints.push(`maximum of \`${schema.maxItems}\` items`);
-	schema.minItems && constraints.push(`minimum of \`${schema.minItems}\` items`);
-	schema.uniqueItems && constraints.push(`each item must be unique`);
-
-	if (constraints.length > 0) {
-		typeInfo.push(constraints.join(', '));
+/**
+ * Builds: default, examples
+ *
+ * https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
+ * https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
+ */
+function buildExtendedMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
 	}
 
-	if (typeInfo.length > 0) {
-		out.push(typeInfo.join(', '));
-	}
-
-	// MARK: Render Sub-Definitions
-	// if (buildSubDefinitions) {
-	// 	out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Sub-Definitions`);
-	// 	out.push('NEED TO BUILD SUBDEFINITION');
-	// }
+	const out: string[] = [];
 
 	if (schema.default) {
-		if (typeof schema.default !== 'object') {
+		if (typeof schema.default === 'string') {
+			out.push(`**Default**: \`"${schema.default}"\``);
+		} else if (typeof schema.default !== 'object') {
 			// Render on single line
 			out.push(`**Default**: \`${schema.default}\``);
 		} else if (Object.keys(schema.default).length == 0) {
@@ -178,36 +393,24 @@ function buildSchemaDefinition(
 		throw Error('Examples not implemented');
 	}
 
-	if (schema.properties) {
-		out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Properties`);
-		// Build list
-		const properties = Object.entries(schema.properties)
-			.filter(([key]) => key !== '$schema')
-			.sort(([a], [b]) => a.localeCompare(b));
-		out.push(
-			properties
-				.map(([key]) => `- \`${key}\`${schema.required?.includes(key) ? ' (required)' : ''}`)
-				.join('\n')
-		);
-		// Build details
-		properties.forEach(([key, value]) => {
-			out.push(`${'#'.repeat(opts.headingLevel + 1)} ${key}`);
-			out.push(...buildSchemaDefinition(value, { ...opts, headingLevel: opts.headingLevel + 1 }));
-		});
+	return out;
+}
+
+/**
+ * Builds: $defs, definitions
+ *
+ * https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
+ * https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
+ */
+function buildDefinitions(schema: JSONSchema7Definition, opts: Options): string[] {
+	if (typeof schema !== 'object') {
+		return [];
 	}
 
-	if (schema.additionalProperties) {
-		out.push(
-			`Allows additional properties of type ${buildSchemaDefinition(
-				schema.additionalProperties,
-				opts
-			)}`
-		);
-	}
+	const out: string[] = [];
 
-	// Schema Re-Use With "$defs"
-	// https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
-	// https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
+	// Combine definitions together
+	// `definitions` was renamed to `$defs` in Draft 7 but still allowed in either place
 	const definitions = { ...schema.$defs, ...schema.definitions };
 	if (Object.keys(definitions).length > 0) {
 		out.push(`${'#'.repeat(Math.min(opts.headingLevel, 6))} Definitions`);
@@ -223,93 +426,5 @@ function buildSchemaDefinition(
 				);
 			});
 	}
-
-	return out;
-}
-
-function buildType(
-	typeName: JSONSchema7TypeName,
-	parentSchema: JSONSchema7Definition,
-	opts: Options
-): string | undefined {
-	// Rendered separately
-	if (typeof parentSchema === 'object' && parentSchema.enum) {
-		return;
-	}
-	if (typeName === 'null') {
-		return 'null';
-	}
-	let typeLine = '';
-	if (typeName === 'array') {
-		typeLine += '[';
-	}
-
-	// Build array items
-	if (typeof parentSchema === 'object' && parentSchema.items) {
-		let items = [];
-
-		if (Array.isArray(parentSchema.items)) {
-			items = [...parentSchema.items];
-		} else {
-			items = [parentSchema.items];
-		}
-
-		// TODO: Formatting style (AppUrl)
-		typeLine += items.map((item) => buildSchemaDefinition(item).join(', ')).join(' , ');
-	}
-
-	if (typeName === 'array') {
-		typeLine += ']';
-	}
-
-	if (typeName !== 'array') {
-		typeLine += '`' + typeName + '`';
-	}
-	// TODO: Render const
-	return typeLine;
-}
-
-function buildXOf(
-	schema: JSONSchema7Definition[],
-	opts: Options
-): { output: string[][]; multipleDefinitions: boolean; needSubDefinition: boolean } {
-	let needSubDefinition = false;
-	const xOf = schema.map((value) => {
-		if (typeof value === 'object' && value.properties) {
-			needSubDefinition = true;
-			console.warn('Need to render sub-definitions');
-		}
-
-		const definition = buildSchemaDefinition(value, {
-			...opts,
-			headingLevel: Math.min(6, opts.headingLevel + 1),
-		});
-
-		return definition;
-	});
-
-	const withoutNull = xOf.filter((value) => value.join() !== 'null');
-
-	const output =
-		withoutNull.length !== xOf.length ? [[`${withoutNull.join()} (optional)`]] : withoutNull;
-
-	return {
-		output,
-		multipleDefinitions: output.length > 1 ? true : false,
-		needSubDefinition,
-	};
-}
-
-function buildDescription(description: string, opts: Options): string {
-	// Sets headings to appropriate level
-	return `${description.replaceAll(
-		/#{1,6}(?=.+[\n\\n])/g,
-		'#'.repeat(Math.min(opts.headingLevel + 1, 6))
-	)}`;
-}
-
-function buildSubDefinitions(schema: JSONSchema7Definition, opts: Options): string[] {
-	const out: string[] = ['Sub-Definitions'];
-
 	return out;
 }
