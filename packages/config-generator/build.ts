@@ -3,8 +3,9 @@ import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
 // TODO:
-// additionalProperties on Csp and PluginConfig
-// Formatting for multiple lines of xOf (description after type/value), WebviewInstallMode
+// Enum not being built for BundleTarget
+// Apply xOf logic to rest (check PatternKind)
+// Formatting for multiple lines of xOf (description after type/value), WebviewInstallMode, TitleBarStyle, WindowEffect
 // Property list links
 // Add type label
 
@@ -31,6 +32,7 @@ writeFileSync(outputFile, output.join('\n\n'));
 interface Options {
 	headingLevel: number;
 	renderTitle: boolean;
+	leadWithType: boolean;
 }
 
 function buildSchemaDefinition(
@@ -44,6 +46,7 @@ function buildSchemaDefinition(
 		{
 			headingLevel: 1,
 			renderTitle: true,
+			leadWithType: false,
 		},
 		passedOptions
 	);
@@ -54,12 +57,17 @@ function buildSchemaDefinition(
 
 	const out: string[] = [];
 
-	out.push(...buildMetadata(schema, opts));
+	if (!opts.leadWithType) {
+		out.push(...buildMetadata(schema, opts));
+	}
 	out.push(...buildType(schema, opts));
 	out.push(...buildExtendedItems(schema, opts));
 	out.push(...buildProperties(schema, opts));
 	out.push(...buildConditionalSubschemas(schema, opts));
 	out.push(...buildBooleanSubschemas(schema, opts));
+	if (opts.leadWithType) {
+		out.push(...buildMetadata(schema, opts));
+	}
 	out.push(...buildExtendedMetadata(schema, opts));
 	out.push(...buildDefinitions(schema, opts));
 
@@ -284,7 +292,12 @@ function buildProperties(schema: JSONSchema7Definition, opts: Options): string[]
 	schema.patternProperties &&
 		out.push(`patternProperties: ${JSON.stringify(schema.patternProperties)}`);
 	schema.additionalProperties &&
-		out.push(`additionalProperties: ${JSON.stringify(schema.additionalProperties)}`);
+		out.push(
+			`**Allows additional properties**: ${buildSchemaDefinition(
+				schema.additionalProperties,
+				opts
+			)}`
+		);
 	schema.dependencies && out.push(`dependencies: ${JSON.stringify(schema.dependencies)}`);
 	schema.propertyNames && out.push(`propertyNames: ${JSON.stringify(schema.propertyNames)}`);
 
@@ -320,27 +333,54 @@ function buildBooleanSubschemas(schema: JSONSchema7Definition, opts: Options): s
 	const out: string[] = [];
 
 	if (schema.allOf) {
-		const xOf = buildXOf(schema.allOf, opts);
+		const xOf = buildXOf(schema.allOf, { ...opts, leadWithType: true });
 		if (xOf.length > 1) {
 			out.push('**All of the following**:');
+			out.push(xOf.map((value) => `- ${value.join(' ')}`).join('\n'));
+		} else {
+			out.push(...xOf.flat());
 		}
-		out.push(...xOf.flat());
 	}
 
 	if (schema.anyOf) {
-		const xOf = buildXOf(schema.anyOf, opts);
+		const xOf = buildXOf(schema.anyOf, { ...opts, leadWithType: true });
+
 		if (xOf.length > 1) {
 			out.push('**Any of the following**:');
+			const list: string[] = [];
+			const subDefinitions: string[][] = [];
+			xOf.forEach((value) => {
+				if (value[0].startsWith('`object`')) {
+					const [first, ...rest] = value;
+					list.push(`- ${first}: Subdefinition ${subDefinitions.length + 1}`);
+					subDefinitions.push(rest);
+				} else {
+					list.push(`- ${value.join(' ')}`);
+				}
+			});
+			out.push(list.join('\n'));
+			subDefinitions.forEach((definition, index) => {
+				out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Subdefinition ${index + 1}`);
+				definition.forEach((line) => {
+					out.push(
+						// Indents headings one more level
+						line.replaceAll(/#{1,6}(?=.+)/g, '#'.repeat(Math.min(opts.headingLevel + 1, 6)))
+					);
+				});
+			});
+		} else {
+			out.push(...xOf.flat());
 		}
-		out.push(...xOf.flat());
 	}
 
 	if (schema.oneOf) {
-		const xOf = buildXOf(schema.oneOf, opts);
+		const xOf = buildXOf(schema.oneOf, { ...opts, leadWithType: true });
 		if (xOf.length > 1) {
 			out.push('**One of the following**:');
+			out.push(xOf.map((value) => `- ${value.join(' ')}`).join('\n'));
+		} else {
+			out.push(...xOf.flat());
 		}
-		out.push(...xOf.flat());
 	}
 
 	schema.not && out.push(`not: ${JSON.stringify(schema.not)}`);
