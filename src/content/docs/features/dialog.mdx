@@ -75,6 +75,7 @@ Install the dialog plugin to get started.
 The dialog plugin is available in both JavaScript and Rust. Here's how you can use it:
 
 in JavaScript:
+
 - [Create Yes/No Dialog](#create-yesno-dialog)
 - [Create Ok/Cancel Dialog](#create-okcancel-dialog)
 - [Create Message Dialog](#create-message-dialog)
@@ -82,16 +83,19 @@ in JavaScript:
 - [Save to File Dialog](#save-to-file-dialog)
 
 in Rust:
+
 - [Build an Ask Dialog](#build-an-ask-dialog)
 - [Build a Message Dialog](#build-a-message-dialog)
 - [Build a File Selector Dialog](#build-a-file-selector-dialog)
 
-***
+---
+
 ### JavaScript
 
 See all [Dialog Options](/2/reference/js/dialog/) at the JavaScript API reference.
 
 {/* ASK */}
+
 #### Create Yes/No Dialog
 
 Shows a question dialog with `Yes` and `No` buttons.
@@ -127,6 +131,7 @@ const confirmation = await confirm(
 console.log(confirmation);
 // Prints boolean to the console
 ```
+
 {/* MESSAGE */}
 
 #### Create Message Dialog
@@ -181,7 +186,8 @@ console.log(path);
 // Prints the chosen path
 ```
 
-***
+---
+
 ### Rust
 
 Refer to the [Rust API reference](https://docs.rs/tauri-plugin-dialog/) to see all available options.
@@ -247,11 +253,10 @@ app.dialog()
     });
 ```
 
-
 #### Build a File Selector Dialog
 
-
 #### Pick Files
+
 ```rust
 use tauri_plugin_dialog::DialogExt;
 
