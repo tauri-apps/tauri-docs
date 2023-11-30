@@ -1,0 +1,25 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+---
+
+<div>
+	<Default {...Astro.props}><slot /></Default>
+	<a href="/guides">Guides</a>
+	<a href="/2/reference">References</a>
+	<a href="/blog">Blog</a>
+	<a href="/about">About</a>
+</div>
+
+<style>
+	div {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	a {
+		color: var(--sl-color-gray-2);
+		font-weight: 500;
+		text-decoration: none;
+	}
+</style>
