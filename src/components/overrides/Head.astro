@@ -6,10 +6,10 @@
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Head.astro';
 
-import { getOgImageUrl } from 'src/content/getOgImageUrl';
+import { getOgImageUrl } from 'src/utils/getOgImageUrl';
 
-const { isFallback, slug } = Astro.props;
-const ogImageUrl = getOgImageUrl(slug, !!isFallback);
+const { isFallback } = Astro.props;
+const ogImageUrl = getOgImageUrl(Astro.url.pathname, !!isFallback);
 const imageSrc = ogImageUrl ?? 'og.png';
 
 let canonicalImageSrc = new URL(imageSrc, Astro.site);
@@ -19,10 +19,10 @@ const isDev = import.meta.env.DEV;
 if (isDev) {
 	canonicalImageSrc = new URL(imageSrc, 'http://localhost:4321/');
 }
+
 ---
 
 <Default {...Astro.props}><slot /></Default>
-
 <meta property="og:image" content={canonicalImageSrc} />
 <meta name="twitter:image" content={canonicalImageSrc} />
- ../../getOgImageUrl
+
