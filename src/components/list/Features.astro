@@ -7,8 +7,10 @@ interface Props {
 	path: string;
 	// locale e.g "fr"
 	locale: string;
+	// filter out pages by word - case sensitive
+	filterOut?: string[];
 }
-let { path, locale } = Astro.props;
+let { path, locale, filterOut = [] } = Astro.props;
 locale = locale.toLowerCase()
 path = path.replace(/^\/+/g, '').replace(/\/$/, '');
 
@@ -30,7 +32,11 @@ const fallbackList = rootList.filter(
 	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
 );
 
-const list = locale === 'en' ? rootList : i18nList;
+let list = locale === 'en' ? rootList : i18nList;
+
+if (filterOut.length > 0) {
+  list = list.filter(root => !filterOut.some(val => root.id.includes(val)));
+}
 ---
 
 <CardGrid>
