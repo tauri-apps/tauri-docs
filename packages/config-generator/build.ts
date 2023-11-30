@@ -7,7 +7,6 @@ import { slug } from 'github-slugger';
 // Formatting for multiple lines of xOf (description after type/value), WebviewInstallMode
 // Property list links
 // Add type label
-// Formatting for validators (throw on single line)
 
 const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
 const outputFile = '../../src/content/docs/2/reference/config.md';
@@ -117,13 +116,13 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		return [];
 	}
 
-	const out: string[] = [];
+	let line: string = '';
 
 	if (schema.type) {
 		if (Array.isArray(schema.type)) {
-			out.push(schema.type.map((value) => buildTypeName(value, schema, opts)).join(' | '));
+			line += schema.type.map((value) => buildTypeName(value, schema, opts)).join(' | ');
 		} else {
-			out.push(buildTypeName(schema.type, schema, opts));
+			line += buildTypeName(schema.type, schema, opts);
 		}
 	}
 
@@ -134,10 +133,12 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 			throw Error(`Invalid reference: ${schema.$ref}`);
 		}
 
-		out.push(`[\`${reference}\`](#${slug(reference)})`);
+		line += `[\`${reference}\`](#${slug(reference)})`;
 	}
 
-	schema.const && out.push(`const: ${JSON.stringify(schema.const)}`);
+	if (schema.const) {
+		line += `const: ${JSON.stringify(schema.const)}`;
+	}
 
 	const validation = [];
 
@@ -172,10 +173,10 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 
 	// TODO: Adjust formatting
 	if (validation.length > 0) {
-		out.push(validation.join(', '));
+		line += ' ' + validation.join(', ');
 	}
 
-	return out;
+	return [line];
 
 	function buildTypeName(
 		typeName: JSONSchema7TypeName,
