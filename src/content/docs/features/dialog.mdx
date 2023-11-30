@@ -1,6 +1,8 @@
 ---
 title: Dialog
 description: Native system dialogs for opening and saving files along with message dialogs.
+tableOfContents:
+  maxHeadingLevel: 4
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -84,12 +86,12 @@ in Rust:
 - [Build a File Selector Dialog](#build-a-file-selector-dialog)
 
 ***
-## JavaScript
+### JavaScript
 
 See all [Dialog Options](/2/reference/js/dialog/) at the JavaScript API reference.
 
 {/* ASK */}
-### Create Yes/No Dialog
+#### Create Yes/No Dialog
 
 Shows a question dialog with `Yes` and `No` buttons.
 
@@ -108,7 +110,7 @@ console.log(answer);
 
 {/* CONFIRM */}
 
-### Create Ok/Cancel Dialog
+#### Create Ok/Cancel Dialog
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
@@ -126,7 +128,7 @@ console.log(confirmation);
 ```
 {/* MESSAGE */}
 
-### Create Message Dialog
+#### Create Message Dialog
 
 Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
 
@@ -139,7 +141,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 {/* OPEN */}
 
-### Open a File Selector Dialog
+#### Open a File Selector Dialog
 
 Open a file/directory selection dialog.
 
@@ -159,7 +161,7 @@ console.log(file);
 
 {/* SAVE */}
 
-### Save to File Dialog
+#### Save to File Dialog
 
 Open a file/directory save dialog.
 
@@ -179,11 +181,11 @@ console.log(path);
 ```
 
 ***
-## Rust
+### Rust
 
 Refer to the [Rust API reference](https://docs.rs/tauri-plugin-dialog/) to see all available options.
 
-### Build an Ask Dialog
+#### Build an Ask Dialog
 
 Shows a question dialog with `Absolutely` and `Totally` buttons.
 
@@ -214,7 +216,7 @@ app.dialog()
     });
 ```
 
-### Build a Message Dialog
+#### Build a Message Dialog
 
 Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
 
@@ -245,7 +247,7 @@ app.dialog()
 ```
 
 
-### Build a File Selector Dialog
+#### Build a File Selector Dialog
 
 
 #### Pick Files
