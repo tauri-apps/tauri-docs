@@ -239,11 +239,11 @@ export default defineConfig({
 		'/ko/v1/guides/development/updating-dependencies/': '/ko/guides/develop/updating-dependencies/',
 		// i18n zh-cn
 		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
-		'/zh-cn/v1/guides/development/updating-dependencies/': '/zh-cn/guides/develop/updating-dependencies/',
+		'/zh-cn/v1/guides/development/updating-dependencies/':
+			'/zh-cn/guides/develop/updating-dependencies/',
 		// i18n it
 		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
-		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/'
+		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
 		//
 	},
 });
-
