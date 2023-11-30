@@ -227,5 +227,6 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
+		'about/intro': 'about/philosophy',
 	},
 });
