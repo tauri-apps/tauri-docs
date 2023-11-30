@@ -2,13 +2,6 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
-// TODO:
-// Enum not being built for BundleTarget
-// Apply xOf logic to rest (check PatternKind)
-// Formatting for multiple lines of xOf (description after type/value), WebviewInstallMode, TitleBarStyle, WindowEffect
-// Property list links
-// Add type label
-
 const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
 const outputFile = '../../src/content/docs/2/reference/config.md';
 
@@ -57,17 +50,12 @@ function buildSchemaDefinition(
 
 	const out: string[] = [];
 
-	if (!opts.leadWithType) {
-		out.push(...buildMetadata(schema, opts));
-	}
 	out.push(...buildType(schema, opts));
 	out.push(...buildExtendedItems(schema, opts));
-	out.push(...buildProperties(schema, opts));
 	out.push(...buildConditionalSubschemas(schema, opts));
 	out.push(...buildBooleanSubschemas(schema, opts));
-	if (opts.leadWithType) {
-		out.push(...buildMetadata(schema, opts));
-	}
+	out.push(...buildMetadata(schema, opts));
+	out.push(...buildProperties(schema, opts));
 	out.push(...buildExtendedMetadata(schema, opts));
 	out.push(...buildDefinitions(schema, opts));
 
@@ -102,8 +90,12 @@ function buildMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
 			schema.description
 				// Set headings to appropriate level
 				.replaceAll(/#{1,6}(?=.+[\n\\n])/g, '#'.repeat(Math.min(opts.headingLevel + 1, 6)))
+				// Fix improperly formatted heading links
+				.replaceAll(/#{1,6}(?=[^\s#])/g, '#')
 				.replaceAll('<', '&lt;')
 				.replaceAll('>', '&gt;')
+				// Fix for link at https://github.com/tauri-apps/tauri/blob/713f84db2b5bf17e4217053a229f9c11cbb22c74/core/tauri-config-schema/schema.json#L1863-L1864
+				.replace('#SecurityConfig.devCsp', '#securityconfig')
 		);
 
 	return out;
@@ -119,7 +111,6 @@ function buildMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
  * Non-JSON data validation: 	contentMediaType, contentEncoding
  */
 function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
-	// TODO: Validate that the right type is populated when building items and enums
 	if (typeof schema !== 'object') {
 		return [];
 	}
@@ -145,7 +136,27 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 	}
 
 	if (schema.const) {
-		line += `const: ${JSON.stringify(schema.const)}`;
+		switch (typeof schema.const) {
+			case 'string':
+				line += `\`"${schema.const}"\``;
+				break;
+			default:
+				line += `\`${schema.const}\``;
+		}
+	}
+
+	if (schema.enum) {
+		const enumValues: string[] = [];
+		schema.enum.forEach((value) => {
+			switch (typeof value) {
+				case 'string':
+					enumValues.push(`\`"${value}"\``);
+					break;
+				default:
+					enumValues.push(`\`${value}\``);
+			}
+		});
+		line += enumValues.join(' | ');
 	}
 
 	const validation = [];
@@ -179,7 +190,6 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		validation.push(`content media type of \`${schema.contentMediaType}\``);
 	schema.contentEncoding && validation.push(`content encoding of \`${schema.contentEncoding}\``);
 
-	// TODO: Adjust formatting
 	if (validation.length > 0) {
 		line += ' ' + validation.join(', ');
 	}
@@ -191,21 +201,12 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		parentSchema: JSONSchema7Definition,
 		opts: Options
 	): string {
-		let line = '';
-
-		if (typeof parentSchema === 'object' && parentSchema.enum) {
-			const enumValues: string[] = [];
-			parentSchema.enum.forEach((value) => {
-				switch (typeof value) {
-					case 'string':
-						enumValues.push(`\`"${value}"\``);
-						break;
-					default:
-						enumValues.push(`\`${value}\``);
-				}
-			});
-			return enumValues.join(' | ');
+		// Rendering logic for enums and consts are handled separately
+		if (typeof parentSchema === 'object' && (parentSchema.enum || parentSchema.const)) {
+			return '';
 		}
+
+		let line = '';
 		switch (typeName) {
 			case 'object':
 				line += `\`${typeName}\` (see properties below)`;
@@ -222,7 +223,6 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 							if (definition.length > 1) {
 								// Format additional information to be in parenthesis
 								const [first, ...rest] = definition;
-								// TODO: Need to check for extra whitespace, see Color
 								return [first, ' (', rest.join(', '), ')'];
 							} else {
 								return definition.join();
@@ -247,6 +247,13 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 function buildExtendedItems(schema: JSONSchema7Definition, opts: Options): string[] {
 	if (typeof schema !== 'object') {
 		return [];
+	}
+
+	if (schema.additionalItems) {
+		throw Error('Not implemented');
+	}
+	if (schema.contains) {
+		throw Error('Not implemented');
 	}
 
 	const out: string[] = [];
@@ -289,8 +296,6 @@ function buildProperties(schema: JSONSchema7Definition, opts: Options): string[]
 		});
 	}
 
-	schema.patternProperties &&
-		out.push(`patternProperties: ${JSON.stringify(schema.patternProperties)}`);
 	schema.additionalProperties &&
 		out.push(
 			`**Allows additional properties**: ${buildSchemaDefinition(
@@ -298,6 +303,13 @@ function buildProperties(schema: JSONSchema7Definition, opts: Options): string[]
 				opts
 			)}`
 		);
+
+	if (schema.patternProperties || schema.dependencies || schema.propertyNames) {
+		throw Error('Not implemented');
+	}
+
+	schema.patternProperties &&
+		out.push(`patternProperties: ${JSON.stringify(schema.patternProperties)}`);
 	schema.dependencies && out.push(`dependencies: ${JSON.stringify(schema.dependencies)}`);
 	schema.propertyNames && out.push(`propertyNames: ${JSON.stringify(schema.propertyNames)}`);
 
@@ -314,6 +326,10 @@ function buildConditionalSubschemas(schema: JSONSchema7Definition, opts: Options
 
 	const out: string[] = [];
 
+	if (schema.if || schema.then || schema.else) {
+		throw Error('Not implemented');
+	}
+
 	schema.if && out.push(`if: ${JSON.stringify(schema.if)}`);
 	schema.then && out.push(`then: ${JSON.stringify(schema.then)}`);
 	schema.else && out.push(`else: ${JSON.stringify(schema.else)}`);
@@ -325,7 +341,6 @@ function buildConditionalSubschemas(schema: JSONSchema7Definition, opts: Options
  * Builds: allOf, anyOf, oneOf, not
  */
 function buildBooleanSubschemas(schema: JSONSchema7Definition, opts: Options): string[] {
-	// TODO: Formatting
 	if (typeof schema !== 'object') {
 		return [];
 	}
@@ -333,70 +348,82 @@ function buildBooleanSubschemas(schema: JSONSchema7Definition, opts: Options): s
 	const out: string[] = [];
 
 	if (schema.allOf) {
-		const xOf = buildXOf(schema.allOf, { ...opts, leadWithType: true });
-		if (xOf.length > 1) {
-			out.push('**All of the following**:');
-			out.push(xOf.map((value) => `- ${value.join(' ')}`).join('\n'));
-		} else {
-			out.push(...xOf.flat());
-		}
+		out.push(...buildXOf('All', schema.allOf, opts));
 	}
 
 	if (schema.anyOf) {
-		const xOf = buildXOf(schema.anyOf, { ...opts, leadWithType: true });
-
-		if (xOf.length > 1) {
-			out.push('**Any of the following**:');
-			const list: string[] = [];
-			const subDefinitions: string[][] = [];
-			xOf.forEach((value) => {
-				if (value[0].startsWith('`object`')) {
-					const [first, ...rest] = value;
-					list.push(`- ${first}: Subdefinition ${subDefinitions.length + 1}`);
-					subDefinitions.push(rest);
-				} else {
-					list.push(`- ${value.join(' ')}`);
-				}
-			});
-			out.push(list.join('\n'));
-			subDefinitions.forEach((definition, index) => {
-				out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Subdefinition ${index + 1}`);
-				definition.forEach((line) => {
-					out.push(
-						// Indents headings one more level
-						line.replaceAll(/#{1,6}(?=.+)/g, '#'.repeat(Math.min(opts.headingLevel + 1, 6)))
-					);
-				});
-			});
-		} else {
-			out.push(...xOf.flat());
-		}
+		out.push(...buildXOf('Any', schema.anyOf, opts));
 	}
 
 	if (schema.oneOf) {
-		const xOf = buildXOf(schema.oneOf, { ...opts, leadWithType: true });
-		if (xOf.length > 1) {
-			out.push('**One of the following**:');
-			out.push(xOf.map((value) => `- ${value.join(' ')}`).join('\n'));
-		} else {
-			out.push(...xOf.flat());
-		}
+		out.push(...buildXOf('One', schema.oneOf, opts));
+	}
+
+	if (schema.not) {
+		throw Error('Not implemented');
 	}
 
 	schema.not && out.push(`not: ${JSON.stringify(schema.not)}`);
 
 	return out;
 
-	function buildXOf(schemas: JSONSchema7Definition[], opts: Options): string[][] {
-		const out: string[][] = [];
-		out.push(...schemas.map((value) => buildSchemaDefinition(value, opts)));
+	function buildXOf(
+		label: 'One' | 'Any' | 'All',
+		schemas: JSONSchema7Definition[],
+		opts: Options
+	): string[] {
+		const definitions = schemas.map((value) =>
+			buildSchemaDefinition(value, { ...opts, leadWithType: true })
+		);
 
-		if (out.every((value) => value.length == 1)) {
+		if (definitions.every((definition) => definition.length == 1)) {
 			// Short definition, can be rendered on a single line
-			return [[out.join(' | ')]];
-		} else {
-			return out;
+			return [definitions.join(' | ')];
 		}
+
+		const out: string[] = [];
+
+		if (definitions.length > 1) {
+			// Render as a list
+			out.push(`**${label} of the following**:`);
+			const list: string[] = [];
+
+			const additionalDefinitions: string[][] = [];
+
+			definitions.forEach((definition) => {
+				if (definition[0].startsWith('`object`')) {
+					// Is an object, need to render subdefinitions
+					const [first] = definition;
+					list.push(`- ${first}: Subdefinition ${additionalDefinitions.length + 1}`);
+					additionalDefinitions.push(definition);
+				} else {
+					// Render inline in list
+					list.push(`- ${definition.map((value) => value.replaceAll('\n', ' ')).join(' ')}`);
+				}
+			});
+
+			out.push(list.join('\n'));
+
+			if (additionalDefinitions.length > 0) {
+				out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Subdefinitions`);
+				additionalDefinitions.forEach((definition, index) => {
+					// Render heading
+					out.push(`${'#'.repeat(Math.min(6, opts.headingLevel + 1))} Subdefinition ${index + 1}`);
+
+					// Render definition, giving additional heading indention as needed
+					definition.forEach((line) => {
+						out.push(
+							line.replaceAll(/#{1,6}\s(?=.+)/g, '#'.repeat(Math.min(opts.headingLevel + 2, 6)))
+						);
+					});
+				});
+			}
+		} else {
+			// Render as a block
+			// Mapping might need some fixing...
+			out.push(...definitions.map((definition) => definition.join()));
+		}
+		return out;
 	}
 }
 
