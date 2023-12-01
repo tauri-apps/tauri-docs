@@ -19,7 +19,7 @@ path = path.replace(/^\/+/g, '').replace(/\/$/, '');
 
 const pageLang = locale + '/';
 
-if (!path.startsWith(locale)) {
+if (!path.startsWith(locale) && locale !== 'en') {
 	path = pageLang + path;
 }
 
