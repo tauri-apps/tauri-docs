@@ -14,7 +14,7 @@ Command arguments.
 
 **Since**: 1.0.0
 
-**Defined in:** [tauri.ts:66](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/tauri.ts#L66)
+**Defined in:** [tauri.ts:66](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/tauri.ts#L66)
 
 ## Functions
 
@@ -61,7 +61,7 @@ the URL that can be used as source on the webview.
 
 ### `invoke`
 
-> **invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
+> **invoke**<`T`\>(`cmd`: `string`, `args?`: [`InvokeArgs`](tauri.md#invokeargs)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 Sends a message to the backend.
 
@@ -85,7 +85,7 @@ await invoke('login', { user: 'tauri', password: 'poiwe3h4r5ip3yrhtew9ty' });
 | `cmd` | `string` | The command name. |
 | `args` | [`InvokeArgs`](tauri.md#invokeargs) | The optional arguments to pass to the command. |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`T`\>
 
 A promise resolving or rejecting to the backend response.
 

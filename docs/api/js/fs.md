@@ -86,31 +86,31 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 | Name | Type | Defined in |
 | :------ | :------ | :------ |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L98) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.AppCache"><a href="#fs.BaseDirectory.AppCache">`AppCache`</a></div> | `24` | [fs.ts:104](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L104) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.AppConfig"><a href="#fs.BaseDirectory.AppConfig">`AppConfig`</a></div> | `21` | [fs.ts:101](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L101) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.AppData"><a href="#fs.BaseDirectory.AppData">`AppData`</a></div> | `22` | [fs.ts:102](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L102) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.AppLocalData"><a href="#fs.BaseDirectory.AppLocalData">`AppLocalData`</a></div> | `23` | [fs.ts:103](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L103) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.AppLog"><a href="#fs.BaseDirectory.AppLog">`AppLog`</a></div> | `25` | [fs.ts:105](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L105) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L81) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L82) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L83) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L84) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L86) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L87) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L88) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L89) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L90) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L91) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L85) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:99](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L99) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L92) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L93) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:97](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L97) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L94) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:100](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L100) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:95](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L95) |
-| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:96](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L96) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.App"><a href="#fs.BaseDirectory.App">`App`</a></div> | `18` | [fs.ts:98](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L98) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.AppCache"><a href="#fs.BaseDirectory.AppCache">`AppCache`</a></div> | `24` | [fs.ts:104](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L104) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.AppConfig"><a href="#fs.BaseDirectory.AppConfig">`AppConfig`</a></div> | `21` | [fs.ts:101](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L101) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.AppData"><a href="#fs.BaseDirectory.AppData">`AppData`</a></div> | `22` | [fs.ts:102](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L102) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.AppLocalData"><a href="#fs.BaseDirectory.AppLocalData">`AppLocalData`</a></div> | `23` | [fs.ts:103](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L103) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.AppLog"><a href="#fs.BaseDirectory.AppLog">`AppLog`</a></div> | `25` | [fs.ts:105](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L105) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Audio"><a href="#fs.BaseDirectory.Audio">`Audio`</a></div> | `1` | [fs.ts:81](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L81) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Cache"><a href="#fs.BaseDirectory.Cache">`Cache`</a></div> | `2` | [fs.ts:82](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L82) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Config"><a href="#fs.BaseDirectory.Config">`Config`</a></div> | `3` | [fs.ts:83](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L83) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Data"><a href="#fs.BaseDirectory.Data">`Data`</a></div> | `4` | [fs.ts:84](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L84) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Desktop"><a href="#fs.BaseDirectory.Desktop">`Desktop`</a></div> | `6` | [fs.ts:86](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L86) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Document"><a href="#fs.BaseDirectory.Document">`Document`</a></div> | `7` | [fs.ts:87](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L87) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Download"><a href="#fs.BaseDirectory.Download">`Download`</a></div> | `8` | [fs.ts:88](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L88) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Executable"><a href="#fs.BaseDirectory.Executable">`Executable`</a></div> | `9` | [fs.ts:89](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L89) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Font"><a href="#fs.BaseDirectory.Font">`Font`</a></div> | `10` | [fs.ts:90](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L90) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Home"><a href="#fs.BaseDirectory.Home">`Home`</a></div> | `11` | [fs.ts:91](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L91) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.LocalData"><a href="#fs.BaseDirectory.LocalData">`LocalData`</a></div> | `5` | [fs.ts:85](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L85) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Log"><a href="#fs.BaseDirectory.Log">`Log`</a></div> | `19` | [fs.ts:99](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L99) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Picture"><a href="#fs.BaseDirectory.Picture">`Picture`</a></div> | `12` | [fs.ts:92](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L92) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Public"><a href="#fs.BaseDirectory.Public">`Public`</a></div> | `13` | [fs.ts:93](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L93) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Resource"><a href="#fs.BaseDirectory.Resource">`Resource`</a></div> | `17` | [fs.ts:97](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L97) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Runtime"><a href="#fs.BaseDirectory.Runtime">`Runtime`</a></div> | `14` | [fs.ts:94](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L94) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Temp"><a href="#fs.BaseDirectory.Temp">`Temp`</a></div> | `20` | [fs.ts:100](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L100) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Template"><a href="#fs.BaseDirectory.Template">`Template`</a></div> | `15` | [fs.ts:95](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L95) |
+| <div class="anchor-with-padding" id="fs.BaseDirectory.Video"><a href="#fs.BaseDirectory.Video">`Video`</a></div> | `16` | [fs.ts:96](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L96) |
 
 ## Interfaces
 
@@ -126,7 +126,7 @@ Renames and re-exports [writeTextFile](fs.md#writetextfile)
 
 Children of this entry if it's a directory; null otherwise
 
-**Defined in:** [fs.ts:167](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L167)
+**Defined in:** [fs.ts:167](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L167)
 
 ##### `name`
 
@@ -135,13 +135,13 @@ Children of this entry if it's a directory; null otherwise
 Name of the directory/file
 can be null if the path terminates with `..`
 
-**Defined in:** [fs.ts:165](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L165)
+**Defined in:** [fs.ts:165](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L165)
 
 ##### `path`
 
 >  **path**: `string`
 
-**Defined in:** [fs.ts:160](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L160)
+**Defined in:** [fs.ts:160](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L160)
 
 ### `FsBinaryFileOption`
 
@@ -157,7 +157,7 @@ Options object used to write a binary data to a file.
 
 The byte array contents.
 
-**Defined in:** [fs.ts:153](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L153)
+**Defined in:** [fs.ts:153](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L153)
 
 ##### `path`
 
@@ -165,7 +165,7 @@ The byte array contents.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:151](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L151)
+**Defined in:** [fs.ts:151](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L151)
 
 ### `FsDirOptions`
 
@@ -177,13 +177,13 @@ Path to the file to write.
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L126)
+**Defined in:** [fs.ts:126](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L126)
 
 ##### `recursive`
 
 > `Optional` **recursive**: `boolean`
 
-**Defined in:** [fs.ts:127](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L127)
+**Defined in:** [fs.ts:127](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L127)
 
 ### `FsOptions`
 
@@ -199,13 +199,13 @@ Whether the content should overwrite the content of the file or append to it.
 
 **Since**: 1.5.0
 
-**Defined in:** [fs.ts:118](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L118)
+**Defined in:** [fs.ts:118](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L118)
 
 ##### `dir`
 
 > `Optional` **dir**: [`BaseDirectory`](fs.md#basedirectory)
 
-**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L112)
+**Defined in:** [fs.ts:112](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L112)
 
 ### `FsTextFileOption`
 
@@ -221,7 +221,7 @@ Options object used to write a UTF-8 string to a file.
 
 The UTF-8 string to write to the file.
 
-**Defined in:** [fs.ts:139](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L139)
+**Defined in:** [fs.ts:139](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L139)
 
 ##### `path`
 
@@ -229,21 +229,21 @@ The UTF-8 string to write to the file.
 
 Path to the file to write.
 
-**Defined in:** [fs.ts:137](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L137)
+**Defined in:** [fs.ts:137](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L137)
 
 ## Type Aliases
 
 ### `BinaryFileContents`
 
->  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
+>  **BinaryFileContents**: `Iterable`<`number`\> \| `ArrayLike`<`number`\> \| [`ArrayBuffer`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer )
 
-**Defined in:** [fs.ts:142](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/fs.ts#L142)
+**Defined in:** [fs.ts:142](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/fs.ts#L142)
 
 ## Functions
 
 ### `copyFile`
 
-> **copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **copyFile**(`source`: `string`, `destination`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Copies a file to a destination.
 
@@ -265,13 +265,13 @@ await copyFile('app.conf', 'app.conf.bk', { dir: BaseDirectory.AppConfig });
 | `destination` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `createDir`
 
-> **createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **createDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Creates a directory.
 If one of the path's parent components doesn't exist
@@ -294,13 +294,13 @@ await createDir('users', { dir: BaseDirectory.AppData, recursive: true });
 | `dir` | `string` |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `exists`
 
-> **exists**(`path`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **exists**(`path`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Check if a path exists.
 
@@ -321,11 +321,11 @@ await exists('avatar.png', { dir: BaseDirectory.AppData });
 | `path` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ### `readBinaryFile`
 
-> **readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+> **readBinaryFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 Reads a file as byte array.
 
@@ -346,11 +346,11 @@ const contents = await readBinaryFile('avatar.png', { dir: BaseDirectory.Resourc
 | `filePath` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Uint8Array`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array )\>
 
 ### `readDir`
 
-> **readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
+> **readDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 List directory files.
 
@@ -380,11 +380,11 @@ function processEntries(entries) {
 | `dir` | `string` |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`FileEntry`](fs.md#fileentry)[]\>
 
 ### `readTextFile`
 
-> **readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **readTextFile**(`filePath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Reads a file as an UTF-8 encoded string.
 
@@ -405,11 +405,11 @@ const contents = await readTextFile('app.conf', { dir: BaseDirectory.AppConfig }
 | `filePath` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `removeDir`
 
-> **removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **removeDir**(`dir`: `string`, `options?`: [`FsDirOptions`](fs.md#fsdiroptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a directory.
 If the directory is not empty and the `recursive` option isn't set to true, the promise will be rejected.
@@ -431,13 +431,13 @@ await removeDir('users', { dir: BaseDirectory.AppData });
 | `dir` | `string` |
 | `options` | [`FsDirOptions`](fs.md#fsdiroptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `removeFile`
 
-> **removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **removeFile**(`file`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Removes a file.
 
@@ -458,13 +458,13 @@ await removeFile('app.conf', { dir: BaseDirectory.AppConfig });
 | `file` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `renameFile`
 
-> **renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **renameFile**(`oldPath`: `string`, `newPath`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Renames a file.
 
@@ -486,13 +486,13 @@ await renameFile('avatar.png', 'deleted.png', { dir: BaseDirectory.AppData });
 | `newPath` | `string` |
 | `options` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `writeBinaryFile`
 
-> **writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeBinaryFile**(`path`: `string`, `contents`: [`BinaryFileContents`](fs.md#binaryfilecontents), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
@@ -514,11 +514,11 @@ await writeBinaryFile('avatar.png', new Uint8Array([]), { dir: BaseDirectory.App
 | `contents` | [`BinaryFileContents`](fs.md#binaryfilecontents) | - |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
-> **writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeBinaryFile**(`file`: [`FsBinaryFileOption`](fs.md#fsbinaryfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a byte array content to a file.
 
@@ -539,13 +539,13 @@ await writeBinaryFile({ path: 'avatar.png', contents: new Uint8Array([]) }, { di
 | `file` | [`FsBinaryFileOption`](fs.md#fsbinaryfileoption) | The object containing the file path and contents. |
 | `options?` | [`FsOptions`](fs.md#fsoptions) | Configuration object. |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
 
 ### `writeTextFile`
 
-> **writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeTextFile**(`path`: `string`, `contents`: `string`, `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -567,9 +567,9 @@ await writeTextFile('app.conf', 'file contents', { dir: BaseDirectory.AppConfig 
 | `contents` | `string` |
 | `options?` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
-> **writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+> **writeTextFile**(`file`: [`FsTextFileOption`](fs.md#fstextfileoption), `options?`: [`FsOptions`](fs.md#fsoptions)): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 Writes a UTF-8 text file.
 
@@ -590,6 +590,6 @@ await writeTextFile({ path: 'app.conf', contents: 'file contents' }, { dir: Base
 | `file` | [`FsTextFileOption`](fs.md#fstextfileoption) |
 | `options?` | [`FsOptions`](fs.md#fsoptions) |
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`void`\>
 
 A promise indicating the success or failure of the operation.
