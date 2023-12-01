@@ -62,12 +62,24 @@ if (filterOut.length > 0) {
 			fallbackList
 				.sort((a, b) => a.data.title.localeCompare(b.data.title))
 				.map((item) => (
-					// TODO: add a proper fallback badge and/or remove this current code
 					<LinkCard
-						title={'(en)'.concat(' ', item.data.title)}
+						class="fallback-badge"
+						title={item.data.title}
 						href={`/${item.slug}`}
 						description={item.data.description}
 					/>
 				))
 	}
 </CardGrid>
+
+<style>
+	.fallback-badge:before {
+		font-size: smaller;
+		left: 12px;
+		top: 16px;
+		content: 'en';
+	}
+	.fallback-badge {
+		margin-left: 2ch !important;
+	}
+</style>
