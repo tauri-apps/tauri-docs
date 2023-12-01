@@ -137,7 +137,7 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: 'guides/develop',
+							link: 'guides/develop/',
 						},
 						{
 							label: 'Debug',
@@ -227,5 +227,23 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
+		//
+		// v1 /guides/development -> /guides/develop
+		'/v1/guides/development/development-cycle': '/guides/develop/development-cycle',
+		'/v1/guides/development/updating-dependencies': '/guides/develop/updating-dependencies',
+		// i18n fr
+		'/fr/v1/guides/development/development-cycle/': '/fr/guides/develop/development-cycle/',
+		'/fr/v1/guides/development/updating-dependencies/': '/fr/guides/develop/updating-dependencies/',
+		// i18n ko
+		'/ko/v1/guides/development/development-cycle/': '/ko/guides/develop/development-cycle/',
+		'/ko/v1/guides/development/updating-dependencies/': '/ko/guides/develop/updating-dependencies/',
+		// i18n zh-cn
+		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
+		'/zh-cn/v1/guides/development/updating-dependencies/':
+			'/zh-cn/guides/develop/updating-dependencies/',
+		// i18n it
+		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
+		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
+		//
 	},
 });
