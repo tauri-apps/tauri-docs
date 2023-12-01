@@ -24,19 +24,19 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 >  **Arch**: `"x86"` \| `"x86_64"` \| `"arm"` \| `"aarch64"` \| `"mips"` \| `"mips64"` \| `"powerpc"` \| `"powerpc64"` \| `"riscv64"` \| `"s390x"` \| `"sparc64"`
 
-**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/os.ts#L43)
+**Defined in:** [os.ts:43](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/os.ts#L43)
 
 ### `OsType`
 
 >  **OsType**: `"Linux"` \| `"Darwin"` \| `"Windows_NT"`
 
-**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/os.ts#L41)
+**Defined in:** [os.ts:41](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/os.ts#L41)
 
 ### `Platform`
 
 >  **Platform**: `"linux"` \| `"darwin"` \| `"ios"` \| `"freebsd"` \| `"dragonfly"` \| `"netbsd"` \| `"openbsd"` \| `"solaris"` \| `"android"` \| `"win32"`
 
-**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/os.ts#L29)
+**Defined in:** [os.ts:29](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/os.ts#L29)
 
 ## Variables
 
@@ -50,13 +50,13 @@ The operating system-specific end-of-line marker.
 
 **Since**: 1.0.0
 
-**Defined in:** [os.ts:63](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/os.ts#L63)
+**Defined in:** [os.ts:63](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/os.ts#L63)
 
 ## Functions
 
 ### `arch`
 
-> **arch**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
+> **arch**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
 Returns the operating system CPU architecture for which the tauri app was compiled.
 Possible values are `'x86'`, `'x86_64'`, `'arm'`, `'aarch64'`, `'mips'`, `'mips64'`, `'powerpc'`, `'powerpc64'`, `'riscv64'`, `'s390x'`, `'sparc64'`.
@@ -70,11 +70,11 @@ const archName = await arch();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Arch`](os.md#arch)\>
 
 ### `locale`
 
-> **locale**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+> **locale**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 Returns a String with a `BCP-47` language tag inside. If the locale couldn’t be obtained, `null` is returned instead.
 
@@ -90,11 +90,11 @@ if (locale) {
 
 **Since**: 1.4.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string` \| `null`\>
 
 ### `platform`
 
-> **platform**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
+> **platform**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
 Returns a string identifying the operating system platform.
 The value is set at compile time. Possible values are `'linux'`, `'darwin'`, `'ios'`, `'freebsd'`, `'dragonfly'`, `'netbsd'`, `'openbsd'`, `'solaris'`, `'android'`, `'win32'`
@@ -108,11 +108,11 @@ const platformName = await platform();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Platform`](os.md#platform)\>
 
 ### `tempdir`
 
-> **tempdir**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **tempdir**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns the operating system's default directory for temporary files as a string.
 
@@ -125,11 +125,11 @@ const tempdirPath = await tempdir();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 ### `type`
 
-> **type**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
+> **type**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
 Returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
 
@@ -142,11 +142,11 @@ const osType = await type();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`OsType`](os.md#ostype)\>
 
 ### `version`
 
-> **version**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+> **version**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
 
 Returns a string identifying the kernel version.
 
@@ -159,4 +159,4 @@ const osVersion = await version();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`string`\>

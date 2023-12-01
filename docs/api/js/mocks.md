@@ -33,6 +33,34 @@ test("no mocked windows", () => {
 
 **Returns: **`void`
 
+### `mockConvertFileSrc`
+
+> **mockConvertFileSrc**(`osName`: `string`, `windowsProtocolScheme?`: `string`): `void`
+
+Mock `convertFileSrc` function
+
+**Example**
+
+```js
+import { mockConvertFileSrc } from "@tauri-apps/api/mocks";
+import { convertFileSrc } from "@tauri-apps/api/tauri";
+
+mockConvertFileSrc("windows")
+
+const url = convertFileSrc("C:\\Users\\user\\file.txt")
+```
+
+**Since**: 1.6.0
+
+**Parameters**
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `osName` | `string` | `undefined` | The operating system to mock, can be one of linux, macos, or windows |
+| `windowsProtocolScheme` | `string` | `'https'` | The scheme to use on Windows, can be either `http` or `https` and defaults to `https` |
+
+**Returns: **`void`
+
 ### `mockIPC`
 
 > **mockIPC**(`cb`: `fn`): `void`

@@ -35,7 +35,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/notification.ts#L38)
 
 ##### `icon`
 
@@ -43,7 +43,11 @@ Optional notification body.
 
 Optional notification icon.
 
-**Defined in:** [notification.ts:40](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L40)
+#### Platform-specific
+
+- **Windows**: The app must be installed for this to have any effect.
+
+**Defined in:** [notification.ts:47](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/notification.ts#L47)
 
 ##### `sound`
 
@@ -72,7 +76,7 @@ Be sure that the sound file is copied under the app bundle (e.g., `YourApp.app/C
 
 **Since**: 1.5.0
 
-**Defined in:** [notification.ts:65](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L65)
+**Defined in:** [notification.ts:72](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/notification.ts#L72)
 
 ##### `title`
 
@@ -80,7 +84,7 @@ Be sure that the sound file is copied under the app bundle (e.g., `YourApp.app/C
 
 Notification title.
 
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/notification.ts#L36)
 
 ## Type Aliases
 
@@ -90,13 +94,13 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:69](https://github.com/tauri-apps/tauri/blob/a3277a2/tooling/api/src/notification.ts#L69)
+**Defined in:** [notification.ts:76](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/notification.ts#L76)
 
 ## Functions
 
 ### `isPermissionGranted`
 
-> **isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+> **isPermissionGranted**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 Checks if the permission to send notifications is granted.
 
@@ -109,11 +113,11 @@ const permissionGranted = await isPermissionGranted();
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<`boolean`\>
 
 ### `requestPermission`
 
-> **requestPermission**(): [`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
+> **requestPermission**(): [`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 Requests the permission to send notifications.
 
@@ -130,7 +134,7 @@ if (!permissionGranted) {
 
 **Since**: 1.0.0
 
-**Returns: **[`Promise`]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
+**Returns: **[`Promise`]( https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise )<[`Permission`](notification.md#permission)\>
 
 A promise resolving to whether the user granted the permission or not.
 
