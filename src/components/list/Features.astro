@@ -3,8 +3,8 @@ import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
 interface Props {
-	// path relative to /src - e.g "/zh-cn/features" 
-	// note: leading and trailing slashes are dropped "/features/" === "features" 
+	// path relative to /src - e.g "/zh-cn/features"
+	// note: leading and trailing slashes are dropped "/features/" === "features"
 	path: string;
 	// locale e.g "zh-CN" - case insensitive
 	locale: string;
@@ -13,20 +13,20 @@ interface Props {
 }
 
 let { path, locale, filterOut = [] } = Astro.props;
+
 locale = locale.toLowerCase();
 path = path.replace(/^\/+/g, '').replace(/\/$/, '');
 
 const pageLang = locale + '/';
+
 if (!path.startsWith(locale)) {
 	path = pageLang + path;
 }
 
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
 
-const rootList = await getCollection('docs', ({ slug }) => {
-	// the extra / is to ensure it excludes a index page if it exists at same path.
-	return slug.startsWith(`${rootUrl}/`);
-});
+// the extra / is to ensure it excludes a index page if it exists at same path.
+const rootList = await getCollection('docs', ({ slug }) => slug.startsWith(`${rootUrl}/`));
 
 const i18nList = await getCollection('docs', ({ slug }) => {
 	if (locale === 'en') return false;
