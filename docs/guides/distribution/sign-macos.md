@@ -16,7 +16,7 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 ## Requirements
 
 - macOS 10.13.6 or later
-- Xcode 10 or later
+- Xcode 14 or later 
 - An Apple Developer account enrolled in the [Apple Developer Program]
 
 For more details please read the developer article on [notarizing macOS software before distribution].
