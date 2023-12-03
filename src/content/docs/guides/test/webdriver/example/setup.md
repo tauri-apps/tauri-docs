@@ -1,11 +1,12 @@
 ---
 title: Setup Example
-description: WebDriver Testing
 sidebar:
   order: 1
 ---
 <!-- {/*TODO: REVISE COPY TO V2 */} -->
 
+
+<!-- {/*TODO: Fix this image */} -->
 import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
 
 This example application solely focuses on adding WebDriver testing to an already existing project. To have a

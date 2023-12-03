@@ -1,6 +1,5 @@
 ---
 title: Mock Tauri APIs
-description: Techniques for testing inside and outside the Tauri runtime
 sidebar:
   order: 1
 ---
