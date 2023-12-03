@@ -29,7 +29,7 @@ Install the http plugin to get started.
 
     {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
 
-    ```rust
+    ```rust /\\.plugin.*$/
     #[cfg_attr(mobile, tauri::mobile_entry_point)]
     pub fn run() {
         tauri::Builder::default()
@@ -47,7 +47,7 @@ Install the http plugin to get started.
 
     2. Modify `lib.rs` to initialize the plugin:
 
-    ```rust
+    ```rust /\\.plugin.*$/
     // lib.rs
     #[cfg_attr(mobile, tauri::mobile_entry_point)]
     pub fn run() {
@@ -73,7 +73,10 @@ Install the http plugin to get started.
 
 ## Usage
 
-The http plugin is available in both JavaScript and in Rust, as a [reqwest](https://docs.rs/reqwest/) re-export.
+The http plugin is available in both as an JavaScript API and in Rust as a [reqwest](https://docs.rs/reqwest/) re-export.
+
+
+### JavaScript
 
 #### 1. Configure allowed scope
 
@@ -88,40 +91,31 @@ The http plugin is available in both JavaScript and in Rust, as a [reqwest](http
 }
 ```
 #### 2. Send a request
-<Tabs>
-<TabItem label="JavaScript">
 
 ```js
 import { fetch } from '@tauri-apps/plugin-http';
 
 // Send a GET request
-const res = await fetch('http://my.api.host/data.json');
-
-console.log(res.status); // e.g. 200
-console.log(res.statusText); // e.g. "OK"
-
-// Send a POST request
-const res = await fetch("http://my.api.host/post", {
-	method: "post",
-	body: JSON.stringify({
-	title: "foo",
-	body: "bar",
-	userId: 1,
-	}),
-	headers: {
-	"Content-type": "application/json; charset=UTF-8",
-	},
+const response = await fetch("http://my.api.host/data.json", {
+  method: "GET",
+  timeout: 30,
 });
-console.log(res.status); // e.g. 201
-console.log(res.statusText); // e.g. "Created"
+console.log(response.status); // e.g. 200
+console.log(response.statusText); // e.g. "OK"
+
 ```
 
-Note: The `fetch` method is not the same as `fetch` from Web API. It instead utilizes a Rust package to send the requests.
+:::note
 
-</TabItem>
-<TabItem label="Rust">
+ The current `fetch` method is an API to Rust backend. It tries to be as close and compliant to the `fetch` Web API as possible.
 
-In Rust you can utilize the reqwest crate via `use tauri_plugin_http::reqwest;`. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
+:::
+
+
+### Rust
+
+
+In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
 
 
 ```rust
@@ -129,10 +123,4 @@ use tauri_plugin_http::reqwest;
 
 let res = reqwest::get("http://my.api.host/data.json").await;
 println!("{:?}", res); // print response to terminal
-
-
-
 ```
-
-</TabItem>
-</Tabs>
