@@ -99,7 +99,6 @@ import { fetch } from '@tauri-apps/plugin-http';
 // Send a GET request
 const response = await fetch("http://my.api.host/data.json", {
   method: "GET",
-  timeout: 30,
 });
 console.log(response.status); // e.g. 200
 console.log(response.statusText); // e.g. "OK"
