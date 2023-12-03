@@ -30,6 +30,7 @@ Install the http plugin to get started.
     {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
 
     ```rust /\\.plugin.*$/
+    // lib.rs
     #[cfg_attr(mobile, tauri::mobile_entry_point)]
     pub fn run() {
         tauri::Builder::default()
