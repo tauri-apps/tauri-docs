@@ -7,8 +7,10 @@ sidebar:
 <!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 :::caution[Currently in pre-alpha]
+
 Webdriver support for Tauri is still in pre-alpha. Tooling that is dedicated to it, such as [tauri-driver], is still in
 active development and may change as necessary over time. Additionally, only Windows and Linux are currently supported.
+
 :::
 
 [WebDriver] is a standardized interface to interact with web documents primarily intended for automated testing.
