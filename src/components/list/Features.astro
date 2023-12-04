@@ -1,4 +1,5 @@
 ---
+import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
@@ -15,7 +16,7 @@ interface Props {
 let { path, locale, filterOut = [] } = Astro.props;
 
 locale = locale.toLowerCase();
-path = path.replace(/^\/+/g, '').replace(/\/$/, '');
+path = stripLeadingAndTrailingSlashes(path);
 
 const pageLang = locale + '/';
 
@@ -25,7 +26,7 @@ if (!path.startsWith(locale) && locale !== 'en') {
 
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
 
-// the extra / is to ensure it excludes a index page if it exists at same path.
+// the / is to ensure it excludes a index page if it exists at same path.
 const rootList = await getCollection('docs', ({ slug }) => slug.startsWith(`${rootUrl}/`));
 
 const i18nList = await getCollection('docs', ({ slug }) => {
@@ -73,13 +74,11 @@ if (filterOut.length > 0) {
 </CardGrid>
 
 <style>
-	.fallback-badge:before {
-		font-size: smaller;
-		left: 12px;
-		top: 16px;
-		content: 'en';
-	}
-	.fallback-badge {
-		margin-left: 2ch !important;
+	.fallback-badge:after {
+		content: 'EN';
+		vertical-align: super;
+		font-size: 0.75em;
+		font-weight: 700;
+		margin-left: 1ch;
 	}
 </style>
