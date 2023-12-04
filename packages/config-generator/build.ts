@@ -209,7 +209,6 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		let line = '';
 		switch (typeName) {
 			case 'object':
-				line += `\`${typeName}\` (see properties below)`;
 				break;
 			case 'array':
 				if (typeof parentSchema !== 'object' || !parentSchema.items) {
