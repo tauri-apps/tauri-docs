@@ -274,7 +274,7 @@ function buildProperties(schema: JSONSchema7Definition, opts: Options): string[]
 	const out: string[] = [];
 
 	if (schema.properties) {
-		out.push(`${'#'.repeat(Math.min(6, opts.headingLevel))} Properties`);
+		out.push(`**Object Properties**:`);
 
 		const properties = Object.entries(schema.properties)
 			.filter(([key]) => key !== '$schema')
