@@ -1,6 +1,7 @@
 {
   "name": "config-generator",
   "version": "1.0.0",
+  "private": "true",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -9,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/json-schema": "^7.0.15",
     "@types/node": "^20.10.0",

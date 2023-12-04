@@ -8,7 +8,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "private": "true",
   "dependencies": {
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
