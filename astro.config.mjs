@@ -228,4 +228,41 @@ export default defineConfig({
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
 	},
+	//
+	// v1 /guides/testing -> /guides/test
+	'/v1/guides/testing/mocking': '/guides/testing/mocking',
+	'/v1/guides/testing/webdriver/ci': '/guides/teste/webdriver/ci',
+	'/v1/guides/testing/webdriver/introduction': '/guides/test/webdriver/introduction',
+	'/v1/guides/testing/webdriver/example/setup': '/guides/test/webdriver/example/setup',
+	'/v1/guides/testing/webdriver/example/selenium': '/guides/webdriver/example/selenium',
+	'/v1/guides/testing/webdriver/example/webdriverio': '/guides/teste/webdriver/example/webdriverio',
+	// i18n fr
+	'/fr/v1/guides/testing/mocking': '/fr/guides/testing/mocking',
+	'/fr/v1/guides/testing/webdriver/ci': '/fr/guides/teste/webdriver/ci',
+	'/fr/v1/guides/testing/webdriver/introduction': '/fr/guides/test/webdriver/introduction',
+	'/fr/v1/guides/testing/webdriver/example/setup': '/fr/guides/test/webdriver/example/setup',
+	'/fr/v1/guides/testing/webdriver/example/selenium': '/fr/guides/webdriver/example/selenium',
+	'/fr/v1/guides/testing/webdriver/example/webdriverio': '/fr/guides/teste/webdriver/example/webdriverio',
+	// i18n ko
+	'/ko/v1/guides/testing/mocking': '/ko/guides/testing/mocking',
+	'/ko/v1/guides/testing/webdriver/ci': '/ko/guides/teste/webdriver/ci',
+	'/ko/v1/guides/testing/webdriver/introduction': '/ko/guides/test/webdriver/introduction',
+	'/ko/v1/guides/testing/webdriver/example/setup': '/ko/guides/test/webdriver/example/setup',
+	'/ko/v1/guides/testing/webdriver/example/selenium': '/ko/guides/webdriver/example/selenium',
+	'/ko/v1/guides/testing/webdriver/example/webdriverio': '/ko/guides/teste/webdriver/example/webdriverio',
+	// i18n zh-cn
+	'/zh-cn/v1/guides/testing/mocking': '/zh-cn/guides/testing/mocking',
+	'/zh-cn/v1/guides/testing/webdriver/ci': '/zh-cn/guides/teste/webdriver/ci',
+	'/zh-cn/v1/guides/testing/webdriver/introduction': '/zh-cn/guides/test/webdriver/introduction',
+	'/zh-cn/v1/guides/testing/webdriver/example/setup': '/zh-cn/guides/test/webdriver/example/setup',
+	'/zh-cn/v1/guides/testing/webdriver/example/selenium': '/zh-cn/guides/webdriver/example/selenium',
+	'/zh-cn/v1/guides/testing/webdriver/example/webdriverio': '/zh-cn/guides/teste/webdriver/example/webdriverio',
+	// i18n it
+	'/it/v1/guides/testing/mocking': '/it/guides/testing/mocking',
+	'/it/v1/guides/testing/webdriver/ci': '/it/guides/teste/webdriver/ci',
+	'/it/v1/guides/testing/webdriver/introduction': '/it/guides/test/webdriver/introduction',
+	'/it/v1/guides/testing/webdriver/example/setup': '/it/guides/test/webdriver/example/setup',
+	'/it/v1/guides/testing/webdriver/example/selenium': '/it/guides/webdriver/example/selenium',
+	'/it/v1/guides/testing/webdriver/example/webdriverio': '/it/guides/teste/webdriver/example/webdriverio',
+	//
 });
