@@ -75,10 +75,10 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			components: {
+				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
-				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -227,7 +227,7 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
-		//
+		'about/intro': 'about/philosophy',
 		// v1 /guides/development -> /guides/develop
 		'/v1/guides/development/development-cycle': '/guides/develop/development-cycle',
 		'/v1/guides/development/updating-dependencies': '/guides/develop/updating-dependencies',
@@ -244,6 +244,5 @@ export default defineConfig({
 		// i18n it
 		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
 		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
-		//
 	},
 });
