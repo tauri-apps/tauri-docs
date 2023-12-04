@@ -214,7 +214,6 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 				if (typeof parentSchema !== 'object' || !parentSchema.items) {
 					throw Error('Invalid array');
 				}
-				line += '[';
 				if (Array.isArray(parentSchema.items)) {
 					line += parentSchema.items
 						.map((value) => {
@@ -231,7 +230,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 				} else {
 					line += buildSchemaDefinition(parentSchema.items, opts);
 				}
-				line += ']';
+				line += '[]';
 				break;
 			default:
 				line += '`' + typeName + '`';
