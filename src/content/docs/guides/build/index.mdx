@@ -1,0 +1,42 @@
+---
+title: Build
+description: Prepare and package your app for users
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import Stub from '@components/Stub.astro';
+
+
+
+{/* - [Windows](./windows.md): `-setup.exe`, `.msi`
+- [macOS](./macos.md): `.app`, `.dmg`
+- [Linux](./linux.md): `.deb`, `.appimage` */}
+
+<CardGrid>
+  <LinkCard title="Reducing App Size" href="/guides/build/app-size" />
+	<LinkCard title="Cross-Platform Compilation" href="/guides/build/cross-platform/" />
+  <LinkCard title="Embedding Additional Files" href="/guides/build/resources/" />
+  <LinkCard title="Embedding External Binaries" href="/guides/build/sidecar/" />
+</CardGrid>
+
+## Tauri Bundler 
+
+The Tauri Bundler is a Rust harness to compile your binary, package assets, and prepare a final bundle.
+It will detect your operating system and build a bundle accordingly. It currently supports:
+
+<CardGrid>
+    <LinkCard title="Linux Bundle" href="/guides/build/linux/" />
+    <LinkCard title="macOS Bundle" href="/guides/build/macos/" />
+    <LinkCard title="Windows Installer" href="/guides/build/windows/" />
+</CardGrid>
+
+
+{/* <Stub>
+- Building & Code Signing for...
+  - Linux
+  - macOS
+  - Windows
+  - Android `pnpm tauri [ios|android] build`
+  - iOS
+- Updater (link to recipe)
+</Stub> */}
