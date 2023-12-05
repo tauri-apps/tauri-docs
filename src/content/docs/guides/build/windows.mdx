@@ -1,10 +1,8 @@
 ---
-sidebar_position: 2
+title: Windows Installer
 ---
 
-import Command from '@theme/Command'
-
-# Windows Installer
+import CommandTabs from '@components/CommandTabs.astro';
 
 Tauri applications for Windows are either distributed as Microsoft Installers (`.msi` files) using the [WiX Toolset v3] or starting with Tauri v1.3 as setup executables (`-setup.exe` files) using [NSIS]. The Tauri CLI bundles your application binary and additional resources. Please note that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work yet. Cross-compilation for NSIS installers is experimental and being worked on.
 
@@ -12,7 +10,12 @@ This guide provides information about available customization options for the in
 
 To build and bundle your whole Tauri application into a single installer simply run the following command:
 
-<Command name="build" shell="powershell"/>
+<CommandTabs
+	npm="npm run tauri build"
+	yarn="yarn tauri build"
+	pnpm="pnpm tauri build"
+	cargo="cargo tauri build"
+/>
 
 It will build your Frontend, compile the Rust binary, collect all external binaries and resources and finally produce neat platform-specific bundles and installers.
 
@@ -35,7 +38,7 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
 tauri build --target aarch64-pc-windows-msvc
 ```
 
-:::info
+:::note
 
 Only the NSIS target supports ARM64 targets, so if you configured tauri to compile all bundle types you may want to change the above command to `tauri build --target aarch64-pc-windows-msvc --bundles nsis` to only build the NSIS installer.
 
@@ -74,7 +77,7 @@ The installers by default download the WebView2 bootstrapper and executes it if 
 | [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed WebView2 version.                                                                                        |
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
 
-:::info
+:::note
 
 On Windows 10 (April 2018 release or later) and Windows 11, the WebView2 runtime is distributed as part of the operating system.
 
@@ -241,7 +244,7 @@ A [WiX fragment] is a container where you can configure almost everything offere
 </Wix>
 ```
 
-<!-- Would be good to include here WHERE we recommend to save it -->
+{/* <!-- Would be good to include here WHERE we recommend to save it --> */}
 
 Save the fragment file with the `.wxs` extension somewhere in your project and reference it on `tauri.conf.json`:
 

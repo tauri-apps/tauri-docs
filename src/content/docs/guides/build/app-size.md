@@ -1,8 +1,6 @@
 ---
-sidebar_position: 6
+title: Reducing App Size
 ---
-
-# Reducing App Size
 
 With Tauri, we are working to reduce the environmental footprint of applications by using fewer system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing performance or security. By saving resources we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
 
@@ -24,14 +22,25 @@ These are just a couple of tools that you might use. Make sure to check your fro
 
 ## Checklist
 
-1. [Minify Javascript](#minify-javascript)
-2. [Optimize Dependencies](#optimize-dependencies)
-3. [Optimize Images](#optimize-images)
-4. [Remove Unnecessary Custom Fonts](#remove-unnecessary-custom-fonts)
-5. [Allowlist Config](#allowlist-config)
-6. [Rust Build-time Optimizations](#rust-build-time-optimizations)
-7. [Stripping](#stripping)
-8. [UPX](#upx)
+- [Checklist](#checklist)
+  - [Minify JavaScript](#minify-javascript)
+    - [Enable tree shaking](#enable-tree-shaking)
+    - [Enable minification](#enable-minification)
+    - [Disable source maps](#disable-source-maps)
+  - [Optimize Dependencies](#optimize-dependencies)
+  - [Optimize Images](#optimize-images)
+    - [Use Modern Image Formats](#use-modern-image-formats)
+    - [Size Images Accordingly](#size-images-accordingly)
+    - [Don't Use Responsive Images](#dont-use-responsive-images)
+    - [Remove Metadata](#remove-metadata)
+  - [Remove Unnecessary Custom Fonts](#remove-unnecessary-custom-fonts)
+  - [Allowlist Config](#allowlist-config)
+  - [Rust Build-Time Optimizations](#rust-build-time-optimizations)
+    - [Disable Tauri's Asset Compression](#disable-tauris-asset-compression)
+    - [Unstable Rust Compression Features](#unstable-rust-compression-features)
+  - [Stripping](#stripping)
+  - [UPX](#upx)
+    - [Usage on macOS](#usage-on-macos)
 
 ### Minify JavaScript
 
@@ -170,10 +179,12 @@ opt-level = "s" # Optimize for binary size
 strip = true # Remove debug symbols
 ```
 
-:::note
+:::tip
+
 There is also `opt-level = "z"` available to reduce the resulting binary size. `"s"` and `"z"` can sometimes be smaller than the other, so test it with your application!
 
 We've seen smaller binary sizes from `"s"` for Tauri example applications, but real-world applications can always differ.
+
 :::
 
 For a detailed explanation of each option and a bunch more, refer to the [Cargo books Profiles section][cargo profiles].
@@ -192,7 +203,9 @@ tauri = { version = "...", features = ["objc-exception", "wry"], default-feature
 #### Unstable Rust Compression Features
 
 :::caution
+
 The following suggestions are all unstable features and require a nightly toolchain. See the [Unstable Features][cargo unstable features] documentation for more information on what this involves.
+
 :::
 
 The following methods involve using unstable compiler features and require the rust nightly toolchain. If you don't have the nightly toolchain + `rust-src` nightly component added, try the following:
@@ -238,7 +251,7 @@ strip target/release/my_application
 
 See your local `strip` manpage for more information and flags that can be used to specify what information gets stripped out from the binary.
 
-:::info
+:::note
 
 Rust 1.59 now has a builtin version of `strip`! It can be
 enabled by adding the following to your `Cargo.toml`:
@@ -259,7 +272,9 @@ Maybe your target audience has very slow internet, or your app needs to fit on a
 [UPX] compresses your binary and creates a self-extracting executable that decompresses itself at runtime.
 
 :::caution
+
 You should know that this technique might flag your binary as a virus on Windows and macOS - so use it at your own discretion, and as always, validate with [Frida] and do real distribution testing!
+
 :::
 
 #### Usage on macOS

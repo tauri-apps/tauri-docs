@@ -1,8 +1,7 @@
 ---
-sidebar_position: 8
+title: Embedding Additional Files
 ---
 
-# Embedding Additional Files
 
 You may need to include additional files in your application bundle that aren't part of your frontend (your `distDir`) directly or which are too big to be inlined into the binary. We call these files `resources`.
 

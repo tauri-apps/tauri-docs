@@ -1,8 +1,6 @@
 ---
-sidebar_position: 7
+title: Embedding External Binaries
 ---
-
-# Embedding External Binaries
 
 You may need to embed depending binaries to make your application work or prevent users from installing additional dependencies (e.g., Node.js or Python).
 We call this binary a `sidecar`.

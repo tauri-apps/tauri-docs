@@ -1,10 +1,8 @@
 ---
-sidebar_position: 3
+title: macOS Bundle
 ---
 
-import TauriBuild from './\_tauri-build.md'
-
-# macOS Bundle
+import TauriBuild from './_tauri-build.mdx'
 
 Tauri applications for macOS are distributed either with an [Application Bundle] (`.app` file) or an Apple Disk Image (`.dmg` file). The Tauri CLI automatically bundles your application code in these formats, providing options to codesign and notarize your application. Please note that `.app` and `.dmg` bundles can **only be created on macOS** as cross-compilation doesn't work yet.
 
@@ -44,7 +42,7 @@ The Tauri configuration file provides the following options to customize your ap
 - **[Entitlements.plist file]:** Entitlements control what APIs your app will have access to. Configured by the [`tauri.bundle.macOS.entitlements`] property.
 - **Exception domain:** an insecure domain that your application can access such as a `localhost` or a remote `http` domain. It is a convenience configuration around `NSAppTransportSecurity > NSExceptionDomains` setting `NSExceptionAllowsInsecureHTTPLoads` and `NSIncludesSubdomains` to true. See [`tauri.bundle.macOS.exceptionDomain`] for more information.
 
-:::info
+:::note
 
 These options generate the application bundle [Info.plist file]. You can extend the generated file with your own `Info.plist` file stored in the Tauri folder (`src-tauri` by default). The CLI merges both `.plist` files in production, and the core layer embeds it in the binary during development.
 
