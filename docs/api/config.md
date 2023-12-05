@@ -29,7 +29,7 @@ The configuration is composed of the following objects:
 - [`build`](#buildconfig): The build configuration
 - [`plugins`](#pluginconfig): The plugins config
 
-```json title="Example tauri.config.json file" 
+```json title="Example tauri.config.json file"
 {
   "build": {
     "beforeBuildCommand": "",
@@ -114,20 +114,20 @@ Can be any **ONE** of the following types:
 
 - `{ "use": "brownfield" }`: Brownfield pattern.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "brownfield" (required) |  | undefined |
-	
+
 
 - `{ "use": "isolation", "options": { "dir": string } }`: Isolation pattern. Recommended for security purposes.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="patternkind.use">`use`<a class="hash-link" href="#patternkind.use"></a></div> | "isolation" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="patternkind.options">`options`<a class="hash-link" href="#patternkind.options"></a></div> | { "dir": string } (required) |  | undefined |
-	
+
 
 
 #### WindowConfig
@@ -170,7 +170,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowconfig.hiddentitle">`hiddenTitle`<a class="hash-link" href="#windowconfig.hiddentitle"></a></div> | boolean | `false` | If `true`, sets the window title to be hidden on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.acceptfirstmouse">`acceptFirstMouse`<a class="hash-link" href="#windowconfig.acceptfirstmouse"></a></div> | boolean | `false` | Whether clicking an inactive window also clicks through to the webview on macOS. |
 | <div className="anchor-with-padding" id="windowconfig.tabbingidentifier">`tabbingIdentifier`<a class="hash-link" href="#windowconfig.tabbingidentifier"></a></div> | string? | _null_ | Defines the window [tabbing identifier](https://developer.apple.com/documentation/appkit/nswindow/1644704-tabbingidentifier) for macOS.<br /><br />Windows with matching tabbing identifiers will be grouped together. If the tabbing identifier is not set, automatic tabbing will be disabled. |
-| <div className="anchor-with-padding" id="windowconfig.additionalbrowserargs">`additionalBrowserArgs`<a class="hash-link" href="#windowconfig.additionalbrowserargs"></a></div> | string? | _null_ | Defines additional browser arguments on Windows. By default wry passes `--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection` so if you use this method, you also need to disable these components by yourself if you want. |
+| <div className="anchor-with-padding" id="windowconfig.additionalbrowserargs">`additionalBrowserArgs`<a class="hash-link" href="#windowconfig.additionalbrowserargs"></a></div> | string? | _null_ | Defines additional browser arguments on Windows. By default wry passes `--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection` so if you use this method, you also need to disable these components by yourself if you want. If your app has multiple windows (ex: a main window and a splash screen) this property needs to be applied to all of them. |
 
 
 ##### WindowUrl
@@ -385,47 +385,47 @@ Can be any **ONE** of the following types:
 
 - `{ "type": "skip" }`: Do not install the Webview2 as part of the Windows Installer.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "skip" (required) |  | undefined |
-	
+
 
 - `{ "type": "downloadBootstrapper", "silent": boolean }`: Download the bootstrapper and run it. Requires an internet connection. Results in a smaller installer size, but is not recommended on Windows 7.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "downloadBootstrapper" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
-	
+
 
 - `{ "type": "embedBootstrapper", "silent": boolean }`: Embed the bootstrapper and run it. Requires an internet connection. Increases the installer size by around 1.8MB, but offers better support on Windows 7.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "embedBootstrapper" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the bootstrapper in silent mode. Defaults to `true`. |
-	
+
 
 - `{ "type": "offlineInstaller", "silent": boolean }`: Embed the offline installer and run it. Does not require an internet connection. Increases the installer size by around 127MB.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "offlineInstaller" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.silent">`silent`<a class="hash-link" href="#webviewinstallmode.silent"></a></div> | boolean | `true` | Instructs the installer to run the installer in silent mode. Defaults to `true`. |
-	
+
 
 - `{ "type": "fixedRuntime", "path": string }`: Embed a fixed webview2 version and use it at runtime. Increases the installer size by around 180MB.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="webviewinstallmode.type">`type`<a class="hash-link" href="#webviewinstallmode.type"></a></div> | "fixedRuntime" (required) |  | undefined |
 	| <div className="anchor-with-padding" id="webviewinstallmode.path">`path`<a class="hash-link" href="#webviewinstallmode.path"></a></div> | string (required) |  | The path to the fixed runtime to use.<br /><br />The fixed version can be downloaded [on the official website](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). The `.cab` file must be extracted to a folder and this folder path must be defined on this field. |
-	
+
 
 
 ###### WixConfig
@@ -587,13 +587,13 @@ Can be any of the following types:
 - `string[]`: A list of paths that are allowed by this scope.
 - `{ "allow": string[], "deny": string[], "requireLiteralLeadingDot": boolean? }`: A complete scope configuration.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="fsallowlistscope.allow">`allow`<a class="hash-link" href="#fsallowlistscope.allow"></a></div> | string[] | [] | A list of paths that are allowed by this scope. |
 	| <div className="anchor-with-padding" id="fsallowlistscope.deny">`deny`<a class="hash-link" href="#fsallowlistscope.deny"></a></div> | string[] | [] | A list of paths that are not allowed by this scope. This gets precedence over the `Scope::allow` list. |
 	| <div className="anchor-with-padding" id="fsallowlistscope.requireliteralleadingdot">`requireLiteralLeadingDot`<a class="hash-link" href="#fsallowlistscope.requireliteralleadingdot"></a></div> | boolean? | _null_ | Whether or not paths that contain components that start with a `.` will require that `.` appears literally in the pattern; `*`, `?`, `**`, or `[...]` will not match. This is useful because such files are conventionally considered hidden on Unix systems and it might be desirable to skip them when listing files.<br /><br />Defaults to `true` on Unix systems and `false` on Windows |
-	
+
 
 
 ##### WindowAllowlistConfig
@@ -695,11 +695,11 @@ Can be any of the following types:
 - `string`: A non-configurable argument that is passed to the command in the order it was specified.
 - `{ "validator": string }`: A variable that is set while calling the command from the webview API.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="shellallowedarg.validator">`validator`<a class="hash-link" href="#shellallowedarg.validator"></a></div> | string (required) |  | [regex](https://docs.rs/regex/latest/regex/#syntax) validator to require passed values to conform to an expected input.<br /><br />This will require the argument value passed to this variable to match the `validator` regex before it will be executed. |
-	
+
 
 
 ###### ShellAllowlistOpen
@@ -1005,13 +1005,13 @@ Can be any of the following types:
 - `string`: Run the given script with the default options.
 - `{ "script": string, "cwd": string?, "wait": boolean }`: Run the given script with custom options.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="beforedevcommand.script">`script`<a class="hash-link" href="#beforedevcommand.script"></a></div> | string (required) |  | The script to execute. |
 	| <div className="anchor-with-padding" id="beforedevcommand.cwd">`cwd`<a class="hash-link" href="#beforedevcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
 	| <div className="anchor-with-padding" id="beforedevcommand.wait">`wait`<a class="hash-link" href="#beforedevcommand.wait"></a></div> | boolean | `false` | Whether `tauri dev` should wait for the command to finish or not. Defaults to `false`. |
-	
+
 
 
 #### HookCommand
@@ -1023,12 +1023,12 @@ Can be any of the following types:
 - `string`: Run the given script with the default options.
 - `{ "script": string, "cwd": string? }`: Run the given script with custom options.
 
-	
+
 	| Name | Type | Default | Description |
 	| ---- | ---- | ------- | ----------- |
 	| <div className="anchor-with-padding" id="hookcommand.script">`script`<a class="hash-link" href="#hookcommand.script"></a></div> | string (required) |  | The script to execute. |
 	| <div className="anchor-with-padding" id="hookcommand.cwd">`cwd`<a class="hash-link" href="#hookcommand.cwd"></a></div> | string? | _null_ | The current working directory. |
-	
+
 
 
 ### PluginConfig
