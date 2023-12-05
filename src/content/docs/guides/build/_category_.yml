@@ -1,0 +1,4 @@
+label: 'Building'
+position: 7
+customProps:
+  description: Prepare and package your app for users
