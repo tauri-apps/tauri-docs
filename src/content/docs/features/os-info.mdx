@@ -87,8 +87,8 @@ With this plugin you can query multiple information from current operational sys
 ```js
 import { platform } from '@tauri-apps/plugin-os';
 
-const platform = await platform();
-console.log(platform);
+const currentPlatform = await platform();
+console.log(currentPlatform);
 // Prints "windows" to the console
 ```
 
