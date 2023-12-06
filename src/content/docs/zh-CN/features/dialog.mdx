@@ -73,17 +73,17 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 使用 JavaScript:
 
-- [创建 Yes/No 对话框](#create-yesno-dialog)
-- [创建 Ok/Cancel“ 对话框](#create-okcancel-dialog)
-- [创建消息对话框](#create-message-dialog)
-- [打开一个文件选择对话框](#open-a-file-selector-dialog)
-- [保存文件对话框](#save-to-file-dialog)
+- [创建 Yes/No 对话框](#创建 Yes/No 对话框)
+- [创建 Ok/Cancel 对话框](#创建 Ok/Cancel 对话框)
+- [创建消息对话框](#创建消息对话框)
+- [打开一个文件选择对话框](#打开一个文件选择对话框)
+- [保存文件对话框](#保存文件对话框)
 
 使用 Rust:
 
-- [构建一个询问对话框](#build-an-ask-dialog)
-- [构建一个消息对话框](#build-a-message-dialog)
-- [构建一个文件选择器对话框](#build-a-file-selector-dialog)
+- [构建一个询问对话框](#构建询问对话框)
+- [构建一个消息对话框](#构建消息对话框)
+- [构建一个文件选择器对话框](#构建文件选择器对话框)
 
 ---
 
@@ -131,7 +131,7 @@ console.log(confirmation);
 
 {/* MESSAGE */}
 
-#### 创建一个消息对话框
+#### 创建消息对话框
 
 显示一个带有 `Ok` 按钮的对话框。 请注意：如何用户关闭对话框将返回 `false`.
 
@@ -189,7 +189,7 @@ console.log(path);
 
 查阅 [Rust API reference](https://docs.rs/tauri-plugin-dialog/) 查看所有可选项。
 
-#### 构建一个询问对话框
+#### 构建询问对话框
 
 显示一个带有 `Absolutely` 和 `Totally` 按钮的询问对话框。
 
@@ -220,7 +220,7 @@ app.dialog()
     });
 ```
 
-#### 构建一个消息对话框
+#### 构建消息对话框
 
 显示一个带有 `Ok` 按钮的对话框。 请注意：如何用户关闭对话框将返回 `false`.
 
