@@ -59,6 +59,14 @@ pnpm create next-app --use-pnpm
 1. _Project name_  
    This will be the name of your project. It corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
 
+If you are using Typescript you may want to exclude the `src-tauri` directory to prevent Next.js/TypeScript from scanning it. Your `tsconfig.json` file should already contain an `"exclude"` section where you can add it:
+```json title=tsconfig.json
+  "exclude": [
+    "node_modules",
+    "src-tauri"
+  ]
+```
+
 ## Next.js Static Exports
 
 Because Tauri does not have a Node.js runtime you must set Next.js to SSG/SPA mode. This will typically result in faster page loads but also has a few caveats to be aware of, therefore we recommend to carefully read through Next.js' official docs on [Static Exports].
