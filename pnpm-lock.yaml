@@ -15,16 +15,16 @@ importers:
     dependencies:
       '@astrojs/markdown-remark':
         specifier: ^3.5.0
-        version: 3.5.0(astro@3.6.0)
+        version: 3.5.0(astro@3.6.4)
       '@astrojs/starlight':
         specifier: ^0.13.0
-        version: 0.13.0(astro@3.6.0)
+        version: 0.13.0(astro@3.6.4)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
       astro:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^3.6.4
+        version: 3.6.4
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -45,10 +45,10 @@ importers:
         version: 0.14.5
       starlight-blog:
         specifier: ^0.4.0
-        version: 0.4.0(@astrojs/starlight@0.13.0)(astro@3.6.0)
+        version: 0.4.0(@astrojs/starlight@0.13.0)(astro@3.6.4)
       starlight-links-validator:
         specifier: ^0.4.2
-        version: 0.4.2(@astrojs/starlight@0.13.0)(astro@3.6.0)
+        version: 0.4.2(@astrojs/starlight@0.13.0)(astro@3.6.4)
 
   packages/i18n-tracker:
     devDependencies:
@@ -120,13 +120,13 @@ packages:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
     dev: false
 
-  /@astrojs/markdown-remark@3.2.1(astro@3.6.0):
+  /@astrojs/markdown-remark@3.2.1(astro@3.6.4):
     resolution: {integrity: sha512-Z4YNMRtgFZeHhB29uCZl0B9MbMZddW9ZKCNucapoysbvygbDFF1gGtqpVnf+Lyv3rUBHwM/J5qWB2MSZuTuz1g==}
     peerDependencies:
       astro: ^3.2.3
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.6.0
+      astro: 3.6.4
       github-slugger: 2.0.0
       import-meta-resolve: 3.0.0
       mdast-util-definitions: 6.0.0
@@ -144,13 +144,13 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/markdown-remark@3.5.0(astro@3.6.0):
+  /@astrojs/markdown-remark@3.5.0(astro@3.6.4):
     resolution: {integrity: sha512-q7vdIqzYhxpsfghg2YmkmSXCfp4w7lBTYP+SSHw89wVhC5Riltr3u8w2otBRxNLSByNi+ht/gGkFC23Shetytw==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.6.0
+      astro: 3.6.4
       github-slugger: 2.0.0
       import-meta-resolve: 3.0.0
       mdast-util-definitions: 6.0.0
@@ -168,16 +168,16 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@1.1.1(astro@3.6.0):
+  /@astrojs/mdx@1.1.1(astro@3.6.4):
     resolution: {integrity: sha512-3dfL12ZqI6NCjx0iVOYVSyljlVgsxds5mOhe78xoCVjyqSpZZsxzz4Dt5WfGxDon2nc2bD6XGiZ2PIy8fmX6NQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.2.3
     dependencies:
-      '@astrojs/markdown-remark': 3.2.1(astro@3.6.0)
+      '@astrojs/markdown-remark': 3.2.1(astro@3.6.4)
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
-      astro: 3.6.0
+      astro: 3.6.4
       es-module-lexer: 1.3.0
       estree-util-visit: 1.2.1
       github-slugger: 2.0.0
@@ -208,17 +208,17 @@ packages:
       zod: 3.21.1
     dev: false
 
-  /@astrojs/starlight@0.13.0(astro@3.6.0):
+  /@astrojs/starlight@0.13.0(astro@3.6.4):
     resolution: {integrity: sha512-3SVWGP9Qze3UkM5Wozpx+5v9dh75ZFPSHRqzeuXNtctn5nHjlzvOgIIQnuyyNhIEQMfml1lo83jL3Vsf7Qk7Iw==}
     peerDependencies:
       astro: ^3.2.0
     dependencies:
-      '@astrojs/mdx': 1.1.1(astro@3.6.0)
+      '@astrojs/mdx': 1.1.1(astro@3.6.4)
       '@astrojs/sitemap': 3.0.0
       '@pagefind/default-ui': 1.0.3
       '@types/mdast': 3.0.12
-      astro: 3.6.0
-      astro-expressive-code: 0.29.1(astro@3.6.0)
+      astro: 3.6.4
+      astro-expressive-code: 0.29.1(astro@3.6.4)
       bcp-47: 2.1.0
       execa: 8.0.1
       hast-util-select: 5.0.5
@@ -1261,12 +1261,12 @@ packages:
     hasBin: true
     dev: false
 
-  /astro-expressive-code@0.29.1(astro@3.6.0):
+  /astro-expressive-code@0.29.1(astro@3.6.4):
     resolution: {integrity: sha512-hvu8kDMr3KD3vqAyJj6KdTDLuebsgnFQdw6V8myJRj464BUMiqPgmufvkuxLrqDCTJvfARJdwf/Q/H3Rqu3mhQ==}
     peerDependencies:
       astro: ^3.0.0-beta
     dependencies:
-      astro: 3.6.0
+      astro: 3.6.4
       remark-expressive-code: 0.29.1
     dev: false
 
@@ -1276,14 +1276,14 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro@3.6.0:
-    resolution: {integrity: sha512-mRDzWXsaSBaN+juvunO4Ukq8HQ1WqrULlcZfKzaKEZEXvxiWmMKN9tH0onQH0EaQ7+f4nNR4VN9kYTM26uMrXQ==}
+  /astro@3.6.4:
+    resolution: {integrity: sha512-YatUyWEQ9GUC79Wc2zbovy6D6bXPW9++Z6PYs4GDamEDspUSnnzL/INB7WJqgFI0xAFk9jcUr+MZYjkdWqXYTw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
       '@astrojs/compiler': 2.3.0
       '@astrojs/internal-helpers': 0.2.1
-      '@astrojs/markdown-remark': 3.5.0(astro@3.6.0)
+      '@astrojs/markdown-remark': 3.5.0(astro@3.6.4)
       '@astrojs/telemetry': 3.0.4
       '@babel/core': 7.22.11
       '@babel/generator': 7.22.10
@@ -4191,27 +4191,27 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.4.0(@astrojs/starlight@0.13.0)(astro@3.6.0):
+  /starlight-blog@0.4.0(@astrojs/starlight@0.13.0)(astro@3.6.4):
     resolution: {integrity: sha512-3mVQ0hwH1XDews/EaG+rN1RA+7yqa7LTqBtTVfjiODC6IL1MRspKqe3MgEU4QFksh9/hEnk5jxC4GPAp2mUFPA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.11.0'
       astro: '>=3.2.0'
     dependencies:
-      '@astrojs/starlight': 0.13.0(astro@3.6.0)
-      astro: 3.6.0
+      '@astrojs/starlight': 0.13.0(astro@3.6.4)
+      astro: 3.6.4
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.4.2(@astrojs/starlight@0.13.0)(astro@3.6.0):
+  /starlight-links-validator@0.4.2(@astrojs/starlight@0.13.0)(astro@3.6.4):
     resolution: {integrity: sha512-zTI1Si2SSuJYBH1ZdIEhF5+l2fj0+W5eOjLD4oVoPCZrTvz4bfNxOrAAqmlo8R1Pf423KbSYKS5fxDGRpuJnIA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       astro: '>=3.0.0'
     dependencies:
-      '@astrojs/starlight': 0.13.0(astro@3.6.0)
-      astro: 3.6.0
+      '@astrojs/starlight': 0.13.0(astro@3.6.4)
+      astro: 3.6.4
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
