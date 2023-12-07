@@ -1,0 +1,77 @@
+---
+title: 创建一个项目
+---
+
+import { Card } from '@astrojs/starlight/components';
+import Stub from '@components/Stub.astro';
+
+<Stub>
+
+- 使用 `create-tauri-app` 创建一个新APP
+- 使用Tauri CLI手动创建应用程序
+- 将移动设备添加到现有项目 (修改这里的内容 [integrate mobile](./mobile))
+- 特定于前端框架的指南（现在仅限于React、Angular、Vue、Svelte和Solid）
+
+</Stub>
+
+Tauri非常灵活，它可以与几乎所有框架集成。 我们创建了 [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) 工具去帮助你使用官方维护的框架模板之一创建新的Tauri项目。
+
+`create-tauri-app` 目前包括的模版包含基础的无框架的【HTML, CSS and JavaScript】, [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos) 以及 [Sycamore](https://sycamore-rs.netlify.app/). 你也可以在 [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri)中获取模版和框架，或者添加你自己的模版或框架。
+或者, 你可以将 [add Tauri to an existing project](/guides/create/existing-project) 添加到现有的代码库，来开发一个Tarui app。
+
+## 使用 `create-tauri-app`
+
+要开始使用 `create-tauri-app`的话，请在要设置项目的文件夹中运行以下命令之一。 如果您不确定使用哪个命令，我们建议在Linux和macOS上使用Bash命令，在Windows上使用PowerShell命令。
+
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
+
+按照提示选择您的项目名称、前端语言、包管理器和前端框架，以及前端框架选项（如果适用）。
+:::tip[不确定该选择什么？]
+
+我们建议从基础的模版开始 (无框架的的HTML、CSS 和 JavaScript)。你随时可以 [集成一个前端框架](/guides/create/existing-project)。
+
+- 选择用于前端的语言: `TypeScript / JavaScript`
+- 选择您的包管理器: `pnpm`
+- 选择您的UI模板: `Vanilla`
+- 选择您的UI风格: `TypeScript`
+
+:::
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+在 `create-tauri-app` 完成之后，你可进入项目根目录安装依赖项目,然后使用 [Tauri CLI](/2/reference/cli) 启动开发服务:
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+<CommandTabs
+	npm="cd my-tauri-app
+    npm install
+    npm run tauri dev"
+	yarn="cd my-tauri-app
+    yarn install
+    yarn tauri dev"
+	pnpm="cd my-tauri-app
+    pnpm install
+    pnpm tauri dev"
+	cargo="cd my-tauri-app
+    cargo tauri dev"
+/>
+
+您现在将看到一个新窗口在您的应用程序运行时打开。
+
+**恭喜!** 你制作了一个 Tauri app! 🚀
+
+## 后续步骤
+
+- [添加和配置前端框架](/guides/frontend)
+- [Tauri命令行界面（CLI）参考](/2/reference/cli)
+- [了解如何构建您的Tauri应用程序](/guides/build)
+- [探寻其他的功能和小窍门来扩展 Tauri](/features)
+
+<Card title="额外资源" icon="document">
+
+列出最佳实践、博客文章等。
+
+</Card>
