@@ -71,7 +71,13 @@ This workflow sets up the environment on Windows, Ubuntu, and macOS latest versi
 The steps this workflow takes are:
 
 1. Checkout the repository using `actions/checkout@v4`
-2. Set up Node LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
+2. Set up Node LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`. if your are using pnpm, pnpm/action-setup@v2 is required. After Line99 add
+   ```yaml
+        - name: pnpm action setup
+          uses: pnpm/action-setup@v2
+          with:
+            version: 8.11.0
+   ```
 3. Set up Rust and a cache for the `target/` folder using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
 4. Installs all the dependencies and run the build script (for the web app).
 5. Finally, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create the GitHub release.
@@ -86,8 +92,7 @@ on:
 
 jobs:
   release:
-    permissions:
-      contents: write
+    permissions: write-all
     strategy:
       fail-fast: false
       matrix:
