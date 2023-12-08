@@ -1,0 +1,51 @@
+---
+interface Props {
+	wrapperId: string;
+}
+const { wrapperId = 'search-feature-list' } = Astro.props;
+---
+
+<input
+	data-wrapper={wrapperId}
+	type="text"
+	id="search"
+	placeholder="Quick search a feature..."
+	title="Search a feature"
+/>
+
+<script>
+	const searchBar = document.getElementById('search') as HTMLInputElement;
+	searchBar.addEventListener('keyup', () => {
+		searchFilter(searchBar);
+	});
+
+	/**
+	 * Assumes a div with id wrapperId wraps the card grid
+	 * It searchs both title and description
+	 */
+	function searchFilter(searchBar: HTMLInputElement) {
+		const query = searchBar.value.toUpperCase();
+		const featureList = document.getElementById(searchBar.dataset.wrapper!)
+			?.children[0] as HTMLDivElement;
+		const cards = featureList.querySelectorAll('div');
+		cards.forEach((el) => {
+			const span = el.querySelector('span');
+			const txtValue = span?.textContent || span?.innerText;
+			if (!txtValue) return;
+			if (txtValue.toUpperCase().indexOf(query) > -1) {
+				el.style.display = '';
+			} else {
+				el.style.display = 'none';
+			}
+		});
+	}
+</script>
+
+<style>
+	input {
+		padding: 0.5rem;
+		margin-top: 2rem;
+		width: 100%;
+		border-radius: 0.5rem;
+	}
+</style>

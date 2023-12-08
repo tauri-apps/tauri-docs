@@ -5,6 +5,7 @@ i18nReady: true
 
 import FeaturesList from '@components/list/Features.astro';
 import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
 
 Tauri comes with extensibility in mind. On this page you'll find:
 
@@ -12,10 +13,13 @@ Tauri comes with extensibility in mind. On this page you'll find:
 - **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
 
 {/* TODO: Search bar component that syncs/filters across this whole list */}
+<Search target="description" wrapperId="feature-list"/>
 
 ## Features
 
-<FeaturesList />
+<div id="feature-list">
+    <FeaturesList />
+</div>
 
 ## Community Resources
 
