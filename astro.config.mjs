@@ -236,18 +236,18 @@ export default defineConfig({
 		'/fr/v1/guides/debugging/application': '/fr/guides/debug/application',
 		'/fr/v1/guides/debugging/vs-code': '/fr/guides/debug/vs-code',
 		'/fr/v1/guides/debugging/clion': '/fr/guides/debug/clion',
-		// i18n ko
-		'/ko/v1/guides/debugging/application': '/ko/guides/debug/application',
-		'/ko/v1/guides/debugging/vs-code': '/ko/guides/debug/vs-code',
-		'/ko/v1/guides/debugging/clion': '/ko/guides/debug/clion',
+		// i18n ko // redirect to root because locale "ko" is disabled
+		'/ko/v1/guides/debugging/application': '/guides/debug/application',
+		'/ko/v1/guides/debugging/vs-code': '/guides/debug/vs-code',
+		'/ko/v1/guides/debugging/clion': '/guides/debug/clion',
 		// i18n zh-cn
 		'/zh-cn/v1/guides/debugging/application': '/zh-cn/guides/debug/application',
 		'/zh-cn/v1/guides/debugging/vs-code': '/zh-cn/guides/debug/vs-code',
 		'/zh-cn/v1/guides/debugging/clion': '/zh-cn/guides/debug/clion',
-		// i18n it
-		'/it/v1/guides/debugging/application': '/it/guides/debug/application',
-		'/it/v1/guides/debugging/vs-code': '/it/guides/debug/vs-code',
-		'/it/v1/guides/debugging/clion': '/it/guides/debug/clion',
+		// i18n it // redirect to root because locale "it" is disabled
+		'/it/v1/guides/debugging/application': '/guides/debug/application',
+		'/it/v1/guides/debugging/vs-code': '/guides/debug/vs-code',
+		'/it/v1/guides/debugging/clion': '/guides/debug/clion',
 		//
 	},
 });
