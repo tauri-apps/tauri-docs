@@ -234,16 +234,16 @@ export default defineConfig({
 		// i18n fr
 		'/fr/v1/guides/development/development-cycle/': '/fr/guides/develop/development-cycle/',
 		'/fr/v1/guides/development/updating-dependencies/': '/fr/guides/develop/updating-dependencies/',
-		// i18n ko
-		'/ko/v1/guides/development/development-cycle/': '/ko/guides/develop/development-cycle/',
-		'/ko/v1/guides/development/updating-dependencies/': '/ko/guides/develop/updating-dependencies/',
+		// i18n ko // redirect to root because locale "ko" is disabled
+		'/ko/v1/guides/development/development-cycle/': '/guides/develop/development-cycle/',
+		'/ko/v1/guides/development/updating-dependencies/': '/guides/develop/updating-dependencies/',
 		// i18n zh-cn
 		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
 		'/zh-cn/v1/guides/development/updating-dependencies/':
 			'/zh-cn/guides/develop/updating-dependencies/',
-		// i18n it
-		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
-		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
+		// i18n it // redirect to root because locale "it" is disabled
+		'/it/v1/guides/development/development-cycle/': '/guides/develop/development-cycle/',
+		'/it/v1/guides/development/updating-dependencies/': '/guides/develop/updating-dependencies/',
 		//
 		// v1 /guides/building -> /guides/build
 		'/v1/guides/building': '/guides/building',
@@ -254,7 +254,7 @@ export default defineConfig({
 		'/v1/guides/building/app-size': '/guides/building/app-size',
 		'/v1/guides/building/sidecar': '/guides/building/sidecar',
 		'/v1/guides/building/resources': '/guides/building/resources',
-		// i18n /fr/
+		// i18n fr
 		'/fr/v1/guides/building': '/fr/guides/building',
 		'/fr/v1/guides/building/windows': '/fr/guides/building/windows',
 		'/fr/v1/guides/building/macos': '/fr/guides/building/macos',
@@ -263,16 +263,16 @@ export default defineConfig({
 		'/fr/v1/guides/building/app-size': '/fr/guides/building/app-size',
 		'/fr/v1/guides/building/sidecar': '/fr/guides/building/sidecar',
 		'/fr/v1/guides/building/resources': '/fr/guides/building/resources',
-		// i18n /ko/
-		'/ko/v1/guides/building': '/ko/guides/building',
-		'/ko/v1/guides/building/windows': '/ko/guides/building/windows',
-		'/ko/v1/guides/building/macos': '/ko/guides/building/macos',
-		'/ko/v1/guides/building/linux': '/ko/guides/building/linux',
-		'/ko/v1/guides/building/cross-platform': '/ko/guides/building/cross-platform',
-		'/ko/v1/guides/building/app-size': '/ko/guides/building/app-size',
-		'/ko/v1/guides/building/sidecar': '/ko/guides/building/sidecar',
-		'/ko/v1/guides/building/resources': '/ko/guides/building/resources',
-		// i18n /zh-cn/
+		// i18n ko // redirect to root because locale "ko" is disabled
+		'/ko/v1/guides/building': '/guides/building',
+		'/ko/v1/guides/building/windows': '/guides/building/windows',
+		'/ko/v1/guides/building/macos': '/guides/building/macos',
+		'/ko/v1/guides/building/linux': '/guides/building/linux',
+		'/ko/v1/guides/building/cross-platform': '/guides/building/cross-platform',
+		'/ko/v1/guides/building/app-size': '/guides/building/app-size',
+		'/ko/v1/guides/building/sidecar': '/guides/building/sidecar',
+		'/ko/v1/guides/building/resources': '/guides/building/resources',
+		// i18n zh-cn/
 		'/zh-cn/v1/guides/building': '/zh-cn/guides/building',
 		'/zh-cn/v1/guides/building/windows': '/zh-cn/guides/building/windows',
 		'/zh-cn/v1/guides/building/macos': '/zh-cn/guides/building/macos',
@@ -281,14 +281,14 @@ export default defineConfig({
 		'/zh-cn/v1/guides/building/app-size': '/zh-cn/guides/building/app-size',
 		'/zh-cn/v1/guides/building/sidecar': '/zh-cn/guides/building/sidecar',
 		'/zh-cn/v1/guides/building/resources': '/zh-cn/guides/building/resources',
-		// i18n /it/
-		'/it/v1/guides/building': '/it/guides/building',
-		'/it/v1/guides/building/windows': '/it/guides/building/windows',
-		'/it/v1/guides/building/macos': '/it/guides/building/macos',
-		'/it/v1/guides/building/linux': '/it/guides/building/linux',
-		'/it/v1/guides/building/cross-platform': '/it/guides/building/cross-platform',
-		'/it/v1/guides/building/app-size': '/it/guides/building/app-size',
-		'/it/v1/guides/building/sidecar': '/it/guides/building/sidecar',
-		'/it/v1/guides/building/resources': '/it/guides/building/resources',
+		// i18n it // redirect to root because locale "it" is disabled
+		'/it/v1/guides/building': '/guides/building',
+		'/it/v1/guides/building/windows': '/guides/building/windows',
+		'/it/v1/guides/building/macos': '/guides/building/macos',
+		'/it/v1/guides/building/linux': '/guides/building/linux',
+		'/it/v1/guides/building/cross-platform': '/guides/building/cross-platform',
+		'/it/v1/guides/building/app-size': '/guides/building/app-size',
+		'/it/v1/guides/building/sidecar': '/guides/building/sidecar',
+		'/it/v1/guides/building/resources': '/guides/building/resources',
 	},
 });
