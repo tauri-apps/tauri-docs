@@ -227,7 +227,6 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
-	},
 		//
 		// v1 /guides/debugging -> /guides/debug
 		'/v1/guides/debugging/application': '/guides/debug/application',
@@ -250,4 +249,5 @@ export default defineConfig({
 		'/it/v1/guides/debugging/vs-code': '/it/guides/debug/vs-code',
 		'/it/v1/guides/debugging/clion': '/it/guides/debug/clion',
 		//
+	},
 });
