@@ -14,36 +14,36 @@ Créez un fichier `.vscode/launch.json` et collez-y le contenu JSON ci-dessous :
 
 ```json title=".vscode/launch.json"
 {
-   // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
-  // Survolez pour afficher les descriptions des attributs existants.
-  // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Débogage de la production de Tauri",
-      "cargo": {
-        "args": [
-          "build",
-          "--manifest-path=./src-tauri/Cargo.toml",
-          "--no-default-features"
-        ]
-      },
-       // La tâche pour `beforeDevCommand` si elle est utilisée, doit être configurée dans `.vscode/tasks.json`
-      "preLaunchTask": "ui:dev"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug de production de Tauri",
-      "cargo": {
-        "args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
-      },
-      // La tâche pour `beforeBuildCommand` si elle est utilisée, doit être configurée dans `.vscode/tasks.json`
-      "preLaunchTask": "ui:build"
-    }
-  ]
+	// Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+	// Survolez pour afficher les descriptions des attributs existants.
+	// Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Débogage de la production de Tauri",
+			"cargo": {
+				"args": [
+					"build",
+					"--manifest-path=./src-tauri/Cargo.toml",
+					"--no-default-features"
+				]
+			},
+			// La tâche pour `beforeDevCommand` si elle est utilisée, doit être configurée dans `.vscode/tasks.json`
+			"preLaunchTask": "ui:dev"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug de production de Tauri",
+			"cargo": {
+				"args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
+			},
+			// La tâche pour `beforeBuildCommand` si elle est utilisée, doit être configurée dans `.vscode/tasks.json`
+			"preLaunchTask": "ui:build"
+		}
+	]
 }
 ```
 
@@ -53,34 +53,33 @@ Notez qu'il n'utilise pas la CLI Tauri, donc les fonctionnalités CLI exclusives
 
 ```json title=".vscode/tasks.json"
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "ui:dev",
-      "type": "shell",
-      // `dev` keeps running in the background
-      // ideally you should also configure a `problemMatcher`
-      // see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
-      "isBackground": true,
-      // change this to your `beforeDevCommand`:
-      "command": "yarn",
-      "args": ["dev"]
-    },
-    {
-      "label": "ui:build",
-      "type": "shell",
-      // change this to your `beforeBuildCommand`:
-      "command": "yarn",
-      "args": ["build"]
-    }
-  ]
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "ui:dev",
+			"type": "shell",
+			// `dev` keeps running in the background
+			// ideally you should also configure a `problemMatcher`
+			// see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+			"isBackground": true,
+			// change this to your `beforeDevCommand`:
+			"command": "yarn",
+			"args": ["dev"]
+		},
+		{
+			"label": "ui:build",
+			"type": "shell",
+			// change this to your `beforeBuildCommand`:
+			"command": "yarn",
+			"args": ["build"]
+		}
+	]
 }
 ```
 
 Vous pouvez maintenant définir des points d'arrêt dans `src-tauri/src/main.rs` ou tout autre fichier Rust et commencer le débogage en appuyant sur `F5`.
 
 [`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
-
 [Core Process of your Tauri app]: ../../references/architecture/process-model.md#the-core-process
