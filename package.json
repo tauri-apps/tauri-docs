@@ -27,7 +27,7 @@
     "prettier-plugin-astro": "^0.12.2",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.32.6",
-    "shiki": "^0.14.5",
+    "shiki": "^0.14.6",
     "starlight-blog": "^0.4.0",
     "starlight-links-validator": "^0.4.2"
   },
