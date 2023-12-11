@@ -141,7 +141,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug',
+							link: 'guides/debug/',
 						},
 						{
 							label: 'Test',
@@ -149,7 +149,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Build',
-							link: 'guides/build',
+							link: 'guides/build/',
 						},
 						{
 							label: 'Distribute',
@@ -228,67 +228,69 @@ export default defineConfig({
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
 		'about/intro': 'about/philosophy',
+		// v1 /guides/debugging -> /guides/debug
+		...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
+		...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
+		...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
 		// v1 /guides/development -> /guides/develop
-		'/v1/guides/development/development-cycle': '/guides/develop/development-cycle',
-		'/v1/guides/development/updating-dependencies': '/guides/develop/updating-dependencies',
-		// i18n fr
-		'/fr/v1/guides/development/development-cycle/': '/fr/guides/develop/development-cycle/',
-		'/fr/v1/guides/development/updating-dependencies/': '/fr/guides/develop/updating-dependencies/',
-		// i18n ko // redirect to root because locale "ko" is disabled
-		'/ko/v1/guides/development/development-cycle/': '/guides/develop/development-cycle/',
-		'/ko/v1/guides/development/updating-dependencies/': '/guides/develop/updating-dependencies/',
-		// i18n zh-cn
-		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
-		'/zh-cn/v1/guides/development/updating-dependencies/':
-			'/zh-cn/guides/develop/updating-dependencies/',
-		// i18n it // redirect to root because locale "it" is disabled
-		'/it/v1/guides/development/development-cycle/': '/guides/develop/development-cycle/',
-		'/it/v1/guides/development/updating-dependencies/': '/guides/develop/updating-dependencies/',
-		//
+		...i18nRedirect(
+			'/v1/guides/development/development-cycle',
+			'/guides/develop/development-cycle'
+		),
+		...i18nRedirect(
+			'/v1/guides/development/updating-dependencies',
+			'/guides/develop/updating-dependencies'
+		),
+
 		// v1 /guides/building -> /guides/build
-		'/v1/guides/building': '/guides/build',
-		'/v1/guides/building/windows': '/guides/build/windows',
-		'/v1/guides/building/macos': '/guides/build/macos',
-		'/v1/guides/building/linux': '/guides/build/linux',
-		'/v1/guides/building/cross-platform': '/guides/build/cross-platform',
-		'/v1/guides/building/app-size': '/guides/build/app-size',
-		'/v1/guides/building/sidecar': '/guides/build/sidecar',
-		'/v1/guides/building/resources': '/guides/build/resources',
-		// i18n fr
-		'/fr/v1/guides/building': '/fr/guides/build',
-		'/fr/v1/guides/building/windows': '/fr/guides/build/windows',
-		'/fr/v1/guides/building/macos': '/fr/guides/build/macos',
-		'/fr/v1/guides/building/linux': '/fr/guides/build/linux',
-		'/fr/v1/guides/building/cross-platform': '/fr/guides/build/cross-platform',
-		'/fr/v1/guides/building/app-size': '/fr/guides/build/app-size',
-		'/fr/v1/guides/building/sidecar': '/fr/guides/build/sidecar',
-		'/fr/v1/guides/building/resources': '/fr/guides/build/resources',
-		// i18n ko // redirect to root because locale "ko" is disabled
-		'/ko/v1/guides/building': '/guides/build',
-		'/ko/v1/guides/building/windows': '/guides/build/windows',
-		'/ko/v1/guides/building/macos': '/guides/build/macos',
-		'/ko/v1/guides/building/linux': '/guides/build/linux',
-		'/ko/v1/guides/building/cross-platform': '/guides/build/cross-platform',
-		'/ko/v1/guides/building/app-size': '/guides/build/app-size',
-		'/ko/v1/guides/building/sidecar': '/guides/build/sidecar',
-		'/ko/v1/guides/building/resources': '/guides/build/resources',
-		// i18n zh-cn/
-		'/zh-cn/v1/guides/building': '/zh-cn/guides/build',
-		'/zh-cn/v1/guides/building/windows': '/zh-cn/guides/build/windows',
-		'/zh-cn/v1/guides/building/macos': '/zh-cn/guides/build/macos',
-		'/zh-cn/v1/guides/building/linux': '/zh-cn/guides/build/linux',
-		'/zh-cn/v1/guides/building/cross-platform': '/zh-cn/guides/build/cross-platform',
-		'/zh-cn/v1/guides/building/app-size': '/zh-cn/guides/build/app-size',
-		'/zh-cn/v1/guides/building/sidecar': '/zh-cn/guides/build/sidecar',
-		'/zh-cn/v1/guides/building/resources': '/zh-cn/guides/build/resources',
-		// i18n it // redirect to root because locale "it" is disabled
-		'/it/v1/guides/building': '/guides/build',
-		'/it/v1/guides/building/windows': '/guides/build/windows',
-		'/it/v1/guides/building/macos': '/guides/build/macos',
-		'/it/v1/guides/building/linux': '/guides/build/linux',
-		'/it/v1/guides/building/cross-platform': '/guides/build/cross-platform',
-		'/it/v1/guides/building/app-size': '/guides/build/app-size',
-		'/it/v1/guides/building/sidecar': '/guides/build/sidecar',
-		'/it/v1/guides/building/resources': '/guides/build/resources',
+		...i18nRedirect(
+			'/v1/guides/building',
+			'/guides/build'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/windows',
+			'/guides/build/windows'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/macos',
+			'/guides/build/macos'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/linux',
+			'/guides/build/linux'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/cross-platform',
+			'/guides/build/cross-platform'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/app-size',
+			'/guides/build/app-size'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/sidecar',
+			'/guides/build/sidecar'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/resources',
+			'/guides/build/resources'
+		),
+		// Decommissioned locales
+		'/ko/[...slug]': '/[...slug]',
+		'/it/[...slug]': '/[...slug]',
 	},
 });
+
+// Generates a redirect for each locale.
+function i18nRedirect(from, to) {
+	const routes = {};
+	Object.keys(locales).map((locale) =>
+		locale === 'root'
+			? (routes[from] = to)
+			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+				/^\/*/g,
+				''
+			)}`)
+	);
+	return routes;
+}
