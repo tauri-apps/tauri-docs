@@ -141,7 +141,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug',
+							link: 'guides/debug/',
 						},
 						{
 							label: 'Test',
@@ -228,21 +228,35 @@ export default defineConfig({
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
 		'about/intro': 'about/philosophy',
+		// v1 /guides/debugging -> /guides/debug
+		...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
+		...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
+		...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
 		// v1 /guides/development -> /guides/develop
-		'/v1/guides/development/development-cycle': '/guides/develop/development-cycle',
-		'/v1/guides/development/updating-dependencies': '/guides/develop/updating-dependencies',
-		// i18n fr
-		'/fr/v1/guides/development/development-cycle/': '/fr/guides/develop/development-cycle/',
-		'/fr/v1/guides/development/updating-dependencies/': '/fr/guides/develop/updating-dependencies/',
-		// i18n ko
-		'/ko/v1/guides/development/development-cycle/': '/ko/guides/develop/development-cycle/',
-		'/ko/v1/guides/development/updating-dependencies/': '/ko/guides/develop/updating-dependencies/',
-		// i18n zh-cn
-		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
-		'/zh-cn/v1/guides/development/updating-dependencies/':
-			'/zh-cn/guides/develop/updating-dependencies/',
-		// i18n it
-		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
-		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
+		...i18nRedirect(
+			'/v1/guides/development/development-cycle',
+			'/guides/develop/development-cycle'
+		),
+		...i18nRedirect(
+			'/v1/guides/development/updating-dependencies',
+			'/guides/develop/updating-dependencies'
+		),
+		// Decommissioned locales
+		'/ko/[...slug]': '/[...slug]',
+		'/it/[...slug]': '/[...slug]',
 	},
 });
+
+// Generates a redirect for each locale.
+function i18nRedirect(from, to) {
+	const routes = {};
+	Object.keys(locales).map((locale) =>
+		locale === 'root'
+			? (routes[from] = to)
+			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+					/^\/*/g,
+					''
+				)}`)
+	);
+	return routes;
+}
