@@ -1,10 +1,9 @@
 ---
-title: Introduction
+title: WebDriver
 description: WebDriver Testing
-sidebar:
-  order: 1
 ---
-<!-- {/*TODO: REVISE COPY TO V2 */} -->
+
+{/*TODO: REVISE COPY TO V2 */}
 
 :::caution[Currently in pre-alpha]
 
@@ -44,14 +43,27 @@ The download contains a binary called `msedgedriver.exe`. [`tauri-driver`] looks
 sure it's either available on the path or use the `--native-driver` option on [`tauri-driver`]. You may want to download this automatically as part of the CI setup process to ensure the Edge, and Edge Driver versions
 stay in sync on Windows CI machines. A guide on how to do this may be added at a later date.
 
-## Example Application
+## Example Applications
 
-The [next section](example/setup) of the guide shows step-by-step how to create a minimal example application that
+Below are step-by-step guides to show how to create a minimal example application that
 is tested with WebDriver.
 
 If you prefer to see the result of the guide and look over a finished minimal codebase that utilizes it, you
-can look at https://github.com/chippers/hello_tauri. That example also comes with a CI script to test with GitHub
-actions, but you may still be interested in the [WebDriver CI](ci) guide as it explains the concept a bit more.
+can look at https://github.com/chippers/hello_tauri.
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+    <LinkCard title="Setup"  href="/guides/test/webdriver/example/setup" />
+    <LinkCard title="Selenium" href="/guides/test/webdriver/example/selenium" />
+    <LinkCard title="WebdriverIO"  href="/guides/test/webdriver/example/webdriverio" />
+</CardGrid>
+
+## Continuous Integration (CI)
+
+The above examples also comes with a CI script to test with GitHub actions, but you may still be interested in the below WebDriver CI guide as it explains the concept a bit more.
+
+<LinkCard title="Continuous Integration (CI)"  href="/guides/test/webdriver/ci" />
 
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
