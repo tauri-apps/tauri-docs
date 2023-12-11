@@ -256,7 +256,7 @@ function i18nRedirect(from, to) {
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
 					/^\/*/g,
 					''
-			  )}`)
+				)}`)
 	);
 	return routes;
 }
