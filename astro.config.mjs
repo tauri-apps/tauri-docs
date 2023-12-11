@@ -241,7 +241,6 @@ export default defineConfig({
 			'/v1/guides/development/updating-dependencies',
 			'/guides/develop/updating-dependencies'
 		),
-
 		// v1 /guides/building -> /guides/build
 		...i18nRedirect(
 			'/v1/guides/building',
@@ -288,9 +287,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-				/^\/*/g,
-				''
-			)}`)
+					/^\/*/g,
+					''
+				)}`)
 	);
 	return routes;
 }
