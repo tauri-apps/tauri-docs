@@ -29,8 +29,8 @@ importers:
         specifier: ^0.3.4
         version: 0.3.4
       prettier:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       prettier-plugin-astro:
         specifier: ^0.12.2
         version: 0.12.2
@@ -41,8 +41,8 @@ importers:
         specifier: ^0.32.6
         version: 0.32.6
       shiki:
-        specifier: ^0.14.5
-        version: 0.14.5
+        specifier: ^0.14.6
+        version: 0.14.6
       starlight-blog:
         specifier: ^0.4.0
         version: 0.4.0(@astrojs/starlight@0.13.0)(astro@3.6.4)
@@ -95,8 +95,8 @@ importers:
         specifier: 4.0.0-next.17
         version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.1.0)(typedoc@0.25.4)
       typedoc-plugin-mdn-links:
-        specifier: ^3.1.6
-        version: 3.1.6(typedoc@0.25.4)
+        specifier: ^3.1.7
+        version: 3.1.7(typedoc@0.25.4)
 
 packages:
 
@@ -136,7 +136,7 @@ packages:
       remark-parse: 10.0.2
       remark-rehype: 10.1.0
       remark-smartypants: 2.0.0
-      shiki: 0.14.5
+      shiki: 0.14.6
       unified: 10.1.2
       unist-util-visit: 4.1.2
       vfile: 5.3.7
@@ -935,7 +935,7 @@ packages:
     resolution: {integrity: sha512-4TOJzC8Y4fvLeM7PslH990j3x7luRCkXAWTm4L45ZrBLrU2+7SKn436/mM9k8G+Z1189+e9rSAUFwn1h/VY6QA==}
     dependencies:
       '@expressive-code/core': 0.29.1
-      shiki: 0.14.5
+      shiki: 0.14.6
     dev: false
 
   /@expressive-code/plugin-text-markers@0.29.1:
@@ -4124,12 +4124,18 @@ packages:
     engines: {node: ^14.15.0 || >=16.0.0}
     dependencies:
       '@astrojs/compiler': 1.8.2
-      prettier: 3.1.0
+      prettier: 3.1.1
       sass-formatter: 0.7.7
     dev: false
 
   /prettier@3.1.0:
     resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: false
+
+  /prettier@3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: false
@@ -4535,6 +4541,15 @@ packages:
       vscode-textmate: 8.0.0
     dev: false
 
+  /shiki@0.14.6:
+    resolution: {integrity: sha512-R4koBBlQP33cC8cpzX0hAoOURBHJILp4Aaduh2eYi+Vj8ZBqtK/5SWNEHBS3qwUMu8dqOtI/ftno3ESfNeVW9g==}
+    dependencies:
+      ansi-sequence-parser: 1.1.1
+      jsonc-parser: 3.2.0
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 8.0.0
+    dev: false
+
   /shikiji@0.6.10:
     resolution: {integrity: sha512-WE+A5Y2ntM5hL3iJQujk97qr5Uj7PSIRXpQfrZ6h+JWPXZ8KBEDhFXc4lqNriaRq1WGOVPUT83XMOzmHiH3W8A==}
     dependencies:
@@ -4861,8 +4876,8 @@ packages:
     dev: false
     patched: true
 
-  /typedoc-plugin-mdn-links@3.1.6(typedoc@0.25.4):
-    resolution: {integrity: sha512-W593g/B1fNDGnEb/5mitYTYTkG+/YhlX1s5hFuxi+FizSqZ5ty+le5W65ipE83VXxm4VPrwEnsS2+ec6IFKrFw==}
+  /typedoc-plugin-mdn-links@3.1.7(typedoc@0.25.4):
+    resolution: {integrity: sha512-1tun7NLVzfZ1RD225bLaRKlDq5H3ssXSFJbbu05Typ+YMzky5yjbTdiPd3vMJ7I+jBLD5dXthbWvvh667r5kHw==}
     peerDependencies:
       typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
