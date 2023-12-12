@@ -25,7 +25,9 @@ Most commonly, you want to intercept IPC requests; this can be helpful in a vari
 Tauri provides the mockIPC function to intercept IPC requests. You can find more about the specific API in detail [here][`mockipc()`].
 
 :::note
+
 The following examples use [Vitest], but you can use any other frontend testing library such as jest.
+
 :::
 
 ```js
