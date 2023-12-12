@@ -3,11 +3,16 @@ title: Setup Example
 sidebar:
   order: 1
 ---
-<!-- {/*TODO: REVISE COPY TO V2 */} -->
+{/*TODO: REVISE COPY TO V2 */}
+
+import { Image } from 'astro:assets';
+import HelloTauriWebdriver from '@assets/img/guides/test/hello-tauri-webdriver.png';
 
 
-<!-- {/*TODO: Fix this image */} -->
-import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png'
+ 
+{/* import HelloTauriWebdriver from '@site/static/img/webdriver/hello-tauri-webdriver.png' */}
+{/* ![HelloTauriWebdriver](../../../../../assets/img/guides/test/hello-tauri-webdriver.png) */}
+
 
 This example application solely focuses on adding WebDriver testing to an already existing project. To have a
 project to test in the following two sections, we will set up an extremely minimal Tauri application for use in
@@ -186,7 +191,7 @@ will also run our WebDriver tests with a release profile. Run `cargo run --relea
 see the following application pop up.
 
 <div style={{textAlign: 'center'}}>
-  <img src={HelloTauriWebdriver}/>
+  <Image src={HelloTauriWebdriver} alt="Hello Tauri Webdriver"/>
 </div>
 
 _Note: If you are modifying the application and want to use the Devtools, then run it without `--release` and "Inspect
