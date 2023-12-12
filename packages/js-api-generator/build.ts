@@ -41,7 +41,8 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	hideInPageTOC: true,
 	identifiersAsCodeBlocks: true,
 	propertiesFormat: 'table',
-	enumMembersFormat: 'table',
+	// Tables do not create links for members so disabling for now to prevent broken links
+	// enumMembersFormat: 'table',
 	typeDeclarationFormat: 'table',
 };
 
