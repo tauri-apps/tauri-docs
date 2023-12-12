@@ -19,16 +19,16 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^3.5.0",
+    "@astrojs/markdown-remark": "^4.0.1",
     "@astrojs/starlight": "^0.13.0",
     "@types/json-schema": "^7.0.15",
-    "astro": "^3.6.0",
+    "astro": "^3.6.4",
     "astro-feelback": "^0.3.4",
-    "prettier": "^3.1.0",
+    "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.12.2",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.32.6",
-    "shiki": "^0.14.5",
+    "shiki": "^0.14.6",
     "starlight-blog": "^0.4.0",
     "starlight-links-validator": "^0.4.2"
   },
