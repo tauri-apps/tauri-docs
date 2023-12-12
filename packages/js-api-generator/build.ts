@@ -60,13 +60,7 @@ async function generator() {
 		console.log('Tauri submodule is not initialized, respective API routes will not be rendered.');
 	}
 
-	// TODO: the following plugins don't have a JS API:
-	// 'localhost',
-	// 'persisted-scope',
-	// 'single-instance',
-
 	const plugins = [
-		'app',
 		'authenticator',
 		'autostart',
 		'barcode-scanner',
@@ -89,7 +83,6 @@ async function generator() {
 		'updater',
 		'upload',
 		'websocket',
-		'window',
 		'window-state',
 	];
 
