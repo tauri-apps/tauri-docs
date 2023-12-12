@@ -164,8 +164,8 @@ test('invoke', async () => {
 });
 ```
 
-[`@tauri-apps/api/mocks`]: ../../api/js/mocks.md
-[`mockipc()`]: ../../api/js/mocks.md#mockipc
-[`mockwindows()`]: ../../api/js/mocks.md#mockwindows
-[`clearmocks()`]: ../../api/js/mocks.md#clearmocks
+[`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
+[`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
+[`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
+[`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
 [vitest]: https://vitest.dev
