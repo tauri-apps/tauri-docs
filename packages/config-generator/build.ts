@@ -11,7 +11,7 @@ if (!existsSync(schemaFile)) {
 
 let schema: JSONSchema7 = (await import(schemaFile)).default;
 
-const output = ['---\ntitle: Configuration\n---'];
+const output = ['---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\n---'];
 
 output.push(
 	...buildSchemaDefinition(schema, {
