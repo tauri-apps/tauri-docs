@@ -1,17 +1,28 @@
 ---
+import config from 'virtual:starlight/user-config';
+
 import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
 interface Props {
-	// path relative to /src - e.g "/zh-cn/features"
-	// note: leading and trailing slashes are dropped "/features/" === "features"
+	/**
+	 * Path relative to /src - e.g "/zh-cn/features"
+	 *
+	 * Note: leading and trailing slashes are dropped "/features/" === "features"
+	 */
 	path: string;
-	// locale e.g "zh-CN" - case insensitive
+	/**
+	 * Locale e.g "zh-CN" - case insensitive
+	 */
 	locale: string;
-	// filter out pages by word - case sensitive
+	/**
+	 *  Filter out pages by keyword - case insensitive
+	 */
 	filterOut?: string[];
 }
+
+//console.log(config.locales);
 
 let { path, locale, filterOut = [] } = Astro.props;
 
@@ -44,19 +55,52 @@ let list = locale === 'en' ? rootList : i18nList;
 if (filterOut.length > 0) {
 	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
 }
+
+// list.forEach((e) => {
+// 	console.log(e.slug, e.data.title);
+// });
+console.log(typeof list);
+
+// function sortlist(lis) {
+// 	lis.sort((a, b) => a.data.title.localeCompare(b.data.title));
+// }
+const processed: Record<number, boolean> = {};
+
+list.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+list.forEach((e) => {
+	if (!processed[e.data.sidebar.order ?? 0]) {
+		if (!e.data.sidebar.order) {
+			e.data.sidebar.order = 100;
+		} else {
+			e.data.sidebar.order += 100;
+		}
+		processed[e.data.sidebar.order] = true;
+	}
+});
+
+list.sort((a, b) => {
+	if (a.data.sidebar.order > b.data.sidebar.order) {
+		return -1;
+	} else {
+		return 1;
+	}
+});
+
+list.forEach((e) => {
+	console.log(e.data.sidebar.order, e.data.title);
+});
 ---
 
 <CardGrid>
 	{
-		list
-			.sort((a, b) => a.data.title.localeCompare(b.data.title))
-			.map((item) => (
-				<LinkCard
-					title={item.data.title}
-					href={`/${item.slug}`}
-					description={item.data.description}
-				/>
-			))
+		list.map((item) => (
+			<LinkCard
+				title={item.data.title}
+				href={`/${item.slug}`}
+				description={item.data.description}
+			/>
+		))
 	}
 	{
 		locale !== 'en' &&
