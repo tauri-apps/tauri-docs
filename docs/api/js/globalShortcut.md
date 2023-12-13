@@ -36,7 +36,7 @@ It is recommended to allowlist only the APIs you use for optimal bundle size and
 
 **Returns: **`void`
 
-**Defined in:** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/14e29f3/tooling/api/src/globalShortcut.ts#L29)
+**Defined in:** [globalShortcut.ts:29](https://github.com/tauri-apps/tauri/blob/f9c97b7/tooling/api/src/globalShortcut.ts#L29)
 
 ## Functions
 
