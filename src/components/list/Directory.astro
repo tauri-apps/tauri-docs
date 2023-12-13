@@ -1,0 +1,84 @@
+---
+import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { getCollection } from 'astro:content';
+
+interface Props {
+	// path relative to /src - e.g "/zh-cn/features"
+	// note: leading and trailing slashes are dropped "/features/" === "features"
+	path: string;
+	// locale e.g "zh-CN" - case insensitive
+	locale: string;
+	// filter out pages by word - case sensitive
+	filterOut?: string[];
+}
+
+let { path, locale, filterOut = [] } = Astro.props;
+
+locale = locale.toLowerCase();
+path = stripLeadingAndTrailingSlashes(path);
+
+const pageLang = locale + '/';
+
+if (!path.startsWith(locale) && locale !== 'en') {
+	path = pageLang + path;
+}
+
+const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
+
+// the / is to ensure it excludes a index page if it exists at same path.
+const rootList = await getCollection('docs', ({ slug }) => slug.startsWith(`${rootUrl}/`));
+
+const i18nList = await getCollection('docs', ({ slug }) => {
+	if (locale === 'en') return false;
+	// same as before
+	return slug.startsWith(`${path}/`);
+});
+
+const fallbackList = rootList.filter(
+	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
+);
+
+let list = locale === 'en' ? rootList : i18nList;
+
+if (filterOut.length > 0) {
+	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
+}
+---
+
+<CardGrid>
+	{
+		list
+			.sort((a, b) => a.data.title.localeCompare(b.data.title))
+			.map((item) => (
+				<LinkCard
+					title={item.data.title}
+					href={`/${item.slug}`}
+					description={item.data.description}
+				/>
+			))
+	}
+	{
+		locale !== 'en' &&
+			fallbackList
+				.sort((a, b) => a.data.title.localeCompare(b.data.title))
+				.map((item) => (
+					<LinkCard
+						class="fallback-badge"
+						title={item.data.title}
+						href={`/${item.slug}`}
+						description={item.data.description}
+					/>
+				))
+	}
+</CardGrid>
+
+<style>
+	.fallback-badge:after {
+		content: 'EN';
+		vertical-align: super;
+		font-size: 0.75em;
+		font-weight: 700;
+		margin-left: 1ch;
+	}
+</style>
