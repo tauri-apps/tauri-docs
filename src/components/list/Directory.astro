@@ -5,6 +5,7 @@ import {
 	stripLeadingAndTrailingSlashes,
 	ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
+
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
@@ -24,21 +25,25 @@ interface Props {
 	 */
 	filterOut?: string[];
 }
-
 //console.log(config.locales);
 
 let { path, locale } = Astro.props;
 const { filterOut = [] } = Astro.props;
 
-locale = locale.toLowerCase();
-path = stripLeadingAndTrailingSlashes(path);
 
-const pageLang = locale + '/';
 
+// Sanitize input
+locale = stripLeadingAndTrailingSlashes(locale.toLowerCase());
+path = stripLeadingAndTrailingSlashes(path.toLowerCase());
+
+const pageLang = ensureTrailingSlash(locale);
+
+// Ensure path is localized
 if (!path.startsWith(locale) && locale !== 'en') {
 	path = pageLang + path;
 }
 
+// Define root url without locale
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
 
 /**
@@ -61,6 +66,9 @@ const fallbackList = rootList.filter(
 
 let list = locale === 'en' ? rootList : i18nList;
 
+/**
+ * Filter out items if @const filterOut is set
+ */
 if (filterOut.length > 0) {
 	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
 }
@@ -69,7 +77,6 @@ if (filterOut.length > 0) {
 // list.forEach((e) => {
 // 	console.log(e.slug, e.data.title);
 // });
-console.log(typeof list);
 
 // function sortlist(lis) {
 // 	lis.sort((a, b) => a.data.title.localeCompare(b.data.title));
