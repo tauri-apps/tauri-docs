@@ -4,7 +4,6 @@ import {
 	stripLeadingAndTrailingSlashes,
 	ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
-import { localizedUrl } from 'node_modules/@astrojs/starlight/utils/localizedUrl';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
@@ -28,18 +27,17 @@ interface Props {
 let { path } = Astro.props;
 const { filterOut = [], forceAbc = false } = Astro.props;
 
-// let localesList;
-//if (config.isMultilingual) {
-// @ts-expect-error
-const localesList = Object.keys(config.locales);
-//}
+const defaultLocale = config.defaultLocale.lang || 'en';
+const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
 
 path = stripLeadingAndTrailingSlashes(path.toLowerCase());
 let [currentPageLocale] = stripLeadingAndTrailingSlashes(Astro.url.pathname).split('/');
 
+// Ensure currentPageLocale is a locale when it's the default locale
 if (!localesList.includes(currentPageLocale)) {
-	currentPageLocale = 'en';
+	currentPageLocale = defaultLocale;
 }
+
 const locale = currentPageLocale;
 const pageLang = ensureTrailingSlash(locale);
 
@@ -48,8 +46,9 @@ if (!path.startsWith(locale) && locale !== 'en') {
 	path = pageLang + path;
 }
 
-// Define root url without locale (based on path prop)
+// Get root url without locale (based on received path prop)
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
+
 /**
  * Collections structure:
  * @const rootList contains english pages
@@ -81,7 +80,7 @@ if (!forceAbc) {
 	// dumb luck this works, now why?
 	const sortVal = locale === 'en' ? 1 : -1;
 
-	// Sort list to follow sidebar rules
+	// Sort list following sidebar order
 	list.sort((a, b) => {
 		if (a.data.sidebar.order >= b.data.sidebar.order) {
 			return sortVal;
@@ -90,7 +89,7 @@ if (!forceAbc) {
 		}
 	});
 
-	// Sort list to follow sidebar rules
+	// Sort list following sidebar order
 	fallbackList.sort((a, b) => {
 		if (a.data.sidebar.order > b.data.sidebar.order) {
 			return -sortVal;
@@ -99,6 +98,7 @@ if (!forceAbc) {
 		}
 	});
 } else {
+	// Sort alphabetically
 	list.sort((a, b) => a.data.title.localeCompare(b.data.title));
 	fallbackList.sort((a, b) => a.data.title.localeCompare(b.data.title));
 }
