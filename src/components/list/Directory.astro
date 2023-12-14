@@ -1,7 +1,10 @@
 ---
 import config from 'virtual:starlight/user-config';
 
-import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
+import {
+	stripLeadingAndTrailingSlashes,
+	ensureTrailingSlash,
+} from 'node_modules/@astrojs/starlight/utils/path';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
@@ -24,7 +27,8 @@ interface Props {
 
 //console.log(config.locales);
 
-let { path, locale, filterOut = [] } = Astro.props;
+let { path, locale } = Astro.props;
+const { filterOut = [] } = Astro.props;
 
 locale = locale.toLowerCase();
 path = stripLeadingAndTrailingSlashes(path);
@@ -37,15 +41,20 @@ if (!path.startsWith(locale) && locale !== 'en') {
 
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
 
-// the / is to ensure it excludes a index page if it exists at same path.
-const rootList = await getCollection('docs', ({ slug }) => slug.startsWith(`${rootUrl}/`));
-
+/**
+ * Filters -
+ * @const rootList contains english pages
+ * @const i18nList contains chosen locale pages
+ * @const fallbackList is the subtraction of both
+ * the final composition is @var list then and @var fallbackList
+ */
+const rootList = await getCollection('docs', ({ slug }) =>
+	slug.startsWith(ensureTrailingSlash(rootUrl))
+);
 const i18nList = await getCollection('docs', ({ slug }) => {
 	if (locale === 'en') return false;
-	// same as before
-	return slug.startsWith(`${path}/`);
+	return slug.startsWith(ensureTrailingSlash(path));
 });
-
 const fallbackList = rootList.filter(
 	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
 );
@@ -55,6 +64,7 @@ let list = locale === 'en' ? rootList : i18nList;
 if (filterOut.length > 0) {
 	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
 }
+//
 
 // list.forEach((e) => {
 // 	console.log(e.slug, e.data.title);
