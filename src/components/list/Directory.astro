@@ -77,21 +77,24 @@ if (filterOut.length > 0) {
 }
 //
 if (!forceAbc) {
+	// dumb luck this works, now why?
+	const sortVal = locale === 'en' ? 1 : -1;
+
 	// Sort list to follow sidebar rules
 	list.sort((a, b) => {
 		if (a.data.sidebar.order >= b.data.sidebar.order) {
-			return 1;
+			return sortVal;
 		} else {
-			return -1;
+			return -sortVal;
 		}
 	});
 
 	// Sort list to follow sidebar rules
 	fallbackList.sort((a, b) => {
 		if (a.data.sidebar.order > b.data.sidebar.order) {
-			return 1;
+			return -sortVal;
 		} else {
-			return -1;
+			return sortVal;
 		}
 	});
 } else {
