@@ -42,11 +42,11 @@ if (!path.startsWith(locale) && locale !== 'en') {
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
 
 /**
- * Filters -
+ * Collections structure:
  * @const rootList contains english pages
  * @const i18nList contains chosen locale pages
- * @const fallbackList is the subtraction of both
- * the final composition is @var list then and @var fallbackList
+ * @const fallbackList is subtraction of both
+ * Final composition is @var list then and @const fallbackList
  */
 const rootList = await getCollection('docs', ({ slug }) =>
 	slug.startsWith(ensureTrailingSlash(rootUrl))
