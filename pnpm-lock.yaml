@@ -98,6 +98,12 @@ importers:
         specifier: ^3.1.7
         version: 3.1.7(typedoc@0.25.4)
 
+  packages/releases-generator:
+    dependencies:
+      tsm:
+        specifier: ^2.3.0
+        version: 2.3.0
+
 packages:
 
   /@ampproject/remapping@2.2.1:
