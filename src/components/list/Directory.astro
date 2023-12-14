@@ -24,11 +24,16 @@ interface Props {
 	 *  Filter out pages by keyword - case insensitive
 	 */
 	filterOut?: string[];
+	/**
+	 * Force alphabetical order
+	 *
+	 */
+	forceAbc?: boolean;
 }
 //console.log(config.locales);
 
 let { path, locale } = Astro.props;
-const { filterOut = [] } = Astro.props;
+const { filterOut = [], forceAbc = false } = Astro.props;
 
 // Sanitize input
 locale = stripLeadingAndTrailingSlashes(locale.toLowerCase());
@@ -71,28 +76,28 @@ if (filterOut.length > 0) {
 	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
 }
 //
+if (!forceAbc) {
+	// Sort list to follow sidebar rules
+	list.sort((a, b) => {
+		if (a.data.sidebar.order >= b.data.sidebar.order) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
 
-// Sort list to follow sidebar rules
-list.sort((a, b) => {
-	if (a.data.sidebar.order >= b.data.sidebar.order) {
-		return 1;
-	} else {
-		return -1;
-	}
-});
-
-// Sort list to follow sidebar rules
-fallbackList.sort((a, b) => {
-	if (a.data.sidebar.order > b.data.sidebar.order) {
-		return 1;
-	} else {
-		return -1;
-	}
-});
-
-list.forEach((e) => {
-	console.log(e.data.sidebar.order, e.data.title);
-});
+	// Sort list to follow sidebar rules
+	fallbackList.sort((a, b) => {
+		if (a.data.sidebar.order > b.data.sidebar.order) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
+} else {
+	list.sort((a, b) => a.data.title.localeCompare(b.data.title));
+	fallbackList.sort((a, b) => a.data.title.localeCompare(b.data.title));
+}
 ---
 
 <CardGrid>
