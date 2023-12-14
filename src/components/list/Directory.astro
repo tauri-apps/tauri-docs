@@ -30,8 +30,6 @@ interface Props {
 let { path, locale } = Astro.props;
 const { filterOut = [] } = Astro.props;
 
-
-
 // Sanitize input
 locale = stripLeadingAndTrailingSlashes(locale.toLowerCase());
 path = stripLeadingAndTrailingSlashes(path.toLowerCase());
@@ -74,33 +72,23 @@ if (filterOut.length > 0) {
 }
 //
 
-// list.forEach((e) => {
-// 	console.log(e.slug, e.data.title);
-// });
+//list.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-// function sortlist(lis) {
-// 	lis.sort((a, b) => a.data.title.localeCompare(b.data.title));
-// }
-const processed: Record<number, boolean> = {};
-
-list.sort((a, b) => a.data.title.localeCompare(b.data.title));
-
-list.forEach((e) => {
-	if (!processed[e.data.sidebar.order ?? 0]) {
-		if (!e.data.sidebar.order) {
-			e.data.sidebar.order = 100;
-		} else {
-			e.data.sidebar.order += 100;
-		}
-		processed[e.data.sidebar.order] = true;
+// Sort list to follow sidebar rules
+list.sort((a, b) => {
+	if (a.data.sidebar.order >= b.data.sidebar.order) {
+		return 1;
+	} else {
+		return -1;
 	}
 });
 
-list.sort((a, b) => {
+// Sort list to follow sidebar rules
+fallbackList.sort((a, b) => {
 	if (a.data.sidebar.order > b.data.sidebar.order) {
-		return -1;
-	} else {
 		return 1;
+	} else {
+		return -1;
 	}
 });
 
@@ -121,16 +109,14 @@ list.forEach((e) => {
 	}
 	{
 		locale !== 'en' &&
-			fallbackList
-				.sort((a, b) => a.data.title.localeCompare(b.data.title))
-				.map((item) => (
-					<LinkCard
-						class="fallback-badge"
-						title={item.data.title}
-						href={`/${item.slug}`}
-						description={item.data.description}
-					/>
-				))
+			fallbackList.map((item) => (
+				<LinkCard
+					class="fallback-badge"
+					title={item.data.title}
+					href={`/${item.slug}`}
+					description={item.data.description}
+				/>
+			))
 	}
 </CardGrid>
 
