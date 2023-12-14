@@ -1,11 +1,10 @@
 ---
 import config from 'virtual:starlight/user-config';
-
 import {
 	stripLeadingAndTrailingSlashes,
 	ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
-
+import { localizedUrl } from 'node_modules/@astrojs/starlight/utils/localizedUrl';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { getCollection } from 'astro:content';
 
@@ -17,28 +16,31 @@ interface Props {
 	 */
 	path: string;
 	/**
-	 * Locale e.g "zh-CN" - case insensitive
-	 */
-	locale: string;
-	/**
 	 *  Filter out pages by keyword - case insensitive
 	 */
 	filterOut?: string[];
 	/**
 	 * Force alphabetical order
-	 *
 	 */
 	forceAbc?: boolean;
 }
-//console.log(config.locales);
 
-let { path, locale } = Astro.props;
+let { path } = Astro.props;
 const { filterOut = [], forceAbc = false } = Astro.props;
 
-// Sanitize input
-locale = stripLeadingAndTrailingSlashes(locale.toLowerCase());
-path = stripLeadingAndTrailingSlashes(path.toLowerCase());
+// let localesList;
+//if (config.isMultilingual) {
+// @ts-expect-error
+const localesList = Object.keys(config.locales);
+//}
 
+path = stripLeadingAndTrailingSlashes(path.toLowerCase());
+let [currentPageLocale] = stripLeadingAndTrailingSlashes(Astro.url.pathname).split('/');
+
+if (!localesList.includes(currentPageLocale)) {
+	currentPageLocale = 'en';
+}
+const locale = currentPageLocale;
 const pageLang = ensureTrailingSlash(locale);
 
 // Ensure path is localized
@@ -46,9 +48,8 @@ if (!path.startsWith(locale) && locale !== 'en') {
 	path = pageLang + path;
 }
 
-// Define root url without locale
+// Define root url without locale (based on path prop)
 const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
-
 /**
  * Collections structure:
  * @const rootList contains english pages
