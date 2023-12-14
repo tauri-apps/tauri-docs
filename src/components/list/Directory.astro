@@ -33,7 +33,7 @@ const localesList = config.isMultilingual ? Object.keys(config.locales) : [defau
 path = stripLeadingAndTrailingSlashes(path.toLowerCase());
 let [currentPageLocale] = stripLeadingAndTrailingSlashes(Astro.url.pathname).split('/');
 
-// Ensure currentPageLocale is a locale when it's the default locale
+// Ensure currentPageLocale is a locale when it's page is on default locale
 if (!localesList.includes(currentPageLocale)) {
 	currentPageLocale = defaultLocale;
 }
@@ -41,13 +41,16 @@ if (!localesList.includes(currentPageLocale)) {
 const locale = currentPageLocale;
 const pageLang = ensureTrailingSlash(locale);
 
-// Ensure path is localized
-if (!path.startsWith(locale) && locale !== 'en') {
-	path = pageLang + path;
+// Ensure the locale is ignore if passed on `path`
+let [sliceLocale] = stripLeadingAndTrailingSlashes(path).split('/');
+if (localesList.includes(sliceLocale)) {
+	path = path.slice(sliceLocale.length + 1);
 }
+// Localize `path` to the current page locale
+path = locale === defaultLocale ? path : pageLang + path;
 
 // Get root url without locale (based on received path prop)
-const rootUrl = locale !== 'en' ? path.slice(locale.length + 1) : path;
+const rootUrl = locale !== defaultLocale ? path.slice(locale.length + 1) : path;
 
 /**
  * Collections structure:
@@ -60,14 +63,14 @@ const rootList = await getCollection('docs', ({ slug }) =>
 	slug.startsWith(ensureTrailingSlash(rootUrl))
 );
 const i18nList = await getCollection('docs', ({ slug }) => {
-	if (locale === 'en') return false;
+	if (locale === defaultLocale) return false;
 	return slug.startsWith(ensureTrailingSlash(path));
 });
 const fallbackList = rootList.filter(
 	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
 );
 
-let list = locale === 'en' ? rootList : i18nList;
+let list = locale === defaultLocale ? rootList : i18nList;
 
 /**
  * Filter out items if @const filterOut is set
@@ -75,10 +78,11 @@ let list = locale === 'en' ? rootList : i18nList;
 if (filterOut.length > 0) {
 	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
 }
+
 //
 if (!forceAbc) {
 	// dumb luck this works, now why?
-	const sortVal = locale === 'en' ? 1 : -1;
+	const sortVal = locale === defaultLocale ? 1 : -1;
 
 	// Sort list following sidebar order
 	list.sort((a, b) => {
@@ -115,13 +119,14 @@ if (!forceAbc) {
 		))
 	}
 	{
-		locale !== 'en' &&
+		locale !== defaultLocale &&
 			fallbackList.map((item) => (
 				<LinkCard
-					class="fallback-badge"
-					title={item.data.title}
-					href={`/${item.slug}`}
-					description={item.data.description}
+				class="fallback-badge"
+				title={item.data.title}
+				href={`/${item.slug}`}
+				description={item.data.description}
+				
 				/>
 			))
 	}
@@ -129,6 +134,8 @@ if (!forceAbc) {
 
 <style>
 	.fallback-badge:after {
+		/* now how can this match the defaultLocale? */
+		/* try with attr() */
 		content: 'EN';
 		vertical-align: super;
 		font-size: 0.75em;
