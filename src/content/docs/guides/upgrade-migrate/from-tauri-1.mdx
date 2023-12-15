@@ -13,7 +13,7 @@ This guide walks you through upgrading your Tauri 1.0 application to Tauri 2.0.
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-	npm="npm install @tauri-apps/cli@latest
+	npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
 	yarn="yarn upgrade @tauri-apps/cli --latest
     yarn tauri migrate"
@@ -88,7 +88,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
 
-- `@tauri-apps/api/app` module removed. Use `@tauri-apps/plugin-app` instead. [Migration](#migrate-to-app-plugin)
+- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/primitives`. [Migration](#migrate-to-primitives-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
 - `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
 - `@tauri-apps/api/dialog` module removed. Use `@tauri-apps/plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
@@ -100,71 +100,40 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the `tau
 - `@tauri-apps/api/process` module removed. Use `@tauri-apps/plugin-process` instead. [Migration](#migrate-to-process-plugin)
 - `@tauri-apps/api/shell` module removed. Use `@tauri-apps/plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
-- `@tauri-apps/api/window` module removed. Use `@tauri-apps/plugin-window` instead [Migration](#migrate-to-window-plugin)
+
+### Environment Variables Changes
+
+Most of the environment variables read and written by the Tauri CLI were renamed for consistency and prevention of mistakes:
+
+- `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
+- `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- `TAURI_SKIP_DEVSERVER_CHECK` -> `TAURI_CLI_NO_DEV_SERVER_WAIT`
+- `TAURI_DEV_SERVER_PORT` -> `TAURI_CLI_PORT`
+- `TAURI_PATH_DEPTH` -> `TAURI_CLI_CONFIG_DEPTH`
+- `TAURI_FIPS_COMPLIANT` -> `TAURI_BUNDLER_WIX_FIPS_COMPLIANT`
+- `TAURI_DEV_WATCHER_IGNORE_FILE` -> `TAURI_CLI_WATCHER_IGNORE_FILENAME`
+- `TAURI_TRAY` -> `TAURI_LINUX_AYATANA_APPINDICATOR`
+- `TAURI_APPLE_DEVELOPMENT_TEAM` -> `APPLE_DEVELOPMENT_TEAM`
+- `TAURI_PLATFORM` -> `TAURI_ENV_PLATFORM`
+- `TAURI_ARCH` -> `TAURI_ENV_ARCH`
+- `TAURI_FAMILY` -> `TAURI_ENV_FAMILY`
+- `TAURI_PLATFORM_VERSION` -> `TAURI_ENV_PLATFORM_VERSION`
+- `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
+- `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
 
 ## Detailed Migration Steps
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
 
-### Migrate to App Plugin
+### Migrate to Primitives Module
 
-The JavaScript `@tauri-apps/api/app` APIs have been removed. Use the `@tauri-apps/plugin-app` plugin instead:
+The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/primitives`.
+Simply rename the module import:
 
-1. Add to cargo dependencies:
-
-```toml
-# Cargo.toml
-[dependencies]
-tauri-plugin-app = "2"
+```diff
+- import { invoke } from "@tauri-apps/api/tauri"
++ import { invoke } from "@tauri-apps/api/primitives"
 ```
-
-2. Use in JavaScript or Rust project:
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_app::init())
-}
-```
-
-```json
-// package.json
-{
-	"dependencies": {
-		"@tauri-apps/plugin-app": "^2.0.0"
-	}
-}
-```
-
-```js
-import { show, hide } from '@tauri-apps/plugin-app';
-await hide();
-await show();
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_app::init())
-        .setup(|app| {
-            #[cfg(target_os = "macos")]
-            {
-                app.hide()?;
-                app.show()?;
-            }
-            Ok(())
-        })
-}
-```
-
-</TabItem>
-</Tabs>
 
 ### Migrate to CLI Plugin
 
@@ -1066,64 +1035,6 @@ fn main() {
     }
     tauri::Builder::default()
         .plugin(updater.build())
-}
-```
-
-</TabItem>
-</Tabs>
-
-### Migrate to Window Plugin
-
-The Rust `tauri::window` JavaScript `@tauri-apps/api/window` APIs have been removed. Use the `@tauri-apps/plugin-window` plugin instead:
-
-1. Add to cargo dependencies:
-
-```toml
-# Cargo.toml
-[dependencies]
-tauri-plugin-window = "2"
-```
-
-2. Use in JavaScript or Rust project:
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_window::init())
-}
-```
-
-```json
-// package.json
-{
-	"dependencies": {
-		"@tauri-apps/plugin-window": "^2.0.0"
-	}
-}
-```
-
-```js
-import { appWindow } from '@tauri-apps/plugin-window';
-await appWindow.setTitle('Tauri');
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-use tauri::Manager;
-
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_window::init())
-        .setup(|app| {
-            let window = app.get_window("main").unwrap();
-            window.set_title("Tauri")?;
-            Ok(())
-        })
 }
 ```
 

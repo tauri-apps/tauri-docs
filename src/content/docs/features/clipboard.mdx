@@ -41,6 +41,8 @@ Install the clipboard plugin to get started.
     }
     ```
 
+
+
     </TabItem>
     <TabItem label="Manual">
 
@@ -84,10 +86,10 @@ The clipboard plugin is available in both JavaScript and Rust.
 ```js
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 
-// Write text to the clipboard
+// Write content to clipboard
 await writeText('Tauri is awesome!');
 
-// Read text from the clipboard
+// Read content from clipboard
 const content = await readText();
 console.log(content);
 // Prints "Tauri is awesome!" to the console
@@ -96,9 +98,23 @@ console.log(content);
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
 
-<Stub />
+// Write content to clipboard
+let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
+    label: Some("Label".to_string()),
+    text: "Tauri is awesome!".to_string(),
+};
+app.clipboard().write(clipboard_content).unwrap();
+
+// Read content from clipboard
+let content = app.clipboard().read();
+println!("{:?}", content.unwrap());
+// Prints "Tauri is awesome!" to the terminal
+
+
+```
 
 </TabItem>
 </Tabs>
