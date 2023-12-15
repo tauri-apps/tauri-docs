@@ -66,7 +66,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       description,
       extraField: postDate,
       dir: rtlLanguages.has(getLangFromSlug(slug)) ? 'rtl' : 'ltr',
-      padding: 67,
+      padding: 66,
       bgImage: { path: './src/assets/og-bg.png' },
       logo: { path: './src/assets/og-logo.png' },
       font: {
