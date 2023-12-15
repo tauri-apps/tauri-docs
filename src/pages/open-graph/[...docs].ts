@@ -45,7 +45,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
   // TODO: Setup fonts locally, 
   // TODO: Tweak astro-og-canvas to add custom field: blog date
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
-  // TODO: Setup background after https://github.com/delucis/astro-og-canvas/issues/32 is solved 
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
     const title = data.title;
