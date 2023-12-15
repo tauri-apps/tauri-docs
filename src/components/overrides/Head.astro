@@ -1,57 +1,28 @@
 ---
+// TODO: Check how to override the current metatag 'content' instead..
+// .so that the settings on astro.config can be utilized along..
+// .without conflicts.
+
 import type { Props } from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/Head.astro';
 
-// TODO: Find a way to generate this only once instead on every head
-// Map the page url to the final image path, mostly to ensure the script handle /index pages
-const imageURL = Object.fromEntries(
-	Object.entries(import.meta.glob('../../content/docs/**/index.{md,mdx}')).map(([path]) => {
-		path = path.replaceAll('../../content/docs', '');
-		path = path.replace('.mdx', '');
-		path = path.replace('.md', '');
-		path = path.replace(/\/$/, '');
-		const pageURL = path.replace('/index', '');
-		return [pageURL, path];
-	})
-);
+import { getOgImageUrl } from 'src/utils/getOgImageUrl';
 
-// Handle edge cases and custom images
-const customImage: Record<string, string> = {
-	// homepage
-	'/': '/og.png',
-	// blog main pages
-	'/blog': '/og.png',
-	'/blog/2': '/og.png',
-	'/blog/3': '/og.png',
-};
+const { isFallback } = Astro.props;
+const ogImageUrl = getOgImageUrl(Astro.url.pathname, !!isFallback);
+const imageSrc = ogImageUrl ?? 'og.png';
 
-function getSocialImage(): URL | null {
-	let path = Astro.url.pathname.replace(/\/$/, '');
+let canonicalImageSrc = new URL(imageSrc, Astro.site);
 
-	if (path.endsWith('.png')) {
-		return null;
-	}
-
-	if (customImage[path]) {
-		return new URL(customImage[path], Astro.url);
-	} else {
-		let imagePath = imageURL[path] || path;
-		// TODO: Improve cache busting
-		return new URL(`/social-images/content/docs${imagePath}.png?v=1`, Astro.url);
-	}
+// Override URL for development environment
+const isDev = import.meta.env.DEV;
+if (isDev) {
+	canonicalImageSrc = new URL(imageSrc, 'http://localhost:4321/');
 }
-const socialImage = getSocialImage();
+
 ---
 
-<!-- /* TODO: - Check if is possible dynamic generate on astro.config head without overriding Head.astro - No specific reason
-              - Make sure the URL pattern matches every page and if default fallback is working.
--->
-<Default {...Astro.props} />
-{
-	socialImage && (
-		<>
-			<meta name="twitter:image" content={socialImage} />
-			<meta property="og:image" content={socialImage} />
-		</>
-	)
-}
+<Default {...Astro.props}><slot /></Default>
+<meta property="og:image" content={canonicalImageSrc} />
+<meta name="twitter:image" content={canonicalImageSrc} />
+

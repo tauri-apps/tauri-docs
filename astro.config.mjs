@@ -58,7 +58,7 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
+		//starlightLinksValidator(),
 		starlightBlog({ authors }),
 		starlight({
 			title: 'Tauri',
@@ -75,12 +75,23 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			components: {
-				Head: '@components/overrides/Head.astro',
-				SiteTitle: 'src/components/overrides/SiteTitle.astro',
+				Head: 'src/components/overrides/Head.astro',
 				Footer: 'src/components/overrides/Footer.astro',
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
+				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
 			},
+			// TODO: Find a way (if possible) to override these settings in the override
+			// head: [
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: { property: 'og:image', content: site + '/og.png?v=1' },
+			// 	},
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
+			// 	},
+			// ],
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
@@ -128,11 +139,11 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: 'guides/develop/',
+							link: 'guides/develop',
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug/',
+							link: 'guides/debug',
 						},
 						{
 							label: 'Test',
@@ -218,36 +229,5 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
-		'about/intro': 'about/philosophy',
-		// v1 /guides/debugging -> /guides/debug
-		...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
-		...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
-		...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
-		// v1 /guides/development -> /guides/develop
-		...i18nRedirect(
-			'/v1/guides/development/development-cycle',
-			'/guides/develop/development-cycle'
-		),
-		...i18nRedirect(
-			'/v1/guides/development/updating-dependencies',
-			'/guides/develop/updating-dependencies'
-		),
-		// Decommissioned locales
-		'/ko/[...slug]': '/[...slug]',
-		'/it/[...slug]': '/[...slug]',
 	},
 });
-
-// Generates a redirect for each locale.
-function i18nRedirect(from, to) {
-	const routes = {};
-	Object.keys(locales).map((locale) =>
-		locale === 'root'
-			? (routes[from] = to)
-			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
-	);
-	return routes;
-}

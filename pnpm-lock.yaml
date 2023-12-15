@@ -28,6 +28,18 @@ importers:
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
+      astro-og-canvas:
+        specifier: ^0.3.1
+        version: link:../astro-og-canvas/packages/astro-og-canvas
+      astro-og-canvas#feat-bg-crop-cover:
+        specifier: link:/vasfvitor/astro-og-canvas#feat-bg-crop-cover
+        version: link:../../../../../../vasfvitor/astro-og-canvas#feat-bg-crop-cover
+      canvaskit-wasm:
+        specifier: ^0.39.1
+        version: 0.39.1
+      feat-bg-crop-cover:
+        specifier: link:/vasfvitor/astro-og-canvas/feat-bg-crop-cover
+        version: link:../../../../../../vasfvitor/astro-og-canvas/feat-bg-crop-cover
       prettier:
         specifier: ^3.1.1
         version: 3.1.1
@@ -1205,6 +1217,10 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: false
 
+  /@webgpu/types@0.1.21:
+    resolution: {integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==}
+    dev: false
+
   /acorn-jsx@5.3.2(acorn@8.10.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1485,6 +1501,12 @@ packages:
 
   /caniuse-lite@1.0.30001525:
     resolution: {integrity: sha512-/3z+wB4icFt3r0USMwxujAqRvaD/B7rvGTsKhbhSQErVrJvkZCLhgNLJxU8MevahQVH6hCU9FsHdNUFbiwmE7Q==}
+    dev: false
+
+  /canvaskit-wasm@0.39.1:
+    resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
+    dependencies:
+      '@webgpu/types': 0.1.21
     dev: false
 
   /ccount@2.0.1:
