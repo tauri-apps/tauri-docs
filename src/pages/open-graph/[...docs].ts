@@ -1,10 +1,10 @@
+import type { CollectionEntry } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
 import { allPages } from 'src/utils/content';
 
-// TODO: 
-//import { rtlLanguages } from '~/i18n/languages';
-//import { getLangFromSlug } from '~/util';
-
+// setup rtlLanguages here
+const rtlLanguages = new Set(['']);
+const getLangFromSlug = (slug: CollectionEntry<'docs'>['slug']) => slug.split('/')[0];
 
 // TODO: Setup the line below to skip on non production builds
 // const paths = process.env.SKIP_OG ? [] : allPages;
@@ -42,7 +42,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
   param: 'docs',
   pages,
 
-  // TODO: Setup fonts locally, 
+  // TODO: Setup fonts locally 
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
@@ -66,6 +66,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       title,
       description,
       extraField: postDate,
+      dir: rtlLanguages.has(getLangFromSlug(slug)) ? 'rtl' : 'ltr',
       padding: 66,
       bgImage: { path: './src/assets/og-bg.png' },
       logo: { path: './src/assets/og-logo.png' },

@@ -8,7 +8,7 @@ index 50bbf6efaa3a1e5c387b7e7f73341a9dda3b7f9d..b5cffaf779cda698eace1a60f28524e4
 -export declare function generateOpenGraphImage({ cacheDir, title, description, dir, bgGradient, bgImage, border: borderConfig, padding, logo, font: fontConfig, fonts, format, quality, }: OGImageOptions): Promise<Buffer>;
 +export declare function generateOpenGraphImage({ cacheDir, title, description, extraField, dir, bgGradient, bgImage, border: borderConfig, padding, logo, font: fontConfig, fonts, format, quality, }: OGImageOptions): Promise<Buffer>;
 diff --git a/dist/generateOpenGraphImage.js b/dist/generateOpenGraphImage.js
-index 36cd8a807f04036afca7f83e660040255f4e7e1c..63fa10afaf7bfcaebb0b26fea9ce56136e966a84 100644
+index 36cd8a807f04036afca7f83e660040255f4e7e1c..fb8f12cf572a80debecead92c6425b2876cca9d9 100644
 --- a/dist/generateOpenGraphImage.js
 +++ b/dist/generateOpenGraphImage.js
 @@ -32,6 +32,14 @@ const defaults = {
@@ -43,7 +43,21 @@ index 36cd8a807f04036afca7f83e660040255f4e7e1c..63fa10afaf7bfcaebb0b26fea9ce5613
      };
      const isRtl = dir === 'rtl';
      const margin = {
-@@ -203,6 +212,16 @@ export async function generateOpenGraphImage({ cacheDir = './node_modules/.astro
+@@ -182,10 +191,11 @@ export async function generateOpenGraphImage({ cacheDir = './node_modules/.astro
+             // Matrix transform to scale the logo to the desired size.
+             const imagePaint = new CanvasKit.Paint();
+             imagePaint.setImageFilter(CanvasKit.ImageFilter.MakeMatrixTransform(CanvasKit.Matrix.scaled(xRatio, yRatio), { filter: CanvasKit.FilterMode.Linear }, null));
+-            const imageLeft = isRtl
++            const imageLeft = !isRtl
+                 ? (1 / xRatio) * (width - margin['inline-start']) - logoW
+                 : (1 / xRatio) * margin['inline-start'];
+-            canvas.drawImage(img, imageLeft, (1 / yRatio) * margin['block-start'], imagePaint);
++            const topPosition = height - (1 / yRatio) * margin['block-start'] - logoHeight;
++            canvas.drawImage(img, imageLeft, topPosition, imagePaint);
+         }
+     }
+     if (fontMgr) {
+@@ -203,6 +213,16 @@ export async function generateOpenGraphImage({ cacheDir = './node_modules/.astro
          // Add description.
          paragraphBuilder.pushStyle(new CanvasKit.TextStyle(textStyle(font.description)));
          paragraphBuilder.addText(decodeHTMLStrict(description));
@@ -60,6 +74,17 @@ index 36cd8a807f04036afca7f83e660040255f4e7e1c..63fa10afaf7bfcaebb0b26fea9ce5613
          // Draw paragraph to canvas.
          const para = paragraphBuilder.build();
          const paraWidth = width - margin['inline-start'] - margin['inline-end'] - padding;
+@@ -210,8 +230,8 @@ export async function generateOpenGraphImage({ cacheDir = './node_modules/.astro
+         const paraLeft = isRtl
+             ? width - margin['inline-start'] - para.getMaxWidth()
+             : margin['inline-start'];
+-        const minTop = margin['block-start'] + logoHeight + (logoHeight ? padding : 0);
+-        const maxTop = minTop + (logoHeight ? padding : 0);
++        const minTop = margin['block-start'];
++        const maxTop = minTop;
+         const naturalTop = height - margin['block-end'] - para.getHeight();
+         const paraTop = Math.max(minTop, Math.min(maxTop, naturalTop));
+         canvas.drawParagraph(para, paraLeft, paraTop);
 diff --git a/dist/types.d.ts b/dist/types.d.ts
 index 78e6acd176efcb16524d674dcf210d7b51340222..6556aa61475f3f922fb6d9307ab521c20b488c87 100644
 --- a/dist/types.d.ts
