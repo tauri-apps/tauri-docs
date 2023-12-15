@@ -42,7 +42,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
   param: 'docs',
   pages,
 
-  // TODO: Setup fonts locally 
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
@@ -78,7 +77,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           weight: 'ExtraBold',
         },
         description: {
-          /** This size is coupled with @function clamp() */
+          /** Size is coupled with @function clamp() */
           size: 48,
           lineHeight: 1.25,
           families: fontFamily,
