@@ -79,15 +79,15 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 
 ### JavaScript
 
-1. Configure allowed scope
+1. To keep your app safe, configure allowed scope. Read more on [JavaScript API reference](https://beta.tauri.app/2/reference/js/http/#security).
 
 ```json
 //tauri.conf.json
 {
 "plugins": {
 	"http": {
-	"scope": ["http://my.api.host/*"]
-		}
+	    "scope": ["http://my.api.host/*"]
+	    }
 	}
 }
 ```
