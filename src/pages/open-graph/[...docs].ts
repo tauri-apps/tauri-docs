@@ -43,7 +43,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
   pages,
 
   // TODO: Setup fonts locally, 
-  // TODO: Tweak astro-og-canvas to add custom field: blog date
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
