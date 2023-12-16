@@ -16,22 +16,22 @@ const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, 
 
 
 /**
-* TODO: Make this function work for title or description (currently only description).
-* Helper function to clamp a string
-* This is coupled to the current description size.
-* @param txt Text to process
-* @param singleLine Limit into a single line or not (default to)
-* @returns A string with "..." at the end if text is longer than set
-*/
-function clamp(txt: string | undefined, singleLine = false): string | undefined {
-  if (!txt) {
-    return;
+ * TODO: This can be improved
+ * Helper function to clamp a string
+ * @param txt Text to process
+ * @param singleLine Limit into a single line or not (default to false)
+ * @returns A string with "..." at the end if text is longer than set
+ */
+function clamp(txt: string, fontSize: number, singleLine = false,): string {
+  // those numbers are what more or less fit to description and title size
+  let LEN = 54;
+  if (fontSize > 50) {
+    LEN = 24
   }
-  // magic number that fits one or two lines
-  let MAX_LEN = singleLine ? 42 : 52;
+  let MAX_LEN = singleLine ? LEN : LEN + 10;
   if (txt.length > MAX_LEN) {
     txt = txt.trim().substring(0, MAX_LEN);
-    txt[txt.length - 1] === "." ? txt += ".." : txt += "..."
+    txt[txt.length - 1] === '.' ? (txt += '..') : (txt += '...');
   }
   return txt;
 }
@@ -45,12 +45,14 @@ export const { getStaticPaths, GET } = OGImageRoute({
   // TODO: Limit title and description max-width then break into 2 lines, maybe need Intl.Segmenter and get current locale to do it properly
 
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
-    const title = data.title;
-    let description = clamp(data.description);
+    /** Those titleSize and descSize are coupled with @function clamp() */
+    const [titleSize, descSize, dateSize] = [72, 36, 27];
+    let description = "";
     let postDate = "";
-    
-    if (slug.startsWith("blog/") && data.date) {
-      description = clamp(data.excerpt, true);
+    const title = clamp(data.title, titleSize);
+    if (data.description) { description = clamp(data.description, descSize); }
+    if (slug.startsWith('blog/') && data.date && data.excerpt) {
+      description = clamp(data.excerpt, descSize, true);
       const date: Date = new Date(data.date);
       // en-GB -> dd MM yy
       postDate = date.toLocaleDateString('en-GB', {
@@ -60,7 +62,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
       });
     }
 
-    const fontFamily = ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto']
     return {
       title,
       description,
@@ -70,24 +71,38 @@ export const { getStaticPaths, GET } = OGImageRoute({
       bgImage: { path: './src/assets/og-bg.png' },
       logo: { path: './src/assets/og-logo.png' },
       font: {
-        title: {
-          size: 96,
+        title: {  
+           /** Size is coupled with @function clamp() */
+          size: titleSize,
           lineHeight: 1.25,
-          families: fontFamily,
-          weight: 'ExtraBold',
+          weight: 'Bold',
+          families: ["Noto Sans Condensed", "Noto Sans SC"]
         },
         description: {
           /** Size is coupled with @function clamp() */
-          size: 48,
+          size: descSize,
           lineHeight: 1.25,
-          families: fontFamily,
+          weight: 'Normal',
+          families: ["Noto Sans", "Noto Sans SC"]
         },
         extraField: {
-          size: 36,
+
+          size: dateSize,
           lineHeight: 1.25,
-          families: fontFamily,
+          weight: 'Light',
+          families: ["Noto Sans", "Noto Sans SC"]
         },
       },
+      fonts: [
+        './src/pages/open-graph/_fonts/NotoSans_Condensed-Bold.ttf',
+        './src/pages/open-graph/_fonts/NotoSans-Regular.ttf',
+        './src/pages/open-graph/_fonts/NotoSans-Light.ttf',
+
+        // simplified chinese
+        './src/pages/open-graph/_fonts/NotoSansSC-Regular.ttf',
+        './src/pages/open-graph/_fonts/NotoSansSC-Bold.ttf',
+        './src/pages/open-graph/_fonts/NotoSansSC-Light.ttf',
+      ],
     };
   },
 });
