@@ -95,8 +95,8 @@ importers:
         specifier: 4.0.0-next.17
         version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.1.1)(typedoc@0.25.4)
       typedoc-plugin-mdn-links:
-        specifier: ^3.1.7
-        version: 3.1.7(typedoc@0.25.4)
+        specifier: ^3.1.8
+        version: 3.1.8(typedoc@0.25.4)
 
 packages:
 
@@ -4870,8 +4870,8 @@ packages:
     dev: false
     patched: true
 
-  /typedoc-plugin-mdn-links@3.1.7(typedoc@0.25.4):
-    resolution: {integrity: sha512-1tun7NLVzfZ1RD225bLaRKlDq5H3ssXSFJbbu05Typ+YMzky5yjbTdiPd3vMJ7I+jBLD5dXthbWvvh667r5kHw==}
+  /typedoc-plugin-mdn-links@3.1.8(typedoc@0.25.4):
+    resolution: {integrity: sha512-m2bcjsMghULmf0GBG+P6QwkWYF/7CTvlCefpYGTsIne5eL6wehVzE/RRlw+6qRjTR03FxBwgf/+UsasMRKEbPw==}
     peerDependencies:
       typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
