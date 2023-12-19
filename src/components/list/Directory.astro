@@ -19,7 +19,9 @@ interface Props {
 	 */
 	filterOut?: string[];
 	/**
-	 * Force alphabetical order
+	 * Force alphabetical order - by default it sorts by `frontmatter.sidebar.order`, then alphabetically.
+	 * 
+	 * Use this to ignore sidebar order
 	 */
 	sortAlphabetically?: boolean;
 }
