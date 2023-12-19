@@ -91,7 +91,7 @@ Options:
 Usage: cargo-tauri dev [OPTIONS] [ARGS]...
 
 Arguments:
-  [ARGS]...  Command line arguments passed to the runner. Arguments after `--` are passed to the application
+  [ARGS]...  Command line arguments passed to the runner. Use `--` to explicitly mark the start of the arguments. Arguments after a second `--` are passed to the application e.g. `tauri dev -- [runnerArgs] -- [appArgs]`
 
 Options:
   -r, --runner <RUNNER>           Binary to use to run the application
@@ -127,7 +127,7 @@ Usage: cargo-tauri build [OPTIONS] [ARGS]...
 
 Arguments:
   [ARGS]...
-          Command line arguments passed to the runner
+          Command line arguments passed to the runner. Use `--` to explicitly mark the start of the arguments
 
 Options:
   -r, --runner <RUNNER>
