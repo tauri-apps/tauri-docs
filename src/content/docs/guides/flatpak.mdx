@@ -27,6 +27,11 @@ Since additional dependencies and libraries of your app have to be added manuall
 
 7. `$ flatpak run <your flatpak id>`
 
+8. Update your installed flatpak after building with `$ flatpak -y --user update <your flatpak id>`
+
+If you are developing in a docker container that shares its files with the host, you can install the flatpak on your host.
+To do this run commands 5 - 8 from inside the `/flatpak` directory on your host.
+
 
 # Manifest Template
 The following information works for the standard tauri-app, which can be created with `cargo create-tauri-app`.
