@@ -2,3 +2,37 @@
 title: Building a Flatpak
 ---
 
+{/* Maybe add some simple description of how flatpak works? */}
+
+The process of creating a flatpack can be simplified considerably by creating a .deb beforehand.
+This .deb is then included as a single file in the flatpack.
+Since additional dependencies and libraries of your app have to be added manually to the manifest of a flatpack, we cannot provide a one-click builder.
+
+The following information works for the standard tauri-app, which can be created with `cargo create-tauri-app`.
+The Gnome 45 runtime includes all dependencies of the standard Tauri app with their correct versions.
+Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
+
+
+```yaml
+id: org.your.id
+
+runtime: org.gnome.Platform
+runtime-version: "45"
+sdk: org.gnome.Sdk
+
+command: tauri-app
+finish-args:
+  - --socket=wayland        # Permission needed to show the window
+  - --socket=fallback-x11   # Permission needed to show the window
+  - --device=dri            # OpenGL, not necessary for all projects
+
+modules:
+  - name: binary
+    buildsystem: simple
+    sources:
+      - type: file
+        path: ../tauri-app/src-tauri/target/release/bundle/deb/tauri-app_0.1.0_amd64/data/usr/bin/tauri-app
+        # This path points to the binary file which was created in the .deb bundle. Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+    build-commands:
+      - "install -Dm755 tauri-app /app/bin/tauri-app"
+```
