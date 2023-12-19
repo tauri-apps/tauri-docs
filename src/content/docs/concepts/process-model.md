@@ -25,17 +25,7 @@ guarantees memory safety while retaining excellent performance.
 
 <figure>
 
-```mermaid
-flowchart TD
-    C{Core}
-    W1[WebView]
-    W2[WebView]
-    W3[WebView]
-
-    C <-->|Events & Commands| W1
-    C <-->|Events & Commands| W2
-    C <-->|Events & Commands| W3
-```
+![IPC Diagram](../../../assets/concepts/process-model.svg)
 
 <figcaption>Figure 1-1: Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
 </figure>

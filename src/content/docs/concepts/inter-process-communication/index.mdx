@@ -31,13 +31,7 @@ Events are fire-and-forget, one-way IPC messages that are best suited to communi
 
 <figure>
 
-```mermaid
-sequenceDiagram
-    participant F as Frontend
-    participant C as Tauri Core
-
-    C-)F: Event
-```
+![IPC Diagram](../../../../assets/concepts/events.svg)
 
 <figcaption>Figure 1-2: An event sent from the Core to the Frontend.</figcaption>
 </figure>
@@ -50,15 +44,7 @@ Because this mechanism uses a [JSON-RPC] like protocol under the hood to seriali
 
 <figure>
 
-```mermaid
-sequenceDiagram
-    participant F as Frontend
-    participant C as Tauri Core
-
-    F-)+C: IPC request
-    note over C: Perform computation, write to file system, etc.
-    C-)-F: Response
-```
+![IPC Diagram](../../../../assets/concepts/commands.svg)
 
 <figcaption>Figure 1-3: IPC messages involved in a command invocation.</figcaption>
 </figure>
