@@ -32,11 +32,6 @@ const packages = [
 	},
 ];
 
-// FIXME: starlight apparently doesn't work well if the file continas multiple `.`
-function encodeVersion(v: string): string {
-	return v.replaceAll('.', '_');
-}
-
 const baseDir = '../../src/content/docs/releases';
 
 async function generator() {
@@ -59,15 +54,15 @@ async function generator() {
 		mkdirSync(join(baseDir, pkg.name), { recursive: true });
 		writeFileSync(
 			join(baseDir, pkg.name, 'index.md'),
-			`---\ntitle: '${pkg.name}'\nslug: '${pkg.name}'\ntemplate: splash\n---\n\n${releases
-				.map((r) => `- [${r.version}](/releases/${pkg.name}/v${encodeVersion(r.version)})`)
+			`---\ntitle: '${pkg.name}'\nslug: 'releases/${pkg.name}'\ntemplate: splash\n---\n\n${releases
+				.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`)
 				.join('\n')}`
 		);
 
 		for (const release of releases) {
 			writeFileSync(
 				join(baseDir, pkg.name, `v${release.version}.md`),
-				`---\ntitle: '${pkg.name}@${release.version}'\nslug: 'v${release.version}'\ntemplate: splash\n---\n\n${release.notes}`
+				`---\ntitle: '${pkg.name}@${release.version}'\nslug: 'releases/${pkg.name}/v${release.version}'\ntemplate: splash\n---\n\n${release.notes}`
 			);
 		}
 	}
