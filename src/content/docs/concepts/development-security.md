@@ -53,7 +53,7 @@ You should sign your binaries for the platform you are shipping to, and while th
 
 We assume the webview is insecure, which has led Tauri to implement several protections regarding webview access to system APIs in the context of loading untrusted userland content.
 
-You can read more in detail below, but using the CSP will lockdown types of communication that the Webview can undertake. Furthermore, [Context Isolation](#) prevents untrusted content or scripts from accessing the API within the Webview.
+You can read more in detail below, but using the CSP will lockdown types of communication that the Webview can undertake. Furthermore, Context Isolation prevents untrusted content or scripts from accessing the API within the Webview.
 
 And please, whatever you do, **DO NOT** trust the results of cryptography using private keys in the Webview. Rust is there for a reason.
 
