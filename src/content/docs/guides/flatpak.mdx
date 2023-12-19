@@ -81,9 +81,10 @@ modules:
 ```
 
 # Adding additional libraries
-If your final binary requires more libraries than the standard tauri-app, you have to add these in your flatpak manifest.
-To do this, you have to options. For fast local development, it might work to simply include the already built library file (`.so`) from your local system.
-However, this is not recommended to use for the final build of the flatpak, because your local library file is not built for environment of the flatpak runtime. 
-This might introduce various bugs which could be very hard to track down.
+If your final binary requires more libraries than the default tauri app, you need to add them in your flatpak manifest.
+There are two ways to do this. For fast local development, it may work to simply include the already built library file (`.so`) from your local system.
+However, this is not recommended for the final build of the flatpak, as your local library file is not built for the flatpak runtime environment. 
+This can introduce various bugs that can be very hard to find.
+Therefore, it is recommended to build the library your program depends on from source inside the flatpak as a build step.
 
 You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)
