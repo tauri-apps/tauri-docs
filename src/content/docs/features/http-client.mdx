@@ -76,7 +76,6 @@ Install the http plugin to get started.
 
 The http plugin is available in both as an JavaScript API and in Rust as a [reqwest](https://docs.rs/reqwest/) re-export.
 
-
 ### JavaScript
 
 1. To keep your app safe, configure allowed scope. Read more on [JavaScript API reference](https://beta.tauri.app/2/reference/js/http/#security).
@@ -84,25 +83,25 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 ```json
 //tauri.conf.json
 {
-"plugins": {
-	"http": {
-	    "scope": ["http://my.api.host/*"]
-	    }
+	"plugins": {
+		"http": {
+			"scope": ["http://my.api.host/*"]
+		}
 	}
 }
 ```
+
 2. Send a request
 
 ```js
 import { fetch } from '@tauri-apps/plugin-http';
 
 // Send a GET request
-const response = await fetch("http://my.api.host/data.json", {
-  method: "GET",
+const response = await fetch('http://my.api.host/data.json', {
+	method: 'GET',
 });
 console.log(response.status); // e.g. 200
 console.log(response.statusText); // e.g. "OK"
-
 ```
 
 :::note
@@ -111,12 +110,9 @@ The current `fetch` method is an API to Rust backend. It tries to be as close an
 
 :::
 
-
 ### Rust
 
-
 In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
-
 
 ```rust
 use tauri_plugin_http::reqwest;
