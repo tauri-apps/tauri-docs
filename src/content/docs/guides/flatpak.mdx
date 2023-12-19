@@ -61,3 +61,11 @@ modules:
     build-commands:
       - "install -Dm755 tauri-app /app/bin/tauri-app"
 ```
+
+# Adding additional libraries
+If your final binary requires more libraries than the standard tauri-app, you have to add these in your flatpak manifest.
+To do this, you have to options. For fast local development, it might work to simply include the already built library file (.so) from your local system.
+However, this is not recommended to use for the final build of the flatpak, because your local library file is not built for environment of the flatpak runtime. 
+This might introduce various bugs which could be very hard to track down.
+
+You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)
