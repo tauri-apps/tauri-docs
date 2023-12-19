@@ -20,7 +20,7 @@ interface Props {
 	filterOut?: string[];
 	/**
 	 * Force alphabetical order - by default it sorts by `frontmatter.sidebar.order`, then alphabetically.
-	 * 
+	 *
 	 * Use this to ignore sidebar order
 	 */
 	sortAlphabetically?: boolean;
@@ -55,11 +55,14 @@ path = locale === defaultLocale ? path : pageLang + path;
 const rootUrl = locale !== defaultLocale ? path.slice(locale.length + 1) : path;
 
 /**
- * Collections structure:
+ * Collections structure (relative to prop path):
  * @const rootList contains english pages
  * @const i18nList contains chosen locale pages
  * @const fallbackList is subtraction of both
- * Final composition is @var list then and @const fallbackList
+ * 
+ * Final composition are LinkCards of @var list 
+ * and another set of @const fallbackList
+ * both are utilized separately
  */
 const rootList = await getCollection('docs', ({ slug }) =>
 	slug.startsWith(ensureTrailingSlash(rootUrl))
@@ -88,6 +91,7 @@ if (!sortAlphabetically) {
 
 	// Sort list following sidebar order
 	list.sort((a, b) => {
+		// @ts-expect-error
 		if (a.data.sidebar.order >= b.data.sidebar.order) {
 			return sortVal;
 		} else {
@@ -97,6 +101,7 @@ if (!sortAlphabetically) {
 
 	// Sort list following sidebar order
 	fallbackList.sort((a, b) => {
+		// @ts-expect-error
 		if (a.data.sidebar.order > b.data.sidebar.order) {
 			return -sortVal;
 		} else {
@@ -124,11 +129,10 @@ if (!sortAlphabetically) {
 		locale !== defaultLocale &&
 			fallbackList.map((item) => (
 				<LinkCard
-				class="fallback-badge"
-				title={item.data.title}
-				href={`/${item.slug}`}
-				description={item.data.description}
-				
+					class="fallback-badge"
+					title={item.data.title}
+					href={`/${item.slug}`}
+					description={item.data.description}
 				/>
 			))
 	}
