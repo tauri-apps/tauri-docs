@@ -2,7 +2,22 @@
 title: Inter-Process Communication
 ---
 
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
 Inter-Process Communication (IPC) allows isolated processes to communicate securely and is key to building more complex applications.
+
+Learn more above the specific IPC patterns in the following guides:
+
+<CardGrid>
+	<LinkCard
+		title="Brownfield"
+		href="/concepts/inter-process-communication/brownfield"
+	/>
+	<LinkCard
+		title="Isolation"
+		href="/concepts/inter-process-communication/isolation"
+	/>
+</CardGrid>
 
 Tauri uses a particular style of Inter-Process Communication called [Asynchronous Message Passing], where processes exchange _requests_ and _responses_ serialized using some simple data representation. Message Passing should sound familiar to anyone with web development experience, as this paradigm is used for client-server communication on the internet.
 
