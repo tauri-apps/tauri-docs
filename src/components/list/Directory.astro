@@ -21,11 +21,11 @@ interface Props {
 	/**
 	 * Force alphabetical order
 	 */
-	forceAbc?: boolean;
+	sortAlphabetically?: boolean;
 }
 
 let { path } = Astro.props;
-const { filterOut = [], forceAbc = false } = Astro.props;
+const { filterOut = [], sortAlphabetically = false } = Astro.props;
 
 const defaultLocale = config.defaultLocale.lang || 'en';
 const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
@@ -80,7 +80,7 @@ if (filterOut.length > 0) {
 }
 
 //
-if (!forceAbc) {
+if (!sortAlphabetically) {
 	// dumb luck this works, now why?
 	const sortVal = locale === defaultLocale ? 1 : -1;
 
