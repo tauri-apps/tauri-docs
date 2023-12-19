@@ -4,14 +4,34 @@ title: Building a Flatpak
 
 {/* Maybe add some simple description of how flatpak works? */}
 
+For detailed information on how flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
+
 The process of creating a flatpack can be simplified considerably by creating a .deb beforehand.
 This .deb is then included as a single file in the flatpack.
 Since additional dependencies and libraries of your app have to be added manually to the manifest of a flatpack, we cannot provide a one-click builder.
 
+# General steps
+
+1. Install `flatpak` and `flatpak-builder`
+
+2. Install the necessary runtime on your development machine or container:
+    `$ flatpak install flathub org.Gnome.Platform//45 org.Gnome.Sdk//45`
+
+3. Build the .deb of your tauri-app
+
+4. Build the flatpak: `$ flatpak-builder --repo=<repo folder name> --force-clean build-dir org.tauri.flatpak.yml`
+
+5. Add the repo to your flatpak's list: `$ flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>`
+
+6. Install the flatpak: `$ flatpak -y --user install <local repo name> <your flatpak id>`
+
+7. `$ flatpak run <your flatpak id>`
+
+
+# Manifest Template
 The following information works for the standard tauri-app, which can be created with `cargo create-tauri-app`.
 The Gnome 45 runtime includes all dependencies of the standard Tauri app with their correct versions.
 Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
-
 
 ```yaml
 id: org.your.id
