@@ -97,10 +97,6 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
 				{
-					label: 'DIRECTORY TEST',
-					autogenerate: { directory: 'temp' },
-				},
-				{
 					label: 'Quick Start',
 					items: [
 						{ label: 'What is Tauri?', link: 'guides' },
