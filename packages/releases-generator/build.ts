@@ -59,15 +59,15 @@ async function generator() {
 		mkdirSync(join(baseDir, pkg.name), { recursive: true });
 		writeFileSync(
 			join(baseDir, pkg.name, 'index.md'),
-			`---\ntitle: '${pkg.name}'\ntemplate: splash\n---\n\n${releases
+			`---\ntitle: '${pkg.name}'\nslug: '${pkg.name}'\ntemplate: splash\n---\n\n${releases
 				.map((r) => `- [${r.version}](/releases/${pkg.name}/v${encodeVersion(r.version)})`)
 				.join('\n')}`
 		);
 
 		for (const release of releases) {
 			writeFileSync(
-				join(baseDir, pkg.name, `v${encodeVersion(release.version)}.md`),
-				`---\ntitle: '${pkg.name}@${release.version}'\ntemplate: splash\n---\n\n${release.notes}`
+				join(baseDir, pkg.name, `v${release.version}.md`),
+				`---\ntitle: '${pkg.name}@${release.version}'\nslug: 'v${release.version}'\ntemplate: splash\n---\n\n${release.notes}`
 			);
 		}
 	}
