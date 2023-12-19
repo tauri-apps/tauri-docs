@@ -3,11 +3,8 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-
-await configGenerator();
 
 const authors = {
 	nothingismagick: {
