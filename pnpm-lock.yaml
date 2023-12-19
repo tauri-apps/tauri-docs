@@ -50,6 +50,24 @@ importers:
         specifier: ^0.4.2
         version: 0.4.2(@astrojs/starlight@0.13.0)(astro@3.6.4)
 
+  packages/config-generator:
+    dependencies:
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
+      tsm:
+        specifier: ^2.3.0
+        version: 2.3.0
+      typescript:
+        specifier: ^5.3.2
+        version: 5.3.2
+
   packages/i18n-tracker:
     devDependencies:
       '@types/html-escaper':
@@ -1161,6 +1179,12 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
+  /@types/node@20.10.5:
+    resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: false
+
   /@types/parse5@6.0.3:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
     dev: false
@@ -1172,7 +1196,7 @@ packages:
   /@types/sax@1.2.7:
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.10.5
     dev: false
 
   /@types/unist@2.0.10:
@@ -4875,6 +4899,10 @@ packages:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: false
+
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: false
 
   /unherit@3.0.1:
