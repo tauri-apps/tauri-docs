@@ -5,7 +5,7 @@ import {
 	ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { getCollection } from 'astro:content';
+import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
 
 interface Props {
 	/**
@@ -51,58 +51,51 @@ if (localesList.includes(sliceLocale)) {
 // Localize `path` to the current page locale
 path = locale === defaultLocale ? path : pageLang + path;
 
-// Get root url without locale (based on received path prop)
-const rootUrl = locale !== defaultLocale ? path.slice(locale.length + 1) : path;
+let fallbackList: Route[] = [];
+let mainList: Route[] = [];
 
-/**
- * Collections structure (relative to prop path):
- * @const rootList contains english pages
- * @const i18nList contains chosen locale pages
- * @const fallbackList is subtraction of both
- * 
- * Final composition are LinkCards of @var list 
- * and another set of @const fallbackList
- * both are utilized separately
- */
-const rootList = await getCollection('docs', ({ slug }) =>
-	slug.startsWith(ensureTrailingSlash(rootUrl))
-);
-const i18nList = await getCollection('docs', ({ slug }) => {
-	if (locale === defaultLocale) return false;
-	return slug.startsWith(ensureTrailingSlash(path));
+routes.forEach((page) => {
+	if (page.slug.startsWith(path)) {
+		if (page.isFallback) {
+			fallbackList.push(page);
+		} else if (page.slug !== path) {
+			mainList.push(page);
+		}
+	}
 });
-const fallbackList = rootList.filter(
-	(root) => !i18nList.some((i18n) => i18n.id.replace(pageLang, '') === root.id)
-);
-
-let list = locale === defaultLocale ? rootList : i18nList;
 
 /**
  * Filter out items if @const filterOut is set
  */
 if (filterOut.length > 0) {
-	list = list.filter((root) => !filterOut.some((val) => root.id.includes(val)));
+	fallbackList = fallbackList.filter(
+		(root) => !filterOut.some((val) => root.entry.data.title.includes(val))
+	);
+	mainList = mainList.filter(
+		(root) => !filterOut.some((val) => root.entry.data.title.includes(val))
+	);
 }
 
-//
 if (!sortAlphabetically) {
 	// dumb luck this works, now why?
 	const sortVal = locale === defaultLocale ? 1 : -1;
-
 	// Sort list following sidebar order
-	list.sort((a, b) => {
-		// @ts-expect-error
-		if (a.data.sidebar.order >= b.data.sidebar.order) {
+	mainList.sort((a, b) => {
+		if (!a.entry.data.sidebar.order && !b.entry.data.sidebar.order) {
+			return a.entry.data.title.localeCompare(b.entry.data.title);
+		}
+		if (a.entry.data.sidebar.order > b.entry.data.sidebar.order) {
 			return sortVal;
 		} else {
 			return -sortVal;
 		}
 	});
-
 	// Sort list following sidebar order
 	fallbackList.sort((a, b) => {
-		// @ts-expect-error
-		if (a.data.sidebar.order > b.data.sidebar.order) {
+		if (!a.entry.data.sidebar.order && !b.entry.data.sidebar.order) {
+			return a.entry.data.title.localeCompare(b.entry.data.title);
+		}
+		if (a.entry.data.sidebar.order > b.entry.data.sidebar.order) {
 			return -sortVal;
 		} else {
 			return sortVal;
@@ -110,18 +103,18 @@ if (!sortAlphabetically) {
 	});
 } else {
 	// Sort alphabetically
-	list.sort((a, b) => a.data.title.localeCompare(b.data.title));
-	fallbackList.sort((a, b) => a.data.title.localeCompare(b.data.title));
+	mainList.sort((a, b) => a.entry.data.title.localeCompare(b.entry.data.title));
+	fallbackList.sort((a, b) => a.entry.data.title.localeCompare(b.entry.data.title));
 }
 ---
 
 <CardGrid>
 	{
-		list.map((item) => (
+		mainList.map((item) => (
 			<LinkCard
-				title={item.data.title}
+				title={item.entry.data.title}
 				href={`/${item.slug}`}
-				description={item.data.description}
+				description={item.entry.data.description}
 			/>
 		))
 	}
@@ -130,9 +123,9 @@ if (!sortAlphabetically) {
 			fallbackList.map((item) => (
 				<LinkCard
 					class="fallback-badge"
-					title={item.data.title}
+					title={item.entry.data.title}
 					href={`/${item.slug}`}
-					description={item.data.description}
+					description={item.entry.data.description}
 				/>
 			))
 	}
