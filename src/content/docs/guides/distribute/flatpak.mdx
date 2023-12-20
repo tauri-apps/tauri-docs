@@ -43,9 +43,9 @@ flatpak run <your flatpak id>
 flatpak -y --user update <your flatpak id>
 ```
 
-If you are developing in a container that shares its files with the host, you can install the flatpak on your host.
-Any commands that are not labelled `(host)` must be run inside the container. 
-The `(host)` commands from inside the flatpak directory on your host.
+If you are developing in a container that shares files with the host, you can install the flatpak on your host.
+Any command with a `(host)` label can be executed on your host, while commands without this label must be executed inside the container. 
+`(host)` commands must be executed from inside the flatpak directory on your host.
 
 
 ## Manifest Template
