@@ -108,11 +108,11 @@ In addition to the `package.json` file you may see either a `yarn.lock` file or 
 
 To learn more about `package.json` you can read more in the [official documentation][npm-package].
 
-[`tauri.conf.json` api reference]: ../api/config.md
-[before-build-command]: ../api/config.md#buildconfig.beforebuildcommand
+[`tauri.conf.json` api reference]: ../api/config
+[before-build-command]: ../api/config#buildconfig.beforebuildcommand
 [semantic versioning]: https://semver.org
 [cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
-[before-dev-command]: ../api/config.md#buildconfig.beforedevcommand
+[before-dev-command]: ../api/config#buildconfig.beforedevcommand
 [package-config]: ../api/config#packageconfig
 [tauri-config]: ../api/config#tauriconfig
