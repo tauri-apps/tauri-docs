@@ -26,6 +26,18 @@ interface Props {
 	sortAlphabetically?: boolean;
 }
 
+function hasSidebarOrder(page: Route): number | undefined {
+	return page.entry.data.sidebar.order;
+}
+
+function alphaSort(a: Route, b: Route): number {
+	return a.entry.data.title.localeCompare(b.entry.data.title);
+}
+
+function compareOrder(a: Route, b: Route): boolean {
+	return a.entry.data.sidebar.order > b.entry.data.sidebar.order;
+}
+
 let { path } = Astro.props;
 const { filterOut = [], sortAlphabetically = false } = Astro.props;
 
@@ -81,10 +93,10 @@ if (!sortAlphabetically) {
 	const sortVal = locale === defaultLocale ? 1 : -1;
 	// Sort list following sidebar order
 	mainList.sort((a, b) => {
-		if (!a.entry.data.sidebar.order && !b.entry.data.sidebar.order) {
-			return a.entry.data.title.localeCompare(b.entry.data.title);
+		if (!hasSidebarOrder(a) && !hasSidebarOrder(b)) {
+			return alphaSort(a, b);
 		}
-		if (a.entry.data.sidebar.order > b.entry.data.sidebar.order) {
+		if (compareOrder(a, b)) {
 			return sortVal;
 		} else {
 			return -sortVal;
@@ -92,10 +104,10 @@ if (!sortAlphabetically) {
 	});
 	// Sort list following sidebar order
 	fallbackList.sort((a, b) => {
-		if (!a.entry.data.sidebar.order && !b.entry.data.sidebar.order) {
-			return a.entry.data.title.localeCompare(b.entry.data.title);
+		if (!hasSidebarOrder(a) && !hasSidebarOrder(b)) {
+			return alphaSort(a, b);
 		}
-		if (a.entry.data.sidebar.order > b.entry.data.sidebar.order) {
+		if (compareOrder(a, b)) {
 			return -sortVal;
 		} else {
 			return sortVal;
@@ -103,8 +115,8 @@ if (!sortAlphabetically) {
 	});
 } else {
 	// Sort alphabetically
-	mainList.sort((a, b) => a.entry.data.title.localeCompare(b.entry.data.title));
-	fallbackList.sort((a, b) => a.entry.data.title.localeCompare(b.entry.data.title));
+	mainList.sort((a, b) => alphaSort(a, b));
+	fallbackList.sort((a, b) => alphaSort(a, b));
 }
 ---
 
