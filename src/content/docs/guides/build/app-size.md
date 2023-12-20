@@ -281,7 +281,7 @@ You should know that this technique might flag your binary as a virus on Windows
 
 <!-- Add additional platforms -->
 
-```
+```sh
 brew install upx
 yarn tauri build
 upx --ultra-brute src-tauri/target/release/bundle/macos/app.app/Contents/macOS/app
