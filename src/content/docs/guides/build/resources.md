@@ -1,7 +1,7 @@
 ---
 title: Embedding Additional Files
 ---
-
+<!-- TODO: REVISE COPY TO V2 -->
 
 You may need to include additional files in your application bundle that aren't part of your frontend (your `distDir`) directly or which are too big to be inlined into the binary. We call these files `resources`.
 

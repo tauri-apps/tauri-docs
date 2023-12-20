@@ -1,6 +1,7 @@
 ---
 title: Reducing App Size
 ---
+<!-- TODO: REVISE COPY TO V2 -->
 
 With Tauri, we are working to reduce the environmental footprint of applications by using fewer system resources where available, providing compiled systems that don't need runtime evaluation, and offering guides so that engineers can go even smaller without sacrificing performance or security. By saving resources we are doing our part to help you help us save the planet -- which is the only bottom line that companies in the 21st Century should care about.
 

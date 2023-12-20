@@ -1,6 +1,7 @@
 ---
 title: Embedding External Binaries
 ---
+<!-- TODO: REVISE COPY TO V2 -->
 
 You may need to embed depending binaries to make your application work or prevent users from installing additional dependencies (e.g., Node.js or Python).
 We call this binary a `sidecar`.
@@ -185,6 +186,7 @@ const output = await command.execute()
 
 The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Node.js application on Tauri.
 It compiles the Node.js code using [pkg] and uses the scripts above to run it.
+
 
 [tauri.bundle]: ../../api/config.md#tauri.bundle
 [sidecar example]: https://github.com/tauri-apps/tauri/tree/1.x/examples/sidecar
