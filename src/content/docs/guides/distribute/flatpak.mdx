@@ -30,21 +30,22 @@ flatpak install flathub org.Gnome.Platform//45 org.Gnome.Sdk//45
 # Build the flatpak into a local repo
 flatpak-builder --repo=<repo folder name> --force-clean build-dir <your flatpak id>
 
-# Add the repo to your flatpak's list
+# Add the repo to your flatpak's list (host)
 flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>
 
-# Install the flatpak
+# Install the flatpak (host)
 flatpak -y --user install <local repo name> <your flatpak id>
 
-# Run it
+# Run it (host)
 flatpak run <your flatpak id>
 
-# Update it
+# Update it (host)
 flatpak -y --user update <your flatpak id>
 ```
 
-If you are developing in a docker container that shares its files with the host, you can install the flatpak on your host.
-To do this run all commands starting with the flatpak install from inside the `/flatpak` directory on your host.
+If you are developing in a container that shares its files with the host, you can install the flatpak on your host.
+Any commands that are not labelled `(host)` must be run inside the container. 
+The `(host)` commands from inside the flatpak directory on your host.
 
 
 ## Manifest Template
