@@ -248,8 +248,16 @@ export default defineConfig({
 		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
 		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication/[...slug]',
-			'/concepts/inter-process-communication/[...slug]'
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
 		),
 		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
 		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
