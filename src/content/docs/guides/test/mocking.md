@@ -4,7 +4,6 @@ sidebar:
   order: 1
 ---
 <!-- {/*TODO: REVISE COPY TO V2 */} -->
-<!-- {/*TODO: Update links and internal navigation */} -->
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
@@ -164,8 +163,10 @@ test('invoke', async () => {
 });
 ```
 
+<!-- TODO: Updates links to v2 -->
 [`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
 [`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
 [`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
 [`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
+
 [vitest]: https://vitest.dev

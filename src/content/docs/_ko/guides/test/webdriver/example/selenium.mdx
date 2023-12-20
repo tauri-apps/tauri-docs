@@ -67,7 +67,7 @@ simply with
 
 ## Testing
 
-Unlike the [WebdriverIO Test Suite](webdriverio#config), Selenium does not come out of the box with a Test Suite and
+Unlike the [WebdriverIO Test Suite](/ko/guides/test/webdriver/example/webdriverio#config), Selenium does not come out of the box with a Test Suite and
 leaves it up to the developer to build those out. We chose [Mocha], which is pretty neutral and not related to WebDrivers, so our script will need to do a bit of work to set up everything for us in the correct order. [Mocha] expects a
 testing file at `test/test.js` by default, so let's create that file now.
 
@@ -159,7 +159,7 @@ describe('Hello Tauri', () => {
 If you are familiar with JS testing frameworks, `describe`, `it`, and `expect` should look familiar. We also have
 semi-complex `before()` and `after()` callbacks to set up and teardown mocha. Lines that are not the tests themselves
 have comments explaining the setup and teardown code. If you were familiar with the Spec file from the
-[WebdriverIO example](webdriverio#spec), you notice a lot more code that isn't tests, as we have to set up a few
+[WebdriverIO example](/ko/guides/test/webdriver/example/webdriverio#spec), you notice a lot more code that isn't tests, as we have to set up a few
 more WebDriver related items.
 
 ## Running the Test Suite
@@ -197,9 +197,10 @@ tests!
 With [Selenium] and some hooking up to a test suite, we just enabled e2e testing without modifying our Tauri
 application at all!
 
+[example application setup]: /ko/guides/test/webdriver/example/setup
+
 [selenium]: https://selenium.dev/
 [finished example project]: https://github.com/chippers/hello_tauri
-[example application setup]: ./setup
 [mocha]: https://mochajs.org/
 [chai]: https://www.chaijs.com/
 [`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver

@@ -158,9 +158,10 @@ test('invoke', async () => {
   expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
 });
 ```
-
+<!-- TODO: Updates links to v2 -->
 [`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
 [`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
 [`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
 [`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
+
 [vitest]: https://vitest.dev
