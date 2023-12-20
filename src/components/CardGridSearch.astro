@@ -1,48 +1,102 @@
 ---
+import { Icon } from '@astrojs/starlight/components';
+
 interface Props {
 	wrapperId: string;
 }
 const { wrapperId = 'search-feature-list' } = Astro.props;
+
+// TODO: Expose placeholder and title to i18n
+
+let reset_styles = true;
+let autofocus = false;
 ---
 
-<form class="search-form">
-	<input
-		data-wrapper={wrapperId}
-		type="search"
-		id="search"
-		placeholder="Quick search a feature..."
-		title="Search a feature"
-	/>
-</form>
+<card-search class="pagefind-ui pagefind-ui--reset" class:pagefind-ui--reset={reset_styles}>
+	<form
+		class="pagefind-ui__form"
+		role="search"
+		aria-label="search_label"
+		action="javascript:void(0);"
+	>
+		<input
+			data-wrapper={wrapperId}
+			class="pagefind-ui__search-input"
+			type="search"
+			id="search"
+			aria-label="search"
+			placeholder="Quick search a feature..."
+			title="Search a feature"
+			autocapitalize="none"
+			enterkeyhint="search"
+			{autofocus}
+		/>
+
+		<button class="pagefind-ui__search-clear">clear</button>
+	</form>
+	<p class="hidden warning">
+		<Icon name="information" size="1.5rem" />
+		<span>Nothing found</span>
+	</p>
+</card-search>
 
 <script>
-	const searchBar = document.getElementById('search') as HTMLInputElement;
-	searchBar.addEventListener('keyup', () => {
-		searchFilter(searchBar);
-	});
-	searchBar.addEventListener('keydown', (e) => {
-		if (e.key === 'Enter') e.preventDefault();
-	});
-	/**
-	 * Assumes a div with id wrapperId wraps the card grid
-	 * It searchs both title and description
-	 */
-	function searchFilter(searchBar: HTMLInputElement) {
-		const query = searchBar.value.toUpperCase();
-		const featureList = document.getElementById(searchBar.dataset.wrapper!)
-			?.children[0] as HTMLDivElement;
-		const cards = featureList.querySelectorAll('div');
-		cards.forEach((el) => {
-			const span = el.querySelector('span');
-			const txtValue = span?.textContent || span?.innerText;
-			if (!txtValue) return;
-			if (txtValue.toUpperCase().indexOf(query) > -1) {
-				el.style.display = '';
-			} else {
-				el.style.display = 'none';
-			}
-		});
+	class CardSearch extends HTMLElement {
+		constructor() {
+			super();
+			window.addEventListener('DOMContentLoaded', () => {
+				const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
+				const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
+				const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+				const warning = this.querySelector<HTMLParagraphElement>('.warning')!;
+
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+				});
+				form.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape') {
+						searchBar.value = '';
+					}
+					if (e.key === 'Enter') e.preventDefault();
+				});
+				searchBar.addEventListener('keyup', () => {
+					searchFilter(searchBar);
+				});
+				searchBar.addEventListener('keydown', (e) => {
+					if (e.key === 'Enter') e.preventDefault();
+				});
+				clear.addEventListener('click', () => {
+					searchBar.value = '';
+				});
+
+				function searchFilter(searchBar: HTMLInputElement) {
+					const featureList = document.getElementById(searchBar.dataset.wrapper!)
+						?.children[0] as HTMLDivElement;
+					const cards = featureList.querySelectorAll('div');
+					let total = cards.length;
+					const query = searchBar.value.toUpperCase();
+					cards.forEach((el) => {
+						const span = el.querySelector('span');
+						const txtValue = span?.textContent || span?.innerText;
+						if (!txtValue) return;
+						if (txtValue.toUpperCase().indexOf(query) > -1) {
+							total++;
+							el.style.display = '';
+						} else {
+							total--;
+							el.style.display = 'none';
+						}
+						if (total === 0) {
+							warning.classList.remove('hidden');
+						} else {
+							warning.classList.add('hidden');
+						}
+					});
+				}
+			});
+		}
 	}
+	customElements.define('card-search', CardSearch);
 </script>
 
 <style>
@@ -59,28 +113,42 @@ const { wrapperId = 'search-feature-list' } = Astro.props;
 		--pagefind-ui-scale: 0.8;
 		--pagefind-ui-tag: #eeeeee;
 		--pagefind-ui-border-radius: 8px;
+		--pagefind-ui-image-border-radius: 8px;
+		--pagefind-ui-image-box-ratio: 3 / 2;
+		--pagefind-ui-font: system, -apple-system, 'BlinkMacSystemFont', '.SFNSText-Regular',
+			'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', 'Ubuntu', 'arial',
+			sans-serif;
+	}
+	@media (min-width: 50rem) {
+		:root {
+			--sl-search-cancel-space: 0px;
+		}
 	}
 
-	form::before {
-		--pagefind-ui-text: var(--sl-color-gray-1);
-		opacity: 1;
+	.warning {
+		display: flex;
+		flex-direction: row;
+		gap: 0.25em;
+		margin: 0 calc(70px * var(--pagefind-ui-scale)) 0 calc(54px * var(--pagefind-ui-scale));
+		color: var(--sl-color-orange-high);
+		font-weight: bolder;
 	}
 
-	input {
-		color: var(--sl-color-white);
-		font-weight: 400;
-		width: calc(100% - var(--sl-search-cancel-space));
+	.hidden {
+		display: none;
 	}
 
-	input:focus {
-		--pagefind-ui-border: var(--sl-color-accent);
+	.pagefind-ui {
+		width: 100%;
+		color: var(--pagefind-ui-text);
+		font-family: var(--pagefind-ui-font);
+		margin-inline: 2rem;
 	}
 
-	form {
+	.pagefind-ui__form {
 		position: relative;
 	}
-
-	form::before {
+	.pagefind-ui__form::before {
 		background-color: var(--pagefind-ui-text);
 		width: calc(18px * var(--pagefind-ui-scale));
 		height: calc(18px * var(--pagefind-ui-scale));
@@ -97,8 +165,7 @@ const { wrapperId = 'search-feature-list' } = Astro.props;
 		z-index: 9;
 		pointer-events: none;
 	}
-
-	input {
+	.pagefind-ui__search-input {
 		height: calc(64px * var(--pagefind-ui-scale));
 		padding: 0 calc(70px * var(--pagefind-ui-scale)) 0 calc(54px * var(--pagefind-ui-scale));
 		background-color: var(--pagefind-ui-background);
@@ -111,21 +178,47 @@ const { wrapperId = 'search-feature-list' } = Astro.props;
 		display: flex;
 		width: 100%;
 		box-sizing: border-box;
-		font-weight: 400;
+		font-weight: 700;
 	}
 
-	input-clear {
+	.pagefind-ui__search-input {
+		color: var(--sl-color-white);
+		font-weight: 400;
+		width: calc(100% - var(--sl-search-cancel-space));
+	}
+
+	.pagefind-ui__search-clear {
 		position: absolute;
-		top: calc(2px * var(--pagefind-ui-scale));
-		right: calc(2px * var(--pagefind-ui-scale));
-		height: calc(60px * var(--pagefind-ui-scale));
-		border-radius: var(--pagefind-ui-border-radius);
+		top: calc(3px * var(--pagefind-ui-scale));
+		right: calc(3px * var(--pagefind-ui-scale));
+		height: calc(58px * var(--pagefind-ui-scale));
 		padding: 0 calc(15px * var(--pagefind-ui-scale)) 0 calc(2px * var(--pagefind-ui-scale));
 		color: var(--pagefind-ui-text);
 		font-size: calc(14px * var(--pagefind-ui-scale));
 		cursor: pointer;
 		background-color: var(--pagefind-ui-background);
-		border: none;
-		appearance: none;
+		border-radius: var(--pagefind-ui-border-radius);
+	}
+
+	.pagefind-ui__search-clear {
+		inset-inline-end: var(--sl-search-cancel-space);
+		width: calc(60px * var(--pagefind-ui-scale));
+		padding: 0;
+		background-color: transparent;
+		overflow: hidden;
+	}
+	.pagefind-ui__search-clear:focus {
+		outline: 1px solid var(--sl-color-accent);
+	}
+	.pagefind-ui__search-clear::before {
+		content: '';
+		-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m13.41 12 6.3-6.29a1 1 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1 1 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 .33 1.64 1 1 0 0 0 1.09-.22l6.29-6.3 6.29 6.3a1 1 0 0 0 1.64-.33 1 1 0 0 0-.22-1.09L13.41 12Z'/%3E%3C/svg%3E")
+			center / 50% no-repeat;
+		mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m13.41 12 6.3-6.29a1 1 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1 1 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 .33 1.64 1 1 0 0 0 1.09-.22l6.29-6.3 6.29 6.3a1 1 0 0 0 1.64-.33 1 1 0 0 0-.22-1.09L13.41 12Z'/%3E%3C/svg%3E")
+			center / 50% no-repeat;
+		background-color: var(--sl-color-text-accent);
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 </style>
