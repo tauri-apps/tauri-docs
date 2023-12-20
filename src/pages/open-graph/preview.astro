@@ -1,7 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 
-const base = Astro.url.origin;
+let base = Astro.url.origin;
+if (process.env.CONTEXT !== 'production') {
+	base = process.env.DEPLOY_URL ?? '';
+}
 
 const a = `${base}/open-graph/blog/partnership-crabnebula.png`;
 const b = `${base}/open-graph/features/cli.png`;
