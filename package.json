@@ -12,11 +12,11 @@
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri-v1 && pnpm dev:setup:tauri-v2 && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
-    "build:reference": "pnpm --filter js-api-generator run build",
+    "build:references": "pnpm --filter js-api-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:reference && pnpm build:config && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
