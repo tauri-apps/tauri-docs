@@ -87,7 +87,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           /** Size is coupled with @function clamp() */
           size: titleSize,
           lineHeight: 1.25,
-          weight: 'Bold',
+          weight: 'Normal',
           families: ["Noto Sans", "Noto Sans SC"]
         },
         description: {
