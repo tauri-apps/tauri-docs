@@ -47,12 +47,12 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-	if (existsSync('../tauri/tooling/api/node_modules')) {
+	if (existsSync('../tauri-v2/tooling/api/node_modules')) {
 		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri/tooling/api/src/index.ts'],
-			tsconfig: '../tauri/tooling/api/tsconfig.json',
+			entryPoints: ['../tauri-v2/tooling/api/src/index.ts'],
+			tsconfig: '../tauri-v2/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/2/reference/js/core/',
+			baseUrl: '/references/2/js/core/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -93,7 +93,7 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/2/reference/js/${plugin}`,
+				baseUrl: `/references/2/js/${plugin}`,
 				...typeDocConfigBaseOptions,
 			};
 
