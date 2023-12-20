@@ -32,7 +32,7 @@ let autofocus = false;
 			{autofocus}
 		/>
 
-		<button class="pagefind-ui__search-clear">clear</button>
+		<button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
 	</form>
 	<p class="hidden warning">
 		<Icon name="information" size="1.5rem" />
@@ -54,6 +54,7 @@ let autofocus = false;
 					e.preventDefault();
 				});
 				form.addEventListener('keydown', (e) => {
+					clear.classList.remove('pagefind-ui__suppressed');
 					if (e.key === 'Escape') {
 						searchBar.value = '';
 					}
@@ -66,6 +67,7 @@ let autofocus = false;
 					if (e.key === 'Enter') e.preventDefault();
 				});
 				clear.addEventListener('click', () => {
+					clear.classList.add('pagefind-ui__suppressed');
 					searchBar.value = '';
 				});
 
@@ -220,5 +222,9 @@ let autofocus = false;
 		display: block;
 		width: 100%;
 		height: 100%;
+	}
+	.pagefind-ui__suppressed {
+		opacity: 0;
+		pointer-events: none;
 	}
 </style>
