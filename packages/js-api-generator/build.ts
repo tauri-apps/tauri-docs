@@ -50,7 +50,7 @@ async function generator() {
 			entryPoints: ['../tauri-v1/tooling/api/src/index.ts'],
 			tsconfig: '../tauri-v1/tooling/api/tsconfig.json',
 			gitRevision: '1.x',
-			baseUrl: '/references/1/js/core/',
+			baseUrl: '/references/1/js/',
 			...typeDocConfigBaseOptions,
 		};
 
