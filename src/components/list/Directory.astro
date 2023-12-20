@@ -15,9 +15,13 @@ interface Props {
 	 */
 	path: string;
 	/**
-	 *  Filter out pages by keyword - case insensitive
+	 *  Filter out pages by title - case insensitive
 	 */
-	filterOut?: string[];
+	filterOutByTitle?: string[];
+	/**
+	 *  Filter out pages by file name - case insensitive
+	 */
+	filterOutByFileName?: string[];
 	/**
 	 * Force alphabetical order - by default it sorts by `frontmatter.sidebar.order`, then alphabetically.
 	 *
@@ -39,7 +43,7 @@ function compareOrder(a: Route, b: Route): boolean {
 }
 
 let { path } = Astro.props;
-const { filterOut = [], sortAlphabetically = false } = Astro.props;
+const { filterOutByTitle = [], filterOutByFileName = [], sortAlphabetically = false } = Astro.props;
 
 const defaultLocale = config.defaultLocale.lang || 'en';
 const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
@@ -77,14 +81,24 @@ routes.forEach((page) => {
 });
 
 /**
- * Filter out items if @const filterOut is set
+ * Filter items if any filter is set
  */
-if (filterOut.length > 0) {
+
+if (filterOutByTitle.length > 0) {
 	fallbackList = fallbackList.filter(
-		(page) => !filterOut.some((val) => page.entry.data.title.includes(val))
+		(page) => !filterOutByTitle.some((val) => page.entry.data.title.includes(val))
 	);
 	mainList = mainList.filter(
-		(page) => !filterOut.some((val) => page.entry.data.title.includes(val))
+		(page) => !filterOutByTitle.some((val) => page.entry.data.title.includes(val))
+	);
+}
+
+if (filterOutByFileName.length > 0) {
+	fallbackList = fallbackList.filter(
+		(page) => !filterOutByFileName.some((val) => page.entry.id.includes(val))
+	);
+	mainList = mainList.filter(
+		(page) => !filterOutByFileName.some((val) => page.entry.id.includes(val))
 	);
 }
 
