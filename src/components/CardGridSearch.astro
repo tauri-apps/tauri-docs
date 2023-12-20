@@ -5,7 +5,7 @@ interface Props {
 const { wrapperId = 'search-feature-list' } = Astro.props;
 ---
 
-<form>
+<form class="search-form">
 	<input
 		data-wrapper={wrapperId}
 		type="search"
@@ -20,7 +20,9 @@ const { wrapperId = 'search-feature-list' } = Astro.props;
 	searchBar.addEventListener('keyup', () => {
 		searchFilter(searchBar);
 	});
-
+	searchBar.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter') e.preventDefault();
+	});
 	/**
 	 * Assumes a div with id wrapperId wraps the card grid
 	 * It searchs both title and description
