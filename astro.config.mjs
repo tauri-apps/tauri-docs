@@ -3,11 +3,8 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-
-await configGenerator();
 
 const authors = {
 	nothingismagick: {
@@ -165,6 +162,10 @@ export default defineConfig({
 					label: 'References',
 					items: [
 						{
+							label: 'List of References',
+							link: '/references',
+						},
+						{
 							label: 'Tauri Configuration',
 							link: '2/reference/config',
 						},
@@ -266,6 +267,28 @@ export default defineConfig({
 			'/v1/guides/testing/webdriver/example/webdriverio',
 			'/guides/test/webdriver/example/webdriverio'
 		),
+
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',

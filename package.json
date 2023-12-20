@@ -12,9 +12,10 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "build:reference": "pnpm --filter js-api-generator run build",
+    "build:config": "pnpm --filter config-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:reference && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:reference && pnpm build:config && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -27,7 +28,7 @@
     "prettier-plugin-astro": "^0.12.2",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.32.6",
-    "shiki": "^0.14.6",
+    "shiki": "^0.14.7",
     "starlight-blog": "^0.4.0",
     "starlight-links-validator": "^0.4.2"
   },
