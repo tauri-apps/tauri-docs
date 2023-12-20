@@ -50,7 +50,7 @@ To do this run all commands starting with the flatpak install from inside the `/
 ## Manifest Template
 The following information works for the standard tauri-app, which can be created with 
 ```shell
-cargo create-tauri-app
+cargo create-tauri-app -t vanilla -m cargo -y --alpha
 ```
 The Gnome 45 runtime includes all dependencies of the standard Tauri app with their correct versions.
 Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
