@@ -69,10 +69,10 @@ routes.forEach((page) => {
  */
 if (filterOut.length > 0) {
 	fallbackList = fallbackList.filter(
-		(root) => !filterOut.some((val) => root.entry.data.title.includes(val))
+		(page) => !filterOut.some((val) => page.entry.data.title.includes(val))
 	);
 	mainList = mainList.filter(
-		(root) => !filterOut.some((val) => root.entry.data.title.includes(val))
+		(page) => !filterOut.some((val) => page.entry.data.title.includes(val))
 	);
 }
 
