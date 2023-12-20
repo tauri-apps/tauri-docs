@@ -2,8 +2,8 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
-const schemaFile = '../tauri/core/tauri-config-schema/schema.json';
-const outputFile = '../../src/content/docs/2/reference/config.md';
+const schemaFile = '../tauri-v2/core/tauri-config-schema/schema.json';
+const outputFile = '../../src/content/docs/references/2/config.md';
 
 if (!existsSync(schemaFile)) {
 	throw Error('Could not find the Tauri config schema. Is the Tauri submodule initialized?');
