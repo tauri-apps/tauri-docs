@@ -2,27 +2,32 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
-const schemaFile = '../tauri-v2/core/tauri-config-schema/schema.json';
-const outputFile = '../../src/content/docs/references/2/config.md';
+buildConfig('../tauri-v1/core/tauri-config-schema/schema.json', '../../src/content/docs/references/1/config.md')
+buildConfig('../tauri-v2/core/tauri-config-schema/schema.json', '../../src/content/docs/references/2/config.md')
 
-if (!existsSync(schemaFile)) {
-	throw Error('Could not find the Tauri config schema. Is the Tauri submodule initialized?');
+async function buildConfig(schemaFile: string, outputFile: string) {
+	if (!existsSync(schemaFile)) {
+		throw Error('Could not find the Tauri config schema. Is the Tauri submodule initialized?');
+	}
+	
+	let schema: JSONSchema7 = (await import(schemaFile)).default;
+	
+	const output = [
+		'---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\n---',
+	];
+	
+	output.push(
+		...buildSchemaDefinition(schema, {
+			headingLevel: 2,
+			renderTitle: false,
+		})
+	);
+	
+	writeFileSync(outputFile, output.join('\n\n'));
 }
 
-let schema: JSONSchema7 = (await import(schemaFile)).default;
 
-const output = [
-	'---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\n---',
-];
 
-output.push(
-	...buildSchemaDefinition(schema, {
-		headingLevel: 2,
-		renderTitle: false,
-	})
-);
-
-writeFileSync(outputFile, output.join('\n\n'));
 
 interface Options {
 	headingLevel: number;
