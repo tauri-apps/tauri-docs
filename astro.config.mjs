@@ -245,6 +245,18 @@ export default defineConfig({
 			'/v1/guides/development/updating-dependencies',
 			'/guides/develop/updating-dependencies'
 		),
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/[...slug]',
+			'/concepts/inter-process-communication/[...slug]'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',
