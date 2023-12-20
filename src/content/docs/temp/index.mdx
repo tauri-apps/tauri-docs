@@ -4,5 +4,8 @@ title: Test Directory component
 
 import Directory from '@components/list/Directory.astro';
 
-<Directory path="/fr/temp/" />
- 
+<Directory path="/temp/" />
+---
+<Directory path="/temp/" sortAlphabetically={true}/>
+---
+<Directory path="/features/"  filterOut={["window", "SQL", "Store"]}/>
