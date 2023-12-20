@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+
+const base = Astro.url.origin;
+
+const a = `${base}/open-graph/blog/partnership-crabnebula.png`;
+const b = `${base}/open-graph/features/cli.png`;
+const c = `${base}/open-graph/zh-cn/features/notification.png`;
+const d = `${base}/open-graph/zh-cn/features.png`;
+const e = `${base}/open-graph/fr/features.png`;
+const f = `${base}/open-graph/blog/tauri-board-elections-and-governance-updates.png`;
+const g = `${base}/open-graph/blog/tauri-2-0-0-alpha-4.png`;
+const h = `${base}/open-graph/2/reference/config.png`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Preview</title>
+	</head>
+	<body>
+		<Image src={a} alt="_" width={600} height={315} />
+		<Image src={b} alt="_" width={600} height={315} />
+		<Image src={c} alt="_" width={600} height={315} />
+		<Image src={d} alt="_" width={600} height={315} />
+		<Image src={e} alt="_" width={600} height={315} />
+		<Image src={f} alt="_" width={600} height={315} />
+		<Image src={g} alt="_" width={600} height={315} />
+		<Image src={h} alt="_" width={600} height={315} />
+	</body>
+</html>
