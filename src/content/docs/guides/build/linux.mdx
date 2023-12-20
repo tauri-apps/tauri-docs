@@ -72,7 +72,7 @@ Manual compilation is suitable when you don't need to compile your application f
 
 #### Prerequisites
 
-:::warning
+:::danger
 
 AppImage is not supported on ARM devices. To avoid Tauri from building it, you need to customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
@@ -232,7 +232,7 @@ Choose the appropriate set of instructions based on whether you want to cross-co
 
 For automated ARM executable builds on GitHub, we'll use the [arm-runner-action] created by [Paul Guyot].
 
-:::warning
+:::danger
 
 AppImage is not supported on ARM devices. To avoid Tauri building it, you need to customize `tauri.conf.json` in the `src-tauri` folder. Adjust the `"targets"` array to include only the desired platforms for your ARM-based device. For instance:
 
@@ -301,8 +301,8 @@ Adjust the `path` variable to match your application's version and name:
 
 [resource]: resources.md
 [sidecar]: sidecar.md
-[system requirements]: https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-linux
-[Tauri using Cargo]: https://tauri.app/v1/guides/getting-started/setup/next-js/#create-the-rust-project
+[system requirements]: /guides/prerequisites#linux
+[Tauri using Cargo]: /guides/getting-started/setup/next-js/#create-the-rust-project
 
 [Debian package]: https://wiki.debian.org/Packaging
 [appimage]: https://appimage.org/
