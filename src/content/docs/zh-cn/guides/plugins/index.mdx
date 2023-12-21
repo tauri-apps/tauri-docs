@@ -31,7 +31,7 @@ Tauri 提供了一个基于 webview 功能的视窗系统，一个在 Rust 进�
 {/* TODO: Add link to allowlist */}
 
 Tauri 插件具有一个前缀（Rust 包使用 `tauri-plugin-` 前缀，NPM 包使用 `@tauri-apps/plugin-` 前缀），随后是插件名称。
-插件名称由插件配置中的 [`tauri.conf.json > plugin`](/references/2/config/#pluginconfig) 和许可列表中的配置确定。
+插件名称由插件配置中的 [`tauri.conf.json > plugin`](/references/v2/config/#pluginconfig) 和许可列表中的配置确定。
 
 默认情况下，Tauri 会在你的插件 crate 前面加上 `tauri-plugin-`。这有助于你的插件被 Tauri 社区发现，但不是必须的。初始化新插件项目时，必须提供其名称。生成包名称将为 `tauri-plugin-{plugin-name}`，JavaScript NPM 包名称为 `tauri-plugin-{plugin-name}-api`（尽管我们建议使用 [NPM 范围](https://docs.npmjs.com/about-scopes)如果可能的话）。NPM 包的 Tauri 命名约定是 `@scope-name/plugin-{plugin-name}`。
 
