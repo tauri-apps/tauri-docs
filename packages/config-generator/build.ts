@@ -2,8 +2,8 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
-buildConfig('../tauri-v1/core/tauri-config-schema/schema.json', '../../src/content/docs/references/1/config.md')
-buildConfig('../tauri-v2/core/tauri-config-schema/schema.json', '../../src/content/docs/references/2/config.md')
+buildConfig('../tauri-v1/core/tauri-config-schema/schema.json', '../../src/content/docs/references/v1/config.md')
+buildConfig('../tauri-v2/core/tauri-config-schema/schema.json', '../../src/content/docs/references/v2/config.md')
 
 async function buildConfig(schemaFile: string, outputFile: string) {
 	if (!existsSync(schemaFile)) {

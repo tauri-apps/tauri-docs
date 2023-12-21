@@ -167,15 +167,15 @@ export default defineConfig({
 						},
 						{
 							label: 'Tauri Configuration',
-							link: '/references/2/config',
+							link: '/references/v2/config',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '/references/2/cli',
+							link: '/references/v2/cli',
 						},
 						{
 							label: 'JavaScript API',
-							link: '/references/2/js',
+							link: '/references/v2/js',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',

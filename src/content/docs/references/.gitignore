@@ -1,7 +1,7 @@
-1/config.md
-1/js/*
-!1/js/index.mdx
+v1/config.md
+v1/js/*
+!v1/js/index.mdx
 
-2/config.md
-2/js/*
-!2/js/index.mdx
+v2/config.md
+v2/js/*
+!v2/js/index.mdx
