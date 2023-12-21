@@ -60,7 +60,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
     /** titleSize and descSize are coupled with @function clamp() */
     let [titleSize, descSize, dateSize] = [96, 48, 32];
     let description = "";
-    let postDate = "";
     let title = clamp(data.title, titleSize);
     if (data.description) {
       titleSize *= 0.85; // 81,6
@@ -69,15 +68,13 @@ export const { getStaticPaths, GET } = OGImageRoute({
     if (slug.startsWith('blog/') && data.date && data.excerpt) {
       titleSize *= 0.75; // 72
       descSize *= 0.75; // 36
-      description = clamp(data.excerpt, descSize, true);
-      postDate = getDate(new Date(data.date));
+      description = data.excerpt
+     
     }
 
     return {
       title,
       description,
-      // extraField was patched with sole purpose to place blog post date
-      extraField: postDate,
       padding: 66,
       bgImage: { path: './src/assets/og-bg.png' },
       logo: { path: './src/assets/og-logo.png' },
