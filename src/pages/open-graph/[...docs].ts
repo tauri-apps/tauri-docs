@@ -1,10 +1,10 @@
-import type { CollectionEntry } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
 import { allPages } from 'src/utils/content';
 
-// setup rtlLanguages here
-const rtlLanguages = new Set(['']);
-const getLangFromSlug = (slug: CollectionEntry<'docs'>['slug']) => slug.split('/')[0];
+// TODO: 
+//import { rtlLanguages } from '~/i18n/languages';
+//import { getLangFromSlug } from '~/util';
+
 
 // TODO: Setup the process.env to skip on non production builds
 /** Paths for all of our Markdown content we want to generate OG images for. */
@@ -78,7 +78,6 @@ export const { getStaticPaths, GET } = OGImageRoute({
       description,
       // extraField was patched with sole purpose to place blog post date
       extraField: postDate,
-      dir: rtlLanguages.has(getLangFromSlug(slug)) ? 'rtl' : 'ltr',
       padding: 66,
       bgImage: { path: './src/assets/og-bg.png' },
       logo: { path: './src/assets/og-logo.png' },

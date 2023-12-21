@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   astro-og-canvas@0.4.1:
-    hash: rrlloiysfzq5vchpf5vf5cbwme
+    hash: lv3skmcehdhk4ppn3axolrsv6q
     path: patches/astro-og-canvas@0.4.1.patch
   typedoc-plugin-markdown@4.0.0-next.17:
     hash: kpxroq2vap5a4oc32rphk2cev4
@@ -33,7 +33,7 @@ importers:
         version: 0.3.4
       astro-og-canvas:
         specifier: ^0.4.1
-        version: 0.4.1(patch_hash=rrlloiysfzq5vchpf5vf5cbwme)(astro@3.6.4)
+        version: 0.4.1(patch_hash=lv3skmcehdhk4ppn3axolrsv6q)(astro@3.6.4)
       canvaskit-wasm:
         specifier: ^0.39.1
         version: 0.39.1
@@ -1310,7 +1310,7 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro-og-canvas@0.4.1(patch_hash=rrlloiysfzq5vchpf5vf5cbwme)(astro@3.6.4):
+  /astro-og-canvas@0.4.1(patch_hash=lv3skmcehdhk4ppn3axolrsv6q)(astro@3.6.4):
     resolution: {integrity: sha512-/o5roIF8IuizF+9L9h6X9wHh17d3O2rQJJsOkNtlYBNZFSIkIG/R12TmGACG9ZdViRr6aLhV9BG+B+XLzC0dmw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
