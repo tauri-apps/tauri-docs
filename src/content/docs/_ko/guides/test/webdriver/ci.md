@@ -92,7 +92,6 @@ jobs:
 ```
 
 [previously built together]: /ko/guides/test/webdriver/example/webdriverio
-
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/

@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-프런트엔드 테스트를 작성할 때 "가짜" Tauri 환경을 사용하여 창을 모의 시험하거나 IPC 호출을 가로채는 것이 일반적이며 이를 _mocking_이라고 합니다. [`@tauri-apps/api/mocks`][] 모듈은 이를 쉽게 할 수 있도록 몇 가지 도움이 되는 도구들을 제공합니다.
+프런트엔드 테스트를 작성할 때 "가짜" Tauri 환경을 사용하여 창을 모의 시험하거나 IPC 호출을 가로채는 것이 일반적이며 이를 *mocking*이라고 합니다. [`@tauri-apps/api/mocks`][] 모듈은 이를 쉽게 할 수 있도록 몇 가지 도움이 되는 도구들을 제공합니다.
 
 :::caution
 
@@ -38,7 +38,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -70,7 +70,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -141,7 +141,7 @@ import { mockWindows } from '@tauri-apps/api/mocks';
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -158,10 +158,11 @@ test('invoke', async () => {
   expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
 });
 ```
+
 <!-- TODO: Updates links to v2 -->
+
 [`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
 [`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
 [`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
 [`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
-
 [vitest]: https://vitest.dev

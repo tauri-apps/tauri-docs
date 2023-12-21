@@ -31,7 +31,6 @@ Make sure to grab the version of [Microsoft Edge Driver][] that matches your Win
 
 다운로드 항목에는 `msedgedriver.exe`라는 바이너리가 포함되어 있습니다. [`tauri-driver`][]는 `$PATH`를 통해서 바이너리를 찾기 때문에, 해당 드라이버 경로에서 사용하거나, [`tauri-driver`][]에서 `--native-driver` 옵션을 사용하세요. Edge 및 Edge 드라이버 버전이 Windows CI 시스템에서 동기화 상태를 유지하도록 프로세스의 일부로 CI 설정하면 드라이버를 자동으로 다운로드할 수 있습니다. 이를 수행하는 방법에 대한 안내는 나중에 추가될 것입니다.
 
-
 ## 예제 앱
 
 [다음 섹션](example/setup)은 WebDriver와 함께 애플리케이션을 테스트하는 최소한의 예제를 어떻게 만들지 순차적으로 보여주는 안내서입니다.
@@ -41,16 +40,22 @@ Make sure to grab the version of [Microsoft Edge Driver][] that matches your Win
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid>
-    <LinkCard title="예제 설정"  href="/ko/guides/test/webdriver/example/setup" />
-    <LinkCard title="Selenium" href="/ko/guides/test/webdriver/example/selenium" />
-    <LinkCard title="WebdriverIO"  href="/ko/guides/test/webdriver/example/webdriverio" />
+	<LinkCard title="예제 설정" href="/ko/guides/test/webdriver/example/setup" />
+	<LinkCard
+		title="Selenium"
+		href="/ko/guides/test/webdriver/example/selenium"
+	/>
+	<LinkCard
+		title="WebdriverIO"
+		href="/ko/guides/test/webdriver/example/webdriverio"
+	/>
 </CardGrid>
 
 ## 지속적 통합 (CI)
 
 The above examples also comes with a CI script to test with GitHub actions, but you may still be interested in the below WebDriver CI guide as it explains the concept a bit more.
 
-<LinkCard title="지속적 통합 (CI)"  href="/ko/guides/test/webdriver/ci" />
+<LinkCard title="지속적 통합 (CI)" href="/ko/guides/test/webdriver/ci" />
 
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver

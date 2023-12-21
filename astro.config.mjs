@@ -243,18 +243,9 @@ export default defineConfig({
 			'/guides/develop/updating-dependencies'
 		),
 		// v1 /guides/testing -> /guides/test
-		...i18nRedirect(
-			'/v1/guides/testing/mocking',
-			'/guides/test/mocking'
-		),
-		...i18nRedirect(
-			'/v1/guides/testing/webdriver/ci',
-			'/guides/test/webdriver/ci'
-		),
-		...i18nRedirect(
-			'/v1/guides/testing/webdriver/introduction',
-			'/guides/test/webdriver/'
-		),
+		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
+		...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
+		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
 		...i18nRedirect(
 			'/v1/guides/testing/webdriver/example/setup',
 			'/guides/test/webdriver/example/setup'
@@ -303,9 +294,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-				/^\/*/g,
-				''
-			)}`)
+					/^\/*/g,
+					''
+				)}`)
 	);
 	return routes;
 }

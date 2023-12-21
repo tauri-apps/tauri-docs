@@ -3,6 +3,7 @@ title: Mock Tauri APIs
 sidebar:
   order: 1
 ---
+
 <!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
@@ -40,7 +41,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -73,7 +74,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -145,7 +146,7 @@ import { mockWindows } from '@tauri-apps/api/mocks';
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
-      // @ts-ignore      
+      // @ts-ignore
       getRandomValues: (buffer) => {
         return randomFillSync(buffer);
       },
@@ -164,9 +165,9 @@ test('invoke', async () => {
 ```
 
 <!-- TODO: Updates links to v2 -->
+
 [`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
 [`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
 [`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
 [`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
-
 [vitest]: https://vitest.dev

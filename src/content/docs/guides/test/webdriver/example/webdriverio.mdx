@@ -3,7 +3,8 @@ title: WebdriverIO
 sidebar:
   order: 3
 ---
-{/*TODO: REVISE COPY TO V2 */}
+
+{/* TODO: REVISE COPY TO V2 */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -34,20 +35,20 @@ guide on setting it up from scratch.
 
 ```json
 {
-  "name": "webdriverio",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "test": "wdio run wdio.conf.js"
-  },
-  "dependencies": {
-    "@wdio/cli": "^7.9.1"
-  },
-  "devDependencies": {
-    "@wdio/local-runner": "^7.9.1",
-    "@wdio/mocha-framework": "^7.9.1",
-    "@wdio/spec-reporter": "^7.9.0"
-  }
+	"name": "webdriverio",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"test": "wdio run wdio.conf.js"
+	},
+	"dependencies": {
+		"@wdio/cli": "^7.9.1"
+	},
+	"devDependencies": {
+		"@wdio/local-runner": "^7.9.1",
+		"@wdio/mocha-framework": "^7.9.1",
+		"@wdio/spec-reporter": "^7.9.0"
+	}
 }
 ```
 
@@ -63,17 +64,11 @@ the rest of the guide, and you need to set up the differences yourself.
 
 Let's add the [WebdriverIO] CLI to this npm project.
 
-<CommandTabs
-	npm="npm install @wdio/cli"
-	yarn="yarn add @wdio/cli"
-/>
+<CommandTabs npm="npm install @wdio/cli" yarn="yarn add @wdio/cli" />
 
 To then run the interactive config command to set up a [WebdriverIO] test suite, you can then run:
 
-<CommandTabs
-	npm="npx wdio config"
-	yarn="yarn wdio config"
-/>
+<CommandTabs npm="npx wdio config" yarn="yarn wdio config" />
 
 </details>
 
@@ -85,45 +80,45 @@ config file which controls most aspects of our testing suite.
 `wdio.conf.js`:
 
 ```js
-const os = require('os')
-const path = require('path')
-const { spawn, spawnSync } = require('child_process')
+const os = require('os');
+const path = require('path');
+const { spawn, spawnSync } = require('child_process');
 
 // keep track of the `tauri-driver` child process
-let tauriDriver
+let tauriDriver;
 
 exports.config = {
-  specs: ['./test/specs/**/*.js'],
-  maxInstances: 1,
-  capabilities: [
-    {
-      maxInstances: 1,
-      'tauri:options': {
-        application: '../../target/release/hello-tauri-webdriver',
-      },
-    },
-  ],
-  reporters: ['spec'],
-  framework: 'mocha',
-  mochaOpts: {
-    ui: 'bdd',
-    timeout: 60000,
-  },
+	specs: ['./test/specs/**/*.js'],
+	maxInstances: 1,
+	capabilities: [
+		{
+			maxInstances: 1,
+			'tauri:options': {
+				application: '../../target/release/hello-tauri-webdriver',
+			},
+		},
+	],
+	reporters: ['spec'],
+	framework: 'mocha',
+	mochaOpts: {
+		ui: 'bdd',
+		timeout: 60000,
+	},
 
-  // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
-  onPrepare: () => spawnSync('cargo', ['build', '--release']),
+	// ensure the rust project is built since we expect this binary to exist for the webdriver sessions
+	onPrepare: () => spawnSync('cargo', ['build', '--release']),
 
-  // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
-  beforeSession: () =>
-    (tauriDriver = spawn(
-      path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
-      [],
-      { stdio: [null, process.stdout, process.stderr] }
-    )),
+	// ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
+	beforeSession: () =>
+		(tauriDriver = spawn(
+			path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+			[],
+			{ stdio: [null, process.stdout, process.stderr] }
+		)),
 
-  // clean up the `tauri-driver` process we spawned at the start of the session
-  afterSession: () => tauriDriver.kill(),
-}
+	// clean up the `tauri-driver` process we spawned at the start of the session
+	afterSession: () => tauriDriver.kill(),
+};
 ```
 
 If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][webdriver documentation].
@@ -140,36 +135,36 @@ run them as it sees fit. Let's create our spec now in the directory we specified
 ```js
 // calculates the luma from a hex color `#abcdef`
 function luma(hex) {
-  if (hex.startsWith('#')) {
-    hex = hex.substring(1)
-  }
+	if (hex.startsWith('#')) {
+		hex = hex.substring(1);
+	}
 
-  const rgb = parseInt(hex, 16)
-  const r = (rgb >> 16) & 0xff
-  const g = (rgb >> 8) & 0xff
-  const b = (rgb >> 0) & 0xff
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+	const rgb = parseInt(hex, 16);
+	const r = (rgb >> 16) & 0xff;
+	const g = (rgb >> 8) & 0xff;
+	const b = (rgb >> 0) & 0xff;
+	return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 describe('Hello Tauri', () => {
-  it('should be cordial', async () => {
-    const header = await $('body > h1')
-    const text = await header.getText()
-    expect(text).toMatch(/^[hH]ello/)
-  })
+	it('should be cordial', async () => {
+		const header = await $('body > h1');
+		const text = await header.getText();
+		expect(text).toMatch(/^[hH]ello/);
+	});
 
-  it('should be excited', async () => {
-    const header = await $('body > h1')
-    const text = await header.getText()
-    expect(text).toMatch(/!$/)
-  })
+	it('should be excited', async () => {
+		const header = await $('body > h1');
+		const text = await header.getText();
+		expect(text).toMatch(/!$/);
+	});
 
-  it('should be easy on the eyes', async () => {
-    const body = await $('body')
-    const backgroundColor = await body.getCSSProperty('background-color')
-    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100)
-  })
-})
+	it('should be easy on the eyes', async () => {
+		const body = await $('body');
+		const backgroundColor = await body.getCSSProperty('background-color');
+		expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
+	});
+});
 ```
 
 The `luma` function on top is just a helper function for one of our tests and is not related to the actual testing of
@@ -181,11 +176,7 @@ covered by the [WebdriverIO API docs].
 
 Now that we are all set up with config and a spec let's run it!
 
-
-<CommandTabs
-	npm="npm test"
-	yarn="yarn test"
-/>
+<CommandTabs npm="npm test" yarn="yarn test" />
 
 We should see output the following output:
 
@@ -225,7 +216,6 @@ Using the [WebdriverIO] test suite, we just easily enabled e2e testing for our T
 of configuration and a single command to run it! Even better, we didn't have to modify the application at all.
 
 [example application setup]: /guides/test/webdriver/example/setup
-
 [webdriverio]: https://webdriver.io/
 [finished example project]: https://github.com/chippers/hello_tauri
 [mocha]: https://mochajs.org/

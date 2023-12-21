@@ -1,8 +1,8 @@
 ---
 title: Continuous Integration
 description: WebDriver Testing
-
 ---
+
 <!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
@@ -97,7 +97,6 @@ jobs:
 ```
 
 [previously built together]: /guides/test/webdriver/example/webdriverio
-
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/
