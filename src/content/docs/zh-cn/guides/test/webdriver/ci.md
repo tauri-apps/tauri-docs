@@ -1,7 +1,6 @@
 ---
 title: 持续集成
 description: WebDriver Testing
-
 ---
 
 利用 Linux 和一些程序来创建模拟显示，可以在 CI 上使用 [`tauri-driver`][] 运行 [WebDriver][] 测试。 下面的示例使用 [我们之前一起构建][]的 [WebdriverIO][] 示例和 GitHub Actions。
@@ -93,7 +92,6 @@ jobs:
 ```
 
 [previously built together]: /zh-cn/guides/test/webdriver/example/webdriverio
-
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/
