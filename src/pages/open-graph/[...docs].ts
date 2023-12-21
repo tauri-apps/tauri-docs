@@ -58,26 +58,26 @@ export const { getStaticPaths, GET } = OGImageRoute({
   // TODO: Improve texts size and placement
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
     /** titleSize and descSize are coupled with @function clamp() */
-    let [titleSize, descSize, dateSize] = [96, 48, 32];
+    let [titleSize, descSize] = [72, 48];
     let description = "";
     let title = clamp(data.title, titleSize);
     if (data.description) {
-      titleSize *= 0.85; // 81,6
+      //titleSize *= 0.85; // 81,6
       description = clamp(data.description, descSize);
     }
     if (slug.startsWith('blog/') && data.date && data.excerpt) {
-      titleSize *= 0.75; // 72
-      descSize *= 0.75; // 36
+      //titleSize *= 0.75; // 72
+      //descSize *= 0.75; // 36
       description = data.excerpt
-     
+
     }
 
     return {
       title,
       description,
-      padding: 66,
+      padding: 80,
       bgImage: { path: './src/assets/og-bg.png' },
-      logo: { path: './src/assets/og-logo.png' },
+      logo: { path: './src/assets/og-logo.png', size: [260] },
       font: {
         title: {
           /** Size is coupled with @function clamp() */
@@ -92,13 +92,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           lineHeight: 1.25,
           weight: 'Normal',
           families: ["Noto Sans", "Noto Sans SC"]
-        },
-        extraField: {
-          size: dateSize,
-          lineHeight: 1.25,
-          weight: 'Light',
-          families: ["Noto Sans", "Noto Sans SC"]
-        },
+        }
       },
       fonts: [
         './src/pages/open-graph/_fonts/NotoSans-Bold.ttf',
