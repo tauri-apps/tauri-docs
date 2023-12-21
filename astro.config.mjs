@@ -195,7 +195,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -242,6 +242,32 @@ export default defineConfig({
 			'/v1/guides/development/updating-dependencies',
 			'/guides/develop/updating-dependencies'
 		),
+		// v1 /guides/testing -> /guides/test
+		...i18nRedirect(
+			'/v1/guides/testing/mocking',
+			'/guides/test/mocking'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/ci',
+			'/guides/test/webdriver/ci'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/introduction',
+			'/guides/test/webdriver/'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/setup',
+			'/guides/test/webdriver/example/setup'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/selenium',
+			'/guides/test/webdriver/example/selenium'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/webdriverio',
+			'/guides/test/webdriver/example/webdriverio'
+		),
+
 		// v1 /references
 		...i18nRedirect('/v1/references', '/concepts'),
 		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
@@ -262,10 +288,12 @@ export default defineConfig({
 		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
 		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
 		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',
 	},
+	//
 });
 
 // Generates a redirect for each locale.
@@ -275,9 +303,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
