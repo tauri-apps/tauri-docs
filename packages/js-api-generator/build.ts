@@ -56,9 +56,11 @@ async function generator() {
 
 		await generateDocs(coreJsOptions);
 	} else {
-		console.log('Tauri V1 submodule is not initialized, respective API routes will not be rendered.');
+		console.log(
+			'Tauri V1 submodule is not initialized, respective API routes will not be rendered.'
+		);
 	}
-	
+
 	if (existsSync('../tauri-v2/tooling/api/node_modules')) {
 		const coreJsOptions: Partial<TypeDocOptions> = {
 			entryPoints: ['../tauri-v2/tooling/api/src/index.ts'],
@@ -70,7 +72,9 @@ async function generator() {
 
 		await generateDocs(coreJsOptions);
 	} else {
-		console.log('Tauri V2 submodule is not initialized, respective API routes will not be rendered.');
+		console.log(
+			'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
+		);
 	}
 
 	const plugins = [
@@ -164,7 +168,6 @@ class TauriTheme extends MarkdownTheme {
 }
 
 class TauriThemeRenderContext extends MarkdownThemeRenderContext {
-
 	constructor(event: PageEvent<Reflection>, options: Options) {
 		super(event, options);
 	}
