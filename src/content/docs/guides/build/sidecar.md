@@ -188,7 +188,7 @@ The Tauri [sidecar example] demonstrates how to use the sidecar API to run a Nod
 It compiles the Node.js code using [pkg] and uses the scripts above to run it.
 
 
-[tauri.bundle]: /references/v2/config#bundleconfig
+[tauri.bundle]: /references/v2/config/#bundleconfig
 [restricting access to the command apis]: /references/v2/js/shell#restricting-access-to-the-command-apis
 
 <!-- TODO: update with a v2 example -->

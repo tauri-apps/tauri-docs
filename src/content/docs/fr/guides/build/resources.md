@@ -99,8 +99,8 @@ fn hello(handle: tauri::AppHandle) -> String {
 }
 ```
 
-[tauri.bundle]: /fr/references/v2/config#bundleconfig
-[`fs` APIs]: /fr/references/v2/js/fs/
+[tauri.bundle]: /references/v2/config/#bundleconfig
+[`fs` APIs]: /references/v2/js/fs/
 
 [`PathResolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
 [`App`]: https://docs.rs/tauri/latest/tauri/struct.App.html
