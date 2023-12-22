@@ -67,15 +67,15 @@ $env:TAURI_FIPS_COMPLIANT="true"
 
 ## WebView2 Installation Options
 
-The installers by default download the WebView2 bootstrapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer, or use a fixed WebView2 runtime version. See the following table for a comparison between these methods:
+The installers by default download the WebView2 bootstrapper and executes it if the runtime is not installed. Alternatively, you can embed the bootstrapper, embed the offline installer, or use a fixed WebView2 runtime version. Voir le tableau suivant pour une comparaison entre ces méthodes :
 
-| Installation Method                                | Requires Internet Connection? | Additional Installer Size | Notes                                                                                                                   |
-| :------------------------------------------------- | :---------------------------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
-| [`downloadBootstrapper`](#downloaded-bootstrapper) | Yes                           | 0MB                       | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment via `.msi` files. |
-| [`embedBootstrapper`](#embedded-bootstrapper)      | Yes                           | ~1.8MB                    | Better support on Windows 7 for `.msi` installers.                                                                      |
-| [`offlineInstaller`](#offline-installer)           | No                            | ~127MB                    | Embeds WebView2 installer. Recommended for offline environments.                                                        |
-| [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed WebView2 version.                                                                                        |
-| [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
+| Méthode d'installation                             | Nécessite une connexion Internet ? | Taille supplémentaire de l'installateur | Notes                                                                                                                         |
+|:-------------------------------------------------- |:---------------------------------- |:--------------------------------------- |:----------------------------------------------------------------------------------------------------------------------------- |
+| [`downloadBootstrapper`](#downloaded-bootstrapper) | Oui                                | 0 Mo                                    | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment via `.msi` files. |
+| [`embedBootstrapper`](#embedded-bootstrapper)      | Oui                                | ~1,8 Mo                                 | Better support on Windows 7 for `.msi` installers.                                                                            |
+| [`offlineInstaller`](#offline-installer)           | Non                                | ~127 Mo                                 | Embeds WebView2 installer. Recommended for offline environments.                                                              |
+| [`fixedVersion`](#fixed-version)                   | Non                                | ~180 Mo                                 | Embeds a fixed WebView2 version.                                                                                              |
+| [`skip`](#skipping-installation)                   | Non                                | 0 Mo                                    | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
 
 :::note
 
