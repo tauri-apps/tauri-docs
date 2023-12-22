@@ -3,11 +3,8 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-
-await configGenerator();
 
 const authors = {
 	nothingismagick: {
@@ -165,16 +162,20 @@ export default defineConfig({
 					label: 'References',
 					items: [
 						{
+							label: 'List of References',
+							link: '/references',
+						},
+						{
 							label: 'Tauri Configuration',
-							link: '2/reference/config',
+							link: '/references/v2/config',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '2/reference/cli',
+							link: '/references/v2/cli',
 						},
 						{
 							label: 'JavaScript API',
-							link: '2/reference/js',
+							link: '/references/v2/js',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',
@@ -194,7 +195,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'shell', 'yml', 'xml'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml','html', 'js', 'shell', 'yml', 'xml'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -287,10 +288,49 @@ export default defineConfig({
 			'/v1/guides/distribution/sign-linux',
 			'/guides/build/sign-linux'
 		),
+		// v1 /guides/testing -> /guides/test
+		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
+		...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
+		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/setup',
+			'/guides/test/webdriver/example/setup'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/selenium',
+			'/guides/test/webdriver/example/selenium'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/webdriverio',
+			'/guides/test/webdriver/example/webdriverio'
+		),
+
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',
 	},
+	//
 });
 
 // Generates a redirect for each locale.
