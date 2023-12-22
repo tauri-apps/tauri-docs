@@ -200,7 +200,7 @@ Your application WILL NOT work if the user does not have the runtime installed a
 
 ## Customizing the WiX Installer Template
 
-The `.msi` Windows Installer package is built using the [WiX Toolset v3]. Currently, apart from pre-defined [configurations](/2/reference/config#wixconfig), you can change it by using a custom WiX source code (an XML file with a `.wxs` file extension) or through WiX fragments.
+The `.msi` Windows Installer package is built using the [WiX Toolset v3]. Currently, apart from pre-defined [configurations](/references/v2/config#wixconfig), you can change it by using a custom WiX source code (an XML file with a `.wxs` file extension) or through WiX fragments.
 
 ### Replacing the Installer Code with a Custom WiX File
 
@@ -272,7 +272,7 @@ The NSIS Installer's `.nsi` script defined by Tauri is configured to work for th
 
 ## Internationalization
 
-The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations. You can specify which languages to include using the [`tauri.bundle.windows.nsis.languages`](/2/reference/config#nsisconfig.languages) property. A list of languages supported by NSIS is available in [the NSIS GitHub project]. There are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo]. Starting with v1.4 you can also provide [custom translation files](/2/reference/config#nsisconfig.customlanguagefiles).
+The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations. You can specify which languages to include using the [`tauri.bundle.windows.nsis.languages`](/references/v2/config#nsisconfig.languages) property. A list of languages supported by NSIS is available in [the NSIS GitHub project]. There are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo]. Starting with v1.4 you can also provide [custom translation files](/references/v2/config#nsisconfig.customlanguagefiles).
 
 The WiX Installer is built using the `en-US` language by default. Internationalization (i18n) can be configured using the [`tauri.bundle.windows.wix.language`] property, defining the languages Tauri should build an installer against. You can find the language names to use in the Language-Culture column on [Microsoft's website][localizing the error and actiontext tables].
 
@@ -365,9 +365,9 @@ The `WixLocalization` element's `Culture` field must match the configured langua
 
 Currently, Tauri references the following locale strings: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` and `InstallAppFeature`. You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`. See the [WiX localization documentation] for more information.
 
-[webviewinstallmode]: /2/reference/config#webviewinstallmode
-[`tauri.bundle.windows.wix.template`]: /2/reference/config#wixconfig.template
-[`tauri.bundle.windows.nsis.template`]: /2/reference/config#nsisconfig.template
+[webviewinstallmode]: /references/v2/config#webviewinstallmode
+[`tauri.bundle.windows.wix.template`]: /references/v2/config#wixconfig.template
+[`tauri.bundle.windows.nsis.template`]: /references/v2/config#nsisconfig.template
 
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [nsis]: https://nsis.sourceforge.io/Main_Page
@@ -377,7 +377,7 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 [default nsis template]: https://github.com/tauri-apps/tauri/blob/1.x/tooling/bundler/src/bundle/windows/templates/installer.nsi
 [handlebars]: https://docs.rs/handlebars/latest/handlebars/
 [wix fragment]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html
-[`tauri.bundle.windows.wix.language`]: /2/reference/config#wixconfig.language
+[`tauri.bundle.windows.wix.language`]: /references/v2/config#wixconfig.language
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
 [the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files

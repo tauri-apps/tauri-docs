@@ -182,8 +182,8 @@ const output = await command.execute()
 L'exemple Tauri [sidecar][] montre comment utiliser l'API sidecar pour exécuter une application Node.js sur Tauri. Il compile le code Node.js en utilisant [pkg][] et utilise les scripts ci-dessus pour l'exécuter.
 
 
-[tauri.bundle]: /fr/2/reference/config#bundleconfig
-[Restreindre l'accès aux API de commande]: /fr/2/reference/js/shell#restricting-access-to-the-command-apis
+[tauri.bundle]: /fr/references/v2/config#bundleconfig
+[Restreindre l'accès aux API de commande]: /fr/references/v2/js/shell#restricting-access-to-the-command-apis
 
 <!-- TODO: update with a v2 example -->
 [sidecar]: https://github.com/tauri-apps/tauri/tree/1.x/examples/sidecar
