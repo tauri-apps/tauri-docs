@@ -9,11 +9,11 @@ import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routin
 
 interface Props {
 	/**
-	 * Path relative to /src - e.g "/zh-cn/features"
+	 * Slug relative to /src - e.g "/zh-cn/features"
 	 *
 	 * Note: leading and trailing slashes are dropped "/features/" === "features"
 	 */
-	path: string;
+	slug: string;
 	/**
 	 *  Filter out pages by title - case insensitive
 	 */
@@ -42,13 +42,13 @@ function compareOrder(a: Route, b: Route): boolean {
 	return a.entry.data.sidebar.order > b.entry.data.sidebar.order;
 }
 
-let { path } = Astro.props;
+let { slug } = Astro.props;
 const { filterOutByTitle = [], filterOutByFileName = [], sortAlphabetically = false } = Astro.props;
 
 const defaultLocale = config.defaultLocale.lang || 'en';
 const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
 
-path = stripLeadingAndTrailingSlashes(path.toLowerCase());
+slug = stripLeadingAndTrailingSlashes(slug.toLowerCase());
 let [currentPageLocale] = stripLeadingAndTrailingSlashes(Astro.url.pathname).split('/');
 
 // Ensure currentPageLocale is a locale when it's page is on default locale
@@ -59,22 +59,23 @@ if (!localesList.includes(currentPageLocale)) {
 const locale = currentPageLocale;
 const pageLang = ensureTrailingSlash(locale);
 
-// Ensure the locale is ignore if passed on `path`
-let [sliceLocale] = stripLeadingAndTrailingSlashes(path).split('/');
+// Ensure the locale is ignore if passed on `slug`
+let [sliceLocale] = stripLeadingAndTrailingSlashes(slug).split('/');
 if (localesList.includes(sliceLocale)) {
-	path = path.slice(sliceLocale.length + 1);
+	slug = slug.slice(sliceLocale.length + 1);
 }
-// Localize `path` to the current page locale
-path = locale === defaultLocale ? path : pageLang + path;
+// Localize `slug` to the current page locale
+slug = locale === defaultLocale ? slug : pageLang + slug;
 
 let fallbackList: Route[] = [];
 let mainList: Route[] = [];
 
 routes.forEach((page) => {
-	if (page.slug.startsWith(path)) {
+	// `page.slug` is the slug of the current page being looped, `slug` is a prop
+	if (page.slug.startsWith(slug)) {
 		if (page.isFallback) {
 			fallbackList.push(page);
-		} else if (page.slug !== path) {
+		} else if (page.slug !== slug) {
 			mainList.push(page);
 		}
 	}
