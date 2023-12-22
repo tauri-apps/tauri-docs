@@ -54,7 +54,7 @@ rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 
 Here's a Node.js script to append the target triple to a binary:
 
-```javascript
+```ts
 const execa = require('execa')
 const fs = require('fs')
 
@@ -86,7 +86,7 @@ In the JavaScript code, import the `Command` class on the `shell` module and use
 
 Note that you must configure the allowlist to enable `shell > sidecar` and configure all binaries in `shell > scope`.
 
-```javascript
+```ts
 import { Command } from '@tauri-apps/api/shell'
 // alternatively, use `window.__TAURI__.shell.Command`
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`

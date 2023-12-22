@@ -53,7 +53,7 @@ In this case, we store these files in a `lang` directory next to the `tauri.conf
 
 Note that you must configure the allowlist to enable `path > all` and the [`fs` APIs] you need, in this example `fs > readTextFile`.
 
-```javascript
+```ts
 import { resolveResource } from '@tauri-apps/api/path'
 // alternatively, use `window.__TAURI__.path.resolveResource`
 import { readTextFile } from '@tauri-apps/api/fs'

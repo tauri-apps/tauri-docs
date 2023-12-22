@@ -1,9 +1,6 @@
 ---
-sidebar_label: macOS Code Signing
-sidebar_position: 4
+title: Code Signing macOS Applications
 ---
-
-# Code Signing macOS Applications
 
 This guide provides information on code signing and notarization for macOS applications.
 

@@ -1,9 +1,6 @@
 ---
-sidebar_label: Linux Code Signing
-sidebar_position: 3
+title: Code Signing Linux packages
 ---
-
-# Code Signing Linux packages
 
 This guide provides information on code signing for Linux packages.
 
@@ -36,7 +33,7 @@ You can display the signature embedded in the AppImage by running the following 
 
 Note that you need to change the $APPNAME and $VERSION values with the correct ones based on your configuration.
 
-:::caution The signature is not verified
+:::caution[The signature is not verified]
 
 AppImage does not validate the signature, so you can't rely on it to check whether the file has been tampered with or not.
 To validate the signature, you must provide an external tool for your users. See [the official AppImage documentation] for additional information.
