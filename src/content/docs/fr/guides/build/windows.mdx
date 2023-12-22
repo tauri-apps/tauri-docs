@@ -71,11 +71,11 @@ The installers by default download the WebView2 bootstrapper and executes it if 
 
 | Méthode d'installation                             | Nécessite une connexion Internet ? | Taille supplémentaire de l'installateur | Notes                                                                                                                         |
 |:-------------------------------------------------- |:---------------------------------- |:--------------------------------------- |:----------------------------------------------------------------------------------------------------------------------------- |
-| [`downloadBootstrapper`](#downloaded-bootstrapper) | Oui                                | 0 Mo                                    | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment via `.msi` files. |
+| [`downloadBootstrapper`](#intégré-le-programme-damorçage) | Oui                                | 0 Mo                                    | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment via `.msi` files. |
 | [`embedBootstrapper`](#embedded-bootstrapper)      | Oui                                | ~1,8 Mo                                 | Better support on Windows 7 for `.msi` installers.                                                                            |
-| [`offlineInstaller`](#offline-installer)           | Non                                | ~127 Mo                                 | Embeds WebView2 installer. Recommended for offline environments.                                                              |
-| [`fixedVersion`](#fixed-version)                   | Non                                | ~180 Mo                                 | Embeds a fixed WebView2 version.                                                                                              |
-| [`skip`](#skipping-installation)                   | Non                                | 0 Mo                                    | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
+| [`offlineInstaller`](#installateur-hors-ligne)           | Non                                | ~127 Mo                                 | Embeds WebView2 installer. Recommended for offline environments.                                                              |
+| [`fixedVersion`](#version-fixe)                   | Non                                | ~180 Mo                                 | Embeds a fixed WebView2 version.                                                                                              |
+| [`skip`](#ignorer-linstallation)                   | Non                                | 0 Mo                                    | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
 
 :::note
 
