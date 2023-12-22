@@ -274,6 +274,19 @@ export default defineConfig({
 			'/v1/guides/building/resources',
 			'/guides/build/resources'
 		),
+		// Code signing moved from /distributing to /build
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-windows',
+			'/guides/build/sign-windows'
+		),
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-macos',
+			'/guides/build/sign-macos'
+		),
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-linux',
+			'/guides/build/sign-linux'
+		),
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',
@@ -287,9 +300,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
