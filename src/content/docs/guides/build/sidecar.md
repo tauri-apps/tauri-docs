@@ -168,7 +168,7 @@ First, define the arguments that need to be passed to the Sidecar command in `ta
 
 Then, to call the sidecar command, simply pass in **all** the arguments as an array:
 
-```js
+```ts
 import { Command } from '@tauri-apps/api/shell'
 // alternatively, use `window.__TAURI__.shell.Command`
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
