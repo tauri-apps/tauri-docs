@@ -52,7 +52,7 @@ rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 
 Voici un script Node.js pour ajouter le triple cible à un binaire :
 
-```ts
+```js
 const execa = require('execa')
 const fs = require('fs')
 
@@ -84,7 +84,7 @@ Dans le code JavaScript, importez la classe `Command` sur le module `shell` et u
 
 Notez que vous devez configurer la liste d'autorisations pour activer `shell > sidecar` et configurer tous les binaires dans `shell > scope`.
 
-```javascript
+```js
 import { Command } from '@tauri-apps/api/shell'
 // alternative: `window.__TAURI__.shell.Command`
 // `binaries/my-sidecar` est la MÊME valeur spécifier dans le `tauri.conf.json > tauri > bundle > externalBin`
@@ -163,7 +163,7 @@ Premièrement, définissez les arguments qui doivent être passés à la command
 
 Ensuite, pour appeler la commande sidecar, il suffit de passer **tous les** arguments en tant que tableau:
 
-```ts
+```js
 import { Command } from '@tauri-apps/api/shell'
 // ou `window.__TAURI__.shell.Command`
 // `binaries/my-sidecar` est la MÊME valeur spécifié dans `tauri.conf.json > tauri > bundle > externalBin`
