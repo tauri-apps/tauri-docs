@@ -77,7 +77,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       description,
       padding: 80,
       bgImage: { path: './src/assets/og-bg.png' },
-      logo: { path: './src/assets/og-logo.png', size: [260] },
+      logo: { path: './src/assets/og-logo.png' },
       font: {
         title: {
           /** Size is coupled with @function clamp() */
