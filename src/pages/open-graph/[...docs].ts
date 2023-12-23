@@ -12,15 +12,6 @@ const paths = process.env.SKIP_OG ? [] : allPages;
 /** An object mapping file paths to file metadata. */
 const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
 
-function getDate(date: Date): string {
-  // en-GB -> dd MM yy
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
 /**
  * TODO: This can be improved
  * Helper function to clamp a string
