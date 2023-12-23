@@ -2,6 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
 import { allPages } from 'src/utils/content';
 
+// setup rtlLanguages here
 const rtlLanguages = new Set(['']);
 const getLangFromSlug = (slug: CollectionEntry<'docs'>['slug']) => slug.split('/')[0];
 
@@ -15,12 +16,13 @@ const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, 
 /**
  * TODO: This can be improved
  * Helper function to clamp a string
- * @returns A string with "..." at the end if text is longer than MAX_LEN
+ * @returns A string that fits in two lines with "..." at the end if text is longer than MAX_LEN
  */
 function clampTwoLines(txt: string, fontSize: number): string {
   // those numbers are what more or less fit to description and title size, not precisely
   // it can vary based on font, as of now it matches Inter. 
   // Maybe this can help? https://github.com/adambisek/string-pixel-width/blob/master/src/pixelWidthCalculator.html
+  // or this https://github.com/Evgenus/js-server-text-width
   let MAX_LEN = 73;
   // title:
   if (fontSize > 60) {
@@ -65,7 +67,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           families: ["Inter", "Noto Sans SC", "Noto Sans"]
         },
         description: {
-          /** Size is coupled with @function clamp() */
+          /** Size is coupled with @function clampTwoLines() */
           size: descSize,
           lineHeight: 1.25,
           weight: 'Normal',
