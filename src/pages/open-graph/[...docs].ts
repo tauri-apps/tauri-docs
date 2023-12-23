@@ -64,19 +64,21 @@ export const { getStaticPaths, GET } = OGImageRoute({
           size: titleSize,
           lineHeight: 1.25,
           weight: 'Normal',
-          families: ["Inter", "Noto Sans SC", "Noto Sans"]
+          families: ["Inter", "Noto Sans SC Thin"]
         },
         description: {
           /** Size is coupled with @function clampTwoLines() */
           size: descSize,
           lineHeight: 1.25,
           weight: 'Normal',
-          families: ["Inter", "Noto Sans SC Variable"]
+          families: ["Inter", "Noto Sans SC Thin"]
         }
       },
       fonts: [
         './node_modules/@fontsource-variable/inter/files/inter-latin-standard-normal.woff2',
-      ]
+        // simplified chinese
+        './node_modules/@fontsource-variable/noto-sans-sc/files/noto-sans-sc-latin-wght-normal.woff2',
+      ],
     };
   },
 });
