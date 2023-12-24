@@ -1,13 +1,13 @@
 ---
-sidebar_position: 5
+title: Updater
 ---
+{/* TODO: REVISE COPY TO V2 */}
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import Command from '@theme/Command'
-import updaterDialogImage from '/img/guides/distribution/updater/update-available.png'
+import CommandTabs from '@components/CommandTabs.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-# Updater
+import { Image } from 'astro:assets';
+import updaterDialogImage from '@assets/img/guides/distribute/update-available.png';
 
 Tauri offers a built-in updater for the NSIS (Windows), MSI (Windows), AppImage (Linux) and App bundle (macOS) distribution formats.
 
@@ -24,11 +24,21 @@ To sign your updates you need two things:
 
 To generate the keys on Linux and macOS you can use the Tauri CLI:
 
-<Command name="signer generate -w ~/.tauri/myapp.key" />
+<CommandTabs
+	npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
+	yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
+	pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
+	cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
+/>
 
 If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different path of your choice instead:
 
-<Command name="signer generate -w $HOME/.tauri/myapp.key" />
+<CommandTabs
+	npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
+	yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
+	pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
+	cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
+/>
 
 ## Tauri Configuration
 
@@ -95,22 +105,18 @@ Before building your app, you need to set environment variables for the private 
 
 If you want to set these variables for the current console session you could execute these commands in the console which you will use to build the app later:
 
-<Tabs groupId="set-env-vars">
-  <TabItem value="Bash">
-
-```shell
-export TAURI_PRIVATE_KEY="content of the generated key"
-export TAURI_KEY_PASSWORD="password"
-```
-
+<Tabs>
+  <TabItem label="set-env-vars">
+    ```shell
+    export TAURI_PRIVATE_KEY="content of the generated key"
+    export TAURI_KEY_PASSWORD="password"
+    ```
   </TabItem>
-  <TabItem value="PowerShell">
-
-```powershell
-$env:TAURI_PRIVATE_KEY="content of the generated key"
-$env:TAURI_KEY_PASSWORD="password"
-```
-
+  <TabItem label="PowerShell">
+    ```powershell
+    $env:TAURI_PRIVATE_KEY="content of the generated key"
+    $env:TAURI_KEY_PASSWORD="password"
+    ```
   </TabItem>
 </Tabs>
 
@@ -222,7 +228,9 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/dialog.md#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
 
-<img src={updaterDialogImage} alt="Default updater dialog" style={{maxHeight: "200px", textAlign: 'center'}} />
+<div style={{ textAlign: 'center' }}>
+	<Image src={updaterDialogImage} alt="Default updater dialog"/>
+</div>
 
 The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
 If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
