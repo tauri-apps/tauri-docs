@@ -76,7 +76,7 @@ Each updater URL can contain the following variables allowing you to determine [
 
 ### `installMode` on Windows
 
-On Windows there is an additional optional config [`"installMode"`](../../api/config.md#updaterwindowsconfig.installmode) to change how the update is installed.
+On Windows there is an additional optional config [`"installMode"`](/references/v2/config/#installmode-1) to change how the update is installed.
 
 ```json title=tauri.conf.json
 {
@@ -226,7 +226,7 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ### Built-In Dialog
 
-By default, the updater shows a dialog using Tauri's [dialog.ask](../../api/js/dialog.md#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](../../api/js/event.md#emit) the `"tauri://update"` event.
+By default, the updater shows a dialog using Tauri's [dialog.ask](/references/v2/js/dialog/#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](/references/v2/js/core/namespaceevent/) the `"tauri://update"` event.
 
 <div style={{ textAlign: 'center' }}>
 	<Image src={updaterDialogImage} alt="Default updater dialog"/>
@@ -249,7 +249,7 @@ Please see the updater module documentation at [docs.rs] for the Rust API.
 
 #### JavaScript
 
-For the complete API docs see [here](../../api/js/updater.md). An example using the JavaScript API looks like this:
+For the complete API docs see [here](/references/v2/js/updater/). An example using the JavaScript API looks like this:
 
 ```js title=updater.ts
 import {
