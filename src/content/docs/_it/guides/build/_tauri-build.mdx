@@ -1,0 +1,30 @@
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+To build and bundle your Tauri application into a single executable simply run the following command:
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm run tauri build
+```
+</TabItem>
+<TabItem label="Yarn">
+```sh
+yarn tauri build
+```
+</TabItem>
+<TabItem label="pnpm">
+```sh
+pnpm tauri build
+```
+</TabItem>
+<TabItem label="Cargo">
+```sh
+cargo tauri build
+```
+</TabItem>
+</Tabs>
+
+Genererà il tuo frontend (se configurato, vedi [`beforeBuildCommand`][beforebuildcommand]), compilerà il binario Rust, raccoglierà tutti i binari e le risorse esterne e infine produrrà pacchetti e programmi d'installazione puliti, specifici per piattaforme.
+
+[beforebuildcommand]: /references/v2/config/#beforebuildcommand
