@@ -73,7 +73,7 @@ Install the OS Information plugin to get started.
 
 ## Usage
 
-With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/2/reference/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
+With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/references/v2/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
@@ -87,8 +87,8 @@ With this plugin you can query multiple information from current operational sys
 ```js
 import { platform } from '@tauri-apps/plugin-os';
 
-const platform = await platform();
-console.log(platform);
+const currentPlatform = await platform();
+console.log(currentPlatform);
 // Prints "windows" to the console
 ```
 

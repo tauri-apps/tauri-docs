@@ -3,11 +3,8 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-
-await configGenerator();
 
 const authors = {
 	nothingismagick: {
@@ -141,7 +138,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug',
+							link: 'guides/debug/',
 						},
 						{
 							label: 'Test',
@@ -165,16 +162,20 @@ export default defineConfig({
 					label: 'References',
 					items: [
 						{
+							label: 'List of References',
+							link: '/references',
+						},
+						{
 							label: 'Tauri Configuration',
-							link: '2/reference/config',
+							link: '/references/v2/config',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '2/reference/cli',
+							link: '/references/v2/cli',
 						},
 						{
 							label: 'JavaScript API',
-							link: '2/reference/js',
+							link: '/references/v2/js',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',
@@ -194,7 +195,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -228,21 +229,74 @@ export default defineConfig({
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
 		'about/intro': 'about/philosophy',
+		// v1 /guides/debugging -> /guides/debug
+		...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
+		...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
+		...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
 		// v1 /guides/development -> /guides/develop
-		'/v1/guides/development/development-cycle': '/guides/develop/development-cycle',
-		'/v1/guides/development/updating-dependencies': '/guides/develop/updating-dependencies',
-		// i18n fr
-		'/fr/v1/guides/development/development-cycle/': '/fr/guides/develop/development-cycle/',
-		'/fr/v1/guides/development/updating-dependencies/': '/fr/guides/develop/updating-dependencies/',
-		// i18n ko
-		'/ko/v1/guides/development/development-cycle/': '/ko/guides/develop/development-cycle/',
-		'/ko/v1/guides/development/updating-dependencies/': '/ko/guides/develop/updating-dependencies/',
-		// i18n zh-cn
-		'/zh-cn/v1/guides/development/development-cycle/': '/zh-cn/guides/develop/development-cycle/',
-		'/zh-cn/v1/guides/development/updating-dependencies/':
-			'/zh-cn/guides/develop/updating-dependencies/',
-		// i18n it
-		'/it/v1/guides/development/development-cycle/': '/it/guides/develop/development-cycle/',
-		'/it/v1/guides/development/updating-dependencies/': '/it/guides/develop/updating-dependencies/',
+		...i18nRedirect(
+			'/v1/guides/development/development-cycle',
+			'/guides/develop/development-cycle'
+		),
+		...i18nRedirect(
+			'/v1/guides/development/updating-dependencies',
+			'/guides/develop/updating-dependencies'
+		),
+		// v1 /guides/testing -> /guides/test
+		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
+		...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
+		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/setup',
+			'/guides/test/webdriver/example/setup'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/selenium',
+			'/guides/test/webdriver/example/selenium'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/webdriverio',
+			'/guides/test/webdriver/example/webdriverio'
+		),
+
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
+		// Decommissioned locales
+		'/ko/[...slug]': '/[...slug]',
+		'/it/[...slug]': '/[...slug]',
 	},
+	//
 });
+
+// Generates a redirect for each locale.
+function i18nRedirect(from, to) {
+	const routes = {};
+	Object.keys(locales).map((locale) =>
+		locale === 'root'
+			? (routes[from] = to)
+			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+					/^\/*/g,
+					''
+				)}`)
+	);
+	return routes;
+}
