@@ -22,9 +22,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.0.16
         version: 5.0.16
-      '@fontsource-variable/noto-sans-sc':
-        specifier: ^5.0.4
-        version: 5.0.4
+      '@fontsource/noto-sans-sc':
+        specifier: ^5.0.17
+        version: 5.0.17
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -960,8 +960,8 @@ packages:
     resolution: {integrity: sha512-k+BUNqksTL+AN+o+OV7ILeiE9B5M5X+/jA7LWvCwjbV9ovXTqZyKRhA/x7uYv/ml8WQ0XNLBM7cRFIx4jW0/hg==}
     dev: false
 
-  /@fontsource-variable/noto-sans-sc@5.0.4:
-    resolution: {integrity: sha512-80JYw30HU85g4m6x5SiKKmc2gpMjo/h63zCO8Io7ZORdK9ty0b4P85ucB2EeQ6ti2zFs0aFqJE4guKzOKGEjMQ==}
+  /@fontsource/noto-sans-sc@5.0.17:
+    resolution: {integrity: sha512-qwaGUXrnu15f+D/4WAWzasIO6OdJ9GCbh0JDTJXn6QDkC33j/rwGkhXcWwYfunUlVWPTilQP5gaviH3bDNt84g==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -1224,12 +1224,12 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: false
-    
+
   /@webgpu/types@0.1.21:
     resolution: {integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==}
     dev: false
-  /acorn-jsx@5.3.2(acorn@8.11.2):
 
+  /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0

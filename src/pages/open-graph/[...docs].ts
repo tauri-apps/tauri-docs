@@ -38,6 +38,7 @@ function clampTwoLines(txt: string, fontSize: number): string {
 // REFERENCE:
 // https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
 export const { getStaticPaths, GET } = OGImageRoute({
+
   param: 'docs',
   pages,
   getImageOptions: async (_, { data, slug }: (typeof pages)[string]) => {
@@ -77,7 +78,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       fonts: [
         './node_modules/@fontsource-variable/inter/files/inter-latin-standard-normal.woff2',
         // simplified chinese
-        './node_modules/@fontsource-variable/noto-sans-sc/files/noto-sans-sc-latin-wght-normal.woff2',
+        './node_modules/@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-400-normal.woff2',
       ],
     };
   },

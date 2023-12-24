@@ -23,7 +23,7 @@
     "@astrojs/markdown-remark": "^4.0.1",
     "@astrojs/starlight": "^0.13.0",
     "@fontsource-variable/inter": "^5.0.16",
-    "@fontsource-variable/noto-sans-sc": "^5.0.4",
+    "@fontsource/noto-sans-sc": "^5.0.17",
     "@types/json-schema": "^7.0.15",
     "astro": "^3.6.4",
     "astro-feelback": "^0.3.4",
