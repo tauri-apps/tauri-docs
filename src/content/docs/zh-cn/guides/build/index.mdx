@@ -1,0 +1,32 @@
+---
+title: 构建
+description: 为用户准备和打包您的应用
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="减少应用体积" href="/zh-cn/guides/build/app-size" />
+	<LinkCard title="Cross-Platform Compilation" href="/zh-cn/guides/build/cross-platform/" />
+  <LinkCard title="Embedding Additional Files" href="/zh-cn/guides/build/resources/" />
+  <LinkCard title="Embedding External Binaries" href="/zh-cn/guides/build/sidecar/" />
+</CardGrid>
+
+## Tauri Bundler 
+
+The Tauri Bundler is a Rust harness to compile your binary, package assets, and prepare a final bundle.
+It will detect your operating system and build a bundle accordingly. It currently supports:
+
+<CardGrid>
+    <LinkCard title="Linux Bundle" href="/zh-cn/guides/build/linux/" />
+    <LinkCard title="macOS Bundle" href="/zh-cn/guides/build/macos/" />
+    <LinkCard title="Windows Installer" href="/zh-cn/guides/build/windows/" />
+</CardGrid>
+
+## Code Signing
+
+<CardGrid>
+    <LinkCard title="Linux Code Signing" href="/zh-cn/guides/build/sign-linux/" />
+    <LinkCard title="macOS Code Signing" href="/zh-cn/guides/build/sign-macos/" />
+    <LinkCard title="Windows Code Signing" href="/zh-cn/guides/build/sign-windows/" />
+</CardGrid>
