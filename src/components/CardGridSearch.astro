@@ -5,8 +5,6 @@
  * https://github.com/withastro/starlight/blob/a0f6fa80d9be1fbe85530323a0b2523acb83a15a/packages/starlight/components/Search.astro
  */
 
-import { Icon } from '@astrojs/starlight/components';
-
 interface Props {
 	placeholder?: string;
 	title?: string;
@@ -17,29 +15,6 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 ---
 
 <card-search>
-	<!-- <template id="warning-wrapper">
-		<style>
-			.warning {
-				color: var(--sl-color-orange-high);
-				font-weight: bolder;
-			}
-			.hidden {
-				display: none;
-			}
-			svg {
-				scale: 1.4;
-				margin-inline-end: 4px;
-				vertical-align: middle;
-			}
-			span {
-				vertical-align: middle;
-			}
-		</style>
-		<p class="warning hidden">
-			<Icon name="information" size="1.5rem" />
-			<span>Nothing found</span>
-		</p>
-	</template> -->
 	<div id="search-input" class="pagefind-ui pagefind-ui--reset pagefind-ui--reset">
 		<form
 			class="pagefind-ui__form"
@@ -70,52 +45,32 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 	class CardSearch extends HTMLElement {
 		constructor() {
 			super();
-			// let tmpl = this.querySelector('#warning-wrapper');
-			// let shadowRoot = tmpl.attachShadow({ mode: 'open' });
-			// shadowRoot.appendChild(tmpl.content.cloneNode(true));
-
 			window.addEventListener('DOMContentLoaded', () => {
 				const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
 				const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
 				const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
-
 				const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
 				const headings = Array.from(this.children).filter(
-					(el) => el instanceof HTMLHeadingElement || el instanceof HTMLSpanElement
+					(el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
 				);
-				console.log(headings);
-				console.log(inputs);
 				headings.forEach((heading, i) => {
-					const warningElement = document.createElement('p');
-					warningElement.classList.add('hidden', 'warning');
-					warningElement.id = `warn-${i}`;
-					warningElement.innerHTML = `
-<style>
-	.warning {
-		color: var(--sl-color-orange-high);
-		font-size: larger;
-	}
-
-	.hidden {
-		display: none;
-	}
-</style>
-<span>Nothing found in ${heading.textContent}</span>
-    `;
-					heading.insertAdjacentElement('afterend', warningElement);
+					const wrn = document.createElement('p');
+					wrn.classList.add('hidden', 'warning');
+					wrn.id = `warn-${i}`;
+					wrn.innerHTML = `
+						<style>
+							.warning {
+								color: var(--sl-color-orange-high);
+								font-size: larger;
+							}
+							.hidden {
+								display: none;
+							}
+						</style>
+						<span>Nothing found in ${heading.textContent}</span>
+						`;
+					heading.insertAdjacentElement('afterend', wrn);
 				});
-				const warnings = document.querySelectorAll('[id^="warn-"]');
-
-			
-				warnings.forEach((element) => {
-					console.log(element);
-				});
-
-				// let cards: HTMLDivElement[] = [];
-				// inputs.forEach((el) => {
-				// 	const divsInChild = el.querySelectorAll('div');
-				// 	cards = cards.concat(Array.from(divsInChild));
-				// });
 
 				// Prevent page reload
 				form.addEventListener('submit', (e) => {
@@ -142,7 +97,6 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 				// Clear search button 'X'
 				clear.addEventListener('click', () => {
 					clear.classList.add('pagefind-ui__suppressed');
-
 					reset();
 				});
 
@@ -151,6 +105,7 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 					searchFilter();
 				}
 
+				const warnings = document.querySelectorAll('[id^="warn-"]');
 				/**
 				 * Function to search and filter based on input
 				 */
