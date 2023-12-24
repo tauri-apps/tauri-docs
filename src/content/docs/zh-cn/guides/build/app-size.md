@@ -22,12 +22,12 @@ These are just a couple of tools that you might use. Make sure to check your fro
 
 ## 核对清单
 
-1. [最小化 JavaScript](#minify-javascript)
-2. [优化依赖关系](#optimize-dependencies)
-3. [优化图片](#optimize-images)
-4. [删除不必要的自定义字体](#remove-unnecessary-custom-fonts)
-5. [配置 Allowlist](#allowlist-config)
-6. [Rust 编译时优化](#rust-build-time-optimizations)
+1. [最小化 JavaScript](#最小化-javascript)
+2. [优化依赖关系](#优化依赖关系)
+3. [优化图片](#优化图片)
+4. [删除不必要的自定义字体](#删除不必要的自定义字体)
+5. [配置 Allowlist](#配置-allowlist)
+6. [Rust 编译时优化](#rust-编译时优化)
 7. [Stripping](#stripping)
 8. [UPX](#upx)
 
