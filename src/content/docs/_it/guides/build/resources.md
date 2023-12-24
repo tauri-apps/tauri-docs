@@ -52,7 +52,7 @@ In questo caso, memorizziamo questi file in una cartella di nome `lang` accanto 
 
 Nota che devi configurare la allowlist per abilitare `path > all` e le API [`fs`][] di cui hai bisogno, in questo esempio `fs > readTextFile`.
 
-```javascript
+```js
 import { resolveResource } from '@tauri-apps/api/path'
 // alternativamente, usa `window.__TAURI__.path. esolveResource`
 import { readTextFile } from '@tauri-apps/api/fs'
