@@ -146,7 +146,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Build',
-							link: 'guides/build',
+							link: 'guides/build/',
 						},
 						{
 							label: 'Distribute',
@@ -259,6 +259,10 @@ export default defineConfig({
 			'/guides/test/webdriver/example/webdriverio'
 		),
 
+		// v1 /guides/distribution -> /guides/distribute
+		...i18nRedirect('/v1/guides/distribution/publishing', '/guides/distribute/publishing'),
+		...i18nRedirect('/v1/guides/distribution/updater', '/guides/distribute/updater'),
+
 		// v1 /references
 		...i18nRedirect('/v1/references', '/concepts'),
 		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
@@ -294,9 +298,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
