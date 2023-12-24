@@ -1,43 +1,44 @@
 ---
+/* CSS and html structure is based on:
+ * https://github.com/CloudCannon/pagefind/blob/main/pagefind_ui/default/svelte/ui.svelte
+ * And CSS variables from Starlight from:
+ * https://github.com/withastro/starlight/blob/a0f6fa80d9be1fbe85530323a0b2523acb83a15a/packages/starlight/components/Search.astro
+ */
+
 import { Icon } from '@astrojs/starlight/components';
 
-interface Props {
-	wrapperId: string;
-}
-const { wrapperId = 'search-feature-list' } = Astro.props;
-
 // TODO: Expose placeholder and title to i18n
-
-let reset_styles = true;
-let autofocus = false;
 ---
 
-<card-search class="pagefind-ui pagefind-ui--reset" class:pagefind-ui--reset={reset_styles}>
-	<form
-		class="pagefind-ui__form"
-		role="search"
-		aria-label="search_label"
-		action="javascript:void(0);"
-	>
-		<input
-			data-wrapper={wrapperId}
-			class="pagefind-ui__search-input"
-			type="search"
-			id="search"
-			aria-label="search"
-			placeholder="Quick search a feature..."
-			title="Search a feature"
-			autocapitalize="none"
-			enterkeyhint="search"
-			{autofocus}
-		/>
+<card-search>
+	<div id="search-input" class="pagefind-ui pagefind-ui--reset pagefind-ui--reset">
+		<form
+			class="pagefind-ui__form"
+			role="search"
+			aria-label="search_label"
+			action="javascript:void(0);"
+		>
+			<input
+				data-wrapper="search-feature-list"
+				class="pagefind-ui__search-input"
+				type="search"
+				id="search"
+				aria-label="search"
+				placeholder="Quick search a feature..."
+				title="Search a feature"
+				autocapitalize="none"
+				enterkeyhint="search"
+				autocomplete="off"
+			/>
 
-		<button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
-	</form>
-	<p class="hidden warning">
-		<Icon name="information" size="1.5rem" />
-		<span>Nothing found</span>
-	</p>
+			<button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
+		</form>
+		<p class="hidden warning">
+			<Icon name="information" size="1.5rem" />
+			<span>Nothing found</span>
+		</p>
+	</div>
+	<slot />
 </card-search>
 
 <script>
@@ -49,38 +50,65 @@ let autofocus = false;
 				const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
 				const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
 				const warning = this.querySelector<HTMLParagraphElement>('.warning')!;
+				const inputs = Array.from(this.children).filter((el) => !(el.id === 'search-input'));
 
+				// Prevent page reload
 				form.addEventListener('submit', (e) => {
 					e.preventDefault();
 				});
+
+				// Prevent reload on 'Enter', and enable clean input on 'Escape'
 				form.addEventListener('keydown', (e) => {
 					clear.classList.remove('pagefind-ui__suppressed');
 					if (e.key === 'Escape') {
-						searchBar.value = '';
+						//searchBar.value = '';
+						reset();
 					}
 					if (e.key === 'Enter') e.preventDefault();
-				});
-				searchBar.addEventListener('keyup', () => {
-					searchFilter(searchBar);
 				});
 				searchBar.addEventListener('keydown', (e) => {
 					if (e.key === 'Enter') e.preventDefault();
 				});
-				clear.addEventListener('click', () => {
-					clear.classList.add('pagefind-ui__suppressed');
-					searchBar.value = '';
+
+				// Search
+				searchBar.addEventListener('keyup', () => {
+					searchFilter();
 				});
 
-				function searchFilter(searchBar: HTMLInputElement) {
-					const featureList = document.getElementById(searchBar.dataset.wrapper!)
-						?.children[0] as HTMLDivElement;
-					const cards = featureList.querySelectorAll('div');
-					let total = cards.length;
+				// Clear search button 'X'
+				clear.addEventListener('click', () => {
+					clear.classList.add('pagefind-ui__suppressed');
+					
+					reset();
+					//searchFilter(this.children[1]);
+				});
+
+				function reset() {
+					searchBar.value = '';
+					searchFilter();
+				}
+
+				/**
+				 * Function to search and filter based on input
+				 * input:element
+				 */
+				function searchFilter() {
+					let cards: HTMLDivElement[] = [];
+
+					inputs.forEach((el) => {
+						const divsInChild = el.querySelectorAll('div');
+						cards = cards.concat(Array.from(divsInChild));
+					});
+					//const cards = input.querySelectorAll('div');
 					const query = searchBar.value.toUpperCase();
+					let total = cards.length;
+
 					cards.forEach((el) => {
 						const span = el.querySelector('span');
 						const txtValue = span?.textContent || span?.innerText;
 						if (!txtValue) return;
+
+						// Filter list
 						if (txtValue.toUpperCase().indexOf(query) > -1) {
 							total++;
 							el.style.display = '';
@@ -88,6 +116,8 @@ let autofocus = false;
 							total--;
 							el.style.display = 'none';
 						}
+
+						// Add warning if none found
 						if (total === 0) {
 							warning.classList.remove('hidden');
 						} else {
@@ -144,7 +174,7 @@ let autofocus = false;
 		width: 100%;
 		color: var(--pagefind-ui-text);
 		font-family: var(--pagefind-ui-font);
-		margin-inline: 2rem;
+		margin-inline: 0.5rem;
 	}
 
 	.pagefind-ui__form {
