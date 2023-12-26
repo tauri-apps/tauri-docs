@@ -89,8 +89,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2
       p-retry:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.2.0
+        version: 6.2.0
       simple-git:
         specifier: ^3.21.0
         version: 3.21.0
@@ -3963,8 +3963,8 @@ packages:
       p-timeout: 5.1.0
     dev: false
 
-  /p-retry@6.1.0:
-    resolution: {integrity: sha512-fJLEQ2KqYBJRuaA/8cKMnqhulqNM+bpcjYtXNex2t3mOXKRYPitAJt9NacSf8XAFzcYahSAbKpobiWDSqHSh2g==}
+  /p-retry@6.2.0:
+    resolution: {integrity: sha512-JA6nkq6hKyWLLasXQXUrO4z8BUZGUt/LjlJxx8Gb2+2ntodU/SS63YZ8b0LUTbQ8ZB9iwOfhEPhg4ykKnn2KsA==}
     engines: {node: '>=16.17'}
     dependencies:
       '@types/retry': 0.12.2
