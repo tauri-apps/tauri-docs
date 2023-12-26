@@ -4,7 +4,21 @@ If your webpage could take some time to load, or if you need to run an initializ
 
 ### Setup
 
-First, create a `splashscreen.html` in your `distDir` that contains the HTML code for a splashscreen. Then, update your `tauri.conf.json` like so:
+First, create a `splashscreen.html` in your `distDir` that contains the HTML code for a splashscreen. Note that if you're using Tauri with a Vite-based project, it is better to create the `splashscreen.html` inside the root folder of your project right next to the `package.json`. Then, you will have to modify the `scripts` section of your `package.json` like so:
+
+```diff
+"scripts": {
+    "dev": "vite",
+-   "build": "vue-tsc --noEmit && vite build",
++   "build": "vue-tsc --noEmit && vite build && cp splashscreen.html dist",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+```
+
+This will copy the `splashscreen.html` into the `distDir` folder whenever you run `npm run tauri build`. In previous documentation, this npm command usually deleted the `splashscreen.html` that you were manually creating in the `distDir`, as it recreates the `distDir` folder each time you run the command.
+
+Then, update your `tauri.conf.json` like so:
 
 ```diff
 "windows": [
