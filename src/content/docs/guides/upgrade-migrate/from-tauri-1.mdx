@@ -88,7 +88,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
 
-- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/primitives`. [Migration](#migrate-to-primitives-module)
+- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/core`. [Migration](#migrate-to-core-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
 - `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
 - `@tauri-apps/api/dialog` module removed. Use `@tauri-apps/plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
@@ -125,14 +125,14 @@ Most of the environment variables read and written by the Tauri CLI were renamed
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
 
-### Migrate to Primitives Module
+### Migrate to Core Module
 
-The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/primitives`.
+The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/core`.
 Simply rename the module import:
 
 ```diff
 - import { invoke } from "@tauri-apps/api/tauri"
-+ import { invoke } from "@tauri-apps/api/primitives"
++ import { invoke } from "@tauri-apps/api/core"
 ```
 
 ### Migrate to CLI Plugin
