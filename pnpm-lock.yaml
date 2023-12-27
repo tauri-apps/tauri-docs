@@ -65,8 +65,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       typescript:
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3
+        version: 5.3.3
 
   packages/i18n-tracker:
     devDependencies:
@@ -89,8 +89,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2
       p-retry:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.2.0
+        version: 6.2.0
       simple-git:
         specifier: ^3.21.0
         version: 3.21.0
@@ -108,13 +108,13 @@ importers:
         version: 2.3.0
       typedoc:
         specifier: ^0.25.4
-        version: 0.25.4(typescript@5.3.2)
+        version: 0.25.4(typescript@5.3.3)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
         version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.1.1)(typedoc@0.25.4)
       typedoc-plugin-mdn-links:
-        specifier: ^3.1.8
-        version: 3.1.8(typedoc@0.25.4)
+        specifier: ^3.1.9
+        version: 3.1.9(typedoc@0.25.4)
 
 packages:
 
@@ -3963,8 +3963,8 @@ packages:
       p-timeout: 5.1.0
     dev: false
 
-  /p-retry@6.1.0:
-    resolution: {integrity: sha512-fJLEQ2KqYBJRuaA/8cKMnqhulqNM+bpcjYtXNex2t3mOXKRYPitAJt9NacSf8XAFzcYahSAbKpobiWDSqHSh2g==}
+  /p-retry@6.2.0:
+    resolution: {integrity: sha512-JA6nkq6hKyWLLasXQXUrO4z8BUZGUt/LjlJxx8Gb2+2ntodU/SS63YZ8b0LUTbQ8ZB9iwOfhEPhg4ykKnn2KsA==}
     engines: {node: '>=16.17'}
     dependencies:
       '@types/retry': 0.12.2
@@ -4863,19 +4863,19 @@ packages:
       typedoc: '>=0.24.0'
     dependencies:
       prettier: 3.1.1
-      typedoc: 0.25.4(typescript@5.3.2)
+      typedoc: 0.25.4(typescript@5.3.3)
     dev: false
     patched: true
 
-  /typedoc-plugin-mdn-links@3.1.8(typedoc@0.25.4):
-    resolution: {integrity: sha512-m2bcjsMghULmf0GBG+P6QwkWYF/7CTvlCefpYGTsIne5eL6wehVzE/RRlw+6qRjTR03FxBwgf/+UsasMRKEbPw==}
+  /typedoc-plugin-mdn-links@3.1.9(typedoc@0.25.4):
+    resolution: {integrity: sha512-3L3Ley76TQCRHbeQ12dWINjnUdSP8JKht9GqBpzJTcwuFrAcr/GtNrtoOzlno0mthIXSKlNdztjV4EEFMEw6IQ==}
     peerDependencies:
       typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
-      typedoc: 0.25.4(typescript@5.3.2)
+      typedoc: 0.25.4(typescript@5.3.3)
     dev: false
 
-  /typedoc@0.25.4(typescript@5.3.2):
+  /typedoc@0.25.4(typescript@5.3.3):
     resolution: {integrity: sha512-Du9ImmpBCw54bX275yJrxPVnjdIyJO/84co0/L9mwe0R3G4FSR6rQ09AlXVRvZEGMUg09+z/usc8mgygQ1aidA==}
     engines: {node: '>= 16'}
     hasBin: true
@@ -4886,11 +4886,11 @@ packages:
       marked: 4.3.0
       minimatch: 9.0.3
       shiki: 0.14.7
-      typescript: 5.3.2
+      typescript: 5.3.3
     dev: false
 
-  /typescript@5.3.2:
-    resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: false
