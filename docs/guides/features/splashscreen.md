@@ -16,7 +16,7 @@ First, create a `splashscreen.html` in your `distDir` that contains the HTML cod
   },
 ```
 
-This will copy the `splashscreen.html` into the `distDir` folder whenever you run `npm run tauri build`. In previous documentation, this npm command usually deleted the `splashscreen.html` that you were manually creating in the `distDir`, as it recreates the `distDir` folder each time you run the command.
+This will copy the `splashscreen.html` into the `distDir` folder whenever you run `npm run tauri build`.
 
 Then, update your `tauri.conf.json` like so:
 
