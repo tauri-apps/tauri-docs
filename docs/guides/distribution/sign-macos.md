@@ -16,7 +16,7 @@ If you are not utilizing GitHub Actions to perform builds of OSX DMGs, you will 
 ## Requirements
 
 - macOS 10.13.6 or later
-- Xcode 14 or later 
+- Xcode 14 or later
 - An Apple Developer account enrolled in the [Apple Developer Program]
 
 For more details please read the developer article on [notarizing macOS software before distribution].
@@ -53,7 +53,7 @@ On the [Certificates, IDs & Profiles page], click on the certificate you want to
 
 :::note
 
-A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output. If the certificate does not download to the correct location, make sure the "login" option is selected in <i>Keychain Access</i> under "Default Keychains" when downloading the .cer file. 
+A signing certificate is only valid if associated with your Apple ID. An invalid certificate won't be listed on the <i>Keychain Access > My Certificates</i> tab or the <i>security find-identity -v -p codesigning</i> output. If the certificate does not download to the correct location, make sure the "login" option is selected in <i>Keychain Access</i> under "Default Keychains" when downloading the .cer file.
 
 :::
 
@@ -63,7 +63,7 @@ The signing configuration is provided to the Tauri bundler via environment varia
 
 #### Certificate environment variables
 
-- `APPLE_SIGNING_IDENTITY`: this is the `signing identity` we highlighted above. It must be defined to sign apps both locally and on CI machines.
+- `APPLE_SIGNING_IDENTITY`: this is the `signing identity` we highlighted above. It must be defined to sign apps both locally and on CI machines. Using just the part in the parentheses is usually enough, for example `ABCDE12345` in `Developer ID Application: Walter Tauri (ABCDE12345)`
 
 Additionally, to simplify the code signing process on CI, Tauri can install the certificate on the keychain for you if you define the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables.
 
