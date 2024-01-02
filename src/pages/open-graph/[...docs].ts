@@ -23,7 +23,7 @@ function clampTwoLines(txt: string, fontSize: number): string {
   // it can vary based on font, as of now it matches Inter. 
   // Maybe this can help? https://github.com/adambisek/string-pixel-width/blob/master/src/pixelWidthCalculator.html
   // or this https://github.com/Evgenus/js-server-text-width
-  let MAX_LEN = 73;
+  let MAX_LEN = 70;
   // title:
   if (fontSize > 60) {
     MAX_LEN = 48;
