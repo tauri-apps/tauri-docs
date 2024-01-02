@@ -1,16 +1,21 @@
 ---
-title: VS Code 디버깅
+title: 在 VS Code 中调试
 ---
 
-This guide will walk you through setting up VS Code for debugging the [Core Process of your Tauri app].
+{/* TODO: REVISE COPY TO V2 */}
+{/* TODO: Revise this change: Debugging in VS Code > Debug in VS Code */}
 
-## 사전 요구 사항
+本指南将指导您设置 VS 代码，以调试 [Tauri 应用的核心流程].
 
-[`vscode-lldb`][] 확장을 설치합니다.
+## 先决条件
 
-## launch.json 설정
+安装 [`vscode-lldb`] 扩展。
 
-`.vscode/launch.json` 파일을 생성하고 아래 JSON 내용을 복사해서 붙여 넣습니다:
+[`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
+
+## 配置 launch.json
+
+创建一个 `.vscode/launch.json` 文件，并将下面的 JSON 内容粘贴到其中：
 
 ```json title=".vscode/launch.json"
 {
@@ -47,9 +52,9 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
 }
 ```
 
-이는 Rust 애플리케이션을 개발, 프로덕션 모드 모두에서 로드하기 위해 `cargo`를 직접 사용해 빌드합니다.
+它直接使用 `cargo` 来构建 Rust 应用程序，并在开发和生产模式下加载它。
 
-Tauri CLI를 사용하지 않으므로 전용 CLI 기능이 실행되지 않습니다. `beforeDevCommand`와 `beforeBuildCommand` 스크립트는 미리 실행하거나 `preLaunchTask` 필드에서 작업으로 구성해야 합니다. 다음은 개발 서버를 생성하는 `beforeDevCommand`와 `beforeBuildCommand` 두 가지 작업이 있는 `.vscode/tasks.json` 파일의 예입니다:
+请注意，它不使用 Tauri CLI，因此不会执行独有的 CLI 功能。`beforeDevCommand` 和 `beforeBuildCommand` 脚本必须事先执行，或在 `preLaunchTask` 字段中配置为任务。下面是一个 `.vscode/tasks.json` 文件示例，其中有两个任务，一个是生成开发服务器的 `beforeDevCommand` 任务，另一个是 `beforeBuildCommand` 任务：
 
 ```json title=".vscode/tasks.json"
 {
@@ -79,7 +84,6 @@ Tauri CLI를 사용하지 않으므로 전용 CLI 기능이 실행되지 않습�
 }
 ```
 
-이제, `src-tauri/src/main.rs` 혹은 다른 Rust 파일에 중단점을 설정하고 `F5`를 눌러 디버깅을 시작할 수 있습니다.
+现在，你可以在 `src-tauri/src/main.rs` 或任何其他 Rust 文件中设置断点，并按下 `F5` 开始调试。
 
-[`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
-[Core Process of your Tauri app]: https://tauri.app/v1/references/architecture/process-model#the-core-process
+[Tauri 应用的核心流程]: https://tauri.app/v1/references/architecture/process-model#the-core-process
