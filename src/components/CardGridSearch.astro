@@ -154,7 +154,6 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 		--pagefind-ui-background: var(--sl-color-black);
 		--pagefind-ui-border: var(--sl-color-gray-5);
 		--pagefind-ui-border-width: 1px;
-		--sl-search-cancel-space: 5rem;
 		/* default */
 		--pagefind-ui-scale: 0.8;
 		--pagefind-ui-tag: #eeeeee;
@@ -164,11 +163,6 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 		--pagefind-ui-font: system, -apple-system, 'BlinkMacSystemFont', '.SFNSText-Regular',
 			'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', 'Ubuntu', 'arial',
 			sans-serif;
-	}
-	@media (min-width: 50rem) {
-		:root {
-			--sl-search-cancel-space: 0px;
-		}
 	}
 	.pagefind-ui {
 		width: 100%;
@@ -210,7 +204,7 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 		appearance: none;
 		-webkit-appearance: none;
 		color: var(--sl-color-white);
-		width: calc(100% - var(--sl-search-cancel-space));
+		width: 100%;
 	}
 
 	.pagefind-ui__search-input::placeholder {
@@ -227,7 +221,6 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 		font-size: calc(14px * var(--pagefind-ui-scale));
 		cursor: pointer;
 		border-radius: var(--pagefind-ui-border-radius);
-		inset-inline-end: var(--sl-search-cancel-space);
 		width: calc(60px * var(--pagefind-ui-scale));
 		padding: 0;
 		background-color: transparent;
