@@ -4,7 +4,9 @@ If your webpage could take some time to load, or if you need to run an initializ
 
 ### Setup
 
-First, create a `splashscreen.html` in your `distDir` that contains the HTML code for a splashscreen. Then, update your `tauri.conf.json` like so:
+First, create a `splashscreen.html` in your `distDir` that contains the HTML code for a splashscreen. Note that if you're using Tauri with a Vite-based project, it is advised to create the `splashscreen.html` inside the `public` folder of your project right next to the `package.json`.
+
+Then, update your `tauri.conf.json` like so:
 
 ```diff
 "windows": [
