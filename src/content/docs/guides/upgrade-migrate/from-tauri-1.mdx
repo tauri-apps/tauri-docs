@@ -8,6 +8,44 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 This guide walks you through upgrading your Tauri 1.0 application to Tauri 2.0.
 
+## Preparing for Mobile
+
+The mobile interface of Tauri requires your project to output a shared library. If you are targetting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
+
+1. Change the Cargo manifest to produce the library. Append the following block:
+
+```toml
+// src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+2. Rename `src-tauri/src/main.rs` to `src-tauri/src/lib.rs`. This file will be shared by both desktop and mobile targets.
+
+3. Rename the `main` function header in `lib.rs` to the following:
+
+```rust
+// src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // your code here
+}
+```
+
+The `tauri::mobile_entry_point` macro prepares your function to be executed on mobile.
+
+4. Recreate the `main.rs` file calling the shared run function:
+
+```rust
+// src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+fn main() {
+  app_lib::run();
+}
+```
+
 ## Automated Migration
 
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
@@ -1056,42 +1094,4 @@ tauri::Builder::default()
 
         Ok(())
   })
-```
-
-## Prepare for Mobile
-
-The mobile interface of Tauri requires your project to output a shared library. If you are targetting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
-
-1. Change the Cargo manifest to produce the library. Append the following block:
-
-```toml
-// src-tauri/Cargo.toml
-[lib]
-name = "app_lib"
-crate-type = ["staticlib", "cdylib", "rlib"]
-```
-
-2. Rename `src-tauri/src/main.rs` to `src-tauri/src/lib.rs`. This file will be shared by both desktop and mobile targets.
-
-3. Rename the `main` function header in `lib.rs` to the following:
-
-```rust
-// src-tauri/src/lib.rs
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    // your code here
-}
-```
-
-The `tauri::mobile_entry_point` macro prepares your function to be executed on mobile.
-
-4. Recreate the `main.rs` file calling the shared run function:
-
-```rust
-// src-tauri/src/main.rs
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-fn main() {
-  app_lib::run();
-}
 ```
