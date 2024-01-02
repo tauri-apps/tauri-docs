@@ -1,0 +1,171 @@
+---
+import config from 'virtual:starlight/user-config';
+import {
+	stripLeadingAndTrailingSlashes,
+	ensureTrailingSlash,
+} from 'node_modules/@astrojs/starlight/utils/path';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
+
+interface Props {
+	/**
+	 * Slug relative to /src - e.g "/zh-cn/features"
+	 *
+	 * Note: leading and trailing slashes are dropped "/features/" === "features"
+	 */
+	slug: string;
+	/**
+	 *  Filter out pages by title - case insensitive
+	 */
+	filterOutByTitle?: string[];
+	/**
+	 *  Filter out pages by file name - case insensitive
+	 */
+	filterOutByFileName?: string[];
+	/**
+	 * Force alphabetical order - by default it sorts by `frontmatter.sidebar.order`, then alphabetically.
+	 *
+	 * Use this to ignore sidebar order
+	 */
+	sortAlphabetically?: boolean;
+}
+
+function hasSidebarOrder(page: Route): number | undefined {
+	return page.entry.data.sidebar.order;
+}
+
+function alphaSort(a: Route, b: Route): number {
+	return a.entry.data.title.localeCompare(b.entry.data.title);
+}
+
+function compareOrder(a: Route, b: Route): boolean {
+	return a.entry.data.sidebar.order > b.entry.data.sidebar.order;
+}
+
+let { slug } = Astro.props;
+const { filterOutByTitle = [], filterOutByFileName = [], sortAlphabetically = false } = Astro.props;
+
+const defaultLocale = config.defaultLocale.lang || 'en';
+const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
+
+slug = stripLeadingAndTrailingSlashes(slug.toLowerCase());
+let [currentPageLocale] = stripLeadingAndTrailingSlashes(Astro.url.pathname).split('/');
+
+// Ensure currentPageLocale is a locale when it's page is on default locale
+if (!localesList.includes(currentPageLocale)) {
+	currentPageLocale = defaultLocale;
+}
+
+const locale = currentPageLocale;
+const pageLang = ensureTrailingSlash(locale);
+
+// Ensure the locale is ignore if passed on `slug`
+let [sliceLocale] = stripLeadingAndTrailingSlashes(slug).split('/');
+if (localesList.includes(sliceLocale)) {
+	slug = slug.slice(sliceLocale.length + 1);
+}
+// Localize `slug` to the current page locale
+slug = locale === defaultLocale ? slug : pageLang + slug;
+
+let fallbackList: Route[] = [];
+let mainList: Route[] = [];
+
+routes.forEach((page) => {
+	// `page.slug` is the slug of the current page being looped, `slug` is a prop
+	if (page.slug.startsWith(slug)) {
+		if (page.isFallback) {
+			fallbackList.push(page);
+		} else if (page.slug !== slug) {
+			mainList.push(page);
+		}
+	}
+});
+
+/**
+ * Filter items if any filter is set
+ */
+
+if (filterOutByTitle.length > 0) {
+	fallbackList = fallbackList.filter(
+		(page) => !filterOutByTitle.some((val) => page.entry.data.title.includes(val))
+	);
+	mainList = mainList.filter(
+		(page) => !filterOutByTitle.some((val) => page.entry.data.title.includes(val))
+	);
+}
+
+if (filterOutByFileName.length > 0) {
+	fallbackList = fallbackList.filter(
+		(page) => !filterOutByFileName.some((val) => page.entry.id.includes(val))
+	);
+	mainList = mainList.filter(
+		(page) => !filterOutByFileName.some((val) => page.entry.id.includes(val))
+	);
+}
+
+if (!sortAlphabetically) {
+	// dumb luck this works, now why?
+	const sortVal = locale === defaultLocale ? 1 : -1;
+	// Sort list following sidebar order
+	mainList.sort((a, b) => {
+		if (!hasSidebarOrder(a) && !hasSidebarOrder(b)) {
+			return alphaSort(a, b);
+		}
+		if (compareOrder(a, b)) {
+			return sortVal;
+		} else {
+			return -sortVal;
+		}
+	});
+	// Sort list following sidebar order
+	fallbackList.sort((a, b) => {
+		if (!hasSidebarOrder(a) && !hasSidebarOrder(b)) {
+			return alphaSort(a, b);
+		}
+		if (compareOrder(a, b)) {
+			return -sortVal;
+		} else {
+			return sortVal;
+		}
+	});
+} else {
+	// Sort alphabetically
+	mainList.sort((a, b) => alphaSort(a, b));
+	fallbackList.sort((a, b) => alphaSort(a, b));
+}
+---
+
+<CardGrid>
+	{
+		mainList.map((item) => (
+			<LinkCard
+				title={item.entry.data.title}
+				href={`/${item.slug}`}
+				description={item.entry.data.description}
+			/>
+		))
+	}
+	{
+		locale !== defaultLocale &&
+			fallbackList.map((item) => (
+				<LinkCard
+					class="fallback-badge"
+					title={item.entry.data.title}
+					href={`/${item.slug}`}
+					description={item.entry.data.description}
+				/>
+			))
+	}
+</CardGrid>
+
+<style>
+	.fallback-badge:after {
+		/* now how can this match the defaultLocale? */
+		/* try with attr() */
+		content: 'EN';
+		vertical-align: super;
+		font-size: 0.75em;
+		font-weight: 700;
+		margin-left: 1ch;
+	}
+</style>
