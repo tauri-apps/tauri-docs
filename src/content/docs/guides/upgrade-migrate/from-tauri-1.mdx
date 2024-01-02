@@ -1057,3 +1057,39 @@ tauri::Builder::default()
         Ok(())
   })
 ```
+
+## Prepare for Mobile
+
+The mobile interface of Tauri requires your project to output a shared library so if you are targetting mobile for your existing application, you must change your crate to
+produce that kind of artifact along with the desktop executable.
+
+- First, you need to change your Cargo manifest to produce the library. Append the following block:
+
+```toml title=src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+- Then rename your `src-tauri/src/main.rs` to `src-tauri/src/lib.rs`. That file will be shared by both desktop and mobile targets.
+
+- Rename your lib.rs `main` function header to the following:
+
+```rust title=src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // your code here
+}
+```
+
+The `tauri::mobile_entry_point` macro prepares your function to be executed on mobile.
+
+- Finally, recreate the main.rs file calling the shared run function:
+
+```rust title=src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+fn main() {
+  app_lib::run();
+}
+```
