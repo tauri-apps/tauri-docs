@@ -6,9 +6,8 @@ import { allPages } from 'src/utils/content';
 const rtlLanguages = new Set(['']);
 const getLangFromSlug = (slug: CollectionEntry<'docs'>['slug']) => slug.split('/')[0];
 
-// TODO: Setup the process.env to skip on non production builds
 /** Paths for all of our Markdown content we want to generate OG images for. */
-const paths = process.env.SKIP_OG ? [] : allPages;
+const paths = process.env.CONTEXT == 'production' ? allPages : [];
 
 /** An object mapping file paths to file metadata. */
 const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
