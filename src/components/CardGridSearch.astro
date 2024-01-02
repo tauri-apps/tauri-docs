@@ -9,7 +9,8 @@ interface Props {
 	placeholder?: string;
 	title?: string;
 }
-const { placeholder = 'Search features and community resources...', title = 'Search a feature' } = Astro.props;
+const { placeholder = 'Search features and community resources...', title = 'Search a feature' } =
+	Astro.props;
 
 // TODO: Expose placeholder and title to i18n
 ---
@@ -60,14 +61,15 @@ const { placeholder = 'Search features and community resources...', title = 'Sea
 					wrn.innerHTML = `
 						<style>
 							.warning {
-								color: var(--sl-color-orange-high);
+								font-style: italic;
+								color: var(--sl-color-text);
 								font-size: larger;
 							}
 							.hidden {
 								display: none;
 							}
 						</style>
-						<span>Nothing found in ${heading.textContent}</span>
+						<span>No results found in ${heading.textContent}</span>
 						`;
 					heading.insertAdjacentElement('afterend', wrn);
 				});
