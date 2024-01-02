@@ -7,7 +7,8 @@ const rtlLanguages = new Set(['']);
 const getLangFromSlug = (slug: CollectionEntry<'docs'>['slug']) => slug.split('/')[0];
 
 /** Paths for all of our Markdown content we want to generate OG images for. */
-const paths = process.env.CONTEXT == 'production' ? allPages : [];
+const paths = process.env.CONTEXT == 'production' || import.meta.env.DEV ? allPages : [];
+// const paths = allPages // use this to build locally
 
 /** An object mapping file paths to file metadata. */
 const pages = Object.fromEntries(paths.map(({ id, slug, data }) => [id, { data, slug }]));
