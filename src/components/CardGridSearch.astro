@@ -53,6 +53,7 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 				const headings = Array.from(this.children).filter(
 					(el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
 				);
+				// Create "nothing found" for each heading
 				headings.forEach((heading, i) => {
 					const wrn = document.createElement('p');
 					wrn.classList.add('hidden', 'warning');
@@ -71,6 +72,8 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 						`;
 					heading.insertAdjacentElement('afterend', wrn);
 				});
+				// Select all "nothing found" created before
+				const warnings = document.querySelectorAll('[id^="warn-"]');
 
 				// Prevent page reload
 				form.addEventListener('submit', (e) => {
@@ -82,8 +85,7 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 					clear.classList.remove('pagefind-ui__suppressed');
 					if (e.key === 'Escape') {
 						reset();
-					}
-					if (e.key === 'Enter') e.preventDefault();
+					} else if (e.key === 'Enter') e.preventDefault();
 				});
 				searchBar.addEventListener('keydown', (e) => {
 					if (e.key === 'Enter') e.preventDefault();
@@ -93,7 +95,6 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 				searchBar.addEventListener('keyup', () => {
 					searchFilter();
 				});
-
 				// Clear search button 'X'
 				clear.addEventListener('click', () => {
 					clear.classList.add('pagefind-ui__suppressed');
@@ -105,7 +106,6 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 					searchFilter();
 				}
 
-				const warnings = document.querySelectorAll('[id^="warn-"]');
 				/**
 				 * Function to search and filter based on input
 				 */
@@ -198,25 +198,25 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 		pointer-events: none;
 	}
 	.pagefind-ui__search-input {
+		box-sizing: border-box;
+		position: relative;
+		display: flex;
+		font-weight: 400;
 		height: calc(64px * var(--pagefind-ui-scale));
 		padding: 0 calc(70px * var(--pagefind-ui-scale)) 0 calc(54px * var(--pagefind-ui-scale));
 		background-color: var(--pagefind-ui-background);
 		border: var(--pagefind-ui-border-width) solid var(--pagefind-ui-border);
 		border-radius: var(--pagefind-ui-border-radius);
 		font-size: calc(21px * var(--pagefind-ui-scale));
-		position: relative;
 		appearance: none;
 		-webkit-appearance: none;
-		display: flex;
-		width: 100%;
-		box-sizing: border-box;
-		font-weight: 700;
+		color: var(--sl-color-white);
+		width: calc(100% - var(--sl-search-cancel-space));
 	}
 
-	.pagefind-ui__search-input {
-		color: var(--sl-color-white);
-		font-weight: 400;
-		width: calc(100% - var(--sl-search-cancel-space));
+	.pagefind-ui__search-input::placeholder {
+		color: var(--sl-color-gray-3);
+		opacity: 1; /* Firefox */
 	}
 
 	.pagefind-ui__search-clear {
@@ -224,21 +224,17 @@ const { placeholder = 'Quick search a feature...', title = 'Search a feature' } 
 		top: calc(3px * var(--pagefind-ui-scale));
 		right: calc(3px * var(--pagefind-ui-scale));
 		height: calc(58px * var(--pagefind-ui-scale));
-		padding: 0 calc(15px * var(--pagefind-ui-scale)) 0 calc(2px * var(--pagefind-ui-scale));
 		color: var(--pagefind-ui-text);
 		font-size: calc(14px * var(--pagefind-ui-scale));
 		cursor: pointer;
-		background-color: var(--pagefind-ui-background);
 		border-radius: var(--pagefind-ui-border-radius);
-	}
-
-	.pagefind-ui__search-clear {
 		inset-inline-end: var(--sl-search-cancel-space);
 		width: calc(60px * var(--pagefind-ui-scale));
 		padding: 0;
 		background-color: transparent;
 		overflow: hidden;
 	}
+
 	.pagefind-ui__search-clear:focus {
 		outline: 1px solid var(--sl-color-accent);
 	}
