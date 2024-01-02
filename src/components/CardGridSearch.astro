@@ -7,10 +7,8 @@
 
 interface Props {
 	placeholder?: string;
-	title?: string;
 }
-const { placeholder = 'Search features and community resources...', title = 'Search a feature' } =
-	Astro.props;
+const { placeholder = 'Search features and community resources...' } = Astro.props;
 
 // TODO: Expose placeholder and title to i18n
 ---
@@ -29,7 +27,7 @@ const { placeholder = 'Search features and community resources...', title = 'Sea
 				id="search"
 				aria-label="search"
 				placeholder={placeholder}
-				title={title}
+				title={placeholder}
 				autocapitalize="none"
 				enterkeyhint="search"
 				autocomplete="off"
