@@ -8,6 +8,44 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 This guide walks you through upgrading your Tauri 1.0 application to Tauri 2.0.
 
+## Preparing for Mobile
+
+The mobile interface of Tauri requires your project to output a shared library. If you are targetting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
+
+1. Change the Cargo manifest to produce the library. Append the following block:
+
+```toml
+// src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+2. Rename `src-tauri/src/main.rs` to `src-tauri/src/lib.rs`. This file will be shared by both desktop and mobile targets.
+
+3. Rename the `main` function header in `lib.rs` to the following:
+
+```rust
+// src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // your code here
+}
+```
+
+The `tauri::mobile_entry_point` macro prepares your function to be executed on mobile.
+
+4. Recreate the `main.rs` file calling the shared run function:
+
+```rust
+// src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+fn main() {
+  app_lib::run();
+}
+```
+
 ## Automated Migration
 
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
@@ -88,7 +126,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
 
-- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/primitives`. [Migration](#migrate-to-primitives-module)
+- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/core`. [Migration](#migrate-to-core-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
 - `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
 - `@tauri-apps/api/dialog` module removed. Use `@tauri-apps/plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
@@ -125,14 +163,14 @@ Most of the environment variables read and written by the Tauri CLI were renamed
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
 
-### Migrate to Primitives Module
+### Migrate to Core Module
 
-The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/primitives`.
+The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/core`.
 Simply rename the module import:
 
 ```diff
 - import { invoke } from "@tauri-apps/api/tauri"
-+ import { invoke } from "@tauri-apps/api/primitives"
++ import { invoke } from "@tauri-apps/api/core"
 ```
 
 ### Migrate to CLI Plugin
