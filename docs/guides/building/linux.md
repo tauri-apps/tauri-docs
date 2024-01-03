@@ -206,8 +206,8 @@ After making these changes, verify that the armhf/arm64 architecture is still en
 This is not always required so you may want to proceed first and check if you see errors like `Failed to find OpenSSL development headers`.
 
 - Either install the development headers system-wide:
-  - For ARMv7: `sudo apt install libssl-dev-dev:armhf`
-  - For ARMv8 (ARM64): `sudo apt install libssl-dev-dev:arm64`
+  - For ARMv7: `sudo apt install libssl-dev:armhf`
+  - For ARMv8 (ARM64): `sudo apt install libssl-dev:arm64`
 - Or enable the `vendor` feature for the OpenSSL Rust crate which will affect all other Rust dependencies using the same minor version. You can do so by adding this to the dependencies section in your `Cargo.toml` file:
 
 ```toml
