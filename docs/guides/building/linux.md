@@ -75,9 +75,11 @@ Manual compilation is suitable when you don't need to compile your application f
 
 :::warning
 
-AppImage is not supported on ARM devices. To avoid Tauri from building it, you need to customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
+AppImages can only be built on ARM devices. To avoid Tauri from building it, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
+
+Alternatively you can use the `--bundles` flag when calling `tauri build`.
 
 :::
 
@@ -232,11 +234,11 @@ For automated ARM executable builds on GitHub, we'll use the [arm-runner-action]
 
 :::warning
 
-AppImage is not supported on ARM devices. To avoid Tauri building it, you need to customize `tauri.conf.json` in the `src-tauri` folder. Adjust the `"targets"` array to include only the desired platforms for your ARM-based device. For instance:
+AppImages can only be built on ARM devices. To avoid Tauri from building it, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
-```json
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
-```
+
+Alternatively you can use the `--bundles` flag when calling `tauri build`.
 
 :::
 
