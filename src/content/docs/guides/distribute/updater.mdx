@@ -64,7 +64,7 @@ The required keys are `"active"`, `"endpoints"` and `"pubkey"` to enable the upd
 `"active"` must be a boolean. By default it's set to false.
 
 `"endpoints"` must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br/>
-Each updater URL can contain the following variables allowing you to determine [server-side](#update-server-json-format) if an update is available:
+Each updater URL can contain the following variables allowing you to determine [server-side](#server-support) if an update is available:
 
 - `{{current_version}}`: The version of the app that is requesting the update.
 - `{{target}}`: The operating system name (one of `linux`, `windows` or `darwin`).
