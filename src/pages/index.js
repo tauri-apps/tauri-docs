@@ -52,9 +52,6 @@ function Cards() {
         message:
           "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.",
       }),
-      link: '/references/benchmarks',
-      isDoc: true,
-      linkText: translate({ message: 'Learn More' }),
       imageUrl: 'img/index/illustrations/box.svg',
     },
     {
@@ -90,12 +87,12 @@ function Cards() {
             <h2>{card.label}</h2>
             <p>{card.description}</p>
             <div className={classNames(styles.cardSpacer)}></div>
-            <Link
+            {card.link && <Link
               className={'button button--primary'}
               href={(card.isDoc ? latestVersion.path : '') + card.link}
             >
               {card.linkText}
-            </Link>
+            </Link>}
           </div>
           <div className={classNames(styles.cardSide, styles.cardImage)}>
             <img src={card.imageUrl} />
