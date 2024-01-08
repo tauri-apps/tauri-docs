@@ -52,8 +52,7 @@ function Cards() {
         message:
           "By using the OS's native web renderer, the size of a Tauri app can be less than 600KB.",
       }),
-      link: 'https://tauri.app/',
-      isDoc: true,
+      link: '#',
       imageUrl: 'img/index/illustrations/box.svg',
     },
     {
