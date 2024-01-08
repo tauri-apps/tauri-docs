@@ -87,12 +87,12 @@ function Cards() {
             <h2>{card.label}</h2>
             <p>{card.description}</p>
             <div className={classNames(styles.cardSpacer)}></div>
-            card.link ?? <Link
+            {card.link ?? <Link
               className={'button button--primary'}
               href={(card.isDoc ? latestVersion.path : '') + card.link}
             >
               {card.linkText}
-            </Link>
+            </Link>}
           </div>
           <div className={classNames(styles.cardSide, styles.cardImage)}>
             <img src={card.imageUrl} />
