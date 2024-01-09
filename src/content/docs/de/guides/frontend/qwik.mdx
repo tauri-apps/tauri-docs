@@ -1,0 +1,305 @@
+---
+title: Qwik
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import QwikApp from '@assets/img/guides/frontend/qwik.png';
+
+Diese Anleitung führt Sie durch die Erstellung Ihrer Tauri-App mit dem [Qwik](https://qwik.builder.io/) Web Framework.
+
+<div style={{ textAlign: 'center' }}>
+	<Image src={QwikApp} alt="Guide Frontend - Qwik" width="300px" />
+</div>
+
+[Qwik](https://qwik.builder.io/) ist ein neuartiges Web-Framework,
+das schnell ladende Webanwendungen beliebiger Größe und Komplexität unterstützt.
+Es gibt eine Qwik-React Integration, mit der Sie die Möglichkeit haben Ihre React Komponenten migrieren zu können.
+Erfahren Sie mehr über Qwik unter https://qwik.builder.io und in den [Dokumentationen](https://qwik.builder.io/docs/).
+
+## Integration in vorhandenes Projekt
+
+
+### Erstelle eine Qwik Anwendung
+
+Falls noch keine Qwik Anwendung vorhanden ist, können Sie eine wie folgt erstellen:
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm create qwik@latest
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm create qwik@latest
+```
+</TabItem>
+</Tabs>
+
+
+1. _Project name_  
+   Dies ist der Name Ihres JavaScript-Projekts. Er entspricht dem Namen des Ordners, den dieses Dienstprogramm erstellt, hat aber ansonsten keine Auswirkungen auf Ihre Anwendung. Sie können hier jeden beliebigen Namen verwenden.
+
+2. _Select a starter_  
+   Wenn Sie möchten wählen Sie die `Basic App ((Demo App with Routing built-in)` als Beispiel Vorlage aus.
+
+3. _Install dependencies_  
+   Ja, wenn Sie die Abhängigkeiten automatisch installieren möchten.
+
+4. _Initialize git_  
+   Ja, wenn Sie Ihr Projekt als neues Git-Repository vorbereiten möchten.
+
+
+### Integrieren Sie den SSG-Adapter
+
+Um [Qwik](https://qwik.builder.io/) mit [SSG](https://qwik.builder.io/docs/deployments/static/) (Static Side Generator) zu integrieren, verwenden Sie den Befehl _add_
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm run qwik add static
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm qwik add static
+```
+</TabItem>
+</Tabs>
+
+
+### Tauri CLI installieren
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/cli
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/cli
+```
+</TabItem>
+</Tabs>
+
+oder für die nächste Vorabversion::
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/cli@next
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/cli@next
+```
+</TabItem>
+</Tabs>
+
+
+### Integrieren Sie Tauri in Ihr Projekt
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm run tauri init --ci
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm tauri init --ci
+```
+</TabItem>
+</Tabs>
+
+
+### Wechsel zum qwik-Port
+
+Bearbeiten Sie den Standard-Port von qwik _5173_ in _src-tauri/tauri.conf.json_
+
+<Tabs>
+<TabItem label="npm">
+```json
+// src-tauri/tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run build",
+		"devPath": "http://localhost:5173",
+		"distDir": "../dist"
+	}
+}
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```json
+// src-tauri/tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm build",
+		"devPath": "http://localhost:5173",
+		"distDir": "../dist"
+	}
+}
+```
+</TabItem>
+</Tabs>
+
+
+### Starten Sie Ihre Tauri Anwendung
+
+<Tabs>
+
+<TabItem label="npm">
+```sh
+npm run tauri dev
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm tauri dev
+```
+</TabItem>
+
+</Tabs>
+
+
+## Aufrufen von Rust-Befehlen
+
+Mit Tauri können Sie Ihr Frontend um native Funktionen erweitern.
+Wir nennen diese Befehle, im Wesentlichen Rust-Funktionen, die Sie von Ihrem Frontend-JavaScript aus aufrufen können.
+Dadurch können Sie schwere Verarbeitungen oder Aufrufe an das Betriebssystem in viel performanterem Rust-Code verarbeiten.
+
+Machen wir ein einfaches Beispiel ...
+
+### Installieren Sie das Tauri API package
+
+<Tabs>
+
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/api
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/api
+```
+</TabItem>
+</Tabs>
+
+oder für die nächste Vorabversion:
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/api@next
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/api@next
+```
+</TabItem>
+</Tabs>
+
+### Erstelles eines command
+
+Ein command ist wie jede normale Rust-Funktion,
+mit dem Zusatz des Attributs #[tauri::command] Makro,
+das Ihrer Funktion die Kommunikation mit dem
+dem JavaScript-Kontext zu kommunizieren ermöglicht.
+
+```rs title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn greet(name: &str) -> String {
+   format!("Hello, {}!", name)
+}
+```
+
+Zu guter Letzt müssen wir Tauri auch über unseren neu erstellten
+Kommando informieren, damit es die Aufrufe entsprechend weiterleiten kann.
+Dies geschieht mit der Kombination aus der Funktion _.invoke_handler()_
+Funktion und dem Makro _generate_handler![]_:
+
+```rs title="src-tauri/src/lib.rs"
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![greet])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+### Erstellen einer Qwik Komponente
+
+Um unseren neu erstellten Befehl aufzurufen, verwenden wir
+die JavaScript-Bibliothek _@tauri-apps/api_.
+Sie können sie mit Ihrem bevorzugten JavaScript-Paketmanager
+installieren (siehe erster [Schritt](/de/guides/frontend/qwik#installieren-sie-das-tauri-api-package)).
+Sie ermöglicht den Zugriff auf Kernfunktionen wie windows,
+das Dateisystem und mehr durch praktische JavaScript
+Abstraktionen.
+
+Nachdem die Bibliothek installiert ist, können wir nun eine neue Qwik-Komponente erstellen:
+
+```sh
+mkdir src/components/greet
+```
+
+```tsx title="src/components/greet/greet.tsx"
+import { $, component$, useSignal } from "@builder.io/qwik";
+import { invoke } from "@tauri-apps/api/core";
+
+export default component$(() => {
+  const greetMsg = useSignal("");
+
+  const greet = $(async (name: string) => {
+    greetMsg.value = await invoke("greet", { name });
+  });
+
+  return (
+    <div>
+      <button onClick$={() => greet("Qwik")}>Greet</button>
+      <p>{greetMsg.value}</p>
+    </div>
+  );
+});
+```
+
+Sie können Ihre Komponente nun anwenden zum Beispiel in der _src/routes/index.tsx_:
+
+```tsx title="src/routes/index.tsx"
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import Greet from "~/components/greet/greet";
+
+export default component$(() => {
+  return <Greet />;
+});
+
+export const head: DocumentHead = {
+  title: "Welcome to Qwik",
+  meta: [
+    {
+      name: "description",
+      content: "Qwik site description",
+    },
+  ],
+};
+```
