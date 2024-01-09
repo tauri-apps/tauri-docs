@@ -1,0 +1,69 @@
+---
+title: Capabilities
+---
+
+Tauri provides application and plugin developers with a capabilities system,
+to granually enable and constrain the core exposure to the application frontend running in the
+system WebView.
+
+Capabilities are a set of [permissions](/concepts/security/permissions) mapped to application windows by window label,
+where permissions are descriptions of explicit privileges or enablement of commands.
+Permission define the [scope](/concepts/security/scope) of commands, which is used for granular access controls.
+
+This can be configured in the `capabilities` section of the Tauri [configuration](/references/configuration-files#tauri-config).
+For a full reference of the configuration scheme please see the [references](/references/v2/config) section.
+
+*What does it protect against?*
+
+Depending on the permissions and capabilities it is able to:
+
+- Minimize impact of frontend compromise
+- Prevent or reduce (accidential) exposure of local system interfaces and data
+- Prevent or reduce possible privilege escalation from frontend to backend/system
+
+*What does it **not** protect against?*
+
+- Malicious or insecure Rust code
+- Too lax scopes and configuration
+- Incorrect scope checks in the command implementation
+- Intentional bypasses from Rust code
+- Basically anything which was written in the rust core of an application
+- 0-days or unpatched 1-days in the system WebView
+- Supply chain attacks or otherwise compromised developer systems
+
+Example capability:
+
+```json
+"capabilities":[
+    {
+        // Identifer which needs to be unique
+        "identifier": "my-capability",
+        // Description of the capability
+        "description": "The default application capability used for all windows",
+        // Context where the windows are used.
+        // Can be used for dangerous remote origins to allow
+        // remote hosted websites to facilitate the commands.
+        "context": "local",
+        // The `*` matches all windows
+        "windows": [ "*" ],
+        // List of permissions attached to this capability
+        // The `fs:` namespace indicates the used permission
+        // is provided from the filesystem plugin.
+        "permissions": [
+            "fs:default",
+            "allow-home-read-extended"
+           ]
+    },
+]
+        
+```
+
+:::caution
+
+The security boundaries are depending on window labels (not titles).
+If multiple capabilities are matched to different windows this can lead to privilege escalation.
+We recommend to only allow exposure of the window creation functionality to higher privileged windows.
+
+Tauri has some inbuilt mechanisms to reduce risk but is not able to fully mitigate this possible privilege escalation.
+
+:::

@@ -1,0 +1,108 @@
+---
+title: Permissions
+---
+
+Permissions are descriptions of explicit privileges of commands.
+
+It can enable commands to be accessible in the frontend of a Tauri application.
+It maps scopes to commands and defines which commands are enabled.
+Permissions can enable or deny certain commands, define scopes or combine both.
+
+Permissions can be grouped as a set under a new identifier.
+This is called a permission set.
+
+As a plugin developer you can ship multiple, pre-defined, well named permissions
+for all of your exposed commands.
+
+## Permission Identifier
+
+The permissions identifier is used to ensure that permissions can be re-used and have unique names.
+
+:::tip 
+With **crate-name** we refer to the plugin crate name or tauri application slug.
+This is meant as namespacing to reduce likelihood of naming conflicts. 
+:::
+
+- `<crate-name>:default` Indicates the permission is the default for a plugin or application
+- `<crate-name>:default-<command-name>` Indicates the permission is the default for an individual command
+
+The plugin prefix `tauri-plugin-` will be automatically appended to the identifier at compile time and is not required
+to be manually specified.
+
+Identifiers are limited to ASCII lower case alphabetic characters `[a-z]` and the maximum length 
+of the identifier is currently limited to `116` due to the following constants:
+
+```rust
+const IDENTIFIER_SEPARATOR: u8 = b':';
+const PLUGIN_PREFIX: &str = "tauri-plugin-";
+
+// https://doc.rust-lang.org/cargo/reference/manifest.html#the-name-field
+const MAX_LEN_PREFIX: usize = 64 - PLUGIN_PREFIX.len();
+const MAX_LEN_BASE: usize = 64;
+const MAX_LEN_IDENTIFIER: usize = MAX_LEN_PREFIX + 1 + MAX_LEN_BASE;
+```
+
+## Permission Set
+
+A special form of a permission is a permission set.
+
+
+## Examples 
+
+Example permissions from the `File System` plugin.
+
+```toml
+[[permission]]
+identifier = "scope-home"
+description = """This scope permits access to all files and
+list content of top level directories in the `$HOME`folder."""
+
+[[scope.allow]]
+path = "$HOME/*"
+
+[[permission]]
+identifier = "read-files"
+description = """This enables all file read related
+commands without any pre-configured accessible paths."""
+commands.allow = [
+    "read_file",
+    "read",
+    "open",
+    "read_text_file",
+    "read_text_file_lines",
+    "read_text_file_lines_next"
+]
+```
+
+As an application developer you can extend existing plugin permissions or
+define them for your own commands.
+
+Example implementation extending above permissions:
+
+```toml
+[[permission]]
+identifier = "allow-mkdir"
+description = "This enables the mkdir command."
+commands.allow = [
+    "mkdir"
+]
+
+[[set]]
+identifier = "allow-home-read-extended"
+description = """ This allows non-recursive read access to files
+in the `$HOME` folder. Extends existing permissions to also
+enable the `mkdir` command.
+"""
+permissions = [
+    "fs:read-files",
+    "fs:scope-home",
+    "mkdir"
+]
+```
+
+:::note
+
+As an application developer the configuration files can be written in `json`/`json5` or `toml`,
+whereas plugin developers only can use `toml`.
+
+:::
