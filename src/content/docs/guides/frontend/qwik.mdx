@@ -86,17 +86,17 @@ pnpm add -D @tauri-apps/cli
 </TabItem>
 </Tabs>
 
-or for a prerelease, e.g.:
+or for next prerelease:
 <Tabs>
 <TabItem label="npm">
 ```sh
-npm install -D @tauri-apps/cli@2.0.0-alpha.20
+npm install -D @tauri-apps/cli@next
 ```
 </TabItem>
 
 <TabItem label="pnpm">
 ```sh
-pnpm add -D @tauri-apps/cli@2.0.0-alpha.20
+pnpm add -D @tauri-apps/cli@next
 ```
 </TabItem>
 </Tabs>
@@ -173,3 +173,131 @@ pnpm tauri dev
 </TabItem>
 
 </Tabs>
+
+
+## Invoke Rust Commands
+
+Tauri lets you enhance your frontend with native capabilities.
+We call these commands, essentially Rust functions that you can call from your frontend JavaScript.
+This enables you to handle heavy processing or calls to the OS in much more performant Rust code.
+
+Let's make a simple example ...
+
+### Install tauri api package
+
+<Tabs>
+
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/api
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/api
+```
+</TabItem>
+</Tabs>
+
+or for next prerelease:
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/api@next
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/api@next
+```
+</TabItem>
+</Tabs>
+
+### Implement and register a command
+
+A command is just like any regular Rust function,
+with the addition of the #[tauri::command] attribute
+macro that allows your function to communicate with
+the JavaScript context.
+
+```rs title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn greet(name: &str) -> String {
+   format!("Hello, {}!", name)
+}
+```
+
+Lastly, we also need to tell Tauri about our newly created
+command so that it can route calls accordingly.
+This is done with the combination of the .invoke_handler()
+function and the generate_handler![] macro you can see below:
+
+```rs title="src-tauri/src/lib.rs"
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![greet])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+### Create a qwik component
+
+To call our newly created command we will use
+the @tauri-apps/api JavaScript library.
+It provides access to core functionality such as windows,
+the filesystem, and more through convenient JavaScript
+abstractions. You can install it using your favorite
+JavaScript package manager (first step).
+
+With the library installed, we can now create a new Qwik component:
+
+```sh
+mkdir src/components/greet
+```
+
+```tsx title="src/components/greet/greet.tsx"
+import { $, component$, useSignal } from "@builder.io/qwik";
+import { invoke } from "@tauri-apps/api/core";
+
+export default component$(() => {
+  const greetMsg = useSignal("");
+
+  const greet = $(async (name: string) => {
+    greetMsg.value = await invoke("greet", { name });
+  });
+
+  return (
+    <div>
+      <button onClick$={() => greet("Qwik")}>Greet</button>
+      <p>Test{greetMsg.value}</p>
+    </div>
+  );
+});
+```
+
+You can use your component now e.g. in the _src/routes/index.tsx_:
+
+```tsx title="src/routes/index.tsx"
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import Greet from "~/components/greet/greet";
+
+export default component$(() => {
+  return <Greet />;
+});
+
+export const head: DocumentHead = {
+  title: "Welcome to Qwik",
+  meta: [
+    {
+      name: "description",
+      content: "Qwik site description",
+    },
+  ],
+};
+```
