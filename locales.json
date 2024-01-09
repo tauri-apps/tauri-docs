@@ -7,13 +7,13 @@
     "label": "Deutsch",
     "lang": "de"
   },
-  "fr": {
-    "label": "Français",
-    "lang": "fr"
-  },
   "es": {
     "label": "Español",
     "lang": "es"
+  },
+  "fr": {
+    "label": "Français",
+    "lang": "fr"
   },
   "zh-cn": {
     "label": "简体中文",
