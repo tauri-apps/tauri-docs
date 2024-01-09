@@ -1,7 +1,175 @@
 ---
 title: Qwik
+i18nReady: true
 ---
 
-import Stub from '@components/Stub.astro';
+import { Image } from 'astro:assets';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import QwikApp from '@assets/img/guides/frontend/qwik.png';
 
-<Stub />
+This guide will walk you through creating your Tauri app using the [Qwik](https://qwik.builder.io/) web framework.
+
+<div style={{ textAlign: 'center' }}>
+	<Image src={QwikApp} alt="Guide Frontend - Qwik" width="300px" />
+</div>
+
+[Qwik](https://qwik.builder.io/) is a new kind of web framework that can deliver instant loading web applications at any size or complexity.
+There is a Qwik [React](https://qwik.builder.io/docs/integrations/react/) integration available to migrate your existing project.
+Learn more about Qwik at https://qwik.builder.io and [docs](https://qwik.builder.io/docs/).
+
+## Integrate into existing qwik projects
+
+
+### Create a qwik app
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm create qwik@latest
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm create qwik@latest
+```
+</TabItem>
+</Tabs>
+
+
+1. _Project name_  
+   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
+
+2. _Select a starter_  
+   We will select the `Basic App ((Demo App with Routing built-in)` option for an example template.
+
+3. _Install dependencies_  
+   Yes, if you want to install the dependencies automatically.
+
+4. _Initialize git_  
+   Yes, if you want to prepare your project as new git repository.
+
+
+### Integrate the SSG Adapter
+
+To integrate [Qwik](https://qwik.builder.io/) with [SSG](https://qwik.builder.io/docs/deployments/static/) (Static Side Generator) use the _add_ command
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm run qwik add static
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm qwik add static
+```
+</TabItem>
+</Tabs>
+
+
+### Install the tauri CLI
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/cli
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/cli
+```
+</TabItem>
+</Tabs>
+
+or for a prerelease, e.g.:
+<Tabs>
+<TabItem label="npm">
+```sh
+npm install -D @tauri-apps/cli@2.0.0-alpha.20
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm add -D @tauri-apps/cli@2.0.0-alpha.20
+```
+</TabItem>
+</Tabs>
+
+
+### Integrate tauri to your project
+
+<Tabs>
+<TabItem label="npm">
+```sh
+npm run tauri init --ci
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm tauri init --ci
+```
+</TabItem>
+</Tabs>
+
+
+### Change to the qwik port
+
+Edit the qwik default port _5173_ in _src-tauri/tauri.conf.json_
+
+
+
+<Tabs>
+<TabItem label="npm">
+```json
+// src-tauri/tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run build",
+		"devPath": "http://localhost:5173",
+		"distDir": "../dist"
+	}
+}
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```json
+// src-tauri/tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm build",
+		"devPath": "http://localhost:5173",
+		"distDir": "../dist"
+	}
+}
+```
+</TabItem>
+</Tabs>
+
+
+### Start your tauri app
+
+<Tabs>
+
+<TabItem label="npm">
+```sh
+npm run tauri dev
+```
+</TabItem>
+
+<TabItem label="pnpm">
+```sh
+pnpm tauri dev
+```
+</TabItem>
+
+</Tabs>
