@@ -5,7 +5,7 @@ title: Permissions
 Permissions are descriptions of explicit privileges of commands.
 
 It can enable commands to be accessible in the frontend of a Tauri application.
-It maps scopes to commands and defines which commands are enabled.
+It can map scopes to commands and defines which commands are enabled.
 Permissions can enable or deny certain commands, define scopes or combine both.
 
 Permissions can be grouped as a set under a new identifier.
@@ -14,20 +14,30 @@ This is called a permission set.
 As a plugin developer you can ship multiple, pre-defined, well named permissions
 for all of your exposed commands.
 
+:::note
+
+As an application developer the configuration files can be written in `json`/`json5` or `toml`,
+whereas plugin developers only can use `toml`.
+
+:::
+
 ## Permission Identifier
 
 The permissions identifier is used to ensure that permissions can be re-used and have unique names.
 
-:::tip 
-With **crate-name** we refer to the plugin crate name or tauri application slug.
-This is meant as namespacing to reduce likelihood of naming conflicts. 
+:::tip
+
+With **crate-name** we refer to the plugin crate name.
+This is meant as namespacing to reduce likelihood of naming conflicts.
+When referencing commands of the application itself it is not necessary.
+
 :::
 
 - `<crate-name>:default` Indicates the permission is the default for a plugin or application
 - `<crate-name>:default-<command-name>` Indicates the permission is the default for an individual command
 
-The plugin prefix `tauri-plugin-` will be automatically appended to the identifier at compile time and is not required
-to be manually specified.
+The plugin prefix `tauri-plugin-` will be automatically appended to the identifier of plugins
+at compile time and is not required to be manually specified.
 
 Identifiers are limited to ASCII lower case alphabetic characters `[a-z]` and the maximum length 
 of the identifier is currently limited to `116` due to the following constants:
@@ -41,10 +51,6 @@ const MAX_LEN_PREFIX: usize = 64 - PLUGIN_PREFIX.len();
 const MAX_LEN_BASE: usize = 64;
 const MAX_LEN_IDENTIFIER: usize = MAX_LEN_PREFIX + 1 + MAX_LEN_BASE;
 ```
-
-## Permission Set
-
-A special form of a permission is a permission set.
 
 
 ## Examples 
@@ -76,6 +82,8 @@ commands.allow = [
 
 As an application developer you can extend existing plugin permissions or
 define them for your own commands.
+They can be grouped or extended in a set to be re-used or to simplify the main
+configuration files later.
 
 Example implementation extending above permissions:
 
@@ -99,10 +107,3 @@ permissions = [
     "mkdir"
 ]
 ```
-
-:::note
-
-As an application developer the configuration files can be written in `json`/`json5` or `toml`,
-whereas plugin developers only can use `toml`.
-
-:::

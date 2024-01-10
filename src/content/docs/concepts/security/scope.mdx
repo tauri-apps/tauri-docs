@@ -1,13 +1,27 @@
 ---
-title: Command Scope
+title: Command Scopes
 ---
 
-A scope is usually a granular way to define (dis)allowed behavior of a Tauri command.
+A scope is a granular way to define (dis)allowed behavior of a Tauri command.
 
 Scopes are categorized into `allow` or `deny` scopes, where `deny` always
 superseeds the `allow` scope.
 
-Examples taken from the `Fs` plugin permissions:
+The scope type needs be of any serde serializable type.
+
+The scope is passed to the command and handling or properly enforcing is implemented
+by the command itself.
+
+:::caution
+
+Command developers need to ensure that there are no scope bypasses possible.
+The scope validation implementation should be audited to ensure correctness.
+
+:::
+
+## Examples
+
+These examples are taken from the `Fs` plugin permissions:
 
 ```toml
 [[scope.allow]]
@@ -19,15 +33,4 @@ path = "$APPLOCALDATA/**"
 path = "$APPLOCALDATA/EBWebView/**"
 ```
 
-The scope type needs be of any serde serializable type and is used for allowing or preventing
-certain actions inside a called command.
 
-The scope is passed to the command and handling or properly enforcing is implemented
-by the command itself.
-
-:::caution
-
-Command developers need to ensure that there are no scope bypasses possible.
-The scope implementation should be audited to ensure correctness.
-
-:::

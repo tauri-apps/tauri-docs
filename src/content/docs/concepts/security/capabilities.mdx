@@ -8,7 +8,7 @@ system WebView.
 
 Capabilities are a set of [permissions](/concepts/security/permissions) mapped to application windows by window label,
 where permissions are descriptions of explicit privileges or enablement of commands.
-Permission define the [scope](/concepts/security/scope) of commands, which is used for granular access controls.
+Permissions can define the [scope](/concepts/security/scope) of commands, which is used for granular access controls.
 
 This can be configured in the `capabilities` section of the Tauri [configuration](/references/configuration-files#tauri-config).
 For a full reference of the configuration scheme please see the [references](/references/v2/config) section.
@@ -31,7 +31,14 @@ Depending on the permissions and capabilities it is able to:
 - 0-days or unpatched 1-days in the system WebView
 - Supply chain attacks or otherwise compromised developer systems
 
-Example capability:
+:::caution
+
+The security boundaries are depending on window labels (__not titles__).
+We recommend to only allow exposure of the window creation functionality to higher privileged windows.
+
+:::
+
+## Example
 
 ```json
 "capabilities":[
@@ -58,12 +65,3 @@ Example capability:
         
 ```
 
-:::caution
-
-The security boundaries are depending on window labels (not titles).
-If multiple capabilities are matched to different windows this can lead to privilege escalation.
-We recommend to only allow exposure of the window creation functionality to higher privileged windows.
-
-Tauri has some inbuilt mechanisms to reduce risk but is not able to fully mitigate this possible privilege escalation.
-
-:::
