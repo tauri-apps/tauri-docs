@@ -9,7 +9,7 @@
   "devDependencies": {
     "typedoc": "0.23.28",
     "typedoc-plugin-markdown": "../typedoc-plugin-markdown/packages/typedoc-plugin-markdown",
-    "typedoc-plugin-mdn-links": "3.1.11",
+    "typedoc-plugin-mdn-links": "3.1.12",
     "typescript": "5.3.3"
   }
 }
