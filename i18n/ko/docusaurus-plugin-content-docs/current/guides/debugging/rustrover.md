@@ -6,7 +6,7 @@ In this guide, we’ll be setting up JetBrains RustRover for debugging the [Core
 
 Depending on which frontend stack is used in a project, the project directory may or may not be a Cargo project. By default, Tauri places the Rust project in a subdirectory called `src-tauri`. It creates a Cargo project in the root directory only if Rust is used for frontend development as well.
 
-If there's no the `Cargo.toml` file at the top level, you need to attach the project manually. Open the Cargo tool window (in the main menu, go to **View | Tool Windows | Cargo**), click **+** (**Attach Cargo Project**) on the toolbar, and select the `src-tauri/Cargo.toml` file.
+If there's no `Cargo.toml` file at the top level, you need to attach the project manually. Open the Cargo tool window (in the main menu, go to **View | Tool Windows | Cargo**), click **+** (**Attach Cargo Project**) on the toolbar, and select the `src-tauri/Cargo.toml` file.
 
 Alternatively, you could create a top-level Cargo workspace manually by adding the following file to the project's root directory:
 
@@ -59,7 +59,7 @@ For `npm`, `pnpm`, or `yarn`, you could use the **npm** Run Configuration, for e
 
 Make sure you have the correct values in the **Command**, **Scripts**, and **Package Manager** fields.
 
-If your development server is `trunk` meaning that your frontend framework uses WebAssembly, you could use the generic **Shell Script** Run Configuration:
+If your development server is `trunk` for Rust-based WebAssembly frontend frameworks, you could use the generic **Shell Script** Run Configuration:
 
 ![Trunk Serve Configuration](/img/guides/debugging/rustrover/trunk-configuration-light.png#gh-light-mode-only)
 ![Trunk Serve Configuration](/img/guides/debugging/rustrover/trunk-configuration-dark.png#gh-dark-mode-only)
