@@ -25,7 +25,7 @@ Tauri's security model differentiates between rust code written for the applicat
 core and frontend code written in any framework or language understood by the system
 WebView.
 
-The IPC layer is the bridge for communication between these two trust groups and ensures
+The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust groups and ensures
 that boundaries are not broken.
 
 
@@ -35,7 +35,7 @@ Any code executed by the plugins or the application core has full
 access to all available system resources and is not constrained.
 
 Any code executed in the WebView has only access to system resources
-via the well defined [IPC](/concepts/inter-process-communication) layer. The access of application core commands is configured
+via the well defined IPC layer. The access of application core commands is configured
 and constrained via capabilities defined in the application configuration.
 The individual command implementations enforce the optional fine grained access level,
 which are also defined in the capabilities configuration.
@@ -44,10 +44,6 @@ Learn more about the individual components and boundary
 enforcement:
 
 <CardGrid>
-	<LinkCard
-		title="Capabilities"
-		href="/concepts/security/capabilities"
-	/>
     <LinkCard
 		title="Permissions"
 		href="/concepts/security/permissions"
@@ -55,6 +51,10 @@ enforcement:
     <LinkCard
 		title="Scopes"
 		href="/concepts/security/scope"
+	/>
+    <LinkCard
+		title="Capabilities"
+		href="/concepts/security/capabilities"
 	/>
 	<LinkCard
 		title="Runtime Authority"
@@ -115,8 +115,5 @@ Most of our repositories have this feature enabled but if in doubt please submit
 
 Alternatively you can contact us via email at: [security@tauri.app](mailto:security@tauri.app).
 
-Although we do not currently have a budget for Security Bounties,
+Although we do not currently have a budget for security bounties,
 in some cases, we will consider rewarding coordinated disclosure with our limited resources.
-
-
-
