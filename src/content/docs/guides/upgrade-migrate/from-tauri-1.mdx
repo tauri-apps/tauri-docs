@@ -403,6 +403,7 @@ The Rust `App::global_shortcut_manager` and `AppHandle::global_shortcut_manager`
 ```toml
 # Cargo.toml
 [dependencies]
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2"
 ```
 
@@ -414,7 +415,7 @@ tauri-plugin-global-shortcut = "2"
 ```rust
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_global_shortcut::init())
+        .plugin(tauri_plugin_global_shortcut::Builder::default().build())
 }
 ```
 
@@ -441,8 +442,16 @@ await register('CommandOrControl+Shift+C', () => {
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
-    .plugin(tauri_plugin_shortcut::init())
+    .plugin(
+        tauri_plugin_global_shortcut::Builder::with_handler(|app, shortcut| {
+            println!("Shortcut triggered: {:?}", shortcut);
+        })
+        .build(),
+    )
     .setup(|app| {
+        // register a global shortcut
+        // on macOS, the Cmd key is used
+        // on Windows and Linux, the Ctrl key is used
         app.global_shortcut().register("CmdOrCtrl+Y")?;
         Ok(())
     })
