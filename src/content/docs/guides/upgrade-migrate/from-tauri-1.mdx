@@ -159,6 +159,15 @@ Most of the environment variables read and written by the Tauri CLI were renamed
 - `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
 - `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
 
+### Event System
+
+The event system was redesigned to be easier to use. Instead of relying on the source of the event, it now has a simpler implementation that relies on event targets.
+
+- The `emit` function now emits the event to all event listeners
+- Added a new `emit_to` function to trigger an event to a specific target
+- `emit_filter` now filters based on [`EventTarget`](<(https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html)>) instead of a window.
+- renamed `listen_global` to `listen_any`
+
 ## Detailed Migration Steps
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
@@ -1108,7 +1117,7 @@ tauri::Builder::default()
 ### Migrate Permissions
 
 The v1 allowlist have been rewritten to a completely new system for permissions that works for individual plugins and is much more configurable for multiwindow and remote URL support.
-This new system works like an access control list (ACL) where you can allow or deny commands, allocate permissions to a specific set of windows and domains, and define access scopes. 
+This new system works like an access control list (ACL) where you can allow or deny commands, allocate permissions to a specific set of windows and domains, and define access scopes.
 
 To enable permissions for your app, you must create capability files inside the `src-tauri/capabilities` folder, and Tauri will automatically configure everything else for you.
 
