@@ -629,13 +629,13 @@ use tauri::menu::{MenuBuilder, PredefinedMenuItem};
 
 tauri::Builder::default()
     .setup(|app| {
-        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)).build()?;
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)?).build()?;
         Ok(())
     })
 ```
 
 :::tip
-The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None))`.
+The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None)?)`.
 :::
 
 #### Use `tauri::menu::MenuItemBuilder`
@@ -647,7 +647,7 @@ use tauri::menu::MenuItemBuilder;
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app);
+        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app)?;
         Ok(())
     })
 ```
@@ -682,8 +682,8 @@ use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
-        let check = CheckMenuItemBuilder::new("Mark").build(app);
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let check = CheckMenuItemBuilder::new("Mark").build(app)?;
         let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
 
         app.set_menu(menu)?;
@@ -977,7 +977,7 @@ use tauri::{
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
         let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
         let tray = TrayIconBuilder::new()
             .menu(&menu)
