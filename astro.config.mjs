@@ -180,7 +180,7 @@ export default defineConfig({
 						{
 							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-alpha',
+							link: 'https://docs.rs/tauri/~2.0.0-beta',
 						},
 					],
 				},
