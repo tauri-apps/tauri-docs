@@ -124,7 +124,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### JavaScript API Changes
 
-The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
+The `@tauri-apps/api` package no longer provides non-core modules. Only the previous `tauri`, `path`, `event` and `window` modules are exported. All others have been moved to plugins.
 
 - `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/core`. [Migration](#migrate-to-core-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
@@ -167,6 +167,13 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 - Added a new `emit_to` function to trigger an event to a specific target
 - `emit_filter` now filters based on [`EventTarget`](<(https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html)>) instead of a window.
 - renamed `listen_global` to `listen_any`
+
+### Multiwebview support
+
+Tauri v2 introduces multiwebview support currently behind an `unstable` feature flag.
+In order to support it, we renamed the Rust `Window` type to `WebviewWindow` and the Manager `get_window` function to `get_webview_window`.
+
+The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webview` instead of `@tauri-apps/api/window`.
 
 ## Detailed Migration Steps
 
@@ -604,11 +611,9 @@ fn main() {
 
 The Rust `Menu` APIs were moved to the `tauri::menu` module and refactored to use the [muda crate](https://github.com/tauri-apps/muda).
 
-The JavaScript `@tauri-apps/api/window` `onMenuClicked()` API will be migrated in a future release.
-
 #### Use `tauri::menu::MenuBuilder`
 
-Use `tauri::menu::MenuBuilder` instead of `tauri::Menu`. Note that its constructor takes a Manager instance (one of `App`, `AppHandle` or `Window`) as an argument:
+Use `tauri::menu::MenuBuilder` instead of `tauri::Menu`. Note that its constructor takes a Manager instance (one of `App`, `AppHandle` or `WebviewWindow`) as an argument:
 
 ```rust
 use tauri::menu::MenuBuilder;
@@ -712,7 +717,7 @@ Note that there are two ways to check which menu item was selected: move the ite
 
 :::tip
 Menu items can be shared across menus, and the menu event is bound to a menu item instead of a menu or window.
-If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::Window/WindowBuilder::on_menu_event` closure.
+If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::WebviewWindow/WebviewWindowBuilder::on_menu_event` closure.
 :::
 
 ### Migrate to OS Plugin
@@ -999,9 +1004,9 @@ tauri::Builder::default()
             .on_tray_icon_event(|tray, event| {
                 if event.click_type == ClickType::Left {
                     let app = tray.app_handle();
-                    if let Some(window) = app.get_window("main") {
-                    let _ = window.show();
-                    let _ = window.set_focus();
+                    if let Some(webview_window) = app.get_webview_window("main") {
+                    let _ = webview_window.show();
+                    let _ = webview_window.set_focus();
                     }
                 }
             })
@@ -1113,6 +1118,16 @@ tauri::Builder::default()
         Ok(())
   })
 ```
+
+### Migrate to new Window API
+
+On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+
+Additionally, the `Manager::get_window` function was renamed to `get_webview_window`.
+
+On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webview` path.
+
+The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
 ### Migrate Permissions
 
