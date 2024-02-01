@@ -1,0 +1,197 @@
+---
+title: Access Control List
+---
+
+Each Tauri [command](/features/commands) exposes a Rust function that can perform arbitrary actions using operating system APIs to the JavaScript layer, which is sandboxed by default using Web standards.
+This introduces a risk to your application if an attacker can perform code execution accessing Tauri commands.
+
+To mitigate this, Tauri uses an Access Control List (ACL) to restrict access of plugin commands. By default all plugin commands are blocked and cannot be accessed.
+To enable access to the commands your application needs, you must define a list of permissions you need access.
+
+## Capabilities
+
+A capability groups a collection of permissions with an associated list of windows so you can configure access control on single and multi window applications.
+
+You define capabilities as either a JSON or a TOML file inside the `src-tauri/capabilities` directory.
+
+The following JSON defines a capability that enables default functionality for core plugins and the `window.setTitle` API.
+
+```json title="src-tauri/capabilities/main.json
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    "window:allow-set-title"
+  ]
+}
+```
+
+### Target Platform
+
+Capabilities can be platform-specific by defining the `platforms` array.
+By default the capability is applied to all targets,
+but you can select a subset of the `linux`, `macOS`, `windows`, `iOS` and `android` targets.
+
+For example, let's define a capability for desktop. Note it enables permissions on plugins that are only available on desktop:
+
+```json title="src-tauri/capabilities/desktop.json
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": [
+    "linux",
+    "macOS",
+    "windows"
+  ],
+  "permissions": [
+    "global-shortcut:allow-register"
+  ]
+}
+```
+
+And define a capability for mobile. Note it enables permissions on plugins that are only available on desktop:
+
+```json title="src-tauri/capabilities/mobile.json
+{
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": [
+    "iOS",
+    "android"
+  ],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
+}
+```
+
+### JSON Schema
+
+Tauri generates a JSON schema with all the permissions that are available to your application so you have autocompletion on your IDE.
+To use the schema, set the `$schema` property to one of the schemas inside the `capabilities/schemas` directory, which are platform-specific.
+Usually you will set it to `./schemas/desktop-schema.json` or `./schemas/mobile-schema.json` though you can also define a capability for a specific target platform.
+
+In the example above we defined specific capabilities for desktop and mobile, and referenced the associated JSON schema. Let's define a capability only for Linux:
+
+```json title="src-tauri/capabilities/linux.json
+{
+  "$schema": "./schemas/linux-schema.json",
+  "identifier": "linux-capability",
+  "windows": ["main"],
+  "platforms": [
+    "iOS",
+    "android"
+  ],
+  "permissions": [
+    "dbus::call"
+  ]
+}
+```
+
+### Multiwindow
+
+The `windows` property defines the list of windows that should reference the list of permissions. You can use glob patterns to reference dynamic window labels.
+
+The following example links the capability with the `main` window and any window with label prefixed with `editor-`.
+
+```json title="src-tauri/capabilities/mobile.json
+{
+  "windows": ["main", "editor-*"],
+  "permissions": [
+    ...
+  ]
+}
+```
+
+### Scopes
+
+Scopes further restrict the commands. Their format are plugin-specific, but Tauri offers primitives to allow and deny certain actions of the command, usually restricting command input.
+For instance, the `fs` plugin allows you to use scopes to allow or deny certain directories and files, and the `http` plugin uses scopes to filter URLs that are allowed to be reached.
+
+Let's study some examples for official plugins:
+
+- allow any `fs` command to access the app directory:
+
+```json title="src-tauri/capabilities/base.json
+{
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        { path: "$APP" },
+        { path: "$APP/**" }
+      ]
+    }
+  ]
+}
+```
+
+:::note
+`fs:scope` is an empty permission defined by the fs plugin just to let you define global scopes
+:::
+
+- allow the `fs` `rename` command to access the home directory:
+
+```json title="src-tauri/capabilities/base.json
+{
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [
+        { path: "$HOME/**" }
+      ]
+    }
+  ]
+}
+```
+
+- configure scope for the `http` plugin:
+
+```json title="src-tauri/capabilities/base.json
+{
+  "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [
+        { url: "https://*.tauri.app" }
+      ],
+      "deny": [
+        { url: "https://private.tauri.app" }
+      ]
+    }
+  ]
+}
+```
+
+### Remote Access
+
+By default each capability only applies to your application's embedded content (either your `devUrl` or `frontendDist` frontend).
+If you want to allow a remote URL to access Tauri commands (which is dangerous and should be configured carefully), you can use the `context` property.
+
+In the following example, we associate the capability with any `tauri.app` subdomain:
+
+```json title="src-tauri/capabilities/remote.json
+{
+  "context": {
+    "remote": {
+      "domains": ["https://*.tauri.app"]
+    }
+  }
+  "permissions": [
+    ...
+  ]
+}
+```
