@@ -1123,7 +1123,8 @@ tauri::Builder::default()
 
 On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
 
-Additionally, the `Manager::get_window` function was renamed to `get_webview_window`.
+Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
+the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.
 
 On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webview` path.
 
