@@ -417,6 +417,16 @@ import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
 
+Some functions and types have been renamed or removed:
+- `Dir` enum alias removed, use `BaseDirectory`.
+- `FileEntry`, `FsBinaryFileOption`, `FsDirOptions`, `FsOptions`, `FsTextFileOption` and `BinaryFileContents` interfaces and type aliases have been removed and replaced with new interfaces suited for each function.
+- `createDir` renamed to `mkdir`.
+- `readBinaryFile` renamed to `readFile`.
+- `removeDir` removed and replaced with `remove`.
+- `removeFile` removed and replaced with `remove`.
+- `renameFile` removed and replaced with `rename`.
+- `writeBinaryFile` renamed to `writeFile`.
+
 </TabItem>
 <TabItem label="Rust">
 
