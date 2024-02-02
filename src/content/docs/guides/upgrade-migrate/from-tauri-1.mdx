@@ -71,13 +71,28 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### Tauri Configuration
 
+- `package > productName` and `package > version` moved to top-level field.
+- `package` removed.
+- `tauri` key renamed to `app`.
 - `tauri > allowlist` removed.
-- `tauri > allowlist > protocol > assetScope` moved to `tauri > security > assetProtocol > scope`.
+- `tauri > allowlist` removed.
+- `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`.
 - `tauri > cli` moved to `plugins > cli`.
-- `tauri > updater` moved to `tauri > bundle > updater`.
+- `tauri > updater > active` removed.
 - `tauri > updater > dialog` removed.
-- `tauri > updater > endpoints` moved to `plugins > updater`.
-- `tauri > systemTray` renamed to `tauri > trayIcon`.
+- `tauri > updater` moved to `plugins > updater`.
+- `tauri > systemTray` renamed to `app > trayIcon`.
+- `tauri > pattern` moved to `app > security > pattern`.
+- `tauri > bundle` moved top-level.
+- `tauri > bundle > dmg` moved to `bundle > macOS > dmg`
+- `tauri > bundle > deb` moved to `bundle > linux > deb`
+- `tauri > bundle > appimage` moved to `bundle > linux > appimage`
+- `tauri > bundle > macOS > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > wix > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > nsis > license` removed, use `bundle > licenseFile` instead.
+- `build > withGlobalTauri` moved to `app > withGlobalTauri`.
+- `build > distDir` renamed to `frontendDist`.
+- `build > devPath` renamed to `devUrl`.
 
 [Tauri 2.0 Configuration API reference](/references/v2/config)
 
@@ -166,7 +181,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 - The `emit` function now emits the event to all event listeners
 - Added a new `emit_to` function to trigger an event to a specific target
 - `emit_filter` now filters based on [`EventTarget`](<(https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html)>) instead of a window.
-- renamed `listen_global` to `listen_any`
+- Renamed `listen_global` to `listen_any`
 
 ### Multiwebview support
 
