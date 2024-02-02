@@ -413,8 +413,8 @@ fn main() {
 ```
 
 ```js
-import { createDir, BaseDirectory } from '@tauri-apps/plugin-fs';
-await createDir('db', { dir: BaseDirectory.AppLocalData });
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
 
 </TabItem>
@@ -1068,11 +1068,11 @@ import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
-if (update.response.available) {
+if (update?.available) {
 	console.log(
-		`Update to ${update.response.latestVersion} available! Date: ${update.response.date}`
+		`Update to ${update.version } available! Date: ${update.date}`
 	);
-	console.log(`Release notes: ${update.response.body}`);
+	console.log(`Release notes: ${update.body}`);
 	await update.downloadAndInstall();
 	// requires the `process` plugin
 	await relaunch();
