@@ -64,7 +64,7 @@
     "description": "The label of footer link with label=Awesome Tauri linking to https://github.com/tauri-apps/awesome-tauri"
   },
   "copyright": {
-    "message": "Copyright © 2023 Tauri Contributors. CC-BY / MIT",
+    "message": "Copyright © 2024 Tauri Contributors. CC-BY / MIT",
     "description": "The footer copyright"
   }
 }
