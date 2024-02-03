@@ -17,7 +17,7 @@ The v2 release introduces mobile support to Tauri and also comes with several ne
 
 ## Mobile
 
-Developing an application for Web, desktop and mobile has never been easier. Tauri v2 is a huge statement on cross platform development now that we support Android and iOS. You can bring your existing desktop implementation and seamlessly port it to mobile, with access to native APIs and the great developer experience of the Tauri CLI.
+Developing an application for desktop and mobile has never been easier. Tauri v2 is a huge statement on cross platform development now that we support Android and iOS. You can bring your existing desktop implementation and seamlessly port it to mobile, with access to native APIs and the great developer experience of the Tauri CLI.
 
 ## Permissions
 
@@ -25,7 +25,7 @@ The v1 allowlist is a good tool for securing your frontend from accessing unnece
 
 ## New Features
 
-v2 includes the most requested features by the Tauri community:
+v2 includes many of the most requested features by the Tauri community:
 
 ### Revamped IPC
 

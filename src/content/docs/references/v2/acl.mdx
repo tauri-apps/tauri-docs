@@ -80,7 +80,7 @@ And define a capability for mobile. Note it enables permissions on plugins that 
 
 ### JSON Schema
 
-Tauri generates a JSON schema with all the permissions that are available to your application so you have autocompletion on your IDE.
+Tauri generates a JSON schema with all the permissions that are available to your application so you have autocompletion in your IDE.
 To use the schema, set the `$schema` property to one of the schemas inside the `capabilities/schemas` directory, which are platform-specific.
 Usually you will set it to `./schemas/desktop-schema.json` or `./schemas/mobile-schema.json` though you can also define a capability for a specific target platform.
 
@@ -118,7 +118,7 @@ The following example links the capability with the `main` window and any window
 
 ### Scopes
 
-Scopes further restrict the commands. Their format are plugin-specific, but Tauri offers primitives to allow and deny certain actions of the command, usually restricting command input.
+Scopes further restrict the commands. Their format is plugin-specific, but Tauri offers primitives to allow and deny certain actions of the command, usually restricting command input.
 For instance, the `fs` plugin allows you to use scopes to allow or deny certain directories and files, and the `http` plugin uses scopes to filter URLs that are allowed to be reached.
 
 Let's study some examples for official plugins:

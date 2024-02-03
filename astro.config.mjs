@@ -176,7 +176,7 @@ export default defineConfig({
 						{
 							label: 'Command Line Interface (CLI)',
 							link: '/references/v2/cli',
-						},	
+						},
 						{
 							label: 'JavaScript API',
 							link: '/references/v2/js',

@@ -139,7 +139,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### JavaScript API Changes
 
-The `@tauri-apps/api` package no longer provides non-core modules. Only the previous `tauri`, `path`, `event` and `window` modules are exported. All others have been moved to plugins.
+The `@tauri-apps/api` package no longer provides non-core modules. Only the previous `tauri` (now `core`), `path`, `event` and `window` modules are exported. All others have been moved to plugins.
 
 - `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/core`. [Migration](#migrate-to-core-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
@@ -181,7 +181,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 - The `emit` function now emits the event to all event listeners
 - Added a new `emit_to` function to trigger an event to a specific target
 - `emit_filter` now filters based on [`EventTarget`](<(https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html)>) instead of a window.
-- Renamed `listen_global` to `listen_any`
+- Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
 
 ### Multiwebview support
 
@@ -1162,6 +1162,6 @@ This new system works like an access control list (ACL) where you can allow or d
 
 To enable permissions for your app, you must create capability files inside the `src-tauri/capabilities` folder, and Tauri will automatically configure everything else for you.
 
-The `migrate` CLI command automatically parses your v1 allowlist and generate the associated capability file.
+The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
 
 To learn more about permissions and capabilities, see [the documentation](/references/v2/acl).
