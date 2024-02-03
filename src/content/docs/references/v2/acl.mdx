@@ -18,20 +18,20 @@ The following JSON defines a capability that enables default functionality for c
 
 ```json title="src-tauri/capabilities/main.json
 {
-  "$schema": "./schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    "window:allow-set-title"
-  ]
+	"$schema": "./schemas/desktop-schema.json",
+	"identifier": "main-capability",
+	"description": "Capability for the main window",
+	"windows": ["main"],
+	"permissions": [
+		"path:default",
+		"event:default",
+		"window:default",
+		"app:default",
+		"resources:default",
+		"menu:default",
+		"tray:default",
+		"window:allow-set-title"
+	]
 }
 ```
 
@@ -45,17 +45,11 @@ For example, let's define a capability for desktop. Note it enables permissions 
 
 ```json title="src-tauri/capabilities/desktop.json
 {
-  "$schema": "./schemas/desktop-schema.json",
-  "identifier": "desktop-capability",
-  "windows": ["main"],
-  "platforms": [
-    "linux",
-    "macOS",
-    "windows"
-  ],
-  "permissions": [
-    "global-shortcut:allow-register"
-  ]
+	"$schema": "./schemas/desktop-schema.json",
+	"identifier": "desktop-capability",
+	"windows": ["main"],
+	"platforms": ["linux", "macOS", "windows"],
+	"permissions": ["global-shortcut:allow-register"]
 }
 ```
 
@@ -63,18 +57,15 @@ And define a capability for mobile. Note it enables permissions on plugins that 
 
 ```json title="src-tauri/capabilities/mobile.json
 {
-  "$schema": "./schemas/mobile-schema.json",
-  "identifier": "mobile-capability",
-  "windows": ["main"],
-  "platforms": [
-    "iOS",
-    "android"
-  ],
-  "permissions": [
-    "nfc:allow-scan",
-    "biometric:allow-authenticate",
-    "barcode-scanner:allow-scan"
-  ]
+	"$schema": "./schemas/mobile-schema.json",
+	"identifier": "mobile-capability",
+	"windows": ["main"],
+	"platforms": ["iOS", "android"],
+	"permissions": [
+		"nfc:allow-scan",
+		"biometric:allow-authenticate",
+		"barcode-scanner:allow-scan"
+	]
 }
 ```
 
@@ -88,16 +79,11 @@ In the example above we defined specific capabilities for desktop and mobile, an
 
 ```json title="src-tauri/capabilities/linux.json
 {
-  "$schema": "./schemas/linux-schema.json",
-  "identifier": "linux-capability",
-  "windows": ["main"],
-  "platforms": [
-    "iOS",
-    "android"
-  ],
-  "permissions": [
-    "dbus::call"
-  ]
+	"$schema": "./schemas/linux-schema.json",
+	"identifier": "linux-capability",
+	"windows": ["main"],
+	"platforms": ["iOS", "android"],
+	"permissions": ["dbus::call"]
 }
 ```
 
@@ -127,15 +113,12 @@ Let's study some examples for official plugins:
 
 ```json title="src-tauri/capabilities/base.json
 {
-  "permissions": [
-    {
-      "identifier": "fs:scope",
-      "allow": [
-        { path: "$APPDATA" },
-        { path: "$APPDATA/**" }
-      ]
-    }
-  ]
+	"permissions": [
+		{
+			"identifier": "fs:scope",
+			"allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+		}
+	]
 }
 ```
 
@@ -147,14 +130,12 @@ Let's study some examples for official plugins:
 
 ```json title="src-tauri/capabilities/base.json
 {
-  "permissions": [
-    {
-      "identifier": "fs:allow-rename",
-      "allow": [
-        { path: "$HOME/**" }
-      ]
-    }
-  ]
+	"permissions": [
+		{
+			"identifier": "fs:allow-rename",
+			"allow": [{ "path": "$HOME/**" }]
+		}
+	]
 }
 ```
 
@@ -162,17 +143,13 @@ Let's study some examples for official plugins:
 
 ```json title="src-tauri/capabilities/base.json
 {
-  "permissions": [
-    {
-      "identifier": "http:default",
-      "allow": [
-        { url: "https://*.tauri.app" }
-      ],
-      "deny": [
-        { url: "https://private.tauri.app" }
-      ]
-    }
-  ]
+	"permissions": [
+		{
+			"identifier": "http:default",
+			"allow": [{ "url": "https://*.tauri.app" }],
+			"deny": [{ "url": "https://private.tauri.app" }]
+		}
+	]
 }
 ```
 
