@@ -29,13 +29,14 @@ v2 includes many of the most requested features by the Tauri community:
 
 ### Revamped IPC
 
-The v1 Inter-Process Communication (IPC) which is responsible for delivering messages between the Rust and JavaScript layers uses a very rudimentary webview interface which forces us to serialize all messages to strings and is super slow to deliver responses. The new v2 IPC uses custom protocols, which are similar to how a HTTP localhost server works and is [much faster](https://github.com/tauri-apps/tauri/pull/7170#issuecomment-1583279023).
+The v1 Inter-Process Communication (IPC) which is responsible for delivering messages between the Rust and JavaScript layers uses a very rudimentary webview interface which forces us to serialize all messages to strings and is super slow to deliver responses. The new v2 IPC uses custom protocols, which is more reminiscent in function and performance to how the webview handles regular HTTP based communication, see the [pull request](https://github.com/tauri-apps/tauri/pull/7170#issuecomment-1583279023) for more information.
 
 Additionally, there is a new channel API so you can quickly send data from Rust to your frontend.
 
 ### Multiwebview
 
 Tauri now supports adding multiple webviews to a single window. This is also a highly anticipated [feature request](https://github.com/tauri-apps/tauri/issues/2709).
+Note this is still an unfinished feature that is hidden behind an `unstable` Cargo feature flag while we review the API design together with the community.
 
 ### Menu and tray icon JavaScript APIs
 

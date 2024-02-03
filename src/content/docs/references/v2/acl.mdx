@@ -123,7 +123,7 @@ For instance, the `fs` plugin allows you to use scopes to allow or deny certain 
 
 Let's study some examples for official plugins:
 
-- allow any `fs` command to access the app directory:
+- allow any `fs` command to access the app data directory:
 
 ```json title="src-tauri/capabilities/base.json
 {
@@ -131,8 +131,8 @@ Let's study some examples for official plugins:
     {
       "identifier": "fs:scope",
       "allow": [
-        { path: "$APP" },
-        { path: "$APP/**" }
+        { path: "$APPDATA" },
+        { path: "$APPDATA/**" }
       ]
     }
   ]
