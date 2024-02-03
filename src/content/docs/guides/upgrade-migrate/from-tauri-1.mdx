@@ -418,6 +418,7 @@ await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
 
 Some functions and types have been renamed or removed:
+
 - `Dir` enum alias removed, use `BaseDirectory`.
 - `FileEntry`, `FsBinaryFileOption`, `FsDirOptions`, `FsOptions`, `FsTextFileOption` and `BinaryFileContents` interfaces and type aliases have been removed and replaced with new interfaces suited for each function.
 - `createDir` renamed to `mkdir`.
@@ -1079,9 +1080,7 @@ import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
 if (update?.available) {
-	console.log(
-		`Update to ${update.version } available! Date: ${update.date}`
-	);
+	console.log(`Update to ${update.version} available! Date: ${update.date}`);
 	console.log(`Release notes: ${update.body}`);
 	await update.downloadAndInstall();
 	// requires the `process` plugin
