@@ -254,12 +254,12 @@ async function siteConfig() {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      /* announcementBar: {
+      announcementBar: {
         content:
-          "<b>🚀 <a id='announcement-link' href='https://beta.tauri.app/blog/tauri-1-5/'>Tauri 1.5</a> has launched!</b>",
+          "<b>🚀 The <a id='announcement-link' href='https://beta.tauri.app/blog/tauri-2-0-0-beta/'>Beta for Tauri 2.0</a> has launched!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
-      }, */
+      },
       navbar: {
         hideOnScroll: false,
         logo: {
