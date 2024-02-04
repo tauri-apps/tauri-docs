@@ -337,6 +337,9 @@ Type: `object`
 | <div className="anchor-with-padding" id="debconfig.depends">`depends`<a class="hash-link" href="#debconfig.depends"></a></div> | array? | _null_ | The list of deb dependencies your application relies on. |
 | <div className="anchor-with-padding" id="debconfig.files">`files`<a class="hash-link" href="#debconfig.files"></a></div> | object | _null_ | The files to include on the package. |
 | <div className="anchor-with-padding" id="debconfig.desktoptemplate">`desktopTemplate`<a class="hash-link" href="#debconfig.desktoptemplate"></a></div> | string? | _null_ | Path to a custom desktop file Handlebars template.<br /><br />Available variables: `categories`, `comment` (optional), `exec`, `icon` and `name`. |
+| <div className="anchor-with-padding" id="debconfig.section">`section`<a class="hash-link" href="#debconfig.section"></a></div> | string? | _null_ | Define the section in Debian Control file. See : https://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections |
+| <div className="anchor-with-padding" id="debconfig.priority">`priority`<a class="hash-link" href="#debconfig.priority"></a></div> | string? | _null_ | Change the priority of the Debian Package. By default, it is set to `optional`. Recognized Priorities as of now are :  `required`, `important`, `standard`, `optional`, `extra` |
+| <div className="anchor-with-padding" id="debconfig.changelog">`changelog`<a class="hash-link" href="#debconfig.changelog"></a></div> | string? | _null_ | Path of the uncompressed Changelog file, to be stored at /usr/share/doc/package-name/changelog.gz. See https://www.debian.org/doc/debian-policy/ch-docs.html#changelog-files-and-release-notes |
 
 
 ##### MacConfig
