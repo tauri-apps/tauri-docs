@@ -1,22 +1,22 @@
-# Window Customization
+# 窗口自定义
 
-Tauri provides lots of options for customizing the look and feel of your app's window. You can create custom titlebars, have transparent windows, enforce size constraints, and more.
+Tauri提供了许多自定义应用程序窗口外观的选项。您可以创建自定义标题栏，透明窗口，强制大小约束，等等。
 
 ## 配置
 
-There are three ways to change the window configuration:
+有三种方法可以修改window的配置：
 
-- [Through tauri.conf.json](../../api/config.md#tauri.windows)
-- [Through the JS API](../../api/js/window.md#webviewwindow)
-- [Through the Window in Rust](https://docs.rs/tauri/1/tauri/window/struct.Window.html)
+- [通过 tauri.conf.json](../../api/config.md#tauri.windows)
+- [通过 JS API](../../api/js/window.md#webviewwindow)
+- [通过 Rust 的 Window](https://docs.rs/tauri/1/tauri/window/struct.Window.html)
 
-## Creating a Custom Titlebar
+## 创建自定义标题栏
 
-A common use of these window features is creating a custom titlebar. This short tutorial will guide you through that process.
+这些窗口特性的一个常见用途是创建自定义标题栏。这篇简短的教程将指导你完成这个过程。
 
 ### CSS
 
-You'll need to add some CSS for the titlebar to keep it at the top of the screen and style the buttons:
+你需要为标题栏添加一些CSS，使其保持在屏幕顶部，并为按钮添加样式：
 
 ```css
 .titlebar {
@@ -44,7 +44,7 @@ You'll need to add some CSS for the titlebar to keep it at the top of the screen
 
 ### HTML
 
-Now, you'll need to add the HTML for the titlebar. Put this at the top of your `<body>` tag:
+现在, 需要为标题栏添加 HTML. 把这些代码放到 `<body>` 标签里面的最上方：
 
 ```html
 <div data-tauri-drag-region class="titlebar">
@@ -66,11 +66,11 @@ Now, you'll need to add the HTML for the titlebar. Put this at the top of your `
 </div>
 ```
 
-Note that you may need to move the rest of your content down so that the titlebar doesn't cover it.
+请注意，你可能需要将其余内容向下移动，以免标题栏覆盖它。
 
 ### JS
 
-Finally, you'll need to make the buttons work:
+最后，还需要让按钮发挥作用：
 
 ```js
 import { appWindow } from '@tauri-apps/api/window'
@@ -87,7 +87,7 @@ document
 
 ### tauri.conf.json
 
-To make calls to `appWindow` work don't forget to add [window](../../api/js/window.md) permissions in `tauri.conf.json` file:
+要使对 `appWindow` 的调用生效，你需要在 `tauri.conf.json` 文件中添加 [window](../../api/js/window.md) 权限：
 ```json
 "tauri": {
   "allowList": {
