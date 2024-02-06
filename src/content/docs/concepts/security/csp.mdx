@@ -20,6 +20,19 @@ from hosts you trust, and preferably own.
 At compile time, Tauri appends its nonces and hashes to the relevant CSP attributes automatically
 to bundled code and assets, so you only need to worry about what is unique to your application.
 
+This is an example CSP configuration taken from the [`api`](https://github.com/tauri-apps/tauri/blob/dev/examples/api/src-tauri/tauri.conf.json#L22)
+example of Tauri, but every application developer needs to tailor this to their own application needs.
+
+```json title="tauri/examples/api/src-tauri/tauri.conf.json"
+  "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "font-src": ["https://fonts.gstatic.com"],
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' https://fonts.googleapis.com"
+      },
+```
+
 See [`script-src`], [`style-src`] and [CSP Sources] for more
 information about this protection.
 
