@@ -2,8 +2,7 @@
   "$schema": "./node_modules/@lunariajs/core/config.schema.json",
   "repository": {
     "name": "tauri-apps/tauri-docs",
-    "branch":"next",
-    "rootDir": "docs"
+    "branch":"next"
   },
   "defaultLocale": {
     "label": "English",
