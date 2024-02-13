@@ -3,7 +3,7 @@
   "repository": {
     "name": "tauri-apps/tauri-docs",
     "branch":"next",
-    "rootDir": "docs"
+    "rootDir": "src"
   },
   "defaultLocale": {
     "label": "English",
