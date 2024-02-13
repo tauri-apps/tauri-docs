@@ -15,8 +15,8 @@
     "build:references": "pnpm --filter js-api-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:astro": "astro build",
-    "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:astro && pnpm build:i18n",
+    "build:lunaria": "lunaria build",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:astro && pnpm build:lunaria",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -31,7 +31,8 @@
     "sharp": "^0.33.2",
     "shiki": "^1.1.1",
     "starlight-blog": "^0.4.0",
-    "starlight-links-validator": "^0.4.2"
+    "starlight-links-validator": "^0.4.2",
+    "@lunariajs/core": "^0.0.25"
   },
   "pnpm": {
     "patchedDependencies": {
