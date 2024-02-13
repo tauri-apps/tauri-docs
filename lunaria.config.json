@@ -26,7 +26,10 @@
     {
       "location": "src/content/docs/**/*.{md,mdx}",
       "pattern": "src/content/docs/@lang/@path",
-      "type": "universal"
+      "type": "universal",
+      "ignore": [
+        "src/content/docs/references/{v1,v2}/(js/**/*|config).{md,mdx}"
+      ]
     }
   ],
   "outDir":"./dist/contribute/translate-status",
