@@ -4,11 +4,10 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { site } from 'astro.config.mjs';
 
-export async function GET(context: APIContext) {
+export async function GET(_context: APIContext) {
 	const posts = await getCollection('docs', ({ id }) => {
 		return id.startsWith('blog');
 	});
-	console.log(context.site);
 	return rss({
 		title: 'Tauri Blog',
 		description: 'The cross-platform app building toolkit',
