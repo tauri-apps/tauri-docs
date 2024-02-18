@@ -55,9 +55,8 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
 		starlight({
-			plugins: [starlightBlog({ authors })],
+			plugins: [starlightBlog({ authors }), starlightLinksValidator()],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
