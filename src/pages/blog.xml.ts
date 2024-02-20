@@ -20,7 +20,7 @@ export async function GET(context: APIContext) {
 			// Generate a `url` from each post `slug`
 			// This assumes all blog posts are rendered as `/blog/[slug]` routes
 			// https://docs.astro.build/en/guides/content-collections/#generating-pages-from-content-collections
-			link: `/blog/${post.slug}/`,
+			link: `/${post.slug}/`,
 		})),
 	});
 }
