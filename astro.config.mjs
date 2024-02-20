@@ -76,6 +76,7 @@ export default defineConfig({
 			components: {
 				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
+				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -298,9 +299,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
