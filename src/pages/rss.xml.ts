@@ -2,9 +2,8 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
-import { site } from 'astro.config.mjs';
 
-export async function GET(_context: APIContext) {
+export async function GET(context: APIContext) {
 	const posts = await getCollection('docs', ({ id }) => {
 		return id.startsWith('blog');
 	});
@@ -12,7 +11,8 @@ export async function GET(_context: APIContext) {
 		title: 'Tauri Blog',
 		description: 'The cross-platform app building toolkit',
 		// https://docs.astro.build/en/reference/api-reference/#contextsite
-		site,
+		// @ts-expect-error
+		site: context.site,
 		items: posts.map((post) => ({
 			pubDate: post.data.date,
 			description: post.data.excerpt,
