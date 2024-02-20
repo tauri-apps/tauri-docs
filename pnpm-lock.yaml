@@ -41,7 +41,7 @@ importers:
         specifier: ^0.33.2
         version: 0.33.2
       shiki:
-        specifier: ^1.1.5
+        specifier: ^1.1.1
         version: 1.1.5
       starlight-blog:
         specifier: ^0.5.0
@@ -1067,7 +1067,6 @@ packages:
     dev: false
     optional: true
 
-
   /@rollup/rollup-android-arm-eabi@4.12.0:
     resolution: {integrity: sha512-+ac02NL/2TCKRrJu2wffk1kZ+RyqxVUlbjSagNgPm94frxtr+XDL12E5Ll1enWskLrtrZ2r8L3wED1orIibV/w==}
     cpu: [arm]
@@ -1174,7 +1173,6 @@ packages:
 
   /@shikijs/core@1.1.5:
     resolution: {integrity: sha512-cKc5vGQ4p/4sjx48BHIO7CvLaN32vqpz5Wh7v2n+U1EezGdfX4Wms7khBctKz3iCg9yYq4sfGUc2t+JWj6EUsw==}
-
     dev: false
 
   /@types/acorn@4.0.6:
@@ -4326,12 +4324,10 @@ packages:
       vscode-textmate: 8.0.0
     dev: false
 
-
   /shiki@1.1.5:
     resolution: {integrity: sha512-754GuKIwkUdT810Xm8btuyNQPL+q3PqOkwGW/VlmAWyMYp+HbvvDt69sWXO1sm5aeczBJQjmQTTMR4GkKQNQPw==}
     dependencies:
       '@shikijs/core': 1.1.5
-
     dev: false
 
   /shikiji-core@0.9.19:
