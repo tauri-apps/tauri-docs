@@ -56,8 +56,8 @@ export default defineConfig({
 	site,
 	integrations: [
 		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [starlightBlog({ authors })],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -298,9 +298,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
