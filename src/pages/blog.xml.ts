@@ -8,6 +8,17 @@ export async function GET(context: APIContext) {
 	const posts = await getCollection('docs', ({ id }) => {
 		return id.startsWith('blog');
 	});
+
+	posts.sort((a, b) => {
+		const dateA = a.data.date;
+		const dateB = b.data.date;
+		if (dateA && dateB) {
+			if (dateA < dateB) return 1;
+			if (dateA > dateB) return -1;
+			return 0;
+		} else return 0;
+	});
+
 	return rss({
 		title: 'Tauri Blog',
 		description: 'The cross-platform app building toolkit',
