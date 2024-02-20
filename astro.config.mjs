@@ -55,9 +55,11 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [
+				starlightBlog({ authors }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
+			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -74,8 +76,6 @@ export default defineConfig({
 			components: {
 				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
-				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
-				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 			},
 			head: [
 				{

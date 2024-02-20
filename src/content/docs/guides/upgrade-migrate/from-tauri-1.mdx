@@ -179,7 +179,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 
 - The `emit` function now emits the event to all event listeners
 - Added a new `emit_to` function to trigger an event to a specific target
-- `emit_filter` now filters based on [`EventTarget`](<(https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html)>) instead of a window.
+- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html) instead of a window.
 - Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
 
 ### Multiwebview support

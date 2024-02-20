@@ -8,7 +8,7 @@ Since Tauri is a toolkit for building applications there can be many files to co
 
 The file can be either `tauri.conf.json`, `tauri.conf.json5`, or `Tauri.toml`. The default is `tauri.conf.json`. See the note below for more information.
 
-This is the file used by the Tauri process. You can define build settings (such as the [command run before `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name and version of your app][package-config], [control the Tauri process][tauri-config], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
+This is the file used by the Tauri process. You can define build settings (such as the [command run before `tauri build`][before-build-command] or [`tauri dev`][before-dev-command]), set the [name](/references/v2/config#productname), [version of your app](/references/v2/config#version), [control the Tauri process][/references/v2/config#configuration-structure], and configure any plugin settings. You can find all of the options in the [`tauri.conf.json` API reference].
 
 :::note
 
@@ -108,11 +108,11 @@ In addition to the `package.json` file you may see either a `yarn.lock` file or 
 
 To learn more about `package.json` you can read more in the [official documentation][npm-package].
 
-[`tauri.conf.json` api reference]: ../api/config
-[before-build-command]: ../api/config#buildconfig.beforebuildcommand
+[`tauri.conf.json` api reference]: /references/v2/config
+[before-build-command]: /references/v2/config#beforebuildcommand
 [semantic versioning]: https://semver.org
 [cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
-[before-dev-command]: ../api/config#buildconfig.beforedevcommand
-[package-config]: ../api/config#packageconfig
-[tauri-config]: ../api/config#tauriconfig
+[before-dev-command]: /references/v2/config#beforedevcommand-1
+[package-config]: /references/v2/config#packageconfig
+[tauri-config]: /references/v2/config#tauriconfig

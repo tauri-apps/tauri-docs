@@ -105,8 +105,8 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 ```
 
 [transport_layer_security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
-[security: threat models]: ../../security#threat-models
-[events]: ../../../guides/features/events
+[security: threat models]: /concepts/development-security/#threat-models
+[events]: /references/v2/js/core/namespaceevent
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
-[brownfield pattern]: ./brownfield
-[integration testing with webdriver]: ../../../guides/testing/webdriver/introduction
+[brownfield pattern]: /concepts/inter-process-communication/brownfield
+[integration testing with webdriver]: /guides/test/webdriver
