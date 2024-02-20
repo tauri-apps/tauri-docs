@@ -96,6 +96,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Quick Start',
+					collapsed: true,
 					items: [
 						{ label: 'What is Tauri?', link: 'guides' },
 						{
@@ -132,6 +133,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Guides',
+					collapsed: true,
 					items: [
 						{
 							label: 'Develop',
@@ -161,6 +163,7 @@ export default defineConfig({
 				},
 				{
 					label: 'References',
+					collapsed: true,
 					items: [
 						{
 							label: 'List of References',
@@ -191,6 +194,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Features & Recipes',
+					collapsed: true,
 					autogenerate: { directory: 'features' },
 				},
 			],
@@ -299,9 +303,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
