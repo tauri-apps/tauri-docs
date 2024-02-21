@@ -35,7 +35,7 @@ Options to send a notification.
 
 Optional notification body.
 
-**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/50a3d17/tooling/api/src/notification.ts#L38)
+**Defined in:** [notification.ts:38](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/notification.ts#L38)
 
 ##### `icon`
 
@@ -47,7 +47,7 @@ Optional notification icon.
 
 - **Windows**: The app must be installed for this to have any effect.
 
-**Defined in:** [notification.ts:47](https://github.com/tauri-apps/tauri/blob/50a3d17/tooling/api/src/notification.ts#L47)
+**Defined in:** [notification.ts:47](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/notification.ts#L47)
 
 ##### `sound`
 
@@ -76,7 +76,7 @@ Be sure that the sound file is copied under the app bundle (e.g., `YourApp.app/C
 
 **Since**: 1.5.0
 
-**Defined in:** [notification.ts:72](https://github.com/tauri-apps/tauri/blob/50a3d17/tooling/api/src/notification.ts#L72)
+**Defined in:** [notification.ts:72](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/notification.ts#L72)
 
 ##### `title`
 
@@ -84,7 +84,7 @@ Be sure that the sound file is copied under the app bundle (e.g., `YourApp.app/C
 
 Notification title.
 
-**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/50a3d17/tooling/api/src/notification.ts#L36)
+**Defined in:** [notification.ts:36](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/notification.ts#L36)
 
 ## Type Aliases
 
@@ -94,7 +94,7 @@ Notification title.
 
 Possible permission values.
 
-**Defined in:** [notification.ts:76](https://github.com/tauri-apps/tauri/blob/50a3d17/tooling/api/src/notification.ts#L76)
+**Defined in:** [notification.ts:76](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/notification.ts#L76)
 
 ## Functions
 
