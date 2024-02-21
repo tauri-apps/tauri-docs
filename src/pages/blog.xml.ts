@@ -22,8 +22,7 @@ export async function GET(context: APIContext) {
 	return rss({
 		title: 'Tauri Blog',
 		description: 'The cross-platform app building toolkit',
-		// @ts-expect-error
-		site: context.site,
+		site: context.site as URL,
 		items: posts.map((post) => ({
 			pubDate: post.data.date,
 			description: post.data.excerpt,
