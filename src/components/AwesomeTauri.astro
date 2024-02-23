@@ -1,0 +1,76 @@
+---
+import {createMarkdownProcessor} from '@astrojs/markdown-remark';
+import {JSDOM} from 'jsdom'
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+const md = await createMarkdownProcessor()
+const url =
+  "https://raw.githubusercontent.com/tauri-apps/awesome-tauri/dev/README.md";
+const res = await fetch(url);
+const content = await md.render(await res.text())
+const dom = new JSDOM('<!DOCTYPE html>'+content.code);
+const document = dom.window.document;
+let categories = document.querySelectorAll("h3")
+let plugins = []
+for (const header of categories) {
+    if (header.textContent === "Plugins") {
+        let list = header.nextSibling.nextSibling as HTMLElement
+        for (const plugin: HTMLLinkElement of list.children) {
+            plugins.push({
+                href: plugin.children[0].href,
+                name: plugin.children[0].textContent,
+                description: plugin.textContent.split(' - ')[1]
+            })
+        }
+    }
+}
+let integrations = []
+for (const header of categories) {
+    if (header.textContent === "Integrations") {
+        let list = header.nextSibling.nextSibling as HTMLElement
+        for (const integration of list.children) {
+            integrations.push({
+                href: integration.children[0].href,
+                name: integration.children[0].textContent,
+                description: integration.textContent.split(' - ')[1]
+            })
+        }
+    }
+}
+---
+
+<h2>Plugins</h2>
+
+<CardGrid>
+    {
+        plugins.map((plugin) => (
+                <LinkCard
+                        title={plugin.name}
+                        description={plugin.description}
+                        href={plugin.href}
+                />
+        ))
+    }
+</CardGrid>
+
+<h2>Integrations</h2>
+
+<CardGrid>
+    {
+        integrations.map((integration) => (
+                <LinkCard
+                        title={integration.name}
+                        description={integration.description}
+                        href={integration.href}
+                />
+        ))
+    }
+</CardGrid>
+
+<!-- <Fragment set:html={content.code }></Fragment> -->
+
+<style is:global>
+    .sl-link-card {
+        background: var(--sl-color-black)
+    }
+</style>
