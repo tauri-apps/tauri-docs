@@ -5,21 +5,26 @@ i18nReady: true
 
 import FeaturesList from '@components/list/Features.astro';
 import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
 
 Tauri comes with extensibility in mind. On this page you'll find:
 
 - **[Features](#features)**: Built-in Tauri features and functionality
 - **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
 
-{/* TODO: Search bar component that syncs/filters across this whole list */}
 
-## Features
 
-<FeaturesList />
 
-## Community Resources
+<Search>
+  ## Features
+  <FeaturesList />
+  ## Community Resources
+  <CommunityList />
+</Search>
 
-<CommunityList />
+
+
+
 
 :::tip[Have something cool to share?]
 

@@ -1,0 +1,238 @@
+---
+/* CSS and html structure is based on:
+ * https://github.com/CloudCannon/pagefind/blob/main/pagefind_ui/default/svelte/ui.svelte
+ * And CSS variables from Starlight from:
+ * https://github.com/withastro/starlight/blob/a0f6fa80d9be1fbe85530323a0b2523acb83a15a/packages/starlight/components/Search.astro
+ */
+
+interface Props {
+	placeholder?: string;
+}
+const { placeholder = 'Search features and community resources...' } = Astro.props;
+
+// TODO: Expose placeholder and title to i18n
+---
+
+<card-search>
+	<div id="search-input" class="pagefind-ui pagefind-ui--reset">
+		<form
+			class="pagefind-ui__form"
+			role="search"
+			aria-label="search_label"
+			action="javascript:void(0);"
+		>
+			<input
+				data-wrapper="search-feature-list"
+				class="pagefind-ui__search-input"
+				id="search"
+				aria-label="search"
+				placeholder={placeholder}
+				title={placeholder}
+				autocapitalize="none"
+				enterkeyhint="search"
+				autocomplete="off"
+			/>
+
+			<button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
+		</form>
+	</div>
+	<slot />
+</card-search>
+
+<script>
+	class CardSearch extends HTMLElement {
+		constructor() {
+			super();
+			window.addEventListener('DOMContentLoaded', () => {
+				const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
+				const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
+				const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+				const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
+				const headings = Array.from(this.children).filter(
+					(el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
+				);
+				// Create "nothing found" for each heading
+				headings.forEach((heading, i) => {
+					const wrn = document.createElement('p');
+					wrn.classList.add('hidden', 'warning');
+					wrn.id = `warn-${i}`;
+					wrn.innerHTML = `
+						<style>
+							.warning {
+								font-style: italic;
+								color: var(--sl-color-text);
+								font-size: larger;
+							}
+							.hidden {
+								display: none;
+							}
+						</style>
+						<span>No results found in ${heading.textContent}</span>
+						`;
+					heading.insertAdjacentElement('afterend', wrn);
+				});
+				// Select all "nothing found" created before
+				const warnings = document.querySelectorAll('[id^="warn-"]');
+
+				// Prevent page reload
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+				});
+
+				// Prevent reload on 'Enter', and enable clean input on 'Escape'
+				form.addEventListener('keydown', (e) => {
+					clear.classList.remove('pagefind-ui__suppressed');
+					if (e.key === 'Escape') {
+						reset();
+					} else if (e.key === 'Enter') e.preventDefault();
+				});
+				searchBar.addEventListener('keydown', (e) => {
+					if (e.key === 'Enter') e.preventDefault();
+				});
+
+				// Search
+				searchBar.addEventListener('keyup', () => {
+					searchFilter();
+				});
+				// Clear search button 'X'
+				clear.addEventListener('click', () => {
+					clear.classList.add('pagefind-ui__suppressed');
+					reset();
+				});
+
+				function reset() {
+					searchBar.value = '';
+					searchFilter();
+				}
+
+				/**
+				 * Function to search and filter based on input
+				 */
+				function searchFilter() {
+					const query = searchBar.value.toUpperCase();
+
+					inputs.forEach((elements, i) => {
+						const cards = Array.from(elements.children);
+						let total = cards.length;
+
+						cards.forEach((el) => {
+							const htmlElement = el as HTMLElement;
+							const span = el.querySelector('span');
+							const txtValue = span?.textContent || span?.innerText;
+							if (!txtValue) return;
+
+							// Filter list
+							if (txtValue.toUpperCase().indexOf(query) > -1) {
+								total++;
+								htmlElement.style.display = '';
+							} else {
+								total--;
+								htmlElement.style.display = 'none';
+							}
+
+							// Show warning if none found
+							if (total === 0) {
+								warnings[i].classList.remove('hidden');
+							} else {
+								warnings[i].classList.add('hidden');
+							}
+						});
+					});
+				}
+			});
+		}
+	}
+	customElements.define('card-search', CardSearch);
+</script>
+
+<style>
+	:root {
+		--pagefind-ui-border-width: 1px;
+		--pagefind-ui-scale: 0.8;
+		--pagefind-ui-tag: #eeeeee;
+		--pagefind-ui-border-radius: 8px;
+		--pagefind-ui-image-border-radius: 8px;
+		--pagefind-ui-image-box-ratio: 3 / 2;
+	}
+	.pagefind-ui {
+		width: 100%;
+		color: var(--sl-color-gray-2);
+		font-family: var(--__sl-font);
+		margin-block: 2rem 1rem;
+	}
+	.pagefind-ui__form {
+		position: relative;
+	}
+	.pagefind-ui__form::before {
+		background-color: var(--sl-color-gray-2);
+		width: calc(18px * var(--pagefind-ui-scale));
+		height: calc(18px * var(--pagefind-ui-scale));
+		top: calc(23px * var(--pagefind-ui-scale));
+		left: calc(20px * var(--pagefind-ui-scale));
+		content: '';
+		position: absolute;
+		display: block;
+		opacity: 0.7;
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.7549 11.255H11.9649L11.6849 10.985C12.6649 9.845 13.2549 8.365 13.2549 6.755C13.2549 3.165 10.3449 0.255005 6.75488 0.255005C3.16488 0.255005 0.254883 3.165 0.254883 6.755C0.254883 10.345 3.16488 13.255 6.75488 13.255C8.36488 13.255 9.84488 12.665 10.9849 11.685L11.2549 11.965V12.755L16.2549 17.745L17.7449 16.255L12.7549 11.255ZM6.75488 11.255C4.26488 11.255 2.25488 9.245 2.25488 6.755C2.25488 4.26501 4.26488 2.255 6.75488 2.255C9.24488 2.255 11.2549 4.26501 11.2549 6.755C11.2549 9.245 9.24488 11.255 6.75488 11.255Z' fill='%23000000'/%3E%3C/svg%3E%0A");
+		mask-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.7549 11.255H11.9649L11.6849 10.985C12.6649 9.845 13.2549 8.365 13.2549 6.755C13.2549 3.165 10.3449 0.255005 6.75488 0.255005C3.16488 0.255005 0.254883 3.165 0.254883 6.755C0.254883 10.345 3.16488 13.255 6.75488 13.255C8.36488 13.255 9.84488 12.665 10.9849 11.685L11.2549 11.965V12.755L16.2549 17.745L17.7449 16.255L12.7549 11.255ZM6.75488 11.255C4.26488 11.255 2.25488 9.245 2.25488 6.755C2.25488 4.26501 4.26488 2.255 6.75488 2.255C9.24488 2.255 11.2549 4.26501 11.2549 6.755C11.2549 9.245 9.24488 11.255 6.75488 11.255Z' fill='%23000000'/%3E%3C/svg%3E%0A");
+		-webkit-mask-size: 100%;
+		mask-size: 100%;
+		z-index: 9;
+		pointer-events: none;
+	}
+	.pagefind-ui__search-input {
+		box-sizing: border-box;
+		position: relative;
+		display: flex;
+		font-weight: 400;
+		height: calc(64px * var(--pagefind-ui-scale));
+		padding: 0 calc(70px * var(--pagefind-ui-scale)) 0 calc(54px * var(--pagefind-ui-scale));
+		background-color: var(--sl-color-black);
+		border: var(--pagefind-ui-border-width) solid var(--sl-color-gray-5);
+		border-radius: var(--pagefind-ui-border-radius);
+		font-size: calc(21px * var(--pagefind-ui-scale));
+		appearance: none;
+		-webkit-appearance: none;
+		color: var(--sl-color-white);
+		width: 100%;
+	}
+
+	.pagefind-ui__search-input::placeholder {
+		color: var(--sl-color-gray-3);
+		opacity: 1; /* Firefox */
+	}
+
+	.pagefind-ui__search-clear {
+		position: absolute;
+		top: calc(3px * var(--pagefind-ui-scale));
+		right: calc(3px * var(--pagefind-ui-scale));
+		height: calc(58px * var(--pagefind-ui-scale));
+		color: var(--sl-color-gray-2);
+		font-size: calc(14px * var(--pagefind-ui-scale));
+		cursor: pointer;
+		border-radius: var(--pagefind-ui-border-radius);
+		width: calc(60px * var(--pagefind-ui-scale));
+		padding: 0;
+		background-color: transparent;
+		overflow: hidden;
+	}
+
+	.pagefind-ui__search-clear:focus {
+		outline: 1px solid var(--sl-color-accent);
+	}
+	.pagefind-ui__search-clear::before {
+		content: '';
+		-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m13.41 12 6.3-6.29a1 1 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1 1 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 .33 1.64 1 1 0 0 0 1.09-.22l6.29-6.3 6.29 6.3a1 1 0 0 0 1.64-.33 1 1 0 0 0-.22-1.09L13.41 12Z'/%3E%3C/svg%3E")
+			center / 50% no-repeat;
+		mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m13.41 12 6.3-6.29a1 1 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1 1 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 .33 1.64 1 1 0 0 0 1.09-.22l6.29-6.3 6.29 6.3a1 1 0 0 0 1.64-.33 1 1 0 0 0-.22-1.09L13.41 12Z'/%3E%3C/svg%3E")
+			center / 50% no-repeat;
+		background-color: var(--sl-color-text-accent);
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.pagefind-ui__suppressed {
+		opacity: 0;
+		pointer-events: none;
+	}
+</style>
