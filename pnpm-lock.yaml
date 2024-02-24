@@ -41,8 +41,8 @@ importers:
         specifier: ^0.33.2
         version: 0.33.2
       shiki:
-        specifier: ^1.1.1
-        version: 1.1.5
+        specifier: ^1.1.7
+        version: 1.1.7
       starlight-blog:
         specifier: ^0.5.0
         version: 0.5.0(@astrojs/starlight@0.19.0)(astro@4.4.4)
@@ -1171,8 +1171,8 @@ packages:
     dev: false
     optional: true
 
-  /@shikijs/core@1.1.5:
-    resolution: {integrity: sha512-cKc5vGQ4p/4sjx48BHIO7CvLaN32vqpz5Wh7v2n+U1EezGdfX4Wms7khBctKz3iCg9yYq4sfGUc2t+JWj6EUsw==}
+  /@shikijs/core@1.1.7:
+    resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
     dev: false
 
   /@types/acorn@4.0.6:
@@ -4319,10 +4319,10 @@ packages:
       vscode-textmate: 8.0.0
     dev: false
 
-  /shiki@1.1.5:
-    resolution: {integrity: sha512-754GuKIwkUdT810Xm8btuyNQPL+q3PqOkwGW/VlmAWyMYp+HbvvDt69sWXO1sm5aeczBJQjmQTTMR4GkKQNQPw==}
+  /shiki@1.1.7:
+    resolution: {integrity: sha512-9kUTMjZtcPH3i7vHunA6EraTPpPOITYTdA5uMrvsJRexktqP0s7P3s9HVK80b4pP42FRVe03D7fT3NmJv2yYhw==}
     dependencies:
-      '@shikijs/core': 1.1.5
+      '@shikijs/core': 1.1.7
     dev: false
 
   /shikiji-core@0.9.19:
