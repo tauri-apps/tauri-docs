@@ -162,11 +162,10 @@ In the following example, we associate the capability with any `tauri.app` subdo
 
 ```json title="src-tauri/capabilities/remote.json
 {
-  "context": {
-    "remote": {
-      "domains": ["https://*.tauri.app"]
-    }
-  }
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "local": false,
   "permissions": [
     ...
   ]

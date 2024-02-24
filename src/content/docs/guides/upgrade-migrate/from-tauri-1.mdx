@@ -152,6 +152,7 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the prev
 - `@tauri-apps/api/process` module removed. Use `@tauri-apps/plugin-process` instead. [Migration](#migrate-to-process-plugin)
 - `@tauri-apps/api/shell` module removed. Use `@tauri-apps/plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
+- `@tauri-apps/api/window` module renamed to `@tauri-apps/api/webviewWindow`. [Migration](#migrate-to-new-window-api)
 
 ### Environment Variables Changes
 
@@ -187,7 +188,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 Tauri v2 introduces multiwebview support currently behind an `unstable` feature flag.
 In order to support it, we renamed the Rust `Window` type to `WebviewWindow` and the Manager `get_window` function to `get_webview_window`.
 
-The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webview` instead of `@tauri-apps/api/window`.
+The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webviewWindow` instead of `@tauri-apps/api/window`.
 
 ## Detailed Migration Steps
 
@@ -1149,7 +1150,7 @@ On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `Windo
 Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
 the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.
 
-On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webview` path.
+On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webviewWindow` path.
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
