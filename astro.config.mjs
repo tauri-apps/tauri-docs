@@ -55,9 +55,11 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [
+				starlightBlog({ authors }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
+			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -75,8 +77,7 @@ export default defineConfig({
 				Head: 'src/components/overrides/Head.astro',
 				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
-				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
-				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
+				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
