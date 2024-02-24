@@ -161,6 +161,10 @@ export default defineConfig({
 							link: '/references/v2/config',
 						},
 						{
+							label: 'Access Control List',
+							link: '/references/v2/acl',
+						},
+						{
 							label: 'Command Line Interface (CLI)',
 							link: '/references/v2/cli',
 						},
@@ -171,7 +175,7 @@ export default defineConfig({
 						{
 							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-alpha',
+							link: 'https://docs.rs/tauri/~2.0.0-beta',
 						},
 					],
 				},
