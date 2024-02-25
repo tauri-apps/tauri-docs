@@ -1,0 +1,85 @@
+---
+interface Props {
+	android?: boolean;
+	ios?: boolean;
+	macos?: boolean;
+	windows?: boolean;
+	ubuntu?: boolean;
+	debian?: boolean;
+	arch?: boolean;
+}
+
+// TODO: Find proper yellow color scheme with text, preferably with starlight variables
+
+let { android, ios, macos, windows, ubuntu, debian, arch } = Astro.props;
+
+const distros = [ubuntu ? 'Ubuntu' : '', arch ? 'Arch' : '', debian ? 'Debian' : ''].filter(
+	Boolean
+);
+
+function getDistros(): string {
+	return `${distros.join(', ')}`;
+}
+let partial = true;
+if (ubuntu && debian && arch) {
+	partial = false;
+}
+---
+
+<div class="flex row not-content">
+	{ios && <p>iOS</p>}
+	{macos && <p>macOs</p>}
+	{android && <p>Android</p>}
+	{windows && <p>Windows</p>}
+	{
+		partial ? (
+			<p class="tooltip" class:list={[{ partial }]}>
+				<span class="text">Linux*</span>
+				<span class="tooltiptext">{getDistros()}</span>
+			</p>
+		) : (
+			<p>Linux</p>
+		)
+	}
+</div>
+
+<style>
+	p {
+		color: var(--sl-color-black);
+		background-color: var(--sl-color-accent-high);
+		padding: 0px 6px 0px 6px;
+		border-radius: 8px;
+	}
+	.partial {
+		font-weight: bolder;
+		color: var(--sl-color-gray-4);
+		background-color: var(--sl-color-orange);
+	}
+	.flex {
+		display: flex;
+		font-size: var(--sl-text-sm);
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.flex.row {
+		gap: 0.5em 0.75em;
+	}
+	.tooltip {
+		position: relative;
+		display: inline-block;
+	}
+	.tooltip .tooltiptext {
+		visibility: hidden;
+		width: 120px;
+		background-color: black;
+		color: #fff;
+		text-align: center;
+		padding: 5px 0;
+		border-radius: 6px;
+		position: absolute;
+		z-index: 1;
+	}
+	.tooltip:hover .tooltiptext {
+		visibility: visible;
+	}
+</style>

@@ -7,8 +7,10 @@ import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import CompatibilityHover from '@components/CompatibilityHover.astro';
 
 <PluginLinks plugin="clipboard-manager" />
+<CompatibilityHover android ios macos debian ubuntu arch />
 
 Read and write to the system clipboard using the clipboard plugin.
 
