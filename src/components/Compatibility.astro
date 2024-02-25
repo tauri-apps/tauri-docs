@@ -15,8 +15,8 @@ const distros = [ubuntu ? 'Ubuntu' : '', arch ? 'Arch' : '', debian ? 'Debian' :
 	Boolean
 );
 
-function getDistros(arr: any[]): string {
-	return `(${arr.join(', ')})`;
+function getDistros(): string {
+	return `(${distros.join(', ')})`;
 }
 ---
 
@@ -25,20 +25,15 @@ function getDistros(arr: any[]): string {
 	{macos && <p>macOs</p>}
 	{android && <p>Android</p>}
 	{windows && <p>Windows</p>}
-	{(debian || ubuntu || arch) && <p>Linux {getDistros(distros)}</p>}
+	{(debian || ubuntu || arch) && <p>Linux {getDistros()}</p>}
 </div>
 
 <style>
 	p {
 		color: var(--sl-color-black);
-		opacity: 0.7;
 		background-color: var(--sl-color-accent-high);
 		padding: 0px 6px 0px 6px;
 		border-radius: 8px;
-	}
-	.disabled {
-		color: var(--sl-color-black);
-		background-color: var(--sl-color-accent-low);
 	}
 	.flex {
 		display: flex;
@@ -46,7 +41,6 @@ function getDistros(arr: any[]): string {
 		flex-wrap: wrap;
 		align-items: center;
 	}
-
 	.flex.row {
 		gap: 0.5em 0.75em;
 	}
