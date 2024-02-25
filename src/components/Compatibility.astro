@@ -12,7 +12,7 @@ interface Props {
 
 let { android, ios, macos, windows, ubuntu, debian, arch } = Astro.props;
 
-const distros = [ubuntu ? 'Ubuntu' : '', arch ? 'Arch' : '', debian ? 'Debian' : ''].filter(
+const distros = [ubuntu && 'Ubuntu', arch && 'Arch', debian && 'Debian'].filter(
 	Boolean
 );
 
