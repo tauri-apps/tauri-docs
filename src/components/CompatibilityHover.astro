@@ -19,10 +19,7 @@ const distros = [ubuntu ? 'Ubuntu' : '', arch ? 'Arch' : '', debian ? 'Debian' :
 function getDistros(): string {
 	return `${distros.join(', ')}`;
 }
-let partial = true;
-if (ubuntu && debian && arch) {
-	partial = false;
-}
+const partial: boolean = ubuntu && debian && arch ? false : true;
 ---
 
 <div class="flex row not-content">
