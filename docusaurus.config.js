@@ -138,7 +138,7 @@ const navbarItems = [
     dropdownItemsAfter: [
       {
         href: 'https://beta.tauri.app/',
-        label: 'v2 (Alpha)',
+        label: 'v2 (Beta)',
         target: '_self',
       },
     ],
