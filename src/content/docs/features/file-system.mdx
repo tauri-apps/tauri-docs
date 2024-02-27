@@ -40,7 +40,7 @@ Use your project's package manager to add the dependency:
   </TabItem>
   <TabItem label = "Manual">
 
-1. Install the Core plugin by adding the following to your `Cargo.toml` file:
+1. Install the fs plugin by adding the following to your `Cargo.toml` file:
 
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
@@ -393,7 +393,7 @@ This default permission set prevents access to critical components of the Tauri 
 ### Command Permissions
 
 | Permission                           | Description                                                                                                 |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------- | --- | ------------- | ----------------------------------------------------------------------------------- |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | `fs:allow-copy-file`                 | Enables the copy_file command without any pre-configured scope.                                             |
 | `fs:deny-copy-file`                  | Denies the copy_file command without any pre-configured scope.                                              |
 | `fs:allow-create`                    | Enables the create command without any pre-configured scope.                                                |
@@ -441,7 +441,8 @@ This default permission set prevents access to critical components of the Tauri 
 | `fs:allow-write-file`                | Enables the write_file command without any pre-configured scope.                                            |
 | `fs:deny-write-file`                 | Denies the write_file command without any pre-configured scope.                                             |
 | `fs:allow-write-text-file`           | Enables the write_text_file command without any pre-configured scope.                                       |
-| `fs:deny-write-text-file`            | Denies the write_text_file command without any pre-configured scope.                                        |     | `fs:read-all` | This enables all read related commands without any pre-configured accessible paths. |
+| `fs:deny-write-text-file`            | Denies the write_text_file command without any pre-configured scope.                                        |
+| `fs:read-all`                        | This enables all read related commands without any pre-configured accessible paths.                         |
 | `fs:read-dirs`                       | This enables directory read and file metadata related commands without any pre-configured accessible paths. |
 | `fs:read-files`                      | This enables file read related commands without any pre-configured accessible paths.                        |
 | `fs:read-meta`                       | This enables all index or metadata related commands without any pre-configured accessible paths.            |
