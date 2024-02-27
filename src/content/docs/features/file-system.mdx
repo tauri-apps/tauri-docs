@@ -113,7 +113,7 @@ fn run() {
 
 ## Security
 
-This module prevents path traversal, not allowing absolute paths or parent dir components (i.e. `/usr/path/to/file` or `../path/to/file` paths are not allowed). Paths accessed with this API must be relative to one of the base directories so if you need access to arbitrary filesystem paths, you must write such logic on the core layer instead.
+This module prevents path traversal, not allowing absolute paths or parent dir components (i.e. `/usr/path/to/file` or `../path/to/file` paths are not allowed). Paths accessed with this API must be relative to one of the base directories so if you need access to arbitrary file system paths, you must write such logic on the core layer instead.
 
 See [@tauri-apps/plugin-fs - Security](/references/v2/js/fs/#security) for more information.
 
