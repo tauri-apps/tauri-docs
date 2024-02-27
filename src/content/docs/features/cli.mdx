@@ -210,6 +210,8 @@ The CLI plugin is available in both JavaScript and Rust.
   <TabItem label="JavaScript">
 
 ```js
+import { getMatches } from '@tauri-apps/plugin-cli';
+
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
 	// `./your-app run $ARGS` was executed
