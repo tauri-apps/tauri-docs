@@ -98,19 +98,19 @@ For [universal links](https://developer.apple.com/documentation/xcode/allowing-a
 
 ```json title=".well-known/apple-app-site-association"
 {
-  "applinks": {
-    "details": [
-      {
-        "appIDs": [ "$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID" ],
-        "components": [
-          {
-            "/": "/open/*",
-            "comment": "Matches any URL whose path starts with /open/"
-          }
-        ]
-      }
-    ]
-  }
+	"applinks": {
+		"details": [
+			{
+				"appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+				"components": [
+					{
+						"/": "/open/*",
+						"comment": "Matches any URL whose path starts with /open/"
+					}
+				]
+			}
+		]
+	}
 }
 ```
 
@@ -142,14 +142,14 @@ Under `tauri.conf.json > plugins > deep-link`, configure the domains you want to
 
 ```json title="tauri.conf.json"
 {
-  "plugins": {
-    "deep-link": {
-      "domains": [
-        { "host": "your.website.com", "pathPrefix": ["/open"] },
-        { "host": "another.site.br" }
-      ]
-    }
-  }
+	"plugins": {
+		"deep-link": {
+			"domains": [
+				{ "host": "your.website.com", "pathPrefix": ["/open"] },
+				{ "host": "another.site.br" }
+			]
+		}
+	}
 }
 ```
 
@@ -161,10 +161,10 @@ The deep-link plugin is available in both JavaScript and Rust.
   <TabItem label="JavaScript">
 
 ```js
-import { onOpenUrl } from "@tauri-apps/plugin-deep-link";
+import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
 
 await onOpenUrl((urls) => {
-  console.log('deep link:', urls);
+	console.log('deep link:', urls);
 });
 ```
 
@@ -206,15 +206,15 @@ See [Access Control List](/references/v2/acl) for more information.
 	"windows": ["main"],
 	"platforms": ["iOS", "android"],
 	"permissions": [
-    // Usually you will need event:default to listen to the deep-link event
-    "event:default",
-    "deep-link:default",
-  ]
+		// Usually you will need event:default to listen to the deep-link event
+		"event:default",
+		"deep-link:default"
+	]
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
+| Permission                    | Description                                                       |
+| ----------------------------- | ----------------------------------------------------------------- |
 | `deep-link:default`           | Allows reading the opened deep link via the get_current command.  |
 | `deep-link:allow-get-current` | Enables the get_current command without any pre-configured scope. |
 | `deep-link:deny-get-current`  | Denies the get_current command without any pre-configured scope.  |
