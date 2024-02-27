@@ -165,6 +165,7 @@ On Windows the webview data folder access is denied.
 | Permission    | Description   |
 | ------------- | ------------- |
 | `fs:default`	|               |
+| `fs:deny-default` | This denies access to dangerous Tauri relevant files and folders by default. |
 
 ### Scope Permissions
 
@@ -395,6 +396,8 @@ On Windows the webview data folder access is denied.
 | `fs:scope-video-recursive` | This scope recursive access to the complete `$VIDEO` folder, including sub directories and files. |
 | `fs:scope-video` | This scope permits access to all files and list content of top level directories in the `$VIDEO`folder. |
 | `fs:scope-video-index` | This scope permits to list all files and folders in the `$VIDEO`folder. |
+| `fs:deny-webview-data-linux` | This denies read access to the `$APPLOCALDATA` folder on linux as the webview data and configuration values are stored here. Allowing access can lead to sensitive information disclosure and should be well considered.|
+| `fs:deny-webview-data-windows` | This denies read access to the `$APPLOCALDATA/EBWebView` folder on windows as the webview data and configuration values are stored here. Allowing access can lead to sensitive information disclosure and should be well considered. |
 
 ### Command Permissions
 
@@ -447,11 +450,7 @@ On Windows the webview data folder access is denied.
 | `fs:allow-write-file` | Enables the write_file command without any pre-configured scope. |
 | `fs:deny-write-file` | Denies the write_file command without any pre-configured scope. |
 | `fs:allow-write-text-file` | Enables the write_text_file command without any pre-configured scope. |
-| `fs:deny-write-text-file` | Denies the write_text_file command without any pre-configured scope. |
-| `fs:deny-default` | This denies access to dangerous Tauri relevant files and folders by default. |
-| `fs:deny-webview-data-linux` | This denies read access to the `$APPLOCALDATA` folder on linux as the webview data and configuration values are stored here. Allowing access can lead to sensitive information disclosure and should be well considered.|
-| `fs:deny-webview-data-windows` | This denies read access to the `$APPLOCALDATA/EBWebView` folder on windows as the webview data and configuration values are stored here. Allowing access can lead to sensitive information disclosure and should be well considered. |
-| `fs:read-all` | This enables all read related commands without any pre-configured accessible paths. |
+| `fs:deny-write-text-file` | Denies the write_text_file command without any pre-configured scope. || `fs:read-all` | This enables all read related commands without any pre-configured accessible paths. |
 | `fs:read-dirs` | This enables directory read and file metadata related commands without any pre-configured accessible paths. |
 | `fs:read-files` | This enables file read related commands without any pre-configured accessible paths. |
 | `fs:read-meta` | This enables all index or metadata related commands without any pre-configured accessible paths. |
