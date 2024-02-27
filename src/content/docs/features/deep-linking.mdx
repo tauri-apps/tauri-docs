@@ -199,12 +199,12 @@ You must define a list of permissions in your `capabilities` configuration.
 
 See [Access Control List](/references/v2/acl) for more information.
 
-```json title="src-tauri/capabilities/main.json" ins={8}
+```json title="src-tauri/capabilities/main.json" ins={9}
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
+	"$schema": "./schemas/mobile-schema.json",
+	"identifier": "mobile-capability",
 	"windows": ["main"],
+	"platforms": ["iOS", "android"],
 	"permissions": [
     // Usually you will need event:default to listen to the deep-link event
     "event:default",
