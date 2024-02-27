@@ -254,7 +254,7 @@ let file_path = app.dialog().file().blocking_pick_file();
 // return a file_path `Option`, or `None` if the user closes the dialog
 ```
 
-If you need a non blocking operation you can use `show()` instead:
+如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
