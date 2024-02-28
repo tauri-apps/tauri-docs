@@ -1,0 +1,48 @@
+---
+title: Announcing the Tauri Mobile Alpha Release
+date: 2022-12-09
+authors: [lucasfernog]
+excerpt: Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
+banner:
+  content: |
+    You're reading the blog on the prerelease site for Tauri 2.0 -
+    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+![Tauri 2.0 Launch Hero Image](./tauri_2_0_0_alpha_0/header.png)
+
+Tauri mobile is here! The first alpha release 2.0.0-alpha.0 has been published.
+
+## Updating dependencies
+
+Make sure to update both NPM and Cargo dependencies to the 2.0.0-alpha.0 release. You can update the dependencies with:
+
+<CommandTabs
+	npm="npm install @tauri-apps/cli@next @tauri-apps/api@next"
+	yarn="yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next"
+	pnpm="pnpm update @tauri-apps/cli@next @tauri-apps/api@next"
+	cargo='cargo add tauri@2.0.0-alpha.0
+cargo add tauri-build@2.0.0-alpha.0 --build
+cargo install tauri-cli --version "^2.0.0-alpha"'
+/>
+
+## Preview
+
+You can adapt your existing desktop application to run on mobile or start a fresh project.
+Tauri runs on the connected device or starts an emulator if available.
+
+![iOS Preview](./tauri_2_0_0_alpha_0/ios-preview.png)
+![Android Preview](./tauri_2_0_0_alpha_0/android-preview.png)
+
+---
+
+## Getting started
+
+Read the complete guide on the [`next` documentation website](https://beta.tauri.app).
+
+## Known issues
+
+- TLS support has been moved behind a Cargo feature until we figure out how to cross compile OpenSSL on Windows.
+- Currently running on a device is not supported when using Xcode 14.

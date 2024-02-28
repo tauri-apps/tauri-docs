@@ -1,6 +1,5 @@
 import {
 	Application,
-	Comment,
 	DeclarationReflection,
 	Options,
 	PageEvent,
@@ -13,7 +12,6 @@ import {
 	MarkdownTheme,
 	MarkdownThemeRenderContext,
 	type PluginOptions,
-	load as loadMarkdownPlugin,
 } from 'typedoc-plugin-markdown';
 import path from 'node:path';
 import { slug } from 'github-slugger';
@@ -25,8 +23,9 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	githubPages: false,
 	hideGenerator: true,
 	theme: 'tauri-theme',
-	plugin: ['typedoc-plugin-mdn-links'],
+	plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-markdown'],
 	readme: 'none',
+	logLevel: 'Warn',
 	// typedoc-plugin-markdown options
 	// https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
 	outputFileStrategy: 'modules',
@@ -40,36 +39,51 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	hideInPageTOC: true,
 	identifiersAsCodeBlocks: true,
 	propertiesFormat: 'table',
-	enumMembersFormat: 'table',
+	// Tables do not create links for members so disabling for now to prevent broken links
+	// enumMembersFormat: 'table',
 	typeDeclarationFormat: 'table',
 };
 
 async function generator() {
-	if (existsSync('../tauri/tooling/api/node_modules')) {
+	if (existsSync('../tauri-v1/tooling/api/node_modules')) {
 		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri/tooling/api/src/index.ts'],
-			tsconfig: '../tauri/tooling/api/tsconfig.json',
-			gitRevision: 'dev',
-			baseUrl: '/2/reference/js/core/',
+			entryPoints: ['../tauri-v1/tooling/api/src/index.ts'],
+			tsconfig: '../tauri-v1/tooling/api/tsconfig.json',
+			gitRevision: '1.x',
+			baseUrl: '/references/v1/js/',
 			...typeDocConfigBaseOptions,
 		};
 
 		await generateDocs(coreJsOptions);
 	} else {
-		console.log('Tauri submodule is not initialized, respective API routes will not be rendered.');
+		console.log(
+			'Tauri V1 submodule is not initialized, respective API routes will not be rendered.'
+		);
 	}
 
-	// TODO: the following plugins don't have a JS API:
-	// 'localhost',
-	// 'persisted-scope',
-	// 'single-instance',
+	if (existsSync('../tauri-v2/tooling/api/node_modules')) {
+		const coreJsOptions: Partial<TypeDocOptions> = {
+			entryPoints: ['../tauri-v2/tooling/api/src/index.ts'],
+			tsconfig: '../tauri-v2/tooling/api/tsconfig.json',
+			gitRevision: 'dev',
+			baseUrl: '/references/v2/js/core/',
+			...typeDocConfigBaseOptions,
+		};
+
+		await generateDocs(coreJsOptions);
+	} else {
+		console.log(
+			'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
+		);
+	}
 
 	const plugins = [
-		'app',
 		'authenticator',
 		'autostart',
+		'barcode-scanner',
 		'cli',
 		'clipboard-manager',
+		'deep-link',
 		'dialog',
 		'fs',
 		'global-shortcut',
@@ -86,7 +100,6 @@ async function generator() {
 		'updater',
 		'upload',
 		'websocket',
-		'window',
 		'window-state',
 	];
 
@@ -96,7 +109,7 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/2/reference/js/${plugin}`,
+				baseUrl: `/references/v2/js/${plugin}`,
 				...typeDocConfigBaseOptions,
 			};
 
@@ -113,17 +126,15 @@ async function generator() {
 async function generateDocs(options: Partial<TypeDocOptions>) {
 	const outputDir = `../../src/content/docs${options.baseUrl}`;
 
-	const app = new Application();
+	const app = await Application.bootstrapWithPlugins(options);
 	app.options.addReader(new TSConfigReader());
 	app.renderer.defineTheme('tauri-theme', TauriTheme);
-	loadMarkdownPlugin(app);
 
 	app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
 		pageEventEnd(event);
 	});
 
-	await app.bootstrapWithPlugins(options);
-	const project = app.convert();
+	const project = await app.convert();
 
 	if (project) {
 		await app.generateDocs(project, outputDir);
@@ -157,41 +168,9 @@ class TauriTheme extends MarkdownTheme {
 }
 
 class TauriThemeRenderContext extends MarkdownThemeRenderContext {
-	#markdownThemeRenderContext: MarkdownThemeRenderContext;
-
 	constructor(event: PageEvent<Reflection>, options: Options) {
 		super(event, options);
-		this.#markdownThemeRenderContext = new MarkdownThemeRenderContext(event, options);
 	}
-
-	// Formats `@since` to be a single line
-	override comment: (comment: Comment, headingLevel?: number | undefined) => string = (
-		comment,
-		headingLevel
-	) => {
-		const filteredComment = { ...comment } as Comment;
-		filteredComment.blockTags = [];
-
-		const customBlockTags = [];
-
-		for (const blockTag of comment.blockTags) {
-			if (blockTag.tag === '@since') {
-				customBlockTags.push(blockTag);
-			} else {
-				filteredComment.blockTags.push(blockTag);
-			}
-		}
-
-		let markdown = this.#markdownThemeRenderContext.comment(filteredComment, headingLevel);
-
-		for (const customCommentTag of customBlockTags) {
-			markdown += `\n**Since**: ${customCommentTag.content
-				.map((content) => content.text)
-				.join(', ')}\n\n`;
-		}
-
-		return markdown;
-	};
 
 	// Formats `@source` to be a single line
 	override sources: (
@@ -232,10 +211,11 @@ class TauriThemeRenderContext extends MarkdownThemeRenderContext {
 			baseUrl = `${baseUrl}/`;
 		}
 
+		const filePathName = filePath.name === 'index' ? undefined : filePath.name;
+
 		let constructedUrl = typeof baseUrl === 'string' ? baseUrl : '';
 		constructedUrl += segments.length > 0 ? `${segments.join('/')}/` : '';
-		constructedUrl += slug(filePath.name);
-		constructedUrl += '/';
+		constructedUrl += filePathName ? `${slug(filePathName)}/` : '';
 		constructedUrl += anchor && anchor.length > 0 ? `#${anchor}` : '';
 
 		return constructedUrl;
