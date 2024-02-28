@@ -9,7 +9,7 @@ Trunk es una herramienta de empaquetado de aplicaciones web WASM para Rust. Obt�
 
 - Usa SSG, Tauri no soporta oficialmente soluciones basadas en el servidor.
 - Usa `address = "0.0.0.0"` para que el servidor web esté disponible en la red para el desarrollo móvil.
-- Usa `ws_protocol = "ws"` para que el websocket de recarga en rápida pueda conectarse correctamente para el desarrollo móvil.
+- Usa `ws_protocol = "ws"` para que el websocket de recarga rápida pueda conectarse correctamente para el desarrollo móvil.
 - Habilita `withGlobalTauri` para asegurarte de que las APIs de Tauri están disponibles en la variable `window.__TAURI__` y pueden ser importadas usando `wasm-bindgen`.
 
 ## Ejemplo de Configuración
