@@ -21,7 +21,7 @@ Instala el plugin de diálogo para comenzar.
 <Tabs>
     <TabItem label="Automatic">
 
-    1. Usa el gestor de paquetes de tu proyecto para agregar la dependencia:
+    Usa el gestor de paquetes de tu proyecto para agregar la dependencia:
 
     <CommandTabs npm="npm run tauri add dialog"
     yarn="yarn run tauri add dialog"
@@ -72,7 +72,7 @@ Instala el plugin de diálogo para comenzar.
 
 ## Uso
 
-El diálogo está disponible tanto en JavaScript como en Rust. Aquí tienes cómo puedes usarlo:
+El plugin de diálogo está disponible tanto en JavaScript como en Rust. Aquí tienes cómo puedes usarlo:
 
 en JavaScript:
 
@@ -261,7 +261,7 @@ app.dialog()
 use tauri_plugin_dialog::DialogExt;
 
 let file_path = app.dialog().file().blocking_pick_file();
-// regresa un `Option` de file_path, o `None` si el usuario cierra el diálogo
+// devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
 ```
 
 Si necesitas una operación no bloqueante puedes usar `show()` en su lugar:
@@ -270,7 +270,7 @@ Si necesitas una operación no bloqueante puedes usar `show()` en su lugar:
 use tauri_plugin_dialog::DialogExt;
 
 app.dialog().file().pick_file(|file_path| {
-    // regresa un `Option` de file_path, o `None` si el usuario cierra el diálogo
+    // devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
     })
 ```
 
@@ -284,7 +284,7 @@ let file_path = app
     .file()
     .add_filter("My Filter", &["png", "jpeg"])
     .blocking_save_file();
-    // has algo con la ruta de archivo opcional aquí
+    // haz algo con la ruta de archivo opcional aquí
     // la ruta del archivo es `None` si el usuario cierra el diálogo
 ```
 
@@ -297,6 +297,6 @@ app.dialog()
     .file()
     .add_filter("My Filter", &["png", "jpeg"])
     .pick_file(|file_path| {
-        // regresa un `Option` de file_path, o `None` si el usuario cierra el diálogo
+        // devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
     });
 ```
