@@ -1004,12 +1004,7 @@ tauri::Builder::default()
 
 ### Migrate to Updater Plugin
 
-:::caution[Major Change]
-The updater in Tauri 1.x, unless otherwise configured, would automatically check endpoint(s) for updates
-and prompt the user for you if any were found. This is not the case with the 2.x updater. If you relied
-on this feature before migrating, please ensure you utilize the necessary Rust and/or JS APIs to check for
-and install updates before distributing your application to users.
-:::
+The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead.
 
 The Rust `tauri::updater` and JavaScript `@tauri-apps/api-updater` APIs have been removed. To set a custom updater target with the `@tauri-apps/plugin-updater`:
 
