@@ -3,6 +3,7 @@ title: List of Features & Recipes
 i18nReady: true
 ---
 
+import { LinkCard } from '@astrojs/starlight/components';
 import FeaturesList from '@components/list/Features.astro';
 import CommunityList from '@components/list/Community.astro';
 import Search from '@components/CardGridSearch.astro';
@@ -17,10 +18,10 @@ Tauri comes with extensibility in mind. On this page you'll find:
 	## Features
 	<FeaturesList />
 	## Community Resources
-	<CommunityList />
-	## Plugins
+	<LinkCard title="Have something to share?" description="Open a pull request to show us your amazing resource." />
+	### Plugins
 	<AwesomeTauri section="plugins" />
-	## Integrations
+	### Integrations
 	<AwesomeTauri section="integrations" />
 </Search>
 
