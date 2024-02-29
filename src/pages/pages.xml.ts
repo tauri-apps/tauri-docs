@@ -1,12 +1,20 @@
-// This RSS includes only blog pages
-import rss from '@astrojs/rss';
+// This RSS includes only docs pages in root locale
+import config from 'virtual:starlight/user-config';
+import { getNewestCommitDate } from 'node_modules/@astrojs/starlight/utils/git';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { join } from 'node:path';
+import rss from '@astrojs/rss';
+
+// Ternary is just so typescript won't complain
+const exclude = config.isMultilingual
+	? Object.keys(config.locales).concat('blog', 'references', 'rss')
+	: ['blog'];
 
 // https://docs.astro.build/en/reference/api-reference/#endpoint-context
 export async function GET(context: APIContext) {
 	const posts = await getCollection('docs', ({ id }) => {
-		return id.startsWith('blog');
+		return !exclude.some((path) => id.startsWith(path));
 	});
 
 	posts.sort((a, b) => {
@@ -20,12 +28,11 @@ export async function GET(context: APIContext) {
 	});
 
 	return rss({
-		title: 'Tauri Blog',
+		title: 'Tauri Docs',
 		description: 'The cross-platform app building toolkit',
 		site: context.site as URL,
 		items: posts.map((post) => ({
-			pubDate: post.data.date,
-			description: post.data.excerpt,
+			pubDate: getNewestCommitDate(join('src', 'content', 'docs', post.id)),
 			...post.data,
 			link: `/${post.slug}/`,
 		})),
