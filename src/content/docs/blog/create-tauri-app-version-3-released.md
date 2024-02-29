@@ -18,7 +18,7 @@ A new major version of [create-tauri-app](https://github.com/tauri-apps/create-t
 
 The [first alpha version of Tauri 2.0 was published almost 3 months ago](https://tauri.app/blog/2022/12/09/tauri-mobile-alpha) which brought initial mobile support for Android and iOS. Previously there wasn't an easy way to create a new project to test either the changes in the alpha version nor the mobile support. Well, that ends now!
 
-Starting with version 3 of [create-tauri-app](https://github.com/tauri-apps/create-tauri-app), you can now pass `--alpha` flag and it will bootstrap an app that uses `tauri@2.0.0-alpha`. When adding the `--alpha` flag it will automatically prompt you if you'd like to add mobile support. You can also use the `--mobile` flag to automatically make it mobile compatible.
+Starting with version 3 of [create-tauri-app](https://github.com/tauri-apps/create-tauri-app), you can now pass `--beta` flag and it will bootstrap an app that uses `tauri@2.0.0-beta`. When adding the `--beta` flag it will automatically prompt you if you'd like to add mobile support. You can also use the `--mobile` flag to automatically make it mobile compatible.
 
 To get started:
 

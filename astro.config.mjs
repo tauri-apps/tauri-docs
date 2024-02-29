@@ -55,9 +55,11 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [
+				starlightBlog({ authors }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
+			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -77,6 +79,7 @@ export default defineConfig({
 				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
 				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
 				Header: 'src/components/overrides/Header.astro',
+				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -163,21 +166,29 @@ export default defineConfig({
 					label: 'References',
 					items: [
 						{
+							label: 'List of References',
+							link: '/references',
+						},
+						{
 							label: 'Tauri Configuration',
-							link: '2/reference/config',
+							link: '/references/v2/config',
+						},
+						{
+							label: 'Access Control List',
+							link: '/references/v2/acl',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '2/reference/cli',
+							link: '/references/v2/cli',
 						},
 						{
 							label: 'JavaScript API',
-							link: '2/reference/js',
+							link: '/references/v2/js',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-alpha',
+							link: 'https://docs.rs/tauri/~2.0.0-beta',
 						},
 					],
 				},
@@ -192,7 +203,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -239,10 +250,49 @@ export default defineConfig({
 			'/v1/guides/development/updating-dependencies',
 			'/guides/develop/updating-dependencies'
 		),
+		// v1 /guides/testing -> /guides/test
+		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
+		...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
+		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/setup',
+			'/guides/test/webdriver/example/setup'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/selenium',
+			'/guides/test/webdriver/example/selenium'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/webdriverio',
+			'/guides/test/webdriver/example/webdriverio'
+		),
+
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
 		// Decommissioned locales
 		'/ko/[...slug]': '/[...slug]',
 		'/it/[...slug]': '/[...slug]',
 	},
+	//
 });
 
 // Generates a redirect for each locale.
