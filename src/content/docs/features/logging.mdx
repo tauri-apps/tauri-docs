@@ -3,11 +3,136 @@ title: Logging
 description: Configurable logging.
 ---
 
-import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="log" />
 
-<Stub>
-	Based on https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/log
-</Stub>
+Configurable logging for your Tauri app.
+
+## Supported Platforms
+
+- Windows
+- Linux
+- macOS
+- iOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Install the log plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic" >
+
+Use your project's package manager to add the dependency:
+
+{ ' ' }
+
+<CommandTabs
+  npm="npm run tauri add log"
+  yarn="yarn run tauri add log"
+  pnpm="pnpm tauri add log"
+  cargo="cargo tauri add log"
+/>
+
+  </TabItem>
+  <TabItem label = "Manual">
+
+1. Install the log plugin by adding the following to your `Cargo.toml` file:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-log = "2.0.0-beta"
+# alternatively with Git:
+tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. Modify `lib.rs` to initialize the plugin:
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_log::Builder::new().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+  <CommandTabs
+    npm = "npm install @tauri-apps/plugin-log"
+    yarn = "yarn add @tauri-apps/plugin-log"
+    pnpm = "pnpm add @tauri-apps/plugin-log"
+  />
+  </TabItem>
+</Tabs>
+
+## Usage
+
+1. First, you need to register the plugin with Tauri.
+
+```rust title="src-tauri/src/lib.rs" {1} {6-14}
+use tauri_plugin_log::{Target, TargetKind};
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::Webview),
+                ])
+                .build(),
+        )
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+2. Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
+
+```js
+import { trace, info, error, attachConsole } from "@tauri-apps/plugin-log";
+
+// with TargetKind::Webview enabled, this function will print logs to the browser console
+const detach = await attachConsole();
+
+trace("Trace");
+info("Info");
+error("Error");
+
+// detach the browser console from the log stream
+detach();
+```
+
+## Permissions
+
+By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/v2/acl) for more information.
+
+```json title="src-tauri/capabilities/main.json" ins={7}
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "log:default"
+  ]
+}
+```
+
+| Permission      | Description                                               |
+| --------------- | --------------------------------------------------------- |
+| `log:default`   | Allows the log command.                                   |
+| `log:allow-log` | Enables the log command without any pre-configured scope. |
+| `log:deny-log`  | Denies the log command without any pre-configured scope.  |
+
