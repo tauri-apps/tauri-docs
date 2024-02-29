@@ -95,7 +95,7 @@ use tauri_plugin_fs::FsExt;
 fn run() {
   tauri::Builder::default()
       .plugin(tauri_plugin_fs::init())
-       setup(|app| {
+      .setup(|app| {
           // allowed the given directory
           let scope = app.fs_scope();
         	scope.allow_directory("/path/to/directory", false);
