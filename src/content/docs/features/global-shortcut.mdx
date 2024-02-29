@@ -91,7 +91,6 @@ await register("CommandOrControl+Shift+C", () => {
   <TabItem label = "Rust" >
 
 ```rust title="src-tauri/src/lib.rs"
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
 fn run() {
     tauri::Builder::default()
         .setup(|app| {
