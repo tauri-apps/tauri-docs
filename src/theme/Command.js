@@ -8,6 +8,7 @@ const types = [
   { value: 'npm', content: 'npm run tauri ' },
   { value: 'Yarn', content: 'yarn tauri ' },
   { value: 'pnpm', content: 'pnpm tauri ' },
+  { value: 'bun', content: 'bunx tauri ' },
   { value: 'Cargo', content: 'cargo tauri ' },
 ]
 
@@ -56,6 +57,11 @@ cargo create-tauri-app`}
           pnpm create tauri-app
         </CodeBlock>
       </TabItem>
+      <TabItem value="Bun">
+        <CodeBlock className="language-shell" language="shell">
+          bunx create-tauri-app
+        </CodeBlock>
+      </TabItem>
     </Tabs>
   )
 }
@@ -91,6 +97,11 @@ export const InstallTauriCli = () => {
           pnpm add -D @tauri-apps/cli
         </CodeBlock>
       </TabItem>
+      <TabItem value="Bun">
+        <CodeBlock className="language-shell" language="shell">
+          bun add -D @tauri-apps/cli
+        </CodeBlock>
+      </TabItem>
       <TabItem value="Cargo">
         <CodeBlock className="language-shell" language="shell">
           cargo install tauri-cli
@@ -116,6 +127,11 @@ export const InstallTauriApi = () => {
       <TabItem value="pnpm">
         <CodeBlock className="language-shell" language="shell">
           pnpm add @tauri-apps/api
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="Bun">
+        <CodeBlock className="language-shell" language="shell">
+          bun add @tauri-apps/api
         </CodeBlock>
       </TabItem>
     </Tabs>

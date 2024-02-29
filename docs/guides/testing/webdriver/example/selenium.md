@@ -57,7 +57,7 @@ If you want to install the dependencies from scratch, just run the following com
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -74,6 +74,13 @@ yarn add mocha chai selenium-webdriver
 ```
 
 </TabItem>
+<TabItem value="Bun">
+
+```shell
+bun add mocha chai selenium-webdriver
+```
+
+</TabItem>
 </Tabs>
 
 I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running Mocha can be called
@@ -82,7 +89,7 @@ simply with
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -96,6 +103,13 @@ npm test
 
 ```shell
 yarn test
+```
+
+</TabItem>
+<TabItem value="Bun">
+
+```shell
+bun run test
 ```
 
 </TabItem>
@@ -207,7 +221,7 @@ Now that we are all set up with our dependencies and our test script, let's run 
 <Tabs groupId="package-manager"
 defaultValue="yarn"
 values={[
-{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'},
+{label: 'npm', value: 'npm'}, {label: 'Yarn', value: 'yarn'}, {label: 'Bun', value: 'bun'},
 ]}>
 <TabItem value="npm">
 
@@ -221,6 +235,13 @@ npm test
 
 ```shell
 yarn test
+```
+
+</TabItem>
+<TabItem value="Bun">
+
+```shell
+bun run test
 ```
 
 </TabItem>

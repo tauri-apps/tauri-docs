@@ -243,7 +243,15 @@ mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
 ```
 
   </TabItem>
-    <TabItem value="Cargo">
+  <TabItem value="Bun">
+
+```shell
+bunx tauri completions --shell bash > tauri.sh
+mv tauri.sh /usr/local/etc/bash_completion.d/tauri.bash
+```
+
+  </TabItem>
+  <TabItem value="Cargo">
 
 ```shell
 cargo tauri completions --shell bash > tauri.sh
@@ -288,7 +296,15 @@ mv completions.zsh $HOME/.completions/_tauri
 ```
 
   </TabItem>
-    <TabItem value="Cargo">
+  <TabItem value="Bun">
+
+```shell
+bunx tauri completions -- --shell zsh > completions.zsh
+mv completions.zsh $HOME/.completions/_tauri
+```
+
+  </TabItem>
+  <TabItem value="Cargo">
 
 ```shell
 cargo tauri completions --shell zsh > completions.zsh
@@ -330,6 +346,14 @@ Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
 
 ```powershell
 pnpm tauri completions --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
+Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
+```
+
+  </TabItem>
+  <TabItem value="Bun">
+
+```powershell
+bunx tauri completions -- --shell powershell > ((Split-Path -Path $profile)+"\_tauri.ps1")
 Add-Content -Path $profile -Value '& "$PSScriptRoot\_tauri.ps1"'
 ```
 
