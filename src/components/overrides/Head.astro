@@ -1,0 +1,41 @@
+---
+/** TODO: Check how to override the current metatag 'content' instead
+* so that the settings on @file astro.config can be utilized along
+* without conflicts.
+*
+* Tested with these (from Starlight source @file head.astro) but couldn't get around getting the 
+* default head into a format to pass into the @function createHead
+* (virtual needs /// <reference path="../node_modules/@astrojs/starlight/virtual.d.ts"/> on @file env.ts)
+*
+* ---
+* import { createHead } from 'node_modules/@astrojs/starlight/utils/head';
+* import config from 'virtual:starlight/user-config';
+* const head = createHead(headDefaults, config.head, data.head);
+* ---
+* {head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+*
+*/
+
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Head.astro';
+
+import { getOgImageUrl } from 'src/utils/getOgImageUrl';
+
+const { isFallback } = Astro.props;
+const ogImageUrl = getOgImageUrl(Astro.url.pathname, !!isFallback);
+const imageSrc = ogImageUrl ?? 'og.png';
+
+let canonicalImageSrc = new URL(imageSrc, Astro.site);
+
+// Override URL for development environment
+const isDev = import.meta.env.DEV;
+if (isDev) {
+	canonicalImageSrc = new URL(imageSrc, 'http://localhost:4321/');
+}
+
+---
+
+<Default {...Astro.props}><slot /></Default>
+<meta property="og:image" content={canonicalImageSrc} />
+<meta name="twitter:image" content={canonicalImageSrc} />
+

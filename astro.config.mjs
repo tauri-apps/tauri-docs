@@ -74,20 +74,11 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			components: {
+				Head: 'src/components/overrides/Head.astro',
 				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
 				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
-			head: [
-				{
-					tag: 'meta',
-					attrs: { property: 'og:image', content: site + '/og.png?v=1' },
-				},
-				{
-					tag: 'meta',
-					attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
-				},
-			],
 			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
