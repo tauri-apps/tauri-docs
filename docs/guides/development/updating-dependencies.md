@@ -40,6 +40,13 @@ pnpm update @tauri-apps/cli @tauri-apps/api --latest
 ```
 
   </TabItem>
+  <TabItem value="Bun">
+
+```shell
+bun update @tauri-apps/cli @tauri-apps/api
+```
+
+  </TabItem>
 </Tabs>
 
 You can also detect what the latest version of Tauri is on the command line, using:
@@ -63,6 +70,14 @@ yarn outdated @tauri-apps/cli
 
 ```shell
 pnpm outdated @tauri-apps/cli
+```
+
+  </TabItem>
+  <TabItem value="Bun">
+
+```shell
+# Bun does not implement `outdated`
+npm outdated @tauri-apps/cli
 ```
 
   </TabItem>
@@ -96,6 +111,13 @@ yarn up vue-cli-plugin-tauri
 
 ```shell
 pnpm update vue-cli-plugin-tauri --latest
+```
+
+  </TabItem>
+  <TabItem value="Bun">
+
+```shell
+bun update vue-cli-plugin-tauri
 ```
 
   </TabItem>
