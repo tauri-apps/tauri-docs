@@ -31,7 +31,7 @@
 
 ### 等待网页
 
-如果你正在等待你的 Web 代码，你需要创建一个`close_splashscreen`[命令](command).
+如果你正在等待你的 Web 代码，你需要创建一个 `close_splashscreen` [命令](command)。
 
 ```rust src-tauri/main.rs
 use tauri::Manager;
