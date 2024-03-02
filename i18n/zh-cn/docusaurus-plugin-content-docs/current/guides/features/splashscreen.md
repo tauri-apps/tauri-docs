@@ -95,7 +95,7 @@ fn main() {
         std::thread::sleep(std::time::Duration::from_secs(2));
         println!("Done initializing.");
 
-        // 显示主屏幕
+        // 显示主窗口
         splashscreen_window.close().unwrap();
         main_window.show().unwrap();
       });
