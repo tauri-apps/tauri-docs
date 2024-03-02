@@ -15,7 +15,7 @@ Plugins can run native mobile code written in Kotlin (or Java) and Swift. The de
 
 Follow the steps in the [Plugin Development guide](/guides/plugins#initialize-plugin-project) to initialize a new plugin project.
 
-If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android add` and `plugin ios add` to bootstrap the mobile library projects and guide you through the changes needed.
+If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android init` and `plugin ios init` to bootstrap the mobile library projects and guide you through the changes needed.
 
 The default plugin template splits the plugin's implementation into two separate modules: `desktop.rs` and `mobile.rs`.
 
@@ -177,7 +177,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-alpha/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
+Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
 
 ```rust
 use std::path::PathBuf;
@@ -367,7 +367,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/2/reference/js/core/namespacetauri/#addpluginlistener) helper function:
+The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/references/v2/js/core/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';

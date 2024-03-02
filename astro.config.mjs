@@ -3,11 +3,8 @@ import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
-import configGenerator from './src/plugins/configGenerator';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-
-await configGenerator();
 
 const authors = {
 	nothingismagick: {
@@ -58,9 +55,11 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [
+				starlightBlog({ authors }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
+			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -75,10 +74,9 @@ export default defineConfig({
 				mastodon: 'https://fosstodon.org/@TauriApps',
 			},
 			components: {
+				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
-				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
-				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
-				ThemeSelect: 'starlight-blog/overrides/ThemeSelect.astro',
+				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -99,7 +97,7 @@ export default defineConfig({
 				{
 					label: 'Quick Start',
 					items: [
-						{ label: 'Why Tauri?', link: 'guides' },
+						{ label: 'What is Tauri?', link: 'guides' },
 						{
 							label: 'Prerequisites',
 							translations: {
@@ -124,7 +122,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Core Concepts',
-							link: 'guides/core-concepts',
+							link: 'concepts',
 						},
 						{
 							label: 'Troubleshooting',
@@ -137,11 +135,11 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Develop',
-							link: 'guides/develop',
+							link: 'guides/develop/',
 						},
 						{
 							label: 'Debug',
-							link: 'guides/debug',
+							link: 'guides/debug/',
 						},
 						{
 							label: 'Test',
@@ -165,21 +163,29 @@ export default defineConfig({
 					label: 'References',
 					items: [
 						{
+							label: 'List of References',
+							link: '/references',
+						},
+						{
 							label: 'Tauri Configuration',
-							link: '2/reference/config',
+							link: '/references/v2/config',
+						},
+						{
+							label: 'Access Control List',
+							link: '/references/v2/acl',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '2/reference/cli',
+							link: '/references/v2/cli',
 						},
 						{
 							label: 'JavaScript API',
-							link: '2/reference/js',
+							link: '/references/v2/js',
 						},
 						{
 							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-alpha',
+							link: 'https://docs.rs/tauri/~2.0.0-beta',
 						},
 					],
 				},
@@ -194,7 +200,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -227,5 +233,75 @@ export default defineConfig({
 		'/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
 		'/blog/2023/06/15/tauri-board-elections-and-governance-updates':
 			'/blog/tauri-board-elections-and-governance-updates',
+		'about/intro': 'about/philosophy',
+		// v1 /guides/debugging -> /guides/debug
+		...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
+		...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
+		...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
+		// v1 /guides/development -> /guides/develop
+		...i18nRedirect(
+			'/v1/guides/development/development-cycle',
+			'/guides/develop/development-cycle'
+		),
+		...i18nRedirect(
+			'/v1/guides/development/updating-dependencies',
+			'/guides/develop/updating-dependencies'
+		),
+		// v1 /guides/testing -> /guides/test
+		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
+		...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
+		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/setup',
+			'/guides/test/webdriver/example/setup'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/selenium',
+			'/guides/test/webdriver/example/selenium'
+		),
+		...i18nRedirect(
+			'/v1/guides/testing/webdriver/example/webdriverio',
+			'/guides/test/webdriver/example/webdriverio'
+		),
+
+		// v1 /references
+		...i18nRedirect('/v1/references', '/concepts'),
+		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication',
+			'/concepts/inter-process-communication'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/concepts/inter-process-communication/brownfield'
+		),
+		...i18nRedirect(
+			'/v1/references/architecture/inter-process-communication/isolation',
+			'/concepts/inter-process-communication/isolation'
+		),
+		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
+		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+
+		// Decommissioned locales
+		'/ko/[...slug]': '/[...slug]',
+		'/it/[...slug]': '/[...slug]',
 	},
+	//
 });
+
+// Generates a redirect for each locale.
+function i18nRedirect(from, to) {
+	const routes = {};
+	Object.keys(locales).map((locale) =>
+		locale === 'root'
+			? (routes[from] = to)
+			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+					/^\/*/g,
+					''
+				)}`)
+	);
+	return routes;
+}

@@ -2,14 +2,14 @@
 title: Create a Project
 ---
 
-import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import { Card } from '@astrojs/starlight/components';
 import Stub from '@components/Stub.astro';
 
 <Stub>
 
 - Create a new app using `create-tauri-app`
 - Manually create the app using the Tauri CLI
-- Add mobile to an existing project (revise what's here [integrate mobile](./mobile))
+- Add mobile to an existing project (revise what's here [integrate mobile](/guides/create/mobile))
 - Frontend framework-specific guides (right now limiting to React, Angular, Vue, Svelte, and Solid)
 
 </Stub>
@@ -24,39 +24,9 @@ Alternatively, you can [add Tauri to an existing project](/guides/create/existin
 
 To get started using `create-tauri-app` run one of the below commands in the folder you'd like to setup your project. If you're not sure which command to use we recommend the Bash command on Linux and macOS and the PowerShell command on Windows.
 
-<Tabs>
-<TabItem label="Bash">
-```sh
-sh <(curl https://create.tauri.app/sh)
-```
-</TabItem>
-<TabItem label="PowerShell">
-```ps
-irm https://create.tauri.app/ps | iex
-```
-</TabItem>
-<TabItem label="npm">
-```sh
-npm create tauri-app@latest
-```
-</TabItem>
-<TabItem label="Yarn">
-```sh
-yarn create tauri-app
-```
-</TabItem>
-<TabItem label="pnpm">
-```sh
-pnpm create tauri-app
-```
-</TabItem>
-<TabItem label="Cargo">
-```sh
-cargo install create-tauri-app
-cargo create-tauri-app
-```
-</TabItem>
-</Tabs>
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
 
 Follow along with the prompts to choose your project name, frontend language, package manager, and frontend framework, and frontend framework options if applicable.
 
@@ -73,7 +43,7 @@ We recommend starting with the vanilla template (HTML, CSS, and JavaScript witho
 
 {/* TODO: Can CTA offer to install the deps? */}
 
-After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/2/reference/cli) to start the development server:
+After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/references/v2/cli) to start the development server:
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -98,7 +68,7 @@ You'll now see a new window open with your app running.
 ## Next Steps
 
 - [Add and Configure a Frontend Framework](/guides/frontend)
-- [Tauri Command Line Interface (CLI) Reference](/2/reference/cli)
+- [Tauri Command Line Interface (CLI) Reference](/references/v2/cli)
 - [Learn how to build your Tauri app](/guides/build)
 - [Discover additional features and recipes to extend Tauri](/features)
 

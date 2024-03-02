@@ -8,24 +8,62 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 This guide walks you through upgrading your Tauri 1.0 application to Tauri 2.0.
 
+## Preparing for Mobile
+
+The mobile interface of Tauri requires your project to output a shared library. If you are targetting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
+
+1. Change the Cargo manifest to produce the library. Append the following block:
+
+```toml
+// src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+2. Rename `src-tauri/src/main.rs` to `src-tauri/src/lib.rs`. This file will be shared by both desktop and mobile targets.
+
+3. Rename the `main` function header in `lib.rs` to the following:
+
+```rust
+// src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // your code here
+}
+```
+
+The `tauri::mobile_entry_point` macro prepares your function to be executed on mobile.
+
+4. Recreate the `main.rs` file calling the shared run function:
+
+```rust
+// src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+fn main() {
+  app_lib::run();
+}
+```
+
 ## Automated Migration
 
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-	npm="npm install @tauri-apps/cli@latest
+	npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-	yarn="yarn upgrade @tauri-apps/cli --latest
+	yarn="yarn upgrade @tauri-apps/cli --next
     yarn tauri migrate"
 	pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-	cargo='cargo install tauri-cli --version "^2.0.0-alpha"
+	cargo='cargo install tauri-cli --version "^2.0.0-beta"
     cargo tauri migrate'
 />
 
 {/* TODO: 2.0 */}
 
-Learn more about the `migrate` command in the [Command Line Interface reference](/2/reference/cli#migrate)
+Learn more about the `migrate` command in the [Command Line Interface reference](/references/v2/cli#migrate)
 
 ## Summary of Changes
 
@@ -33,15 +71,29 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### Tauri Configuration
 
+- `package > productName` and `package > version` moved to top-level field.
+- `package` removed.
+- `tauri` key renamed to `app`.
 - `tauri > allowlist` removed.
-- `tauri > allowlist > protocol > assetScope` moved to `tauri > security > assetProtocol > scope`.
+- `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`.
 - `tauri > cli` moved to `plugins > cli`.
-- `tauri > updater` moved to `tauri > bundle > updater`.
+- `tauri > updater > active` removed.
 - `tauri > updater > dialog` removed.
-- `tauri > updater > endpoints` moved to `plugins > updater`.
-- `tauri > systemTray` renamed to `tauri > trayIcon`.
+- `tauri > updater` moved to `plugins > updater`.
+- `tauri > systemTray` renamed to `app > trayIcon`.
+- `tauri > pattern` moved to `app > security > pattern`.
+- `tauri > bundle` moved top-level.
+- `tauri > bundle > dmg` moved to `bundle > macOS > dmg`
+- `tauri > bundle > deb` moved to `bundle > linux > deb`
+- `tauri > bundle > appimage` moved to `bundle > linux > appimage`
+- `tauri > bundle > macOS > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > wix > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > nsis > license` removed, use `bundle > licenseFile` instead.
+- `build > withGlobalTauri` moved to `app > withGlobalTauri`.
+- `build > distDir` renamed to `frontendDist`.
+- `build > devPath` renamed to `devUrl`.
 
-[Tauri 2.0 Configuration API reference](/2/reference/config)
+[Tauri 2.0 Configuration API reference](/references/v2/config)
 
 ### New Cargo Features
 
@@ -86,9 +138,9 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### JavaScript API Changes
 
-The `@tauri-apps/api` package no longer provides non-core modules. Only the `tauri`, `path` and `event` modules are exported. All others have been moved to plugins.
+The `@tauri-apps/api` package no longer provides non-core modules. Only the previous `tauri` (now `core`), `path`, `event` and `window` modules are exported. All others have been moved to plugins.
 
-- `@tauri-apps/api/app` module removed. Use `@tauri-apps/plugin-app` instead. [Migration](#migrate-to-app-plugin)
+- `@tauri-apps/api/tauri` module renamed to `@tauri-apps/api/core`. [Migration](#migrate-to-core-module)
 - `@tauri-apps/api/cli` module removed. Use `@tauri-apps/plugin-cli` instead. [Migration](#migrate-to-cli-plugin)
 - `@tauri-apps/api/clipboard` module removed. Use `@tauri-apps/plugin-clipboard` instead. [Migration](#migrate-to-clipboard-plugin)
 - `@tauri-apps/api/dialog` module removed. Use `@tauri-apps/plugin-dialog` instead. [Migration](#migrate-to-dialog-plugin)
@@ -100,71 +152,57 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the `tau
 - `@tauri-apps/api/process` module removed. Use `@tauri-apps/plugin-process` instead. [Migration](#migrate-to-process-plugin)
 - `@tauri-apps/api/shell` module removed. Use `@tauri-apps/plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
-- `@tauri-apps/api/window` module removed. Use `@tauri-apps/plugin-window` instead [Migration](#migrate-to-window-plugin)
+- `@tauri-apps/api/window` module renamed to `@tauri-apps/api/webviewWindow`. [Migration](#migrate-to-new-window-api)
+
+### Environment Variables Changes
+
+Most of the environment variables read and written by the Tauri CLI were renamed for consistency and prevention of mistakes:
+
+- `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
+- `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- `TAURI_SKIP_DEVSERVER_CHECK` -> `TAURI_CLI_NO_DEV_SERVER_WAIT`
+- `TAURI_DEV_SERVER_PORT` -> `TAURI_CLI_PORT`
+- `TAURI_PATH_DEPTH` -> `TAURI_CLI_CONFIG_DEPTH`
+- `TAURI_FIPS_COMPLIANT` -> `TAURI_BUNDLER_WIX_FIPS_COMPLIANT`
+- `TAURI_DEV_WATCHER_IGNORE_FILE` -> `TAURI_CLI_WATCHER_IGNORE_FILENAME`
+- `TAURI_TRAY` -> `TAURI_LINUX_AYATANA_APPINDICATOR`
+- `TAURI_APPLE_DEVELOPMENT_TEAM` -> `APPLE_DEVELOPMENT_TEAM`
+- `TAURI_PLATFORM` -> `TAURI_ENV_PLATFORM`
+- `TAURI_ARCH` -> `TAURI_ENV_ARCH`
+- `TAURI_FAMILY` -> `TAURI_ENV_FAMILY`
+- `TAURI_PLATFORM_VERSION` -> `TAURI_ENV_PLATFORM_VERSION`
+- `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
+- `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
+
+### Event System
+
+The event system was redesigned to be easier to use. Instead of relying on the source of the event, it now has a simpler implementation that relies on event targets.
+
+- The `emit` function now emits the event to all event listeners
+- Added a new `emit_to` function to trigger an event to a specific target
+- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html) instead of a window.
+- Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
+
+### Multiwebview support
+
+Tauri v2 introduces multiwebview support currently behind an `unstable` feature flag.
+In order to support it, we renamed the Rust `Window` type to `WebviewWindow` and the Manager `get_window` function to `get_webview_window`.
+
+The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webviewWindow` instead of `@tauri-apps/api/window`.
 
 ## Detailed Migration Steps
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
 
-### Migrate to App Plugin
+### Migrate to Core Module
 
-The JavaScript `@tauri-apps/api/app` APIs have been removed. Use the `@tauri-apps/plugin-app` plugin instead:
+The `@tauri-apps/api/tauri` module was renamed to `@tauri-apps/api/core`.
+Simply rename the module import:
 
-1. Add to cargo dependencies:
-
-```toml
-# Cargo.toml
-[dependencies]
-tauri-plugin-app = "2"
+```diff
+- import { invoke } from "@tauri-apps/api/tauri"
++ import { invoke } from "@tauri-apps/api/core"
 ```
-
-2. Use in JavaScript or Rust project:
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_app::init())
-}
-```
-
-```json
-// package.json
-{
-	"dependencies": {
-		"@tauri-apps/plugin-app": "^2.0.0"
-	}
-}
-```
-
-```js
-import { show, hide } from '@tauri-apps/plugin-app';
-await hide();
-await show();
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_app::init())
-        .setup(|app| {
-            #[cfg(target_os = "macos")]
-            {
-                app.hide()?;
-                app.show()?;
-            }
-            Ok(())
-        })
-}
-```
-
-</TabItem>
-</Tabs>
 
 ### Migrate to CLI Plugin
 
@@ -375,9 +413,20 @@ fn main() {
 ```
 
 ```js
-import { createDir, BaseDirectory } from '@tauri-apps/plugin-fs';
-await createDir('db', { dir: BaseDirectory.AppLocalData });
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
+
+Some functions and types have been renamed or removed:
+
+- `Dir` enum alias removed, use `BaseDirectory`.
+- `FileEntry`, `FsBinaryFileOption`, `FsDirOptions`, `FsOptions`, `FsTextFileOption` and `BinaryFileContents` interfaces and type aliases have been removed and replaced with new interfaces suited for each function.
+- `createDir` renamed to `mkdir`.
+- `readBinaryFile` renamed to `readFile`.
+- `removeDir` removed and replaced with `remove`.
+- `removeFile` removed and replaced with `remove`.
+- `renameFile` removed and replaced with `rename`.
+- `writeBinaryFile` renamed to `writeFile`.
 
 </TabItem>
 <TabItem label="Rust">
@@ -396,6 +445,7 @@ The Rust `App::global_shortcut_manager` and `AppHandle::global_shortcut_manager`
 ```toml
 # Cargo.toml
 [dependencies]
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2"
 ```
 
@@ -407,7 +457,7 @@ tauri-plugin-global-shortcut = "2"
 ```rust
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_global_shortcut::init())
+        .plugin(tauri_plugin_global_shortcut::Builder::default().build())
 }
 ```
 
@@ -434,8 +484,16 @@ await register('CommandOrControl+Shift+C', () => {
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
-    .plugin(tauri_plugin_shortcut::init())
+    .plugin(
+        tauri_plugin_global_shortcut::Builder::with_handler(|app, shortcut| {
+            println!("Shortcut triggered: {:?}", shortcut);
+        })
+        .build(),
+    )
     .setup(|app| {
+        // register a global shortcut
+        // on macOS, the Cmd key is used
+        // on Windows and Linux, the Ctrl key is used
         app.global_shortcut().register("CmdOrCtrl+Y")?;
         Ok(())
     })
@@ -579,11 +637,9 @@ fn main() {
 
 The Rust `Menu` APIs were moved to the `tauri::menu` module and refactored to use the [muda crate](https://github.com/tauri-apps/muda).
 
-The JavaScript `@tauri-apps/api/window` `onMenuClicked()` API will be migrated in a future release.
-
 #### Use `tauri::menu::MenuBuilder`
 
-Use `tauri::menu::MenuBuilder` instead of `tauri::Menu`. Note that its constructor takes a Manager instance (one of `App`, `AppHandle` or `Window`) as an argument:
+Use `tauri::menu::MenuBuilder` instead of `tauri::Menu`. Note that its constructor takes a Manager instance (one of `App`, `AppHandle` or `WebviewWindow`) as an argument:
 
 ```rust
 use tauri::menu::MenuBuilder;
@@ -613,13 +669,13 @@ use tauri::menu::{MenuBuilder, PredefinedMenuItem};
 
 tauri::Builder::default()
     .setup(|app| {
-        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)).build()?;
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)?).build()?;
         Ok(())
     })
 ```
 
 :::tip
-The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None))`.
+The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None)?)`.
 :::
 
 #### Use `tauri::menu::MenuItemBuilder`
@@ -631,7 +687,7 @@ use tauri::menu::MenuItemBuilder;
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app);
+        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app)?;
         Ok(())
     })
 ```
@@ -655,7 +711,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-alpha/tauri/struct.Builder.html#method.menu) for more information.
+`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-beta/tauri/struct.Builder.html#method.menu) for more information.
 
 #### Menu Events
 
@@ -666,8 +722,8 @@ use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
-        let check = CheckMenuItemBuilder::new("Mark").build(app);
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let check = CheckMenuItemBuilder::new("Mark").build(app)?;
         let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
 
         app.set_menu(menu)?;
@@ -687,7 +743,7 @@ Note that there are two ways to check which menu item was selected: move the ite
 
 :::tip
 Menu items can be shared across menus, and the menu event is bound to a menu item instead of a menu or window.
-If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::Window/WindowBuilder::on_menu_event` closure.
+If you don't want all listeners to be triggered when a menu item is selected, do not share menu items and use dedicated instances instead, that you could move into `tauri::WebviewWindow/WebviewWindowBuilder::on_menu_event` closure.
 :::
 
 ### Migrate to OS Plugin
@@ -943,7 +999,7 @@ Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html) for more information.
+See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIconBuilder.html) for more information.
 
 #### Migrate to Menu
 
@@ -961,7 +1017,7 @@ use tauri::{
 
 tauri::Builder::default()
     .setup(|app| {
-        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app);
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
         let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
         let tray = TrayIconBuilder::new()
             .menu(&menu)
@@ -974,9 +1030,9 @@ tauri::Builder::default()
             .on_tray_icon_event(|tray, event| {
                 if event.click_type == ClickType::Left {
                     let app = tray.app_handle();
-                    if let Some(window) = app.get_window("main") {
-                    let _ = window.show();
-                    let _ = window.set_focus();
+                    if let Some(webview_window) = app.get_webview_window("main") {
+                    let _ = webview_window.show();
+                    let _ = webview_window.set_focus();
                     }
                 }
             })
@@ -987,6 +1043,8 @@ tauri::Builder::default()
 ```
 
 ### Migrate to Updater Plugin
+
+The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead.
 
 The Rust `tauri::updater` and JavaScript `@tauri-apps/api-updater` APIs have been removed. To set a custom updater target with the `@tauri-apps/plugin-updater`:
 
@@ -1023,11 +1081,9 @@ import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
-if (update.response.available) {
-	console.log(
-		`Update to ${update.response.latestVersion} available! Date: ${update.response.date}`
-	);
-	console.log(`Release notes: ${update.response.body}`);
+if (update?.available) {
+	console.log(`Update to ${update.version} available! Date: ${update.date}`);
+	console.log(`Release notes: ${update.body}`);
 	await update.downloadAndInstall();
 	// requires the `process` plugin
 	await relaunch();
@@ -1072,64 +1128,6 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### Migrate to Window Plugin
-
-The Rust `tauri::window` JavaScript `@tauri-apps/api/window` APIs have been removed. Use the `@tauri-apps/plugin-window` plugin instead:
-
-1. Add to cargo dependencies:
-
-```toml
-# Cargo.toml
-[dependencies]
-tauri-plugin-window = "2"
-```
-
-2. Use in JavaScript or Rust project:
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```rust
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_window::init())
-}
-```
-
-```json
-// package.json
-{
-	"dependencies": {
-		"@tauri-apps/plugin-window": "^2.0.0"
-	}
-}
-```
-
-```js
-import { appWindow } from '@tauri-apps/plugin-window';
-await appWindow.setTitle('Tauri');
-```
-
-</TabItem>
-<TabItem label="Rust">
-
-```rust
-use tauri::Manager;
-
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_window::init())
-        .setup(|app| {
-            let window = app.get_window("main").unwrap();
-            window.set_title("Tauri")?;
-            Ok(())
-        })
-}
-```
-
-</TabItem>
-</Tabs>
-
 ### Migrate Path to Tauri Manager
 
 The Rust `tauri::api::path` module functions and `tauri::PathResolver` have been moved to `tauri::Manager::path`:
@@ -1146,3 +1144,25 @@ tauri::Builder::default()
         Ok(())
   })
 ```
+
+### Migrate to new Window API
+
+On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+
+Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
+the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.
+
+On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webviewWindow` path.
+
+The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
+
+### Migrate Permissions
+
+The v1 allowlist have been rewritten to a completely new system for permissions that works for individual plugins and is much more configurable for multiwindow and remote URL support.
+This new system works like an access control list (ACL) where you can allow or deny commands, allocate permissions to a specific set of windows and domains, and define access scopes.
+
+To enable permissions for your app, you must create capability files inside the `src-tauri/capabilities` folder, and Tauri will automatically configure everything else for you.
+
+The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
+
+To learn more about permissions and capabilities, see [the documentation](/references/v2/acl).

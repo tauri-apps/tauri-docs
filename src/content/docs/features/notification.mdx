@@ -20,27 +20,12 @@ Install the notifications plugin to get started.
 <Tabs>
     <TabItem label="Automatic">
 
-    1. Use your project's package manager to add the dependency:
+    Use your project's package manager to add the dependency:
 
     <CommandTabs npm="npm run tauri add notification"
     yarn="yarn run tauri add notification"
     pnpm="pnpm tauri add notification"
     cargo="cargo tauri add notification" />
-
-    2. Modify `lib.rs` to initialize the plugin:
-
-    {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
-
-    ```rust
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_notification::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
 
     </TabItem>
     <TabItem label="Manual">
@@ -77,7 +62,7 @@ Install the notifications plugin to get started.
 
 Here are a few examples of how to use the notification plugin:
 
-- [Sent notification to users](#send-notification)
+- [Send notification to users](#send-notification)
 - [Add an action to a notification](#actions)
 - [Add an attachment to a notification](#attachments)
 - [Send a notification in a specific channel](#channels)
