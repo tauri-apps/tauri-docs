@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### 等待 Rust
 
-如果你正在等待 Rust 代码运行，请将其放入`setup`函数处理程序中，以便您可以访问该`App`实例:
+如果你正在等待 Rust 代码运行，请将其放入 `setup` 函数处理程序中，以便您可以访问该 `App` 实例：
 
 ```rust src-tauri/main.rs
 use tauri::Manager;
