@@ -69,7 +69,7 @@ or
 const invoke = window.__TAURI__.invoke
 ```
 
-最后，添加一个`invoke()`事件侦听器（或者随时调用它）：
+最后，添加一个 `invoke()` 事件侦听器（或者随时调用它）：
 ```js
 document.addEventListener('DOMContentLoaded', () => {
   // 这将等待窗口加载，但你可以在您想要的任何触发器上运行此函数
