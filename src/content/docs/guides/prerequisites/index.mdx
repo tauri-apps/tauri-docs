@@ -38,7 +38,9 @@ sudo apt install libwebkit2gtk-4.1-dev \
   file \
   libssl-dev \
   libayatana-appindicator3-dev \
-  librsvg2-dev
+  librsvg2-dev \
+  libjavascriptcoregtk-4.1-dev \
+  libsoup-3.0-dev
 ```
 
   </TabItem>
@@ -56,7 +58,9 @@ sudo pacman -S --needed \
   appmenu-gtk-module \
   libappindicator-gtk3 \
   librsvg \
-  libvips
+  libvips \
+  javascriptcoregtk \
+  libsoup
 ```
 
   </TabItem>
@@ -70,7 +74,9 @@ sudo dnf install webkit2gtk4.1-devel \
   wget \
   file \
   libappindicator-gtk3-devel \
-  librsvg2-devel
+  librsvg2-devel \
+  javascriptcoregtk-4.1-devel \
+  libsoup-devel
 sudo dnf group install "C Development Tools and Libraries"
 ```
 
@@ -83,7 +89,9 @@ sudo emerge --ask \
   dev-libs/libappindicator \
   net-misc/curl \
   net-misc/wget \
-  sys-apps/file
+  sys-apps/file \
+  net-libs/javascriptcoregtk:4.1 \
+  net-libs/libsoup:3.0
 ```
 
   </TabItem>
@@ -97,7 +105,9 @@ sudo zypper in webkit2gtk3-devel \
   wget \
   file \
   libappindicator3-1 \
-  librsvg-devel
+  librsvg-devel \
+  libjavascriptcoregtk-4_1-0 \
+  libsoup-3_0-devel
 sudo zypper in -t pattern devel_basis
 ```
 
