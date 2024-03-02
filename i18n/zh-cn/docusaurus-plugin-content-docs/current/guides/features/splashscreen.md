@@ -4,7 +4,7 @@
 
 ### 设置
 
-首先，在`distDir`中创建一个包含初始屏幕的HTML文件。然后，更新`tauri.conf.json`:
+首先，在 `distDir` 中创建一个包含初始屏幕的 HTML 文件。然后，更新 `tauri.conf.json`：
 
 ```diff
 "windows": [
