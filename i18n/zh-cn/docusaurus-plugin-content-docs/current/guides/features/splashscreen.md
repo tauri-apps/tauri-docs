@@ -47,7 +47,7 @@ async fn close_splashscreen(window: tauri::Window) {
   window.get_window("main").unwrap().show().unwrap();
 }
 
-// 注册命令:
+// 注册命令：
 fn main() {
   tauri::Builder::default()
     // Add this line
