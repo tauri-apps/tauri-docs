@@ -88,7 +88,7 @@ fn main() {
     .setup(|app| {
       let splashscreen_window = app.get_window("splashscreen").unwrap();
       let main_window = app.get_window("main").unwrap();
-      // 我们在新任务上执行初始化代码，这样应用程序就不会冻结。
+      // 我们在新任务上执行初始化代码，这样应用程序就不会冻结
       tauri::async_runtime::spawn(async move {
         // 在这里初始化而不是消磨时间
         println!("Initializing...");
