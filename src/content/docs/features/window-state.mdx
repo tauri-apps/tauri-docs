@@ -74,16 +74,10 @@ fn main() {
 
 Afterwards all windows will remember their state when the app is being closed and will restore to their previous state on the next launch.
 
-Optionally you can also tell the plugin to save the state of all open window to disk by using the `save_window_state()` method exposed by the `AppHandleExt` trait:
+Optionally the window-state plugin can also be access with both JavaScript and Rust.
 
-```rust
-use tauri_plugin_window_state::{AppHandleExt, StateFlags};
-
-// `tauri::AppHandle` now has the following additional method
-app.save_window_state(StateFlags::all()); // will save the state of all open windows to disk
-```
-
-or through Javascript
+<Tabs>
+<TabItem label="JavaScript">
 
 ```javascript
 import { saveWindowState, StateFlags } from "@tauri-apps/plugin-window-state";
@@ -91,16 +85,24 @@ import { saveWindowState, StateFlags } from "@tauri-apps/plugin-window-state";
 saveWindowState(StateFlags.ALL);
 ```
 
-To manually restore a windows state from disk you can call the `restore_state()` method exposed by the `WindowExt` trait:
+</TabItem>
+<TabItem label="Rust">
 
+You can use the `save_window_state()` method exposed by the `AppHandleExt` trait:
 ```rust
-use tauri_plugin_window_state::{WindowExt, StateFlags};
+use tauri_plugin_window_state::{AppHandleExt, StateFlags};
 
-// all `Window` types now have the following additional method
-window.restore_state(StateFlags::all()); // will restore the windows state from disk
+// `tauri::AppHandle` now has the following additional method
+app.save_window_state(StateFlags::all()); // will save the state of all open windows to disk
 ```
 
-or through Javascript
+</TabItem>
+</Tabs>
+
+Similarly you can manually restore a windows state from disk through JavaScript and Rust.
+
+<Tabs>
+<TabItem label="JavaScript">
 
 ```javascript
 import {
@@ -110,6 +112,22 @@ import {
 
 restoreStateCurrent(StateFlags.ALL);
 ```
+
+</TabItem>
+<TabItem label="Rust">
+
+You can call the `restore_state()` method exposed by the `WindowExt` trait:
+
+```rust
+use tauri_plugin_window_state::{WindowExt, StateFlags};
+
+// all `Window` types now have the following additional method
+window.restore_state(StateFlags::all()); // will restore the windows state from disk
+```
+
+
+</TabItem>
+</Tabs>
 
 ## Permissions
 
