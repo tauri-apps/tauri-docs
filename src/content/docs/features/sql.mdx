@@ -1,13 +1,37 @@
 ---
 title: SQL
-description: Interface with SQL databases.
+description: Tauri Plugin providing an interface for the frontend to communicate with SQL databases through sqlx.
 ---
 
-import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="sql" />
 
-<Stub>
-	Based on https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/sql
-</Stub>
+Plugin providing an interface for the frontend to communicate with SQL databases through [sqlx](https://github.com/launchbadge/sqlx). It supports the SQLite, MySQL and PostgreSQL drivers, enabled by a Cargo feature.
+
+## Install
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Firstly, you have to install Core plugin by adding the following to your `Cargo.toml` file:
+
+<Tabs>
+  <TabItem label="crates.io">
+```toml title="src-tauri/Cargo.toml"
+[dependencies.tauri-plugin-sql]
+features = ["sqlite"] # or "postgres", or "mysql"
+version = "2.0.0-beta"
+```
+  </TabItem>
+  <TabItem label="Git">
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies.tauri-plugin-sql]
+features = ["sqlite"] # or "postgres", or "mysql"
+git = "https://github.com/tauri-apps/plugins-workspace"
+branch = "v2"
+```
+  </TabItem>
+</Tabs>
