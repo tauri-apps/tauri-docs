@@ -69,10 +69,10 @@ import CommandTabs from '@components/CommandTabs.astro';
 ```js
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 
-// Write content to clipboard
+// 将内容写到剪贴板
 await writeText('Tauri is awesome!');
 
-// Read content from clipboard
+// 从剪贴板读取内容
 const content = await readText();
 console.log(content);
 // Prints "Tauri is awesome!" to the console
@@ -84,14 +84,14 @@ console.log(content);
 ```rust
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
-// Write content to clipboard
+// 将内容写到剪贴板
 let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
     label: Some("Label".to_string()),
     text: "Tauri is awesome!".to_string(),
 };
 app.clipboard().write(clipboard_content).unwrap();
 
-// Read content from clipboard
+// 从剪贴板读取内容
 let content = app.clipboard().read();
 println!("{:?}", content.unwrap());
 // Prints "Tauri is awesome!" to the terminal
