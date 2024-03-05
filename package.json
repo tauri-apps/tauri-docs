@@ -31,7 +31,7 @@
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
     "starlight-blog": "^0.5.0",
-    "starlight-links-validator": "^0.5.3"
+    "starlight-links-validator": "^0.6.0"
   },
   "pnpm": {
     "patchedDependencies": {
