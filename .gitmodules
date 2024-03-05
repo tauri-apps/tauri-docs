@@ -8,3 +8,6 @@
 [submodule "packages/tauri-v1"]
 	path = packages/tauri-v1
 	url = https://github.com/tauri-apps/tauri.git
+[submodule "packages/awesome-tauri"]
+	path = packages/awesome-tauri
+	url = https://github.com/tauri-apps/awesome-tauri
