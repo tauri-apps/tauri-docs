@@ -79,3 +79,33 @@ import { Command } from "@tauri-apps/plugin-shell";
 
 Command.create("git", ["commit", "-m", "the commit message"]);
 ```
+
+## Permissions
+
+By default all plugin commands are blocked and cannot be accessed.
+You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/v2/acl) for more information.
+
+```json title="src-tauri/capabilities/main.json" ins={4-7}
+{
+  "permissions": [
+    ...,
+    "shell:allow-execute",
+	"shell:allow-kill",
+	"shell:allow-open",
+	"shell:allow-stdin-write",
+  ]
+}
+```
+
+| Permission | Description |
+|------|-----|
+|`shell:allow-execute`|Enables the execute command without any pre-configured scope.|
+|`shell:deny-execute`|Denies the execute command without any pre-configured scope.|
+|`shell:allow-kill`|Enables the kill command without any pre-configured scope.|
+|`shell:deny-kill`|Denies the kill command without any pre-configured scope.|
+|`shell:allow-open`|Enables the open command without any pre-configured scope.|
+|`shell:deny-open`|Denies the open command without any pre-configured scope.|
+|`shell:allow-stdin-write`|Enables the stdin_write command without any pre-configured scope.|
+|`shell:deny-stdin-write`|Denies the stdin_write command without any pre-configured scope.|
