@@ -18,44 +18,45 @@ _This plugin requires a Rust version of at least **1.64**_
 <Tabs>
 	<TabItem label="Automatic">
 
-	Use your project's package manager to add the dependency:
+    Use your project's package manager to add the dependency:
 
-	<CommandTabs
-	npm="npm run tauri add upload"
-	yarn="yarn run tauri add upload"
-	pnpm="pnpm tauri add upload"
-	cargo="cargo tauri add upload"
-	/>
+    <CommandTabs
+    npm="npm run tauri add upload"
+    yarn="yarn run tauri add upload"
+    pnpm="pnpm tauri add upload"
+    cargo="cargo tauri add upload"
+    />
 
-	</TabItem>
-	<TabItem label="Manual">
+    </TabItem>
+    <TabItem label="Manual">
 
-		<Steps>
+    	<Steps>
 
-		1. Run `cargo add tauri-plugin-upload` to add the plugin to the project's dependencies in `Cargo.toml`.
+    	1. Run `cargo add tauri-plugin-upload` to add the plugin to the project's dependencies in `Cargo.toml`.
 
-		2. Modify `main.rs` to initialize the plugin:
+    	2. Modify `main.rs` to initialize the plugin:
 
-			```rust title="main.rs" ins={4}
-			fn main() {
-				tauri::Builder::default()
-					// Initialize the plugin
-					.plugin(tauri_plugin_process::init())
-					.run(tauri::generate_context!())
-					.expect("error while running tauri application");
-			}
-			```
+    		```rust title="main.rs" ins={4}
+    		fn main() {
+    			tauri::Builder::default()
+    				// Initialize the plugin
+    				.plugin(tauri_plugin_process::init())
+    				.run(tauri::generate_context!())
+    				.expect("error while running tauri application");
+    		}
+    		```
 
-		3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-			<CommandTabs
-				npm="npm install @tauri-apps/plugin-upload"
-				yarn="yarn add @tauri-apps/plugin-upload"
-				pnpm="pnpm add @tauri-apps/plugin-upload"
-			/>
+    		<CommandTabs
+    			npm="npm install @tauri-apps/plugin-upload"
+    			yarn="yarn add @tauri-apps/plugin-upload"
+    			pnpm="pnpm add @tauri-apps/plugin-upload"
+    		/>
 
-		</Steps>
-	</TabItem>
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 ## Usage
