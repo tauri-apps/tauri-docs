@@ -35,3 +35,92 @@ branch = "v2"
 ```
   </TabItem>
 </Tabs>
+
+Then, you have to add JavaScript Guest bindings using your preferred JavaScript package manager.
+
+<Tabs>
+  <TabItem label="npm.io">
+    <Tabs>
+      <TabItem label="pnpm">
+      ```shell
+      pnpm add @tauri-apps/plugin-sql
+      ```
+      </TabItem>
+      <TabItem label="npm">
+      ```shell
+      npm add @tauri-apps/plugin-sql
+      ```
+      </TabItem>
+      <TabItem label="yarn">
+      ```shell
+      yarn add @tauri-apps/plugin-sql
+      ```
+      </TabItem>
+    </Tabs>
+
+  </TabItem>
+  <TabItem label="Git">
+    <Tabs>
+      <TabItem label="pnpm">
+      ```shell
+      pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2
+      ```
+      </TabItem>
+      <TabItem label="npm">
+      ```shell
+      npm add https://github.com/tauri-apps/tauri-plugin-sql#v2
+      ```
+      </TabItem>
+      <TabItem label="yarn">
+      ```shell
+      yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2
+      ```
+      </TabItem>
+    </Tabs>
+  </TabItem>
+</Tabs>
+
+## Usage
+
+First you need to register the core plugin with Tauri:
+
+```rust title="src-tauri/Cargo.toml" ins={3}
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_sql::Builder::default().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+Afterwards all the plugin's APIs are available through the JavaScript guest bindings:
+
+<Tabs>
+  <TabItem label="SQLite">
+```javascript
+
+import Database from "@tauri-apps/plugin-sql";
+const db = await Database.load("sqlite:test.db");
+await db.execute("INSERT INTO ...");
+
+```
+  </TabItem>
+  <TabItem label="MySQL">
+```javascript
+
+import Database from "@tauri-apps/plugin-sql";
+const db = await Database.load("mysql://user:pass@host/database");
+await db.execute("INSERT INTO ...");
+
+```
+  </TabItem>
+  <TabItem label="PostgreSQL">
+```javascript
+
+import Database from "@tauri-apps/plugin-sql";
+const db = await Database.load("postgres://postgres:password@localhost/test");
+await db.execute("INSERT INTO ...");
+
+```
+  </TabItem>
+</Tabs>
