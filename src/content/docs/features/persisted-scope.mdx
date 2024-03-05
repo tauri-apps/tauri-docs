@@ -3,12 +3,75 @@ title: Persisted Scope
 description: Persist runtime scope changes on the filesystem.
 ---
 
-import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="persisted-scope" showJsLinks={false} />
 
-<Stub>
-	Based on
-	https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/persisted-scope
-</Stub>
+Save filesystem and asset scopes and restore them when the app is reopened.
+
+## Supported Platforms
+
+- Windows
+- Linux
+- macOS
+- Android?
+- iOS?
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Install the persisted-scope plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+Use your project's package manager to add the dependency:
+
+{' '}
+
+<CommandTabs
+	npm="npm run tauri add persisted-scope"
+	yarn="yarn run tauri add persisted-scope"
+	pnpm="pnpm tauri add persisted-scope"
+	cargo="cargo tauri add persisted-scope"
+/>
+
+  </TabItem>
+  <TabItem label="Manual">
+
+1. Install the Core plugin by adding the following to your `Cargo.toml` file:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-persisted-scope = "2.0.0-beta"
+# alternatively with Git:
+tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. Modify `lib.rs` to initialize the plugin:
+
+```rust title="src-tauri/src/main.rs" {3}
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_persisted_scope::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+  <CommandTabs
+      npm="npm install @tauri-apps/plugin-persisted-scope"
+      yarn="yarn add @tauri-apps/plugin-persisted-scope"
+      pnpm="pnpm add @tauri-apps/plugin-persisted-scope"
+  />
+  </TabItem>
+</Tabs>
+
+## Usage
+
+After setup the plugin will automatically save and restore filesystem and asset scopes.
