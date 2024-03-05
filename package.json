@@ -25,6 +25,7 @@
     "@types/json-schema": "^7.0.15",
     "astro": "^4.4.4",
     "astro-feelback": "^0.3.4",
+    "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "rehype-autolink-headings": "^7.1.0",
