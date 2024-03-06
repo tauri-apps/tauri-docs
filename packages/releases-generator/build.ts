@@ -1,6 +1,8 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
+const note =
+	'\n# NOTE: This file is auto-generated in packages/releases-generator/build.ts\n# For corrections please edit it directly';
 const packages = [
 	{
 		name: 'tauri',
@@ -52,18 +54,42 @@ async function generator() {
 			.filter(({ version }) => !version.includes('Not Published'));
 
 		mkdirSync(join(baseDir, pkg.name), { recursive: true });
+		const releaseFrontmatter = [
+			'---',
+			note,
+			`title: '${pkg.name}'`,
+			`slug: 'releases/${pkg.name}'`,
+			'prev: false',
+			'next: false',
+			`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+			'---',
+		].join('\n');
 		writeFileSync(
 			join(baseDir, pkg.name, 'index.md'),
-			`---\ntitle: '${pkg.name}'\nslug: 'releases/${pkg.name}'\ntemplate: splash\n---\n\n${releases
-				.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`)
-				.join('\n')}`
+			`${releaseFrontmatter}\n${releases.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`).join('\n')}`
 		);
-
+		let page = './';
+		let version = pkg.name;
 		for (const release of releases) {
+			const versionFrontmatter = [
+				'---',
+				note,
+				`title: '${pkg.name}@${release.version}'`,
+				`slug: 'releases/${pkg.name}/v${release.version}'`,
+				'template: splash',
+				`prev:`,
+				`   link: '${page}'`,
+				`   label: '${version}'`,
+				'next: false',
+				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+				'---',
+			].join('\n');
 			writeFileSync(
 				join(baseDir, pkg.name, `v${release.version}.md`),
-				`---\ntitle: '${pkg.name}@${release.version}'\nslug: 'releases/${pkg.name}/v${release.version}'\ntemplate: splash\n---\n\n${release.notes}`
+				`${versionFrontmatter}\n${release.notes}`
 			);
+			page = `releases/${pkg.name}/v${release.version}`;
+			version = `v${release.version}`;
 		}
 	}
 }
