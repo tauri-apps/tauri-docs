@@ -51,8 +51,8 @@ tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", 
 
 2. Modify `lib.rs` to initialize the plugin:
 
-```rust title="src-tauri/src/main.rs" {3}
-fn main() {
+```rust title="src-tauri/src/lib.rs" {3}
+fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .run(tauri::generate_context!())
