@@ -55,9 +55,11 @@ const site = 'https://beta.tauri.app';
 export default defineConfig({
 	site,
 	integrations: [
-		starlightLinksValidator(),
-		starlightBlog({ authors }),
 		starlight({
+			plugins: [
+				starlightBlog({ authors }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
+			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
@@ -74,8 +76,7 @@ export default defineConfig({
 			components: {
 				SiteTitle: 'src/components/overrides/SiteTitle.astro',
 				Footer: 'src/components/overrides/Footer.astro',
-				MarkdownContent: 'starlight-blog/overrides/MarkdownContent.astro',
-				Sidebar: 'starlight-blog/overrides/Sidebar.astro',
+				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -95,6 +96,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Quick Start',
+					collapsed: true,
 					items: [
 						{ label: 'What is Tauri?', link: 'guides' },
 						{
@@ -131,6 +133,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Guides',
+					collapsed: true,
 					items: [
 						{
 							label: 'Develop',
@@ -160,6 +163,7 @@ export default defineConfig({
 				},
 				{
 					label: 'References',
+					collapsed: true,
 					items: [
 						{
 							label: 'List of References',
@@ -168,6 +172,10 @@ export default defineConfig({
 						{
 							label: 'Tauri Configuration',
 							link: '/references/v2/config',
+						},
+						{
+							label: 'Access Control List',
+							link: '/references/v2/acl',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
@@ -180,12 +188,13 @@ export default defineConfig({
 						{
 							label: 'Rust API (via Docs.rs)',
 							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-alpha',
+							link: 'https://docs.rs/tauri/~2.0.0-beta',
 						},
 					],
 				},
 				{
 					label: 'Features & Recipes',
+					collapsed: true,
 					autogenerate: { directory: 'features' },
 				},
 			],

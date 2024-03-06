@@ -1,6 +1,6 @@
 ---
-title: Process
-description: Access the current process.
+title: 进程
+description: 访问当前进程。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,16 +9,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="process" />
 
-This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/features/shell) plugin.
+这个插件提供了访问当前进程的 API。要生成子进程，请参阅 [shell](/features/shell) 插件。
 
-## Setup
+## 设置
 
-Install the plugin-process to get started.
+从安装 `plugin-process` 开始使用。
 
 <Tabs>
-    <TabItem label="Automatic">
+    <TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add process"
     yarn="yarn run tauri add process"
@@ -26,11 +26,11 @@ Install the plugin-process to get started.
     cargo="cargo tauri add process" />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
 
-    1. Run `cargo add tauri-plugin-process` to add the plugin to the project's dependencies in `Cargo.toml`.
+    1. 运行 `cargo add tauri-plugin-process` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
-    2. Modify `lib.rs` to initialize the plugin:
+    2. 修改 `lib.rs` 来初始化插件。
 
     ```rust ins={6}
     // lib.rs
@@ -44,7 +44,7 @@ Install the plugin-process to get started.
     }
     ```
 
-    3. If you'd like to utilize the plugin in JavaScript then install the npm package as well:
+    3. 如果你想在 JavaScript 中使用这个插件，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-process"
@@ -55,9 +55,9 @@ Install the plugin-process to get started.
 
 </Tabs>
 
-## Usage
+## 用法
 
-The process plugin is available in both JavaScript and Rust.
+这个插件有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -75,7 +75,7 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html).
+请注意，`app` 是 [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html) 的一个实例。
 
 ```rust
 // exits the app with the given status code

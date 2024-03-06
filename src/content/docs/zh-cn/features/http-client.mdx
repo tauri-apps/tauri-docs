@@ -1,6 +1,6 @@
 ---
-title: HTTP Client
-description: Access the HTTP client written in Rust.
+title: HTTP 客户端
+description: 访问用 Rust 编写的 HTTP 客户端。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,16 +9,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="http" />
 
-Make HTTP requests with the http plugin.
+使用 HTTP 插件发起 HTTP 请求。
 
-## Setup
+## 设置
 
-Install the http plugin to get started.
+请安装 http 插件。
 
 <Tabs>
-    <TabItem label="Automatic">
+    <TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add http"
     yarn="yarn run tauri add http"
@@ -26,11 +26,11 @@ Install the http plugin to get started.
     cargo="cargo tauri add http" />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
 
-    1. Run `cargo add tauri-plugin-http` to add the plugin to the project's dependencies in `Cargo.toml`.
+    1. 运行 `cargo add tauri-plugin-http` 命令，将插件添加到项目的 cargo .toml 依赖中。
 
-    2. Modify `lib.rs` to initialize the plugin:
+    2. 修改 lib.rs 来初始化插件。
 
     ```rust ins={6}
     // lib.rs
@@ -44,7 +44,7 @@ Install the http plugin to get started.
     }
     ```
 
-    3. If you'd like to make http requests in JavaScript then install the npm package as well:
+    3. 如果你想用 JavaScript 发送 http 请求，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-http"
@@ -56,13 +56,13 @@ Install the http plugin to get started.
 
 </Tabs>
 
-## Usage
+## 用法
 
-The http plugin is available in both as an JavaScript API and in Rust as a [reqwest](https://docs.rs/reqwest/) re-export.
+http 插件既有 JavaScript API 版本，也有 Rust [reqwest](https://docs.rs/reqwest/) 重新导出的版本。
 
 ### JavaScript
 
-1. To keep your app safe, configure allowed scope. Read more on [JavaScript API reference](https://beta.tauri.app/2/reference/js/http/#security).
+1. 为了保证你的应用安全，请配置允许的作用域。更多信息请参阅 [JavaScript API 参考](https://beta.tauri.app/2/reference/js/http/#security)。
 
 ```json
 //tauri.conf.json
@@ -75,7 +75,7 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 }
 ```
 
-2. Send a request
+2. 发送请求
 
 ```js
 import { fetch } from '@tauri-apps/plugin-http';
@@ -90,13 +90,13 @@ console.log(response.statusText); // e.g. "OK"
 
 :::note
 
-The current `fetch` method is an API to Rust backend. It tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+当前的 `fetch` 方法是一个 Rust 后端 API。 它试图与 [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 尽可能接近和兼容。
 
 :::
 
 ### Rust
 
-In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
+在 Rust 中，你可以利用插件重新导出的 `reqwest` 包。更多细节请参考 [reqwest 文档](https://docs.rs/reqwest/)。
 
 ```rust
 use tauri_plugin_http::reqwest;

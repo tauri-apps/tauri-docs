@@ -1,0 +1,49 @@
+---
+title: Announcing Tauri 1.6.0
+date: 2024-02-19
+authors: lucasfernog
+excerpt: The Tauri team is happy to announce the 1.6.0 release.
+banner:
+  content: |
+    You're reading the blog on the prerelease site for Tauri 2.0 -
+    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+The Tauri team is happy to announce the 1.6 release. This version includes several new features and important bug fixes such as improved code signing on macOS, updater enhancements and an event loop crash on all platforms.
+
+## Upgrading
+
+Make sure to update both NPM and Cargo dependencies to the 1.6.0 release. You can update the dependencies with:
+
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+	yarn="yarn upgrade @tauri-apps/cli @tauri-apps/api --latest"
+	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+	cargo="cargo update"
+/>
+
+## What's in 1.6.0
+
+### Event loop crash
+
+We finally got a good stack trace and got a fix for a long standing crash on all platforms.
+This crash was a challenge to fix since it only happened when the application is running for a long time,
+so we thank everyone that made sure the fix works.
+
+### Code signing improvements
+
+Tauri now detects nested dylib, app, xpc and frameworks inside your macOS app bundle and codesigns each of them. This ensures your app can use some external libraries and be codesigned and notarized.
+
+### Updater enhancement
+
+The auto updater now keeps the command line arguments on Windows.
+
+### Other changes
+
+Check out the entire list of changes:
+
+- [tauri](https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.6.0)
+- [tauri-cli](https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.5.10)
+- [tauri-bundler](https://github.com/tauri-apps/tauri/releases/tag/tauri-bundler-v1.5.0)

@@ -1,6 +1,6 @@
 ---
-title: Autostart
-description: Automatically launch your app at system startup.
+title: 自动启动
+description: 在系统启动时自动启动应用程序。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,22 +9,22 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="autostart" />
 
-Automatically launch your application at system startup.
+在系统启动时自动启动应用程序。
 
-## Supported Platforms
+## 支持的平台
 
 - Windows
-- Mac (via AppleScript or Launch Agent)
+- Mac（通过 AppleScript 或启动代理）
 - Linux
 
-## Setup
+## 设置
 
-Install the autostart plugin to get started.
+请安装 autostart 插件。
 
 <Tabs>
-  <TabItem label="Automatic">
+  <TabItem label="自动">
 
-Use your project's package manager to add the dependency:
+使用项目的包管理器来添加依赖。
 
 {' '}
 
@@ -36,11 +36,11 @@ Use your project's package manager to add the dependency:
 />
 
   </TabItem>
-  <TabItem label="Manual">
+  <TabItem label="手动">
 
-1. Run `cargo add tauri-plugin-autostart` to add the plugin to the project's dependencies in `Cargo.toml`.
+1. 运行 `cargo add tauri-plugin-autostart` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
-2. Modify `lib.rs` to initialize the plugin:
+2. 修改 `lib.rs` 来初始化插件。
 
 ```rust title="lib.rs" ins={1, 6}
 use tauri_plugin_autostart::MacosLauncher;
@@ -54,7 +54,7 @@ fn run() {
 }
 ```
 
-3. You can install the JavaScript Guest bindings using your preferred JavaScript package manager:
+3. 你可以使用你喜欢的 JavaScript 包管理器来安装 JavaScript Guest 绑定。
 
   <CommandTabs
       npm="npm install @tauri-apps/plugin-autostart"
@@ -64,9 +64,9 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Usage
+## 用法
 
-The autostart plugin is available in both JavaScript and Rust.
+autostart 插件有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
   <TabItem label="JavaScript">
@@ -74,11 +74,11 @@ The autostart plugin is available in both JavaScript and Rust.
 ```js
 import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
 
-// Enable autostart
+// 启用 autostart
 await enable();
-// Check enable state
+// 检查 enable 状态
 console.log(`registered for autostart? ${await isEnabled()}`);
-// Disable autostart
+// 禁用 autostart
 disable();
 ```
 
@@ -99,11 +99,11 @@ fn run() {
         .setup(|app| {
             // Get the autostart manager
             let autostart_manager = app.autolaunch();
-            // Enable autostart
+            // 启用 autostart
             let _ = autostart_manager.enable();
-            // Check enable state
+            // 检查 enable 状态
             println!("registered for autostart? {}", autostart_manager.is_enabled().unwrap());
-            // Disable autostart
+            // 禁用 autostart
             let _ = autostart_manager.disable();
             Ok(())
         })
@@ -115,12 +115,12 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Permissions
+## 权限
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-See [Access Control List](/references/v2/acl) for more information.
+更多信息请参见 [Access Control List](/references/v2/acl)。
 
 ```json title="src-tauri/capabilities/main.json"
 {
@@ -133,11 +133,11 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission                   | Description                                                      |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `autostart:allow-disable`    | Enables the disable command without any pre-configured scope.    |
-| `autostart:deny-disable`     | Denies the disable command without any pre-configured scope.     |
-| `autostart:allow-enable`     | Enables the enable command without any pre-configured scope.     |
-| `autostart:deny-enable`      | Denies the enable command without any pre-configured scope.      |
-| `autostart:allow-is-enabled` | Enables the is_enabled command without any pre-configured scope. |
-| `autostart:deny-is-enabled`  | Denies the is_enabled command without any pre-configured scope.  |
+| 权限                         | 描述                                       |
+| ---------------------------- | ------------------------------------------ |
+| `autostart:allow-disable`    | 启用 disable 命令，不需要预先配置作用域。  |
+| `autostart:deny-disable`     | 拒绝没有预先配置作用域的 disable 命令。    |
+| `autostart:allow-enable`     | 启用 enable 命令，不需要预先配置作用域。   |
+| `autostart:deny-enable`      | 拒绝使用没有预先配置作用域的 enable 命令。 |
+| `autostart:allow-is-enabled` | 启用没有预先配置作用域的 is_enabled 命令。 |
+| `autostart:deny-is-enabled`  | 拒绝没有预先配置作用域的 is_enabled 命令。 |
