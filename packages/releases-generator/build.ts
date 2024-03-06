@@ -68,13 +68,13 @@ async function generator() {
 			join(baseDir, pkg.name, 'index.md'),
 			`${releaseFrontmatter}\n${releases.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`).join('\n')}`
 		);
-		let previousPage = '/releases';
-		let previousPageLabel = pkg.name;
+		let nextPage = '/releases';
+		let nextLabel = pkg.name;
 
 		for (let i = 0; i < releases.length - 1; i++) {
 			const thisVersion = releases[i].version;
-			const nextPageLabel = releases[i + 1].version;
-			const nextPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
+			const prevLabel = releases[i + 1].version;
+			const prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
 			const versionFrontmatter = [
 				'---',
 				note,
@@ -82,11 +82,11 @@ async function generator() {
 				`slug: 'releases/${pkg.name}/v${thisVersion}'`,
 				'template: splash',
 				`prev:`,
-				`   link: '${nextPage}'`,
-				`   label: '${nextPageLabel}'`,
+				`   link: '${prevPage}'`,
+				`   label: '${prevLabel}'`,
 				`next:`,
-				`   link: '${previousPage}'`,
-				`   label: '${previousPageLabel}'`,
+				`   link: '${nextPage}'`,
+				`   label: '${nextLabel}'`,
 				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
 				'---',
 			].join('\n');
@@ -95,8 +95,8 @@ async function generator() {
 				join(baseDir, pkg.name, `v${thisVersion}.md`),
 				`${versionFrontmatter}\n${indexLink}\n\n${releases[i].notes}`
 			);
-			previousPage = `releases/${pkg.name}/v${thisVersion}`;
-			previousPageLabel = `v${thisVersion}`;
+			nextPage = `releases/${pkg.name}/v${thisVersion}`;
+			nextLabel = `v${thisVersion}`;
 		}
 		const t = releases.length - 1;
 		const version = releases[t].version;
@@ -108,8 +108,8 @@ async function generator() {
 			'template: splash',
 			`prev: false`,
 			`next:`,
-			`   link: '${previousPage}'`,
-			`   label: '${previousPageLabel}'`,
+			`   link: '${nextPage}'`,
+			`   label: '${nextLabel}'`,
 			`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
 			'---',
 		].join('\n');
@@ -120,8 +120,8 @@ async function generator() {
 		);
 
 		// writeFileSync(join(baseDir, pkg.name, `v${version}.md`), `${versionFrontmatter}\n${version}`);
-		// 	previousPage = `releases/${pkg.name}/v${version}`;
-		// 	previousPageLabel = `v${version}`;
+		// 	nextPage = `releases/${pkg.name}/v${version}`;
+		// 	nextLabel = `v${version}`;
 	}
 }
 
