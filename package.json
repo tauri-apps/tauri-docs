@@ -21,17 +21,18 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^4.2.1",
-    "@astrojs/starlight": "^0.20.1",
+    "@astrojs/starlight": "^0.21.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.4.4",
     "astro-feelback": "^0.3.4",
+    "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
     "starlight-blog": "^0.5.0",
-    "starlight-links-validator": "^0.5.3"
+    "starlight-links-validator": "^0.6.0"
   },
   "pnpm": {
     "patchedDependencies": {
