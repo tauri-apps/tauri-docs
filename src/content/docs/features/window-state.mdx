@@ -51,8 +51,8 @@ tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-works
 
 2. Modify `lib.rs` to initialize the plugin:
 
-```rust title="src-tauri/src/main.rs" {3}
-fn main() {
+```rust title="src-tauri/src/lib.rs" {3}
+fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .run(tauri::generate_context!())
