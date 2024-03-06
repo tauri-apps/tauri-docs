@@ -54,6 +54,10 @@ async function generator() {
 			.filter(({ version }) => !version.includes('Not Published'));
 
 		mkdirSync(join(baseDir, pkg.name), { recursive: true });
+		//
+		/*
+		 * Write index file for each package
+		 */
 		const releaseFrontmatter = [
 			'---',
 			note,
@@ -64,64 +68,68 @@ async function generator() {
 			`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
 			'---',
 		].join('\n');
+		const indexLink = `#### [All release](/releases)`;
 		writeFileSync(
 			join(baseDir, pkg.name, 'index.md'),
-			`${releaseFrontmatter}\n${releases.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`).join('\n')}`
+			`${releaseFrontmatter}\n${indexLink}\n${releases.map((r) => `- [${r.version}](/releases/${pkg.name}/v${r.version})`).join('\n')}`
 		);
+
+		/*
+		 * Write files for each version
+		 */
 		let nextPage = '/releases';
 		let nextLabel = pkg.name;
-
-		for (let i = 0; i < releases.length - 1; i++) {
+		const len = releases.length;
+		for (let i = 0; i < len; i++) {
 			const thisVersion = releases[i].version;
-			const prevLabel = releases[i + 1].version;
-			const prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
-			const versionFrontmatter = [
-				'---',
+			let prevLabel, prevPage;
+			if (i !== len - 1) {
+				prevLabel = releases[i + 1].version;
+				prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
+			}
+			let navFrontmatter;
+			if (i === len - 1) {
+				navFrontmatter = [
+					`prev: false`,
+					`next:`,
+					`   link: '${nextPage}'`,
+					`   label: '${nextLabel}'`,
+				];
+			} else if (i === 0) {
+				navFrontmatter = [
+					`prev:`,
+					`   link: '${prevPage}'`,
+					`   label: '${prevPage}'`,
+					`next: false`,
+				];
+			} else {
+				navFrontmatter = [
+					`prev:`,
+					`   link: '${prevPage}'`,
+					`   label: '${prevLabel}'`,
+					`next:`,
+					`   link: '${nextPage}'`,
+					`   label: '${nextLabel}'`,
+				];
+			}
+
+			const pageFrontmatter = [
 				note,
 				`title: '${pkg.name}@${thisVersion}'`,
 				`slug: 'releases/${pkg.name}/v${thisVersion}'`,
 				'template: splash',
-				`prev:`,
-				`   link: '${prevPage}'`,
-				`   label: '${prevLabel}'`,
-				`next:`,
-				`   link: '${nextPage}'`,
-				`   label: '${nextLabel}'`,
 				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
-				'---',
-			].join('\n');
-			const indexLink = `[${pkg.name}](/releases/${pkg.name})`;
+			];
+
+			const frontmatter = ['---', ...pageFrontmatter, ...navFrontmatter, '---'].join('\n');
+			const indexLink = `[Return to: ${pkg.name}](/releases/${pkg.name})`;
 			writeFileSync(
 				join(baseDir, pkg.name, `v${thisVersion}.md`),
-				`${versionFrontmatter}\n${indexLink}\n\n${releases[i].notes}`
+				`${frontmatter}\n${indexLink}\n\n${releases[i].notes}`
 			);
 			nextPage = `releases/${pkg.name}/v${thisVersion}`;
 			nextLabel = `v${thisVersion}`;
 		}
-		const t = releases.length - 1;
-		const version = releases[t].version;
-		const versionFrontmatter = [
-			'---',
-			note,
-			`title: '${pkg.name}@${version}'`,
-			`slug: 'releases/${pkg.name}/v${version}'`,
-			'template: splash',
-			`prev: false`,
-			`next:`,
-			`   link: '${nextPage}'`,
-			`   label: '${nextLabel}'`,
-			`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
-			'---',
-		].join('\n');
-		const indexLink = `[${pkg.name}](/releases/${pkg.name})`;
-		writeFileSync(
-			join(baseDir, pkg.name, `v${version}.md`),
-			`${versionFrontmatter}\n${indexLink}\n\n${releases[t].notes}`
-		);
-
-		// writeFileSync(join(baseDir, pkg.name, `v${version}.md`), `${versionFrontmatter}\n${version}`);
-		// 	nextPage = `releases/${pkg.name}/v${version}`;
-		// 	nextLabel = `v${version}`;
 	}
 }
 
