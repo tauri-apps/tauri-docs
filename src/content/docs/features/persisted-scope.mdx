@@ -16,8 +16,6 @@ Save filesystem and asset scopes and restore them when the app is reopened.
 - Windows
 - Linux
 - macOS
-- Android?
-- iOS?
 
 ## Setup
 
@@ -25,22 +23,9 @@ _This plugin requires a Rust version of at least **1.75**_
 
 Install the persisted-scope plugin to get started.
 
-<Tabs>
-  <TabItem label="Automatic">
-
-Use your project's package manager to add the dependency:
-
-{' '}
-
-<CommandTabs
-	npm="npm run tauri add persisted-scope"
-	yarn="yarn run tauri add persisted-scope"
-	pnpm="pnpm tauri add persisted-scope"
-	cargo="cargo tauri add persisted-scope"
-/>
-
-  </TabItem>
-  <TabItem label="Manual">
+:::note
+Currently manual install is required for setting up persisted-scope plugin.
+:::
 
 1. Install the Core plugin by adding the following to your `Cargo.toml` file:
 
@@ -53,24 +38,14 @@ tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-wo
 
 2. Modify `lib.rs` to initialize the plugin:
 
-```rust title="src-tauri/src/main.rs" {3}
-fn main() {
+```rust title="src-tauri/src/lib.rs" {3}
+fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_persisted_scope::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 ```
-
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
-
-  <CommandTabs
-      npm="npm install @tauri-apps/plugin-persisted-scope"
-      yarn="yarn add @tauri-apps/plugin-persisted-scope"
-      pnpm="pnpm add @tauri-apps/plugin-persisted-scope"
-  />
-  </TabItem>
-</Tabs>
 
 ## Usage
 
