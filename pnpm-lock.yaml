@@ -18,13 +18,13 @@ importers:
         version: 4.2.1
       '@astrojs/starlight':
         specifier: ^0.21.0
-        version: 0.21.1(astro@4.4.11)
+        version: 0.21.1(astro@4.4.12)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
       astro:
         specifier: ^4.4.4
-        version: 4.4.11
+        version: 4.4.12
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -48,10 +48,10 @@ importers:
         version: 1.1.7
       starlight-blog:
         specifier: ^0.5.0
-        version: 0.5.0(@astrojs/starlight@0.21.1)(astro@4.4.11)
+        version: 0.5.0(@astrojs/starlight@0.21.1)(astro@4.4.12)
       starlight-links-validator:
         specifier: ^0.6.0
-        version: 0.6.0(@astrojs/starlight@0.21.1)(astro@4.4.11)
+        version: 0.6.0(@astrojs/starlight@0.21.1)(astro@4.4.12)
 
   packages/config-generator:
     dependencies:
@@ -133,8 +133,8 @@ packages:
     resolution: {integrity: sha512-o/ObKgtMzl8SlpIdzaxFnt7SATKPxu4oIP/1NL+HDJRzxfJcAkOTAb/ZKMRyULbz4q+1t2/DAebs2Z1QairkZw==}
     dev: false
 
-  /@astrojs/compiler@2.6.0:
-    resolution: {integrity: sha512-c74k8iGHL3DzkosSJ0tGcHIEBEiIfBhr7eadSaPyvWlVKaieDVzVs8OW1tnRSQyBsfMc8DZQ4RcN2KAcESD8UQ==}
+  /@astrojs/compiler@2.7.0:
+    resolution: {integrity: sha512-XpC8MAaWjD1ff6/IfkRq/5k1EFj6zhCNqXRd5J43SVJEBj/Bsmizkm8N0xOYscGcDFQkRgEw6/eKnI5x/1l6aA==}
     dev: false
 
   /@astrojs/internal-helpers@0.2.1:
@@ -162,7 +162,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@2.1.1(astro@4.4.11):
+  /@astrojs/mdx@2.1.1(astro@4.4.12):
     resolution: {integrity: sha512-AgGFdE7HOGmoFooGvMSatkA9FiSKwyVW7ImHot/bXJ6uAbFfu6iG2ht18Cf1pT22Hda/6iSCGWusFvBv0/EnKQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
@@ -171,7 +171,7 @@ packages:
       '@astrojs/markdown-remark': 4.2.1
       '@mdx-js/mdx': 3.0.1
       acorn: 8.11.3
-      astro: 4.4.11
+      astro: 4.4.12
       es-module-lexer: 1.4.1
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -202,18 +202,18 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/starlight@0.21.1(astro@4.4.11):
+  /@astrojs/starlight@0.21.1(astro@4.4.12):
     resolution: {integrity: sha512-nQ5EwKnB3eI8jxQrbgzZJJcyxeIiL3GzsAhl//1fE541MlD+PKy53v1PsYPi/RILdjt1Pg39rf1fkJC/rhXRgw==}
     peerDependencies:
       astro: ^4.2.7
     dependencies:
-      '@astrojs/mdx': 2.1.1(astro@4.4.11)
+      '@astrojs/mdx': 2.1.1(astro@4.4.12)
       '@astrojs/sitemap': 3.1.1
       '@pagefind/default-ui': 1.0.4
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.3
-      astro: 4.4.11
-      astro-expressive-code: 0.33.4(astro@4.4.11)
+      astro: 4.4.12
+      astro-expressive-code: 0.33.4(astro@4.4.12)
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.1
       hast-util-select: 6.0.2
@@ -1399,12 +1399,12 @@ packages:
     hasBin: true
     dev: false
 
-  /astro-expressive-code@0.33.4(astro@4.4.11):
+  /astro-expressive-code@0.33.4(astro@4.4.12):
     resolution: {integrity: sha512-PtXLjd89WBA1WsDYlt3V1LZs9Pa8FFoXilaGDSyfxtbYJ2OPHjWh2JJvCiXmfXmY3HkPJ2oW9Jjo6om5vUlVcg==}
     peerDependencies:
       astro: ^3.3.0 || ^4.0.0-beta
     dependencies:
-      astro: 4.4.11
+      astro: 4.4.12
       hast-util-to-html: 8.0.4
       remark-expressive-code: 0.33.4
     dev: false
@@ -1415,12 +1415,12 @@ packages:
       '@feelback/js': 0.3.4
     dev: false
 
-  /astro@4.4.11:
-    resolution: {integrity: sha512-mJ1k67xzAJO1vTTpATe76uSWhOgiEj3Id7narE6X2rMMOBjR8vJM+9Cmv/Wbpot6uMwFo780skUowlMptK96fQ==}
+  /astro@4.4.12:
+    resolution: {integrity: sha512-1mHleqg6M/vU8RtEYlGr2CALYRGkRvQSJOUih/tGi12K4AVE8Dd+9uSDoMCnWH1OP9phe2HmwHEx2gDWlPksGQ==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
-      '@astrojs/compiler': 2.6.0
+      '@astrojs/compiler': 2.7.0
       '@astrojs/internal-helpers': 0.2.1
       '@astrojs/markdown-remark': 4.2.1
       '@astrojs/telemetry': 3.0.4
@@ -1479,8 +1479,8 @@ packages:
       tsconfck: 3.0.2
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.1.4
-      vitefu: 0.2.5(vite@5.1.4)
+      vite: 5.1.5
+      vitefu: 0.2.5(vite@5.1.5)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
       zod: 3.22.4
@@ -1631,8 +1631,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001593
-      electron-to-chromium: 1.4.690
+      caniuse-lite: 1.0.30001594
+      electron-to-chromium: 1.4.693
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
     dev: false
@@ -1658,8 +1658,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: false
 
-  /caniuse-lite@1.0.30001593:
-    resolution: {integrity: sha512-UWM1zlo3cZfkpBysd7AS+z+v007q9G1+fLTUU42rQnY6t2axoogPW/xol6T7juU5EUoOhML4WgBIdG+9yYqAjQ==}
+  /caniuse-lite@1.0.30001594:
+    resolution: {integrity: sha512-VblSX6nYqyJVs8DKFMldE2IVCJjZ225LW00ydtUWwh5hk9IfkTOffO6r8gJNsH0qqqeAF8KrbMYA2VEwTlGW5g==}
     dev: false
 
   /ccount@2.0.1:
@@ -1948,8 +1948,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: false
 
-  /electron-to-chromium@1.4.690:
-    resolution: {integrity: sha512-+2OAGjUx68xElQhydpcbqH50hE8Vs2K6TkAeLhICYfndb67CVH0UsZaijmRUE3rHlIxU1u0jxwhgVe6fK3YANA==}
+  /electron-to-chromium@1.4.693:
+    resolution: {integrity: sha512-/if4Ueg0GUQlhCrW2ZlXwDAm40ipuKo+OgeHInlL8sbjt+hzISxZK949fZeJaVsheamrzANXvw1zQTvbxTvSHw==}
     dev: false
 
   /emoji-regex@10.3.0:
@@ -4589,27 +4589,27 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.5.0(@astrojs/starlight@0.21.1)(astro@4.4.11):
+  /starlight-blog@0.5.0(@astrojs/starlight@0.21.1)(astro@4.4.12):
     resolution: {integrity: sha512-3h/ZnUc9bIArxOnX4RuzscnS9aj5ilr9fD+GzGa1wJQwJhi6cmI/AnJdh0XG17C7OOl8xdBUjO5BLN/mP9R0uw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.19.0'
       astro: '>=4.2.7'
     dependencies:
-      '@astrojs/starlight': 0.21.1(astro@4.4.11)
-      astro: 4.4.11
+      '@astrojs/starlight': 0.21.1(astro@4.4.12)
+      astro: 4.4.12
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.6.0(@astrojs/starlight@0.21.1)(astro@4.4.11):
+  /starlight-links-validator@0.6.0(@astrojs/starlight@0.21.1)(astro@4.4.12):
     resolution: {integrity: sha512-YXzKKZHM79ccBTO61l2WSmgdCG3406gldpVM6J2LhqZ5CeXsOgj6lho2xMLkc/p5nWcNSuYI2qNzsNUrLTmR5w==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
       astro: '>=4.0.0'
     dependencies:
-      '@astrojs/starlight': 0.21.1(astro@4.4.11)
-      astro: 4.4.11
+      '@astrojs/starlight': 0.21.1(astro@4.4.12)
+      astro: 4.4.12
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
@@ -5118,8 +5118,8 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vite@5.1.4:
-    resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
+  /vite@5.1.5:
+    resolution: {integrity: sha512-BdN1xh0Of/oQafhU+FvopafUp6WaYenLU/NFoL5WyJL++GxkNfieKzBhM24H3HVsPQrlAqB7iJYTHabzaRed5Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -5153,7 +5153,7 @@ packages:
       fsevents: 2.3.3
     dev: false
 
-  /vitefu@0.2.5(vite@5.1.4):
+  /vitefu@0.2.5(vite@5.1.5):
     resolution: {integrity: sha512-SgHtMLoqaeeGnd2evZ849ZbACbnwQCIwRH57t18FxcXoZop0uQu0uzlIhJBlF/eWVzuce0sHeqPcDo+evVcg8Q==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -5161,7 +5161,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.1.4
+      vite: 5.1.5
     dev: false
 
   /vscode-oniguruma@1.7.0:
