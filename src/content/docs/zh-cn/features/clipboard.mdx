@@ -1,6 +1,6 @@
 ---
-title: Clipboard
-description: Read and write to the system clipboard.
+title: 剪切板
+description: 读取和写入系统剪贴板。
 ---
 
 import Stub from '@components/Stub.astro';
@@ -10,16 +10,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="clipboard-manager" />
 
-Read and write to the system clipboard using the clipboard plugin.
+使用剪贴板插件读取和写入系统剪贴板。
 
-## Setup
+## 设置
 
-Install the clipboard plugin to get started.
+请安装剪贴板插件。
 
 <Tabs>
-    <TabItem label="Automatic">
+    <TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add clipboard-manager"
     yarn="yarn run tauri add clipboard-manager"
@@ -27,11 +27,11 @@ Install the clipboard plugin to get started.
     cargo="cargo tauri add clipboard-manager" />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
 
-    1. Run `cargo add tauri-plugin-clipboard-manager` to add the plugin to the project's dependencies in `Cargo.toml`.
+    1. 运行 `cargo add tauri-plugin-clipboard-manager` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
-    2. Modify `lib.rs` to initialize the plugin:
+    2. 修改 `lib.rs` 来初始化插件。
 
     ```rust
     // lib.rs
@@ -45,7 +45,7 @@ Install the clipboard plugin to get started.
     }
     ```
 
-    3. If you'd like to manage the clipboard in JavaScript then install the npm package as well:
+    3. 如果你想用 JavaScript 管理剪贴板，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-clipboard-manager"
@@ -57,11 +57,11 @@ Install the clipboard plugin to get started.
 
 </Tabs>
 
-## Usage
+## 用法
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
-The clipboard plugin is available in both JavaScript and Rust.
+剪贴板插件有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -69,10 +69,10 @@ The clipboard plugin is available in both JavaScript and Rust.
 ```js
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 
-// Write content to clipboard
+// 将内容写到剪贴板
 await writeText('Tauri is awesome!');
 
-// Read content from clipboard
+// 从剪贴板读取内容
 const content = await readText();
 console.log(content);
 // Prints "Tauri is awesome!" to the console
@@ -84,14 +84,14 @@ console.log(content);
 ```rust
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
-// Write content to clipboard
+// 将内容写到剪贴板
 let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
     label: Some("Label".to_string()),
     text: "Tauri is awesome!".to_string(),
 };
 app.clipboard().write(clipboard_content).unwrap();
 
-// Read content from clipboard
+// 从剪贴板读取内容
 let content = app.clipboard().read();
 println!("{:?}", content.unwrap());
 // Prints "Tauri is awesome!" to the terminal

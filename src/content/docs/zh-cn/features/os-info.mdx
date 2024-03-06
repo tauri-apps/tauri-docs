@@ -1,6 +1,6 @@
 ---
-title: OS Information
-description: Read information about the operating system.
+title: 操作系统信息
+description: 查看操作系统信息。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,16 +9,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="os" />
 
-Read information about the operating system using the OS Information plugin.
+使用操作系统信息插件读取操作系统信息。
 
-## Setup
+## 设置
 
-Install the OS Information plugin to get started.
+安装操作系统信息插件开始。
 
 <Tabs>
-    <TabItem label="Automatic">
+    <TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add os"
     yarn="yarn run tauri add os"
@@ -26,11 +26,11 @@ Install the OS Information plugin to get started.
     cargo="cargo tauri add os" />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
 
-    1. Run `cargo add tauri-plugin-os` to add the plugin to the project's dependencies in `Cargo.toml`.
+    1. 运行 `cargo add tauri-plugin-os` 命令，将插件添加到项目的 cargo .toml 依赖中。
 
-    2. Modify `lib.rs` to initialize the plugin:
+    2. 修改 lib.rs 来初始化插件。
 
     ```rust
     // lib.rs
@@ -44,7 +44,7 @@ Install the OS Information plugin to get started.
     }
     ```
 
-    3. If you'd like to use in JavaScript then install the npm package as well:
+    3. 如果你想在 JavaScript 中使用，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-os"
@@ -56,15 +56,15 @@ Install the OS Information plugin to get started.
 
 </Tabs>
 
-## Usage
+## 用法
 
-With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/references/v2/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
+通过这个插件，您可以查询当前操作系统的多个信息。请参阅 [JavaScript API](/references/v2/js/os/) 或 [Rust API](https://docs.rs/tauri-plugin-os/) 参考资料中的所有可用函数。
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
-#### Example: OS Platform
+#### 示例：操作系统平台
 
-`platform` returns a string describing the specific operating system in use. The value is set at compile time. Possible values are `linux`, `macos`, `ios`, `freebsd`, `dragonfly`, `netbsd`, `openbsd`, `solaris`, `android`, `windows`.
+`platform` 返回一个描述使用的特定操作系统的字符串。该值在编译时设置。可能的值有 `linux`、`macos`、`ios`、`freebsd`、`dragonfly`、`netbsd`、`openbsd`、`solaris`、`android`、`windows`。
 
 <Tabs>
 <TabItem label="JavaScript">

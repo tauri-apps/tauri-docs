@@ -9,7 +9,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
 
-<PluginLinks plugin="notification" version="2.0.0-alpha.2" />
+<PluginLinks plugin="notification" version="2.0.0-beta.0" />
 
 Envoie une notification native à votre utilisateur via le plugin de notification.
 
@@ -20,27 +20,12 @@ Pour commencer, installez le plugin de notifications.
 <Tabs>
     <TabItem label="Automatic">
 
-    1. Utilisez le gestionnaire de package (package manager) de votre projet pour ajouter la dépendance:
+    Utilisez le gestionnaire de package (package manager) de votre projet pour ajouter la dépendance:
 
     <CommandTabs npm="npm run tauri add notification"
     yarn="yarn run tauri add notification"
     pnpm="pnpm tauri add notification"
     cargo="cargo tauri add notification" />
-
-    2. Modifiez `lib.rs` pour initialiser le plugin:
-
-    {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
-
-    ```rust
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialisation du plugin
-            .plugin(tauri_plugin_notification::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
 
     </TabItem>
     <TabItem label="Manual">
