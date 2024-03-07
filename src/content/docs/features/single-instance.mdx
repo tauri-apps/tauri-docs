@@ -47,3 +47,34 @@ fn main() {
         .expect("error while running tauri application");
 }
 ```
+
+### Focusing on New Instance
+
+By default, nothing happens if you open a new instance. To focus the Window when user tries to open a new instance:
+
+
+```rust title="src-tauri/src/main.rs" {1} {6-8} {14-23}
+use tauri::{AppHandle, Manager};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_single_instance::init(|app, _, _| {
+            let _ = show_window(app);
+        }))
+        .invoke_handler(tauri::generate_handler![greet])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+fn show_window(app: &AppHandle) {
+    let windows = app.webview_windows();
+
+    windows
+        .values()
+        .next()
+        .expect("Sorry, no window found")
+        .set_focus()
+        .expect("Can't Bring Window to Focus");
+}
+```
