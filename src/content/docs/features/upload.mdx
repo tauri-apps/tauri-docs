@@ -34,15 +34,16 @@ _This plugin requires a Rust version of at least **1.64**_
 
     	1. Run `cargo add tauri-plugin-upload` to add the plugin to the project's dependencies in `Cargo.toml`.
 
-    	2. Modify `main.rs` to initialize the plugin:
+    	2. Modify `lib.rs` to initialize the plugin:
 
-    		```rust title="main.rs" ins={4}
-    		fn main() {
+    		```rust title="src-tauri/src/lib.rs" ins={5}
+    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		pb fn run() {
     			tauri::Builder::default()
     				// Initialize the plugin
-    				.plugin(tauri_plugin_process::init())
-    				.run(tauri::generate_context!())
-    				.expect("error while running tauri application");
+    				.plugin(tauri_plugin_upload::init())
+        			.run(tauri::generate_context!())
+        			.expect("error while running tauri application");
     		}
     		```
 
@@ -61,4 +62,28 @@ _This plugin requires a Rust version of at least **1.64**_
 
 ## Usage
 
-{/* TODO */}
+Once you've completed the registration and setup process for the plugin, you can access all of its APIs through the JavaScript guest bindings.
+
+Here's an example of how you can use the plugin to upload and download files:
+
+```js
+import { upload } from 'tauri-plugin-upload-api';
+
+upload(
+	'https://example.com/file-upload',
+	'./path/to/my/file.txt',
+	(progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+	{ 'Content-Type': 'text/plain' } // optional headers to send with the request
+);
+```
+
+```js
+import { download } from 'tauri-plugin-upload-api';
+
+download(
+	'https://example.com/file-download-link',
+	'./path/to/save/my/file.txt',
+	(progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
+	{ 'Content-Type': 'text/plain' } // optional headers to send with the request
+);
+```
