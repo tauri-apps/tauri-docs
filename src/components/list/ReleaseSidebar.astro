@@ -1,0 +1,93 @@
+---
+import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
+import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
+
+interface Props {
+	/**
+	 * Package name
+	 */
+	packageName: string;
+	/**
+	 * Slug relative to /src - e.g "/zh-cn/features"
+	 *
+	 * Note: leading and trailing slashes are dropped "/features/" === "features"
+	 */
+	slug: string;
+	/**
+	 *  Filter out pages by title - case insensitive
+	 */
+	filterOutByTitle?: string[];
+	/**
+	 *  Filter out pages by file name - case insensitive
+	 */
+	filterOutByFileName?: string[];
+}
+
+let { slug } = Astro.props;
+const { filterOutByTitle = [], filterOutByFileName = [], packageName } = Astro.props;
+
+slug = stripLeadingAndTrailingSlashes(slug.toLowerCase());
+
+let mainList: Route[] = [];
+
+routes.forEach((page) => {
+	// `page.slug` is the slug of the current page being looped,
+	// `slug` is this component prop
+	if (page.slug.startsWith(slug)) {
+		mainList.push(page);
+	}
+});
+
+/**
+ * Filter items if any filter is set
+ */
+
+if (filterOutByTitle.length > 0) {
+	mainList = mainList.filter(
+		(page) => !filterOutByTitle.some((val) => page.entry.data.title.includes(val))
+	);
+}
+
+if (filterOutByFileName.length > 0) {
+	mainList = mainList.filter(
+		(page) => !filterOutByFileName.some((val) => page.entry.id.includes(val))
+	);
+}
+
+function sortVersions(a: Route, b: Route): number {
+	return a.entry.data.title.localeCompare(b.entry.data.title);
+}
+
+mainList.sort((a, b) => sortVersions(b, a));
+---
+
+<div class="sidenav">
+	<p>{packageName} changelogs</p>
+	<div class="sidenav-content">
+		{
+			mainList.map((item) => (
+				<>
+					<a href={`/${item.slug}`}> {item.entry.data.description}</a>
+					<br />
+				</>
+			))
+		}
+	</div>
+</div>
+<style>
+	:root {
+		--sl-content-width: 45rem!important; 
+	}
+	
+	.sidenav {
+		overflow-y: scroll;
+		z-index: 999;
+		padding: 1rem;
+		top: 12rem;
+		position: absolute;
+		right: 2rem;
+	}
+	.sidenav-content {
+		max-height: 65vh;
+	}
+</style>
