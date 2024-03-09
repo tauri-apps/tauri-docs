@@ -182,7 +182,7 @@ function entitify(str: string): string {
 					return entity;
 			}
 		})
-		.replace(/\${/g, '$\{');
+		.replace(/\$\{/g, '$\\{');
 }
 
 generator();
