@@ -131,7 +131,7 @@ async function generator() {
 
 			writeFileSync(
 				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
-				`${frontmatter}\n${sidebar}\n${linksDiv}\n${releases[i].notes}`
+				`${frontmatter}\n${sidebar}\n${linksDiv}\n${entitify(releases[i].notes)}`
 			);
 			nextPage = `releases/${pkg.name}/v${thisVersion}`;
 			nextLabel = `v${thisVersion}`;
@@ -151,17 +151,36 @@ async function generator() {
 	].join('\n');
 
 	const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
-	<CardGrid>
-		<LinkCard title="tauri" href="/releases/tauri/${latestVersions['tauri']}" />
-		<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-		<LinkCard title="tauri-cli (JavaScript)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
-		<LinkCard title="@tauri-apps/cli" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
-		<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
-		<LinkCard title="wry" href="/releases/wry/${latestVersions['wry']}" />
-		<LinkCard title="tao" href="/releases/tao/${latestVersions['tao']}" />
-	</CardGrid>`;
+<CardGrid>
+	<LinkCard title="tauri" href="/releases/tauri/${latestVersions['tauri']}" />
+	<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
+	<LinkCard title="tauri-cli (JavaScript)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
+	<LinkCard title="@tauri-apps/cli" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
+	<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
+	<LinkCard title="wry" href="/releases/wry/${latestVersions['wry']}" />
+	<LinkCard title="tao" href="/releases/tao/${latestVersions['tao']}" />
+</CardGrid>`;
 
 	writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);
+}
+
+function entitify(str: string): string {
+	return str.replace(/[&<>"']/g, function (entity) {
+		switch (entity) {
+			case '&':
+				return '&amp;';
+			case '<':
+				return '&lt;';
+			case '>':
+				return '&gt;';
+			case '"':
+				return '&quot;';
+			case "'":
+				return '&#39;';
+			default:
+				return entity;
+		}
+	});
 }
 
 generator();
