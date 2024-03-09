@@ -88,3 +88,40 @@ println!("Platform: {}", platform);
 
 </TabItem>
 </Tabs>
+
+## Permissions
+
+By default all plugin commands are blocked and cannot be accessed.
+You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/v2/acl) for more information.
+
+```json title="src-tauri/capabilities/main.json"
+{
+  "permissions": [
+  ...,
+  "os:allow-arch",
+  "os:allow-hostname",
+  "os:allow-os-type"
+  ]
+}
+```
+
+| Permission                                  | Description                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `os:allow-arch`                             | Enables the arch command without any pre-configured scope.                |
+| `os:deny-arch`                              | Denies the arch command without any pre-configured scope.                 |
+| `os:allow-exe-extension`                    | Enables the exe-extension command without any pre-configured scope.       |
+| `os:deny-exe-extension`                     | Denies the exe-extension command without any pre-configured scope.        |
+| `os:allow-family`                           | Enables the family command without any pre-configured scope.              |
+| `os:deny-family`                            | Denies the family command without any pre-configured scope.               |
+| `os:allow-hostname`                         | Enables the hostname command without any pre-configured scope.            |
+| `os:deny-hostname`                          | Denies the hostname command without any pre-configured scope.             |
+| `os:allow-locale`                           | Enables the locale command without any pre-configured scope.              |
+| `os:deny-locale`                            | Denies the locale command without any pre-configured scope.               |
+| `os:allow-os-type`                          | Enables the os-type command without any pre-configured scope.             |
+| `os:deny-os-type`                           | Denies the os-type command without any pre-configured scope.              |
+| `os:allow-platform`                         | Enables the platform command without any pre-configured scope.            |
+| `os:deny-platform`                          | Denies the platform command without any pre-configured scope.             |
+| `os:allow-version`                          | Enables the version command without any pre-configured scope.             |
+| `os:deny-version`                           | Denies the version command without any pre-configured scope.              |
