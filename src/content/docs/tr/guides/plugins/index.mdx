@@ -121,7 +121,7 @@ Eklentiler çeşitli yaşam döngüsü olaylarına bağlanabilir:
 - [on_event](#on_event): Olay döngüsü olayları
 - [on_drop](#on_drop): Eklenti yapısızlaştırılıyor
 
-Mobil eklentiler için ek [yaşam döngüsü olayları](/tr/guides/plugins/develop-mobile#lifecycle-events) vardır.
+Mobil eklentiler için ek [yaşam döngüsü olayları](/guides/plugins/develop-mobile#lifecycle-events) vardır.
 
 ### setup
 
@@ -261,7 +261,7 @@ tauri::Builder::default()
 
 ## Komutları Ekleme
 
-Komutlar `commands.rs` dosyasında tanımlanır. Bunlar normal Tauri uygulamaları komutlarıdır. AppHandle ve Window örneklerine doğrudan erişebilir, duruma erişebilir ve uygulama komutlarıyla aynı şekilde girdi alabilirler. Tauri komutları hakkında daha fazla ayrıntı için [Komutlar kılavuzu](/tr/features/commands) bölümünü okuyun.
+Komutlar `commands.rs` dosyasında tanımlanır. Bunlar normal Tauri uygulamaları komutlarıdır. AppHandle ve Window örneklerine doğrudan erişebilir, duruma erişebilir ve uygulama komutlarıyla aynı şekilde girdi alabilirler. Tauri komutları hakkında daha fazla ayrıntı için [Komutlar kılavuzu](/features/commands) bölümünü okuyun.
 
 Bu komut, bağımlılık enjeksiyonu yoluyla `AppHandle` ve `Window` örneğine nasıl erişileceğini gösterir ve iki girdi parametresi alır (`on_progress` ve `url`):
 
@@ -340,7 +340,7 @@ pub struct Entry {
 
 ###### Command Scope
 
-Eklenti tüketiciniz kendi yetenek dosyasında belirli bir komut için bir kapsam tanımlayabilir (bkz. [Dökümantasyon](/tr/references/v2/acl#scopes)).
+Eklenti tüketiciniz kendi yetenek dosyasında belirli bir komut için bir kapsam tanımlayabilir (bkz. [Dökümantasyon](/references/v2/acl#scopes)).
 Komutlara özgü kapsamı [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct'ı ile okuyabilirsiniz:
 
 ```rust title="src/commands.rs"
@@ -455,7 +455,7 @@ fn main() {
 }
 ```
 
-Daha fazla bilgi için [Erişim Kontrol Listesi](/tr/references/v2/acl) belgesine bakın.
+Daha fazla bilgi için [Erişim Kontrol Listesi](/references/v2/acl) belgesine bakın.
 
 ## Durum Yönetimi
 

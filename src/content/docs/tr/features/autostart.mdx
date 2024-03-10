@@ -1,6 +1,6 @@
 ---
 title: Autostart
-description: Automatically launch your app at system startup.
+description: Uygulamanızı sistem başlangıcında otomatik olarak başlatın.
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,22 +9,22 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="autostart" />
 
-Automatically launch your application at system startup.
+Uygulamanızı sistem başlangıcında otomatik olarak başlatın.
 
-## Supported Platforms
+## Desteklenen Platformlar
 
 - Windows
 - Mac (via AppleScript or Launch Agent)
 - Linux
 
-## Setup
+## Kurulum
 
-Install the autostart plugin to get started.
+Başlamak için autostart eklentisini yükleyin.
 
 <Tabs>
   <TabItem label="Automatic">
 
-Use your project's package manager to add the dependency:
+Bağımlılığı eklemek için projenizin paket yöneticisini kullanın:
 
 {' '}
 
@@ -38,9 +38,9 @@ Use your project's package manager to add the dependency:
   </TabItem>
   <TabItem label="Manual">
 
-1. Run `cargo add tauri-plugin-autostart` to add the plugin to the project's dependencies in `Cargo.toml`.
+1. Eklentiyi `Cargo.toml` içindeki proje bağımlılıklarına eklemek için `cargo add tauri-plugin-autostart` komutunu çalıştırın.
 
-2. Modify `lib.rs` to initialize the plugin:
+2. Eklentiyi başlatmak için `lib.rs` dosyasını değiştirin:
 
 ```rust title="lib.rs" ins={1, 6}
 use tauri_plugin_autostart::MacosLauncher;
@@ -54,7 +54,7 @@ fn run() {
 }
 ```
 
-3. You can install the JavaScript Guest bindings using your preferred JavaScript package manager:
+3. Tercih ettiğiniz JavaScript paket yöneticisini kullanarak JavaScript Guest bağlarını yükleyebilirsiniz:
 
   <CommandTabs
       npm="npm install @tauri-apps/plugin-autostart"
@@ -64,9 +64,9 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Usage
+## Kullanım
 
-The autostart plugin is available in both JavaScript and Rust.
+`autostart` eklentisi hem JavaScript hem de Rust dillerinde kullanılabilir.
 
 <Tabs>
   <TabItem label="JavaScript">
@@ -115,12 +115,12 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Permissions
+## İzinler
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+Varsayılan olarak tüm eklenti komutları engellenir ve erişilemez.
+`capabilities` yapılandırmanızda bir izinler listesi tanımlamalısınız.
 
-See [Access Control List](/references/v2/acl) for more information.
+Daha fazla bilgi için [Erişim Kontrol Listesi](/references/v2/acl) bölümüne bakınız.
 
 ```json title="src-tauri/capabilities/main.json"
 {
@@ -133,11 +133,11 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission                   | Description                                                      |
+| İzin | Açıklama |
 | ---------------------------- | ---------------------------------------------------------------- |
-| `autostart:allow-disable`    | Enables the disable command without any pre-configured scope.    |
-| `autostart:deny-disable`     | Denies the disable command without any pre-configured scope.     |
-| `autostart:allow-enable`     | Enables the enable command without any pre-configured scope.     |
-| `autostart:deny-enable`      | Denies the enable command without any pre-configured scope.      |
-| `autostart:allow-is-enabled` | Enables the is_enabled command without any pre-configured scope. |
-| `autostart:deny-is-enabled`  | Denies the is_enabled command without any pre-configured scope.  |
+| `autostart:allow-disable`    | Önceden yapılandırılmış bir kapsam olmadan devre dışı bırakma komutunu etkinleştirir.|
+| `autostart:deny-disable`     | Önceden yapılandırılmış bir kapsam olmadan disable komutunu reddeder.                |
+| `autostart:allow-enable`     | Önceden yapılandırılmış bir kapsam olmadan enable komutunu etkinleştirir.            |
+| `autostart:deny-enable`      | Önceden yapılandırılmış bir kapsam olmadan enable komutunu reddeder.                 |
+| `autostart:allow-is-enabled` | is_enabled komutunu önceden yapılandırılmış bir kapsam olmadan etkinleştirir.        |
+| `autostart:deny-is-enabled`  | Önceden yapılandırılmış bir kapsam olmadan is_enabled komutunu reddeder.             |
