@@ -1,0 +1,89 @@
+---
+title: VS Code'da Hata Ayıklama
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+{/* TODO: Revise this change: Debugging in VS Code > Debug in VS Code */}
+
+Bu kılavuz, [Tauri uygulamanızın Çekirdek Süreci] hata ayıklaması için VS Code'u ayarlama konusunda size yol gösterecektir.
+
+## Ön Koşullar
+
+[`vscode-lldb`] uzantısını yükleyin.
+
+[`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
+
+## launch.json'ı Yapılandırma
+
+Bir `.vscode/launch.json` dosyası oluşturun ve aşağıdaki JSON içeriğini içine yapıştırın:
+
+```json title=".vscode/launch.json"
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Tauri Development Debug",
+			"cargo": {
+				"args": [
+					"build",
+					"--manifest-path=./src-tauri/Cargo.toml",
+					"--no-default-features"
+				]
+			},
+			// task for the `beforeDevCommand` if used, must be configured in `.vscode/tasks.json`
+			"preLaunchTask": "ui:dev"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Tauri Production Debug",
+			"cargo": {
+				"args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
+			},
+			// task for the `beforeBuildCommand` if used, must be configured in `.vscode/tasks.json`
+			"preLaunchTask": "ui:build"
+		}
+	]
+}
+```
+
+Bu, Rust uygulamasını oluşturmak ve hem geliştirme hem de üretim modlarında yüklemek için doğrudan `cargo` kullanır.
+
+Tauri CLI kullanmadığına dikkat edin, bu nedenle özel CLI özellikleri yürütülmez. `beforeDevCommand` ve `beforeBuildCommand` betikleri önceden çalıştırılmalı veya `preLaunchTask` alanında bir görev olarak yapılandırılmalıdır. Aşağıda, biri bir geliştirme sunucusu oluşturan `beforeDevCommand` ve diğeri `beforeBuildCommand` için olmak üzere iki görev içeren örnek bir `.vscode/tasks.json` dosyası bulunmaktadır:
+
+```json title=".vscode/tasks.json"
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "ui:dev",
+			"type": "shell",
+			// `dev` keeps running in the background
+			// ideally you should also configure a `problemMatcher`
+			// see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+			"isBackground": true,
+			// change this to your `beforeDevCommand`:
+			"command": "yarn",
+			"args": ["dev"]
+		},
+		{
+			"label": "ui:build",
+			"type": "shell",
+			// change this to your `beforeBuildCommand`:
+			"command": "yarn",
+			"args": ["build"]
+		}
+	]
+}
+```
+
+Artık `src-tauri/src/main.rs` veya başka bir Rust dosyasında kesme noktaları ayarlayabilir ve `F5` tuşuna basarak hata ayıklamaya başlayabilirsiniz.
+
+[tauri uygulamanızın çekirdek süreci]: https://tauri.app/v1/references/architecture/process-model#the-core-process

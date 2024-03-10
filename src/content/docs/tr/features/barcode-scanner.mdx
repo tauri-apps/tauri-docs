@@ -1,0 +1,113 @@
+---
+title: Barcode Scanner
+description: Allows your mobile application to use the camera to scan QR codes, EAN-13 and other types of barcodes.
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="barcode-scanner" />
+
+Allows your mobile application to use the camera to scan QR codes, EAN-13 and other kinds of barcodes.
+
+## Supported Platforms
+
+- Android
+- iOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.64**_
+
+Install the barcode-scanner plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+Use your project's package manager to add the dependency:
+
+{' '}
+
+<CommandTabs
+	npm="npm run tauri add barcode-scanner"
+	yarn="yarn run tauri add barcode-scanner"
+	pnpm="pnpm tauri add barcode-scanner"
+	cargo="cargo tauri add barcode-scanner"
+/>
+
+  </TabItem>
+  <TabItem label="Manual">
+
+1. Run `cargo add tauri-plugin-barcode-scanner` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+2. Modify `lib.rs` to initialize the plugin:
+
+```rust title="lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_barcode_scanner::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+  <CommandTabs
+      npm="npm install @tauri-apps/plugin-barcode-scanner"
+      yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+      pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+  />
+  </TabItem>
+</Tabs>
+
+## Usage
+
+The barcode scanner plugin is available in JavaScript.
+
+```js
+import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+
+// `windowed: true` actually sets the webview to transparent
+// instead of opening a separate view for the camera
+// make sure your user interface is ready to show what is underneath with a transparent element
+scan({ windowed: true, formats: [Format.QRCode] });
+```
+
+## Permissions
+
+By default all plugin commands are blocked and cannot be accessed.
+You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/v2/acl) for more information.
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+	"$schema": "./schemas/mobile-schema.json",
+	"identifier": "mobile-capability",
+	"windows": ["main"],
+	"platforms": ["iOS", "android"],
+	"permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+}
+```
+
+| Permission                                  | Description                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `barcode-scanner:allow-cancel`              | Enables the cancel command without any pre-configured scope.              |
+| `barcode-scanner:deny-cancel`               | Denies the cancel command without any pre-configured scope.               |
+| `barcode-scanner:allow-check-permissions`   | Enables the check_permissions command without any pre-configured scope.   |
+| `barcode-scanner:deny-check-permissions`    | Denies the check_permissions command without any pre-configured scope.    |
+| `barcode-scanner:allow-open-app-settings`   | Enables the open_app_settings command without any pre-configured scope.   |
+| `barcode-scanner:deny-open-app-settings`    | Denies the open_app_settings command without any pre-configured scope.    |
+| `barcode-scanner:allow-request-permissions` | Enables the request_permissions command without any pre-configured scope. |
+| `barcode-scanner:deny-request-permissions`  | Denies the request_permissions command without any pre-configured scope.  |
+| `barcode-scanner:allow-scan`                | Enables the scan command without any pre-configured scope.                |
+| `barcode-scanner:deny-scan`                 | Denies the scan command without any pre-configured scope.                 |
+| `barcode-scanner:allow-vibrate`             | Enables the vibrate command without any pre-configured scope.             |
+| `barcode-scanner:deny-vibrate`              | Denies the vibrate command without any pre-configured scope.              |

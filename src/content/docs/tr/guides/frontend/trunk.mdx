@@ -1,0 +1,42 @@
+---
+title: Trunk
+i18nReady: true
+---
+
+Trunk, Rust için bir WASM web uygulaması paketleyicisidir. https://trunkrs.dev adresinden Trunk hakkında daha fazla bilgi edinin. Bu kılavuz Trunk 0.17.5 itibarıyla doğrudur.
+
+## Kontrol Listesi
+
+- SSG kullanın, Tauri resmi olarak sunucu tabanlı çözümleri desteklemiyor.
+- Web sunucusunun ağda mobil geliştirme için kullanılabilir olması için `address = "0.0.0.0"` kullanın.
+- Çalışırken yeniden yüklenen websocket'in mobil geliştirme için düzgün şekilde bağlanabilmesi için `ws_protocol = "ws"` kullanın.
+- Tauri API'lerinin `window.__TAURI__` değişkeninde mevcut olduğundan ve `wasm-bindgen` kullanılarak içe aktarılabildiğinden emin olmak için `withGlobalTauri`yi etkinleştirin.
+
+## Örnek Yapılandırma
+
+1. Tauri yapılandırmasını güncelleyin:
+
+```json
+// tauri.conf.json
+{
+	"build": {
+		"beforeDevCommand": "trunk serve",
+		"beforeBuildCommand": "trunk build",
+		"devPath": "http://localhost:8080",
+		"distDir": "../dist",
+		"withGlobalTauri": true
+	}
+}
+```
+
+2. Trunk yapılandırmasını güncelleyin:
+
+```toml
+# Trunk.toml
+[watch]
+ignore = ["./src-tauri"]
+
+[serve]
+address = "0.0.0.0"
+ws_protocol = "ws"
+```

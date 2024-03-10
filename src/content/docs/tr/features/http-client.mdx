@@ -1,0 +1,107 @@
+---
+title: HTTP Client
+description: Access the HTTP client written in Rust.
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="http" />
+
+Make HTTP requests with the http plugin.
+
+## Setup
+
+Install the http plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add http"
+    yarn="yarn run tauri add http"
+    pnpm="pnpm tauri add http"
+    cargo="cargo tauri add http" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Run `cargo add tauri-plugin-http` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+    2. Modify `lib.rs` to initialize the plugin:
+
+    ```rust ins={6}
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_http::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. If you'd like to make http requests in JavaScript then install the npm package as well:
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-http"
+        yarn="yarn add @tauri-apps/plugin-http"
+        pnpm="pnpm add @tauri-apps/plugin-http"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The http plugin is available in both as an JavaScript API and in Rust as a [reqwest](https://docs.rs/reqwest/) re-export.
+
+### JavaScript
+
+1. To keep your app safe, configure allowed scope. Read more on [JavaScript API reference](https://beta.tauri.app/2/reference/js/http/#security).
+
+```json
+//tauri.conf.json
+{
+	"plugins": {
+		"http": {
+			"scope": ["http://my.api.host/*"]
+		}
+	}
+}
+```
+
+2. Send a request
+
+```js
+import { fetch } from '@tauri-apps/plugin-http';
+
+// Send a GET request
+const response = await fetch('http://my.api.host/data.json', {
+	method: 'GET',
+});
+console.log(response.status); // e.g. 200
+console.log(response.statusText); // e.g. "OK"
+```
+
+:::note
+
+The current `fetch` method is an API to Rust backend. It tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+
+:::
+
+### Rust
+
+In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
+
+```rust
+use tauri_plugin_http::reqwest;
+
+let res = reqwest::get("http://my.api.host/data.json").await;
+println!("{:?}", res.status()); // e.g. 200
+println!("{:?}", res.text().await); // e.g Ok("{ Content }")
+```

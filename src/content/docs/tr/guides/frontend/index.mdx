@@ -1,0 +1,51 @@
+---
+title: Ön Uç Yapılandırması
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri ön uç agnostiktir ve çoğu ön uç çerçevesini kutudan çıkar çıkmaz destekler. Ancak, bazen bir framework'ün Tauri ile entegre olması için biraz ekstra yapılandırmaya ihtiyacı olabilir. Aşağıda önerilen konfigürasyonlara sahip çerçevelerin bir listesi bulunmaktadır.
+
+Eğer bir framework listede yoksa, Tauri ile ek konfigürasyon gerektirmeden çalışabilir veya henüz belgelenmemiş olabilir. Ek yapılandırma gerektirebilecek bir çerçeve eklemek için herhangi bir katkı, Tauri topluluğundaki diğer kişilere yardımcı olmak için memnuniyetle karşılanır.
+
+:::tip[Framework Listelenmemiş mi?]
+
+Listede bir framework göremiyor musunuz? Herhangi bir ek yapılandırma gerekmeden Tauri ile çalışabilir. Kontrol edilmesi gereken genel yapılandırmalar için [yapılandırma kontrol listesini](#configuration-checklist) okuyun.
+
+:::
+
+## JavaScript
+
+<CardGrid>
+	<LinkCard title="Next.js" href="/tr/guides/frontend/nextjs" />
+	<LinkCard title="Nuxt" href="/tr/guides/frontend/nuxt" />
+	<LinkCard title="Qwik" href="/tr/guides/frontend/qwik" />
+	<LinkCard title="Svelte" href="/tr/guides/frontend/svelte" />
+	<LinkCard title="Vite" href="/tr/guides/frontend/vite" />
+	<LinkCard title="Webpack" href="/tr/guides/frontend/webpack" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+	<LinkCard title="Leptos" href="/tr/guides/frontend/leptos" />
+	<LinkCard title="Sycamore" href="/tr/guides/frontend/sycamore" />
+	<LinkCard title="Trunk" href="/tr/guides/frontend/trunk" />
+	<LinkCard title="Yew" href="/tr/guides/frontend/yew" />
+</CardGrid>
+
+## Konfigürasyon Kontrol Listesi
+
+Kavramsal olarak Tauri statik bir web sunucusu gibi davranır. Tauri'ye, Tauri'nin sağladığı web görünümüne sunulabilecek HTML, CSS, Javascript ve muhtemelen WASM karışımını içeren bir klasör sağlamanız gerekir.
+
+Aşağıda, bir ön ucu Tauri ile entegre etmek için gereken yaygın senaryoların bir kontrol listesi bulunmaktadır:
+
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- Statik site oluşturma (SSG) kullanın. Tauri, sunucu tabanlı alternatifleri (SSR gibi) resmi olarak desteklemez.
+- Mobil geliştirme için, ön ucu dahili IP'nizde barındırabilecek bir tür geliştirme sunucusu gereklidir.
+- Uygulamanız ve API'leriniz arasında uygun bir istemci-sunucu ilişkisi kullanın (SSR ile hibrit çözümler yok).

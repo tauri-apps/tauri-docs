@@ -98,35 +98,54 @@ export default defineConfig({
 					label: 'Quick Start',
 					collapsed: true,
 					items: [
-						{ label: 'What is Tauri?', link: 'guides' },
+						{ label: 'What is Tauri?', 
+							translations: {
+								tr: 'Tauri Nedir?'
+							}, 
+							link: 'guides'
+						},
 						{
 							label: 'Prerequisites',
 							translations: {
 								es: 'Prerrequisitos',
+								tr: 'Ön Koşullar'
 							},
 							link: 'guides/prerequisites',
 						},
 						{
 							label: 'Create a Project',
+							translations: {
+								tr: 'Bir proje oluşturun',
+							},
 							link: 'guides/create',
 						},
 						{
 							label: 'Frontend Configuration',
 							translations: {
 								es: 'Configuración del Frontend',
+								tr: 'Ön Uç Yapılandırması'
 							},
 							link: 'guides/frontend',
 						},
 						{
 							label: 'Upgrade & Migrate',
+							translations: {
+								tr: 'Yükseltme ve Taşıma'
+							},
 							link: 'guides/upgrade-migrate',
 						},
 						{
 							label: 'Core Concepts',
+							translations: {
+								tr: 'Çekirdek Kavramlar'
+							},
 							link: 'concepts',
 						},
 						{
 							label: 'Troubleshooting',
+							translations: {
+								tr: 'Sorun Giderme'
+							},
 							link: 'guides/troubleshoot',
 						},
 					],

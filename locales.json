@@ -11,6 +11,10 @@
     "label": "Español",
     "lang": "es"
   },
+  "tr": {
+    "label": "Türkçe",
+    "lang": "tr"
+  },
   "zh-cn": {
     "label": "简体中文",
     "lang": "zh-CN"

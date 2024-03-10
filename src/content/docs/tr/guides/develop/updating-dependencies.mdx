@@ -1,0 +1,64 @@
+---
+title: Bağımlılıkları Güncelleme
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+## NPM Paketlerini Güncelleyin
+
+Eğer `tauri` paketini kullanıyorsanız:
+
+<CommandTabs
+	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+	yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
+
+Tauri'nin en son sürümünün ne olduğunu komut satırından da tespit edebilirsiniz:
+
+<CommandTabs
+	npm="npm outdated @tauri-apps/cli"
+	yarn="yarn outdated @tauri-apps/cli"
+	pnpm="pnpm outdated @tauri-apps/cli"
+/>
+
+Alternatif olarak, `vue-cli-plugin-tauri` yaklaşımını kullanıyorsanız:
+
+<CommandTabs
+	npm="npm install vue-cli-plugin-tauri@latest"
+	yarn="yarn up vue-cli-plugin-tauri"
+	pnpm="pnpm update vue-cli-plugin-tauri --latest"
+/>
+
+## Cargo Paketlerini Güncelleyin
+
+Güncel olmayan paketleri [`cargo outdated`] ile veya crates.io sayfalarından kontrol edebilirsiniz: [tauri] / [tauri-build].
+
+`src-tauri/Cargo.toml` dosyasına gidin `tauri` ve `tauri-build` ifadelerini şu şekilde değiştirin:
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+{/* _TODO MIGRATED FROM V1 -> */}
+burada `%version%` yukarıdaki ilgili sürüm numarasıdır. {/* TODO: (You can just use the `MAJOR.MINOR`) version, like `0.9`. */}
+
+Sonra aşağıdakileri yapın:
+
+```shell
+cd src-tauri
+cargo update
+```
+
+Alternatif olarak, [cargo-edit] tarafından sağlanan ve tüm bunları otomatik olarak yapan `cargo upgrade` komutunu çalıştırabilirsiniz.
+
+[cargo outdated]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit
