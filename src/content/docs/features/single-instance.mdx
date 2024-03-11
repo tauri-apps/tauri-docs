@@ -37,12 +37,10 @@ tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-wo
 
 To use this plugin, you need to register the core plugin with Tauri. The plugin init() method takes a closure that is called when a new app instance was started, but closed by the plugin. The closure has three arguments: the AppHandle, the list of arguments (important for instance on deep link usage) and the current working directory:
 
-```rust title="src-tauri/src/main.rs" ins={4}
+```rust title="src-tauri/src/main.rs" ins={3}
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
-        .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -53,16 +51,14 @@ fn main() {
 By default nothing happens when you start a new instance and the application is already running. To focus the window of the running instance when user tries to open a new instance, change the callback closure:
 
 
-```rust title="src-tauri/src/main.rs" {1} {6-8} {14-23}
+```rust title="src-tauri/src/main.rs" {1} {5-7} {12-21}
 use tauri::{AppHandle, Manager};
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|app, _, _| {
             let _ = show_window(app);
         }))
-        .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
