@@ -33,7 +33,7 @@ let mainList: Route[] = [];
 routes.forEach((page) => {
 	// `page.slug` is the slug of the current page being looped,
 	// `slug` is this component prop
-	if (page.slug.startsWith(slug)) {
+	if (page.slug.startsWith(slug + '/')) {
 		mainList.push(page);
 	}
 });
@@ -61,33 +61,57 @@ function sortVersions(a: Route, b: Route): number {
 mainList.sort((a, b) => sortVersions(b, a));
 ---
 
-<div class="sidenav">
-	<p>{packageName} changelogs</p>
-	<div class="sidenav-content">
-		{
-			mainList.map((item) => (
-				<>
-					<a href={`/${item.slug}`}> {item.entry.data.description}</a>
-					<br />
-				</>
-			))
-		}
+<div class="parent">
+	<div class="sidenav">
+		<div class="sidenav-title">
+			<p>{packageName} changelogs</p>
+		</div>
+		<div class="sidenav-content">
+			{
+				mainList.map((item) => (
+					<>
+						<a href={`/${item.slug}`}> {item.entry.data.description}</a>
+					</>
+				))
+			}
+		</div>
 	</div>
 </div>
 <style>
 	:root {
-		--sl-content-width: 45rem!important; 
+		--sl-content-width: 45rem !important;
+		--release-navbar-width: 12rem;
 	}
-	
+	.parent {
+		position: relative;
+	}
+	.sidenav-title {
+		display: block;
+		padding: 0.25rem;
+		text-align: center;
+		background-color: var(--sl-color-gray-5);
+		border: 1px solid var(--sl-color-gray-6);
+	}
+
 	.sidenav {
-		overflow-y: scroll;
-		z-index: 999;
-		padding: 1rem;
-		top: 12rem;
+		width: var(--release-navbar-width);
+		padding: 0.75rem;
+		border: 1px solid var(--sl-color-gray-5);
+		font-size: var(--sl-text-xs);
+		font-family: var(--__sl-font-mono);
+		background-color: var(--sl-color-bg-sidebar);
 		position: absolute;
-		right: 2rem;
+		right: calc(var(--release-navbar-width) * -1.1);
+		box-shadow: var(--sl-shadow-md);
 	}
 	.sidenav-content {
-		max-height: 65vh;
+		padding-inline-start: 16px;
+		min-width: fit-content;
+		row-gap: 1em;
+		display: flex;
+		flex-direction: column;
+		max-height: 85vh;
+		overflow-y: auto;
+		overscroll-behavior: contain;
 	}
 </style>
