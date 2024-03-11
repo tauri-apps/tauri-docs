@@ -1,10 +1,10 @@
-# Splashscreen
+# 初始屏幕
 
-If your webpage could take some time to load, or if you need to run an initialization procedure in Rust before displaying your main window, a splashscreen could improve the loading experience for the user.
+如果你的网页可能需要一些时间来加载，或者你需要在显示主窗口之前在 Rust 中运行初始化过程，那么启动画面可以改善用户的加载体验。
 
-### Setup
+### 设置
 
-First, create a `splashscreen.html` in your `distDir` that contains the HTML code for a splashscreen. Then, update your `tauri.conf.json` like so:
+首先，在 `distDir` 中创建一个包含初始屏幕的 HTML 文件。然后，更新 `tauri.conf.json`：
 
 ```diff
 "windows": [
@@ -27,27 +27,27 @@ First, create a `splashscreen.html` in your `distDir` that contains the HTML cod
 ]
 ```
 
-Now, your main window will be hidden and the splashscreen window will show when your app is launched. Next, you'll need a way to close the splashscreen and show the main window when your app is ready. How you do this depends on what you are waiting for before closing the splashscreen.
+现在，您的主窗口将被隐藏，并且启动应用程序时将显示初始屏幕窗口。接下来，你需要一种方法来关闭初始屏幕，并在应用准备就绪时显示主窗口。如何执行此操作取决于在关闭初始屏幕之前要等待的内容。
 
-### Waiting for Webpage
+### 等待网页
 
-If you are waiting for your web code, you'll want to create a `close_splashscreen` [command](command).
+如果你正在等待你的 Web 代码，你需要创建一个 `close_splashscreen` [命令](command)。
 
 ```rust src-tauri/main.rs
 use tauri::Manager;
-// Create the command:
-// This command must be async so that it doesn't run on the main thread.
+// 创建命令：
+// 该命令必须是异步的，以便它不会在主线程上运行。
 #[tauri::command]
 async fn close_splashscreen(window: tauri::Window) {
-  // Close splashscreen
+  // 关闭初始屏幕
   if let Some(splashscreen) = window.get_window("splashscreen") {
     splashscreen.close().unwrap();
   }
-  // Show main window
+  // 显示主窗口
   window.get_window("main").unwrap().show().unwrap();
 }
 
-// Register the command:
+// 注册命令：
 fn main() {
   tauri::Builder::default()
     // Add this line
@@ -57,10 +57,10 @@ fn main() {
 }
 
 ```
-You can then import it to your project in one of two ways:
+然后，您可以通过以下两种方式之一将其导入到您的项目中：
 
 ```js
-// With the Tauri API npm package:
+//使用 Tauri API npm 包：
 import { invoke } from '@tauri-apps/api/tauri'
 ```
 or
@@ -69,18 +69,17 @@ or
 const invoke = window.__TAURI__.invoke
 ```
 
-And finally, add an Event Listener (or just call `invoke()` whenever you want):
+最后，添加一个 `invoke()` 事件侦听器（或者随时调用它）：
 ```js
 document.addEventListener('DOMContentLoaded', () => {
-  // This will wait for the window to load, but you could
-  // run this function on whatever trigger you want
+  // 这将等待窗口加载，但你可以在您想要的任何触发器上运行此函数
   invoke('close_splashscreen')
 })
 ```
 
-### Waiting for Rust
+### 等待 Rust
 
-If you are waiting for Rust code to run, put it in the `setup` function handler so you have access to the `App` instance:
+如果你正在等待 Rust 代码运行，请将其放入 `setup` 函数处理程序中，以便您可以访问该 `App` 实例：
 
 ```rust src-tauri/main.rs
 use tauri::Manager;
@@ -89,14 +88,14 @@ fn main() {
     .setup(|app| {
       let splashscreen_window = app.get_window("splashscreen").unwrap();
       let main_window = app.get_window("main").unwrap();
-      // we perform the initialization code on a new task so the app doesn't freeze
+      // 我们在新任务上执行初始化代码，这样应用程序就不会冻结
       tauri::async_runtime::spawn(async move {
-        // initialize your app here instead of sleeping :)
+        // 在这里初始化而不是消磨时间
         println!("Initializing...");
         std::thread::sleep(std::time::Duration::from_secs(2));
         println!("Done initializing.");
 
-        // After it's done, close the splashscreen and display the main window
+        // 显示主窗口
         splashscreen_window.close().unwrap();
         main_window.show().unwrap();
       });
