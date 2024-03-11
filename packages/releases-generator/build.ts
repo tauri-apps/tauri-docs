@@ -8,43 +8,36 @@ const packages = [
 		name: 'tauri',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tauri/releases/tag',
-		dirName: 'tauri-core',
 	},
 	{
 		name: '@tauri-apps/api',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tauri/releases/tag',
-		dirName: '@tauri-apps/api',
 	},
 	{
 		name: 'tauri-cli',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tauri/releases/tag',
-		dirName: 'tauri-cli',
 	},
 	{
 		name: '@tauri-apps/cli',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/node/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tauri/releases/tag',
-		dirName: '@tauri-apps/cli',
 	},
 	{
 		name: 'tauri-bundler',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tauri/releases/tag',
-		dirName: 'tauri-bundler',
 	},
 	{
 		name: 'wry',
 		url: 'https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/wry/releases/tag',
-		dirName: 'wry',
 	},
 	{
 		name: 'tao',
 		url: 'https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md',
 		tag: 'https://github.com/tauri-apps/tao/releases/tag',
-		dirName: 'tao',
 	},
 ];
 
@@ -71,7 +64,7 @@ async function generator() {
 			})
 			.filter(({ version }) => !version.includes('Not Published'));
 
-		mkdirSync(join(baseDir, pkg.dirName), { recursive: true });
+		mkdirSync(join(baseDir, pkg.name), { recursive: true });
 		//
 		/*
 		 * Write files for each version
@@ -91,6 +84,7 @@ async function generator() {
 				prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
 			}
 			if (i === 0) {
+				// latest version
 				latestVersions[pkg.name] = `v${thisVersion}`;
 				navFrontmatter = [
 					`prev:`,
@@ -99,6 +93,7 @@ async function generator() {
 					`next: false`,
 				];
 			} else if (i === len - 1) {
+				// earliest version
 				navFrontmatter = [
 					`prev: false`,
 					`next:`,
@@ -136,9 +131,11 @@ async function generator() {
 			\n\n<ReleaseSidebar slug="releases/${pkg.name}"  packageName="${pkg.name}" />\n`;
 
 			writeFileSync(
-				join(baseDir, pkg.dirName, `v${thisVersion}.mdx`),
+				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
 				`${frontmatter}\n${sidebar}\n${linksDiv}\n${entitify(releases[i].notes)}`
 			);
+
+			// use in next iteration
 			nextPage = `releases/${pkg.name}/v${thisVersion}`;
 			nextLabel = `v${thisVersion}`;
 		}
@@ -146,7 +143,7 @@ async function generator() {
 
 	// Generate index page
 	const extraNote =
-		'# You can edit this file to quickly preview, but make sure you copy the changes over the source\n';
+		'# To quickly preview changes, you can edit this file, them make sure you copy the changes over the source build.ts script\n';
 	const indexPage = [
 		'---',
 		note,
