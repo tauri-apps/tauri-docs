@@ -50,7 +50,7 @@ fn main() {
 
 ### Focusing on New Instance
 
-By default, nothing happens if you open a new instance and another instance is already running. To focus the Window of already running instance when user tries to open a new instance:
+By default nothing happens when you start a new instance and the application is already running. To focus the window of the running instance when user tries to open a new instance, change the callback closure:
 
 
 ```rust title="src-tauri/src/main.rs" {1} {6-8} {14-23}
