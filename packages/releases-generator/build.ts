@@ -137,7 +137,7 @@ async function generator() {
 			\n\n<ReleaseSidebar slug="releases/${pkg.name}"  packageName="${pkg.name}" />\n`;
 
 			writeFileSync(
-				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
+				join(baseDir, pkg.dirName, `v${thisVersion}.mdx`),
 				`${frontmatter}\n${sidebar}\n${linksDiv}\n${entitify(releases[i].notes)}`
 			);
 			nextPage = `releases/${pkg.name}/v${thisVersion}`;
