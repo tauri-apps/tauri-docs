@@ -35,7 +35,7 @@ tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-wo
 
 ## Usage
 
-To use this plugin, you need to register the core plugin with Tauri:
+To use this plugin, you need to register the core plugin with Tauri. The plugin init() method takes a closure that is called when a new app instance was started, but closed by the plugin. The closure has three arguments: the AppHandle, the list of arguments (important for instance on deep link usage) and the current working directory:
 
 ```rust title="src-tauri/src/main.rs" ins={4}
 fn main() {
