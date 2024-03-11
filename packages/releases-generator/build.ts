@@ -90,21 +90,20 @@ async function generator() {
 				prevLabel = releases[i + 1].version;
 				prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
 			}
-
-			if (i === len - 1) {
-				navFrontmatter = [
-					`prev: false`,
-					`next:`,
-					`   link: '${nextPage}'`,
-					`   label: '${nextLabel}'`,
-				];
-			} else if (i === 0) {
+			if (i === 0) {
 				latestVersions[pkg.name] = `v${thisVersion}`;
 				navFrontmatter = [
 					`prev:`,
 					`   link: '${prevPage}'`,
 					`   label: '${prevLabel}'`,
 					`next: false`,
+				];
+			} else if (i === len - 1) {
+				navFrontmatter = [
+					`prev: false`,
+					`next:`,
+					`   link: '${nextPage}'`,
+					`   label: '${nextLabel}'`,
 				];
 			} else {
 				navFrontmatter = [
