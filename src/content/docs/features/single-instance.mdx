@@ -40,7 +40,7 @@ To use this plugin, you need to register the core plugin with Tauri. The plugin 
 ```rust title="src-tauri/src/main.rs" ins={3}
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -56,7 +56,7 @@ use tauri::{AppHandle, Manager};
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, _, _| {
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
             let _ = show_window(app);
         }))
         .run(tauri::generate_context!())
