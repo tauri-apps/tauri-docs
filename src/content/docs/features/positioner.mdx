@@ -25,6 +25,10 @@ _This plugin requires a Rust version of at least **1.75**_
 
 Install the positioner plugin to get started.
 
+:::note
+If you only intend on moving the window from Rust code, you only need the dependency in `src-tauri/Cargo.toml`, and can remove the plugin registration from `lib.rs` if you choose to setup it manually.
+:::
+
 <Tabs>
   <TabItem label="Automatic" >
 
@@ -102,7 +106,7 @@ import { move_window, Position } from "@tauri-apps/plugin-positioner";
 move_window(Position.TopRight);
 ```
 
-If you only intend on moving the window from Rust code, you can import the Window trait extension instead of registering the plugin:
+You can import and use the Window trait extension directly through Rust:
 
 ```rust
 use tauri_plugin_positioner::{WindowExt, Position};
