@@ -368,7 +368,7 @@ rustup update
 rustup self uninstall
 ```
 
-## Troubleshooting
+## Rust Troubleshooting
 
 To check whether you have Rust installed correctly, open a shell and enter this command:
 
@@ -383,6 +383,27 @@ rustc x.y.z (abcabcabc yyyy-mm-dd)
 ```
 
 If you don't see this information, your Rust installation might be broken. Please consult [Rust's Troubleshooting Section] on how to fix this. If your problems persist, you can get help from the official [Tauri Discord] and [GitHub Discussions].
+
+## Node.js 
+
+:::note JavaScript ecosystem
+Only if you intend to use a JavaScript frontend framework 
+:::
+
+1. Go to [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it. 
+
+2. Check if Node was succesfully installed by running:
+
+```sh
+node -v 
+# v20.10.0
+npm -v 
+# 10.2.3
+```
+
+It's important to restart your Terminal to ensure it recognizes the new installation. In some cases, you might need to restart your computer.
+
+While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
 
 [rust]: https://www.rust-lang.org
 [install rust]: https://www.rust-lang.org/tools/install
