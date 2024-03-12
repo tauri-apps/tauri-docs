@@ -172,7 +172,7 @@ await onOpenUrl((urls) => {
   <TabItem label="Rust">
 
 ```rust title="src-tauri/src/lib.rs"
-use tauri_plugin_cli::CliExt;
+use tauri_plugin_deep_link::DeepLinkExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 fn run() {
