@@ -1044,6 +1044,8 @@ tauri::Builder::default()
 
 ### Migrate to Updater Plugin
 
+The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead.
+
 The Rust `tauri::updater` and JavaScript `@tauri-apps/api-updater` APIs have been removed. To set a custom updater target with the `@tauri-apps/plugin-updater`:
 
 1. Add to cargo dependencies:
