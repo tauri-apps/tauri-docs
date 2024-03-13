@@ -1,6 +1,6 @@
 ---
 title: Command Line Interface (CLI)
-description: Parse arguments from the command line interface.
+description: Komut satırı arayüzünden argümanları ayrıştırın.
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,24 +9,24 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="cli" />
 
-Tauri enables your app to have a CLI through [clap](https://github.com/clap-rs/clap), a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
+Tauri, uygulamanızın sağlam bir komut satırı argüman ayrıştırıcısı olan [clap](https://github.com/clap-rs/clap) aracılığıyla bir CLI'ye sahip olmasını sağlar. `tauri.conf.json`  dosyanızdaki basit bir CLI tanımı ile arayüzünüzü tanımlayabilir ve JavaScript ve/veya Rust üzerindeki argüman eşleşmelerini okuyabilirsiniz.
 
-## Supported Platforms
+## Desteklenen Platformlar
 
 - Windows
 - Linux
 - macOS
 
-## Setup
+## Kurulum
 
-_This plugin requires a Rust version of at least **1.75**_
+_Bu eklenti en az **1.75**_ Rust sürümü gerektirir
 
-Install the CLI plugin to get started.
+Başlamak için CLI eklentisini yükleyin.
 
 <Tabs>
   <TabItem label="Automatic">
 
-Use your project's package manager to add the dependency:
+Bağımlılığı eklemek için projenizin paket yöneticisini kullanın:
 
 {' '}
 
@@ -40,7 +40,7 @@ Use your project's package manager to add the dependency:
   </TabItem>
   <TabItem label="Manual">
 
-1. Install the Core plugin by adding the following to your `Cargo.toml` file:
+1. Core eklentisini `Cargo.toml` dosyanıza aşağıdakileri ekleyerek yükleyin:
 
 ```toml title="src-tauri/Cargo.toml"
 # you can add the dependencies on the `[dependencies]` section if you do not target mobile
@@ -50,7 +50,7 @@ tauri-plugin-cli = "2.0.0-beta"
 tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
-2. Modify `lib.rs` to initialize the plugin:
+2. Eklentiyi başlatmak için `lib.rs` dosyasını değiştirin:
 
 ```rust title="src-tauri/src/lib.rs" ins={4}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -62,7 +62,7 @@ fn run() {
 }
 ```
 
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+3. Tercih ettiğiniz JavaScript paket yöneticisini kullanarak JavaScript Guest bağlarını yükleyin:
 
   <CommandTabs
       npm="npm install @tauri-apps/plugin-cli"
@@ -72,9 +72,9 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Base Configuration
+## Temel Konfigürasyon
 
-Under `tauri.conf.json`, you have the following structure to configure the interface:
+Arayüzü yapılandırmak için `tauri.conf.json` altında aşağıdaki yapıya sahipsiniz:
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -110,19 +110,19 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 
 :::note
 
-All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
+Buradaki tüm JSON konfigürasyonları sadece örnektir, diğer birçok alan açıklık sağlamak için atlanmıştır.
 
 :::
 
 ## Adding Arguments
 
-The `args` array represents the list of arguments accepted by its command or subcommand.
+`args` dizisi, komutu veya alt komutu tarafından kabul edilen argümanların listesini temsil eder.
 
 {/* TODO: List available configuration */}
 
 ### Positional Arguments
 
-A positional argument is identified by its position in the list of arguments. With the following configuration:
+Konumsal bir argüman, argüman listesindeki konumu ile tanımlanır. Aşağıdaki yapılandırma ile:
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -140,12 +140,11 @@ A positional argument is identified by its position in the list of arguments. Wi
 	]
 }
 ```
-
-Users can run your app as `./app tauri.txt dest.txt` and the arg matches map will define `source` as `"tauri.txt"` and `destination` as `"dest.txt"`.
+Kullanıcılar uygulamanızı `./app tauri.txt dest.txt` olarak çalıştırabilir ve arg eşleşme haritası `source`'u `"tauri.txt"` ve  `destination`'i `"dest.txt"` olarak tanımlayacaktır.
 
 ### Named Arguments
 
-A named argument is a (key, value) pair where the key identifies the value. With the following configuration:
+Adlandırılmış bir bağımsız değişken, anahtarın değeri tanımladığı bir (anahtar, değer) çiftidir. Aşağıdaki konfigürasyonla:
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -161,11 +160,11 @@ A named argument is a (key, value) pair where the key identifies the value. With
 }
 ```
 
-Users can run your app as `./app --type foo bar`, `./app -t foo -t bar` or `./app --type=foo,bar` and the arg matches map will define `type` as `["foo", "bar"]`.
+Kullanıcılar uygulamanızı `./app --type foo bar`, `./app -t foo -t bar` veya `./app --type=foo,bar` olarak çalıştırabilir ve arg eşleşmeleri haritası `type`'ı `["foo", "bar"]` olarak tanımlayacaktır.
 
 ### Flag Arguments
 
-A flag argument is a standalone key whose presence or absence provides information to your application. With the following configuration:
+Bayrak argümanı, varlığı veya yokluğu uygulamanıza bilgi sağlayan bağımsız bir anahtardır. Aşağıdaki konfigürasyonla:
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -177,12 +176,11 @@ A flag argument is a standalone key whose presence or absence provides informati
 	]
 }
 ```
+Kullanıcılar uygulamanızı `./app -v -v -v`, `./app --verbose --verbose --verbose` veya `./app -vvv` şeklinde çalıştırabilir ve arg eşleşmeleri haritası `verbose` öğesini `true` olarak ve `occurrences = 3` ile tanımlayacaktır.
 
-Users can run your app as `./app -v -v -v`, `./app --verbose --verbose --verbose` or `./app -vvv` and the arg matches map will define `verbose` as `true`, with `occurrences = 3`.
+## Alt Komutlar
 
-## Subcommands
-
-Some CLI applications have additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
+Bazı CLI uygulamaları alt komutlar olarak ek arayüzlere sahiptir. Örneğin, `git` CLI'sı `git branch`, `git commit` ve `git push`a sahiptir. Ek iç içe arayüzleri `subcommands` dizisi ile tanımlayabilirsiniz:
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -200,11 +198,11 @@ Some CLI applications have additional interfaces as subcommands. For instance, t
 }
 ```
 
-Its configuration is the same as the root application configuration, with the `description`, `longDescription`, `args`, etc.
+Yapılandırması, `description`, `longDescription`, `args` vb. ile kök uygulama yapılandırmasıyla aynıdır.
 
-## Usage
+## Kullanım
 
-The CLI plugin is available in both JavaScript and Rust.
+CLI eklentisi hem JavaScript hem de Rust dillerinde kullanılabilir.
 
 <Tabs>
   <TabItem label="JavaScript">
@@ -255,12 +253,12 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Permissions
+## İzinler
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+Varsayılan olarak tüm eklenti komutları engellenir ve erişilemez.
+`capabilities` yapılandırmanızda bir izinler listesi tanımlamalısınız.
 
-See [Access Control List](/references/v2/acl) for more information.
+Daha fazla bilgi için [Erişim Kontrol Listesi](/references/v2/acl) bölümüne bakınız.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
@@ -272,8 +270,8 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+| İzin 					  | Açıklama 																		|
+| ----------------------- | ------------------------------------------------------------------------------- |
+| `cli:default` 		  | CLI eşleşmelerinin okunmasına izin verir.                                   	|
+| `cli:allow-cli-matches` | Önceden yapılandırılmış bir kapsam olmadan cli_matches komutunu etkinleştirir.  |
+| `cli:deny-cli-matches`  | Önceden yapılandırılmış bir kapsam olmadan cli_matches komutunu reddeder.  		|

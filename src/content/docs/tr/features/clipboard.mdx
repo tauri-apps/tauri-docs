@@ -1,6 +1,6 @@
 ---
 title: Clipboard
-description: Read and write to the system clipboard.
+description: Sistem panosunu okuyun ve panoya yazın.
 ---
 
 import Stub from '@components/Stub.astro';
@@ -10,16 +10,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="clipboard-manager" />
 
-Read and write to the system clipboard using the clipboard plugin.
+Pano eklentisini kullanarak sistem panosunu okuyun ve panoya yazın.
 
-## Setup
+## Kurulum
 
-Install the clipboard plugin to get started.
+Başlamak için pano eklentisini yükleyin.
 
 <Tabs>
     <TabItem label="Automatic">
 
-    Use your project's package manager to add the dependency:
+    Bağımlılığı eklemek için projenizin paket yöneticisini kullanın:
 
     <CommandTabs npm="npm run tauri add clipboard-manager"
     yarn="yarn run tauri add clipboard-manager"
@@ -29,9 +29,9 @@ Install the clipboard plugin to get started.
     </TabItem>
     <TabItem label="Manual">
 
-    1. Run `cargo add tauri-plugin-clipboard-manager` to add the plugin to the project's dependencies in `Cargo.toml`.
+    1. Eklentiyi `Cargo.toml` içindeki proje bağımlılıklarına eklemek için `cargo add tauri-plugin-clipboard-manager` komutunu çalıştırın.
 
-    2. Modify `lib.rs` to initialize the plugin:
+    2. Eklentiyi başlatmak için `lib.rs` dosyasını değiştirin:
 
     ```rust
     // lib.rs
@@ -45,7 +45,7 @@ Install the clipboard plugin to get started.
     }
     ```
 
-    3. If you'd like to manage the clipboard in JavaScript then install the npm package as well:
+    3. Panoyu JavaScript ile yönetmek isterseniz NPM paketini de yükleyin:
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-clipboard-manager"
@@ -57,11 +57,11 @@ Install the clipboard plugin to get started.
 
 </Tabs>
 
-## Usage
+## Kullanım
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
-The clipboard plugin is available in both JavaScript and Rust.
+Clipboard eklentisi hem JavaScript hem de Rust dillerinde kullanılabilir.
 
 <Tabs>
 <TabItem label="JavaScript">
