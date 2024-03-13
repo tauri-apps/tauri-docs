@@ -60,7 +60,7 @@ importers:
         version: 7.0.15
       '@types/node':
         specifier: ^20.11.20
-        version: 20.11.26
+        version: 20.11.27
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1296,8 +1296,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.26:
-    resolution: {integrity: sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==}
+  /@types/node@20.11.27:
+    resolution: {integrity: sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==}
     dependencies:
       undici-types: 5.26.5
     dev: false
@@ -1549,8 +1549,8 @@ packages:
     dev: false
     optional: true
 
-  /bare-fs@2.2.1:
-    resolution: {integrity: sha512-+CjmZANQDFZWy4PGbVdmALIwmt33aJg8qTkVjClU6X4WmZkTPBDxRHiBn7fpqEWEfF3AC2io++erpViAIQbSjg==}
+  /bare-fs@2.2.2:
+    resolution: {integrity: sha512-X9IqgvyB0/VA5OZJyb5ZstoN62AzD7YxVGog13kkfYWYqJYcK0kcqLZ6TrmH5qr4/8//ejVcX4x/a0UvaogXmA==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.1
@@ -4806,7 +4806,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.1
+      bare-fs: 2.2.2
       bare-path: 2.1.0
     dev: false
     optional: true
