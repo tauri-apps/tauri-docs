@@ -1,5 +1,5 @@
 ---
-title: 深度链接
+title: 深度链接（deep-link）
 description: 将你的 Tauri 应用程序设置为 URL 的默认处理程序。
 sidebar:
   badge:
@@ -24,7 +24,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 _这个插件要求 Rust 版本至少是 **1.75**_
 
-请安装深度链接插件。
+请安装 deep-link 插件。
 
 <Tabs>
   <TabItem label="自动">
@@ -43,7 +43,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
   </TabItem>
   <TabItem label="手动">
 
-1. 运行 `tauri-plugin-deep-link` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+1. 运行 `cargo add tauri-plugin-deep-link` 以将插件添加到 `Cargo.toml` 的项目依赖中。
 
 2. 修改 `lib.rs` 来初始化插件。
 
@@ -155,7 +155,7 @@ fn run() {
 
 ## 用法
 
-深度链接有 JavaScript 和 Rust 两种版本。
+deep-link 有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
   <TabItem label="JavaScript">
@@ -206,7 +206,7 @@ fn run() {
 	"windows": ["main"],
 	"platforms": ["iOS", "android"],
 	"permissions": [
-		// 通常需要 event:default 来监听深度链接事件
+		// 通常需要 event:default 来监听 deep-link 事件
 		"event:default",
 		"deep-link:default"
 	]
