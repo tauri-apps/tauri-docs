@@ -191,6 +191,8 @@ Since the default Microsoft linker only works on Windows we will also need to in
 sudo apt install lld llvm
 ```
 
+On Linux you also need to install the `clang` package if you added dependencies that compile C/C++ dependencies as part of their build scripts. Default Tauri apps should not require this.
+
 ```sh title=macOS
 brew install llvm
 ```
@@ -205,64 +207,21 @@ Assuming you're building for 64-bit Windows systems:
 rustup target add x86_64-pc-windows-msvc
 ```
 
-#### Install the Windows SDKs
+#### Install `cargo-xwin`
 
-To get the Windows SDKs required by the msvc target we will use the [xwin] project:
-
-```sh
-cargo install xwin
-```
-
-Then you can use the `xwin` CLI to install the needed files to a location of your choice. Remember the location, we will need it in the next step. In this guide we will create a `.xwin` directory in the Home directory.
+Instead of setting the Windows SDKs up manually we will use [`cargo-xwin`] as Tauri's "runner":
 
 ```sh
-xwin splat --output ~/.xwin
+cargo install cargo-xwin
 ```
 
-If that fails with an error message like this:
-
-```
-Error: failed to splat Microsoft.VC.14.29.16.10.CRT.x64.Desktop.base.vsix
-
-Caused by:
-    0: unable to symlink from .xwin/crt/lib/x86_64/LIBCMT.lib to libcmt.lib
-    1: File exists (os error 17)
-```
-
-you can try adding the `--disable-symlinks` flag to the command:
-
-```sh
-xwin splat --output ~/.xwin --disable-symlinks
-```
-
-Now, to make the Rust compiler use these files, you first have to create a `.cargo` directory in your project and create a `config.toml` file in it with the following content. Make sure to change the paths accordingly.
-
-```toml title=.cargo/config.toml
-[target.x86_64-pc-windows-msvc]
-linker = "lld"
-rustflags = [
-  "-Lnative=/home/username/.xwin/crt/lib/x86_64",
-  "-Lnative=/home/username/.xwin/sdk/lib/um/x86_64",
-  "-Lnative=/home/username/.xwin/sdk/lib/ucrt/x86_64"
-]
-```
-
-Keep in mind that this file is specific to your machine so we don't recommend checking it into git if your project is public or will be shared with anyone.
+By default `cargo-xwin` will download the Windows SDKs into a project-local folder. If you have multiple projects and want to share those files you can set the `XWIN_CACHE_DIR` environment variable with a path to the preferred location.
 
 #### Building the App
 
-:::note
+Now it should be as simple as adding the runner and target to the `tauri build` command:
 
-If your application has dependencies to C libraries such as `ring` or `libsqlite3-sys`, building your application cross-platform gets a little trickier, 
-as you will also need to set up the appropriate environment variables and packages to cross-compile those C libraries on your system. These may include 
-setting the `CC`, `CXX`, `AR` and other environment variables, although this depends heavily on the set up of your build environment. Please refer to 
-the documentation of the libraries you are using for more information about any additional configuration for cross-compilation.
-
-:::
-
-Now it should be as simple as adding the target to the `tauri build` command:
-
-<Command name="build --target x86_64-pc-windows-msvc" />
+<Command name="build --runner cargo-xwin --target x86_64-pc-windows-msvc" />
 
 The build output will then be in `target/x86_64-pc-windows-msvc/release/bundle/nsis/`.
 
