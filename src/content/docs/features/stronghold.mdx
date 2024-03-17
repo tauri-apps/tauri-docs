@@ -4,7 +4,7 @@ description: Encrypted, secure database.
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="stronghold" />
@@ -24,50 +24,52 @@ _This plugin requires a Rust version of at least **1.75**_
 Install the stronghold plugin to get started.
 
 <Tabs>
-  <TabItem label="Automatic" >
+	<TabItem label="Automatic" >
+		Use your project's package manager to add the dependency:
 
-Use your project's package manager to add the dependency:
+		{ ' ' }
 
-{ ' ' }
+		<CommandTabs
+			npm="npm run tauri add stronghold"
+			yarn="yarn run tauri add stronghold"
+			pnpm="pnpm tauri add stronghold"
+			cargo="cargo tauri add stronghold"
+		/>
+	</TabItem>
 
-<CommandTabs
-  npm="npm run tauri add stronghold"
-  yarn="yarn run tauri add stronghold"
-  pnpm="pnpm tauri add stronghold"
-  cargo="cargo tauri add stronghold"
-/>
+	<TabItem label = "Manual">
+		<Steps>
 
-  </TabItem>
-  <TabItem label = "Manual">
+		1. Install the stronghold plugin by adding the following to your `Cargo.toml` file:
 
-1. Install the stronghold plugin by adding the following to your `Cargo.toml` file:
+			```toml title="src-tauri/Cargo.toml"
+			[dependencies]
+			tauri-plugin-stronghold = "2.0.0-beta"
+			# alternatively with Git:
+			tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+			```
 
-```toml title="src-tauri/Cargo.toml"
-[dependencies]
-tauri-plugin-stronghold = "2.0.0-beta"
-# alternatively with Git:
-tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-```
+		2. Modify `lib.rs` to initialize the plugin:
 
-2. Modify `lib.rs` to initialize the plugin:
+			```rust title="src-tauri/src/lib.rs" ins={3}
+			fn run() {
+					tauri::Builder::default()
+							.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+							.run(tauri::generate_context!())
+							.expect("error while running tauri application");
+			}
+			```
 
-```rust title="src-tauri/src/lib.rs" ins={3}
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+		3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+			<CommandTabs
+				npm = "npm install @tauri-apps/plugin-stronghold"
+				yarn = "yarn add @tauri-apps/plugin-stronghold"
+				pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+			/>
 
-  <CommandTabs
-    npm = "npm install @tauri-apps/plugin-stronghold"
-    yarn = "yarn add @tauri-apps/plugin-stronghold"
-    pnpm = "pnpm add @tauri-apps/plugin-stronghold"
-  />
-  </TabItem>
+		</Steps>
+	</TabItem>
 </Tabs>
 
 ## Usage
@@ -76,31 +78,31 @@ fn run() {
 
 ```rust title="src-tauri/src/lib.rs"
 pub fn run() {
-    tauri::Builder::default()
-        .plugin(
-            tauri_plugin_stronghold::Builder::new(|password| {
-                // Hash the password here with e.g. argon2, blake2b or any other secure algorithm
-                // Here is an example implementation using the `rust-argon2` crate for hashing the password
-                use argon2::{hash_raw, Config, Variant, Version};
+		tauri::Builder::default()
+				.plugin(
+						tauri_plugin_stronghold::Builder::new(|password| {
+								// Hash the password here with e.g. argon2, blake2b or any other secure algorithm
+								// Here is an example implementation using the `rust-argon2` crate for hashing the password
+								use argon2::{hash_raw, Config, Variant, Version};
 
-                let config = Config {
-                    lanes: 4,
-                    mem_cost: 10_000,
-                    time_cost: 10,
-                    variant: Variant::Argon2id,
-                    version: Version::Version13,
-                    ..Default::default()
-                };
-                let salt = "your-salt".as_bytes();
-                let key =
-                    hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
+								let config = Config {
+										lanes: 4,
+										mem_cost: 10_000,
+										time_cost: 10,
+										variant: Variant::Argon2id,
+										version: Version::Version13,
+										..Default::default()
+								};
+								let salt = "your-salt".as_bytes();
+								let key =
+										hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
 
-                key.to_vec()
-            })
-            .build(),
-        )
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+								key.to_vec()
+						})
+						.build(),
+				)
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
 }
 ```
 
@@ -110,18 +112,18 @@ pub fn run() {
 use tauri::Manager;
 
 pub fn run() {
-    tauri::Builder::default()
-        .setup(|app| {
-            let salt_path = app
-                .path()
-                .app_local_data_dir()
-                .expect("could not resolve app local data path")
-                .join("salt.txt");
-            app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
-            Ok(())
-        })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+		tauri::Builder::default()
+				.setup(|app| {
+						let salt_path = app
+								.path()
+								.app_local_data_dir()
+								.expect("could not resolve app local data path")
+								.join("salt.txt");
+						app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+						Ok(())
+				})
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
 }
 ```
 
@@ -134,34 +136,34 @@ import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
 import { appDataDir } from '@tauri-apps/api/path';
 
 const initStronghold = async () => {
-  const vaultPath = `${await appDataDir()}/vault.hold`;
-  const vaultPassword = 'vault password';
-  const stronghold = await Stronghold.load(vaultPath, vaultPassword);
+	const vaultPath = `${await appDataDir()}/vault.hold`;
+	const vaultPassword = 'vault password';
+	const stronghold = await Stronghold.load(vaultPath, vaultPassword);
 
-  let client: Client;
-  const clientName = 'name your client';
-  try {
-    client = await stronghold.loadClient(clientName);
-  } catch {
-    client = await stronghold.createClient(clientName);
-  }
+	let client: Client;
+	const clientName = 'name your client';
+	try {
+		client = await stronghold.loadClient(clientName);
+	} catch {
+		client = await stronghold.createClient(clientName);
+	}
 
-  return {
-    stronghold,
-    client,
-  };
+	return {
+		stronghold,
+		client,
+	};
 };
 
 // Insert a record to the store
 async function insertRecord(store: any, key: string, value: string) {
-  const data = Array.from(new TextEncoder().encode(value));
-  await store.insert(key, data);
+	const data = Array.from(new TextEncoder().encode(value));
+	await store.insert(key, data);
 }
 
 // Read a record from store
 async function getRecord(store: any, key: string): Promise<string> {
-  const data = await store.get(key);
-  return new TextDecoder().decode(new Uint8Array(data));
+	const data = await store.get(key);
+	return new TextDecoder().decode(new Uint8Array(data));
 }
 
 const { stronghold, client } = await initStronghold();
@@ -191,20 +193,20 @@ See [Access Control List](/references/v2/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={8-14}
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
-    "path:default",
-    "stronghold:allow-initialize",
-    "stronghold:allow-create-client",
-    "stronghold:allow-load-client",
-    "stronghold:allow-save",
-    "stronghold:allow-save-store-record"
-    "stronghold:allow-get-store-record",
-    "stronghold:allow-remove-store-record",
-  ]
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "main-capability",
+	"description": "Capability for the main window",
+	"windows": ["main"],
+	"permissions": [
+		"path:default",
+		"stronghold:allow-initialize",
+		"stronghold:allow-create-client",
+		"stronghold:allow-load-client",
+		"stronghold:allow-save",
+		"stronghold:allow-save-store-record"
+		"stronghold:allow-get-store-record",
+		"stronghold:allow-remove-store-record",
+	]
 }
 ```
 
