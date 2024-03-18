@@ -1,6 +1,6 @@
 ---
-title: Global Shortcut
-description: Register global shortcuts.
+title: 全局快捷方式
+description: 注册全局快捷方式。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,24 +9,24 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="global-shortcut" />
 
-Register global shortcuts.
+注册全局快捷方式。
 
-## Supported Platforms
+## 支持的平台
 
 - Windows
 - Linux
 - macOS
 
-## Setup
+## 设置
 
-_This plugin requires a Rust version of at least **1.75**_
+_这个插件要求 Rust 版本至少是 **1.75**_
 
-Install the global-shortcut plugin to get started.
+请安装全局快捷方式插件。
 
 <Tabs>
-  <TabItem label="Automatic" >
+  <TabItem label="自动" >
 
-Use your project's package manager to add the dependency:
+使用项目的包管理器来添加依赖。
 
 { ' ' }
 
@@ -38,19 +38,19 @@ Use your project's package manager to add the dependency:
 />
 
   </TabItem>
-  <TabItem label = "Manual">
+  <TabItem label = "手动">
 
-1. Install the global-shortcut plugin by adding the following to your `Cargo.toml` file:
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装全局快捷方式插件。
 
 ```toml title="src-tauri/Cargo.toml"
-# you can add the dependencies on the `[dependencies]` section if you do not target mobile
+# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2.0.0-beta"
-# alternatively with Git:
+# 或者使用 Git
 tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
-2. Modify `lib.rs` to initialize the plugin:
+2. 修改 `lib.rs` 来初始化插件。
 
 ```rust title="src-tauri/src/lib.rs" ins={3}
 fn run() {
@@ -61,7 +61,7 @@ fn run() {
 }
 ```
 
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
   <CommandTabs
     npm = "npm install @tauri-apps/plugin-global-shortcut"
@@ -71,9 +71,9 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Usage
+## 用法
 
-The global-shortcut plugin is available in both JavaScript and Rust.
+全局快捷方式插件有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
   <TabItem label="JavaScript" >
@@ -120,15 +120,15 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Permissions
+## 权限
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-See [Access Control List](/references/v2/acl) for more information.
+更多信息请参见 [Access Control List](/references/v2/acl)。
 
 ```json title="src-tauri/capabilities/main.json" ins={7-9}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
+	"$schema": "./schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
@@ -140,15 +140,15 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission                             | Description                                                          |
-| -------------------------------------- | -------------------------------------------------------------------- |
-| `global-shortcut:allow-is-registered`  | Enables the is_registered command without any pre-configured scope.  |
-| `global-shortcut:deny-is-registered`   | Denies the is_registered command without any pre-configured scope.   |
-| `global-shortcut:allow-register`       | Enables the register command without any pre-configured scope.       |
-| `global-shortcut:deny-register`        | Denies the register command without any pre-configured scope.        |
-| `global-shortcut:allow-register-all`   | Enables the register_all command without any pre-configured scope.   |
-| `global-shortcut:deny-register-all`    | Denies the register_all command without any pre-configured scope.    |
-| `global-shortcut:allow-unregister`     | Enables the unregister command without any pre-configured scope.     |
-| `global-shortcut:deny-unregister`      | Denies the unregister command without any pre-configured scope.      |
-| `global-shortcut:allow-unregister-all` | Enables the unregister_all command without any pre-configured scope. |
-| `global-shortcut:deny-unregister-all`  | Denies the unregister_all command without any pre-configured scope.  |
+| 权限                                   | 描述                                                     |
+| -------------------------------------- | -------------------------------------------------------- |
+| `global-shortcut:allow-is-registered`  | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-is-registered`   | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-register`       | 在没有预先配置作用域的情况下，启用 register 命令。       |
+| `global-shortcut:deny-register`        | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-register-all`   | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-register-all`    | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-unregister`     | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-unregister`      | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-unregister-all` | 在没有预先配置作用域的情况下，启用 unregister_all 命令。 |
+| `global-shortcut:deny-unregister-all`  | 拒绝没有任何预先配置的作用域的 unregister_all 命令。     |

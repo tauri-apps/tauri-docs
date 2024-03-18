@@ -18,7 +18,7 @@ The following JSON defines a capability that enables default functionality for c
 
 ```json title="src-tauri/capabilities/main.json
 {
-	"$schema": "./schemas/desktop-schema.json",
+	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
@@ -45,7 +45,7 @@ For example, let's define a capability for desktop. Note it enables permissions 
 
 ```json title="src-tauri/capabilities/desktop.json
 {
-	"$schema": "./schemas/desktop-schema.json",
+	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "desktop-capability",
 	"windows": ["main"],
 	"platforms": ["linux", "macOS", "windows"],
@@ -57,7 +57,7 @@ And define a capability for mobile. Note it enables permissions on plugins that 
 
 ```json title="src-tauri/capabilities/mobile.json
 {
-	"$schema": "./schemas/mobile-schema.json",
+	"$schema": "../gen/schemas/mobile-schema.json",
 	"identifier": "mobile-capability",
 	"windows": ["main"],
 	"platforms": ["iOS", "android"],
@@ -73,13 +73,13 @@ And define a capability for mobile. Note it enables permissions on plugins that 
 
 Tauri generates a JSON schema with all the permissions that are available to your application so you have autocompletion in your IDE.
 To use the schema, set the `$schema` property to one of the schemas inside the `capabilities/schemas` directory, which are platform-specific.
-Usually you will set it to `./schemas/desktop-schema.json` or `./schemas/mobile-schema.json` though you can also define a capability for a specific target platform.
+Usually you will set it to `../gen/schemas/desktop-schema.json` or `../gen/schemas/mobile-schema.json` though you can also define a capability for a specific target platform.
 
 In the example above we defined specific capabilities for desktop and mobile, and referenced the associated JSON schema. Let's define a capability only for Linux:
 
 ```json title="src-tauri/capabilities/linux.json
 {
-	"$schema": "./schemas/linux-schema.json",
+	"$schema": "../gen/schemas/linux-schema.json",
 	"identifier": "linux-capability",
 	"windows": ["main"],
 	"platforms": ["iOS", "android"],

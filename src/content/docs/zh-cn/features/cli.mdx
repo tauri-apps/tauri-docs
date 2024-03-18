@@ -1,6 +1,6 @@
 ---
-title: Command Line Interface (CLI)
-description: Parse arguments from the command line interface.
+title: 命令行接口 (CLI)
+description: 从命令行接口解析参数。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,24 +9,24 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="cli" />
 
-Tauri enables your app to have a CLI through [clap](https://github.com/clap-rs/clap), a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
+Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)（一个强大的命令行参数解析器）拥有 CLI。通过 `tauri.conf.json` 文件中的简单 CLI 定义，您可以定义接口并读取其参数匹配 JavaScript/Rust 上的映射。
 
-## Supported Platforms
+## 支持的平台
 
 - Windows
 - Linux
 - macOS
 
-## Setup
+## 设置
 
-_This plugin requires a Rust version of at least **1.75**_
+_这个插件要求 Rust 版本至少是 **1.75**_
 
-Install the CLI plugin to get started.
+请安装 CLI 插件。
 
 <Tabs>
-  <TabItem label="Automatic">
+  <TabItem label="自动">
 
-Use your project's package manager to add the dependency:
+使用项目的包管理器来添加依赖。
 
 {' '}
 
@@ -38,19 +38,19 @@ Use your project's package manager to add the dependency:
 />
 
   </TabItem>
-  <TabItem label="Manual">
+  <TabItem label="手动">
 
-1. Install the Core plugin by adding the following to your `Cargo.toml` file:
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
 
 ```toml title="src-tauri/Cargo.toml"
-# you can add the dependencies on the `[dependencies]` section if you do not target mobile
+# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-cli = "2.0.0-beta"
-# alternatively with Git:
+# 或者使用 Git
 tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
-2. Modify `lib.rs` to initialize the plugin:
+2. 修改 `lib.rs` 来初始化插件。
 
 ```rust title="src-tauri/src/lib.rs" ins={4}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -62,7 +62,7 @@ fn run() {
 }
 ```
 
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
   <CommandTabs
       npm="npm install @tauri-apps/plugin-cli"
@@ -72,9 +72,9 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Base Configuration
+## 基本配置
 
-Under `tauri.conf.json`, you have the following structure to configure the interface:
+在 `tauri.conf.json` 中，你可以使用以下结构来配置接口：
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -110,19 +110,19 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 
 :::note
 
-All JSON configurations here are just samples, many other fields have been omitted for the sake of clarity.
+这里所有的JSON配置都只是示例，为了清晰起见，许多其他字段都被省略了。
 
 :::
 
-## Adding Arguments
+## 添加参数
 
-The `args` array represents the list of arguments accepted by its command or subcommand.
+`args` 数组表示其命令或子命令接受的参数列表。
 
 {/* TODO: List available configuration */}
 
-### Positional Arguments
+### 位置参数
 
-A positional argument is identified by its position in the list of arguments. With the following configuration:
+位置参数由其在参数列表中的位置标识。通过以下配置：
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -141,11 +141,11 @@ A positional argument is identified by its position in the list of arguments. Wi
 }
 ```
 
-Users can run your app as `./app tauri.txt dest.txt` and the arg matches map will define `source` as `"tauri.txt"` and `destination` as `"dest.txt"`.
+用户可以以 `./app tauri.txt dest.txt` 的格式运行你的应用程序，参数匹配映射将把 `source` 定义为 `"tauri.txt"`，把 `destination` 定义为 `"dest.txt"`。
 
-### Named Arguments
+### 命名参数
 
-A named argument is a (key, value) pair where the key identifies the value. With the following configuration:
+命名参数是一个 (key, value) 对，键标识值。通过以下配置：
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -161,11 +161,11 @@ A named argument is a (key, value) pair where the key identifies the value. With
 }
 ```
 
-Users can run your app as `./app --type foo bar`, `./app -t foo -t bar` or `./app --type=foo,bar` and the arg matches map will define `type` as `["foo", "bar"]`.
+用户可以以 `./app --type foo bar`、`./app -t foo -t bar`、`./app --type=foo,bar` 的形式运行你的应用，匹配的参数映射将会将 `type` 定义为 `["foo"， "bar"]`。
 
-### Flag Arguments
+### 标志参数
 
-A flag argument is a standalone key whose presence or absence provides information to your application. With the following configuration:
+标志参数是一个独立的键，它的存在或不存在为应用程序提供信息。通过以下配置：
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -178,11 +178,11 @@ A flag argument is a standalone key whose presence or absence provides informati
 }
 ```
 
-Users can run your app as `./app -v -v -v`, `./app --verbose --verbose --verbose` or `./app -vvv` and the arg matches map will define `verbose` as `true`, with `occurrences = 3`.
+用户可以以 `./app -v -v -v`、`./app --verbose --verbose --verbose`、`./app -vvv` 的形式运行你的应用程序， 匹配的参数映射将会将 `verbose` 定义为 `true` 和 `occurrences = 3`。
 
-## Subcommands
+## 子命令
 
-Some CLI applications have additional interfaces as subcommands. For instance, the `git` CLI has `git branch`, `git commit` and `git push`. You can define additional nested interfaces with the `subcommands` array:
+有些 CLI 应用程序有额外的接口作为子命令。例如，`git` CLI 有 `git branch`、`git commit` 和 `git push`。你可以使用 `subcommands` 数组定义额外的嵌套接口。
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -200,11 +200,11 @@ Some CLI applications have additional interfaces as subcommands. For instance, t
 }
 ```
 
-Its configuration is the same as the root application configuration, with the `description`, `longDescription`, `args`, etc.
+它的配置和根应用的配置一样，都有 `description`、`longDescription`、`args` 等。
 
-## Usage
+## 用法
 
-The CLI plugin is available in both JavaScript and Rust.
+CLI 有 JavaScript 和 Rust 两种版本。
 
 <Tabs>
   <TabItem label="JavaScript">
@@ -255,16 +255,16 @@ fn run() {
   </TabItem>
 </Tabs>
 
-## Permissions
+## 权限
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-See [Access Control List](/references/v2/acl) for more information.
+更多信息请参见 [Access Control List](/references/v2/acl)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
+	"$schema": "./schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
@@ -272,8 +272,8 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+| 权限                    | 描述                                                  |
+| ----------------------- | ----------------------------------------------------- |
+| `cli:default`           | 允许读取 CLI 匹配项。                                 |
+| `cli:allow-cli-matches` | 在没有预先配置作用域的情况下，启用 cli_matches 命令。 |
+| `cli:deny-cli-matches`  | 拒绝没有预先配置作用域的 cli_matches 命令。           |
