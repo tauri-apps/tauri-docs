@@ -118,16 +118,41 @@ Note it enables permissions on plugins that are only available on desktop:
 	]
 }
 ```
+## Remote API Access
 
-## Schema Files
+By default the API is only accessible to bundled code shipped with the Tauri App.
+To allow remote sources access to certain Tauri Commands it is possible to define this in
+the capability configuration file.
 
-Tauri generates a JSON schema with all the permissions that are available to your
-application so you have autocompletion in your IDE.
-To use the schema, set the `$schema` property to one of the schemas
-inside the `capabilities/schemas` directory, which are platform-specific.
-Usually you will set it to `./schemas/desktop-schema.json` or
-`./schemas/mobile-schema.json` though you can also define a capability
-for a specific target platform.
+This example would allow to scan for NFC tags and to use the barcode scanner from
+all subdomains of `tauri.app`.
+
+```json title="src-tauri/capabilities/remote-tags.json"
+{
+	"$schema": "./schemas/remote-schema.json",
+	"identifier": "remote-tag-capability",
+	"windows": ["main"],
+	"context": {
+				"remote": {
+				"urls": ["https://*.tauri.app"]
+				}
+			},
+	"platforms": ["iOS", "android"],
+	"permissions": [
+		"nfc:allow-scan",
+		"barcode-scanner:allow-scan"
+	]
+}
+```
+
+:::caution
+
+On Linux, Tauri is unable to distinguish between requests from an embedded `<iframe>' and the window itself.
+
+Please consider usage of this feature very carefully and read more into the specific
+security implications for your targeted operating system in the reference section of this feature.
+
+:::
 
 ## Security Boundaries
 
@@ -156,6 +181,16 @@ We recommend to only expose of the window creation functionality
 to higher privileged windows.
 
 :::
+
+## Schema Files
+
+Tauri generates a JSON schema with all the permissions that are available to your
+application so you have autocompletion in your IDE.
+To use the schema, set the `$schema` property to one of the schemas
+inside the `capabilities/schemas` directory, which are platform-specific.
+Usually you will set it to `./schemas/desktop-schema.json` or
+`./schemas/mobile-schema.json` though you can also define a capability
+for a specific target platform.
 
 ## Configuration Files
 

@@ -4,29 +4,30 @@ title: Security
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-This page seeks to explain the high-level concepts and security features
-at the core of Tauri's design and ecosystem that make you, your apps, and your users safer by default.
+This page is designed to explain the high-level concepts and security features
+at the core of Tauri's design and ecosystem that make you, your applications and your users more secure by default.
 
-It also contains advice for best practices, how to disclose vulnerabilities to us
-and references to in-detail concept explanations.
+It also includes advice on best practices, how to report vulnerabilities to us
+and references to detailed concept explanations.
 
 :::note
 
-It is important to remember that the security of your Tauri application is the sum of the overall security
-of Tauri itself, all Rust and npm dependencies, your code, and the devices that run the final application.
-The Tauri Team does their best to do their part,
-the security community does its part, and you too should follow a few important best practices.
+It is important to remember that the security of your Tauri application is the sum
+of the overall security of Tauri itself, all Rust and npm dependencies,
+your code, and the devices that run the final application.
+The Tauri team does its best to do their part, the security community does its part
+and you should also follow some important best practices.
 
 :::
 
-## Security Boundaries
+## Trust Boundaries
 
-Tauri's security model differentiates between rust code written for the application's
+Tauri's security model differentiates between Rust code written for the application's
 core and frontend code written in any framework or language understood by the system
 WebView.
 
-The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust groups and ensures
-that boundaries are not broken.
+The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust
+groups and ensures that boundaries are not broken.
 
 
 ![IPC Diagram](@assets/concepts/security-boundaries.svg)
@@ -34,14 +35,12 @@ that boundaries are not broken.
 Any code executed by the plugins or the application core has full
 access to all available system resources and is not constrained.
 
-Any code executed in the WebView has only access to system resources
-via the well defined IPC layer. The access of application core commands is configured
-and constrained via capabilities defined in the application configuration.
-The individual command implementations enforce the optional fine grained access level,
-which are also defined in the capabilities configuration.
+Any code executed in the WebView only has access to system resources via the well-defined IPC layer.
+Access to core application commands is configured and restricted by capabilities defined in the application configuration.
+The individual command implementations enforce the optional fine-grained access levels also defined
+in the capabilities configuration.
 
-Learn more about the individual components and boundary
-enforcement:
+Learn more about the individual components and boundary enforcement:
 
 <CardGrid>
     <LinkCard
@@ -63,8 +62,8 @@ enforcement:
 </CardGrid>
 
 Tauri allows developers to choose their own frontend stack and framework.
-This means we can not provide you with a hardening guide for every frontend stack
-of choice, but Tauri offers generic features to control and contain attack surface.
+This means that we cannot provide a hardening guide for every frontend stack of
+of choice, but Tauri provides generic features to control and contain the attack surface.
 
 <CardGrid>
 	<LinkCard
