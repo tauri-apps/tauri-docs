@@ -87,7 +87,7 @@ So, the closure should look like below
 
 ### Focusing on New Instance
 
-By default nothing happens when you start a new instance and the application is already running. To focus the window of the running instance when user tries to open a new instance, change the callback closure:
+By default, when you initiate a new instance while the application is already running, no action is taken. To focus the window of the running instance when user tries to open a new instance, alter the callback closure as follows:
 
 
 ```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
