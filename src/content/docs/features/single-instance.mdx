@@ -37,8 +37,8 @@ tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-wo
 
 To use this plugin, you need to register the core plugin with Tauri. The plugin init() method takes a closure that is called when a new app instance was started, but closed by the plugin. The closure has three arguments: the AppHandle, the list of arguments (important for instance on deep link usage) and the current working directory:
 
-```rust title="src-tauri/src/main.rs" ins={3}
-fn main() {
+```rust title="src-tauri/src/lib.rs" ins={3}
+pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}))
         .run(tauri::generate_context!())
@@ -51,10 +51,10 @@ fn main() {
 By default nothing happens when you start a new instance and the application is already running. To focus the window of the running instance when user tries to open a new instance, change the callback closure:
 
 
-```rust title="src-tauri/src/main.rs" {1} {5-7} {12-21}
+```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
 use tauri::{AppHandle, Manager};
 
-fn main() {
+pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
             let _ = show_window(app);
