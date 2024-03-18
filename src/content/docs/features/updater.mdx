@@ -129,7 +129,7 @@ Now you need to configure Tauri's updater. To do this, add this to your Tauri co
 }
 ```
 
-The required keys are `"endpoints"` and `"pubkey"` to enable the updater.
+The required keys are `"endpoints"` and `"pubkey"` to enable the updater. The `"endpoints"` field can also be set later in Rust.
 
 `"endpoints"`<a id="config-enpoints"/>:  must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br/>
 Each updater URL can contain the following variables allowing you to determine [server-side](#static-json-file) if an update is available:
