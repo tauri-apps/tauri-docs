@@ -1,0 +1,39 @@
+---
+import compatTable from '../../pluginsCompatTable.json';
+
+type PluginTable = {
+	name: string;
+	platforms: string[];
+};
+
+interface Props {
+	plugin: string;
+}
+// TODO: Find proper yellow color scheme with text, preferably with starlight variables
+
+let { plugin } = Astro.props;
+const platformList: PluginTable | undefined = compatTable.find((p) => p.name === plugin);
+const platforms = platformList ? platformList.platforms : [];
+---
+
+<div class="flex row not-content">
+	{platforms.map((platform) => <p>{platform}</p>)}
+</div>
+
+<style>
+	p {
+		color: var(--sl-color-black);
+		background-color: var(--sl-color-accent-high);
+		padding: 0px 6px 0px 6px;
+		border-radius: 8px;
+	}
+	.flex {
+		display: flex;
+		font-size: var(--sl-text-sm);
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.flex.row {
+		gap: 0.5em 0.75em;
+	}
+</style>
