@@ -247,7 +247,7 @@ The required keys are `"version"`, `"platforms.[target].url"` and `"platforms.[t
 - `"platforms"`: Each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686` or `armv7`.
 - `"url"` must be a valid url to the update bundle.
 - `"signature"` must be the **content** of the generated `.sig` file. The signature may change each time you run `tauri build` so make sure to always update it.
-- `"notes"`: Here you can add notes about the update, like release notes. Tauri's default dialog will present this to the user when it asks if it's allowed to update.
+- `"notes"`: Here you can add notes about the update, like release notes.
 - `"pub_date"` must be formatted according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.8) if present.
 
 Note that Tauri will validate the _whole_ file before checking the version field, so make sure all existing platform configurations are valid and complete.
