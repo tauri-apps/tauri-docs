@@ -95,7 +95,7 @@ use tauri_plugin_fs::FsExt;
 fn run() {
   tauri::Builder::default()
       .plugin(tauri_plugin_fs::init())
-       setup(|app| {
+      .setup(|app| {
           // allowed the given directory
           let scope = app.fs_scope();
         	scope.allow_directory("/path/to/directory", false);
@@ -125,7 +125,7 @@ See [Access Control List](/references/v2/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
-	"$schema": "./schemas/desktop-schema.json",
+	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
@@ -456,7 +456,7 @@ To allow any `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-10}
 {
-	"$schema": "./schemas/desktop-schema.json",
+	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
@@ -473,7 +473,7 @@ To allow specific `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-14}
 {
-	"$schema": "./schemas/desktop-schema.json",
+	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],

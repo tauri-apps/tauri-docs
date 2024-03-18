@@ -55,8 +55,7 @@ sudo pacman -S --needed \
   openssl \
   appmenu-gtk-module \
   libappindicator-gtk3 \
-  librsvg \
-  libvips
+  librsvg
 ```
 
   </TabItem>
@@ -192,7 +191,30 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 
 Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
 
-Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS. Otherwise [Create a Project](/guides/create/).
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/guides/create/).
+
+## Node.js
+
+:::note[JavaScript ecosystem]
+Only if you intend to use a JavaScript frontend framework
+:::
+
+1. Go to [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
+
+2. Check if Node was succesfully installed by running:
+
+```sh
+node -v
+# v20.10.0
+npm -v
+# 10.2.3
+```
+
+It's important to restart your Terminal to ensure it recognizes the new installation. In some cases, you might need to restart your computer.
+
+While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
+
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/guides/create/).
 
 ## Configure for Mobile Targets
 
