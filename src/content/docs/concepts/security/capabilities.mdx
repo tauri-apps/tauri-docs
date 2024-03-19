@@ -61,9 +61,14 @@ permissions are referenced by identifier.
 This requires well defined
 capability files in the `capabilities` directory.
 
-```json
-"capabilities":[ "my-capability", "main-capability"]
-```
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [ "my-capability", "main-capability" ]
+    }
+  }  
+}
 
 Inline capabilities can be mixed with pre-defined capabilities.
 
