@@ -4,7 +4,7 @@ description: In-app updates for Tauri applications.
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="updater" />
@@ -17,6 +17,10 @@ The Updater plugin offers an update mechanism for Tauri applications distributed
 - App bundle (macOS)
 
 Once your Tauri project is ready, you can configure Tauri's updater to enable auto updating for your users.
+
+<Aside type="note" title="Choose only one of the Windows bundles">
+	Although we provide both `NSIS` and `MSI` for Windows, you should only choose one for package installation and update. If users have installed the package via `NSIS`, they can't update it using the `MSI`.
+</Aside>
 
 ## Supported Platforms
 
