@@ -72,21 +72,25 @@ capability files in the `capabilities` directory.
 
 Inline capabilities can be mixed with pre-defined capabilities.
 
-
-```json
-"capabilities":[
-    {
-        "identifier": "my-capability",
-        "description": "My application capability used for all windows",
-        "windows": [ "*" ],
-        "permissions": [
-            "fs:default",
-            "allow-home-read-extended"
-           ]
-    },
-    "my-second-capability"
-]
-```
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [
+	  {
+	    "identifier": "my-capability",
+	    "description": "My application capability used for all windows",
+	    "windows": [ "*" ],
+	    "permissions": [
+	      "fs:default",
+	      "allow-home-read-extended"
+	     ]
+	  },
+	  "my-second-capability"
+      ]
+    }
+  }
+}
 
 ## Target Platform
 
