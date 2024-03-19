@@ -141,11 +141,9 @@ all subdomains of `tauri.app`.
 	"$schema": "./schemas/remote-schema.json",
 	"identifier": "remote-tag-capability",
 	"windows": ["main"],
-	"context": {
-				"remote": {
-				"urls": ["https://*.tauri.app"]
-				}
-			},
+	"remote": {
+		"urls": ["https://*.tauri.app"]
+	}
 	"platforms": ["iOS", "android"],
 	"permissions": [
 		"nfc:allow-scan",
