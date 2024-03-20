@@ -111,9 +111,8 @@ You can import and use the Window trait extension directly through Rust:
 ```rust
 use tauri_plugin_positioner::{WindowExt, Position};
 
-let mut win = app.get_window("main").unwrap();
-let _ = win.move_window(Position::TopRight);
-```
+let mut win = app.get_webview_window("main").unwrap();
+let _ = win.as_ref().window().move_window(Position::TopRight);
 
 ## Permissions
 
