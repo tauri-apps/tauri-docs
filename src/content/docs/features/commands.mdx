@@ -28,7 +28,7 @@ pub fn run() {
 }
 ```
 
-Now, you can invoke the command from your JS code:
+Now, you can invoke the command from your JavaScript code:
 
 ```js
 // When using the Tauri API npm package:
@@ -49,7 +49,7 @@ Your command handlers can take arguments:
 ```rust
 #[tauri::command]
 fn my_custom_command(invoke_message: String) {
-	println!("I was invoked from JS, with this message: {}", invoke_message);
+	println!("I was invoked from JavaScript, with this message: {}", invoke_message);
 }
 ```
 
@@ -67,7 +67,7 @@ To use snake_case in JavaScript, you have to declare it in the `tauri::command` 
 ```rust
 #[tauri::command(rename_all = "snake_case")]
 fn my_custom_command(invoke_message: String) {
-	println!("I was invoked from JS, with this message: {}", invoke_message);
+	println!("I was invoked from JavaScript, with this message: {}", invoke_message);
 }
 ```
 
@@ -220,7 +220,7 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 }
 ```
 
-#### Invoking from JS
+#### Invoking from JavaScript
 
 Since invoking the command from JavaScript already returns a promise, it works just like any other command:
 
@@ -372,7 +372,7 @@ pub fn run() {
 ```js
 import { invoke } from '@tauri-apps/api/core';
 
-// Invocation from JS
+// Invocation from JavaScript
 invoke('my_custom_command', {
   number: 42,
 })
