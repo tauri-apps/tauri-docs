@@ -71,7 +71,7 @@ title: 访问控制列表
 
 Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这样你就可以在 IDE 中实现自动补全。
 要使用模式，请将 `$schema` 属性设置为 `capabilities/schemas` 目录中的模式之一，这些模式是特定于平台的。
-通常你会将其设置为 `../gen/schemas/desktop-schema.json`或 `../gen/schemas/mobile-schema.json`，不过你也可以为特定的目标平台定义功能。
+通常你会将其设置为 `../gen/schemas/desktop-schema.json` 或 `../gen/schemas/mobile-schema.json`，不过你也可以为特定的目标平台定义功能。
 
 在上面的示例中，我们为桌面端和移动端定义了特定的功能，并引用了相关的 JSON 模式。让我们定义一个仅适用于 Linux 的功能：
 
