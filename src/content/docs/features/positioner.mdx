@@ -30,21 +30,21 @@ If you only intend on moving the window from Rust code, you only need the depend
 :::
 
 <Tabs>
-  <TabItem label="Automatic" >
+	<TabItem label="Automatic" >
 
-Use your project's package manager to add the dependency:
+		Use your project's package manager to add the dependency:
 
-{ ' ' }
+		{ ' ' }
 
-<CommandTabs
-	npm="npm run tauri add positioner"
-	yarn="yarn run tauri add positioner"
-	pnpm="pnpm tauri add positioner"
-	cargo="cargo tauri add positioner"
-/>
+		<CommandTabs
+			npm="npm run tauri add positioner"
+			yarn="yarn run tauri add positioner"
+			pnpm="pnpm tauri add positioner"
+			cargo="cargo tauri add positioner"
+		/>
 
-  </TabItem>
-  <TabItem label = "Manual">
+	</TabItem>
+	<TabItem label = "Manual">
 		<Steps>
 		1. Install the positioner plugin by adding the following to your `Cargo.toml` file:
 				
@@ -74,7 +74,7 @@ Use your project's package manager to add the dependency:
 				  pnpm = "pnpm add @tauri-apps/plugin-positioner"
 				/>
 		</Steps>
-  </TabItem>
+	</TabItem>
 </Tabs>
 
 Additional setup is required to get tray-relative positions to work:
