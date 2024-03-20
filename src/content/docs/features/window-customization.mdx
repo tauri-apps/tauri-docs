@@ -9,7 +9,7 @@ Tauri provides lots of options for customizing the look and feel of your app's w
 There are three ways to change the window configuration:
 
 - [Through tauri.conf.json](/references/v2/config/#windowconfig)
-- [Through the JS API](/references/v2/js/core/namespacewindow/#window)
+- [Through the JavaScript API](/references/v2/js/core/namespacewindow/#window)
 - [Through the Window in Rust](https://docs.rs/tauri/2.0.0-beta/tauri/window/struct.Window.html)
 
 ## Usage
@@ -21,9 +21,13 @@ There are three ways to change the window configuration:
 
 A common use of these window features is creating a custom titlebar. This short tutorial will guide you through that process.
 
+:::note
+For macOS, using a custom titlebar will also lose some features provided by the system, such as [moving or aligning the window](https://support.apple.com/guide/mac-help/work-with-app-windows-mchlp2469/mac). Another approach to customizing the titlebar but keeping native functions could be making the titlebar transparent and setting the window background color. See the usage [(macOS) Transparent Titlebar with Custom Window Background Color](#macos-transparent-titlebar-with-custom-window-background-color).
+:::
+
 #### tauri.conf.json
 
-To remove the default titlebar, you'll need to set `decorations` to `false` in your `tauri.conf.json`:
+Set `decorations` to `false` in your `tauri.conf.json`:
 
 ```json title="tauri.conf.json" {4}
 "tauri": {
@@ -37,7 +41,11 @@ To remove the default titlebar, you'll need to set `decorations` to `false` in y
 
 #### Permissions
 
-To make calls to `appWindow` work, don't forget to add window permissions in capability file:
+Add window permissions in capability file.
+
+By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/v2/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
@@ -63,7 +71,7 @@ To make calls to `appWindow` work, don't forget to add window permissions in cap
 
 #### CSS
 
-You'll need to add some CSS for the titlebar to keep it at the top of the screen and style the buttons:
+Add this CSS sample to keep it at the top of the screen and style the buttons:
 
 ```css
 .titlebar {
@@ -93,7 +101,7 @@ You'll need to add some CSS for the titlebar to keep it at the top of the screen
 
 #### HTML
 
-Now, you'll need to add the HTML for the titlebar. Put this at the top of your `<body>` tag:
+Put this at the top of your `<body>` tag:
 
 ```html
 <div data-tauri-drag-region class="titlebar">
@@ -117,9 +125,9 @@ Now, you'll need to add the HTML for the titlebar. Put this at the top of your `
 
 Note that you may need to move the rest of your content down so that the titlebar doesn't cover it.
 
-#### JS
+#### JavaScript
 
-Finally, you'll need to make the buttons work:
+Use this code snippet to make the buttons work:
 
 ```js
 import { Window } from '@tauri-apps/api/window';
@@ -139,9 +147,7 @@ document
 
 ### (macOS) Transparent Titlebar with Custom Window Background Color
 
-For macOS, using a custom titlebar will also lose some features provided by the system, such as [moving or aligning the window](https://support.apple.com/guide/mac-help/work-with-app-windows-mchlp2469/mac). Another approach to customizing the titlebar but keeping native functions could be making the titlebar transparent and setting the window background color.
-
-We are going to create the main window and change the window background color from the Rust side, so here we remove the main window from the `tauri.conf.json` file:
+We are going to create the main window and change its background color from the Rust side. Remove the main window from the `tauri.conf.json` file:
 
 	```json title="tauri.conf.json" del={3-7}
 	"tauri": {
@@ -162,7 +168,7 @@ Add `cocoa` crate to dependencies so that we can use it to call the macOS native
 	cocoa = "0.25"
 	```
 
-Now we can create the main window and change the window background color from the Rust side:
+Create the main window and change its background color:
 
 	```rust title="src-tauri/src/lib.rs"
 	use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
