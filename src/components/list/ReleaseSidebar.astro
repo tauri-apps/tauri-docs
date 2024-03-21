@@ -1,6 +1,7 @@
 ---
 import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
 import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
+import { Icon } from '@astrojs/starlight/components';
 
 interface Props {
 	/**
@@ -57,14 +58,13 @@ if (filterOutByFileName.length > 0) {
 function sortVersions(a: Route, b: Route): number {
 	return a.entry.data.title.localeCompare(b.entry.data.title);
 }
-
 mainList.sort((a, b) => sortVersions(b, a));
 ---
 
 <div class="parent">
 	<div class="sidenav">
 		<div class="sidenav-title">
-			<p>{packageName} changelogs</p>
+			<p>Changelogs: <br />{packageName}</p>
 		</div>
 		<div class="sidenav-content">
 			{
@@ -77,33 +77,102 @@ mainList.sort((a, b) => sortVersions(b, a));
 		</div>
 	</div>
 </div>
-<style>
-	:root {
-		--sl-content-width: 45rem !important;
-		--release-navbar-width: 12rem;
+<mobile-release-list>
+	<nav aria-labelledby="mobile-release-list">
+		<details>
+			<summary id="mobile-release-list" class="sl-flex">
+				<div class="toggle sl-flex">
+					Open <Icon name={'right-caret'} class="caret" size="1rem" />
+				</div>
+				<span class="display-current">Changelogs: {packageName}</span>
+			</summary>
+			<div class="dropdown">
+				<ul>
+					{
+						mainList.map((item) => (
+							<li>
+								<a href={`/${item.slug}`}> {item.entry.data.description}</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</details>
+	</nav>
+</mobile-release-list>
+
+<script>
+	// Taken from starlight's mobile TOC
+	class MobileReleaseList extends HTMLElement {
+		constructor() {
+			super();
+			const details = this.querySelector('details');
+			if (!details) return;
+			const closeToC = () => {
+				details.open = false;
+			};
+
+			// Close the table of contents when a user clicks outside of it.
+			window.addEventListener('click', (e) => {
+				if (!details.contains(e.target as Node)) closeToC();
+			});
+			// Or when they press the escape key.
+			window.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && details.open) {
+					const hasFocus = details.contains(document.activeElement);
+					closeToC();
+					if (hasFocus) {
+						const summary = details.querySelector('summary');
+						if (summary) summary.focus();
+					}
+				}
+			});
+		}
 	}
+
+	customElements.define('mobile-release-list', MobileReleaseList);
+</script>
+
+<style>
 	.parent {
 		position: relative;
 	}
+
 	.sidenav-title {
 		display: block;
-		padding: 0.25rem;
+		padding-block: 0.5rem;
 		text-align: center;
 		background-color: var(--sl-color-gray-5);
 		border: 1px solid var(--sl-color-gray-6);
 	}
-
 	.sidenav {
-		width: var(--release-navbar-width);
-		padding: 0.75rem;
-		border: 1px solid var(--sl-color-gray-5);
+		display: none;
+		width: fit-content;
+		top: 0;
+		right: calc(var(--release-navbar-width) * -1);
+		box-shadow: var(--sl-shadow-md);
 		font-size: var(--sl-text-xs);
 		font-family: var(--__sl-font-mono);
 		background-color: var(--sl-color-bg-sidebar);
-		position: absolute;
-		right: calc(var(--release-navbar-width) * -1.1);
-		box-shadow: var(--sl-shadow-md);
 	}
+
+	:root {
+		--sl-content-width: 45rem !important;
+	}
+	.sl-markdown-content {
+		margin: auto;
+		background-color: red;
+	}
+	@media (min-width: 60rem) {
+		:root {
+			--release-navbar-width: 12rem;
+		}
+		.sidenav {
+			display: block;
+			position: absolute;
+		}
+	}
+
 	.sidenav-content {
 		padding-inline-start: 16px;
 		min-width: fit-content;
@@ -113,5 +182,101 @@ mainList.sort((a, b) => sortVersions(b, a));
 		max-height: 85vh;
 		overflow-y: auto;
 		overscroll-behavior: contain;
+	}
+
+	/* Mobile */
+	/* Taken from starlight's mobile TOC */
+	nav {
+		position: fixed;
+		z-index: var(--sl-z-index-toc);
+		top: calc(var(--sl-nav-height) - 1px);
+		inset-inline: 0;
+		border-top: 1px solid var(--sl-color-gray-5);
+		background-color: var(--sl-color-bg-nav);
+	}
+	@media (min-width: 60rem) {
+		nav {
+			display: none;
+			inset-inline-start: var(--sl-content-inline-start, 0);
+		}
+	}
+
+	summary {
+		gap: 0.5rem;
+		align-items: center;
+		height: var(--sl-mobile-toc-height);
+		border-bottom: 1px solid var(--sl-color-hairline-shade);
+		padding: 0.5rem 1rem;
+		font-size: var(--sl-text-xs);
+		outline-offset: var(--sl-outline-offset-inside);
+	}
+	summary::marker,
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.toggle {
+		flex-shrink: 0;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		padding-block: 0.5rem;
+		padding-inline-start: 0.75rem;
+		padding-inline-end: 0.5rem;
+		line-height: 1;
+		background-color: var(--sl-color-black);
+		user-select: none;
+		cursor: pointer;
+	}
+	details[open] .toggle {
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-accent);
+	}
+	details .toggle:hover {
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-gray-2);
+	}
+
+	:global([dir='rtl']) .caret {
+		transform: rotateZ(180deg);
+	}
+	details[open] .caret {
+		transform: rotateZ(90deg);
+	}
+
+	.display-current {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		color: var(--sl-color-white);
+	}
+
+	.dropdown {
+		--border-top: 1px;
+		margin-top: calc(-1 * var(--border-top));
+		border: var(--border-top) solid var(--sl-color-gray-6);
+		border-top-color: var(--sl-color-hairline-shade);
+		max-height: calc(85vh - var(--sl-nav-height) - var(--sl-mobile-toc-height));
+		overflow-y: auto;
+		background-color: var(--sl-color-black);
+		box-shadow: var(--sl-shadow-md);
+		overscroll-behavior: contain;
+	}
+	/* Mobile TOC */
+	ul {
+		list-style: none;
+	}
+	a {
+		--pad-inline: 0.5rem;
+		display: block;
+		border-radius: 0.25rem;
+		padding-block: 0.25rem;
+		padding-inline: calc(1rem * var(--depth) + var(--pad-inline)) var(--pad-inline);
+		line-height: 1.25;
+	}
+	a[aria-current='true'] {
+		color: var(--sl-color-text-accent);
 	}
 </style>
