@@ -80,7 +80,7 @@ If you only intend on moving the window from Rust code, you only need the depend
 Additional setup is required to get tray-relative positions to work.
 
 <Steps>
-	1. Add tray-icon feature to your `Cargo.toml` file:
+	1. Add `tray-icon` feature to your `Cargo.toml` file:
 		```toml title="src-tauri/Cargo.toml" ins={2}
 		[dependencies]
 		tauri = { version = "2.0.0-beta", features = ["tray-icon"] }
