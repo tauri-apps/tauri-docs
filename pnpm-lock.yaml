@@ -69,7 +69,7 @@ importers:
         version: 2.3.0
       typescript:
         specifier: ^5.3.3
-        version: 5.4.2
+        version: 5.4.3
 
   packages/i18n-tracker:
     devDependencies:
@@ -5172,12 +5172,6 @@ packages:
       minimatch: 9.0.3
       shiki: 0.14.7
       typescript: 5.4.3
-    dev: false
-
-  /typescript@5.4.2:
-    resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
     dev: false
 
   /typescript@5.4.3:
