@@ -149,7 +149,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Build',
-							link: 'guides/build',
+							link: 'guides/build/',
 						},
 						{
 							label: 'Distribute',
@@ -204,7 +204,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
-			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
+			langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml','html', 'js', 'shell', 'yml', 'xml'],
 		},
 		rehypePlugins: [
 			rehypeHeadingIds,
@@ -250,6 +250,52 @@ export default defineConfig({
 		...i18nRedirect(
 			'/v1/guides/development/updating-dependencies',
 			'/guides/develop/updating-dependencies'
+		),
+		// v1 /guides/building -> /guides/build
+		...i18nRedirect(
+			'/v1/guides/building',
+			'/guides/build'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/windows',
+			'/guides/build/windows'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/macos',
+			'/guides/build/macos'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/linux',
+			'/guides/build/linux'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/cross-platform',
+			'/guides/build/cross-platform'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/app-size',
+			'/guides/build/app-size'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/sidecar',
+			'/guides/build/sidecar'
+		),
+		...i18nRedirect(
+			'/v1/guides/building/resources',
+			'/guides/build/resources'
+		),
+		// Code signing moved from /distributing to /build
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-windows',
+			'/guides/build/sign-windows'
+		),
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-macos',
+			'/guides/build/sign-macos'
+		),
+		...i18nRedirect(
+			'/v1/guides/distribution/sign-linux',
+			'/guides/build/sign-linux'
 		),
 		// v1 /guides/testing -> /guides/test
 		...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
@@ -303,9 +349,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }

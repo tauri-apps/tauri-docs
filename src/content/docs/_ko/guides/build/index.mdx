@@ -1,0 +1,33 @@
+---
+title: 빌드
+description: 사용자를 위한 앱 준비하고 패키징하기
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="앱 크기 줄이기" href="/ko/guides/build/app-size" />
+	<LinkCard title="크로스 플랫폼 컴파일" href="/ko/guides/build/cross-platform/" />
+  <LinkCard title="추가 파일 끼워넣기" href="/ko/guides/build/resources/" />
+  <LinkCard title="외부 바이너리 포함하기" href="/ko/guides/build/sidecar/" />
+</CardGrid>
+
+## Tauri 번들러는 
+
+Tauri 번들러는 바이너리와 패키지 애셋을 컴파일하고, 최종 번들을 준비시키는 Rust 도구입니다.
+
+운영 체제를 감지해, 알맞게 번들을 빌드합니다. 현재 지원하는 것은 다음과 같습니다:
+
+<CardGrid>
+    <LinkCard title="Linux 번들" href="/ko/guides/build/linux/" />
+    <LinkCard title="macOS 번들" href="/ko/guides/build/macos/" />
+    <LinkCard title="윈도우 설치 프로그램" href="/ko/guides/build/windows/" />
+</CardGrid>
+
+## 윈도우 코드 서명
+
+<CardGrid>
+    <LinkCard title="Linux 코드 서명" href="/ko/guides/build/sign-linux/" />
+    <LinkCard title="macOS 코드 서명하기" href="/ko/guides/build/sign-macos/" />
+    <LinkCard title="윈도우 코드 서명" href="/ko/guides/build/sign-windows/" />
+</CardGrid>
