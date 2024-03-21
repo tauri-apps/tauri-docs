@@ -19,7 +19,9 @@ The Updater plugin offers an update mechanism for Tauri applications distributed
 Once your Tauri project is ready, you can configure Tauri's updater to enable auto updating for your users.
 
 <Aside type="note" title="Choose only one of the Windows bundles">
-	Although we provide both `NSIS` and `MSI` for Windows, you should only choose one for package installation and update. If users have installed the package via `NSIS`, they can't update it using the `MSI`.
+	Although we provide both `NSIS` and `MSI` for Windows, you should only choose
+	one for package installation and update. If users have installed the package
+	via `NSIS`, they can't update it using the `MSI`.
 </Aside>
 
 ## Supported Platforms
@@ -38,51 +40,52 @@ Install the updater plugin to get started.
 	<TabItem label="Automatic" >
 		Use your project's package manager to add the dependency:
 
-		{ ' ' }
+    	{ ' ' }
 
-		<CommandTabs
-			npm="npm run tauri add updater"
-			yarn="yarn run tauri add updater"
-			pnpm="pnpm tauri add updater"
-			cargo="cargo tauri add updater"
-		/>
-	</TabItem>
-	<TabItem label = "Manual">
-		<Steps>
-		1. Install the updater plugin by adding the following to your `Cargo.toml` file:
+    	<CommandTabs
+    		npm="npm run tauri add updater"
+    		yarn="yarn run tauri add updater"
+    		pnpm="pnpm tauri add updater"
+    		cargo="cargo tauri add updater"
+    	/>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+    	1. Install the updater plugin by adding the following to your `Cargo.toml` file:
 
-			```toml title="src-tauri/Cargo.toml"
-			# you can add the dependencies on the `[dependencies]` section if you do not target mobile
-			[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-			tauri-plugin-updater = "2.0.0-beta"
-			# alternatively with Git:
-			tauri-plugin-updater = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-			```
+    		```toml title="src-tauri/Cargo.toml"
+    		# you can add the dependencies on the `[dependencies]` section if you do not target mobile
+    		[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+    		tauri-plugin-updater = "2.0.0-beta"
+    		# alternatively with Git:
+    		tauri-plugin-updater = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
 
-		2. Modify `lib.rs` to initialize the plugin:
+    	2. Modify `lib.rs` to initialize the plugin:
 
-			```rust title="src-tauri/src/lib.rs" ins={3-7}
-			fn run() {
-					tauri::Builder::default()
-							.setup(|app| {
-									#[cfg(desktop)]
-									app.handle().plugin(tauri_plugin_updater::Builder::new().build())?;
-									Ok(())
-							})
-							.run(tauri::generate_context!())
-							.expect("error while running tauri application");
-			}
-			```
+    		```rust title="src-tauri/src/lib.rs" ins={3-7}
+    		fn run() {
+    				tauri::Builder::default()
+    						.setup(|app| {
+    								#[cfg(desktop)]
+    								app.handle().plugin(tauri_plugin_updater::Builder::new().build())?;
+    								Ok(())
+    						})
+    						.run(tauri::generate_context!())
+    						.expect("error while running tauri application");
+    		}
+    		```
 
-		3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-			<CommandTabs
-				npm = "npm install @tauri-apps/plugin-updater"
-				yarn = "yarn add @tauri-apps/plugin-updater"
-				pnpm = "pnpm add @tauri-apps/plugin-updater"
-			/>
-		</Steps>
-	</TabItem>
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-updater"
+    			yarn = "yarn add @tauri-apps/plugin-updater"
+    			pnpm = "pnpm add @tauri-apps/plugin-updater"
+    		/>
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 ## Signing Updates
@@ -135,7 +138,7 @@ Now you need to configure Tauri's updater. To do this, add this to your Tauri co
 
 The required keys are `"endpoints"` and `"pubkey"` to enable the updater. The `"endpoints"` field can also be set later in Rust.
 
-`"endpoints"`<a id="config-enpoints"/>:  must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br/>
+`"endpoints"`<a id="config-enpoints"/>: must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br/>
 All endpoints should generally return the same content, Tauri will fall back to the next endpoint URL if it couldn't connect to the first one or if it returned a non-2XX status code.<br/>
 Each updater URL can contain the following variables allowing you to determine [server-side](#static-json-file) if an update is available:
 
@@ -170,16 +173,12 @@ If you want to set these variables for the current console session you could exe
 
 <Tabs>
 	<TabItem label="Bash">
-		```shell
-		export TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
-		export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password"
-		```
+		```shell export TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
+		export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password" ```
 	</TabItem>
 	<TabItem label="PowerShell">
-		```powershell
-		$env:TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
-		$env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password"
-		```
+		```powershell $env:TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
+		$env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password" ```
 	</TabItem>
 </Tabs>
 
@@ -187,23 +186,23 @@ After that, you can run `tauri build` as usual and Tauri will generate the updat
 
 - **Linux**: On Linux, Tauri will create a `.tar.gz` archive from the AppImage inside the `target/release/bundle/appimage/` folder:
 
-	- `myapp.AppImage` - the standard app bundle.
-	- `myapp.AppImage.tar.gz` - the updater bundle.
-	- `myapp.AppImage.tar.gz.sig` - the signature of the update bundle.
+  - `myapp.AppImage` - the standard app bundle.
+  - `myapp.AppImage.tar.gz` - the updater bundle.
+  - `myapp.AppImage.tar.gz.sig` - the signature of the update bundle.
 
 - **macOS**: On macOS, Tauri will create a `.tar.gz` archive from the application bundle inside the `target/release/bundle/macos/` folder:
 
-	- `myapp.app` - the standard app bundle.
-	- `myapp.app.tar.gz` - the updater bundle.
-	- `myapp.app.tar.gz.sig` - the signature of the update bundle.
+  - `myapp.app` - the standard app bundle.
+  - `myapp.app.tar.gz` - the updater bundle.
+  - `myapp.app.tar.gz.sig` - the signature of the update bundle.
 
 - **Windows**: On Windows, Tauri will create `.zip` archives from the MSI and NSIS installers inside the `target/release/bundle/msi/` and `target/release/bundle/nsis` folders:
-	- `myapp-setup.exe` - the standard app bundle.
-	- `myapp-setup.nsis.zip` - the updater bundle.
-	- `myapp-setup.nsis.zip.sig` - the signature of the update bundle.
-	- `myapp.msi` - the standard app bundle.
-	- `myapp.msi.zip` - the updater bundle.
-	- `myapp.msi.zip.sig` - the signature of the update bundle.
+  - `myapp-setup.exe` - the standard app bundle.
+  - `myapp-setup.nsis.zip` - the updater bundle.
+  - `myapp-setup.nsis.zip.sig` - the signature of the update bundle.
+  - `myapp.msi` - the standard app bundle.
+  - `myapp.msi.zip` - the updater bundle.
+  - `myapp.msi.zip.sig` - the signature of the update bundle.
 
 The signature can be uploaded and shared safely as long as your private key is secure.
 
@@ -292,56 +291,57 @@ The required keys are "url", "version" and "signature"; the others are optional.
 		```js
 		import { check } from "@tauri-apps/plugin-updater";
 
-		const update = await check();
-		if (update?.available) {
-			await update.downloadAndInstall();
-		}
-		```
-	</TabItem>
-	<TabItem label = "Rust" >
-		```rust title="src-tauri/src/lib.rs"
-		use tauri_plugin_updater::UpdaterExt;
+    	const update = await check();
+    	if (update?.available) {
+    		await update.downloadAndInstall();
+    	}
+    	```
+    </TabItem>
+    <TabItem label = "Rust" >
+    	```rust title="src-tauri/src/lib.rs"
+    	use tauri_plugin_updater::UpdaterExt;
 
-		fn run() {
-				tauri::Builder::default()
-						.plugin(tauri_plugin_updater::Builder::new().build())
-						.setup(|app| {
-								let app_handle = app.handle().clone();
-								tauri::async_runtime::spawn(async move {
-										let builder = app_handle.updater_builder();
-										let updater = builder.build().unwrap();
+    	fn run() {
+    			tauri::Builder::default()
+    					.plugin(tauri_plugin_updater::Builder::new().build())
+    					.setup(|app| {
+    							let app_handle = app.handle().clone();
+    							tauri::async_runtime::spawn(async move {
+    									let builder = app_handle.updater_builder();
+    									let updater = builder.build().unwrap();
 
-										match updater.check().await {
-												Ok(Some(update)) => {
-														if let Err(e) = update
-																.download_and_install(
-																		|| {},
-																		|| {
-																				println!("Download complete.");
-																		},
-																)
-																.await
-														{
-																println!("Failed to download and install the update: {e}");
-														} else {
-																println!("Update complete.");
-														}
-												}
-												Ok(None) => {
-														println!("No updates available.");
-												}
-												Err(e) => {
-														println!("Failed to check for updates: {e}");
-												}
-										}
-								});
-								Ok(())
-						})
-						.run(tauri::generate_context!())
-						.expect("error while running tauri application");
-		}
-		```
-	</TabItem>
+    									match updater.check().await {
+    											Ok(Some(update)) => {
+    													if let Err(e) = update
+    															.download_and_install(
+    																	|| {},
+    																	|| {
+    																			println!("Download complete.");
+    																	},
+    															)
+    															.await
+    													{
+    															println!("Failed to download and install the update: {e}");
+    													} else {
+    															println!("Update complete.");
+    													}
+    											}
+    											Ok(None) => {
+    													println!("No updates available.");
+    											}
+    											Err(e) => {
+    													println!("Failed to check for updates: {e}");
+    											}
+    									}
+    							});
+    							Ok(())
+    					})
+    					.run(tauri::generate_context!())
+    					.expect("error while running tauri application");
+    	}
+    	```
+    </TabItem>
+
 </Tabs>
 
 ## Permissions
@@ -361,7 +361,7 @@ See [Access Control List](/references/v2/acl) for more information.
 ```
 
 | Permission                           | Description                                                                |
-|--------------------------------------|----------------------------------------------------------------------------|
+| ------------------------------------ | -------------------------------------------------------------------------- |
 | `updater:default`                    | Allows checking for new updates and installing them                        |
 | `updater:allow-check`                | Enables the check command without any pre-configured scope.                |
 | `updater:deny-check`                 | Denies the check command without any pre-configured scope.                 |
