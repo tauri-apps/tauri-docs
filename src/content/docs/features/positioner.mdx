@@ -32,41 +32,41 @@ If you only intend on moving the window from Rust code, you only need the depend
 <Tabs>
 	<TabItem label="Automatic" >
 
-		Use your project's package manager to add the dependency:
+    	Use your project's package manager to add the dependency:
 
-		{ ' ' }
+    	{ ' ' }
 
-		<CommandTabs
-			npm="npm run tauri add positioner"
-			yarn="yarn run tauri add positioner"
-			pnpm="pnpm tauri add positioner"
-			cargo="cargo tauri add positioner"
-		/>
+    	<CommandTabs
+    		npm="npm run tauri add positioner"
+    		yarn="yarn run tauri add positioner"
+    		pnpm="pnpm tauri add positioner"
+    		cargo="cargo tauri add positioner"
+    	/>
 
-	</TabItem>
-	<TabItem label = "Manual">
-		<Steps>
-		1. Install the positioner plugin by adding the following to your `Cargo.toml` file:
-				
-			```toml title="src-tauri/Cargo.toml"
-			[dependencies]
-			tauri-plugin-positioner = "2.0.0-beta"
-			# alternatively with Git:
-			tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-			```
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+    	1. Install the positioner plugin by adding the following to your `Cargo.toml` file:
 
-		2. Modify `lib.rs` to initialize the plugin:
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-positioner = "2.0.0-beta"
+    		# alternatively with Git:
+    		tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
 
-			```rust title="src-tauri/src/lib.rs" ins={3}
-			fn run() {
-			    tauri::Builder::default()
-			        .plugin(tauri_plugin_positioner::init())
-			        .run(tauri::generate_context!())
-			        .expect("error while running tauri application");
-			}
-			```
+    	2. Modify `lib.rs` to initialize the plugin:
 
-		3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    		```rust title="src-tauri/src/lib.rs" ins={3}
+    		fn run() {
+    		    tauri::Builder::default()
+    		        .plugin(tauri_plugin_positioner::init())
+    		        .run(tauri::generate_context!())
+    		        .expect("error while running tauri application");
+    		}
+    		```
+
+    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
   			<CommandTabs
 				  npm = "npm install @tauri-apps/plugin-positioner"
@@ -111,7 +111,7 @@ Additional setup is required to get tray-relative positions to work.
 The plugin's APIs are available through the JavaScript guest bindings:
 
 ```javascript
-import { moveWindow, Position } from "@tauri-apps/plugin-positioner";
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
 
 moveWindow(Position.TopRight);
 ```
@@ -141,8 +141,8 @@ See [Access Control List](/references/v2/acl) for more information.
 }
 ```
 
-| Permission                                | Description                                                                |
-| ----------------------------------------- | -------------------------------------------------------------------------- |
+| Permission                     | Description                                                       |
+| ------------------------------ | ----------------------------------------------------------------- |
 | `positioner:allow-move-window` | Enables the move_window command without any pre-configured scope. |
 | `positioner:deny-move-window`  | Denies the move_window command without any pre-configured scope.  |
-| `positioner:default`    | Allows the move_window command.    |
+| `positioner:default`           | Allows the move_window command.                                   |
