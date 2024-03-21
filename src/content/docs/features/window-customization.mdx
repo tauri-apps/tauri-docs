@@ -1,5 +1,7 @@
 ---
 title: Window Customization
+tableOfContents:
+  maxHeadingLevel: 4
 ---
 
 Tauri provides lots of options for customizing the look and feel of your app's window. You can create custom titlebars, have transparent windows, enforce size constraints, and more.
@@ -147,7 +149,9 @@ document
 
 ### (macOS) Transparent Titlebar with Custom Window Background Color
 
-We are going to create the main window and change its background color from the Rust side. Remove the main window from the `tauri.conf.json` file:
+We are going to create the main window and change its background color from the Rust side.
+
+Remove the main window from the `tauri.conf.json` file:
 
 	```json title="tauri.conf.json" del={3-7}
 	"tauri": {
