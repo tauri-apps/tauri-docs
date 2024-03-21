@@ -27,46 +27,47 @@ Install the shell plugin to get started.
 	<TabItem label="Automatic" >
 		Use your project's package manager to add the dependency:
 
-		{ ' ' }
+    	{ ' ' }
 
-		<CommandTabs
-			npm="npm run tauri add shell"
-			yarn="yarn run tauri add shell"
-			pnpm="pnpm tauri add shell"
-			cargo="cargo tauri add shell"
-		/>
-	</TabItem>
-	<TabItem label = "Manual">
-		<Steps>
-		1. Install the shell plugin by adding the following to your `Cargo.toml` file:
+    	<CommandTabs
+    		npm="npm run tauri add shell"
+    		yarn="yarn run tauri add shell"
+    		pnpm="pnpm tauri add shell"
+    		cargo="cargo tauri add shell"
+    	/>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+    	1. Install the shell plugin by adding the following to your `Cargo.toml` file:
 
-			```toml title="src-tauri/Cargo.toml"
-			[dependencies]
-			tauri-plugin-shell = "2.0.0-beta"
-			# alternatively with Git:
-			tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-			```
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-shell = "2.0.0-beta"
+    		# alternatively with Git:
+    		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
 
-		2. Modify `lib.rs` to initialize the plugin:
+    	2. Modify `lib.rs` to initialize the plugin:
 
-			```rust title="src-tauri/src/lib.rs" ins={3}
-			fn run() {
-					tauri::Builder::default()
-							.plugin(tauri_plugin_shell::init())
-							.run(tauri::generate_context!())
-							.expect("error while running tauri application");
-			}
-			```
+    		```rust title="src-tauri/src/lib.rs" ins={3}
+    		fn run() {
+    				tauri::Builder::default()
+    						.plugin(tauri_plugin_shell::init())
+    						.run(tauri::generate_context!())
+    						.expect("error while running tauri application");
+    		}
+    		```
 
-		3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-			<CommandTabs
-				npm = "npm install @tauri-apps/plugin-shell"
-				yarn = "yarn add @tauri-apps/plugin-shell"
-				pnpm = "pnpm add @tauri-apps/plugin-shell"
-			/>
-		</Steps>
-	</TabItem>
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-shell"
+    			yarn = "yarn add @tauri-apps/plugin-shell"
+    			pnpm = "pnpm add @tauri-apps/plugin-shell"
+    		/>
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -77,7 +78,7 @@ The shell plugin is available in both JavaScript and Rust.
 	<TabItem label="JavaScript" >
 
 ```js
-import { Command } from "@tauri-apps/plugin-shell";
+import { Command } from '@tauri-apps/plugin-shell';
 
 let result = await Command.create('exec-sh', [
 	'-c',
@@ -86,8 +87,8 @@ let result = await Command.create('exec-sh', [
 console.log(result);
 ```
 
-	</TabItem>
-	<TabItem label = "Rust" >
+    </TabItem>
+    <TabItem label = "Rust" >
 
 ```rust
 use tauri_plugin_shell::ShellExt;
@@ -108,7 +109,8 @@ if output.status.success() {
 }
 ```
 
-	</TabItem>
+    </TabItem>
+
 </Tabs>
 
 ## Permissions
