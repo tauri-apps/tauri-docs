@@ -61,22 +61,6 @@ function sortVersions(a: Route, b: Route): number {
 mainList.sort((a, b) => sortVersions(b, a));
 ---
 
-<div class="parent">
-	<div class="sidenav">
-		<div class="sidenav-title">
-			<p>Changelogs: <br />{packageName}</p>
-		</div>
-		<div class="sidenav-content">
-			{
-				mainList.map((item) => (
-					<>
-						<a href={`/${item.slug}`}> {item.entry.data.description}</a>
-					</>
-				))
-			}
-		</div>
-	</div>
-</div>
 <mobile-release-list>
 	<nav aria-labelledby="mobile-release-list">
 		<details>
@@ -134,66 +118,7 @@ mainList.sort((a, b) => sortVersions(b, a));
 </script>
 
 <style>
-	.parent {
-		position: relative;
-	}
-
-	.sidenav-title {
-		display: block;
-		padding-block: 0.5rem;
-		text-align: center;
-		background-color: var(--sl-color-gray-5);
-		border: 1px solid var(--sl-color-gray-6);
-	}
-	.sidenav {
-		display: none;
-		width: fit-content;
-		top: 0;
-		right: calc(var(--release-navbar-width) * -1);
-		box-shadow: var(--sl-shadow-md);
-		font-size: var(--sl-text-xs);
-		font-family: var(--__sl-font-mono);
-		background-color: var(--sl-color-bg-sidebar);
-	}
-
-	:root {
-		--sl-content-width: 45rem !important;
-	}
-	.sl-markdown-content {
-		margin: auto;
-		background-color: red;
-	}
-	@media (min-width: 60rem) {
-		:root {
-			--release-navbar-width: 12rem;
-		}
-		.sidenav {
-			display: block;
-			position: absolute;
-		}
-	}
-
-	.sidenav-content {
-		padding-inline: 16px 8px;
-		min-width: fit-content;
-		row-gap: 1em;
-		display: flex;
-		flex-direction: column;
-		max-height: 85vh;
-		overflow-y: auto;
-		overscroll-behavior: contain;
-	}
-
-	/* Mobile */
 	/* Taken from starlight's mobile TOC */
-	nav {
-	}
-	@media (min-width: 60rem) {
-		nav {
-			display: none;
-		}
-	}
-
 	summary {
 		border-bottom: 1px solid var(--sl-color-gray-6);
 		padding-bottom: 1rem;
@@ -208,6 +133,7 @@ mainList.sort((a, b) => sortVersions(b, a));
 	}
 
 	.toggle {
+		z-index: 3;
 		flex-shrink: 0;
 		gap: 1rem;
 		align-items: center;
@@ -217,8 +143,7 @@ mainList.sort((a, b) => sortVersions(b, a));
 		padding-block: 0.5rem;
 		padding-inline-start: 0.75rem;
 		padding-inline-end: 0.5rem;
-		line-height: 1;
-		background-color: var(--sl-color-black);
+		background-color: var(--sl-color-gray-6);
 		user-select: none;
 		cursor: pointer;
 	}
@@ -230,45 +155,43 @@ mainList.sort((a, b) => sortVersions(b, a));
 		color: var(--sl-color-white);
 		border-color: var(--sl-color-gray-2);
 	}
-
-	:global([dir='rtl']) .caret {
-		transform: rotateZ(180deg);
-	}
 	details[open] .caret {
 		transform: rotateZ(90deg);
 	}
-
 	.display-current {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		color: var(--sl-color-white);
 	}
-
 	.dropdown {
-		--border-top: 1px;
-		margin-top: calc(-1 * var(--border-top));
-		border: var(--border-top) solid var(--sl-color-gray-6);
-		border-top-color: var(--sl-color-hairline-shade);
+		--border: 1px;
+		z-index: 2;
+		row-gap: 1em;
+		position: absolute;
+		border-top-left-radius: 0.5rem;
+		padding-inline: 0.75rem;
+		padding-top: 1em;
+		margin-top: -1em !important;
+		border: var(--border) solid var(--sl-color-gray-5);
 		max-height: calc(85vh - var(--sl-nav-height) - var(--sl-mobile-toc-height));
 		overflow-y: auto;
 		background-color: var(--sl-color-black);
 		box-shadow: var(--sl-shadow-md);
 		overscroll-behavior: contain;
+		background-color: var(--sl-color-bg-sidebar);
 	}
-	/* Mobile TOC */
+
 	ul {
+		all: unset;
 		list-style: none;
 	}
-	a {
-		--pad-inline: 0.5rem;
-		display: block;
-		border-radius: 0.25rem;
-		padding-block: 0.25rem;
-		padding-inline: calc(1rem * var(--depth) + var(--pad-inline)) var(--pad-inline);
-		line-height: 1.25;
+	li {
+		all: unset;
 	}
-	a[aria-current='true'] {
-		color: var(--sl-color-text-accent);
+	a {
+		display: block;
+		padding-block: 0.5rem;
+		line-height: 1.25;
 	}
 </style>
