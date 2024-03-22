@@ -61,6 +61,23 @@ function sortVersions(a: Route, b: Route): number {
 mainList.sort((a, b) => sortVersions(b, a));
 ---
 
+<div class="parent">
+	<div class="sidenav">
+		<div class="sidenav-title">
+			<p>Changelogs: <br />{packageName}</p>
+		</div>
+		<div class="sidenav-content">
+			{
+				mainList.map((item) => (
+					<>
+						<a href={`/${item.slug}`}> {item.entry.data.description}</a>
+					</>
+				))
+			}
+		</div>
+	</div>
+</div>
+
 <mobile-release-list>
 	<nav aria-labelledby="mobile-release-list">
 		<details>
@@ -119,10 +136,65 @@ mainList.sort((a, b) => sortVersions(b, a));
 </script>
 
 <style>
+	.parent {
+		position: relative;
+	}
+	:root {
+		--release-navbar-width: 12rem;
+		--sl-content-width: 35rem !important;
+	}
+
+	.sidenav-title {
+		display: block;
+		padding-block: 0.5rem;
+		text-align: center;
+		background-color: var(--sl-color-gray-5);
+		border: 1px solid var(--sl-color-gray-6);
+	}
+	.sidenav {
+		display: none;
+		width: fit-content;
+		top: 0;
+		right: calc(var(--release-navbar-width) * -1);
+		box-shadow: var(--sl-shadow-md);
+		font-size: var(--sl-text-xs);
+		font-family: var(--__sl-font-mono);
+		background-color: var(--sl-color-bg-sidebar);
+	}
+
+	.sl-markdown-content {
+		margin: auto;
+		background-color: red;
+	}
+	@media (min-width: 72rem) {
+		.sidenav {
+			display: inline;
+			position: absolute;
+		}
+	}
+
+	.sidenav-content {
+		padding-inline: 16px 8px;
+		min-width: fit-content;
+		row-gap: 1em;
+		display: flex;
+		flex-direction: column;
+		max-height: 85vh;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	/* Mobile */
+	/* Taken from starlight's mobile TOC */
 	nav {
 		width: fit-content;
 	}
-	/* Taken from starlight's mobile TOC */
+	@media (min-width: 72rem) {
+		nav {
+			display: none;
+		}
+	}
+
 	summary {
 		padding-bottom: 1rem;
 		gap: 0.5rem;
