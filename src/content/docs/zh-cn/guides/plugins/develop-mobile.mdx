@@ -16,7 +16,7 @@ i18nReady: true
 
 按照[插件开发](/zh-cn/guides/plugins/#初始化插件项目)中的步骤初始化新的插件项目。
 
-如果你有一个现有的插件，并且想添加安卓或 iOS 的功能，你可以使用 `plugin android add` 和 `plugin ios add`来添加构建移动端插件项目，并指导你完成所需的更改。
+如果你有一个现有的插件，并且想添加安卓或 iOS 的功能，你可以使用 `plugin android init` 和 `plugin ios init`来添加构建移动端插件项目，并指导你完成所需的更改。
 
 默认的插件模板将插件的实现分为两个独立的模块：`desktop.rs` 和 `mobile.rs`。
 
@@ -37,9 +37,9 @@ impl<R: Runtime> <plugin-name><R> {
 
 ### 开发一个安卓插件
 
-一个安卓 Tauri 插件的定义为一个扩展了 `app.tauri.plugin.Plugin` 并标注 `app.tauri.annotation.TauriPlugin` 的 Kotlin 类。每个被标注为 `app.tauri.annotation.Command` 的方法都可以被 Rust 或 JavaScript 调用。
+一个安卓 Tauri 插件的定义为一个扩展了 `app.tauri.plugin.Plugin` 并具有 `app.tauri.annotation.TauriPlugin` 注解的 Kotlin 类。每个有 `app.tauri.annotation.Command` 注解的方法都可以被 Rust 或 JavaScript 调用。
 
-Tauri 使用 Kotlin 作为默认的安卓插件实现，但是你也可以使用 Java 作为替代。在创建一个插件后，在 Android Studio 中右键 Kotlin 插件类并点击菜单中的”将 Kotlin 文件转换为 Java 文件“按钮。Anroid Studio 会指导你完成到 Java 项目的迁移。
+Tauri 使用 Kotlin 作为默认的安卓插件实现，但是你也可以使用 Java 作为替代。在创建一个插件后，在 Android Studio 中右键 Kotlin 插件类并点击菜单中的 ”将 Kotlin 文件转换为 Java 文件“ 按钮。Anroid Studio 会指导你完成到 Java 项目的迁移。
 
 ### 开发一个 iOS 插件
 
