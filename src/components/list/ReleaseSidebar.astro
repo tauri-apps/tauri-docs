@@ -59,12 +59,12 @@ if (filterOutByFileName.length > 0) {
 function sortVersions(a: Route, b: Route): number {
 	const t1 = a.entry.data.title;
 	const t2 = b.entry.data.title;
-	const [package1, version1] = t1.split('@');
-	const [package2, version2] = t2.split('@');
+	const version1 = t1.split('@').pop();
+	const version2 = t2.split('@').pop();
 	if (package1 === package2) {
 		return semver.compare(version1, version2)
 	} else {
-		return package1.localeCompare(package2);
+		return t1.localeCompare(t2);
 	}
 }
 mainList.sort((a, b) => sortVersions(b, a));
