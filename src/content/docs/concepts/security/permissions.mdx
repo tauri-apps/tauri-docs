@@ -54,7 +54,7 @@ When referencing permissions of the application itself it is not necessary.
 The plugin prefix `tauri-plugin-` will be automatically appended to the identifier of plugins
 at compile time and is not required to be manually specified.
 
-Identifiers are limited to ASCII lower case alphabetic characters `[a-z]` and the maximum length 
+Identifiers are limited to ASCII lower case alphabetic characters `[a-z]` and the maximum length
 of the identifier is currently limited to `116` due to the following constants:
 
 ```rust
@@ -69,7 +69,7 @@ const MAX_LEN_IDENTIFIER: usize = MAX_LEN_PREFIX + 1 + MAX_LEN_BASE;
 
 ## Configuration Files
 
-Simplified example of an example Tauri __plugin__ directory structure:
+Simplified example of an example Tauri **plugin** directory structure:
 
 ```sh
 tauri-plugin
@@ -82,12 +82,13 @@ tauri-plugin
 │  └── <identifier>.json/toml
 │  └── default.json/toml
 ```
+
 The default permission is handled in a special way,
 as it is automatically added to the application
 configuration, as long as the Tauri CLI is used to
 add plugins to a Tauri application.
 
-For __application__ developers the structure is similar:
+For **application** developers the structure is similar:
 
 ```sh
 tauri-app
@@ -111,7 +112,7 @@ whereas permissions only can be defined in `toml`.
 
 :::
 
-## Examples 
+## Examples
 
 Example permissions from the `File System` plugin.
 
