@@ -16,28 +16,28 @@ const { npm, yarn, pnpm, cargo } = Astro.props;
 	{
 		npm && (
 			<TabItem label="npm">
-				<Code code={npm} lang="sh" theme="css-variables" />
+				<Code code={npm} lang="sh" theme="css-variables" frame="none" />
 			</TabItem>
 		)
 	}
 	{
 		yarn && (
 			<TabItem label="Yarn">
-				<Code code={yarn} lang="sh" theme="css-variables" />
+				<Code code={yarn} lang="sh" theme="css-variables" frame="none" />
 			</TabItem>
 		)
 	}
 	{
 		pnpm && (
 			<TabItem label="pnpm">
-				<Code code={pnpm} lang="sh" theme="css-variables" />
+				<Code code={pnpm} lang="sh" theme="css-variables" frame="none" />
 			</TabItem>
 		)
 	}
 	{
 		cargo && (
 			<TabItem label="Cargo">
-				<Code code={cargo} lang="sh" theme="css-variables" />
+				<Code code={cargo} lang="sh" theme="css-variables" frame="none" />
 			</TabItem>
 		)
 	}
